@@ -1,0 +1,778 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TuTu.PaiKe.Web</name>
+    </assembly>
+    <members>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.EntityInfoController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取实体信息
+            </summary>
+            <returns>实体信息集合</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.EntityInfoController.ReadNode">
+            <summary>
+            读取实体节点
+            </summary>
+            <returns>实体节点集合</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.EntityInfoController.ReadProperties(System.String)">
+            <summary>
+            读取实体属性信息
+            </summary>
+            <param name="typeName">实体类型</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.EntityInfoController.Update(OSharp.Authorization.Dtos.EntityInfoInputDto[])">
+            <summary>
+            更新实体信息
+            </summary>
+            <param name="dtos">实体信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.FunctionController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取功能信息
+            </summary>
+            <returns>功能信息集合</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.FunctionController.ReadTreeNode(System.Int32)">
+            <summary>
+            读取功能[模块]树数据
+            </summary>
+            <param name="moduleId">模块编号</param>
+            <returns>功能[模块]树数据</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.FunctionController.Update(OSharp.Authorization.Dtos.FunctionInputDto[])">
+            <summary>
+            更新功能信息
+            </summary>
+            <param name="dtos">功能信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.ModuleController.Read">
+            <summary>
+            读取模块信息
+            </summary>
+            <returns>模块信息集合</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.ModuleController.ReadUserModules(System.Int32)">
+            <summary>
+            读取模块[用户]树数据
+            </summary>
+            <param name="userId">用户编号</param>
+            <returns>模块[用户]树数据</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.ModuleController.ReadRoleModules(System.Int32)">
+            <summary>
+            读取模块[角色]树数据
+            </summary>
+            <param name="roleId">角色编号</param>
+            <returns>模块[角色]树数据</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.ModuleController.ReadFunctions(OSharp.Filter.PageRequest)">
+            <summary>
+            读取模块功能
+            </summary>
+            <returns>模块功能信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleEntityController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取角色数据权限列表信息
+            </summary>
+            <param name="request">页请求信息</param>
+            <returns>角色数据权限列表分页信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleEntityController.Create(TuTu.PaiKe.Authorization.Dtos.EntityRoleInputDto[])">
+            <summary>
+            新增角色数据权限信息
+            </summary>
+            <param name="dtos">角色数据权限信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleEntityController.Update(TuTu.PaiKe.Authorization.Dtos.EntityRoleInputDto[])">
+            <summary>
+            更新角色数据权限信息
+            </summary>
+            <param name="dtos">角色数据权限信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleEntityController.Delete(System.Guid[])">
+            <summary>
+            删除角色数据权限信息
+            </summary>
+            <param name="ids">角色数据权限信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleFunctionController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取角色信息
+            </summary>
+            <returns>角色信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleFunctionController.ReadFunctions(System.Int32,OSharp.Filter.PageRequest)">
+            <summary>
+            读取角色功能信息
+            </summary>
+            <returns>角色功能信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserFunctionController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取用户信息
+            </summary>
+            <returns>用户信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserFunctionController.ReadFunctions(System.Int32,OSharp.Filter.PageRequest)">
+            <summary>
+            读取用户功能信息
+            </summary>
+            <returns>用户功能信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.DashboardController.#ctor(Microsoft.AspNetCore.Identity.UserManager{TuTu.PaiKe.Identity.Entities.User},Microsoft.AspNetCore.Identity.RoleManager{TuTu.PaiKe.Identity.Entities.Role},TuTu.PaiKe.Authorization.FunctionAuthManager,TuTu.PaiKe.Authorization.DataAuthManager,OSharp.Caching.ICacheService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.DashboardController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.DashboardController.SummaryData(System.DateTime,System.DateTime)">
+            <summary>
+            获取统计数据
+            </summary>
+            <param name="start">起始时间</param>
+            <param name="end">结束时间</param>
+            <returns>统计数据</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.HomeController.MainMenu">
+            <summary>
+            获取后台管理主菜单
+            </summary>
+            <returns>菜单信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取角色
+            </summary>
+            <returns>角色页列表</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleController.ReadNode">
+            <summary>
+            读取角色节点
+            </summary>
+            <returns>角色节点列表</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleController.ReadUserRoles(System.Int32)">
+            <summary>
+            读取角色[用户]树数据
+            </summary>
+            <param name="userId">用户编号</param>
+            <returns>角色[用户]树数据</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleController.Create(TuTu.PaiKe.Identity.Dtos.RoleInputDto[])">
+            <summary>
+            新增角色
+            </summary>
+            <param name="dtos">新增角色信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleController.Update(TuTu.PaiKe.Identity.Dtos.RoleInputDto[])">
+            <summary>
+            更新角色
+            </summary>
+            <param name="dtos">更新角色信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleController.Delete(System.Int32[])">
+            <summary>
+            删除角色
+            </summary>
+            <param name="ids">要删除的角色编号</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.RoleController.SetModules(TuTu.PaiKe.Authorization.Dtos.RoleSetModuleDto)">
+            <summary>
+            设置角色模块
+            </summary>
+            <param name="dto">角色模块信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取用户列表信息
+            </summary>
+            <returns>用户列表信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserController.ReadNode(OSharp.Filter.FilterGroup)">
+            <summary>
+            读取用户节点信息
+            </summary>
+            <param name="group"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserController.Create(TuTu.PaiKe.Identity.Dtos.UserInputDto[])">
+            <summary>
+            新增用户信息
+            </summary>
+            <param name="dtos">用户信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserController.Update(TuTu.PaiKe.Identity.Dtos.UserInputDto[])">
+            <summary>
+            更新用户信息
+            </summary>
+            <param name="dtos">用户信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserController.Delete(System.Int32[])">
+            <summary>
+            删除用户信息
+            </summary>
+            <param name="ids">用户信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserController.SetRoles(TuTu.PaiKe.Authorization.Dtos.UserSetRoleDto)">
+            <summary>
+            设置用户角色
+            </summary>
+            <param name="dto">用户角色信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserController.SetModules(TuTu.PaiKe.Authorization.Dtos.UserSetModuleDto)">
+            <summary>
+            设置用户模块
+            </summary>
+            <param name="dto">用户模块信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserRoleController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取用户角色信息
+            </summary>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserRoleController.Update(TuTu.PaiKe.Identity.Dtos.UserRoleInputDto[])">
+            <summary>
+            更新用户角色信息
+            </summary>
+            <param name="dtos">用户角色信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.UserRoleController.Delete(System.Guid[])">
+            <summary>
+            删除用户角色信息
+            </summary>
+            <param name="ids">要删除的用户角色编号</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageController">
+            <summary>
+            管理控制器: 站内信信息
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageController.#ctor(TuTu.PaiKe.Infos.IInfosContract,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取站内信列表信息
+            </summary>
+            <param name="request">页请求信息</param>
+            <returns>站内信列表分页信息</returns>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase">
+            <summary>
+            管理控制器基类: 站内信信息
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase.#ctor(TuTu.PaiKe.Infos.IInfosContract,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase.FilterService">
+            <summary>
+            获取或设置 数据过滤服务对象
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase.InfosContract">
+            <summary>
+            获取或设置 信息模块业务契约对象
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取站内信列表信息
+            </summary>
+            <param name="request">页请求信息</param>
+            <returns>站内信列表分页信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase.Create(TuTu.PaiKe.Infos.Dtos.MessageInputDto[])">
+            <summary>
+            新增站内信信息
+            </summary>
+            <param name="dtos">站内信信息输入DTO</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase.Update(TuTu.PaiKe.Infos.Dtos.MessageInputDto[])">
+            <summary>
+            更新站内信信息
+            </summary>
+            <param name="dtos">站内信信息输入DTO</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageControllerBase.Delete(System.Guid[])">
+            <summary>
+            删除站内信信息
+            </summary>
+            <param name="ids">站内信信息编号</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveController">
+            <summary>
+            管理控制器: 站内信接收记录信息
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveController.#ctor(TuTu.PaiKe.Infos.IInfosContract,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase">
+            <summary>
+            管理控制器基类: 站内信接收记录信息
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase.#ctor(TuTu.PaiKe.Infos.IInfosContract,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase.FilterService">
+            <summary>
+            获取或设置 数据过滤服务对象
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase.InfosContract">
+            <summary>
+            获取或设置 信息模块业务契约对象
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取站内信接收记录列表信息
+            </summary>
+            <param name="request">页请求信息</param>
+            <returns>站内信接收记录列表分页信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase.Create(TuTu.PaiKe.Infos.Dtos.MessageReceiveInputDto[])">
+            <summary>
+            新增站内信接收记录信息
+            </summary>
+            <param name="dtos">站内信接收记录信息输入DTO</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase.Update(TuTu.PaiKe.Infos.Dtos.MessageReceiveInputDto[])">
+            <summary>
+            更新站内信接收记录信息
+            </summary>
+            <param name="dtos">站内信接收记录信息输入DTO</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReceiveControllerBase.Delete(System.Guid[])">
+            <summary>
+            删除站内信接收记录信息
+            </summary>
+            <param name="ids">站内信接收记录信息编号</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyController">
+            <summary>
+            管理控制器: 站内信回复信息
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyController.#ctor(TuTu.PaiKe.Infos.IInfosContract,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase">
+            <summary>
+            管理控制器基类: 站内信回复信息
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase.#ctor(TuTu.PaiKe.Infos.IInfosContract,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase.FilterService">
+            <summary>
+            获取或设置 数据过滤服务对象
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase.InfosContract">
+            <summary>
+            获取或设置 信息模块业务契约对象
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取站内信回复列表信息
+            </summary>
+            <param name="request">页请求信息</param>
+            <returns>站内信回复列表分页信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase.Create(TuTu.PaiKe.Infos.Dtos.MessageReplyInputDto[])">
+            <summary>
+            新增站内信回复信息
+            </summary>
+            <param name="dtos">站内信回复信息输入DTO</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase.Update(TuTu.PaiKe.Infos.Dtos.MessageReplyInputDto[])">
+            <summary>
+            更新站内信回复信息
+            </summary>
+            <param name="dtos">站内信回复信息输入DTO</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.MessageReplyControllerBase.Delete(System.Guid[])">
+            <summary>
+            删除站内信回复信息
+            </summary>
+            <param name="ids">站内信回复信息编号</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.AuditEntityController.#ctor(TuTu.PaiKe.Systems.IAuditContract,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.AuditEntityController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.AuditEntityController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取数据审计信息列表
+            </summary>
+            <param name="request">页请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.AuditOperationController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取操作审计信息
+            </summary>
+            <param name="request">页数据请求</param>
+            <returns>操作审计信息的页数据</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.PackController.#ctor(OSharp.Caching.ICacheService,OSharp.Filter.IFilterService)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.PackController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.PackController.Read(OSharp.Filter.PageRequest)">
+            <summary>
+            读取模块包列表信息
+            </summary>
+            <param name="request">页请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.SettingsController.#ctor(OSharp.Core.Systems.IKeyValueStore)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Areas.Admin.Controllers.SettingsController"/>类型的新实例
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.SettingsController.Read(System.String)">
+            <summary>
+            读取设置
+            </summary>
+            <param name="root">设置根节点，如投票设置为Votes</param>
+            <returns>相应节点的设置信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Areas.Admin.Controllers.SettingsController.Update(OSharp.Core.Systems.SettingInputDto)">
+            <summary>
+            保存指定设置项
+            </summary>
+            <param name="dto">设置信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.AuthController.CheckUrlAuth(System.String)">
+            <summary>
+            检查URL授权
+            </summary>
+            <param name="url">要检查的URL</param>
+            <returns>是否有权</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.AuthController.GetAuthInfo">
+            <summary>
+            获取授权信息
+            </summary>
+            <returns>权限节点</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.AuthController.CheckFuncAuth(TuTu.PaiKe.Authorization.Entities.Module,System.Boolean@)">
+            <summary>
+            验证是否拥有指定模块的权限
+            </summary>
+            <param name="module">要验证的模块</param>
+            <param name="empty">返回模块是否为空模块，即是否分配有功能</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.AuthController.GetModuleTreeCode(TuTu.PaiKe.Authorization.Entities.Module,TuTu.PaiKe.Authorization.Entities.Module[])">
+            <summary>
+            获取模块的树形路径代码串
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.CommonController.VerifyCode">
+            <summary>
+            获取验证码图片
+            </summary>
+            <returns>验证码图片文件</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.CommonController.CheckVerifyCode(System.String,System.String)">
+            <summary>
+            验证验证码的有效性，只作为前端Ajax验证，验证成功不移除验证码，验证码仍需传到后端进行再次验证
+            </summary>
+            <param name="code">验证码字符串</param>
+            <param name="id">验证码编号</param>
+            <returns>是否无效</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.CommonController.UploadImage(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传图片
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.CommonController.SystemInfo">
+            <summary>
+            获取系统信息
+            </summary>
+            <returns>系统信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.CheckUserNameExists(System.String)">
+            <summary>
+            用户名是否存在
+            </summary>
+            <param name="userName">用户名</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.CheckEmailExists(System.String)">
+            <summary>
+            用户Email是否存在
+            </summary>
+            <param name="email">电子邮箱</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.CheckNickNameExists(System.String)">
+            <summary>
+            用户昵称是否存在
+            </summary>
+            <param name="nickName">用户昵称</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.Register(TuTu.PaiKe.Identity.Dtos.RegisterDto)">
+            <summary>
+            新用户注册
+            </summary>
+            <param name="dto">注册信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.Login(TuTu.PaiKe.Identity.Dtos.LoginDto)">
+            <summary>
+            用户登录
+            </summary>
+            <param name="dto">登录信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.Token(OSharp.Identity.JwtBearer.TokenDto)">
+            <summary>
+            获取身份认证Token
+            </summary>
+            <param name="dto">TokenDto</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.OAuth2(System.String,System.String)">
+            <summary>
+            OAuth2登录
+            </summary>
+            <param name="provider">登录提供程序</param>
+            <param name="returnUrl">登录成功返回URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.OAuth2Callback(System.String,System.String)">
+            <summary>
+            OAuth2登录回调
+            </summary>
+            <param name="returnUrl">登录成功返回URL</param>
+            <param name="remoteError">远程错误信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.ReadOAuth2(OSharp.Filter.IFilterService,OSharp.Filter.PageRequest)">
+            <summary>
+            读取用户列表信息
+            </summary>
+            <returns>用户列表信息</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.LoginBind(OSharp.Identity.OAuth2.UserLoginInfoEx)">
+            <summary>
+            登录并绑定账号
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.LoginOneKey(OSharp.Identity.OAuth2.UserLoginInfoEx)">
+            <summary>
+            使用第三方账号一键登录
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.RemoveOAuth2(System.Guid[])">
+            <summary>
+            解除第三方登录
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.Logout">
+            <summary>
+            用户登出
+            </summary>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.Profile">
+            <summary>
+            获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.ProfileEdit(TuTu.PaiKe.Identity.Dtos.ProfileEditDto)">
+            <summary>
+            编辑用户资料
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.ConfirmEmail(TuTu.PaiKe.Identity.Dtos.ConfirmEmailDto)">
+            <summary>
+            激活邮箱
+            </summary>
+            <param name="dto">电子邮箱</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.SendConfirmMail(TuTu.PaiKe.Identity.Dtos.SendMailDto)">
+            <summary>
+            发送激活注册邮件
+            </summary>
+            <param name="dto">激活邮箱信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.ChangePassword(TuTu.PaiKe.Identity.Dtos.ChangePasswordDto)">
+            <summary>
+            修改密码
+            </summary>
+            <param name="dto">修改密码信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.SendResetPasswordMail(TuTu.PaiKe.Identity.Dtos.SendMailDto)">
+            <summary>
+            发送重置密码邮件
+            </summary>
+            <param name="dto">发送邮件信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.IdentityController.ResetPassword(TuTu.PaiKe.Identity.Dtos.ResetPasswordDto)">
+            <summary>
+            重置登录密码
+            </summary>
+            <param name="dto">重置密码信息</param>
+            <returns>JSON操作结果</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.Test2Controller.Test02">
+            <summary>
+            功能注释
+            </summary>
+            <returns>返回数据</returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.ClassFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.ClassFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.ClassFilter.OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.ClassFilter.OnResultExecuted(Microsoft.AspNetCore.Mvc.Filters.ResultExecutedContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.ClassFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            Called after an action has thrown an <see cref="T:System.Exception" />.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.ExceptionContext" />.</param>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.MethodFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.MethodFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.MethodFilter.OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Controllers.MethodFilter.OnResultExecuted(Microsoft.AspNetCore.Mvc.Filters.ResultExecutedContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Hangfire.TestHangfireJob.#ctor(TuTu.PaiKe.Identity.IIdentityContract,System.IServiceProvider)">
+            <summary>
+            初始化一个<see cref="T:TuTu.PaiKe.Web.Hangfire.TestHangfireJob"/>类型的新实例
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Hangfire.TestHangfireJob.GetUserCount">
+            <summary>
+            获取用户数量
+            </summary>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Startups.CodeGeneratorPack">
+            <summary>
+            代码生成模块
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Startups.CodeGeneratorPack.Level">
+            <summary>
+            获取 模块级别，级别越小越先启动
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Startups.CodeGeneratorPack.Order">
+            <summary>
+            获取 模块启动顺序，模块启动的顺序先按级别启动，同一级别内部再按此顺序启动，
+            级别默认为0，表示无依赖，需要在同级别有依赖顺序的时候，再重写为>0的顺序值
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Startups.CodeGeneratorPack.AddServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            将模块服务添加到依赖注入服务容器中
+            </summary>
+            <param name="services">依赖注入服务容器</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Startups.CodeGeneratorPack.UsePack(System.IServiceProvider)">
+            <summary>
+            应用模块服务
+            </summary>
+            <param name="provider">服务提供者</param>
+        </member>
+        <member name="T:TuTu.PaiKe.Web.Startups.MySqlDefaultDbContextMigrationPack">
+            <summary>
+            MySql-DefaultDbContext迁移模块
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Startups.MySqlDefaultDbContextMigrationPack.Order">
+            <summary>
+            获取 模块启动顺序，模块启动的顺序先按级别启动，同一级别内部再按此顺序启动，
+            级别默认为0，表示无依赖，需要在同级别有依赖顺序的时候，再重写为>0的顺序值
+            </summary>
+        </member>
+        <member name="P:TuTu.PaiKe.Web.Startups.MySqlDefaultDbContextMigrationPack.DatabaseType">
+            <summary>
+            获取 数据库类型
+            </summary>
+        </member>
+        <member name="M:TuTu.PaiKe.Web.Startups.MySqlDefaultDbContextMigrationPack.CreateDbContext(System.IServiceProvider)">
+            <summary>
+            重写实现获取数据上下文实例
+            </summary>
+            <param name="scopedProvider">服务提供者</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

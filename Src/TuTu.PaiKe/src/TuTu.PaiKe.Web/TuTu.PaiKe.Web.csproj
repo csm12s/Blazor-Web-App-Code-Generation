@@ -7,6 +7,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\mycodes\gitee\PaiKe\Src\TuTu.PaiKe\src\TuTu.PaiKe.Web\bin\Debug\netcoreapp3.1\TuTu.PaiKe.Web.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Startups\OracleDefaultDbContextMigrationPack.cs" />
     <Compile Remove="Startups\OracleDesignTimeDefaultDbContextFactory.cs" />
@@ -14,6 +18,8 @@
     <Compile Remove="Startups\PostgreSqlDesignTimeDefaultDbContextFactory.cs" />
     <Compile Remove="Startups\SqliteDefaultDbContextMigrationPack.cs" />
     <Compile Remove="Startups\SqliteDesignTimeDefaultDbContextFactory.cs" />
+    <Compile Remove="Startups\SqlServerDefaultDbContextMigrationPack.cs" />
+    <Compile Remove="Startups\SqlServerDesignTimeDefaultDbContextFactory.cs" />
   </ItemGroup>
 
   <ItemGroup>
