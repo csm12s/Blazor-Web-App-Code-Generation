@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YiPaiKe.Core</name>
+    </assembly>
+    <members>
+        <member name="T:YiPaiKe.Core.Entities.Gender">
+            <summary>
+            性别枚举
+            </summary>
+        </member>
+        <member name="F:YiPaiKe.Core.Entities.Gender.Male">
+            <summary>
+            男
+            </summary>
+        </member>
+        <member name="F:YiPaiKe.Core.Entities.Gender.Female">
+            <summary>
+            女
+            </summary>
+        </member>
+        <member name="T:YiPaiKe.Core.Entities.Student">
+            <summary>
+            学生表
+            </summary>
+        </member>
+        <member name="P:YiPaiKe.Core.Entities.Student.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:YiPaiKe.Core.Entities.Student.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:YiPaiKe.Core.Entities.Student.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+    </members>
+</doc>

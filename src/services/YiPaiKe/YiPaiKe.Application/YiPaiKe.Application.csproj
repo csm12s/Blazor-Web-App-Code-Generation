@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\mycodes\gitee\PaiKe\src\services\YiPaiKe\YiPaiKe.Application\YiPaiKe.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YiPaiKe.Core\YiPaiKe.Core.csproj" />
+  </ItemGroup>
+
+</Project>

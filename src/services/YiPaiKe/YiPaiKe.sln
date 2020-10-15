@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30509.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiPaiKe.Core", "YiPaiKe.Core\YiPaiKe.Core.csproj", "{AFDF4E7E-04DD-4A79-9579-640A11E7FE5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiPaiKe.Application", "YiPaiKe.Application\YiPaiKe.Application.csproj", "{9D9EA94E-2E2A-4758-93AC-0641A8CB0589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiPaiKe.EntityFramwork.Core", "YiPaiKe.EntityFramwork.Core\YiPaiKe.EntityFramwork.Core.csproj", "{FC4BBD5B-54F2-437F-BC5F-D920ABD5F975}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiPaiKe.Database.Migrations", "YiPaiKe.Database.Migrations\YiPaiKe.Database.Migrations.csproj", "{983B1D9D-5EB7-4D96-BB55-71991F026E67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiPaiKe.Web.Core", "YiPaiKe.Web.Core\YiPaiKe.Web.Core.csproj", "{6A3A5F1F-2859-4D5A-8BF8-51E9C51B009F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiPaiKe.Web.Entry", "YiPaiKe.Web.Entry\YiPaiKe.Web.Entry.csproj", "{BA4F7D79-4C0D-44F8-9D71-1A9B6DB39162}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EA9636A6-4B2B-4D1F-BC9E-DB1BF95412CA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFDF4E7E-04DD-4A79-9579-640A11E7FE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDF4E7E-04DD-4A79-9579-640A11E7FE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDF4E7E-04DD-4A79-9579-640A11E7FE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDF4E7E-04DD-4A79-9579-640A11E7FE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D9EA94E-2E2A-4758-93AC-0641A8CB0589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9EA94E-2E2A-4758-93AC-0641A8CB0589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9EA94E-2E2A-4758-93AC-0641A8CB0589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9EA94E-2E2A-4758-93AC-0641A8CB0589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC4BBD5B-54F2-437F-BC5F-D920ABD5F975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC4BBD5B-54F2-437F-BC5F-D920ABD5F975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC4BBD5B-54F2-437F-BC5F-D920ABD5F975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC4BBD5B-54F2-437F-BC5F-D920ABD5F975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{983B1D9D-5EB7-4D96-BB55-71991F026E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983B1D9D-5EB7-4D96-BB55-71991F026E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983B1D9D-5EB7-4D96-BB55-71991F026E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983B1D9D-5EB7-4D96-BB55-71991F026E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A3A5F1F-2859-4D5A-8BF8-51E9C51B009F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A3A5F1F-2859-4D5A-8BF8-51E9C51B009F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A3A5F1F-2859-4D5A-8BF8-51E9C51B009F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A3A5F1F-2859-4D5A-8BF8-51E9C51B009F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA4F7D79-4C0D-44F8-9D71-1A9B6DB39162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA4F7D79-4C0D-44F8-9D71-1A9B6DB39162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA4F7D79-4C0D-44F8-9D71-1A9B6DB39162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA4F7D79-4C0D-44F8-9D71-1A9B6DB39162}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF1C593C-9C6B-4CB9-B84F-AC322F851BD1}
+	EndGlobalSection
+EndGlobal

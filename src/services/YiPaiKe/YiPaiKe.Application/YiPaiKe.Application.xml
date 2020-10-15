@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YiPaiKe.Application</name>
+    </assembly>
+    <members>
+        <member name="T:YiPaiKe.Application.ServiceBase`2">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TEntityDto"></typeparam>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`2.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`2.Insert(`1)">
+            <summary>
+            新增一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`2.Update(`1)">
+            <summary>
+            更新一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`2.Delete(System.Int32)">
+            <summary>
+            删除一条
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`2.Find(System.Int32)">
+            <summary>
+            查询一条
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`2.GetAll">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`2.GetAllByPage(System.Int32,System.Int32)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YiPaiKe.Application.ServiceBase`1">
+            <summary>
+            继承此类即可实现基础方法
+            CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:YiPaiKe.Application.ServiceBase`1.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            CURD、获取全部、分页获取 </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="T:YiPaiKe.Application.StudentService">
+            <summary>
+            学生服务
+            </summary>
+        </member>
+        <member name="M:YiPaiKe.Application.StudentService.#ctor(Fur.DatabaseAccessor.IRepository{YiPaiKe.Core.Entities.Student})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:YiPaiKe.Application.StudentService.GetAll">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
