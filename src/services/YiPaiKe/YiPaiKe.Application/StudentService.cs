@@ -1,4 +1,5 @@
 ﻿using Fur.DatabaseAccessor;
+using Fur.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace YiPaiKe.Application
     /// <summary>
     /// 学生服务
     /// </summary>
+    [ApiDescriptionSettings("BaseDataService")]
     public class StudentService : ServiceBase<Student>
     {
         /// <summary>
@@ -24,6 +26,16 @@ namespace YiPaiKe.Application
         /// <returns></returns>
         [NonAction]
         public override async Task<List<Student>> GetAll()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 通过名字获取
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<List<Student>> GetList(string name)
         {
             return null;
         }
