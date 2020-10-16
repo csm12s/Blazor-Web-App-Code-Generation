@@ -1,21 +1,21 @@
 ﻿// -----------------------------------------------------------------------------
 // 文件头
 // -----------------------------------------------------------------------------
+
+using Fur.DatabaseAccessor;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace YiPaiKe.Core.Entities
 {
     /// <summary>
-    /// 性别枚举
+    /// 学期
     /// </summary>
-    public enum Gender
+    public class Semester:Entity
     {
-        /// <summary>
-        /// 男
-        /// </summary>
-        Male,
 
-        /// <summary>
-        /// 女
-        /// </summary>
-        Female
     }
 }

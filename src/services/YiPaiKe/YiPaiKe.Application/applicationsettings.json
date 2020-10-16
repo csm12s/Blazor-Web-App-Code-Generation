@@ -3,8 +3,8 @@
     "DocumentTitle": "YiPaiKe Api 文档",
     "GroupOpenApiInfos": [
       {
-        "Group": "BaseDataService",
-        "Title": "基础数据接口",
+        "Group": "BaseDataServices",
+        "Title": "学校基础数据接口",
         "Description": "基础相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://furos.cn",
@@ -19,9 +19,9 @@
         }
       },
       {
-        "Group": "Com2",
-        "Title": "基础数据接口2",
-        "Description": "基础相关接口",
+        "Group": "PaiKeServices",
+        "Title": "排课设置数据接口",
+        "Description": "排课设置数据接口",
         "Version": "1.0.0",
         "TermsOfService": "https://furos.cn",
         "Contact": {
@@ -35,6 +35,14 @@
         }
       }
     ],
+    "ValidationTypeMessageSettings": {
+      "Definitions": [
+        [ "Required", "值不能为空或Null" ],
+        [ "Numeric", "必须是数值类型" ],
+
+        [ "StrongPassword", "密码太简单了!!!" ]
+      ]
+    }
     //"EnableAuthorized": true,
     //"SecurityDefinitions": [
     //  {

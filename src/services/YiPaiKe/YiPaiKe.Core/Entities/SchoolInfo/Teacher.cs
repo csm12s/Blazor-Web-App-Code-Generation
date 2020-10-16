@@ -1,12 +1,17 @@
-﻿using Fur.DatabaseAccessor;
+﻿// -----------------------------------------------------------------------------
+// 文件头
+// -----------------------------------------------------------------------------
+
+using Fur.DatabaseAccessor;
 using System.ComponentModel.DataAnnotations;
+using YiPaiKe.Core.Enums;
 
 namespace YiPaiKe.Core.Entities
 {
     /// <summary>
-    /// 学生表
+    /// 老师
     /// </summary>
-    public class Student:Entity
+    public  class Teacher:Entity
     {
         /// <summary>
         /// 姓名
@@ -17,12 +22,16 @@ namespace YiPaiKe.Core.Entities
         /// <summary>
         /// 年龄
         /// </summary>
-        [Required] 
+        [Required]
         public int Age { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
         [Required]
         public Gender Sex { get; set; }
+        /// <summary>
+        /// 头像
+        /// </summary>
+        public string Avatar { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace YiPaiKe.Application
     /// <summary>
     /// 学生服务
     /// </summary>
-    [ApiDescriptionSettings("BaseDataService")]
+    [ApiDescriptionSettings("BaseDataServices")]
     public class StudentService : ServiceBase<Student>
     {
         /// <summary>
