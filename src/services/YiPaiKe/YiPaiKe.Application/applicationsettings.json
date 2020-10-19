@@ -1,21 +1,38 @@
 ﻿{
   "SpecificationDocumentSettings": {
     "DocumentTitle": "YiPaiKe Api 文档",
+    "DocExpansionState": "None",
     "GroupOpenApiInfos": [
+      {
+        "Group": "UserAuthorizationServices",
+        "Title": "用户权限管理",
+        "Description": "用户权限管理",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      },
       {
         "Group": "BaseDataServices",
         "Title": "学校基础数据接口",
         "Description": "基础相关接口",
         "Version": "1.0.0",
-        "TermsOfService": "https://furos.cn",
+        "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {
           "Name": "hhf",
-          "Url": "https://gitee.com/monksoul",
-          "Email": "monksoul@outlook.com"
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
         },
         "License": {
           "Name": "Apache-2.0",
-          "Url": "https://gitee.com/monksoul/Fur/blob/rc1/LICENSE"
+          "Url": "https://gitee.com/hgflydream"
         }
       },
       {
@@ -23,17 +40,18 @@
         "Title": "排课设置数据接口",
         "Description": "排课设置数据接口",
         "Version": "1.0.0",
-        "TermsOfService": "https://furos.cn",
+        "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {
           "Name": "hhf",
-          "Url": "https://gitee.com/monksoul",
-          "Email": "monksoul@outlook.com"
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
         },
         "License": {
           "Name": "Apache-2.0",
-          "Url": "https://gitee.com/monksoul/Fur/blob/rc1/LICENSE"
+          "Url": "https://gitee.com/hgflydream"
         }
       }
+
     ],
     "ValidationTypeMessageSettings": {
       "Definitions": [
@@ -42,27 +60,27 @@
 
         [ "StrongPassword", "密码太简单了!!!" ]
       ]
-    }
-    //"EnableAuthorized": true,
-    //"SecurityDefinitions": [
-    //  {
-    //    "Id": "Bearer",
-    //    "Type": "Http",
-    //    "Name": "Authorization",
-    //    "Description": "JWT Authorization header using the Bearer scheme.",
-    //    "BearerFormat": "JWT",
-    //    "Scheme": "bearer",
-    //    "In": "Header",
-    //    "Requirement": {
-    //      "Scheme": {
-    //        "Reference": {
-    //          "Id": "Bearer",
-    //          "Type": "SecurityScheme"
-    //        },
-    //        "Accesses": []
-    //      }
-    //    }
-    //  }
-    //]
+    },
+    "EnableAuthorized": true,
+    "SecurityDefinitions": [
+      {
+        "Id": "Bearer",
+        "Type": "Http",
+        "Name": "Authorization",
+        "Description": "JWT Authorization header using the Bearer scheme.",
+        "BearerFormat": "JWT",
+        "Scheme": "bearer",
+        "In": "Header",
+        "Requirement": {
+          "Scheme": {
+            "Reference": {
+              "Id": "Bearer",
+              "Type": "SecurityScheme"
+            },
+            "Accesses": []
+          }
+        }
+      }
+    ]
   }
 }
