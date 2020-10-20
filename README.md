@@ -1,11 +1,5 @@
-# SchoolCloud.PaiKe
-
+# Gardener
 #### 介绍
-后面再补充
-
-#### 系统环境
-- .net core 3.1
-- mysql
-- element-ui
+后补充
 
 
