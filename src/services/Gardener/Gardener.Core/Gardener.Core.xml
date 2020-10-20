@@ -1,0 +1,418 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Gardener.Core.Entities.ClassHourSetting">
+            <summary>
+            课时设置
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.TutorialScheduleRule">
+            <summary>
+            上课安排规则
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.Classes">
+            <summary>
+            班级
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.Curriculum">
+            <summary>
+            课程
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.Grade">
+            <summary>
+            年级
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Grade.Number">
+            <summary>
+            年级
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.SchoolYear">
+            <summary>
+            学年
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.SchoolYear.Year">
+            <summary>
+            年份
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.Semester">
+            <summary>
+            学期
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.Student">
+            <summary>
+            学生
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Student.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Student.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Student.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Student.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Student.DateOfDeath">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.Teacher">
+            <summary>
+            老师
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Enums.Gender">
+            <summary>
+            性别枚举
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Gender.Male">
+            <summary>
+            男
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Gender.Female">
+            <summary>
+            女
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.GardenerCoreStartup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.GardenerCoreStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:Gardener.Core.JWTAuthorizationHandler">
+            <summary>
+            JWT 授权自定义处理程序
+            </summary>
+            <remarks>
+            可以在这里自定义自己的权限
+            </remarks>
+        </member>
+        <member name="F:Gardener.Core.JWTAuthorizationHandler._jwtSettings">
+            <summary>
+            JWT 配置
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.JWTAuthorizationHandler.#ctor(Microsoft.Extensions.Options.IOptions{Fur.Authorization.JWTSettingsOptions})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:Gardener.Core.JWTAuthorizationHandler.CheckAuthorzie(Microsoft.AspNetCore.Http.DefaultHttpContext,Microsoft.IdentityModel.JsonWebTokens.JsonWebToken)">
+            <summary>
+            检查权限
+            </summary>
+            <param name="httpContext"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.JWTEncryption">
+            <summary>
+            JWT 加密
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.JWTEncryption.Encrypt(System.String,Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            生成 Token
+            </summary>
+            <param name="issuerSigningKey"></param>
+            <param name="payload"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JWTEncryption.Encrypt(System.String,System.String)">
+            <summary>
+            生成 Token
+            </summary>
+            <param name="issuerSigningKey"></param>
+            <param name="payload"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JWTEncryption.Validate(System.String,Fur.Authorization.JWTSettingsOptions)">
+            <summary>
+            验证 Token
+            </summary>
+            <param name="accessToken"></param>
+            <param name="jwtSettings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JWTEncryption.CreateTokenValidationParameters(Fur.Authorization.JWTSettingsOptions)">
+            <summary>
+            生成Token验证参数
+            </summary>
+            <param name="jwtSettings"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.Role">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Role.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Role.Remark">
+            <summary>
+            角色描述
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Role.Users">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Role.UserRoles">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Role.Securities">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Role.RoleSecurities">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Role.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Role},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置多对多关系
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.Core.Role.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.RoleSecurity">
+            <summary>
+            用户和角色关系表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.RoleSecurity.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.RoleSecurity.SecurityId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Security">
+            <summary>
+            权限表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Security.UniqueName">
+            <summary>
+            权限唯一名（每一个接口）
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Security.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Security.RoleSecurities">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Security.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.User">
+            <summary>
+            用户表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.UserRoles">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.User.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.User},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置多对多关系
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.Core.User.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.UserRole">
+            <summary>
+            用户和角色关系表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserRole.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserRole.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.AuthorizationManager">
+            <summary>
+            权限管理器
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.AuthorizationManager._httpContextAccessor">
+            <summary>
+            请求上下文访问器
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{Fur.Authorization.JWTSettingsOptions})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="httpContextAccessor"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
+            <summary>
+            获取用户Id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetUserId``1">
+            <summary>
+            获取用户Id
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.ReadToken">
+            <summary>
+            解析 Token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.IAuthorizationManager">
+            <summary>
+            权限管理器
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.GetUserId">
+            <summary>
+            获取用户 Id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.GetUserId``1">
+            <summary>
+            获取用户 Id
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.SecurityConst">
+            <summary>
+            权限常量
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.JWTAuthorizationServiceCollectionExtensions">
+            <summary>
+            JWT 授权服务拓展类
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.JWTAuthorizationServiceCollectionExtensions.AddJWTAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加 JWT 授权
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

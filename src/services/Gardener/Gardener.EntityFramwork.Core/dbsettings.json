@@ -1,0 +1,6 @@
+﻿{
+  "ConnectionStrings": {
+    "Sqlite3ConnectionString": "Server=192.168.87.56;UserId=root;Password=MySQLPWD1!;Database=ep_osp_test;charset='utf8';Allow User Variables=True",
+    "GardenerDbConnectionString": "Data Source=./Fur.db"
+  }
+}
