@@ -74,7 +74,7 @@ namespace Gardener.Core
                     .SelectMany(u => u.Securities))
                 .Select(u => u.UniqueName);
 
-            if (!securities.Contains(securityDefineAttribute.Name)) return false;
+            if (!securities.Contains(securityDefineAttribute.ResourceId)) return false;
 
             return true;
         }

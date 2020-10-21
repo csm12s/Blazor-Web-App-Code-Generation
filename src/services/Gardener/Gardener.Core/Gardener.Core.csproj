@@ -12,6 +12,9 @@
     <Content Remove="C:\Users\huhangfei\.nuget\packages\fur\1.0.0-rc.final.14\contentFiles\any\net5.0\MessageCenter\README.md" />
     <Content Remove="C:\Users\huhangfei\.nuget\packages\fur\1.0.0-rc.final.14\contentFiles\any\net5.0\RemoteRequest\Options\README.md" />
     <Content Remove="C:\Users\huhangfei\.nuget\packages\fur\1.0.0-rc.final.14\contentFiles\any\net5.0\RemoteRequest\Proxies\README.md" />
+    <Content Remove="C:\Users\huhangfei\.nuget\packages\fur\1.0.0-rc.final.15\contentFiles\any\net5.0\MessageCenter\README.md" />
+    <Content Remove="C:\Users\huhangfei\.nuget\packages\fur\1.0.0-rc.final.15\contentFiles\any\net5.0\RemoteRequest\Options\README.md" />
+    <Content Remove="C:\Users\huhangfei\.nuget\packages\fur\1.0.0-rc.final.15\contentFiles\any\net5.0\RemoteRequest\Proxies\README.md" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fur" Version="1.0.0-rc.final.15" />
+    <PackageReference Include="Fur" Version="1.0.0-rc.final.20" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0-rc.2.20475.17" />
   </ItemGroup>
 

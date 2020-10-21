@@ -15,7 +15,7 @@ namespace Gardener.Core
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddPolicyAuthorization<JWTAuthorizationHandler>(options =>
+            services.AddAppAuthorization<JWTAuthorizationHandler>(options =>
             {
                 options.AddJWTAuthorization();
             });
