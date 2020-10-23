@@ -2,31 +2,30 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Enums
 {
     /// <summary>
-    /// 班级
+    /// 节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
     /// </summary>
-    public class Classes:Entity
+   public enum Frequency
     {
         /// <summary>
-        /// 名称
+        /// 靠前
         /// </summary>
-        [MaxLength(32)]
-        [Required]
-        public string Name { get; set; }
-
+        Morning = 0,
         /// <summary>
-        /// 所属年纪ID
+        /// 中间
         /// </summary>
-        public string GradeId { get; set; }
+        Afternoon = 1,
+        /// <summary>
+        /// 靠下
+        /// </summary>
+        Night = 2,
     }
 }

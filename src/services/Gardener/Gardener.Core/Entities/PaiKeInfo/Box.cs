@@ -13,23 +13,30 @@ using System.Threading.Tasks;
 namespace Gardener.Core.Entities
 {
     /// <summary>
-    /// 上课安排规则
+    /// 表
     /// </summary>
-    public class TutorialScheduleRule:Entity
+   public class Box : Entity
     {
         /// <summary>
-        /// 被规则对象
+        /// 星期
         /// </summary>
-        public string ForObject { get; set; }
-
+        public int Week { get; set; }
         /// <summary>
-        /// 被规则位置
+        /// 第几节
+        /// </summary>
+        public int Section { get; set; }
+        /// <summary>
+        /// Week和Section 合并得到的唯一no
         /// </summary>
         public string No { get; set; }
 
         /// <summary>
-        /// 排序规则
+        /// 所属时段
         /// </summary>
-        public RuleSort RuleSort { get; set; }
+        public Frequency Frequency { get; set; }
+        /// <summary>
+        /// 该节点安排的课程信息
+        /// </summary>
+        public List<Fill> Fills { get; set; }
     }
 }

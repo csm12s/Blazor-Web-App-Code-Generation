@@ -26,6 +26,11 @@ namespace Gardener.Core.Entities
         /// </summary>
         [Required]
         public Gender Sex { get; set; }
+
+        /// <summary>
+        /// 身份证
+        /// </summary>
+        public string CardID { get; set; }
         /// <summary>
         /// 头像
         /// </summary>
@@ -34,5 +39,15 @@ namespace Gardener.Core.Entities
         /// 出生日期
         /// </summary>
         public DateTime? DateOfDeath { get; set; }
+
+        /// <summary>
+        /// 入学日期
+        /// </summary>
+        public DateTime DateEntrance { get; set; }
+
+        /// <summary>
+        /// 是否完成学业毕业
+        /// </summary>
+        public bool IsFinish { get; set; }
     }
 }

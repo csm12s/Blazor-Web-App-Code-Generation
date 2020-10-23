@@ -2,31 +2,30 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Enums
 {
     /// <summary>
-    /// 班级
+    /// 排序规则
     /// </summary>
-    public class Classes:Entity
+    public enum RuleSort
     {
         /// <summary>
-        /// 名称
+        /// 必排
         /// </summary>
-        [MaxLength(32)]
-        [Required]
-        public string Name { get; set; }
-
+        Must = 0,
         /// <summary>
-        /// 所属年纪ID
+        /// 禁止
         /// </summary>
-        public string GradeId { get; set; }
+        Prohibit = 1,
+        /// <summary>
+        /// 连排
+        /// </summary>
+        Continuity = 2
     }
 }

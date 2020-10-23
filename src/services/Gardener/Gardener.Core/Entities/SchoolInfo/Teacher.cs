@@ -5,6 +5,7 @@
 using Fur.DatabaseAccessor;
 using System.ComponentModel.DataAnnotations;
 using Gardener.Core.Enums;
+using System;
 
 namespace Gardener.Core.Entities
 {
@@ -33,5 +34,31 @@ namespace Gardener.Core.Entities
         /// 头像
         /// </summary>
         public string Avatar { get; set; }
+        /// <summary>
+        /// 身份证
+        /// </summary>
+        public string CardID { get; set; }
+
+        /// <summary>
+        /// 出生日期
+        /// </summary>
+        public DateTime? DateOfDeath { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 入校日期
+        /// </summary>
+        public DateTime DateEntrance { get; set; }
+
+        /// <summary>
+        /// 工龄
+        /// </summary>
+        public string WorkYears { get; set; }
     }
 }
+
+
