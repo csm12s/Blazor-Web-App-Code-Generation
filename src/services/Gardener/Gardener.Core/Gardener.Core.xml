@@ -4,9 +4,74 @@
         <name>Gardener.Core</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Core.Entities.Box">
+            <summary>
+            表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Box.Week">
+            <summary>
+            星期
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Box.Section">
+            <summary>
+            第几节
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Box.No">
+            <summary>
+            Week和Section 合并得到的唯一no
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Box.Frequency">
+            <summary>
+            所属时段
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Box.Fills">
+            <summary>
+            该节点安排的课程信息
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Entities.ClassHourSetting">
             <summary>
             课时设置
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entities.Fill">
+            <summary>
+            每个子项
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Fill.TeacherId">
+            <summary>
+            老师唯一标识
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Fill.TeacherName">
+            <summary>
+            老师名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Fill.ClassesId">
+            <summary>
+            班级唯一标识
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Fill.ClassName">
+            <summary>
+            班级名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Fill.CurriculumId">
+            <summary>
+            课程唯一标识
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Fill.CurriculumName">
+            <summary>
+            课程名称
             </summary>
         </member>
         <member name="T:Gardener.Core.Entities.TutorialScheduleRule">
@@ -14,14 +79,49 @@
             上课安排规则
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entities.TutorialScheduleRule.ForObject">
+            <summary>
+            被规则对象
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.TutorialScheduleRule.No">
+            <summary>
+            被规则位置
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.TutorialScheduleRule.RuleSort">
+            <summary>
+            排序规则
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Entities.Classes">
             <summary>
             班级
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entities.Classes.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Classes.GradeId">
+            <summary>
+            所属年纪ID
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Entities.Curriculum">
             <summary>
             课程
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Curriculum.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Curriculum.SubjectId">
+            <summary>
+            所属学科
             </summary>
         </member>
         <member name="T:Gardener.Core.Entities.Grade">
@@ -46,7 +146,12 @@
         </member>
         <member name="T:Gardener.Core.Entities.Semester">
             <summary>
-            学期
+            学年学期
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Semester.Name">
+            <summary>
+            名称
             </summary>
         </member>
         <member name="T:Gardener.Core.Entities.Student">
@@ -69,6 +174,11 @@
             性别
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entities.Student.CardID">
+            <summary>
+            身份证
+            </summary>
+        </member>
         <member name="P:Gardener.Core.Entities.Student.Avatar">
             <summary>
             头像
@@ -77,6 +187,16 @@
         <member name="P:Gardener.Core.Entities.Student.DateOfDeath">
             <summary>
             出生日期
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Student.DateEntrance">
+            <summary>
+            入学日期
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Student.IsFinish">
+            <summary>
+            是否完成学业毕业
             </summary>
         </member>
         <member name="T:Gardener.Core.Entities.Teacher">
@@ -104,6 +224,51 @@
             头像
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entities.Teacher.CardID">
+            <summary>
+            身份证
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.DateOfDeath">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.DateEntrance">
+            <summary>
+            入校日期
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entities.Teacher.WorkYears">
+            <summary>
+            工龄
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Enums.Frequency">
+            <summary>
+            节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Frequency.Morning">
+            <summary>
+            靠前
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Frequency.Afternoon">
+            <summary>
+            中间
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Frequency.Night">
+            <summary>
+            靠下
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Enums.Gender">
             <summary>
             性别枚举
@@ -117,6 +282,26 @@
         <member name="F:Gardener.Core.Enums.Gender.Female">
             <summary>
             女
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Enums.RuleSort">
+            <summary>
+            排序规则
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.RuleSort.Must">
+            <summary>
+            必排
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.RuleSort.Prohibit">
+            <summary>
+            禁止
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.RuleSort.Continuity">
+            <summary>
+            连排
             </summary>
         </member>
         <member name="T:Gardener.Core.GardenerCoreStartup">
