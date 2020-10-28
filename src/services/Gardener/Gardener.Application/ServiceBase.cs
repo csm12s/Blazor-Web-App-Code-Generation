@@ -74,7 +74,6 @@ namespace Gardener.Application
         /// 查询所有
         /// </summary>
         /// <returns></returns>
-        [NonTransact]
         public virtual async Task<List<TEntityDto>> GetAll()
         {
             var persons = _repository.AsQueryable().ProjectToType<TEntityDto>();
@@ -87,7 +86,6 @@ namespace Gardener.Application
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        [NonTransact]
         public virtual async Task<PagedList<TEntityDto>> GetAllByPage(int pageIndex = 1, int pageSize = 10)
         {
             var pageResult = _repository.AsQueryable().ProjectToType<TEntityDto>();

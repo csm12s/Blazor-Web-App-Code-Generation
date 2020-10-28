@@ -8,11 +8,32 @@ namespace Gardener.Database.Migrations.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Box",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Week = table.Column<int>(type: "INTEGER", nullable: false),
+                    Section = table.Column<int>(type: "INTEGER", nullable: false),
+                    No = table.Column<string>(type: "TEXT", nullable: true),
+                    Frequency = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Box", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Classes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
+                    GradeId = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -43,6 +64,8 @@ namespace Gardener.Database.Migrations.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
+                    SubjectId = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -117,6 +140,7 @@ namespace Gardener.Database.Migrations.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
                     CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -135,8 +159,11 @@ namespace Gardener.Database.Migrations.Migrations
                     Name = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
                     Age = table.Column<int>(type: "INTEGER", nullable: false),
                     Sex = table.Column<int>(type: "INTEGER", nullable: false),
+                    CardID = table.Column<string>(type: "TEXT", nullable: true),
                     Avatar = table.Column<string>(type: "TEXT", nullable: true),
                     DateOfDeath = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    DateEntrance = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsFinish = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -156,6 +183,11 @@ namespace Gardener.Database.Migrations.Migrations
                     Age = table.Column<int>(type: "INTEGER", nullable: false),
                     Sex = table.Column<int>(type: "INTEGER", nullable: false),
                     Avatar = table.Column<string>(type: "TEXT", nullable: true),
+                    CardID = table.Column<string>(type: "TEXT", nullable: true),
+                    DateOfDeath = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: true),
+                    DateEntrance = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    WorkYears = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -171,6 +203,9 @@ namespace Gardener.Database.Migrations.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    ForObject = table.Column<string>(type: "TEXT", nullable: true),
+                    No = table.Column<string>(type: "TEXT", nullable: true),
+                    RuleSort = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
                     UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -192,6 +227,34 @@ namespace Gardener.Database.Migrations.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fill",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TeacherId = table.Column<string>(type: "TEXT", nullable: true),
+                    TeacherName = table.Column<string>(type: "TEXT", nullable: true),
+                    ClassesId = table.Column<string>(type: "TEXT", nullable: true),
+                    ClassName = table.Column<string>(type: "TEXT", nullable: true),
+                    CurriculumId = table.Column<string>(type: "TEXT", nullable: true),
+                    CurriculumName = table.Column<string>(type: "TEXT", nullable: true),
+                    BoxId = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    UpdatedTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fill", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Fill_Box_BoxId",
+                        column: x => x.BoxId,
+                        principalTable: "Box",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,6 +391,11 @@ namespace Gardener.Database.Migrations.Migrations
                 values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Fill_BoxId",
+                table: "Fill",
+                column: "BoxId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RoleSecurity_SecurityId",
                 table: "RoleSecurity",
                 column: "SecurityId");
@@ -348,6 +416,9 @@ namespace Gardener.Database.Migrations.Migrations
 
             migrationBuilder.DropTable(
                 name: "Curriculum");
+
+            migrationBuilder.DropTable(
+                name: "Fill");
 
             migrationBuilder.DropTable(
                 name: "Grade");
@@ -372,6 +443,9 @@ namespace Gardener.Database.Migrations.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserRole");
+
+            migrationBuilder.DropTable(
+                name: "Box");
 
             migrationBuilder.DropTable(
                 name: "Security");

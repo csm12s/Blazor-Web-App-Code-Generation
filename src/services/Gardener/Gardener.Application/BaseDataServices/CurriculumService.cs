@@ -9,13 +9,13 @@ using Gardener.Core.Entities;
 namespace Gardener.Application
 {
     /// <summary>
-    /// 老师服务
+    /// 课程服务
     /// </summary>
     [ApiDescriptionSettings("BaseDataServices")]
     public class CurriculumService : ServiceBase<Curriculum>
     {
         /// <summary>
-        /// 老师服务
+        /// 课程服务
         /// </summary>
         /// <param name="repository"></param>
         public CurriculumService(IRepository<Curriculum> repository) : base(repository)
