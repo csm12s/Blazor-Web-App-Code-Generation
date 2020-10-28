@@ -21,16 +21,6 @@ namespace Gardener.Application
         {
         }
         /// <summary>
-        /// 查询所有
-        /// </summary>
-        /// <returns></returns>
-        [NonAction]
-        public override async Task<List<Student>> GetAll()
-        {
-            return null;
-        }
-
-        /// <summary>
         /// 通过名字获取
         /// </summary>
         /// <param name="name"></param>

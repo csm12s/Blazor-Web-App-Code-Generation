@@ -16,6 +16,38 @@ namespace Gardener.Database.Migrations.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.0-rc.2.20475.6");
 
+            modelBuilder.Entity("Gardener.Core.Entities.Box", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Frequency")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("No")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Section")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Week")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Box");
+                });
+
             modelBuilder.Entity("Gardener.Core.Entities.ClassHourSetting", b =>
                 {
                     b.Property<int>("Id")
@@ -45,8 +77,16 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GradeId")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset?>("UpdatedTime")
                         .HasColumnType("TEXT");
@@ -68,12 +108,63 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubjectId")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTimeOffset?>("UpdatedTime")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Curriculum");
+                });
+
+            modelBuilder.Entity("Gardener.Core.Entities.Fill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("BoxId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClassName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClassesId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CurriculumId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CurriculumName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TeacherName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoxId");
+
+                    b.ToTable("Fill");
                 });
 
             modelBuilder.Entity("Gardener.Core.Entities.Grade", b =>
@@ -134,6 +225,11 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTimeOffset?>("UpdatedTime")
                         .HasColumnType("TEXT");
 
@@ -154,13 +250,22 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CardID")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateEntrance")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("DateOfDeath")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsFinish")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -191,7 +296,16 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CardID")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateEntrance")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DateOfDeath")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -202,10 +316,16 @@ namespace Gardener.Database.Migrations.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Phone")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Sex")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WorkYears")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -222,7 +342,16 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ForObject")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("No")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RuleSort")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("UpdatedTime")
@@ -412,6 +541,13 @@ namespace Gardener.Database.Migrations.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Gardener.Core.Entities.Fill", b =>
+                {
+                    b.HasOne("Gardener.Core.Entities.Box", null)
+                        .WithMany("Fills")
+                        .HasForeignKey("BoxId");
+                });
+
             modelBuilder.Entity("Gardener.Core.RoleSecurity", b =>
                 {
                     b.HasOne("Gardener.Core.Role", "Role")
@@ -448,6 +584,11 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Gardener.Core.Entities.Box", b =>
+                {
+                    b.Navigation("Fills");
                 });
 
             modelBuilder.Entity("Gardener.Core.Role", b =>
