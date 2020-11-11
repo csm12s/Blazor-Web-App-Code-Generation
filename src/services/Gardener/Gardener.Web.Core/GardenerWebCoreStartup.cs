@@ -15,10 +15,16 @@ namespace Gardener.Web.Core
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            //注册JWT授权
+            services.AddJwt<JwtHandler>();
+            //注册跨域
             services.AddCorsAccessor();
-
-            services.AddControllersWithViews().AddInject()
-                .AddUnifyResult<RESTfulResult, RESTfulResultProvider>();
+            //注册控制器和视图
+            services.AddControllersWithViews()
+                //注册fur
+                .AddInject()
+                //注册规范返回格式
+                .AddUnifyResult();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

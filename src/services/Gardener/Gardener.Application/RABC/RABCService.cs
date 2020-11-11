@@ -3,17 +3,17 @@ using Gardener.Core;
 using Fur.DatabaseAccessor;
 using Fur.DynamicApiController;
 using Fur.FriendlyException;
-using Fur.LinqBuilder;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Fur;
+using Fur.DataEncryption;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Gardener.Application
 {
@@ -21,7 +21,7 @@ namespace Gardener.Application
     /// 角色管理服务
     /// </summary>
     [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
-    public class RABCService : IDynamicApiController
+    public class RBACService : IDynamicApiController
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<User> _userRepository;
@@ -30,8 +30,17 @@ namespace Gardener.Application
         private readonly IRepository<RoleSecurity> _roleSecurityRepository;
         private readonly IRepository<Security> _securityRepository;
         private readonly IAuthorizationManager _authorizationManager;
-
-        public RABCService(IHttpContextAccessor httpContextAccessor
+        /// <summary>
+        /// 角色管理服务
+        /// </summary>
+        /// <param name="httpContextAccessor"></param>
+        /// <param name="userRepository"></param>
+        /// <param name="roleRepository"></param>
+        /// <param name="userRoleRepository"></param>
+        /// <param name="roleSecurityRepository"></param>
+        /// <param name="securityRepository"></param>
+        /// <param name="authorizationManager"></param>
+        public RBACService(IHttpContextAccessor httpContextAccessor
             , IRepository<User> userRepository
             , IRepository<Role> roleRepository
             , IRepository<UserRole> userRoleRepository
@@ -58,28 +67,28 @@ namespace Gardener.Application
         public LoginOutput Login(LoginInput input)
         {
             // 验证用户名和密码
-            var user = _userRepository.FirstOrDefault(u => u.Account.Equals(input.Account) && u.Password.Equals(input.Password)) ?? throw Oops.Oh(1000);
+            var user = _userRepository.FirstOrDefault(u => u.Account.Equals(input.Account) && u.Password.Equals(input.Password), false) ?? throw Oops.Oh(1000);
 
             var output = user.Adapt<LoginOutput>();
 
             // 生成 token
             var jwtSettings = App.GetOptions<JWTSettingsOptions>();
-            var datetimeOffset = new DateTimeOffset(DateTime.Now);
+            var datetimeOffset = DateTimeOffset.UtcNow;
 
-            output.AccessToken = JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, new JObject()
+            output.AccessToken = JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, new Dictionary<string, object>()
             {
                 { "UserId", user.Id },  // 存储Id
                 { "Account",user.Account }, // 存储用户名
 
                 { JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds() },
-                { JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddSeconds(jwtSettings.ExpiredTime.Value*60)).ToUnixTimeSeconds() },
+                { JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value*60).ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Iss, jwtSettings.ValidIssuer},
                 { JwtRegisteredClaimNames.Aud, jwtSettings.ValidAudience }
             });
 
             // 设置 Swagger 刷新自动授权
-            _httpContextAccessor.HttpContext.Response.Headers["access-token"] = output.AccessToken;
+            _httpContextAccessor.SigninToSwagger(output.AccessToken);
 
             return output;
         }
@@ -94,6 +103,7 @@ namespace Gardener.Application
             var userId = _authorizationManager.GetUserId<int>();
 
             var roles = _userRepository
+                .DetachedEntities
                 .Include(u => u.Roles)
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles)
@@ -113,7 +123,7 @@ namespace Gardener.Application
             var userId = _authorizationManager.GetUserId<int>();
 
             var securities = _userRepository
-                .Include(u => u.Roles)
+                .Include(u => u.Roles, false)
                     .ThenInclude(u => u.Securities)
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles
@@ -129,7 +139,7 @@ namespace Gardener.Application
         [SecurityDefine(SecurityConst.GetRoles)]
         public List<RoleDto> GetRoles()
         {
-            return _roleRepository.AsEnumerable().Adapt<List<RoleDto>>();
+            return _roleRepository.AsEnumerable(false).Adapt<List<RoleDto>>();
         }
 
         /// <summary>
@@ -151,7 +161,7 @@ namespace Gardener.Application
             var userId = _authorizationManager.GetUserId<int>();
 
             roleIds ??= Array.Empty<int>();
-            _userRoleRepository.Delete(_userRoleRepository.Where(u => u.UserId == userId).ToList());
+            _userRoleRepository.Delete(_userRoleRepository.Where(u => u.UserId == userId, false).ToList());
 
             var list = new List<UserRole>();
             foreach (var roleid in roleIds)
@@ -168,7 +178,7 @@ namespace Gardener.Application
         [AllowAnonymous]
         public List<SecurityDto> GetSecurities()
         {
-            return _securityRepository.AsEnumerable().Adapt<List<SecurityDto>>();
+            return _securityRepository.AsEnumerable(false).Adapt<List<SecurityDto>>();
         }
 
         /// <summary>
@@ -178,7 +188,7 @@ namespace Gardener.Application
         public void GiveRoleSecurity(int roleId, int[] securityIds)
         {
             securityIds ??= Array.Empty<int>();
-            _roleSecurityRepository.Delete(_roleSecurityRepository.Where(u => u.RoleId == roleId).ToList());
+            _roleSecurityRepository.Delete(_roleSecurityRepository.Where(u => u.RoleId == roleId, false).ToList());
 
             var list = new List<RoleSecurity>();
             foreach (var securityId in securityIds)

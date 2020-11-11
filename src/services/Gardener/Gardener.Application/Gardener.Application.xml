@@ -17,12 +17,12 @@
         </member>
         <member name="T:Gardener.Application.CurriculumService">
             <summary>
-            老师服务
+            课程服务
             </summary>
         </member>
         <member name="M:Gardener.Application.CurriculumService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.Curriculum})">
             <summary>
-            老师服务
+            课程服务
             </summary>
             <param name="repository"></param>
         </member>
@@ -175,12 +175,24 @@
             权限唯一名（每一个接口）
             </summary>
         </member>
-        <member name="T:Gardener.Application.RABCService">
+        <member name="T:Gardener.Application.RBACService">
             <summary>
             角色管理服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.RABCService.Login(Gardener.Application.LoginInput)">
+        <member name="M:Gardener.Application.RBACService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Fur.DatabaseAccessor.IRepository{Gardener.Core.User},Fur.DatabaseAccessor.IRepository{Gardener.Core.Role},Fur.DatabaseAccessor.IRepository{Gardener.Core.UserRole},Fur.DatabaseAccessor.IRepository{Gardener.Core.RoleSecurity},Fur.DatabaseAccessor.IRepository{Gardener.Core.Security},Gardener.Core.IAuthorizationManager)">
+            <summary>
+            角色管理服务
+            </summary>
+            <param name="httpContextAccessor"></param>
+            <param name="userRepository"></param>
+            <param name="roleRepository"></param>
+            <param name="userRoleRepository"></param>
+            <param name="roleSecurityRepository"></param>
+            <param name="securityRepository"></param>
+            <param name="authorizationManager"></param>
+        </member>
+        <member name="M:Gardener.Application.RBACService.Login(Gardener.Application.LoginInput)">
             <summary>
             登录（免授权）
             </summary>
@@ -188,38 +200,38 @@
             <remarks>管理员：admin/admin；普通用户：Fur/dotnetchina</remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.RABCService.ViewRoles">
+        <member name="M:Gardener.Application.RBACService.ViewRoles">
             <summary>
             查看用户角色
             </summary>
         </member>
-        <member name="M:Gardener.Application.RABCService.ViewSecuries">
+        <member name="M:Gardener.Application.RBACService.ViewSecuries">
             <summary>
             查看用户权限
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.RABCService.GetRoles">
+        <member name="M:Gardener.Application.RBACService.GetRoles">
             <summary>
             角色列表
             </summary>
         </member>
-        <member name="M:Gardener.Application.RABCService.InsertRole(Gardener.Application.RoleInput)">
+        <member name="M:Gardener.Application.RBACService.InsertRole(Gardener.Application.RoleInput)">
             <summary>
             新增角色
             </summary>
         </member>
-        <member name="M:Gardener.Application.RABCService.GiveUserRole(System.Int32[])">
+        <member name="M:Gardener.Application.RBACService.GiveUserRole(System.Int32[])">
             <summary>
             为用户分配角色
             </summary>
         </member>
-        <member name="M:Gardener.Application.RABCService.GetSecurities">
+        <member name="M:Gardener.Application.RBACService.GetSecurities">
             <summary>
             查看系统所有的权限（免授权）
             </summary>
         </member>
-        <member name="M:Gardener.Application.RABCService.GiveRoleSecurity(System.Int32,System.Int32[])">
+        <member name="M:Gardener.Application.RBACService.GiveRoleSecurity(System.Int32,System.Int32[])">
             <summary>
             为角色分配权限
             </summary>

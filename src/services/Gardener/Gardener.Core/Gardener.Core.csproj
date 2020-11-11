@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\mycodes\gitee\Gardener\src\services\Gardener\Gardener.Core\Gardener.Core.xml</DocumentationFile>
+    <DocumentationFile>Gardener.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,8 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fur" Version="1.0.0-rc.final.31" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0-rc.2.20475.17" />
+    <PackageReference Include="Fur" Version="1.0.0.2" />
+    <PackageReference Include="Fur.Extras.Authentication.JwtBearer" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

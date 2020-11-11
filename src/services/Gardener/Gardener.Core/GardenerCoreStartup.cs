@@ -9,16 +9,5 @@ namespace Gardener.Core
     [AppStartup(800)]
     public sealed class GardenerCoreStartup : AppStartup
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddAppAuthorization<JWTAuthorizationHandler>(options =>
-            {
-                options.AddJWTAuthorization();
-            });
-        }
     }
 }
