@@ -20,7 +20,7 @@ namespace Gardener.EntityFramwork.Core
             services.AddDatabaseAccessor(options =>
             {
                 //注入数据库上下文
-                options.AddDbPool<GardenerDbContext>(DbProvider.Sqlite);
+                options.AddDbPool<GardenerDbContext>(DbProvider.MySql);
             }, "Gardener.Database.Migrations");
         }
     }
