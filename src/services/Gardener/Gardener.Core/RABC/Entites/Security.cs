@@ -9,7 +9,7 @@ namespace Gardener.Core
     /// <summary>
     /// 权限表
     /// </summary>
-    public class Security : EntityBase, IEntitySeedData<Security>
+    public class Security : Entity, IEntitySeedData<Security>
     {
         /// <summary>
         /// 权限唯一名（每一个接口）

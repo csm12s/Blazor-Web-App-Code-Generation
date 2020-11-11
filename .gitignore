@@ -337,7 +337,8 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
-# BeatPulse healthcheck temp database 
+# BeatPulse healthcheck temp database
 healthchecksdb
 /src/services/YiPaiKe/YiPaiKe.Core/YiPaiKe.Core.xml
 /src/services/YiPaiKe/YiPaiKe.Application/YiPaiKe.Application.xml
+Migrations/

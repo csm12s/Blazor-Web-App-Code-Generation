@@ -1,4 +1,5 @@
 ﻿using Fur.DatabaseAccessor;
+using System;
 
 namespace Gardener.Core
 {
@@ -20,5 +21,7 @@ namespace Gardener.Core
         public int RoleId { get; set; }
 
         public Role Role { get; set; }
+
+        public DateTimeOffset CreatedTime { get; set; }
     }
 }

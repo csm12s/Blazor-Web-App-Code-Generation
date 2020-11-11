@@ -1,4 +1,5 @@
 ﻿using Fur.DatabaseAccessor;
+using System;
 
 namespace Gardener.Core
 {
@@ -11,14 +12,18 @@ namespace Gardener.Core
         /// 角色Id
         /// </summary>
         public int RoleId { get; set; }
-
         public Role Role { get; set; }
-
         /// <summary>
         /// 权限Id
         /// </summary>
         public int SecurityId { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public Security Security { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>        
+        public DateTimeOffset CreatedTime { get; set; }
     }
 }

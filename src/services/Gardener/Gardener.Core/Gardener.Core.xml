@@ -375,6 +375,16 @@
             权限Id
             </summary>
         </member>
+        <member name="P:Gardener.Core.RoleSecurity.Security">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.RoleSecurity.CreatedTime">
+            <summary>
+            创建时间
+            </summary>        
+        </member>
         <member name="T:Gardener.Core.Security">
             <summary>
             权限表

@@ -9,7 +9,7 @@ namespace Gardener.Core
     /// <summary>
     /// 角色表
     /// </summary>
-    public class Role : EntityBase, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
+    public class Role : Entity, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
     {
         /// <summary>
         /// 角色名称
@@ -59,12 +59,12 @@ namespace Gardener.Core
                     u.HasKey(c => new { c.RoleId, c.SecurityId });
                     // 添加多对多种子数据
                     u.HasData(
-                        new { RoleId = 1, SecurityId = 1 },
-                        new { RoleId = 1, SecurityId = 2 },
-                        new { RoleId = 1, SecurityId = 3 },
-                        new { RoleId = 1, SecurityId = 4 },
-                        new { RoleId = 1, SecurityId = 5 },
-                        new { RoleId = 1, SecurityId = 6 }
+                        new { RoleId = 1, SecurityId = 1,CreatedTime=DateTimeOffset.Now },
+                        new { RoleId = 1, SecurityId = 2, CreatedTime = DateTimeOffset.Now },
+                        new { RoleId = 1, SecurityId = 3, CreatedTime = DateTimeOffset.Now },
+                        new { RoleId = 1, SecurityId = 4, CreatedTime = DateTimeOffset.Now },
+                        new { RoleId = 1, SecurityId = 5, CreatedTime = DateTimeOffset.Now },
+                        new { RoleId = 1, SecurityId = 6, CreatedTime = DateTimeOffset.Now }
                     );
                 });
         }

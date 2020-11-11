@@ -10,8 +10,13 @@ namespace Gardener.Core
     /// <summary>
     /// 用户表
     /// </summary>
-    public class User : EntityBase, IEntitySeedData<User>, IEntityTypeBuilder<User>
+    public class User : Entity, IEntitySeedData<User>, IEntityTypeBuilder<User>
     {
+        public User()
+        {
+            this.CreatedTime = DateTimeOffset.Now;
+        }
+
         /// <summary>
         /// 账号
         /// </summary>
@@ -50,7 +55,7 @@ namespace Gardener.Core
                  , u =>
                  {
                      u.HasKey(c => new { c.UserId, c.RoleId });
-                     u.HasData(new { UserId = 1, RoleId = 1 });
+                     u.HasData(new { UserId = 1, RoleId = 1 ,CreatedTime=DateTimeOffset.Now});
                  });
         }
 
