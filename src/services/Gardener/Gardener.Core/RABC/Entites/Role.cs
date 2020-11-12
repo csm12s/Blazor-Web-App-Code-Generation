@@ -37,12 +37,12 @@ namespace Gardener.Core
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<Security> Securities { get; set; }
+        public ICollection<Resource> Resources { get; set; }
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<RoleSecurity> RoleSecurities { get; set; }
+        public List<RoleResource> RoleResources { get; set; }
 
         /// <summary>
         /// 配置多对多关系
@@ -52,23 +52,15 @@ namespace Gardener.Core
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<Role> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-            entityBuilder.HasMany(p => p.Securities)
+            entityBuilder.HasMany(p => p.Resources)
                 .WithMany(p => p.Roles)
-                .UsingEntity<RoleSecurity>(
-                  u => u.HasOne(c => c.Security).WithMany(c => c.RoleSecurities).HasForeignKey(c => c.SecurityId)
-                , u => u.HasOne(c => c.Role).WithMany(c => c.RoleSecurities).HasForeignKey(c => c.RoleId)
+                .UsingEntity<RoleResource>(
+                  u => u.HasOne(c => c.Resource).WithMany(c => c.RoleResources).HasForeignKey(c => c.ResourceId)
+                , u => u.HasOne(c => c.Role).WithMany(c => c.RoleResources).HasForeignKey(c => c.RoleId)
                 , u =>
                 {
-                    u.HasKey(c => new { c.RoleId, c.SecurityId });
-                    // 添加多对多种子数据
-                    u.HasData(
-                        new { RoleId = 1, SecurityId = 1,CreatedTime=DateTimeOffset.Now },
-                        new { RoleId = 1, SecurityId = 2, CreatedTime = DateTimeOffset.Now },
-                        new { RoleId = 1, SecurityId = 3, CreatedTime = DateTimeOffset.Now },
-                        new { RoleId = 1, SecurityId = 4, CreatedTime = DateTimeOffset.Now },
-                        new { RoleId = 1, SecurityId = 5, CreatedTime = DateTimeOffset.Now },
-                        new { RoleId = 1, SecurityId = 6, CreatedTime = DateTimeOffset.Now }
-                    );
+                    u.HasKey(c => new { c.RoleId, c.ResourceId });
+                  
                 });
 
 

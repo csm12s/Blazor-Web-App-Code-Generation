@@ -1,8 +1,10 @@
 ﻿using Fur.DatabaseAccessor;
+using Gardener.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Core
@@ -44,6 +46,11 @@ namespace Gardener.Core
         [MaxLength(20)]
         public string Mobile { get; set; }
         /// <summary>
+        /// 性别
+        /// </summary>
+        [Required,DefaultValue(Gender.Male)]
+        public Gender Gender { get; set; }
+        /// <summary>
         /// 多对多
         /// </summary>
         public ICollection<Role> Roles { get; set; }
@@ -75,11 +82,14 @@ namespace Gardener.Core
                  {
                      u.HasKey(c => new { c.UserId, c.RoleId });
                      u.HasData(new { UserId = 1, RoleId = 1 ,CreatedTime=DateTimeOffset.Now});
+                     u.HasData(new { UserId = 2, RoleId = 2 ,CreatedTime=DateTimeOffset.Now});
                  });
 
             entityBuilder.HasComment("用户表");
 
             entityBuilder.Property(e => e.Id).HasComment("用户id");
+
+            entityBuilder.Property(e => e.Gender).HasComment("性别").IsRequired().HasDefaultValue(Gender.Male);
 
             entityBuilder.Property(e => e.Account).IsRequired()
                 .HasColumnType("varchar(32)")
@@ -138,7 +148,7 @@ namespace Gardener.Core
                 },
                 new User
                 {
-                    Id=2,Account="Fur",Password="dotnetchina"
+                    Id=2,Account="testuser",Password="testuser"
                 }
             };
         }

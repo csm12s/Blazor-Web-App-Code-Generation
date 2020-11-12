@@ -9,7 +9,7 @@ namespace Gardener.Core
     /// <summary>
     /// 用户和角色关系表
     /// </summary>
-    public class RoleSecurity : IEntity
+    public class RoleResource : IEntity
     {
         /// <summary>
         /// 角色Id
@@ -24,11 +24,11 @@ namespace Gardener.Core
         /// 权限Id
         /// </summary>
         [Required]
-        public int SecurityId { get; set; }
+        public int ResourceId { get; set; }
         /// <summary>
         /// 权限
         /// </summary>
-        public Security Security { get; set; }
+        public Resource Resource { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -41,12 +41,12 @@ namespace Gardener.Core
         /// <param name="entityBuilder"></param>
         /// <param name="dbContext"></param>
         /// <param name="dbContextLocator"></param>
-        public void Configure(EntityTypeBuilder<RoleSecurity> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        public void Configure(EntityTypeBuilder<RoleResource> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
 
             entityBuilder.HasComment("角色权限关系表");
             entityBuilder.Property(e => e.RoleId).HasComment("角色id").IsRequired();
-            entityBuilder.Property(e => e.SecurityId).HasComment("权限id").IsRequired();
+            entityBuilder.Property(e => e.ResourceId).HasComment("权限id").IsRequired();
             entityBuilder.Property(e => e.CreatedTime).HasMaxLength(6).HasComment("创建时间").IsRequired();
 
         }

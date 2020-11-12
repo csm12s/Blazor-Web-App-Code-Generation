@@ -1,7 +1,13 @@
 ﻿namespace Gardener.Application
 {
+    /// <summary>
+    /// 角色
+    /// </summary>
     public class RoleDto
     {
+        /// <summary>
+        /// 角色ID
+        /// </summary>
         public int Id { get; set; }
 
         /// <summary>

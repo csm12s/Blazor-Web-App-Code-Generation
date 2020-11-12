@@ -284,6 +284,26 @@
             女
             </summary>
         </member>
+        <member name="T:Gardener.Core.Enums.ResourceType">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.ResourceType.API">
+            <summary>
+            API
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.ResourceType.BUTTON">
+            <summary>
+            BUTTON
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.ResourceType.MENU">
+            <summary>
+            菜单
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Enums.RuleSort">
             <summary>
             排序规则
@@ -308,6 +328,79 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="T:Gardener.Core.Resource">
+            <summary>
+            权限表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.UniqueName">
+            <summary>
+            权限唯一名（每一个接口）
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Name">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Url">
+            <summary>
+            资源地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Icon">
+            <summary>
+            资源图标
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Order">
+            <summary>
+            资源排序
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.ParentId">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Parent">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Childrens">
+            <summary>
+            子集
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Resource.RoleResources">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Resource.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Resource},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
         </member>
         <member name="T:Gardener.Core.Role">
             <summary>
@@ -334,12 +427,12 @@
             多对多中间表
             </summary>
         </member>
-        <member name="P:Gardener.Core.Role.Securities">
+        <member name="P:Gardener.Core.Role.Resources">
             <summary>
             多对多
             </summary>
         </member>
-        <member name="P:Gardener.Core.Role.RoleSecurities">
+        <member name="P:Gardener.Core.Role.RoleResources">
             <summary>
             多对多中间表
             </summary>
@@ -360,85 +453,39 @@
             <param name="dbContextLocator"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Core.RoleSecurity">
+        <member name="T:Gardener.Core.RoleResource">
             <summary>
             用户和角色关系表
             </summary>
         </member>
-        <member name="P:Gardener.Core.RoleSecurity.RoleId">
+        <member name="P:Gardener.Core.RoleResource.RoleId">
             <summary>
             角色Id
             </summary>
         </member>
-        <member name="P:Gardener.Core.RoleSecurity.Role">
+        <member name="P:Gardener.Core.RoleResource.Role">
             <summary>
             角色
             </summary>
         </member>
-        <member name="P:Gardener.Core.RoleSecurity.SecurityId">
+        <member name="P:Gardener.Core.RoleResource.ResourceId">
             <summary>
             权限Id
             </summary>
         </member>
-        <member name="P:Gardener.Core.RoleSecurity.Security">
+        <member name="P:Gardener.Core.RoleResource.Resource">
             <summary>
             权限
             </summary>
         </member>
-        <member name="P:Gardener.Core.RoleSecurity.CreatedTime">
+        <member name="P:Gardener.Core.RoleResource.CreatedTime">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="M:Gardener.Core.RoleSecurity.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.RoleSecurity},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+        <member name="M:Gardener.Core.RoleResource.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.RoleResource},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
             <summary>
             配置多对多关系
-            </summary>
-            <param name="entityBuilder"></param>
-            <param name="dbContext"></param>
-            <param name="dbContextLocator"></param>
-        </member>
-        <member name="T:Gardener.Core.Security">
-            <summary>
-            权限表
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Security.UniqueName">
-            <summary>
-            权限唯一名（每一个接口）
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Security.Name">
-            <summary>
-            权限名称
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Security.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Security.Roles">
-            <summary>
-            多对多
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Security.RoleSecurities">
-            <summary>
-            多对多中间表
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.Security.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
-            <summary>
-            种子数据
-            </summary>
-            <param name="dbContext"></param>
-            <param name="dbContextLocator"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.Security.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Security},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
-            <summary>
-            
             </summary>
             <param name="entityBuilder"></param>
             <param name="dbContext"></param>
@@ -472,6 +519,11 @@
         <member name="P:Gardener.Core.User.Mobile">
             <summary>
             手机
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.Gender">
+            <summary>
+            性别
             </summary>
         </member>
         <member name="P:Gardener.Core.User.Roles">
@@ -627,6 +679,12 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.AuthorizationManager.IsSuperAdministrator">
+            <summary>
+            是否是超级管理员
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(System.String)">
             <summary>
             检查权限
@@ -660,10 +718,11 @@
             <param name="resourceId"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Core.SecurityConst">
+        <member name="M:Gardener.Core.IAuthorizationManager.IsSuperAdministrator">
             <summary>
-            权限常量
+            是否是超级管理员
             </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

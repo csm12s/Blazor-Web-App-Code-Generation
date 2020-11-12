@@ -1,8 +1,10 @@
 ﻿using Fur.DatabaseAccessor;
+using Gardener.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -11,7 +13,7 @@ namespace Gardener.Core
     /// <summary>
     /// 权限表
     /// </summary>
-    public class Security : Entity, IEntitySeedData<Security>
+    public class Resource : Entity
     {
         /// <summary>
         /// 权限唯一名（每一个接口）
@@ -29,6 +31,38 @@ namespace Gardener.Core
         [MaxLength(500)]
         public string Remark { get; set; }
         /// <summary>
+        /// 资源地址
+        /// </summary>
+        [MaxLength(200)]
+        public string Url { get; set; }
+        /// <summary>
+        /// 资源图标
+        /// </summary>
+        [MaxLength(50)]
+        public string Icon { get; set; }
+        /// <summary>
+        /// 资源排序
+        /// </summary>
+        [Required,DefaultValue(0)]
+        public int Order { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public int? ParentId { get; set; }
+        /// <summary>
+        /// 父级
+        /// </summary>
+        public Resource Parent { get; set; }
+        /// <summary>
+        /// 子集
+        /// </summary>
+        public ICollection<Resource> Childrens { get; set; }
+        /// <summary>
+        /// 权限类型
+        /// </summary>
+        [Required,DefaultValue(ResourceType.API)]
+        public ResourceType Type { get; set; }
+        /// <summary>
         /// 多对多
         /// </summary>
         public ICollection<Role> Roles { get; set; }
@@ -36,33 +70,22 @@ namespace Gardener.Core
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<RoleSecurity> RoleSecurities { get; set; }
+        public List<RoleResource> RoleResources { get; set; }
 
-        /// <summary>
-        /// 种子数据
-        /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="dbContextLocator"></param>
-        /// <returns></returns>
-        public IEnumerable<Security> HasData(DbContext dbContext, Type dbContextLocator)
-        {
-            var securities = typeof(SecurityConst).GetFields().Select(u => u.GetRawConstantValue().ToString()).ToArray();
-            var list = new List<Security>();
-            for (var i = 1; i < securities.Length + 1; i++)
-            {
-                list.Add(new Security { Id = i, UniqueName = securities[i - 1] });
-            }
-
-            return list;
-        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="entityBuilder"></param>
         /// <param name="dbContext"></param>
         /// <param name="dbContextLocator"></param>
-        public void Configure(EntityTypeBuilder<Security> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        public void Configure(EntityTypeBuilder<Resource> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
+            entityBuilder
+               .HasMany(x => x.Childrens)
+               .WithOne(x => x.Parent)
+               .HasForeignKey(x => x.ParentId)
+               .OnDelete(DeleteBehavior.ClientSetNull); // 必须设置这一行
+
             entityBuilder.HasComment("权限表");
 
             entityBuilder.Property(e => e.Id).HasComment("权限id");
@@ -89,8 +112,23 @@ namespace Gardener.Core
             entityBuilder.Property(e => e.UniqueName).IsRequired()
                 .HasColumnType("varchar(64)")
                 .HasComment("权限唯一名称");
-                //.HasCharSet("utf8mb4")
-                //.HasCollation("utf8mb4_0900_ai_ci");
+            //.HasCharSet("utf8mb4")
+            //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.Url)
+                .HasColumnType("varchar(200)")
+                .HasComment("资源地址");
+
+
+            entityBuilder.Property(e => e.Icon)
+                .HasColumnType("varchar(50)")
+                .HasComment("资源图标");
+
+            entityBuilder.Property(e => e.ParentId)
+                .HasComment("父级id");
+
+            entityBuilder.Property(e => e.Order)
+                .HasComment("资源排序");
 
             entityBuilder.Property(e => e.UpdatedTime)
                 .HasMaxLength(6)

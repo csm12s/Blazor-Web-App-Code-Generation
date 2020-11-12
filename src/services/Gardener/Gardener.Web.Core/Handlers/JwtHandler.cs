@@ -1,9 +1,12 @@
 ﻿using Fur;
 using Fur.Authorization;
+using Fur.DataEncryption;
 using Gardener.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.IdentityModel.JsonWebTokens;
+using System.Linq;
 
 namespace Gardener.Web.Core
 {
@@ -38,7 +41,14 @@ namespace Gardener.Web.Core
             var securityDefineAttribute = httpContext.GetMetadata<SecurityDefineAttribute>();
             if (securityDefineAttribute == null) return true;
 
-            return App.GetService<IAuthorizationManager>().CheckSecurity(securityDefineAttribute.ResourceId);
+            ControllerActionDescriptor controllerActionDescriptor= httpContext.GetMetadata<ControllerActionDescriptor>();
+            string method = controllerActionDescriptor.DisplayName;
+            string parameters = string.Join('-', controllerActionDescriptor.Parameters.Select(x => x.ParameterType.FullName + "_" + x.Name));
+            if (parameters is not null  and not "")
+            {
+                method += "-" + parameters;
+            }
+            return App.GetService<IAuthorizationManager>().CheckSecurity(MD5Encryption.Encrypt(method));
         }
     }
 }

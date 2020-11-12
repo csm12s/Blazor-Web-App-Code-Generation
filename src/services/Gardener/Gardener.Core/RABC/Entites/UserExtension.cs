@@ -15,7 +15,7 @@ namespace Gardener.Core
     /// <summary>
     /// 用户扩展信息表
     /// </summary>
-    public  class UserExtension : IEntity<MasterDbContextLocator>, IEntityTypeBuilder<UserExtension, MasterDbContextLocator>
+    public class UserExtension : IEntity<MasterDbContextLocator>, IEntityTypeBuilder<UserExtension, MasterDbContextLocator>
     {
         /// <summary>
         /// 用户ID
@@ -41,7 +41,7 @@ namespace Gardener.Core
         /// 用户信息
         /// </summary>
         public User User { get; set; }
-    
+
         /// <summary>
         /// 配置
         /// </summary>
@@ -50,39 +50,38 @@ namespace Gardener.Core
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<UserExtension> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-                entityBuilder.HasKey(e => e.UserId)
-                    .HasName("PRIMARY");
+            entityBuilder.HasKey(e => e.UserId)
+                .HasName("PRIMARY");
 
-                entityBuilder.HasComment("用户扩展表");
+            entityBuilder.HasComment("用户扩展表");
 
-                entityBuilder.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasComment("用户id");
+            entityBuilder.Property(e => e.UserId)
+                .ValueGeneratedNever()
+                .HasComment("用户id");
 
-                entityBuilder.Property(e => e.CityId).HasComment("城市id");
+            entityBuilder.Property(e => e.CityId).HasComment("城市id");
 
-                entityBuilder.Property(e => e.CreatedTime)
-                    .HasMaxLength(6)
-                    .HasComment("创建时间").IsRequired();
+            entityBuilder.Property(e => e.CreatedTime)
+                .HasMaxLength(6)
+                .HasComment("创建时间").IsRequired();
 
             entityBuilder.Property(e => e.QQ)
                 .HasColumnType("varchar(15)")
                 .HasComment("QQ");
-                    //.HasCharSet("utf8mb4")
-                    //.HasCollation("utf8mb4_0900_ai_ci");
+            //.HasCharSet("utf8mb4")
+            //.HasCollation("utf8mb4_0900_ai_ci");
 
             entityBuilder.Property(e => e.WeChat)
                     .HasColumnType("varchar(20)")
                     .HasComment("微信");
-                    //.HasCharSet("utf8mb4")
-                    //.HasCollation("utf8mb4_0900_ai_ci");
+            //.HasCharSet("utf8mb4")
+            //.HasCollation("utf8mb4_0900_ai_ci");
 
-                entityBuilder.HasOne(d => d.User)
-                    .WithOne(p => p.UserExtension)
-                    .HasForeignKey<UserExtension>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserExtension_User_UserId");
-            
+            entityBuilder.HasOne(d => d.User)
+                .WithOne(p => p.UserExtension)
+                .HasForeignKey<UserExtension>(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
         }
 
     }

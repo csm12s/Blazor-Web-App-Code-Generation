@@ -63,6 +63,21 @@ namespace Gardener.Core
             return ReadToken().GetPayloadValue<T>("UserId");
         }
         /// <summary>
+        /// 是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSuperAdministrator()
+        {
+            var userId = GetUserId<int>();
+            var user = _userRepository.Include(x => x.Roles).FirstOrDefault(x => x.Id == userId);
+            //用户不存在
+            if (user == null) return false;
+            //超级管理员
+            if (user.Roles.Any(x => x.Id == 1)) return true;
+            return false;
+        }
+
+        /// <summary>
         /// 检查权限
         /// </summary>
         /// <param name="resourceId"></param>
@@ -70,19 +85,18 @@ namespace Gardener.Core
         public bool CheckSecurity(string resourceId)
         {
             var userId = GetUserId<int>();
-
+            //超级管理员
+            if (IsSuperAdministrator()) return true;
             // ========= 以下代码应该缓存起来 ===========
             // 查询用户拥有的权限
-            var securities = _userRepository
+            var resources = _userRepository
                 .Include(u => u.Roles, false)
-                    .ThenInclude(u => u.Securities)
+                    .ThenInclude(u => u.Resources)
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles
-                    .SelectMany(u => u.Securities))
+                    .SelectMany(u => u.Resources))
                 .Select(u => u.UniqueName);
-
-            if (!securities.Contains(resourceId)) return false;
-
+            if (!resources.Contains(resourceId)) return false;
             return true;
         }
         /// <summary>

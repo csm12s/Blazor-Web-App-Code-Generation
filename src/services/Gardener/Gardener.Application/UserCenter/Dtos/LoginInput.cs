@@ -3,24 +3,20 @@
 namespace Gardener.Application
 {
     /// <summary>
-    /// 登录输出参数
+    /// 登录输入参数
     /// </summary>
-    public class LoginOutput
+    public class LoginInput
     {
-        /// <summary>
-        /// 用户Id
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required, MinLength(3)]
+        [Required, MinLength(5)]
         public string Account { get; set; }
 
         /// <summary>
-        /// Token
+        /// 密码
         /// </summary>
-        public string AccessToken { get; set; }
+        [Required, MinLength(5)]
+        public string Password { get; set; }
     }
 }

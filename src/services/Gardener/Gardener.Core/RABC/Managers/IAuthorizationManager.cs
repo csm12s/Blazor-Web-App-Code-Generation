@@ -23,5 +23,10 @@
         /// <param name="resourceId"></param>
         /// <returns></returns>
         bool CheckSecurity(string resourceId);
+        /// <summary>
+        /// 是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        bool IsSuperAdministrator();
     }
 }

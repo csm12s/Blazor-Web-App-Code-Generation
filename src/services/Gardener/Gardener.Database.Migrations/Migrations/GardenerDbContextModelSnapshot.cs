@@ -363,7 +363,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("TutorialScheduleRule");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Role", b =>
+            modelBuilder.Entity("Gardener.Core.Resource", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -372,21 +372,89 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Remark")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500) CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UniqueName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64) CHARACTER SET utf8mb4");
 
                     b.Property<DateTimeOffset?>("UpdatedTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Url")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Resource");
+                });
+
+            modelBuilder.Entity("Gardener.Core.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("角色id");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasComment("创建时间");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)")
+                        .HasComment("是否删除");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasComment("名称");
+
+                    b.Property<string>("Remark")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasComment("备注");
+
+                    b.Property<DateTimeOffset?>("UpdatedTime")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasComment("更新时间");
+
                     b.HasKey("Id");
 
                     b.ToTable("Role");
+
+                    b
+                        .HasComment("角色表");
 
                     b.HasData(
                         new
@@ -407,173 +475,136 @@ namespace Gardener.Database.Migrations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gardener.Core.RoleSecurity", b =>
+            modelBuilder.Entity("Gardener.Core.RoleResource", b =>
                 {
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SecurityId")
+                    b.Property<int>("ResourceId")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("RoleId", "SecurityId");
+                    b.HasKey("RoleId", "ResourceId");
 
-                    b.HasIndex("SecurityId");
+                    b.HasIndex("ResourceId");
 
-                    b.ToTable("RoleSecurity");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            SecurityId = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 436, DateTimeKind.Unspecified).AddTicks(5427), new TimeSpan(0, 8, 0, 0, 0))
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            SecurityId = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 440, DateTimeKind.Unspecified).AddTicks(7874), new TimeSpan(0, 8, 0, 0, 0))
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            SecurityId = 3,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 440, DateTimeKind.Unspecified).AddTicks(7915), new TimeSpan(0, 8, 0, 0, 0))
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            SecurityId = 4,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 440, DateTimeKind.Unspecified).AddTicks(7919), new TimeSpan(0, 8, 0, 0, 0))
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            SecurityId = 5,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 440, DateTimeKind.Unspecified).AddTicks(7921), new TimeSpan(0, 8, 0, 0, 0))
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            SecurityId = 6,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 440, DateTimeKind.Unspecified).AddTicks(7922), new TimeSpan(0, 8, 0, 0, 0))
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.Core.Security", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("UniqueName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<DateTimeOffset?>("UpdatedTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Security");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            IsDeleted = false,
-                            UniqueName = "ViewRoles"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            IsDeleted = false,
-                            UniqueName = "ViewSecuries"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            IsDeleted = false,
-                            UniqueName = "GetRoles"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            IsDeleted = false,
-                            UniqueName = "InsertRole"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            IsDeleted = false,
-                            UniqueName = "GiveUserRole"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            IsDeleted = false,
-                            UniqueName = "GiveRoleSecurity"
-                        });
+                    b.ToTable("RoleResource");
                 });
 
             modelBuilder.Entity("Gardener.Core.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("用户id");
 
                     b.Property<string>("Account")
+                        .IsRequired()
                         .HasMaxLength(32)
-                        .HasColumnType("varchar(32) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(32)")
+                        .HasComment("账号");
+
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasComment("头像");
 
                     b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetime(6)");
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasComment("创建时间");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasComment("邮箱");
+
+                    b.Property<int>("Gender")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasComment("性别");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("tinyint(1)")
+                        .HasComment("是否删除");
+
+                    b.Property<string>("Mobile")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasComment("手机");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasMaxLength(32)
-                        .HasColumnType("varchar(32) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(32)")
+                        .HasComment("密码");
 
                     b.Property<DateTimeOffset?>("UpdatedTime")
-                        .HasColumnType("datetime(6)");
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasComment("更新时间");
 
                     b.HasKey("Id");
 
                     b.ToTable("User");
+
+                    b
+                        .HasComment("用户表");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Account = "admin",
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 519, DateTimeKind.Unspecified).AddTicks(3345), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 200, DateTimeKind.Unspecified).AddTicks(6016), new TimeSpan(0, 8, 0, 0, 0)),
+                            Gender = 0,
                             IsDeleted = false,
                             Password = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            Account = "Fur",
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 519, DateTimeKind.Unspecified).AddTicks(4297), new TimeSpan(0, 8, 0, 0, 0)),
+                            Account = "testuser",
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 200, DateTimeKind.Unspecified).AddTicks(6972), new TimeSpan(0, 8, 0, 0, 0)),
+                            Gender = 0,
                             IsDeleted = false,
-                            Password = "dotnetchina"
+                            Password = "testuser"
                         });
+                });
+
+            modelBuilder.Entity("Gardener.Core.UserExtension", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasComment("用户id");
+
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int")
+                        .HasComment("城市id");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasComment("创建时间");
+
+                    b.Property<string>("QQ")
+                        .HasColumnType("varchar(15)")
+                        .HasComment("QQ");
+
+                    b.Property<string>("WeChat")
+                        .HasColumnType("varchar(20)")
+                        .HasComment("微信");
+
+                    b.HasKey("UserId")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("UserExtension");
+
+                    b
+                        .HasComment("用户扩展表");
                 });
 
             modelBuilder.Entity("Gardener.Core.UserRole", b =>
@@ -598,7 +629,13 @@ namespace Gardener.Database.Migrations.Migrations
                         {
                             UserId = 1,
                             RoleId = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 11, 17, 50, 31, 519, DateTimeKind.Unspecified).AddTicks(7), new TimeSpan(0, 8, 0, 0, 0))
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 197, DateTimeKind.Unspecified).AddTicks(5204), new TimeSpan(0, 8, 0, 0, 0))
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2,
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 197, DateTimeKind.Unspecified).AddTicks(8334), new TimeSpan(0, 8, 0, 0, 0))
                         });
                 });
 
@@ -609,23 +646,42 @@ namespace Gardener.Database.Migrations.Migrations
                         .HasForeignKey("BoxId");
                 });
 
-            modelBuilder.Entity("Gardener.Core.RoleSecurity", b =>
+            modelBuilder.Entity("Gardener.Core.Resource", b =>
                 {
+                    b.HasOne("Gardener.Core.Resource", "Parent")
+                        .WithMany("Childrens")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("Gardener.Core.RoleResource", b =>
+                {
+                    b.HasOne("Gardener.Core.Resource", "Resource")
+                        .WithMany("RoleResources")
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Gardener.Core.Role", "Role")
-                        .WithMany("RoleSecurities")
+                        .WithMany("RoleResources")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Gardener.Core.Security", "Security")
-                        .WithMany("RoleSecurities")
-                        .HasForeignKey("SecurityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Resource");
 
                     b.Navigation("Role");
+                });
 
-                    b.Navigation("Security");
+            modelBuilder.Entity("Gardener.Core.UserExtension", b =>
+                {
+                    b.HasOne("Gardener.Core.User", "User")
+                        .WithOne("UserExtension")
+                        .HasForeignKey("Gardener.Core.UserExtension", "UserId")
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Gardener.Core.UserRole", b =>
@@ -652,20 +708,24 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Navigation("Fills");
                 });
 
+            modelBuilder.Entity("Gardener.Core.Resource", b =>
+                {
+                    b.Navigation("Childrens");
+
+                    b.Navigation("RoleResources");
+                });
+
             modelBuilder.Entity("Gardener.Core.Role", b =>
                 {
-                    b.Navigation("RoleSecurities");
+                    b.Navigation("RoleResources");
 
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Security", b =>
-                {
-                    b.Navigation("RoleSecurities");
-                });
-
             modelBuilder.Entity("Gardener.Core.User", b =>
                 {
+                    b.Navigation("UserExtension");
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

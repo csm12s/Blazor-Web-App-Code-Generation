@@ -1,5 +1,8 @@
 ﻿namespace Gardener.Application
 {
+    /// <summary>
+    /// 角色输入
+    /// </summary>
     public class RoleInput
     {
         /// <summary>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Gardener.Application.Extensions;
 
 namespace Gardener.Web.Core
 {
@@ -24,7 +25,9 @@ namespace Gardener.Web.Core
                 //注册fur
                 .AddInject()
                 //注册规范返回格式
-                .AddUnifyResult();
+                .AddUnifyResult()
+                //
+                .AddDynamicApiStorage();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
