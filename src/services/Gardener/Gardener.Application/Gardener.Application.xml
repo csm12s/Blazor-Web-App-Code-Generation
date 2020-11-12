@@ -9,7 +9,7 @@
             班级服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.ClassesService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.Classes})">
+        <member name="M:Gardener.Application.ClassesService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Classes})">
             <summary>
             班级服务
             </summary>
@@ -20,7 +20,7 @@
             课程服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.CurriculumService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.Curriculum})">
+        <member name="M:Gardener.Application.CurriculumService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Curriculum})">
             <summary>
             课程服务
             </summary>
@@ -31,7 +31,7 @@
             年级服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.GradeService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.Grade})">
+        <member name="M:Gardener.Application.GradeService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Grade})">
             <summary>
             年级服务
             </summary>
@@ -42,7 +42,7 @@
             学年服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.SchoolYearService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.SchoolYear})">
+        <member name="M:Gardener.Application.SchoolYearService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.SchoolYear})">
             <summary>
             学年服务
             </summary>
@@ -53,7 +53,7 @@
             学期服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.SemesterService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.Semester})">
+        <member name="M:Gardener.Application.SemesterService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Semester})">
             <summary>
             老师服务
             </summary>
@@ -64,7 +64,7 @@
             学生服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.StudentService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.Student})">
+        <member name="M:Gardener.Application.StudentService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Student})">
             <summary>
             
             </summary>
@@ -82,7 +82,7 @@
             老师服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.TeacherService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.Teacher})">
+        <member name="M:Gardener.Application.TeacherService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Teacher})">
             <summary>
             老师服务
             </summary>
@@ -93,7 +93,7 @@
             课时设置服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.ClassHourSettingService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.ClassHourSetting})">
+        <member name="M:Gardener.Application.ClassHourSettingService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.ClassHourSetting})">
             <summary>
             课时设置服务
             </summary>
@@ -104,7 +104,7 @@
             上课安排规则服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.TutorialScheduleRuleService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entities.TutorialScheduleRule})">
+        <member name="M:Gardener.Application.TutorialScheduleRuleService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.TutorialScheduleRule})">
             <summary>
             上课安排规则服务
             </summary>

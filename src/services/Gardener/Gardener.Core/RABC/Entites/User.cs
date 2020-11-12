@@ -20,15 +20,29 @@ namespace Gardener.Core
         /// <summary>
         /// 账号
         /// </summary>
-        [StringLength(32)]
+        [Required,StringLength(32)]
         public string Account { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
-        [StringLength(32)]
+        [Required, StringLength(32)]
         public string Password { get; set; }
-
+        /// <summary>
+        /// 头像
+        /// </summary>
+        [MaxLength(100)]
+        public string Avatar { get; set; }
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        [MaxLength(50)]
+        public string Email { get; set; }
+        /// <summary>
+        /// 手机
+        /// </summary>
+        [MaxLength(20)]
+        public string Mobile { get; set; }
         /// <summary>
         /// 多对多
         /// </summary>
@@ -38,6 +52,11 @@ namespace Gardener.Core
         /// 多对多中间表
         /// </summary>
         public List<UserRole> UserRoles { get; set; }
+
+        /// <summary>
+        /// 用户扩展信息
+        /// </summary>
+        public UserExtension UserExtension { get; set; }
 
         /// <summary>
         /// 配置多对多关系
@@ -57,6 +76,50 @@ namespace Gardener.Core
                      u.HasKey(c => new { c.UserId, c.RoleId });
                      u.HasData(new { UserId = 1, RoleId = 1 ,CreatedTime=DateTimeOffset.Now});
                  });
+
+            entityBuilder.HasComment("用户表");
+
+            entityBuilder.Property(e => e.Id).HasComment("用户id");
+
+            entityBuilder.Property(e => e.Account).IsRequired()
+                .HasColumnType("varchar(32)")
+                .HasComment("账号");
+            //.HasCharSet("utf8mb4")
+            //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.Avatar)
+                .HasColumnType("varchar(100)")
+                .HasComment("头像");
+                //.HasCharSet("utf8mb4")
+                //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.CreatedTime).IsRequired()
+                .HasMaxLength(6)
+                .HasComment("创建时间");
+
+            entityBuilder.Property(e => e.Email)
+                .HasColumnType("varchar(50)")
+                .HasComment("邮箱");
+                //.HasCharSet("utf8mb4")
+                //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.IsDeleted).HasComment("是否删除").IsRequired();
+
+            entityBuilder.Property(e => e.Mobile)
+                .HasColumnType("varchar(20)")
+                .HasComment("手机");
+                //.HasCharSet("utf8mb4")
+                //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.Password).IsRequired()
+                .HasColumnType("varchar(32)")
+                .HasComment("密码");
+                //.HasCharSet("utf8mb4")
+                //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.UpdatedTime)
+                .HasMaxLength(6)
+                .HasComment("更新时间");
         }
 
         /// <summary>

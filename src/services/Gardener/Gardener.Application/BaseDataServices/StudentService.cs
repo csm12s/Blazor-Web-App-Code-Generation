@@ -3,7 +3,7 @@ using Fur.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Gardener.Core.Entities;
+using Gardener.Core.Entites;
 
 namespace Gardener.Application
 {

@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fur" Version="1.0.0.2" />
+    <PackageReference Include="Fur" Version="1.0.0.4" />
     <PackageReference Include="Fur.Extras.Authentication.JwtBearer" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
   </ItemGroup>

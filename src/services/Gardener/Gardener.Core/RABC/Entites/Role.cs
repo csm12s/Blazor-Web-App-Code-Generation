@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Core
 {
@@ -14,11 +15,13 @@ namespace Gardener.Core
         /// <summary>
         /// 角色名称
         /// </summary>
+        [MaxLength(100), Required]
         public string Name { get; set; }
 
         /// <summary>
         /// 角色描述
         /// </summary>
+        [MaxLength(500), Required]
         public string Remark { get; set; }
 
         /// <summary>
@@ -67,6 +70,34 @@ namespace Gardener.Core
                         new { RoleId = 1, SecurityId = 6, CreatedTime = DateTimeOffset.Now }
                     );
                 });
+
+
+            entityBuilder.HasComment("角色表");
+
+            entityBuilder.Property(e => e.Id).HasComment("角色id");
+
+            entityBuilder.Property(e => e.CreatedTime).IsRequired()
+                .HasMaxLength(6)
+                .HasComment("创建时间");
+
+            entityBuilder.Property(e => e.IsDeleted).IsRequired().HasComment("是否删除");
+
+            entityBuilder.Property(e => e.Name)
+                .HasColumnType("varchar(100)")
+                .IsRequired()
+                .HasComment("名称");
+            //.HasCharSet("utf8mb4")
+            //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.Remark)
+                .HasColumnType("varchar(500)")
+                .HasComment("备注");
+                //.HasCharSet("utf8mb4")
+                //.HasCollation("utf8mb4_0900_ai_ci");
+
+            entityBuilder.Property(e => e.UpdatedTime)
+                .HasMaxLength(6)
+                .HasComment("更新时间");
         }
 
         /// <summary>

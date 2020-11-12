@@ -17,7 +17,7 @@ namespace Gardener.Database.Migrations.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("Gardener.Core.Entities.Box", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Box", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Box");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.ClassHourSetting", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.ClassHourSetting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("ClassHourSetting");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Classes", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Classes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Classes");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Curriculum", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Curriculum", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,7 +125,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Curriculum");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Fill", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Fill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,7 +168,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Fill");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Grade", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Grade", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,7 +191,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Grade");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.SchoolYear", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.SchoolYear", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -214,7 +214,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("SchoolYear");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Semester", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Semester", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -239,7 +239,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Semester");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Student", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -285,7 +285,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Teacher", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -334,7 +334,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.ToTable("Teacher");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.TutorialScheduleRule", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.TutorialScheduleRule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -602,9 +602,9 @@ namespace Gardener.Database.Migrations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Fill", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Fill", b =>
                 {
-                    b.HasOne("Gardener.Core.Entities.Box", null)
+                    b.HasOne("Gardener.Core.Entites.Box", null)
                         .WithMany("Fills")
                         .HasForeignKey("BoxId");
                 });
@@ -647,7 +647,7 @@ namespace Gardener.Database.Migrations.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Gardener.Core.Entities.Box", b =>
+            modelBuilder.Entity("Gardener.Core.Entites.Box", b =>
                 {
                     b.Navigation("Fills");
                 });

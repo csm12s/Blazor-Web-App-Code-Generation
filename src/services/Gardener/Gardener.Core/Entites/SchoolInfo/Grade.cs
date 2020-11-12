@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 年级

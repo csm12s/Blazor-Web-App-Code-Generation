@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using Gardener.Core.Enums;
 using System;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 老师

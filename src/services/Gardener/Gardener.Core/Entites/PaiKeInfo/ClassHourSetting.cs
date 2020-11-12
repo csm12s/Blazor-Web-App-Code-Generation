@@ -5,22 +5,16 @@
 using Fur.DatabaseAccessor;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Entites
 {
     /// <summary>
-    /// 学年
+    /// 课时设置
     /// </summary>
-    public class SchoolYear:Entity
+    public class ClassHourSetting:Entity
     {
-        /// <summary>
-        /// 年份
-        /// </summary>
-        [Range(1,int.MaxValue)]
-        public int Year { get; set; }
     }
 }

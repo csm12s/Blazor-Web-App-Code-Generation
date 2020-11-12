@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using Fur.DatabaseAccessor;
-using Gardener.Core.Entities;
+using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gardener.Application

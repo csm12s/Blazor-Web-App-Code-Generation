@@ -4,7 +4,7 @@
 
 using Fur.DatabaseAccessor;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 每个子项

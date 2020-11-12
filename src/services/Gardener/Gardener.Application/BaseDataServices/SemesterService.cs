@@ -4,7 +4,7 @@
 
 using Fur.DatabaseAccessor;
 using Fur.DynamicApiController;
-using Gardener.Core.Entities;
+using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gardener.Application

@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Gardener.Core.Enums;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 学生

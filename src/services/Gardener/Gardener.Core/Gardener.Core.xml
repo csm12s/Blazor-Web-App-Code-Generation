@@ -4,247 +4,247 @@
         <name>Gardener.Core</name>
     </assembly>
     <members>
-        <member name="T:Gardener.Core.Entities.Box">
+        <member name="T:Gardener.Core.Entites.Box">
             <summary>
             表
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Box.Week">
+        <member name="P:Gardener.Core.Entites.Box.Week">
             <summary>
             星期
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Box.Section">
+        <member name="P:Gardener.Core.Entites.Box.Section">
             <summary>
             第几节
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Box.No">
+        <member name="P:Gardener.Core.Entites.Box.No">
             <summary>
             Week和Section 合并得到的唯一no
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Box.Frequency">
+        <member name="P:Gardener.Core.Entites.Box.Frequency">
             <summary>
             所属时段
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Box.Fills">
+        <member name="P:Gardener.Core.Entites.Box.Fills">
             <summary>
             该节点安排的课程信息
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.ClassHourSetting">
+        <member name="T:Gardener.Core.Entites.ClassHourSetting">
             <summary>
             课时设置
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.Fill">
+        <member name="T:Gardener.Core.Entites.Fill">
             <summary>
             每个子项
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Fill.TeacherId">
+        <member name="P:Gardener.Core.Entites.Fill.TeacherId">
             <summary>
             老师唯一标识
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Fill.TeacherName">
+        <member name="P:Gardener.Core.Entites.Fill.TeacherName">
             <summary>
             老师名称
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Fill.ClassesId">
+        <member name="P:Gardener.Core.Entites.Fill.ClassesId">
             <summary>
             班级唯一标识
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Fill.ClassName">
+        <member name="P:Gardener.Core.Entites.Fill.ClassName">
             <summary>
             班级名称
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Fill.CurriculumId">
+        <member name="P:Gardener.Core.Entites.Fill.CurriculumId">
             <summary>
             课程唯一标识
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Fill.CurriculumName">
+        <member name="P:Gardener.Core.Entites.Fill.CurriculumName">
             <summary>
             课程名称
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.TutorialScheduleRule">
+        <member name="T:Gardener.Core.Entites.TutorialScheduleRule">
             <summary>
             上课安排规则
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.TutorialScheduleRule.ForObject">
+        <member name="P:Gardener.Core.Entites.TutorialScheduleRule.ForObject">
             <summary>
             被规则对象
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.TutorialScheduleRule.No">
+        <member name="P:Gardener.Core.Entites.TutorialScheduleRule.No">
             <summary>
             被规则位置
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.TutorialScheduleRule.RuleSort">
+        <member name="P:Gardener.Core.Entites.TutorialScheduleRule.RuleSort">
             <summary>
             排序规则
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.Classes">
+        <member name="T:Gardener.Core.Entites.Classes">
             <summary>
             班级
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Classes.Name">
+        <member name="P:Gardener.Core.Entites.Classes.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Classes.GradeId">
+        <member name="P:Gardener.Core.Entites.Classes.GradeId">
             <summary>
             所属年纪ID
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.Curriculum">
+        <member name="T:Gardener.Core.Entites.Curriculum">
             <summary>
             课程
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Curriculum.Name">
+        <member name="P:Gardener.Core.Entites.Curriculum.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Curriculum.SubjectId">
+        <member name="P:Gardener.Core.Entites.Curriculum.SubjectId">
             <summary>
             所属学科
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.Grade">
+        <member name="T:Gardener.Core.Entites.Grade">
             <summary>
             年级
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Grade.Number">
+        <member name="P:Gardener.Core.Entites.Grade.Number">
             <summary>
             年级
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.SchoolYear">
+        <member name="T:Gardener.Core.Entites.SchoolYear">
             <summary>
             学年
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.SchoolYear.Year">
+        <member name="P:Gardener.Core.Entites.SchoolYear.Year">
             <summary>
             年份
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.Semester">
+        <member name="T:Gardener.Core.Entites.Semester">
             <summary>
             学年学期
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Semester.Name">
+        <member name="P:Gardener.Core.Entites.Semester.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.Student">
+        <member name="T:Gardener.Core.Entites.Student">
             <summary>
             学生
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.Name">
+        <member name="P:Gardener.Core.Entites.Student.Name">
             <summary>
             姓名
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.Age">
+        <member name="P:Gardener.Core.Entites.Student.Age">
             <summary>
             年龄
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.Sex">
+        <member name="P:Gardener.Core.Entites.Student.Sex">
             <summary>
             性别
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.CardID">
+        <member name="P:Gardener.Core.Entites.Student.CardID">
             <summary>
             身份证
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.Avatar">
+        <member name="P:Gardener.Core.Entites.Student.Avatar">
             <summary>
             头像
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.DateOfDeath">
+        <member name="P:Gardener.Core.Entites.Student.DateOfDeath">
             <summary>
             出生日期
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.DateEntrance">
+        <member name="P:Gardener.Core.Entites.Student.DateEntrance">
             <summary>
             入学日期
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Student.IsFinish">
+        <member name="P:Gardener.Core.Entites.Student.IsFinish">
             <summary>
             是否完成学业毕业
             </summary>
         </member>
-        <member name="T:Gardener.Core.Entities.Teacher">
+        <member name="T:Gardener.Core.Entites.Teacher">
             <summary>
             老师
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.Name">
+        <member name="P:Gardener.Core.Entites.Teacher.Name">
             <summary>
             姓名
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.Age">
+        <member name="P:Gardener.Core.Entites.Teacher.Age">
             <summary>
             年龄
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.Sex">
+        <member name="P:Gardener.Core.Entites.Teacher.Sex">
             <summary>
             性别
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.Avatar">
+        <member name="P:Gardener.Core.Entites.Teacher.Avatar">
             <summary>
             头像
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.CardID">
+        <member name="P:Gardener.Core.Entites.Teacher.CardID">
             <summary>
             身份证
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.DateOfDeath">
+        <member name="P:Gardener.Core.Entites.Teacher.DateOfDeath">
             <summary>
             出生日期
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.Phone">
+        <member name="P:Gardener.Core.Entites.Teacher.Phone">
             <summary>
             手机号
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.DateEntrance">
+        <member name="P:Gardener.Core.Entites.Teacher.DateEntrance">
             <summary>
             入校日期
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entities.Teacher.WorkYears">
+        <member name="P:Gardener.Core.Entites.Teacher.WorkYears">
             <summary>
             工龄
             </summary>
@@ -370,6 +370,11 @@
             角色Id
             </summary>
         </member>
+        <member name="P:Gardener.Core.RoleSecurity.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
         <member name="P:Gardener.Core.RoleSecurity.SecurityId">
             <summary>
             权限Id
@@ -377,13 +382,21 @@
         </member>
         <member name="P:Gardener.Core.RoleSecurity.Security">
             <summary>
-            
+            权限
             </summary>
         </member>
         <member name="P:Gardener.Core.RoleSecurity.CreatedTime">
             <summary>
             创建时间
-            </summary>        
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.RoleSecurity.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.RoleSecurity},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置多对多关系
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
         </member>
         <member name="T:Gardener.Core.Security">
             <summary>
@@ -393,6 +406,16 @@
         <member name="P:Gardener.Core.Security.UniqueName">
             <summary>
             权限唯一名（每一个接口）
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Security.Name">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Security.Remark">
+            <summary>
+            备注
             </summary>
         </member>
         <member name="P:Gardener.Core.Security.Roles">
@@ -413,6 +436,14 @@
             <param name="dbContextLocator"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.Security.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Security},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
         <member name="T:Gardener.Core.User">
             <summary>
             用户表
@@ -428,6 +459,21 @@
             密码
             </summary>
         </member>
+        <member name="P:Gardener.Core.User.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.Mobile">
+            <summary>
+            手机
+            </summary>
+        </member>
         <member name="P:Gardener.Core.User.Roles">
             <summary>
             多对多
@@ -436,6 +482,11 @@
         <member name="P:Gardener.Core.User.UserRoles">
             <summary>
             多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.UserExtension">
+            <summary>
+            用户扩展信息
             </summary>
         </member>
         <member name="M:Gardener.Core.User.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.User},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
@@ -454,6 +505,49 @@
             <param name="dbContextLocator"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Core.UserExtension">
+            <summary>
+            用户扩展信息表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserExtension.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserExtension.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserExtension.WeChat">
+            <summary>
+            微信号
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserExtension.CityId">
+            <summary>
+            城市ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserExtension.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserExtension.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.UserExtension.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.UserExtension},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
         <member name="T:Gardener.Core.UserRole">
             <summary>
             用户和角色关系表
@@ -464,10 +558,33 @@
             用户Id
             </summary>
         </member>
+        <member name="P:Gardener.Core.UserRole.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
         <member name="P:Gardener.Core.UserRole.RoleId">
             <summary>
             角色Id
             </summary>
+        </member>
+        <member name="P:Gardener.Core.UserRole.Role">
+            <summary>
+            角色信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.UserRole.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.UserRole.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.UserRole},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
         </member>
         <member name="T:Gardener.Core.AuthorizationManager">
             <summary>

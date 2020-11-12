@@ -10,12 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Core.Entities
+namespace Gardener.Core.Entites
 {
     /// <summary>
-    /// 学年学期
+    /// 课程
     /// </summary>
-    public class Semester:Entity
+    public class Curriculum:Entity
     {
         /// <summary>
         /// 名称
@@ -23,5 +23,10 @@ namespace Gardener.Core.Entities
         [MaxLength(32)]
         [Required]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 所属学科
+        /// </summary>
+        public string SubjectId { get; set; }
     }
 }
