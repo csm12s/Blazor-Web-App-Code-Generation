@@ -329,6 +329,22 @@
             
             </summary>
         </member>
+        <member name="M:Gardener.Core.GardenerCoreStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:Gardener.Core.SystemOptions">
+            <summary>
+            系统选项
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.SystemOptions.PasswordEncryptKey">
+            <summary>
+            密码加密Key
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Resource">
             <summary>
             权限表

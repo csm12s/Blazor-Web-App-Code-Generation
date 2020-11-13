@@ -1,4 +1,6 @@
-﻿using Fur.DatabaseAccessor;
+﻿using Fur;
+using Fur.DatabaseAccessor;
+using Fur.DataEncryption;
 using Gardener.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -144,11 +146,11 @@ namespace Gardener.Core
             {
                 new User
                 {
-                    Id=1,Account="admin",Password="admin"
+                    Id=1,Account="admin",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "admin")
                 },
                 new User
                 {
-                    Id=2,Account="testuser",Password="testuser"
+                    Id=2,Account="testuser",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "testuser")
                 }
             };
         }

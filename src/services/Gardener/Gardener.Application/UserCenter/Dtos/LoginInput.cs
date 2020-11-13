@@ -11,7 +11,7 @@ namespace Gardener.Application
         /// 用户名
         /// </summary>
         [Required, MinLength(5)]
-        public string Account { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// 密码

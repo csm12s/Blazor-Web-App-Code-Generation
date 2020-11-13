@@ -227,7 +227,7 @@
             登录输入参数
             </summary>
         </member>
-        <member name="P:Gardener.Application.LoginInput.Account">
+        <member name="P:Gardener.Application.LoginInput.UserName">
             <summary>
             用户名
             </summary>
@@ -292,32 +292,12 @@
             角色描述
             </summary>
         </member>
-        <member name="T:Gardener.Application.SecurityDto">
-            <summary>
-            权限
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.SecurityDto.Id">
-            <summary>
-            权限Id
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.SecurityDto.UniqueName">
-            <summary>
-            权限唯一名（每一个接口）
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.SecurityDto.Name">
-            <summary>
-            权限名称
-            </summary>
-        </member>
         <member name="T:Gardener.Application.UserCenterService">
             <summary>
             用户中心服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenterService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Fur.DatabaseAccessor.IRepository{Gardener.Core.User},Fur.DatabaseAccessor.IRepository{Gardener.Core.Role},Fur.DatabaseAccessor.IRepository{Gardener.Core.UserRole},Fur.DatabaseAccessor.IRepository{Gardener.Core.RoleResource},Fur.DatabaseAccessor.IRepository{Gardener.Core.Resource},Gardener.Core.IAuthorizationManager)">
+        <member name="M:Gardener.Application.UserCenterService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Fur.DatabaseAccessor.IRepository{Gardener.Core.User},Fur.DatabaseAccessor.IRepository{Gardener.Core.Role},Fur.DatabaseAccessor.IRepository{Gardener.Core.UserRole},Fur.DatabaseAccessor.IRepository{Gardener.Core.RoleResource},Fur.DatabaseAccessor.IRepository{Gardener.Core.Resource},Gardener.Core.IAuthorizationManager,Microsoft.Extensions.Options.IOptions{Gardener.Core.SystemOptions})">
             <summary>
             角色管理服务
             </summary>
@@ -328,6 +308,7 @@
             <param name="roleSecurityRepository"></param>
             <param name="securityRepository"></param>
             <param name="authorizationManager"></param>
+            <param name="systemOptions"></param>
         </member>
         <member name="M:Gardener.Application.UserCenterService.Login(Gardener.Application.LoginInput)">
             <summary>

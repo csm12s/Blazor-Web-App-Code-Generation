@@ -559,19 +559,19 @@ namespace Gardener.Database.Migrations.Migrations
                         {
                             Id = 1,
                             Account = "admin",
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 200, DateTimeKind.Unspecified).AddTicks(6016), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 17, 1, 52, 362, DateTimeKind.Unspecified).AddTicks(5984), new TimeSpan(0, 8, 0, 0, 0)),
                             Gender = 0,
                             IsDeleted = false,
-                            Password = "admin"
+                            Password = "21232f297a57a5a743894a0e4a801fc3"
                         },
                         new
                         {
                             Id = 2,
                             Account = "testuser",
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 200, DateTimeKind.Unspecified).AddTicks(6972), new TimeSpan(0, 8, 0, 0, 0)),
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 17, 1, 52, 371, DateTimeKind.Unspecified).AddTicks(1234), new TimeSpan(0, 8, 0, 0, 0)),
                             Gender = 0,
                             IsDeleted = false,
-                            Password = "testuser"
+                            Password = "5d9c68c6c50ed3d02a2fcf54f63993b6"
                         });
                 });
 
@@ -629,13 +629,13 @@ namespace Gardener.Database.Migrations.Migrations
                         {
                             UserId = 1,
                             RoleId = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 197, DateTimeKind.Unspecified).AddTicks(5204), new TimeSpan(0, 8, 0, 0, 0))
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 17, 1, 52, 358, DateTimeKind.Unspecified).AddTicks(8735), new TimeSpan(0, 8, 0, 0, 0))
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 16, 21, 22, 197, DateTimeKind.Unspecified).AddTicks(8334), new TimeSpan(0, 8, 0, 0, 0))
+                            CreatedTime = new DateTimeOffset(new DateTime(2020, 11, 12, 17, 1, 52, 359, DateTimeKind.Unspecified).AddTicks(1948), new TimeSpan(0, 8, 0, 0, 0))
                         });
                 });
 

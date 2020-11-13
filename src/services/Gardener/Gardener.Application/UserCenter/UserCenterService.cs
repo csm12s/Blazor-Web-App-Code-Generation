@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Gardener.Core.Enums;
+using Microsoft.Extensions.Options;
 
 namespace Gardener.Application
 {
@@ -33,6 +34,8 @@ namespace Gardener.Application
         private readonly IRepository<RoleResource> _roleSecurityRepository;
         private readonly IRepository<Resource> _securityRepository;
         private readonly IAuthorizationManager _authorizationManager;
+        private readonly SystemOptions systemOptions;
+
         /// <summary>
         /// 角色管理服务
         /// </summary>
@@ -43,13 +46,15 @@ namespace Gardener.Application
         /// <param name="roleSecurityRepository"></param>
         /// <param name="securityRepository"></param>
         /// <param name="authorizationManager"></param>
+        /// <param name="systemOptions"></param>
         public UserCenterService(IHttpContextAccessor httpContextAccessor
             , IRepository<User> userRepository
             , IRepository<Role> roleRepository
             , IRepository<UserRole> userRoleRepository
             , IRepository<RoleResource> roleSecurityRepository
             , IRepository<Resource> securityRepository
-            , IAuthorizationManager authorizationManager)
+            , IAuthorizationManager authorizationManager
+            , IOptions<SystemOptions>  systemOptions)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
@@ -58,6 +63,7 @@ namespace Gardener.Application
             _roleSecurityRepository = roleSecurityRepository;
             _securityRepository = securityRepository;
             _authorizationManager = authorizationManager;
+            this.systemOptions = systemOptions.Value;
         }
 
         /// <summary>
@@ -70,7 +76,7 @@ namespace Gardener.Application
         public LoginOutput Login(LoginInput input)
         {
             // 验证用户名和密码
-            var user = _userRepository.FirstOrDefault(u => u.Account.Equals(input.Account) && u.Password.Equals(input.Password), false) ?? throw Oops.Oh(1000);
+            var user = _userRepository.FirstOrDefault(u => u.Account.Equals(input.UserName) && u.Password.Equals(MD5Encryption.Encrypt(systemOptions.PasswordEncryptKey+ input.Password)), false) ?? throw Oops.Oh(1000);
 
             var output = user.Adapt<LoginOutput>();
 
@@ -119,7 +125,7 @@ namespace Gardener.Application
         /// </summary>
         /// <returns></returns>
         [ApiSecurityDefine("查看用户权限")]
-        public List<SecurityDto> ViewSecuries()
+        public List<Resource> ViewSecuries()
         {
             // 获取用户Id
             var userId = _authorizationManager.GetUserId<int>();
@@ -140,7 +146,7 @@ namespace Gardener.Application
                        .SelectMany(u => u.Resources))
                    .ToList();
             }
-            return securities.Adapt<List<SecurityDto>>();
+            return securities;
         }
 
         /// <summary>
@@ -186,9 +192,9 @@ namespace Gardener.Application
         /// 查看系统所有的权限
         /// </summary>
         [ApiSecurityDefine("查看系统所有的权限")]
-        public List<SecurityDto> GetSecurities()
+        public List<Resource> GetSecurities()
         {
-            return _securityRepository.AsEnumerable(false).Adapt<List<SecurityDto>>();
+            return _securityRepository.AsEnumerable(false);
         }
 
         /// <summary>
