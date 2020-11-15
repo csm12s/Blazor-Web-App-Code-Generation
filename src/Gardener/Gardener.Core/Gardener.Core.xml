@@ -4,6 +4,102 @@
         <name>Gardener.Core</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Core.Enums.Frequency">
+            <summary>
+            节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Frequency.Morning">
+            <summary>
+            靠前
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Frequency.Afternoon">
+            <summary>
+            中间
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Frequency.Night">
+            <summary>
+            靠下
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Enums.Gender">
+            <summary>
+            性别枚举
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Gender.Male">
+            <summary>
+            男
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.Gender.Female">
+            <summary>
+            女
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Enums.ResourceType">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.ResourceType.API">
+            <summary>
+            API
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.ResourceType.BUTTON">
+            <summary>
+            BUTTON
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.ResourceType.MENU">
+            <summary>
+            菜单
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Enums.RuleSort">
+            <summary>
+            排序规则
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.RuleSort.Must">
+            <summary>
+            必排
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.RuleSort.Prohibit">
+            <summary>
+            禁止
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.Enums.RuleSort.Continuity">
+            <summary>
+            连排
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.GardenerCoreStartup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.GardenerCoreStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:Gardener.Core.SystemOptions">
+            <summary>
+            系统选项
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.SystemOptions.SuperAdministratorRoleId">
+            <summary>
+            超级管理员角色Id
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Entites.Box">
             <summary>
             表
@@ -247,102 +343,6 @@
         <member name="P:Gardener.Core.Entites.Teacher.WorkYears">
             <summary>
             工龄
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Enums.Frequency">
-            <summary>
-            节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.Frequency.Morning">
-            <summary>
-            靠前
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.Frequency.Afternoon">
-            <summary>
-            中间
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.Frequency.Night">
-            <summary>
-            靠下
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Enums.Gender">
-            <summary>
-            性别枚举
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.Gender.Male">
-            <summary>
-            男
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.Gender.Female">
-            <summary>
-            女
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Enums.ResourceType">
-            <summary>
-            权限类型
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.ResourceType.API">
-            <summary>
-            API
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.ResourceType.BUTTON">
-            <summary>
-            BUTTON
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.ResourceType.MENU">
-            <summary>
-            菜单
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Enums.RuleSort">
-            <summary>
-            排序规则
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.RuleSort.Must">
-            <summary>
-            必排
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.RuleSort.Prohibit">
-            <summary>
-            禁止
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.Enums.RuleSort.Continuity">
-            <summary>
-            连排
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.GardenerCoreStartup">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.GardenerCoreStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            
-            </summary>
-            <param name="services"></param>
-        </member>
-        <member name="T:Gardener.Core.SystemOptions">
-            <summary>
-            系统选项
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.SystemOptions.SuperAdministratorRoleId">
-            <summary>
-            超级管理员角色Id
             </summary>
         </member>
         <member name="T:Gardener.Core.Resource">
