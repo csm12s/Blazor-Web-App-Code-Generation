@@ -340,11 +340,6 @@
             系统选项
             </summary>
         </member>
-        <member name="P:Gardener.Core.SystemOptions.PasswordEncryptKey">
-            <summary>
-            密码加密Key
-            </summary>
-        </member>
         <member name="P:Gardener.Core.SystemOptions.SuperAdministratorRoleId">
             <summary>
             超级管理员角色Id

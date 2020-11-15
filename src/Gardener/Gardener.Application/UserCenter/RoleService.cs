@@ -8,10 +8,7 @@ using Gardener.Core;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Gardener.Application.UserCenter
@@ -20,46 +17,34 @@ namespace Gardener.Application.UserCenter
     /// 角色服务
     /// </summary>
     [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
-    public class RoleService : IDynamicApiController
+    public class RoleService : ServiceBase<Role,RoleDto>
     {
         private readonly IRepository<Role> _roleRepository;
         /// <summary>
         /// 角色服务
         /// </summary>
         /// <param name="roleRepository"></param>
-        public RoleService(IRepository<Role> roleRepository)
+        public RoleService(IRepository<Role> roleRepository):base(roleRepository)
         {
             _roleRepository = roleRepository;
         }
 
         /// <summary>
-        /// 新增角色
+        /// 搜索角色
         /// </summary>
-        [ApiSecurityDefine("新增角色")]
-        public async Task<int> InsertRole(RoleInput input)
-        {
-            var entity= await _roleRepository.InsertAsync(input.Adapt<Role>());
-
-            return entity.Entity.Id;
-        }
-        /// <summary>
-        /// 更新一条
-        /// </summary>
-        /// <param name="input"></param>
+        /// <param name="name">角色名称</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">分页大小</param>
         /// <returns></returns>
-        public virtual async Task Update(TEntityDto input)
+        [HttpGet]
+        public async Task<PagedList<RoleDto>> Search([FromQuery]string name, 
+            [FromQuery] int pageIndex = 1,
+            [FromQuery] int pageSize = 10)
         {
-            // 还可以直接操作
-            await input.Adapt<TEntity>().UpdateAsync();
-        }
-
-        /// <summary>
-        /// 删除一条
-        /// </summary>
-        /// <param name="id"></param>
-        public virtual async Task Delete(int id)
-        {
-            await _repository.DeleteAsync(id);
+            return await _roleRepository
+                .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
+                .Select(x => x.Adapt<RoleDto>())
+                .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
         }
     }
 }

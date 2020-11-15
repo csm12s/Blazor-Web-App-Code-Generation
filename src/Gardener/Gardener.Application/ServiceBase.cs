@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mapster;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Gardener.Application
 {
@@ -15,13 +16,15 @@ namespace Gardener.Application
     /// 继承此类即可实现基础方法
     /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TEntityDto"></typeparam>
-    public abstract class ServiceBase<TEntity,TEntityDto> : IDynamicApiController where TEntity : class, IPrivateEntity, new() where TEntityDto : class, IPrivateEntity, new()
+    /// <typeparam name="TEntity">数据实体类型</typeparam>
+    /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+    /// <typeparam name="TKey">数据实体主键类型</typeparam>
+    public abstract class ServiceBase<TEntity,TEntityDto,TKey> : IDynamicApiController where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
         private readonly IRepository<TEntity> _repository;
         /// <summary>
-        /// 
+        /// 继承此类即可实现基础方法
+        /// CURD、获取全部、分页获取
         /// </summary>
         /// <param name="repository"></param>
         protected ServiceBase(IRepository<TEntity> repository)
@@ -34,10 +37,10 @@ namespace Gardener.Application
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public virtual async Task<TEntity> Insert(TEntityDto input)
+        public virtual async Task<TEntityDto> Insert(TEntityDto input)
         {
             var newEntity = await _repository.InsertNowAsync(input.Adapt<TEntity>());
-            return newEntity.Entity;
+            return newEntity.Entity.Adapt<TEntityDto>();
         }
 
         /// <summary>
@@ -55,7 +58,7 @@ namespace Gardener.Application
         /// 删除一条
         /// </summary>
         /// <param name="id"></param>
-        public virtual async Task Delete(int id)
+        public virtual async Task Delete(TKey id)
         {
             await _repository.DeleteAsync(id);
         }
@@ -64,7 +67,7 @@ namespace Gardener.Application
         /// 查询一条
         /// </summary>
         /// <param name="id"></param>
-        public virtual async Task<TEntityDto> Find(int id)
+        public virtual async Task<TEntityDto> Get(TKey id)
         {
             var person = await _repository.FindAsync(id);
             return person.Adapt<TEntityDto>();
@@ -86,7 +89,7 @@ namespace Gardener.Application
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public virtual async Task<PagedList<TEntityDto>> GetAllByPage(int pageIndex = 1, int pageSize = 10)
+        public virtual async Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1,int pageSize = 10)
         {
             var pageResult = _repository.AsQueryable().ProjectToType<TEntityDto>();
 
@@ -97,12 +100,31 @@ namespace Gardener.Application
     /// 继承此类即可实现基础方法
     /// CURD、获取全部、分页获取 
     /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    public abstract class ServiceBase<TEntity> : ServiceBase<TEntity, TEntity> where TEntity : class, IPrivateEntity, new()
+    /// <typeparam name="TEntity">数据实体类型</typeparam>
+    public abstract class ServiceBase<TEntity> : ServiceBase<TEntity, TEntity,int> where TEntity : class, IPrivateEntity, new()
     {
         /// <summary>
         /// 继承此类即可实现基础方法
-        /// CURD、获取全部、分页获取 </summary>
+        /// CURD、获取全部、分页获取 
+        /// </summary>
+        /// <param name="repository"></param>
+        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
+        {
+        }
+    }
+
+    /// <summary>
+    /// 继承此类即可实现基础方法
+    /// CURD、获取全部、分页获取 
+    /// </summary>
+    /// <typeparam name="TEntity">数据实体类型</typeparam>
+    /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+    public abstract class ServiceBase<TEntity, TEntityDto> : ServiceBase<TEntity, TEntityDto, int> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    {
+        /// <summary>
+        /// 继承此类即可实现基础方法
+        /// CURD、获取全部、分页获取
+        /// </summary>
         /// <param name="repository"></param>
         protected ServiceBase(IRepository<TEntity> repository) : base(repository)
         {

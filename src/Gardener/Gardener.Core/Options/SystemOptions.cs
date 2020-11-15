@@ -17,10 +17,6 @@ namespace Gardener.Core
     public class SystemOptions: IConfigurableOptions
     {
         /// <summary>
-        /// 密码加密Key
-        /// </summary>
-        public string PasswordEncryptKey { get; set; }
-        /// <summary>
         /// 超级管理员角色Id
         /// </summary>
         public int SuperAdministratorRoleId { get; set; }

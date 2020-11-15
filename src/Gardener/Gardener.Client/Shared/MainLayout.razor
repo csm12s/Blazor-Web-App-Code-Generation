@@ -1,0 +1,49 @@
+﻿@inherits LayoutComponentBase
+
+<CascadingAuthenticationState>
+    <Layout Id="components-layout-demo-custom-trigger">
+        <Sider Collapsible="true" Collapsed=@collapsed NoTrigger OnCollapse="OnCollapse">
+            <div class="logo" />
+            <NavMenu Collapsed="collapsed" />
+        </Sider>
+        <Layout Class="site-layout">
+            <Header Class="site-layout-background" Style="padding: 0;">
+                @if (collapsed)
+                {
+                    <Icon Type="menu-unfold" Theme="outline" Class="trigger" OnClick="toggle" />
+                }
+                else
+                {
+                    <Icon Type="menu-fold" Theme="outline" Class="trigger" OnClick="toggle" />
+                }
+            </Header>
+            <Content Class="site-layout-background" Style="margin: 24px 16px;padding: 24px;min-height: 280px;">
+                Content
+            </Content>
+            <Footer Style="text-align: center; ">Ant Design ©2018 Created by Ant UED</Footer>
+        </Layout>
+    </Layout>
+</CascadingAuthenticationState>
+<style>
+    #components-layout-demo-custom-trigger .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 24px;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    #components-layout-demo-custom-trigger .trigger:hover {
+        color: #1890ff;
+    }
+
+    #components-layout-demo-custom-trigger .logo {
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 16px;
+    }
+
+    .site-layout .site-layout-background {
+        background: #fff;
+    }
+</style>

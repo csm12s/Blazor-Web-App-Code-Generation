@@ -155,53 +155,55 @@
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="T:Gardener.Application.ServiceBase`2">
+        <member name="T:Gardener.Application.ServiceBase`3">
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
             </summary>
-            <typeparam name="TEntity"></typeparam>
-            <typeparam name="TEntityDto"></typeparam>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+            <typeparam name="TKey">数据实体主键类型</typeparam>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
+        <member name="M:Gardener.Application.ServiceBase`3.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
             <summary>
-            
+            继承此类即可实现基础方法
+            CURD、获取全部、分页获取
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.Insert(`1)">
+        <member name="M:Gardener.Application.ServiceBase`3.Insert(`1)">
             <summary>
             新增一条
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.Update(`1)">
+        <member name="M:Gardener.Application.ServiceBase`3.Update(`1)">
             <summary>
             更新一条
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.Delete(System.Int32)">
+        <member name="M:Gardener.Application.ServiceBase`3.Delete(`2)">
             <summary>
             删除一条
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.Find(System.Int32)">
+        <member name="M:Gardener.Application.ServiceBase`3.Get(`2)">
             <summary>
             查询一条
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.GetAll">
+        <member name="M:Gardener.Application.ServiceBase`3.GetAll">
             <summary>
             查询所有
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.GetAllByPage(System.Int32,System.Int32)">
+        <member name="M:Gardener.Application.ServiceBase`3.GetPage(System.Int32,System.Int32)">
             <summary>
             分页查询
             </summary>
@@ -214,12 +216,28 @@
             继承此类即可实现基础方法
             CURD、获取全部、分页获取 
             </summary>
-            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TEntity">数据实体类型</typeparam>
         </member>
         <member name="M:Gardener.Application.ServiceBase`1.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
             <summary>
             继承此类即可实现基础方法
-            CURD、获取全部、分页获取 </summary>
+            CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="T:Gardener.Application.ServiceBase`2">
+            <summary>
+            继承此类即可实现基础方法
+            CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+        </member>
+        <member name="M:Gardener.Application.ServiceBase`2.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            CURD、获取全部、分页获取
+            </summary>
             <param name="repository"></param>
         </member>
         <member name="T:Gardener.Application.LoginInput">
@@ -296,6 +314,21 @@
             <summary>
             角色服务
             </summary>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.RoleService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Role})">
+            <summary>
+            角色服务
+            </summary>
+            <param name="roleRepository"></param>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.RoleService.Search(System.String,System.Int32,System.Int32)">
+            <summary>
+            搜索角色
+            </summary>
+            <param name="name">角色名称</param>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">分页大小</param>
+            <returns></returns>
         </member>
         <member name="T:Gardener.Application.UserCenterService">
             <summary>

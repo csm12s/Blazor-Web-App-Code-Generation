@@ -165,11 +165,11 @@ namespace Gardener.Core
             {
                 new User
                 {
-                    Id=1,UserName="admin",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "admin")
+                    Id=1,UserName="admin",PasswordEncryptKey="xxxxxx" ,Password=MD5Encryption.Encrypt("xxxxxxadmin")
                 },
                 new User
                 {
-                    Id=2,UserName="testuser",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "testuser")
+                    Id=2,UserName="testuser",PasswordEncryptKey="xxxxxx",Password=MD5Encryption.Encrypt("xxxxxxtestuser")
                 }
             };
         }

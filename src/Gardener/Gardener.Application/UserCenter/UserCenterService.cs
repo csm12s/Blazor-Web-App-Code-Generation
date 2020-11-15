@@ -75,8 +75,13 @@ namespace Gardener.Application
         [AllowAnonymous, IfException(1000, ErrorMessage = "用户名或密码错误")]
         public LoginOutput Login(LoginInput input)
         {
-            // 验证用户名和密码
-            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.Password.Equals(MD5Encryption.Encrypt(systemOptions.PasswordEncryptKey+ input.Password)), false) ?? throw Oops.Oh(1000);
+
+            
+            // 验证用户是否存在
+            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName), false) ?? throw Oops.Oh(1000);
+            //密码是否正确
+            var encryptedPassword = MD5Encryption.Encrypt(user.PasswordEncryptKey + input.Password);
+            if (!encryptedPassword.Equals(user.Password)) throw Oops.Oh(1000);
 
             var output = user.Adapt<LoginOutput>();
 
