@@ -95,7 +95,7 @@ namespace Gardener.Core
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles
                     .SelectMany(u => u.Resources))
-                .Select(u => u.UniqueName);
+                .Select(u => u.ResourceId);
             if (!resources.Contains(resourceId)) return false;
             return true;
         }

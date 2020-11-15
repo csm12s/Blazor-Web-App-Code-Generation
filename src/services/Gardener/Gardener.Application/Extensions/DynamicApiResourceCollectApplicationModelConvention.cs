@@ -41,7 +41,7 @@ namespace Gardener.Application.Extensions
                         var apiSecurityDefine = action.Attributes.FirstOrDefault(u => u is ApiSecurityDefineAttribute) as ApiSecurityDefineAttribute;
                         if (apiSecurityDefine != null && apiSecurityDefine.ResourceId != null)
                         {
-                            resource.UniqueName= apiSecurityDefine.ResourceId;
+                            resource.ResourceId= apiSecurityDefine.ResourceId;
                             resource.Name = apiSecurityDefine.ApiName;
                             resource.Remark = apiSecurityDefine.ApiName;
                         }
@@ -54,7 +54,7 @@ namespace Gardener.Application.Extensions
                                 method += "-" + parameters;
                             }
                             string resouseId = MD5Encryption.Encrypt(method);
-                            resource.UniqueName = resouseId;
+                            resource.ResourceId = resouseId;
                             resource.Name = action.DisplayName;
                             resource.Remark = method;
                         }

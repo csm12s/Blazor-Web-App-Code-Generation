@@ -292,6 +292,11 @@
             角色描述
             </summary>
         </member>
+        <member name="T:Gardener.Application.UserCenter.RoleService">
+            <summary>
+            角色服务
+            </summary>
+        </member>
         <member name="T:Gardener.Application.UserCenterService">
             <summary>
             用户中心服务

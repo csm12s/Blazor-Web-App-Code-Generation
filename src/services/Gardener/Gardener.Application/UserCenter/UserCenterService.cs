@@ -76,7 +76,7 @@ namespace Gardener.Application
         public LoginOutput Login(LoginInput input)
         {
             // 验证用户名和密码
-            var user = _userRepository.FirstOrDefault(u => u.Account.Equals(input.UserName) && u.Password.Equals(MD5Encryption.Encrypt(systemOptions.PasswordEncryptKey+ input.Password)), false) ?? throw Oops.Oh(1000);
+            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.Password.Equals(MD5Encryption.Encrypt(systemOptions.PasswordEncryptKey+ input.Password)), false) ?? throw Oops.Oh(1000);
 
             var output = user.Adapt<LoginOutput>();
 
@@ -87,7 +87,7 @@ namespace Gardener.Application
             output.AccessToken = JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, new Dictionary<string, object>()
             {
                 { "UserId", user.Id },  // 存储Id
-                { "Account",user.Account }, // 存储用户名
+                { "Account",user.UserName }, // 存储用户名
                 { JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value*60).ToUnixTimeSeconds() },

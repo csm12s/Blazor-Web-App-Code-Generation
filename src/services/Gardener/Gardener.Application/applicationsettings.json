@@ -4,6 +4,7 @@
     "DocExpansionState": "None",
     "GroupOpenApiInfos": [
       {
+        "Order": 1,
         "Group": "UserAuthorizationServices",
         "Title": "用户权限管理",
         "Description": "用户权限管理",
@@ -20,6 +21,7 @@
         }
       },
       {
+        "Order": 2,
         "Group": "BaseDataServices",
         "Title": "学校基础数据接口",
         "Description": "基础相关接口",
@@ -36,6 +38,7 @@
         }
       },
       {
+        "Order": 3,
         "Group": "PaiKeServices",
         "Title": "排课设置数据接口",
         "Description": "排课设置数据接口",

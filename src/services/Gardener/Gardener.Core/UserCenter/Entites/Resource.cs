@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace Gardener.Core
 {
@@ -19,12 +18,17 @@ namespace Gardener.Core
         /// 权限唯一名（每一个接口）
         /// </summary>
         [Required,MaxLength(64)]
-        public string UniqueName { get; set; }
+        public string ResourceId { get; set; }
         /// <summary>
         /// 权限名称
         /// </summary>
         [Required, MaxLength(100)]
         public string Name { get; set; }
+        /// <summary>
+        /// 权限名称简写
+        /// </summary>
+        [Required, MaxLength(100)]
+        public string SortName { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
@@ -34,7 +38,7 @@ namespace Gardener.Core
         /// 资源地址
         /// </summary>
         [MaxLength(200)]
-        public string Url { get; set; }
+        public string Path { get; set; }
         /// <summary>
         /// 资源图标
         /// </summary>
@@ -109,13 +113,13 @@ namespace Gardener.Core
             //.HasCharSet("utf8mb4")
             //.HasCollation("utf8mb4_0900_ai_ci");
 
-            entityBuilder.Property(e => e.UniqueName).IsRequired()
+            entityBuilder.Property(e => e.ResourceId).IsRequired()
                 .HasColumnType("varchar(64)")
                 .HasComment("权限唯一名称");
             //.HasCharSet("utf8mb4")
             //.HasCollation("utf8mb4_0900_ai_ci");
 
-            entityBuilder.Property(e => e.Url)
+            entityBuilder.Property(e => e.Path)
                 .HasColumnType("varchar(200)")
                 .HasComment("资源地址");
 

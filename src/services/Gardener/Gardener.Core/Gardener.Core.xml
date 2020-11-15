@@ -345,12 +345,17 @@
             密码加密Key
             </summary>
         </member>
+        <member name="P:Gardener.Core.SystemOptions.SuperAdministratorRoleId">
+            <summary>
+            超级管理员角色Id
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Resource">
             <summary>
             权限表
             </summary>
         </member>
-        <member name="P:Gardener.Core.Resource.UniqueName">
+        <member name="P:Gardener.Core.Resource.ResourceId">
             <summary>
             权限唯一名（每一个接口）
             </summary>
@@ -360,12 +365,17 @@
             权限名称
             </summary>
         </member>
+        <member name="P:Gardener.Core.Resource.SortName">
+            <summary>
+            权限名称简写
+            </summary>
+        </member>
         <member name="P:Gardener.Core.Resource.Remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:Gardener.Core.Resource.Url">
+        <member name="P:Gardener.Core.Resource.Path">
             <summary>
             资源地址
             </summary>
@@ -512,14 +522,29 @@
             用户表
             </summary>
         </member>
-        <member name="P:Gardener.Core.User.Account">
+        <member name="M:Gardener.Core.User.#ctor">
             <summary>
-            账号
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.NickName">
+            <summary>
+            昵称
             </summary>
         </member>
         <member name="P:Gardener.Core.User.Password">
             <summary>
-            密码
+            密码加密后的
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.PasswordEncryptKey">
+            <summary>
+            密码加密Key
             </summary>
         </member>
         <member name="P:Gardener.Core.User.Avatar">
@@ -532,9 +557,19 @@
             邮箱
             </summary>
         </member>
-        <member name="P:Gardener.Core.User.Mobile">
+        <member name="P:Gardener.Core.User.EmailConfirmed">
+            <summary>
+            邮箱是否确认
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.PhoneNumber">
             <summary>
             手机
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.User.PhoneNumberConfirmed">
+            <summary>
+            手机是否确认
             </summary>
         </member>
         <member name="P:Gardener.Core.User.Gender">

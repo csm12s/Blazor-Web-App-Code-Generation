@@ -16,22 +16,33 @@ namespace Gardener.Core
     /// </summary>
     public class User : Entity, IEntitySeedData<User>, IEntityTypeBuilder<User>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public User()
         {
             this.CreatedTime = DateTimeOffset.Now;
         }
-
         /// <summary>
-        /// 账号
+        /// 用户名
         /// </summary>
         [Required,StringLength(32)]
-        public string Account { get; set; }
-
+        public string UserName { get; set; }
         /// <summary>
-        /// 密码
+        /// 昵称
+        /// </summary>
+        [StringLength(32)]
+        public string NickName { get; set; }
+        /// <summary>
+        /// 密码加密后的
         /// </summary>
         [Required, StringLength(32)]
         public string Password { get; set; }
+        /// <summary>
+        /// 密码加密Key
+        /// </summary>
+        [Required, StringLength(32)]
+        public string PasswordEncryptKey { get; set; }
         /// <summary>
         /// 头像
         /// </summary>
@@ -43,10 +54,18 @@ namespace Gardener.Core
         [MaxLength(50)]
         public string Email { get; set; }
         /// <summary>
+        /// 邮箱是否确认
+        /// </summary>
+        public bool EmailConfirmed { get; set; }
+        /// <summary>
         /// 手机
         /// </summary>
         [MaxLength(20)]
-        public string Mobile { get; set; }
+        public string PhoneNumber { get; set; }
+        /// <summary>
+        /// 手机是否确认
+        /// </summary>
+        public bool PhoneNumberConfirmed { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
@@ -93,7 +112,7 @@ namespace Gardener.Core
 
             entityBuilder.Property(e => e.Gender).HasComment("性别").IsRequired().HasDefaultValue(Gender.Male);
 
-            entityBuilder.Property(e => e.Account).IsRequired()
+            entityBuilder.Property(e => e.UserName).IsRequired()
                 .HasColumnType("varchar(32)")
                 .HasComment("账号");
             //.HasCharSet("utf8mb4")
@@ -117,7 +136,7 @@ namespace Gardener.Core
 
             entityBuilder.Property(e => e.IsDeleted).HasComment("是否删除").IsRequired();
 
-            entityBuilder.Property(e => e.Mobile)
+            entityBuilder.Property(e => e.PhoneNumber)
                 .HasColumnType("varchar(20)")
                 .HasComment("手机");
                 //.HasCharSet("utf8mb4")
@@ -146,13 +165,14 @@ namespace Gardener.Core
             {
                 new User
                 {
-                    Id=1,Account="admin",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "admin")
+                    Id=1,UserName="admin",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "admin")
                 },
                 new User
                 {
-                    Id=2,Account="testuser",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "testuser")
+                    Id=2,UserName="testuser",Password=MD5Encryption.Encrypt(App.GetOptions<SystemOptions>().PasswordEncryptKey+ "testuser")
                 }
             };
         }
+
     }
 }
