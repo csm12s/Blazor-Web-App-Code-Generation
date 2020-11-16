@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Gardener.Core.Enums;
 using Microsoft.Extensions.Options;
 using Gardener.Core.Entites;
-using Gardener.Application.Dtos;
+using Gardener.Core.Dtos;
 using System.Threading.Tasks;
 
 namespace Gardener.Application

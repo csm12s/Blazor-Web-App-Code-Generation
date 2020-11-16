@@ -319,7 +319,7 @@
             <param name="securityRepository"></param>
             <param name="authorizationManager"></param>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Application.Dtos.LoginInput)">
+        <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Core.Dtos.LoginInput)">
             <summary>
             登录
             </summary>

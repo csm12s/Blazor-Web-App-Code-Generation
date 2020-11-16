@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Core.Dtos
 {
     /// <summary>
     /// 用户扩展数据

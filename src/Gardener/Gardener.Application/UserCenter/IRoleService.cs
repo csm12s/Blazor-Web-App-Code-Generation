@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using Fur.DatabaseAccessor;
-using Gardener.Application.Dtos;
+using Gardener.Core.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

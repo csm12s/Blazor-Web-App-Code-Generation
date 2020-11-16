@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Core.Dtos
 {
     /// <summary>
     /// 角色

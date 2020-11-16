@@ -2,7 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Gardener.Application.Dtos;
+using Gardener.Core.Dtos;
 using Gardener.Client.Models;
 using RestSharp;
 using System;
@@ -16,11 +16,11 @@ namespace Gardener.Client.Apis
     public class RoleService : IRoleService, IServiceBase<RoleDto>
     {
 
-        private RestClient restClient;
+        private HttpClient HttpClient;
 
-        public RoleService(RestClient restClient)
+        public RoleService(HttpClient httpClient)
         {
-            this.restClient = restClient;
+            HttpClient = httpClient;
         }
 
         public Task Delete(int id)

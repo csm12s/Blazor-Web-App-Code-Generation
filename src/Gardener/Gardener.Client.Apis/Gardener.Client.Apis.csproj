@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gardener.Client.Models\Gardener.Client.Models.csproj" />
+    <ProjectReference Include="..\Gardener.Core.Dtos\Gardener.Core.Dtos.csproj" />
+    <ProjectReference Include="..\Gardener.Core.Enums\Gardener.Core.Enums.csproj" />
+  </ItemGroup>
+
+</Project>

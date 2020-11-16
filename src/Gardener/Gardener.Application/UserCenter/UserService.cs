@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using Fur.DatabaseAccessor;
-using Gardener.Application.Dtos;
+using Gardener.Core.Dtos;
 using Gardener.Core;
 using Gardener.Core.Entites;
 using Mapster;

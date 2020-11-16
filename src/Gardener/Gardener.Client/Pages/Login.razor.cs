@@ -3,11 +3,13 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Application.Dtos;
+using Gardener.Core.Dtos;
 using Gardener.Client.Apis;
 using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using System;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Gardener.Client.Pages
 {
@@ -36,17 +38,33 @@ namespace Gardener.Client.Pages
         [Inject]
         public IAuthorizeService AuthorizeService { get; set; }
 
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
         [Inject] public AuthenticationStateProvider AuthProvider { get; set; }
 
-        public void OnLogin()
+        private string returnUrl;
+
+        protected override void OnInitialized()
+        {
+            var query = new Uri(Navigation.Uri).Query;
+
+            if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
+            {
+                returnUrl = value;
+            }
+        }
+
+        public async void OnLogin()
         {
             SwitchLoading();
-            var loginOutResult= AuthorizeService.Login(loginInput);
+            var loginOutResult= await AuthorizeService.Login(loginInput);
             SwitchLoading();
             if (loginOutResult.Successed)
             {
                 MsgSvr.Success($"登录成功");
-                ((AuthProvider)AuthProvider).MarkUserAsAuthenticated(loginOutResult.Data);
+                ((AuthProvider)AuthProvider).MarkUserAsAuthenticated(loginOutResult.Data.AccessToken);
+                Navigation.NavigateTo(returnUrl ?? "/");
             }
             else {
                 MsgSvr.Error($"登录失败：{loginOutResult.Errors}");

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Core.Dtos
 {
     /// <summary>
     /// 资源

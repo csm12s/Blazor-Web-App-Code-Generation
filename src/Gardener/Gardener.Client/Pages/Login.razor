@@ -1,6 +1,6 @@
 ﻿@layout LoginLayout
 @page "/login"
-
+@attribute [AllowAnonymous]
 <Spin Spinning="isLoading">
     <Form OnFinish="OnLogin" Model="@loginInput" LabelCol="new ColLayoutParam() {Span = 6 }">
         <FormItem Label="用户名">

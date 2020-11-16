@@ -1,4 +1,4 @@
-﻿using Gardener.Application.Dtos;
+﻿using Gardener.Core.Dtos;
 using Gardener.Core.Entites;
 using System.Collections.Generic;
 using System.Threading.Tasks;

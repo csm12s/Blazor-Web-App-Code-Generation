@@ -9,6 +9,7 @@ using Mapster;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Gardener.Application
 {
@@ -79,7 +80,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public virtual async Task<List<TEntityDto>> GetAll()
         {
-            var persons = _repository.AsQueryable().ProjectToType<TEntityDto>();
+            var persons = _repository.AsQueryable().Select(x=>x.Adapt<TEntityDto>());
             return await persons.ToListAsync();
         }
 
@@ -91,7 +92,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public virtual async Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
-            var pageResult = _repository.AsQueryable().ProjectToType<TEntityDto>();
+            var pageResult = _repository.AsQueryable().Select(x => x.Adapt<TEntityDto>());
 
             return await pageResult.ToPagedListAsync(pageIndex, pageSize);
         }
