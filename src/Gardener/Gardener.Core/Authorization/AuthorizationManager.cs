@@ -3,6 +3,7 @@ using Fur.DatabaseAccessor;
 using Fur.DataEncryption;
 using Fur.DependencyInjection;
 using Fur.FriendlyException;
+using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;

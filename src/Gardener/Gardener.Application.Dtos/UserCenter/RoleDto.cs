@@ -1,10 +1,15 @@
-﻿namespace Gardener.Application
+﻿namespace Gardener.Application.Dtos
 {
     /// <summary>
-    /// 角色输入
+    /// 角色
     /// </summary>
-    public class RoleInput
+    public class RoleDto
     {
+        /// <summary>
+        /// 角色ID
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// 角色名称
         /// </summary>

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Gardener.Core
+namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 用户扩展信息表

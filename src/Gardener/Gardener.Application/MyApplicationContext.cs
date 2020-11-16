@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Core;
+using Gardener.Core.Entites;
 using System.Collections.Generic;
 
 namespace Gardener.Application

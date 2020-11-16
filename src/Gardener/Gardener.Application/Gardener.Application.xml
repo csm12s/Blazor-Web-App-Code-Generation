@@ -53,7 +53,7 @@
             Api资源
             </summary>
         </member>
-        <member name="M:Gardener.Application.MyApplicationContext.AddApiResource(Gardener.Core.Resource)">
+        <member name="M:Gardener.Application.MyApplicationContext.AddApiResource(Gardener.Core.Entites.Resource)">
             <summary>
             添加Api资源
             </summary>
@@ -256,86 +256,67 @@
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="T:Gardener.Application.LoginInput">
+        <member name="T:Gardener.Application.AuthorizeService">
             <summary>
-            登录输入参数
+            用户中心服务
             </summary>
         </member>
-        <member name="P:Gardener.Application.LoginInput.UserName">
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager)">
             <summary>
-            用户名
+            角色管理服务
+            </summary>
+            <param name="httpContextAccessor"></param>
+            <param name="userRepository"></param>
+            <param name="securityRepository"></param>
+            <param name="authorizationManager"></param>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Application.Dtos.LoginInput)">
+            <summary>
+            登录
+            </summary>
+            <param name="input"></param>
+            <remarks>管理员：admin/admin；普通用户：Fur/dotnetchina</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserRoles">
+            <summary>
+            查看用户角色
             </summary>
         </member>
-        <member name="P:Gardener.Application.LoginInput.Password">
+        <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserResources">
             <summary>
-            密码
+            查看用户权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.InitResource">
+            <summary>
+            初始化系统挨批资源权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.UserCenter.ResourceService">
+            <summary>
+            资源服务
             </summary>
         </member>
-        <member name="T:Gardener.Application.LoginOutput">
+        <member name="M:Gardener.Application.UserCenter.ResourceService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
             <summary>
-            登录输出参数
+            资源服务
             </summary>
-        </member>
-        <member name="P:Gardener.Application.LoginOutput.Id">
-            <summary>
-            用户Id
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.LoginOutput.Account">
-            <summary>
-            用户名
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.LoginOutput.AccessToken">
-            <summary>
-            Token
-            </summary>
-        </member>
-        <member name="T:Gardener.Application.RoleDto">
-            <summary>
-            角色
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.RoleDto.Id">
-            <summary>
-            角色ID
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.RoleDto.Name">
-            <summary>
-            角色名称
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.RoleDto.Remark">
-            <summary>
-            角色描述
-            </summary>
-        </member>
-        <member name="T:Gardener.Application.RoleInput">
-            <summary>
-            角色输入
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.RoleInput.Name">
-            <summary>
-            角色名称
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.RoleInput.Remark">
-            <summary>
-            角色描述
-            </summary>
+            <param name="repository"></param>
         </member>
         <member name="T:Gardener.Application.UserCenter.RoleService">
             <summary>
             角色服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Role})">
+        <member name="M:Gardener.Application.UserCenter.RoleService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource})">
             <summary>
             角色服务
             </summary>
             <param name="roleRepository"></param>
+            <param name="roleResourceRepository"></param>
         </member>
         <member name="M:Gardener.Application.UserCenter.RoleService.Search(System.String,System.Int32,System.Int32)">
             <summary>
@@ -346,72 +327,44 @@
             <param name="pageSize">分页大小</param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.UserCenterService">
+        <member name="M:Gardener.Application.UserCenter.RoleService.Resource(System.Int32,System.Int32[])">
             <summary>
-            用户中心服务
+            为角色分配权限（重置）
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenterService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Fur.DatabaseAccessor.IRepository{Gardener.Core.User},Fur.DatabaseAccessor.IRepository{Gardener.Core.Role},Fur.DatabaseAccessor.IRepository{Gardener.Core.UserRole},Fur.DatabaseAccessor.IRepository{Gardener.Core.RoleResource},Fur.DatabaseAccessor.IRepository{Gardener.Core.Resource},Gardener.Core.IAuthorizationManager,Microsoft.Extensions.Options.IOptions{Gardener.Core.SystemOptions})">
+        <member name="M:Gardener.Application.UserCenter.RoleService.DeleteResource(System.Int32)">
             <summary>
-            角色管理服务
+            删除角色的所有资源
             </summary>
-            <param name="httpContextAccessor"></param>
+            <param name="roleId"></param>
+        </member>
+        <member name="T:Gardener.Application.UserCenter.UserService">
+            <summary>
+            用户服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+            <summary>
+            用户服务
+            </summary>
             <param name="userRepository"></param>
-            <param name="roleRepository"></param>
-            <param name="userRoleRepository"></param>
-            <param name="roleSecurityRepository"></param>
-            <param name="securityRepository"></param>
+            <param name="httpContextAccessor"></param>
             <param name="authorizationManager"></param>
-            <param name="systemOptions"></param>
+            <param name="roleResourceRepository"></param>
+            <param name="resourceRepository"></param>
         </member>
-        <member name="M:Gardener.Application.UserCenterService.Login(Gardener.Application.LoginInput)">
-            <summary>
-            登录（免授权）
-            </summary>
-            <param name="input"></param>
-            <remarks>管理员：admin/admin；普通用户：Fur/dotnetchina</remarks>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.UserCenterService.ViewRoles">
+        <member name="M:Gardener.Application.UserCenter.UserService.GetRoles(System.Int32)">
             <summary>
             查看用户角色
             </summary>
+            <param name="userId"></param>
+            <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenterService.ViewSecuries">
+        <member name="M:Gardener.Application.UserCenter.UserService.GetResources(System.Int32)">
             <summary>
             查看用户权限
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.UserCenterService.GetRoles">
-            <summary>
-            角色列表
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.UserCenterService.InsertRole(Gardener.Application.RoleInput)">
-            <summary>
-            新增角色
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.UserCenterService.GiveUserRole(System.Int32[])">
-            <summary>
-            为用户分配角色
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.UserCenterService.GetSecurities">
-            <summary>
-            查看系统所有的权限
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.UserCenterService.GiveRoleSecurity(System.Int32,System.Int32[])">
-            <summary>
-            为角色分配权限
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.UserCenterService.InitResource">
-            <summary>
-            初始化系统挨批资源权限
-            </summary>
+            <param name="userId"></param>
             <returns></returns>
         </member>
     </members>

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Core
+namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 角色表

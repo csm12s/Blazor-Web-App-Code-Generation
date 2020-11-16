@@ -14,10 +14,10 @@ using System.Linq;
 using Fur;
 using Fur.DataEncryption;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Gardener.Core.Enums;
 using Microsoft.Extensions.Options;
+using Gardener.Core.Entites;
+using Gardener.Application.Dtos;
 
 namespace Gardener.Application
 {
@@ -25,49 +25,33 @@ namespace Gardener.Application
     /// 用户中心服务
     /// </summary>
     [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
-    public class UserCenterService : IDynamicApiController
+    public class AuthorizeService : IDynamicApiController
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Role> _roleRepository;
-        private readonly IRepository<UserRole> _userRoleRepository;
-        private readonly IRepository<RoleResource> _roleSecurityRepository;
         private readonly IRepository<Resource> _securityRepository;
         private readonly IAuthorizationManager _authorizationManager;
-        private readonly SystemOptions systemOptions;
 
         /// <summary>
         /// 角色管理服务
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="userRepository"></param>
-        /// <param name="roleRepository"></param>
-        /// <param name="userRoleRepository"></param>
-        /// <param name="roleSecurityRepository"></param>
         /// <param name="securityRepository"></param>
         /// <param name="authorizationManager"></param>
-        /// <param name="systemOptions"></param>
-        public UserCenterService(IHttpContextAccessor httpContextAccessor
+        public AuthorizeService(IHttpContextAccessor httpContextAccessor
             , IRepository<User> userRepository
-            , IRepository<Role> roleRepository
-            , IRepository<UserRole> userRoleRepository
-            , IRepository<RoleResource> roleSecurityRepository
             , IRepository<Resource> securityRepository
-            , IAuthorizationManager authorizationManager
-            , IOptions<SystemOptions>  systemOptions)
+            , IAuthorizationManager authorizationManager)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
-            _roleRepository = roleRepository;
-            _userRoleRepository = userRoleRepository;
-            _roleSecurityRepository = roleSecurityRepository;
             _securityRepository = securityRepository;
             _authorizationManager = authorizationManager;
-            this.systemOptions = systemOptions.Value;
         }
 
         /// <summary>
-        /// 登录（免授权）
+        /// 登录
         /// </summary>
         /// <param name="input"></param>
         /// <remarks>管理员：admin/admin；普通用户：Fur/dotnetchina</remarks>
@@ -109,8 +93,7 @@ namespace Gardener.Application
         /// <summary>
         /// 查看用户角色
         /// </summary>
-        [ApiSecurityDefine("查看用户角色")]
-        public List<RoleDto> ViewRoles()
+        public List<RoleDto> GetCurrentUserRoles()
         {
             // 获取用户Id
             var userId = _authorizationManager.GetUserId<int>();
@@ -129,21 +112,20 @@ namespace Gardener.Application
         /// 查看用户权限
         /// </summary>
         /// <returns></returns>
-        [ApiSecurityDefine("查看用户权限")]
-        public List<Resource> ViewSecuries()
+        public List<Resource> GetCurrentUserResources()
         {
             // 获取用户Id
             var userId = _authorizationManager.GetUserId<int>();
-            List<Resource> securities;
+            List<Resource> resources;
             //超级管理员
             if (_authorizationManager.IsSuperAdministrator())
             {
-                securities = _securityRepository.AsEnumerable(false);
+                resources = _securityRepository.AsEnumerable(false);
             }
             else
             {
                 //其他角色
-                securities = _userRepository
+                resources = _userRepository
                    .Include(u => u.Roles, false)
                        .ThenInclude(u => u.Resources)
                    .Where(u => u.Id == userId)
@@ -151,74 +133,9 @@ namespace Gardener.Application
                        .SelectMany(u => u.Resources))
                    .ToList();
             }
-            return securities;
+            return resources;
         }
 
-        /// <summary>
-        /// 角色列表
-        /// </summary>
-        [ApiSecurityDefine("查看所有角色")]
-        public List<RoleDto> GetRoles()
-        {
-            return _roleRepository.AsEnumerable(false).Adapt<List<RoleDto>>();
-        }
-
-        /// <summary>
-        /// 新增角色
-        /// </summary>
-        [ApiSecurityDefine("新增角色")]
-        public void InsertRole(RoleInput input)
-        {
-            _roleRepository.Insert(input.Adapt<Role>());
-        }
-
-        /// <summary>
-        /// 为用户分配角色
-        /// </summary>
-        [ApiSecurityDefine("为用户分配角色")]
-        public void GiveUserRole(int[] roleIds)
-        {
-            // 获取用户Id
-            var userId = _authorizationManager.GetUserId<int>();
-
-            roleIds ??= Array.Empty<int>();
-            _userRoleRepository.Delete(_userRoleRepository.Where(u => u.UserId == userId, false).ToList());
-
-            var list = new List<UserRole>();
-            foreach (var roleid in roleIds)
-            {
-                list.Add(new UserRole { UserId = userId, RoleId = roleid, CreatedTime = DateTimeOffset.Now });
-            }
-
-            _userRoleRepository.Insert(list);
-        }
-
-        /// <summary>
-        /// 查看系统所有的权限
-        /// </summary>
-        [ApiSecurityDefine("查看系统所有的权限")]
-        public List<Resource> GetSecurities()
-        {
-            return _securityRepository.AsEnumerable(false);
-        }
-
-        /// <summary>
-        /// 为角色分配权限
-        /// </summary>
-        [ApiSecurityDefine("为角色分配权限")]
-        public void GiveRoleSecurity(int roleId, int[] securityIds)
-        {
-            securityIds ??= Array.Empty<int>();
-            _roleSecurityRepository.Delete(_roleSecurityRepository.Where(u => u.RoleId == roleId, false).ToList());
-
-            var list = new List<RoleResource>();
-            foreach (var securityId in securityIds)
-            {
-                list.Add(new RoleResource { RoleId = roleId, ResourceId = securityId, CreatedTime = DateTimeOffset.Now });
-            }
-
-            _roleSecurityRepository.Insert(list);
-        }
         /// <summary>
         /// 初始化系统挨批资源权限
         /// </summary>

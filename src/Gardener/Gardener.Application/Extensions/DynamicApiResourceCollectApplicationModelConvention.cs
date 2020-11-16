@@ -5,6 +5,7 @@
 using Fur.DataEncryption;
 using Fur.DependencyInjection;
 using Gardener.Core;
+using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Core
+namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 用户表

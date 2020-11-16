@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Gardener.Application.Dtos.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gardener.Core.Entites\Gardener.Core.Entites.csproj" />
+    <ProjectReference Include="..\Gardener.Core.Enums\Gardener.Core.Enums.csproj" />
+  </ItemGroup>
+
+</Project>
