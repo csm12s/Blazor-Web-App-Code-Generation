@@ -1,0 +1,17 @@
+﻿@layout LoginLayout
+@page "/login"
+
+<Spin Spinning="isLoading">
+    <Form OnFinish="OnLogin" Model="@loginInput" LabelCol="new ColLayoutParam() {Span = 6 }">
+        <FormItem Label="用户名">
+            <Input @bind-Value="context.UserName" />
+        </FormItem>
+        <FormItem Label="密码">
+            <Input @bind-Value="context.Password" Type="password" />
+        </FormItem>
+        <FormItem>
+            <Button Type="@ButtonType.Primary" HtmlType="submit">登录</Button>
+            <Button OnClick="OnCancel">取消</Button>
+        </FormItem>
+    </Form>
+</Spin>

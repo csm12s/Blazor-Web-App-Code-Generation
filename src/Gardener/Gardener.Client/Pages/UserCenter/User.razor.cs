@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages
 {
-    public partial class UserIndex
+    public partial class User
     {
 
     }

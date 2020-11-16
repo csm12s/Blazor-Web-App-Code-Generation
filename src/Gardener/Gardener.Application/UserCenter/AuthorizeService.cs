@@ -18,6 +18,7 @@ using Gardener.Core.Enums;
 using Microsoft.Extensions.Options;
 using Gardener.Core.Entites;
 using Gardener.Application.Dtos;
+using System.Threading.Tasks;
 
 namespace Gardener.Application
 {
@@ -25,7 +26,7 @@ namespace Gardener.Application
     /// 用户中心服务
     /// </summary>
     [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
-    public class AuthorizeService : IDynamicApiController
+    public class AuthorizeService : IDynamicApiController, IAuthorizeService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<User> _userRepository;
@@ -60,7 +61,7 @@ namespace Gardener.Application
         public LoginOutput Login(LoginInput input)
         {
 
-            
+
             // 验证用户是否存在
             var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName), false) ?? throw Oops.Oh(1000);
             //密码是否正确
@@ -112,7 +113,7 @@ namespace Gardener.Application
         /// 查看用户权限
         /// </summary>
         /// <returns></returns>
-        public List<Resource> GetCurrentUserResources()
+        public List<ResourceDto> GetCurrentUserResources()
         {
             // 获取用户Id
             var userId = _authorizationManager.GetUserId<int>();
@@ -133,7 +134,7 @@ namespace Gardener.Application
                        .SelectMany(u => u.Resources))
                    .ToList();
             }
-            return resources;
+            return resources.Adapt<List<ResourceDto>>();
         }
 
         /// <summary>
@@ -151,6 +152,20 @@ namespace Gardener.Application
                 repository.InsertNow(apiResources);
             }
             return true;
+        }
+        /// <summary>
+        /// 获取当前用户信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<UserDto> GetCurrentUser()
+        {
+            // 获取用户Id
+            var userId = _authorizationManager.GetUserId<int>();
+
+            var user = await _userRepository.FindAsync(userId);
+
+            return user.Adapt<UserDto>();
+
         }
     }
 }

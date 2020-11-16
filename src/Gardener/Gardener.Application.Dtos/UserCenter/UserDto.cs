@@ -2,7 +2,6 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Gardener.Core.Entites;
 using Gardener.Core.Enums;
 using System;
 using System.Collections.Generic;
@@ -78,16 +77,16 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<Role> Roles { get; set; }
+        public ICollection<RoleDto> Roles { get; set; }
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<UserRole> UserRoles { get; set; }
+        public List<UserRoleDto> UserRoles { get; set; }
 
         /// <summary>
         /// 用户扩展信息
         /// </summary>
-        public UserExtension UserExtension { get; set; }
+        public UserExtensionDto UserExtension { get; set; }
     }
 }

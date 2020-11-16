@@ -10,7 +10,7 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required, MinLength(5)]
+        [Required(ErrorMessage ="用户名必填"), MinLength(5,ErrorMessage ="用户名不正确")]
         public string UserName { get; set; }
 
         /// <summary>

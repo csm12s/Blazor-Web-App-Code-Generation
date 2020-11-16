@@ -19,7 +19,7 @@ namespace Gardener.Application.UserCenter
     /// 角色服务
     /// </summary>
     [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
-    public class RoleService : ServiceBase<Role,RoleDto>
+    public class RoleService : ServiceBase<Role, RoleDto>, IRoleService
     {
         private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<RoleResource> _roleResourceRepository;
@@ -42,7 +42,7 @@ namespace Gardener.Application.UserCenter
         /// <param name="pageSize">分页大小</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PagedList<RoleDto>> Search([FromQuery]string name, 
+        public async Task<PagedList<RoleDto>> Search([FromQuery] string name,
             [FromQuery] int pageIndex = 1,
             [FromQuery] int pageSize = 10)
         {
@@ -66,7 +66,7 @@ namespace Gardener.Application.UserCenter
             {
                 list.Add(new RoleResource { RoleId = roleId, ResourceId = securityId, CreatedTime = DateTimeOffset.Now });
             }
-           await _roleResourceRepository.InsertAsync(list);
+            await _roleResourceRepository.InsertAsync(list);
         }
 
         /// <summary>
