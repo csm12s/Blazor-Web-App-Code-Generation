@@ -2,10 +2,16 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Client.Apis
+using Gardener.Client.Models;
+
+namespace Gardener.Client.Services
 {
     public interface ISystemConfigService
     {
-        string GetFooterContent();
+        string GetCopyright();
+
+        string GetSystemName();
+
+        SystemConfig GetSystemConfig();
     }
 }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Json;
 
-namespace Gardener.Client.Apis
+namespace Gardener.Client.Services
 {
     /// <summary>
     /// 

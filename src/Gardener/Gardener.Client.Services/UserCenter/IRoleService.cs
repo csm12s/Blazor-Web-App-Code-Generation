@@ -6,7 +6,7 @@ using Gardener.Core.Dtos;
 using Gardener.Client.Models;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Apis
+namespace Gardener.Client.Services
 {
     public interface IRoleService
     {

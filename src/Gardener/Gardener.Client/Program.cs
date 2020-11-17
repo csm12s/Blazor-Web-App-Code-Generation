@@ -1,4 +1,4 @@
-using Gardener.Client.Apis;
+using Gardener.Client.Services;
 using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

@@ -1,5 +1,5 @@
 ﻿using Gardener.Core.Dtos;
-using Gardener.Client.Apis;
+using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;

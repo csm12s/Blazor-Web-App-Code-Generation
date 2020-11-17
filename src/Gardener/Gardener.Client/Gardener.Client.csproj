@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011150529" />
+    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011161453" />
+    <PackageReference Include="AntDesign.Charts" Version="0.2.0" />
+    <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-201103141915" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
@@ -14,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gardener.Client.Apis\Gardener.Client.Apis.csproj" />
+    <ProjectReference Include="..\Gardener.Client.Services\Gardener.Client.Services.csproj" />
   </ItemGroup>
-
 </Project>

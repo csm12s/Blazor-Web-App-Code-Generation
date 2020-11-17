@@ -19,6 +19,11 @@
             密码
             </summary>
         </member>
+        <member name="P:Gardener.Core.Dtos.LoginInput.LoginType">
+            <summary>
+            登录类型
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Dtos.LoginOutput">
             <summary>
             登录输出参数

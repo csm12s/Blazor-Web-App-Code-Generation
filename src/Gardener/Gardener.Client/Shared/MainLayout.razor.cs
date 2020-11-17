@@ -2,7 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Apis;
+using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace Gardener.Client.Shared
 
         protected override void OnInitialized()
         {
-            footerContent = SystemConfigService.GetFooterContent();
+            footerContent = SystemConfigService.GetCopyright();
         }
 
     }

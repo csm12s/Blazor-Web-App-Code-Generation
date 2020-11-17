@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Apis
+namespace Gardener.Client.Services
 {
     public static class HttpClientExtension
     {

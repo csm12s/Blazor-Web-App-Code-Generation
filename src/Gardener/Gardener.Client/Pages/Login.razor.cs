@@ -4,33 +4,19 @@
 
 using AntDesign;
 using Gardener.Core.Dtos;
-using Gardener.Client.Apis;
+using Gardener.Client.Services;
 using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages
 {
     public partial class Login
     {
-        private bool isLoading = false;
-
-        public void Loading()
-        {
-            isLoading = true;
-        }
-
-        public void UnLoading()
-        {
-            isLoading = false;
-        }
-
-        public void SwitchLoading()
-        {
-            isLoading = !isLoading;
-        }
+        bool loading = false;
 
         private LoginInput loginInput = new LoginInput();
         [Inject]
@@ -45,8 +31,16 @@ namespace Gardener.Client.Pages
 
         private string returnUrl;
 
-        protected override void OnInitialized()
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        protected async override void OnInitialized()
         {
+            var user = (await authenticationStateTask).User;
+            if (user.Identity.IsAuthenticated)
+            {
+                Navigation.NavigateTo(returnUrl ?? "/");
+            }
             var query = new Uri(Navigation.Uri).Query;
 
             if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
@@ -57,22 +51,21 @@ namespace Gardener.Client.Pages
 
         public async void OnLogin()
         {
-            SwitchLoading();
+            loading = true;
             var loginOutResult= await AuthorizeService.Login(loginInput);
-            SwitchLoading();
             if (loginOutResult.Successed)
             {
-                MsgSvr.Success($"登录成功");
+                loading = false;
                 ((AuthProvider)AuthProvider).MarkUserAsAuthenticated(loginOutResult.Data.AccessToken);
                 Navigation.NavigateTo(returnUrl ?? "/");
+                await MsgSvr.Success($"登录成功",1);
             }
             else {
-                MsgSvr.Error($"登录失败：{loginOutResult.Errors}");
+                loading = false;
+                ((AuthProvider)AuthProvider).MarkUserAsLoggedOut();
+                Navigation.NavigateTo("/login"+(string.IsNullOrEmpty(returnUrl)?"": "?returnUrl=" + returnUrl));
+                await MsgSvr.Error($"登录失败：{loginOutResult.Errors}",duration:1);
             }
-        }
-        public void OnCancel()
-        {
-            SwitchLoading();
         }
     }
     

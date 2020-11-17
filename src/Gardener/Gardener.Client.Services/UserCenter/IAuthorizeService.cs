@@ -3,7 +3,7 @@ using Gardener.Client.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Apis
+namespace Gardener.Client.Services
 {
     public interface IAuthorizeService
     {
