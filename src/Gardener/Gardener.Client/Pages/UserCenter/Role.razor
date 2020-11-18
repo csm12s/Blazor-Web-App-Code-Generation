@@ -1,6 +1,199 @@
 ﻿@page "/user_auth/role"
-<h3>RoleIndex</h3>
+@using Gardener.Core.Dtos
+@using AntDesign.TableModels
+<div>
+    <PageContainer Title="角色管理">
+        <Breadcrumb>
+            <Breadcrumb>
+                <BreadcrumbItem>用户权限</BreadcrumbItem>
+                <BreadcrumbItem>角色管理</BreadcrumbItem>
+            </Breadcrumb>
+        </Breadcrumb>
+        <ChildContent>
+            <Table @ref="table"
+                   TItem="RoleDto"
+                   DataSource="@roles"
+                   Total="_total"
+                   OnChange="@onChange"
+                   @bind-PageIndex="_pageIndex"
+                   @bind-PageSize="_pageSize"
+                   @bind-SelectedRows="selectedRows">
+                <TitleTemplate>
+                    <Row>
+                        <AntDesign.Col Span="8">
+                            <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="DeleteSelected">
+                                删除选中
+                            </Button>
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="4" Offset="12" Style="text-align:right">
+                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                添加
+                            </Button>
+                        </AntDesign.Col>
+                    </Row>
+
+                </TitleTemplate>
+                <RowTemplate>
+                    <Selection Key="@(context.Id.ToString())" />
+                    <Column Title="编号" @bind-Field="@context.Id" Sortable />
+                    <Column Title="名称" @bind-Field="@context.Name" Sortable />
+                    <Column Title="备注" @bind-Field="@context.Remark" Sortable />
+                    <Column Title="创建时间" @bind-Field="@context.CreatedTime" Format="yyyy-MM-dd" Sortable />
+                    <ActionColumn>
+                        <Space>
+                            <SpaceItem><Button Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
+                            <SpaceItem><Button OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
+                        </Space>
+                    </ActionColumn>
+                </RowTemplate>
+            </Table>
+        </ChildContent>
+    </PageContainer>
+    <Drawer Closable="true" Width="400" Visible="visible" Placement="right" Title="@drawerTitle" OnClose="_=>Close()">
+
+        @if (editModel != null)
+        {
+            <Form 
+                  Loading="@formIsLoading"
+                  Model="@editModel"
+                  LabelCol="new ColLayoutParam { Span = 4 }"
+                  WrapperCol="new ColLayoutParam { Span = 20 }"
+                  OnFinish="OnFormFinish"
+                  OnFinishFailed="OnFormFinishFailed"
+                  >
+                <FormItem Label="名称">
+                    <Input @bind-Value="@context.Name" />
+                </FormItem>
+                <FormItem Label="备注">
+                    <TextArea   AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="context.Remark"></TextArea>
+                </FormItem>
+                <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        保存
+                    </Button>
+                    <Button OnClick="OnFormCancel">
+                        取消
+                    </Button>
+                </FormItem>
+            </Form>
+        }
+    </Drawer>
+</div>
 
 @code {
+    RoleDto[] roles;
+    IEnumerable<RoleDto> selectedRows;
+    ITable table;
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
+    string _name=string.Empty;
+    bool visible = false;
+    string drawerTitle = String.Empty;
+    bool formIsLoading = false;
+    /// <summary>
+    /// form 绑定对象
+    /// </summary>
+    RoleDto editModel = new RoleDto();
+    [Inject]
+    public MessageService message { get; set; }
+    [Inject]
+    public IRoleService RoleService { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
+        _total = pagedListResult.TotalCount;
+        roles = pagedListResult.Items.ToArray();
+    }
+
+    async Task onChange(QueryModel<RoleDto> queryModel)
+    {
+        var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
+        roles = pagedListResult.Items.ToArray();
+        _total = pagedListResult.TotalCount;
+    }
+    public void RemoveSelection(int id)
+    {
+        var selected = selectedRows.Where(x => x.Id != id);
+        selectedRows = selected;
+    }
+    private async void OnDeleteClick(int id)
+    {
+        await RoleService.Delete(id);
+
+        await OnInitializedAsync();
+        //await InvokeAsync(StateHasChanged);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="roleDto"></param>
+    private async void OnEditClick(RoleDto roleDto)
+    {
+        drawerTitle = "编辑";
+        editModel.Id = roleDto.Id;
+        editModel.Name = roleDto.Name;
+        editModel.Remark = roleDto.Remark;
+        await InvokeAsync(StateHasChanged);
+        visible = true;
+    }
+    private async void OnAddClick()
+    {
+
+        editModel.Id = 0;
+        editModel.Name = string.Empty;
+        editModel.Remark = string.Empty;
+        drawerTitle = "添加";
+        await InvokeAsync(StateHasChanged);
+        visible = true;
+    }
+    private void Close()
+    {
+        visible = false;
+    }
+    private async Task OnFormFinish(EditContext editContext)
+    {
+        formIsLoading = true;
+        //开始请求
+        if (editModel.Id == 0)
+        {
+            //添加
+            var role= await RoleService.Insert(editModel);
+            if (role?.Id > 0)
+            {
+                await OnInitializedAsync();
+                visible = false;
+                formIsLoading = false;
+                message.Success("添加成功", 1);
+            }
+            _pageIndex = 1;
+            _name = string.Empty;
+        }
+        else
+        {
+            //修改
+            await RoleService.Update(editModel);
+            visible = false;
+            formIsLoading = false;
+            message.Success("修改成功", 1);
+
+        }
+
+    }
+    private void OnFormFinishFailed(EditContext editContext)
+    {
+        //visible = false;
+    }
+    private void OnFormCancel()
+    {
+        editModel = new RoleDto();
+        visible = false;
+    }
+
+
+    private async void DeleteSelected()
+    {
+        message.Success("成功"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff"),1);
+    }
 }

@@ -149,6 +149,11 @@
             创建时间
             </summary>
         </member>
+        <member name="P:Gardener.Core.Dtos.RoleDto.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Dtos.RoleInput">
             <summary>
             角色输入

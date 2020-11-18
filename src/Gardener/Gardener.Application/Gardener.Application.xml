@@ -252,7 +252,7 @@
         </member>
         <member name="M:Gardener.Application.ServiceBase`3.Delete(`2)">
             <summary>
-            删除一条
+            删除一条(逻辑删除)
             </summary>
             <param name="id"></param>
         </member>

@@ -13,19 +13,20 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public class RoleService : IRoleService, IServiceBase<RoleDto>
+    public class RoleService : IRoleService
     {
+        private readonly string controller = "role";
 
-        private HttpClient HttpClient;
+        private IApiCaller apiCaller;
 
-        public RoleService(HttpClient httpClient)
+        public RoleService(IApiCaller apiCaller)
         {
-            HttpClient = httpClient;
+            this.apiCaller = apiCaller;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await apiCaller.DeleteAsync(controller, "/{id}", new Dictionary<string, object>() { { "id",id } });
         }
 
         public void DeleteResource(int roleId)
@@ -48,9 +49,10 @@ namespace Gardener.Client.Services
             throw new NotImplementedException();
         }
 
-        public Task<RoleDto> Insert(RoleDto input)
+        public async Task<RoleDto> Insert(RoleDto input)
         {
-            throw new NotImplementedException();
+            input.CreatedTime = DateTimeOffset.Now;
+           return await apiCaller.PostFromJsonAsyncAsync<RoleDto, RoleDto>(controller, request: input);
         }
 
         public void Resource(int roleId, int[] resourceIds)
@@ -58,14 +60,20 @@ namespace Gardener.Client.Services
             throw new NotImplementedException();
         }
 
-        public Task<PagedList<RoleDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
+        public async Task<PagedList<RoleDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
         {
-            throw new NotImplementedException();
+            IDictionary<string, object> pramas = new Dictionary<string, object>() 
+            {
+                {"name",name },
+                {"pageIndex",pageIndex.ToString() },
+                {"pageSize",pageSize.ToString() },
+            };
+            return  await apiCaller.GetFromJsonAsync<PagedList<RoleDto>>(controller, "search", pramas);
         }
-
-        public Task Update(RoleDto input)
+        public async Task Update(RoleDto input)
         {
-            throw new NotImplementedException();
+            input.UpdatedTime = DateTimeOffset.Now;
+            await apiCaller.PutFromJsonAsyncAsync<RoleDto>(controller, request: input);
         }
     }
 }

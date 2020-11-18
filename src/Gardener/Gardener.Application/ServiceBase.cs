@@ -52,16 +52,16 @@ namespace Gardener.Application
         public virtual async Task Update(TEntityDto input)
         {
             // 还可以直接操作
-            await input.Adapt<TEntity>().UpdateAsync();
+            await input.Adapt<TEntity>().UpdateExcludeAsync("CreatedTime");
         }
 
         /// <summary>
-        /// 删除一条
+        /// 删除一条(逻辑删除)
         /// </summary>
         /// <param name="id"></param>
         public virtual async Task Delete(TKey id)
         {
-            await _repository.DeleteAsync(id);
+            await _repository.FakeDeleteAsync(id);
         }
 
         /// <summary>

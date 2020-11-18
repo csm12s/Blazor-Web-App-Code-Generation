@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public interface IRoleService
+    public interface IRoleService: IServiceBase<RoleDto>
     {
         void DeleteResource( int roleId);
         void Resource( int roleId, int[] resourceIds);

@@ -42,12 +42,17 @@ namespace Gardener.Client
 
 
             #region api services
-            builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
-
-            builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
-
             builder.Services.AddScoped<JsTool>();
             builder.Services.AddScoped<HttpClientManager>();
+            builder.Services.AddScoped<IApiCaller, ApiCaller>();
+            builder.Services.AddScoped<ILogger, ConsoleLogger>();
+            builder.Services.AddScoped<IApiErrorNotifier, ApiErrorNotifier>();
+
+            builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
+            builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            
+
             #endregion
 
             await builder.Build().RunAsync();

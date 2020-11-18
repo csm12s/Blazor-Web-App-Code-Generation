@@ -15,14 +15,20 @@ namespace Gardener.Client.Services
             TRsp rsp = await httpResponse.Content.ReadFromJsonAsync<TRsp>();
             return rsp;
         }
-
+        public static async Task PostFromJsonAsync<TReq>(this HttpClient client, string requestUri, TReq value, JsonSerializerOptions? options = null, CancellationToken cancellationToken = default)
+        {
+            await client.PostAsJsonAsync<TReq>(requestUri, value, options, cancellationToken);
+        }
         public static async Task<TRsp> PutFromJsonAsync<TReq, TRsp>(this HttpClient client, string requestUri, TReq value, JsonSerializerOptions? options = null, CancellationToken cancellationToken = default)
         {
             var httpResponse = await client.PutAsJsonAsync<TReq>(requestUri, value, options, cancellationToken);
             TRsp rsp = await httpResponse.Content.ReadFromJsonAsync<TRsp>();
             return rsp;
         }
-
+        public static async Task PutFromJsonAsync<TReq>(this HttpClient client, string requestUri, TReq value, JsonSerializerOptions? options = null, CancellationToken cancellationToken = default)
+        {
+            await client.PutAsJsonAsync<TReq>(requestUri, value, options, cancellationToken);
+        }
         public static async Task<TRsp> DeleteFromJsonAsync<TRsp>(this HttpClient client, string requestUri, CancellationToken cancellationToken = default)
         {
             var httpResponse = await client.DeleteAsync(requestUri, cancellationToken);
