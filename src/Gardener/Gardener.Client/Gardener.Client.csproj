@@ -49,6 +49,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Watch Remove="Pages\Login.razor.less" />
+    <Watch Remove="Shared\LoginLayout.razor.less" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Components\GlobalHeader\RightContent.razor" />
   </ItemGroup>
 
