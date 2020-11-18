@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
@@ -46,6 +47,11 @@
   <ItemGroup>
     <Watch Include="**\*.razor" />
     <Watch Include="**\*.less" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Pages\Login.razor.less" />
+    <Watch Remove="Shared\LoginLayout.razor.less" />
   </ItemGroup>
 
   <ItemGroup>

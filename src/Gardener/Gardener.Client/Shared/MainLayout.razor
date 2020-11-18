@@ -8,5 +8,12 @@
     <ChildContent>
         @Body
     </ChildContent>
+    <FooterRender>
+        <GlobalFooter Links="_links">
+            <Copyright>
+                Copyright <Icon Type="copyright" /> @systemConfig?.Copyright
+            </Copyright>
+        </GlobalFooter>
+    </FooterRender>
 </AntDesign.Pro.Layout.BasicLayout>
-<SettingDrawer />
+@*<SettingDrawer />*@

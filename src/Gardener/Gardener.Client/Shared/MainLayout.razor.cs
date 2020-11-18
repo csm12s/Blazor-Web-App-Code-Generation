@@ -3,45 +3,40 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign.Pro.Layout;
+using Gardener.Client.Models;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Shared
 {
     public partial class MainLayout
     {
-        /// <summary>
-        /// 系统配置服务
-        /// </summary>
-        [Inject]
-        private ISystemConfigService SystemConfigService { get; set; }
+
         private MenuDataItem[] _menuData = { };
 
         /// <summary>
         /// 菜单栏收缩
         /// </summary>
         private bool collapsed;
+        private readonly LinkItem[] _links =
+        {
+                new LinkItem{ Key = "1", BlankTarget = true, Title = "Fur" ,Href="https://gitee.com/monksoul/Fur"},
+                new LinkItem{ Key = "2", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-blazor"},
+                new LinkItem{ Key = "3", BlankTarget = true, Title = "Ant Design Pro",Href="https://github.com/ant-design-blazor/ant-design-pro-blazor"}
+        };
         /// <summary>
-        /// copyright
+        /// 系统配置服务
         /// </summary>
-        private string copyright;
+        [Inject]
+        private ISystemConfigService SystemConfigService { get; set; }
 
-        void toggle()
-        {
-            collapsed = !collapsed;
-        }
-        void OnCollapse(bool isCollapsed)
-        {
-            Console.WriteLine($"Collapsed: {isCollapsed}");
-        }
+        private SystemConfig systemConfig;
+
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            copyright = SystemConfigService.GetCopyright();
             _menuData = new MenuDataItem[]{
 
                 new MenuDataItem
@@ -78,8 +73,17 @@ namespace Gardener.Client.Shared
                     }
                 }
             };
-
+            systemConfig = SystemConfigService.GetSystemConfig();
             //_menuData = await HttpClient.GetFromJsonAsync<MenuDataItem[]>("data/menu.json");
+        }
+
+        void toggle()
+        {
+            collapsed = !collapsed;
+        }
+        void OnCollapse(bool isCollapsed)
+        {
+            Console.WriteLine($"Collapsed: {isCollapsed}");
         }
 
     }

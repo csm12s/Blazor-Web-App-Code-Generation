@@ -6,7 +6,6 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AntDesign.Pro.Layout;
-
 namespace Gardener.Client
 {
     public class Program
@@ -21,7 +20,7 @@ namespace Gardener.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/") });
 
             builder.Services.AddAntDesign();
-
+            builder.Services.Configure<ProSettings>(builder.Configuration.GetSection("ProSettings"));
             //Console.WriteLine("==================================ProSettings>" + System.Text.Json.JsonSerializer.Serialize(builder.Configuration.GetSection("ProSettings")));
             //builder.Services.AddOptions<ProSettings>("ProSettings");
             //builder.Services.Configure<ProSettings>("ProSettings", config =>

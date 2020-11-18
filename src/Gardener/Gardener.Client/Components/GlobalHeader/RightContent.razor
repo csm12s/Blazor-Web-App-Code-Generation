@@ -2,7 +2,7 @@
 @inherits AntDomComponentBase
 
 <Space Class="@ClassMapper.Class">
-    <SpaceItem>
+    @*<SpaceItem>
         <HeaderSearch Class="action search"
                       Placeholder="站内搜索"
                       DefaultValue="umi ui"
@@ -37,14 +37,14 @@
                         ShowViewMore
                         Data="_events"/>
         </NoticeIcon>
-    </SpaceItem>
+    </SpaceItem>*@
     <SpaceItem>
         <AvatarDropdown Name="@(_currentUser.NickName ?? _currentUser.UserName)"
                         Avatar="@_currentUser.Avatar"
                         OnItemSelected="HandleSelectUser" />
     </SpaceItem>
-    <SpaceItem>
+    @*<SpaceItem>
         <SelectLang OnItemSelected="HandleSelectLang" />
-    </SpaceItem>
+    </SpaceItem>*@
 </Space>
 <Message/>
