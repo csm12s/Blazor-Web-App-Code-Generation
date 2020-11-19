@@ -48,6 +48,7 @@ namespace Gardener.Application.UserCenter
         {
             return await _roleRepository
                 .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
+                .Where(x => x.IsDeleted==false)
                 .OrderByDescending(x=>x.CreatedTime)
                 .Select(x => x.Adapt<RoleDto>())
                 .ToPagedListAsync<RoleDto>(pageIndex, pageSize);

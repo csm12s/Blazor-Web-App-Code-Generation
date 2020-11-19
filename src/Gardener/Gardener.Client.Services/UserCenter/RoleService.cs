@@ -4,11 +4,8 @@
 
 using Gardener.Core.Dtos;
 using Gardener.Client.Models;
-using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
@@ -24,14 +21,29 @@ namespace Gardener.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            await apiCaller.DeleteAsync(controller, "/{id}", new Dictionary<string, object>() { { "id",id } });
+           return await apiCaller.DeleteAsync<bool>($"{controller}/{id}");
+        }
+
+        public async Task<bool> Deletes(int[] ids)
+        {
+            return await apiCaller.PostFromJsonAsync< int[],bool>($"{controller}/deletes",ids);
         }
 
         public void DeleteResource(int roleId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> FakeDelete(int id)
+        {
+            return await apiCaller.DeleteAsync<bool>($"{controller}/fake-delete/{id}");
+        }
+
+        public async Task<bool> FakeDeletes(int[] ids)
+        {
+            return await apiCaller.PostFromJsonAsync<int[], bool>($"{controller}/fake-deletes", ids);
         }
 
         public Task<RoleDto> Get(int id)
@@ -52,7 +64,7 @@ namespace Gardener.Client.Services
         public async Task<RoleDto> Insert(RoleDto input)
         {
             input.CreatedTime = DateTimeOffset.Now;
-           return await apiCaller.PostFromJsonAsyncAsync<RoleDto, RoleDto>(controller, request: input);
+           return await apiCaller.PostFromJsonAsync<RoleDto, RoleDto>(controller, request: input);
         }
 
         public void Resource(int roleId, int[] resourceIds)
@@ -68,12 +80,12 @@ namespace Gardener.Client.Services
                 {"pageIndex",pageIndex.ToString() },
                 {"pageSize",pageSize.ToString() },
             };
-            return  await apiCaller.GetFromJsonAsync<PagedList<RoleDto>>(controller, "search", pramas);
+            return  await apiCaller.GetFromJsonAsync<PagedList<RoleDto>>($"{controller}/search", pramas);
         }
-        public async Task Update(RoleDto input)
+        public async Task<bool> Update(RoleDto input)
         {
             input.UpdatedTime = DateTimeOffset.Now;
-            await apiCaller.PutFromJsonAsyncAsync<RoleDto>(controller, request: input);
+            return await apiCaller.PutFromJsonAsync<RoleDto,bool>(controller, request: input);
         }
     }
 }

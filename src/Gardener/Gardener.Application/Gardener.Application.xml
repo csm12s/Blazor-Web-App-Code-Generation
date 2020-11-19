@@ -57,6 +57,27 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.IServiceBase`2.Deletes(`1[])">
+            <summary>
+            删除多条
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.IServiceBase`2.FakeDelete(`1)">
+            <summary>
+            删除一条(逻辑删除)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.IServiceBase`2.FakeDeletes(`1[])">
+            <summary>
+            删除多条(逻辑删除)
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Application.IServiceBase`2.Get(`1)">
             <summary>
             查询一条
@@ -252,9 +273,27 @@
         </member>
         <member name="M:Gardener.Application.ServiceBase`3.Delete(`2)">
             <summary>
+            删除一条
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Application.ServiceBase`3.Deletes(`2[])">
+            <summary>
+            删除多条
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Gardener.Application.ServiceBase`3.FakeDelete(`2)">
+            <summary>
             删除一条(逻辑删除)
             </summary>
             <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Application.ServiceBase`3.FakeDeletes(`2[])">
+            <summary>
+            删除一条(逻辑删除)
+            </summary>
+            <param name="ids"></param>
         </member>
         <member name="M:Gardener.Application.ServiceBase`3.Get(`2)">
             <summary>

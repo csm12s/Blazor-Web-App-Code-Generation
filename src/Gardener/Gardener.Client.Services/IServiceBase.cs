@@ -20,7 +20,25 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task Delete(TKey id);
+        Task<bool> Delete(TKey id);
+        /// <summary>
+        /// 删除一条(逻辑删除)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> FakeDelete(TKey id);
+        /// <summary>
+        /// 删除多条
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task<bool> Deletes(TKey[] ids);
+        /// <summary>
+        /// 删除多条(逻辑删除)
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task<bool> FakeDeletes(TKey[] ids);
         /// <summary>
         /// 查询一条
         /// </summary>
@@ -50,7 +68,7 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task Update(TEntityDto input);
+        Task<bool> Update(TEntityDto input);
     }
 
     /// <summary>

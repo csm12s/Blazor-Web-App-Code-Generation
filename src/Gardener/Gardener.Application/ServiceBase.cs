@@ -43,27 +43,64 @@ namespace Gardener.Application
             var newEntity = await _repository.InsertNowAsync(input.Adapt<TEntity>());
             return newEntity.Entity.Adapt<TEntityDto>();
         }
-
+          
         /// <summary>
         /// 更新一条
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public virtual async Task Update(TEntityDto input)
+        public virtual async Task<bool> Update(TEntityDto input)
         {
             // 还可以直接操作
             await input.Adapt<TEntity>().UpdateExcludeAsync("CreatedTime");
+            return true;
         }
 
+        /// <summary>
+        /// 删除一条
+        /// </summary>
+        /// <param name="id"></param>
+        public virtual async Task<bool> Delete(TKey id)
+        {
+            await _repository.DeleteAsync(id);
+            return true;
+        }
+        /// <summary>
+        /// 删除多条
+        /// </summary>
+        /// <param name="ids"></param>
+        [HttpPost]
+        public virtual async Task<bool> Deletes(TKey [] ids)
+        {
+            foreach (TKey id in ids)
+            {
+                await _repository.DeleteAsync(id);
+            }
+            return true;
+        }
         /// <summary>
         /// 删除一条(逻辑删除)
         /// </summary>
         /// <param name="id"></param>
-        public virtual async Task Delete(TKey id)
+        [HttpDelete]
+        public virtual async Task<bool> FakeDelete(TKey id)
         {
             await _repository.FakeDeleteAsync(id);
+            return true;
         }
-
+        /// <summary>
+        /// 删除一条(逻辑删除)
+        /// </summary>
+        /// <param name="ids"></param>
+        [HttpPost]
+        public virtual async Task<bool> FakeDeletes(TKey [] ids)
+        {
+            foreach (TKey id in ids)
+            {
+                await _repository.FakeDeleteAsync(id);
+            }
+            return true;
+        }
         /// <summary>
         /// 查询一条
         /// </summary>

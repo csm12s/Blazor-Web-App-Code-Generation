@@ -1,7 +1,6 @@
 ﻿// -----------------------------------------------------------------------------
 // 文件头
 // -----------------------------------------------------------------------------
-
 using AntDesign.Pro.Layout;
 using Gardener.Client.Models;
 using Gardener.Client.Services;
@@ -15,7 +14,7 @@ namespace Gardener.Client.Shared
     {
 
         private MenuDataItem[] _menuData = { };
-
+        
         /// <summary>
         /// 菜单栏收缩
         /// </summary>

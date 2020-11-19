@@ -4,11 +4,8 @@
 
 using Gardener.Core.Dtos;
 using Gardener.Client.Models;
-using RestSharp;
-using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Json;

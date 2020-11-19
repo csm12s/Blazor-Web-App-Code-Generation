@@ -33,7 +33,7 @@ namespace Gardener.Client.Services
             return url;
         }
         #region post
-        public async Task PostFromJsonAsyncAsync<TRequest>(string url, TRequest request = default(TRequest))
+        public async Task PostFromJsonAsync<TRequest>(string url, TRequest request = default(TRequest))
         {
             try
             {
@@ -45,12 +45,7 @@ namespace Gardener.Client.Services
                 await log.Error($"服务异常:{ex.Message}", ex);
             }
         }
-        public async Task PostFromJsonAsyncAsync<TRequest>(string controller, string action = "", TRequest request = default(TRequest))
-        {
-            var url = $"{controller}/{action}";
-            await PostFromJsonAsyncAsync<TRequest>(url, request);
-        }
-        public async Task<TResponse> PostFromJsonAsyncAsync<TRequest, TResponse>(string url, TRequest request = default(TRequest))
+        public async Task<TResponse> PostFromJsonAsync<TRequest, TResponse>(string url, TRequest request = default(TRequest))
         {
             try
             {
@@ -72,15 +67,10 @@ namespace Gardener.Client.Services
                 return default(TResponse);
             }
         }
-        public async Task<TResponse> PostFromJsonAsyncAsync<TRequest, TResponse>(string controller, string action = "", TRequest request = default(TRequest))
-        {
-            var url = $"{controller}/{action}";
-            return await PostFromJsonAsyncAsync<TRequest, TResponse>(url, request);
-        }
         #endregion
 
         #region get
-        public async Task<TResponse> GetFromJsonAsyncAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        public async Task<TResponse> GetFromJsonAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
         {
             try
             {
@@ -103,18 +93,8 @@ namespace Gardener.Client.Services
                 return default(TResponse);
             }
         }
-        public async Task<TResponse> GetFromJsonAsync<TResponse>(string controller, string action, IDictionary<string, object> queryString = null)
-        {
-            var url = $"{controller}/{action}";
-            return await GetFromJsonAsyncAsync<TResponse>(url, queryString);
-        }
         #endregion
         #region delete
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
         public async Task DeleteAsync(string url, IDictionary<string, object> queryString = null)
         {
             try
@@ -130,20 +110,30 @@ namespace Gardener.Client.Services
                 await log.Error($"服务异常:{ex.Message}", ex);
             }
         }
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="controller"></param>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public async Task DeleteAsync(string controller, string action, IDictionary<string, object> queryString = null)
+        public async Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
         {
-            var url = $"{controller}/{action}";
-            await DeleteAsync(url, queryString);
+            try
+            {
+               var result = await httpClient.DeleteFromJsonAsync<ApiResult<TResponse>>(GetUrl(url, queryString));
+                if (result.Successed)
+                {
+                    return result.Data;
+                }
+                else
+                {
+                    await log.Error($"服务异常:{result.Errors}({result.StatusCode})");
+                }
+                return default(TResponse);
+            }
+            catch (Exception ex)
+            {
+                await log.Error($"服务异常:{ex.Message}", ex);
+                return default(TResponse);
+            }
         }
         #endregion
         #region put
-        public async Task PutFromJsonAsyncAsync<TRequest>(string url, TRequest request = default)
+        public async Task PutFromJsonAsync<TRequest>(string url, TRequest request = default)
         {
             try
             {
@@ -155,12 +145,7 @@ namespace Gardener.Client.Services
                 await log.Error($"服务异常:{ex.Message}", ex);
             }
         }
-        public async Task PutFromJsonAsyncAsync<TRequest>(string controller, string action = "", TRequest request = default)
-        {
-            var url = $"{controller}/{action}";
-            await PutFromJsonAsyncAsync<TRequest>(url, request);
-        }
-        public async Task<TResponse> PutFromJsonAsyncAsync<TRequest, TResponse>(string url, TRequest request = default)
+        public async Task<TResponse> PutFromJsonAsync<TRequest, TResponse>(string url, TRequest request = default)
         {
             try
             {
@@ -181,11 +166,6 @@ namespace Gardener.Client.Services
                 await log.Error($"服务异常:{ex.Message}", ex);
                 return default(TResponse);
             }
-        }
-        public async Task<TResponse> PutFromJsonAsyncAsync<TRequest, TResponse>(string controller, string action = "", TRequest request = default)
-        {
-            var url = $"{controller}/{action}";
-            return await PutFromJsonAsyncAsync<TRequest, TResponse>(url, request);
         }
         #endregion
     }

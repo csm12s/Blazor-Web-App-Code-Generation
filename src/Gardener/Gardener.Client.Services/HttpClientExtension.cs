@@ -35,7 +35,6 @@ namespace Gardener.Client.Services
             TRsp rsp = await httpResponse.Content.ReadFromJsonAsync<TRsp>();
             return rsp;
         }
-
         #endregion
     }
 }
