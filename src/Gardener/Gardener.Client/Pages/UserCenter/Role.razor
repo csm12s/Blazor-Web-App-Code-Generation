@@ -49,11 +49,12 @@
             </Table>
         </ChildContent>
     </PageContainer>
-    <Drawer Closable="true" Width="400" Visible="visible" Placement="right" Title="@drawerTitle" OnClose="_=>Close()">
+    <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
 
         @if (editModel != null)
         {
-            <Form Loading="@formIsLoading"
+            <Form 
+                  Loading="@formIsLoading"
                   Model="@editModel"
                   LabelCol="new ColLayoutParam { Span = 4 }"
                   WrapperCol="new ColLayoutParam { Span = 20 }"
