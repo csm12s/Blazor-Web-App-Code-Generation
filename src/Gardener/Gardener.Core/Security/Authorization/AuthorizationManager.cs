@@ -18,10 +18,6 @@ namespace Gardener.Core
     public class AuthorizationManager : IAuthorizationManager, IScoped
     {
         /// <summary>
-        /// jwt配置
-        /// </summary>
-        private readonly JWTSettingsOptions _jwtSettings;
-        /// <summary>
         /// 请求上下文访问器
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -34,14 +30,11 @@ namespace Gardener.Core
         /// 构造函数
         /// </summary>
         /// <param name="httpContextAccessor"></param>
-        /// <param name="options"></param>
         /// <param name="userRepository"></param>
         public AuthorizationManager(IHttpContextAccessor httpContextAccessor
-            , IOptions<JWTSettingsOptions> options
             , IRepository<User> userRepository)
         {
             _httpContextAccessor = httpContextAccessor;
-            _jwtSettings = options.Value;
             _userRepository = userRepository;
         }
 
@@ -51,7 +44,11 @@ namespace Gardener.Core
         /// <returns></returns>
         public object GetUserId()
         {
-            return ReadToken().GetPayloadValue<object>("UserId");
+
+            var user=_httpContextAccessor.HttpContext.User;
+            //return ReadToken().GetPayloadValue<object>("UserId");
+
+            return 1;
         }
 
         /// <summary>
@@ -61,7 +58,10 @@ namespace Gardener.Core
         /// <returns></returns>
         public T GetUserId<T>()
         {
-            return ReadToken().GetPayloadValue<T>("UserId");
+            var user = _httpContextAccessor.HttpContext.User;
+            //return ReadToken().GetPayloadValue<T>("UserId");
+
+            return default(T);
         }
         /// <summary>
         /// 是否是超级管理员
@@ -78,43 +78,43 @@ namespace Gardener.Core
             return false;
         }
 
-        /// <summary>
-        /// 检查权限
-        /// </summary>
-        /// <param name="resourceId"></param>
-        /// <returns></returns>
-        public bool CheckSecurity(string resourceId)
-        {
-            var userId = GetUserId<int>();
-            //超级管理员
-            if (IsSuperAdministrator()) return true;
-            // ========= 以下代码应该缓存起来 ===========
-            // 查询用户拥有的权限
-            var resources = _userRepository
-                .Include(u => u.Roles, false)
-                    .ThenInclude(u => u.Resources)
-                .Where(u => u.Id == userId)
-                .SelectMany(u => u.Roles
-                    .SelectMany(u => u.Resources))
-                .Select(u => u.ResourceId);
-            if (!resources.Contains(resourceId)) return false;
-            return true;
-        }
-        /// <summary>
-        /// 解析 Token
-        /// </summary>
-        /// <returns></returns>
-        [IfException(1001, ErrorMessage = "非法操作")]
-        private JsonWebToken ReadToken()
-        {
-            // 获取 token
-            var accessToken = _httpContextAccessor.GetJwtToken() ?? throw Oops.Oh(1001);
+        ///// <summary>
+        ///// 检查权限
+        ///// </summary>
+        ///// <param name="resourceId"></param>
+        ///// <returns></returns>
+        //public bool CheckSecurity(string resourceId)
+        //{
+        //    var userId = GetUserId<int>();
+        //    //超级管理员
+        //    if (IsSuperAdministrator()) return true;
+        //    // ========= 以下代码应该缓存起来 ===========
+        //    // 查询用户拥有的权限
+        //    var resources = _userRepository
+        //        .Include(u => u.Roles, false)
+        //            .ThenInclude(u => u.Resources)
+        //        .Where(u => u.Id == userId)
+        //        .SelectMany(u => u.Roles
+        //            .SelectMany(u => u.Resources))
+        //        .Select(u => u.ResourceId);
+        //    if (!resources.Contains(resourceId)) return false;
+        //    return true;
+        //}
+        ///// <summary>
+        ///// 解析 Token
+        ///// </summary>
+        ///// <returns></returns>
+        //[IfException(1001, ErrorMessage = "非法操作")]
+        //private JsonWebToken ReadToken()
+        //{
+        //    // 获取 token
+        //    var accessToken = _httpContextAccessor.GetJwtToken() ?? throw Oops.Oh(1001);
 
-            // 验证token
-            var (IsValid, Token) = JWTEncryption.Validate(accessToken, _jwtSettings);
-            if (!IsValid) throw Oops.Oh(1001);
+        //    // 验证token
+        //    var (IsValid, Token) = JWTExtensions.Validate(accessToken, _jwtSettings);
+        //    if (!IsValid) throw Oops.Oh(1001);
 
-            return Token;
-        }
+        //    return Token;
+        //}
     }
 }

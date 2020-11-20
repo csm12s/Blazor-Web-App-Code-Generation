@@ -17,6 +17,8 @@ using Gardener.Enums;
 using Gardener.Core.Entites;
 using Gardener.Core.Dtos;
 using System.Threading.Tasks;
+using Gardener.Core.Security;
+using System.Security.Claims;
 
 namespace Gardener.Application
 {
@@ -41,7 +43,8 @@ namespace Gardener.Application
         public AuthorizeService(IHttpContextAccessor httpContextAccessor
             , IRepository<User> userRepository
             , IRepository<Resource> securityRepository
-            , IAuthorizationManager authorizationManager)
+            , IAuthorizationManager authorizationManager
+            )
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
@@ -72,16 +75,18 @@ namespace Gardener.Application
             var jwtSettings = App.GetOptions<JWTSettingsOptions>();
             var datetimeOffset = DateTimeOffset.UtcNow;
 
-            output.AccessToken = JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, new Dictionary<string, object>()
+            var tokenResult = JWTHelper.BuildJwtToken(jwtSettings, new Dictionary<string, object>()
             {
-                { "UserId", user.Id },  // 存储Id
-                { "Account",user.UserName }, // 存储用户名
+                { ClaimTypes.Name, user.UserName },  // 存储Id
+                { "UserId",user.Id }, // 存储用户名
                 { JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value*60).ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Iss, jwtSettings.ValidIssuer},
                 { JwtRegisteredClaimNames.Aud, jwtSettings.ValidAudience }
             });
+
+            output.AccessToken = tokenResult.AccessToken;
 
             // 设置 Swagger 刷新自动授权
             _httpContextAccessor.SigninToSwagger(output.AccessToken);

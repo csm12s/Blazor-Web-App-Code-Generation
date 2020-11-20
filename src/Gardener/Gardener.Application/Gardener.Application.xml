@@ -140,7 +140,7 @@
             课时设置服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.ClassHourSettingService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.ClassHourSetting})">
+        <member name="M:Gardener.Application.ClassHourSettingService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.ClassHourSetting})">
             <summary>
             课时设置服务
             </summary>
@@ -151,7 +151,7 @@
             上课安排规则服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.TutorialScheduleRuleService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.TutorialScheduleRule})">
+        <member name="M:Gardener.Application.TutorialScheduleRuleService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.TutorialScheduleRule})">
             <summary>
             上课安排规则服务
             </summary>
@@ -162,7 +162,7 @@
             班级服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.ClassesService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Classes})">
+        <member name="M:Gardener.Application.ClassesService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Classes})">
             <summary>
             班级服务
             </summary>
@@ -173,7 +173,7 @@
             课程服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.CurriculumService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Curriculum})">
+        <member name="M:Gardener.Application.CurriculumService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Curriculum})">
             <summary>
             课程服务
             </summary>
@@ -184,7 +184,7 @@
             年级服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.GradeService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Grade})">
+        <member name="M:Gardener.Application.GradeService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Grade})">
             <summary>
             年级服务
             </summary>
@@ -195,7 +195,7 @@
             学年服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.SchoolYearService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.SchoolYear})">
+        <member name="M:Gardener.Application.SchoolYearService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.SchoolYear})">
             <summary>
             学年服务
             </summary>
@@ -206,7 +206,7 @@
             学期服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.SemesterService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Semester})">
+        <member name="M:Gardener.Application.SemesterService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Semester})">
             <summary>
             老师服务
             </summary>
@@ -217,7 +217,7 @@
             学生服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.StudentService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Student})">
+        <member name="M:Gardener.Application.StudentService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Student})">
             <summary>
             
             </summary>
@@ -235,7 +235,7 @@
             老师服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.TeacherService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Teacher})">
+        <member name="M:Gardener.Application.TeacherService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Teacher})">
             <summary>
             老师服务
             </summary>
@@ -250,7 +250,7 @@
             <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
             <typeparam name="TKey">数据实体主键类型</typeparam>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`3.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
+        <member name="M:Gardener.Application.ServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
             <summary>
             继承此类即可实现基础方法
             CURD、获取全部、分页获取
@@ -322,7 +322,7 @@
             </summary>
             <typeparam name="TEntity">数据实体类型</typeparam>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`1.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
+        <member name="M:Gardener.Application.ServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
             <summary>
             继承此类即可实现基础方法
             CURD、获取全部、分页获取 
@@ -337,7 +337,7 @@
             <typeparam name="TEntity">数据实体类型</typeparam>
             <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
         </member>
-        <member name="M:Gardener.Application.ServiceBase`2.#ctor(Fur.DatabaseAccessor.IRepository{`0})">
+        <member name="M:Gardener.Application.ServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
             <summary>
             继承此类即可实现基础方法
             CURD、获取全部、分页获取
@@ -349,7 +349,7 @@
             用户中心服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager)">
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager)">
             <summary>
             角色管理服务
             </summary>
@@ -363,7 +363,7 @@
             登录
             </summary>
             <param name="input"></param>
-            <remarks>管理员：admin/admin；普通用户：Fur/dotnetchina</remarks>
+            <remarks>管理员：admin/admin；普通用户：Furion/dotnetchina</remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserRoles">
@@ -400,7 +400,7 @@
             资源服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.ResourceService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+        <member name="M:Gardener.Application.UserCenter.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
             <summary>
             资源服务
             </summary>
@@ -411,7 +411,7 @@
             角色服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource})">
+        <member name="M:Gardener.Application.UserCenter.RoleService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource})">
             <summary>
             角色服务
             </summary>
@@ -443,7 +443,7 @@
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
             <summary>
             用户服务
             </summary>

@@ -30,11 +30,6 @@
             权限管理器
             </summary>
         </member>
-        <member name="F:Gardener.Core.AuthorizationManager._jwtSettings">
-            <summary>
-            jwt配置
-            </summary>
-        </member>
         <member name="F:Gardener.Core.AuthorizationManager._httpContextAccessor">
             <summary>
             请求上下文访问器
@@ -45,12 +40,11 @@
             用户仓储
             </summary>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User})">
+        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User})">
             <summary>
             构造函数
             </summary>
             <param name="httpContextAccessor"></param>
-            <param name="options"></param>
             <param name="userRepository"></param>
         </member>
         <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
@@ -72,19 +66,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(System.String)">
-            <summary>
-            检查权限
-            </summary>
-            <param name="resourceId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.ReadToken">
-            <summary>
-            解析 Token
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Gardener.Core.IAuthorizationManager">
             <summary>
             权限管理器
@@ -96,13 +77,6 @@
             获取用户 Id
             </summary>
             <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity(System.String)">
-            <summary>
-            检查授权
-            </summary>
-            <param name="resourceId"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Core.IAuthorizationManager.IsSuperAdministrator">

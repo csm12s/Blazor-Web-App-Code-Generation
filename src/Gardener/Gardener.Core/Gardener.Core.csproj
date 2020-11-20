@@ -30,8 +30,4 @@
     <ProjectReference Include="..\Gardener.Core.Security\Gardener.Core.Security.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Security\Authentication\JwtBearer\" />
-  </ItemGroup>
-
 </Project>
