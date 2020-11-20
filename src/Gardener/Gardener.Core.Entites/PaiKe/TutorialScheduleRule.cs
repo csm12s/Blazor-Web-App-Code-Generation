@@ -2,13 +2,8 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
-using Gardener.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Furion.DatabaseAccessor;
+using Gardener.Enums;
 
 namespace Gardener.Core.Entites
 {

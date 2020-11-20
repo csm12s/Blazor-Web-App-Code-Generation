@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fur" Version="1.0.2.3" />
+    <PackageReference Include="Furion" Version="1.0.6.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gardener.Core.Enums\Gardener.Core.Enums.csproj" />
+    <ProjectReference Include="..\Gardener.Enums\Gardener.Enums.csproj" />
   </ItemGroup>
 
 </Project>

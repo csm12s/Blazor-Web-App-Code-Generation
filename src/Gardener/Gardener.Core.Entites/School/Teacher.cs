@@ -2,9 +2,9 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 using System.ComponentModel.DataAnnotations;
-using Gardener.Core.Enums;
+using Gardener.Enums;
 using System;
 
 namespace Gardener.Core.Entites

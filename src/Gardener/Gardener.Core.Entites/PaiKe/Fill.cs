@@ -2,7 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 
 namespace Gardener.Core.Entites
 {

@@ -11,9 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gardener.Application.Dtos\Gardener.Application.Dtos.csproj" />
     <ProjectReference Include="..\Gardener.Client.Models\Gardener.Client.Models.csproj" />
-    <ProjectReference Include="..\Gardener.Core.Dtos\Gardener.Core.Dtos.csproj" />
-    <ProjectReference Include="..\Gardener.Core.Enums\Gardener.Core.Enums.csproj" />
   </ItemGroup>
 
 </Project>

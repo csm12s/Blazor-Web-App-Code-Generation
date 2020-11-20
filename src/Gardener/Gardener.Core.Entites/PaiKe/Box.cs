@@ -2,20 +2,16 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
-using Gardener.Core.Enums;
-using System;
+using Furion.DatabaseAccessor;
+using Gardener.Enums;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.Core.Entites
 {
     /// <summary>
     /// 表
     /// </summary>
-   public class Box : Entity
+    public class Box : Entity
     {
         /// <summary>
         /// 星期

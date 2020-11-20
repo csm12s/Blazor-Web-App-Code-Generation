@@ -2,30 +2,24 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gardener.Core.Enums
+namespace Gardener.Enums
 {
     /// <summary>
-    /// 排序规则
+    /// 权限类型
     /// </summary>
-    public enum RuleSort
+    public enum ResourceType
     {
         /// <summary>
-        /// 必排
+        /// API
         /// </summary>
-        Must = 0,
+        API,
         /// <summary>
-        /// 禁止
+        /// BUTTON
         /// </summary>
-        Prohibit = 1,
+        BUTTON,
         /// <summary>
-        /// 连排
+        /// 菜单
         /// </summary>
-        Continuity = 2
+        MENU
     }
 }

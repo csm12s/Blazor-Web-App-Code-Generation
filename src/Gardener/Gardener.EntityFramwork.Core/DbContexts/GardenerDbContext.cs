@@ -2,7 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gardener.EntityFramwork.Core.DbContexts

@@ -1,7 +1,6 @@
-﻿using Fur;
-using Fur.DatabaseAccessor;
-using Fur.DataEncryption;
-using Gardener.Core.Enums;
+﻿using Furion.DatabaseAccessor;
+using Furion.DataEncryption;
+using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

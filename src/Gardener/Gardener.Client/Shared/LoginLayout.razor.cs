@@ -9,7 +9,7 @@ namespace Gardener.Client.Shared
     {
         private readonly LinkItem[] _links =
         {
-                new LinkItem{ Key = "", BlankTarget = true, Title = "Fur" ,Href="https://gitee.com/monksoul/Fur"},
+                new LinkItem{ Key = "", BlankTarget = true, Title = "Furion" ,Href="https://gitee.com/monksoul/Furion"},
                 new LinkItem{ Key = "", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-pro-blazor"},
         };
         /// <summary>

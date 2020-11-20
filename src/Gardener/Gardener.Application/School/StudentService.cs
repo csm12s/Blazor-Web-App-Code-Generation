@@ -1,5 +1,4 @@
-﻿using Fur.DatabaseAccessor;
-using Fur.DynamicApiController;
+﻿using Furion.DatabaseAccessor;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;

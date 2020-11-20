@@ -2,8 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
-using Fur.DynamicApiController;
+using Furion.DatabaseAccessor;
 using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Mvc;
 

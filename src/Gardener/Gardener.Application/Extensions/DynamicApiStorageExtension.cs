@@ -2,13 +2,8 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DependencyInjection;
+using Furion.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.Application.Extensions
 {

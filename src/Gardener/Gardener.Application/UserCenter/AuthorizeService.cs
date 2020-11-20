@@ -1,8 +1,7 @@
-﻿using Fur.Authorization;
-using Gardener.Core;
-using Fur.DatabaseAccessor;
-using Fur.DynamicApiController;
-using Fur.FriendlyException;
+﻿using Gardener.Core;
+using Furion.DatabaseAccessor;
+using Furion.DynamicApiController;
+using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,11 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using Fur;
-using Fur.DataEncryption;
+using Furion;
+using Furion.DataEncryption;
 using Microsoft.AspNetCore.Mvc;
-using Gardener.Core.Enums;
-using Microsoft.Extensions.Options;
+using Gardener.Enums;
 using Gardener.Core.Entites;
 using Gardener.Core.Dtos;
 using System.Threading.Tasks;
@@ -55,7 +53,7 @@ namespace Gardener.Application
         /// 登录
         /// </summary>
         /// <param name="input"></param>
-        /// <remarks>管理员：admin/admin；普通用户：Fur/dotnetchina</remarks>
+        /// <remarks>管理员：admin/admin；普通用户：Furion/dotnetchina</remarks>
         /// <returns></returns>
         [AllowAnonymous, IfException(1000, ErrorMessage = "用户名或密码错误")]
         public LoginOutput Login(LoginInput input)

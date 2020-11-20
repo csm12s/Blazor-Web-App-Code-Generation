@@ -1,7 +1,7 @@
-﻿using Fur.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using System;
 using System.ComponentModel.DataAnnotations;
-using Gardener.Core.Enums;
+using Gardener.Enums;
 
 namespace Gardener.Core.Entites
 {

@@ -21,7 +21,7 @@ namespace Gardener.Client.Shared
         private bool collapsed;
         private readonly LinkItem[] _links =
         {
-                new LinkItem{ Key = "1", BlankTarget = true, Title = "Fur" ,Href="https://gitee.com/monksoul/Fur"},
+                new LinkItem{ Key = "1", BlankTarget = true, Title = "Furion" ,Href="https://gitee.com/monksoul/Furion"},
                 new LinkItem{ Key = "2", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-blazor"},
                 new LinkItem{ Key = "3", BlankTarget = true, Title = "Ant Design Pro",Href="https://github.com/ant-design-blazor/ant-design-pro-blazor"}
         };

@@ -1,8 +1,7 @@
 ﻿// -----------------------------------------------------------------------------
 // 文件头
 // -----------------------------------------------------------------------------
-using Fur;
-using Fur.UnifyResult;
+using Furion;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +21,7 @@ namespace Gardener.Web.Core
             services.AddCorsAccessor();
             //注册控制器和视图
             services.AddControllersWithViews()
-                //注册fur
+                //注册Furion
                 .AddInject()
                 //注册规范返回格式
                 .AddUnifyResult()

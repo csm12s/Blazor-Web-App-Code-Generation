@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Gardener.Core.Dtos</name>
+        <name>Gardener.Application.Dtos</name>
     </assembly>
     <members>
         <member name="T:Gardener.Core.Dtos.LoginInput">
@@ -17,6 +17,11 @@
         <member name="P:Gardener.Core.Dtos.LoginInput.Password">
             <summary>
             密码
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Dtos.LoginInput.LoginType">
+            <summary>
+            登录类型
             </summary>
         </member>
         <member name="T:Gardener.Core.Dtos.LoginOutput">
@@ -142,6 +147,11 @@
         <member name="P:Gardener.Core.Dtos.RoleDto.CreatedTime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Dtos.RoleDto.UpdatedTime">
+            <summary>
+            更新时间
             </summary>
         </member>
         <member name="T:Gardener.Core.Dtos.RoleInput">

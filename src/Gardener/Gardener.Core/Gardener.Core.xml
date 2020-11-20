@@ -4,6 +4,27 @@
         <name>Gardener.Core</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Core.GardenerCoreStartup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.GardenerCoreStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:Gardener.Core.SystemOptions">
+            <summary>
+            系统选项
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.SystemOptions.SuperAdministratorRoleId">
+            <summary>
+            超级管理员角色Id
+            </summary>
+        </member>
         <member name="T:Gardener.Core.AuthorizationManager">
             <summary>
             权限管理器
@@ -24,7 +45,7 @@
             用户仓储
             </summary>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{Fur.Authorization.JWTSettingsOptions},Fur.DatabaseAccessor.IRepository{Gardener.Core.Entites.User})">
+        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User})">
             <summary>
             构造函数
             </summary>
@@ -89,27 +110,6 @@
             是否是超级管理员
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:Gardener.Core.GardenerCoreStartup">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.GardenerCoreStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            
-            </summary>
-            <param name="services"></param>
-        </member>
-        <member name="T:Gardener.Core.SystemOptions">
-            <summary>
-            系统选项
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.SystemOptions.SuperAdministratorRoleId">
-            <summary>
-            超级管理员角色Id
-            </summary>
         </member>
     </members>
 </doc>

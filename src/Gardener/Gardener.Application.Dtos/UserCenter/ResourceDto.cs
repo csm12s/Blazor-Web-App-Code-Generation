@@ -2,7 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Gardener.Core.Enums;
+using Gardener.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

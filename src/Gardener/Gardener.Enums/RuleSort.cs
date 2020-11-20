@@ -2,24 +2,24 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Core.Enums
+namespace Gardener.Enums
 {
     /// <summary>
-    /// 权限类型
+    /// 排序规则
     /// </summary>
-    public enum ResourceType
+    public enum RuleSort
     {
         /// <summary>
-        /// API
+        /// 必排
         /// </summary>
-        API,
+        Must = 0,
         /// <summary>
-        /// BUTTON
+        /// 禁止
         /// </summary>
-        BUTTON,
+        Prohibit = 1,
         /// <summary>
-        /// 菜单
+        /// 连排
         /// </summary>
-        MENU
+        Continuity = 2
     }
 }

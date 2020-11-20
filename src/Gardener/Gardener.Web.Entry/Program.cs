@@ -19,7 +19,7 @@ namespace Gardener.Web.Entry
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                    //×¢ÈëFur¿ò¼Ü
+                    //×¢ÈëFurion¿ò¼Ü
                     .Inject()
                     .UseStartup<Startup>();
                 });

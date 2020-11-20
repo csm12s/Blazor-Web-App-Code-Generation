@@ -1,8 +1,8 @@
-﻿using Fur.Authorization;
-using Fur.DatabaseAccessor;
-using Fur.DataEncryption;
-using Fur.DependencyInjection;
-using Fur.FriendlyException;
+﻿using Furion.Authorization;
+using Furion.DatabaseAccessor;
+using Furion.DataEncryption;
+using Furion.DependencyInjection;
+using Furion.FriendlyException;
 using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;

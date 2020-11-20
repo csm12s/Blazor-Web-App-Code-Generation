@@ -1,12 +1,11 @@
 // -----------------------------------------------------------------------------
-// 以下代码由 Fur Tools v1.0.0 生成                                          
+// 以下代码由 Furion Tools v1.0.0 生成                                          
 // -----------------------------------------------------------------------------
 
-using Fur.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.Collections.Generic;
 
 #nullable disable
 

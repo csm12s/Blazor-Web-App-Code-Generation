@@ -2,9 +2,8 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur.DataEncryption;
-using Fur.DependencyInjection;
-using Gardener.Core;
+using Furion.DataEncryption;
+using Furion.DependencyInjection;
 using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

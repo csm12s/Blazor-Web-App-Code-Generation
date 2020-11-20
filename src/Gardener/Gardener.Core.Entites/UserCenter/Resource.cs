@@ -1,5 +1,5 @@
-﻿using Fur.DatabaseAccessor;
-using Gardener.Core.Enums;
+﻿using Furion.DatabaseAccessor;
+using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

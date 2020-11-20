@@ -1,80 +1,80 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Gardener.Core.Enums</name>
+        <name>Gardener.Enums</name>
     </assembly>
     <members>
-        <member name="T:Gardener.Core.Enums.Frequency">
+        <member name="T:Gardener.Enums.Frequency">
             <summary>
             节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.Frequency.Morning">
+        <member name="F:Gardener.Enums.Frequency.Morning">
             <summary>
             靠前
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.Frequency.Afternoon">
+        <member name="F:Gardener.Enums.Frequency.Afternoon">
             <summary>
             中间
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.Frequency.Night">
+        <member name="F:Gardener.Enums.Frequency.Night">
             <summary>
             靠下
             </summary>
         </member>
-        <member name="T:Gardener.Core.Enums.Gender">
+        <member name="T:Gardener.Enums.Gender">
             <summary>
             性别枚举
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.Gender.Male">
+        <member name="F:Gardener.Enums.Gender.Male">
             <summary>
             男
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.Gender.Female">
+        <member name="F:Gardener.Enums.Gender.Female">
             <summary>
             女
             </summary>
         </member>
-        <member name="T:Gardener.Core.Enums.ResourceType">
+        <member name="T:Gardener.Enums.ResourceType">
             <summary>
             权限类型
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.ResourceType.API">
+        <member name="F:Gardener.Enums.ResourceType.API">
             <summary>
             API
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.ResourceType.BUTTON">
+        <member name="F:Gardener.Enums.ResourceType.BUTTON">
             <summary>
             BUTTON
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.ResourceType.MENU">
+        <member name="F:Gardener.Enums.ResourceType.MENU">
             <summary>
             菜单
             </summary>
         </member>
-        <member name="T:Gardener.Core.Enums.RuleSort">
+        <member name="T:Gardener.Enums.RuleSort">
             <summary>
             排序规则
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.RuleSort.Must">
+        <member name="F:Gardener.Enums.RuleSort.Must">
             <summary>
             必排
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.RuleSort.Prohibit">
+        <member name="F:Gardener.Enums.RuleSort.Prohibit">
             <summary>
             禁止
             </summary>
         </member>
-        <member name="F:Gardener.Core.Enums.RuleSort.Continuity">
+        <member name="F:Gardener.Enums.RuleSort.Continuity">
             <summary>
             连排
             </summary>

@@ -2,8 +2,8 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Fur;
-using Fur.DatabaseAccessor;
+using Furion;
+using Furion.DatabaseAccessor;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.EntityFramwork.Core.DbContexts;
 
