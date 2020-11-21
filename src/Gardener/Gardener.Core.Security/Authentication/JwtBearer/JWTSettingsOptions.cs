@@ -1,4 +1,4 @@
-﻿namespace Gardener.Core.Security
+﻿namespace Gardener.Core.Security.Authentication
 {
     /// <summary>
     /// Jwt 配置

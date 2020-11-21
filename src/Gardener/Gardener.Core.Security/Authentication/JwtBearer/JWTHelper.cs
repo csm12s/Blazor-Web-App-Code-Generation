@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 
-namespace Gardener.Core.Security
+namespace Gardener.Core.Security.Authentication
 {
     /// <summary>
     /// JWT 加解密
@@ -18,33 +18,33 @@ namespace Gardener.Core.Security
         /// <summary>
         /// 获取基于JWT的Token
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="options"></param>
+        /// <param name="payload"></param>
         /// <returns></returns>
         public static SecurityTokenResult BuildJwtToken(JWTSettingsOptions options, Dictionary<string, object> payload)
         {
             List<Claim> claims = new List<Claim>();
             foreach (var item in payload)
             {
-                claims.Add(new Claim(item.Key, item.Value.ToString()));
+                claims.Add(new Claim(item.Key, item.Value is string ? item.Value.ToString() : JsonSerializer.Serialize(item.Value)));
             }
             return BuildJwtToken(options, claims);
         }
         /// <summary>
-        /// 获取基于JWT的Token
+        ///  获取基于JWT的Token
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="options"></param>
+        /// <param name="payload"></param>
         /// <returns></returns>
-        public static SecurityTokenResult BuildJwtToken(JWTSettingsOptions options, List<Claim> claims)
+        public static SecurityTokenResult BuildJwtToken(JWTSettingsOptions options, List<Claim> payload)
         {
-            
-
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.IssuerSigningKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
                 issuer: options.ValidIssuer,
                 audience: options.ValidAudience,
-                claims: claims,
+                claims: payload,
                 notBefore: now,
                 expires: now.AddMinutes(options.ExpiredTime.Value),
                 signingCredentials: credentials

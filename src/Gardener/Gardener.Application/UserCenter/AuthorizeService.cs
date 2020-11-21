@@ -17,7 +17,8 @@ using Gardener.Enums;
 using Gardener.Core.Entites;
 using Gardener.Core.Dtos;
 using System.Threading.Tasks;
-using Gardener.Core.Security;
+using Gardener.Core.Security.Authentication
+    ;
 using System.Security.Claims;
 
 namespace Gardener.Application
@@ -25,7 +26,7 @@ namespace Gardener.Application
     /// <summary>
     /// 用户中心服务
     /// </summary>
-    [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
+    [AppAuth, ApiDescriptionSettings("UserAuthorizationServices")]
     public class AuthorizeService : IDynamicApiController, IAuthorizeService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -61,8 +62,6 @@ namespace Gardener.Application
         [AllowAnonymous, IfException(1000, ErrorMessage = "用户名或密码错误")]
         public LoginOutput Login(LoginInput input)
         {
-
-
             // 验证用户是否存在
             var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName), false) ?? throw Oops.Oh(1000);
             //密码是否正确
@@ -75,28 +74,26 @@ namespace Gardener.Application
             var jwtSettings = App.GetOptions<JWTSettingsOptions>();
             var datetimeOffset = DateTimeOffset.UtcNow;
 
-            var tokenResult = JWTHelper.BuildJwtToken(jwtSettings, new Dictionary<string, object>()
+            var tokenResult=_authorizationManager.Signin<int>(user.Id, new Dictionary<string, object>()
             {
-                { ClaimTypes.Name, user.UserName },  // 存储Id
-                { "UserId",user.Id }, // 存储用户名
+                { ClaimTypes.Name, user.UserName },  // 存储name
                 { JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value*60).ToUnixTimeSeconds() },
                 { JwtRegisteredClaimNames.Iss, jwtSettings.ValidIssuer},
                 { JwtRegisteredClaimNames.Aud, jwtSettings.ValidAudience }
             });
-
             output.AccessToken = tokenResult.AccessToken;
-
+            output.AccessTokenExpiresIn = tokenResult.ExpiresIn;
             // 设置 Swagger 刷新自动授权
             _httpContextAccessor.SigninToSwagger(output.AccessToken);
-
             return output;
         }
 
         /// <summary>
         /// 查看用户角色
         /// </summary>
+        [AppAuth("diy")]
         public List<RoleDto> GetCurrentUserRoles()
         {
             // 获取用户Id
@@ -144,7 +141,6 @@ namespace Gardener.Application
         /// 初始化系统挨批资源权限
         /// </summary>
         /// <returns></returns>
-        [ApiSecurityDefine("初始化资源")]
         public bool InitResource()
         {
             IRepository<Resource> repository = Db.GetRepository<Resource>();

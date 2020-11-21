@@ -2,7 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Core.Security
+namespace Gardener.Core.Security.Authentication
 {
     public class SecurityTokenResult
     {

@@ -15,12 +15,15 @@ namespace Gardener.Core.Dtos
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required, MinLength(5)]
         public string Account { get; set; }
 
         /// <summary>
         /// Token
         /// </summary>
         public string AccessToken { get; set; }
+        /// <summary>
+        /// 到期时间
+        /// </summary>
+        public long AccessTokenExpiresIn { get; set; }
     }
 }

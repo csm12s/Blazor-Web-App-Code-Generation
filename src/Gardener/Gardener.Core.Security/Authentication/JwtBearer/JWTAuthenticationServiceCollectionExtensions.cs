@@ -1,4 +1,4 @@
-﻿using Gardener.Core.Security;
+﻿using Gardener.Core.Security.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;

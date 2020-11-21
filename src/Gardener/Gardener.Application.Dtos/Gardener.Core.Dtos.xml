@@ -44,6 +44,11 @@
             Token
             </summary>
         </member>
+        <member name="P:Gardener.Core.Dtos.LoginOutput.AccessTokenExpiresIn">
+            <summary>
+            到期时间
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Dtos.ResourceDto">
             <summary>
             资源
