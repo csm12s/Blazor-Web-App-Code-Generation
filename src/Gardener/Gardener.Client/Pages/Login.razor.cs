@@ -29,7 +29,7 @@ namespace Gardener.Client.Pages
 
         protected override void OnInitialized()
         {
-            var user =  authenticationStateManager.GetAuthManagerService().GetCurrentUser();
+            var user =  authenticationStateManager.GetCurrentUser();
             if (user != null)
             {
                 Navigation.NavigateTo(returnUrl ?? "/");

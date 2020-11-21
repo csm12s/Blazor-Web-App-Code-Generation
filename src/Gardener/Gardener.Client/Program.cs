@@ -31,7 +31,6 @@ namespace Gardener.Client
 
             builder.Services.AddScoped<IAuthenticationStateManager, AuthenticationStateManager>();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-            builder.Services.AddScoped<IAuthIdentityManager, AuthIdentityManager>();
 
             builder.Services.AddAuthorizationCore(option =>
             {

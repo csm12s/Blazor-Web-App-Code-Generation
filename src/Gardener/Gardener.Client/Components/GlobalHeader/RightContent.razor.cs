@@ -40,14 +40,12 @@ namespace Gardener.Client.Components
         [Inject] 
         protected MessageService MessageService { get; set; }
         [Inject]
-        protected IAuthIdentityManager identityManager { get; set; }
-        [Inject]
         protected IAuthenticationStateManager authenticationStateManager { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
             SetClassMap();
-            _currentUser = identityManager.GetCurrentUser();
+            _currentUser = authenticationStateManager.GetCurrentUser();
 
             _notifications = new NoticeIconData[] {
 

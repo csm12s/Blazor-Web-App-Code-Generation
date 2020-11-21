@@ -14,12 +14,14 @@ namespace Gardener.Client
     /// </summary>
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly IAuthIdentityManager authManager;
         private readonly IAuthorizeService authorizeService;
-        public CustomAuthenticationStateProvider(IAuthIdentityManager authManager, IAuthorizeService authorizeService)
+        private IAuthenticationStateManager authenticationStateManager;
+        public CustomAuthenticationStateProvider(IAuthorizeService authorizeService, 
+            IAuthenticationStateManager authenticationStateManager)
         {
-            this.authManager = authManager;
             this.authorizeService = authorizeService;
+            this.authenticationStateManager = authenticationStateManager;
+            authenticationStateManager.SetNotifyAuthenticationStateChangedAction(Refresh);
         }
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -27,21 +29,21 @@ namespace Gardener.Client
             AuthenticationState authenticationState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             try
             {
-                if (authManager.GetCurrentUser() == null)
+                if (authenticationStateManager.GetCurrentUser() == null)
                 {
                     //从本地刷新新token
-                    await authManager.FromLocalResetToken();
+                    await authenticationStateManager.FromLocalResetToken();
                     //请求
                     var userResult = await authorizeService.GetCurrentUser();
                     if (userResult.Successed)
                     {
-                        authManager.SetCurrentUser(userResult.Data);
+                        authenticationStateManager.SetCurrentUser(userResult.Data);
                         authenticationState = CreateAuthenticationState(userResult.Data);
                     }
                 }
                 else
                 {
-                    authenticationState = CreateAuthenticationState(authManager.GetCurrentUser());
+                    authenticationState = CreateAuthenticationState(authenticationStateManager.GetCurrentUser());
                 }
                 return authenticationState;
             }
