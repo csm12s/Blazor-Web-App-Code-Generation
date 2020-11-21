@@ -2,6 +2,7 @@
 using Gardener.Client.Models;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace Gardener.Client.Shared
 {
@@ -17,12 +18,14 @@ namespace Gardener.Client.Shared
         /// </summary>
         [Inject]
         private ISystemConfigService SystemConfigService { get; set; }
-      
+        [Inject]
+        private JsTool JsTool { get; set; }
         private SystemConfig systemConfig;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
             systemConfig = SystemConfigService.GetSystemConfig();
+            await JsTool.Document.SetTitle(systemConfig.SystemName);
         }
     }
 }

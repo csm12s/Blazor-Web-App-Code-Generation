@@ -24,9 +24,9 @@ namespace Gardener.Client.Services
         {
             return new SystemConfig {
             
-                Copyright= "2002 园丁系统",
-                SystemName= "园丁系统",
-                SystemDescription= "园丁系统 是最牛逼的教育管理系统"
+                Copyright= "2002 园丁",
+                SystemName= "园丁",
+                SystemDescription= "园丁,是最牛逼的管理系统"
 
             };
         }

@@ -30,11 +30,14 @@ namespace Gardener.Client.Shared
         /// </summary>
         [Inject]
         private ISystemConfigService SystemConfigService { get; set; }
-
+        [Inject]
+        private JsTool JsTool { get; set; }
         private SystemConfig systemConfig;
 
         protected override async Task OnInitializedAsync()
         {
+
+
             await base.OnInitializedAsync();
             _menuData = new MenuDataItem[]{
 
@@ -74,6 +77,7 @@ namespace Gardener.Client.Shared
             };
             systemConfig = SystemConfigService.GetSystemConfig();
             //_menuData = await HttpClient.GetFromJsonAsync<MenuDataItem[]>("data/menu.json");
+            await JsTool.Document.SetTitle(systemConfig.SystemName);
         }
 
         void toggle()
