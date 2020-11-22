@@ -67,7 +67,7 @@ namespace Gardener.Application
 
             var tokenResult = _authorizationManager.CreateToken(user.Id, new Dictionary<string, object>() {
                 { "UserName",user.UserName},
-                { "UserName",user.NickName},
+                { "NickName",user.NickName},
             });
             output.AccessToken = tokenResult.AccessToken;
             output.AccessTokenExpiresIn = tokenResult.ExpiresIn;

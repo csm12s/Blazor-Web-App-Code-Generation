@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Core.Dtos
 {
@@ -10,17 +11,19 @@ namespace Gardener.Core.Dtos
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required(ErrorMessage ="不能为空。")]
-        [MinLength(5, ErrorMessage = "长度不能小于5位")]
-        [MaxLength(32,ErrorMessage = "长度不能大于32位")]
+        [Required(ErrorMessage = "用户名不能为空。")]
+        [MinLength(5, ErrorMessage = "长度不能小于5位。")]
+        [MaxLength(32,ErrorMessage = "长度不能大于32位。")]
+        [DisplayName("用户名")]
         public string UserName { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
-        [Required]
-        [MinLength(5, ErrorMessage = "长度不能小于5位")]
-        [MaxLength(32, ErrorMessage = "长度不能大于32位")]
+        [Required(ErrorMessage = "密码不能为空。")]
+        [MinLength(5, ErrorMessage = "长度不能小于5位。")]
+        [MaxLength(32, ErrorMessage = "长度不能大于32位。")]
+        [DisplayName("密码")]
         public string Password { get; set; }
 
         /// <summary>
