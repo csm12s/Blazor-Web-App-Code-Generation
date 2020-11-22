@@ -1,16 +1,18 @@
-﻿using Furion.DatabaseAccessor;
+﻿using Furion.Authorization;
+using Furion.DatabaseAccessor;
+using Furion.DataEncryption;
 using Furion.DependencyInjection;
-using Furion.FriendlyException;
 using Gardener.Core.Entites;
-using Gardener.Core.Security.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-namespace Gardener.Core
+using System.Security.Claims;
+
+namespace Gardener.Core.Security
 {
     /// <summary>
     /// 权限管理器
@@ -21,7 +23,7 @@ namespace Gardener.Core
         /// JWT配置
         /// </summary>
         private JWTSettingsOptions jwtSettings;
-        private string userIdKeyName= "user_id";
+        private string userIdKeyName= "UserId";
         /// <summary>
         /// 请求上下文访问器
         /// </summary>
@@ -54,23 +56,9 @@ namespace Gardener.Core
         /// 获取用户Id
         /// </summary>
         /// <returns></returns>
-        [IfException(1001, ErrorMessage = "非法操作")]
-        public string GetUserId()
+        public int GetUserId()
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            if (user == null || user.Identity?.IsAuthenticated != true) throw Oops.Oh(1001);
-            //return ReadToken().GetPayloadValue<object>("UserId");
-            return user.Claims.Where(x=>x.Type.Equals(GetUserIdKeyName())).FirstOrDefault().Value;
-        }
-
-        /// <summary>
-        /// 获取用户Id
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public T GetUserId<T>()
-        {
-            return System.Text.Json.JsonSerializer.Deserialize<T>(GetUserId());
+            return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(userIdKeyName));
         }
         /// <summary>
         /// 是否是超级管理员
@@ -78,7 +66,7 @@ namespace Gardener.Core
         /// <returns></returns>
         public bool IsSuperAdministrator()
         {
-            var userId = GetUserId<int>();
+            var userId = GetUserId();
             var user = _userRepository.Include(x => x.Roles).FirstOrDefault(x => x.Id == userId);
             //用户不存在
             if (user == null) return false;
@@ -93,16 +81,22 @@ namespace Gardener.Core
         /// <param name="userId"></param>
         /// <param name="claims"></param>
         /// <returns></returns>
-        public SecurityTokenResult Signin<TUserId>(TUserId userId, Dictionary<string, object> claims)
+        public SecurityTokenResult CreateToken<TUserId>(TUserId userId, Dictionary<string, object> claims)
         {
             var datetimeOffset = DateTimeOffset.UtcNow;
+            var exp= DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value * 60).ToUnixTimeSeconds();
             claims.TryAdd(userIdKeyName, userId);
             claims.TryAdd(JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds());
             claims.TryAdd(JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds());
-            claims.TryAdd(JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value * 60).ToUnixTimeSeconds());
+            claims.TryAdd(JwtRegisteredClaimNames.Exp, exp);
             claims.TryAdd(JwtRegisteredClaimNames.Iss, jwtSettings.ValidIssuer);
             claims.TryAdd(JwtRegisteredClaimNames.Aud, jwtSettings.ValidAudience);
-            return JWTHelper.BuildJwtToken(jwtSettings, claims);
+            var token= JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, claims);
+            return new SecurityTokenResult {
+                ExpiresIn= exp,
+                AccessToken=token,
+                TokenType="jwt"
+            };
         }
         /// <summary>
         /// 检查权限
@@ -111,7 +105,7 @@ namespace Gardener.Core
         /// <returns></returns>
         public bool CheckSecurity(string resourceId)
         {
-            var userId = GetUserId<int>();
+            var userId = GetUserId();
             //超级管理员
             if (IsSuperAdministrator()) return true;
             // ========= 以下代码应该缓存起来 ===========
@@ -125,6 +119,14 @@ namespace Gardener.Core
                 .Select(u => u.ResourceId);
             if (!resources.Contains(resourceId)) return false;
             return true;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Claim> GetClaims()
+        {
+            return _httpContextAccessor.HttpContext.User.Claims;
         }
     }
 }

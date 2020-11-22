@@ -22,12 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="1.0.6.2" />
+    <PackageReference Include="Furion" Version="1.0.8" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Gardener.Core.Entites\Gardener.Core.Entites.csproj" />
-    <ProjectReference Include="..\Gardener.Core.Security\Gardener.Core.Security.csproj" />
   </ItemGroup>
 
 </Project>

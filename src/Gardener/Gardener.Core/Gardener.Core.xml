@@ -25,59 +25,52 @@
             超级管理员角色Id
             </summary>
         </member>
-        <member name="T:Gardener.Core.AuthorizationManager">
+        <member name="T:Gardener.Core.Security.AuthorizationManager">
             <summary>
             权限管理器
             </summary>
         </member>
-        <member name="F:Gardener.Core.AuthorizationManager.jwtSettings">
+        <member name="F:Gardener.Core.Security.AuthorizationManager.jwtSettings">
             <summary>
             JWT配置
             </summary>
         </member>
-        <member name="F:Gardener.Core.AuthorizationManager._httpContextAccessor">
+        <member name="F:Gardener.Core.Security.AuthorizationManager._httpContextAccessor">
             <summary>
             请求上下文访问器
             </summary>
         </member>
-        <member name="F:Gardener.Core.AuthorizationManager._userRepository">
+        <member name="F:Gardener.Core.Security.AuthorizationManager._userRepository">
             <summary>
             用户仓储
             </summary>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.Extensions.Options.IOptions{Gardener.Core.Security.Authentication.JWTSettingsOptions})">
+        <member name="M:Gardener.Core.Security.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions})">
             <summary>
             构造函数
             </summary>
             <param name="httpContextAccessor"></param>
             <param name="userRepository"></param>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetUserIdKeyName">
+        <member name="M:Gardener.Core.Security.AuthorizationManager.GetUserIdKeyName">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
+        <member name="M:Gardener.Core.Security.AuthorizationManager.GetUserId">
             <summary>
             获取用户Id
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetUserId``1">
-            <summary>
-            获取用户Id
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.IsSuperAdministrator">
+        <member name="M:Gardener.Core.Security.AuthorizationManager.IsSuperAdministrator">
             <summary>
             是否是超级管理员
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.Signin``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:Gardener.Core.Security.AuthorizationManager.CreateToken``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             
             </summary>
@@ -86,11 +79,17 @@
             <param name="claims"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(System.String)">
+        <member name="M:Gardener.Core.Security.AuthorizationManager.CheckSecurity(System.String)">
             <summary>
             检查权限
             </summary>
             <param name="resourceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Security.AuthorizationManager.GetClaims">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Gardener.Core.IAuthorizationManager">
@@ -98,7 +97,7 @@
             权限管理器
             </summary>
         </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.Signin``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:Gardener.Core.IAuthorizationManager.CreateToken``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             生成签名
             </summary>
@@ -114,13 +113,6 @@
             <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Gardener.Core.IAuthorizationManager.GetUserId" -->
-        <member name="M:Gardener.Core.IAuthorizationManager.GetUserId``1">
-            <summary>
-            获取用户 Id
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
         <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity(System.String)">
             <summary>
             检查授权
@@ -131,6 +123,12 @@
         <member name="M:Gardener.Core.IAuthorizationManager.IsSuperAdministrator">
             <summary>
             是否是超级管理员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.GetClaims">
+            <summary>
+            
             </summary>
             <returns></returns>
         </member>

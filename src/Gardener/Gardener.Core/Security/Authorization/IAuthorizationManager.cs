@@ -1,5 +1,6 @@
-﻿using Gardener.Core.Security.Authentication;
+﻿using Gardener.Core.Security;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Gardener.Core
 {
@@ -15,7 +16,7 @@ namespace Gardener.Core
         /// <param name="userId"></param>
         /// <param name="claims"></param>
         /// <returns></returns>
-        SecurityTokenResult Signin<TUserId>(TUserId userId, Dictionary<string, object> claims);
+        SecurityTokenResult CreateToken<TUserId>(TUserId userId, Dictionary<string, object> claims);
         /// <summary>
         /// 获取用户id key 的名称
         /// </summary>
@@ -24,13 +25,7 @@ namespace Gardener.Core
         /// 获取用户 Id
         /// </summary>
         /// <returns></returns>
-        string GetUserId();
-        /// <summary>
-        /// 获取用户 Id
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        T GetUserId<T>();
+        int GetUserId();
         /// <summary>
         /// 检查授权
         /// </summary>
@@ -42,5 +37,10 @@ namespace Gardener.Core
         /// </summary>
         /// <returns></returns>
         bool IsSuperAdministrator();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Claim> GetClaims();
     }
 }

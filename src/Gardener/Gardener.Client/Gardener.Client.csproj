@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011180919" />
+    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011200501" />
     <PackageReference Include="AntDesign.Charts" Version="0.2.0" />
     <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-201103141915" />
     <PackageReference Include="Mapster" Version="7.0.0" />

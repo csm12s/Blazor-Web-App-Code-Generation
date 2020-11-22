@@ -15,11 +15,8 @@ namespace Gardener.Web.Core
     {
         public void ConfigureServices(IServiceCollection services)
         {
-           
-            //注册JWT认证
-            services.AddJwtAuthentication();
             //注册App授权
-            services.AddAppAuth<JwtHandler>();
+            services.AddJwt<JwtHandler>();
             //注册跨域
             services.AddCorsAccessor();
             //注册控制器和视图

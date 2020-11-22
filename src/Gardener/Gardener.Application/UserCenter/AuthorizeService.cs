@@ -8,25 +8,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using Furion;
 using Furion.DataEncryption;
 using Microsoft.AspNetCore.Mvc;
 using Gardener.Enums;
 using Gardener.Core.Entites;
 using Gardener.Core.Dtos;
 using System.Threading.Tasks;
-using Gardener.Core.Security.Authentication
-    ;
-using System.Security.Claims;
 
 namespace Gardener.Application
 {
     /// <summary>
     /// 用户中心服务
     /// </summary>
-    [AppAuth, ApiDescriptionSettings("UserAuthorizationServices")]
+    [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
     public class AuthorizeService : IDynamicApiController, IAuthorizeService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -70,18 +65,9 @@ namespace Gardener.Application
 
             var output = user.Adapt<LoginOutput>();
 
-            // 生成 token
-            var jwtSettings = App.GetOptions<JWTSettingsOptions>();
-            var datetimeOffset = DateTimeOffset.UtcNow;
-
-            var tokenResult=_authorizationManager.Signin<int>(user.Id, new Dictionary<string, object>()
-            {
-                { ClaimTypes.Name, user.UserName },  // 存储name
-                { JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds() },
-                { JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds() },
-                { JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value*60).ToUnixTimeSeconds() },
-                { JwtRegisteredClaimNames.Iss, jwtSettings.ValidIssuer},
-                { JwtRegisteredClaimNames.Aud, jwtSettings.ValidAudience }
+            var tokenResult = _authorizationManager.CreateToken(user.Id, new Dictionary<string, object>() {
+                { "UserName",user.UserName},
+                { "UserName",user.NickName},
             });
             output.AccessToken = tokenResult.AccessToken;
             output.AccessTokenExpiresIn = tokenResult.ExpiresIn;
@@ -93,11 +79,10 @@ namespace Gardener.Application
         /// <summary>
         /// 查看用户角色
         /// </summary>
-        [AppAuth("diy")]
         public List<RoleDto> GetCurrentUserRoles()
         {
             // 获取用户Id
-            var userId = _authorizationManager.GetUserId<int>();
+            var userId = _authorizationManager.GetUserId();
 
             var roles = _userRepository
                 .DetachedEntities
@@ -116,7 +101,7 @@ namespace Gardener.Application
         public List<ResourceDto> GetCurrentUserResources()
         {
             // 获取用户Id
-            var userId = _authorizationManager.GetUserId<int>();
+            var userId = _authorizationManager.GetUserId();
             List<Resource> resources;
             //超级管理员
             if (_authorizationManager.IsSuperAdministrator())
@@ -159,7 +144,7 @@ namespace Gardener.Application
         public async Task<UserDto> GetCurrentUser()
         {
             // 获取用户Id
-            var userId = _authorizationManager.GetUserId<int>();
+            var userId = _authorizationManager.GetUserId();
 
             var user = await _userRepository.FindAsync(userId);
 

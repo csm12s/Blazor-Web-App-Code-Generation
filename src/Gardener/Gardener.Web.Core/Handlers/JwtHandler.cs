@@ -1,6 +1,6 @@
-﻿using Gardener.Core.Security;
-using Gardener.Core.Security.Authorization;
+﻿using Furion.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace Gardener.Web.Core
 {
@@ -15,7 +15,7 @@ namespace Gardener.Web.Core
         /// <param name="context"></param>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public override bool Pipeline(AuthorizationHandlerContext context, AppAuthorizeRequirement requirement)
+        public override bool Pipeline(AuthorizationHandlerContext context, DefaultHttpContext httpContext)
         {
             // 检查权限
             return CheckAuthorzie(context);
