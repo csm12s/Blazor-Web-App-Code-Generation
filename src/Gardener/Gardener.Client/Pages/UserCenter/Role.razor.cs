@@ -52,8 +52,16 @@ namespace Gardener.Client.Pages.UserCenter
             });
 
             var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
-            _total = pagedListResult.TotalCount;
-            roles = pagedListResult.Items.ToArray();
+            if (pagedListResult.Successed)
+            {
+                var pagedList = pagedListResult.Data;
+                roles = pagedList.Items.ToArray();
+                _total = pagedList.TotalCount;
+            }
+            else
+            {
+                MessaheSvr.Success("加载失败");
+            }
             tableIsLoading = false;
         }
         /// <summary>
@@ -63,9 +71,19 @@ namespace Gardener.Client.Pages.UserCenter
         /// <returns></returns>
         async Task onChange(QueryModel<RoleDto> queryModel)
         {
+            tableIsLoading = true;
             var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
-            roles = pagedListResult.Items.ToArray();
-            _total = pagedListResult.TotalCount;
+            if (pagedListResult.Successed)
+            {
+                var pagedList = pagedListResult.Data;
+                roles = pagedList.Items.ToArray();
+                _total = pagedList.TotalCount;
+            }
+            else 
+            {
+                MessaheSvr.Success("加载失败");
+            }
+            tableIsLoading = false;
         }
         /// <summary>
         /// 点击删除按钮
@@ -74,12 +92,16 @@ namespace Gardener.Client.Pages.UserCenter
         private async void OnDeleteClick(int id)
         {
             var result = await RoleService.FakeDelete(id);
-            if (result)
+            if (result.Successed)
             {
                 roles = roles.Remove(roles.FirstOrDefault(x => x.Id == id));
                 MessaheSvr.Success("删除成功");
-                InvokeAsync(StateHasChanged);
             }
+            else {
+                MessaheSvr.Success("删除失败");
+            }
+           await InvokeAsync(StateHasChanged);
+
         }
         /// <summary>
         /// 点击编辑按钮
@@ -89,8 +111,8 @@ namespace Gardener.Client.Pages.UserCenter
         {
             drawerTitle = "编辑";
             roleDto.Adapt(editModel);
-            await InvokeAsync(StateHasChanged);
             drawerVisible = true;
+            await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 点击添加按钮
@@ -99,8 +121,8 @@ namespace Gardener.Client.Pages.UserCenter
         {
             new RoleDto().Adapt(editModel);
             drawerTitle = "添加";
-            await InvokeAsync(StateHasChanged);
             drawerVisible = true;
+            await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 抽屉关闭时
@@ -121,30 +143,36 @@ namespace Gardener.Client.Pages.UserCenter
             if (editModel.Id == 0)
             {
                 //添加
-                var role = await RoleService.Insert(editModel);
-                if (role?.Id > 0)
+                var result = await RoleService.Insert(editModel);
+                formIsLoading = false;
+                drawerVisible = false;
+                if (result.Successed)
                 {
-                    await OnInitializedAsync();
-                    drawerVisible = false;
-                    formIsLoading = false;
                     MessaheSvr.Success("添加成功");
+                    _pageIndex = 1;
+                    _name = string.Empty;
+                    await OnInitializedAsync();
                 }
-                _pageIndex = 1;
-                _name = string.Empty;
+                else {
+                    MessaheSvr.Success("添加失败");
+                }
+                
             }
             else
             {
                 //修改
                 var result = await RoleService.Update(editModel);
-                if (result)
+                formIsLoading = false;
+                drawerVisible = false;
+                if (result.Successed)
                 {
                     await OnInitializedAsync();
                     MessaheSvr.Success("修改成功", 1);
-                    drawerVisible = false;
                 }
-                formIsLoading = false;
-
-
+                else {
+                    MessaheSvr.Success("修改失败", 1);
+                }
+                
             }
 
         }
@@ -184,12 +212,16 @@ namespace Gardener.Client.Pages.UserCenter
             else
             {
                 var result = await RoleService.FakeDeletes(selectedRows.Select(x => x.Id).ToArray());
-                if (result)
+                if (result.Successed)
                 {
                     roles = roles.Where(x => !selectedRows.Any(y => y.Id == x.Id)).ToArray();
                     MessaheSvr.Success("删除成功");
-                    InvokeAsync(StateHasChanged);
                 }
+                else 
+                {
+                    MessaheSvr.Success($"删除失败");
+                }
+                await InvokeAsync(StateHasChanged);
             }
         }
     }

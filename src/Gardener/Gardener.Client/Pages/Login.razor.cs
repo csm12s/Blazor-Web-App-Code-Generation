@@ -51,14 +51,14 @@ namespace Gardener.Client.Pages
             var loginOutResult= await AuthorizeService.Login(loginInput);
             if (loginOutResult.Successed)
             {
-                await MsgSvr.Success($"登录成功", 0.5);
+                await MsgSvr.Success($"登录成功",0.8);
                 await authenticationStateManager.Login(loginOutResult.Data.AccessToken);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
             else {
                 loading = false;
-                await MsgSvr.Error($"登录失败：{loginOutResult.Errors}",duration:0.5);
+                MsgSvr.Error($"登录失败");
                 await InvokeAsync(StateHasChanged);
             }
         }

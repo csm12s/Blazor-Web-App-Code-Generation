@@ -17,7 +17,7 @@ namespace Gardener.Client
 
             //builder.Services.AddScoped(sp => new RestClient("https://localhost:44323/api"));
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/") });
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/")});
 
             builder.Services.AddAntDesign();
             builder.Services.Configure<ProSettings>(builder.Configuration.GetSection("ProSettings"));

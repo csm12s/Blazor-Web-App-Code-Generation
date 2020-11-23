@@ -20,55 +20,55 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<bool> Delete(TKey id);
+        Task<ApiResult<bool>> Delete(TKey id);
         /// <summary>
         /// 删除一条(逻辑删除)
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<bool> FakeDelete(TKey id);
+        Task<ApiResult<bool>> FakeDelete(TKey id);
         /// <summary>
         /// 删除多条
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<bool> Deletes(TKey[] ids);
+        Task<ApiResult<bool>> Deletes(TKey[] ids);
         /// <summary>
         /// 删除多条(逻辑删除)
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<bool> FakeDeletes(TKey[] ids);
+        Task<ApiResult<bool>> FakeDeletes(TKey[] ids);
         /// <summary>
         /// 查询一条
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<TEntityDto> Get(TKey id);
+        Task<ApiResult<TEntityDto>> Get(TKey id);
         /// <summary>
         /// 查询所有
         /// </summary>
         /// <returns></returns>
-        Task<List<TEntityDto>> GetAll();
+        Task<ApiResult<List<TEntityDto>>> GetAll();
         /// <summary>
         /// 分页查询
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10);
+        Task<ApiResult<PagedList<TEntityDto>>> GetPage(int pageIndex = 1, int pageSize = 10);
         /// <summary>
         /// 新增一条
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TEntityDto> Insert(TEntityDto input);
+        Task<ApiResult<TEntityDto>> Insert(TEntityDto input);
         /// <summary>
         /// 更新一条
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<bool> Update(TEntityDto input);
+        Task<ApiResult<bool>> Update(TEntityDto input);
     }
 
     /// <summary>

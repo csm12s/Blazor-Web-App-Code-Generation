@@ -12,6 +12,6 @@ namespace Gardener.Client.Services
     {
         void DeleteResource( int roleId);
         void Resource( int roleId, int[] resourceIds);
-        Task<PagedList<RoleDto>> Search( string name,  int pageIndex = 1,  int pageSize = 10);
+        Task<ApiResult<PagedList<RoleDto>>> Search( string name,  int pageIndex = 1,  int pageSize = 10);
     }
 }

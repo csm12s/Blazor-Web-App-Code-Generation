@@ -7,8 +7,8 @@ namespace Gardener.Client.Services
 {
     public interface IAuthorizeService
     {
-        List<ResourceDto> GetCurrentUserResources();
-        List<RoleDto> GetCurrentUserRoles();
+        List<ApiResult<ResourceDto>> GetCurrentUserResources();
+        List<ApiResult<RoleDto>> GetCurrentUserRoles();
         bool InitResource();
         Task<ApiResult<LoginOutput>> Login(LoginInput input);
         /// <summary>

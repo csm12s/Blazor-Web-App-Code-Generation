@@ -7,8 +7,6 @@ using Gardener.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net.Http.Json;
 
 namespace Gardener.Client.Services
 {
@@ -17,26 +15,24 @@ namespace Gardener.Client.Services
     /// </summary>
     public class AuthorizeService : IAuthorizeService
     {
-        private HttpClient httpClient;
+        private IApiCaller apiCaller;
 
-        public AuthorizeService(HttpClient httpClient)
+        public AuthorizeService(IApiCaller apiCaller)
         {
-            this.httpClient = httpClient;
+            this.apiCaller = apiCaller;
         }
 
         public async Task<ApiResult<UserDto>> GetCurrentUser()
         {
-            //var request = new RestRequest("authorize/current-user");
-            //return await httpClient.GetAsync<ApiResult<UserDto>>(request);
-            return await httpClient.GetFromJsonAsync<ApiResult<UserDto>>("authorize/current-user");
+            return await apiCaller.GetAsync<UserDto>("authorize/current-user");
         }
 
-        public List<ResourceDto> GetCurrentUserResources()
+        public List<ApiResult<ResourceDto>> GetCurrentUserResources()
         {
             throw new NotImplementedException();
         }
 
-        public List<RoleDto> GetCurrentUserRoles()
+        public List<ApiResult<RoleDto>> GetCurrentUserRoles()
         {
             throw new NotImplementedException();
         }
@@ -48,13 +44,8 @@ namespace Gardener.Client.Services
 
         public async Task<ApiResult<LoginOutput>> Login(LoginInput input)
         {
-            //var request = new JsonRequest<LoginInput, ApiResult<LoginOutput>>("authorize/login", input);
-            //return httpClient.Post<LoginInput, ApiResult<LoginOutput>>(request).Data;
-
-            return await httpClient.PostFromJsonAsync<LoginInput, ApiResult<LoginOutput>>("authorize/login", input);
+            var result = await apiCaller.PostAsync<LoginInput, LoginOutput>("authorize/login", input);
+            return result;
         }
-        
-
-       
     }
 }

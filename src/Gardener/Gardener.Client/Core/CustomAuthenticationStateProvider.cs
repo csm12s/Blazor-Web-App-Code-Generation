@@ -16,12 +16,14 @@ namespace Gardener.Client
     {
         private readonly IAuthorizeService authorizeService;
         private IAuthenticationStateManager authenticationStateManager;
-        public CustomAuthenticationStateProvider(IAuthorizeService authorizeService, 
-            IAuthenticationStateManager authenticationStateManager)
+        private ILogger logger;
+        public CustomAuthenticationStateProvider(IAuthorizeService authorizeService,
+            IAuthenticationStateManager authenticationStateManager, ILogger logger)
         {
             this.authorizeService = authorizeService;
             this.authenticationStateManager = authenticationStateManager;
             authenticationStateManager.SetNotifyAuthenticationStateChangedAction(Refresh);
+            this.logger = logger;
         }
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -40,6 +42,10 @@ namespace Gardener.Client
                         authenticationStateManager.SetCurrentUser(userResult.Data);
                         authenticationState = CreateAuthenticationState(userResult.Data);
                     }
+                    else 
+                    {
+                        return authenticationState;
+                    }
                 }
                 else
                 {
@@ -47,12 +53,9 @@ namespace Gardener.Client
                 }
                 return authenticationState;
             }
-            catch (HttpRequestException ex)
-            {
-                return authenticationState;
-            }
             catch (Exception ex)
             {
+                await logger.Error("用户信息获取失败,请重新登陆。",ex:ex);
                 return authenticationState;
             }
         }
