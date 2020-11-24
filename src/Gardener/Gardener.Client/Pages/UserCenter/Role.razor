@@ -29,6 +29,9 @@
                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
                                 添加
                             </Button>
+                            <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                刷新
+                            </Button>
                         </AntDesign.Col>
                     </Row>
 
@@ -38,6 +41,9 @@
                     <Column Title="编号" @bind-Field="@context.Id" Sortable />
                     <Column Title="名称" @bind-Field="@context.Name" Sortable />
                     <Column Title="备注" @bind-Field="@context.Remark" Sortable />
+                    <Column Title="是否锁定" Field="@context.IsLocked">
+                        <Switch @bind-Value="@context.IsLocked"  OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
+                    </Column>
                     <Column Title="创建时间" @bind-Field="@context.CreatedTime" Format="yyyy-MM-dd" Sortable />
                     <ActionColumn>
                         <Space>
@@ -61,7 +67,10 @@
                             <Input @bind-Value="@context.Name" />
                         </FormItem>
                         <FormItem Label="备注">
-                            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="context.Remark"></TextArea>
+                            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@context.Remark"></TextArea>
+                        </FormItem>
+                        <FormItem Label="是否锁定">
+                            <Switch @bind-Value="@context.IsLocked"></Switch>
                         </FormItem>
                         <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
                             <Button Type="@ButtonType.Primary" HtmlType="submit">
@@ -76,9 +85,5 @@
             </Drawer>
         </ChildContent>
     </PageContainer>
-    
+
 </div>
-@code
-{
-   
-}

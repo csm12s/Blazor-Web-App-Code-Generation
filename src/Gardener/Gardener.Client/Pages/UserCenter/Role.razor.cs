@@ -21,7 +21,7 @@ namespace Gardener.Client.Pages.UserCenter
         ITable table;
         RoleDto[] roles;
         IEnumerable<RoleDto> selectedRows;
-        
+
         int _pageIndex = 1;
         int _pageSize = 10;
         int _total = 0;
@@ -35,14 +35,14 @@ namespace Gardener.Client.Pages.UserCenter
         public MessageService MessaheSvr { get; set; }
         [Inject]
         public IRoleService RoleService { get; set; }
+        [Inject]
+        ConfirmService ConfirmSvr { get; set; }
         /// <summary>
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-
-            tableIsLoading = true;
             MessaheSvr.Config(new MessageGlobalConfig()
             {
                 Top = 24,
@@ -50,7 +50,15 @@ namespace Gardener.Client.Pages.UserCenter
                 MaxCount = 3,
                 Rtl = true,
             });
-
+            await ReLoadTable();
+        }
+        /// <summary>
+        /// 重新加载table
+        /// </summary>
+        /// <returns></returns>
+        private async Task ReLoadTable()
+        {
+            tableIsLoading = true;
             var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
             if (pagedListResult.Successed)
             {
@@ -60,16 +68,24 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
-                MessaheSvr.Success("加载失败");
+                MessaheSvr.Error("加载失败");
             }
             tableIsLoading = false;
+        }
+        /// <summary>
+        /// 刷新页面
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnReLoadTable()
+        {
+            await ReLoadTable();
         }
         /// <summary>
         /// 查询变化
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        async Task onChange(QueryModel<RoleDto> queryModel)
+        private async Task onChange(QueryModel<RoleDto> queryModel)
         {
             tableIsLoading = true;
             var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
@@ -79,9 +95,9 @@ namespace Gardener.Client.Pages.UserCenter
                 roles = pagedList.Items.ToArray();
                 _total = pagedList.TotalCount;
             }
-            else 
+            else
             {
-                MessaheSvr.Success("加载失败");
+                MessaheSvr.Error("加载失败");
             }
             tableIsLoading = false;
         }
@@ -91,16 +107,20 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="id"></param>
         private async void OnDeleteClick(int id)
         {
-            var result = await RoleService.FakeDelete(id);
-            if (result.Successed)
+            if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
             {
-                roles = roles.Remove(roles.FirstOrDefault(x => x.Id == id));
-                MessaheSvr.Success("删除成功");
+                var result = await RoleService.FakeDelete(id);
+                if (result.Successed)
+                {
+                    roles = roles.Remove(roles.FirstOrDefault(x => x.Id == id));
+                    MessaheSvr.Success("删除成功");
+                }
+                else
+                {
+                    MessaheSvr.Error("删除失败");
+                }
+                await InvokeAsync(StateHasChanged);
             }
-            else {
-                MessaheSvr.Success("删除失败");
-            }
-           await InvokeAsync(StateHasChanged);
 
         }
         /// <summary>
@@ -151,12 +171,13 @@ namespace Gardener.Client.Pages.UserCenter
                     MessaheSvr.Success("添加成功");
                     _pageIndex = 1;
                     _name = string.Empty;
-                    await OnInitializedAsync();
+                    await ReLoadTable();
                 }
-                else {
+                else
+                {
                     MessaheSvr.Success("添加失败");
                 }
-                
+
             }
             else
             {
@@ -166,13 +187,14 @@ namespace Gardener.Client.Pages.UserCenter
                 drawerVisible = false;
                 if (result.Successed)
                 {
-                    await OnInitializedAsync();
+                    await ReLoadTable();
                     MessaheSvr.Success("修改成功", 1);
                 }
-                else {
+                else
+                {
                     MessaheSvr.Success("修改失败", 1);
                 }
-                
+
             }
 
         }
@@ -197,31 +219,40 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async void OnDeletesClick()
         {
-            DeleteSelected();
-        }
-        /// <summary>
-        /// 删除选中
-        /// </summary>
-        /// <returns></returns>
-        private async Task DeleteSelected()
-        {
             if (selectedRows == null || selectedRows.Count() == 0)
             {
                 MessaheSvr.Warn("未选中任何行");
             }
             else
             {
-                var result = await RoleService.FakeDeletes(selectedRows.Select(x => x.Id).ToArray());
-                if (result.Successed)
+                if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    roles = roles.Where(x => !selectedRows.Any(y => y.Id == x.Id)).ToArray();
-                    MessaheSvr.Success("删除成功");
+                    var result = await RoleService.FakeDeletes(selectedRows.Select(x => x.Id).ToArray());
+                    if (result.Successed)
+                    {
+                        roles = roles.Where(x => !selectedRows.Any(y => y.Id == x.Id)).ToArray();
+                        MessaheSvr.Success("删除成功");
+                    }
+                    else
+                    {
+                        MessaheSvr.Error($"删除失败");
+                    }
+                    await InvokeAsync(StateHasChanged);
                 }
-                else 
-                {
-                    MessaheSvr.Success($"删除失败");
-                }
-                await InvokeAsync(StateHasChanged);
+            }
+        }
+        /// <summary>
+        /// 点击锁定按钮
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="isLocked"></param>
+        private async void OnChangeIsLocked(RoleDto model, bool isLocked)
+        {
+            var result=await RoleService.Lock(model.Id, isLocked);
+            if (!result.Successed)
+            {
+                model.IsLocked = !isLocked;
+                MessaheSvr.Error("锁定失败");
             }
         }
     }

@@ -1,7 +1,97 @@
 ﻿@page "/user_auth/user"
-<p>
+@using Gardener.Core.Dtos
+<div>
+    <PageContainer Title="用户管理">
+        <Breadcrumb>
+            <Breadcrumb>
+                <BreadcrumbItem>用户权限</BreadcrumbItem>
+                <BreadcrumbItem>用户管理</BreadcrumbItem>
+            </Breadcrumb>
+        </Breadcrumb>
+        <ChildContent>
+            <Table @ref="table"
+                   TItem="UserDto"
+                   DataSource="@users"
+                   Total="_total"
+                   OnChange="@onChange"
+                   @bind-PageIndex="_pageIndex"
+                   @bind-PageSize="_pageSize"
+                   @bind-SelectedRows="selectedRows"
+                   Loading="@tableIsLoading">
+                <TitleTemplate>
+                    <Row>
+                        <AntDesign.Col Span="8">
+                            <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                删除选中
+                            </Button>
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="4" Offset="12" Style="text-align:right">
+                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                添加
+                            </Button>
+                            <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                刷新
+                            </Button>
+                        </AntDesign.Col>
+                    </Row>
 
-    users
+                </TitleTemplate>
+                <RowTemplate>
+                    <Selection Key="@(context.Id.ToString())" />
+                    <Column Title="编号" @bind-Field="@context.Id" Sortable />
+                    <Column Title="头像" Field="@context.Avatar" >
+                        <Avatar Src="@context.Avatar" />
+                        </Column>
+                    <Column Title="用户名" @bind-Field="@context.UserName" Sortable />
+                    <Column Title="昵称" @bind-Field="@context.NickName" Sortable />
+                    <Column Title="手机号" @bind-Field="@context.PhoneNumber" Sortable />
+                    <Column Title="邮箱" @bind-Field="@context.Email" Sortable />
+                    <Column Title="角色"  Field="@context.Roles">
+                        @foreach (var role in context.Roles)
+                        { 
+                        <Tag>@role.Name</Tag>
+                        }
+                    </Column>
+                    <Column Title="是否锁定" Field="@context.IsLocked">
+                        <Switch @bind-Value="@context.IsLocked" OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
+                    </Column>
+                    <Column Title="创建时间" @bind-Field="@context.CreatedTime" Format="yyyy-MM-dd" Sortable />
+                    <ActionColumn>
+                        <Space>
+                            <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
+                            <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
+                        </Space>
+                    </ActionColumn>
+                </RowTemplate>
+            </Table>
+            <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
 
+                @if (editModel != null)
+                {
+                    <Form Loading="@formIsLoading"
+                          Model="@editModel"
+                          LabelCol="new ColLayoutParam { Span = 4 }"
+                          WrapperCol="new ColLayoutParam { Span = 20 }"
+                          OnFinish="OnFormFinish"
+                          OnFinishFailed="OnFormFinishFailed">
+                        <FormItem Label="用户名">
+                            <Input @bind-Value="@context.UserName" />
+                        </FormItem>
+                        <FormItem Label="昵称">
+                            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="context.NickName"></TextArea>
+                        </FormItem>
+                        <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
+                            <Button Type="@ButtonType.Primary" HtmlType="submit">
+                                保存
+                            </Button>
+                            <Button OnClick="OnFormCancel">
+                                取消
+                            </Button>
+                        </FormItem>
+                    </Form>
+                }
+            </Drawer>
+        </ChildContent>
+    </PageContainer>
 
-</p>
+</div>

@@ -159,7 +159,7 @@
             更新时间
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.RoleDto.IsLock">
+        <member name="P:Gardener.Core.Dtos.RoleDto.IsLocked">
             <summary>
             是否锁定
             </summary>
@@ -179,7 +179,7 @@
             角色描述
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.RoleInput.IsLock">
+        <member name="P:Gardener.Core.Dtos.RoleInput.IsLocked">
             <summary>
             是否锁定
             </summary>
@@ -214,7 +214,7 @@
             创建时间
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.RoleResourceDto.IsLock">
+        <member name="P:Gardener.Core.Dtos.RoleResourceDto.IsLocked">
             <summary>
             是否锁定
             </summary>
@@ -296,7 +296,7 @@
             用户扩展信息
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.IsLock">
+        <member name="P:Gardener.Core.Dtos.UserDto.IsLocked">
             <summary>
             是否锁定
             </summary>

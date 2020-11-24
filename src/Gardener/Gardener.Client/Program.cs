@@ -50,6 +50,7 @@ namespace Gardener.Client
             builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
             builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             
 
             #endregion

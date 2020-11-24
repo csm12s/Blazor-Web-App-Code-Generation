@@ -84,7 +84,10 @@ namespace Gardener.Core.Entites
         /// 用户扩展信息
         /// </summary>
         public UserExtension UserExtension { get; set; }
-
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLocked { get; set; }
         /// <summary>
         /// 配置多对多关系
         /// </summary>
@@ -164,11 +167,19 @@ namespace Gardener.Core.Entites
             {
                 new User
                 {
-                    Id=1,UserName="admin",PasswordEncryptKey="xxxxxx" ,Password=MD5Encryption.Encrypt("xxxxxxadmin")
+                    Id=1,
+                    UserName="admin",
+                    PasswordEncryptKey="xxxxxx" ,
+                    Password=MD5Encryption.Encrypt("xxxxxxadmin"),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png"
                 },
                 new User
                 {
-                    Id=2,UserName="testuser",PasswordEncryptKey="xxxxxx",Password=MD5Encryption.Encrypt("xxxxxxtestuser")
+                    Id=2,
+                    UserName="testuser",
+                    PasswordEncryptKey="xxxxxx",
+                    Password=MD5Encryption.Encrypt("xxxxxxtestuser"),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/324/974299_monksoul_1578937227.png"
                 }
             };
         }

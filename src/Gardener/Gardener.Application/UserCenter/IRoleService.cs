@@ -13,6 +13,6 @@ namespace Gardener.Application.UserCenter
     {
         void DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId);
         void Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, int[] resourceIds);
-        Task<PagedList<RoleDto>> Search([FromQuery] string name, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10);
+        Task<PagedList<RoleDto>> Search([FromQuery] string name,  int pageIndex = 1,  int pageSize = 10);
     }
 }

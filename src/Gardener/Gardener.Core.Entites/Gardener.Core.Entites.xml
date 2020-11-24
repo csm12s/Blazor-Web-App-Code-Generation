@@ -319,6 +319,11 @@
             多对多中间表
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entites.Resource.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
         <member name="M:Gardener.Core.Entites.Resource.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Entites.Resource},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
             <summary>
             
@@ -365,6 +370,11 @@
         <member name="P:Gardener.Core.Entites.Role.RoleResources">
             <summary>
             多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Role.IsLocked">
+            <summary>
+            是否锁定
             </summary>
         </member>
         <member name="M:Gardener.Core.Entites.Role.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Entites.Role},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
@@ -494,6 +504,11 @@
         <member name="P:Gardener.Core.Entites.User.UserExtension">
             <summary>
             用户扩展信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.User.IsLocked">
+            <summary>
+            是否锁定
             </summary>
         </member>
         <member name="M:Gardener.Core.Entites.User.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Entites.User},Microsoft.EntityFrameworkCore.DbContext,System.Type)">

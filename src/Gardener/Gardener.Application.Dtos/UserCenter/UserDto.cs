@@ -36,16 +36,16 @@ namespace Gardener.Core.Dtos
         /// </summary>
         [StringLength(32)]
         public string NickName { get; set; }
-        ///// <summary>
-        ///// 密码加密后的
-        ///// </summary>
-        //[Required, StringLength(32)]
-        //public string Password { get; set; }
-        ///// <summary>
-        ///// 密码加密Key
-        ///// </summary>
-        //[Required, StringLength(32)]
-        //public string PasswordEncryptKey { get; set; }
+        /// <summary>
+        /// 密码加密后的
+        /// </summary>
+        [Required, StringLength(32)]
+        public string Password { get; set; }
+        /// <summary>
+        /// 密码加密Key
+        /// </summary>
+        [Required, StringLength(32)]
+        public string PasswordEncryptKey { get; set; }
         ///// <summary>
         /// 头像
         /// </summary>
@@ -88,5 +88,9 @@ namespace Gardener.Core.Dtos
         /// 用户扩展信息
         /// </summary>
         public UserExtensionDto UserExtension { get; set; }
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLocked { get; set; }
     }
 }

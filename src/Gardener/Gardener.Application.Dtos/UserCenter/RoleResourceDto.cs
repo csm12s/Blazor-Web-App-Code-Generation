@@ -34,5 +34,9 @@ namespace Gardener.Core.Dtos
         /// 创建时间
         /// </summary>
         public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLocked { get; set; }
     }
 }

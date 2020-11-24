@@ -75,7 +75,10 @@ namespace Gardener.Core.Entites
         /// 多对多中间表
         /// </summary>
         public List<RoleResource> RoleResources { get; set; }
-
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLocked { get; set; }
         /// <summary>
         /// 
         /// </summary>

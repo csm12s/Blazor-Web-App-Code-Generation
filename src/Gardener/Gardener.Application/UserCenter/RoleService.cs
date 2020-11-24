@@ -43,8 +43,8 @@ namespace Gardener.Application.UserCenter
         /// <returns></returns>
         [HttpGet]
         public async Task<PagedList<RoleDto>> Search([FromQuery] string name,
-            [FromQuery] int pageIndex = 1,
-            [FromQuery] int pageSize = 10)
+            int pageIndex = 1,
+            int pageSize = 10)
         {
             return await _roleRepository
                 .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))

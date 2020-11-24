@@ -14,5 +14,9 @@
         /// 角色描述
         /// </summary>
         public string Remark { get; set; }
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLocked { get; set; }
     }
 }

@@ -31,7 +31,10 @@ namespace Gardener.Core.Dtos
         /// <summary>
         /// 更新时间
         /// </summary>
-        public DateTimeOffset UpdatedTime { get; set; }
-
+        public DateTimeOffset? UpdatedTime { get; set; }
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLocked { get; set; }
     }
 }
