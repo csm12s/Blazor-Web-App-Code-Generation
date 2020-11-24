@@ -245,6 +245,11 @@
             昵称
             </summary>
         </member>
+        <member name="P:Gardener.Core.Dtos.UserDto.Password">
+            <summary>
+            密码加密后的
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "P:Gardener.Core.Dtos.UserDto.Avatar" -->
         <member name="P:Gardener.Core.Dtos.UserDto.Email">
             <summary>

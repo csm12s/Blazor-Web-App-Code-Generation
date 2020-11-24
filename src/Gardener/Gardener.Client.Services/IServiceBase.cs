@@ -20,25 +20,25 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> Delete(TKey id);
+        Task<ApiResult<bool?>> Delete(TKey id);
         /// <summary>
         /// 删除一条(逻辑删除)
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> FakeDelete(TKey id);
+        Task<ApiResult<bool?>> FakeDelete(TKey id);
         /// <summary>
         /// 删除多条
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> Deletes(TKey[] ids);
+        Task<ApiResult<bool?>> Deletes(TKey[] ids);
         /// <summary>
         /// 删除多条(逻辑删除)
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> FakeDeletes(TKey[] ids);
+        Task<ApiResult<bool?>> FakeDeletes(TKey[] ids);
         /// <summary>
         /// 查询一条
         /// </summary>
@@ -68,14 +68,14 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> Update(TEntityDto input);
+        Task<ApiResult<bool?>> Update(TEntityDto input);
         /// <summary>
         ///  锁定、解锁
         /// </summary>
         /// <param name="id"></param>
         /// <param name="islocked"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> Lock(TKey id, bool islocked = true);
+        Task<ApiResult<bool?>> Lock(TKey id, bool islocked = true);
     }
 
     /// <summary>

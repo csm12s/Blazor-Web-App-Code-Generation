@@ -60,7 +60,7 @@ namespace Gardener.Application
             // 验证用户是否存在
             var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName), false) ?? throw Oops.Oh(1000);
             //密码是否正确
-            var encryptedPassword = MD5Encryption.Encrypt(user.PasswordEncryptKey + input.Password);
+            var encryptedPassword = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
             if (!encryptedPassword.Equals(user.Password)) throw Oops.Oh(1000);
 
             var output = user.Adapt<LoginOutput>();

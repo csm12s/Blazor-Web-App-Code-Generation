@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Threading.Tasks;
+using Gardener.Common;
 
 namespace Gardener.Application.UserCenter
 {
@@ -95,12 +98,47 @@ namespace Gardener.Application.UserCenter
         public PagedList<UserDto> Search([FromQuery] string name,  int pageIndex = 1,int pageSize = 10)
         {
             var users = _userRepository
-              .Include(u => u.Roles, false)
+              .Include(u=>u.UserExtension, false).Include(u => u.Roles)
               .Where(u => u.IsDeleted == false)
               .Where(!string.IsNullOrEmpty(name), u => u.NickName.Contains(name) || u.NickName.Contains(name))
               .OrderByDescending(x => x.CreatedTime)
               .Select(u => u.Adapt<UserDto>());
             return users.ToPagedList(pageIndex,pageSize);
+        }
+        /// <summary>
+        /// 更新一条
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<bool> Update(UserDto input)
+        {
+            input.UpdatedTime = DateTimeOffset.Now;
+            // 更新 排除创建时间 和 密码
+            await input.Adapt<User>().UpdateExcludeAsync(
+                    x => x.CreatedTime,
+                    x => x.Password,
+                    x => x.PasswordEncryptKey
+                );
+            return true;
+        }
+        /// <summary>
+        /// 新增一条
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<UserDto> Insert(UserDto input)
+        {
+            //未传入密码时，自动生成密码
+            if (string.IsNullOrEmpty(input.Password))
+            {
+                input.Password = PasswordGenerate.Create(10);
+            }
+            User user = input.Adapt<User>();
+            user.PasswordEncryptKey = Guid.NewGuid().ToString();
+            user.Password = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
+            user.CreatedTime = DateTimeOffset.Now;
+            var newEntity = await _userRepository.InsertNowAsync(user);
+            return newEntity.Entity.Adapt<UserDto>();
         }
     }
 }

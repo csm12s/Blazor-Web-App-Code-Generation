@@ -4,21 +4,18 @@
         <name>Gardener.Application</name>
     </assembly>
     <members>
-        <member name="T:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute">
+        <member name="T:Gardener.Application.PasswordEncrypt">
             <summary>
-            api 安全定义特效
+            加密密码
             </summary>
         </member>
-        <member name="M:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute.#ctor(System.String)">
+        <member name="M:Gardener.Application.PasswordEncrypt.Encrypt(System.String,System.String)">
             <summary>
-            api 安全定义特效
+            
             </summary>
-            <param name="apiName">api名称</param>
-        </member>
-        <member name="P:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute.ApiName">
-            <summary>
-            api名称
-            </summary>
+            <param name="password"></param>
+            <param name="encryptKey"></param>
+            <returns></returns>
         </member>
         <member name="T:Gardener.Application.Extensions.DynamicApiResourceCollectApplicationModelConvention">
             <summary>
@@ -500,6 +497,36 @@
             <param name="pageIndex"></param>
             <param name="pageSize"></param>
             <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.UserService.Update(Gardener.Core.Dtos.UserDto)">
+            <summary>
+            更新一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.UserService.Insert(Gardener.Core.Dtos.UserDto)">
+            <summary>
+            新增一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute">
+            <summary>
+            api 安全定义特效
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute.#ctor(System.String)">
+            <summary>
+            api 安全定义特效
+            </summary>
+            <param name="apiName">api名称</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute.ApiName">
+            <summary>
+            api名称
+            </summary>
         </member>
     </members>
 </doc>

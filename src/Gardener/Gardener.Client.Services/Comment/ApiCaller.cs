@@ -19,7 +19,6 @@ namespace Gardener.Client.Services
     {
         private readonly HttpClient httpClient;
         private readonly ILogger log;
-
         public ApiCaller(HttpClient httpClient, ILogger log)
         {
             this.httpClient = httpClient;
@@ -39,7 +38,7 @@ namespace Gardener.Client.Services
                     }
                     return result;
                 }
-                //请求失败
+                //请求失败 
                 log.Error("请求失败", (int)httpResponse.StatusCode);
                 return new ApiResult<TResponse>() { Data = default(TResponse), Successed = false, StatusCode =(int)httpResponse.StatusCode, Errors = "请求失败" }; ;
             }

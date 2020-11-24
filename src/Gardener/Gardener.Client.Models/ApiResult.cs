@@ -15,10 +15,21 @@ namespace Gardener.Client.Models
         /// </summary>
         public int? StatusCode { get; set; }
 
+        private T data;
         /// <summary>
         /// 数据
         /// </summary>
-        public T Data { get; set; }
+        public T Data
+        {
+            get
+            {
+                return this.data;
+            }
+            set
+            {
+                this.data = value ?? default(T);
+            }
+        }
 
         /// <summary>
         /// 执行成功

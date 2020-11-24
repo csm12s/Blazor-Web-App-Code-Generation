@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UseBlazorWebAssembly>true</UseBlazorWebAssembly>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011230543" />
+    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011240428" />
     <PackageReference Include="AntDesign.Charts" Version="0.2.0" />
-    <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-201103141915" />
+    <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-201124080446" />
     <PackageReference Include="Mapster" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
