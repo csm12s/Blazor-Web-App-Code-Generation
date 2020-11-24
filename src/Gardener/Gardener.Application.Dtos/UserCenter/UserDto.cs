@@ -29,32 +29,32 @@ namespace Gardener.Core.Dtos
         public DateTimeOffset? UpdatedTime { get; set; }
         /// 用户名
         /// </summary>
-        [Required, StringLength(32)]
+        [Required( ErrorMessage ="不能为空"), StringLength(32,ErrorMessage = "最大长度不能大于{0}")]
         public string UserName { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
-        [StringLength(32)]
+        [StringLength(32, ErrorMessage = "最大长度不能大于{0}")]
         public string NickName { get; set; }
-        /// <summary>
-        /// 密码加密后的
-        /// </summary>
-        [Required, StringLength(32)]
-        public string Password { get; set; }
-        /// <summary>
-        /// 密码加密Key
-        /// </summary>
-        [Required, StringLength(32)]
-        public string PasswordEncryptKey { get; set; }
+        ///// <summary>
+        ///// 密码加密后的
+        ///// </summary>
+        //[Required(ErrorMessage = "不能为空"), StringLength(32, ErrorMessage = "最大长度为32")]
+        //public string Password { get; set; }
+        ///// <summary>
+        ///// 密码加密Key
+        ///// </summary>
+        //[Required(ErrorMessage = "不能为空"), StringLength(32, ErrorMessage = "最大长度为32")]
+        //public string PasswordEncryptKey { get; set; }
         ///// <summary>
         /// 头像
         /// </summary>
-        [MaxLength(100)]
+        [MaxLength(100, ErrorMessage = "最大长度不能大于{0}")]
         public string Avatar { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "最大长度不能大于{0}")]
         public string Email { get; set; }
         /// <summary>
         /// 邮箱是否确认
@@ -63,7 +63,7 @@ namespace Gardener.Core.Dtos
         /// <summary>
         /// 手机
         /// </summary>
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = "最大长度不能大于{0}")]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// 手机是否确认
@@ -72,7 +72,7 @@ namespace Gardener.Core.Dtos
         /// <summary>
         /// 性别
         /// </summary>
-        [Required, DefaultValue(Gender.Male)]
+        [Required(ErrorMessage = "不能为空"), DefaultValue(Gender.Male)]
         public Gender Gender { get; set; }
         /// <summary>
         /// 多对多

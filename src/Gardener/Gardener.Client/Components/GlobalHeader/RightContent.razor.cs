@@ -4,6 +4,9 @@ using AntDesign.Pro.Layout;
 using Microsoft.AspNetCore.Components;
 using AntDesign;
 using Gardener.Core.Dtos;
+using Gardener.Client.Services;
+using Gardener.Client.Constants;
+using System.Globalization;
 
 namespace Gardener.Client.Components
 {
@@ -41,6 +44,10 @@ namespace Gardener.Client.Components
         protected MessageService MessageService { get; set; }
         [Inject]
         protected IAuthenticationStateManager authenticationStateManager { get; set; }
+
+        [Inject]
+        private JsTool JsTool { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -101,8 +108,16 @@ namespace Gardener.Client.Components
             }
         }
 
-        public void HandleSelectLang(MenuItem item)
+        public async Task HandleSelectLang(MenuItem item)
         {
+            string name = item.Key;
+            if (CultureInfo.CurrentCulture.Name != name)
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(name);
+                await JsTool.SessionStorage.SetAsync(SystemConstant.BlazorCultureKey, name);
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+            }
+            
         }
 
         public async Task HandleClear(string key)

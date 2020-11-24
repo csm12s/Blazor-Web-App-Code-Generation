@@ -79,7 +79,7 @@ namespace Gardener.Client
         public async Task FromLocalResetToken()
         {
             //本地是否有token
-            string token = await jsTool.SessionStorage.Get<string>("AccessToken");
+            string token = await jsTool.SessionStorage.GetAsync<string>("AccessToken");
             if (!string.IsNullOrEmpty(token))
             {
                 SetHttpClientAuthorization(token);
@@ -93,7 +93,7 @@ namespace Gardener.Client
         /// <returns></returns>
         public async Task SetToken(string token)
         {
-            await jsTool.SessionStorage.Set("AccessToken", token);
+            await jsTool.SessionStorage.SetAsync("AccessToken", token);
             SetHttpClientAuthorization(token);
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace Gardener.Client
         /// </summary>
         public async Task RemoveIdentity()
         {
-            await jsTool.SessionStorage.Remove("AccessToken");
+            await jsTool.SessionStorage.RemoveAsync("AccessToken");
             SetHttpClientAuthorization("");
             currentUser = null;
         }

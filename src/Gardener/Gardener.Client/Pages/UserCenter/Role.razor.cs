@@ -50,7 +50,6 @@ namespace Gardener.Client.Pages.UserCenter
                 MaxCount = 3,
                 Rtl = true,
             });
-            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table

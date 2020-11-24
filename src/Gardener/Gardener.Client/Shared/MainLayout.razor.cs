@@ -5,6 +5,7 @@ using AntDesign.Pro.Layout;
 using Gardener.Client.Models;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace Gardener.Client.Shared
     {
 
         private MenuDataItem[] _menuData = { };
-        
+
         /// <summary>
         /// 菜单栏收缩
         /// </summary>
@@ -32,6 +33,8 @@ namespace Gardener.Client.Shared
         private ISystemConfigService SystemConfigService { get; set; }
         [Inject]
         private JsTool JsTool { get; set; }
+        [Inject]
+        private IStringLocalizer<App> Loc { get; set; }
         private SystemConfig systemConfig;
 
         protected override async Task OnInitializedAsync()
@@ -44,7 +47,7 @@ namespace Gardener.Client.Shared
                 new MenuDataItem
                 {
                     Path="/",
-                    Name="首页",
+                    Name=Loc["home"],
                     Key="home",
                     Icon="home"
                 },

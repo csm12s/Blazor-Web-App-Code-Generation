@@ -6,6 +6,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AntDesign.Pro.Layout;
+using Gardener.Client.Extensions;
+
 namespace Gardener.Client
 {
     public class Program
@@ -17,7 +19,7 @@ namespace Gardener.Client
 
             //builder.Services.AddScoped(sp => new RestClient("https://localhost:44323/api"));
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/")});
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/") });
 
             builder.Services.AddAntDesign();
             builder.Services.Configure<ProSettings>(builder.Configuration.GetSection("ProSettings"));
@@ -38,8 +40,10 @@ namespace Gardener.Client
                 option.AddPolicy("default", a => a.RequireAuthenticatedUser());
                 option.DefaultPolicy = option.GetPolicy("default");
             });
-
-
+            //支持本地化
+            builder.Services.AddLocalization(option => {
+                option.ResourcesPath = "Resources";
+            });
             #region api services
             builder.Services.AddScoped<JsTool>();
             builder.Services.AddScoped<HttpClientManager>();
@@ -51,11 +55,13 @@ namespace Gardener.Client
             builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IUserService, UserService>();
-            
 
             #endregion
 
-            await builder.Build().RunAsync();
+            var host = await builder
+                .Build()
+                .UseCulture();
+            await host.RunAsync();
         }
     }
 }

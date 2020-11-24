@@ -16,13 +16,13 @@ namespace Gardener.Core.Dtos
         /// 角色名称
         /// </summary>
         [Required(ErrorMessage ="不能为空")]
-        [MaxLength(100,ErrorMessage ="最大长度为100")]
+        [MaxLength(100,ErrorMessage = "最大长度不能大于{0}")]
         public string Name { get; set; }
         /// <summary>
         /// 角色描述
         /// </summary>
         [Required(ErrorMessage = "不能为空")]
-        [MaxLength(500, ErrorMessage = "最大长度为500")]
+        [MaxLength(500, ErrorMessage = "最大长度不能大于{0}")]
         public string Remark { get; set; }
         /// <summary>
         /// 创建时间

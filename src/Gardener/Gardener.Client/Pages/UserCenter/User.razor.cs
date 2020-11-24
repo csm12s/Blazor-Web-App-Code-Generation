@@ -50,8 +50,6 @@ namespace Gardener.Client.Pages.UserCenter
                 MaxCount = 3,
                 Rtl = true,
             });
-
-            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
@@ -69,7 +67,7 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
-                MessaheSvr.Success("加载失败");
+                MessaheSvr.Error("加载失败");
             }
             tableIsLoading = false;
         }
@@ -98,7 +96,7 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
-                MessaheSvr.Success("加载失败");
+                MessaheSvr.Error("加载失败1");
             }
             tableIsLoading = false;
         }
@@ -118,7 +116,7 @@ namespace Gardener.Client.Pages.UserCenter
                 }
                 else
                 {
-                    MessaheSvr.Success("删除失败");
+                    MessaheSvr.Error("删除失败");
                 }
                 await InvokeAsync(StateHasChanged);
             }
@@ -176,7 +174,7 @@ namespace Gardener.Client.Pages.UserCenter
                 }
                 else
                 {
-                    MessaheSvr.Success("添加失败");
+                    MessaheSvr.Error("添加失败");
                 }
 
             }
@@ -193,7 +191,7 @@ namespace Gardener.Client.Pages.UserCenter
                 }
                 else
                 {
-                    MessaheSvr.Success("修改失败", 1);
+                    MessaheSvr.Error("修改失败", 1);
                 }
 
             }
@@ -236,7 +234,7 @@ namespace Gardener.Client.Pages.UserCenter
                     }
                     else
                     {
-                        MessaheSvr.Success($"删除失败");
+                        MessaheSvr.Error($"删除失败");
                     }
                     await InvokeAsync(StateHasChanged);
                 }

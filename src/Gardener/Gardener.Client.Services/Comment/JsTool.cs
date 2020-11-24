@@ -33,15 +33,15 @@ namespace Gardener.Client.Services
         {
             this.js = js;
         }
-        public async Task Set(string key, string value)
+        public async Task SetAsync(string key, string value)
         {
             await js.InvokeVoidAsync("sessionStorage.setItem", key, value);
         }
-        public async Task<T> Get<T>(string key)
+        public async Task<T> GetAsync<T>(string key)
         {
            return await js.InvokeAsync<T>("sessionStorage.getItem", key);
         }
-        public async Task Remove(string key)
+        public async Task RemoveAsync(string key)
         {
             await js.InvokeVoidAsync("sessionStorage.removeItem", key);
         }

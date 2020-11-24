@@ -1,6 +1,8 @@
 ﻿// -----------------------------------------------------------------------------
 // 文件头
 // -----------------------------------------------------------------------------
+using System.ComponentModel;
+
 namespace Gardener.Enums
 {
     /// <summary>
@@ -11,11 +13,13 @@ namespace Gardener.Enums
         /// <summary>
         /// 男
         /// </summary>
+        [Description("男")]
         Male,
 
         /// <summary>
         /// 女
         /// </summary>
+        [Description("女")]
         Female
     }
 }
