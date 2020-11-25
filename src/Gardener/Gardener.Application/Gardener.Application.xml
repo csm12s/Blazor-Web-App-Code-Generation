@@ -465,7 +465,7 @@
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension})">
             <summary>
             用户服务
             </summary>
@@ -474,6 +474,7 @@
             <param name="authorizationManager"></param>
             <param name="roleResourceRepository"></param>
             <param name="resourceRepository"></param>
+            <param name="userExtensionRepository"></param>
         </member>
         <member name="M:Gardener.Application.UserCenter.UserService.GetRoles(System.Int32)">
             <summary>

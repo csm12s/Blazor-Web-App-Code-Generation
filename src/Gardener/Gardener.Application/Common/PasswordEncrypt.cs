@@ -19,7 +19,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public static string Encrypt (string password,string encryptKey)
         {
-            var encryptedPassword = MD5Encryption.Encrypt(encryptKey + password);
+            var encryptedPassword = MD5Encryption.Encrypt(password+ encryptKey);
             return encryptedPassword;
         }
     }

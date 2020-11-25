@@ -16,6 +16,7 @@ using System.Linq;
 using System;
 using System.Threading.Tasks;
 using Gardener.Common;
+using System.Linq.Expressions;
 
 namespace Gardener.Application.UserCenter
 {
@@ -26,6 +27,7 @@ namespace Gardener.Application.UserCenter
     public class UserService : ServiceBase<User, UserDto>, IUserService
     {
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserExtension> _userExtensionRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IRepository<RoleResource> _roleResourceRepository;
@@ -38,18 +40,21 @@ namespace Gardener.Application.UserCenter
         /// <param name="authorizationManager"></param>
         /// <param name="roleResourceRepository"></param>
         /// <param name="resourceRepository"></param>
+        /// <param name="userExtensionRepository"></param>
         public UserService(
             IRepository<User> userRepository,
             IHttpContextAccessor httpContextAccessor,
             IAuthorizationManager authorizationManager,
             IRepository<RoleResource> roleResourceRepository,
-            IRepository<Resource> resourceRepository) : base(userRepository)
+            IRepository<Resource> resourceRepository,
+            IRepository<UserExtension> userExtensionRepository) : base(userRepository)
         {
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
             _authorizationManager = authorizationManager;
             _roleResourceRepository = roleResourceRepository;
             _resourceRepository = resourceRepository;
+            _userExtensionRepository = userExtensionRepository;
         }
 
         /// <summary>
@@ -98,12 +103,19 @@ namespace Gardener.Application.UserCenter
         public PagedList<UserDto> Search([FromQuery] string name,  int pageIndex = 1,int pageSize = 10)
         {
             var users = _userRepository
-              .Include(u=>u.UserExtension, false).Include(u => u.Roles)
+              .Include(u=>u.UserExtension, false)
+              .Include(u => u.Roles)
               .Where(u => u.IsDeleted == false)
               .Where(!string.IsNullOrEmpty(name), u => u.NickName.Contains(name) || u.NickName.Contains(name))
               .OrderByDescending(x => x.CreatedTime)
               .Select(u => u.Adapt<UserDto>());
-            return users.ToPagedList(pageIndex,pageSize);
+            var pageList= users.ToPagedList(pageIndex,pageSize);
+            foreach (var item in pageList.Items) 
+            {
+                item.Password = null;
+            }
+            return pageList;
+
         }
         /// <summary>
         /// 更新一条
@@ -112,13 +124,44 @@ namespace Gardener.Application.UserCenter
         /// <returns></returns>
         public override async Task<bool> Update(UserDto input)
         {
-            input.UpdatedTime = DateTimeOffset.Now;
-            // 更新 排除创建时间 和 密码
-            await input.Adapt<User>().UpdateExcludeAsync(
-                    x => x.CreatedTime,
-                    x => x.Password,
-                    x => x.PasswordEncryptKey
-                );
+            var user = input.Adapt<User>();
+            user.UpdatedTime = DateTimeOffset.Now;
+
+            List<Expression<Func<User, object>>> exclude = new List<Expression<Func<User, object>>>() 
+            { 
+                x=>x.CreatedTime
+            };
+            //传入了密码就进行修改
+            if (!string.IsNullOrEmpty(user.Password))
+            {
+                user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
+                user.Password = PasswordEncrypt.Encrypt(user.Password, user.PasswordEncryptKey);
+            }
+            else 
+            {
+                //不修改密码时要排除掉
+                exclude.Add(x => x.Password);
+                exclude.Add(x => x.PasswordEncryptKey);
+            }
+            //扩展移除
+            //user.UserExtension = null;
+            //更新
+            await user.UpdateExcludeAsync(exclude);
+
+            if (input.UserExtension != null)
+            {
+                var userExt = input.UserExtension.Adapt<UserExtension>();
+                if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId,false))
+                {
+                    userExt.UpdatedTime = DateTimeOffset.Now;
+                    await _userExtensionRepository.UpdateExcludeAsync(userExt, x => x.CreatedTime);
+                }
+                else 
+                {
+                     userExt.CreatedTime = DateTimeOffset.Now;
+                    await _userExtensionRepository.InsertAsync(userExt);
+                }
+            }
             return true;
         }
         /// <summary>
@@ -134,9 +177,13 @@ namespace Gardener.Application.UserCenter
                 input.Password = PasswordGenerate.Create(10);
             }
             User user = input.Adapt<User>();
-            user.PasswordEncryptKey = Guid.NewGuid().ToString();
+            user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
             user.Password = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
             user.CreatedTime = DateTimeOffset.Now;
+            if (user.UserExtension != null)
+            {
+                user.UserExtension.CreatedTime = DateTimeOffset.Now;
+            }
             var newEntity = await _userRepository.InsertNowAsync(user);
             return newEntity.Entity.Adapt<UserDto>();
         }

@@ -30,7 +30,7 @@ namespace Gardener.Client.Pages.UserCenter
         string drawerTitle = String.Empty;
         bool formIsLoading = false;
         bool tableIsLoading = false;
-        UserDto editModel = new UserDto() { UserExtension=new UserExtensionDto() };
+        UserDto editModel = new UserDto();
         [Inject]
         MessageService MessaheSvr { get; set; }
         [Inject]
@@ -128,6 +128,13 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="model"></param>
         private async void OnEditClick(UserDto model)
         {
+            if (model.UserExtension == null)
+            {
+                model.UserExtension = new UserExtensionDto()
+                {
+                    UserId = model.Id
+                };
+            }
             drawerTitle = "编辑";
             model.Adapt(editModel);
             drawerVisible = true;
@@ -138,7 +145,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async void OnAddClick()
         {
-            new UserDto() { UserExtension=new UserExtensionDto() }.Adapt(editModel);
+            new UserDto().Adapt(editModel);
             drawerTitle = "添加";
             drawerVisible = true;
             await InvokeAsync(StateHasChanged);

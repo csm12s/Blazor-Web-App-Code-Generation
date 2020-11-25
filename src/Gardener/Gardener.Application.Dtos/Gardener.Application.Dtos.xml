@@ -164,26 +164,6 @@
             是否锁定
             </summary>
         </member>
-        <member name="T:Gardener.Core.Dtos.RoleInput">
-            <summary>
-            角色输入
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleInput.Name">
-            <summary>
-            角色名称
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleInput.Remark">
-            <summary>
-            角色描述
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleInput.IsLocked">
-            <summary>
-            是否锁定
-            </summary>
-        </member>
         <member name="T:Gardener.Core.Dtos.RoleResourceDto">
             <summary>
             角色资源关系
@@ -319,16 +299,6 @@
         <member name="P:Gardener.Core.Dtos.UserExtensionDto.CityId">
             <summary>
             城市ID
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserExtensionDto.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserExtensionDto.User">
-            <summary>
-            用户信息
             </summary>
         </member>
         <member name="T:Gardener.Core.Dtos.UserRoleDto">

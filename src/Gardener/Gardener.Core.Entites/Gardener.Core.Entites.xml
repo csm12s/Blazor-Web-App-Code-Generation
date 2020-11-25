@@ -557,6 +557,11 @@
             创建时间
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entites.UserExtension.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
         <member name="P:Gardener.Core.Entites.UserExtension.User">
             <summary>
             用户信息

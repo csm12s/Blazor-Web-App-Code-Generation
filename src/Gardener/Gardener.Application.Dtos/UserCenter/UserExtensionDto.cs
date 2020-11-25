@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Core.Dtos
 {
@@ -18,22 +19,16 @@ namespace Gardener.Core.Dtos
         /// <summary>
         /// QQ
         /// </summary>
+        [StringLength(15, ErrorMessage = "最大长度不能大于{1}")]
         public string QQ { get; set; }
         /// <summary>
         /// 微信号
         /// </summary>
+        [StringLength(20, ErrorMessage = "最大长度不能大于{1}")]
         public string WeChat { get; set; }
         /// <summary>
         /// 城市ID
         /// </summary>
         public int? CityId { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreatedTime { get; set; }
-        /// <summary>
-        /// 用户信息
-        /// </summary>
-        public UserDto User { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 昵称
         /// </summary>
-        [StringLength(32)]
+        [StringLength(50)]
         public string NickName { get; set; }
         /// <summary>
         /// 密码加密后的
