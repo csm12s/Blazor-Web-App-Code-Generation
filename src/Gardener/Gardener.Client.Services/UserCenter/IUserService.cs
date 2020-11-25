@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Models;
-using Gardener.Core.Dtos;
+using Gardener.Application.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

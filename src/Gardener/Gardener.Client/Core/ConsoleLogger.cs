@@ -32,7 +32,6 @@ namespace Gardener.Client
             Console.WriteLine(msg);
             Console.WriteLine(ex?.Message);
             Console.WriteLine(ex?.StackTrace);
-            await apiErrorNotifier.Info(msg);
         }
 
         public async Task Error(string msg, int? code = null, Exception ex = null)

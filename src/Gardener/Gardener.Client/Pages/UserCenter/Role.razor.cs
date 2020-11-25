@@ -5,7 +5,7 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Client.Services;
-using Gardener.Core.Dtos;
+using Gardener.Application.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;

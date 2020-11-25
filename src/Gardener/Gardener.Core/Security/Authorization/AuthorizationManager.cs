@@ -84,7 +84,7 @@ namespace Gardener.Core.Security
         public SecurityTokenResult CreateToken<TUserId>(TUserId userId, Dictionary<string, object> claims)
         {
             var datetimeOffset = DateTimeOffset.UtcNow;
-            var exp= DateTimeOffset.UtcNow.AddSeconds(jwtSettings.ExpiredTime.Value * 60).ToUnixTimeSeconds();
+            var exp= DateTimeOffset.UtcNow.AddMinutes(jwtSettings.ExpiredTime.Value).ToUnixTimeSeconds();
             claims.TryAdd(userIdKeyName, userId);
             claims.TryAdd(JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds());
             claims.TryAdd(JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds());

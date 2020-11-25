@@ -1,9 +1,8 @@
 ﻿using Gardener.Client.Services;
-using Gardener.Core.Dtos;
+using Gardener.Application.Dtos;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -25,32 +24,17 @@ namespace Gardener.Client
             authenticationStateManager.SetNotifyAuthenticationStateChangedAction(Refresh);
             this.logger = logger;
         }
-
+        /// <summary>
+        /// 刷新页面后会执行
+        /// </summary>
+        /// <returns></returns>
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             AuthenticationState authenticationState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             try
             {
-                if (authenticationStateManager.GetCurrentUser() == null)
-                {
-                    //从本地刷新新token
-                    await authenticationStateManager.FromLocalResetToken();
-                    //请求
-                    var userResult = await authorizeService.GetCurrentUser();
-                    if (userResult.Successed)
-                    {
-                        authenticationStateManager.SetCurrentUser(userResult.Data);
-                        authenticationState = CreateAuthenticationState(userResult.Data);
-                    }
-                    else 
-                    {
-                        return authenticationState;
-                    }
-                }
-                else
-                {
-                    authenticationState = CreateAuthenticationState(authenticationStateManager.GetCurrentUser());
-                }
+                var user =await authenticationStateManager.RefreshUser();
+                authenticationState = CreateAuthenticationState(user);
                 return authenticationState;
             }
             catch (Exception ex)
@@ -73,7 +57,7 @@ namespace Gardener.Client
         /// <returns></returns>
         private AuthenticationState CreateAuthenticationState(UserDto currentUser)
         {
-            if (currentUser == null) return null;
+            if (currentUser == null) return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, currentUser.NickName ?? currentUser.UserName));
             claims.Add(new Claim(ClaimTypes.NameIdentifier, currentUser.Id.ToString()));

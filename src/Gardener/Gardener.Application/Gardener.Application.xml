@@ -371,12 +371,24 @@
             <param name="securityRepository"></param>
             <param name="authorizationManager"></param>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Core.Dtos.LoginInput)">
+        <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Application.Dtos.LoginInput)">
             <summary>
             登录
             </summary>
             <param name="input"></param>
             <remarks>管理员：admin/admin；普通用户：Furion/dotnetchina</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.CreateToken(Gardener.Core.Entites.User)">
+            <summary>
+            创建token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.RefreshToken">
+            <summary>
+            刷新Token
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserRoles">
@@ -405,6 +417,12 @@
         <member name="M:Gardener.Application.IAuthorizeService.GetCurrentUser">
             <summary>
             获取当前用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.IAuthorizeService.RefreshToken">
+            <summary>
+            刷新Token
             </summary>
             <returns></returns>
         </member>
@@ -499,14 +517,14 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.Update(Gardener.Core.Dtos.UserDto)">
+        <member name="M:Gardener.Application.UserCenter.UserService.Update(Gardener.Application.Dtos.UserDto)">
             <summary>
             更新一条
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.Insert(Gardener.Core.Dtos.UserDto)">
+        <member name="M:Gardener.Application.UserCenter.UserService.Insert(Gardener.Application.Dtos.UserDto)">
             <summary>
             新增一条
             </summary>

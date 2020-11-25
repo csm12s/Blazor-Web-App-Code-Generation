@@ -2,7 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
-using Gardener.Core.Dtos;
+using Gardener.Application.Dtos;
 using Gardener.Client.Models;
 using System;
 using System.Collections.Generic;
@@ -46,6 +46,11 @@ namespace Gardener.Client.Services
         {
             var result = await apiCaller.PostAsync<LoginInput, LoginOutput>("authorize/login", input);
             return result;
+        }
+
+        public async Task<ApiResult<TokenOutput>> RefreshToken()
+        {
+            return await apiCaller.PostAsync<object, TokenOutput>("authorize/refresh-token");
         }
     }
 }

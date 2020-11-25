@@ -1,5 +1,5 @@
 ﻿@page "/user_auth/user"
-@using Gardener.Core.Dtos
+@using Gardener.Application.Dtos
 <div>
     <PageContainer Title="用户管理">
         <Breadcrumb>
@@ -58,11 +58,11 @@
                     <Column Title="是否锁定" Field="@context.IsLocked">
                         <Switch @bind-Value="@context.IsLocked" OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
                     </Column>
-                    <Column Title="创建时间" @bind-Field="@context.CreatedTime" Format="yyyy-MM-dd" Sortable />
+                    <Column Title="创建时间" @bind-Field="@context.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
-                            <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
-                            <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
+                            <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
+                            <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
                         </Space>
                     </ActionColumn>
                 </RowTemplate>

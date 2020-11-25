@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Gardener.Core.Dtos
+namespace Gardener.Application.Dtos
 {
     /// <summary>
     /// 用户角色关系

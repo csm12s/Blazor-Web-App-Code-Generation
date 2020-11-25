@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Core.Dtos
+namespace Gardener.Application.Dtos
 {
     /// <summary>
     /// 登录输入参数

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AntDesign.Pro.Layout;
 using Microsoft.AspNetCore.Components;
 using AntDesign;
-using Gardener.Core.Dtos;
+using Gardener.Application.Dtos;
 using Gardener.Client.Services;
 using Gardener.Client.Constants;
 using System.Globalization;

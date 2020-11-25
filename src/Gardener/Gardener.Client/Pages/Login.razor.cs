@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Core.Dtos;
+using Gardener.Application.Dtos;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -52,7 +52,7 @@ namespace Gardener.Client.Pages
             if (loginOutResult.Successed)
             {
                 await MsgSvr.Success($"登录成功",0.8);
-                await authenticationStateManager.Login(loginOutResult.Data.AccessToken);
+                await authenticationStateManager.Login(loginOutResult.Data);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }

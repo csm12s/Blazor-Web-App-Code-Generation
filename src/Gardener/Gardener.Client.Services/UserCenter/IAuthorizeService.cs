@@ -1,4 +1,4 @@
-﻿using Gardener.Core.Dtos;
+﻿using Gardener.Application.Dtos;
 using Gardener.Client.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,5 +16,10 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <returns></returns>
         Task<ApiResult<UserDto>> GetCurrentUser();
+        /// <summary>
+        /// 刷新Token
+        /// </summary>
+        /// <returns></returns>
+        Task<ApiResult<TokenOutput>> RefreshToken();
     }
 }

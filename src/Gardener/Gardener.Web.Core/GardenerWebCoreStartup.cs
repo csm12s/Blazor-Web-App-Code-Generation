@@ -20,7 +20,11 @@ namespace Gardener.Web.Core
             //注册跨域
             services.AddCorsAccessor();
             //注册控制器和视图
-            services.AddControllersWithViews()
+            services.AddControllersWithViews().AddJsonOptions(options => {
+
+                options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
+                options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetJsonConverter());
+            })
             //注册Furion
             .AddInject()
             //注册规范返回格式

@@ -4,329 +4,339 @@
         <name>Gardener.Application.Dtos</name>
     </assembly>
     <members>
-        <member name="T:Gardener.Core.Dtos.LoginInput">
+        <member name="T:Gardener.Application.Dtos.LoginInput">
             <summary>
             登录输入参数
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.LoginInput.UserName">
+        <member name="P:Gardener.Application.Dtos.LoginInput.UserName">
             <summary>
             用户名
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.LoginInput.Password">
+        <member name="P:Gardener.Application.Dtos.LoginInput.Password">
             <summary>
             密码
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.LoginInput.LoginType">
+        <member name="P:Gardener.Application.Dtos.LoginInput.LoginType">
             <summary>
             登录类型
             </summary>
         </member>
-        <member name="T:Gardener.Core.Dtos.LoginOutput">
+        <member name="T:Gardener.Application.Dtos.LoginOutput">
             <summary>
             登录输出参数
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.LoginOutput.Id">
+        <member name="P:Gardener.Application.Dtos.LoginOutput.UserId">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.LoginOutput.Account">
+        <member name="P:Gardener.Application.Dtos.LoginOutput.UserName">
             <summary>
             用户名
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.LoginOutput.AccessToken">
-            <summary>
-            Token
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.LoginOutput.AccessTokenExpiresIn">
-            <summary>
-            到期时间
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Dtos.ResourceDto">
-            <summary>
-            资源
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Id">
-            <summary>
-            资源ID
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.ResourceId">
-            <summary>
-            权限唯一名（每一个接口）
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Name">
-            <summary>
-            权限名称
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.SortName">
-            <summary>
-            权限名称简写
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Path">
-            <summary>
-            资源地址
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Icon">
-            <summary>
-            资源图标
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Order">
-            <summary>
-            资源排序
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.ParentId">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Parent">
-            <summary>
-            父级
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Childrens">
-            <summary>
-            子集
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Type">
-            <summary>
-            权限类型
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.Roles">
-            <summary>
-            多对多
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.RoleResources">
-            <summary>
-            多对多中间表
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.ResourceDto.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Dtos.RoleDto">
-            <summary>
-            角色
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleDto.Id">
-            <summary>
-            角色ID
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleDto.Name">
-            <summary>
-            角色名称
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleDto.Remark">
-            <summary>
-            角色描述
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleDto.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleDto.UpdatedTime">
-            <summary>
-            更新时间
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleDto.IsLocked">
-            <summary>
-            是否锁定
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Dtos.RoleResourceDto">
-            <summary>
-            角色资源关系
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleResourceDto.RoleId">
-            <summary>
-            角色Id
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleResourceDto.Role">
-            <summary>
-            角色
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleResourceDto.ResourceId">
-            <summary>
-            权限Id
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleResourceDto.Resource">
-            <summary>
-            权限
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleResourceDto.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.RoleResourceDto.IsLocked">
-            <summary>
-            是否锁定
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Dtos.UserDto">
-            <summary>
-            用户数据转换实体
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.Id">
-            <summary>
-            用户id
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.CreatedTime">
-            <summary>
-            创建时间
-            </summary>        
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.UpdatedTime">
-            <summary>
-            更新时间
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "P:Gardener.Core.Dtos.UserDto.UserName" -->
-        <member name="P:Gardener.Core.Dtos.UserDto.NickName">
+        <member name="P:Gardener.Application.Dtos.LoginOutput.NickName">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.Password">
+        <member name="T:Gardener.Application.Dtos.ResourceDto">
             <summary>
-            密码加密后的
+            资源
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Gardener.Core.Dtos.UserDto.Avatar" -->
-        <member name="P:Gardener.Core.Dtos.UserDto.Email">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Id">
             <summary>
-            邮箱
+            资源ID
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.EmailConfirmed">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.ResourceId">
             <summary>
-            邮箱是否确认
+            权限唯一名（每一个接口）
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.PhoneNumber">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Name">
             <summary>
-            手机
+            权限名称
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.PhoneNumberConfirmed">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.SortName">
             <summary>
-            手机是否确认
+            权限名称简写
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.Gender">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Remark">
             <summary>
-            性别
+            备注
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.Roles">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Path">
+            <summary>
+            资源地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Icon">
+            <summary>
+            资源图标
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Order">
+            <summary>
+            资源排序
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.ParentId">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Parent">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Childrens">
+            <summary>
+            子集
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Roles">
             <summary>
             多对多
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.UserRoles">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.RoleResources">
             <summary>
             多对多中间表
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.UserExtension">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.CreatedTime">
             <summary>
-            用户扩展信息
+            创建时间
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserDto.IsLocked">
+        <member name="T:Gardener.Application.Dtos.RoleDto">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.Id">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.Remark">
+            <summary>
+            角色描述
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.IsLocked">
             <summary>
             是否锁定
             </summary>
         </member>
-        <member name="T:Gardener.Core.Dtos.UserExtensionDto">
+        <member name="T:Gardener.Application.Dtos.RoleResourceDto">
             <summary>
-            用户扩展数据
+            角色资源关系
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserExtensionDto.UserId">
-            <summary>
-            用户ID
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserExtensionDto.QQ">
-            <summary>
-            QQ
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserExtensionDto.WeChat">
-            <summary>
-            微信号
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserExtensionDto.CityId">
-            <summary>
-            城市ID
-            </summary>
-        </member>
-        <member name="T:Gardener.Core.Dtos.UserRoleDto">
-            <summary>
-            用户角色关系
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserRoleDto.UserId">
-            <summary>
-            用户Id
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserRoleDto.User">
-            <summary>
-            用户信息
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.Dtos.UserRoleDto.RoleId">
+        <member name="P:Gardener.Application.Dtos.RoleResourceDto.RoleId">
             <summary>
             角色Id
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserRoleDto.Role">
+        <member name="P:Gardener.Application.Dtos.RoleResourceDto.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleResourceDto.ResourceId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleResourceDto.Resource">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleResourceDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleResourceDto.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.TokenOutput">
+            <summary>
+            token刷新返回结果
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.TokenOutput.AccessToken">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.TokenOutput.AccessTokenExpiresIn">
+            <summary>
+            到期时间 UnixTimeSeconds
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.UserDto">
+            <summary>
+            用户数据转换实体
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.Id">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Gardener.Application.Dtos.UserDto.UserName" -->
+        <member name="P:Gardener.Application.Dtos.UserDto.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.Password">
+            <summary>
+            密码加密后的
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Gardener.Application.Dtos.UserDto.Avatar" -->
+        <member name="P:Gardener.Application.Dtos.UserDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.EmailConfirmed">
+            <summary>
+            邮箱是否确认
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.PhoneNumber">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.PhoneNumberConfirmed">
+            <summary>
+            手机是否确认
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.UserRoles">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.UserExtension">
+            <summary>
+            用户扩展信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserDto.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.UserExtensionDto">
+            <summary>
+            用户扩展数据
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserExtensionDto.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserExtensionDto.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserExtensionDto.WeChat">
+            <summary>
+            微信号
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserExtensionDto.CityId">
+            <summary>
+            城市ID
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.UserRoleDto">
+            <summary>
+            用户角色关系
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserRoleDto.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserRoleDto.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserRoleDto.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UserRoleDto.Role">
             <summary>
             角色信息
             </summary>
         </member>
-        <member name="P:Gardener.Core.Dtos.UserRoleDto.CreatedTime">
+        <member name="P:Gardener.Application.Dtos.UserRoleDto.CreatedTime">
             <summary>
             创建时间
             </summary>

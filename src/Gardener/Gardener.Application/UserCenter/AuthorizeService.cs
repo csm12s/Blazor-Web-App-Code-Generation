@@ -13,8 +13,9 @@ using Furion.DataEncryption;
 using Microsoft.AspNetCore.Mvc;
 using Gardener.Enums;
 using Gardener.Core.Entites;
-using Gardener.Core.Dtos;
+using Gardener.Application.Dtos;
 using System.Threading.Tasks;
+using Gardener.Application.Dtos;
 
 namespace Gardener.Application
 {
@@ -54,28 +55,66 @@ namespace Gardener.Application
         /// <param name="input"></param>
         /// <remarks>管理员：admin/admin；普通用户：Furion/dotnetchina</remarks>
         /// <returns></returns>
-        [AllowAnonymous, IfException(1000, ErrorMessage = "用户名或密码错误")]
+        [AllowAnonymous]
+        [IfException(1000)]
+        [IfException(1001)]
         public LoginOutput Login(LoginInput input)
         {
             // 验证用户是否存在
-            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName), false) ?? throw Oops.Oh(1000);
+            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Oh(1000);
+            if (user.IsLocked) throw Oops.Oh(1001);
             //密码是否正确
             var encryptedPassword = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
-            if (!encryptedPassword.Equals(user.Password)) throw Oops.Oh(1000);
+            if (!encryptedPassword.Equals(user.Password))
+            {
+                throw Oops.Oh(1000);
+            }
 
-            var output = user.Adapt<LoginOutput>();
+            var output = new LoginOutput()
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                NickName = user.NickName
+            };
+            var token = CreateToken(user);
+            output.AccessToken = token.AccessToken;
+            output.AccessTokenExpiresIn = token.AccessTokenExpiresIn;
+            // 设置 Swagger 刷新自动授权
+            _httpContextAccessor.SigninToSwagger(output.AccessToken);
+            return output;
+        }
 
+        /// <summary>
+        /// 创建token
+        /// </summary>
+        /// <returns></returns>
+        private TokenOutput CreateToken(User user)
+        {
+            var output = new TokenOutput();
             var tokenResult = _authorizationManager.CreateToken(user.Id, new Dictionary<string, object>() {
                 { "UserName",user.UserName},
                 { "NickName",user.NickName},
             });
             output.AccessToken = tokenResult.AccessToken;
             output.AccessTokenExpiresIn = tokenResult.ExpiresIn;
-            // 设置 Swagger 刷新自动授权
-            _httpContextAccessor.SigninToSwagger(output.AccessToken);
             return output;
         }
 
+        /// <summary>
+        /// 刷新Token
+        /// </summary>
+        /// <returns></returns>
+        [IfException(1002)]
+        [IfException(1001)]
+        public TokenOutput RefreshToken()
+        {
+            // 获取用户Id
+            var userId = _authorizationManager.GetUserId();
+            var user = _userRepository.FirstOrDefault(u => u.Id == userId && u.IsDeleted == false, false) ?? throw Oops.Oh(1002);
+            if (user.IsLocked) throw Oops.Oh(1001);
+            var output = CreateToken(user);
+            return output;
+        }
         /// <summary>
         /// 查看用户角色
         /// </summary>
