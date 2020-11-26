@@ -25,6 +25,12 @@ namespace Gardener.Client.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ApiResult<List<RoleDto>>> GetEffective()
+        {
+            return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/effective");
+        }
+
         public void Resource(int roleId, int[] resourceIds)
         {
             throw new NotImplementedException();

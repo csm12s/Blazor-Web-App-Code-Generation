@@ -26,9 +26,9 @@ namespace Gardener.Client.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResult<List<RoleDto>>> GetRoles(int userId)
+        public async Task<ApiResult<List<RoleDto>>> GetRoles(int userId)
         {
-            throw new NotImplementedException();
+            return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/{userId}/roles");
         }
        
         public async Task<ApiResult<PagedList<UserDto>>> Search(string name, int pageIndex = 1, int pageSize = 10)

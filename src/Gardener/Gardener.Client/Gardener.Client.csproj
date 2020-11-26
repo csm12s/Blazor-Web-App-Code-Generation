@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011240428" />
+    <PackageReference Include="AntDesign" Version="0.5.0-nightly-2011250346" />
     <PackageReference Include="AntDesign.Charts" Version="0.2.0" />
     <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-201124080446" />
     <PackageReference Include="Mapster" Version="7.0.0" />
@@ -56,12 +56,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\UserCenter\UserEdit.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Watch Remove="Pages\Login.razor.less" />
+    <Watch Remove="Pages\UserCenter\UserEdit.razor" />
     <Watch Remove="Shared\LoginLayout.razor.less" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Components\GlobalHeader\RightContent.razor" />
+    <None Include="Pages\UserCenter\UserEdit.razor" />
   </ItemGroup>
 
   <ItemGroup>

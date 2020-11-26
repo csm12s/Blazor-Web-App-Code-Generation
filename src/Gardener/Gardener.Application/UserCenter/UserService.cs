@@ -66,7 +66,7 @@ namespace Gardener.Application.UserCenter
         {
             var roles = _userRepository
                 .DetachedEntities
-                .Include(u => u.Roles)
+                .Include(u => u.Roles.Where(r=>r.IsDeleted==false))
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles)
                 .ToList();
@@ -186,6 +186,20 @@ namespace Gardener.Application.UserCenter
             }
             var newEntity = await _userRepository.InsertNowAsync(user);
             return newEntity.Entity.Adapt<UserDto>();
+        }
+
+        /// <summary>
+        /// 查询一条
+        /// </summary>
+        /// <param name="id"></param>
+        public override async Task<UserDto> Get(int id)
+        {
+            var person = await _userRepository
+                .Include(x => x.UserExtension, false)
+                .Include(x => x.Roles.Where(r => r.IsDeleted == false))
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+            return person.Adapt<UserDto>();
         }
     }
 }

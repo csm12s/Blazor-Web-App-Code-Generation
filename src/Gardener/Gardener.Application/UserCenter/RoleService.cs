@@ -8,6 +8,7 @@ using Gardener.Core.Entites;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,17 @@ namespace Gardener.Application.UserCenter
             var entitys = _roleResourceRepository.Where(u => u.RoleId == roleId, false);
 
             await _roleResourceRepository.DeleteAsync(entitys);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<RoleDto>> GetEffective()
+        {
+            return await _roleRepository.AsQueryable()
+                .Where(x => x.IsDeleted == false && x.IsLocked == false)
+                .Select(x=>x.Adapt<RoleDto>())
+                .ToListAsync();
         }
     }
 }

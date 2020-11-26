@@ -14,5 +14,10 @@ namespace Gardener.Application.UserCenter
         void DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId);
         void Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, int[] resourceIds);
         Task<PagedList<RoleDto>> Search([FromQuery] string name,  int pageIndex = 1,  int pageSize = 10);
+        /// <summary>
+        /// 获取有效的角色
+        /// </summary>
+        /// <returns></returns>
+        Task<List<RoleDto>> GetEffective();
     }
 }
