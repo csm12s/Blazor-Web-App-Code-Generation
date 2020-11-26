@@ -63,6 +63,7 @@
                         <Space>
                             <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
                             <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
+                            <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(context)">分配角色</Button></SpaceItem>
                         </Space>
                     </ActionColumn>
                 </RowTemplate>

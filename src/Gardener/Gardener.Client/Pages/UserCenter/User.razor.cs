@@ -34,9 +34,11 @@ namespace Gardener.Client.Pages.UserCenter
         [Inject]
         MessageService MessaheSvr { get; set; }
         [Inject]
-        IUserService UserService { get; set; }
+        IUserService UserSvr { get; set; }
         [Inject]
         ConfirmService ConfirmSvr { get; set; }
+        [Inject] 
+        public DrawerService DrawerSvr { get; set; }
         /// <summary>
         /// 页面初始化完成
         /// </summary>
@@ -58,7 +60,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task ReLoadTable()
         {
             tableIsLoading = true;
-            var pagedListResult = await UserService.Search(_name, _pageIndex, _pageSize);
+            var pagedListResult = await UserSvr.Search(_name, _pageIndex, _pageSize);
             if (pagedListResult.Successed)
             {
                 var pagedList = pagedListResult.Data;
@@ -87,7 +89,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task onChange(QueryModel<UserDto> queryModel)
         {
             tableIsLoading = true;
-            var pagedListResult = await UserService.Search(_name, _pageIndex, _pageSize);
+            var pagedListResult = await UserSvr.Search(_name, _pageIndex, _pageSize);
             if (pagedListResult.Successed)
             {
                 var pagedList = pagedListResult.Data;
@@ -108,7 +110,7 @@ namespace Gardener.Client.Pages.UserCenter
         {
             if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
             {
-                var result = await UserService.FakeDelete(id);
+                var result = await UserSvr.FakeDelete(id);
                 if (result.Successed)
                 {
                     users = users.Remove(users.FirstOrDefault(x => x.Id == id));
@@ -169,7 +171,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (editModel.Id == 0)
             {
                 //添加
-                var result = await UserService.Insert(editModel);
+                var result = await UserSvr.Insert(editModel);
                 formIsLoading = false;
                 drawerVisible = false;
                 if (result.Successed)
@@ -190,7 +192,7 @@ namespace Gardener.Client.Pages.UserCenter
                 editModel.Roles = null;
                 editModel.UserRoles = null;
                 //修改
-                var result = await UserService.Update(editModel);
+                var result = await UserSvr.Update(editModel);
                 formIsLoading = false;
                 drawerVisible = false;
                 if (result.Successed)
@@ -235,7 +237,7 @@ namespace Gardener.Client.Pages.UserCenter
             {
                 if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    var result = await UserService.FakeDeletes(selectedRows.Select(x => x.Id).ToArray());
+                    var result = await UserSvr.FakeDeletes(selectedRows.Select(x => x.Id).ToArray());
                     if (result.Successed)
                     {
                         users = users.Where(x => !selectedRows.Any(y => y.Id == x.Id)).ToArray();
@@ -256,12 +258,26 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="isLocked"></param>
         private async void OnChangeIsLocked(UserDto model, bool isLocked)
         {
-            var result = await UserService.Lock(model.Id, isLocked);
+            var result = await UserSvr.Lock(model.Id, isLocked);
             if (!result.Successed)
             {
                 model.IsLocked = !isLocked;
                 MessaheSvr.Error("锁定失败");
             }
+        }
+        /// <summary>
+        /// 点击分配角色
+        /// </summary>
+        /// <param name="model"></param>
+        private async void OnEditUserRoleClick(UserDto model)
+        {
+            var result = await DrawerSvr.CreateDialogAsync<UserRoleEdit, int, int>(1, title: "编辑角色", width: 450);
+            //if (result != null)
+            //{
+            //    result.Adapt(model);
+            //    await InvokeAsync(StateHasChanged);
+            //}
+
         }
     }
 }
