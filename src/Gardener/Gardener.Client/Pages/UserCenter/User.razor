@@ -49,10 +49,12 @@
                     </Column>
                     <Column Title="手机号" @bind-Field="@context.PhoneNumber" />
                     <Column Title="邮箱" @bind-Field="@context.Email" />
-                    <Column Title="角色" Field="@context.Roles">
+                    <Column Title="角色" Field="@context.Roles" Style="max-width:150px">
                         @foreach (var role in context.Roles)
                         {
-                            <Tag>@role.Name</Tag>
+                            <Tooltip Placement="@PlacementType.Top" Title="@role.Remark">
+                                <Tag>@role.Name</Tag>
+                            </Tooltip>
                         }
                     </Column>
                     <Column Title="是否锁定" Field="@context.IsLocked">
@@ -62,8 +64,8 @@
                     <ActionColumn>
                         <Space>
                             <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
-                            <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
                             <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(context)">分配角色</Button></SpaceItem>
+                            <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
                         </Space>
                     </ActionColumn>
                 </RowTemplate>
