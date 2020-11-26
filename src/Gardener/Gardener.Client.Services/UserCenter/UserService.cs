@@ -39,5 +39,10 @@ namespace Gardener.Client.Services
             };
             return await apiCaller.GetAsync<PagedList<UserDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
         }
+
+        public async Task<ApiResult<bool>> SetRoles(int userId, int[] roleIds)
+        {
+            return await apiCaller.PostAsync<int[],bool>($"{controller}/{userId}/set-roles", roleIds);
+        }
     }
 }

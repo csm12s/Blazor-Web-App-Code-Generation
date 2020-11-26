@@ -441,6 +441,14 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.UserCenter.IUserService.SetRoles(System.Int32,System.Int32[])">
+            <summary>
+            设置用户角色
+            </summary>
+            <param name="userId"></param>
+            <param name="roleIds"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.UserCenter.ResourceService">
             <summary>
             资源服务
@@ -495,7 +503,7 @@
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension})">
+        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole})">
             <summary>
             用户服务
             </summary>
@@ -548,6 +556,14 @@
             查询一条
             </summary>
             <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.UserService.SetRoles(System.Int32,System.Int32[])">
+            <summary>
+            设置用户角色
+            </summary>
+            <param name="userId"></param>
+            <param name="roleIds"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute">
             <summary>

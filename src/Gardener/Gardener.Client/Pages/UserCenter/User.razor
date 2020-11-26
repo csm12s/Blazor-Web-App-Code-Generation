@@ -39,20 +39,20 @@
                 <RowTemplate>
                     <Selection Key="@(context.Id.ToString())" />
                     <Column Title="编号" @bind-Field="@context.Id" Sortable />
-                    <Column Title="头像" Field="@context.Avatar" >
+                    <Column Title="头像" Field="@context.Avatar">
                         <Avatar Src="@context.Avatar" />
-                        </Column>
-                    <Column Title="用户名" @bind-Field="@context.UserName" Sortable />
-                    <Column Title="昵称" @bind-Field="@context.NickName" Sortable />
-                    <Column Title="性别" @bind-Field="@context.Gender" >
-                       <Tag Color="@(context.Gender.Equals(Gender.Male)?"blue" :"pink")" >@EnumExtension.GetEnumDescription(context.Gender)</Tag>
                     </Column>
-                    <Column Title="手机号" @bind-Field="@context.PhoneNumber" Sortable />
-                    <Column Title="邮箱" @bind-Field="@context.Email" Sortable />
-                    <Column Title="角色"  Field="@context.Roles">
+                    <Column Title="用户名" @bind-Field="@context.UserName" />
+                    <Column Title="昵称" @bind-Field="@context.NickName" />
+                    <Column Title="性别" @bind-Field="@context.Gender">
+                        <Tag Color="@(context.Gender.Equals(Gender.Male)?"blue" :"pink")">@EnumExtension.GetEnumDescription(context.Gender)</Tag>
+                    </Column>
+                    <Column Title="手机号" @bind-Field="@context.PhoneNumber" />
+                    <Column Title="邮箱" @bind-Field="@context.Email" />
+                    <Column Title="角色" Field="@context.Roles">
                         @foreach (var role in context.Roles)
-                        { 
-                        <Tag>@role.Name</Tag>
+                        {
+                            <Tag>@role.Name</Tag>
                         }
                     </Column>
                     <Column Title="是否锁定" Field="@context.IsLocked">
@@ -68,70 +68,92 @@
                     </ActionColumn>
                 </RowTemplate>
             </Table>
-            <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
-
-                @if (editModel != null)
-                {
-                <Form Loading="@formIsLoading"
-                      Model="@editModel"
-                      LabelCol="new ColLayoutParam { Span = 8 }"
-                      WrapperCol="new ColLayoutParam { Span = 16 }"
-                      OnFinish="OnFormFinish"
-                      OnFinishFailed="OnFormFinishFailed">
-                    <FormItem Label="头像">
-                        <Avatar Src="@context.Avatar" />
-                    </FormItem>
-                    <FormItem Label="用户名">
-                        <Input @bind-Value="@context.UserName" />
-                    </FormItem>
-                    <FormItem Label="密码">
-                        <Input @bind-Value="@context.Password" />
-                    </FormItem>
-                    <FormItem Label="昵称">
-                        <Input @bind-Value="@context.NickName" />
-                    </FormItem>
-                    <FormItem Label="性别">
-                        <RadioGroup @bind-Value="@(context.Gender)">
-                            @foreach (var gitem in EnumExtension.EnumToDictionary<Gender>())
-                            {
-                                <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
-                            }
-                        </RadioGroup>
-                    </FormItem>
-                    <FormItem Label="是否锁定">
-                        <Switch @bind-Value="@context.IsLocked"></Switch>
-                    </FormItem>
-                    <Divider Orientation="left" Style="font-weight:bold">联系信息</Divider>
-                    <FormItem Label="手机号">
-                        <Input @bind-Value="@context.PhoneNumber" />
-                    </FormItem>
-                    <FormItem Label="手机号是否确认">
-                        <Switch @bind-Value="@context.PhoneNumberConfirmed"></Switch>
-                    </FormItem>
-                    <FormItem Label="邮箱">
-                        <Input @bind-Value="@context.Email" />
-                    </FormItem>
-                    <FormItem Label="邮箱是否确认">
-                        <Switch @bind-Value="@context.EmailConfirmed"></Switch>
-                    </FormItem>
-                    <FormItem Label="QQ">
-                        <Input @bind-Value="@context.UserExtension.QQ" />
-                    </FormItem>
-                    <FormItem Label="微信">
-                        <Input @bind-Value="@context.UserExtension.WeChat" />
-                    </FormItem>
-                    <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-                        <Button Type="@ButtonType.Primary" HtmlType="submit">
-                            保存
-                        </Button>
-                        <Button OnClick="OnFormCancel">
-                            取消
-                        </Button>
-                    </FormItem>
-                </Form>
-                }
-            </Drawer>
         </ChildContent>
     </PageContainer>
+    <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
+
+        @if (editModel != null)
+        {
+            <Form Loading="@formIsLoading"
+                  Model="@editModel"
+                  LabelCol="new ColLayoutParam { Span = 8 }"
+                  WrapperCol="new ColLayoutParam { Span = 16 }"
+                  OnFinish="OnFormFinish"
+                  OnFinishFailed="OnFormFinishFailed">
+                <FormItem Label="头像">
+                    <Avatar Src="@context.Avatar" />
+                </FormItem>
+                <FormItem Label="用户名">
+                    <Input @bind-Value="@context.UserName" />
+                </FormItem>
+                <FormItem Label="密码">
+                    <Input @bind-Value="@context.Password" />
+                </FormItem>
+                <FormItem Label="昵称">
+                    <Input @bind-Value="@context.NickName" />
+                </FormItem>
+                <FormItem Label="性别">
+                    <RadioGroup @bind-Value="@(context.Gender)">
+                        @foreach (var gitem in EnumExtension.EnumToDictionary<Gender>())
+                        {
+                            <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                        }
+                    </RadioGroup>
+                </FormItem>
+                <FormItem Label="是否锁定">
+                    <Switch @bind-Value="@context.IsLocked"></Switch>
+                </FormItem>
+                <Divider Orientation="left" Style="font-weight:bold">联系信息</Divider>
+                <FormItem Label="手机号">
+                    <Input @bind-Value="@context.PhoneNumber" />
+                </FormItem>
+                <FormItem Label="手机号是否确认">
+                    <Switch @bind-Value="@context.PhoneNumberConfirmed"></Switch>
+                </FormItem>
+                <FormItem Label="邮箱">
+                    <Input @bind-Value="@context.Email" />
+                </FormItem>
+                <FormItem Label="邮箱是否确认">
+                    <Switch @bind-Value="@context.EmailConfirmed"></Switch>
+                </FormItem>
+                <FormItem Label="QQ">
+                    <Input @bind-Value="@context.UserExtension.QQ" />
+                </FormItem>
+                <FormItem Label="微信">
+                    <Input @bind-Value="@context.UserExtension.WeChat" />
+                </FormItem>
+                <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        保存
+                    </Button>
+                    <Button OnClick="OnFormCancel">
+                        取消
+                    </Button>
+                </FormItem>
+            </Form>
+        }
+    </Drawer>
+
+
+    <Drawer Closable="true" Width="400" Visible="editRoleDrawerVisible" Placement="right" Title="@("分配角色")" OnClose="_=>OnEditRoleDrawerClose()">
+        <Spin Spinning="editRoleFormIsLoading">
+            <Row Style="min-height:150px">
+                <AntDesign.Col Span="20" Offset="2">
+                    <CheckboxGroup Options="@roleOptions" OnChange="OnEditUserRoleChange" />
+                </AntDesign.Col>
+            </Row>
+            <Row>
+                <AntDesign.Col Span="20" Offset="2">
+                    <Space>
+                        <SpaceItem>
+                            <Checkbox Indeterminate="@indeterminateRole" Checked="@checkAllRole" CheckedChange="@CheckAllRoleChanged">全选</Checkbox>
+                        </SpaceItem>
+                        <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleSaveClick">保存</Button></SpaceItem>
+                        <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleCancelClick">取消</Button></SpaceItem>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+        </Spin>
+    </Drawer>
 
 </div>

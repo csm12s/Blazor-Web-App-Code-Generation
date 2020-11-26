@@ -27,6 +27,7 @@ namespace Gardener.Application.UserCenter
     public class UserService : ServiceBase<User, UserDto>, IUserService
     {
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<UserExtension> _userExtensionRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAuthorizationManager _authorizationManager;
@@ -47,7 +48,7 @@ namespace Gardener.Application.UserCenter
             IAuthorizationManager authorizationManager,
             IRepository<RoleResource> roleResourceRepository,
             IRepository<Resource> resourceRepository,
-            IRepository<UserExtension> userExtensionRepository) : base(userRepository)
+            IRepository<UserExtension> userExtensionRepository, IRepository<UserRole> userRoleRepository) : base(userRepository)
         {
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
@@ -55,6 +56,7 @@ namespace Gardener.Application.UserCenter
             _roleResourceRepository = roleResourceRepository;
             _resourceRepository = resourceRepository;
             _userExtensionRepository = userExtensionRepository;
+            _userRoleRepository = userRoleRepository;
         }
 
         /// <summary>
@@ -104,7 +106,7 @@ namespace Gardener.Application.UserCenter
         {
             var users = _userRepository
               .Include(u=>u.UserExtension, false)
-              .Include(u => u.Roles)
+              .Include(u => u.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false))
               .Where(u => u.IsDeleted == false)
               .Where(!string.IsNullOrEmpty(name), u => u.NickName.Contains(name) || u.NickName.Contains(name))
               .OrderByDescending(x => x.CreatedTime)
@@ -200,6 +202,36 @@ namespace Gardener.Application.UserCenter
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
             return person.Adapt<UserDto>();
+        }
+
+       /// <summary>
+       /// 设置用户角色
+       /// </summary>
+       /// <param name="userId"></param>
+       /// <param name="roleIds"></param>
+       /// <returns></returns>
+       [HttpPost]
+        public async Task<bool> SetRoles([ApiSeat(ApiSeats.ActionStart)] int userId,int [] roleIds)
+        {
+            //先删除现有的
+            var userRoles= await _userRoleRepository.AsQueryable(x => x.UserId == userId).ToListAsync();
+            if (userRoles.Count > 0)
+            {
+              await _userRoleRepository.DeleteAsync(userRoles);
+            }
+            if (roleIds?.Length > 0)
+            {
+                //添加新的
+                var newUserRoles = roleIds.Select(x => new UserRole()
+                {
+
+                    UserId = userId,
+                    RoleId = x,
+                    CreatedTime = DateTimeOffset.Now
+                });
+                await _userRoleRepository.InsertAsync(newUserRoles);
+            }
+            return true;
         }
     }
 }

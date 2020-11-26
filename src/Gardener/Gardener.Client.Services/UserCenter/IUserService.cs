@@ -21,5 +21,13 @@ namespace Gardener.Client.Services
         /// <param name="pageSize"></param>
         /// <returns></returns>
         Task<ApiResult<PagedList<UserDto>>> Search(string name, int pageIndex = 1,  int pageSize = 10);
+
+        /// <summary>
+        /// 设置用户角色
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleIds"></param>
+        /// <returns></returns>
+        Task<ApiResult<bool>> SetRoles(int userId, int[] roleIds);
     }
 }

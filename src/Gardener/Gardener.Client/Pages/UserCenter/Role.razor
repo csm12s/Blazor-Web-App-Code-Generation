@@ -39,8 +39,8 @@
                 <RowTemplate>
                     <Selection Key="@(context.Id.ToString())" />
                     <Column Title="编号" @bind-Field="@context.Id" Sortable />
-                    <Column Title="名称" @bind-Field="@context.Name" Sortable />
-                    <Column Title="备注" @bind-Field="@context.Remark" Sortable />
+                    <Column Title="名称" @bind-Field="@context.Name" />
+                    <Column Title="备注" @bind-Field="@context.Remark"/>
                     <Column Title="是否锁定" Field="@context.IsLocked">
                         <Switch @bind-Value="@context.IsLocked"  OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
                     </Column>
