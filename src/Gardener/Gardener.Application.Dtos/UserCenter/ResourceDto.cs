@@ -22,37 +22,37 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 权限唯一名（每一个接口）
         /// </summary>
-        [Required, MaxLength(64)]
+        [Required(ErrorMessage ="不能为空"), MaxLength(64,ErrorMessage = "最大长度不能大于{0}")]
         public string ResourceId { get; set; }
         /// <summary>
         /// 权限名称
         /// </summary>
-        [Required, MaxLength(100)]
+        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{0}")]
         public string Name { get; set; }
         /// <summary>
         /// 权限名称简写
         /// </summary>
-        [Required, MaxLength(100)]
+        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{0}")]
         public string SortName { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
-        [MaxLength(500)]
+        [MaxLength(500, ErrorMessage = "最大长度不能大于{0}")]
         public string Remark { get; set; }
         /// <summary>
         /// 资源地址
         /// </summary>
-        [MaxLength(200)]
+        [MaxLength(200, ErrorMessage = "最大长度不能大于{0}")]
         public string Path { get; set; }
         /// <summary>
         /// 资源图标
         /// </summary>
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "最大长度不能大于{0}")]
         public string Icon { get; set; }
         /// <summary>
         /// 资源排序
         /// </summary>
-        [Required, DefaultValue(0)]
+        [Required(ErrorMessage = "不能为空"), DefaultValue(0)]
         public int Order { get; set; }
         /// <summary>
         /// 备注
@@ -61,11 +61,11 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 父级
         /// </summary>
-        public ResourceDto Parent { get; set; }
+        //public ResourceDto Parent { get; set; }
         /// <summary>
         /// 子集
         /// </summary>
-        public ICollection<ResourceDto> Childrens { get; set; }
+        public ICollection<ResourceDto> Children { get; set; }
         /// <summary>
         /// 权限类型
         /// </summary>
@@ -84,5 +84,13 @@ namespace Gardener.Application.Dtos
         /// 创建时间
         /// </summary>
         public DateTimeOffset CreatedTime { get; set; }
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLocked { get; set; }
+        /// <summary>
+        /// 是否逻辑删除
+        /// </summary>
+        public bool IsDeleted { get; set; }
     }
 }

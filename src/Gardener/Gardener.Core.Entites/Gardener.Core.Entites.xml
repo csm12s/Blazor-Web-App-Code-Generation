@@ -256,7 +256,8 @@
         </member>
         <member name="P:Gardener.Core.Entites.Resource.ResourceId">
             <summary>
-            权限唯一名（每一个接口）
+            权限唯一名
+            GUID
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.Name">
@@ -277,6 +278,8 @@
         <member name="P:Gardener.Core.Entites.Resource.Path">
             <summary>
             资源地址
+            菜单：页面路由地址
+            API:接口地址
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.Icon">
@@ -299,7 +302,7 @@
             父级
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entites.Resource.Childrens">
+        <member name="P:Gardener.Core.Entites.Resource.Children">
             <summary>
             子集
             </summary>

@@ -8,6 +8,7 @@ using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages
 {
@@ -27,7 +28,7 @@ namespace Gardener.Client.Pages
 
         private string returnUrl;
 
-        protected override void OnInitialized()
+        protected override  async Task OnInitializedAsync()
         {
             var user =  authenticationStateManager.GetCurrentUser();
             if (user != null)
@@ -45,7 +46,7 @@ namespace Gardener.Client.Pages
                 }
             }
         }
-        public async void OnLogin()
+        private async Task OnLogin()
         {
             loading = true;
             var loginOutResult= await AuthorizeService.Login(loginInput);
@@ -59,7 +60,7 @@ namespace Gardener.Client.Pages
             else {
                 loading = false;
                 MsgSvr.Error($"登录失败");
-                await InvokeAsync(StateHasChanged);
+                //await InvokeAsync(StateHasChanged);
             }
         }
     }

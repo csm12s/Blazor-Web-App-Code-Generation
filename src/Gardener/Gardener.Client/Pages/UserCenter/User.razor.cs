@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System;
 using Gardener.Client.Services;
 using Mapster;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Gardener.Client.Pages.UserCenter
 {
@@ -108,7 +109,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        private async void OnDeleteClick(int id)
+        private async Task OnDeleteClick(int id)
         {
             if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
             {
@@ -122,7 +123,7 @@ namespace Gardener.Client.Pages.UserCenter
                 {
                     MessageSvr.Error("删除失败");
                 }
-                await InvokeAsync(StateHasChanged);
+               //await InvokeAsync(StateHasChanged);
             }
 
         }
@@ -130,34 +131,38 @@ namespace Gardener.Client.Pages.UserCenter
         /// 点击编辑按钮
         /// </summary>
         /// <param name="model"></param>
-        private async void OnEditClick(UserDto model)
+        private async Task OnEditClick(UserDto model)
         {
-            if (model.UserExtension == null)
-            {
-                model.UserExtension = new UserExtensionDto()
-                {
-                    UserId = model.Id
-                };
-            }
-            drawerTitle = "编辑";
-            model.Adapt(editModel);
+            formIsLoading = true;
             drawerVisible = true;
-            await InvokeAsync(StateHasChanged);
+            //Task.Run(() => {
+                if (model.UserExtension == null)
+                {
+                    model.UserExtension = new UserExtensionDto()
+                    {
+                        UserId = model.Id
+                    };
+                }
+                drawerTitle = "编辑";
+                model.Adapt(editModel);
+                formIsLoading = false;
+            //});
+           //await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 点击添加按钮
         /// </summary>
-        private async void OnAddClick()
+        private async Task OnAddClick()
         {
             new UserDto().Adapt(editModel);
             drawerTitle = "添加";
             drawerVisible = true;
-            await InvokeAsync(StateHasChanged);
+           //await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 抽屉关闭时
         /// </summary>
-        private void OnDrawerClose()
+        private async Task OnDrawerClose()
         {
             drawerVisible = false;
         }
@@ -214,14 +219,14 @@ namespace Gardener.Client.Pages.UserCenter
         /// 表单失败时
         /// </summary>
         /// <param name="editContext"></param>
-        private void OnFormFinishFailed(EditContext editContext)
+        private async Task OnFormFinishFailed(EditContext editContext)
         {
             //drawerVisible = false;
         }
         /// <summary>
         /// 表单取消
         /// </summary>
-        private void OnFormCancel()
+        private async Task OnFormCancel()
         {
             new UserDto().Adapt(editModel);
             drawerVisible = false;
@@ -229,7 +234,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <summary>
         /// 点击删除选中按钮
         /// </summary>
-        private async void OnDeletesClick()
+        private async Task OnDeletesClick()
         {
             if (selectedRows == null || selectedRows.Count() == 0)
             {
@@ -249,7 +254,7 @@ namespace Gardener.Client.Pages.UserCenter
                     {
                         MessageSvr.Error($"删除失败");
                     }
-                    await InvokeAsync(StateHasChanged);
+                   //await InvokeAsync(StateHasChanged);
                 }
             }
         }
@@ -258,7 +263,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         /// <param name="model"></param>
         /// <param name="isLocked"></param>
-        private async void OnChangeIsLocked(UserDto model, bool isLocked)
+        private async Task OnChangeIsLocked(UserDto model, bool isLocked)
         {
             var result = await UserSvr.Lock(model.Id, isLocked);
             if (!result.Successed)
@@ -287,17 +292,17 @@ namespace Gardener.Client.Pages.UserCenter
         /// 点击分配角色
         /// </summary>
         /// <param name="model"></param>
-        private async void OnEditUserRoleClick(UserDto model)
+        private async Task OnEditUserRoleClick(UserDto model)
         {
+            editRoleFormIsLoading = true;
             editRoleModel = model;
             LoadAllRoles(editRoleModel.Roles);
-
         }
         /// <summary>
         /// 加载所有角色
         /// </summary>
         /// <param name="roles"></param>
-        private async void LoadAllRoles(ICollection<RoleDto> roles)
+        private async Task LoadAllRoles(ICollection<RoleDto> roles)
         {
             var rolesResult = await RoleSvr.GetEffective();
             if (rolesResult.Successed)
@@ -316,25 +321,25 @@ namespace Gardener.Client.Pages.UserCenter
                     Checked = roles.Any(y => y.Id == x.Id)
                 }).ToArray();
                 editRoleDrawerVisible = true;
-                await InvokeAsync(StateHasChanged);
             }
             else
             {
                 MessageSvr.Error("角色加载失败");
             }
-           
+            editRoleFormIsLoading = false;
+            await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 当角色选择有变化时
         /// </summary>
         /// <param name="values"></param>
-        private async void OnEditUserRoleChange(string[] values)
+        private async Task OnEditUserRoleChange(string[] values)
         {
         }
         /// <summary>
         /// 
         /// </summary>
-        private async void OnEditRoleSaveClick()
+        private async Task OnEditRoleSaveClick()
         {
 
             string[] selectRoles = roleOptions.Where(x => x.Checked).Select(x => x.Value).ToArray();
@@ -352,10 +357,10 @@ namespace Gardener.Client.Pages.UserCenter
                 MessageSvr.Error("设置失败");
             }
             editRoleFormIsLoading = false;
-            await InvokeAsync(StateHasChanged);
+           //await InvokeAsync(StateHasChanged);
         }
 
-        private async void OnEditRoleCancelClick()
+        private async Task OnEditRoleCancelClick()
         {
             editRoleDrawerVisible = false;
         }
@@ -365,7 +370,7 @@ namespace Gardener.Client.Pages.UserCenter
 
         private bool checkAllRole => roleOptions.All(o => o.Checked);
 
-        private void CheckAllRoleChanged()
+        private async Task CheckAllRoleChanged()
         {
             bool allChecked = checkAllRole;
             roleOptions.ForEach(o => o.Checked = !allChecked);

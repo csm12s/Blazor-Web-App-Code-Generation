@@ -44,6 +44,11 @@
             权限类型
             </summary>
         </member>
+        <member name="F:Gardener.Enums.ResourceType.ROOT">
+            <summary>
+            根节点
+            </summary>
+        </member>
         <member name="F:Gardener.Enums.ResourceType.API">
             <summary>
             API

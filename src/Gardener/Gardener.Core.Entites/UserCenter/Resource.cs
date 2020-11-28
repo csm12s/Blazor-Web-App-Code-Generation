@@ -12,10 +12,11 @@ namespace Gardener.Core.Entites
     /// <summary>
     /// 权限表
     /// </summary>
-    public class Resource : Entity
+    public class Resource : Entity, IEntitySeedData<Resource>
     {
         /// <summary>
-        /// 权限唯一名（每一个接口）
+        /// 权限唯一名
+        /// GUID
         /// </summary>
         [Required,MaxLength(64)]
         public string ResourceId { get; set; }
@@ -36,6 +37,8 @@ namespace Gardener.Core.Entites
         public string Remark { get; set; }
         /// <summary>
         /// 资源地址
+        /// 菜单：页面路由地址
+        /// API:接口地址
         /// </summary>
         [MaxLength(200)]
         public string Path { get; set; }
@@ -60,7 +63,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 子集
         /// </summary>
-        public ICollection<Resource> Childrens { get; set; }
+        public ICollection<Resource> Children { get; set; }
         /// <summary>
         /// 权限类型
         /// </summary>
@@ -88,7 +91,7 @@ namespace Gardener.Core.Entites
         public void Configure(EntityTypeBuilder<Resource> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
             entityBuilder
-               .HasMany(x => x.Childrens)
+               .HasMany(x => x.Children)
                .WithOne(x => x.Parent)
                .HasForeignKey(x => x.ParentId)
                .OnDelete(DeleteBehavior.ClientSetNull); // 必须设置这一行
@@ -141,6 +144,78 @@ namespace Gardener.Core.Entites
                 .HasMaxLength(6)
                 .HasComment("更新时间");
 
+        }
+
+        public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[]
+            {
+                new Resource
+                {
+                    Id=1,
+                    ResourceId=Guid.NewGuid().ToString(),
+                    Name="根节点",
+                    SortName="root",
+                    Remark="根节点，系统默认",
+                    Icon="",
+                    Order=0,
+                    Type=ResourceType.ROOT,
+                    CreatedTime=DateTimeOffset.Now
+                },
+                new Resource
+                {
+                    Id=2,
+                    ResourceId=Guid.NewGuid().ToString(),
+                    Name="用户权限",
+                    SortName="user_auth",
+                    Remark="用户权限",
+                    Icon="verified",
+                    Order=0,
+                    Type=ResourceType.MENU,
+                    CreatedTime=DateTimeOffset.Now,
+                    ParentId=1
+                },
+                new Resource
+                {
+                    Id=3,
+                    ResourceId=Guid.NewGuid().ToString(),
+                    Name="用户管理",
+                    SortName="user_manager",
+                    Remark="用户管理",
+                    Icon="user",
+                    Order=0,
+                    Type=ResourceType.MENU,
+                    CreatedTime=DateTimeOffset.Now,
+                    ParentId=2
+                },
+                new Resource
+                {
+                    Id=4,
+                    ResourceId=Guid.NewGuid().ToString(),
+                    Name="角色管理",
+                    SortName="role_manager",
+                    Remark="角色管理",
+                    Icon="control",
+                    Order=0,
+                    Type=ResourceType.MENU,
+                    CreatedTime=DateTimeOffset.Now,
+                    ParentId=2
+                }
+                ,
+                new Resource
+                {
+                    Id=5,
+                    ResourceId=Guid.NewGuid().ToString(),
+                    Name="资源管理",
+                    SortName="resource_manager",
+                    Remark="资源管理",
+                    Icon="api",
+                    Order=0,
+                    Type=ResourceType.MENU,
+                    CreatedTime=DateTimeOffset.Now,
+                    ParentId=2
+                }
+            };
         }
     }
 }

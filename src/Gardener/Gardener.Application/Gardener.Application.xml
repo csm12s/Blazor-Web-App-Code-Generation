@@ -426,6 +426,30 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.UserCenter.IResourceService">
+            <summary>
+            资源服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.IResourceService.GetChildren(System.Int32)">
+            <summary>
+            获取所有子资源
+            </summary>
+            <param name="id">父id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.IResourceService.GetRoot">
+            <summary>
+            返回根节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.IResourceService.GetTree">
+            <summary>
+            查询所有资源 按树形结构返回
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Application.UserCenter.IRoleService.GetEffective">
             <summary>
             获取有效的角色
@@ -458,7 +482,28 @@
             <summary>
             资源服务
             </summary>
-            <param name="repository"></param>
+            <param name="resourceRepository"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Gardener.Application.UserCenter.ResourceService.GetChildren(System.Int32)" -->
+        <member name="M:Gardener.Application.UserCenter.ResourceService.GetRoot">
+            <summary>
+            返回根节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.ResourceService.GetTree">
+            <summary>
+            查询所有资源 按树形结构返回
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.UserCenter.ResourceService.SetChildren(Gardener.Application.Dtos.ResourceDto,System.Collections.Generic.List{Gardener.Application.Dtos.ResourceDto})">
+            <summary>
+            
+            </summary>
+            <param name="resource"></param>
+            <param name="resources"></param>
+            <returns></returns>
         </member>
         <member name="T:Gardener.Application.UserCenter.RoleService">
             <summary>

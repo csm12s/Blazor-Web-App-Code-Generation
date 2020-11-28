@@ -44,7 +44,7 @@ namespace Gardener.Client
         {
             this.jsTool = jsTool;
             this.httpClientManager = httpClientManager;
-            timer = new Timer(TimerCallback, true, SystemConstant.RefreshTokenInterval*60, SystemConstant.RefreshTokenInterval * 60);
+            timer = new Timer(TimerCallback, true, 10000, SystemConstant.RefreshTokenInterval * 60);
             this.authorizeService = authorizeService;
             this.logger = logger;
         }

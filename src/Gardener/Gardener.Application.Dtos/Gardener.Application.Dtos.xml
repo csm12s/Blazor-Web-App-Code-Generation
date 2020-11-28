@@ -94,12 +94,7 @@
             备注
             </summary>
         </member>
-        <member name="P:Gardener.Application.Dtos.ResourceDto.Parent">
-            <summary>
-            父级
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.Dtos.ResourceDto.Childrens">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Children">
             <summary>
             子集
             </summary>
@@ -122,6 +117,16 @@
         <member name="P:Gardener.Application.Dtos.ResourceDto.CreatedTime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.IsDeleted">
+            <summary>
+            是否逻辑删除
             </summary>
         </member>
         <member name="T:Gardener.Application.Dtos.RoleDto">
