@@ -19,7 +19,6 @@ namespace Gardener.Client
         }
         private string FormatMsg(string msg, int? code = null, Exception ex = null)
         {
-            msg = "异常：" + msg;
             if (code != null)
             {
                 msg += $"[{code}]";
@@ -28,7 +27,7 @@ namespace Gardener.Client
         }
         public async Task Debug(string msg, int? code = null, Exception ex = null)
         {
-            msg = FormatMsg(msg, code, ex);
+            msg = FormatMsg($"调试:{msg}", code, ex);
             Console.WriteLine(msg);
             Console.WriteLine(ex?.Message);
             Console.WriteLine(ex?.StackTrace);
@@ -36,7 +35,7 @@ namespace Gardener.Client
 
         public async Task Error(string msg, int? code = null, Exception ex = null)
         {
-            msg = FormatMsg(msg, code, ex);
+            msg = FormatMsg($"异常:{msg}", code, ex);
             Console.WriteLine(ex?.Message);
             Console.WriteLine(ex?.StackTrace);
             await apiErrorNotifier.Error(msg);
@@ -44,7 +43,7 @@ namespace Gardener.Client
 
         public async Task Fatal(string msg, int? code = null, Exception ex = null)
         {
-            msg = FormatMsg(msg, code, ex);
+            msg = FormatMsg($"致命异常:{msg}", code, ex);
             Console.WriteLine(ex?.Message);
             Console.WriteLine(ex?.StackTrace);
             await apiErrorNotifier.Error(msg);
@@ -52,7 +51,7 @@ namespace Gardener.Client
 
         public async Task Info(string msg, int? code = null, Exception ex = null)
         {
-            msg = FormatMsg(msg, code, ex);
+            msg = FormatMsg($"提示:{msg}", code, ex);
             Console.WriteLine(ex?.Message);
             Console.WriteLine(ex?.StackTrace);
             await apiErrorNotifier.Info(msg);
@@ -60,7 +59,7 @@ namespace Gardener.Client
 
         public async Task Warn(string msg, int? code = null, Exception ex = null)
         {
-            msg = FormatMsg(msg, code, ex);
+            msg = FormatMsg($"警告:{msg}", code, ex);
             Console.WriteLine(ex?.Message);
             Console.WriteLine(ex?.StackTrace);
             await apiErrorNotifier.Warn(msg);

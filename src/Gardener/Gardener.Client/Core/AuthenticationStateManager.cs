@@ -44,7 +44,7 @@ namespace Gardener.Client
         {
             this.jsTool = jsTool;
             this.httpClientManager = httpClientManager;
-            timer = new Timer(TimerCallback, true, 10000, SystemConstant.RefreshTokenInterval * 60);
+            timer = new Timer(TimerCallback, true, 10000, SystemConstant.RefreshTokenInterval * 1000);
             this.authorizeService = authorizeService;
             this.logger = logger;
         }
@@ -54,13 +54,14 @@ namespace Gardener.Client
         /// <param name="state"></param>
         private async void TimerCallback(object state)
         {
+            await logger.Debug($"token refresh begin {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
             //未登录
             if (loginOutput == null) return;
             //已经过期了
             if (loginOutput.AccessTokenExpiresIn < DateTimeOffset.Now.ToUnixTimeSeconds()) { await Logout();return;}
+            await logger.Debug($"token refresh begin {loginOutput.AccessTokenExpiresIn} -  {DateTimeOffset.Now.ToUnixTimeSeconds()} = {loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds()}");
             //时间还很充裕
             if (loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds() > SystemConstant.RefreshTokenTimeThreshold) return;
-            
             //拿到新的token
             var tokenResult=await authorizeService.RefreshToken();
             if (tokenResult.Successed)

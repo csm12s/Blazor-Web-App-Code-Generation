@@ -91,19 +91,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <returns></returns>
         private async Task onChange(QueryModel<UserDto> queryModel)
         {
-            tableIsLoading = true;
-            var pagedListResult = await UserSvr.Search(_name, _pageIndex, _pageSize);
-            if (pagedListResult.Successed)
-            {
-                var pagedList = pagedListResult.Data;
-                users = pagedList.Items.ToArray();
-                _total = pagedList.TotalCount;
-            }
-            else
-            {
-                MessageSvr.Error("加载失败1");
-            }
-            tableIsLoading = false;
+            await ReLoadTable();
         }
         /// <summary>
         /// 点击删除按钮
