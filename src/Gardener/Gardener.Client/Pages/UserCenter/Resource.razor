@@ -15,8 +15,13 @@
                             <AntDesign.Col Span="18">
                                 <Space>
                                     <SpaceItem>
-                                        <Tooltip Placement="PlacementType.TopLeft" Title="@(allExpanded?"收起":"展开")">
-                                            <Button Type="@ButtonType.Primary" Icon="@(allExpanded?"up":"down")" Size="@ButtonSize.Small" OnClick="OnExpandClick" />
+                                        <Tooltip Placement="PlacementType.TopLeft" Title="@(isExpanded?"收起":"展开")">
+                                            <Button Type="@ButtonType.Primary" Icon="@(isExpanded?"up":"down")" Size="@ButtonSize.Small" OnClick="OnExpandClick" />
+                                        </Tooltip>
+                                    </SpaceItem>
+                                    <SpaceItem>
+                                        <Tooltip Placement="PlacementType.TopLeft" Title="@("刷新")">
+                                            <Button Type="@ButtonType.Primary" Icon="reload" Size="@ButtonSize.Small" OnClick="OnReloadClick" />
                                         </Tooltip>
                                     </SpaceItem>
                                     <SpaceItem>
@@ -47,6 +52,7 @@
                                           IconExpression="x=>((ResourceDto)x.DataItem).Icon"
                                           IsLeafExpression="x=>x.TreeLevel>2"
                                           OnClick="OnNodeClick"
+                                          OnExpandChanged="e=> { isExpanded = e.Node.IsExpanded; }"
                                           Style="min-height:466px;">
                                     </Tree>
                                 </Spin>
@@ -57,7 +63,7 @@
                         <Descriptions Title="资源信息" Bordered Layout="@DescriptionsLayout.Vertical" Style="margin-top:10px">
                             <DescriptionsItem Title="唯一标示">@editModel.ResourceId</DescriptionsItem>
                             <DescriptionsItem Title="名称">@editModel.Name</DescriptionsItem>
-                            <DescriptionsItem Title="键值">@editModel.SortName</DescriptionsItem>
+                            <DescriptionsItem Title="键值">@editModel.Key</DescriptionsItem>
                             <DescriptionsItem Title="类型">
                                 @(EnumExtension.GetEnumDescription(editModel.Type))
                             </DescriptionsItem>
@@ -105,7 +111,7 @@
             <Input @bind-Value="@context.Name" />
         </FormItem>
         <FormItem Label="键值">
-            <Input @bind-Value="@context.SortName" />
+            <Input @bind-Value="@context.Key" />
         </FormItem>
         <FormItem Label="类型">
             <RadioGroup @bind-Value="@(context.Type)">

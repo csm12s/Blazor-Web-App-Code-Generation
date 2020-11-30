@@ -505,6 +505,13 @@
             <param name="resources"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.UserCenter.ResourceService.Insert(Gardener.Application.Dtos.ResourceDto)">
+            <summary>
+            添加资源
+            </summary>
+            <param name="resourceDto"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.UserCenter.RoleService">
             <summary>
             角色服务

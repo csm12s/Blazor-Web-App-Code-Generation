@@ -17,6 +17,8 @@ using System;
 using System.Threading.Tasks;
 using Gardener.Common;
 using System.Linq.Expressions;
+using Furion.FriendlyException;
+using Gardener.Enums;
 
 namespace Gardener.Application.UserCenter
 {
@@ -173,6 +175,11 @@ namespace Gardener.Application.UserCenter
         /// <returns></returns>
         public override async Task<UserDto> Insert(UserDto input)
         {
+            if (_userRepository.Any(x => x.UserName.Equals(input.UserName), false))
+            {
+                throw Oops.Oh(ExceptionCode.USER_NAME_REPEAT);
+            }
+
             //未传入密码时，自动生成密码
             if (string.IsNullOrEmpty(input.Password))
             {

@@ -29,7 +29,7 @@ namespace Gardener.Core.Entites
         /// 权限名称简写
         /// </summary>
         [Required, MaxLength(100)]
-        public string SortName { get; set; }
+        public string Key { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
@@ -155,7 +155,7 @@ namespace Gardener.Core.Entites
                     Id=1,
                     ResourceId=Guid.NewGuid().ToString(),
                     Name="根节点",
-                    SortName="root",
+                    Key="root",
                     Remark="根节点，系统默认",
                     Icon="",
                     Order=0,
@@ -167,7 +167,7 @@ namespace Gardener.Core.Entites
                     Id=2,
                     ResourceId=Guid.NewGuid().ToString(),
                     Name="用户权限",
-                    SortName="user_auth",
+                    Key="user_auth",
                     Remark="用户权限",
                     Icon="verified",
                     Order=0,
@@ -180,7 +180,7 @@ namespace Gardener.Core.Entites
                     Id=3,
                     ResourceId=Guid.NewGuid().ToString(),
                     Name="用户管理",
-                    SortName="user_manager",
+                    Key="user_manager",
                     Remark="用户管理",
                     Icon="user",
                     Order=0,
@@ -193,7 +193,7 @@ namespace Gardener.Core.Entites
                     Id=4,
                     ResourceId=Guid.NewGuid().ToString(),
                     Name="角色管理",
-                    SortName="role_manager",
+                    Key="role_manager",
                     Remark="角色管理",
                     Icon="control",
                     Order=0,
@@ -207,7 +207,7 @@ namespace Gardener.Core.Entites
                     Id=5,
                     ResourceId=Guid.NewGuid().ToString(),
                     Name="资源管理",
-                    SortName="resource_manager",
+                    Key="resource_manager",
                     Remark="资源管理",
                     Icon="api",
                     Order=0,

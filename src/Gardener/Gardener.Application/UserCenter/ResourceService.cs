@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Gardener.Enums;
+using Furion.FriendlyException;
 
 namespace Gardener.Application.UserCenter
 {
@@ -20,7 +21,7 @@ namespace Gardener.Application.UserCenter
     /// 资源服务
     /// </summary>
     [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
-    public class ResourceService : ServiceBase<Resource, Resource>, IResourceService
+    public class ResourceService : ServiceBase<Resource, ResourceDto>, IResourceService
     {
         private readonly IRepository<Resource> resourceRepository;
         /// <summary>
@@ -110,6 +111,19 @@ namespace Gardener.Application.UserCenter
                   SetChildren(r, resources);
                 }
             }
+        }
+        /// <summary>
+        /// 添加资源
+        /// </summary>
+        /// <param name="resourceDto"></param>
+        /// <returns></returns>
+        public override async Task<ResourceDto> Insert(ResourceDto resourceDto)
+        {
+            if (resourceRepository.Any(x => x.Key.Equals(resourceDto.Key), false))
+            {
+                throw Oops.Oh(ExceptionCode.RESOURCE_KEY_REPEAT);
+            }
+            return await base.Insert(resourceDto);
         }
     }
 }

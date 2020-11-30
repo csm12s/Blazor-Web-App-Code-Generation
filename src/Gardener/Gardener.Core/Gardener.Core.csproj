@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="1.1.4" />
+    <PackageReference Include="Furion" Version="1.1.8" />
     <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="1.1.0" />
   </ItemGroup>
 

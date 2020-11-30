@@ -56,18 +56,16 @@ namespace Gardener.Application
         /// <remarks>管理员：admin/admin；普通用户：Furion/dotnetchina</remarks>
         /// <returns></returns>
         [AllowAnonymous]
-        [IfException(1000)]
-        [IfException(1001)]
         public LoginOutput Login(LoginInput input)
         {
             // 验证用户是否存在
-            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Oh(1000);
-            if (user.IsLocked) throw Oops.Oh(1001);
+            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
+            if (user.IsLocked) throw Oops.Oh(ExceptionCode.USER_LOCKED);
             //密码是否正确
             var encryptedPassword = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
             if (!encryptedPassword.Equals(user.Password))
             {
-                throw Oops.Oh(1000);
+                throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
             }
 
             var output = new LoginOutput()
@@ -104,14 +102,12 @@ namespace Gardener.Application
         /// 刷新Token
         /// </summary>
         /// <returns></returns>
-        [IfException(1002)]
-        [IfException(1001)]
         public TokenOutput RefreshToken()
         {
             // 获取用户Id
             var userId = _authorizationManager.GetUserId();
-            var user = _userRepository.FirstOrDefault(u => u.Id == userId && u.IsDeleted == false, false) ?? throw Oops.Oh(1002);
-            if (user.IsLocked) throw Oops.Oh(1001);
+            var user = _userRepository.FirstOrDefault(u => u.Id == userId && u.IsDeleted == false, false) ?? throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
+            if (user.IsLocked) throw Oops.Oh(ExceptionCode.USER_LOCKED);
             var output = CreateToken(user);
             return output;
         }

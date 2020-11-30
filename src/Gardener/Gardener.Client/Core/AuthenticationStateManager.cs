@@ -57,9 +57,9 @@ namespace Gardener.Client
             await logger.Debug($"token refresh begin {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
             //未登录
             if (loginOutput == null) return;
+            await logger.Debug($"token refresh begin {loginOutput.AccessTokenExpiresIn} -  {DateTimeOffset.Now.ToUnixTimeSeconds()} = {loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds()}");
             //已经过期了
             if (loginOutput.AccessTokenExpiresIn < DateTimeOffset.Now.ToUnixTimeSeconds()) { await Logout();return;}
-            await logger.Debug($"token refresh begin {loginOutput.AccessTokenExpiresIn} -  {DateTimeOffset.Now.ToUnixTimeSeconds()} = {loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds()}");
             //时间还很充裕
             if (loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds() > SystemConstant.RefreshTokenTimeThreshold) return;
             //拿到新的token

@@ -30,10 +30,10 @@ namespace Gardener.Application.Dtos
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{0}")]
         public string Name { get; set; }
         /// <summary>
-        /// 权限名称简写
+        /// 权限key
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{0}")]
-        public string SortName { get; set; }
+        public string Key { get; set; }
         /// <summary>
         /// 备注
         /// </summary>

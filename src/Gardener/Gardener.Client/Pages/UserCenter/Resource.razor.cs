@@ -29,15 +29,23 @@ namespace Gardener.Client.Pages.UserCenter
         [Inject]
         ConfirmService ConfirmSvr { get; set; }
         Tree tree;
-        private bool allExpanded;
-
+        private bool isExpanded;
         /// <summary>
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+           await LoadTreeData();
+        }
+        /// <summary>
+        /// 加载树数据
+        /// </summary>
+        /// <returns></returns>
+        private async Task LoadTreeData()
+        {
             treeIsLoading = true;
+            resourceDtos = new List<ResourceDto>();
             var resourceResult = await ResourceService.GetTree();
             if (resourceResult.Successed)
             {
@@ -50,7 +58,7 @@ namespace Gardener.Client.Pages.UserCenter
             treeIsLoading = false;
         }
         /// <summary>
-        /// 
+        /// 递归展开或关闭节点
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="flag"></param>
@@ -67,13 +75,32 @@ namespace Gardener.Client.Pages.UserCenter
             }
         }
         /// <summary>
-        /// 
+        /// 当展开关闭点击时触发
         /// </summary>
         /// <returns></returns>
         private async Task OnExpandClick()
         {
-            allExpanded = !allExpanded;
-           await Expand(tree.ChildNodes, allExpanded);
+            isExpanded = !isExpanded;
+
+            var selectedNode = tree.SelectedNodes?.FirstOrDefault();
+            if (selectedNode != null)
+            {
+                //仅操作选中的节点
+                await Expand(new List<TreeNode>{ selectedNode }, isExpanded);
+            }
+            else
+            {
+                //操作所有的节点
+                await Expand(tree.ChildNodes, isExpanded);
+            }
+        }
+        /// <summary>
+        /// 当点击刷新时触发
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnReloadClick()
+        {
+            await LoadTreeData();
         }
         /// <summary>
         /// 加载子节点
@@ -109,6 +136,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task OnNodeClick(TreeEventArgs args)
         {
             formIsLoading = true;
+            isExpanded = args.Node.IsExpanded;
             ((ResourceDto)args.Node.DataItem).Adapt(editModel);
             formIsLoading = false;
         }
@@ -221,7 +249,6 @@ namespace Gardener.Client.Pages.UserCenter
             }
 
         }
-
         /// <summary>
         /// 
         /// </summary>

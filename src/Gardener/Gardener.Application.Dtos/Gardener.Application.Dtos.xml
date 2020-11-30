@@ -64,9 +64,9 @@
             权限名称
             </summary>
         </member>
-        <member name="P:Gardener.Application.Dtos.ResourceDto.SortName">
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Key">
             <summary>
-            权限名称简写
+            权限key
             </summary>
         </member>
         <member name="P:Gardener.Application.Dtos.ResourceDto.Remark">

@@ -265,7 +265,7 @@
             权限名称
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entites.Resource.SortName">
+        <member name="P:Gardener.Core.Entites.Resource.Key">
             <summary>
             权限名称简写
             </summary>

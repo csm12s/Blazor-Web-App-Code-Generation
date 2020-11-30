@@ -4,6 +4,31 @@
         <name>Gardener.Enums</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Enums.ExceptionCode">
+            <summary>
+            异常状态码
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.USER_LOCKED">
+            <summary>
+            用户锁定
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.USER_NAME_OR_PASSWORD_ERROR">
+            <summary>
+            用户密码错误
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.USER_NAME_REPEAT">
+            <summary>
+            用户名重复
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.RESOURCE_KEY_REPEAT">
+            <summary>
+            资源键值重复
+            </summary>
+        </member>
         <member name="T:Gardener.Enums.Frequency">
             <summary>
             节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
