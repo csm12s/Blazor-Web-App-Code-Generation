@@ -30,7 +30,7 @@ namespace Gardener.Client.Constants
         /// <summary>
         /// token刷新过期时间阈值（单位：秒）
         /// </summary>
-        public readonly static int RefreshTokenTimeThreshold = 70;
+        public readonly static int RefreshTokenTimeThreshold = 150;
 
     }
 }

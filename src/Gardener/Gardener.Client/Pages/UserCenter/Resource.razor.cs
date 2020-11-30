@@ -13,15 +13,13 @@ using Mapster;
 using System.Linq;
 using System;
 using Gardener.Enums;
+using Gardener.Common.Extensions;
 
 namespace Gardener.Client.Pages.UserCenter
 {
     public partial class Resource
     {
-        List<ResourceDto> resourceDtos = new List<ResourceDto>();
         private bool treeIsLoading;
-
-
         [Inject]
         IResourceService ResourceService { get; set; }
         [Inject]
@@ -45,11 +43,10 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task LoadTreeData()
         {
             treeIsLoading = true;
-            resourceDtos = new List<ResourceDto>();
             var resourceResult = await ResourceService.GetTree();
             if (resourceResult.Successed)
             {
-                resourceDtos.AddRange(resourceResult.Data);
+                tree.DataSource = resourceResult.Data;
             }
             else
             {
@@ -324,6 +321,15 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task OnDrawerClose()
         {
             drawerVisible = false;
+        }
+        /// <summary>
+        /// 获取节点名称
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        private string GetNodeName(ResourceDto resource)
+        {
+            return $"{resource.Name}[{EnumExtension.GetEnumDescription(resource.Type)}]";
         }
     }
 }

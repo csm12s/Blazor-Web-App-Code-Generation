@@ -46,8 +46,8 @@
                             <AntDesign.Col Span="24" Style="margin-top:10px">
                                 <Spin Spinning="@treeIsLoading">
                                     <Tree @ref="tree"
-                                          ShowIcon DataSource="resourceDtos"
-                                          TitleExpression="x=>((ResourceDto)x.DataItem).Name"
+                                          ShowIcon 
+                                          TitleExpression="x=> { var resource = ((ResourceDto)x.DataItem); return GetNodeName(resource); }"
                                           ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
                                           IconExpression="x=>((ResourceDto)x.DataItem).Icon"
                                           IsLeafExpression="x=>x.TreeLevel>2"
