@@ -355,6 +355,18 @@
             角色描述
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entites.Role.IsSuperAdministrator">
+            <summary>
+            是否是超级管理员
+            超级管理员拥有所有权限
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Role.IsDefault">
+            <summary>
+            是否是默认权限
+            注册用户时默认设置
+            </summary>
+        </member>
         <member name="P:Gardener.Core.Entites.Role.Users">
             <summary>
             多对多

@@ -30,7 +30,16 @@ namespace Gardener.Core.Entites
         /// </summary>
         [MaxLength(500), Required]
         public string Remark { get; set; }
-
+        /// <summary>
+        /// 是否是超级管理员
+        /// 超级管理员拥有所有权限
+        /// </summary>
+        public bool IsSuperAdministrator { get; set; }
+        /// <summary>
+        /// 是否是默认权限
+        /// 注册用户时默认设置
+        /// </summary>
+        public bool IsDefault { get; set; }
         /// <summary>
         /// 多对多
         /// </summary>

@@ -170,6 +170,18 @@
             是否锁定
             </summary>
         </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.IsSuperAdministrator">
+            <summary>
+            是否是超级管理员
+            超级管理员拥有所有权限
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.RoleDto.IsDefault">
+            <summary>
+            是否是默认权限
+            注册用户时默认设置
+            </summary>
+        </member>
         <member name="T:Gardener.Application.Dtos.RoleResourceDto">
             <summary>
             角色资源关系

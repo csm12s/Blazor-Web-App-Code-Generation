@@ -41,6 +41,16 @@
                     <Column Title="编号" @bind-Field="@context.Id" Sortable />
                     <Column Title="名称" @bind-Field="@context.Name" />
                     <Column Title="备注" @bind-Field="@context.Remark" />
+                    <Column Title="是否时超级管理" Field="@context.IsSuperAdministrator">
+                        <Tag Color="@(context.IsSuperAdministrator?"blue":"red")">
+                            @(context.IsSuperAdministrator?"是":"否")
+                        </Tag>
+                    </Column>
+                    <Column Title="是否是默认角色" Field="@context.IsDefault">
+                        <Tag Color="@(context.IsDefault?"blue":"red")">
+                            @(context.IsDefault ? "是":"否")
+                        </Tag>
+                    </Column>
                     <Column Title="是否锁定" Field="@context.IsLocked">
                         <Switch @bind-Value="@context.IsLocked" OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
                     </Column>
@@ -57,33 +67,39 @@
 
         </ChildContent>
     </PageContainer>
-    <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
+    <Drawer Closable="true" Width="450" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
         @if (editModel != null)
         {
-            <Form Loading="@formIsLoading"
-                  Model="@editModel"
-                  LabelCol="new ColLayoutParam { Span = 6 }"
-                  WrapperCol="new ColLayoutParam { Span = 18 }"
-                  OnFinish="OnFormFinish"
-                  OnFinishFailed="OnFormFinishFailed">
-                <FormItem Label="名称">
-                    <Input @bind-Value="@context.Name" />
-                </FormItem>
-                <FormItem Label="备注">
-                    <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@context.Remark"></TextArea>
-                </FormItem>
-                <FormItem Label="是否锁定">
-                    <Switch @bind-Value="@context.IsLocked"></Switch>
-                </FormItem>
-                <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-                    <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        保存
-                    </Button>
-                    <Button OnClick="_=>OnDrawerClose()">
-                        取消
-                    </Button>
-                </FormItem>
-            </Form>
+        <Form Loading="@formIsLoading"
+              Model="@editModel"
+              LabelCol="new ColLayoutParam { Span = 8 }"
+              WrapperCol="new ColLayoutParam { Span = 16 }"
+              OnFinish="OnFormFinish"
+              OnFinishFailed="OnFormFinishFailed">
+            <FormItem Label="名称">
+                <Input @bind-Value="@context.Name" />
+            </FormItem>
+            <FormItem Label="备注">
+                <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@context.Remark"></TextArea>
+            </FormItem>
+            <FormItem Label="是否是超级管理员">
+                <Switch @bind-Value="@context.IsSuperAdministrator"></Switch>
+            </FormItem>
+            <FormItem Label="是否是默认角色">
+                <Switch @bind-Value="@context.IsDefault"></Switch>
+            </FormItem>
+            <FormItem Label="是否锁定">
+                <Switch @bind-Value="@context.IsLocked"></Switch>
+            </FormItem>
+            <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
+                <Button Type="@ButtonType.Primary" HtmlType="submit">
+                    保存
+                </Button>
+                <Button OnClick="_=>OnDrawerClose()">
+                    取消
+                </Button>
+            </FormItem>
+        </Form>
         }
     </Drawer>
 

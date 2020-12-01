@@ -36,5 +36,15 @@ namespace Gardener.Application.Dtos
         /// 是否锁定
         /// </summary>
         public bool IsLocked { get; set; }
+        /// <summary>
+        /// 是否是超级管理员
+        /// 超级管理员拥有所有权限
+        /// </summary>
+        public bool IsSuperAdministrator { get; set; }
+        /// <summary>
+        /// 是否是默认权限
+        /// 注册用户时默认设置
+        /// </summary>
+        public bool IsDefault { get; set; }
     }
 }
