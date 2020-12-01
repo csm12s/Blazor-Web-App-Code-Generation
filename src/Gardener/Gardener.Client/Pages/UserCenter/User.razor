@@ -151,7 +151,7 @@
                             <Checkbox Indeterminate="@indeterminateRole" Checked="@checkAllRole" CheckedChange="@CheckAllRoleChanged">全选</Checkbox>
                         </SpaceItem>
                         <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleSaveClick">保存</Button></SpaceItem>
-                        <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleCancelClick">取消</Button></SpaceItem>
+                        <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="_=>OnEditRoleDrawerClose()">取消</Button></SpaceItem>
                     </Space>
                 </AntDesign.Col>
             </Row>

@@ -295,13 +295,11 @@ namespace Gardener.Client.Pages.UserCenter
             var rolesResult = await RoleSvr.GetEffective();
             if (rolesResult.Successed)
             {
-
                 if (rolesResult.Data == null || rolesResult.Data.Count() == 0)
                 {
                     MessageSvr.Error("没有可用角色，请先添加角色");
                     return;
                 }
-
                 roleOptions = rolesResult.Data?.Select(x => new CheckboxOption
                 {
                     Label = x.Name,
@@ -347,12 +345,6 @@ namespace Gardener.Client.Pages.UserCenter
             editRoleFormIsLoading = false;
            //await InvokeAsync(StateHasChanged);
         }
-
-        private async Task OnEditRoleCancelClick()
-        {
-            editRoleDrawerVisible = false;
-        }
-
         #region 全选
         private bool indeterminateRole => roleOptions.Count(o => o.Checked) > 0 && roleOptions.Count(o => o.Checked) < roleOptions.Count();
 

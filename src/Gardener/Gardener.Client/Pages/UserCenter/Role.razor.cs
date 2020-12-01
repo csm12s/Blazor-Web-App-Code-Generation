@@ -318,12 +318,12 @@ namespace Gardener.Client.Pages.UserCenter
             foreach (var node in nodes)
             {
                 var flag = flagFunc(((ResourceDto)node.DataItem).Id);
-                node.SetChecked(flag);
-                //如果这个节点选中了，其子节点也会选中，如果未选中再继续循环去选中
-                if (!flag && node.ChildNodes != null && node.ChildNodes.Count > 0)
+                //有变化再进行变更
+                if (node.IsChecked != flag)
                 {
-                    await Check(node.ChildNodes, flagFunc);
+                    node.SetChecked(flag);
                 }
+                await Check(node.ChildNodes, flagFunc);
             }
         }
         /// <summary>
