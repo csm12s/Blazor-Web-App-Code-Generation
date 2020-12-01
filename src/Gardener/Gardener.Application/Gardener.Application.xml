@@ -402,11 +402,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType)">
+        <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType[])">
             <summary>
             
             </summary>
-            <param name="resourceType"></param>
+            <param name="resourceTypes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserMenus">
+            <summary>
+            获取当前用户的所有菜单
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.IAuthorizeService.GetCurrentUser">
@@ -421,11 +427,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.IAuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType)">
+        <member name="M:Gardener.Application.IAuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType[])">
             <summary>
-            
+            获取指定类型的资源
             </summary>
-            <param name="resourceType"></param>
+            <param name="resourceTypes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.IAuthorizeService.GetCurrentUserMenus">
+            <summary>
+            获取当前用户的所有菜单
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.UserCenter.IResourceService">

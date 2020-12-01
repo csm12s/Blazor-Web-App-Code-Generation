@@ -19,12 +19,16 @@ namespace Gardener.Application
         /// </summary>
         /// <returns></returns>
         TokenOutput RefreshToken();
-
         /// <summary>
-        /// 
+        /// 获取指定类型的资源
         /// </summary>
-        /// <param name="resourceType"></param>
+        /// <param name="resourceTypes"></param>
         /// <returns></returns>
-        List<ResourceDto> GetCurrentUserResources(ResourceType resourceType);
+        Task<List<ResourceDto>> GetCurrentUserResources(ResourceType [] resourceTypes);
+        /// <summary>
+        /// 获取当前用户的所有菜单
+        /// </summary>
+        /// <returns></returns>
+        Task<List<ResourceDto>> GetCurrentUserMenus();
     }
 }

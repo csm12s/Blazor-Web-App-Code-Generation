@@ -145,31 +145,44 @@ namespace Gardener.Application
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="resourceType"></param>
+        /// <param name="resourceTypes"></param>
         /// <returns></returns>
-        public  List<ResourceDto> GetCurrentUserResources(ResourceType resourceType)
+        [HttpPost]
+        public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes)
         {
+            resourceTypes = resourceTypes ?? new ResourceType[] { };
             // 获取用户Id
             var userId = _authorizationManager.GetUserId();
             List<Resource> resources;
             //超级管理员
             if (_authorizationManager.IsSuperAdministrator())
             {
-                resources = _resourceRepository.AsQueryable(false).Where(x => x.Type.Equals(resourceType)).ToList();
+                resources = await _resourceRepository.Where(x => resourceTypes.Contains(x.Type)).ToListAsync();
             }
             else
             {
                 //其他角色
-                resources = _userRepository
-                   .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false), false)
-                       .ThenInclude(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && x.Type.Equals(resourceType)))
+                resources =await _userRepository
+                   .Include(u => u.Roles)
+                       .ThenInclude(u => u.Resources)
                    .Where(u => u.Id == userId)
-                   .SelectMany(u => u.Roles
-                       .SelectMany(u => u.Resources))
-                   .ToList();
+                   .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                       .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))))
+                   .ToListAsync();
             }
             return resources.Adapt<List<ResourceDto>>();
 
+        }
+
+        /// <summary>
+        /// 获取当前用户的所有菜单
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<ResourceDto>> GetCurrentUserMenus()
+        {
+            // 获取用户Id
+            List<ResourceDto> resources=await GetCurrentUserResources(ResourceType.ROOT,ResourceType.MENU);
+            return resources.Where(x => x.Type.Equals(ResourceType.ROOT)).FirstOrDefault().Children.ToList();
         }
     }
 }

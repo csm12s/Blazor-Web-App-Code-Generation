@@ -1,5 +1,6 @@
 ﻿using Gardener.Application.Dtos;
 using Gardener.Client.Models;
+using Gardener.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,5 +22,16 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <returns></returns>
         Task<ApiResult<TokenOutput>> RefreshToken();
+        /// <summary>
+        /// 获取指定类型的资源
+        /// </summary>
+        /// <param name="resourceTypes"></param>
+        /// <returns></returns>
+        Task<ApiResult<List<ResourceDto>>> GetCurrentUserResources(params ResourceType[] resourceTypes);
+        /// <summary>
+        /// 获取当前用户的所有菜单
+        /// </summary>
+        /// <returns></returns>
+        Task<ApiResult<List<ResourceDto>>> GetCurrentUserMenus();
     }
 }
