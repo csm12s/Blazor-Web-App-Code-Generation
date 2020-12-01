@@ -362,7 +362,7 @@
             用户中心服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager)">
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole})">
             <summary>
             角色管理服务
             </summary>
@@ -370,6 +370,7 @@
             <param name="userRepository"></param>
             <param name="securityRepository"></param>
             <param name="authorizationManager"></param>
+            <param name="userRoleRepository"></param>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Application.Dtos.LoginInput)">
             <summary>

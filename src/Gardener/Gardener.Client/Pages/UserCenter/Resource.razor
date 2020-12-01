@@ -46,6 +46,7 @@
                             <AntDesign.Col Span="24" Style="margin-top:10px">
                                 <Spin Spinning="@treeIsLoading">
                                     <Tree @ref="tree"
+                                          ShowLine
                                           ShowIcon
                                           TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
                                           ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"

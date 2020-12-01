@@ -27,6 +27,7 @@ namespace Gardener.Application
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<Resource> _resourceRepository;
         private readonly IAuthorizationManager _authorizationManager;
 
@@ -37,16 +38,18 @@ namespace Gardener.Application
         /// <param name="userRepository"></param>
         /// <param name="securityRepository"></param>
         /// <param name="authorizationManager"></param>
+        /// <param name="userRoleRepository"></param>
         public AuthorizeService(IHttpContextAccessor httpContextAccessor
             , IRepository<User> userRepository
             , IRepository<Resource> securityRepository
             , IAuthorizationManager authorizationManager
-            )
+, IRepository<UserRole> userRoleRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _resourceRepository = securityRepository;
             _authorizationManager = authorizationManager;
+            _userRoleRepository = userRoleRepository;
         }
 
         /// <summary>
@@ -161,14 +164,22 @@ namespace Gardener.Application
             }
             else
             {
+
+                resources= await _userRoleRepository
+                    .Include(x=>x.Role)
+                    .ThenInclude(x=>x.Resources)
+                    .Where(x=>x.UserId==userId && x.Role.IsDeleted==false && x.Role.IsLocked==false)
+                    .SelectMany(x=>x.Role.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)))
+                    .ToListAsync();
+
                 //其他角色
-                resources =await _userRepository
-                   .Include(u => u.Roles)
-                       .ThenInclude(u => u.Resources)
-                   .Where(u => u.Id == userId)
-                   .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                       .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))))
-                   .ToListAsync();
+                //resources =await _userRepository
+                //   .Include(u => u.Roles)
+                //       .ThenInclude(u => u.Resources)
+                //   .Where(u => u.Id == userId)
+                //   .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                //       .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))))
+                //   .ToListAsync();
             }
             return resources.Adapt<List<ResourceDto>>();
 

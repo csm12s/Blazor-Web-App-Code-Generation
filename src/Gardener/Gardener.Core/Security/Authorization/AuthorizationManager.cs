@@ -69,7 +69,8 @@ namespace Gardener.Core.Security
             var userId = GetUserId();
             var user = _userRepository
                 .Include(x => x.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false && x.IsSuperAdministrator == true))
-                .FirstOrDefault(x => x.Id == userId);
+                .Where(x=>x.IsDeleted==false && x.IsLocked==false && x.Id==userId)
+                .FirstOrDefault();
             //用户不存在
             if (user == null) return false;
             //超级管理员

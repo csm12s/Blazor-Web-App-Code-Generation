@@ -268,8 +268,11 @@ namespace Gardener.Client.Pages.UserCenter
                 if (result.Successed)
                 {
                     editModel.Adapt(resource);
-                    var parentResource= (ResourceDto)selectedNode.ParentNode.DataItem;
-                    parentResource.Children = parentResource.Children.OrderBy(x => x.Order).ToList();
+                    if (selectedNode.ParentNode != null)
+                    {
+                        var parentResource = (ResourceDto)selectedNode.ParentNode.DataItem;
+                        parentResource.Children = parentResource.Children.OrderBy(x => x.Order).ToList();
+                    }
                     MessageService.Success("更新成功");
                     drawerVisible = false;
                 }
