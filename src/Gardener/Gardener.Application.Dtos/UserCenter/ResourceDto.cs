@@ -2,6 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
+using Gardener.Common.Extensions;
 using Gardener.Enums;
 using System;
 using System.Collections.Generic;
@@ -92,5 +93,13 @@ namespace Gardener.Application.Dtos
         /// 是否逻辑删除
         /// </summary>
         public bool IsDeleted { get; set; }
+        /// <summary>
+        /// 完整名称
+        /// </summary>
+        /// <returns></returns>
+        public string GetFullName()
+        {
+            return $"{Name} [{EnumExtension.GetEnumDescription(Type)}]";
+        }
     }
 }

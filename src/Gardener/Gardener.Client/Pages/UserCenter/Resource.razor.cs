@@ -307,29 +307,12 @@ namespace Gardener.Client.Pages.UserCenter
 
         }
         /// <summary>
-        /// 表单取消
-        /// </summary>
-        private async Task OnFormCancel()
-        {
-            //new ResourceDto().Adapt(editModel);
-            drawerVisible = false;
-        }
-        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         private async Task OnDrawerClose()
         {
             drawerVisible = false;
-        }
-        /// <summary>
-        /// 获取节点名称
-        /// </summary>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        private string GetNodeName(ResourceDto resource)
-        {
-            return $"{resource.Name}[{EnumExtension.GetEnumDescription(resource.Type)}]";
         }
     }
 }

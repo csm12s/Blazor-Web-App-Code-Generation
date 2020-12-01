@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\Gardener.Enums\Gardener.Enums.csproj" />
   </ItemGroup>
 

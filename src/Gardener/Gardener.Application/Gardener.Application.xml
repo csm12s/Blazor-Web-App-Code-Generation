@@ -456,6 +456,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.UserCenter.IRoleService.GetResource(System.Int32)">
+            <summary>
+            获取角色所有资源
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Application.UserCenter.IUserService.Search(System.String,System.Int32,System.Int32)">
             <summary>
             查询
@@ -465,7 +472,7 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IUserService.SetRoles(System.Int32,System.Int32[])">
+        <member name="M:Gardener.Application.UserCenter.IUserService.Role(System.Int32,System.Int32[])">
             <summary>
             设置用户角色
             </summary>
@@ -550,6 +557,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.UserCenter.RoleService.GetResource(System.Int32)">
+            <summary>
+            获取角色所有资源
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.UserCenter.UserService">
             <summary>
             用户服务
@@ -609,7 +623,7 @@
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.SetRoles(System.Int32,System.Int32[])">
+        <member name="M:Gardener.Application.UserCenter.UserService.Role(System.Int32,System.Int32[])">
             <summary>
             设置用户角色
             </summary>

@@ -40,50 +40,81 @@
                     <Selection Key="@(context.Id.ToString())" />
                     <Column Title="编号" @bind-Field="@context.Id" Sortable />
                     <Column Title="名称" @bind-Field="@context.Name" />
-                    <Column Title="备注" @bind-Field="@context.Remark"/>
+                    <Column Title="备注" @bind-Field="@context.Remark" />
                     <Column Title="是否锁定" Field="@context.IsLocked">
-                        <Switch @bind-Value="@context.IsLocked"  OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
+                        <Switch @bind-Value="@context.IsLocked" OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
                     </Column>
                     <Column Title="创建时间" @bind-Field="@context.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
+                            <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(context)">分配资源</Button></SpaceItem>
                             <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
                         </Space>
                     </ActionColumn>
                 </RowTemplate>
             </Table>
-            <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
 
-                @if (editModel != null)
-                {
-                    <Form Loading="@formIsLoading"
-                          Model="@editModel"
-                          LabelCol="new ColLayoutParam { Span = 6 }"
-                          WrapperCol="new ColLayoutParam { Span = 18 }"
-                          OnFinish="OnFormFinish"
-                          OnFinishFailed="OnFormFinishFailed">
-                        <FormItem Label="名称">
-                            <Input @bind-Value="@context.Name" />
-                        </FormItem>
-                        <FormItem Label="备注">
-                            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@context.Remark"></TextArea>
-                        </FormItem>
-                        <FormItem Label="是否锁定">
-                            <Switch @bind-Value="@context.IsLocked"></Switch>
-                        </FormItem>
-                        <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-                            <Button Type="@ButtonType.Primary" HtmlType="submit">
-                                保存
-                            </Button>
-                            <Button OnClick="OnFormCancel">
-                                取消
-                            </Button>
-                        </FormItem>
-                    </Form>
-                }
-            </Drawer>
         </ChildContent>
     </PageContainer>
+    <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
+        @if (editModel != null)
+        {
+            <Form Loading="@formIsLoading"
+                  Model="@editModel"
+                  LabelCol="new ColLayoutParam { Span = 6 }"
+                  WrapperCol="new ColLayoutParam { Span = 18 }"
+                  OnFinish="OnFormFinish"
+                  OnFinishFailed="OnFormFinishFailed">
+                <FormItem Label="名称">
+                    <Input @bind-Value="@context.Name" />
+                </FormItem>
+                <FormItem Label="备注">
+                    <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@context.Remark"></TextArea>
+                </FormItem>
+                <FormItem Label="是否锁定">
+                    <Switch @bind-Value="@context.IsLocked"></Switch>
+                </FormItem>
+                <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        保存
+                    </Button>
+                    <Button OnClick="_=>OnDrawerClose()">
+                        取消
+                    </Button>
+                </FormItem>
+            </Form>
+        }
+    </Drawer>
 
+
+    <Drawer Closable="true" Width="450" Visible="editRoleResourceDrawerVisible" Placement="right" Title="@editRoleResourceDrawerTitle" OnClose="_=>OnEditRoleResourceDrawerClose()">
+        <Row>
+            <AntDesign.Col>
+                <Space>
+                    <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleResourceSave">保存</Button></SpaceItem>
+                    <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="e=>OnEditRoleResourceDrawerClose()">取消</Button></SpaceItem>
+                </Space>
+            </AntDesign.Col>
+        </Row>
+        <Row>
+            <AntDesign.Col Span="24">
+                <Spin Spinning="@editRoleResourceTreeIsLoading">
+                    <Tree @ref="tree"
+                          ShowIcon
+                          Checkable
+                          Multiple
+                          DataSource="resourceDtos"
+                          TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
+                          ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
+                          IconExpression="x=>((ResourceDto)x.DataItem).Icon"
+                          IsLeafExpression="x=>x.TreeLevel>2"
+                          Style="min-height:466px;min-width:400px"
+                          >
+                    </Tree>
+                </Spin>
+            </AntDesign.Col>
+        </Row>
+
+    </Drawer>
 </div>

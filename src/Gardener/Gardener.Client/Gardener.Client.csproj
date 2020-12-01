@@ -56,12 +56,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\UserCenter\EditRoleResource.razor" />
     <Content Remove="Pages\UserCenter\UserEdit.razor" />
     <Content Remove="Pages\UserCenter\UserRoleEdit.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <Watch Remove="Pages\Login.razor.less" />
+    <Watch Remove="Pages\UserCenter\EditRoleResource.razor" />
     <Watch Remove="Pages\UserCenter\UserEdit.razor" />
     <Watch Remove="Pages\UserCenter\UserRoleEdit.razor" />
     <Watch Remove="Shared\LoginLayout.razor.less" />
@@ -69,6 +71,7 @@
 
   <ItemGroup>
     <None Include="Components\GlobalHeader\RightContent.razor" />
+    <None Include="Pages\UserCenter\EditRoleResource.razor" />
     <None Include="Pages\UserCenter\UserEdit.razor" />
     <None Include="Pages\UserCenter\UserRoleEdit.razor" />
   </ItemGroup>

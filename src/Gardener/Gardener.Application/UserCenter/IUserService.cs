@@ -27,6 +27,6 @@ namespace Gardener.Application.UserCenter
         /// <param name="userId"></param>
         /// <param name="roleIds"></param>
         /// <returns></returns>
-        Task<bool> SetRoles(int userId, int[] roleIds);
+        Task<bool> Role(int userId, int[] roleIds);
     }
 }

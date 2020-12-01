@@ -129,6 +129,12 @@
             是否逻辑删除
             </summary>
         </member>
+        <member name="M:Gardener.Application.Dtos.ResourceDto.GetFullName">
+            <summary>
+            完整名称
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.Dtos.RoleDto">
             <summary>
             角色

@@ -49,8 +49,8 @@ namespace Gardener.Application.UserCenter
         {
             return await _roleRepository
                 .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
-                .Where(x => x.IsDeleted==false)
-                .OrderByDescending(x=>x.CreatedTime)
+                .Where(x => x.IsDeleted == false)
+                .OrderByDescending(x => x.CreatedTime)
                 .Select(x => x.Adapt<RoleDto>())
                 .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
         }
@@ -58,29 +58,31 @@ namespace Gardener.Application.UserCenter
         /// <summary>
         /// 为角色分配权限（重置）
         /// </summary>
-        public async void Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, int[] resourceIds)
+        public async Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, int[] resourceIds)
         {
+            //先删除所有资源
+            await DeleteResource(roleId);
             resourceIds ??= Array.Empty<int>();
-
-            DeleteResource(roleId);
-
             var list = new List<RoleResource>();
             foreach (var securityId in resourceIds)
             {
                 list.Add(new RoleResource { RoleId = roleId, ResourceId = securityId, CreatedTime = DateTimeOffset.Now });
             }
             await _roleResourceRepository.InsertAsync(list);
+            return true;
         }
 
         /// <summary>
         /// 删除角色的所有资源
         /// </summary>
         /// <param name="roleId"></param>
-        public async void DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId)
+        public async Task<bool> DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId)
         {
             var entitys = _roleResourceRepository.Where(u => u.RoleId == roleId, false);
 
             await _roleResourceRepository.DeleteAsync(entitys);
+
+            return true;
         }
         /// <summary>
         /// 
@@ -90,8 +92,23 @@ namespace Gardener.Application.UserCenter
         {
             return await _roleRepository.AsQueryable()
                 .Where(x => x.IsDeleted == false && x.IsLocked == false)
-                .Select(x=>x.Adapt<RoleDto>())
+                .Select(x => x.Adapt<RoleDto>())
                 .ToListAsync();
+        }
+        /// <summary>
+        /// 获取角色所有资源
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public async Task<List<ResourceDto>> GetResource([ApiSeat(ApiSeats.ActionStart)] int roleId)
+        {
+            var resources= await _roleResourceRepository
+                .Include(x => x.Resource)
+                .Where(x => x.RoleId == roleId && x.Resource.IsDeleted==false)
+                .Select(x => x.Resource)
+                .ToListAsync();
+
+            return resources.Select(x=>x.Adapt<ResourceDto>()).ToList();
         }
     }
 }

@@ -28,6 +28,6 @@ namespace Gardener.Client.Services
         /// <param name="userId"></param>
         /// <param name="roleIds"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> SetRoles(int userId, int[] roleIds);
+        Task<ApiResult<bool>> Role(int userId, int[] roleIds);
     }
 }

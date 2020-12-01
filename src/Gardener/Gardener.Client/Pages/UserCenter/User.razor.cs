@@ -333,7 +333,7 @@ namespace Gardener.Client.Pages.UserCenter
             string[] selectRoles = roleOptions.Where(x => x.Checked).Select(x => x.Value).ToArray();
 
             editRoleFormIsLoading = true;
-            var result=await UserSvr.SetRoles(editRoleModel.Id, selectRoles?.Select(x=>int.Parse(x)).ToArray());
+            var result=await UserSvr.Role(editRoleModel.Id, selectRoles?.Select(x=>int.Parse(x)).ToArray());
             
             if (result.Successed)
             {

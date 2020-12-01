@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gardener.Common.Extensions;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Gardener.Client.Pages.UserCenter
 {
@@ -31,6 +33,8 @@ namespace Gardener.Client.Pages.UserCenter
         bool formIsLoading = false;
         bool tableIsLoading = false;
         RoleDto editModel = new RoleDto();
+
+        List<ResourceDto> resourceDtos = new List<ResourceDto>();
         [Inject]
         public MessageService MessaheSvr { get; set; }
         [Inject]
@@ -50,6 +54,12 @@ namespace Gardener.Client.Pages.UserCenter
                 MaxCount = 3,
                 Rtl = true,
             });
+            var resourceResult = await ResourceService.GetTree();
+            if (!resourceResult.Successed)
+            {
+                MessageService.Error("节点加载失败");
+            }
+            resourceDtos = resourceResult.Data;
         }
         /// <summary>
         /// 重新加载table
@@ -206,14 +216,6 @@ namespace Gardener.Client.Pages.UserCenter
             //drawerVisible = false;
         }
         /// <summary>
-        /// 表单取消
-        /// </summary>
-        private async Task OnFormCancel()
-        {
-            new RoleDto().Adapt(editModel);
-            drawerVisible = false;
-        }
-        /// <summary>
         /// 点击删除选中按钮
         /// </summary>
         private async Task OnDeletesClick()
@@ -258,5 +260,105 @@ namespace Gardener.Client.Pages.UserCenter
                 MessaheSvr.Error("锁定失败");
             }
         }
+
+        #region 分配资源
+
+        private int currentEditRoleResourceRoleId = 0;
+        private bool editRoleResourceDrawerVisible;
+        private bool editRoleResourceTreeIsLoading;
+        private string editRoleResourceDrawerTitle = "分配权限";
+        private Tree tree;
+        [Inject]
+        IResourceService ResourceService { get; set; }
+        [Inject]
+        MessageService MessageService { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnEditRoleResourceClick(RoleDto role)
+        {
+            currentEditRoleResourceRoleId = role.Id;
+            await LoadTreeData(role.Id);
+        }
+        /// <summary>
+        /// 加载树数据
+        /// </summary>
+        /// <returns></returns>
+        private async Task LoadTreeData(int roleId)
+        {
+            editRoleResourceTreeIsLoading = true;
+            //选中已有资源
+            var roleResourceResult = await RoleService.GetResource(roleId);
+            //tree.DecheckedAll();
+            if (!roleResourceResult.Successed)
+            {
+                MessageService.Error("已分配资源加载失败");
+                editRoleResourceTreeIsLoading = false;
+                return;
+            }
+            await Check(tree.ChildNodes, (id) =>
+            {
+                if (roleResourceResult.Data == null) return false;
+                return roleResourceResult.Data.Any(x => x.Id == id);
+            });
+            editRoleResourceTreeIsLoading = false;
+            editRoleResourceDrawerVisible = true;
+            return;
+        }
+        /// <summary>
+        /// 递归展开或关闭节点
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
+        private async Task Check(List<TreeNode> nodes, Func<int, bool> flagFunc)
+        {
+            foreach (var node in nodes)
+            {
+                var flag = flagFunc(((ResourceDto)node.DataItem).Id);
+                node.SetChecked(flag);
+                //如果这个节点选中了，其子节点也会选中，如果未选中再继续循环去选中
+                if (!flag && node.ChildNodes != null && node.ChildNodes.Count > 0)
+                {
+                    await Check(node.ChildNodes, flagFunc);
+                }
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnEditRoleResourceDrawerClose()
+        {
+            editRoleResourceDrawerVisible = false;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private async Task OnEditRoleResourceSave(MouseEventArgs e)
+        {
+
+            int[] resourceIds = null;
+            if (tree.CheckedNodes?.Count > 0)
+            {
+                resourceIds = tree.CheckedNodes.Select(x => ((ResourceDto)x.DataItem).Id).ToArray();
+            }
+            //删除所有资源
+            var result = await RoleService.Resource(currentEditRoleResourceRoleId, resourceIds);
+            if (result.Successed)
+            {
+                MessageService.Success("保存成功");
+                editRoleResourceDrawerVisible = false;
+            }
+            else
+            {
+                MessageService.Error("保存失败");
+            }
+
+        }
+        #endregion
     }
 }

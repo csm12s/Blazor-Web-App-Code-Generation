@@ -11,13 +11,19 @@ namespace Gardener.Application.UserCenter
 {
     public interface IRoleService
     {
-        void DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId);
-        void Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, int[] resourceIds);
+        Task<bool> DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId);
+        Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, int[] resourceIds);
         Task<PagedList<RoleDto>> Search([FromQuery] string name,  int pageIndex = 1,  int pageSize = 10);
         /// <summary>
         /// 获取有效的角色
         /// </summary>
         /// <returns></returns>
         Task<List<RoleDto>> GetEffective();
+        /// <summary>
+        /// 获取角色所有资源
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<List<ResourceDto>> GetResource(int roleId);
     }
 }

@@ -21,9 +21,9 @@ namespace Gardener.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public void DeleteResource(int roleId)
+        public async Task<ApiResult<bool>> DeleteResource(int roleId)
         {
-            throw new NotImplementedException();
+            return await apiCaller.DeleteAsync<bool>($"{controller}/{roleId}/resource");
         }
 
         public async Task<ApiResult<List<RoleDto>>> GetEffective()
@@ -31,9 +31,14 @@ namespace Gardener.Client.Services
             return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/effective");
         }
 
-        public void Resource(int roleId, int[] resourceIds)
+        public async Task<ApiResult<List<ResourceDto>>> GetResource(int roleId)
         {
-            throw new NotImplementedException();
+            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{roleId}/resource");
+        }
+
+        public async Task<ApiResult<bool>> Resource(int roleId, int[] resourceIds)
+        {
+            return await apiCaller.PostAsync<int[], bool>($"{controller}/{roleId}/resource", resourceIds);
         }
         public async Task<ApiResult<PagedList<RoleDto>>> Search(string name, int pageIndex = 1, int pageSize = 10)
         {

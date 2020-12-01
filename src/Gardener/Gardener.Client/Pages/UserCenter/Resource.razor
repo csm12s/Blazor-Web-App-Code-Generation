@@ -47,7 +47,7 @@
                                 <Spin Spinning="@treeIsLoading">
                                     <Tree @ref="tree"
                                           ShowIcon 
-                                          TitleExpression="x=> { var resource = ((ResourceDto)x.DataItem); return GetNodeName(resource); }"
+                                          TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
                                           ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
                                           IconExpression="x=>((ResourceDto)x.DataItem).Icon"
                                           IsLeafExpression="x=>x.TreeLevel>2"
@@ -151,7 +151,7 @@
             <Button Type="@ButtonType.Primary" HtmlType="submit">
                 保存
             </Button>
-            <Button OnClick="OnFormCancel">
+            <Button OnClick="_=>OnDrawerClose()">
                 取消
             </Button>
         </FormItem>
