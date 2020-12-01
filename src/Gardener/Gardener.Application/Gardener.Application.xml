@@ -396,22 +396,17 @@
             查看用户角色
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserResources">
-            <summary>
-            查看用户权限
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.AuthorizeService.InitResource">
-            <summary>
-            初始化系统挨批资源权限
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUser">
             <summary>
             获取当前用户信息
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType)">
+            <summary>
+            
+            </summary>
+            <param name="resourceType"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.IAuthorizeService.GetCurrentUser">
@@ -424,6 +419,13 @@
             <summary>
             刷新Token
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.IAuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType)">
+            <summary>
+            
+            </summary>
+            <param name="resourceType"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.UserCenter.IResourceService">
@@ -502,14 +504,6 @@
             <summary>
             查询所有资源 按树形结构返回
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.UserCenter.ResourceService.SetChildren(Gardener.Application.Dtos.ResourceDto,System.Collections.Generic.List{Gardener.Application.Dtos.ResourceDto})">
-            <summary>
-            
-            </summary>
-            <param name="resource"></param>
-            <param name="resources"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.UserCenter.ResourceService.Insert(Gardener.Application.Dtos.ResourceDto)">

@@ -84,7 +84,7 @@
     ]
   },
   "JWTSettings": {
-    "ExpiredTime":10
+    "ExpiredTime": 10
   },
   "ErrorCodeMessageSettings": {
     "Definitions": [

@@ -70,48 +70,48 @@ namespace Gardener.Application.UserCenter
 
             List<ResourceDto> resourceDtos = new List<ResourceDto>();
 
-            var allResources= await resourceRepository
-                .AsQueryable(false)
+            var allResources=resourceRepository
                 .Where(x => x.IsDeleted == false)
-                .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
+                .OrderBy(x=>x.Order)
+                .ToList();
 
-            var rootResources =allResources
-                .Where(x =>x.ParentId == null && x.Type.Equals(ResourceType.ROOT))
-                .OrderBy(x => x.Order).ToList();
+            //var rootResources =allResources
+            //    .Where(x =>x.ParentId == null && x.Type.Equals(ResourceType.ROOT))
+            //    .OrderBy(x => x.Order).ToList();
 
-            resourceDtos.AddRange(rootResources);
+            //resourceDtos.AddRange(rootResources);
 
 
-            var otherResources= allResources
-                 .Where(x => x.ParentId != null && !x.Type.Equals(ResourceType.ROOT))
-                 .OrderBy(x => x.Order).ToList();
+            //var otherResources= allResources
+            //     .Where(x => x.ParentId != null && !x.Type.Equals(ResourceType.ROOT))
+            //     .OrderBy(x => x.Order).ToList();
 
-            foreach (var root in resourceDtos)
-            {
-              SetChildren(root, otherResources);
-            }
+            //foreach (var root in resourceDtos)
+            //{
+            //  SetChildren(root, otherResources);
+            //}
 
-            return resourceDtos;
+            return allResources.Where(x=>x.Type.Equals(ResourceType.ROOT)).Select(x => x.Adapt<ResourceDto>()).ToList();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="resource"></param>
-        /// <param name="resources"></param>
-        /// <returns></returns>
-        private async Task SetChildren(ResourceDto resource, List<ResourceDto> resources)
-        {
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="resource"></param>
+        ///// <param name="resources"></param>
+        ///// <returns></returns>
+        //private async Task SetChildren(ResourceDto resource, List<ResourceDto> resources)
+        //{
 
-            if (resources.Any(x => x.ParentId == resource.Id))
-            {
-                resource.Children =resources.Where(x => x.ParentId == resource.Id).OrderBy(x=>x.Order).ToList();
+        //    if (resources.Any(x => x.ParentId == resource.Id))
+        //    {
+        //        resource.Children =resources.Where(x => x.ParentId == resource.Id).OrderBy(x=>x.Order).ToList();
 
-                foreach (var r in resource.Children)
-                {
-                  SetChildren(r, resources);
-                }
-            }
-        }
+        //        foreach (var r in resource.Children)
+        //        {
+        //          SetChildren(r, resources);
+        //        }
+        //    }
+        //}
         /// <summary>
         /// 添加资源
         /// </summary>

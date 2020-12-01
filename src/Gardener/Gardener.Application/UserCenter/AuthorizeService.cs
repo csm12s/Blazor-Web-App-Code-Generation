@@ -27,7 +27,7 @@ namespace Gardener.Application
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Resource> _securityRepository;
+        private readonly IRepository<Resource> _resourceRepository;
         private readonly IAuthorizationManager _authorizationManager;
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Gardener.Application
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
-            _securityRepository = securityRepository;
+            _resourceRepository = securityRepository;
             _authorizationManager = authorizationManager;
         }
 
@@ -128,50 +128,6 @@ namespace Gardener.Application
 
             return roles.Adapt<List<RoleDto>>();
         }
-
-        /// <summary>
-        /// 查看用户权限
-        /// </summary>
-        /// <returns></returns>
-        public List<ResourceDto> GetCurrentUserResources()
-        {
-            // 获取用户Id
-            var userId = _authorizationManager.GetUserId();
-            List<Resource> resources;
-            //超级管理员
-            if (_authorizationManager.IsSuperAdministrator())
-            {
-                resources = _securityRepository.AsEnumerable(false);
-            }
-            else
-            {
-                //其他角色
-                resources = _userRepository
-                   .Include(u => u.Roles, false)
-                       .ThenInclude(u => u.Resources)
-                   .Where(u => u.Id == userId)
-                   .SelectMany(u => u.Roles
-                       .SelectMany(u => u.Resources))
-                   .ToList();
-            }
-            return resources.Adapt<List<ResourceDto>>();
-        }
-
-        /// <summary>
-        /// 初始化系统挨批资源权限
-        /// </summary>
-        /// <returns></returns>
-        public bool InitResource()
-        {
-            IRepository<Resource> repository = Db.GetRepository<Resource>();
-            if (!repository.Where(x => x.Type.Equals(ResourceType.API)).Any())
-            {
-                List<Resource> apiResources = MyApplicationContext.GetApiResources();
-                apiResources.ForEach(x => x.CreatedTime = DateTimeOffset.Now);
-                repository.InsertNow(apiResources);
-            }
-            return true;
-        }
         /// <summary>
         /// 获取当前用户信息
         /// </summary>
@@ -184,6 +140,35 @@ namespace Gardener.Application
             var user = await _userRepository.FindAsync(userId);
 
             return user.Adapt<UserDto>();
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceType"></param>
+        /// <returns></returns>
+        public  List<ResourceDto> GetCurrentUserResources(ResourceType resourceType)
+        {
+            // 获取用户Id
+            var userId = _authorizationManager.GetUserId();
+            List<Resource> resources;
+            //超级管理员
+            if (_authorizationManager.IsSuperAdministrator())
+            {
+                resources = _resourceRepository.AsQueryable(false).Where(x => x.Type.Equals(resourceType)).ToList();
+            }
+            else
+            {
+                //其他角色
+                resources = _userRepository
+                   .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false), false)
+                       .ThenInclude(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && x.Type.Equals(resourceType)))
+                   .Where(u => u.Id == userId)
+                   .SelectMany(u => u.Roles
+                       .SelectMany(u => u.Resources))
+                   .ToList();
+            }
+            return resources.Adapt<List<ResourceDto>>();
 
         }
     }

@@ -2,6 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
+using Gardener.Common.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,10 @@ namespace Gardener.Common.Extensions
             string desc = string.Empty;
             foreach (var item in Enum.GetValues(typeof(T)))
             {
+                //需要忽略的
+                var igAttrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(IgnoreConvertAttribute), true);
+                if (igAttrs != null && igAttrs.Length > 0) continue;
+                //枚举的Description
                 var attrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true);
                 if (attrs != null && attrs.Length > 0)
                 {

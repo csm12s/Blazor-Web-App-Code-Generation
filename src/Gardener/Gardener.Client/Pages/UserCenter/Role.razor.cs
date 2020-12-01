@@ -59,7 +59,7 @@ namespace Gardener.Client.Pages.UserCenter
             {
                 MessageService.Error("节点加载失败");
             }
-            resourceDtos = resourceResult.Data;
+            tree.DataSource = resourceResult.Data;
         }
         /// <summary>
         /// 重新加载table
@@ -268,6 +268,7 @@ namespace Gardener.Client.Pages.UserCenter
         private bool editRoleResourceTreeIsLoading;
         private string editRoleResourceDrawerTitle = "分配权限";
         private Tree tree;
+        private bool isExpanded;
         [Inject]
         IResourceService ResourceService { get; set; }
         [Inject]
@@ -290,7 +291,7 @@ namespace Gardener.Client.Pages.UserCenter
             editRoleResourceTreeIsLoading = true;
             //选中已有资源
             var roleResourceResult = await RoleService.GetResource(roleId);
-            //tree.DecheckedAll();
+            //
             if (!roleResourceResult.Successed)
             {
                 MessageService.Error("已分配资源加载失败");
@@ -300,7 +301,7 @@ namespace Gardener.Client.Pages.UserCenter
             await Check(tree.ChildNodes, (id) =>
             {
                 if (roleResourceResult.Data == null) return false;
-                return roleResourceResult.Data.Any(x => x.Id == id);
+                return roleResourceResult.Data.Any(x => x.Id == id && (x.Children == null || !x.Children.Any()));
             });
             editRoleResourceTreeIsLoading = false;
             editRoleResourceDrawerVisible = true;
@@ -332,6 +333,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task OnEditRoleResourceDrawerClose()
         {
             editRoleResourceDrawerVisible = false;
+            //tree.DecheckedAll();
         }
         /// <summary>
         /// 
@@ -341,10 +343,17 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task OnEditRoleResourceSave(MouseEventArgs e)
         {
 
-            int[] resourceIds = null;
+            int[] resourceIds = new int[] { };
+
             if (tree.CheckedNodes?.Count > 0)
             {
-                resourceIds = tree.CheckedNodes.Select(x => ((ResourceDto)x.DataItem).Id).ToArray();
+                List<TreeNode> parents = new List<TreeNode>();
+                tree.CheckedNodes.ForEach(x =>
+                {
+                    parents.AddRange(GetParents(x));
+                });
+                parents.AddRange(tree.CheckedNodes);
+                resourceIds=parents.Select(x => ((ResourceDto)x.DataItem).Id).Distinct().ToArray();
             }
             //删除所有资源
             var result = await RoleService.Resource(currentEditRoleResourceRoleId, resourceIds);
@@ -359,6 +368,60 @@ namespace Gardener.Client.Pages.UserCenter
             }
 
         }
+        /// <summary>
+        /// 获取所有父级
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private List<TreeNode> GetParents(TreeNode node)
+        {
+            List<TreeNode> ids = new List<TreeNode>();
+            if (node.ParentNode != null)
+            {
+                ids.Add(node.ParentNode);
+                ids.AddRange(GetParents(node.ParentNode));
+            }
+            return ids;
+        }
+
+        /// <summary>
+        /// 递归展开或关闭节点
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
+        private async Task Expand(List<TreeNode> nodes, bool flag)
+        {
+            foreach (var node in nodes)
+            {
+                node.Expand(flag);
+                if (node.ChildNodes != null && node.ChildNodes.Count > 0)
+                {
+                    await Expand(node.ChildNodes, flag);
+                }
+            }
+        }
+        /// <summary>
+        /// 当展开关闭点击时触发
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnExpandClick()
+        {
+            isExpanded = !isExpanded;
+
+            var selectedNode = tree.SelectedNodes?.FirstOrDefault();
+            if (selectedNode != null)
+            {
+                //仅操作选中的节点
+                await Expand(new List<TreeNode> { selectedNode }, isExpanded);
+            }
+            else
+            {
+                //操作所有的节点
+                await Expand(tree.ChildNodes, isExpanded);
+            }
+        }
+
         #endregion
     }
 }

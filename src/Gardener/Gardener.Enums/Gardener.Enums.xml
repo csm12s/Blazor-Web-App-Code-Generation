@@ -67,6 +67,7 @@
         <member name="T:Gardener.Enums.ResourceType">
             <summary>
             权限类型
+            资源子级类型只能>=父级类型
             </summary>
         </member>
         <member name="F:Gardener.Enums.ResourceType.ROOT">
@@ -74,9 +75,9 @@
             根节点
             </summary>
         </member>
-        <member name="F:Gardener.Enums.ResourceType.API">
+        <member name="F:Gardener.Enums.ResourceType.MENU">
             <summary>
-            API
+            菜单
             </summary>
         </member>
         <member name="F:Gardener.Enums.ResourceType.BUTTON">
@@ -84,9 +85,9 @@
             BUTTON
             </summary>
         </member>
-        <member name="F:Gardener.Enums.ResourceType.MENU">
+        <member name="F:Gardener.Enums.ResourceType.API">
             <summary>
-            菜单
+            API
             </summary>
         </member>
         <member name="T:Gardener.Enums.RuleSort">

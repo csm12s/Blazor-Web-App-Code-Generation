@@ -108,6 +108,11 @@
         <Row>
             <AntDesign.Col>
                 <Space>
+                    <SpaceItem>
+                        <Tooltip Placement="PlacementType.TopLeft" Title="@(isExpanded?"收起":"展开")">
+                            <Button Type="@ButtonType.Primary" Icon="@(isExpanded?"up":"down")" Size="@SystemConstant.OperationButtonSize" OnClick="OnExpandClick" />
+                        </Tooltip>
+                    </SpaceItem>
                     <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleResourceSave">保存</Button></SpaceItem>
                     <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="e=>OnEditRoleResourceDrawerClose()">取消</Button></SpaceItem>
                 </Space>
@@ -120,11 +125,10 @@
                           ShowIcon
                           Checkable
                           Multiple
-                          DataSource="resourceDtos"
                           TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
                           ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
                           IconExpression="x=>((ResourceDto)x.DataItem).Icon"
-                          IsLeafExpression="x=>x.TreeLevel>2"
+                          IsLeafExpression="x=>false"
                           Style="min-height:466px;min-width:400px"
                           >
                     </Tree>

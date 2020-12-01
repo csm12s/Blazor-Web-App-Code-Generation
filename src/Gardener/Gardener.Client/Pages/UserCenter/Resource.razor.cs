@@ -141,6 +141,7 @@ namespace Gardener.Client.Pages.UserCenter
         private bool formIsLoading;
         private string drawerTitle = string.Empty;
         private ResourceDto editModel = new ResourceDto();
+        private ResourceType currentEditResourceType= ResourceType.API;
         /// <summary>
         /// 删除选中节点
         /// </summary>
@@ -213,6 +214,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (selectedNode != null)
             {
                 var resource = ((ResourceDto)selectedNode.DataItem);
+                currentEditResourceType = resource.Type;
                 resource.Adapt(editModel);
                 drawerTitle = "编辑";
                 drawerVisible = true;
@@ -236,6 +238,9 @@ namespace Gardener.Client.Pages.UserCenter
                 var newNode = new ResourceDto();
                 newNode.ResourceId = Guid.NewGuid().ToString();
                 newNode.ParentId = pResource.Id;
+                newNode.Key = pResource.Type.Equals(ResourceType.ROOT) ? "":pResource.Key + "_";
+                //不能创建root节点
+                currentEditResourceType= newNode.Type = pResource.Type.Equals(ResourceType.ROOT)? ResourceType.MENU: pResource.Type;
                 newNode.Order = (pResource.Children == null || !pResource.Children.Any() ? 0 : pResource.Children.Last().Order + 1);
                 newNode.Adapt(editModel);
                 drawerVisible = true;

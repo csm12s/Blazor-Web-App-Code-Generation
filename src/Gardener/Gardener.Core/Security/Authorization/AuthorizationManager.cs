@@ -67,11 +67,13 @@ namespace Gardener.Core.Security
         public bool IsSuperAdministrator()
         {
             var userId = GetUserId();
-            var user = _userRepository.Include(x => x.Roles).FirstOrDefault(x => x.Id == userId);
+            var user = _userRepository
+                .Include(x => x.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false && x.IsSuperAdministrator == true))
+                .FirstOrDefault(x => x.Id == userId);
             //用户不存在
             if (user == null) return false;
             //超级管理员
-            if (user.Roles.Any(x => x.Id == 1)) return true;
+            if (user.Roles.Any()) return true;
             return false;
         }
         /// <summary>

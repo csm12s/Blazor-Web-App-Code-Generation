@@ -46,11 +46,11 @@
                             <AntDesign.Col Span="24" Style="margin-top:10px">
                                 <Spin Spinning="@treeIsLoading">
                                     <Tree @ref="tree"
-                                          ShowIcon 
+                                          ShowIcon
                                           TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
                                           ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
                                           IconExpression="x=>((ResourceDto)x.DataItem).Icon"
-                                          IsLeafExpression="x=>x.TreeLevel>2"
+                                          IsLeafExpression="x=>false"
                                           OnClick="OnNodeClick"
                                           OnExpandChanged="e=> { isExpanded = e.Node.IsExpanded; }"
                                           Style="min-height:466px;">
@@ -116,15 +116,15 @@
         <FormItem Label="类型">
             <RadioGroup @bind-Value="@(context.Type)">
 
-                @if (context.Type.Equals(ResourceType.ROOT))
+                @if (context.Id > 0 && context.Type.Equals(ResourceType.ROOT))
                 {
-                    <Radio Value="@(context.Type)">@(EnumExtension.GetEnumDescription(context.Type))</Radio>
+                    <Radio Value="@(ResourceType.ROOT)">@EnumExtension.GetEnumDescription(ResourceType.ROOT)</Radio>
                 }
                 else
                 {
                     foreach (var gitem in EnumExtension.EnumToDictionary<ResourceType>())
                     {
-                        if (!gitem.Key.Equals(ResourceType.ROOT))
+                        if ((int)gitem.Key >= (int)currentEditResourceType)
                         {
                             <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
                         }
