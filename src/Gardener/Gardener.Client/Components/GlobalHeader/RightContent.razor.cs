@@ -13,7 +13,7 @@ namespace Gardener.Client.Components
     public partial class RightContent
     {
         private UserDto _currentUser;
-
+        public string[] Locales { get; set; } = { "zh-CN", "en-US" };
         private NoticeIconData[] _notifications = { };
         private NoticeIconData[] _messages = { };
         private NoticeIconData[] _events = { };
