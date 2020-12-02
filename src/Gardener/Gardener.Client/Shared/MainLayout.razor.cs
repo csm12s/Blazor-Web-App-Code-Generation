@@ -56,7 +56,7 @@ namespace Gardener.Client.Shared
             string nameLocalizer = Loc[resourceDto.Key];
             var current = new MenuDataItem
             {
-                Path = resourceDto.Path,
+                Path = resourceDto.Path ?? "",
                 Name = nameLocalizer.Equals(resourceDto.Key)? resourceDto.Name: nameLocalizer,
                 Key = resourceDto.Key,
                 Icon = resourceDto.Icon,

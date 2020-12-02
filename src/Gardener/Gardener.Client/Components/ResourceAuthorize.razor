@@ -1,1 +1,24 @@
-﻿@inherits AuthorizeViewCore
+﻿@namespace Gardener.Client.Components
+<AuthorizeView Resource="@(ResourceKey)" Policy="@Policy">
+    <NotAuthorized>
+        @if (NotAuthorized != null)
+        {
+            @NotAuthorized.Invoke(context)
+        }
+    </NotAuthorized>
+    <Authorized>
+        @{
+            var content = Authorized ?? ChildContent;
+        }
+        @if (content != null)
+        {
+            content.Invoke(context);
+        }
+    </Authorized>
+    <Authorizing>
+        @if (Authorizing != null)
+        {
+            @Authorizing
+        }
+    </Authorizing>
+</AuthorizeView>

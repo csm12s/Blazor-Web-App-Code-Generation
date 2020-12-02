@@ -54,7 +54,10 @@
     <Watch Include="**\*.razor" />
     <Watch Include="**\*.less" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="Components\RightContent.razor" />
+    <None Include="Components\ResourceAuthorize.razor" />
+  </ItemGroup>
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
