@@ -12,17 +12,17 @@ namespace Gardener.Client
     /// <summary>
     /// 
     /// </summary>
-    public class ClientAuthorizationHandler : AuthorizationHandler<ClientAuthorizationRequirement>
+    public class ClientUIResourceAuthorizationHandler : AuthorizationHandler<ClientUIAuthorizationRequirement>
     {
 
         private readonly IAuthenticationStateManager authenticationStateManager;
 
-        public ClientAuthorizationHandler(IAuthenticationStateManager authenticationStateManager)
+        public ClientUIResourceAuthorizationHandler(IAuthenticationStateManager authenticationStateManager)
         {
             this.authenticationStateManager = authenticationStateManager;
         }
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ClientAuthorizationRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ClientUIAuthorizationRequirement requirement)
         {
             var resourceKey =(string)context.Resource;
 
@@ -30,13 +30,11 @@ namespace Gardener.Client
 
             if (userResources.Any(x => x.Key.Equals(resourceKey)))
             {
-                Console.WriteLine($"{resourceKey} 验证通过");
                 //如果当前用户有资源访问权限，则返回成功
                 context.Succeed(requirement);
             }
             else
             { 
-                Console.WriteLine($"{resourceKey} 验证未通过");
                 context.Fail();
             }
             return Task.CompletedTask;

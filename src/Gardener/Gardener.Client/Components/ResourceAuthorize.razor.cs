@@ -2,6 +2,7 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -33,7 +34,7 @@ namespace Gardener.Client.Components
             get;
             set;
         }
-        private string Policy = "permission";
+        private string Policy = AuthConstant.ClientUIResourcePolicy;
         /// <summary>
         /// 资源key
         /// </summary>

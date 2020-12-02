@@ -21,24 +21,35 @@ namespace Gardener.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/") });
 
+            #region ant design
             builder.Services.AddAntDesign();
             builder.Services.Configure<ProSettings>(builder.Configuration.GetSection("ProSettings"));
+            #endregion
 
+            #region 认证、授权
             builder.Services.AddScoped<IAuthenticationStateManager, AuthenticationStateManager>();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
             builder.Services.AddAuthorizationCore(option =>
             {
-                option.AddPolicy("default", a => a.RequireAuthenticatedUser());
-                option.AddPolicy("permission",a=>a.Requirements.Add(new ClientAuthorizationRequirement()));
-                option.DefaultPolicy = option.GetPolicy("default");
-            }); 
-            
-            builder.Services.AddScoped<IAuthorizationHandler, ClientAuthorizationHandler>();
-            //支持本地化
-            builder.Services.AddLocalization(option => {
+                option.AddPolicy(AuthConstant.DefaultAuthenticatedPolicy, a => a.RequireAuthenticatedUser());
+                option.AddPolicy(AuthConstant.ClientUIResourcePolicy, a => a.Requirements.Add(new ClientUIAuthorizationRequirement()));
+                option.AddPolicy(AuthConstant.ClientPageResourcePolicy, a => a.Requirements.Add(new ClientPageAuthorizationRequirement()));
+                option.DefaultPolicy = option.GetPolicy(AuthConstant.DefaultAuthenticatedPolicy);
+            });
+
+            builder.Services.AddScoped<IAuthorizationHandler, ClientUIResourceAuthorizationHandler>();
+            builder.Services.AddScoped<IAuthorizationHandler, ClientPageResourceAuthorizationHandler>();
+            #endregion
+
+
+            #region 本地化
+            builder.Services.AddLocalization(option =>
+            {
                 option.ResourcesPath = "Resources";
             });
+            #endregion
+
             #region api services
             builder.Services.AddScoped<JsTool>();
             builder.Services.AddScoped<HttpClientManager>();

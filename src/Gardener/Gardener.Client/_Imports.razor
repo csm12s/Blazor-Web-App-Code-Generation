@@ -20,4 +20,5 @@
 @using AntDesign.Pro.Layout
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Authorization
-@attribute [Authorize]
+@attribute [Authorize("client-page-resource-policy")]
+@attribute [Authorize("default")]

@@ -9,10 +9,7 @@ namespace Gardener.Client
     /// <summary>
     /// 
     /// </summary>
-    public class ClientAuthorizationRequirement : IAuthorizationRequirement
+    public class ClientPageAuthorizationRequirement : IAuthorizationRequirement
     {
-
-
-
     }
 }

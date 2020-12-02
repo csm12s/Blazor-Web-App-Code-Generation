@@ -34,11 +34,11 @@
                                     添加
                                 </Button>
                             </ResourceAuthorize>
-                            <AuthorizeView Resource="@("user_auth_role_manager_refresh")" Policy="permission">
+                            <ResourceAuthorize ResourceKey="user_auth_role_manager_refresh">
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
                                     刷新
                                 </Button>
-                            </AuthorizeView>
+                            </ResourceAuthorize>
                         </AntDesign.Col>
                     </Row>
 
