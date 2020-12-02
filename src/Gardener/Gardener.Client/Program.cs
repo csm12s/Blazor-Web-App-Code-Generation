@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AntDesign.Pro.Layout;
 using Gardener.Client.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gardener.Client
 {
@@ -17,29 +18,23 @@ namespace Gardener.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            //builder.Services.AddScoped(sp => new RestClient("https://localhost:44323/api"));
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/") });
 
             builder.Services.AddAntDesign();
             builder.Services.Configure<ProSettings>(builder.Configuration.GetSection("ProSettings"));
-            //Console.WriteLine("==================================ProSettings>" + System.Text.Json.JsonSerializer.Serialize(builder.Configuration.GetSection("ProSettings")));
-            //builder.Services.AddOptions<ProSettings>("ProSettings");
-            //builder.Services.Configure<ProSettings>("ProSettings", config =>
-            //{
-
-            //    Console.WriteLine("==================================ProSettings2>" + System.Text.Json.JsonSerializer.Serialize(config));
-            //});
 
             builder.Services.AddScoped<IAuthenticationStateManager, AuthenticationStateManager>();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
             builder.Services.AddAuthorizationCore(option =>
             {
-                //option.AddPolicy("Admin", policy => policy.RequireClaim("Admin"));
                 option.AddPolicy("default", a => a.RequireAuthenticatedUser());
+                option.AddPolicy("permission",a=>a.Requirements.Add(new ClientAuthorizationRequirement()));
                 option.DefaultPolicy = option.GetPolicy("default");
-            });
+            }); 
+            
+            builder.Services.AddScoped<IAuthorizationHandler, ClientAuthorizationHandler>();
             //支持本地化
             builder.Services.AddLocalization(option => {
                 option.ResourcesPath = "Resources";

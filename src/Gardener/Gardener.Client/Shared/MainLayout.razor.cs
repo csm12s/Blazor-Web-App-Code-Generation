@@ -18,7 +18,7 @@ namespace Gardener.Client.Shared
     public partial class MainLayout
     {
 
-        private MenuDataItem[] _menuData = { };
+        private MenuDataItem[] _menuData { get; set; } = { };
 
         /// <summary>
         /// 菜单栏收缩
@@ -83,6 +83,7 @@ namespace Gardener.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
             var menusResult = await AuthorizeService.GetCurrentUserMenus();
             if (menusResult.Successed)
             {
@@ -91,10 +92,10 @@ namespace Gardener.Client.Shared
                     menusResult.Data.ForEach(x=>InitEnum(x));
                 }
             }
-            await base.OnInitializedAsync();
             _menuData = menuDataItems.ToArray();
             systemConfig = SystemConfigService.GetSystemConfig();
             await JsTool.Document.SetTitle(systemConfig.SystemName);
+           
         }
 
         void toggle()

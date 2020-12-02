@@ -8,6 +8,8 @@ using System;
 using System.Threading.Tasks;
 using System.Threading;
 using Gardener.Client.Constants;
+using Gardener.Enums;
+using System.Collections.Generic;
 
 namespace Gardener.Client
 {
@@ -25,6 +27,16 @@ namespace Gardener.Client
         Task SetCurrentUser(UserDto currentUser);
         void SetNotifyAuthenticationStateChangedAction(Action c);
         Task SetToken(string token);
+        /// <summary>
+        /// 获取用户拥有的资源
+        /// </summary>
+        /// <returns></returns>
+        List<ResourceDto> GetCurrentUserResources();
+        /// <summary>
+        /// 刷新用户拥有的资源
+        /// </summary>
+        /// <returns></returns>
+        Task<List<ResourceDto>> RefreshUserResources();
     }
     public class AuthenticationStateManager : IAuthenticationStateManager
     {
@@ -35,6 +47,7 @@ namespace Gardener.Client
 
         private int RefreshTokenErrorCount = 0;
         private UserDto currentUser;
+        private List<ResourceDto> resources;
         private LoginOutput loginOutput;
         /// <summary>
         /// 定时器 用来刷新token
@@ -71,6 +84,7 @@ namespace Gardener.Client
                 loginOutput.AccessTokenExpiresIn = tokenResult.Data.AccessTokenExpiresIn;
                 //token 设置
                 await SetToken(tokenResult.Data.AccessToken);
+                await RefreshUser();
                 await logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
             }
             else 
@@ -102,14 +116,15 @@ namespace Gardener.Client
             await RemoveIdentity();
             notifyAuthenticationStateChangedAction();
         }
-
         Action notifyAuthenticationStateChangedAction = () => { };
-
+        /// <summary>
+        /// 设置状态通知回调
+        /// </summary>
+        /// <param name="c"></param>
         public void SetNotifyAuthenticationStateChangedAction(Action c)
         {
             notifyAuthenticationStateChangedAction = c;
         }
-        
         /// <summary>
         /// 获取当前用户
         /// </summary>
@@ -141,7 +156,6 @@ namespace Gardener.Client
                 SetHttpClientAuthorization(token);
             }
         }
-
         /// <summary>
         /// token 设置到浏览器缓存 和 httpclient 头部
         /// </summary>
@@ -163,16 +177,6 @@ namespace Gardener.Client
             SetHttpClientAuthorization("");
             currentUser = null;
         }
-        #region private
-        /// <summary>
-        /// 给httpclient设置验证token
-        /// </summary>
-        /// <param name="token"></param>
-        private void SetHttpClientAuthorization(string token)
-        {
-            //httpClient.Authenticator = new JwtAuthenticator(token);
-            httpClientManager.SetClientAuthorization(token);
-        }
         /// <summary>
         /// 刷新用户
         /// </summary>
@@ -188,6 +192,7 @@ namespace Gardener.Client
             if (userResult.Successed)
             {
                 await SetCurrentUser(userResult.Data);
+                await RefreshUserResources();
                 return userResult.Data;
             }
             else
@@ -195,6 +200,38 @@ namespace Gardener.Client
                 return null;
             }
         }
+        public List<ResourceDto> GetCurrentUserResources()
+        {
+            return resources;
+        }
+        /// <summary>
+        /// 刷新用户拥有的资源
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<ResourceDto>> RefreshUserResources()
+        {
+            if (currentUser == null) return null;
+
+            var result=  await authorizeService.GetCurrentUserResources(ResourceType.BUTTON, ResourceType.MENU);
+            if (result.Successed)
+            {
+                resources = result.Data ?? new List<ResourceDto>();
+                return result.Data;
+            }
+
+            return new List<ResourceDto>();
+        }
+        #region private
+        /// <summary>
+        /// 给httpclient设置验证token
+        /// </summary>
+        /// <param name="token"></param>
+        private void SetHttpClientAuthorization(string token)
+        {
+            //httpClient.Authenticator = new JwtAuthenticator(token);
+            httpClientManager.SetClientAuthorization(token);
+        }
+        
         #endregion
     }
 }

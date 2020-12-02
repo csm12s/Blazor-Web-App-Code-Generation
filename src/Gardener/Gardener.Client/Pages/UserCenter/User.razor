@@ -17,55 +17,74 @@
                    @bind-PageIndex="_pageIndex"
                    @bind-PageSize="_pageSize"
                    @bind-SelectedRows="selectedRows"
-                   Loading="@tableIsLoading">
+                   Loading="@tableIsLoading"
+                   Context="model"
+                   >
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
-                            <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
-                                删除选中
-                            </Button>
+                            <ResourceAuthorize ResourceKey="user_auth_user_manager_delete_selected">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                    删除选中
+                                </Button>
+                            </ResourceAuthorize>
                         </AntDesign.Col>
                         <AntDesign.Col Span="4" Offset="12" Style="text-align:right">
-                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
-                                添加
-                            </Button>
-                            <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
-                                刷新
-                            </Button>
+                            <Space>
+                                <ResourceAuthorize ResourceKey="user_auth_user_manager_add">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                            添加
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="user_auth_user_manager_refresh">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                            刷新
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                            </Space>
                         </AntDesign.Col>
                     </Row>
-
                 </TitleTemplate>
                 <RowTemplate>
-                    <Selection Key="@(context.Id.ToString())" />
-                    <Column Title="编号" @bind-Field="@context.Id" Sortable />
-                    <Column Title="头像" Field="@context.Avatar">
-                        <Avatar Src="@context.Avatar" />
+                    <Selection Key="@(model.Id.ToString())" />
+                    <Column Title="编号" @bind-Field="@model.Id" Sortable />
+                    <Column Title="头像" Field="@model.Avatar">
+                        <Avatar Src="@model.Avatar" />
                     </Column>
-                    <Column Title="用户名" @bind-Field="@context.UserName" />
-                    <Column Title="昵称" @bind-Field="@context.NickName" />
-                    <Column Title="性别" @bind-Field="@context.Gender">
-                        <Tag Color="@(context.Gender.Equals(Gender.Male)?"blue" :"pink")">@EnumExtension.GetEnumDescription(context.Gender)</Tag>
+                    <Column Title="用户名" @bind-Field="@model.UserName" />
+                    <Column Title="昵称" @bind-Field="@model.NickName" />
+                    <Column Title="性别" @bind-Field="@model.Gender">
+                        <Tag Color="@(model.Gender.Equals(Gender.Male)?"blue" :"pink")">@EnumExtension.GetEnumDescription(model.Gender)</Tag>
                     </Column>
-                    <Column Title="手机号" @bind-Field="@context.PhoneNumber" />
-                    <Column Title="邮箱" @bind-Field="@context.Email" />
-                    <Column Title="角色" Field="@context.Roles" Style="max-width:150px">
-                        @foreach (var role in context.Roles)
+                    <Column Title="手机号" @bind-Field="@model.PhoneNumber" />
+                    <Column Title="邮箱" @bind-Field="@model.Email" />
+                    <Column Title="角色" Field="@model.Roles" Style="max-width:150px">
+                        @foreach (var role in model.Roles)
                         {
                             <Tooltip Placement="@PlacementType.Top" Title="@role.Remark">
                                 <Tag>@role.Name</Tag>
                             </Tooltip>
                         }
                     </Column>
-                    <Column Title="是否锁定" Field="@context.IsLocked">
-                        <Switch @bind-Value="@context.IsLocked" OnChange="e=>OnChangeIsLocked(context,e)"></Switch>
+                    <Column Title="是否锁定" Field="@model.IsLocked">
+                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                     </Column>
-                    <Column Title="创建时间" @bind-Field="@context.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
-                            <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(context)">编辑</Button></SpaceItem>
-                            <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(context)">分配角色</Button></SpaceItem>
-                            <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(context.Id)">删除</Button></SpaceItem>
+                            <ResourceAuthorize ResourceKey="user_auth_user_manager_edit">
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)">编辑</Button></SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_auth_user_manager_role_edit">
+                                <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model)">分配角色</Button></SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_auth_user_manager_delete">
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                            </ResourceAuthorize>
                         </Space>
                     </ActionColumn>
                 </RowTemplate>
@@ -81,21 +100,23 @@
                   LabelCol="new ColLayoutParam { Span = 8 }"
                   WrapperCol="new ColLayoutParam { Span = 16 }"
                   OnFinish="OnFormFinish"
-                  OnFinishFailed="OnFormFinishFailed">
+                  OnFinishFailed="OnFormFinishFailed"
+                  Context="model"
+                  >
                 <FormItem Label="头像">
-                    <Avatar Src="@context.Avatar" />
+                    <Avatar Src="@model.Avatar" />
                 </FormItem>
                 <FormItem Label="用户名">
-                    <Input @bind-Value="@context.UserName" />
+                    <Input @bind-Value="@model.UserName" />
                 </FormItem>
                 <FormItem Label="密码">
-                    <Input Type="password" @bind-Value="@context.Password" />
+                    <Input Type="password" @bind-Value="@model.Password" />
                 </FormItem>
                 <FormItem Label="昵称">
-                    <Input @bind-Value="@context.NickName" />
+                    <Input @bind-Value="@model.NickName" />
                 </FormItem>
                 <FormItem Label="性别">
-                    <RadioGroup @bind-Value="@(context.Gender)">
+                    <RadioGroup @bind-Value="@(model.Gender)">
                         @foreach (var gitem in EnumExtension.EnumToDictionary<Gender>())
                         {
                             <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
@@ -103,26 +124,26 @@
                     </RadioGroup>
                 </FormItem>
                 <FormItem Label="是否锁定">
-                    <Switch @bind-Value="@context.IsLocked"></Switch>
+                    <Switch @bind-Value="@model.IsLocked"></Switch>
                 </FormItem>
                 <Divider Orientation="left" Style="font-weight:bold">联系信息</Divider>
                 <FormItem Label="手机号">
-                    <Input @bind-Value="@context.PhoneNumber" />
+                    <Input @bind-Value="@model.PhoneNumber" />
                 </FormItem>
                 <FormItem Label="手机号是否确认">
-                    <Switch @bind-Value="@context.PhoneNumberConfirmed"></Switch>
+                    <Switch @bind-Value="@model.PhoneNumberConfirmed"></Switch>
                 </FormItem>
                 <FormItem Label="邮箱">
-                    <Input @bind-Value="@context.Email" />
+                    <Input @bind-Value="@model.Email" />
                 </FormItem>
                 <FormItem Label="邮箱是否确认">
-                    <Switch @bind-Value="@context.EmailConfirmed"></Switch>
+                    <Switch @bind-Value="@model.EmailConfirmed"></Switch>
                 </FormItem>
                 <FormItem Label="QQ">
-                    <Input @bind-Value="@context.UserExtension.QQ" />
+                    <Input @bind-Value="@model.UserExtension.QQ" />
                 </FormItem>
                 <FormItem Label="微信">
-                    <Input @bind-Value="@context.UserExtension.WeChat" />
+                    <Input @bind-Value="@model.UserExtension.WeChat" />
                 </FormItem>
                 <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
                     <Button Type="@ButtonType.Primary" HtmlType="submit">

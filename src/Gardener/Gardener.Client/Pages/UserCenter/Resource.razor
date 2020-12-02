@@ -14,31 +14,41 @@
                         <Row>
                             <AntDesign.Col Span="18">
                                 <Space>
-                                    <SpaceItem>
-                                        <Tooltip Placement="PlacementType.TopLeft" Title="@(isExpanded?"收起":"展开")">
-                                            <Button Type="@ButtonType.Primary" Icon="@(isExpanded?"up":"down")" Size="@ButtonSize.Small" OnClick="OnExpandClick" />
-                                        </Tooltip>
-                                    </SpaceItem>
-                                    <SpaceItem>
-                                        <Tooltip Placement="PlacementType.TopLeft" Title="@("刷新")">
-                                            <Button Type="@ButtonType.Primary" Icon="reload" Size="@ButtonSize.Small" OnClick="OnReloadClick" />
-                                        </Tooltip>
-                                    </SpaceItem>
-                                    <SpaceItem>
-                                        <Tooltip Placement="PlacementType.TopLeft" Title="@("添加子节点")">
-                                            <Button Type="@ButtonType.Primary" Icon="plus-circle" Size="@ButtonSize.Small" OnClick="OnAddChildNodeClick" />
-                                        </Tooltip>
-                                    </SpaceItem>
-                                    <SpaceItem>
-                                        <Tooltip Placement="PlacementType.TopLeft" Title="@("编辑选中节点")">
-                                            <Button Type="@ButtonType.Primary" Icon="edit" Size="@ButtonSize.Small" OnClick="OnEditSelectedNodeClick" />
-                                        </Tooltip>
-                                    </SpaceItem>
-                                    <SpaceItem>
-                                        <Tooltip Placement="PlacementType.TopLeft" Title="@("删除选中及所有子节点")">
-                                            <Button Type="@ButtonType.Primary" Icon="delete" Danger Size="@ButtonSize.Small" OnClick="OnDeleteSelectedNodeClick" />
-                                        </Tooltip>
-                                    </SpaceItem>
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_switch">
+                                        <SpaceItem>
+                                            <Tooltip Placement="PlacementType.TopLeft" Title="@(isExpanded?"收起":"展开")">
+                                                <Button Type="@ButtonType.Primary" Icon="@(isExpanded?"up":"down")" Size="@ButtonSize.Small" OnClick="OnExpandClick" />
+                                            </Tooltip>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_refresh">
+                                        <SpaceItem>
+                                            <Tooltip Placement="PlacementType.TopLeft" Title="@("刷新")">
+                                                <Button Type="@ButtonType.Primary" Icon="reload" Size="@ButtonSize.Small" OnClick="OnReloadClick" />
+                                            </Tooltip>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_add">
+                                        <SpaceItem>
+                                            <Tooltip Placement="PlacementType.TopLeft" Title="@("添加子节点")">
+                                                <Button Type="@ButtonType.Primary" Icon="plus-circle" Size="@ButtonSize.Small" OnClick="OnAddChildNodeClick" />
+                                            </Tooltip>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_edit">
+                                        <SpaceItem>
+                                            <Tooltip Placement="PlacementType.TopLeft" Title="@("编辑选中节点")">
+                                                <Button Type="@ButtonType.Primary" Icon="edit" Size="@ButtonSize.Small" OnClick="OnEditSelectedNodeClick" />
+                                            </Tooltip>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_delete">
+                                        <SpaceItem>
+                                            <Tooltip Placement="PlacementType.TopLeft" Title="@("删除选中及所有子节点")">
+                                                <Button Type="@ButtonType.Primary" Icon="delete" Danger Size="@ButtonSize.Small" OnClick="OnDeleteSelectedNodeClick" />
+                                            </Tooltip>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
                                 </Space>
                             </AntDesign.Col>
                         </Row>
@@ -104,20 +114,22 @@
           LabelCol="new ColLayoutParam { Span = 8 }"
           WrapperCol="new ColLayoutParam { Span = 16 }"
           OnFinish="OnFormFinish"
-          OnFinishFailed="OnFormFinishFailed" Style="min-height:600px;">
+          OnFinishFailed="OnFormFinishFailed" 
+          Context="model"
+          Style="min-height:600px;">
         <FormItem Label="唯一标示">
-            <Input @bind-Value="@context.ResourceId" Disabled />
+            <Input @bind-Value="@model.ResourceId" Disabled />
         </FormItem>
         <FormItem Label="名称">
-            <Input @bind-Value="@context.Name" />
+            <Input @bind-Value="@model.Name" />
         </FormItem>
         <FormItem Label="键值">
-            <Input @bind-Value="@context.Key" />
+            <Input @bind-Value="@model.Key" />
         </FormItem>
         <FormItem Label="类型">
-            <RadioGroup @bind-Value="@(context.Type)">
+            <RadioGroup @bind-Value="@(model.Type)">
 
-                @if (context.Id > 0 && context.Type.Equals(ResourceType.ROOT))
+                @if (model.Id > 0 && model.Type.Equals(ResourceType.ROOT))
                 {
                     <Radio Value="@(ResourceType.ROOT)">@EnumExtension.GetEnumDescription(ResourceType.ROOT)</Radio>
                 }
@@ -134,19 +146,19 @@
             </RadioGroup>
         </FormItem>
         <FormItem Label="地址">
-            <Input @bind-Value="@context.Path" />
+            <Input @bind-Value="@model.Path" />
         </FormItem>
         <FormItem Label="图标">
-            <Input @bind-Value="@context.Icon" />
+            <Input @bind-Value="@model.Icon" />
         </FormItem>
         <FormItem Label="排序">
-            <AntDesign.InputNumber @bind-Value="@context.Order" />
+            <AntDesign.InputNumber @bind-Value="@model.Order" />
         </FormItem>
         <FormItem Label="是否锁定">
-            <Switch @bind-Value="@context.IsLocked"></Switch>
+            <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
         <FormItem Label="备注">
-            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@context.Remark"></TextArea>
+            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
         <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
             <Button Type="@ButtonType.Primary" HtmlType="submit">

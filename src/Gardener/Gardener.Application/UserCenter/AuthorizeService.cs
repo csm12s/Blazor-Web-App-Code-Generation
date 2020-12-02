@@ -164,14 +164,12 @@ namespace Gardener.Application
             }
             else
             {
-
                 resources= await _userRoleRepository
                     .Include(x=>x.Role)
                     .ThenInclude(x=>x.Resources)
                     .Where(x=>x.UserId==userId && x.Role.IsDeleted==false && x.Role.IsLocked==false)
                     .SelectMany(x=>x.Role.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)))
                     .ToListAsync();
-
                 //其他角色
                 //resources =await _userRepository
                 //   .Include(u => u.Roles)
@@ -182,7 +180,6 @@ namespace Gardener.Application
                 //   .ToListAsync();
             }
             return resources.Adapt<List<ResourceDto>>();
-
         }
 
         /// <summary>

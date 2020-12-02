@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Application.Dtos
@@ -46,5 +47,9 @@ namespace Gardener.Application.Dtos
         /// 注册用户时默认设置
         /// </summary>
         public bool IsDefault { get; set; }
+        /// <summary>
+        /// 多对多
+        /// </summary>
+        public ICollection<ResourceDto> Resources { get; set; }
     }
 }
