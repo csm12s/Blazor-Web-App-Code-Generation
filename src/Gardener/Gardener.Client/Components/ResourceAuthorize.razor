@@ -1,20 +1,20 @@
 ﻿@namespace Gardener.Client.Components
+
+@if (NotAuthorized != null || Authorized != null || Authorizing != null)
+{
 <AuthorizeView Resource="@(ResourceKey)" Policy="@Policy">
+    <Authorized>
+        @if (Authorized != null)
+        {
+            @((Authorized ?? ChildContent)?.Invoke(context))
+        }
+    </Authorized>
     <NotAuthorized>
         @if (NotAuthorized != null)
         {
             @NotAuthorized.Invoke(context)
         }
     </NotAuthorized>
-    <Authorized>
-        @{
-            var content = Authorized ?? ChildContent;
-        }
-        @if (content != null)
-        {
-            content.Invoke(context);
-        }
-    </Authorized>
     <Authorizing>
         @if (Authorizing != null)
         {
@@ -22,3 +22,13 @@
         }
     </Authorizing>
 </AuthorizeView>
+}
+else
+{
+    <AuthorizeView Resource="@(ResourceKey)" Policy="@Policy">
+        @if (ChildContent != null)
+        {
+            @ChildContent.Invoke(context)
+        }
+    </AuthorizeView>
+}
