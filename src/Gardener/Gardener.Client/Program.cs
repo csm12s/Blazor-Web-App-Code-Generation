@@ -34,12 +34,9 @@ namespace Gardener.Client
             {
                 option.AddPolicy(AuthConstant.DefaultAuthenticatedPolicy, a => a.RequireAuthenticatedUser());
                 option.AddPolicy(AuthConstant.ClientUIResourcePolicy, a => a.Requirements.Add(new ClientUIAuthorizationRequirement()));
-                option.AddPolicy(AuthConstant.ClientPageResourcePolicy, a => a.Requirements.Add(new ClientPageAuthorizationRequirement()));
                 option.DefaultPolicy = option.GetPolicy(AuthConstant.DefaultAuthenticatedPolicy);
             });
-
             builder.Services.AddScoped<IAuthorizationHandler, ClientUIResourceAuthorizationHandler>();
-            builder.Services.AddScoped<IAuthorizationHandler, ClientPageResourceAuthorizationHandler>();
             #endregion
 
 
