@@ -29,22 +29,31 @@
                             </ResourceAuthorize>
                         </AntDesign.Col>
                         <AntDesign.Col Span="4" Offset="12" Style="text-align:right">
-                            <ResourceAuthorize ResourceKey="user_auth_role_manager_add">
-                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
-                                    添加
-                                </Button>
-                            </ResourceAuthorize>
-                            <ResourceAuthorize ResourceKey="user_auth_role_manager_refresh">
-                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
-                                    刷新
-                                </Button>
-                            </ResourceAuthorize>
+                            <Space>
+                                <ResourceAuthorize ResourceKey="user_auth_role_manager_add">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                            添加
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="user_auth_role_manager_refresh">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                            刷新
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                            </Space>
                         </AntDesign.Col>
+
                     </Row>
 
                 </TitleTemplate>
                 <RowTemplate>
-                    <Selection Key="@(model.Id.ToString())" />
+                    <ResourceAuthorize ResourceKey="user_auth_role_manager_delete_selected">
+                        <Selection Key="@(model.Id.ToString())" />
+                    </ResourceAuthorize>
                     <Column Title="编号" @bind-Field="@model.Id" Sortable />
                     <Column Title="名称" @bind-Field="@model.Name" />
                     <Column Title="备注" @bind-Field="@model.Remark" />
@@ -59,7 +68,16 @@
                         </Tag>
                     </Column>
                     <Column Title="是否锁定" Field="@model.IsLocked">
-                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                        <ResourceAuthorize ResourceKey="user_auth_role_manager_lock">
+                            <Authorized>
+                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <Tag Color="@(!model.IsLocked?"blue":"red")">
+                                    @(model.IsLocked ? "是":"否")
+                                </Tag>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
                     </Column>
                     <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>

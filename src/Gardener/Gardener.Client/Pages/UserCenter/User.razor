@@ -18,8 +18,7 @@
                    @bind-PageSize="_pageSize"
                    @bind-SelectedRows="selectedRows"
                    Loading="@tableIsLoading"
-                   Context="model"
-                   >
+                   Context="model">
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
@@ -50,7 +49,9 @@
                     </Row>
                 </TitleTemplate>
                 <RowTemplate>
-                    <Selection Key="@(model.Id.ToString())" />
+                    <ResourceAuthorize ResourceKey="user_auth_user_manager_delete_selected">
+                        <Selection Key="@(model.Id.ToString())" />
+                    </ResourceAuthorize>
                     <Column Title="编号" @bind-Field="@model.Id" Sortable />
                     <Column Title="头像" Field="@model.Avatar">
                         <Avatar Src="@model.Avatar" />
@@ -71,7 +72,16 @@
                         }
                     </Column>
                     <Column Title="是否锁定" Field="@model.IsLocked">
-                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                        <ResourceAuthorize ResourceKey="user_auth_user_manager_lock">
+                            <Authorized>
+                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <Tag Color="@(!model.IsLocked?"blue":"red")">
+                                    @(model.IsLocked ? "是":"否")
+                                </Tag>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
                     </Column>
                     <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>

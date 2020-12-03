@@ -16,18 +16,27 @@ namespace Gardener.Client.Components
             get;
             set;
         }
+        /// <summary>
+        /// 未通过验证时展示
+        /// </summary>
         [Parameter]
         public RenderFragment<AuthenticationState> NotAuthorized
         {
             get;
             set;
         }
+        /// <summary>
+        /// 通过验证时展示
+        /// </summary>
         [Parameter]
         public RenderFragment<AuthenticationState> Authorized
         {
             get;
             set;
         }
+        /// <summary>
+        /// 验证中展示
+        /// </summary>
         [Parameter]
         public RenderFragment Authorizing
         {
@@ -36,7 +45,7 @@ namespace Gardener.Client.Components
         }
         private string Policy = AuthConstant.ClientUIResourcePolicy;
         /// <summary>
-        /// 资源key
+        /// 用户要拥有资源的，资源key
         /// </summary>
         [Parameter]
         public string ResourceKey { get; set; }
