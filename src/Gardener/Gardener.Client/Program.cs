@@ -47,7 +47,7 @@ namespace Gardener.Client
             });
             #endregion
 
-            #region api services
+            #region services
             builder.Services.AddScoped<JsTool>();
             builder.Services.AddScoped<HttpClientManager>();
             builder.Services.AddScoped<IApiCaller, ApiCaller>();

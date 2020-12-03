@@ -169,17 +169,17 @@ namespace Gardener.Core.Entites
                 {
                     Id=1,
                     UserName="admin",
-                    PasswordEncryptKey="xxxxxx" ,
-                    Password=MD5Encryption.Encrypt("xxxxxxadmin"),
+                    PasswordEncryptKey=Guid.NewGuid().ToString() ,
+                    Password=MD5Encryption.Encrypt(PasswordEncryptKey+"admin"),
                     Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png"
                 },
                 new User
                 {
                     Id=2,
                     UserName="testuser",
-                    PasswordEncryptKey="xxxxxx",
-                    Password=MD5Encryption.Encrypt("xxxxxxtestuser"),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/324/974299_monksoul_1578937227.png"
+                    PasswordEncryptKey=Guid.NewGuid().ToString(),
+                    Password=MD5Encryption.Encrypt(PasswordEncryptKey+"testuser"),
+                    Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"
                 }
             };
         }
