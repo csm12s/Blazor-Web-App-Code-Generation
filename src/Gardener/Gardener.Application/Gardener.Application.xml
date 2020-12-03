@@ -547,6 +547,15 @@
             <param name="pageSize">分页大小</param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.UserCenter.RoleService.Search(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            搜索角色
+            </summary>
+            <param name="name">角色名称</param>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">分页大小</param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Application.UserCenter.RoleService.Resource(System.Int32,System.Int32[])">
             <summary>
             为角色分配权限（重置）

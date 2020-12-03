@@ -46,6 +46,10 @@ namespace Gardener.Application.Dtos
         [MaxLength(200, ErrorMessage = "最大长度不能大于{0}")]
         public string Path { get; set; }
         /// <summary>
+        /// 接口请求方法
+        /// </summary>
+        public HttpMethodType? Method { get; set; }
+        /// <summary>
         /// 资源图标
         /// </summary>
         [MaxLength(50, ErrorMessage = "最大长度不能大于{0}")]

@@ -6,27 +6,29 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.Core.Entites
 {
     /// <summary>
-    /// 权限表
+    /// 资源表
     /// </summary>
     public class Resource : Entity, IEntitySeedData<Resource>
     {
         /// <summary>
-        /// 权限唯一名
+        /// 资源唯一ID
         /// GUID
         /// </summary>
         [Required,MaxLength(64)]
         public string ResourceId { get; set; }
         /// <summary>
-        /// 权限名称
+        /// 资源名称
         /// </summary>
         [Required, MaxLength(100)]
         public string Name { get; set; }
         /// <summary>
-        /// 权限名称简写
+        /// 资源名称简写-唯一
+        /// 内部鉴权使用
         /// </summary>
         [Required, MaxLength(100)]
         public string Key { get; set; }
@@ -38,10 +40,14 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 资源地址
         /// 菜单：页面路由地址
-        /// API:接口地址
+        /// API:接口路由地址
         /// </summary>
         [MaxLength(200)]
         public string Path { get; set; }
+        /// <summary>
+        /// 接口请求方法
+        /// </summary>
+        public HttpMethodType? Method { get; set; }
         /// <summary>
         /// 资源图标
         /// </summary>
@@ -143,7 +149,8 @@ namespace Gardener.Core.Entites
             entityBuilder.Property(e => e.UpdatedTime)
                 .HasMaxLength(6)
                 .HasComment("更新时间");
-
+            entityBuilder.Property(e => e.Method)
+                .HasComment("接口请求方法");
         }
 
         public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)

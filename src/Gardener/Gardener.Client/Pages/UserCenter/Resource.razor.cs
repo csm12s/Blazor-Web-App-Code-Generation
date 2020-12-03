@@ -34,7 +34,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-           await LoadTreeData();
+            await LoadTreeData();
         }
         /// <summary>
         /// 加载树数据
@@ -60,12 +60,12 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="nodes"></param>
         /// <param name="flag"></param>
         /// <returns></returns>
-        private async Task Expand(List<TreeNode> nodes,bool flag)
+        private async Task Expand(List<TreeNode> nodes, bool flag)
         {
             foreach (var node in nodes)
             {
                 node.Expand(flag);
-                if (node.ChildNodes != null && node.ChildNodes.Count > 0) 
+                if (node.ChildNodes != null && node.ChildNodes.Count > 0)
                 {
                     await Expand(node.ChildNodes, flag);
                 }
@@ -83,7 +83,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (selectedNode != null)
             {
                 //仅操作选中的节点
-                await Expand(new List<TreeNode>{ selectedNode }, isExpanded);
+                await Expand(new List<TreeNode> { selectedNode }, isExpanded);
             }
             else
             {
@@ -132,16 +132,28 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="args"></param>
         private async Task OnNodeClick(TreeEventArgs args)
         {
-            formIsLoading = true;
+            descriptionsIsLoading = true;
             isExpanded = args.Node.IsExpanded;
             ((ResourceDto)args.Node.DataItem).Adapt(editModel);
-            formIsLoading = false;
+            descriptionsIsLoading = false;
         }
         private bool drawerVisible;
         private bool formIsLoading;
+        private bool descriptionsIsLoading;
         private string drawerTitle = string.Empty;
         private ResourceDto editModel = new ResourceDto();
-        private ResourceType currentEditResourceType= ResourceType.API;
+        private string editModelHttpMethodType
+        {
+            get
+            {
+                return editModel.Method?.ToString();
+            }
+            set
+            {
+                editModel.Method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), value);
+            }
+        }
+        private ResourceType currentEditResourceType = ResourceType.API;
         /// <summary>
         /// 删除选中节点
         /// </summary>
@@ -161,7 +173,7 @@ namespace Gardener.Client.Pages.UserCenter
                 treeIsLoading = true;
                 if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
                 {
-                   
+
                     List<int> ids = GetAllDeleteResourceId(resource);
                     var result = await ResourceService.FakeDeletes(ids.ToArray());
                     if (result.Successed)
@@ -238,9 +250,9 @@ namespace Gardener.Client.Pages.UserCenter
                 var newNode = new ResourceDto();
                 newNode.ResourceId = Guid.NewGuid().ToString();
                 newNode.ParentId = pResource.Id;
-                newNode.Key = pResource.Type.Equals(ResourceType.ROOT) ? "":pResource.Key + "_";
+                newNode.Key = pResource.Type.Equals(ResourceType.ROOT) ? "" : pResource.Key + "_";
                 //不能创建root节点
-                currentEditResourceType= newNode.Type = pResource.Type.Equals(ResourceType.ROOT)? ResourceType.MENU: pResource.Type;
+                currentEditResourceType = newNode.Type = pResource.Type.Equals(ResourceType.ROOT) ? ResourceType.MENU : pResource.Type;
                 newNode.Order = (pResource.Children == null || !pResource.Children.Any() ? 0 : pResource.Children.Last().Order + 1);
                 newNode.Adapt(editModel);
                 drawerVisible = true;

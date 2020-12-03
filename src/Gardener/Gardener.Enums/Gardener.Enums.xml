@@ -64,6 +64,11 @@
             女
             </summary>
         </member>
+        <member name="T:Gardener.Enums.HttpMethodType">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Gardener.Enums.ResourceType">
             <summary>
             权限类型

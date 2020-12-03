@@ -12,7 +12,26 @@ namespace Gardener.Common.Extensions
     public static class EnumExtension
     {
         /// <summary>
-        /// 枚举描述转字典
+        /// 枚举转list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<T> EnumToList<T>()
+        {
+            List<T> list = new List<T>();
+            if (!typeof(T).IsEnum)
+            {
+                return list;
+            }
+            foreach (var item in Enum.GetValues(typeof(T)))
+            {
+                list.Add((T)item);
+            }
+            return list;
+        }
+        /// <summary>
+        /// 枚举转字典
+        /// key 枚举 value 描述
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>

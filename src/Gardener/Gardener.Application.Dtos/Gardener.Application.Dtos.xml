@@ -79,6 +79,11 @@
             资源地址
             </summary>
         </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.Method">
+            <summary>
+            接口请求方法
+            </summary>
+        </member>
         <member name="P:Gardener.Application.Dtos.ResourceDto.Icon">
             <summary>
             资源图标
@@ -297,11 +302,6 @@
         <member name="P:Gardener.Application.Dtos.UserDto.Roles">
             <summary>
             多对多
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.Dtos.UserDto.UserRoles">
-            <summary>
-            多对多中间表
             </summary>
         </member>
         <member name="P:Gardener.Application.Dtos.UserDto.UserExtension">

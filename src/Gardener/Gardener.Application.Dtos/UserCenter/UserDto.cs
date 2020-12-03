@@ -86,11 +86,6 @@ namespace Gardener.Application.Dtos
         public ICollection<RoleDto> Roles { get; set; }
 
         /// <summary>
-        /// 多对多中间表
-        /// </summary>
-        public List<UserRoleDto> UserRoles { get; set; }
-
-        /// <summary>
         /// 用户扩展信息
         /// </summary>
         public UserExtensionDto UserExtension { get; set; }

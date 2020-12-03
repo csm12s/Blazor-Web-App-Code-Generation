@@ -251,23 +251,24 @@
         </member>
         <member name="T:Gardener.Core.Entites.Resource">
             <summary>
-            权限表
+            资源表
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.ResourceId">
             <summary>
-            权限唯一名
+            资源唯一ID
             GUID
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.Name">
             <summary>
-            权限名称
+            资源名称
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.Key">
             <summary>
-            权限名称简写
+            资源名称简写-唯一
+            内部鉴权使用
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.Remark">
@@ -279,7 +280,12 @@
             <summary>
             资源地址
             菜单：页面路由地址
-            API:接口地址
+            API:接口路由地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Resource.Method">
+            <summary>
+            接口请求方法
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.Icon">

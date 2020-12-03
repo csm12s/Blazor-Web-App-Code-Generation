@@ -20,7 +20,7 @@ namespace Gardener.Application.UserCenter
     /// <summary>
     /// 资源服务
     /// </summary>
-    [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
+    [ApiDescriptionSettings("UserAuthorizationServices")]
     public class ResourceService : ServiceBase<Resource, ResourceDto>, IResourceService
     {
         private readonly IRepository<Resource> resourceRepository;

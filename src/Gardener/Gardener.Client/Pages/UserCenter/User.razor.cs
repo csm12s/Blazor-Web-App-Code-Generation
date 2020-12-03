@@ -184,7 +184,6 @@ namespace Gardener.Client.Pages.UserCenter
             else
             {
                 editModel.Roles = null;
-                editModel.UserRoles = null;
                 //修改
                 var result = await UserSvr.Update(editModel);
                 formIsLoading = false;

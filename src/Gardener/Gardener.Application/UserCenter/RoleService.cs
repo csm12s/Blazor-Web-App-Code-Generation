@@ -19,7 +19,7 @@ namespace Gardener.Application.UserCenter
     /// <summary>
     /// 角色服务
     /// </summary>
-    [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
+    [ApiDescriptionSettings("UserAuthorizationServices")]
     public class RoleService : ServiceBase<Role, RoleDto>, IRoleService
     {
         private readonly IRepository<Role> _roleRepository;
@@ -44,6 +44,27 @@ namespace Gardener.Application.UserCenter
         /// <returns></returns>
         [HttpGet]
         public async Task<PagedList<RoleDto>> Search([FromQuery] string name,
+            int pageIndex = 1,
+            int pageSize = 10)
+        {
+            return await _roleRepository
+                .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
+                .Where(x => x.IsDeleted == false)
+                .OrderByDescending(x => x.CreatedTime)
+                .Select(x => x.Adapt<RoleDto>())
+                .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
+        }
+        /// <summary>
+         /// 搜索角色
+         /// </summary>
+         /// <param name="name">角色名称</param>
+         /// <param name="pageIndex">页码</param>
+         /// <param name="pageSize">分页大小</param>
+         /// <returns></returns>
+        [HttpPost]
+        public async Task<PagedList<RoleDto>> Search(
+            [FromQuery] string name,
+            [FromBody] string path,
             int pageIndex = 1,
             int pageSize = 10)
         {

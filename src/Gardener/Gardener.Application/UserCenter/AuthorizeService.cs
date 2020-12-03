@@ -22,7 +22,7 @@ namespace Gardener.Application
     /// <summary>
     /// 用户中心服务
     /// </summary>
-    [AppAuthorize, ApiDescriptionSettings("UserAuthorizationServices")]
+    [ApiDescriptionSettings("UserAuthorizationServices")]
     public class AuthorizeService : IDynamicApiController, IAuthorizeService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -190,7 +190,10 @@ namespace Gardener.Application
         {
             // 获取用户Id
             List<ResourceDto> resources=await GetCurrentUserResources(ResourceType.ROOT,ResourceType.MENU);
-            return resources.Where(x => x.Type.Equals(ResourceType.ROOT)).FirstOrDefault().Children.ToList();
+
+            if (resources == null) return new List<ResourceDto>();
+
+            return resources.Where(x => x.Type.Equals(ResourceType.ROOT)).FirstOrDefault()?.Children?.ToList();
         }
     }
 }

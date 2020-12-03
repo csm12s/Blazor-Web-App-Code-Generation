@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Gardener.Application.Extensions;
 
 namespace Gardener.Web.Core
 {
@@ -16,7 +15,7 @@ namespace Gardener.Web.Core
         public void ConfigureServices(IServiceCollection services)
         {
             //注册App授权
-            services.AddJwt<JwtHandler>();
+            services.AddJwt<JwtHandler>(enableGlobalAuthorize:true);
             //注册跨域
             services.AddCorsAccessor();
             //注册控制器和视图
@@ -30,7 +29,7 @@ namespace Gardener.Web.Core
             //注册规范返回格式
             .AddUnifyResult()
             //
-            .AddDynamicApiStorage();
+            .AddGlobalApiAuthorizeAttribute();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

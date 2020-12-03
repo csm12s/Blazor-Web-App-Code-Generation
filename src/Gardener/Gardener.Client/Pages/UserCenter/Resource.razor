@@ -70,37 +70,46 @@
                             </AntDesign.Col>
                         </Row>
                     </AntDesign.Col>
-                    <AntDesign.Col Span="10" Offset="2">
-                        <Descriptions Title="资源信息" Bordered Layout="@DescriptionsLayout.Vertical" Style="margin-top:10px">
-                            <DescriptionsItem Title="唯一标示">@editModel.ResourceId</DescriptionsItem>
-                            <DescriptionsItem Title="名称">@editModel.Name</DescriptionsItem>
-                            <DescriptionsItem Title="键值">@editModel.Key</DescriptionsItem>
-                            <DescriptionsItem Title="类型">
-                                @(EnumExtension.GetEnumDescription(editModel.Type))
-                            </DescriptionsItem>
-                            <DescriptionsItem Title="排序">
-                                @editModel.Order
-                            </DescriptionsItem>
-                            <DescriptionsItem Title="图标">
-                                @if (!string.IsNullOrEmpty(editModel.Icon))
-                                {
-                                    <Icon Type="@editModel.Icon"></Icon>
-                                }
-                                <sppn>@editModel.Icon</sppn>
-                            </DescriptionsItem>
-                            <DescriptionsItem Title="地址">
-                                @editModel.Path
-                            </DescriptionsItem>
-                            <DescriptionsItem Title="锁定">
-                                @(editModel.IsLocked?"是":"否")
-                            </DescriptionsItem>
-                            <DescriptionsItem Title="创建时间">
-                                @editModel.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")
-                            </DescriptionsItem>
-                            <DescriptionsItem Title="备注" Span="3">
-                                @editModel.Remark
-                            </DescriptionsItem>
-                        </Descriptions>
+                    <AntDesign.Col Span="12" Offset="2">
+                        <Spin Spinning="descriptionsIsLoading">
+                            <Descriptions Title="资源信息" Bordered Layout="@DescriptionsLayout.Vertical" Style="margin-top:10px">
+                                <DescriptionsItem Title="标示">@editModel.ResourceId</DescriptionsItem>
+                                <DescriptionsItem Title="名称">@editModel.Name</DescriptionsItem>
+                                <DescriptionsItem Title="键值">@editModel.Key</DescriptionsItem>
+                                <DescriptionsItem Title="类型">
+                                    @(EnumExtension.GetEnumDescription(editModel.Type))
+                                </DescriptionsItem>
+                                <DescriptionsItem Title="排序">
+                                    @editModel.Order
+                                </DescriptionsItem>
+                                <DescriptionsItem Title="图标">
+                                    @if (!string.IsNullOrEmpty(editModel.Icon))
+                                    {
+                                        <Icon Type="@editModel.Icon"></Icon>
+                                    }
+                                    <sppn>@editModel.Icon</sppn>
+                                </DescriptionsItem>
+                                <DescriptionsItem Title="锁定">
+                                    @(editModel.IsLocked?"是":"否")
+                                </DescriptionsItem>
+                                <DescriptionsItem Title="创建时间">
+                                    @editModel.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")
+                                </DescriptionsItem>
+                                <DescriptionsItem Title="地址">
+                                    <Space>
+                                        @if (editModel.Type.Equals(ResourceType.API) && editModel.Method.HasValue)
+                                        {
+
+                                            <SpaceItem>@(EnumExtension.GetEnumDescription(editModel.Method))</SpaceItem>
+                                        }
+                                        <SpaceItem>@editModel.Path</SpaceItem>
+                                    </Space>
+                                </DescriptionsItem>
+                                <DescriptionsItem Title="备注" Span="3">
+                                    @editModel.Remark
+                                </DescriptionsItem>
+                            </Descriptions>
+                        </Spin>
                     </AntDesign.Col>
                 </Row>
             </div>
@@ -114,10 +123,10 @@
           LabelCol="new ColLayoutParam { Span = 8 }"
           WrapperCol="new ColLayoutParam { Span = 16 }"
           OnFinish="OnFormFinish"
-          OnFinishFailed="OnFormFinishFailed" 
+          OnFinishFailed="OnFormFinishFailed"
           Context="model"
           Style="min-height:600px;">
-        <FormItem Label="唯一标示">
+        <FormItem Label="标示">
             <Input @bind-Value="@model.ResourceId" Disabled />
         </FormItem>
         <FormItem Label="名称">
@@ -145,6 +154,23 @@
                 }
             </RadioGroup>
         </FormItem>
+        @if (editModel.Type.Equals(ResourceType.API))
+        {
+            <FormItem Label="请求方法">
+                <SimpleSelect 
+                              @bind-Value="@editModelHttpMethodType"
+                              DefaultValue="@((model.Method ?? HttpMethodType.GET).ToString())" 
+                              Style="width:120px;" 
+                              >
+                    <SelectOptions>
+                        @foreach (var gitem in EnumExtension.EnumToDictionary<HttpMethodType>())
+                        {
+                            <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@(gitem.Value)"></SimpleSelectOption>
+                        }
+                    </SelectOptions>
+                </SimpleSelect>
+            </FormItem>
+        }
         <FormItem Label="地址">
             <Input @bind-Value="@model.Path" />
         </FormItem>

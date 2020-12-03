@@ -1,4 +1,5 @@
 ﻿using Gardener.Core.Security;
+using Gardener.Enums;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -32,6 +33,13 @@ namespace Gardener.Core
         /// <param name="resourceId"></param>
         /// <returns></returns>
         bool CheckSecurity(string resourceId);
+        /// <summary>
+        /// 检查权限
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        bool CheckSecurity(HttpMethodType method, string path);
         /// <summary>
         /// 是否是超级管理员
         /// </summary>

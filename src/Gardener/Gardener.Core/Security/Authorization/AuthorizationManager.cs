@@ -3,6 +3,7 @@ using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
 using Furion.DependencyInjection;
 using Gardener.Core.Entites;
+using Gardener.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -23,7 +24,8 @@ namespace Gardener.Core.Security
         /// JWT配置
         /// </summary>
         private JWTSettingsOptions jwtSettings;
-        private string userIdKeyName= "UserId";
+        private string userIdKeyName = "UserId";
+        private string userIsSuperAdministratorKey = "IsSuperAdministrator";
         /// <summary>
         /// 请求上下文访问器
         /// </summary>
@@ -66,16 +68,23 @@ namespace Gardener.Core.Security
         /// <returns></returns>
         public bool IsSuperAdministrator()
         {
+            var value = _httpContextAccessor.HttpContext.User.FindFirstValue(userIsSuperAdministratorKey);
+            if (!string.IsNullOrEmpty(value))
+            {
+                return bool.Parse(value);
+            }
             var userId = GetUserId();
             var user = _userRepository
-                .Include(x => x.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false && x.IsSuperAdministrator == true))
-                .Where(x=>x.IsDeleted==false && x.IsLocked==false && x.Id==userId)
+                .Include(x => x.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsSuperAdministrator == true))
+                .Where(x => x.IsDeleted == false && x.IsLocked == false && x.Id == userId)
                 .FirstOrDefault();
             //用户不存在
             if (user == null) return false;
             //超级管理员
-            if (user.Roles.Any()) return true;
-            return false;
+            bool isSuperAdministrator = user.Roles.Any();
+            //添加一个超级管理员身份证
+            _httpContextAccessor.HttpContext.User.AddIdentity(new ClaimsIdentity(new List<Claim>() { new Claim(userIsSuperAdministratorKey, isSuperAdministrator.ToString()) }));
+            return isSuperAdministrator;
         }
         /// <summary>
         /// 
@@ -87,26 +96,29 @@ namespace Gardener.Core.Security
         public SecurityTokenResult CreateToken<TUserId>(TUserId userId, Dictionary<string, object> claims)
         {
             var datetimeOffset = DateTimeOffset.UtcNow;
-            var exp= DateTimeOffset.UtcNow.AddMinutes(jwtSettings.ExpiredTime.Value).ToUnixTimeSeconds();
+            var exp = DateTimeOffset.UtcNow.AddMinutes(jwtSettings.ExpiredTime.Value).ToUnixTimeSeconds();
             claims.TryAdd(userIdKeyName, userId);
             claims.TryAdd(JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds());
             claims.TryAdd(JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds());
             claims.TryAdd(JwtRegisteredClaimNames.Exp, exp);
             claims.TryAdd(JwtRegisteredClaimNames.Iss, jwtSettings.ValidIssuer);
             claims.TryAdd(JwtRegisteredClaimNames.Aud, jwtSettings.ValidAudience);
-            var token= JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, claims);
-            return new SecurityTokenResult {
-                ExpiresIn= exp,
-                AccessToken=token,
-                TokenType="jwt"
+            var token = JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, claims);
+
+          
+            return new SecurityTokenResult
+            {
+                ExpiresIn = exp,
+                AccessToken = token,
+                TokenType = "jwt"
             };
         }
         /// <summary>
         /// 检查权限
         /// </summary>
-        /// <param name="resourceId"></param>
+        /// <param name="resourceKey"></param>
         /// <returns></returns>
-        public bool CheckSecurity(string resourceId)
+        public bool CheckSecurity(string resourceKey)
         {
             var userId = GetUserId();
             //超级管理员
@@ -116,11 +128,34 @@ namespace Gardener.Core.Security
             var resources = _userRepository
                 .Include(u => u.Roles, false)
                     .ThenInclude(u => u.Resources)
-                .Where(u => u.Id == userId)
-                .SelectMany(u => u.Roles
-                    .SelectMany(u => u.Resources))
+                .Where(u => u.Id == userId && u.IsDeleted==false && u.IsLocked==false)
+                .SelectMany(u => u.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false)
+                    .SelectMany(u => u.Resources.Where(x=>x.IsDeleted==false && x.IsLocked==false && x.Key.Equals(resourceKey))))
                 .Select(u => u.ResourceId);
-            if (!resources.Contains(resourceId)) return false;
+            if (!resources.Any()) return false;
+            return true;
+        }
+        /// <summary>
+        /// 检查权限
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public bool CheckSecurity(HttpMethodType method ,string path)
+        {
+            var userId = GetUserId();
+            //超级管理员
+            if (IsSuperAdministrator()) return true;
+            // ========= 以下代码应该缓存起来 ===========
+            // 查询用户拥有的权限
+            var resources = _userRepository
+                .Include(u => u.Roles, false)
+                    .ThenInclude(u => u.Resources)
+                .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
+                .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                    .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && x.Method.Equals(method) && x.Path.Equals(path))))
+                .Select(u => u.ResourceId);
+            if (!resources.Any()) return false;
             return true;
         }
         /// <summary>

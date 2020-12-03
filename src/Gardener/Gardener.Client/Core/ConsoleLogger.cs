@@ -21,6 +21,17 @@ namespace Gardener.Client
         {
             if (code != null)
             {
+                //特殊状态提示
+                switch (code)
+                {
+                    case 401 :
+                        msg = "提示：登录验证失败";
+                        break;
+                    case 403:
+                        msg = "提示：资源权限验证失败";
+                        break;
+                }
+
                 msg += $"[{code}]";
             }
             return msg;
