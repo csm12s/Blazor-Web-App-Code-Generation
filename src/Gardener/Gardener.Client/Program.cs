@@ -19,7 +19,7 @@ namespace Gardener.Client
             builder.RootComponents.Add<App>("#app");
 
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44323/api/") });
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiBaseAddres")?.Value) });
 
             #region ant design
             builder.Services.AddAntDesign();
