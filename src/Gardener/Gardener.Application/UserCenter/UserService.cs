@@ -29,6 +29,7 @@ namespace Gardener.Application.UserCenter
     public class UserService : ServiceBase<User, UserDto>, IUserService
     {
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<UserExtension> _userExtensionRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -50,7 +51,7 @@ namespace Gardener.Application.UserCenter
             IAuthorizationManager authorizationManager,
             IRepository<RoleResource> roleResourceRepository,
             IRepository<Resource> resourceRepository,
-            IRepository<UserExtension> userExtensionRepository, IRepository<UserRole> userRoleRepository) : base(userRepository)
+            IRepository<UserExtension> userExtensionRepository, IRepository<UserRole> userRoleRepository, IRepository<Role> roleRepository) : base(userRepository)
         {
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
@@ -59,6 +60,7 @@ namespace Gardener.Application.UserCenter
             _resourceRepository = resourceRepository;
             _userExtensionRepository = userExtensionRepository;
             _userRoleRepository = userRoleRepository;
+            _roleRepository = roleRepository;
         }
 
         /// <summary>
@@ -193,7 +195,15 @@ namespace Gardener.Application.UserCenter
             {
                 user.UserExtension.CreatedTime = DateTimeOffset.Now;
             }
+
+            //查看是否有默认角色
+            var defaultRoleIds = await _roleRepository.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsDefault == true).Select(x => x.Id).ToListAsync();
+            if (defaultRoleIds!=null && defaultRoleIds.Any())
+            {
+                user.UserRoles = defaultRoleIds.Select(x => new UserRole { RoleId = x, CreatedTime = DateTimeOffset.Now }).ToList();
+            }
             var newEntity = await _userRepository.InsertNowAsync(user);
+
             return newEntity.Entity.Adapt<UserDto>();
         }
 

@@ -22,7 +22,7 @@
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
-                            <ResourceAuthorize ResourceKey="user_auth_user_manager_delete_selected">
+                            <ResourceAuthorize ResourceKey="user_auth_user_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
                                     删除选中
                                 </Button>
@@ -30,14 +30,14 @@
                         </AntDesign.Col>
                         <AntDesign.Col Span="4" Offset="12" Style="text-align:right">
                             <Space>
-                                <ResourceAuthorize ResourceKey="user_auth_user_manager_add">
+                                <ResourceAuthorize ResourceKey="user_auth_user_add">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
                                             添加
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
-                                <ResourceAuthorize ResourceKey="user_auth_user_manager_refresh">
+                                <ResourceAuthorize ResourceKey="user_auth_user_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
                                             刷新
@@ -49,7 +49,7 @@
                     </Row>
                 </TitleTemplate>
                 <RowTemplate>
-                    <ResourceAuthorize ResourceKey="user_auth_user_manager_delete_selected">
+                    <ResourceAuthorize ResourceKey="user_auth_user_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
                     <Column Title="编号" @bind-Field="@model.Id" Sortable />
@@ -72,7 +72,7 @@
                         }
                     </Column>
                     <Column Title="是否锁定" Field="@model.IsLocked">
-                        <ResourceAuthorize ResourceKey="user_auth_user_manager_lock">
+                        <ResourceAuthorize ResourceKey="user_auth_user_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                             </Authorized>
@@ -86,13 +86,13 @@
                     <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
-                            <ResourceAuthorize ResourceKey="user_auth_user_manager_edit">
+                            <ResourceAuthorize ResourceKey="user_auth_user_edit">
                                 <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)">编辑</Button></SpaceItem>
                             </ResourceAuthorize>
-                            <ResourceAuthorize ResourceKey="user_auth_user_manager_role_edit">
+                            <ResourceAuthorize ResourceKey="user_auth_user_role_edit">
                                 <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model)">分配角色</Button></SpaceItem>
                             </ResourceAuthorize>
-                            <ResourceAuthorize ResourceKey="user_auth_user_manager_delete">
+                            <ResourceAuthorize ResourceKey="user_auth_user_delete">
                                 <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
                             </ResourceAuthorize>
                         </Space>

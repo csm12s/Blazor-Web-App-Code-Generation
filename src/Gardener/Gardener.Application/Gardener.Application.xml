@@ -562,7 +562,7 @@
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole})">
+        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role})">
             <summary>
             用户服务
             </summary>

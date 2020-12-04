@@ -14,35 +14,35 @@
                         <Row>
                             <AntDesign.Col Span="18">
                                 <Space>
-                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_switch">
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_switch">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@(isExpanded?"收起":"展开")">
                                                 <Button Type="@ButtonType.Primary" Icon="@(isExpanded?"up":"down")" Size="@ButtonSize.Small" OnClick="OnExpandClick" />
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_refresh">
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_refresh">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@("刷新")">
                                                 <Button Type="@ButtonType.Primary" Icon="reload" Size="@ButtonSize.Small" OnClick="OnReloadClick" />
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_add">
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_add">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@("添加子节点")">
                                                 <Button Type="@ButtonType.Primary" Icon="plus-circle" Size="@ButtonSize.Small" OnClick="OnAddChildNodeClick" />
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_edit">
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_edit">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@("编辑选中节点")">
                                                 <Button Type="@ButtonType.Primary" Icon="edit" Size="@ButtonSize.Small" OnClick="OnEditSelectedNodeClick" />
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="user_auth_resource_manager_delete">
+                                    <ResourceAuthorize ResourceKey="user_auth_resource_delete">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@("删除选中及所有子节点")">
                                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger Size="@ButtonSize.Small" OnClick="OnDeleteSelectedNodeClick" />
