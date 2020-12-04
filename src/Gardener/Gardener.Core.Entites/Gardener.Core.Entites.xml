@@ -254,12 +254,6 @@
             资源表
             </summary>
         </member>
-        <member name="P:Gardener.Core.Entites.Resource.ResourceId">
-            <summary>
-            资源唯一ID
-            GUID
-            </summary>
-        </member>
         <member name="P:Gardener.Core.Entites.Resource.Name">
             <summary>
             资源名称
@@ -300,7 +294,7 @@
         </member>
         <member name="P:Gardener.Core.Entites.Resource.ParentId">
             <summary>
-            备注
+            父级id
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Resource.Parent">

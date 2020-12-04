@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Application.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace Gardener.Application.UserCenter
         /// </summary>
         /// <param name="id">父id</param>
         /// <returns></returns>
-        Task<List<ResourceDto>> GetChildren(int id);
+        Task<List<ResourceDto>> GetChildren(Guid id);
 
         /// <summary>
         /// 返回根节点

@@ -4,6 +4,7 @@
 
 using Gardener.Application.Dtos;
 using Gardener.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace Gardener.Client.Services
     public interface IRoleService: IServiceBase<RoleDto>
     {
         Task<ApiResult<bool>> DeleteResource( int roleId);
-        Task<ApiResult<bool>> Resource( int roleId, int[] resourceIds);
+        Task<ApiResult<bool>> Resource( int roleId, Guid[] resourceIds);
         Task<ApiResult<PagedList<RoleDto>>> Search( string name,  int pageIndex = 1,  int pageSize = 10);
         /// <summary>
         /// 获取有效的角色

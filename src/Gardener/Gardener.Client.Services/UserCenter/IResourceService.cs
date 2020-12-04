@@ -4,6 +4,7 @@
 
 using Gardener.Application.Dtos;
 using Gardener.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,14 +13,14 @@ namespace Gardener.Client.Services
     /// <summary>
     /// 资源服务
     /// </summary>
-    public interface IResourceService:IServiceBase<ResourceDto>
+    public interface IResourceService:IServiceBase<ResourceDto,Guid>
     {
         /// <summary>
         /// 获取所有子资源
         /// </summary>
         /// <param name="id">父id</param>
         /// <returns></returns>
-        Task<ApiResult<List<ResourceDto>>> GetChildren(int id);
+        Task<ApiResult<List<ResourceDto>>> GetChildren(Guid id);
         /// <summary>
         /// 返回根节点
         /// </summary>

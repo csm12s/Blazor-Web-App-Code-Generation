@@ -423,7 +423,7 @@
             资源服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IResourceService.GetChildren(System.Int32)">
+        <member name="M:Gardener.Application.UserCenter.IResourceService.GetChildren(System.Guid)">
             <summary>
             获取所有子资源
             </summary>
@@ -483,7 +483,7 @@
             </summary>
             <param name="resourceRepository"></param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Gardener.Application.UserCenter.ResourceService.GetChildren(System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:Gardener.Application.UserCenter.ResourceService.GetChildren(System.Guid)" -->
         <member name="M:Gardener.Application.UserCenter.ResourceService.GetRoot">
             <summary>
             返回根节点
@@ -533,7 +533,7 @@
             <param name="pageSize">分页大小</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.Resource(System.Int32,System.Int32[])">
+        <member name="M:Gardener.Application.UserCenter.RoleService.Resource(System.Int32,System.Guid[])">
             <summary>
             为角色分配权限（重置）
             </summary>

@@ -174,7 +174,7 @@ namespace Gardener.Client.Pages.UserCenter
                 if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
                 {
 
-                    List<int> ids = GetAllDeleteResourceId(resource);
+                    var ids = GetAllDeleteResourceId(resource);
                     var result = await ResourceService.FakeDeletes(ids.ToArray());
                     if (result.Successed)
                     {
@@ -199,10 +199,10 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         /// <param name="resource"></param>
         /// <returns></returns>
-        private List<int> GetAllDeleteResourceId(ResourceDto resource)
+        private List<Guid> GetAllDeleteResourceId(ResourceDto resource)
         {
 
-            List<int> result = new List<int>() { resource.Id };
+            var result = new List<Guid>() { resource.Id };
 
             if (resource.Children == null || !resource.Children.Any())
             {
@@ -248,7 +248,7 @@ namespace Gardener.Client.Pages.UserCenter
                 drawerTitle = "添加";
                 var pResource = ((ResourceDto)selectedNode.DataItem);
                 var newNode = new ResourceDto();
-                newNode.ResourceId = Guid.NewGuid().ToString();
+                newNode.Id = Guid.Empty;
                 newNode.ParentId = pResource.Id;
                 newNode.Key = pResource.Type.Equals(ResourceType.ROOT) ? "" : pResource.Key + "_";
                 //不能创建root节点
@@ -273,7 +273,7 @@ namespace Gardener.Client.Pages.UserCenter
             formIsLoading = true;
             var selectedNode = tree.SelectedNodes?.FirstOrDefault();
             var resource = ((ResourceDto)selectedNode.DataItem);
-            if (editModel.Id > 0)
+            if (editModel.Id != Guid.Empty)
             {
                 //更新
                 var result = await ResourceService.Update(editModel);
@@ -295,6 +295,7 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
+                editModel.Id = Guid.NewGuid();
                 //新增
                 var result = await ResourceService.Insert(editModel);
                 if (result.Successed)

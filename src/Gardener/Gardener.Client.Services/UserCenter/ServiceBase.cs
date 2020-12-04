@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public abstract class ServiceBase<T> : IServiceBase<T> where T : class, new()
+    public abstract class ServiceBase<T> : ServiceBase<T, int> where T : class, new()
+    {
+        protected ServiceBase(IApiCaller apiCaller, string controller) : base(apiCaller, controller)
+        {
+        }
+    }
+    public abstract class ServiceBase<T,Tkey> : IServiceBase<T, Tkey> where T : class, new()
     {
         private string controller;
         private readonly IApiCaller apiCaller;
@@ -18,27 +24,27 @@ namespace Gardener.Client.Services
             this.controller = controller;
         }
 
-        public async Task<ApiResult<bool?>> Delete(int id)
+        public async Task<ApiResult<bool?>> Delete(Tkey id)
         {
             return await apiCaller.DeleteAsync<bool?>($"{controller}/{id}");
         }
 
-        public async Task<ApiResult<bool?>> Deletes(int[] ids)
+        public async Task<ApiResult<bool?>> Deletes(Tkey[] ids)
         {
-            return await apiCaller.PostAsync<int[], bool?>($"{controller}/deletes", ids);
+            return await apiCaller.PostAsync<Tkey[], bool?>($"{controller}/deletes", ids);
         }
 
-        public async Task<ApiResult<bool?>> FakeDelete(int id)
+        public async Task<ApiResult<bool?>> FakeDelete(Tkey id)
         {
             return await apiCaller.DeleteAsync<bool?>($"{controller}/fake-delete/{id}");
         }
 
-        public async Task<ApiResult<bool?>> FakeDeletes(int[] ids)
+        public async Task<ApiResult<bool?>> FakeDeletes(Tkey[] ids)
         {
-            return await apiCaller.PostAsync<int[], bool?>($"{controller}/fake-deletes", ids);
+            return await apiCaller.PostAsync<Tkey[], bool?>($"{controller}/fake-deletes", ids);
         }
 
-        public async Task<ApiResult<T>> Get(int id)
+        public async Task<ApiResult<T>> Get(Tkey id)
         {
             return await apiCaller.GetAsync<T>($"{controller}/{id}");
         }
@@ -63,7 +69,7 @@ namespace Gardener.Client.Services
             return await apiCaller.PutAsync<T, bool?>(controller, request: input);
         }
 
-        public async Task<ApiResult<bool?>> Lock(int id, bool islocked = true)
+        public async Task<ApiResult<bool?>> Lock(Tkey id, bool islocked = true)
         {
             return await apiCaller.PutAsync<object, bool?>($"{controller}/{id}/lock/{islocked}");
         }

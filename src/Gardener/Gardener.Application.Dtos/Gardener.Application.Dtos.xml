@@ -51,12 +51,7 @@
         </member>
         <member name="P:Gardener.Application.Dtos.ResourceDto.Id">
             <summary>
-            资源ID
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.Dtos.ResourceDto.ResourceId">
-            <summary>
-            权限唯一名（每一个接口）
+            权限唯一名
             </summary>
         </member>
         <member name="P:Gardener.Application.Dtos.ResourceDto.Name">

@@ -24,7 +24,7 @@ namespace Gardener.Core.Entites
         /// 权限Id
         /// </summary>
         [Required]
-        public int ResourceId { get; set; }
+        public Guid ResourceId { get; set; }
         /// <summary>
         /// 权限
         /// </summary>

@@ -36,9 +36,9 @@ namespace Gardener.Client.Services
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{roleId}/resource");
         }
 
-        public async Task<ApiResult<bool>> Resource(int roleId, int[] resourceIds)
+        public async Task<ApiResult<bool>> Resource(int roleId, Guid[] resourceIds)
         {
-            return await apiCaller.PostAsync<int[], bool>($"{controller}/{roleId}/resource", resourceIds);
+            return await apiCaller.PostAsync<Guid[], bool>($"{controller}/{roleId}/resource", resourceIds);
         }
         public async Task<ApiResult<PagedList<RoleDto>>> Search(string name, int pageIndex = 1, int pageSize = 10)
         {

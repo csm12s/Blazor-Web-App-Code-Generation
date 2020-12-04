@@ -193,7 +193,7 @@ namespace Gardener.Application
 
             if (resources == null) return new List<ResourceDto>();
 
-            return resources.Where(x => x.Type.Equals(ResourceType.ROOT)).FirstOrDefault()?.Children?.ToList();
+            return resources.Where(x => x.Type.Equals(ResourceType.ROOT)).FirstOrDefault()?.Children?.OrderBy(x=>x.Order).ToList();
         }
     }
 }

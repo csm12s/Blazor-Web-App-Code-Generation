@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public class ResourceService : ServiceBase<ResourceDto>,IResourceService
+    public class ResourceService : ServiceBase<ResourceDto,Guid>,IResourceService
     {
         private readonly static string controller = "resource";
         private readonly IApiCaller apiCaller;
@@ -26,7 +26,7 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResult<List<ResourceDto>>> GetChildren(int id)
+        public async Task<ApiResult<List<ResourceDto>>> GetChildren(Guid id)
         {
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{id}/Children");
         }

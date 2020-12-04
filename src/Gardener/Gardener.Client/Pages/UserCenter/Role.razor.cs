@@ -313,7 +313,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="nodes"></param>
         /// <param name="flag"></param>
         /// <returns></returns>
-        private async Task Check(List<TreeNode> nodes, Func<int, bool> flagFunc)
+        private async Task Check(List<TreeNode> nodes, Func<Guid, bool> flagFunc)
         {
             foreach (var node in nodes)
             {
@@ -343,7 +343,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task OnEditRoleResourceSave(MouseEventArgs e)
         {
 
-            int[] resourceIds = new int[] { };
+            Guid[] resourceIds = new Guid[] { };
 
             if (tree.CheckedNodes?.Count > 0)
             {

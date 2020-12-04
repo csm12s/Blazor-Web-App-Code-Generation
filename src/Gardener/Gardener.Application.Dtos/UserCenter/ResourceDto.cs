@@ -17,14 +17,10 @@ namespace Gardener.Application.Dtos
     public class ResourceDto
     {
         /// <summary>
-        /// 资源ID
+        /// 权限唯一名
         /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// 权限唯一名（每一个接口）
-        /// </summary>
-        [Required(ErrorMessage ="不能为空"), MaxLength(64,ErrorMessage = "最大长度不能大于{0}")]
-        public string ResourceId { get; set; }
+        [Required(ErrorMessage ="不能为空")]
+        public Guid Id { get; set; }
         /// <summary>
         /// 权限名称
         /// </summary>
@@ -62,7 +58,7 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 备注
         /// </summary>
-        public int? ParentId { get; set; }
+        public Guid? ParentId { get; set; }
         /// <summary>
         /// 父级
         /// </summary>

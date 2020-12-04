@@ -4,6 +4,7 @@
 
 using Gardener.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace Gardener.Application.UserCenter
     public interface IRoleService
     {
         Task<bool> DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId);
-        Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, int[] resourceIds);
+        Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, Guid[] resourceIds);
         Task<PagedList<RoleDto>> Search([FromQuery] string name,  int pageIndex = 1,  int pageSize = 10);
         /// <summary>
         /// 获取有效的角色

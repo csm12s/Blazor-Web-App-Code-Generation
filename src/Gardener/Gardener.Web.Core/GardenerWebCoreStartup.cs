@@ -35,8 +35,6 @@ namespace Gardener.Web.Core
             .AddInject()
             //注册规范返回格式
             .AddUnifyResult();
-            //
-            //.AddGlobalApiAuthorizeAttribute();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

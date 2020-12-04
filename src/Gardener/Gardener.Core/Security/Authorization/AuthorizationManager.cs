@@ -131,7 +131,7 @@ namespace Gardener.Core.Security
                 .Where(u => u.Id == userId && u.IsDeleted==false && u.IsLocked==false)
                 .SelectMany(u => u.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false)
                     .SelectMany(u => u.Resources.Where(x=>x.IsDeleted==false && x.IsLocked==false && x.Key.Equals(resourceKey))))
-                .Select(u => u.ResourceId);
+                .Select(u => u.Id);
             if (!resources.Any()) return false;
             return true;
         }
@@ -154,7 +154,7 @@ namespace Gardener.Core.Security
                 .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
                 .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
                     .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && x.Method.Equals(method) && x.Path.Equals(path))))
-                .Select(u => u.ResourceId);
+                .Select(u => u.Id);
             if (!resources.Any()) return false;
             return true;
         }

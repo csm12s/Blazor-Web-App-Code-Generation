@@ -73,7 +73,7 @@
                     <AntDesign.Col Span="12" Offset="2">
                         <Spin Spinning="descriptionsIsLoading">
                             <Descriptions Title="资源信息" Bordered Layout="@DescriptionsLayout.Vertical" Style="margin-top:10px">
-                                <DescriptionsItem Title="标示">@editModel.ResourceId</DescriptionsItem>
+                                <DescriptionsItem Title="标示">@editModel.Id</DescriptionsItem>
                                 <DescriptionsItem Title="名称">@editModel.Name</DescriptionsItem>
                                 <DescriptionsItem Title="键值">@editModel.Key</DescriptionsItem>
                                 <DescriptionsItem Title="类型">
@@ -127,7 +127,7 @@
           Context="model"
           Style="min-height:600px;">
         <FormItem Label="标示">
-            <Input @bind-Value="@model.ResourceId" Disabled />
+            <Input @bind-Value="@model.Id" Disabled />
         </FormItem>
         <FormItem Label="名称">
             <Input @bind-Value="@model.Name" />
@@ -138,7 +138,7 @@
         <FormItem Label="类型">
             <RadioGroup @bind-Value="@(model.Type)">
 
-                @if (model.Id > 0 && model.Type.Equals(ResourceType.ROOT))
+                @if (model.Id !=Guid.Empty && model.Type.Equals(ResourceType.ROOT))
                 {
                     <Radio Value="@(ResourceType.ROOT)">@EnumExtension.GetEnumDescription(ResourceType.ROOT)</Radio>
                 }

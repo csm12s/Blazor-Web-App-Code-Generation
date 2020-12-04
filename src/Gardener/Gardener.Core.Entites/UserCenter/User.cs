@@ -35,12 +35,12 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 密码加密后的
         /// </summary>
-        [Required, StringLength(32)]
+        [Required, StringLength(64)]
         public string Password { get; set; }
         /// <summary>
         /// 密码加密Key
         /// </summary>
-        [Required, StringLength(32)]
+        [Required, StringLength(64)]
         public string PasswordEncryptKey { get; set; }
         /// <summary>
         /// 头像
@@ -105,7 +105,7 @@ namespace Gardener.Core.Entites
                  {
                      u.HasKey(c => new { c.UserId, c.RoleId });
                      u.HasData(new { UserId = 1, RoleId = 1 ,CreatedTime=DateTimeOffset.Now});
-                     u.HasData(new { UserId = 2, RoleId = 2 ,CreatedTime=DateTimeOffset.Now});
+                     u.HasData(new { UserId = 2, RoleId = 3 ,CreatedTime=DateTimeOffset.Now});
                  });
 
             entityBuilder.HasComment("用户表");
@@ -145,7 +145,7 @@ namespace Gardener.Core.Entites
                 //.HasCollation("utf8mb4_0900_ai_ci");
 
             entityBuilder.Property(e => e.Password).IsRequired()
-                .HasColumnType("varchar(32)")
+                .HasColumnType("varchar(64)")
                 .HasComment("密码");
                 //.HasCharSet("utf8mb4")
                 //.HasCollation("utf8mb4_0900_ai_ci");
@@ -163,22 +163,23 @@ namespace Gardener.Core.Entites
         /// <returns></returns>
         public IEnumerable<User> HasData(DbContext dbContext, Type dbContextLocator)
         {
+            string passwordEncryptKey = Guid.NewGuid().ToString();
             return new[]
             {
                 new User
                 {
                     Id=1,
                     UserName="admin",
-                    PasswordEncryptKey=Guid.NewGuid().ToString() ,
-                    Password=MD5Encryption.Encrypt(PasswordEncryptKey+"admin"),
+                    PasswordEncryptKey=passwordEncryptKey ,
+                    Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
                     Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png"
                 },
                 new User
                 {
                     Id=2,
                     UserName="testuser",
-                    PasswordEncryptKey=Guid.NewGuid().ToString(),
-                    Password=MD5Encryption.Encrypt(PasswordEncryptKey+"testuser"),
+                    PasswordEncryptKey=passwordEncryptKey,
+                    Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
                     Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"
                 }
             };

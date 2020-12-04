@@ -14,6 +14,7 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Gardener.Enums;
 using Furion.FriendlyException;
+using System;
 
 namespace Gardener.Application.UserCenter
 {
@@ -21,7 +22,7 @@ namespace Gardener.Application.UserCenter
     /// 资源服务
     /// </summary>
     [ApiDescriptionSettings("UserAuthorizationServices")]
-    public class ResourceService : ServiceBase<Resource, ResourceDto>, IResourceService
+    public class ResourceService : ServiceBase<Resource, ResourceDto,Guid>, IResourceService
     {
         private readonly IRepository<Resource> resourceRepository;
         /// <summary>
@@ -38,7 +39,7 @@ namespace Gardener.Application.UserCenter
         /// </summary>
         /// <param name="id">父id</param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetChildren([ApiSeat(ApiSeats.ActionStart)] int id)
+        public async Task<List<ResourceDto>> GetChildren([ApiSeat(ApiSeats.ActionStart)] Guid id)
         {
             var resources = await resourceRepository
                 .Where(x => x.ParentId == id)
