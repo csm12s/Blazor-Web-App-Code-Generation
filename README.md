@@ -23,6 +23,11 @@
 4. 打开 Client.sln 设置 Gardener.Client 为启动项目，F5启动Client或右击wwwroot在浏览器打开
 5. 默认用户名密码 admin/admin、testuser/testuser
 
+## 展示
+<img src="https://images.gitee.com/uploads/images/2020/1204/160739_fe82dff5_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2020/1204/160750_e2d69ed2_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2020/1204/160758_7192619c_302533.png" width="260px"/>
+
 ## 链接
 👉 **[Furion](https://gitee.com/monksoul/Furion)**
 👉 **[ant-design-blazor](https://github.com/ant-design-blazor/ant-design-blazor)**
