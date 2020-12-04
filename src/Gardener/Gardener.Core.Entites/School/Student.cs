@@ -1,4 +1,10 @@
-﻿using Furion.DatabaseAccessor;
+﻿// -----------------------------------------------------------------------------
+// 园丁,是个很简单的管理系统
+//  gitee:https://gitee.com/hgflydream/Gardener 
+//  issues:https://gitee.com/hgflydream/Gardener/issues 
+// -----------------------------------------------------------------------------
+
+using Furion.DatabaseAccessor;
 using System;
 using System.ComponentModel.DataAnnotations;
 using Gardener.Enums;

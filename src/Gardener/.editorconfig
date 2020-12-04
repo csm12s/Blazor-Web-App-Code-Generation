@@ -37,4 +37,4 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggest
 csharp_preferred_modifier_order = public,static:suggestion
 
 # Add file header
-file_header_template = -----------------------------------------------------------------------------\n文件头\n-----------------------------------------------------------------------------
+file_header_template = -----------------------------------------------------------------------------\n园丁,是个很简单的管理系统\n gitee:https://gitee.com/hgflydream/Gardener \n issues:https://gitee.com/hgflydream/Gardener/issues \n-----------------------------------------------------------------------------

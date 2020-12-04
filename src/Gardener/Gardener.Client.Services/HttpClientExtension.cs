@@ -1,8 +1,8 @@
-﻿//using System.Net.Http;
-//using System.Net.Http.Json;
-//using System.Text.Json;
-//using System.Threading;
-//using System.Threading.Tasks;
+﻿// -----------------------------------------------------------------------------
+// 园丁,是个很简单的管理系统
+//  gitee:https://gitee.com/hgflydream/Gardener 
+//  issues:https://gitee.com/hgflydream/Gardener/issues 
+// -----------------------------------------------------------------------------
 
 //namespace Gardener.Client.Services
 //{
