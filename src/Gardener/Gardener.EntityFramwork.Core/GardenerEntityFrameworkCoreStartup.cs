@@ -23,6 +23,7 @@ namespace Gardener.EntityFramwork.Core
             {
                 //注入数据库上下文
                 options.AddDbPool<GardenerDbContext>($"{DbProvider.MySql}@8.0.22");
+               //options.AddDbPool<GardenerDbContext>(DbProvider.SqlServer);
             }, "Gardener.Database.Migrations");
         }
     }
