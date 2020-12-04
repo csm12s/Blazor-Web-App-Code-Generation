@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-<AntDesign.Pro.Layout.BasicLayout Logo="@("https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg")"
+<AntDesign.Pro.Layout.BasicLayout Logo="@("./assets/logo.png")"
                                   MenuData="_menuData"
                                   >
     <RightContentRender>
@@ -9,7 +9,7 @@
         @Body
     </ChildContent>
     <FooterRender>
-        <GlobalFooter Links="_links">
+        <GlobalFooter Links="SystemConstant.FooterLinks">
             <Copyright>
                 Copyright <Icon Type="copyright" /> @systemConfig?.Copyright
             </Copyright>

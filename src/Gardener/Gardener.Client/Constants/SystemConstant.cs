@@ -2,6 +2,8 @@
 // 文件头
 // -----------------------------------------------------------------------------
 
+using AntDesign.Pro.Layout;
+
 namespace Gardener.Client.Constants
 {
     public class SystemConstant
@@ -31,6 +33,15 @@ namespace Gardener.Client.Constants
         /// token刷新过期时间阈值（单位：秒）
         /// </summary>
         public readonly static int RefreshTokenTimeThreshold = 150;
+        /// <summary>
+        /// 底部友链
+        /// </summary>
+        public readonly static LinkItem[] FooterLinks =
+        {
+                new LinkItem{ Key = "Furion", BlankTarget = true, Title = "Furion" ,Href="https://gitee.com/monksoul/Furion"},
+                new LinkItem{ Key = "Ant Design", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-blazor"},
+                new LinkItem{ Key = "Gardener", BlankTarget = true, Title = "Gardener",Href="https://gitee.com/hgflydream/Gardener"}
+        };
 
     }
 }

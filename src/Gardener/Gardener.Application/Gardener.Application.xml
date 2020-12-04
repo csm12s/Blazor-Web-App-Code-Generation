@@ -17,29 +17,6 @@
             <param name="encryptKey"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.Extensions.DynamicApiResourceCollectApplicationModelConvention">
-            <summary>
-            收集pi资源
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.Extensions.DynamicApiResourceCollectApplicationModelConvention.Apply(Microsoft.AspNetCore.Mvc.ApplicationModels.ApplicationModel)">
-            <summary>
-            
-            </summary>
-            <param name="application"></param>
-        </member>
-        <member name="T:Gardener.Application.Extensions.DynamicApiStorageExtension">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.Extensions.DynamicApiStorageExtension.AddDynamicApiStorage(Microsoft.Extensions.DependencyInjection.IMvcBuilder)">
-            <summary>
-            添加动态接口控制器服务 
-            </summary>
-            <param name="mvcBuilder">Mvc构建器</param>
-            <returns>Mvc构建器</returns>
-        </member>
         <member name="T:Gardener.Application.IServiceBase`2">
             <summary>
             方法包括：CURD、获取全部、分页获取 
@@ -646,22 +623,6 @@
             <param name="userId"></param>
             <param name="roleIds"></param>
             <returns></returns>
-        </member>
-        <member name="T:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute">
-            <summary>
-            api 安全定义特效
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute.#ctor(System.String)">
-            <summary>
-            api 安全定义特效
-            </summary>
-            <param name="apiName">api名称</param>
-        </member>
-        <member name="P:Microsoft.AspNetCore.Authorization.ApiSecurityDefineAttribute.ApiName">
-            <summary>
-            api名称
-            </summary>
         </member>
     </members>
 </doc>

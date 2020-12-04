@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Models;
+using System;
 
 namespace Gardener.Client.Services
 {
@@ -19,14 +20,19 @@ namespace Gardener.Client.Services
         {
             return GetSystemConfig().Copyright;
         }
-
+        /// <summary>
+        /// 获取系统配置
+        /// 可放置到数据库中
+        /// </summary>
+        /// <returns></returns>
         public SystemConfig GetSystemConfig()
         {
+
             return new SystemConfig {
             
-                Copyright= "2002 园丁",
+                Copyright= DateTime.Now.Year+ " 园丁",
                 SystemName= "园丁",
-                SystemDescription= "园丁,是最牛逼的管理系统"
+                SystemDescription= "园丁,是个很简单的管理系统"
 
             };
         }

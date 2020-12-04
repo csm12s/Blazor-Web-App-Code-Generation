@@ -80,6 +80,11 @@
             根节点
             </summary>
         </member>
+        <member name="F:Gardener.Enums.ResourceType.CLIENT">
+            <summary>
+            菜单
+            </summary>
+        </member>
         <member name="F:Gardener.Enums.ResourceType.MENU">
             <summary>
             菜单

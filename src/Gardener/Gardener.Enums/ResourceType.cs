@@ -22,6 +22,11 @@ namespace Gardener.Enums
         /// <summary>
         /// 菜单
         /// </summary>
+        [Description("客户端")]
+        CLIENT = 500,
+        /// <summary>
+        /// 菜单
+        /// </summary>
         [Description("菜单")]
         MENU = 1000,
         /// <summary>
