@@ -5,10 +5,12 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
+using Furion.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -23,7 +25,10 @@ namespace Gardener.Web.Core
             services.AddJwt<JwtHandler>(enableGlobalAuthorize:true);
             services.Configure<MvcOptions>(options =>
             {
-                options.Filters.Add(new ApiAuthorizeAttribute("api-auth"));
+                // 添加策略需求
+                var policy = new AuthorizationPolicyBuilder();
+                policy.AddRequirements(new AppAuthorizeRequirement("api-auth"));
+                options.Filters.Add(new AuthorizeFilter(policy.Build()));
             });
             //注册跨域
             services.AddCorsAccessor();
