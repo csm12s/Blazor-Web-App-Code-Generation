@@ -23,6 +23,13 @@
 4. 打开 Client.sln 设置 Gardener.Client 为启动项目，F5启动Client或右击wwwroot在浏览器打开
 5. 默认用户名密码 admin/admin、testuser/testuser
 
+## 常见问题
+- 如何切换数据库：项目ORM框架使用的是EF，默认已使用MySQL，切换其它数据库需要调整以下文件
+`Gardener.EntityFramwork.Core.DbContexts.GardenerDbContext`
+`Gardener.EntityFramwork.Core/dbsettings.json`
+`Gardener.EntityFramwork.Core.GardenerEntityFrameworkCoreStartup`
+- client 打不开：client默认端口是 44388，在 `Gardener.Client/launchSettings.json`中可以调整，浏览器应打开 https://localhost:44388
+
 ## 展示
 
 <img src="https://images.gitee.com/uploads/images/2020/1204/160750_e2d69ed2_302533.png" width="260px"/>
