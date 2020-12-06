@@ -5,11 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Application.Dtos;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Application.UserCenter
+namespace Gardener.Application
 {
     public interface IUserService
     {

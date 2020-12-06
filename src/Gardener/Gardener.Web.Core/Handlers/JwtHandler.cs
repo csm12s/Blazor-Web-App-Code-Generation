@@ -4,15 +4,13 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.Authorization;
-using Gardener.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.Enums;
 using System;
+using Gardener.Core;
 
 namespace Gardener.Web.Core
 {

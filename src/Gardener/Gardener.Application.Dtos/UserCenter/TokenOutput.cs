@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Application.Dtos;
-
 namespace Gardener.Application.Dtos
 {
     /// <summary>

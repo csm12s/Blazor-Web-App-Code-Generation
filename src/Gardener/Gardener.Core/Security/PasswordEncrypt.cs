@@ -6,7 +6,7 @@
 
 using Furion.DataEncryption;
 
-namespace Gardener.Application
+namespace Gardener.Core
 {
     /// <summary>
     /// 加密密码

@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Core.Security
+namespace Gardener.Core
 {
     public class SecurityTokenResult
     {

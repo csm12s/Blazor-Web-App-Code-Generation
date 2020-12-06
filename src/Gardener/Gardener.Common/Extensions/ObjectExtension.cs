@@ -8,7 +8,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Gardener.Common.Extensions
+namespace Gardener.Common
 {
     /// <summary>
     /// Object拓展方法，.Net4.0以上

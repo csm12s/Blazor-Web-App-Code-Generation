@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Gardener.Common.Attributes
+namespace Gardener.Common
 {
     /// <summary>
     /// Enum 转换集合时忽略

@@ -4,19 +4,6 @@
         <name>Gardener.Application</name>
     </assembly>
     <members>
-        <member name="T:Gardener.Application.PasswordEncrypt">
-            <summary>
-            加密密码
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.PasswordEncrypt.Encrypt(System.String,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="password"></param>
-            <param name="encryptKey"></param>
-            <returns></returns>
-        </member>
         <member name="T:Gardener.Application.IServiceBase`2">
             <summary>
             方法包括：CURD、获取全部、分页获取 
@@ -93,28 +80,6 @@
             </summary>
             <param name="id"></param>
             <param name="islocked"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.Application.MyApplicationContext">
-            <summary>
-            应用静态资源
-            </summary>
-        </member>
-        <member name="F:Gardener.Application.MyApplicationContext.apiResources">
-            <summary>
-            Api资源
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.MyApplicationContext.AddApiResource(Gardener.Core.Entites.Resource)">
-            <summary>
-            添加Api资源
-            </summary>
-            <param name="resource"></param>
-        </member>
-        <member name="M:Gardener.Application.MyApplicationContext.GetApiResources">
-            <summary>
-            获取所有Api资源
-            </summary>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.ServiceBase`3">
@@ -312,44 +277,44 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.UserCenter.IResourceService">
+        <member name="T:Gardener.Application.IResourceService">
             <summary>
             资源服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IResourceService.GetChildren(System.Guid)">
+        <member name="M:Gardener.Application.IResourceService.GetChildren(System.Guid)">
             <summary>
             获取所有子资源
             </summary>
             <param name="id">父id</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IResourceService.GetRoot">
+        <member name="M:Gardener.Application.IResourceService.GetRoot">
             <summary>
             返回根节点
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IResourceService.GetTree">
+        <member name="M:Gardener.Application.IResourceService.GetTree">
             <summary>
             查询所有资源 按树形结构返回
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IRoleService.GetEffective">
+        <member name="M:Gardener.Application.IRoleService.GetEffective">
             <summary>
             获取有效的角色
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IRoleService.GetResource(System.Int32)">
+        <member name="M:Gardener.Application.IRoleService.GetResource(System.Int32)">
             <summary>
             获取角色所有资源
             </summary>
             <param name="roleId"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IUserService.Search(System.String,System.Int32,System.Int32)">
+        <member name="M:Gardener.Application.IUserService.Search(System.String,System.Int32,System.Int32)">
             <summary>
             查询
             </summary>
@@ -358,7 +323,7 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.IUserService.Role(System.Int32,System.Int32[])">
+        <member name="M:Gardener.Application.IUserService.Role(System.Int32,System.Int32[])">
             <summary>
             设置用户角色
             </summary>
@@ -366,50 +331,50 @@
             <param name="roleIds"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.UserCenter.ResourceService">
+        <member name="T:Gardener.Application.ResourceService">
             <summary>
             资源服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+        <member name="M:Gardener.Application.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
             <summary>
             资源服务
             </summary>
             <param name="resourceRepository"></param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Gardener.Application.UserCenter.ResourceService.GetChildren(System.Guid)" -->
-        <member name="M:Gardener.Application.UserCenter.ResourceService.GetRoot">
+        <!-- Badly formed XML comment ignored for member "M:Gardener.Application.ResourceService.GetChildren(System.Guid)" -->
+        <member name="M:Gardener.Application.ResourceService.GetRoot">
             <summary>
             返回根节点
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.ResourceService.GetTree">
+        <member name="M:Gardener.Application.ResourceService.GetTree">
             <summary>
             查询所有资源 按树形结构返回
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.ResourceService.Insert(Gardener.Application.Dtos.ResourceDto)">
+        <member name="M:Gardener.Application.ResourceService.Insert(Gardener.Application.Dtos.ResourceDto)">
             <summary>
             添加资源
             </summary>
             <param name="resourceDto"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.UserCenter.RoleService">
+        <member name="T:Gardener.Application.RoleService">
             <summary>
             角色服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource})">
+        <member name="M:Gardener.Application.RoleService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource})">
             <summary>
             角色服务
             </summary>
             <param name="roleRepository"></param>
             <param name="roleResourceRepository"></param>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.Search(System.String,System.Int32,System.Int32)">
+        <member name="M:Gardener.Application.RoleService.Search(System.String,System.Int32,System.Int32)">
             <summary>
             搜索角色
             </summary>
@@ -418,7 +383,7 @@
             <param name="pageSize">分页大小</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.Search(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Gardener.Application.RoleService.Search(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             搜索角色
             </summary>
@@ -427,36 +392,36 @@
             <param name="pageSize">分页大小</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.Resource(System.Int32,System.Guid[])">
+        <member name="M:Gardener.Application.RoleService.Resource(System.Int32,System.Guid[])">
             <summary>
             为角色分配权限（重置）
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.DeleteResource(System.Int32)">
+        <member name="M:Gardener.Application.RoleService.DeleteResource(System.Int32)">
             <summary>
             删除角色的所有资源
             </summary>
             <param name="roleId"></param>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.GetEffective">
+        <member name="M:Gardener.Application.RoleService.GetEffective">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.RoleService.GetResource(System.Int32)">
+        <member name="M:Gardener.Application.RoleService.GetResource(System.Int32)">
             <summary>
             获取角色所有资源
             </summary>
             <param name="roleId"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.UserCenter.UserService">
+        <member name="T:Gardener.Application.UserService">
             <summary>
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role})">
+        <member name="M:Gardener.Application.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role})">
             <summary>
             用户服务
             </summary>
@@ -467,21 +432,21 @@
             <param name="resourceRepository"></param>
             <param name="userExtensionRepository"></param>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.GetRoles(System.Int32)">
+        <member name="M:Gardener.Application.UserService.GetRoles(System.Int32)">
             <summary>
             查看用户角色
             </summary>
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.GetResources(System.Int32)">
+        <member name="M:Gardener.Application.UserService.GetResources(System.Int32)">
             <summary>
             查看用户权限
             </summary>
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.Search(System.String,System.Int32,System.Int32)">
+        <member name="M:Gardener.Application.UserService.Search(System.String,System.Int32,System.Int32)">
             <summary>
             搜索用户
             </summary>
@@ -490,27 +455,27 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.Update(Gardener.Application.Dtos.UserDto)">
+        <member name="M:Gardener.Application.UserService.Update(Gardener.Application.Dtos.UserDto)">
             <summary>
             更新一条
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.Insert(Gardener.Application.Dtos.UserDto)">
+        <member name="M:Gardener.Application.UserService.Insert(Gardener.Application.Dtos.UserDto)">
             <summary>
             新增一条
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.Get(System.Int32)">
+        <member name="M:Gardener.Application.UserService.Get(System.Int32)">
             <summary>
             查询一条
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:Gardener.Application.UserCenter.UserService.Role(System.Int32,System.Int32[])">
+        <member name="M:Gardener.Application.UserService.Role(System.Int32,System.Int32[])">
             <summary>
             设置用户角色
             </summary>

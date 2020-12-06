@@ -4,12 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Common.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Gardener.Common.Extensions
+namespace Gardener.Common
 {
     public static class EnumExtension
     {

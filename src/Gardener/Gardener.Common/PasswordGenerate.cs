@@ -9,6 +9,9 @@ using System.Text;
 
 namespace Gardener.Common
 {
+    /// <summary>
+    /// 密码生成工具
+    /// </summary>
     public class PasswordGenerate
     {
         /// <summary>

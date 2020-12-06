@@ -25,52 +25,52 @@
             超级管理员角色Id
             </summary>
         </member>
-        <member name="T:Gardener.Core.Security.AuthorizationManager">
+        <member name="T:Gardener.Core.AuthorizationManager">
             <summary>
             权限管理器
             </summary>
         </member>
-        <member name="F:Gardener.Core.Security.AuthorizationManager.jwtSettings">
+        <member name="F:Gardener.Core.AuthorizationManager.jwtSettings">
             <summary>
             JWT配置
             </summary>
         </member>
-        <member name="F:Gardener.Core.Security.AuthorizationManager._httpContextAccessor">
+        <member name="F:Gardener.Core.AuthorizationManager._httpContextAccessor">
             <summary>
             请求上下文访问器
             </summary>
         </member>
-        <member name="F:Gardener.Core.Security.AuthorizationManager._userRepository">
+        <member name="F:Gardener.Core.AuthorizationManager._userRepository">
             <summary>
             用户仓储
             </summary>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions})">
+        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions})">
             <summary>
             构造函数
             </summary>
             <param name="httpContextAccessor"></param>
             <param name="userRepository"></param>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.GetUserIdKeyName">
+        <member name="M:Gardener.Core.AuthorizationManager.GetUserIdKeyName">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.GetUserId">
+        <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
             <summary>
             获取用户Id
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.IsSuperAdministrator">
+        <member name="M:Gardener.Core.AuthorizationManager.IsSuperAdministrator">
             <summary>
             是否是超级管理员
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.CreateToken``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:Gardener.Core.AuthorizationManager.CreateToken``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
             
             </summary>
@@ -79,14 +79,14 @@
             <param name="claims"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.CheckSecurity(System.String)">
+        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(System.String)">
             <summary>
             检查权限
             </summary>
             <param name="resourceKey"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.CheckSecurity(Gardener.Enums.HttpMethodType,System.String)">
+        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(Gardener.Enums.HttpMethodType,System.String)">
             <summary>
             检查权限
             </summary>
@@ -94,7 +94,7 @@
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.Security.AuthorizationManager.GetClaims">
+        <member name="M:Gardener.Core.AuthorizationManager.GetClaims">
             <summary>
             
             </summary>
@@ -146,6 +146,19 @@
             <summary>
             
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.PasswordEncrypt">
+            <summary>
+            加密密码
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.PasswordEncrypt.Encrypt(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="password"></param>
+            <param name="encryptKey"></param>
             <returns></returns>
         </member>
     </members>

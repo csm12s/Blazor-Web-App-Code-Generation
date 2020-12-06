@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Application.Dtos

@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Application.UserCenter
+namespace Gardener.Application
 {
     public interface IRoleService
     {

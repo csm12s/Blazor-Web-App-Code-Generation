@@ -6,10 +6,8 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
-using Gardener.Core;
 using Gardener.Core.Entites;
 using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +19,9 @@ using Gardener.Common;
 using System.Linq.Expressions;
 using Furion.FriendlyException;
 using Gardener.Enums;
+using Gardener.Core;
 
-namespace Gardener.Application.UserCenter
+namespace Gardener.Application
 {
     /// <summary>
     /// 用户服务

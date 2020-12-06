@@ -19,7 +19,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Gardener.Core.Security
+namespace Gardener.Core
 {
     /// <summary>
     /// 权限管理器
