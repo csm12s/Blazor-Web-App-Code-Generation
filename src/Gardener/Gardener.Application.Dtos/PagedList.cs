@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 
-namespace Gardener.Client.Models
+namespace Gardener.Application.Dtos
 {
     /// <summary>
     /// 分页泛型集合

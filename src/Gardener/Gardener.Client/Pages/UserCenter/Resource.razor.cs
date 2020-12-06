@@ -6,7 +6,6 @@
 
 using AntDesign;
 using Gardener.Application.Dtos;
-using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
@@ -15,6 +14,7 @@ using Mapster;
 using System.Linq;
 using System;
 using Gardener.Enums;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Client.Pages.UserCenter
 {
@@ -45,13 +45,13 @@ namespace Gardener.Client.Pages.UserCenter
         {
             treeIsLoading = true;
             var resourceResult = await ResourceService.GetTree();
-            if (resourceResult.Successed)
+            if (resourceResult!=null)
             {
-                tree.DataSource = resourceResult.Data;
+                tree.DataSource = resourceResult;
             }
             else
             {
-                MessageService.Error("节点加载失败");
+                MessageService.Error("资源节点未加载到数据");
             }
             treeIsLoading = false;
         }
@@ -110,9 +110,9 @@ namespace Gardener.Client.Pages.UserCenter
             var parentNode = ((ResourceDto)args.Node.DataItem);
             parentNode.Children = new List<ResourceDto>();
             var resourceResult = await ResourceService.GetChildren(parentNode.Id);
-            if (resourceResult.Successed)
+            if (resourceResult!=null)
             {
-                resourceResult.Data?.ForEach(x =>
+                resourceResult.ForEach(x =>
                 {
                     if (x.Children == null)
                     {
@@ -123,7 +123,7 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
-                MessageService.Error("节点加载失败");
+                MessageService.Error("资源节点未加载到数据");
             }
             treeIsLoading = false;
         }
@@ -177,7 +177,7 @@ namespace Gardener.Client.Pages.UserCenter
 
                     var ids = GetAllDeleteResourceId(resource);
                     var result = await ResourceService.FakeDeletes(ids.ToArray());
-                    if (result.Successed)
+                    if (result)
                     {
                         var parentNode = ((ResourceDto)selectedNode.ParentNode.DataItem);
                         parentNode.Children.Remove(resource);
@@ -278,7 +278,7 @@ namespace Gardener.Client.Pages.UserCenter
             {
                 //更新
                 var result = await ResourceService.Update(editModel);
-                if (result.Successed)
+                if (result)
                 {
                     editModel.Adapt(resource);
                     if (selectedNode.ParentNode != null)
@@ -299,13 +299,13 @@ namespace Gardener.Client.Pages.UserCenter
                 editModel.Id = Guid.NewGuid();
                 //新增
                 var result = await ResourceService.Insert(editModel);
-                if (result.Successed)
+                if (result!=null)
                 {
                     if (resource.Children == null)
                     {
                         resource.Children = new List<ResourceDto>();
                     }
-                    resource.Children.Add(result.Data);
+                    resource.Children.Add(result);
 
                     resource.Children = resource.Children.OrderBy(x => x.Order).ToList();
 

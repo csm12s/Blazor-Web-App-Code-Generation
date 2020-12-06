@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Application.Dtos;
+using Gardener.Application.Interfaces;
 using Gardener.Client.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public class ResourceService : ServiceBase<ResourceDto,Guid>,IResourceService
+    public class ResourceService : ApplicationServiceBase<ResourceDto,Guid>,IResourceService
     {
         private readonly static string controller = "resource";
         private readonly IApiCaller apiCaller;
@@ -26,17 +27,17 @@ namespace Gardener.Client.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResult<List<ResourceDto>>> GetChildren(Guid id)
+        public async Task<List<ResourceDto>> GetChildren(Guid id)
         {
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{id}/Children");
         }
 
-        public async Task<ApiResult<List<ResourceDto>>> GetRoot()
+        public async Task<List<ResourceDto>> GetRoot()
         {
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/root");
         }
 
-        public async Task<ApiResult<List<ResourceDto>>> GetTree()
+        public async Task<List<ResourceDto>> GetTree()
         {
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/tree");
         }

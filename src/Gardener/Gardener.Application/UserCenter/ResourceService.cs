@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Gardener.Enums;
 using Furion.FriendlyException;
 using System;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Application
 {

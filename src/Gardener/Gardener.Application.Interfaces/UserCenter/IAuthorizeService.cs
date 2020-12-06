@@ -9,12 +9,12 @@ using Gardener.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Application
+namespace Gardener.Application.Interfaces
 {
     public interface IAuthorizeService
     {
-        List<RoleDto> GetCurrentUserRoles();
-        LoginOutput Login(LoginInput input);
+        Task<List<RoleDto>> GetCurrentUserRoles();
+        Task<LoginOutput> Login(LoginInput input);
         /// <summary>
         /// 获取当前用户信息
         /// </summary>
@@ -24,13 +24,13 @@ namespace Gardener.Application
         /// 刷新Token
         /// </summary>
         /// <returns></returns>
-        TokenOutput RefreshToken();
+        Task<TokenOutput> RefreshToken();
         /// <summary>
         /// 获取指定类型的资源
         /// </summary>
         /// <param name="resourceTypes"></param>
         /// <returns></returns>
-        Task<List<ResourceDto>> GetCurrentUserResources(ResourceType [] resourceTypes);
+        Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes);
         /// <summary>
         /// 获取当前用户的所有菜单
         /// </summary>

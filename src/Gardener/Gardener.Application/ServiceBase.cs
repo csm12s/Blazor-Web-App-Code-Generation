@@ -8,12 +8,13 @@ using Furion.DatabaseAccessor;
 using Furion.DynamicApiController;
 using Microsoft.EntityFrameworkCore;
 using Mapster;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Gardener.Common;
 using System;
+using Gardener.Application.Interfaces;
+using System.Collections.Generic;
 
 namespace Gardener.Application
 {
@@ -24,7 +25,7 @@ namespace Gardener.Application
     /// <typeparam name="TEntity">数据实体类型</typeparam>
     /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
     /// <typeparam name="TKey">数据实体主键类型</typeparam>
-    public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IApplicationServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
         private readonly IRepository<TEntity> _repository;
         /// <summary>
@@ -139,11 +140,13 @@ namespace Gardener.Application
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public virtual async Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public virtual async Task<Dtos.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
             var pageResult = _repository.AsQueryable().Select(x => x.Adapt<TEntityDto>());
 
-            return await pageResult.ToPagedListAsync(pageIndex, pageSize);
+            var result= await pageResult.ToPagedListAsync(pageIndex, pageSize);
+
+            return result;
         }
         /// <summary>
         /// 

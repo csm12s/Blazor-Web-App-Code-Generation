@@ -36,18 +36,18 @@ namespace Gardener.Application.Dtos
         public DateTimeOffset? UpdatedTime { get; set; }
         /// 用户名
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), StringLength(32, ErrorMessage = "最大长度不能大于{1}")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"),MinLength(5,ErrorMessage = "最小长度不能小于{1}")]
         public string UserName { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
-        [StringLength(32, ErrorMessage = "最大长度不能大于{1}")]
+        [MaxLength(32, ErrorMessage = "最大长度不能大于{1}")]
         public string NickName { get; set; }
         /// <summary>
         /// 密码加密后的
         /// </summary>
         //[Required(ErrorMessage = "不能为空")]
-        [StringLength(32, ErrorMessage = "最大长度不能大于{1}")]
+        [MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
         public string Password { get; set; }
         ///// <summary>
         ///// 密码加密Key

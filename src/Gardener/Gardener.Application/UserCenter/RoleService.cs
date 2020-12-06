@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
+using Gardener.Application.Interfaces;
 using Gardener.Core.Entites;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace Gardener.Application
         /// <param name="pageSize">分页大小</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PagedList<RoleDto>> Search([FromQuery] string name,
+        public async Task<Dtos.PagedList<RoleDto>> Search([FromQuery] string name,
             int pageIndex = 1,
             int pageSize = 10)
         {
@@ -63,7 +64,7 @@ namespace Gardener.Application
          /// <param name="pageSize">分页大小</param>
          /// <returns></returns>
         [HttpPost]
-        public async Task<PagedList<RoleDto>> Search(
+        public async Task<Dtos.PagedList<RoleDto>> Search(
             [FromQuery] string name,
             [FromBody] string path,
             int pageIndex = 1,

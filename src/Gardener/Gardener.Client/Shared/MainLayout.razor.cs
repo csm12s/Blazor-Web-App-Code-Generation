@@ -6,6 +6,7 @@
 
 using AntDesign.Pro.Layout;
 using Gardener.Application.Dtos;
+using Gardener.Application.Interfaces;
 using Gardener.Client.Models;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
@@ -87,12 +88,9 @@ namespace Gardener.Client.Shared
         {
             await base.OnInitializedAsync();
             var menusResult = await AuthorizeService.GetCurrentUserMenus();
-            if (menusResult.Successed)
+            if (menusResult!=null)
             {
-                if (menusResult.Data != null)
-                {
-                    menusResult.Data.ForEach(x=>InitEnum(x));
-                }
+                menusResult.ForEach(x => InitEnum(x));
             }
             _menuData = menuDataItems.ToArray();
             systemConfig = SystemConfigService.GetSystemConfig();

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Client
 {
@@ -19,13 +20,10 @@ namespace Gardener.Client
     /// </summary>
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly IAuthorizeService authorizeService;
         private IAuthenticationStateManager authenticationStateManager;
         private ILogger logger;
-        public CustomAuthenticationStateProvider(IAuthorizeService authorizeService,
-            IAuthenticationStateManager authenticationStateManager, ILogger logger)
+        public CustomAuthenticationStateProvider(IAuthenticationStateManager authenticationStateManager, ILogger logger)
         {
-            this.authorizeService = authorizeService;
             this.authenticationStateManager = authenticationStateManager;
             authenticationStateManager.SetNotifyAuthenticationStateChangedAction(Refresh);
             this.logger = logger;

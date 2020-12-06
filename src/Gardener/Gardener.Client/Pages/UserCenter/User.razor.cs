@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System;
 using Gardener.Client.Services;
 using Mapster;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Client.Pages.UserCenter
 {
@@ -65,9 +66,9 @@ namespace Gardener.Client.Pages.UserCenter
         {
             tableIsLoading = true;
             var pagedListResult = await UserSvr.Search(_name, _pageIndex, _pageSize);
-            if (pagedListResult.Successed)
+            if (pagedListResult!=null)
             {
-                var pagedList = pagedListResult.Data;
+                var pagedList = pagedListResult;
                 users = pagedList.Items.ToArray();
                 _total = pagedList.TotalCount;
             }
@@ -103,7 +104,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
             {
                 var result = await UserSvr.FakeDelete(id);
-                if (result.Successed)
+                if (result)
                 {
                     users = users.Remove(users.FirstOrDefault(x => x.Id == id));
                     MessageSvr.Success("删除成功");
@@ -170,7 +171,7 @@ namespace Gardener.Client.Pages.UserCenter
                 var result = await UserSvr.Insert(editModel);
                 formIsLoading = false;
                 drawerVisible = false;
-                if (result.Successed)
+                if (result!=null)
                 {
                     MessageSvr.Success("添加成功");
                     _pageIndex = 1;
@@ -190,7 +191,7 @@ namespace Gardener.Client.Pages.UserCenter
                 var result = await UserSvr.Update(editModel);
                 formIsLoading = false;
                 drawerVisible = false;
-                if (result.Successed)
+                if (result)
                 {
                     await ReLoadTable();
                     MessageSvr.Success("修改成功", 1);
@@ -233,7 +234,7 @@ namespace Gardener.Client.Pages.UserCenter
                 if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
                 {
                     var result = await UserSvr.FakeDeletes(selectedRows.Select(x => x.Id).ToArray());
-                    if (result.Successed)
+                    if (result)
                     {
                         users = users.Where(x => !selectedRows.Any(y => y.Id == x.Id)).ToArray();
                         MessageSvr.Success("删除成功");
@@ -254,7 +255,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task OnChangeIsLocked(UserDto model, bool isLocked)
         {
             var result = await UserSvr.Lock(model.Id, isLocked);
-            if (!result.Successed)
+            if (!result)
             {
                 model.IsLocked = !isLocked;
                 MessageSvr.Error("锁定失败");
@@ -293,14 +294,9 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task LoadAllRoles(ICollection<RoleDto> roles)
         {
             var rolesResult = await RoleSvr.GetEffective();
-            if (rolesResult.Successed)
+            if (rolesResult!=null && rolesResult.Any())
             {
-                if (rolesResult.Data == null || rolesResult.Data.Count() == 0)
-                {
-                    MessageSvr.Error("没有可用角色，请先添加角色");
-                    return;
-                }
-                roleOptions = rolesResult.Data?.Select(x => new CheckboxOption
+                roleOptions = rolesResult.Select(x => new CheckboxOption
                 {
                     Label = x.Name,
                     Value = x.Id.ToString(),
@@ -310,7 +306,7 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
-                MessageSvr.Error("角色加载失败");
+                MessageSvr.Error("没有可用角色，请先添加角色");
             }
             editRoleFormIsLoading = false;
             await InvokeAsync(StateHasChanged);
@@ -333,7 +329,7 @@ namespace Gardener.Client.Pages.UserCenter
             editRoleFormIsLoading = true;
             var result=await UserSvr.Role(editRoleModel.Id, selectRoles?.Select(x=>int.Parse(x)).ToArray());
             
-            if (result.Successed)
+            if (result)
             {
                 editRoleDrawerVisible = false;
                 MessageSvr.Success("设置成功");

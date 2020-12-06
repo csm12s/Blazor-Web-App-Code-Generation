@@ -20,6 +20,7 @@ using System.Linq.Expressions;
 using Furion.FriendlyException;
 using Gardener.Enums;
 using Gardener.Core;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Application
 {
@@ -69,14 +70,14 @@ namespace Gardener.Application
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<RoleDto> GetRoles([ApiSeat(ApiSeats.ActionStart)] int userId)
+        public async Task<List<RoleDto>> GetRoles([ApiSeat(ApiSeats.ActionStart)] int userId)
         {
-            var roles = _userRepository
+            var roles = await _userRepository
                 .DetachedEntities
                 .Include(u => u.Roles.Where(r=>r.IsDeleted==false))
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles)
-                .ToList();
+                .ToListAsync();
 
             return roles.Adapt<List<RoleDto>>();
         }
@@ -86,9 +87,9 @@ namespace Gardener.Application
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<ResourceDto> GetResources([ApiSeat(ApiSeats.ActionStart)] int userId)
+        public async Task<List<ResourceDto>> GetResources([ApiSeat(ApiSeats.ActionStart)] int userId)
         {
-            List<ResourceDto> resources = _userRepository
+            return await  _userRepository
                .Include(u => u.Roles, false)
                    .ThenInclude(u => u.Resources)
                .Where(_authorizationManager.IsSuperAdministrator(), u => u.Id == userId)
@@ -96,8 +97,7 @@ namespace Gardener.Application
                .SelectMany(u => u.Roles
                    .SelectMany(u => u.Resources))
                .ProjectToType<ResourceDto>()
-               .ToList();
-            return resources;
+               .ToListAsync();
         }
         /// <summary>
         /// 搜索用户
@@ -107,7 +107,7 @@ namespace Gardener.Application
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public PagedList<UserDto> Search([FromQuery] string name,  int pageIndex = 1,int pageSize = 10)
+        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] string name,  int pageIndex = 1,int pageSize = 10)
         {
             var users = _userRepository
               .Include(u=>u.UserExtension, false)
@@ -116,7 +116,7 @@ namespace Gardener.Application
               .Where(!string.IsNullOrEmpty(name), u => u.NickName.Contains(name) || u.NickName.Contains(name))
               .OrderByDescending(x => x.CreatedTime)
               .Select(u => u.Adapt<UserDto>());
-            var pageList= users.ToPagedList(pageIndex,pageSize);
+            var pageList=await  users.ToPagedListAsync(pageIndex,pageSize);
             foreach (var item in pageList.Items) 
             {
                 item.Password = null;

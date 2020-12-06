@@ -6,11 +6,11 @@
 
 using AntDesign;
 using Gardener.Application.Dtos;
-using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Threading.Tasks;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Client.Pages
 {
@@ -52,10 +52,10 @@ namespace Gardener.Client.Pages
         {
             loading = true;
             var loginOutResult= await AuthorizeService.Login(loginInput);
-            if (loginOutResult.Successed)
+            if (loginOutResult!=null)
             {
                 await MsgSvr.Success($"登录成功",0.8);
-                await authenticationStateManager.Login(loginOutResult.Data);
+                await authenticationStateManager.Login(loginOutResult);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }

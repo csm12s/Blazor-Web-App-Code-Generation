@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Application.Dtos;
+using Gardener.Application.Interfaces;
 using Gardener.Client.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public class RoleService : ServiceBase<RoleDto>,IRoleService
+    public class RoleService : ApplicationServiceBase<RoleDto>,IRoleService
     {
         private readonly static string controller = "role";
 
@@ -23,26 +24,26 @@ namespace Gardener.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public async Task<ApiResult<bool>> DeleteResource(int roleId)
+        public async Task<bool> DeleteResource(int roleId)
         {
             return await apiCaller.DeleteAsync<bool>($"{controller}/{roleId}/resource");
         }
 
-        public async Task<ApiResult<List<RoleDto>>> GetEffective()
+        public async Task<List<RoleDto>> GetEffective()
         {
             return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/effective");
         }
 
-        public async Task<ApiResult<List<ResourceDto>>> GetResource(int roleId)
+        public async Task<List<ResourceDto>> GetResource(int roleId)
         {
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{roleId}/resource");
         }
 
-        public async Task<ApiResult<bool>> Resource(int roleId, Guid[] resourceIds)
+        public async Task<bool> Resource(int roleId, Guid[] resourceIds)
         {
             return await apiCaller.PostAsync<Guid[], bool>($"{controller}/{roleId}/resource", resourceIds);
         }
-        public async Task<ApiResult<PagedList<RoleDto>>> Search(string name, int pageIndex = 1, int pageSize = 10)
+        public async Task<PagedList<RoleDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
         {
             IDictionary<string, object> pramas = new Dictionary<string, object>() 
             {

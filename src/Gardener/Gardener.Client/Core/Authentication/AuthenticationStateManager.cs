@@ -12,6 +12,7 @@ using System.Threading;
 using Gardener.Client.Constants;
 using Gardener.Enums;
 using System.Collections.Generic;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Client
 {
@@ -79,13 +80,13 @@ namespace Gardener.Client
             if (loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds() > SystemConstant.RefreshTokenTimeThreshold) return;
             //拿到新的token
             var tokenResult=await authorizeService.RefreshToken();
-            if (tokenResult.Successed)
+            if (tokenResult!=null)
             {
                 RefreshTokenErrorCount = 0;
-                loginOutput.AccessToken = tokenResult.Data.AccessToken;
-                loginOutput.AccessTokenExpiresIn = tokenResult.Data.AccessTokenExpiresIn;
+                loginOutput.AccessToken = tokenResult.AccessToken;
+                loginOutput.AccessTokenExpiresIn = tokenResult.AccessTokenExpiresIn;
                 //token 设置
-                await SetToken(tokenResult.Data.AccessToken);
+                await SetToken(tokenResult.AccessToken);
                 await RefreshUser();
                 await logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
             }
@@ -191,11 +192,11 @@ namespace Gardener.Client
             await FromLocalResetToken();
             //请求
             var userResult = await authorizeService.GetCurrentUser();
-            if (userResult.Successed)
+            if (userResult!=null)
             {
-                await SetCurrentUser(userResult.Data);
+                await SetCurrentUser(userResult);
                 await RefreshUserResources();
-                return userResult.Data;
+                return userResult;
             }
             else
             {
@@ -213,15 +214,9 @@ namespace Gardener.Client
         public async Task<List<ResourceDto>> RefreshUserResources()
         {
             if (currentUser == null) return null;
-
             var result=  await authorizeService.GetCurrentUserResources(ResourceType.BUTTON, ResourceType.MENU);
-            if (result.Successed)
-            {
-                resources = result.Data ?? new List<ResourceDto>();
-                return result.Data;
-            }
-
-            return new List<ResourceDto>();
+            resources = result ?? new List<ResourceDto>();
+            return resources;
         }
         #region private
         /// <summary>

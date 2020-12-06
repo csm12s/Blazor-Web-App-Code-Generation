@@ -26,22 +26,22 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 权限名称
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{0}")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         public string Name { get; set; }
         /// <summary>
         /// 权限key
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{0}")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         public string Key { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
-        [MaxLength(500, ErrorMessage = "最大长度不能大于{0}")]
+        [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
         public string Remark { get; set; }
         /// <summary>
         /// 资源地址
         /// </summary>
-        [MaxLength(200, ErrorMessage = "最大长度不能大于{0}")]
+        [MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
         public string Path { get; set; }
         /// <summary>
         /// 接口请求方法
@@ -50,7 +50,7 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 资源图标
         /// </summary>
-        [MaxLength(50, ErrorMessage = "最大长度不能大于{0}")]
+        [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         public string Icon { get; set; }
         /// <summary>
         /// 资源排序

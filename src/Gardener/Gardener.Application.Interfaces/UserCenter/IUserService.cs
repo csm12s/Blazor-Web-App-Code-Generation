@@ -4,17 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Models;
 using Gardener.Application.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Services
+namespace Gardener.Application.Interfaces
 {
-    public interface IUserService : IServiceBase<UserDto>
+    public interface IUserService:IApplicationServiceBase<UserDto, int>
     {
-        Task<ApiResult<List<ResourceDto>>> GetResources( int userId);
-        Task<ApiResult<List<RoleDto>>> GetRoles(int userId);
+        Task<List<ResourceDto>> GetResources(int userId);
+        Task<List<RoleDto>> GetRoles(int userId);
         /// <summary>
         /// 查询
         /// </summary>
@@ -22,14 +22,13 @@ namespace Gardener.Client.Services
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<ApiResult<PagedList<UserDto>>> Search(string name, int pageIndex = 1,  int pageSize = 10);
-
+        Task<PagedList<UserDto>> Search(string name,  int pageIndex = 1, int pageSize = 10);
         /// <summary>
         /// 设置用户角色
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="roleIds"></param>
         /// <returns></returns>
-        Task<ApiResult<bool>> Role(int userId, int[] roleIds);
+        Task<bool> Role(int userId, int[] roleIds);
     }
 }

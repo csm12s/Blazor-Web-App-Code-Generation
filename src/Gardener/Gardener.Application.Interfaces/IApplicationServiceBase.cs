@@ -4,17 +4,18 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Application.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Application
+namespace Gardener.Application.Interfaces
 {
     /// <summary>
     /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
     /// <typeparam name="TEntityDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IServiceBase<TEntityDto, TKey> where TEntityDto : class, new()
+    public interface IApplicationServiceBase<TEntityDto, TKey> where TEntityDto : class, new()
     {
         /// <summary>
         /// 删除一条

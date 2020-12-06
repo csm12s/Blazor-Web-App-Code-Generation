@@ -6,7 +6,6 @@
 
 using AntDesign;
 using AntDesign.TableModels;
-using Gardener.Client.Services;
 using Gardener.Application.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Components;
@@ -16,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Web;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Client.Pages.UserCenter
 {
@@ -56,11 +56,11 @@ namespace Gardener.Client.Pages.UserCenter
                 Rtl = true,
             });
             var resourceResult = await ResourceService.GetTree();
-            if (!resourceResult.Successed)
+            if (resourceResult==null)
             {
-                MessageService.Error("节点加载失败");
+                MessageService.Error("资源节点未加载到数据");
             }
-            tree.DataSource = resourceResult.Data;
+            tree.DataSource = resourceResult;
         }
         /// <summary>
         /// 重新加载table
@@ -70,9 +70,9 @@ namespace Gardener.Client.Pages.UserCenter
         {
             tableIsLoading = true;
             var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
-            if (pagedListResult.Successed)
+            if (pagedListResult!=null)
             {
-                var pagedList = pagedListResult.Data;
+                var pagedList = pagedListResult;
                 roles = pagedList.Items.ToArray();
                 _total = pagedList.TotalCount;
             }
@@ -97,19 +97,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <returns></returns>
         private async Task onChange(QueryModel<RoleDto> queryModel)
         {
-            tableIsLoading = true;
-            var pagedListResult = await RoleService.Search(_name, _pageIndex, _pageSize);
-            if (pagedListResult.Successed)
-            {
-                var pagedList = pagedListResult.Data;
-                roles = pagedList.Items.ToArray();
-                _total = pagedList.TotalCount;
-            }
-            else
-            {
-                MessaheSvr.Error("加载失败");
-            }
-            tableIsLoading = false;
+            await ReLoadTable();
         }
         /// <summary>
         /// 点击删除按钮
@@ -120,7 +108,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
             {
                 var result = await RoleService.FakeDelete(id);
-                if (result.Successed)
+                if (result)
                 {
                     roles = roles.Remove(roles.FirstOrDefault(x => x.Id == id));
                     MessaheSvr.Success("删除成功");
@@ -176,7 +164,7 @@ namespace Gardener.Client.Pages.UserCenter
                 var result = await RoleService.Insert(editModel);
                 formIsLoading = false;
                 drawerVisible = false;
-                if (result.Successed)
+                if (result!=null)
                 {
                     MessaheSvr.Success("添加成功");
                     _pageIndex = 1;
@@ -195,7 +183,7 @@ namespace Gardener.Client.Pages.UserCenter
                 var result = await RoleService.Update(editModel);
                 formIsLoading = false;
                 drawerVisible = false;
-                if (result.Successed)
+                if (result)
                 {
                     await ReLoadTable();
                     MessaheSvr.Success("修改成功", 1);
@@ -230,7 +218,7 @@ namespace Gardener.Client.Pages.UserCenter
                 if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
                 {
                     var result = await RoleService.FakeDeletes(selectedRows.Select(x => x.Id).ToArray());
-                    if (result.Successed)
+                    if (result)
                     {
                         roles = roles.Where(x => !selectedRows.Any(y => y.Id == x.Id)).ToArray();
                         MessaheSvr.Success("删除成功");
@@ -255,7 +243,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task ChangeIsLocked(RoleDto model, bool isLocked)
         {
             var result = await RoleService.Lock(model.Id, isLocked);
-            if (!result.Successed)
+            if (!result)
             {
                 model.IsLocked = !isLocked;
                 MessaheSvr.Error("锁定失败");
@@ -293,7 +281,7 @@ namespace Gardener.Client.Pages.UserCenter
             //选中已有资源
             var roleResourceResult = await RoleService.GetResource(roleId);
             //
-            if (!roleResourceResult.Successed)
+            if (roleResourceResult==null)
             {
                 MessageService.Error("已分配资源加载失败");
                 editRoleResourceTreeIsLoading = false;
@@ -301,8 +289,8 @@ namespace Gardener.Client.Pages.UserCenter
             }
             await Check(tree.ChildNodes, (id) =>
             {
-                if (roleResourceResult.Data == null) return false;
-                return roleResourceResult.Data.Any(x => x.Id == id && (x.Children == null || !x.Children.Any()));
+                if (roleResourceResult == null) return false;
+                return roleResourceResult.Any(x => x.Id == id && (x.Children == null || !x.Children.Any()));
             });
             editRoleResourceTreeIsLoading = false;
             editRoleResourceDrawerVisible = true;
@@ -358,7 +346,7 @@ namespace Gardener.Client.Pages.UserCenter
             }
             //删除所有资源
             var result = await RoleService.Resource(currentEditRoleResourceRoleId, resourceIds);
-            if (result.Successed)
+            if (result)
             {
                 MessageService.Success("保存成功");
                 editRoleResourceDrawerVisible = false;

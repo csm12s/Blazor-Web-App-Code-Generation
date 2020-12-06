@@ -20,6 +20,7 @@ using Gardener.Core.Entites;
 using Gardener.Application.Dtos;
 using System.Threading.Tasks;
 using Gardener.Core;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Application
 {
@@ -63,7 +64,7 @@ namespace Gardener.Application
         /// <remarks>管理员：admin/admin；普通用户：Furion/dotnetchina</remarks>
         /// <returns></returns>
         [AllowAnonymous]
-        public LoginOutput Login(LoginInput input)
+        public async Task<LoginOutput> Login(LoginInput input)
         {
             // 验证用户是否存在
             var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
@@ -81,7 +82,7 @@ namespace Gardener.Application
                 UserName = user.UserName,
                 NickName = user.NickName
             };
-            var token = CreateToken(user);
+            var token = await CreateToken(user);
             output.AccessToken = token.AccessToken;
             output.AccessTokenExpiresIn = token.AccessTokenExpiresIn;
             // 设置 Swagger 刷新自动授权
@@ -93,7 +94,7 @@ namespace Gardener.Application
         /// 创建token
         /// </summary>
         /// <returns></returns>
-        private TokenOutput CreateToken(User user)
+        private async Task<TokenOutput> CreateToken(User user)
         {
             var output = new TokenOutput();
             var tokenResult = _authorizationManager.CreateToken(user.Id, new Dictionary<string, object>() {
@@ -109,29 +110,29 @@ namespace Gardener.Application
         /// 刷新Token
         /// </summary>
         /// <returns></returns>
-        public TokenOutput RefreshToken()
+        public async Task<TokenOutput> RefreshToken()
         {
             // 获取用户Id
             var userId = _authorizationManager.GetUserId();
             var user = _userRepository.FirstOrDefault(u => u.Id == userId && u.IsDeleted == false, false) ?? throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
             if (user.IsLocked) throw Oops.Oh(ExceptionCode.USER_LOCKED);
-            var output = CreateToken(user);
+            var output =await CreateToken(user);
             return output;
         }
         /// <summary>
         /// 查看用户角色
         /// </summary>
-        public List<RoleDto> GetCurrentUserRoles()
+        public async Task<List<RoleDto>> GetCurrentUserRoles()
         {
             // 获取用户Id
             var userId = _authorizationManager.GetUserId();
 
-            var roles = _userRepository
+            var roles = await _userRepository
                 .DetachedEntities
                 .Include(u => u.Roles)
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles)
-                .ToList();
+                .ToListAsync();
 
             return roles.Adapt<List<RoleDto>>();
         }
@@ -164,7 +165,7 @@ namespace Gardener.Application
             //超级管理员
             if (_authorizationManager.IsSuperAdministrator())
             {
-                resources = await _resourceRepository.Where(x => resourceTypes.Contains(x.Type)).ToListAsync();
+                resources = await _resourceRepository.Where(x => x.IsDeleted==false && x.IsLocked==false && resourceTypes.Contains(x.Type)).ToListAsync();
             }
             else
             {
