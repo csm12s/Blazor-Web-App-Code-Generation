@@ -18,10 +18,9 @@
 
 ## 开始使用
 1. 确保安装了.net 5 sdk，如果使用vs,确保是vs2019最新版
-2. 打开 API.sln 在Gardener.EntityFramwork.Core/dbsettings.json 中修改 GardenerMysqlDbConnectionString
-3. 设置Gardener.Web.Entry 为启动项目，打开 工具=> Nuget包管理器=> 程序包管理器控制台，控制台默认项目选 Gardener.Database.Migrations， 执行EF迁移命令`Add-Migration v0.0.1`，`Update-Database`,成功后 F5启动接口
-4. 打开 Client.sln 设置 Gardener.Client 为启动项目，F5启动Client或右击wwwroot在浏览器打开
-5. 默认用户名密码 admin/admin、testuser/testuser
+2. 打开 API.sln 设置Gardener.Web.Entry 为启动项目，F5启动接口
+3. 打开 Client.sln 设置 Gardener.Client 为启动项目，F5启动Client或右击wwwroot在浏览器打开（F5调试启动，较卡！！）
+4. 默认用户名密码 admin/admin、testuser/testuser
 
 ## 项目结构
 
@@ -48,11 +47,13 @@
 
 
 ## 常见问题
-- 如何切换数据库：项目ORM框架使用的是EF，默认已使用MySQL，切换其它数据库需要调整以下文件
+- 如何切换数据库：项目ORM框架使用的是EF，默认已使用sqlite，切换其它数据库需要调整以下文件
 `Gardener.EntityFramwork.Core.DbContexts.GardenerDbContext`
 `Gardener.EntityFramwork.Core/dbsettings.json`
-`Gardener.EntityFramwork.Core.GardenerEntityFrameworkCoreStartup`
+`Gardener.EntityFramwork.Core/GardenerEntityFrameworkCoreStartup`
+调整后开始迁移，设置Gardener.Web.Entry 为启动项目，打开 工具=> Nuget包管理器=> 程序包管理器控制台，控制台默认项目选 Gardener.Database.Migrations， 执行EF迁移命令`Add-Migration v0.0.1`，`Update-Database`即可。
 - client 打不开：client默认端口是 44388，在 `Gardener.Client/launchSettings.json`中可以调整，浏览器应打开 https://localhost:44388
+- 开发页面时如何热更新：在Gardener.Client目录执行`dotnet watch run`
 
 ## 展示
 
