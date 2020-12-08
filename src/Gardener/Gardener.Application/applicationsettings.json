@@ -56,11 +56,6 @@
       }
 
     ],
-    "ValidationTypeMessageSettings": {
-      "Definitions": [
-        [ "Required", "不能为空" ]
-      ]
-    },
     "EnableAuthorized": true,
     "SecurityDefinitions": [
       {
@@ -91,15 +86,26 @@
     "ValidateAudience": true, // 是否验证签收方，bool 类型，默认true
     "ValidAudience": "Gardener", // 签收方，string 类型
     "ValidateLifetime": true, // 是否验证过期时间，bool 类型，默认true，建议true
-    "ExpiredTime": 20, // 过期时间，long 类型，单位分钟，默认20分钟
+    "ExpiredTime": 5, // 过期时间，long 类型，单位分钟，默认20分钟
     "ClockSkew": 5 // 过期时间容错值，long 类型，耽误秒，默认 5秒
+  },
+  "JwtRefreshTokenSettings": {
+    "IssuerSigningKey": "vZeG9AzggRvPezYsMloCIUQ3taIzIOqczOIUON2P35F4nlBRhIfPJY7OxrCXyRlLlZKNFquFewlsewF44CylIaBaIbCjoflDZwJ",
+    "RefreshExpireMins": 2880,
+    "IsRefreshAbsoluteExpired": true
+  },
+  "ValidationTypeMessageSettings": {
+    "Definitions": [
+      [ "Required", "值不能为空或Null" ]
+    ]
   },
   "ErrorCodeMessageSettings": {
     "Definitions": [
       [ "USER_NAME_REPEAT", "用户名重复" ],
       [ "USER_NAME_OR_PASSWORD_ERROR", "用户名或密码错误" ],
       [ "USER_LOCKED", "用户已锁定" ],
-      [ "RESOURCE_KEY_REPEAT", "资源键值重复" ]
+      [ "RESOURCE_KEY_REPEAT", "资源键值重复" ],
+      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "刷新token不存在或已过期" ]
     ]
   }
 }

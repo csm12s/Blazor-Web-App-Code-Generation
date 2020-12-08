@@ -5,35 +5,33 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Enums;
+using System.Threading.Tasks;
 
 namespace Gardener.Core
 {
     /// <summary>
-    /// 权限管理器
+    /// jwt
     /// </summary>
-    public interface IAuthorizationManager
+    public interface IJwtBearerService
     {
-        /// 获取用户 Id
-        /// </summary>
-        /// <returns></returns>
-        int GetUserId();
         /// <summary>
-        /// 检查授权
+        /// 创建token
         /// </summary>
-        /// <param name="resourceId"></param>
+        /// <param name="userId"></param>
+        /// <param name="clientType"></param>
         /// <returns></returns>
-        bool CheckSecurity(string resourceId);
+        Task<JsonWebToken> CreateToken(int userId,LoginClientType clientType = LoginClientType.Browser);
         /// <summary>
-        /// 检查权限
+        /// 刷新token
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="path"></param>
+        /// <param name="refreshToken"></param>
         /// <returns></returns>
-        bool CheckSecurity(HttpMethodType method, string path);
+        Task<JsonWebToken> RefreshToken(string refreshToken);
         /// <summary>
-        /// 是否是超级管理员
+        /// 移除当前用户的刷新token
         /// </summary>
         /// <returns></returns>
-        bool IsSuperAdministrator();
+        Task<bool> RemoveCurrentUserRefreshToken();
+
     }
 }

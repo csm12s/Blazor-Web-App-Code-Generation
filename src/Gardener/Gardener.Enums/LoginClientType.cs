@@ -7,21 +7,23 @@
 namespace Gardener.Enums
 {
     /// <summary>
-    /// 节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
+    /// 请求登录的客户端类型
     /// </summary>
-    public enum Frequency
+    public enum LoginClientType
     {
         /// <summary>
-        /// 靠前
+        /// 浏览器类型
         /// </summary>
-        Morning = 0,
+        Browser,
+
         /// <summary>
-        /// 中间
+        /// 桌面客户端
         /// </summary>
-        Afternoon = 1,
+        Desktop,
+
         /// <summary>
-        /// 靠下
+        /// 手机客户端
         /// </summary>
-        Night = 2,
+        Mobile
     }
 }

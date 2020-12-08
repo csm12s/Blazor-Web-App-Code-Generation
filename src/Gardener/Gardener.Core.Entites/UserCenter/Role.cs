@@ -92,6 +92,7 @@ namespace Gardener.Core.Entites
                     u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("c8540d46-fe88-4858-8ab7-f8b427695e77"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now});
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("25dcaaca-6f97-45f3-952d-05112f07c677"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"),CreatedTime=DateTimeOffset.Now});
@@ -110,6 +111,7 @@ namespace Gardener.Core.Entites
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("dc7cf259-5c60-47c9-a02b-1fc9b04c9582"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("e30bbf62-d6d3-4e72-ac1a-abb285587632"),CreatedTime=DateTimeOffset.Now});
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"),CreatedTime=DateTimeOffset.Now});
                 });
 
 

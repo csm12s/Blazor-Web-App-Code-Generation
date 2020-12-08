@@ -51,15 +51,20 @@ namespace Gardener.Client.Services
             throw new NotImplementedException();
         }
 
-        public async Task<LoginOutput> Login(LoginInput input)
+        public async Task<TokenOutput> Login(LoginInput input)
         {
-            var result = await apiCaller.PostAsync<LoginInput, LoginOutput>($"{controller}/login", input);
+            var result = await apiCaller.PostAsync<LoginInput, TokenOutput>($"{controller}/login", input);
             return result;
         }
 
-        public async Task<TokenOutput> RefreshToken()
+        public async Task<TokenOutput> RefreshToken(RefreshTokenInput input)
         {
-            return await apiCaller.PostAsync<object, TokenOutput>($"{controller}/refresh-token");
+            return await apiCaller.PostAsync<RefreshTokenInput, TokenOutput>($"{controller}/refresh-token", input);
+        }
+
+        public async Task<bool> RemoveCurrentUserRefreshToken()
+        {
+            return await apiCaller.DeleteAsync<bool>($"{controller}/current-user-refresh-token");
         }
     }
 }

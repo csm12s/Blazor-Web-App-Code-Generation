@@ -15,40 +15,72 @@ namespace Gardener.Client.Services
         {
             SessionStorage = new SessionStorage(js);
             Document = new Document(js);
+            LocalStorage = new LocalStorage(js);
         }
         /// <summary>
         /// session storage
         /// </summary>
-        public SessionStorage SessionStorage { get; init; }
+        public IWebStorage SessionStorage { get; init; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IWebStorage LocalStorage { get; init; }
         /// <summary>
         /// 
         /// </summary>
         public Document Document { get; set; }
     }
+
+    public interface IWebStorage
+    {
+        Task<T> GetAsync<T>(string key);
+        Task RemoveAsync(string key);
+        Task SetAsync(string key, object value);
+    }
+
     /// <summary>
     /// session storage
     /// </summary>
-    public class SessionStorage
+    public class SessionStorage : IWebStorage
     {
         private readonly IJSRuntime js;
         public SessionStorage(IJSRuntime js)
         {
             this.js = js;
         }
-        public async Task SetAsync(string key, string value)
+        public async Task SetAsync(string key, object value)
         {
             await js.InvokeVoidAsync("sessionStorage.setItem", key, value);
         }
         public async Task<T> GetAsync<T>(string key)
         {
-           return await js.InvokeAsync<T>("sessionStorage.getItem", key);
+            return await js.InvokeAsync<T>("sessionStorage.getItem", key);
         }
         public async Task RemoveAsync(string key)
         {
             await js.InvokeVoidAsync("sessionStorage.removeItem", key);
         }
     }
-
+    public class LocalStorage: IWebStorage
+    {
+        private readonly IJSRuntime js;
+        public LocalStorage(IJSRuntime js)
+        {
+            this.js = js;
+        }
+        public async Task SetAsync(string key, object value)
+        {
+            await js.InvokeVoidAsync("localStorage.setItem", key, value);
+        }
+        public async Task<T> GetAsync<T>(string key)
+        {
+            return await js.InvokeAsync<T>("localStorage.getItem", key);
+        }
+        public async Task RemoveAsync(string key)
+        {
+            await js.InvokeVoidAsync("localStorage.removeItem", key);
+        }
+    }
     public class Document
     {
         private readonly IJSRuntime js;

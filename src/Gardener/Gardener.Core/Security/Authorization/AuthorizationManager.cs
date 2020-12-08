@@ -27,12 +27,6 @@ namespace Gardener.Core
     public class AuthorizationManager : IAuthorizationManager, IScoped
     {
         /// <summary>
-        /// JWT配置
-        /// </summary>
-        private JWTSettingsOptions jwtSettings;
-        private string userIdKeyName = "UserId";
-        private string userIsSuperAdministratorKey = "IsSuperAdministrator";
-        /// <summary>
         /// 请求上下文访问器
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -45,20 +39,11 @@ namespace Gardener.Core
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="userRepository"></param>
-        public AuthorizationManager(IHttpContextAccessor httpContextAccessor
-            , IRepository<User> userRepository, IOptions<JWTSettingsOptions> jWTSettings)
+        public AuthorizationManager(IHttpContextAccessor httpContextAccessor, 
+            IRepository<User> userRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
-            this.jwtSettings = jWTSettings.Value;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public string GetUserIdKeyName()
-        {
-            return userIdKeyName;
         }
         /// <summary>
         /// 获取用户Id
@@ -66,7 +51,7 @@ namespace Gardener.Core
         /// <returns></returns>
         public int GetUserId()
         {
-            return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(userIdKeyName));
+            return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         }
         /// <summary>
         /// 是否是超级管理员
@@ -74,7 +59,7 @@ namespace Gardener.Core
         /// <returns></returns>
         public bool IsSuperAdministrator()
         {
-            var value = _httpContextAccessor.HttpContext.User.FindFirstValue(userIsSuperAdministratorKey);
+            var value = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.UserIsSuperAdministratorKey);
             if (!string.IsNullOrEmpty(value))
             {
                 return bool.Parse(value);
@@ -89,36 +74,10 @@ namespace Gardener.Core
             //超级管理员
             bool isSuperAdministrator = user.Roles.Any();
             //添加一个超级管理员身份证
-            _httpContextAccessor.HttpContext.User.AddIdentity(new ClaimsIdentity(new List<Claim>() { new Claim(userIsSuperAdministratorKey, isSuperAdministrator.ToString()) }));
+            _httpContextAccessor.HttpContext.User.AddIdentity(new ClaimsIdentity(new List<Claim>() { new Claim(AuthKeyConstants.UserIsSuperAdministratorKey, isSuperAdministrator.ToString()) }));
             return isSuperAdministrator;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TUserId"></typeparam>
-        /// <param name="userId"></param>
-        /// <param name="claims"></param>
-        /// <returns></returns>
-        public SecurityTokenResult CreateToken<TUserId>(TUserId userId, Dictionary<string, object> claims)
-        {
-            var datetimeOffset = DateTimeOffset.UtcNow;
-            var exp = DateTimeOffset.UtcNow.AddMinutes(jwtSettings.ExpiredTime.Value).ToUnixTimeSeconds();
-            claims.TryAdd(userIdKeyName, userId);
-            claims.TryAdd(JwtRegisteredClaimNames.Iat, datetimeOffset.ToUnixTimeSeconds());
-            claims.TryAdd(JwtRegisteredClaimNames.Nbf, datetimeOffset.ToUnixTimeSeconds());
-            claims.TryAdd(JwtRegisteredClaimNames.Exp, exp);
-            claims.TryAdd(JwtRegisteredClaimNames.Iss, jwtSettings.ValidIssuer);
-            claims.TryAdd(JwtRegisteredClaimNames.Aud, jwtSettings.ValidAudience);
-            var token = JWTEncryption.Encrypt(jwtSettings.IssuerSigningKey, claims);
-
-          
-            return new SecurityTokenResult
-            {
-                ExpiresIn = exp,
-                AccessToken = token,
-                TokenType = "jwt"
-            };
-        }
+        
         /// <summary>
         /// 检查权限
         /// </summary>
@@ -163,14 +122,6 @@ namespace Gardener.Core
                 .Select(u => u.Id);
             if (!resources.Any()) return false;
             return true;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Claim> GetClaims()
-        {
-            return _httpContextAccessor.HttpContext.User.Claims;
         }
     }
 }

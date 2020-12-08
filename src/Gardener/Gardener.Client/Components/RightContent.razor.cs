@@ -32,7 +32,7 @@ namespace Gardener.Client.Components
         {
             await base.OnInitializedAsync();
             SetClassMap();
-            _currentUser = authenticationStateManager.GetCurrentUser();
+            _currentUser =await authenticationStateManager.GetCurrentUser();
         }
 
         protected void SetClassMap()

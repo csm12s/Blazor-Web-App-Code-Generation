@@ -4,24 +4,27 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Enums
+using Furion.ConfigurableOptions;
+
+namespace Gardener.Core
 {
     /// <summary>
-    /// 排序规则
+    /// 
     /// </summary>
-    public enum RuleSort
+    public class JwtRefreshTokenSettingsOptions : IConfigurableOptions
     {
         /// <summary>
-        /// 必排
+        /// 获取或设置 RefreshToken有效期分钟数
         /// </summary>
-        Must = 0,
+        public double RefreshExpireMins { get; set; }
+
         /// <summary>
-        /// 禁止
+        /// 获取或设置 RefreshToken是否绝对过期
         /// </summary>
-        Prohibit = 1,
+        public bool IsRefreshAbsoluteExpired { get; set; } = true;
         /// <summary>
-        /// 连排
+        /// 
         /// </summary>
-        Continuity = 2
+        public string IssuerSigningKey { get; set; }
     }
 }

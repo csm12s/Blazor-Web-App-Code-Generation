@@ -22,19 +22,7 @@ namespace Gardener.Client.Constants
         /// 操作按钮大小
         /// </summary>
         public readonly static string OperationButtonSize = "default";
-        /// <summary>
-        /// token连续刷新失败次数最大值
-        /// </summary>
-        public readonly static int RefreshTokenErrorCountMax = 3;
-        /// <summary>
-        /// token刷新间隔（单位：秒）
-        /// </summary>
-        public readonly static int RefreshTokenInterval = 60;
-
-        /// <summary>
-        /// token刷新过期时间阈值（单位：秒）
-        /// </summary>
-        public readonly static int RefreshTokenTimeThreshold = 150;
+        
         /// <summary>
         /// 底部友链
         /// </summary>

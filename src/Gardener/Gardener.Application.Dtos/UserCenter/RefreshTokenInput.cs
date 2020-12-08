@@ -4,13 +4,19 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Core
+using Gardener.Enums;
+
+namespace Gardener.Application.Dtos
 {
-    public class SecurityTokenResult
+    /// <summary>
+    /// 
+    /// </summary>
+    public class RefreshTokenInput
     {
-        public string AccessToken { get; set; }
-        public long ExpiresIn { get; set; }
-        public string TokenType { get; set; }
+        /// <summary>
+        /// 刷新token
+        /// </summary>
+        public string RefreshToken { get; set; }
 
     }
 }

@@ -15,24 +15,14 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="T:Gardener.Core.SystemOptions">
+        <member name="T:Gardener.Core.AuthKeyConstants">
             <summary>
-            系统选项
-            </summary>
-        </member>
-        <member name="P:Gardener.Core.SystemOptions.SuperAdministratorRoleId">
-            <summary>
-            超级管理员角色Id
+            
             </summary>
         </member>
         <member name="T:Gardener.Core.AuthorizationManager">
             <summary>
             权限管理器
-            </summary>
-        </member>
-        <member name="F:Gardener.Core.AuthorizationManager.jwtSettings">
-            <summary>
-            JWT配置
             </summary>
         </member>
         <member name="F:Gardener.Core.AuthorizationManager._httpContextAccessor">
@@ -45,18 +35,12 @@
             用户仓储
             </summary>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions})">
+        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User})">
             <summary>
             构造函数
             </summary>
             <param name="httpContextAccessor"></param>
             <param name="userRepository"></param>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetUserIdKeyName">
-            <summary>
-            
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
             <summary>
@@ -68,15 +52,6 @@
             <summary>
             是否是超级管理员
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.CreateToken``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
-            <summary>
-            
-            </summary>
-            <typeparam name="TUserId"></typeparam>
-            <param name="userId"></param>
-            <param name="claims"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(System.String)">
@@ -94,31 +69,10 @@
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetClaims">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Gardener.Core.IAuthorizationManager">
             <summary>
             权限管理器
             </summary>
-        </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.CreateToken``1(``0,System.Collections.Generic.Dictionary{System.String,System.Object})">
-            <summary>
-            生成签名
-            </summary>
-            <typeparam name="TUserId"></typeparam>
-            <param name="userId"></param>
-            <param name="claims"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.GetUserIdKeyName">
-            <summary>
-            获取用户id key 的名称
-            </summary>
-            <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Gardener.Core.IAuthorizationManager.GetUserId" -->
         <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity(System.String)">
@@ -142,11 +96,166 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.GetClaims">
+        <member name="T:Gardener.Core.JsonWebToken">
+            <summary>
+            JWT
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.JsonWebToken.AccessToken">
+            <summary>
+            获取或设置 用于业务身份认证的AccessToken
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.JsonWebToken.AccessTokenExpires">
+            <summary>
+            获取或设置 AccessToken有效期，UTC标准
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.JsonWebToken.RefreshToken">
+            <summary>
+            获取或设置 用于刷新AccessToken的RefreshToken
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.JsonWebToken.RefreshTokenExpires">
+            <summary>
+            获取或设置 RefreshToken有效期，UTC标准
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.JsonWebToken.IsRefreshTokenExpired">
+            <summary>
+            刷新Token是否过期
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.JsonWebToken.IsAccessTokenExpired">
+            <summary>
+            刷新Token是否过期
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.IJwtBearerService">
+            <summary>
+            jwt
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.IJwtBearerService.CreateToken(System.Int32,Gardener.Enums.LoginClientType)">
+            <summary>
+            创建token
+            </summary>
+            <param name="userId"></param>
+            <param name="clientType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IJwtBearerService.RefreshToken(System.String)">
+            <summary>
+            刷新token
+            </summary>
+            <param name="refreshToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IJwtBearerService.RemoveCurrentUserRefreshToken">
+            <summary>
+            移除当前用户的刷新token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.JwtBearerService">
+            <summary>
+            jwt
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.JwtBearerService._httpContextAccessor">
+            <summary>
+            请求上下文访问器
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.JwtBearerService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserToken},Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions},Microsoft.Extensions.Options.IOptions{Gardener.Core.JwtRefreshTokenSettingsOptions},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             
             </summary>
+            <param name="repository"></param>
+            <param name="jwtSettings"></param>
+            <param name="jwtRefreshTokenOptions"></param>
+        </member>
+        <member name="M:Gardener.Core.JwtBearerService.CreateToken(System.Int32,Gardener.Enums.LoginClientType)">
+            <summary>
+            创建token
+            </summary>
+            <param name="userId"></param>
+            <param name="clientType"></param>
             <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JwtBearerService.RefreshToken(System.String)">
+            <summary>
+            刷新token
+            </summary>
+            <param name="refreshTokenStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JwtBearerService.CreateToken(System.Int32,Gardener.Enums.LoginClientType,Gardener.Core.Entites.UserToken)">
+            <summary>
+            创建token
+            </summary>
+            <param name="userId"></param>
+            <param name="clientType"></param>
+            <param name="refreshToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JwtBearerService.CreateToken(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},Gardener.Core.JwtBearerService.JwtTokenType,Gardener.Core.Entites.UserToken)">
+            <summary>
+            创建token
+            </summary>
+            <param name="claims"></param>
+            <param name="tokenType"></param>
+            <param name="refreshToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JwtBearerService.RemoveCurrentUserRefreshToken">
+            <summary>
+            移除当前用户的刷新token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.JwtBearerService.ReadToken(System.String,Gardener.Core.JwtBearerService.JwtTokenType)">
+            <summary>
+            从token中读取数据
+            </summary>
+            <param name="tokenStr"></param>
+            <param name="jwtTokenType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.JwtBearerService.JwtTokenType">
+            <summary>
+            token 类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.JwtBearerService.JwtTokenType.AccessToken">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.JwtBearerService.JwtTokenType.RefreshToken">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.JwtRefreshTokenSettingsOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.JwtRefreshTokenSettingsOptions.RefreshExpireMins">
+            <summary>
+            获取或设置 RefreshToken有效期分钟数
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.JwtRefreshTokenSettingsOptions.IsRefreshAbsoluteExpired">
+            <summary>
+            获取或设置 RefreshToken是否绝对过期
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.JwtRefreshTokenSettingsOptions.IssuerSigningKey">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:Gardener.Core.PasswordEncrypt">
             <summary>

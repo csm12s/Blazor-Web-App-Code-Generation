@@ -9,10 +9,10 @@ using Gardener.Application.Dtos;
 using System;
 using System.Threading.Tasks;
 using System.Threading;
-using Gardener.Client.Constants;
 using Gardener.Enums;
 using System.Collections.Generic;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Constants;
 
 namespace Gardener.Client
 {
@@ -21,15 +21,10 @@ namespace Gardener.Client
     /// </summary>
     public interface IAuthenticationStateManager
     {
-        Task FromLocalResetToken();
-        UserDto GetCurrentUser();
-        Task<UserDto> RefreshUser();
-        Task Login(LoginOutput loginOutput);
+        Task<UserDto> GetCurrentUser();
+        Task Login(TokenOutput loginOutput,bool autoLogin=true);
         Task Logout();
-        Task RemoveIdentity();
-        Task SetCurrentUser(UserDto currentUser);
         void SetNotifyAuthenticationStateChangedAction(Action c);
-        Task SetToken(string token);
         /// <summary>
         /// 获取用户拥有的资源
         /// </summary>
@@ -51,7 +46,11 @@ namespace Gardener.Client
         private int RefreshTokenErrorCount = 0;
         private UserDto currentUser;
         private List<ResourceDto> resources;
-        private LoginOutput loginOutput;
+        private TokenOutput localToken;
+        /// <summary>
+        /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
+        /// </summary>
+        private bool autoLogin=true;
         /// <summary>
         /// 定时器 用来刷新token
         /// </summary>
@@ -60,55 +59,57 @@ namespace Gardener.Client
         {
             this.jsTool = jsTool;
             this.httpClientManager = httpClientManager;
-            timer = new Timer(TimerCallback, true, 10000, SystemConstant.RefreshTokenInterval * 1000);
             this.authorizeService = authorizeService;
             this.logger = logger;
+            timer = new Timer(TimerCallback, true, 10000, AuthConstant.RefreshTokenCheckInterval * 1000);
         }
+
+        #region refresh token job
         /// <summary>
         /// 定时执行方法
         /// </summary>
         /// <param name="state"></param>
         private async void TimerCallback(object state)
         {
-            await logger.Debug($"token refresh begin {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
             //未登录
-            if (loginOutput == null) return;
-            await logger.Debug($"token refresh begin {loginOutput.AccessTokenExpiresIn} -  {DateTimeOffset.Now.ToUnixTimeSeconds()} = {loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds()}");
-            //已经过期了
-            if (loginOutput.AccessTokenExpiresIn < DateTimeOffset.Now.ToUnixTimeSeconds()) { await Logout();return;}
-            //时间还很充裕
-            if (loginOutput.AccessTokenExpiresIn - DateTimeOffset.Now.ToUnixTimeSeconds() > SystemConstant.RefreshTokenTimeThreshold) return;
+            if (localToken == null) return;
+            //RefreshToken已经过期了
+            if (localToken.RefreshTokenExpires < DateTimeOffset.Now.ToUnixTimeSeconds()) { await Logout(); return; }
+            //AccessToken时间还很充裕
+            if (localToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > AuthConstant.RefreshTokenTimeThreshold) return;
             //拿到新的token
-            var tokenResult=await authorizeService.RefreshToken();
-            if (tokenResult!=null)
+            var tokenResult = await authorizeService.RefreshToken(new RefreshTokenInput() { RefreshToken = localToken.RefreshToken });
+            if (tokenResult != null)
             {
                 RefreshTokenErrorCount = 0;
-                loginOutput.AccessToken = tokenResult.AccessToken;
-                loginOutput.AccessTokenExpiresIn = tokenResult.AccessTokenExpiresIn;
                 //token 设置
-                await SetToken(tokenResult.AccessToken);
-                await RefreshUser();
+                await SetLocalToken(tokenResult);
                 await logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
             }
-            else 
+            else
             {
                 RefreshTokenErrorCount++;
-                if (RefreshTokenErrorCount > SystemConstant.RefreshTokenErrorCountMax)
+                if (RefreshTokenErrorCount > AuthConstant.RefreshTokenErrorCountMax)
                 {
                     //失败时退出登录
                     await Logout();
                 }
             }
         }
+        #endregion
+
         /// <summary>
         /// 标记授权
         /// </summary>
-        /// <param name="loginOutput"></param>
+        /// <param name="token"></param>
+        /// <param name="autoLogin">自动登录</param>
         /// <returns></returns>
-        public async Task Login(LoginOutput loginOutput)
+        public async Task Login(TokenOutput token, bool autoLogin = true)
         {
-            this.loginOutput = loginOutput;
-            await SetToken(loginOutput.AccessToken);
+            this.autoLogin = autoLogin;
+            this.localToken = token;
+            await SetLocalToken(token);
+            
             notifyAuthenticationStateChangedAction();
         }
         /// <summary>
@@ -116,9 +117,12 @@ namespace Gardener.Client
         /// </summary>
         public async Task Logout()
         {
-            await RemoveIdentity();
+            await authorizeService.RemoveCurrentUserRefreshToken();
+            await RemoveLocalIdentity();
             notifyAuthenticationStateChangedAction();
         }
+
+        #region 状态通知
         Action notifyAuthenticationStateChangedAction = () => { };
         /// <summary>
         /// 设置状态通知回调
@@ -128,81 +132,40 @@ namespace Gardener.Client
         {
             notifyAuthenticationStateChangedAction = c;
         }
-        /// <summary>
-        /// 获取当前用户
-        /// </summary>
-        /// <returns></returns>
-        public UserDto GetCurrentUser()
-        {
-            return currentUser;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="currentUser"></param>
-        /// <returns></returns>
-        public async Task SetCurrentUser(UserDto currentUser)
-        {
-            this.currentUser = currentUser;
-        }
-        /// <summary>
-        /// 检测本地token,并使用
-        /// </summary>
-        /// <param name="loginOutput"></param>
-        /// <returns></returns>
-        public async Task FromLocalResetToken()
-        {
-            //本地是否有token
-            string token = await jsTool.SessionStorage.GetAsync<string>("AccessToken");
-            if (!string.IsNullOrEmpty(token))
-            {
-                SetHttpClientAuthorization(token);
-            }
-        }
-        /// <summary>
-        /// token 设置到浏览器缓存 和 httpclient 头部
-        /// </summary>
-        /// <param name="loginOutput"></param>
-        /// <returns></returns>
-        public async Task SetToken(string token)
-        {
-            await jsTool.SessionStorage.SetAsync("AccessToken", token);
-            SetHttpClientAuthorization(token);
-        }
-        /// <summary>
-        ///  移除浏览器token缓存
-        ///  移除httpclient 头部token
-        ///  本地currentUser设置为null
-        /// </summary>
-        public async Task RemoveIdentity()
-        {
-            await jsTool.SessionStorage.RemoveAsync("AccessToken");
-            SetHttpClientAuthorization("");
-            currentUser = null;
-        }
+        #endregion
+
         /// <summary>
         /// 刷新用户
         /// </summary>
         /// <returns></returns>
-        public async Task<UserDto> RefreshUser()
+        public async Task<UserDto> GetCurrentUser()
         {
             if (currentUser != null)
                 return currentUser;
-            //从浏览器重新加载token
-            await FromLocalResetToken();
-            //请求
-            var userResult = await authorizeService.GetCurrentUser();
-            if (userResult!=null)
+            if (localToken == null)
             {
-                await SetCurrentUser(userResult);
-                await RefreshUserResources();
-                return userResult;
+                //从浏览器重新加载token
+                var token=await GetLocalRefreshToken();
+                if (token != null)
+                    await SetLocalToken(token);
+                else
+                    await RemoveLocalIdentity();
             }
-            else
+            if (localToken != null)
             {
-                return null;
+                //请求
+                var userResult = await authorizeService.GetCurrentUser();
+                if (userResult != null)
+                {
+                    this.currentUser = userResult;
+                    await RefreshUserResources();
+                    return userResult;
+                }
             }
+            return null;
         }
+
+        #region Resource
         public List<ResourceDto> GetCurrentUserResources()
         {
             return resources;
@@ -214,11 +177,56 @@ namespace Gardener.Client
         public async Task<List<ResourceDto>> RefreshUserResources()
         {
             if (currentUser == null) return null;
-            var result=  await authorizeService.GetCurrentUserResources(ResourceType.BUTTON, ResourceType.MENU);
+            var result = await authorizeService.GetCurrentUserResources(ResourceType.BUTTON, ResourceType.MENU);
             resources = result ?? new List<ResourceDto>();
             return resources;
         }
+        #endregion
+
         #region private
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private IWebStorage GetWebStorageFromAutoLogin()
+        {
+            return autoLogin ? jsTool.LocalStorage : jsTool.SessionStorage;
+        }
+        /// <summary>
+        /// 检测本地是否有可用RefreshToken,有的话使用
+        /// </summary>
+        /// <returns></returns>
+        private async Task<TokenOutput> GetLocalRefreshToken()
+        {
+            //从本地还原
+            var accessTokenExpiresLocal = await jsTool.SessionStorage.GetAsync<string>(nameof(TokenOutput.AccessTokenExpires));
+            var accessTokenLocal = await jsTool.SessionStorage.GetAsync<string>(nameof(TokenOutput.AccessToken));
+
+            var refreshTokenLocal = await GetWebStorageFromAutoLogin().GetAsync<string>(nameof(TokenOutput.RefreshToken));
+            var refreshTokenExpiresLocal = await GetWebStorageFromAutoLogin().GetAsync<string>(nameof(TokenOutput.RefreshTokenExpires));
+            if (string.IsNullOrEmpty(refreshTokenLocal) || string.IsNullOrEmpty(refreshTokenExpiresLocal))
+            {
+                return null;
+            }
+            //accessToken可用
+            if (!string.IsNullOrEmpty(accessTokenExpiresLocal) && long.Parse(accessTokenExpiresLocal) - DateTimeOffset.Now.ToUnixTimeSeconds() > AuthConstant.RefreshTokenTimeThreshold
+                && !string.IsNullOrEmpty(accessTokenLocal) 
+                )
+            {
+                return new TokenOutput
+                {
+                    AccessToken = accessTokenLocal,
+                    RefreshToken = refreshTokenLocal,
+                    AccessTokenExpires = long.Parse(accessTokenExpiresLocal),
+                    RefreshTokenExpires = long.Parse(refreshTokenExpiresLocal)
+                };
+            }
+            //使用refreshToken
+            //拿到新的token
+            var tokenResult = await authorizeService.RefreshToken(new RefreshTokenInput() { RefreshToken = refreshTokenLocal });
+            return tokenResult;
+        }
         /// <summary>
         /// 给httpclient设置验证token
         /// </summary>
@@ -228,7 +236,35 @@ namespace Gardener.Client
             //httpClient.Authenticator = new JwtAuthenticator(token);
             httpClientManager.SetClientAuthorization(token);
         }
-        
+        /// <summary>
+        /// token 设置到浏览器缓存 和 httpclient 头部
+        /// </summary>
+        /// <param name="loginOutput"></param>
+        /// <returns></returns>
+        private async Task SetLocalToken(TokenOutput token)
+        {
+            this.localToken = token;
+            await jsTool.SessionStorage.SetAsync(nameof(TokenOutput.AccessToken), token.AccessToken);
+            await jsTool.SessionStorage.SetAsync(nameof(TokenOutput.AccessTokenExpires), token.AccessTokenExpires);
+            await GetWebStorageFromAutoLogin().SetAsync(nameof(TokenOutput.RefreshToken), token.RefreshToken);
+            await GetWebStorageFromAutoLogin().SetAsync(nameof(TokenOutput.RefreshTokenExpires), token.RefreshTokenExpires);
+            SetHttpClientAuthorization(token.AccessToken);
+        }
+        /// <summary>
+        ///  移除浏览器token缓存
+        ///  移除httpclient 头部token
+        ///  本地currentUser设置为null
+        /// </summary>
+        private async Task RemoveLocalIdentity()
+        {
+            await jsTool.SessionStorage.RemoveAsync(nameof(TokenOutput.AccessToken));
+            await jsTool.SessionStorage.RemoveAsync(nameof(TokenOutput.AccessTokenExpires));
+            await GetWebStorageFromAutoLogin().RemoveAsync(nameof(TokenOutput.RefreshToken));
+            await GetWebStorageFromAutoLogin().RemoveAsync(nameof(TokenOutput.RefreshTokenExpires));
+            SetHttpClientAuthorization("");
+            currentUser = null;
+            localToken = null;
+        }
         #endregion
     }
 }

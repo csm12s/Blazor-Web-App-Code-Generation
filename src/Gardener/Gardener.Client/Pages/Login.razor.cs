@@ -17,7 +17,7 @@ namespace Gardener.Client.Pages
     public partial class Login
     {
         bool loading = false;
-
+        bool autoLogin = true;
         private LoginInput loginInput = new LoginInput();
         [Inject]
         public MessageService MsgSvr { get; set; }
@@ -32,7 +32,7 @@ namespace Gardener.Client.Pages
 
         protected override  async Task OnInitializedAsync()
         {
-            var user =  authenticationStateManager.GetCurrentUser();
+            var user =  await authenticationStateManager.GetCurrentUser();
             if (user != null)
             {
                 Navigation.NavigateTo(returnUrl ?? "/");
@@ -55,7 +55,7 @@ namespace Gardener.Client.Pages
             if (loginOutResult!=null)
             {
                 await MsgSvr.Success($"登录成功",0.8);
-                await authenticationStateManager.Login(loginOutResult);
+                await authenticationStateManager.Login(loginOutResult, autoLogin);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }

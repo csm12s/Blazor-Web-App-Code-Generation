@@ -37,7 +37,7 @@ namespace Gardener.Client
             AuthenticationState authenticationState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             try
             {
-                var user =await authenticationStateManager.RefreshUser();
+                var user =await authenticationStateManager.GetCurrentUser();
                 //var resources=await authenticationStateManager.GetResources();
                 authenticationState = CreateAuthenticationState(user);
                 return authenticationState;

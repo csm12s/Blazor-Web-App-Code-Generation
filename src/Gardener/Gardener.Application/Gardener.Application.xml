@@ -146,7 +146,7 @@
             用户中心服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole})">
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Gardener.Core.IJwtBearerService)">
             <summary>
             角色管理服务
             </summary>
@@ -155,24 +155,25 @@
             <param name="securityRepository"></param>
             <param name="authorizationManager"></param>
             <param name="userRoleRepository"></param>
+            <param name="jwtBearerService"></param>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Application.Dtos.LoginInput)">
             <summary>
             登录
             </summary>
             <param name="input"></param>
-            <remarks>管理员：admin/admin；普通用户：Furion/dotnetchina</remarks>
+            <remarks>管理员：admin/admin；普通用户：testuser/testuser</remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.CreateToken(Gardener.Core.Entites.User)">
+        <member name="M:Gardener.Application.AuthorizeService.RefreshToken(Gardener.Application.Dtos.RefreshTokenInput)">
             <summary>
-            创建token
+            刷新Token
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.RefreshToken">
+        <member name="M:Gardener.Application.AuthorizeService.RemoveCurrentUserRefreshToken">
             <summary>
-            刷新Token
+            移除当前用户token
             </summary>
             <returns></returns>
         </member>

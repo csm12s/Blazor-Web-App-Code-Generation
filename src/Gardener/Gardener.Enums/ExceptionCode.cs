@@ -10,6 +10,7 @@ namespace Gardener.Enums
 {
     /// <summary>
     /// 异常状态码
+    /// 详细提示见:applicationsettings.json/ErrorCodeMessageSettings
     /// </summary>
     public enum ExceptionCode
     {
@@ -32,6 +33,11 @@ namespace Gardener.Enums
         /// 资源键值重复
         /// </summary>
         [Description("资源键值重复")]
-        RESOURCE_KEY_REPEAT
+        RESOURCE_KEY_REPEAT,
+        /// <summary>
+        /// 刷新token不存在或已过期
+        /// </summary>
+        [Description("刷新token不存在或已过期")]
+        REFRESHTOKEN_NO_EXIST_OR_EXPIRE
     }
 }

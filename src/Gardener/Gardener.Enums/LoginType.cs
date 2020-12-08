@@ -4,18 +4,27 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.ConfigurableOptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Gardener.Core
+namespace Gardener.Enums
 {
     /// <summary>
-    /// 系统选项
+    /// 
     /// </summary>
-    public class SystemOptions: IConfigurableOptions
+    public enum LoginType
     {
         /// <summary>
-        /// 超级管理员角色Id
+        /// 账号密码
         /// </summary>
-        public int SuperAdministratorRoleId { get; set; }
+        AccountPassword,
+        /// <summary>
+        /// 手机号验证码
+        /// </summary>
+        PhoneNumberVerificationCode
+
     }
 }

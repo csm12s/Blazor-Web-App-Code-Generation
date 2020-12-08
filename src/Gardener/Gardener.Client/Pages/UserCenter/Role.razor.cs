@@ -238,18 +238,15 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="isLocked"></param>
         private async Task OnChangeIsLocked(RoleDto model, bool isLocked)
         {
-            ChangeIsLocked(model, isLocked);
+            Task.Run(async () => {
+                var result = await RoleService.Lock(model.Id, isLocked);
+                if (!result)
+                {
+                    model.IsLocked = !isLocked;
+                    MessaheSvr.Error("锁定失败");
+                }
+            });
         }
-        private async Task ChangeIsLocked(RoleDto model, bool isLocked)
-        {
-            var result = await RoleService.Lock(model.Id, isLocked);
-            if (!result)
-            {
-                model.IsLocked = !isLocked;
-                MessaheSvr.Error("锁定失败");
-            }
-        }
-
         #region 分配资源
 
         private int currentEditRoleResourceRoleId = 0;

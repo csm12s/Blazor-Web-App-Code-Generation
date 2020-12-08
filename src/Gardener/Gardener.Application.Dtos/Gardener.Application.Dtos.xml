@@ -69,25 +69,21 @@
             <summary>
             登录类型
             </summary>
+            
         </member>
-        <member name="T:Gardener.Application.Dtos.LoginOutput">
+        <member name="P:Gardener.Application.Dtos.LoginInput.LoginClientType">
             <summary>
-            登录输出参数
+            登录客户端类型
             </summary>
         </member>
-        <member name="P:Gardener.Application.Dtos.LoginOutput.UserId">
+        <member name="T:Gardener.Application.Dtos.RefreshTokenInput">
             <summary>
-            用户Id
+            
             </summary>
         </member>
-        <member name="P:Gardener.Application.Dtos.LoginOutput.UserName">
+        <member name="P:Gardener.Application.Dtos.RefreshTokenInput.RefreshToken">
             <summary>
-            用户名
-            </summary>
-        </member>
-        <member name="P:Gardener.Application.Dtos.LoginOutput.NickName">
-            <summary>
-            昵称
+            刷新token
             </summary>
         </member>
         <member name="T:Gardener.Application.Dtos.ResourceDto">
@@ -275,12 +271,22 @@
         </member>
         <member name="P:Gardener.Application.Dtos.TokenOutput.AccessToken">
             <summary>
-            Token
+            获取或设置 用于业务身份认证的AccessToken
             </summary>
         </member>
-        <member name="P:Gardener.Application.Dtos.TokenOutput.AccessTokenExpiresIn">
+        <member name="P:Gardener.Application.Dtos.TokenOutput.AccessTokenExpires">
             <summary>
-            到期时间 UnixTimeSeconds
+            获取或设置 AccessToken有效期(时间戳精确到秒)
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.TokenOutput.RefreshToken">
+            <summary>
+            获取或设置 用于刷新AccessToken的RefreshToken
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.TokenOutput.RefreshTokenExpires">
+            <summary>
+            获取或设置 RefreshToken有效期(时间戳精确到秒)
             </summary>
         </member>
         <member name="T:Gardener.Application.Dtos.UserDto">

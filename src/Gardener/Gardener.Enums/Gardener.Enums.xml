@@ -4,51 +4,6 @@
         <name>Gardener.Enums</name>
     </assembly>
     <members>
-        <member name="T:Gardener.Enums.ExceptionCode">
-            <summary>
-            异常状态码
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.ExceptionCode.USER_LOCKED">
-            <summary>
-            用户锁定
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.ExceptionCode.USER_NAME_OR_PASSWORD_ERROR">
-            <summary>
-            用户密码错误
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.ExceptionCode.USER_NAME_REPEAT">
-            <summary>
-            用户名重复
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.ExceptionCode.RESOURCE_KEY_REPEAT">
-            <summary>
-            资源键值重复
-            </summary>
-        </member>
-        <member name="T:Gardener.Enums.Frequency">
-            <summary>
-            节所属上、中、下（一般主科安排前三节、复科和其他安排 中间考下，如果有晚自习，可以将晚自习的节次设置为2）
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.Frequency.Morning">
-            <summary>
-            靠前
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.Frequency.Afternoon">
-            <summary>
-            中间
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.Frequency.Night">
-            <summary>
-            靠下
-            </summary>
-        </member>
         <member name="T:Gardener.Enums.Gender">
             <summary>
             性别枚举
@@ -100,24 +55,70 @@
             API
             </summary>
         </member>
-        <member name="T:Gardener.Enums.RuleSort">
+        <member name="T:Gardener.Enums.ExceptionCode">
             <summary>
-            排序规则
+            异常状态码
+            详细提示见:applicationsettings.json/ErrorCodeMessageSettings
             </summary>
         </member>
-        <member name="F:Gardener.Enums.RuleSort.Must">
+        <member name="F:Gardener.Enums.ExceptionCode.USER_LOCKED">
             <summary>
-            必排
+            用户锁定
             </summary>
         </member>
-        <member name="F:Gardener.Enums.RuleSort.Prohibit">
+        <member name="F:Gardener.Enums.ExceptionCode.USER_NAME_OR_PASSWORD_ERROR">
             <summary>
-            禁止
+            用户密码错误
             </summary>
         </member>
-        <member name="F:Gardener.Enums.RuleSort.Continuity">
+        <member name="F:Gardener.Enums.ExceptionCode.USER_NAME_REPEAT">
             <summary>
-            连排
+            用户名重复
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.RESOURCE_KEY_REPEAT">
+            <summary>
+            资源键值重复
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE">
+            <summary>
+            刷新token不存在或已过期
+            </summary>
+        </member>
+        <member name="T:Gardener.Enums.LoginClientType">
+            <summary>
+            请求登录的客户端类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginClientType.Browser">
+            <summary>
+            浏览器类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginClientType.Desktop">
+            <summary>
+            桌面客户端
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginClientType.Mobile">
+            <summary>
+            手机客户端
+            </summary>
+        </member>
+        <member name="T:Gardener.Enums.LoginType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginType.AccountPassword">
+            <summary>
+            账号密码
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginType.PhoneNumberVerificationCode">
+            <summary>
+            手机号验证码
             </summary>
         </member>
     </members>

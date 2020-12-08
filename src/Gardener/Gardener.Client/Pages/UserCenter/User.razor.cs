@@ -66,7 +66,7 @@ namespace Gardener.Client.Pages.UserCenter
         {
             tableIsLoading = true;
             var pagedListResult = await UserSvr.Search(_name, _pageIndex, _pageSize);
-            if (pagedListResult!=null)
+            if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
                 users = pagedList.Items.ToArray();
@@ -113,7 +113,7 @@ namespace Gardener.Client.Pages.UserCenter
                 {
                     MessageSvr.Error("删除失败");
                 }
-               //await InvokeAsync(StateHasChanged);
+                //await InvokeAsync(StateHasChanged);
             }
 
         }
@@ -126,18 +126,18 @@ namespace Gardener.Client.Pages.UserCenter
             formIsLoading = true;
             drawerVisible = true;
             //Task.Run(() => {
-                if (model.UserExtension == null)
+            if (model.UserExtension == null)
+            {
+                model.UserExtension = new UserExtensionDto()
                 {
-                    model.UserExtension = new UserExtensionDto()
-                    {
-                        UserId = model.Id
-                    };
-                }
-                drawerTitle = "编辑";
-                model.Adapt(editModel);
-                formIsLoading = false;
+                    UserId = model.Id
+                };
+            }
+            drawerTitle = "编辑";
+            model.Adapt(editModel);
+            formIsLoading = false;
             //});
-           //await InvokeAsync(StateHasChanged);
+            //await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 点击添加按钮
@@ -147,7 +147,7 @@ namespace Gardener.Client.Pages.UserCenter
             new UserDto().Adapt(editModel);
             drawerTitle = "添加";
             drawerVisible = true;
-           //await InvokeAsync(StateHasChanged);
+            //await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 抽屉关闭时
@@ -171,7 +171,7 @@ namespace Gardener.Client.Pages.UserCenter
                 var result = await UserSvr.Insert(editModel);
                 formIsLoading = false;
                 drawerVisible = false;
-                if (result!=null)
+                if (result != null)
                 {
                     MessageSvr.Success("添加成功");
                     _pageIndex = 1;
@@ -243,7 +243,7 @@ namespace Gardener.Client.Pages.UserCenter
                     {
                         MessageSvr.Error($"删除失败");
                     }
-                   //await InvokeAsync(StateHasChanged);
+                    //await InvokeAsync(StateHasChanged);
                 }
             }
         }
@@ -254,21 +254,22 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="isLocked"></param>
         private async Task OnChangeIsLocked(UserDto model, bool isLocked)
         {
-            var result = await UserSvr.Lock(model.Id, isLocked);
-            if (!result)
+            Task.Run(async () =>
             {
-                model.IsLocked = !isLocked;
-                MessageSvr.Error("锁定失败");
-            }
+                var result = await UserSvr.Lock(model.Id, isLocked);
+                if (!result)
+                {
+                    model.IsLocked = !isLocked;
+                    MessageSvr.Error("锁定失败");
+                }
+            });
         }
-
-
 
         #region 分配角色
 
         private bool editRoleDrawerVisible;
 
-        private CheckboxOption[] roleOptions=new CheckboxOption[] { };
+        private CheckboxOption[] roleOptions = new CheckboxOption[] { };
 
         private bool editRoleFormIsLoading;
         private UserDto editRoleModel;
@@ -294,7 +295,7 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task LoadAllRoles(ICollection<RoleDto> roles)
         {
             var rolesResult = await RoleSvr.GetEffective();
-            if (rolesResult!=null && rolesResult.Any())
+            if (rolesResult != null && rolesResult.Any())
             {
                 roleOptions = rolesResult.Select(x => new CheckboxOption
                 {
@@ -327,19 +328,20 @@ namespace Gardener.Client.Pages.UserCenter
             string[] selectRoles = roleOptions.Where(x => x.Checked).Select(x => x.Value).ToArray();
 
             editRoleFormIsLoading = true;
-            var result=await UserSvr.Role(editRoleModel.Id, selectRoles?.Select(x=>int.Parse(x)).ToArray());
-            
+            var result = await UserSvr.Role(editRoleModel.Id, selectRoles?.Select(x => int.Parse(x)).ToArray());
+
             if (result)
             {
                 editRoleDrawerVisible = false;
                 MessageSvr.Success("设置成功");
                 editRoleModel.Roles = selectRoles == null ? null : roleOptions.ToList().Where(x => selectRoles.Any(y => y.Equals(x.Value))).Select(x => new RoleDto { Id = int.Parse(x.Value), Name = x.Label }).ToList();
             }
-            else {
+            else
+            {
                 MessageSvr.Error("设置失败");
             }
             editRoleFormIsLoading = false;
-           //await InvokeAsync(StateHasChanged);
+            //await InvokeAsync(StateHasChanged);
         }
         #region 全选
         private bool indeterminateRole => roleOptions.Count(o => o.Checked) > 0 && roleOptions.Count(o => o.Checked) < roleOptions.Count();

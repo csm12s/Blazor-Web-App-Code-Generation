@@ -383,5 +383,35 @@
             <param name="dbContext"></param>
             <param name="dbContextLocator"></param>
         </member>
+        <member name="T:Gardener.Core.Entites.UserToken">
+            <summary>
+            刷新token
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.UserToken.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.UserToken.ClientId">
+            <summary>
+            获取或设置 客户端Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.UserToken.LoginClientType">
+            <summary>
+            登录的客户端类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.UserToken.Value">
+            <summary>
+            获取或设置 标识值
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.UserToken.EndTime">
+            <summary>
+            获取或设置 过期时间
+            </summary>
+        </member>
     </members>
 </doc>
