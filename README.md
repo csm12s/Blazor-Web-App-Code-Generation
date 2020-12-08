@@ -26,22 +26,23 @@
 
 ```
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+公共层	+---Gardener.Enums              --公共枚举层                             
-+       +---Gardener.Common             --公共扩展层                             
++公共层	+---Gardener.Enums              	--公共枚举层                             
++       +---Gardener.Common             	--公共扩展层                             
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+       +---Gardener.Client.Models      --Client实体模型层（client独有）         
-+Client	+---Gardener.Client.Services    --Client业务服务层                      
-+       +---Gardener.Client             --Client页面层                          
-+       +---Gardener.ClientHost         --Client宿主                            
++       +---Gardener.Client.Models      	--Client实体模型层（client独有）         
++Client	+---Gardener.Client.Services    	--Client业务服务层                      
++       +---Gardener.Client             	--Client页面层                          
++       +---Gardener.ClientHost         	--Client宿主                            
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+       +---Gardener.Application        --API端业务层（业务实现）              
-+       +---Gardener.Application.Dtos   --API端业务数据模型层（Client可使用）   
-+       +---Gardener.Core               --API项目核心层（项目架构）             
-+ API	+---Gardener.Core.Entites       --API项目ORM实体模型                    
-+       +---Gardener.Database.Migrations--API数据库迁移（EF迁移）               
-+       +---Gardener.EntityFramwork.Core--API项目ORM EF核心层                  
-+       +---Gardener.Web.Core           --API Web核心层（Web框架核心及配置）    
-+       +---Gardener.Web.Entry          --API Web 服务入口                      
++       +---Gardener.Application        	--API端业务层（业务实现）              
++       +---Gardener.Application.Dtos   	--API端业务数据模型层（提供给Client） 
++       +---Gardener.Application.Interfaces     --API端业务接口定义层（提供给Client）  
++       +---Gardener.Core               	--API项目核心层（项目架构）             
++ API	+---Gardener.Core.Entites       	--API项目ORM实体模型                    
++       +---Gardener.Database.Migrations	--API数据库迁移（EF迁移）               
++       +---Gardener.EntityFramwork.Core	--API项目ORM EF核心层                  
++       +---Gardener.Web.Core           	--API Web核心层（Web框架核心及配置）    
++       +---Gardener.Web.Entry          	--API Web 服务入口                      
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
