@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Gardener.Application.Interfaces;
 
 namespace Gardener.Client
 {
@@ -37,8 +36,8 @@ namespace Gardener.Client
             AuthenticationState authenticationState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             try
             {
+                await authenticationStateManager.ReloadCurrentUserInfos();
                 var user =await authenticationStateManager.GetCurrentUser();
-                //var resources=await authenticationStateManager.GetResources();
                 authenticationState = CreateAuthenticationState(user);
                 return authenticationState;
             }
@@ -60,13 +59,12 @@ namespace Gardener.Client
         /// 根据 userdto 创建 AuthenticationState
         /// </summary>
         /// <returns></returns>
-        private AuthenticationState CreateAuthenticationState(UserDto currentUser,List<ResourceDto> resources=null)
+        private AuthenticationState CreateAuthenticationState(UserDto currentUser)
         {
             if (currentUser == null) return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, currentUser.NickName ?? currentUser.UserName));
             claims.Add(new Claim(ClaimTypes.NameIdentifier, currentUser.Id.ToString()));
-            //claims.Add(new Claim(ClaimTypes.UserData, resources));
             var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(claims, "apiauth"));
             return new AuthenticationState(authenticatedUser);
         }

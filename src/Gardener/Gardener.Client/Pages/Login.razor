@@ -1,5 +1,5 @@
-﻿@layout LoginLayout
-@page "/auth/login"
+﻿@page "/auth/login"
+@layout LoginLayout
 @attribute [AllowAnonymous]
 <div class="main__b__0">
     <div class="login">
@@ -22,13 +22,13 @@
                 </TabPane>
             </Tabs>
             <div>
-                    <Checkbox @bind-Value="autoLogin">
-                        自动登录
-                    </Checkbox>
-                    @*<a style="float: right;">
+                <Checkbox @bind-Value="autoLogin">
+                    自动登录
+                </Checkbox>
+                @*<a style="float: right;">
                         忘记密码
                     </a>*@
-                </div>
+            </div>
             <Button Type="@ButtonType.Primary" HtmlType="submit" Class="submit" Size="large" Block>登&nbsp;录</Button>
             @*<div class="other">
                     其他登录方式

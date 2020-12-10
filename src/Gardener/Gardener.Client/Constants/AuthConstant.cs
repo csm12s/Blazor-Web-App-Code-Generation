@@ -22,10 +22,6 @@ namespace Gardener.Client.Constants
         public static readonly string ClientPageResourcePolicy = "client-page-resource-policy";
 
         /// <summary>
-        /// token连续刷新失败次数最大值
-        /// </summary>
-        public readonly static int RefreshTokenErrorCountMax = 3;
-        /// <summary>
         /// token刷新间隔（单位：秒）
         /// </summary>
         public readonly static int RefreshTokenCheckInterval = 30;

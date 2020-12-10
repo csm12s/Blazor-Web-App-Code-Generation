@@ -1,20 +1,28 @@
 ﻿@inherits LayoutComponentBase
-<AntDesign.Pro.Layout.BasicLayout Logo="@("./assets/logo.png")"
-                                  MenuData="_menuData"
-                                  >
-    <RightContentRender>
-        <Gardener.Client.Components.RightContent />
-    </RightContentRender>
-    <ChildContent>
+<AuthorizeView>
+    <Authorized>
+        <AntDesign.Pro.Layout.BasicLayout Logo="@("./assets/logo.png")"
+                                          MenuData="_menuData">
+            <RightContentRender>
+                <Gardener.Client.Components.RightContent />
+            </RightContentRender>
+            <ChildContent>
+                @Body
+            </ChildContent>
+            <FooterRender>
+                <GlobalFooter Links="SystemConstant.FooterLinks">
+                    <Copyright>
+                        Copyright <Icon Type="copyright" /> @systemConfig?.Copyright
+                    </Copyright>
+                </GlobalFooter>
+            </FooterRender>
+        </AntDesign.Pro.Layout.BasicLayout>
+        <AntContainer />
+        @*<SettingDrawer />*@
+    </Authorized>
+    <NotAuthorized>
+        @*Just render the body so that RedirectToLogin works*@
         @Body
-    </ChildContent>
-    <FooterRender>
-        <GlobalFooter Links="SystemConstant.FooterLinks">
-            <Copyright>
-                Copyright <Icon Type="copyright" /> @systemConfig?.Copyright
-            </Copyright>
-        </GlobalFooter>
-    </FooterRender>
-</AntDesign.Pro.Layout.BasicLayout>
-<AntContainer />
-@*<SettingDrawer />*@
+    </NotAuthorized>
+</AuthorizeView>
+

@@ -138,7 +138,7 @@
         <FormItem Label="类型">
             <RadioGroup @bind-Value="@(model.Type)">
 
-                @if (model.Id !=Guid.Empty && model.Type.Equals(ResourceType.ROOT))
+                @if (model.Id != Guid.Empty && model.Type.Equals(ResourceType.ROOT))
                 {
                     <Radio Value="@(ResourceType.ROOT)">@EnumExtension.GetEnumDescription(ResourceType.ROOT)</Radio>
                 }
@@ -157,11 +157,9 @@
         @if (editModel.Type.Equals(ResourceType.API))
         {
             <FormItem Label="请求方法">
-                <SimpleSelect 
-                              @bind-Value="@editModelHttpMethodType"
-                              DefaultValue="@((model.Method ?? HttpMethodType.GET).ToString())" 
-                              Style="width:120px;" 
-                              >
+                <SimpleSelect @bind-Value="@editModelHttpMethodType"
+                              DefaultValue="@((model.Method ?? HttpMethodType.GET).ToString())"
+                              Style="width:120px;">
                     <SelectOptions>
                         @foreach (var gitem in EnumExtension.EnumToDictionary<HttpMethodType>())
                         {

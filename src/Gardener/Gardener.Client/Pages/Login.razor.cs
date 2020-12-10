@@ -32,11 +32,6 @@ namespace Gardener.Client.Pages
 
         protected override  async Task OnInitializedAsync()
         {
-            var user =  await authenticationStateManager.GetCurrentUser();
-            if (user != null)
-            {
-                Navigation.NavigateTo(returnUrl ?? "/");
-            }
             var url = new Uri(Navigation.Uri);
             var query = url.Query;
 
@@ -47,6 +42,13 @@ namespace Gardener.Client.Pages
                     returnUrl = value;
                 }
             }
+            //已登录
+            var user =  await authenticationStateManager.GetCurrentUser();
+            if (user != null)
+            {
+                Navigation.NavigateTo(returnUrl ?? "/");
+            }
+           
         }
         private async Task OnLogin()
         {

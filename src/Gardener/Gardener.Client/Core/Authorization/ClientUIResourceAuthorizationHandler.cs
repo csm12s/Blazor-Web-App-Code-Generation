@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,13 +24,9 @@ namespace Gardener.Client
             this.authenticationStateManager = authenticationStateManager;
         }
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ClientUIAuthorizationRequirement requirement)
+        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, ClientUIAuthorizationRequirement requirement)
         {
-            var resourceKey =(string)context.Resource;
-
-            var userResources = authenticationStateManager.GetCurrentUserResources();
-
-            if (userResources.Any(x => x.Key.Equals(resourceKey)))
+            if (await authenticationStateManager.CheckCurrentUserHaveBtnResourceKey(context.Resource))
             {
                 //如果当前用户有资源访问权限，则返回成功
                 context.Succeed(requirement);
@@ -38,7 +35,6 @@ namespace Gardener.Client
             { 
                 context.Fail();
             }
-            return Task.CompletedTask;
         }
     }
 }

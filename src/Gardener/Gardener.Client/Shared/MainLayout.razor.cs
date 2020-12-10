@@ -37,13 +37,13 @@ namespace Gardener.Client.Shared
         /// 系统配置服务
         /// </summary>
         [Inject]
-        private ISystemConfigService SystemConfigService { get; set; }
+        private ISystemConfigService systemConfigService { get; set; }
         [Inject]
         private JsTool JsTool { get; set; }
         [Inject]
         private IStringLocalizer<App> Loc { get; set; }
         [Inject]
-        private IAuthorizeService AuthorizeService { get; set; }
+        private IAuthenticationStateManager authenticationStateManager { get; set; }
 
         private SystemConfig systemConfig;
 
@@ -86,16 +86,26 @@ namespace Gardener.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            await base.OnInitializedAsync();
-            var menusResult = await AuthorizeService.GetCurrentUserMenus();
-            if (menusResult!=null)
+            Action<List<ResourceDto>> onEmnusLoaded = menus =>
             {
-                menusResult.ForEach(x => InitEnum(x));
+                menus.ForEach(x => InitEnum(x));
+                _menuData = menuDataItems.ToArray();
+            };
+            //拿取已加载的数据
+            var emnus = authenticationStateManager.GetCurrentUserEmnus();
+            if (emnus.Count > 0)
+            {
+                //已加载到菜单数据
+                onEmnusLoaded(emnus);
             }
-            _menuData = menuDataItems.ToArray();
-            systemConfig = SystemConfigService.GetSystemConfig();
+            else {
+                //可能尚未加载完成，设置个回调
+                authenticationStateManager.SetOnMenusLoaded(onEmnusLoaded);
+            }
+            
+            systemConfig = systemConfigService.GetSystemConfig();
             await JsTool.Document.SetTitle(systemConfig.SystemName);
-           
+            await base.OnInitializedAsync();
         }
 
         void toggle()
