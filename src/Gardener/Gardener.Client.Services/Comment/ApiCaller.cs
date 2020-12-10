@@ -19,8 +19,8 @@ namespace Gardener.Client.Services
     public class ApiCaller : IApiCaller
     {
         private readonly HttpClient httpClient;
-        private readonly ILogger log;
-        public ApiCaller(HttpClient httpClient, ILogger log)
+        private readonly IClientLogger log;
+        public ApiCaller(HttpClient httpClient, IClientLogger log)
         {
             this.httpClient = httpClient;
             this.log = log;

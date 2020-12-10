@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public interface ILogger
+    public interface IClientLogger
     {
         Task Debug(string msg, int? code = null, Exception ex = null);
         Task Fatal(string msg, int? code = null, Exception ex = null);

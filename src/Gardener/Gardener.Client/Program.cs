@@ -16,6 +16,7 @@ using Gardener.Client.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Gardener.Application.Interfaces;
 using Gardener.Client.Constants;
+using Microsoft.Extensions.Logging;
 
 namespace Gardener.Client
 {
@@ -25,10 +26,11 @@ namespace Gardener.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-
-
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiBaseAddres")?.Value) });
-
+            builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiBaseAddres")?.Value) });
+            //log
+            builder.Logging.AddConfiguration(
+                builder.Configuration.GetSection("Logging")
+            );
             #region ant design
             builder.Services.AddAntDesign();
             builder.Services.Configure<ProSettings>(builder.Configuration.GetSection("ProSettings"));
@@ -56,12 +58,12 @@ namespace Gardener.Client
             #endregion
 
             #region services
+            builder.Services.AddScoped<IClientLogger, ConsoleClientLogger>();
+
             builder.Services.AddScoped<JsTool>();
             builder.Services.AddScoped<HttpClientManager>();
             builder.Services.AddScoped<IApiCaller, ApiCaller>();
-            builder.Services.AddScoped<ILogger, ConsoleLogger>();
-            builder.Services.AddScoped<IApiErrorNotifier, ApiErrorNotifier>();
-
+            builder.Services.AddScoped<IClientErrorNotifier, ClientErrorNotifier>();
             builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
             builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
             builder.Services.AddScoped<IRoleService, RoleService>();

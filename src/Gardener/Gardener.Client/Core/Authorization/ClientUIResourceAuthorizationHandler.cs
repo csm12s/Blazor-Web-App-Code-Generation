@@ -31,10 +31,6 @@ namespace Gardener.Client
                 //如果当前用户有资源访问权限，则返回成功
                 context.Succeed(requirement);
             }
-            else
-            { 
-                context.Fail();
-            }
         }
     }
 }

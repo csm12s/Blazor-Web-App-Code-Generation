@@ -39,7 +39,7 @@ namespace Gardener.Client
         private readonly JsTool jsTool;
         private readonly HttpClientManager httpClientManager;
         private readonly IAuthorizeService authorizeService;
-        private readonly ILogger logger;
+        private readonly IClientLogger logger;
         private UserDto currentUser;
         private List<ResourceDto> uiResources;
         private List<ResourceDto> menuResources;
@@ -50,7 +50,7 @@ namespace Gardener.Client
         /// </summary>
         private bool isAutoLogin = true;
 
-        public AuthenticationStateManager(JsTool jsTool, HttpClientManager httpClientManager, IAuthorizeService authorizeService, ILogger logger)
+        public AuthenticationStateManager(JsTool jsTool, HttpClientManager httpClientManager, IAuthorizeService authorizeService, IClientLogger logger)
         {
             this.jsTool = jsTool;
             this.httpClientManager = httpClientManager;

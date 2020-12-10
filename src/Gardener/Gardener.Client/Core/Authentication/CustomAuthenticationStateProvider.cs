@@ -20,8 +20,8 @@ namespace Gardener.Client
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
         private IAuthenticationStateManager authenticationStateManager;
-        private ILogger logger;
-        public CustomAuthenticationStateProvider(IAuthenticationStateManager authenticationStateManager, ILogger logger)
+        private IClientLogger logger;
+        public CustomAuthenticationStateProvider(IAuthenticationStateManager authenticationStateManager, IClientLogger logger)
         {
             this.authenticationStateManager = authenticationStateManager;
             authenticationStateManager.SetNotifyAuthenticationStateChangedAction(Refresh);

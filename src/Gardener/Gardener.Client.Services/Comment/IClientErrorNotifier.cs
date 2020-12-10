@@ -7,9 +7,9 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Gardener.Client
+namespace Gardener.Client.Services
 {
-    public interface IApiErrorNotifier
+    public interface IClientErrorNotifier
     {
         Task Error(string msg, Exception ex = null);
         Task Info(string msg, Exception ex = null);
