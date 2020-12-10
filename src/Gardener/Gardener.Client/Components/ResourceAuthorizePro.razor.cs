@@ -4,20 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.Constants;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Gardener.Client.Components
 {
     /// <summary>
-    /// 无状态的资源验证
-    /// 仅加载资源时验证
+    /// 有状态的验证
+    /// 页面有任何渲染变化，都会重新触发验证
     /// </summary>
-    public partial class ResourceAuthorize
+    public partial  class ResourceAuthorizePro
     {
         [Parameter]
-        public RenderFragment ChildContent
+        public RenderFragment<AuthenticationState> ChildContent
         {
             get;
             set;
@@ -26,7 +26,7 @@ namespace Gardener.Client.Components
         /// 未通过验证时展示
         /// </summary>
         [Parameter]
-        public RenderFragment NotAuthorized
+        public RenderFragment<AuthenticationState> NotAuthorized
         {
             get;
             set;
@@ -35,7 +35,7 @@ namespace Gardener.Client.Components
         /// 通过验证时展示
         /// </summary>
         [Parameter]
-        public RenderFragment Authorized
+        public RenderFragment<AuthenticationState> Authorized
         {
             get;
             set;
@@ -49,29 +49,11 @@ namespace Gardener.Client.Components
             get;
             set;
         }
+        private string Policy = AuthConstant.ClientUIResourcePolicy;
         /// <summary>
         /// 用户要拥有资源的，资源key
         /// </summary>
         [Parameter]
         public string ResourceKey { get; set; }
-        [Inject]
-        private IAuthenticationStateManager authenticationStateManager { get; set; }
-        /// <summary>
-        /// 0 ing
-        /// -1 false
-        /// 1 true
-        /// </summary>
-        private short state = 0;
-
-
-        /// <summary>
-        /// 页面初始化完成
-        /// </summary>
-        /// <returns></returns>
-        protected override async Task OnInitializedAsync()
-        {
-            var isAuth = await authenticationStateManager.CheckCurrentUserHaveBtnResourceKey(ResourceKey);
-            state = isAuth ? 1 : -1;
-        }
     }
 }
