@@ -57,12 +57,19 @@ namespace Gardener.Client.Shared
         {
 
             string nameLocalizer = Loc[resourceDto.Key];
+
+            string path = resourceDto.Path;
+            //path为空，还没有子级的会报错，设置个key
+            if (string.IsNullOrEmpty(path) && ( resourceDto.Children == null || !resourceDto.Children.Any()))
+            {
+                path = resourceDto.Key;
+            }
             var current = new MenuDataItem
             {
-                Path = resourceDto.Path ?? "",
+                Path = path,
                 Name = nameLocalizer.Equals(resourceDto.Key)? resourceDto.Name: nameLocalizer,
                 Key = resourceDto.Key,
-                Icon = resourceDto.Icon,
+                Icon = resourceDto.Icon ?? "",
             };
             if (parent == null)
             {

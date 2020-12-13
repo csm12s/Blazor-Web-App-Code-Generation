@@ -76,15 +76,21 @@
                                                    </Space>
                                                 </div>
                                                 <div class="action">
-                                                    <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" OnClick="x=>OnAddChildNodeClick(node)">
-                                                        <Icon Type="plus"></Icon>
-                                                    </Button>
-                                                    <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" OnClick="x=>OnEditSelectedNodeClick(node)">
-                                                        <Icon Type="edit"></Icon>
-                                                    </Button>
-                                                    <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" Danger OnClick="x=>OnDeleteSelectedNodeClick(node)">
-                                                        <Icon Type="delete"></Icon>
-                                                    </Button>
+                                                    <ResourceAuthorize ResourceKey="user_auth_resource_add">
+                                                        <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" OnClick="x=>OnAddChildNodeClick(node)">
+                                                            <Icon Type="plus"></Icon>
+                                                        </Button>
+                                                    </ResourceAuthorize>
+                                                    <ResourceAuthorize ResourceKey="user_auth_resource_edit">
+                                                        <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" OnClick="x=>OnEditSelectedNodeClick(node)">
+                                                            <Icon Type="edit"></Icon>
+                                                        </Button>
+                                                    </ResourceAuthorize>
+                                                    <ResourceAuthorize ResourceKey="user_auth_resource_delete">
+                                                        <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" Danger OnClick="x=>OnDeleteSelectedNodeClick(node)">
+                                                            <Icon Type="delete"></Icon>
+                                                        </Button>
+                                                    </ResourceAuthorize>
                                                 </div>
                                             </div>
                                         </TitleTemplate>
