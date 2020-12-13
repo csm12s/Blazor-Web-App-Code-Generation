@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace Gardener.Client.Components
 {
     /// <summary>
-    /// 无状态的资源验证
     /// 仅加载资源时验证
     /// </summary>
     public partial class ResourceAuthorize

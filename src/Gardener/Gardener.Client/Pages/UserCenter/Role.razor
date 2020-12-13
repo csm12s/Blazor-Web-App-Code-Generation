@@ -9,15 +9,15 @@
             </Breadcrumb>
         </Breadcrumb>
         <ChildContent>
-            <Table @ref="table"
+            <Table @ref="_table"
                    TItem="RoleDto"
-                   DataSource="@roles"
+                   DataSource="@_roles"
                    Total="_total"
                    OnChange="@onChange"
                    @bind-PageIndex="_pageIndex"
                    @bind-PageSize="_pageSize"
-                   @bind-SelectedRows="selectedRows"
-                   Loading="@tableIsLoading"
+                   @bind-SelectedRows="_selectedRows"
+                   Loading="@_tableIsLoading"
                    Context="model">
                 <TitleTemplate>
                     <Row>
@@ -82,10 +82,10 @@
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="user_auth_role_edit">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)">编辑</Button></SpaceItem>
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_auth_role_set_resource">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model)">分配资源</Button></SpaceItem>
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)">分配资源</Button></SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_auth_role_delete">
                                 <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
@@ -94,78 +94,6 @@
                     </ActionColumn>
                 </RowTemplate>
             </Table>
-
         </ChildContent>
     </PageContainer>
-    <Drawer Closable="true" Width="450" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
-        @if (editModel != null)
-        {
-            <Form Loading="@formIsLoading"
-                  Model="@editModel"
-                  LabelCol="new ColLayoutParam { Span = 8 }"
-                  WrapperCol="new ColLayoutParam { Span = 16 }"
-                  OnFinish="OnFormFinish"
-                  OnFinishFailed="OnFormFinishFailed"
-                  Context="model">
-                <FormItem Label="名称">
-                    <Input @bind-Value="@model.Name" />
-                </FormItem>
-                <FormItem Label="备注">
-                    <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
-                </FormItem>
-                <FormItem Label="是否是超级管理员">
-                    <Switch @bind-Value="@model.IsSuperAdministrator"></Switch>
-                </FormItem>
-                <FormItem Label="是否是默认角色">
-                    <Switch @bind-Value="@model.IsDefault"></Switch>
-                </FormItem>
-                <FormItem Label="是否锁定">
-                    <Switch @bind-Value="@model.IsLocked"></Switch>
-                </FormItem>
-                <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-                    <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        保存
-                    </Button>
-                    <Button OnClick="_=>OnDrawerClose()">
-                        取消
-                    </Button>
-                </FormItem>
-            </Form>
-        }
-    </Drawer>
-
-
-    <Drawer Closable="true" Width="450" Visible="editRoleResourceDrawerVisible" Placement="right" Title="@editRoleResourceDrawerTitle" OnClose="_=>OnEditRoleResourceDrawerClose()">
-        <Row>
-            <AntDesign.Col>
-                <Space>
-                    <SpaceItem>
-                        <Tooltip Placement="PlacementType.TopLeft" Title="@(isExpanded?"收起":"展开")">
-                            <Button Type="@ButtonType.Primary" Icon="@(isExpanded?"up":"down")" Size="@SystemConstant.OperationButtonSize" OnClick="OnExpandClick" />
-                        </Tooltip>
-                    </SpaceItem>
-                    <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleResourceSave">保存</Button></SpaceItem>
-                    <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="e=>OnEditRoleResourceDrawerClose()">取消</Button></SpaceItem>
-                </Space>
-            </AntDesign.Col>
-        </Row>
-        <Row>
-            <AntDesign.Col Span="24">
-                <Spin Spinning="@editRoleResourceTreeIsLoading">
-                    <Tree @ref="tree"
-                          ShowLine
-                          ShowIcon
-                          Checkable
-                          Multiple
-                          TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
-                          ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
-                          IconExpression="x=>((ResourceDto)x.DataItem).Icon"
-                          IsLeafExpression="x=>false"
-                          Style="min-height:466px;min-width:400px">
-                    </Tree>
-                </Spin>
-            </AntDesign.Col>
-        </Row>
-
-    </Drawer>
 </div>

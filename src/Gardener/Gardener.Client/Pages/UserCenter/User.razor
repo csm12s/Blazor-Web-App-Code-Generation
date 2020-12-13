@@ -9,15 +9,15 @@
             </Breadcrumb>
         </Breadcrumb>
         <ChildContent>
-            <Table @ref="table"
+            <Table @ref="_table"
                    TItem="UserDto"
-                   DataSource="@users"
+                   DataSource="@_users"
                    Total="_total"
                    OnChange="@onChange"
                    @bind-PageIndex="_pageIndex"
                    @bind-PageSize="_pageSize"
-                   @bind-SelectedRows="selectedRows"
-                   Loading="@tableIsLoading"
+                   @bind-SelectedRows="_selectedRows"
+                   Loading="@_tableIsLoading"
                    Context="model">
                 <TitleTemplate>
                     <Row>
@@ -87,10 +87,10 @@
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="user_auth_user_edit">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)">编辑</Button></SpaceItem>
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_auth_user_role_edit">
-                                <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model)">分配角色</Button></SpaceItem>
+                                <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)">分配角色</Button></SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_auth_user_delete">
                                 <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
@@ -101,91 +101,4 @@
             </Table>
         </ChildContent>
     </PageContainer>
-    <Drawer Closable="true" Width="400" Visible="drawerVisible" Placement="right" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
-
-        @if (editModel != null)
-        {
-            <Form Loading="@formIsLoading"
-                  Model="@editModel"
-                  LabelCol="new ColLayoutParam { Span = 8 }"
-                  WrapperCol="new ColLayoutParam { Span = 16 }"
-                  OnFinish="OnFormFinish"
-                  OnFinishFailed="OnFormFinishFailed"
-                  Context="model">
-                <FormItem Label="头像">
-                    <Avatar Src="@model.Avatar" />
-                </FormItem>
-                <FormItem Label="用户名">
-                    <Input @bind-Value="@model.UserName" />
-                </FormItem>
-                <FormItem Label="密码">
-                    <Input Type="password" @bind-Value="@model.Password" />
-                </FormItem>
-                <FormItem Label="昵称">
-                    <Input @bind-Value="@model.NickName" />
-                </FormItem>
-                <FormItem Label="性别">
-                    <RadioGroup @bind-Value="@(model.Gender)">
-                        @foreach (var gitem in EnumExtension.EnumToDictionary<Gender>())
-                        {
-                            <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
-                        }
-                    </RadioGroup>
-                </FormItem>
-                <FormItem Label="是否锁定">
-                    <Switch @bind-Value="@model.IsLocked"></Switch>
-                </FormItem>
-                <Divider Orientation="left" Style="font-weight:bold">联系信息</Divider>
-                <FormItem Label="手机号">
-                    <Input @bind-Value="@model.PhoneNumber" />
-                </FormItem>
-                <FormItem Label="手机号是否确认">
-                    <Switch @bind-Value="@model.PhoneNumberConfirmed"></Switch>
-                </FormItem>
-                <FormItem Label="邮箱">
-                    <Input @bind-Value="@model.Email" />
-                </FormItem>
-                <FormItem Label="邮箱是否确认">
-                    <Switch @bind-Value="@model.EmailConfirmed"></Switch>
-                </FormItem>
-                <FormItem Label="QQ">
-                    <Input @bind-Value="@model.UserExtension.QQ" />
-                </FormItem>
-                <FormItem Label="微信">
-                    <Input @bind-Value="@model.UserExtension.WeChat" />
-                </FormItem>
-                <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-                    <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        保存
-                    </Button>
-                    <Button OnClick="OnFormCancel">
-                        取消
-                    </Button>
-                </FormItem>
-            </Form>
-        }
-    </Drawer>
-
-
-    <Drawer Closable="true" Width="400" Visible="editRoleDrawerVisible" Placement="right" Title="@("分配角色")" OnClose="_=>OnEditRoleDrawerClose()">
-        <Spin Spinning="editRoleFormIsLoading">
-            <Row Style="min-height:150px">
-                <AntDesign.Col Span="20" Offset="2">
-                    <CheckboxGroup Options="@roleOptions" OnChange="OnEditUserRoleChange" />
-                </AntDesign.Col>
-            </Row>
-            <Row>
-                <AntDesign.Col Span="20" Offset="2">
-                    <Space>
-                        <SpaceItem>
-                            <Checkbox Indeterminate="@indeterminateRole" Checked="@checkAllRole" CheckedChange="@CheckAllRoleChanged">全选</Checkbox>
-                        </SpaceItem>
-                        <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleSaveClick">保存</Button></SpaceItem>
-                        <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="_=>OnEditRoleDrawerClose()">取消</Button></SpaceItem>
-                    </Space>
-                </AntDesign.Col>
-            </Row>
-        </Spin>
-    </Drawer>
-
 </div>

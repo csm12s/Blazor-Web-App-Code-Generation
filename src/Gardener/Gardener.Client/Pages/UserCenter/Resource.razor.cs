@@ -22,11 +22,13 @@ namespace Gardener.Client.Pages.UserCenter
     {
         private bool treeIsLoading;
         [Inject]
-        IResourceService ResourceService { get; set; }
+        IResourceService resourceService { get; set; }
         [Inject]
-        MessageService MessageService { get; set; }
+        MessageService messageService { get; set; }
         [Inject]
-        ConfirmService ConfirmSvr { get; set; }
+        ConfirmService confirmService { get; set; }
+        [Inject]
+        DrawerService drawerService { get; set; }
         Tree tree;
         private bool isExpanded;
         /// <summary>
@@ -44,14 +46,14 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task LoadTreeData()
         {
             treeIsLoading = true;
-            var resourceResult = await ResourceService.GetTree();
-            if (resourceResult!=null)
+            var resourceResult = await resourceService.GetTree();
+            if (resourceResult != null)
             {
                 tree.DataSource = resourceResult;
             }
             else
             {
-                MessageService.Error("资源节点未加载到数据");
+                messageService.Error("资源节点未加载到数据");
             }
             treeIsLoading = false;
         }
@@ -109,8 +111,8 @@ namespace Gardener.Client.Pages.UserCenter
             treeIsLoading = true;
             var parentNode = ((ResourceDto)args.Node.DataItem);
             parentNode.Children = new List<ResourceDto>();
-            var resourceResult = await ResourceService.GetChildren(parentNode.Id);
-            if (resourceResult!=null)
+            var resourceResult = await resourceService.GetChildren(parentNode.Id);
+            if (resourceResult != null)
             {
                 resourceResult.ForEach(x =>
                 {
@@ -123,7 +125,7 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
-                MessageService.Error("资源节点未加载到数据");
+                messageService.Error("资源节点未加载到数据");
             }
             treeIsLoading = false;
         }
@@ -135,64 +137,63 @@ namespace Gardener.Client.Pages.UserCenter
         {
             descriptionsIsLoading = true;
             isExpanded = args.Node.IsExpanded;
-            ((ResourceDto)args.Node.DataItem).Adapt(editModel);
+            var id = ((ResourceDto)args.Node.DataItem).Id;
+
+            var resource = await resourceService.Get(id);
+            if (resource != null)
+            {
+                selectedModel = resource;
+            }
+            else
+            {
+                messageService.Error("资源不存在");
+            }
+
             descriptionsIsLoading = false;
         }
-        private bool drawerVisible;
-        private bool formIsLoading;
+
         private bool descriptionsIsLoading;
-        private string drawerTitle = string.Empty;
-        private ResourceDto editModel = new ResourceDto();
-        private string editModelHttpMethodType
-        {
-            get
-            {
-                return editModel.Method?.ToString();
-            }
-            set
-            {
-                editModel.Method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), value);
-            }
-        }
-        private ResourceType currentEditResourceType = ResourceType.API;
+        //信息展示区域显示
+        private ResourceDto selectedModel = new ResourceDto();
+
         /// <summary>
         /// 删除选中节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnDeleteSelectedNodeClick()
+        private async Task OnDeleteSelectedNodeClick(TreeNode node)
         {
-            var selectedNode = tree.SelectedNodes?.FirstOrDefault();
+            var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
             {
                 var resource = ((ResourceDto)selectedNode.DataItem);
                 if (resource.Type.Equals(ResourceType.ROOT))
                 {
-                    MessageService.Error("根节点无法删除");
+                    messageService.Error("根节点无法删除");
                     treeIsLoading = false;
                     return;
                 }
                 treeIsLoading = true;
-                if (await ConfirmSvr.YesNoDelete() == ConfirmResult.Yes)
+                if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
 
                     var ids = GetAllDeleteResourceId(resource);
-                    var result = await ResourceService.FakeDeletes(ids.ToArray());
+                    var result = await resourceService.FakeDeletes(ids.ToArray());
                     if (result)
                     {
                         var parentNode = ((ResourceDto)selectedNode.ParentNode.DataItem);
                         parentNode.Children.Remove(resource);
-                        MessageService.Success("删除成功");
+                        messageService.Success("删除成功");
                     }
                     else
                     {
-                        MessageService.Error("删除失败");
+                        messageService.Error("删除失败");
                     }
                 }
                 treeIsLoading = false;
             }
             else
             {
-                MessageService.Warn("请先选择节点");
+                messageService.Warn("请先选择节点");
             }
         }
         /// <summary>
@@ -221,120 +222,46 @@ namespace Gardener.Client.Pages.UserCenter
         /// 编辑选中节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnEditSelectedNodeClick()
+        private async Task OnEditSelectedNodeClick(TreeNode node)
         {
-            var selectedNode = tree.SelectedNodes?.FirstOrDefault();
+            var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
             {
-                var resource = ((ResourceDto)selectedNode.DataItem);
-                currentEditResourceType = resource.Type;
-                resource.Adapt(editModel);
-                drawerTitle = "编辑";
-                drawerVisible = true;
+                var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
+                    new ResourceEditOption() { Type = 1, SelectedResourceId = ((ResourceDto)selectedNode.DataItem).Id },
+                    true,
+                    title: "编辑",
+                    width: 450,
+                    placement: "left");
+                if (result) { await LoadTreeData(); }
             }
             else
             {
-                MessageService.Warn("请先选择节点");
+                messageService.Warn("请先选择节点");
             }
         }
         /// <summary>
         /// 添加子节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnAddChildNodeClick()
+        private async Task OnAddChildNodeClick(TreeNode node)
         {
-            var selectedNode = tree.SelectedNodes?.FirstOrDefault();
+            var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
             {
-                drawerTitle = "添加";
-                var pResource = ((ResourceDto)selectedNode.DataItem);
-                var newNode = new ResourceDto();
-                newNode.Id = Guid.Empty;
-                newNode.ParentId = pResource.Id;
-                newNode.Key = pResource.Type.Equals(ResourceType.ROOT) ? "" : pResource.Key + "_";
-                //不能创建root节点
-                currentEditResourceType = newNode.Type = pResource.Type.Equals(ResourceType.ROOT) ? ResourceType.MENU : pResource.Type;
-                newNode.Order = (pResource.Children == null || !pResource.Children.Any() ? 0 : pResource.Children.Last().Order + 1);
-                newNode.Adapt(editModel);
-                drawerVisible = true;
+                var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
+                    new ResourceEditOption() { Type = 0, SelectedResourceId = ((ResourceDto)selectedNode.DataItem).Id },
+                    true,
+                    title: "添加",
+                    width: 450,
+                    placement: "left");
+                if (result) { await LoadTreeData(); }
             }
             else
             {
-                MessageService.Warn("请先选择父节点");
+                messageService.Warn("请先选择父节点");
             }
 
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="editContext"></param>
-        /// <returns></returns>
-        private async Task OnFormFinish(EditContext editContext)
-        {
-            formIsLoading = true;
-            var selectedNode = tree.SelectedNodes?.FirstOrDefault();
-            var resource = ((ResourceDto)selectedNode.DataItem);
-            if (editModel.Id != Guid.Empty)
-            {
-                //更新
-                var result = await ResourceService.Update(editModel);
-                if (result)
-                {
-                    editModel.Adapt(resource);
-                    if (selectedNode.ParentNode != null)
-                    {
-                        var parentResource = (ResourceDto)selectedNode.ParentNode.DataItem;
-                        parentResource.Children = parentResource.Children.OrderBy(x => x.Order).ToList();
-                    }
-                    MessageService.Success("更新成功");
-                    drawerVisible = false;
-                }
-                else
-                {
-                    MessageService.Error("更新失败");
-                }
-            }
-            else
-            {
-                editModel.Id = Guid.NewGuid();
-                //新增
-                var result = await ResourceService.Insert(editModel);
-                if (result!=null)
-                {
-                    if (resource.Children == null)
-                    {
-                        resource.Children = new List<ResourceDto>();
-                    }
-                    resource.Children.Add(result);
-
-                    resource.Children = resource.Children.OrderBy(x => x.Order).ToList();
-
-                    MessageService.Success("添加成功");
-                    drawerVisible = false;
-                }
-                else
-                {
-                    MessageService.Error("添加失败");
-                }
-            }
-            formIsLoading = false;
-
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="editContext"></param>
-        private async Task OnFormFinishFailed(EditContext editContext)
-        {
-
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private async Task OnDrawerClose()
-        {
-            drawerVisible = false;
         }
     }
 }

@@ -31,21 +31,21 @@
                                     <ResourceAuthorize ResourceKey="user_auth_resource_add">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@("添加子节点")">
-                                                <Button Type="@ButtonType.Primary" Icon="plus-circle" Size="@ButtonSize.Small" OnClick="OnAddChildNodeClick" />
+                                                <Button Type="@ButtonType.Primary" Icon="plus-circle" Size="@ButtonSize.Small" OnClick="_=>OnAddChildNodeClick(null)" />
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
                                     <ResourceAuthorize ResourceKey="user_auth_resource_edit">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@("编辑选中节点")">
-                                                <Button Type="@ButtonType.Primary" Icon="edit" Size="@ButtonSize.Small" OnClick="OnEditSelectedNodeClick" />
+                                                <Button Type="@ButtonType.Primary" Icon="edit" Size="@ButtonSize.Small" OnClick="_=>OnEditSelectedNodeClick(null)" />
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
                                     <ResourceAuthorize ResourceKey="user_auth_resource_delete">
                                         <SpaceItem>
                                             <Tooltip Placement="PlacementType.TopLeft" Title="@("删除选中及所有子节点")">
-                                                <Button Type="@ButtonType.Primary" Icon="delete" Danger Size="@ButtonSize.Small" OnClick="OnDeleteSelectedNodeClick" />
+                                                <Button Type="@ButtonType.Primary" Icon="delete" Danger Size="@ButtonSize.Small" OnClick="_=>OnDeleteSelectedNodeClick(null)" />
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
@@ -57,7 +57,6 @@
                                 <Spin Spinning="@treeIsLoading">
                                     <Tree @ref="tree"
                                           ShowLine
-                                          ShowIcon
                                           TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
                                           ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
                                           IconExpression="x=>((ResourceDto)x.DataItem).Icon"
@@ -65,6 +64,30 @@
                                           OnClick="OnNodeClick"
                                           OnExpandChanged="e=> { isExpanded = e.Node.IsExpanded; }"
                                           Style="min-height:466px;">
+                                        <TitleTemplate Context="node">
+                                            <div class="tree-node">
+                                                <div class="title">
+                                                   <Space>
+                                                       @if (!string.IsNullOrEmpty(node.Icon))
+                                                       {
+                                                        <SpaceItem><Icon Type="@node.Icon" /></SpaceItem>
+                                                       }
+                                                       <SpaceItem><span>@node.Title</span></SpaceItem>
+                                                   </Space>
+                                                </div>
+                                                <div class="action">
+                                                    <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" OnClick="x=>OnAddChildNodeClick(node)">
+                                                        <Icon Type="plus"></Icon>
+                                                    </Button>
+                                                    <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" OnClick="x=>OnEditSelectedNodeClick(node)">
+                                                        <Icon Type="edit"></Icon>
+                                                    </Button>
+                                                    <Button Type="@ButtonType.Link" Size="@ButtonSize.Small" Danger OnClick="x=>OnDeleteSelectedNodeClick(node)">
+                                                        <Icon Type="delete"></Icon>
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </TitleTemplate>
                                     </Tree>
                                 </Spin>
                             </AntDesign.Col>
@@ -73,40 +96,40 @@
                     <AntDesign.Col Span="12" Offset="2">
                         <Spin Spinning="descriptionsIsLoading">
                             <Descriptions Title="资源信息" Bordered Layout="@DescriptionsLayout.Vertical" Style="margin-top:10px">
-                                <DescriptionsItem Title="标示">@editModel.Id</DescriptionsItem>
-                                <DescriptionsItem Title="名称">@editModel.Name</DescriptionsItem>
-                                <DescriptionsItem Title="键值">@editModel.Key</DescriptionsItem>
+                                <DescriptionsItem Title="标示">@selectedModel.Id</DescriptionsItem>
+                                <DescriptionsItem Title="名称">@selectedModel.Name</DescriptionsItem>
+                                <DescriptionsItem Title="键值">@selectedModel.Key</DescriptionsItem>
                                 <DescriptionsItem Title="类型">
-                                    @(EnumExtension.GetEnumDescription(editModel.Type))
+                                    @(EnumExtension.GetEnumDescription(selectedModel.Type))
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="排序">
-                                    @editModel.Order
+                                    @selectedModel.Order
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="图标">
-                                    @if (!string.IsNullOrEmpty(editModel.Icon))
+                                    @if (!string.IsNullOrEmpty(selectedModel.Icon))
                                     {
-                                        <Icon Type="@editModel.Icon"></Icon>
+                                        <Icon Type="@selectedModel.Icon"></Icon>
                                     }
-                                    <sppn>@editModel.Icon</sppn>
+                                    <sppn>@selectedModel.Icon</sppn>
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="锁定">
-                                    @(editModel.IsLocked?"是":"否")
+                                    @(selectedModel.IsLocked?"是":"否")
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="创建时间">
-                                    @editModel.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")
+                                    @selectedModel.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="地址">
                                     <Space>
-                                        @if (editModel.Type.Equals(ResourceType.API) && editModel.Method.HasValue)
+                                        @if (selectedModel.Type.Equals(ResourceType.API) && selectedModel.Method.HasValue)
                                         {
 
-                                            <SpaceItem>@(EnumExtension.GetEnumDescription(editModel.Method))</SpaceItem>
+                                            <SpaceItem>@(EnumExtension.GetEnumDescription(selectedModel.Method))</SpaceItem>
                                         }
-                                        <SpaceItem>@editModel.Path</SpaceItem>
+                                        <SpaceItem>@selectedModel.Path</SpaceItem>
                                     </Space>
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="备注" Span="3">
-                                    @editModel.Remark
+                                    @selectedModel.Remark
                                 </DescriptionsItem>
                             </Descriptions>
                         </Spin>
@@ -116,82 +139,3 @@
         </ChildContent>
     </PageContainer>
 </div>
-
-<Drawer Closable="true" Width="460" Visible="drawerVisible" Placement="left" Title="@drawerTitle" OnClose="_=>OnDrawerClose()">
-    <Form Loading="@formIsLoading"
-          Model="@editModel"
-          LabelCol="new ColLayoutParam { Span = 8 }"
-          WrapperCol="new ColLayoutParam { Span = 16 }"
-          OnFinish="OnFormFinish"
-          OnFinishFailed="OnFormFinishFailed"
-          Context="model"
-          Style="min-height:600px;">
-        <FormItem Label="标示">
-            <Input @bind-Value="@model.Id" Disabled />
-        </FormItem>
-        <FormItem Label="名称">
-            <Input @bind-Value="@model.Name" />
-        </FormItem>
-        <FormItem Label="键值">
-            <Input @bind-Value="@model.Key" />
-        </FormItem>
-        <FormItem Label="类型">
-            <RadioGroup @bind-Value="@(model.Type)">
-
-                @if (model.Id != Guid.Empty && model.Type.Equals(ResourceType.ROOT))
-                {
-                    <Radio Value="@(ResourceType.ROOT)">@EnumExtension.GetEnumDescription(ResourceType.ROOT)</Radio>
-                }
-                else
-                {
-                    foreach (var gitem in EnumExtension.EnumToDictionary<ResourceType>())
-                    {
-                        if ((int)gitem.Key >= (int)currentEditResourceType)
-                        {
-                            <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
-                        }
-                    }
-                }
-            </RadioGroup>
-        </FormItem>
-        @if (editModel.Type.Equals(ResourceType.API))
-        {
-            <FormItem Label="请求方法">
-                <SimpleSelect @bind-Value="@editModelHttpMethodType"
-                              DefaultValue="@((model.Method ?? HttpMethodType.GET).ToString())"
-                              Style="width:120px;">
-                    <SelectOptions>
-                        @foreach (var gitem in EnumExtension.EnumToDictionary<HttpMethodType>())
-                        {
-                            <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@(gitem.Value)"></SimpleSelectOption>
-                        }
-                    </SelectOptions>
-                </SimpleSelect>
-            </FormItem>
-        }
-        <FormItem Label="地址">
-            <Input @bind-Value="@model.Path" />
-        </FormItem>
-        <FormItem Label="图标">
-            <Input @bind-Value="@model.Icon" />
-        </FormItem>
-        <FormItem Label="排序">
-            <AntDesign.InputNumber @bind-Value="@model.Order" />
-        </FormItem>
-        <FormItem Label="是否锁定">
-            <Switch @bind-Value="@model.IsLocked"></Switch>
-        </FormItem>
-        <FormItem Label="备注">
-            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
-        </FormItem>
-        <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-            <Button Type="@ButtonType.Primary" HtmlType="submit">
-                保存
-            </Button>
-            <Button OnClick="_=>OnDrawerClose()">
-                取消
-            </Button>
-        </FormItem>
-
-    </Form>
-</Drawer>

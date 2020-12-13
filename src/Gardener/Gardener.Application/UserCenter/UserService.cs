@@ -74,7 +74,7 @@ namespace Gardener.Application
         {
             var roles = await _userRepository
                 .DetachedEntities
-                .Include(u => u.Roles.Where(r=>r.IsDeleted==false))
+                .Include(u => u.Roles.Where(r => r.IsDeleted == false))
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.Roles)
                 .ToListAsync();
@@ -89,11 +89,11 @@ namespace Gardener.Application
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetResources([ApiSeat(ApiSeats.ActionStart)] int userId)
         {
-            return await  _userRepository
+            return await _userRepository
                .Include(u => u.Roles, false)
                    .ThenInclude(u => u.Resources)
                .Where(_authorizationManager.IsSuperAdministrator(), u => u.Id == userId)
-               .Where(u=>u.IsDeleted==false)
+               .Where(u => u.IsDeleted == false)
                .SelectMany(u => u.Roles
                    .SelectMany(u => u.Resources))
                .ProjectToType<ResourceDto>()
@@ -107,17 +107,17 @@ namespace Gardener.Application
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] string name,  int pageIndex = 1,int pageSize = 10)
+        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] string name, int pageIndex = 1, int pageSize = 10)
         {
             var users = _userRepository
-              .Include(u=>u.UserExtension, false)
-              .Include(u => u.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false))
+              .Include(u => u.UserExtension, false)
+              .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false))
               .Where(u => u.IsDeleted == false)
               .Where(!string.IsNullOrEmpty(name), u => u.NickName.Contains(name) || u.NickName.Contains(name))
               .OrderByDescending(x => x.CreatedTime)
               .Select(u => u.Adapt<UserDto>());
-            var pageList=await  users.ToPagedListAsync(pageIndex,pageSize);
-            foreach (var item in pageList.Items) 
+            var pageList = await users.ToPagedListAsync(pageIndex, pageSize);
+            foreach (var item in pageList.Items)
             {
                 item.Password = null;
             }
@@ -134,8 +134,8 @@ namespace Gardener.Application
             var user = input.Adapt<User>();
             user.UpdatedTime = DateTimeOffset.Now;
 
-            List<Expression<Func<User, object>>> exclude = new List<Expression<Func<User, object>>>() 
-            { 
+            List<Expression<Func<User, object>>> exclude = new List<Expression<Func<User, object>>>()
+            {
                 x=>x.CreatedTime
             };
             //传入了密码就进行修改
@@ -144,28 +144,29 @@ namespace Gardener.Application
                 user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
                 user.Password = PasswordEncrypt.Encrypt(user.Password, user.PasswordEncryptKey);
             }
-            else 
+            else
             {
                 //不修改密码时要排除掉
                 exclude.Add(x => x.Password);
                 exclude.Add(x => x.PasswordEncryptKey);
             }
             //扩展移除
-            //user.UserExtension = null;
+            user.UserExtension = null;
+            
             //更新
             await user.UpdateExcludeAsync(exclude);
 
             if (input.UserExtension != null)
             {
                 var userExt = input.UserExtension.Adapt<UserExtension>();
-                if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId,false))
+                if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
                 {
                     userExt.UpdatedTime = DateTimeOffset.Now;
                     await _userExtensionRepository.UpdateExcludeAsync(userExt, x => x.CreatedTime);
                 }
-                else 
+                else
                 {
-                     userExt.CreatedTime = DateTimeOffset.Now;
+                    userExt.CreatedTime = DateTimeOffset.Now;
                     await _userExtensionRepository.InsertAsync(userExt);
                 }
             }
@@ -199,7 +200,7 @@ namespace Gardener.Application
 
             //查看是否有默认角色
             var defaultRoleIds = await _roleRepository.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsDefault == true).Select(x => x.Id).ToListAsync();
-            if (defaultRoleIds!=null && defaultRoleIds.Any())
+            if (defaultRoleIds != null && defaultRoleIds.Any())
             {
                 user.UserRoles = defaultRoleIds.Select(x => new UserRole { RoleId = x, CreatedTime = DateTimeOffset.Now }).ToList();
             }
@@ -222,20 +223,20 @@ namespace Gardener.Application
             return person.Adapt<UserDto>();
         }
 
-       /// <summary>
-       /// 设置用户角色
-       /// </summary>
-       /// <param name="userId"></param>
-       /// <param name="roleIds"></param>
-       /// <returns></returns>
-       [HttpPost]
-        public async Task<bool> Role([ApiSeat(ApiSeats.ActionStart)] int userId,int [] roleIds)
+        /// <summary>
+        /// 设置用户角色
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleIds"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<bool> Role([ApiSeat(ApiSeats.ActionStart)] int userId, int[] roleIds)
         {
             //先删除现有的
-            var userRoles= await _userRoleRepository.AsQueryable(x => x.UserId == userId).ToListAsync();
+            var userRoles = await _userRoleRepository.AsQueryable(x => x.UserId == userId).ToListAsync();
             if (userRoles.Count > 0)
             {
-              await _userRoleRepository.DeleteAsync(userRoles);
+                await _userRoleRepository.DeleteAsync(userRoles);
             }
             if (roleIds?.Length > 0)
             {

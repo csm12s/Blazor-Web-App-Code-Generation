@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 namespace Gardener.Client.Components
 {
     /// <summary>
-    /// 有状态的验证
     /// 页面有任何渲染变化，都会重新触发验证
     /// </summary>
     public partial  class ResourceAuthorizePro

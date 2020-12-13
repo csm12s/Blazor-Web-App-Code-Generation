@@ -1,0 +1,37 @@
+﻿@inherits DrawerTemplate<int, bool>
+
+<Spin Spinning="@_isLoading">
+    <Row>
+        <AntDesign.Col>
+            <Space>
+                <SpaceItem>
+                    <Tooltip Placement="PlacementType.TopLeft" Title="@(_isExpanded?"收起":"展开")">
+                        <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@SystemConstant.OperationButtonSize" OnClick="OnExpandClick" />
+                    </Tooltip>
+                </SpaceItem>
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnSaveClick">保存</Button>
+                </SpaceItem>
+                <SpaceItem>
+                    <Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="OnCancelClick">取消</Button>
+                </SpaceItem>
+            </Space>
+        </AntDesign.Col>
+    </Row>
+    <Row>
+        <AntDesign.Col Span="24">
+            <Tree @ref="_tree"
+                  ShowLine
+                  ShowIcon
+                  Checkable
+                  Multiple
+                  DataSource="_resources"
+                  TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
+                  ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
+                  IconExpression="x=>((ResourceDto)x.DataItem).Icon"
+                  IsLeafExpression="x=>false"
+                  Style="min-height:466px;min-width:400px">
+            </Tree>
+        </AntDesign.Col>
+    </Row>
+</Spin>
