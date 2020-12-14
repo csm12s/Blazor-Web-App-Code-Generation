@@ -112,6 +112,7 @@ namespace Gardener.Core.Entites
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("e30bbf62-d6d3-4e72-ac1a-abb285587632"),CreatedTime=DateTimeOffset.Now});
                     u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"),CreatedTime=DateTimeOffset.Now});
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("e6e477f3-8dd8-4657-adde-cc2c34017775"),CreatedTime=DateTimeOffset.Now});
                 });
 
 
