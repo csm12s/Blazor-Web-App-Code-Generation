@@ -141,6 +141,29 @@
             </summary>
             <param name="repository"></param>
         </member>
+        <member name="T:Gardener.Application.SystemManager.AttachmentService">
+            <summary>
+            附件服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Attachment})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="T:Gardener.Application.SystemManager.UploadService">
+            <summary>
+            上传服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.UploadService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            
+            </summary>
+            <param name="formFile"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.AuthorizeService">
             <summary>
             用户中心服务

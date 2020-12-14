@@ -4,6 +4,52 @@
         <name>Gardener.Core.Entites</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Core.Entites.Attachment">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.BusinessId">
+            <summary>
+            业务ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.BusinessType">
+            <summary>
+            附件业务类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.FileType">
+            <summary>
+            文件类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.Size">
+            <summary>
+            文件大小 byte
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.Path">
+            <summary>
+            存储地址 无name
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.Name">
+            <summary>
+            文件名称 随机生成
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.OriginalName">
+            <summary>
+            原始文件名
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.Suffix">
+            <summary>
+            后缀
+            .jpg
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Entites.Resource">
             <summary>
             资源表

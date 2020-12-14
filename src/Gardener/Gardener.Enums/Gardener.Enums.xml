@@ -4,6 +4,36 @@
         <name>Gardener.Enums</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Enums.AttachmentBusinessType">
+            <summary>
+            附件业务类型类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.AttachmentBusinessType.AVATAR">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="T:Gardener.Enums.AttachmentFileType">
+            <summary>
+            上传文件类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.AttachmentFileType.IMAGE">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.AttachmentFileType.EXCEL">
+            <summary>
+            excel
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.AttachmentFileType.WORD">
+            <summary>
+            word
+            </summary>
+        </member>
         <member name="T:Gardener.Enums.Gender">
             <summary>
             性别枚举

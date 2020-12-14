@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Gardener.Web.Core\Gardener.Web.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\upload\" />
+  </ItemGroup>
+
 </Project>

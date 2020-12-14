@@ -50,6 +50,72 @@
             分页集合
             </summary>
         </member>
+        <member name="T:Gardener.Application.Dtos.AttachmentDto">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.Id">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.FileType">
+            <summary>
+            上传的文件类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.Size">
+            <summary>
+            文件大小 byte
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.Path">
+            <summary>
+            存储地址 无name
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.Name">
+            <summary>
+            文件名称 随机生成
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.OriginalName">
+            <summary>
+            原始文件名
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.Suffix">
+            <summary>
+            后缀
+            .jpg
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.CreatedTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AttachmentDto.UpdatedTime">
+            <summary>
+            更新日期
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.UploadOutput">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UploadOutput.FileUrl">
+            <summary>
+            文件地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.UploadOutput.Attachment">
+            <summary>
+            附件信息
+            </summary>
+        </member>
         <member name="T:Gardener.Application.Dtos.LoginInput">
             <summary>
             登录输入参数
