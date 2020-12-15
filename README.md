@@ -1,6 +1,6 @@
 <p align="center"><img src="https://images.gitee.com/uploads/images/2020/1204/145903_cea2bf9d_302533.png" height="80"/></p>
 
-## 介绍
+## 项目介绍
 
 园丁是基于 .net 5开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，适合学习使用。
 ## 已有功能
@@ -12,7 +12,7 @@
 - 角色管理
 - 资源管理
 
-## 特点
+## 项目特点
 - 新：.Net5 、Blazor WebAssembly 、Furion ；全部新鲜。
 - 简：仅实现管理系统需要的功能，没有多余（懒。。）
 
@@ -56,13 +56,13 @@
 - client 打不开：client默认端口是 44388，在 `Gardener.Client/launchSettings.json`中可以调整，浏览器应打开 https://localhost:44388
 - 开发页面时如何热更新：在Gardener.Client目录执行`dotnet watch run`
 
-## 展示
+## 界面展示
 
 <img src="https://images.gitee.com/uploads/images/2020/1204/160750_e2d69ed2_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2020/1204/160758_7192619c_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2020/1204/160739_fe82dff5_302533.png" width="260px"/>
 
-## 链接
+## 基情链接
 👉 **[Furion](https://gitee.com/monksoul/Furion)**
 👉 **[ant-design-blazor](https://github.com/ant-design-blazor/ant-design-blazor)**
 
