@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Enums;
+using System.Threading.Tasks;
 
 namespace Gardener.Core
 {
@@ -22,18 +23,18 @@ namespace Gardener.Core
         /// </summary>
         /// <param name="resourceId"></param>
         /// <returns></returns>
-        bool CheckSecurity(string resourceId);
+        Task<bool> CheckSecurity(string resourceId);
         /// <summary>
         /// 检查权限
         /// </summary>
         /// <param name="method"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        bool CheckSecurity(HttpMethodType method, string path);
+        Task<bool> CheckSecurity(HttpMethodType method, string path);
         /// <summary>
         /// 是否是超级管理员
         /// </summary>
         /// <returns></returns>
-        bool IsSuperAdministrator();
+        Task<bool> IsSuperAdministrator();
     }
 }

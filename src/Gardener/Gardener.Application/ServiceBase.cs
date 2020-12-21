@@ -65,7 +65,7 @@ namespace Gardener.Application
         {
             input.SetPropertyValue("UpdatedTime", DateTimeOffset.Now);
             // 还可以直接操作
-            await input.Adapt<TEntity>().UpdateExcludeAsync("CreatedTime");
+            await input.Adapt<TEntity>().UpdateExcludeAsync(new[] { "CreatedTime" });
             return true;
         }
 
@@ -161,7 +161,7 @@ namespace Gardener.Application
             if (entity.SetPropertyValue("Id", id) &&
              entity.SetPropertyValue("IsLocked", isLocked))
             {
-               await _repository.UpdateIncludeExistsAsync(entity, "IsLocked");
+               await _repository.UpdateIncludeExistsAsync(entity, new []{ "IsLocked" });
             }
             return true;
         }

@@ -36,7 +36,7 @@ namespace Gardener.Client.Models
         /// <summary>
         /// 执行成功
         /// </summary>
-        public bool Successed { get; set; }
+        public bool Succeeded { get; set; }
 
         /// <summary>
         /// 错误信息
@@ -47,5 +47,9 @@ namespace Gardener.Client.Models
         /// 附加数据
         /// </summary>
         public object Extras { get; set; }
+        /// <summary>
+        /// 时间戳
+        /// </summary>
+        public long Timestamp { get; set; }
     }
 }

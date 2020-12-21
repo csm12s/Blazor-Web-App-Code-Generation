@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Gardener.Core
 {
@@ -57,7 +58,7 @@ namespace Gardener.Core
         /// 是否是超级管理员
         /// </summary>
         /// <returns></returns>
-        public bool IsSuperAdministrator()
+        public async Task<bool> IsSuperAdministrator()
         {
             var value = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.UserIsSuperAdministratorKey);
             if (!string.IsNullOrEmpty(value))
@@ -65,10 +66,10 @@ namespace Gardener.Core
                 return bool.Parse(value);
             }
             var userId = GetUserId();
-            var user = _userRepository
+            var user =await _userRepository
                 .Include(x => x.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsSuperAdministrator == true))
                 .Where(x => x.IsDeleted == false && x.IsLocked == false && x.Id == userId)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
             //用户不存在
             if (user == null) return false;
             //超级管理员
@@ -83,11 +84,11 @@ namespace Gardener.Core
         /// </summary>
         /// <param name="resourceKey"></param>
         /// <returns></returns>
-        public bool CheckSecurity(string resourceKey)
+        public async Task<bool> CheckSecurity(string resourceKey)
         {
             var userId = GetUserId();
             //超级管理员
-            if (IsSuperAdministrator()) return true;
+            if (await IsSuperAdministrator()) return true;
             // ========= 以下代码应该缓存起来 ===========
             // 查询用户拥有的权限
             var resources = _userRepository
@@ -97,7 +98,7 @@ namespace Gardener.Core
                 .SelectMany(u => u.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false)
                     .SelectMany(u => u.Resources.Where(x=>x.IsDeleted==false && x.IsLocked==false && x.Key.Equals(resourceKey))))
                 .Select(u => u.Id);
-            if (!resources.Any()) return false;
+            if (!await resources.AnyAsync()) return false;
             return true;
         }
         /// <summary>
@@ -106,11 +107,11 @@ namespace Gardener.Core
         /// <param name="method"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public bool CheckSecurity(HttpMethodType method ,string path)
+        public async Task<bool> CheckSecurity(HttpMethodType method ,string path)
         {
             var userId = GetUserId();
             //超级管理员
-            if (IsSuperAdministrator()) return true;
+            if (await IsSuperAdministrator()) return true;
             // ========= 以下代码应该缓存起来 ===========
             // 查询用户拥有的权限
             var resources = _userRepository
@@ -120,7 +121,7 @@ namespace Gardener.Core
                 .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
                     .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && x.Method.Equals(method) && x.Path.Equals(path))))
                 .Select(u => u.Id);
-            if (!resources.Any()) return false;
+            if (!await resources.AnyAsync()) return false;
             return true;
         }
     }

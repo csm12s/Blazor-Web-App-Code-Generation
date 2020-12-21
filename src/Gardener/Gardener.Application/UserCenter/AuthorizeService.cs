@@ -148,7 +148,7 @@ namespace Gardener.Application
             var userId = _authorizationManager.GetUserId();
             List<Resource> resources;
             //超级管理员
-            if (_authorizationManager.IsSuperAdministrator())
+            if (await _authorizationManager.IsSuperAdministrator())
             {
                 resources = await _resourceRepository.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)).ToListAsync();
             }

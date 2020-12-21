@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
@@ -33,7 +34,7 @@ namespace Gardener.Client.Services
                 if (HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
                     var result= await httpResponse.Content.ReadFromJsonAsync<ApiResult<TResponse>>();
-                    if (!result.Successed)
+                    if (!result.Succeeded)
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
                         return default(TResponse);

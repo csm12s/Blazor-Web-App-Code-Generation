@@ -92,7 +92,7 @@ namespace Gardener.Application
             return await _userRepository
                .Include(u => u.Roles, false)
                    .ThenInclude(u => u.Resources)
-               .Where(_authorizationManager.IsSuperAdministrator(), u => u.Id == userId)
+               .Where(await _authorizationManager.IsSuperAdministrator(), u => u.Id == userId)
                .Where(u => u.IsDeleted == false)
                .SelectMany(u => u.Roles
                    .SelectMany(u => u.Resources))
@@ -162,7 +162,7 @@ namespace Gardener.Application
                 if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
                 {
                     userExt.UpdatedTime = DateTimeOffset.Now;
-                    await _userExtensionRepository.UpdateExcludeAsync(userExt, x => x.CreatedTime);
+                    await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { "CreatedTime" } );
                 }
                 else
                 {
