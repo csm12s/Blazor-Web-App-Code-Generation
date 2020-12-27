@@ -20,9 +20,24 @@ namespace Gardener.Application.Dtos
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
+        /// 业务ID
+        /// </summary>
+        [Required(ErrorMessage = "业务Id不能为空")]
+        public string BusinessId { get; set; }
+        /// <summary>
+        /// 附件业务类型
+        /// </summary>
+        [Required(ErrorMessage = "附件业务类型不能为空")]
+        public AttachmentBusinessType? BusinessType { get; set; }
+        /// <summary>
         /// 上传的文件类型
         /// </summary>
-        public AttachmentFileType FileType { get; set; }
+        [Required(ErrorMessage = "文件类型不能为空")]
+        public AttachmentFileType? FileType { get; set; }
+        /// <summary>
+        /// 原始类型
+        /// </summary>
+        public string ContentType { get; set; }
         /// <summary>
         /// 文件大小 byte
         /// </summary>
@@ -32,6 +47,7 @@ namespace Gardener.Application.Dtos
         /// </summary>
         [Required, MaxLength(200)]
         public string Path { get; set; }
+        
         /// <summary>
         /// 文件名称 随机生成
         /// </summary>
@@ -42,6 +58,11 @@ namespace Gardener.Application.Dtos
         /// </summary>
         [MaxLength(100)]
         public string OriginalName { get; set; }
+        /// <summary>
+        /// 访问地址
+        /// </summary>
+        [Required, MaxLength(200)]
+        public string Url { get; set; }
         /// <summary>
         /// 后缀
         /// .jpg

@@ -72,7 +72,7 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 权限类型
         /// </summary>
-        [Required, DefaultValue(ResourceType.API)]
+        [Required, DefaultValue(ResourceType.Api)]
         public ResourceType Type { get; set; }
         /// <summary>
         /// 多对多

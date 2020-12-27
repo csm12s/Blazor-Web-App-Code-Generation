@@ -33,7 +33,7 @@ namespace Gardener.Core
     public class JwtBearerService : IJwtBearerService, IScoped
     {
         private JWTSettingsOptions _jwtOptions;
-        private JwtRefreshTokenSettingsOptions _jwtRefreshTokenOptions;
+        private JwtRefreshTokenSettings _jwtRefreshTokenOptions;
         IRepository<UserToken> _repository;
         /// <summary>
         /// 请求上下文访问器
@@ -47,7 +47,7 @@ namespace Gardener.Core
         /// <param name="repository"></param>
         /// <param name="jwtSettings"></param>
         /// <param name="jwtRefreshTokenOptions"></param>
-        public JwtBearerService(IRepository<UserToken> repository, IOptions<JWTSettingsOptions> jwtSettings, IOptions<JwtRefreshTokenSettingsOptions> jwtRefreshTokenOptions, IHttpContextAccessor httpContextAccessor)
+        public JwtBearerService(IRepository<UserToken> repository, IOptions<JWTSettingsOptions> jwtSettings, IOptions<JwtRefreshTokenSettings> jwtRefreshTokenOptions, IHttpContextAccessor httpContextAccessor)
         {
             _repository = repository;
             _jwtOptions = jwtSettings.Value;
@@ -74,7 +74,7 @@ namespace Gardener.Core
         {
             var (oldRefreshToken, principal) = ReadToken(refreshTokenStr, JwtTokenType.RefreshToken);
 
-            UserToken refreshToken = _repository.Where(x => x.IsDeleted == false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.Id).FirstOrDefault();
+            UserToken refreshToken = _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.Id).FirstOrDefault();
 
             //异常token检测
             if (refreshToken == null || refreshToken.Value != refreshTokenStr || refreshToken.EndTime <= DateTimeOffset.UtcNow)
@@ -198,7 +198,7 @@ namespace Gardener.Core
             string clientId = user.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
             clientId.Validate(ValidationTypes.Required);
 
-            var refreshTokens = await _repository.Where(x => x.IsDeleted == false && x.UserId == userId && x.ClientId.Equals(clientId)).ToListAsync();
+            var refreshTokens = await _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == userId && x.ClientId.Equals(clientId)).ToListAsync();
             refreshTokens.ForEach(x => x.FakeDeleteAsync());
             return true;
         }

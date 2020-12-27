@@ -342,3 +342,4 @@ healthchecksdb
 /src/services/YiPaiKe/YiPaiKe.Core/YiPaiKe.Core.xml
 /src/services/YiPaiKe/YiPaiKe.Application/YiPaiKe.Application.xml
 Migrations/
+upload/

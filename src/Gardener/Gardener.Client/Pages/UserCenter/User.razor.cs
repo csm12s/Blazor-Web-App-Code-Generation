@@ -179,6 +179,7 @@ namespace Gardener.Client.Pages.UserCenter
                 }
             });
         }
+
         /// <summary>
         /// 点击分配角色
         /// </summary>
@@ -192,7 +193,15 @@ namespace Gardener.Client.Pages.UserCenter
                 await ReLoadTable();
             }
         }
-
-
+        /// <summary>
+        /// 点击头像
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private async Task OnAvatarClick(UserDto user) 
+        {
+            int avatarDrawerWidth = 300;
+            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User=user,SaveDb=true }, true, title: "上传头像", width: avatarDrawerWidth, placement: "left");
+        }
     }
 }

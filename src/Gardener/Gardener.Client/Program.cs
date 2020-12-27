@@ -26,7 +26,10 @@ namespace Gardener.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiBaseAddres")?.Value) });
+            #region api settings
+            builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+            #endregion
+            builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiSettings:BaseAddres")?.Value) });
             //log
             builder.Logging.AddConfiguration(
                 builder.Configuration.GetSection("Logging")
@@ -47,7 +50,10 @@ namespace Gardener.Client
                 option.DefaultPolicy = option.GetPolicy(AuthConstant.DefaultAuthenticatedPolicy);
             });
             builder.Services.AddScoped<IAuthorizationHandler, ClientUIResourceAuthorizationHandler>();
+            builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
             #endregion
+
+            
 
 
             #region ±¾µØ»¯
@@ -69,10 +75,13 @@ namespace Gardener.Client
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IResourceService, ResourceService>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
             #endregion
 
-            var host = await builder
+            builder.Services.AddTypeAdapterConfigs();
+
+           var host = await builder
                 .Build()
                 .UseCulture();
             await host.RunAsync();

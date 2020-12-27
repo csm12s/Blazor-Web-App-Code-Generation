@@ -119,14 +119,14 @@
                                     <sppn>@selectedModel.Icon</sppn>
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="锁定">
-                                    @(selectedModel.IsLocked?"是":"否")
+                                    <TagYesNo Yes="selectedModel.IsLocked"></TagYesNo>
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="创建时间">
                                     @selectedModel.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="地址">
                                     <Space>
-                                        @if (selectedModel.Type.Equals(ResourceType.API) && selectedModel.Method.HasValue)
+                                        @if (selectedModel.Type.Equals(ResourceType.Api) && selectedModel.Method.HasValue)
                                         {
 
                                             <SpaceItem>@(EnumExtension.GetEnumDescription(selectedModel.Method))</SpaceItem>

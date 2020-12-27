@@ -130,7 +130,7 @@ namespace Gardener.Application
             // 获取用户Id
             var userId = _authorizationManager.GetUserId();
 
-            var user = await _userRepository.FindAsync(userId);
+            var user = await _userRepository.AsQueryable(false).Include(x=>x.Roles).Where(x=>x.Id==userId && x.IsDeleted==false).FirstOrDefaultAsync();
 
             return user.Adapt<UserDto>();
 
@@ -179,11 +179,11 @@ namespace Gardener.Application
         public async Task<List<ResourceDto>> GetCurrentUserMenus()
         {
             // 获取用户Id
-            List<ResourceDto> resources = await GetCurrentUserResources(ResourceType.ROOT, ResourceType.MENU);
+            List<ResourceDto> resources = await GetCurrentUserResources(ResourceType.Root, ResourceType.Menu);
 
             if (resources == null) return new List<ResourceDto>();
 
-            return resources.Where(x => x.Type.Equals(ResourceType.ROOT)).FirstOrDefault()?.Children?.OrderBy(x => x.Order).ToList();
+            return resources.Where(x => x.Type.Equals(ResourceType.Root)).FirstOrDefault()?.Children?.OrderBy(x => x.Order).ToList();
         }
     }
 }

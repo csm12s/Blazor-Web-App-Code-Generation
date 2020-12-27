@@ -22,6 +22,8 @@ namespace Gardener.Client.Pages.UserCenter
         IUserService userService { get; set; }
         [Inject]
         MessageService messageService { get; set; }
+        [Inject]
+        DrawerService drawerService { get; set; }
         protected override async Task OnInitializedAsync()
         {
             _formIsLoading = true;
@@ -72,7 +74,6 @@ namespace Gardener.Client.Pages.UserCenter
             }
             else
             {
-                _editModel.Roles = null;
                 //修改
                 var result = await userService.Update(_editModel);
                 if (result)
@@ -93,6 +94,20 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task OnFormCancel()
         {
             await base.CloseAsync(false);
+        }
+        
+
+        /// <summary>
+        /// 点击头像
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private async Task OnAvatarClick(UserDto user)
+        {
+            int avatarDrawerWidth = 300;
+            //this.DrawerRef.Options.Width += avatarDrawerWidth;
+            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User =user }, true, title: "上传头像", width: avatarDrawerWidth, placement: "right");
+            //this.DrawerRef.Options.Width -= avatarDrawerWidth;
         }
     }
 }

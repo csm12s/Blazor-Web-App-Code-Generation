@@ -59,7 +59,7 @@ namespace Gardener.Application
         public async Task<List<ResourceDto>> GetRoot()
         {
             var resources = await resourceRepository
-                .Where(x => x.ParentId ==null && x.Type.Equals(ResourceType.ROOT))
+                .Where(x => x.ParentId ==null && x.Type.Equals(ResourceType.Root))
                 .Where(x => x.IsDeleted == false)
                 .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
             return resources;
@@ -94,7 +94,7 @@ namespace Gardener.Application
             //  SetChildren(root, otherResources);
             //}
 
-            return allResources.Where(x=>x.Type.Equals(ResourceType.ROOT)).Select(x => x.Adapt<ResourceDto>()).ToList();
+            return allResources.Where(x=>x.Type.Equals(ResourceType.Root)).Select(x => x.Adapt<ResourceDto>()).ToList();
         }
         ///// <summary>
         ///// 

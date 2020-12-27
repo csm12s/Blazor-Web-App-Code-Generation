@@ -131,6 +131,8 @@ namespace Gardener.Application
         /// <returns></returns>
         public override async Task<bool> Update(UserDto input)
         {
+            //不操作角色关系
+            input.Roles = null;
             var user = input.Adapt<User>();
             user.UpdatedTime = DateTimeOffset.Now;
 
@@ -152,7 +154,7 @@ namespace Gardener.Application
             }
             //扩展移除
             user.UserExtension = null;
-            
+
             //更新
             await user.UpdateExcludeAsync(exclude);
 
@@ -162,7 +164,7 @@ namespace Gardener.Application
                 if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
                 {
                     userExt.UpdatedTime = DateTimeOffset.Now;
-                    await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { "CreatedTime" } );
+                    await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { nameof(User.CreatedTime) });
                 }
                 else
                 {
@@ -251,6 +253,18 @@ namespace Gardener.Application
                 await _userRoleRepository.InsertAsync(newUserRoles);
             }
             return true;
+        }
+
+        /// <summary>
+        /// 更新头像
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAvatar(UserUpdateAvatarInput input)
+        {
+            await _userRepository.UpdateIncludeAsync(new User { Id = input.Id, Avatar = input.Avatar, UpdatedTime = DateTime.Now }, new[] { nameof(User.Avatar), nameof(User.UpdatedTime) });
+            return true;
+
         }
     }
 }

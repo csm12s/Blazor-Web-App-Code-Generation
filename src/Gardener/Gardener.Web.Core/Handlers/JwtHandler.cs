@@ -43,7 +43,7 @@ namespace Gardener.Web.Core
             //没有特性的可以通过路由+请求方法查找
 
 
-            HttpMethodType method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), httpContext.Request.Method);
+            HttpMethodType method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), httpContext.Request.Method.ToUpper());
             string path = ((Microsoft.AspNetCore.Routing.RouteEndpoint)httpContext.GetEndpoint()).RoutePattern.RawText;
             return await authorizationManager.CheckSecurity(method, path);
         }

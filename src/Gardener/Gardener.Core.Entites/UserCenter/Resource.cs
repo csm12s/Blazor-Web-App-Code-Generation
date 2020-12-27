@@ -72,7 +72,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 权限类型
         /// </summary>
-        [Required, DefaultValue(ResourceType.API)]
+        [Required, DefaultValue(ResourceType.Api)]
         public ResourceType Type { get; set; }
         /// <summary>
         /// 多对多
@@ -213,7 +213,15 @@ new Resource{Id=Guid.Parse("825e4fbd-c88c-4028-b864-a7d7363e9550"),Name="获取�
 new Resource{Id=Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"),Name="获取当前用户资源",Icon=null,Order=4,Path="api/authorize/current-user-resources",Key="system_auth_api_current_user_resources",Remark=null,Type=(ResourceType)3000,ParentId=Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)1},
 new Resource{Id=Guid.Parse("8910d2d6-784b-4331-a5bc-22e2a943aa9f"),Name="获取当前用户的所有菜单",Icon=null,Order=5,Path="api/authorize/current-user-menus",Key="system_auth_api_current_user_menus",Remark=null,Type=(ResourceType)3000,ParentId=Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)0},
 new Resource{Id=Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"),Name="删除当前用户的刷新token",Icon=null,Order=6,Path="api/authorize/current-user-refresh-token",Key="system_auth_api_delete_current_user_refresh_token",Remark=null,Type=(ResourceType)3000,ParentId=Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)3},
-new Resource{Id=Guid.Parse("e6e477f3-8dd8-4657-adde-cc2c34017775"),Name="资源数据详情",Icon=null,Order=-2,Path="api/resource/{id}",Key="user_auth_resource_get_detail_api",Remark=null,Type=(ResourceType)3000,ParentId=Guid.Parse("25dcaaca-6f97-45f3-952d-05112f07c677"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)0}
+new Resource{Id=Guid.Parse("e6e477f3-8dd8-4657-adde-cc2c34017775"),Name="资源数据详情",Icon=null,Order=-2,Path="api/resource/{id}",Key="user_auth_resource_get_detail_api",Remark=null,Type=(ResourceType)3000,ParentId=Guid.Parse("25dcaaca-6f97-45f3-952d-05112f07c677"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)0},
+new Resource{Id=Guid.Parse("3201DCEA-913B-4B30-A596-523C25311CB1"),Name="物理删除多个附件",Icon="null",Order=0,Path="api/attachment/deletes",Key="system_manager_attachment_delete_selected_api",Remark="物理删除多个附件",Type=(ResourceType)3000,ParentId=Guid.Parse("D998802F-776E-4137-BC63-D8D818464F98"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)1},
+new Resource{Id=Guid.Parse("C034C322-420F-455C-9B0D-6B4AEE46218C"),Name="物理删除单个附件",Icon="null",Order=0,Path="api/attachment/{id}",Key="system_manager_attachment_delete_api",Remark="物理删除单个附件",Type=(ResourceType)3000,ParentId=Guid.Parse("CE3992BA-A9DF-4114-A38B-615525B53DFD"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)3},
+new Resource{Id=Guid.Parse("5DFBC04E-1E77-4C41-9EF2-0ED97B6C7882"),Name="刷新",Icon="null",Order=2,Path="null",Key="system_manager_attachment_refresh",Remark="刷新",Type=(ResourceType)2000,ParentId=Guid.Parse("925C3162-155C-4644-8CA2-075F9FC76235"),CreatedTime=DateTimeOffset.Now,Method=null},
+new Resource{Id=Guid.Parse("CE3992BA-A9DF-4114-A38B-615525B53DFD"),Name="删除",Icon="null",Order=1,Path="null",Key="system_manager_attachment_delete",Remark="删除附件",Type=(ResourceType)2000,ParentId=Guid.Parse("925C3162-155C-4644-8CA2-075F9FC76235"),CreatedTime=DateTimeOffset.Now,Method=null},
+new Resource{Id=Guid.Parse("D998802F-776E-4137-BC63-D8D818464F98"),Name="删除选中",Icon="null",Order=0,Path="null",Key="system_manager_attachment_delete_selected",Remark="删除选中附件",Type=(ResourceType)2000,ParentId=Guid.Parse("925C3162-155C-4644-8CA2-075F9FC76235"),CreatedTime=DateTimeOffset.Now,Method=null},
+new Resource{Id=Guid.Parse("925C3162-155C-4644-8CA2-075F9FC76235"),Name="附件管理",Icon="file",Order=2,Path="/system_manager/attachment",Key="system_manager_attachment",Remark="附件管理",Type=(ResourceType)1000,ParentId=Guid.Parse("C2090656-8A05-4E67-B7EA-62F178639620"),CreatedTime=DateTimeOffset.Now,Method=null},
+new Resource{Id=Guid.Parse("0B133140-4C89-4463-AEA6-75F7F0DDEBDC"),Name="列表数据查询",Icon="null",Order=-1,Path="api/attachment/search",Key="system_manager_attachment_list_api",Remark="附件列表数据查询",Type=(ResourceType)3000,ParentId=Guid.Parse("925C3162-155C-4644-8CA2-075F9FC76235"),CreatedTime=DateTimeOffset.Now,Method=(HttpMethodType)1}
+
 
             };
         }

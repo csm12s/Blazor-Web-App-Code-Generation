@@ -57,28 +57,6 @@ namespace Gardener.Application
                 .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
         }
         /// <summary>
-         /// 搜索角色
-         /// </summary>
-         /// <param name="name">角色名称</param>
-         /// <param name="pageIndex">页码</param>
-         /// <param name="pageSize">分页大小</param>
-         /// <returns></returns>
-        [HttpPost]
-        public async Task<Dtos.PagedList<RoleDto>> Search(
-            [FromQuery] string name,
-            [FromBody] string path,
-            int pageIndex = 1,
-            int pageSize = 10)
-        {
-            return await _roleRepository
-                .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
-                .Where(x => x.IsDeleted == false)
-                .OrderByDescending(x => x.CreatedTime)
-                .Select(x => x.Adapt<RoleDto>())
-                .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
-        }
-
-        /// <summary>
         /// 为角色分配权限（重置）
         /// </summary>
         public async Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, Guid[] resourceIds)

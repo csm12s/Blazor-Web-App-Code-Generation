@@ -20,15 +20,5 @@ namespace Gardener.Client.Constants
         /// 
         /// </summary>
         public static readonly string ClientPageResourcePolicy = "client-page-resource-policy";
-
-        /// <summary>
-        /// token刷新间隔（单位：秒）
-        /// </summary>
-        public readonly static int RefreshTokenCheckInterval = 30;
-
-        /// <summary>
-        /// token刷新过期时间阈值（单位：秒）
-        /// </summary>
-        public readonly static int RefreshTokenTimeThreshold = 70;
     }
 }

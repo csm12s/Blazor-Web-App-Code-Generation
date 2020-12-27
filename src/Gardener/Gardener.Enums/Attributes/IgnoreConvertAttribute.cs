@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Gardener.Common
+namespace Gardener.Enums
 {
     /// <summary>
     /// Enum 转换集合时忽略

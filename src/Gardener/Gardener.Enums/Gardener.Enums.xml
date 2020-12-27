@@ -9,7 +9,7 @@
             附件业务类型类型
             </summary>
         </member>
-        <member name="F:Gardener.Enums.AttachmentBusinessType.AVATAR">
+        <member name="F:Gardener.Enums.AttachmentBusinessType.Avatar">
             <summary>
             头像
             </summary>
@@ -19,17 +19,22 @@
             上传文件类型
             </summary>
         </member>
-        <member name="F:Gardener.Enums.AttachmentFileType.IMAGE">
+        <member name="F:Gardener.Enums.AttachmentFileType.Image">
             <summary>
             图片
             </summary>
         </member>
-        <member name="F:Gardener.Enums.AttachmentFileType.EXCEL">
+        <member name="F:Gardener.Enums.AttachmentFileType.Excel">
             <summary>
             excel
             </summary>
         </member>
-        <member name="F:Gardener.Enums.AttachmentFileType.WORD">
+        <member name="F:Gardener.Enums.AttachmentFileType.Word">
+            <summary>
+            word
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.AttachmentFileType.Other">
             <summary>
             word
             </summary>
@@ -60,29 +65,34 @@
             资源子级类型只能>=父级类型
             </summary>
         </member>
-        <member name="F:Gardener.Enums.ResourceType.ROOT">
+        <member name="F:Gardener.Enums.ResourceType.Root">
             <summary>
             根节点
             </summary>
         </member>
-        <member name="F:Gardener.Enums.ResourceType.CLIENT">
+        <member name="F:Gardener.Enums.ResourceType.Client">
             <summary>
             菜单
             </summary>
         </member>
-        <member name="F:Gardener.Enums.ResourceType.MENU">
+        <member name="F:Gardener.Enums.ResourceType.Menu">
             <summary>
             菜单
             </summary>
         </member>
-        <member name="F:Gardener.Enums.ResourceType.BUTTON">
+        <member name="F:Gardener.Enums.ResourceType.Button">
             <summary>
             BUTTON
             </summary>
         </member>
-        <member name="F:Gardener.Enums.ResourceType.API">
+        <member name="F:Gardener.Enums.ResourceType.Api">
             <summary>
             API
+            </summary>
+        </member>
+        <member name="T:Gardener.Enums.IgnoreConvertAttribute">
+            <summary>
+            Enum 转换集合时忽略
             </summary>
         </member>
         <member name="T:Gardener.Enums.ExceptionCode">
@@ -114,6 +124,11 @@
         <member name="F:Gardener.Enums.ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE">
             <summary>
             刷新token不存在或已过期
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.NO_INCLUD_FILE">
+            <summary>
+            未包含文件
             </summary>
         </member>
         <member name="T:Gardener.Enums.LoginClientType">

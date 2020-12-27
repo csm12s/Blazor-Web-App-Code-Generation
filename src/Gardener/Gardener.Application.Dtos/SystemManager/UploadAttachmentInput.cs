@@ -4,20 +4,25 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Enums;
+using System.ComponentModel.DataAnnotations;
+
 namespace Gardener.Application.Dtos
 {
     /// <summary>
-    /// 
+    /// 上传附件
     /// </summary>
-    public class UploadOutput
+    public class UploadAttachmentInput
     {
         /// <summary>
-        /// 文件地址
+        /// 业务ID
         /// </summary>
-        public string FileUrl { get; set; }
+        [MaxLength(64,ErrorMessage = "最大长度不能大于{1}")]
+        public string BusinessId { get; set; }
         /// <summary>
-        /// 附件信息
+        /// 附件业务类型
         /// </summary>
-        public AttachmentDto Attachment { get; set; }
+        [Required(ErrorMessage = "附件业务类型不能为空")]
+        public AttachmentBusinessType BusinessType { get; set; }
     }
 }

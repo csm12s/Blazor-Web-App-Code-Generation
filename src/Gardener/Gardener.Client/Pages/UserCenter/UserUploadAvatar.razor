@@ -1,0 +1,39 @@
+﻿@inherits DrawerTemplate<UserUploadAvatarParams, string>
+<Row>
+    <Upload Action="@UploadUrl"
+            Name="file"
+            Class="avatar-uploader"
+            ListType="picture-card"
+            ShowUploadList="false"
+            BeforeUpload="BeforeUpload"
+            OnChange="HandleChange"
+            Data="uploadAttachmentInput"
+            Headers="headers"
+            >
+        @if (!string.IsNullOrWhiteSpace(imageUrl))
+        {
+            <img src="@imageUrl" alt="avatar" class="avatar-uploader-img" />
+        }
+        else
+        {
+            <div>
+                <Icon Spin="loading" Type="@(loading?"Loading":"plus")"></Icon>
+                <div className="ant-upload-text">上传</div>
+            </div>
+        }
+    </Upload>
+</Row>
+
+<style>
+    .avatar-uploader {
+        text-align:center;
+    }
+    .avatar-uploader > .ant-upload {
+        width: 128px;
+        height: 128px;
+    }
+    .avatar-uploader-img {
+        width: 126px;
+        height: 126px;
+    }
+</style>

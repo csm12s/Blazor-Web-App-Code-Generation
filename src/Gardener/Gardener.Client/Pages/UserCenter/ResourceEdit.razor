@@ -21,9 +21,9 @@
     <FormItem Label="类型">
         <RadioGroup @bind-Value="@(model.Type)">
 
-            @if (model.Id != Guid.Empty && model.Type.Equals(ResourceType.ROOT))
+            @if (model.Id != Guid.Empty && model.Type.Equals(ResourceType.Root))
             {
-                <Radio Value="@(ResourceType.ROOT)">@EnumExtension.GetEnumDescription(ResourceType.ROOT)</Radio>
+                <Radio Value="@(ResourceType.Root)">@EnumExtension.GetEnumDescription(ResourceType.Root)</Radio>
             }
             else
             {
@@ -37,7 +37,7 @@
             }
         </RadioGroup>
     </FormItem>
-    @if (model.Type.Equals(ResourceType.API))
+    @if (model.Type.Equals(ResourceType.Api))
     {
         <FormItem Label="请求方法">
             <SimpleSelect @bind-Value="@_currentEditModelHttpMethodType"

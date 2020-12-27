@@ -30,5 +30,12 @@ namespace Gardener.Application.Interfaces
         /// <param name="roleIds"></param>
         /// <returns></returns>
         Task<bool> Role(int userId, int[] roleIds);
+
+        /// <summary>
+        /// 更新头像
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<bool> UpdateAvatar(UserUpdateAvatarInput input);
     }
 }

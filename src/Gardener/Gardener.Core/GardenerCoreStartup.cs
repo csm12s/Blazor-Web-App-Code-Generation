@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
+using Gardener.Core.FileStore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Gardener.Core
@@ -21,7 +22,8 @@ namespace Gardener.Core
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddConfigurableOptions<JwtRefreshTokenSettingsOptions>();
+            services.AddConfigurableOptions<JwtRefreshTokenSettings>()
+                .AddConfigurableOptions<LocalFileStoreSettings>();
         }
     }
 }

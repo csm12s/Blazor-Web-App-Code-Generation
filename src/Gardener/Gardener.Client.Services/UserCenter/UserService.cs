@@ -46,5 +46,10 @@ namespace Gardener.Client.Services
         {
             return await apiCaller.PostAsync<int[],bool>($"{controller}/{userId}/Role", roleIds);
         }
+
+        public async Task<bool> UpdateAvatar(UserUpdateAvatarInput input)
+        {
+            return await apiCaller.PutAsync<UserUpdateAvatarInput, bool>($"{controller}/avatar", input);
+        }
     }
 }

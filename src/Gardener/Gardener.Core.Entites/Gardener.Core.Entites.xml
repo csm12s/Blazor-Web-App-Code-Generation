@@ -24,6 +24,11 @@
             文件类型
             </summary>
         </member>
+        <member name="P:Gardener.Core.Entites.Attachment.ContentType">
+            <summary>
+            原始类型
+            </summary>
+        </member>
         <member name="P:Gardener.Core.Entites.Attachment.Size">
             <summary>
             文件大小 byte
@@ -42,6 +47,11 @@
         <member name="P:Gardener.Core.Entites.Attachment.OriginalName">
             <summary>
             原始文件名
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Attachment.Url">
+            <summary>
+            访问地址
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Attachment.Suffix">

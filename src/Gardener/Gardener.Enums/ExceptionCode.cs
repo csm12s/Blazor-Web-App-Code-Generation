@@ -38,6 +38,11 @@ namespace Gardener.Enums
         /// 刷新token不存在或已过期
         /// </summary>
         [Description("刷新token不存在或已过期")]
-        REFRESHTOKEN_NO_EXIST_OR_EXPIRE
+        REFRESHTOKEN_NO_EXIST_OR_EXPIRE,
+        /// <summary>
+        /// 未包含文件
+        /// </summary>
+        [Description("未包含文件")]
+        NO_INCLUD_FILE
     }
 }

@@ -22,6 +22,6 @@ namespace Gardener.Enums
         /// 头像
         /// </summary>
         [Description("头像")]
-        AVATAR
+        Avatar
     }
 }

@@ -4,6 +4,85 @@
         <name>Gardener.Core</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Core.FileStore.IFileStoreService">
+            <summary>
+            文件存储服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.FileStore.IFileStoreService.Delete(System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:Gardener.Core.FileStore.IFileStoreService.Get(System.String)">
+            <summary>
+            获取文件
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.FileStore.IFileStoreService.Save(System.IO.Stream,System.String)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="file"></param>
+            <param name="path"></param>
+            <returns>文件访问路径</returns>
+        </member>
+        <member name="T:Gardener.Core.FileStore.LocalFileStoreService">
+            <summary>
+            本地文件存储服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.FileStore.LocalFileStoreService.#ctor(Microsoft.Extensions.Options.IOptions{Gardener.Core.FileStore.LocalFileStoreSettings},Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:Gardener.Core.FileStore.LocalFileStoreService.GetBaseDirectory">
+            <summary>
+            获取文件存储目录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.FileStore.LocalFileStoreService.Save(System.IO.Stream,System.String)">
+            <summary>
+             保存文件
+            </summary>
+            <param name="file"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:Gardener.Core.FileStore.LocalFileStoreService.Delete(System.String)">
+            <summary>
+             删除文件
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:Gardener.Core.FileStore.LocalFileStoreService.Get(System.String)">
+            <summary>
+            获取文件
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.FileStore.LocalFileStoreSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.FileStore.LocalFileStoreSettings.BaseDirectory">
+            <summary>
+            存储的基础目录
+            为空时，默认是wwwroot/upload 路径
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.FileStore.LocalFileStoreSettings.BaseUrl">
+            <summary>
+            文件访问路径
+            </summary>
+        </member>
         <member name="T:Gardener.Core.GardenerCoreStartup">
             <summary>
             
@@ -167,7 +246,7 @@
             请求上下文访问器
             </summary>
         </member>
-        <member name="M:Gardener.Core.JwtBearerService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserToken},Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions},Microsoft.Extensions.Options.IOptions{Gardener.Core.JwtRefreshTokenSettingsOptions},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:Gardener.Core.JwtBearerService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserToken},Microsoft.Extensions.Options.IOptions{Furion.Authorization.JWTSettingsOptions},Microsoft.Extensions.Options.IOptions{Gardener.Core.JwtRefreshTokenSettings},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             
             </summary>
@@ -237,22 +316,22 @@
             
             </summary>
         </member>
-        <member name="T:Gardener.Core.JwtRefreshTokenSettingsOptions">
+        <member name="T:Gardener.Core.JwtRefreshTokenSettings">
             <summary>
             
             </summary>
         </member>
-        <member name="P:Gardener.Core.JwtRefreshTokenSettingsOptions.RefreshExpireMins">
+        <member name="P:Gardener.Core.JwtRefreshTokenSettings.RefreshExpireMins">
             <summary>
             获取或设置 RefreshToken有效期分钟数
             </summary>
         </member>
-        <member name="P:Gardener.Core.JwtRefreshTokenSettingsOptions.IsRefreshAbsoluteExpired">
+        <member name="P:Gardener.Core.JwtRefreshTokenSettings.IsRefreshAbsoluteExpired">
             <summary>
             获取或设置 RefreshToken是否绝对过期
             </summary>
         </member>
-        <member name="P:Gardener.Core.JwtRefreshTokenSettingsOptions.IssuerSigningKey">
+        <member name="P:Gardener.Core.JwtRefreshTokenSettings.IssuerSigningKey">
             <summary>
             
             </summary>

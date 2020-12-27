@@ -57,14 +57,10 @@
                     <Column Title="名称" @bind-Field="@model.Name" />
                     <Column Title="备注" @bind-Field="@model.Remark" />
                     <Column Title="是否是超级管理" Field="@model.IsSuperAdministrator">
-                        <Tag Color="@(model.IsSuperAdministrator?"blue":"red")">
-                            @(model.IsSuperAdministrator?"是":"否")
-                        </Tag>
+                        <TagYesNo Yes="model.IsSuperAdministrator"></TagYesNo>
                     </Column>
                     <Column Title="是否是默认角色" Field="@model.IsDefault">
-                        <Tag Color="@(model.IsDefault?"blue":"red")">
-                            @(model.IsDefault ? "是":"否")
-                        </Tag>
+                        <TagYesNo Yes="model.IsDefault"></TagYesNo>
                     </Column>
                     <Column Title="是否锁定" Field="@model.IsLocked">
                         <ResourceAuthorize ResourceKey="user_auth_role_lock">
@@ -72,9 +68,7 @@
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                             </Authorized>
                             <NotAuthorized>
-                                <Tag Color="@(!model.IsLocked?"blue":"red")">
-                                    @(model.IsLocked ? "是":"否")
-                                </Tag>
+                                <TagYesNo Yes="model.IsLocked"></TagYesNo>
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>

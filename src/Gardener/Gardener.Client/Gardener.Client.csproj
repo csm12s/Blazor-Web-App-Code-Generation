@@ -36,6 +36,7 @@
     <Watch Include="**\*.razor" />
     <Watch Include="**\*.less" />
   </ItemGroup>
+
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

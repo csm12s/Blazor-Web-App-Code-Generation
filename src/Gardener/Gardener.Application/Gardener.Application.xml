@@ -19,6 +19,15 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.PagedQueryableExtensions.ToPagedList``1(System.Linq.IQueryable{``0},Gardener.Application.Dtos.PagedSearchBaseInfo)">
+            <summary>
+            分页拓展
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entities"></param>
+            <param name="pagedSearchBaseInfo"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Application.PagedQueryableExtensions.ToPagedListAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Threading.CancellationToken)">
             <summary>
             分页拓展
@@ -28,6 +37,25 @@
             <param name="pageIndex"></param>
             <param name="pageSize"></param>
             <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.PagedQueryableExtensions.ToPagedListAsync``1(System.Linq.IQueryable{``0},Gardener.Application.Dtos.PagedSearchBaseInfo,System.Threading.CancellationToken)">
+            <summary>
+            分页拓展
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entities"></param>
+            <param name="pagedSearchBaseInfo"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.PagedQueryableExtensions.OrderConditions``1(System.Linq.IQueryable{``0},Gardener.Application.Dtos.SearchSort[])">
+            <summary>
+            多字段排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="orderConditions"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.ServiceBase`3">
@@ -146,22 +174,52 @@
             附件服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.SystemManager.AttachmentService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Attachment})">
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Attachment},Gardener.Core.FileStore.IFileStoreService)">
             <summary>
             
             </summary>
             <param name="repository"></param>
+            <param name="fileStoreService"></param>
         </member>
-        <member name="T:Gardener.Application.SystemManager.UploadService">
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.Upload(Gardener.Application.Dtos.UploadAttachmentInput,Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
-            上传服务
+            上传附件
             </summary>
-        </member>
-        <member name="M:Gardener.Application.SystemManager.UploadService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            
-            </summary>
+            <param name="input"></param>
             <param name="formFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.Insert(Gardener.Application.Dtos.AttachmentDto)">
+            <summary>
+            新增一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.Update(Gardener.Application.Dtos.AttachmentDto)">
+            <summary>
+            更新一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.Delete(System.Guid)">
+            <summary>
+            删除一条
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.Deletes(System.Guid[])">
+            <summary>
+            删除多条
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AttachmentService.Search(Gardener.Application.Dtos.AttachmentSearchInput)">
+            <summary>
+            搜索附件
+            </summary>
+            <param name="searchInput"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.AuthorizeService">
@@ -276,15 +334,6 @@
             <param name="pageSize">分页大小</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.RoleService.Search(System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            搜索角色
-            </summary>
-            <param name="name">角色名称</param>
-            <param name="pageIndex">页码</param>
-            <param name="pageSize">分页大小</param>
-            <returns></returns>
-        </member>
         <member name="M:Gardener.Application.RoleService.Resource(System.Int32,System.Guid[])">
             <summary>
             为角色分配权限（重置）
@@ -374,6 +423,13 @@
             </summary>
             <param name="userId"></param>
             <param name="roleIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.UserService.UpdateAvatar(Gardener.Application.Dtos.UserUpdateAvatarInput)">
+            <summary>
+            更新头像
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
     </members>

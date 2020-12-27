@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Models;
+using Gardener.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
@@ -33,7 +35,7 @@ namespace Gardener.Client.Services
                 HttpResponseMessage httpResponse = await func.Invoke();
                 if (HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
-                    var result= await httpResponse.Content.ReadFromJsonAsync<ApiResult<TResponse>>();
+                    var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<TResponse>>();
                     if (!result.Succeeded)
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
@@ -47,7 +49,7 @@ namespace Gardener.Client.Services
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message,-999,ex);
+                log.Error(ex.Message, -999, ex);
                 return default(TResponse);
             }
         }
@@ -64,14 +66,14 @@ namespace Gardener.Client.Services
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message,-999,ex);
+                log.Error(ex.Message, -999, ex);
             }
         }
         private string GetUrl(string url, IDictionary<string, object> queryString = null)
         {
             if (queryString != null && queryString.Count > 0)
             {
-                url = QueryHelpers.AddQueryString(url, queryString.ToDictionary(p => p.Key, p => p.Value?.ToString()));
+                url = QueryHelpers.AddQueryString(url, queryString.ToDictionary(p => p.Key, p => p.Value==null?"": p.Value.ToString()));
             }
             return url;
         }
@@ -134,6 +136,8 @@ namespace Gardener.Client.Services
                return httpClient.PutAsJsonAsync(url, request);
            });
         }
+
+
         #endregion
     }
 }

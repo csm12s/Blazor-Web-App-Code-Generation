@@ -11,7 +11,7 @@ namespace Gardener.Core
     /// <summary>
     /// 
     /// </summary>
-    public class JwtRefreshTokenSettingsOptions : IConfigurableOptions
+    public class JwtRefreshTokenSettings : IConfigurableOptions
     {
         /// <summary>
         /// 获取或设置 RefreshToken有效期分钟数

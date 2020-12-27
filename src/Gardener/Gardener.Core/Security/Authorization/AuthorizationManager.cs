@@ -66,7 +66,7 @@ namespace Gardener.Core
                 return bool.Parse(value);
             }
             var userId = GetUserId();
-            var user =await _userRepository
+            var user =await _userRepository.AsQueryable(false)
                 .Include(x => x.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsSuperAdministrator == true))
                 .Where(x => x.IsDeleted == false && x.IsLocked == false && x.Id == userId)
                 .FirstOrDefaultAsync();
@@ -91,8 +91,8 @@ namespace Gardener.Core
             if (await IsSuperAdministrator()) return true;
             // ========= 以下代码应该缓存起来 ===========
             // 查询用户拥有的权限
-            var resources = _userRepository
-                .Include(u => u.Roles, false)
+            var resources = _userRepository.AsQueryable(false)
+                .Include(u => u.Roles)
                     .ThenInclude(u => u.Resources)
                 .Where(u => u.Id == userId && u.IsDeleted==false && u.IsLocked==false)
                 .SelectMany(u => u.Roles.Where(x=>x.IsDeleted==false && x.IsLocked==false)
@@ -114,8 +114,8 @@ namespace Gardener.Core
             if (await IsSuperAdministrator()) return true;
             // ========= 以下代码应该缓存起来 ===========
             // 查询用户拥有的权限
-            var resources = _userRepository
-                .Include(u => u.Roles, false)
+            var resources = _userRepository.AsQueryable(false)
+                .Include(u => u.Roles)
                     .ThenInclude(u => u.Resources)
                 .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
                 .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)

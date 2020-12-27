@@ -3,7 +3,6 @@
 //  gitee:https://gitee.com/hgflydream/Gardener 
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
-using Gardener.Common;
 using System.ComponentModel;
 
 namespace Gardener.Enums
@@ -19,26 +18,26 @@ namespace Gardener.Enums
         /// </summary>
         [Description("根节点")]
         [IgnoreConvert]
-        ROOT =0,
+        Root =0,
         /// <summary>
         /// 菜单
         /// </summary>
         [Description("客户端")]
-        CLIENT = 500,
+        Client = 500,
         /// <summary>
         /// 菜单
         /// </summary>
         [Description("菜单")]
-        MENU = 1000,
+        Menu = 1000,
         /// <summary>
         /// BUTTON
         /// </summary>
         [Description("按钮")]
-        BUTTON = 2000,
+        Button = 2000,
         /// <summary>
         /// API
         /// </summary>
         [Description("接口")]
-        API=3000,
+        Api=3000,
     }
 }

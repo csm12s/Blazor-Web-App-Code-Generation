@@ -17,16 +17,21 @@ namespace Gardener.Enums
         /// 图片
         /// </summary>
         [Description("图片")]
-        IMAGE,
+        Image,
         /// <summary>
         /// excel
         /// </summary>
         [Description("Excel")]
-        EXCEL,
+        Excel,
         /// <summary>
         /// word
         /// </summary>
         [Description("Word")]
-        WORD
+        Word,
+        /// <summary>
+        /// word
+        /// </summary>
+        [Description("Word")]
+        Other
     }
 }

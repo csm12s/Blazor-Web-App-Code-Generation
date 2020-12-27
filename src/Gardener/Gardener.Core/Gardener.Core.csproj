@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\Gardener.Core.Entites\Gardener.Core.Entites.csproj" />
   </ItemGroup>
 

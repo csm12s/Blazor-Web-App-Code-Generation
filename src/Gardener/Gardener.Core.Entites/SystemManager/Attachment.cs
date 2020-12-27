@@ -19,6 +19,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 业务ID
         /// </summary>
+        [MaxLength(64)]
         public string BusinessId { get; set; }
         /// <summary>
         /// 附件业务类型
@@ -29,6 +30,11 @@ namespace Gardener.Core.Entites
         /// </summary>
         public AttachmentFileType FileType { get; set; }
         /// <summary>
+        /// 原始类型
+        /// </summary>
+        [Required, MaxLength(20)]
+        public string ContentType { get; set; }
+        /// <summary>
         /// 文件大小 byte
         /// </summary>
         public long Size { get; set; }
@@ -37,6 +43,7 @@ namespace Gardener.Core.Entites
         /// </summary>
         [Required, MaxLength(200)]
         public string Path { get; set; }
+
         /// <summary>
         /// 文件名称 随机生成
         /// </summary>
@@ -47,6 +54,11 @@ namespace Gardener.Core.Entites
         /// </summary>
         [MaxLength(100)]
         public string OriginalName { get; set; }
+        /// <summary>
+        /// 访问地址
+        /// </summary>
+        [Required, MaxLength(200)]
+        public string Url { get; set; }
         /// <summary>
         /// 后缀
         /// .jpg

@@ -6,9 +6,16 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
+    @if (model.Id > 0)
+    {
     <FormItem Label="头像">
-        <Avatar Src="@model.Avatar" />
+        <Tooltip Placement="PlacementType.LeftTop" Title="@("点击修改头像")">
+            <a @onclick="_ => OnAvatarClick(model)">
+                <Avatar Src="@model.Avatar" />
+            </a>
+        </Tooltip>
     </FormItem>
+    }
     <FormItem Label="用户名">
         <Input @bind-Value="@model.UserName" />
     </FormItem>

@@ -48,7 +48,7 @@ namespace Gardener.Client.Pages.UserCenter
                 _editModel.Method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), value);
             }
         }
-        private ResourceType _currentEditResourceType = ResourceType.API;
+        private ResourceType _currentEditResourceType = ResourceType.Api;
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
@@ -81,9 +81,9 @@ namespace Gardener.Client.Pages.UserCenter
                     var newResource = new ResourceDto();
                     newResource.Id = Guid.Empty;
                     newResource.ParentId = selectedResource.Id;
-                    newResource.Key = selectedResource.Type.Equals(ResourceType.ROOT) ? "" : selectedResource.Key + "_";
+                    newResource.Key = selectedResource.Type.Equals(ResourceType.Root) ? "" : selectedResource.Key + "_";
                     //不能创建root节点
-                    newResource.Type = selectedResource.Type.Equals(ResourceType.ROOT) ? ResourceType.MENU : selectedResource.Type;
+                    newResource.Type = selectedResource.Type.Equals(ResourceType.Root) ? ResourceType.Menu : selectedResource.Type;
                     newResource.Order = (children == null || !children.Any() ? 0 : children.Max(x=>x.Order) + 1);
                     _editModel = newResource;
                 }

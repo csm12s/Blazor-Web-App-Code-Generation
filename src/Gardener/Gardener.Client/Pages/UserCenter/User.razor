@@ -54,7 +54,11 @@
                     </ResourceAuthorize>
                     <Column Title="编号" @bind-Field="@model.Id" Sortable />
                     <Column Title="头像" Field="@model.Avatar">
-                        <Avatar Src="@model.Avatar" />
+                        <Tooltip Placement="PlacementType.LeftTop" Title="@("点击修改头像")">
+                            <a @onclick="_=>OnAvatarClick(model)">
+                                <Avatar Src="@model.Avatar" />
+                            </a>
+                        </Tooltip>
                     </Column>
                     <Column Title="用户名" @bind-Field="@model.UserName" />
                     <Column Title="昵称" @bind-Field="@model.NickName" />
@@ -77,9 +81,7 @@
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                             </Authorized>
                             <NotAuthorized>
-                                <Tag Color="@(!model.IsLocked?"blue":"red")">
-                                    @(model.IsLocked ? "是":"否")
-                                </Tag>
+                                <TagYesNo Yes="model.IsLocked"></TagYesNo>
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>

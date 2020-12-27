@@ -4,7 +4,7 @@
     "DocExpansionState": "None",
     "GroupOpenApiInfos": [
       {
-        "Order": 1,
+        "Order": 100,
         "Group": "UserAuthorizationServices",
         "Title": "用户权限管理",
         "Description": "用户权限管理",
@@ -21,27 +21,10 @@
         }
       },
       {
-        "Order": 2,
+        "Order": 90,
         "Group": "BaseDataServices",
-        "Title": "学校基础数据接口",
-        "Description": "基础相关接口",
-        "Version": "1.0.0",
-        "TermsOfService": "https://gitee.com/hgflydream",
-        "Contact": {
-          "Name": "hhf",
-          "Url": "https://gitee.com/hgflydream",
-          "Email": "326794739@qq.com"
-        },
-        "License": {
-          "Name": "Apache-2.0",
-          "Url": "https://gitee.com/hgflydream"
-        }
-      },
-      {
-        "Order": 3,
-        "Group": "PaiKeServices",
-        "Title": "排课设置数据接口",
-        "Description": "排课设置数据接口",
+        "Title": "系统基础服务管理",
+        "Description": "系统基础服务相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {
@@ -54,7 +37,6 @@
           "Url": "https://gitee.com/hgflydream"
         }
       }
-
     ],
     "EnableAuthorized": true,
     "SecurityDefinitions": [
@@ -105,7 +87,11 @@
       [ "USER_NAME_OR_PASSWORD_ERROR", "用户名或密码错误" ],
       [ "USER_LOCKED", "用户已锁定" ],
       [ "RESOURCE_KEY_REPEAT", "资源键值重复" ],
-      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "刷新token不存在或已过期" ]
+      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "刷新token不存在或已过期" ],
+      [ "NO_INCLUD_FILE", "未包含文件" ]
     ]
+  },
+  "LocalFileStoreSettings": {
+    "BaseUrl": "https://localhost:44323/upload/"
   }
 }

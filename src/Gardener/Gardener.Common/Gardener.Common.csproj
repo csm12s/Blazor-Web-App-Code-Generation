@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gardener.Enums\Gardener.Enums.csproj" />
+  </ItemGroup>
+
 </Project>

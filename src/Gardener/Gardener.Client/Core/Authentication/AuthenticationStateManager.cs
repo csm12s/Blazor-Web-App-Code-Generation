@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using Gardener.Application.Interfaces;
 using Gardener.Client.Constants;
 using System.Collections;
+using Microsoft.Extensions.Options;
+using System.Linq;
 
 namespace Gardener.Client
 {
@@ -30,6 +32,11 @@ namespace Gardener.Client
         Task Login(TokenOutput token, bool isAutoLogin = true);
         Task Logout();
         void SetNotifyAuthenticationStateChangedAction(Action c);
+        /// <summary>
+        /// 获取当前身份的token头，可以添加于自定义的httpclient中验证使用
+        /// </summary>
+        /// <returns></returns>
+        Dictionary<string, string> GetCurrentTokenHeaders();
     }
     /// <summary>
     /// 身份状态管理
@@ -41,6 +48,7 @@ namespace Gardener.Client
         private readonly IAuthorizeService authorizeService;
         private readonly IClientLogger logger;
         private UserDto currentUser;
+        private bool currentUserIsSuperAdmin = false;
         private List<ResourceDto> uiResources;
         private List<ResourceDto> menuResources;
         private Hashtable uiHashtableResources;
@@ -49,14 +57,16 @@ namespace Gardener.Client
         /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
         /// </summary>
         private bool isAutoLogin = true;
+        private AuthSettings authSettings;
 
-        public AuthenticationStateManager(JsTool jsTool, HttpClientManager httpClientManager, IAuthorizeService authorizeService, IClientLogger logger)
+        public AuthenticationStateManager(JsTool jsTool, HttpClientManager httpClientManager, IAuthorizeService authorizeService, IClientLogger logger, IOptions<AuthSettings> authSettingsOpt)
         {
+            this.authSettings = authSettingsOpt.Value;
             this.jsTool = jsTool;
             this.httpClientManager = httpClientManager;
             this.authorizeService = authorizeService;
             this.logger = logger;
-            timer = new Timer(TimerCallback, true, 10000, AuthConstant.RefreshTokenCheckInterval * 1000);
+            timer = new Timer(TimerCallback, true, 10000, authSettings.RefreshTokenCheckInterval * 1000);
         }
 
         #region refresh token job
@@ -70,12 +80,13 @@ namespace Gardener.Client
         /// <param name="state"></param>
         private async void TimerCallback(object state)
         {
+
             //未登录
             if (currentToken == null) return;
             //RefreshToken已经过期了
             if (currentToken.RefreshTokenExpires < DateTimeOffset.Now.ToUnixTimeSeconds()) { await Logout(); return; }
             //AccessToken时间还很充裕
-            if (currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > AuthConstant.RefreshTokenTimeThreshold) return;
+            if (currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold) return;
             //拿到新的token
             var tokenResult = await authorizeService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
@@ -156,7 +167,9 @@ namespace Gardener.Client
                 var userResult = await authorizeService.GetCurrentUser();
                 if (userResult != null)
                 {
-                    this.uiResources = await authorizeService.GetCurrentUserResources(ResourceType.BUTTON);
+                    //超级管理员
+                    currentUserIsSuperAdmin = userResult.Roles!=null && userResult.Roles.Any(x => x.IsSuperAdministrator);
+                    this.uiResources = await authorizeService.GetCurrentUserResources(ResourceType.Button);
                     this.uiHashtableResources = null;
                     this.menuResources = await authorizeService.GetCurrentUserMenus();
                     this.currentUser = userResult;
@@ -175,6 +188,9 @@ namespace Gardener.Client
         }
         public async Task<bool> CheckCurrentUserHaveBtnResourceKey(object key)
         {
+            //超级管理员
+            if (currentUserIsSuperAdmin) return true;
+
             if (uiHashtableResources == null)
             {
                 var resources = await GetCurrentUserBtnResources();
@@ -222,7 +238,7 @@ namespace Gardener.Client
             //refretoken无效
             if (string.IsNullOrEmpty(refreshTokenLocal) || string.IsNullOrEmpty(refreshTokenExpiresLocal)) return null;
             //accessToken可用
-            if (!string.IsNullOrEmpty(accessTokenExpiresLocal) && long.Parse(accessTokenExpiresLocal) - DateTimeOffset.Now.ToUnixTimeSeconds() > AuthConstant.RefreshTokenTimeThreshold
+            if (!string.IsNullOrEmpty(accessTokenExpiresLocal) && long.Parse(accessTokenExpiresLocal) - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold
                 && !string.IsNullOrEmpty(accessTokenLocal)
                 )
             {
@@ -239,6 +255,7 @@ namespace Gardener.Client
             }
             ///accessToken不可用，使用refreshToken拿到新的token
             var newToken = await authorizeService.RefreshToken(new RefreshTokenInput() { RefreshToken = refreshTokenLocal });
+            if (newToken == null) return null;
             await SetToken(newToken);
             return newToken;
         }
@@ -278,11 +295,19 @@ namespace Gardener.Client
         {
             return isAutoLogin ? jsTool.LocalStorage : jsTool.SessionStorage;
         }
-
-
         #endregion
+        /// <summary>
+        /// 获取当前身份的token头，可以添加于自定义的httpclient中验证使用
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, string> GetCurrentTokenHeaders()
+        {
+            if (this.currentToken == null) return null;
 
-       
-
+            return new Dictionary<string, string>
+            {
+                {"authorization","Bearer "+currentToken.AccessToken }
+            };
+        }
     }
 }

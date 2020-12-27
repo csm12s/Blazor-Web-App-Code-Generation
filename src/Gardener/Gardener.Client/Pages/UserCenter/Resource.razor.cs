@@ -166,7 +166,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (selectedNode != null)
             {
                 var resource = ((ResourceDto)selectedNode.DataItem);
-                if (resource.Type.Equals(ResourceType.ROOT))
+                if (resource.Type.Equals(ResourceType.Root))
                 {
                     messageService.Error("根节点无法删除");
                     treeIsLoading = false;
