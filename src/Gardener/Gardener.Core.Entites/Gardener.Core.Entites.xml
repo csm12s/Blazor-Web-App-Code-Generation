@@ -60,6 +60,171 @@
             .jpg
             </summary>
         </member>
+        <member name="T:Gardener.Core.Entites.AuditEntity">
+            <summary>
+            审计实体表
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Entites.AuditEntity.#ctor">
+            <summary>
+            审计实体表
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.DataId">
+            <summary>
+            数据编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.Name">
+            <summary>
+            实体名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.TypeName">
+            <summary>
+            实体类型名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.OperaterId">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.OperaterName">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.OperationId">
+            <summary>
+            操作ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.AuditProperties">
+            <summary>
+            操作实体属性集合
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.CurrentValues">
+            <summary>
+            新值
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditEntity.OldValues">
+            <summary>
+            老值
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entites.AuditOperation">
+            <summary>
+            操作审计信息
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Entites.AuditOperation.#ctor">
+            <summary>
+            审计操作
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.ResourceName">
+            <summary>
+            资源名
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.ResourceId">
+            <summary>
+            资源编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.OperaterId">
+            <summary>
+            用户标识
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.OperaterName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.Ip">
+            <summary>
+            访问IP
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.UserAgent">
+            <summary>
+            UserAgent
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.Path">
+            <summary>
+            请求地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.Method">
+            <summary>
+            请求方法
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.Parameters">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditOperation.AuditEntities">
+            <summary>
+            审计数据信息集合
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.Entites.AuditProperty">
+            <summary>
+            实体属性审计信息
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Entites.AuditProperty.#ctor">
+            <summary>
+            实体属性审计信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditProperty.DisplayName">
+            <summary>
+            获取或设置 名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditProperty.FieldName">
+            <summary>
+            获取或设置 字段
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditProperty.OriginalValue">
+            <summary>
+            获取或设置 旧值
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditProperty.NewValue">
+            <summary>
+            获取或设置 新值
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditProperty.DataType">
+            <summary>
+            获取或设置 数据类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditProperty.AuditEntityid">
+            <summary>
+            实体审计编号  
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.AuditProperty.AuditEntity">
+            <summary>
+            审计实体
+            </summary>
+        </member>
         <member name="T:Gardener.Core.Entites.Resource">
             <summary>
             资源表
@@ -136,6 +301,11 @@
         <member name="P:Gardener.Core.Entites.Resource.IsLocked">
             <summary>
             是否锁定
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.Entites.Resource.EnableAudit">
+            <summary>
+            启用审计
             </summary>
         </member>
         <member name="M:Gardener.Core.Entites.Resource.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.Core.Entites.Resource},Microsoft.EntityFrameworkCore.DbContext,System.Type)">

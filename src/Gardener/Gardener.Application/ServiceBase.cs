@@ -52,7 +52,7 @@ namespace Gardener.Application
                 input.SetPropertyValue("CreatedTime", DateTimeOffset.Now);
             }
 
-            var newEntity = await _repository.InsertNowAsync(input.Adapt<TEntity>());
+            var newEntity = await _repository.InsertAsync(input.Adapt<TEntity>());
             return newEntity.Entity.Adapt<TEntityDto>();
         }
 
@@ -64,8 +64,7 @@ namespace Gardener.Application
         public virtual async Task<bool> Update(TEntityDto input)
         {
             input.SetPropertyValue("UpdatedTime", DateTimeOffset.Now);
-            // 还可以直接操作
-            await input.Adapt<TEntity>().UpdateExcludeAsync(new[] { "CreatedTime" });
+            await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { "CreatedTime" });
             return true;
         }
 

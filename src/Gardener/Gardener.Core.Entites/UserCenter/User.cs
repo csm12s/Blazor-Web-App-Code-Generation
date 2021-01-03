@@ -19,6 +19,7 @@ namespace Gardener.Core.Entites
     /// <summary>
     /// 用户表
     /// </summary>
+    [Description("用户信息")]
     public class User : Entity, IEntitySeedData<User>, IEntityTypeBuilder<User>
     {
         /// <summary>
@@ -32,49 +33,59 @@ namespace Gardener.Core.Entites
         /// 用户名
         /// </summary>
         [Required,StringLength(32)]
+        [DisplayName("用户名")]
         public string UserName { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
         [StringLength(50)]
+        [DisplayName("昵称")]
         public string NickName { get; set; }
         /// <summary>
         /// 密码加密后的
         /// </summary>
         [Required, StringLength(64)]
+        [DisplayName("密码")]
         public string Password { get; set; }
         /// <summary>
         /// 密码加密Key
         /// </summary>
         [Required, StringLength(64)]
+        [DisplayName("密码加密KEY")]
         public string PasswordEncryptKey { get; set; }
         /// <summary>
         /// 头像
         /// </summary>
         [MaxLength(100)]
+        [DisplayName("头像")]
         public string Avatar { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
         [MaxLength(50)]
+        [DisplayName("邮箱")]
         public string Email { get; set; }
         /// <summary>
         /// 邮箱是否确认
         /// </summary>
+        [DisplayName("邮箱是否确认")]
         public bool EmailConfirmed { get; set; }
         /// <summary>
         /// 手机
         /// </summary>
         [MaxLength(20)]
+        [DisplayName("手机")]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// 手机是否确认
         /// </summary>
+        [DisplayName("手机是否确认")]
         public bool PhoneNumberConfirmed { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
         [Required,DefaultValue(Gender.Male)]
+        [DisplayName("性别")]
         public Gender Gender { get; set; }
         /// <summary>
         /// 多对多
@@ -93,6 +104,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 是否锁定
         /// </summary>
+        [DisplayName("是否锁定")]
         public bool IsLocked { get; set; }
         /// <summary>
         /// 配置多对多关系

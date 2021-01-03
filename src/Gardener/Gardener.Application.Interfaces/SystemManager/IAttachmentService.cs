@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.Application.Interfaces
 {
+    /// <summary>
+    /// 附件服务接口
+    /// </summary>
     public interface IAttachmentService : IApplicationServiceBase<AttachmentDto, Guid>
     {
         Task<bool> Delete(Guid id);

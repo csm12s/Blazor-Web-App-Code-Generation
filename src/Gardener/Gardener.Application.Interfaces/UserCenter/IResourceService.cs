@@ -34,5 +34,11 @@ namespace Gardener.Application.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<List<ResourceDto>> GetTree();
+        
+        /// <summary>
+        /// 获取资源的种子数据
+        /// </summary>
+        /// <returns></returns>
+        Task<String> GetSeedData();
     }
 }

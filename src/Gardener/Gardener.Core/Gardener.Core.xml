@@ -4,6 +4,98 @@
         <name>Gardener.Core</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Core.Audit.AuditActionFilter">
+            <summary>
+            审计过滤器
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditActionFilter.#ctor(Gardener.Core.IAuthorizationManager,Gardener.Core.Audit.IAuditDataManager)">
+            <summary>
+            
+            </summary>
+            <param name="authorizationManager"></param>
+            <param name="auditDataManager"></param>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditActionFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.Audit.AuditDataManager">
+            <summary>
+            当前请求的审计数据管理
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.GetAuditOperation">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.#ctor(Microsoft.Extensions.Logging.ILogger{Gardener.Core.Audit.AuditDataManager},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditOperation},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditEntity})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+            <param name="auditOperationRepository"></param>
+            <param name="auditEntityRepository"></param>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.SaveAuditOperation(Gardener.Core.Entites.AuditOperation)">
+            <summary>
+            保存操作审计
+            </summary>
+            <param name="auditOperation"></param>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.GetAuditEntities">
+            <summary>
+            获取 实体审计数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.SetAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
+            <summary>
+            设置实体审计数据
+            </summary>
+            <param name="auditEntitys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.SaveAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
+            <summary>
+            保存实体审计数据
+            </summary>
+            <param name="auditEntitys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.IAuditDataManager.GetAuditEntities">
+            <summary>
+            获取 实体审计数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.IAuditDataManager.SetAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
+            <summary>
+            设置实体审计数据
+            </summary>
+            <param name="auditEntitys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.IAuditDataManager.SaveAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
+            <summary>
+            保存
+            </summary>
+            <param name="auditEntitys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.IAuditDataManager.SaveAuditOperation(Gardener.Core.Entites.AuditOperation)">
+            <summary>
+            保存
+            </summary>
+            <param name="auditOperation"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Core.FileStore.IFileStoreService">
             <summary>
             文件存储服务
@@ -101,7 +193,7 @@
         </member>
         <member name="T:Gardener.Core.AuthorizationManager">
             <summary>
-            权限管理器
+            当前请求的权限管理 
             </summary>
         </member>
         <member name="F:Gardener.Core.AuthorizationManager._httpContextAccessor">
@@ -114,12 +206,23 @@
             用户仓储
             </summary>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User})">
+        <member name="F:Gardener.Core.AuthorizationManager._resourceRepository">
+            <summary>
+            资源仓储
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.AuthorizationManager._user">
+            <summary>
+            当前登录用户
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
             <summary>
             构造函数
             </summary>
             <param name="httpContextAccessor"></param>
             <param name="userRepository"></param>
+            <param name="resourceRepository"></param>
         </member>
         <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
             <summary>
@@ -127,9 +230,45 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetUser">
+            <summary>
+            获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetUserResources">
+            <summary>
+            获取用用户拥有的资源
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Core.AuthorizationManager.IsSuperAdministrator">
             <summary>
             是否是超级管理员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetResourceId">
+            <summary>
+            获取资源id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetEndpoint">
+            <summary>
+            获取节点信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetContenxtResource">
+            <summary>
+            获取当前资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity">
+            <summary>
+            检查权限
             </summary>
             <returns></returns>
         </member>
@@ -153,7 +292,42 @@
             权限管理器
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Gardener.Core.IAuthorizationManager.GetUserId" -->
+        <member name="M:Gardener.Core.IAuthorizationManager.GetUserId">
+            <summary>
+            获取用户 Id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.IsSuperAdministrator">
+            <summary>
+            是否是超级管理员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.GetUser">
+            <summary>
+            获取用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.GetUserResources">
+            <summary>
+            获取资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.GetContenxtResource">
+            <summary>
+            获取当前资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity">
+            <summary>
+            检查权限
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity(System.String)">
             <summary>
             检查授权
@@ -167,12 +341,6 @@
             </summary>
             <param name="method"></param>
             <param name="path"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.IsSuperAdministrator">
-            <summary>
-            是否是超级管理员
-            </summary>
             <returns></returns>
         </member>
         <member name="T:Gardener.Core.JsonWebToken">

@@ -8,6 +8,7 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Core.Entites
@@ -15,29 +16,35 @@ namespace Gardener.Core.Entites
     /// <summary>
     /// 用户和角色关系表
     /// </summary>
+    [Description("角色资源信息")]
     public class RoleResource : IEntity
     {
         /// <summary>
         /// 角色Id
         /// </summary>
         [Required]
+        [DisplayName("角色编号")]
         public int RoleId { get; set; }
         /// <summary>
         /// 角色
         /// </summary>
+        [DisplayName("角色")]
         public Role Role { get; set; }
         /// <summary>
         /// 权限Id
         /// </summary>
         [Required]
+        [DisplayName("资源编号")]
         public Guid ResourceId { get; set; }
         /// <summary>
         /// 权限
         /// </summary>
+        [DisplayName("资源")]
         public Resource Resource { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
+        [DisplayName("创建时间")]
         public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
 
 

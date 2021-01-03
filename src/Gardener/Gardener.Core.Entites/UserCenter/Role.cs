@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Core.Entites
@@ -16,6 +17,7 @@ namespace Gardener.Core.Entites
     /// <summary>
     /// 角色表
     /// </summary>
+    [Description("角色信息")]
     public class Role : Entity, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
     {
         /// <summary>
@@ -29,22 +31,26 @@ namespace Gardener.Core.Entites
         /// 角色名称
         /// </summary>
         [MaxLength(100), Required]
+        [DisplayName("名称")]
         public string Name { get; set; }
 
         /// <summary>
         /// 角色描述
         /// </summary>
         [MaxLength(500), Required]
+        [DisplayName("备注")]
         public string Remark { get; set; }
         /// <summary>
         /// 是否是超级管理员
         /// 超级管理员拥有所有权限
         /// </summary>
+        [DisplayName("是否是超级管理员")]
         public bool IsSuperAdministrator { get; set; }
         /// <summary>
         /// 是否是默认权限
         /// 注册用户时默认设置
         /// </summary>
+        [DisplayName("是否是默认角色")]
         public bool IsDefault { get; set; }
         /// <summary>
         /// 多对多
@@ -68,6 +74,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 是否锁定
         /// </summary>
+        [DisplayName("是否锁定")]
         public bool IsLocked { get; set; }
         /// <summary>
         /// 配置多对多关系
@@ -85,36 +92,36 @@ namespace Gardener.Core.Entites
                 , u =>
                 {
                     u.HasKey(c => new { c.RoleId, c.ResourceId });
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("825e4fbd-c88c-4028-b864-a7d7363e9550"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("8910d2d6-784b-4331-a5bc-22e2a943aa9f"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("8b78e71e-bd7f-4264-80cd-0ec2964b4f63"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("c8540d46-fe88-4858-8ab7-f8b427695e77"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("25dcaaca-6f97-45f3-952d-05112f07c677"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("7034e707-93fc-453c-9dfe-20a0cb58297d"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("825e4fbd-c88c-4028-b864-a7d7363e9550"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("8910d2d6-784b-4331-a5bc-22e2a943aa9f"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("8b78e71e-bd7f-4264-80cd-0ec2964b4f63"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("b8224935-fae6-4bbe-ad91-1d8969baabe8"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("c8540d46-fe88-4858-8ab7-f8b427695e77"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("d56889de-4008-42ed-9166-b21cdc0c7fcf"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("d88fbd6d-00ce-4687-9440-a7ffd5aab2aa"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("dc7cf259-5c60-47c9-a02b-1fc9b04c9582"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("e30bbf62-d6d3-4e72-ac1a-abb285587632"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("e6e477f3-8dd8-4657-adde-cc2c34017775"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("925C3162-155C-4644-8CA2-075F9FC76235"),CreatedTime=DateTimeOffset.Now});
-                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("0B133140-4C89-4463-AEA6-75F7F0DDEBDC"),CreatedTime=DateTimeOffset.Now});
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("825e4fbd-c88c-4028-b864-a7d7363e9550"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("8910d2d6-784b-4331-a5bc-22e2a943aa9f"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("8b78e71e-bd7f-4264-80cd-0ec2964b4f63"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("c8540d46-fe88-4858-8ab7-f8b427695e77"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 2, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("0b133140-4c89-4463-aea6-75f7f0ddebdc"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("25dcaaca-6f97-45f3-952d-05112f07c677"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("7034e707-93fc-453c-9dfe-20a0cb58297d"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("825e4fbd-c88c-4028-b864-a7d7363e9550"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("8910d2d6-784b-4331-a5bc-22e2a943aa9f"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("8b78e71e-bd7f-4264-80cd-0ec2964b4f63"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("925c3162-155c-4644-8ca2-075f9fc76235"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("b8224935-fae6-4bbe-ad91-1d8969baabe8"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("c8540d46-fe88-4858-8ab7-f8b427695e77"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("d56889de-4008-42ed-9166-b21cdc0c7fcf"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("d88fbd6d-00ce-4687-9440-a7ffd5aab2aa"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("dc7cf259-5c60-47c9-a02b-1fc9b04c9582"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("e30bbf62-d6d3-4e72-ac1a-abb285587632"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("e6e477f3-8dd8-4657-adde-cc2c34017775"), CreatedTime = DateTimeOffset.Now });
+                    u.HasData(new { RoleId = 3, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"), CreatedTime = DateTimeOffset.Now });
                 });
 
 

@@ -24,6 +24,6 @@ namespace Gardener.Web.Entry
                     //×¢ÈëFurion¿ò¼Ü
                     .Inject()
                     .UseStartup<Startup>();
-                });
+                }).UseSerilogDefault();
     }
 }

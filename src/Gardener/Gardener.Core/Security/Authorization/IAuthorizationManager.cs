@@ -4,7 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Core.Entites;
 using Gardener.Enums;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gardener.Core
@@ -14,10 +17,36 @@ namespace Gardener.Core
     /// </summary>
     public interface IAuthorizationManager
     {
+        /// <summary>
         /// 获取用户 Id
         /// </summary>
         /// <returns></returns>
         int GetUserId();
+        /// <summary>
+        /// 是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        bool IsSuperAdministrator();
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <returns></returns>
+        User GetUser();
+        /// <summary>
+        /// 获取资源
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Resource> GetUserResources();
+        /// <summary>
+        /// 获取当前资源
+        /// </summary>
+        /// <returns></returns>
+        Task<Resource> GetContenxtResource();
+        /// <summary>
+        /// 检查权限
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> CheckSecurity();
         /// <summary>
         /// 检查授权
         /// </summary>
@@ -31,10 +60,5 @@ namespace Gardener.Core
         /// <param name="path"></param>
         /// <returns></returns>
         Task<bool> CheckSecurity(HttpMethodType method, string path);
-        /// <summary>
-        /// 是否是超级管理员
-        /// </summary>
-        /// <returns></returns>
-        Task<bool> IsSuperAdministrator();
     }
 }

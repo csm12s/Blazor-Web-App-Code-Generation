@@ -32,35 +32,30 @@ namespace Gardener.Application
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<UserRole> _userRoleRepository;
-        private readonly IRepository<Resource> _resourceRepository;
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IJwtBearerService _jwtBearerService;
-
+        private readonly IRepository<Resource> _resourceRepository;
+        private readonly IRepository<UserRole> _userRoleRepository;
         /// <summary>
         /// 角色管理服务
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="userRepository"></param>
-        /// <param name="securityRepository"></param>
         /// <param name="authorizationManager"></param>
-        /// <param name="userRoleRepository"></param>
         /// <param name="jwtBearerService"></param>
         public AuthorizeService(
             IHttpContextAccessor httpContextAccessor,
             IRepository<User> userRepository,
-            IRepository<Resource> securityRepository,
             IAuthorizationManager authorizationManager,
-            IRepository<UserRole> userRoleRepository,
             IJwtBearerService jwtBearerService
-            )
+, IRepository<Resource> resourceRepository, IRepository<UserRole> userRoleRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
-            _resourceRepository = securityRepository;
             _authorizationManager = authorizationManager;
-            _userRoleRepository = userRoleRepository;
             _jwtBearerService = jwtBearerService;
+            _resourceRepository = resourceRepository;
+            _userRoleRepository = userRoleRepository;
         }
 
         /// <summary>
@@ -109,15 +104,9 @@ namespace Gardener.Application
         /// </summary>
         public async Task<List<RoleDto>> GetCurrentUserRoles()
         {
-            // 获取用户Id
-            var userId = _authorizationManager.GetUserId();
+            var user = _authorizationManager.GetUser();
 
-            var roles = await _userRepository
-                .DetachedEntities
-                .Include(u => u.Roles)
-                .Where(u => u.Id == userId)
-                .SelectMany(u => u.Roles)
-                .ToListAsync();
+            var roles = user.Roles;
 
             return roles.Adapt<List<RoleDto>>();
         }
@@ -127,10 +116,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public async Task<UserDto> GetCurrentUser()
         {
-            // 获取用户Id
-            var userId = _authorizationManager.GetUserId();
-
-            var user = await _userRepository.AsQueryable(false).Include(x=>x.Roles).Where(x=>x.Id==userId && x.IsDeleted==false).FirstOrDefaultAsync();
+            var user = _authorizationManager.GetUser();
 
             return user.Adapt<UserDto>();
 
@@ -146,30 +132,9 @@ namespace Gardener.Application
             resourceTypes = resourceTypes ?? new ResourceType[] { };
             // 获取用户Id
             var userId = _authorizationManager.GetUserId();
-            List<Resource> resources;
-            //超级管理员
-            if (await _authorizationManager.IsSuperAdministrator())
-            {
-                resources = await _resourceRepository.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)).ToListAsync();
-            }
-            else
-            {
-                resources = await _userRoleRepository
-                    .Include(x => x.Role)
-                    .ThenInclude(x => x.Resources)
-                    .Where(x => x.UserId == userId && x.Role.IsDeleted == false && x.Role.IsLocked == false)
-                    .SelectMany(x => x.Role.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)))
-                    .ToListAsync();
-                //其他角色
-                //resources =await _userRepository
-                //   .Include(u => u.Roles)
-                //       .ThenInclude(u => u.Resources)
-                //   .Where(u => u.Id == userId)
-                //   .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                //       .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))))
-                //   .ToListAsync();
-            }
+            List<Resource> resources =await _authorizationManager.GetUserResources().Where(x => resourceTypes.Contains(x.Type)).OrderBy(x=>x.Order).ToListAsync();
             return resources.Adapt<List<ResourceDto>>();
+
         }
 
         /// <summary>
@@ -183,7 +148,7 @@ namespace Gardener.Application
 
             if (resources == null) return new List<ResourceDto>();
 
-            return resources.Where(x => x.Type.Equals(ResourceType.Root)).FirstOrDefault()?.Children?.OrderBy(x => x.Order).ToList();
+            return resources.Where(x => x.Type.Equals(ResourceType.Root)).FirstOrDefault()?.Children?.ToList();
         }
     }
 }

@@ -34,32 +34,20 @@ namespace Gardener.Application
         private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<UserExtension> _userExtensionRepository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IAuthorizationManager _authorizationManager;
-        private readonly IRepository<RoleResource> _roleResourceRepository;
-        private readonly IRepository<Resource> _resourceRepository;
         /// <summary>
         /// 用户服务
         /// </summary>
         /// <param name="userRepository"></param>
-        /// <param name="httpContextAccessor"></param>
-        /// <param name="authorizationManager"></param>
-        /// <param name="roleResourceRepository"></param>
-        /// <param name="resourceRepository"></param>
         /// <param name="userExtensionRepository"></param>
+        /// <param name="userRoleRepository"></param>
+        /// <param name="roleRepository"></param>
         public UserService(
             IRepository<User> userRepository,
-            IHttpContextAccessor httpContextAccessor,
-            IAuthorizationManager authorizationManager,
-            IRepository<RoleResource> roleResourceRepository,
-            IRepository<Resource> resourceRepository,
-            IRepository<UserExtension> userExtensionRepository, IRepository<UserRole> userRoleRepository, IRepository<Role> roleRepository) : base(userRepository)
+            IRepository<UserExtension> userExtensionRepository,
+            IRepository<UserRole> userRoleRepository, 
+            IRepository<Role> roleRepository) : base(userRepository)
         {
             _userRepository = userRepository;
-            _httpContextAccessor = httpContextAccessor;
-            _authorizationManager = authorizationManager;
-            _roleResourceRepository = roleResourceRepository;
-            _resourceRepository = resourceRepository;
             _userExtensionRepository = userExtensionRepository;
             _userRoleRepository = userRoleRepository;
             _roleRepository = roleRepository;
@@ -92,7 +80,7 @@ namespace Gardener.Application
             return await _userRepository
                .Include(u => u.Roles, false)
                    .ThenInclude(u => u.Resources)
-               .Where(await _authorizationManager.IsSuperAdministrator(), u => u.Id == userId)
+               .Where(u => u.Id == userId)
                .Where(u => u.IsDeleted == false)
                .SelectMany(u => u.Roles
                    .SelectMany(u => u.Resources))
@@ -156,7 +144,7 @@ namespace Gardener.Application
             user.UserExtension = null;
 
             //更新
-            await user.UpdateExcludeAsync(exclude);
+            await _userRepository.UpdateExcludeAsync(user,exclude);
 
             if (input.UserExtension != null)
             {
@@ -164,7 +152,7 @@ namespace Gardener.Application
                 if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
                 {
                     userExt.UpdatedTime = DateTimeOffset.Now;
-                    await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { nameof(User.CreatedTime) });
+                    await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { nameof(UserExtension.CreatedTime) });
                 }
                 else
                 {
@@ -266,5 +254,7 @@ namespace Gardener.Application
             return true;
 
         }
+
+        
     }
 }

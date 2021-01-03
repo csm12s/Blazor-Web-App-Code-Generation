@@ -76,6 +76,8 @@ namespace Gardener.Client
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IResourceService, ResourceService>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddScoped<IAuditOperationService, AuditOperationService>();
+            builder.Services.AddScoped<IAuditEntityService, AuditEntityService>();
 
             #endregion
 

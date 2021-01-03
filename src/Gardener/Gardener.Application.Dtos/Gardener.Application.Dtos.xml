@@ -187,6 +187,171 @@
             附件搜索
             </summary>
         </member>
+        <member name="T:Gardener.Application.Dtos.AuditEntityDto">
+            <summary>
+            实体审计信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.DataId">
+            <summary>
+            数据编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.Name">
+            <summary>
+            实体名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.TypeName">
+            <summary>
+            实体类型名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.OperaterId">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.OperaterName">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.OperationId">
+            <summary>
+            操作ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.AuditProperties">
+            <summary>
+            获取或设置 操作实体属性集合
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditEntityDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.AuditEntitySearchInput">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.AuditOperationDto">
+            <summary>
+            操作审计信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.ResourceName">
+            <summary>
+            资源名
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.ResourceId">
+            <summary>
+            资源编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.OperaterId">
+            <summary>
+            用户标识
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.OperaterName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.Ip">
+            <summary>
+            访问IP
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.UserAgent">
+            <summary>
+            UserAgent
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.Path">
+            <summary>
+            请求地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.Method">
+            <summary>
+            请求方法
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.Parameters">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.AuditOperationSearchInput">
+            <summary>
+            审计操作
+            </summary>
+        </member>
+        <member name="T:Gardener.Application.Dtos.AuditPropertyDto">
+            <summary>
+            属性审计信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditPropertyDto.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditPropertyDto.DisplayName">
+            <summary>
+            获取或设置 名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditPropertyDto.FieldName">
+            <summary>
+            获取或设置 字段
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditPropertyDto.OriginalValue">
+            <summary>
+            获取或设置 旧值
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditPropertyDto.NewValue">
+            <summary>
+            获取或设置 新值
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditPropertyDto.DataType">
+            <summary>
+            获取或设置 数据类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Application.Dtos.AuditPropertyDto.AuditEntityid">
+            <summary>
+            实体审计编号  
+            </summary>
+        </member>
         <member name="T:Gardener.Application.Dtos.UploadAttachmentInput">
             <summary>
             上传附件
@@ -343,6 +508,11 @@
             完整名称
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Gardener.Application.Dtos.ResourceDto.EnableAudit">
+            <summary>
+            启用审计
+            </summary>
         </member>
         <member name="T:Gardener.Application.Dtos.RoleDto">
             <summary>

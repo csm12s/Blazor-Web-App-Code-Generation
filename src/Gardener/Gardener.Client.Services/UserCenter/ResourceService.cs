@@ -37,6 +37,11 @@ namespace Gardener.Client.Services
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/root");
         }
 
+        public Task<string> GetSeedData()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<ResourceDto>> GetTree()
         {
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/tree");

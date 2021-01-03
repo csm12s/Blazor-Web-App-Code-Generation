@@ -103,5 +103,9 @@ namespace Gardener.Application.Dtos
         {
             return $"{Name} [{EnumExtension.GetEnumDescription(Type)}]";
         }
+        /// <summary>
+        /// 启用审计
+        /// </summary>
+        public bool EnableAudit { get; set; } = false;
     }
 }

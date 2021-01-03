@@ -222,20 +222,54 @@
             <param name="searchInput"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.SystemManager.AuditEntityService">
+            <summary>
+            审计数据服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AuditEntityService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditEntity})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AuditEntityService.Search(Gardener.Application.Dtos.AuditEntitySearchInput)">
+            <summary>
+            搜索
+            </summary>
+            <param name="searchInput"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.SystemManager.AuditOperationService">
+            <summary>
+            审计操作服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AuditOperationService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditOperation})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AuditOperationService.Search(Gardener.Application.Dtos.AuditOperationSearchInput)">
+            <summary>
+            搜索
+            </summary>
+            <param name="searchInput"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.AuthorizeService">
             <summary>
             用户中心服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Gardener.Core.IJwtBearerService)">
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Gardener.Core.IAuthorizationManager,Gardener.Core.IJwtBearerService,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole})">
             <summary>
             角色管理服务
             </summary>
             <param name="httpContextAccessor"></param>
             <param name="userRepository"></param>
-            <param name="securityRepository"></param>
             <param name="authorizationManager"></param>
-            <param name="userRoleRepository"></param>
             <param name="jwtBearerService"></param>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Application.Dtos.LoginInput)">
@@ -300,6 +334,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.ResourceService.GetSeedData">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Application.ResourceService.GetTree">
             <summary>
             查询所有资源 按树形结构返回
@@ -358,21 +398,25 @@
             <param name="roleId"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.RoleService.GetRoleResourceSeedData">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.UserService">
             <summary>
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Core.IAuthorizationManager,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.RoleResource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role})">
+        <member name="M:Gardener.Application.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role})">
             <summary>
             用户服务
             </summary>
             <param name="userRepository"></param>
-            <param name="httpContextAccessor"></param>
-            <param name="authorizationManager"></param>
-            <param name="roleResourceRepository"></param>
-            <param name="resourceRepository"></param>
             <param name="userExtensionRepository"></param>
+            <param name="userRoleRepository"></param>
+            <param name="roleRepository"></param>
         </member>
         <member name="M:Gardener.Application.UserService.GetRoles(System.Int32)">
             <summary>

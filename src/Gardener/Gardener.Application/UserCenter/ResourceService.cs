@@ -17,6 +17,7 @@ using Gardener.Enums;
 using Furion.FriendlyException;
 using System;
 using Gardener.Application.Interfaces;
+using System.Text;
 
 namespace Gardener.Application
 {
@@ -64,6 +65,43 @@ namespace Gardener.Application
                 .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
             return resources;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetSeedData()
+        {
+            List<Resource> resources = await resourceRepository.AsQueryable(false).Where(x=>x.IsDeleted==false).ToListAsync();
+            StringBuilder sb = new StringBuilder();
+            foreach (var resource in resources)
+            {
+                sb.Append($"new {nameof(Resource)}()");
+                sb.Append("{");
+                sb.Append($"{nameof(Resource.Id)}=Guid.Parse(\"{resource.Id}\"),");
+                if (resource.ParentId != null && resource.ParentId != Guid.Empty)
+                {
+                    sb.Append($"{nameof(Resource.ParentId)}=Guid.Parse(\"{resource.ParentId}\"),");
+                }
+                sb.Append($"{nameof(Resource.Name)}=\"{resource.Name}\",");
+                sb.Append($"{nameof(Resource.Icon)}=\"{resource.Icon}\",");
+                sb.Append($"{nameof(Resource.Remark)}=\"{resource.Remark}\",");
+                sb.Append($"{nameof(Resource.Key)}=\"{resource.Key}\",");
+                sb.Append($"{nameof(Resource.Path)}=\"{resource.Path}\",");
+                sb.Append($"{nameof(Resource.CreatedTime)}=DateTimeOffset.Now,");
+                sb.Append($"{nameof(Resource.EnableAudit)}={resource.EnableAudit.ToString().ToLower()},");
+                sb.Append($"{nameof(Resource.IsDeleted)}={resource.IsDeleted.ToString().ToLower()},");
+                sb.Append($"{nameof(Resource.IsLocked)}={resource.IsLocked.ToString().ToLower()},");
+                if (resource.Method.HasValue) 
+                {
+                    sb.Append($"{nameof(Resource.Method)}=(HttpMethodType){((int)resource.Method)},");
+                }
+                sb.Append($"{nameof(Resource.Type)}=(ResourceType){((int)resource.Type)},");
+                sb.Append($"{nameof(Resource.Order)}={resource.Order}");
+                sb.Append("},");
+            }
+            return sb.ToString();
+        }
+
         /// <summary>
         /// 查询所有资源 按树形结构返回
         /// </summary>

@@ -231,7 +231,7 @@ namespace Gardener.Client.Pages.UserCenter
                     new ResourceEditOption() { Type = 1, SelectedResourceId = ((ResourceDto)selectedNode.DataItem).Id },
                     true,
                     title: "编辑",
-                    width: 450,
+                    width: 400,
                     placement: "left");
                 if (result) { await LoadTreeData(); }
             }
@@ -253,7 +253,7 @@ namespace Gardener.Client.Pages.UserCenter
                     new ResourceEditOption() { Type = 0, SelectedResourceId = ((ResourceDto)selectedNode.DataItem).Id },
                     true,
                     title: "添加",
-                    width: 450,
+                    width: 400,
                     placement: "left");
                 if (result) { await LoadTreeData(); }
             }

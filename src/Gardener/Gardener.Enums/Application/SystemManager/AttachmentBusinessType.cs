@@ -22,6 +22,11 @@ namespace Gardener.Enums
         /// 头像
         /// </summary>
         [Description("头像")]
-        Avatar
+        Avatar,
+        /// <summary>
+        /// 订单
+        /// </summary>
+        [Description("订单")]
+        Order
     }
 }

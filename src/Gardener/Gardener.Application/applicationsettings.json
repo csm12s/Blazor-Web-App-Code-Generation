@@ -93,5 +93,16 @@
   },
   "LocalFileStoreSettings": {
     "BaseUrl": "https://localhost:44323/upload/"
+  },
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Debug",
+      "Override": {
+        "System": "Warning",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information",
+        "Microsoft.EntityFrameworkCore": "Verbose"
+      }
+    }
   }
 }

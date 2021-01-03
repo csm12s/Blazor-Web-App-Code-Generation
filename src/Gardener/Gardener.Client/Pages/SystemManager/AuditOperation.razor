@@ -1,0 +1,79 @@
+﻿@page "/system_manager/audit-operation"
+<div>
+    <PageContainer Title="">
+        <Breadcrumb>
+            <Breadcrumb>
+                <BreadcrumbItem>系统管理</BreadcrumbItem>
+                <BreadcrumbItem>操作审计</BreadcrumbItem>
+            </Breadcrumb>
+        </Breadcrumb>
+        <ChildContent>
+            <Table @ref="_table"
+                   TItem="AuditOperationDto"
+                   DataSource="@_datas"
+                   Total="_total"
+                   OnChange="@OnChange"
+                   @bind-PageIndex="searchInput.PageIndex"
+                   @bind-PageSize="searchInput.PageSize"
+                   @bind-SelectedRows="_selectedRows"
+                   Loading="@_tableIsLoading"
+                   Context="model">
+                <TitleTemplate>
+                    <Row>
+                        <AntDesign.Col Span="8">
+                            <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                    删除选中
+                                </Button>
+                            </ResourceAuthorize>
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="16" Style="text-align:right">
+                            <Space>
+                                <ResourceAuthorize ResourceKey="system_manager_audit_operation_refresh">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                            刷新
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                            </Space>
+                        </AntDesign.Col>
+                    </Row>
+
+                </TitleTemplate>
+                <RowTemplate>
+                    <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
+                        <Selection Key="@(model.Id.ToString())" />
+                    </ResourceAuthorize>
+                    <Column Title="操作人" @bind-Field="@model.OperaterName" />
+                    <Column Title="资源名" @bind-Field="@model.ResourceName" />
+                    <Column Title="IP" @bind-Field="@model.Ip" />
+                    <Column Title="请求方法" @bind-Field="@model.Method" />
+                    <Column Title="请求地址" @bind-Field="@model.Path" />
+                    @*<Column Title="请求参数" @bind-Field="@model.Parameters" />
+            <Column Title="用户标示" @bind-Field="@model.UserAgent" />*@
+                    <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <ActionColumn>
+                        <Space>
+                            <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete">
+                                <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                            </ResourceAuthorize>
+                        </Space>
+                    </ActionColumn>
+                </RowTemplate>
+                <ExpandTemplate>
+                    <Descriptions Title="详细信息" Bordered Size="@DescriptionsSize.Middle">
+                        @if (!string.IsNullOrEmpty(model.Data.UserAgent))
+                        {
+                            <DescriptionsItem Title="UserAgent" Span="3">@model.Data.UserAgent</DescriptionsItem>
+                        }
+                        @if (!string.IsNullOrEmpty(model.Data.Parameters))
+                        {
+                            <DescriptionsItem Title="Parameters" Span="3">@model.Data.Parameters</DescriptionsItem>
+                        }
+                        </Descriptions>
+                </ExpandTemplate>
+            </Table>
+        </ChildContent>
+    </PageContainer>
+</div>

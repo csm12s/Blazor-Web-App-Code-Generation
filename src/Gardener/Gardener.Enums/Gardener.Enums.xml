@@ -14,6 +14,11 @@
             头像
             </summary>
         </member>
+        <member name="F:Gardener.Enums.AttachmentBusinessType.Order">
+            <summary>
+            订单
+            </summary>
+        </member>
         <member name="T:Gardener.Enums.AttachmentFileType">
             <summary>
             上传文件类型
@@ -39,6 +44,26 @@
             word
             </summary>
         </member>
+        <member name="T:Gardener.Enums.OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.OperationType.Add">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.OperationType.Update">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.OperationType.Delete">
+            <summary>
+            删除
+            </summary>
+        </member>
         <member name="T:Gardener.Enums.Gender">
             <summary>
             性别枚举
@@ -54,9 +79,39 @@
             女
             </summary>
         </member>
-        <member name="T:Gardener.Enums.HttpMethodType">
+        <member name="T:Gardener.Enums.LoginClientType">
+            <summary>
+            请求登录的客户端类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginClientType.Browser">
+            <summary>
+            浏览器类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginClientType.Desktop">
+            <summary>
+            桌面客户端
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginClientType.Mobile">
+            <summary>
+            手机客户端
+            </summary>
+        </member>
+        <member name="T:Gardener.Enums.LoginType">
             <summary>
             
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginType.AccountPassword">
+            <summary>
+            账号密码
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.LoginType.PhoneNumberVerificationCode">
+            <summary>
+            手机号验证码
             </summary>
         </member>
         <member name="T:Gardener.Enums.ResourceType">
@@ -131,39 +186,34 @@
             未包含文件
             </summary>
         </member>
-        <member name="T:Gardener.Enums.LoginClientType">
-            <summary>
-            请求登录的客户端类型
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.LoginClientType.Browser">
-            <summary>
-            浏览器类型
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.LoginClientType.Desktop">
-            <summary>
-            桌面客户端
-            </summary>
-        </member>
-        <member name="F:Gardener.Enums.LoginClientType.Mobile">
-            <summary>
-            手机客户端
-            </summary>
-        </member>
-        <member name="T:Gardener.Enums.LoginType">
+        <member name="T:Gardener.Enums.HttpMethodType">
             <summary>
             
             </summary>
         </member>
-        <member name="F:Gardener.Enums.LoginType.AccountPassword">
+        <member name="F:Gardener.Enums.HttpMethodType.GET">
             <summary>
-            账号密码
+            GET
             </summary>
         </member>
-        <member name="F:Gardener.Enums.LoginType.PhoneNumberVerificationCode">
+        <member name="F:Gardener.Enums.HttpMethodType.POST">
             <summary>
-            手机号验证码
+            POST
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.HttpMethodType.PUT">
+            <summary>
+            PUT
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.HttpMethodType.DELETE">
+            <summary>
+            DELETE
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.HttpMethodType.PATCH">
+            <summary>
+            PATCH
             </summary>
         </member>
     </members>

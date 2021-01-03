@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gardener.Application
@@ -110,6 +111,25 @@ namespace Gardener.Application
                 .ToListAsync();
 
             return resources.Select(x=>x.Adapt<ResourceDto>()).ToList();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetRoleResourceSeedData()
+        {
+            List<RoleResource> roleResources =await _roleResourceRepository.AsQueryable(false).OrderBy(x => x.RoleId).ToListAsync();
+            StringBuilder sb = new StringBuilder();
+            foreach (var roleResource in roleResources)
+            {
+                sb.Append($"u.HasData( new");
+                sb.Append("{");
+                sb.Append($"{nameof(RoleResource.RoleId)}={roleResource.RoleId},");
+                sb.Append($"{nameof(RoleResource.ResourceId)} = Guid.Parse(\"{roleResource.ResourceId}\"),");
+                sb.Append($"{nameof(RoleResource.CreatedTime)}=DateTime.Now()");
+                sb.Append("});");
+            }
+            return sb.ToString();
         }
     }
 }

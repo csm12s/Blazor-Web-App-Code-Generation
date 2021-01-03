@@ -100,7 +100,7 @@ namespace Gardener.Application.SystemManager
         {
             Attachment attachment = await repository.FindAsync(id);
             if (attachment == null) return false;
-            await attachment.DeleteAsync();
+            await repository.DeleteAsync(attachment);
             fileStoreService.Delete(Path.Combine(attachment.Path, attachment.Name));
             return true;
         }

@@ -4,24 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System.ComponentModel;
-
-namespace Gardener.Enums
+namespace Gardener.Application.Dtos
 {
     /// <summary>
-    /// 
+    /// 审计操作
     /// </summary>
-    public enum HttpMethodType
+    public class AuditOperationSearchInput : PagedSearchBaseInfo<AuditOperationDto>
     {
-        [Description("GET")]
-        GET=0,
-        [Description("POST")]
-        POST=1,
-        [Description("PUT")]
-        PUT=2,
-        [Description("DELETE")]
-        DELETE=3,
-        [Description("PATCH")]
-        PATCH=4
     }
 }
