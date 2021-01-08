@@ -245,7 +245,7 @@
             审计操作服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.SystemManager.AuditOperationService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditOperation})">
+        <member name="M:Gardener.Application.SystemManager.AuditOperationService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditOperation},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditEntity})">
             <summary>
             
             </summary>
@@ -256,6 +256,13 @@
             搜索
             </summary>
             <param name="searchInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.AuditOperationService.GetAuditEntity(System.Guid)">
+            <summary>
+            根据操作审计ID获取数据审计数据
+            </summary>
+            <param name="operationId"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.AuthorizeService">

@@ -1,0 +1,25 @@
+﻿<Table DataSource="@AuditProperties" Bordered=@true Size=@TableSize.Small HidePagination="true">
+    <Column Title="字段名称" @bind-Field="@context.FieldName" />
+    <Column Title="字段说明" @bind-Field="@context.DisplayName" />
+    <Column Title="数据类型" @bind-Field="@context.DataType" />
+    @if (!OperationType.Add.Equals(OperationType))
+    {
+        <Column Title="原值" @bind-Field="@context.OriginalValue" Style="max-width:200px" />
+    }
+    @if (!OperationType.Delete.Equals(OperationType))
+    {
+        <Column Title="新值" @bind-Field="@context.NewValue" Style="max-width:200px" />
+    }
+</Table>
+@code {
+    /// <summary>
+    /// 属性审计信息
+    /// </summary>
+    [Parameter]
+    public ICollection<AuditPropertyDto> AuditProperties { get; set; }
+    /// <summary>
+    /// 操作类型
+    /// </summary>
+    [Parameter]
+    public OperationType OperationType { get; set; }
+}

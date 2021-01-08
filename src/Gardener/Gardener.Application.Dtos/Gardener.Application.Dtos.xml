@@ -307,6 +307,11 @@
             创建时间
             </summary>
         </member>
+        <member name="P:Gardener.Application.Dtos.AuditOperationDto.AuditEntitys">
+            <summary>
+            关联数据审计
+            </summary>
+        </member>
         <member name="T:Gardener.Application.Dtos.AuditOperationSearchInput">
             <summary>
             审计操作

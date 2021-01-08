@@ -6,6 +6,7 @@
 
 using Gardener.Application.Dtos;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.Application.Interfaces
@@ -20,6 +21,12 @@ namespace Gardener.Application.Interfaces
         /// </summary>
         /// <param name="searchInput"></param>
         /// <returns></returns>
-        Task<PagedList<AuditOperationDto>> Search(AuditOperationSearchInput searchInput);
+        Task<Dtos.PagedList<AuditOperationDto>> Search(AuditOperationSearchInput searchInput);
+        /// <summary>
+        /// 根据操作审计ID获取数据审计数据
+        /// </summary>
+        /// <param name="operationId"></param>
+        /// <returns></returns>
+        Task<List<AuditEntityDto>> GetAuditEntity(Guid operationId);
     }
 }

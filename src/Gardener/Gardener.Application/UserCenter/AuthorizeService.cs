@@ -132,7 +132,7 @@ namespace Gardener.Application
             resourceTypes = resourceTypes ?? new ResourceType[] { };
             // 获取用户Id
             var userId = _authorizationManager.GetUserId();
-            List<Resource> resources =await _authorizationManager.GetUserResources().Where(x => resourceTypes.Contains(x.Type)).OrderBy(x=>x.Order).ToListAsync();
+            List<Resource> resources =await _authorizationManager.GetUserResources(resourceTypes);
             return resources.Adapt<List<ResourceDto>>();
 
         }

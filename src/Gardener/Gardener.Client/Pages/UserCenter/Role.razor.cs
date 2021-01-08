@@ -132,7 +132,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <returns></returns>
         private async Task OnEditRoleResourceClick(int id)
         {
-            var result = await drawerService.CreateDialogAsync<RoleResourceEdit, int, bool>(id, true, title: "分配资源", width: 450);
+            var result = await drawerService.CreateDialogAsync<RoleResourceEdit, int, bool>(id, true, title: "分配资源", width: 600);
             Console.WriteLine(result);
         }
         /// <summary>

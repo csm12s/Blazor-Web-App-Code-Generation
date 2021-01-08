@@ -6,6 +6,7 @@
 
 using Gardener.Core.Entites;
 using Gardener.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,8 +36,9 @@ namespace Gardener.Core
         /// <summary>
         /// 获取资源
         /// </summary>
+        /// <param name="resourceTypes"></param>
         /// <returns></returns>
-        IQueryable<Resource> GetUserResources();
+        Task<List<Resource>> GetUserResources(params ResourceType[] resourceTypes);
         /// <summary>
         /// 获取当前资源
         /// </summary>

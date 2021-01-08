@@ -145,7 +145,7 @@
             API
             </summary>
         </member>
-        <member name="T:Gardener.Enums.IgnoreConvertAttribute">
+        <member name="T:Gardener.Enums.IgnoreOnConvertToMapAttribute">
             <summary>
             Enum 转换集合时忽略
             </summary>

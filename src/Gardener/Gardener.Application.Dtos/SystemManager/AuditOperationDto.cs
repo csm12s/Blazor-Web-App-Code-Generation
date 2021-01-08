@@ -6,6 +6,7 @@
 
 using Gardener.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Gardener.Application.Dtos
 {
@@ -58,5 +59,10 @@ namespace Gardener.Application.Dtos
         /// 创建时间
         /// </summary>
         public DateTimeOffset CreatedTime { get; set; }
+        /// <summary>
+        /// 关联数据审计
+        /// </summary>
+
+        public List<AuditEntityDto> AuditEntitys { get; set; }
     }
 }

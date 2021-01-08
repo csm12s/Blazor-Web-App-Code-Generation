@@ -72,6 +72,8 @@ namespace Gardener.EntityFramwork.Core.DbContexts
         /// <param name="result"></param>
         protected override void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
         {
+            IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
+            if (auditDataManager == null) return;
             ILogger<GardenerDbContext> _logger = App.GetService<ILogger<GardenerDbContext>>();
             try
             {
@@ -118,7 +120,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
                     //}
                     auditEntities.Add(auditEntity);
                 }
-                App.GetService<IAuditDataManager>().SetAuditEntitys(auditEntities);
+                auditDataManager.SetAuditEntitys(auditEntities);
             }
             catch (Exception ex)
             {
@@ -133,10 +135,11 @@ namespace Gardener.EntityFramwork.Core.DbContexts
         /// <param name="result"></param>
         protected override void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
         {
+            IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
+            if (auditDataManager == null) return;
             ILogger<GardenerDbContext> _logger = App.GetService<ILogger<GardenerDbContext>>();
             try
             {
-                IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
                 List<AuditEntity> auditEntitys = auditDataManager.GetAuditEntities();
                 if (auditEntitys == null) return;
 
@@ -157,7 +160,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
 
         }
         /// <summary>
-        /// 
+        /// 获取属性审计信息
         /// </summary>
         /// <param name="operationType"></param>
         /// <param name="currentValues"></param>

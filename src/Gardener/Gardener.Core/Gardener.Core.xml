@@ -69,6 +69,11 @@
             <param name="auditEntitys"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Core.Audit.IAuditDataManager">
+            <summary>
+            当前请求的审计数据管理
+            </summary>
+        </member>
         <member name="M:Gardener.Core.Audit.IAuditDataManager.GetAuditEntities">
             <summary>
             获取 实体审计数据
@@ -236,27 +241,16 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetUserResources">
+        <member name="M:Gardener.Core.AuthorizationManager.GetUserResources(Gardener.Enums.ResourceType[])">
             <summary>
             获取用用户拥有的资源
             </summary>
+            <param name="resourceTypes"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Core.AuthorizationManager.IsSuperAdministrator">
             <summary>
             是否是超级管理员
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetResourceId">
-            <summary>
-            获取资源id
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetEndpoint">
-            <summary>
-            获取节点信息
             </summary>
             <returns></returns>
         </member>
@@ -287,6 +281,33 @@
             <param name="path"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetContextResourceId">
+            <summary>
+            获取资源id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.GetContextEndpoint">
+            <summary>
+            获取节点信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.CurrentUserHaveResource(Gardener.Enums.HttpMethodType,System.String)">
+            <summary>
+            判断是否拥有该权限
+            </summary>
+            <param name="method"></param>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.AuthorizationManager.CurrentUserHaveResource(System.String)">
+            <summary>
+            判断是否拥有该权限
+            </summary>
+            <param name="resourceKey"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Core.IAuthorizationManager">
             <summary>
             权限管理器
@@ -310,10 +331,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.GetUserResources">
+        <member name="M:Gardener.Core.IAuthorizationManager.GetUserResources(Gardener.Enums.ResourceType[])">
             <summary>
             获取资源
             </summary>
+            <param name="resourceTypes"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Core.IAuthorizationManager.GetContenxtResource">
@@ -341,6 +363,19 @@
             </summary>
             <param name="method"></param>
             <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.JwtHandler">
+            <summary>
+            JWT 授权自定义处理程序
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.JwtHandler.PipelineAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,Microsoft.AspNetCore.Http.DefaultHttpContext)">
+            <summary>
+            请求管道
+            </summary>
+            <param name="context"></param>
+            <param name="httpContext"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Core.JsonWebToken">
@@ -515,6 +550,30 @@
             </summary>
             <param name="password"></param>
             <param name="encryptKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.AuditServiceCollectionExtensions">
+            <summary>
+            审计
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.AuditServiceCollectionExtensions.AddAudit(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加审计服务
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.SecurityServiceCollectionExtensions">
+            <summary>
+            安全服务
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.SecurityServiceCollectionExtensions.AddSecurity(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加安全服务
+            </summary>
+            <param name="services"></param>
             <returns></returns>
         </member>
     </members>

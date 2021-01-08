@@ -17,7 +17,7 @@ namespace Gardener.Core.Audit
     /// <summary>
     /// 当前请求的审计数据管理
     /// </summary>
-    public class AuditDataManager : IAuditDataManager, IScoped
+    public class AuditDataManager : IAuditDataManager
     {
         private readonly ILogger<AuditDataManager> _logger;
         private readonly IRepository<AuditOperation> _auditOperationRepository;

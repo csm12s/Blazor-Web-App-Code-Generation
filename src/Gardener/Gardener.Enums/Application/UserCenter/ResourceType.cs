@@ -17,7 +17,7 @@ namespace Gardener.Enums
         /// 根节点
         /// </summary>
         [Description("根节点")]
-        [IgnoreConvert]
+        [IgnoreOnConvertToMap]
         Root =0,
         /// <summary>
         /// 菜单

@@ -7,6 +7,7 @@
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
@@ -18,6 +19,11 @@ namespace Gardener.Client.Services
         public AuditOperationService(IApiCaller apiCaller) : base(apiCaller, controller)
         {
             this.apiCaller = apiCaller;
+        }
+
+        public async Task<List<AuditEntityDto>> GetAuditEntity(Guid operationId)
+        {
+            return await apiCaller.GetAsync<List<AuditEntityDto>>($"{controller}/{operationId}/audit-entity");
         }
 
         public async Task<PagedList<AuditOperationDto>> Search(AuditOperationSearchInput searchInput)

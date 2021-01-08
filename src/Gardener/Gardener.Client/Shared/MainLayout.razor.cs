@@ -95,6 +95,7 @@ namespace Gardener.Client.Shared
         {
             Action<List<ResourceDto>> onEmnusLoaded = menus =>
             {
+                if (menus == null) return;
                 menus.ForEach(x => InitEnum(x));
                 _menuData = menuDataItems.ToArray();
             };
