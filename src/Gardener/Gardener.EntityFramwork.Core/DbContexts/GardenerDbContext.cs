@@ -11,7 +11,6 @@ using Gardener.Core;
 using Gardener.Core.Audit;
 using Gardener.Core.Entites;
 using Gardener.Enums;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -21,7 +20,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 
 namespace Gardener.EntityFramwork.Core.DbContexts
 {
@@ -104,6 +102,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
                     auditEntity.OperationId = Guid.NewGuid();
                     auditEntity.CurrentValues = currentValues;
                     auditEntity.OldValues = entity.GetDatabaseValues();
+                    auditEntity.CreatedTime = DateTimeOffset.Now;
                     switch (entity.State)
                     {
                         case EntityState.Modified: auditEntity.OperationType = OperationType.Update; break;
@@ -203,11 +202,12 @@ namespace Gardener.EntityFramwork.Core.DbContexts
                 {
                     DisplayName = prop.PropertyInfo.GetDescription(),
                     FieldName = propName,
-                    OriginalValue = oldValue == null ? null : oldValue.ToString()
+                    OriginalValue = ValueToString(oldValue),
+                    CreatedTime=DateTimeOffset.Now
                 };
                 if (!operationType.Equals(OperationType.Delete))
                 {
-                    property.NewValue = newValue == null ? null : newValue.ToString();
+                    property.NewValue = ValueToString(newValue);
                 }
                 Type fieldType = prop.PropertyInfo.PropertyType;
                 if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -222,6 +222,29 @@ namespace Gardener.EntityFramwork.Core.DbContexts
             }
 
             return (pkValues, auditProperties);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private string ValueToString(Object value)
+        {
+            if (value == null) return null;
+            if (value is DateTime)
+            {
+                if (value.Equals(DateTime.MinValue)) return null;
+            }
+            else if (value is DateTimeOffset)
+            {
+                if (value.Equals(DateTimeOffset.MinValue)) return null;
+            }
+            else if (value is Guid)
+            {
+                if (value.Equals(Guid.Empty)) return null;
+            }
+            return value.ToString();
+
         }
     }
 }

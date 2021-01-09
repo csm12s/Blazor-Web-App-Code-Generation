@@ -21,13 +21,6 @@ namespace Gardener.Core.Entites
     public class Role : Entity, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
     {
         /// <summary>
-        /// 
-        /// </summary>
-        public Role()
-        {
-            this.CreatedTime = DateTimeOffset.Now;
-        }
-        /// <summary>
         /// 角色名称
         /// </summary>
         [MaxLength(100), Required]

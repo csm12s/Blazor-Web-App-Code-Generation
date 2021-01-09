@@ -16,10 +16,12 @@ namespace Gardener.Application.Interfaces
     /// </summary>
     public interface IAttachmentService : IApplicationServiceBase<AttachmentDto, Guid>
     {
-        Task<bool> Delete(Guid id);
-        Task<bool> Deletes(Guid[] ids);
-        Task<AttachmentDto> Insert(AttachmentDto input);
-        Task<bool> Update(AttachmentDto input);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
         Task<UploadAttachmentOutput> Upload(UploadAttachmentInput input, IFormFile file);
         /// <summary>
         /// 搜索附件

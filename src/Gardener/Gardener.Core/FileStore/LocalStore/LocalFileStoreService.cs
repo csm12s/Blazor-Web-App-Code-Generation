@@ -7,7 +7,6 @@
 using Furion.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -25,6 +24,7 @@ namespace Gardener.Core.FileStore
         /// 
         /// </summary>
         /// <param name="options"></param>
+        /// <param name="hostingEnvironment"></param>
         public LocalFileStoreService(IOptions<LocalFileStoreSettings> options, IWebHostEnvironment hostingEnvironment)
         {
             _localFileStoreSettings = options.Value;

@@ -45,7 +45,7 @@ namespace Gardener.Application.SystemManager
         /// 上传附件
         /// </summary>
         /// <param name="input"></param>
-        /// <param name="formFile"></param>
+        /// <param name="file"></param>
         /// <returns></returns>
         public async Task<UploadAttachmentOutput> Upload([FromForm] UploadAttachmentInput input, IFormFile file)
         {

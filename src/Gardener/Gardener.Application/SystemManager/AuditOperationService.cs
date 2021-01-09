@@ -14,7 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Gardener.Application.SystemManager
@@ -31,6 +30,7 @@ namespace Gardener.Application.SystemManager
         /// 
         /// </summary>
         /// <param name="repository"></param>
+        /// <param name="auditEntityRepository"></param>
         public AuditOperationService(IRepository<AuditOperation> repository, IRepository<AuditEntity> auditEntityRepository) : base(repository)
         {
             this._repository = repository;

@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Furion.DependencyInjection;
 using Gardener.Core.Entites;
 using Microsoft.Extensions.Logging;
 using System;
@@ -58,7 +57,7 @@ namespace Gardener.Core.Audit
             _auditOperation = auditOperation;
             try
             {
-               await _auditOperationRepository.InsertNowAsync(auditOperation);
+               await _auditOperationRepository.InsertAsync(auditOperation);
             }
             catch (Exception ex)
             {

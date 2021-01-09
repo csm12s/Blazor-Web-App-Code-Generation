@@ -6,7 +6,6 @@
 
 using Furion.Authorization;
 using Furion.DatabaseAccessor;
-using Furion.DataEncryption;
 using Furion.DataValidation;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
@@ -47,6 +46,7 @@ namespace Gardener.Core
         /// <param name="repository"></param>
         /// <param name="jwtSettings"></param>
         /// <param name="jwtRefreshTokenOptions"></param>
+        /// <param name="httpContextAccessor"></param>
         public JwtBearerService(IRepository<UserToken> repository, IOptions<JWTSettingsOptions> jwtSettings, IOptions<JwtRefreshTokenSettings> jwtRefreshTokenOptions, IHttpContextAccessor httpContextAccessor)
         {
             _repository = repository;
@@ -82,7 +82,7 @@ namespace Gardener.Core
                 //过期token删除
                 if (refreshToken != null && refreshToken.EndTime <= DateTime.UtcNow)
                 {
-                    await _repository.FakeDeleteNowAsync(refreshToken);
+                    await _repository.FakeDeleteAsync(refreshToken);
                 }
                 throw Oops.Oh(ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE);
             }
@@ -110,7 +110,7 @@ namespace Gardener.Core
             //创建刷新token
             var (newRefreshToken, refreshTokenExpires) = CreateToken(claims, JwtTokenType.RefreshToken, refreshToken);
             //写入刷新token
-            await _repository.InsertNowAsync(new UserToken()
+            await _repository.InsertAsync(new UserToken()
             {
                 UserId = userId,
                 ClientId = clientId,
@@ -121,7 +121,7 @@ namespace Gardener.Core
             //新的刷新token已经创建，删除上次的
             if (refreshToken != null)
             {
-                await _repository.FakeDeleteNowAsync(refreshToken);
+                await _repository.FakeDeleteAsync(refreshToken);
             }
             //New AccessToken
             var (newAccessToken, accessTokenExpires) = CreateToken(claims, JwtTokenType.AccessToken);

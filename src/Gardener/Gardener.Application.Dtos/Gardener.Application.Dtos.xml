@@ -636,6 +636,11 @@
             用户数据转换实体
             </summary>
         </member>
+        <member name="M:Gardener.Application.Dtos.UserDto.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Gardener.Application.Dtos.UserDto.Id">
             <summary>
             用户id
@@ -651,7 +656,11 @@
             更新时间
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Gardener.Application.Dtos.UserDto.UserName" -->
+        <member name="P:Gardener.Application.Dtos.UserDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
         <member name="P:Gardener.Application.Dtos.UserDto.NickName">
             <summary>
             昵称
@@ -662,7 +671,11 @@
             密码加密后的
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Gardener.Application.Dtos.UserDto.Avatar" -->
+        <member name="P:Gardener.Application.Dtos.UserDto.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
         <member name="P:Gardener.Application.Dtos.UserDto.Email">
             <summary>
             邮箱

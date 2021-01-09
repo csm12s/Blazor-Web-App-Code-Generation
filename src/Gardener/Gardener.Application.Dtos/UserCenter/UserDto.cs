@@ -17,7 +17,9 @@ namespace Gardener.Application.Dtos
     /// </summary>
     public class UserDto
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public UserDto()
         {
             UserExtension = new UserExtensionDto();
@@ -34,6 +36,7 @@ namespace Gardener.Application.Dtos
         /// 更新时间
         /// </summary>
         public DateTimeOffset? UpdatedTime { get; set; }
+        /// <summary>
         /// 用户名
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"),MinLength(5,ErrorMessage = "最小长度不能小于{1}")]
@@ -49,12 +52,8 @@ namespace Gardener.Application.Dtos
         //[Required(ErrorMessage = "不能为空")]
         [MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
         public string Password { get; set; }
-        ///// <summary>
-        ///// 密码加密Key
-        ///// </summary>
-        //[Required(ErrorMessage = "不能为空"), StringLength(32, ErrorMessage = "最大长度为32")]
-        //public string PasswordEncryptKey { get; set; }
-        ///// <summary>
+        
+        /// <summary>
         /// 头像
         /// </summary>
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]

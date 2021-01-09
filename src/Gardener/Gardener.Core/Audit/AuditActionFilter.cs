@@ -4,21 +4,15 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Gardener.Core.Entites;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gardener.Core.Audit
@@ -48,14 +42,21 @@ namespace Gardener.Core.Audit
         /// <returns></returns>
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+            IgnoreAuditAttribute ignoreAudit = context.HttpContext.GetMetadata<IgnoreAuditAttribute>();
+            if (ignoreAudit != null) { await next(); return; }
+
             if (context.HttpContext.User.Identity.IsAuthenticated == false) { await next(); return; }
-            User user = authorizationManager.GetUser();
-            if (user == null) { await next(); return; }
 
-            Resource resource = await authorizationManager.GetContenxtResource();
-            //资源未启用审计
-            if(resource!=null && !resource.EnableAudit) { await next(); return; }
 
+            Resource resource=null;
+            User user = null;
+            if (authorizationManager != null)
+            {
+                resource = await authorizationManager.GetContenxtResource();
+                //资源未启用审计
+                if (resource != null && !resource.EnableAudit) { await next(); return; }
+                user = authorizationManager.GetUser();
+            }
             HttpContext httpContext = context.HttpContext;
             StringValues ua = string.Empty;
             httpContext.Request.Headers.TryGetValue("User-Agent", out ua);
@@ -73,6 +74,7 @@ namespace Gardener.Core.Audit
                 parameters = await ReadBodyAsync(httpContext.Request);
                 
             }
+            
             AuditOperation auditOperation = new AuditOperation()
             {
                 CreatedTime = DateTimeOffset.Now,
@@ -82,14 +84,21 @@ namespace Gardener.Core.Audit
                 Method= method,
                 Parameters= parameters,
                 UserAgent = ua.ToString(),
-                OperaterId = user.Id.ToString(),
-                OperaterName = user.NickName ?? user.UserName,
+                OperaterId = user!=null?user.Id.ToString():null,
+                OperaterName = user != null ? (user.NickName ?? user.UserName):null,
                 ResourceId = resource!=null? resource.Id:Guid.Empty,
                 ResourceName = resource!=null? resource.Name:null
             };
             await auditDataManager.SaveAuditOperation(auditOperation);
             await next();
         }
+
+        #region private
+        /// <summary>
+        /// 获取编码
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         private Encoding GetRequestEncoding(HttpRequest request)
         {
             var requestContentType = request.ContentType;
@@ -101,6 +110,11 @@ namespace Gardener.Core.Audit
             }
             return requestEncoding;
         }
+        /// <summary>
+        /// 读取body
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         private async Task<string> ReadBodyAsync(HttpRequest request)
         {
             string result = string.Empty;
@@ -116,5 +130,7 @@ namespace Gardener.Core.Audit
             request.Body.Position = 0;
             return result;
         }
+        #endregion
+
     }
 }

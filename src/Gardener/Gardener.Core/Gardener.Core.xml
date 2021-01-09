@@ -24,6 +24,20 @@
             <param name="next"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.Audit.AuditActionFilter.GetRequestEncoding(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            获取编码
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditActionFilter.ReadBodyAsync(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            读取body
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Core.Audit.AuditDataManager">
             <summary>
             当前请求的审计数据管理
@@ -101,6 +115,11 @@
             <param name="auditOperation"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Core.IgnoreAuditAttribute">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Gardener.Core.FileStore.IFileStoreService">
             <summary>
             文件存储服务
@@ -137,6 +156,7 @@
             
             </summary>
             <param name="options"></param>
+            <param name="hostingEnvironment"></param>
         </member>
         <member name="M:Gardener.Core.FileStore.LocalFileStoreService.GetBaseDirectory">
             <summary>
@@ -192,6 +212,21 @@
             <param name="services"></param>
         </member>
         <member name="T:Gardener.Core.AuthKeyConstants">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.AuthKeyConstants.ClientIdKeyName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.AuthKeyConstants.ClientTypeKeyName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Core.AuthKeyConstants.UserIsSuperAdministratorKey">
             <summary>
             
             </summary>
@@ -378,6 +413,15 @@
             <param name="httpContext"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.JwtHandler.PolicyPipelineAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,Microsoft.AspNetCore.Http.DefaultHttpContext,Microsoft.AspNetCore.Authorization.IAuthorizationRequirement)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="httpContext"></param>
+            <param name="requirement"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Core.JsonWebToken">
             <summary>
             JWT
@@ -456,6 +500,7 @@
             <param name="repository"></param>
             <param name="jwtSettings"></param>
             <param name="jwtRefreshTokenOptions"></param>
+            <param name="httpContextAccessor"></param>
         </member>
         <member name="M:Gardener.Core.JwtBearerService.CreateToken(System.Int32,Gardener.Enums.LoginClientType)">
             <summary>

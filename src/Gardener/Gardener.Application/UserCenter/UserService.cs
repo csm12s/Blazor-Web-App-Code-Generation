@@ -8,7 +8,6 @@ using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
 using Gardener.Core.Entites;
 using Mapster;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -183,10 +182,11 @@ namespace Gardener.Application
             user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
             user.Password = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
             user.CreatedTime = DateTimeOffset.Now;
-            if (user.UserExtension != null)
+            if (user.UserExtension == null)
             {
-                user.UserExtension.CreatedTime = DateTimeOffset.Now;
+                user.UserExtension = new UserExtension();
             }
+            user.UserExtension.CreatedTime = DateTimeOffset.Now;
 
             //查看是否有默认角色
             var defaultRoleIds = await _roleRepository.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsDefault == true).Select(x => x.Id).ToListAsync();
@@ -194,7 +194,7 @@ namespace Gardener.Application
             {
                 user.UserRoles = defaultRoleIds.Select(x => new UserRole { RoleId = x, CreatedTime = DateTimeOffset.Now }).ToList();
             }
-            var newEntity = await _userRepository.InsertNowAsync(user);
+            var newEntity = await _userRepository.InsertAsync(user);
 
             return newEntity.Entity.Adapt<UserDto>();
         }

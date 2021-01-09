@@ -37,10 +37,10 @@ namespace Gardener.Application
             this.resourceRepository = resourceRepository;
         }
 
-        //// <summary>
+        /// <summary>
         /// 获取所有子资源
         /// </summary>
-        /// <param name="id">父id</param>
+        /// <param name="id">父级id</param>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetChildren([ApiSeat(ApiSeats.ActionStart)] Guid id)
         {

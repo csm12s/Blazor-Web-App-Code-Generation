@@ -10,8 +10,6 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +32,6 @@ namespace Gardener.Application
         private readonly IRepository<User> _userRepository;
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IJwtBearerService _jwtBearerService;
-        private readonly IRepository<Resource> _resourceRepository;
-        private readonly IRepository<UserRole> _userRoleRepository;
         /// <summary>
         /// 角色管理服务
         /// </summary>
@@ -47,15 +43,12 @@ namespace Gardener.Application
             IHttpContextAccessor httpContextAccessor,
             IRepository<User> userRepository,
             IAuthorizationManager authorizationManager,
-            IJwtBearerService jwtBearerService
-, IRepository<Resource> resourceRepository, IRepository<UserRole> userRoleRepository)
+            IJwtBearerService jwtBearerService)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _authorizationManager = authorizationManager;
             _jwtBearerService = jwtBearerService;
-            _resourceRepository = resourceRepository;
-            _userRoleRepository = userRoleRepository;
         }
 
         /// <summary>
@@ -64,7 +57,7 @@ namespace Gardener.Application
         /// <param name="input"></param>
         /// <remarks>管理员：admin/admin；普通用户：testuser/testuser</remarks>
         /// <returns></returns>
-        [AllowAnonymous]
+        [AllowAnonymous, IgnoreAudit]
         public async Task<TokenOutput> Login(LoginInput input)
         {
             // 验证用户是否存在
@@ -85,7 +78,7 @@ namespace Gardener.Application
         /// 刷新Token
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
+        [AllowAnonymous, IgnoreAudit]
         public async Task<TokenOutput> RefreshToken(RefreshTokenInput input)
         {
             var token = await _jwtBearerService.RefreshToken(input.RefreshToken);

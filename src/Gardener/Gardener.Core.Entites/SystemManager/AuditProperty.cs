@@ -5,12 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace Gardener.Core.Entites
 {
@@ -20,13 +16,6 @@ namespace Gardener.Core.Entites
     [Description("属性审计信息")]
     public class AuditProperty : Entity<Guid>
     {
-        /// <summary>
-        /// 实体属性审计信息
-        /// </summary>
-        public AuditProperty()
-        {
-            this.CreatedTime = DateTimeOffset.Now;
-        }
         /// <summary>
         /// 获取或设置 名称
         /// </summary>

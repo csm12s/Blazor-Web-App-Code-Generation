@@ -186,7 +186,7 @@
             上传附件
             </summary>
             <param name="input"></param>
-            <param name="formFile"></param>
+            <param name="file"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.AttachmentService.Insert(Gardener.Application.Dtos.AttachmentDto)">
@@ -250,6 +250,7 @@
             
             </summary>
             <param name="repository"></param>
+            <param name="auditEntityRepository"></param>
         </member>
         <member name="M:Gardener.Application.SystemManager.AuditOperationService.Search(Gardener.Application.Dtos.AuditOperationSearchInput)">
             <summary>
@@ -270,7 +271,7 @@
             用户中心服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Gardener.Core.IAuthorizationManager,Gardener.Core.IJwtBearerService,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole})">
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Gardener.Core.IAuthorizationManager,Gardener.Core.IJwtBearerService)">
             <summary>
             角色管理服务
             </summary>
@@ -334,7 +335,13 @@
             </summary>
             <param name="resourceRepository"></param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Gardener.Application.ResourceService.GetChildren(System.Guid)" -->
+        <member name="M:Gardener.Application.ResourceService.GetChildren(System.Guid)">
+            <summary>
+            获取所有子资源
+            </summary>
+            <param name="id">父级id</param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Application.ResourceService.GetRoot">
             <summary>
             返回根节点

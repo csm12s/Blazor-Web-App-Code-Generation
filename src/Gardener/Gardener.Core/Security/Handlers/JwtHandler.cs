@@ -29,6 +29,13 @@ namespace Gardener.Core
             return await authorizationManager.CheckSecurity();
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="httpContext"></param>
+        /// <param name="requirement"></param>
+        /// <returns></returns>
         public override async Task<bool> PolicyPipelineAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext, IAuthorizationRequirement requirement)
         {
             //所有验证需求都会过来但我们只关心自己关注的，其它的有其它处理器处理

@@ -185,11 +185,6 @@
             实体属性审计信息
             </summary>
         </member>
-        <member name="M:Gardener.Core.Entites.AuditProperty.#ctor">
-            <summary>
-            实体属性审计信息
-            </summary>
-        </member>
         <member name="P:Gardener.Core.Entites.AuditProperty.DisplayName">
             <summary>
             获取或设置 名称
@@ -316,14 +311,17 @@
             <param name="dbContext"></param>
             <param name="dbContextLocator"></param>
         </member>
+        <member name="M:Gardener.Core.Entites.Resource.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Core.Entites.Role">
             <summary>
             角色表
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.Entites.Role.#ctor">
-            <summary>
-            
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.Role.Name">
@@ -430,11 +428,6 @@
         <member name="T:Gardener.Core.Entites.User">
             <summary>
             用户表
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.Entites.User.#ctor">
-            <summary>
-            
             </summary>
         </member>
         <member name="P:Gardener.Core.Entites.User.UserName">

@@ -25,7 +25,6 @@ namespace Gardener.Core.Entites
         /// </summary>
         public AuditEntity() 
         {
-            this.CreatedTime = DateTimeOffset.Now;
             this.AuditProperties = new List<AuditProperty>();
         }
         /// <summary>

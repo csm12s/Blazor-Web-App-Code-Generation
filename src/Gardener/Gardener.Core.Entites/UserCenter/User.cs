@@ -23,13 +23,6 @@ namespace Gardener.Core.Entites
     public class User : Entity, IEntitySeedData<User>, IEntityTypeBuilder<User>
     {
         /// <summary>
-        /// 
-        /// </summary>
-        public User()
-        {
-            this.CreatedTime = DateTimeOffset.Now;
-        }
-        /// <summary>
         /// 用户名
         /// </summary>
         [Required,StringLength(32)]
@@ -188,6 +181,7 @@ namespace Gardener.Core.Entites
                 {
                     Id=1,
                     UserName="admin",
+                    NickName="管理员",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
                     Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png"
@@ -196,6 +190,7 @@ namespace Gardener.Core.Entites
                 {
                     Id=2,
                     UserName="testuser",
+                    NickName="测试员",
                     PasswordEncryptKey=passwordEncryptKey,
                     Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
                     Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"

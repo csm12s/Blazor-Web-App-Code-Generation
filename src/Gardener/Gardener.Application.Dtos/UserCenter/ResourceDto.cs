@@ -62,10 +62,6 @@ namespace Gardener.Application.Dtos
         /// </summary>
         public Guid? ParentId { get; set; }
         /// <summary>
-        /// 父级
-        /// </summary>
-        //public ResourceDto Parent { get; set; }
-        /// <summary>
         /// 子集
         /// </summary>
         public ICollection<ResourceDto> Children { get; set; }
