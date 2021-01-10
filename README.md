@@ -14,6 +14,8 @@
   - 资源分配
 - 资源管理
 - 附件管理
+- 操作审计
+- 数据审计
 
 ## 项目特点
 - 新：.Net5 、Blazor WebAssembly 、Furion ；全部新鲜。
@@ -64,6 +66,9 @@
 <img src="https://images.gitee.com/uploads/images/2020/1204/160750_e2d69ed2_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2020/1204/160758_7192619c_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2020/1204/160739_fe82dff5_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0110/204258_f869ad45_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0110/204309_f9c711ba_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0110/204318_0cb9fadc_302533.png" width="260px"/>
 
 ## 基情链接
 👉 **[Furion](https://gitee.com/monksoul/Furion)**
