@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using Gardener.Core.Entites;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Http;

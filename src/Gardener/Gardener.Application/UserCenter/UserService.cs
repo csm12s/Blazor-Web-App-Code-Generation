@@ -250,7 +250,13 @@ namespace Gardener.Application
         /// <returns></returns>
         public async Task<bool> UpdateAvatar(UserUpdateAvatarInput input)
         {
-            await _userRepository.UpdateIncludeAsync(new User { Id = input.Id, Avatar = input.Avatar, UpdatedTime = DateTime.Now }, new[] { nameof(User.Avatar), nameof(User.UpdatedTime) });
+            await _userRepository.UpdateIncludeAsync(new User {
+                Id = input.Id, 
+                Avatar = input.Avatar,
+                UpdatedTime = DateTime.Now 
+            }, new[] { 
+                nameof(User.Avatar), 
+                nameof(User.UpdatedTime) });
             return true;
 
         }

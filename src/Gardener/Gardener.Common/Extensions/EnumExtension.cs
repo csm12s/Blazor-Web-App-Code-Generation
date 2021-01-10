@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using Gardener.Enums;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace Gardener.Common
                 DescriptionAttribute descAttr = attrs[0] as DescriptionAttribute;
                 return descAttr.Description;
             }
-            return string.Empty;
+            return null;
         }
     }
 }

@@ -27,12 +27,6 @@ namespace Gardener.Client.Shared
         /// 菜单栏收缩
         /// </summary>
         private bool collapsed;
-        private readonly LinkItem[] _links =
-        {
-                new LinkItem{ Key = "1", BlankTarget = true, Title = "Furion" ,Href="https://gitee.com/monksoul/Furion"},
-                new LinkItem{ Key = "2", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-blazor"},
-                new LinkItem{ Key = "3", BlankTarget = true, Title = "Ant Design Pro",Href="https://github.com/ant-design-blazor/ant-design-pro-blazor"}
-        };
         /// <summary>
         /// 系统配置服务
         /// </summary>

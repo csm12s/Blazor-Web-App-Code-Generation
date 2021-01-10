@@ -98,7 +98,7 @@ namespace Gardener.Client
             else
             {
                 //失败时退出登录
-                await Logout();
+                //await Logout();
             }
         }
         #endregion

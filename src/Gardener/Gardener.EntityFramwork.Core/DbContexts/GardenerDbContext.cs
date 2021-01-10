@@ -6,6 +6,7 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
+using Gardener.Attributes;
 using Gardener.Common;
 using Gardener.Core;
 using Gardener.Core.Audit;
@@ -109,14 +110,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
                         case EntityState.Added: auditEntity.OperationType = OperationType.Add; break;
                         case EntityState.Deleted: auditEntity.OperationType = OperationType.Delete; break;
                     }
-
-                    //添加的时候需要在保存结束时设置主键值和属性变更结果
-                    //if (!EntityState.Added.Equals(entity.State))
-                    //{
-                    //    var (pkValues, auditProperties) = GetAuditProperties(auditEntity.OperationType, currentValues, entity.GetDatabaseValues());
-                    //    auditEntity.DataId = string.Join(',', pkValues);
-                    //    auditEntity.AuditProperties = auditProperties;
-                    //}
+                    //记录下变化的实体
                     auditEntities.Add(auditEntity);
                 }
                 auditDataManager.SetAuditEntitys(auditEntities);
@@ -144,7 +138,6 @@ namespace Gardener.EntityFramwork.Core.DbContexts
 
                 foreach (var entity in auditEntitys)
                 {
-                    //if (!entity.OperationType.Equals(OperationType.Add)) continue;
                     var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
                     entity.DataId = string.Join(',', pkValues);
                     entity.AuditProperties = auditProperties;
@@ -175,10 +168,15 @@ namespace Gardener.EntityFramwork.Core.DbContexts
             // 遍历所有的属性
             foreach (var prop in props)
             {
+                //不需要审计
+                if (prop.PropertyInfo.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) continue;
                 // 获取属性值
                 var propName = prop.Name;
                 // 获取属性当前的值
                 var newValue = currentValues[propName];
+
+                //添加的时候，空值字段就不记录了
+                if (OperationType.Add.Equals(operationType) && string.IsNullOrEmpty(ValueToString(newValue))) continue;
                 object oldValue = null;
                 if (originalValues != null)
                 {
@@ -242,6 +240,12 @@ namespace Gardener.EntityFramwork.Core.DbContexts
             else if (value is Guid)
             {
                 if (value.Equals(Guid.Empty)) return null;
+            }
+            else if (value.GetType().IsSubclassOf(typeof(Enum)))
+            {
+                //枚举展示的是Description
+                var des= EnumExtension.GetEnumDescription((Enum)value);
+                return des ?? value.ToString();
             }
             return value.ToString();
 

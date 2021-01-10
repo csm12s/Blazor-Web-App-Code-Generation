@@ -145,11 +145,6 @@
             API
             </summary>
         </member>
-        <member name="T:Gardener.Enums.IgnoreOnConvertToMapAttribute">
-            <summary>
-            Enum 转换集合时忽略
-            </summary>
-        </member>
         <member name="T:Gardener.Enums.ExceptionCode">
             <summary>
             异常状态码

@@ -36,6 +36,7 @@ namespace Gardener.Client.Pages.UserCenter
                 var user = await userService.Get(id);
                 if (user != null)
                 {
+                    user.Password = null;
                     if (user.UserExtension == null) user.UserExtension = new UserExtensionDto() { UserId=user.Id };
                     //赋值给编辑对象
                     user.Adapt(_editModel);

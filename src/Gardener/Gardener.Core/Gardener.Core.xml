@@ -115,11 +115,6 @@
             <param name="auditOperation"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Core.IgnoreAuditAttribute">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:Gardener.Core.FileStore.IFileStoreService">
             <summary>
             文件存储服务

@@ -1,4 +1,6 @@
-﻿<Table DataSource="@AuditProperties" Bordered=@true Size=@TableSize.Small HidePagination="true">
+﻿<Table
+       PageSize="AuditProperties.Count"
+       DataSource="@AuditProperties" Bordered=@true Size=@TableSize.Small HidePagination="true">
     <Column Title="字段名称" @bind-Field="@context.FieldName" />
     <Column Title="字段说明" @bind-Field="@context.DisplayName" />
     <Column Title="数据类型" @bind-Field="@context.DataType" />

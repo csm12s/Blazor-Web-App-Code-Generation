@@ -8,4 +8,8 @@
     <DocumentationFile>Gardener.Enums.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gardener.Attributes\Gardener.Attributes.csproj" />
+  </ItemGroup>
+
 </Project>

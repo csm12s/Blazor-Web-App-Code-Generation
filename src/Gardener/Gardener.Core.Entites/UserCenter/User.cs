@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
+using Gardener.Attributes;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -184,7 +185,8 @@ namespace Gardener.Core.Entites
                     NickName="管理员",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png"
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    CreatedTime=DateTimeOffset.Now
                 },
                 new User
                 {
@@ -193,7 +195,8 @@ namespace Gardener.Core.Entites
                     NickName="测试员",
                     PasswordEncryptKey=passwordEncryptKey,
                     Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
-                    Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"
+                    Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+                    CreatedTime=DateTimeOffset.Now
                 }
             };
         }

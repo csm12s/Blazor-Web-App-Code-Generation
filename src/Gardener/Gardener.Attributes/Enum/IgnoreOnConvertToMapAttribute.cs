@@ -6,13 +6,13 @@
 
 using System;
 
-namespace Gardener.Core
+namespace Gardener.Attributes
 {
     /// <summary>
-    /// 
+    /// Enum 转换集合时忽略
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Method)]
-    public class IgnoreAuditAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Field)]
+    public class IgnoreOnConvertToMapAttribute : Attribute
     {
     }
 }
