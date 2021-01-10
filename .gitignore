@@ -343,3 +343,7 @@ healthchecksdb
 /src/services/YiPaiKe/YiPaiKe.Application/YiPaiKe.Application.xml
 Migrations/
 upload/
+logs/
+Gardener.Core.Entites.xml
+Gardener.Enums.xml
+Gardener.Application.Dtos.xml
