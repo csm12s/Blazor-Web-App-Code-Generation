@@ -21,7 +21,7 @@ namespace Gardener.Core.Entites
     /// 用户表
     /// </summary>
     [Description("用户信息")]
-    public class User : Entity, IEntitySeedData<User>, IEntityTypeBuilder<User>
+    public class User : Entity, IEntitySeedData<User>, IEntityTypeBuilder<User>, ILockEntity
     {
         /// <summary>
         /// 用户名
@@ -95,11 +95,13 @@ namespace Gardener.Core.Entites
         /// 用户扩展信息
         /// </summary>
         public UserExtension UserExtension { get; set; }
+
         /// <summary>
         /// 是否锁定
         /// </summary>
         [DisplayName("是否锁定")]
         public bool IsLocked { get; set; }
+
         /// <summary>
         /// 配置多对多关系
         /// </summary>

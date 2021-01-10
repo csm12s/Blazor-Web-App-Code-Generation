@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Application.Interfaces
 {
-    public interface IUserService:IApplicationServiceBase<UserDto, int>
+    public interface IUserService:IApplicationServiceBase<UserDto, int>,IApplicationLockServiceBase<int>
     {
         Task<List<ResourceDto>> GetResources(int userId);
         Task<List<RoleDto>> GetRoles(int userId);

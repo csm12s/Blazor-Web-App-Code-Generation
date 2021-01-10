@@ -25,15 +25,15 @@ namespace Gardener.Application
     /// <typeparam name="TEntity">数据实体类型</typeparam>
     /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
     /// <typeparam name="TKey">数据实体主键类型</typeparam>
-    public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IApplicationServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    public abstract class ApplicationServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IApplicationServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
         private readonly IRepository<TEntity> _repository;
         /// <summary>
         /// 继承此类即可实现基础方法
-        /// CURD、获取全部、分页获取
+        /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ServiceBase(IRepository<TEntity> repository)
+        protected ApplicationServiceBase(IRepository<TEntity> repository)
         {
             _repository = repository;
         }
@@ -147,55 +147,39 @@ namespace Gardener.Application
 
             return result;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="isLocked"></param>
-        /// <returns></returns>
-        [HttpPut]
-        public async Task<bool> Lock([ApiSeat(ApiSeats.ActionStart)] TKey id,bool isLocked = true)
-        {
-            var entity = Activator.CreateInstance<TEntity>();
-            if (entity.SetPropertyValue("Id", id) &&
-             entity.SetPropertyValue("IsLocked", isLocked))
-            {
-               await _repository.UpdateIncludeExistsAsync(entity, new []{ "IsLocked" });
-            }
-            return true;
-        }
     }
+
     /// <summary>
     /// 继承此类即可实现基础方法
-    /// CURD、获取全部、分页获取 
+    /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
     /// <typeparam name="TEntity">数据实体类型</typeparam>
-    public abstract class ServiceBase<TEntity> : ServiceBase<TEntity, TEntity, int> where TEntity : class, IPrivateEntity, new()
+    public abstract class ApplicationServiceBase<TEntity> : ApplicationServiceBase<TEntity, TEntity, int> where TEntity : class, IPrivateEntity, new()
     {
         /// <summary>
         /// 继承此类即可实现基础方法
-        /// CURD、获取全部、分页获取 
+        /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
+        protected ApplicationServiceBase(IRepository<TEntity> repository) : base(repository)
         {
         }
     }
 
     /// <summary>
     /// 继承此类即可实现基础方法
-    /// CURD、获取全部、分页获取 
+    /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
     /// <typeparam name="TEntity">数据实体类型</typeparam>
     /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-    public abstract class ServiceBase<TEntity, TEntityDto> : ServiceBase<TEntity, TEntityDto, int> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    public abstract class ApplicationServiceBase<TEntity, TEntityDto> : ApplicationServiceBase<TEntity, TEntityDto, int> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
         /// <summary>
         /// 继承此类即可实现基础方法
-        /// CURD、获取全部、分页获取
+        /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
+        protected ApplicationServiceBase(IRepository<TEntity> repository) : base(repository)
         {
         }
     }

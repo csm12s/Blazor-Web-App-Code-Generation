@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace Gardener.Application.Interfaces
 {
     /// <summary>
+    /// 定义了基础方法
     /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
     /// <typeparam name="TEntityDto"></typeparam>
@@ -71,12 +72,5 @@ namespace Gardener.Application.Interfaces
         /// <param name="input"></param>
         /// <returns></returns>
         Task<bool> Update(TEntityDto input);
-        /// <summary>
-        ///  锁定、解锁
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="islocked"></param>
-        /// <returns></returns>
-        Task<bool> Lock(TKey id,bool islocked = true);
     }
 }

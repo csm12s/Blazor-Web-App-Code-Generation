@@ -4,6 +4,166 @@
         <name>Gardener.Application</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Application.ApplicationServiceBase`3">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+            <typeparam name="TKey">数据实体主键类型</typeparam>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Insert(`1)">
+            <summary>
+            新增一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Update(`1)">
+            <summary>
+            更新一条
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Delete(`2)">
+            <summary>
+            删除一条
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Deletes(`2[])">
+            <summary>
+            删除多条
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.FakeDelete(`2)">
+            <summary>
+            删除一条(逻辑删除)
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.FakeDeletes(`2[])">
+            <summary>
+            删除一条(逻辑删除)
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Get(`2)">
+            <summary>
+            查询一条
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.GetAll">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.GetPage(System.Int32,System.Int32)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.ApplicationServiceBase`1">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="T:Gardener.Application.ApplicationServiceBase`2">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="T:Gardener.Application.LockExtendServiceBase`3">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取、锁定
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+            <typeparam name="TKey">数据实体主键类型</typeparam>
+        </member>
+        <member name="F:Gardener.Application.LockExtendServiceBase`3._repository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.LockExtendServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Application.LockExtendServiceBase`3.Lock(`2,System.Boolean)">
+            <summary>
+            锁定
+            </summary>
+            <param name="id"></param>
+            <param name="isLocked"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.LockExtendServiceBase`1">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取、锁定
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+        </member>
+        <member name="M:Gardener.Application.LockExtendServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取、锁定
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="T:Gardener.Application.LockExtendServiceBase`2">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取、锁定
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+        </member>
+        <member name="M:Gardener.Application.LockExtendServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取、锁定
+            </summary>
+            <param name="repository"></param>
+        </member>
         <member name="T:Gardener.Application.PagedQueryableExtensions">
             <summary>
             分部拓展类
@@ -57,117 +217,6 @@
             <param name="query"></param>
             <param name="orderConditions"></param>
             <returns></returns>
-        </member>
-        <member name="T:Gardener.Application.ServiceBase`3">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取 
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-            <typeparam name="TKey">数据实体主键类型</typeparam>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            继承此类即可实现基础方法
-            CURD、获取全部、分页获取
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.Insert(`1)">
-            <summary>
-            新增一条
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.Update(`1)">
-            <summary>
-            更新一条
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.Delete(`2)">
-            <summary>
-            删除一条
-            </summary>
-            <param name="id"></param>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.Deletes(`2[])">
-            <summary>
-            删除多条
-            </summary>
-            <param name="ids"></param>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.FakeDelete(`2)">
-            <summary>
-            删除一条(逻辑删除)
-            </summary>
-            <param name="id"></param>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.FakeDeletes(`2[])">
-            <summary>
-            删除一条(逻辑删除)
-            </summary>
-            <param name="ids"></param>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.Get(`2)">
-            <summary>
-            查询一条
-            </summary>
-            <param name="id"></param>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.GetAll">
-            <summary>
-            查询所有
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.GetPage(System.Int32,System.Int32)">
-            <summary>
-            分页查询
-            </summary>
-            <param name="pageIndex"></param>
-            <param name="pageSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`3.Lock(`2,System.Boolean)">
-            <summary>
-            
-            </summary>
-            <param name="id"></param>
-            <param name="isLocked"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.Application.ServiceBase`1">
-            <summary>
-            继承此类即可实现基础方法
-            CURD、获取全部、分页获取 
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            继承此类即可实现基础方法
-            CURD、获取全部、分页获取 
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="T:Gardener.Application.ServiceBase`2">
-            <summary>
-            继承此类即可实现基础方法
-            CURD、获取全部、分页获取 
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-        </member>
-        <member name="M:Gardener.Application.ServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            继承此类即可实现基础方法
-            CURD、获取全部、分页获取
-            </summary>
-            <param name="repository"></param>
         </member>
         <member name="T:Gardener.Application.SystemManager.AttachmentService">
             <summary>

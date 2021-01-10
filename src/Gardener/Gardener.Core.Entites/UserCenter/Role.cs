@@ -18,7 +18,7 @@ namespace Gardener.Core.Entites
     /// 角色表
     /// </summary>
     [Description("角色信息")]
-    public class Role : Entity, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
+    public class Role : Entity, IEntitySeedData<Role>, IEntityTypeBuilder<Role>,ILockEntity
     {
         /// <summary>
         /// 角色名称

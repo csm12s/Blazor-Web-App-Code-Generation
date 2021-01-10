@@ -22,7 +22,7 @@ namespace Gardener.Application.SystemManager
     /// 审计操作服务
     /// </summary>
     [ApiDescriptionSettings("BaseDataServices")]
-    public class AuditOperationService : ServiceBase<AuditOperation, AuditOperationDto, Guid>, IAuditOperationService
+    public class AuditOperationService : ApplicationServiceBase<AuditOperation, AuditOperationDto, Guid>, IAuditOperationService
     {
         private readonly IRepository<AuditOperation> _repository;
         private readonly IRepository<AuditEntity> _auditEntityRepository;

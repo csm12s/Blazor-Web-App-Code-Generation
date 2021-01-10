@@ -26,7 +26,7 @@ namespace Gardener.Application.SystemManager
     /// 附件服务
     /// </summary>
     [ApiDescriptionSettings("BaseDataServices")]
-    public class AttachmentService : ServiceBase<Attachment, AttachmentDto, Guid>, IAttachmentService
+    public class AttachmentService : ApplicationServiceBase<Attachment, AttachmentDto, Guid>, IAttachmentService
     {
         private readonly IFileStoreService fileStoreService;
         private readonly IRepository<Attachment> repository;
