@@ -60,7 +60,7 @@ namespace Gardener.Application
         /// <summary>
         /// 为角色分配权限（重置）
         /// </summary>
-        public async Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, Guid[] resourceIds)
+        public async Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId,[FromBody] Guid[] resourceIds)
         {
             //先删除所有资源
             await DeleteResource(roleId);

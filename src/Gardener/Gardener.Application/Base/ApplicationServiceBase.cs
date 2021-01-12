@@ -82,7 +82,7 @@ namespace Gardener.Application
         /// </summary>
         /// <param name="ids"></param>
         [HttpPost]
-        public virtual async Task<bool> Deletes(TKey[] ids)
+        public virtual async Task<bool> Deletes([FromBody] TKey[] ids)
         {
             foreach (TKey id in ids)
             {
@@ -105,7 +105,7 @@ namespace Gardener.Application
         /// </summary>
         /// <param name="ids"></param>
         [HttpPost]
-        public virtual async Task<bool> FakeDeletes(TKey[] ids)
+        public virtual async Task<bool> FakeDeletes([FromBody] TKey[] ids)
         {
             foreach (TKey id in ids)
             {

@@ -29,7 +29,9 @@ namespace Gardener.Client.Pages.UserCenter
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-        Tree tree;
+        //资源树
+        Tree<ResourceDto> tree;
+        //当前节点展开状态
         private bool isExpanded;
         /// <summary>
         /// 页面初始化完成
@@ -58,23 +60,6 @@ namespace Gardener.Client.Pages.UserCenter
             treeIsLoading = false;
         }
         /// <summary>
-        /// 递归展开或关闭节点
-        /// </summary>
-        /// <param name="nodes"></param>
-        /// <param name="flag"></param>
-        /// <returns></returns>
-        private async Task Expand(List<TreeNode> nodes, bool flag)
-        {
-            foreach (var node in nodes)
-            {
-                node.Expand(flag);
-                if (node.ChildNodes != null && node.ChildNodes.Count > 0)
-                {
-                    await Expand(node.ChildNodes, flag);
-                }
-            }
-        }
-        /// <summary>
         /// 当展开关闭点击时触发
         /// </summary>
         /// <returns></returns>
@@ -86,12 +71,12 @@ namespace Gardener.Client.Pages.UserCenter
             if (selectedNode != null)
             {
                 //仅操作选中的节点
-                await Expand(new List<TreeNode> { selectedNode }, isExpanded);
+                await tree.ExpandAll(new List<TreeNode<ResourceDto>> { selectedNode }, isExpanded);
             }
             else
             {
                 //操作所有的节点
-                await Expand(tree.ChildNodes, isExpanded);
+                await tree.ExpandAll(tree.ChildNodes, isExpanded);
             }
         }
         /// <summary>
@@ -106,7 +91,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// 加载子节点
         /// </summary>
         /// <param name="args"></param>
-        private async Task OnNodeLoadDelayAsync(TreeEventArgs args)
+        private async Task OnNodeLoadDelayAsync(TreeEventArgs<ResourceDto> args)
         {
             treeIsLoading = true;
             var parentNode = ((ResourceDto)args.Node.DataItem);
@@ -133,12 +118,11 @@ namespace Gardener.Client.Pages.UserCenter
         /// 点击节点
         /// </summary>
         /// <param name="args"></param>
-        private async Task OnNodeClick(TreeEventArgs args)
+        private async Task OnNodeClick(TreeEventArgs<ResourceDto> args)
         {
             descriptionsIsLoading = true;
-            isExpanded = args.Node.IsExpanded;
-            var id = ((ResourceDto)args.Node.DataItem).Id;
-
+            isExpanded = args.Node.Expanded;
+            var id = args.Node.DataItem.Id;
             var resource = await resourceService.Get(id);
             if (resource != null)
             {
@@ -151,21 +135,19 @@ namespace Gardener.Client.Pages.UserCenter
 
             descriptionsIsLoading = false;
         }
-
         private bool descriptionsIsLoading;
         //信息展示区域显示
         private ResourceDto selectedModel = new ResourceDto();
-
         /// <summary>
         /// 删除选中节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnDeleteSelectedNodeClick(TreeNode node)
+        private async Task OnDeleteSelectedNodeClick(TreeNode<ResourceDto> node)
         {
             var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
             {
-                var resource = ((ResourceDto)selectedNode.DataItem);
+                var resource = selectedNode.DataItem;
                 if (resource.Type.Equals(ResourceType.Root))
                 {
                     messageService.Error("根节点无法删除");
@@ -180,7 +162,7 @@ namespace Gardener.Client.Pages.UserCenter
                     var result = await resourceService.FakeDeletes(ids.ToArray());
                     if (result)
                     {
-                        var parentNode = ((ResourceDto)selectedNode.ParentNode.DataItem);
+                        var parentNode = selectedNode.ParentNode.DataItem;
                         parentNode.Children.Remove(resource);
                         messageService.Success("删除成功");
                     }
@@ -222,7 +204,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// 编辑选中节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnEditSelectedNodeClick(TreeNode node)
+        private async Task OnEditSelectedNodeClick(TreeNode<ResourceDto> node)
         {
             var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
@@ -244,7 +226,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// 添加子节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnAddChildNodeClick(TreeNode node)
+        private async Task OnAddChildNodeClick(TreeNode<ResourceDto> node)
         {
             var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)

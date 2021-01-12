@@ -21,14 +21,15 @@
     <Row>
         <AntDesign.Col Span="24">
             <Tree @ref="_tree"
+                  TItem="ResourceDto"
                   ShowLine
                   ShowIcon
                   Checkable
-                  Multiple
                   DataSource="_resources"
-                  TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
-                  ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
-                  IconExpression="x=>((ResourceDto)x.DataItem).Icon"
+                  KeyExpression="x=>x.Id.ToString()"
+                  TitleExpression="x=> x.DataItem.GetFullName()"
+                  ChildrenExpression="x=>x.DataItem.Children?.ToList()"
+                  IconExpression="x=>x.DataItem.Icon"
                   IsLeafExpression="x=>false"
                   Style="min-height:466px;min-width:400px">
             </Tree>
