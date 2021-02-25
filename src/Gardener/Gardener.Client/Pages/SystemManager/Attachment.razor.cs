@@ -74,7 +74,7 @@ namespace Gardener.Client.Pages.SystemManager
 
             searchInput.OrderConditions = queryModel.
                 SortModel.
-                Where(x => x.SortType.Value > 0).
+                Where(x => int.Parse(x.Sort) > 0).
                 Select(x => x.Adapt<SearchSort>()).ToArray();
 
             await ReLoadTable();

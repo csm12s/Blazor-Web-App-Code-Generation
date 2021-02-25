@@ -29,7 +29,7 @@ namespace Gardener.Client.Pages.UserCenter
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-        Tree tree;
+        Tree<ResourceDto> tree;
         private bool isExpanded;
         /// <summary>
         /// 页面初始化完成
@@ -63,7 +63,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="nodes"></param>
         /// <param name="flag"></param>
         /// <returns></returns>
-        private async Task Expand(List<TreeNode> nodes, bool flag)
+        private async Task Expand(List<TreeNode<ResourceDto>> nodes, bool flag)
         {
             foreach (var node in nodes)
             {
@@ -86,7 +86,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (selectedNode != null)
             {
                 //仅操作选中的节点
-                await Expand(new List<TreeNode> { selectedNode }, isExpanded);
+                await Expand(new List<TreeNode<ResourceDto>> { selectedNode }, isExpanded);
             }
             else
             {
@@ -106,10 +106,10 @@ namespace Gardener.Client.Pages.UserCenter
         /// 加载子节点
         /// </summary>
         /// <param name="args"></param>
-        private async Task OnNodeLoadDelayAsync(TreeEventArgs args)
+        private async Task OnNodeLoadDelayAsync(TreeEventArgs<ResourceDto> args)
         {
             treeIsLoading = true;
-            var parentNode = ((ResourceDto)args.Node.DataItem);
+            var parentNode = args.Node.DataItem;
             parentNode.Children = new List<ResourceDto>();
             var resourceResult = await resourceService.GetChildren(parentNode.Id);
             if (resourceResult != null)
@@ -133,11 +133,11 @@ namespace Gardener.Client.Pages.UserCenter
         /// 点击节点
         /// </summary>
         /// <param name="args"></param>
-        private async Task OnNodeClick(TreeEventArgs args)
+        private async Task OnNodeClick(TreeEventArgs<ResourceDto> args)
         {
             descriptionsIsLoading = true;
-            isExpanded = args.Node.IsExpanded;
-            var id = ((ResourceDto)args.Node.DataItem).Id;
+            isExpanded = args.Node.Expanded;
+            var id = args.Node.DataItem.Id;
 
             var resource = await resourceService.Get(id);
             if (resource != null)
@@ -160,12 +160,12 @@ namespace Gardener.Client.Pages.UserCenter
         /// 删除选中节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnDeleteSelectedNodeClick(TreeNode node)
+        private async Task OnDeleteSelectedNodeClick(TreeNode<ResourceDto> node)
         {
             var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
             {
-                var resource = ((ResourceDto)selectedNode.DataItem);
+                var resource = selectedNode.DataItem;
                 if (resource.Type.Equals(ResourceType.Root))
                 {
                     messageService.Error("根节点无法删除");
@@ -180,7 +180,7 @@ namespace Gardener.Client.Pages.UserCenter
                     var result = await resourceService.FakeDeletes(ids.ToArray());
                     if (result)
                     {
-                        var parentNode = ((ResourceDto)selectedNode.ParentNode.DataItem);
+                        var parentNode = selectedNode.ParentNode.DataItem;
                         parentNode.Children.Remove(resource);
                         messageService.Success("删除成功");
                     }
@@ -222,13 +222,13 @@ namespace Gardener.Client.Pages.UserCenter
         /// 编辑选中节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnEditSelectedNodeClick(TreeNode node)
+        private async Task OnEditSelectedNodeClick(TreeNode<ResourceDto> node)
         {
             var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
             {
                 var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
-                    new ResourceEditOption() { Type = 1, SelectedResourceId = ((ResourceDto)selectedNode.DataItem).Id },
+                    new ResourceEditOption() { Type = 1, SelectedResourceId = selectedNode.DataItem.Id },
                     true,
                     title: "编辑",
                     width: 400,
@@ -244,13 +244,13 @@ namespace Gardener.Client.Pages.UserCenter
         /// 添加子节点
         /// </summary>
         /// <returns></returns>
-        private async Task OnAddChildNodeClick(TreeNode node)
+        private async Task OnAddChildNodeClick(TreeNode<ResourceDto> node)
         {
             var selectedNode = node ?? tree.SelectedNodes?.FirstOrDefault();
             if (selectedNode != null)
             {
                 var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
-                    new ResourceEditOption() { Type = 0, SelectedResourceId = ((ResourceDto)selectedNode.DataItem).Id },
+                    new ResourceEditOption() { Type = 0, SelectedResourceId = selectedNode.DataItem.Id },
                     true,
                     title: "添加",
                     width: 400,
