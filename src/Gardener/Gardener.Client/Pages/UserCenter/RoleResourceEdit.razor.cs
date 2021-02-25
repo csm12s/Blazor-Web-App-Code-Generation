@@ -17,7 +17,7 @@ namespace Gardener.Client.Pages.UserCenter
 {
     public partial class RoleResourceEdit : DrawerTemplate<int, bool>
     {
-        private Tree _tree;
+        private Tree<ResourceDto> _tree;
         private bool _isExpanded;
         private bool _isLoading;
         private int _roleId = 0;
@@ -58,13 +58,13 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="nodes"></param>
         /// <param name="flag"></param>
         /// <returns></returns>
-        private async Task Check(List<TreeNode> nodes, Func<Guid, bool> flagFunc)
+        private async Task Check(List<TreeNode<ResourceDto>> nodes, Func<Guid, bool> flagFunc)
         {
             foreach (var node in nodes)
             {
-                var flag = flagFunc(((ResourceDto)node.DataItem).Id);
+                var flag = flagFunc(node.DataItem.Id);
                 //有变化再进行变更
-                if (node.IsChecked != flag)
+                if (node.Checked != flag)
                 {
                     node.SetChecked(flag);
                 }
@@ -115,13 +115,13 @@ namespace Gardener.Client.Pages.UserCenter
 
             if (_tree.CheckedNodes?.Count > 0)
             {
-                List<TreeNode> parents = new List<TreeNode>();
+                List<TreeNode<ResourceDto>> parents = new List<TreeNode<ResourceDto>>();
                 _tree.CheckedNodes.ForEach(x =>
                 {
                     parents.AddRange(GetParents(x));
                 });
                 parents.AddRange(_tree.CheckedNodes);
-                resourceIds = parents.Select(x => ((ResourceDto)x.DataItem).Id).Distinct().ToArray();
+                resourceIds = parents.Select(x => x.DataItem.Id).Distinct().ToArray();
             }
             //删除所有资源
             var result = await roleService.Resource(_roleId, resourceIds);
@@ -141,9 +141,9 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        private List<TreeNode> GetParents(TreeNode node)
+        private List<TreeNode<ResourceDto>> GetParents(TreeNode<ResourceDto> node)
         {
-            List<TreeNode> ids = new List<TreeNode>();
+            List<TreeNode<ResourceDto>> ids = new List<TreeNode<ResourceDto>>();
             if (node.ParentNode != null)
             {
                 ids.Add(node.ParentNode);
@@ -157,7 +157,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// <param name="nodes"></param>
         /// <param name="flag"></param>
         /// <returns></returns>
-        private async Task Expand(List<TreeNode> nodes, bool flag)
+        private async Task Expand(List<TreeNode<ResourceDto>> nodes, bool flag)
         {
             foreach (var node in nodes)
             {
@@ -180,7 +180,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (selectedNode != null)
             {
                 //仅操作选中的节点
-                await Expand(new List<TreeNode> { selectedNode }, _isExpanded);
+                await Expand(new List<TreeNode<ResourceDto>> { selectedNode }, _isExpanded);
             }
             else
             {

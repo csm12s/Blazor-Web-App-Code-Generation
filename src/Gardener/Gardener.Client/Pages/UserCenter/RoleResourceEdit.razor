@@ -27,7 +27,7 @@
                   Multiple
                   DataSource="_resources"
                   TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
-                  ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
+                  ChildrenExpression="x=>((ResourceDto)x.DataItem).Children?.ToList()"
                   IconExpression="x=>((ResourceDto)x.DataItem).Icon"
                   IsLeafExpression="x=>false"
                   Style="min-height:466px;min-width:400px">

@@ -58,11 +58,11 @@
                                     <Tree @ref="tree"
                                           ShowLine
                                           TitleExpression="x=> ((ResourceDto)x.DataItem).GetFullName()"
-                                          ChildrenExpression="x=>((ResourceDto)x.DataItem).Children"
+                                          ChildrenExpression="x=>((ResourceDto)x.DataItem).Children?.ToList()"
                                           IconExpression="x=>((ResourceDto)x.DataItem).Icon"
                                           IsLeafExpression="x=>false"
-                                          OnClick="OnNodeClick"
-                                          OnExpandChanged="e=> { isExpanded = e.Node.IsExpanded; }"
+                                          OnClick="(TreeEventArgs<ResourceDto> o) => OnNodeClick(o)"
+                                          OnExpandChanged="(TreeEventArgs<ResourceDto> e)=> { isExpanded = e.Node.Expanded; }"
                                           Style="min-height:466px;">
                                         <TitleTemplate Context="node">
                                             <div class="tree-node">

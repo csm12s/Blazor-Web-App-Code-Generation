@@ -79,7 +79,7 @@ namespace Gardener.Client.Pages.SystemManager.Audit
 
             searchInput.OrderConditions = queryModel.
                 SortModel.
-                Where(x => x.SortType.Value > 0).
+                Where(x => int.Parse(x.Sort) > 0).
                 Select(x => x.Adapt<SearchSort>()).ToArray();
             if (searchInput.OrderConditions.Length == 0)
             {

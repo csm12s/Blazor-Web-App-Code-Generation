@@ -19,7 +19,7 @@ namespace Gardener.Client.Extensions
             TypeAdapterConfig<ITableSortModel, SearchSort>
                     .NewConfig()
                     .Map(s => s.FieldName, d => d.FieldName)
-                    .Map(s=>s.SortType,d=> d.SortType.Value == 2 ? SearchSortType.Desc : SearchSortType.Asc);
+                    .Map(s=>s.SortType,d=> int.Parse(d.Sort) == 2 ? SearchSortType.Desc : SearchSortType.Asc);
 
             return services;
         }
