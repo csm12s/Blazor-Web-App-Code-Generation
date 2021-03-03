@@ -53,7 +53,7 @@
 
 
 ## 常见问题
-- 如何切换数据库：项目ORM框架使用的是EF，默认已使用sqlite，切换其它数据库首先需要通过nuget安装ef对应的支持包到`Gardener.EntityFramwork.Core`（[看这里](https://monksoul.gitee.io/furion/docs/dbcontext-multi-database)），然后需要调整以下文件
+- 如何切换数据库：项目ORM框架使用的是EF，默认已使用sqlite，切换其它数据库首先需要通过nuget安装ef对应的支持包到`Gardener.EntityFramwork.Core`（[看这里](https://dotnetchina.gitee.io/furion/docs/dbcontext-start#9011-%E5%AE%89%E8%A3%85%E5%AF%B9%E5%BA%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8C%85)），然后需要调整以下文件
 `Gardener.EntityFramwork.Core.DbContexts.GardenerDbContext`
 `Gardener.EntityFramwork.Core/dbsettings.json`
 `Gardener.EntityFramwork.Core/GardenerEntityFrameworkCoreStartup`
