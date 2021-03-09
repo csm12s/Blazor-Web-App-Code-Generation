@@ -70,7 +70,7 @@ namespace Gardener.Client.Components
         protected override async Task OnInitializedAsync()
         {
             var isAuth = await authenticationStateManager.CheckCurrentUserHaveBtnResourceKey(ResourceKey);
-            state = isAuth ? 1 : -1;
+            state = (short)(isAuth ? 1 : -1);
         }
     }
 }
