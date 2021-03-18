@@ -37,21 +37,6 @@
                 }
             </RadioGroup>
         </FormItem>
-        @if (model.Type.Equals(ResourceType.Api))
-        {
-            <FormItem Label="请求方法">
-                <SimpleSelect @bind-Value="@_currentEditModelHttpMethodType"
-                              DefaultValue="@((model.Method ?? HttpMethodType.GET).ToString())"
-                              Style="width:120px;">
-                    <SelectOptions>
-                        @foreach (var gitem in EnumExtension.EnumToDictionary<HttpMethodType>())
-                        {
-                            <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@(gitem.Value)"></SimpleSelectOption>
-                        }
-                    </SelectOptions>
-                </SimpleSelect>
-            </FormItem>
-        }
         <FormItem Label="地址">
             <Input @bind-Value="@model.Path" />
         </FormItem>
@@ -64,12 +49,7 @@
         <FormItem Label="是否锁定">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
-        @if (model.Type.Equals(ResourceType.Api))
-        {
-            <FormItem Label="是否审计">
-                <Switch @bind-Value="@model.EnableAudit"></Switch>
-            </FormItem>
-        }
+        
         <FormItem Label="备注">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>

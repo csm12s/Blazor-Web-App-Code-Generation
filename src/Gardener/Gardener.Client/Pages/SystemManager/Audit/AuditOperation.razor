@@ -17,6 +17,7 @@
                    @bind-PageSize="searchInput.PageSize"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
+                   RowExpandable="@(r=>true)"
                    Context="model">
                 <TitleTemplate>
                     <Row>
@@ -45,14 +46,12 @@
                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column Title="操作人" @bind-Field="@model.OperaterName" />
-                    <Column Title="操作时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
-                    <Column Title="资源名" @bind-Field="@model.ResourceName" />
-                    <Column Title="IP" @bind-Field="@model.Ip" />
-                    <Column Title="请求方法" @bind-Field="@model.Method" />
-                    <Column Title="请求地址" @bind-Field="@model.Path" />
-                    @*<Column Title="请求参数" @bind-Field="@model.Parameters" />
-                    <Column Title="用户标示" @bind-Field="@model.UserAgent" />*@
+                    <Column @bind-Field="@model.OperaterName" />
+                    <Column @bind-Field="@model.ResourceName" />
+                    <Column @bind-Field="@model.Ip" />
+                    <Column @bind-Field="@model.Method" />
+                    <Column @bind-Field="@model.Path" />
+                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_operation_detail">
@@ -64,18 +63,6 @@
                         </Space>
                     </ActionColumn>
                 </RowTemplate>
-                <ExpandTemplate>
-                    <Descriptions Title="详细信息" Bordered Size="@DescriptionsSize.Middle">
-                    @if (!string.IsNullOrEmpty(model.Data.UserAgent))
-                    {
-                        <DescriptionsItem Title="UserAgent" Span="3">@model.Data.UserAgent</DescriptionsItem>
-                    }
-                    @if (!string.IsNullOrEmpty(model.Data.Parameters))
-                    {
-                        <DescriptionsItem Title="Parameters" Span="3">@model.Data.Parameters</DescriptionsItem>
-                    }
-                    </Descriptions>
-                </ExpandTemplate>
             </Table>
         </ChildContent>
     </PageContainer>

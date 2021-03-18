@@ -25,7 +25,7 @@ namespace Gardener.Application.SystemManager
     /// <summary>
     /// 附件服务
     /// </summary>
-    [ApiDescriptionSettings("BaseDataServices")]
+    [ApiDescriptionSettings("SystemManagerServices")]
     public class AttachmentService : ApplicationServiceBase<Attachment, AttachmentDto, Guid>, IAttachmentService
     {
         private readonly IFileStoreService fileStoreService;
@@ -44,6 +44,9 @@ namespace Gardener.Application.SystemManager
         /// <summary>
         /// 上传附件
         /// </summary>
+        /// <remarks>
+        /// 上传单个附件
+        /// </remarks>
         /// <param name="input"></param>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -73,28 +76,33 @@ namespace Gardener.Application.SystemManager
         }
 
         /// <summary>
-        /// 新增一条
+        /// 新增
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [NonAction]
         public override async Task<AttachmentDto> Insert(AttachmentDto input)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 更新一条
+        /// 更新
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [NonAction]
         public override async Task<bool> Update(AttachmentDto input)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 删除一条
+        /// 删除
         /// </summary>
+        /// <remarks>
+        /// 根据主键删除
+        /// </remarks>
         /// <param name="id"></param>
         public override async Task<bool> Delete(Guid id)
         {
@@ -105,8 +113,11 @@ namespace Gardener.Application.SystemManager
             return true;
         }
         /// <summary>
-        /// 删除多条
+        /// 批量删除
         /// </summary>
+        /// <remarks>
+        /// 根据主键批量删除
+        /// </remarks>
         /// <param name="ids"></param>
         [HttpPost]
         public override async Task<bool> Deletes(Guid[] ids)
@@ -118,8 +129,11 @@ namespace Gardener.Application.SystemManager
             return true;
         }
         /// <summary>
-        /// 搜索附件
+        /// 搜索
         /// </summary>
+        /// <remarks>
+        /// 搜索附件数据
+        /// </remarks>
         /// <param name="searchInput"></param>
         /// <returns></returns>
         [HttpPost]

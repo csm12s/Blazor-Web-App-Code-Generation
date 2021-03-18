@@ -76,10 +76,8 @@ namespace Gardener.Client.Pages.SystemManager.Audit
         /// <returns></returns>
         private async Task OnChange(QueryModel<AuditEntityDto> queryModel)
         {
-
             searchInput.OrderConditions = queryModel.
                 SortModel.
-                Where(x => x.SortType.Value > 0).
                 Select(x => x.Adapt<SearchSort>()).ToArray();
             if (searchInput.OrderConditions.Length == 0)
             {

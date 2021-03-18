@@ -131,14 +131,7 @@
                                 </DescriptionsItem>
 
                                 <DescriptionsItem Title="地址" Span="1">
-                                    <Space>
-                                        @if (selectedModel.Type.Equals(ResourceType.Api) && selectedModel.Method.HasValue)
-                                        {
-
-                                            <SpaceItem>@(EnumExtension.GetEnumDescription(selectedModel.Method))</SpaceItem>
-                                        }
-                                        <SpaceItem>@selectedModel.Path</SpaceItem>
-                                    </Space>
+                                    @selectedModel.Path
                                 </DescriptionsItem>
                                 <DescriptionsItem Title="备注" Span="2">
                                     @selectedModel.Remark

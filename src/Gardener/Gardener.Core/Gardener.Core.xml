@@ -4,6 +4,18 @@
         <name>Gardener.Core</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Core.ApiFunctionFilter">
+            <summary>
+            swagger api json 生成操作过滤器
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.ApiFunctionFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:Gardener.Core.Audit.AuditActionFilter">
             <summary>
             审计过滤器
@@ -49,7 +61,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.Audit.AuditDataManager.#ctor(Microsoft.Extensions.Logging.ILogger{Gardener.Core.Audit.AuditDataManager},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditOperation},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditEntity})">
+        <member name="M:Gardener.Core.Audit.AuditDataManager.#ctor(Microsoft.Extensions.Logging.ILogger{Gardener.Core.Audit.AuditDataManager},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditOperation,Gardener.Core.Entites.GardenerAuditDbContextLocator},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.AuditEntity,Gardener.Core.Entites.GardenerAuditDbContextLocator})">
             <summary>
             
             </summary>
@@ -241,9 +253,9 @@
             用户仓储
             </summary>
         </member>
-        <member name="F:Gardener.Core.AuthorizationManager._resourceRepository">
+        <member name="F:Gardener.Core.AuthorizationManager._functionRepository">
             <summary>
-            资源仓储
+            功能仓储
             </summary>
         </member>
         <member name="F:Gardener.Core.AuthorizationManager._user">
@@ -251,13 +263,12 @@
             当前登录用户
             </summary>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+        <member name="M:Gardener.Core.AuthorizationManager.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Function})">
             <summary>
             构造函数
             </summary>
             <param name="httpContextAccessor"></param>
             <param name="userRepository"></param>
-            <param name="resourceRepository"></param>
         </member>
         <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
             <summary>
@@ -271,49 +282,27 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetUserResources(Gardener.Enums.ResourceType[])">
-            <summary>
-            获取用用户拥有的资源
-            </summary>
-            <param name="resourceTypes"></param>
-            <returns></returns>
-        </member>
         <member name="M:Gardener.Core.AuthorizationManager.IsSuperAdministrator">
             <summary>
             是否是超级管理员
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetContenxtResource">
+        <member name="M:Gardener.Core.AuthorizationManager.GetContenxtFunction">
             <summary>
-            获取当前资源
+            获取当前请求的功能
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity">
+        <member name="M:Gardener.Core.AuthorizationManager.ChecktContenxtFunction">
             <summary>
             检查权限
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(System.String)">
+        <member name="M:Gardener.Core.AuthorizationManager.GetContextFunctionKey">
             <summary>
-            检查权限
-            </summary>
-            <param name="resourceKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.CheckSecurity(Gardener.Enums.HttpMethodType,System.String)">
-            <summary>
-            检查权限
-            </summary>
-            <param name="method"></param>
-            <param name="path"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.AuthorizationManager.GetContextResourceId">
-            <summary>
-            获取资源id
+            获取功能Key
             </summary>
             <returns></returns>
         </member>
@@ -335,7 +324,7 @@
             <summary>
             判断是否拥有该权限
             </summary>
-            <param name="resourceKey"></param>
+            <param name="functionKey"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Core.IAuthorizationManager">
@@ -361,38 +350,16 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.GetUserResources(Gardener.Enums.ResourceType[])">
+        <member name="M:Gardener.Core.IAuthorizationManager.GetContenxtFunction">
             <summary>
-            获取资源
-            </summary>
-            <param name="resourceTypes"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.GetContenxtResource">
-            <summary>
-            获取当前资源
+            获取当前请求的功能
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity">
+        <member name="M:Gardener.Core.IAuthorizationManager.ChecktContenxtFunction">
             <summary>
             检查权限
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity(System.String)">
-            <summary>
-            检查授权
-            </summary>
-            <param name="resourceId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.IAuthorizationManager.CheckSecurity(Gardener.Enums.HttpMethodType,System.String)">
-            <summary>
-            检查权限
-            </summary>
-            <param name="method"></param>
-            <param name="path"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Core.JwtHandler">

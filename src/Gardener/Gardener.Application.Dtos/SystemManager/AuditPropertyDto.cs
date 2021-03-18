@@ -5,47 +5,50 @@
 // -----------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
 
 namespace Gardener.Application.Dtos
 {
     /// <summary>
     /// 属性审计信息
     /// </summary>
-    public class AuditPropertyDto
+    public class AuditPropertyDto : BaseDto<Guid>
     {
-        /// <summary>
-        /// 编号
-        /// </summary>
-        public Guid Id { get; set; }
 
         /// <summary>
-        /// 获取或设置 名称
+        /// 名称
         /// </summary>
+        [DisplayName("名称")]
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// 获取或设置 字段
+        /// 字段名称
         /// </summary>
+        [DisplayName("字段名称")]
         public string FieldName { get; set; }
 
         /// <summary>
-        /// 获取或设置 旧值
+        /// 旧值
         /// </summary>
+        [DisplayName("旧值")]
         public string OriginalValue { get; set; }
 
         /// <summary>
-        /// 获取或设置 新值
+        /// 新值
         /// </summary>
+        [DisplayName("新值")]
         public string NewValue { get; set; }
 
         /// <summary>
-        /// 获取或设置 数据类型
+        /// 数据类型
         /// </summary>
+        [DisplayName("数据类型")]
         public string DataType { get; set; }
 
         /// <summary>
         /// 实体审计编号  
         /// </summary>
+        [DisplayName("实体审计编号")]
         public Guid AuditEntityid { get; set; }
     }
 }

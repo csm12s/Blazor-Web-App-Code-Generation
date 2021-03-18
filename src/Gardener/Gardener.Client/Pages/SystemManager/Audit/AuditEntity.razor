@@ -44,14 +44,14 @@
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column Title="操作人" @bind-Field="@model.OperaterName" />
-                    <Column Title="实体名称" @bind-Field="@model.Name" />
-                    <Column Title="类型名称" @bind-Field="@model.TypeName" />
-                    <Column Title="数据编号" @bind-Field="@model.DataId" />
-                    <Column Title="操作类型" @bind-Field="@model.OperationType" >
+                    <Column @bind-Field="@model.OperaterName" />
+                    <Column @bind-Field="@model.Name" />
+                    <Column @bind-Field="@model.TypeName" />
+                    <Column @bind-Field="@model.DataId" />
+                    <Column @bind-Field="@model.OperationType" >
                         <Tag>@EnumExtension.GetEnumDescription(model.OperationType)</Tag>
                     </Column>
-                    <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_entity_detail">

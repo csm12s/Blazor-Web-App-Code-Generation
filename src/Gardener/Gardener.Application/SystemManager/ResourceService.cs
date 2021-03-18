@@ -24,8 +24,8 @@ namespace Gardener.Application
     /// <summary>
     /// 资源服务
     /// </summary>
-    [ApiDescriptionSettings("UserAuthorizationServices")]
-    public class ResourceService : ApplicationServiceBase<Resource, ResourceDto,Guid>, IResourceService
+    [ApiDescriptionSettings("SystemManagerServices")]
+    public class ResourceService : LockExtendServiceBase<Resource, ResourceDto,Guid>, IResourceService
     {
         private readonly IRepository<Resource> resourceRepository;
         /// <summary>
@@ -40,6 +40,9 @@ namespace Gardener.Application
         /// <summary>
         /// 获取所有子资源
         /// </summary>
+        /// <remarks>
+        /// 获取所有子资源
+        /// </remarks>
         /// <param name="id">父级id</param>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetChildren([ApiSeat(ApiSeats.ActionStart)] Guid id)
@@ -56,6 +59,9 @@ namespace Gardener.Application
         /// <summary>
         /// 返回根节点
         /// </summary>
+        /// <remarks>
+        /// 返回根节点资源
+        /// </remarks>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetRoot()
         {
@@ -65,9 +71,13 @@ namespace Gardener.Application
                 .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
             return resources;
         }
+
         /// <summary>
-        /// 
+        /// 获取种子数据
         /// </summary>
+        /// <remarks>
+        /// 获取种子数据
+        /// </remarks>
         /// <returns></returns>
         public async Task<string> GetSeedData()
         {
@@ -88,13 +98,8 @@ namespace Gardener.Application
                 sb.Append($"{nameof(Resource.Key)}=\"{resource.Key}\",");
                 sb.Append($"{nameof(Resource.Path)}=\"{resource.Path}\",");
                 sb.Append($"{nameof(Resource.CreatedTime)}=DateTimeOffset.Now,");
-                sb.Append($"{nameof(Resource.EnableAudit)}={resource.EnableAudit.ToString().ToLower()},");
                 sb.Append($"{nameof(Resource.IsDeleted)}={resource.IsDeleted.ToString().ToLower()},");
                 sb.Append($"{nameof(Resource.IsLocked)}={resource.IsLocked.ToString().ToLower()},");
-                if (resource.Method.HasValue) 
-                {
-                    sb.Append($"{nameof(Resource.Method)}=(HttpMethodType){((int)resource.Method)},");
-                }
                 sb.Append($"{nameof(Resource.Type)}=(ResourceType){((int)resource.Type)},");
                 sb.Append($"{nameof(Resource.Order)}={resource.Order}");
                 sb.Append("},");
@@ -103,8 +108,11 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 查询所有资源 按树形结构返回
+        /// 查询所有资源
         /// </summary>
+        /// <remarks>
+        /// 查询所有资源 按树形结构返回
+        /// </remarks>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetTree()
         {
@@ -134,6 +142,7 @@ namespace Gardener.Application
 
             return allResources.Where(x=>x.Type.Equals(ResourceType.Root)).Select(x => x.Adapt<ResourceDto>()).ToList();
         }
+
         ///// <summary>
         ///// 
         ///// </summary>
@@ -153,9 +162,13 @@ namespace Gardener.Application
         //        }
         //    }
         //}
+
         /// <summary>
         /// 添加资源
         /// </summary>
+        /// <remarks>
+        /// 添加资源
+        /// </remarks>
         /// <param name="resourceDto"></param>
         /// <returns></returns>
         public override async Task<ResourceDto> Insert(ResourceDto resourceDto)

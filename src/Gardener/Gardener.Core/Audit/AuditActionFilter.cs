@@ -49,13 +49,13 @@ namespace Gardener.Core.Audit
             if (context.HttpContext.User.Identity.IsAuthenticated == false) { await next(); return; }
 
 
-            Resource resource=null;
+            Function function=null;
             User user = null;
             if (authorizationManager != null)
             {
-                resource = await authorizationManager.GetContenxtResource();
+                function = await authorizationManager.GetContenxtFunction();
                 //资源未启用审计
-                if (resource != null && !resource.EnableAudit) { await next(); return; }
+                if (function != null && !function.EnableAudit) { await next(); return; }
                 user = authorizationManager.GetUser();
             }
             HttpContext httpContext = context.HttpContext;
@@ -87,8 +87,8 @@ namespace Gardener.Core.Audit
                 UserAgent = ua.ToString(),
                 OperaterId = user!=null?user.Id.ToString():null,
                 OperaterName = user != null ? (user.NickName ?? user.UserName):null,
-                ResourceId = resource!=null? resource.Id:Guid.Empty,
-                ResourceName = resource!=null? resource.Name:null
+                ResourceId = function!=null? function.Id:Guid.Empty,
+                ResourceName = function!=null? function.Service+":"+function.Summary:null
             };
             await auditDataManager.SaveAuditOperation(auditOperation);
             await next();

@@ -8,6 +8,7 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,7 +18,7 @@ namespace Gardener.Core.Entites
     /// 用户和角色关系表
     /// </summary>
     [Description("角色资源信息")]
-    public class RoleResource : IEntity
+    public class RoleResource : IEntity, IEntitySeedData<RoleResource>, IEntityTypeBuilder<RoleResource>
     {
         /// <summary>
         /// 角色Id
@@ -56,12 +57,57 @@ namespace Gardener.Core.Entites
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<RoleResource> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-
-            entityBuilder.HasComment("角色权限关系表");
-            entityBuilder.Property(e => e.RoleId).HasComment("角色id").IsRequired();
-            entityBuilder.Property(e => e.ResourceId).HasComment("权限id").IsRequired();
-            entityBuilder.Property(e => e.CreatedTime).HasMaxLength(6).HasComment("创建时间").IsRequired();
-
+        }
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <returns></returns>
+        public IEnumerable<RoleResource> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[] {
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("825e4fbd-c88c-4028-b864-a7d7363e9550"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("8910d2d6-784b-4331-a5bc-22e2a943aa9f"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("8b78e71e-bd7f-4264-80cd-0ec2964b4f63"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("c8540d46-fe88-4858-8ab7-f8b427695e77"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 2, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("0b133140-4c89-4463-aea6-75f7f0ddebdc"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("25dcaaca-6f97-45f3-952d-05112f07c677"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("2dd1a78c-f725-461b-8bc6-66112a7e156c"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("3f8d700a-bc26-4d5c-9622-d98bf9359159"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("4f6e13ee-cc52-4fe2-9d2c-db86281ee004"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("5dfbc04e-1e77-4c41-9ef2-0ed97b6c7882"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("60e8e2a4-c562-45be-befe-3c2274f78f3f"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("825e4fbd-c88c-4028-b864-a7d7363e9550"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("8910d2d6-784b-4331-a5bc-22e2a943aa9f"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("8b78e71e-bd7f-4264-80cd-0ec2964b4f63"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("925c3162-155c-4644-8ca2-075f9fc76235"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("9c02b28b-8f69-4da4-987e-74bf824c3520"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("b000974d-36e2-4487-a163-5408cec5198e"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("b8224935-fae6-4bbe-ad91-1d8969baabe8"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("ba6dc63f-dff8-4899-922c-38f2b4ce415d"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("c8540d46-fe88-4858-8ab7-f8b427695e77"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("cc23917b-930a-4e34-9717-be71b9fd2dd5"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("d56889de-4008-42ed-9166-b21cdc0c7fcf"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("d75afab9-15ba-4785-a082-bf9323c7aad8"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("d88fbd6d-00ce-4687-9440-a7ffd5aab2aa"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("dc7cf259-5c60-47c9-a02b-1fc9b04c9582"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("de8658ed-e997-4c07-861e-721c6275ca38"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("e30bbf62-d6d3-4e72-ac1a-abb285587632"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("e6e477f3-8dd8-4657-adde-cc2c34017775"), CreatedTime = DateTimeOffset.Now },
+            new RoleResource(){ RoleId = 3, ResourceId = Guid.Parse("ed0b45b7-03be-44d3-98cd-c2b9447f7014"), CreatedTime = DateTimeOffset.Now }
+        };
         }
     }
 }

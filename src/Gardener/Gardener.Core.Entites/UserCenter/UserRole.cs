@@ -8,6 +8,7 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Gardener.Core.Entites
@@ -16,7 +17,7 @@ namespace Gardener.Core.Entites
     /// 用户和角色关系表
     /// </summary>
     [Description("用户角色信息")]
-    public class UserRole : IEntity
+    public class UserRole : IEntity, IEntitySeedData<UserRole>, IEntityTypeBuilder<UserRole>
     {
         /// <summary>
         /// 用户Id
@@ -51,10 +52,19 @@ namespace Gardener.Core.Entites
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<UserRole> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-            entityBuilder.HasComment("用户角色关系表");
-            entityBuilder.Property(e => e.UserId).HasComment("用户id").IsRequired();
-            entityBuilder.Property(e => e.RoleId).HasComment("角色id").IsRequired();
-            entityBuilder.Property(e => e.CreatedTime).HasMaxLength(6).HasComment("创建时间").IsRequired();
+        }
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <returns></returns>
+        public IEnumerable<UserRole> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[] {
+                new UserRole{ UserId = 1, RoleId = 1, CreatedTime = DateTimeOffset.Now },
+                new UserRole{ UserId = 2, RoleId = 3, CreatedTime = DateTimeOffset.Now }
+            };
         }
     }
 }

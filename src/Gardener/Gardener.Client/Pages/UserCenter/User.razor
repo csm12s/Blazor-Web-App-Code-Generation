@@ -67,14 +67,14 @@
                                 </NotAuthorized>
                             </ResourceAuthorize>
                     </Column>
-                    <Column Title="用户名" @bind-Field="@model.UserName" />
-                    <Column Title="昵称" @bind-Field="@model.NickName" />
-                    <Column Title="性别" @bind-Field="@model.Gender">
+                    <Column @bind-Field="@model.UserName" />
+                    <Column  @bind-Field="@model.NickName" />
+                    <Column  @bind-Field="@model.Gender">
                         <Tag Color="@(model.Gender.Equals(Gender.Male)?"blue" :"pink")">@EnumExtension.GetEnumDescription(model.Gender)</Tag>
                     </Column>
-                    <Column Title="手机号" @bind-Field="@model.PhoneNumber" />
-                    <Column Title="邮箱" @bind-Field="@model.Email" />
-                    <Column Title="角色" Field="@model.Roles" Style="max-width:150px">
+                    <Column @bind-Field="@model.PhoneNumber" />
+                    <Column @bind-Field="@model.Email" />
+                    <Column @bind-Field="@model.Roles" Style="max-width:150px">
                         @foreach (var role in model.Roles)
                         {
                             <Tooltip Placement="@PlacementType.Top" Title="@role.Remark">
@@ -82,7 +82,7 @@
                             </Tooltip>
                         }
                     </Column>
-                    <Column Title="是否锁定" Field="@model.IsLocked">
+                    <Column @bind-Field="@model.IsLocked">
                         <ResourceAuthorize ResourceKey="user_auth_user_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -92,7 +92,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="user_auth_user_edit">

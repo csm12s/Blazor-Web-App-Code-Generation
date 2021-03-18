@@ -53,9 +53,6 @@ namespace Gardener.Client
             builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
             #endregion
 
-            
-
-
             #region ±¾µØ»¯
             builder.Services.AddLocalization(option =>
             {
@@ -65,7 +62,6 @@ namespace Gardener.Client
 
             #region services
             builder.Services.AddScoped<IClientLogger, ConsoleClientLogger>();
-
             builder.Services.AddScoped<JsTool>();
             builder.Services.AddScoped<HttpClientManager>();
             builder.Services.AddScoped<IApiCaller, ApiCaller>();
@@ -78,6 +74,8 @@ namespace Gardener.Client
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
             builder.Services.AddScoped<IAuditOperationService, AuditOperationService>();
             builder.Services.AddScoped<IAuditEntityService, AuditEntityService>();
+            builder.Services.AddScoped<IFunctionService, FunctionService>();
+            builder.Services.AddScoped<ISwaggerService, SwaggerService>();
 
             #endregion
 

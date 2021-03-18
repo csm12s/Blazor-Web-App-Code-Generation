@@ -50,5 +50,6 @@ namespace Gardener.Application.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<bool> RemoveCurrentUserRefreshToken();
+
     }
 }

@@ -32,10 +32,13 @@ namespace Gardener.Core
         /// 用户仓储
         /// </summary>
         private readonly IRepository<User> _userRepository;
+        
+
         /// <summary>
-        /// 资源仓储
+        /// 功能仓储
         /// </summary>
-        private readonly IRepository<Resource> _resourceRepository;
+        private readonly IRepository<Function> _functionRepository;
+
         /// <summary>
         /// 当前登录用户
         /// </summary>
@@ -45,19 +48,18 @@ namespace Gardener.Core
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="userRepository"></param>
-        /// <param name="resourceRepository"></param>
         public AuthorizationManager(IHttpContextAccessor httpContextAccessor,
-            IRepository<User> userRepository, IRepository<Resource> resourceRepository)
+            IRepository<User> userRepository, 
+            IRepository<Function> functionRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
-            _resourceRepository = resourceRepository;
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated) 
-            { 
+            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
                 //当前请求的用户
                 _user = FindUser();
             }
-
+            _functionRepository = functionRepository;
         }
         private User FindUser() 
         {
@@ -82,30 +84,7 @@ namespace Gardener.Core
         {
             return this._user;
         }
-        /// <summary>
-        /// 获取用用户拥有的资源
-        /// </summary>
-        /// <param name="resourceTypes"></param>
-        /// <returns></returns>
-        public async Task<List<Resource>> GetUserResources(params ResourceType[] resourceTypes)
-        {
-            resourceTypes = resourceTypes ?? new ResourceType[] { };
-            if (IsSuperAdministrator())
-            {
-                //超级管库有拥有所有资源
-                return await _resourceRepository
-                    .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)).OrderBy(x => x.Order).ToListAsync();
-
-            }
-            return await _userRepository
-                     .Include(u => u.Roles)
-                         .ThenInclude(u => u.Resources)
-                     .Where(u => u.Id == GetUserId() && u.IsDeleted == false && u.IsLocked == false)
-                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                         .SelectMany(u => u.Resources
-                         .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
-                         )).OrderBy(x => x.Order).ToListAsync();
-        }
+        
         /// <summary>
         /// 是否是超级管理员
         /// </summary>
@@ -119,63 +98,39 @@ namespace Gardener.Core
         }
         
         /// <summary>
-        /// 获取当前资源
+        /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
-        public async Task<Resource> GetContenxtResource()
+        public async Task<Function> GetContenxtFunction()
         {
-            string resourceId = GetContextResourceId();
-            if (!string.IsNullOrEmpty(resourceId)) return await _resourceRepository.FirstOrDefaultAsync(x=>x.Key.Equals(resourceId));
+            string functionKey = GetContextFunctionKey();
+            if (!string.IsNullOrEmpty(functionKey)) return await _functionRepository.FirstOrDefaultAsync(x=>x.Id.Equals(Guid.Parse(functionKey)));
             var (method, path) = GetContextEndpoint();
-            return await _resourceRepository.FirstOrDefaultAsync(x=>x.Method.Equals(method) && x.Path.Equals(path));
+            return await _functionRepository.FirstOrDefaultAsync(x=>x.Method.Equals(method) && x.Path.Equals(path));
         }
         /// <summary>
         /// 检查权限
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CheckSecurity()
+        public async Task<bool> ChecktContenxtFunction()
         {
             //超级管理员
             if (IsSuperAdministrator()) return true;
-            string resourceId = GetContextResourceId();
-            if (!string.IsNullOrEmpty(resourceId)) return await CheckSecurity(resourceId);
-            var (method, path) = GetContextEndpoint();
-            return await CheckSecurity(method,path);
-        }
-        /// <summary>
-        /// 检查权限
-        /// </summary>
-        /// <param name="resourceKey"></param>
-        /// <returns></returns>
-        public async Task<bool> CheckSecurity(string resourceKey)
-        {
-            //超级管理员
-            if (IsSuperAdministrator()) return true;
+            string functionKey = GetContextFunctionKey();
             // 查询用户拥有的权限
-            if (!await CurrentUserHaveResource(resourceKey)) return false;
+            if (!await CurrentUserHaveResource(functionKey)) return false;
+            var (method, path) = GetContextEndpoint();
+            // 查询用户拥有的权限
+            if (!await CurrentUserHaveResource(method, path)) return false;
             return true;
         }
-        /// <summary>
-        /// 检查权限
-        /// </summary>
-        /// <param name="method"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public async Task<bool> CheckSecurity(HttpMethodType method ,string path)
-        {
-            //超级管理员
-            if (IsSuperAdministrator()) return true;
-            // 查询用户拥有的权限
-            if (!await CurrentUserHaveResource(method,path)) return false;
-            return true;
-        }
-
+        
         #region private
         /// <summary>
-        /// 获取资源id
+        /// 获取功能Key
         /// </summary>
         /// <returns></returns>
-        private string GetContextResourceId()
+        private string GetContextFunctionKey()
         {
             // 获取权限特性
             var securityDefineAttribute = _httpContextAccessor.HttpContext.GetMetadata<SecurityDefineAttribute>();
@@ -204,28 +159,32 @@ namespace Gardener.Core
             return await _userRepository.AsQueryable(false)
                     .Include(u => u.Roles)
                         .ThenInclude(u => u.Resources)
+                            .ThenInclude(u=>u.Functions)
                     .Where(u => u.Id == GetUserId() && u.IsDeleted == false && u.IsLocked == false)
                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                        .SelectMany(u => u.Resources
-                        .Where(x => x.IsDeleted == false && x.IsLocked == false && x.Method.Equals(method) && x.Path.Equals(path))
-                        )).AnyAsync();
+                        .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                                .SelectMany(u=>u.Functions.Where(x=>x.IsDeleted==false && x.IsLocked==false && x.Method.Equals(method) && x.Path.Equals(path)))
+                            )
+                        ).AnyAsync();
         }
 
         /// <summary>
         /// 判断是否拥有该权限
         /// </summary>
-        /// <param name="resourceKey"></param>
+        /// <param name="functionKey"></param>
         /// <returns></returns>
-        private async Task<bool> CurrentUserHaveResource(string resourceKey)
+        private async Task<bool> CurrentUserHaveResource(string functionKey)
         {
             return await _userRepository.AsQueryable(false)
-                        .Include(u => u.Roles)
-                            .ThenInclude(u => u.Resources)
-                        .Where(u => u.Id == GetUserId() && u.IsDeleted == false && u.IsLocked == false)
-                        .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                            .SelectMany(u => u.Resources
-                            .Where(x => x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(resourceKey))
-                            )).AnyAsync();
+                    .Include(u => u.Roles)
+                        .ThenInclude(u => u.Resources)
+                            .ThenInclude(u => u.Functions)
+                    .Where(u => u.Id == GetUserId() && u.IsDeleted == false && u.IsLocked == false)
+                    .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                        .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                                .SelectMany(u => u.Functions.Where(x => x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(functionKey)))
+                            )
+                        ).AnyAsync();
         }
         #endregion
     }

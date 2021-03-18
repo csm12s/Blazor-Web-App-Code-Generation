@@ -41,6 +41,9 @@ namespace Gardener.Application
         /// <summary>
         /// 锁定
         /// </summary>
+        /// <remarks>
+        /// 根据主键锁定或解锁数据
+        /// </remarks>
         /// <param name="id"></param>
         /// <param name="isLocked"></param>
         /// <returns></returns>

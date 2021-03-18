@@ -20,13 +20,14 @@ using System.Threading.Tasks;
 using Gardener.Core;
 using Gardener.Application.Interfaces;
 using Gardener.Attributes;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gardener.Application
 {
     /// <summary>
-    /// 用户中心服务
+    /// 权限认证服务
     /// </summary>
-    [ApiDescriptionSettings("UserAuthorizationServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class AuthorizeService : IDynamicApiController, IAuthorizeService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -34,29 +35,36 @@ namespace Gardener.Application
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IJwtBearerService _jwtBearerService;
         /// <summary>
+        /// 资源仓储
+        /// </summary>
+        private readonly IRepository<Resource> _resourceRepository;
+        /// <summary>
         /// 角色管理服务
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="userRepository"></param>
         /// <param name="authorizationManager"></param>
         /// <param name="jwtBearerService"></param>
+        /// <param name="resourceRepository"></param>
         public AuthorizeService(
             IHttpContextAccessor httpContextAccessor,
             IRepository<User> userRepository,
             IAuthorizationManager authorizationManager,
-            IJwtBearerService jwtBearerService)
+            IJwtBearerService jwtBearerService,
+            IRepository<Resource> resourceRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _authorizationManager = authorizationManager;
             _jwtBearerService = jwtBearerService;
+            _resourceRepository = resourceRepository;
         }
 
         /// <summary>
         /// 登录
         /// </summary>
         /// <param name="input"></param>
-        /// <remarks>管理员：admin/admin；普通用户：testuser/testuser</remarks>
+        /// <remarks>登录接口</remarks>
         /// <returns></returns>
         [AllowAnonymous, IgnoreAudit]
         public async Task<TokenOutput> Login(LoginInput input)
@@ -78,6 +86,9 @@ namespace Gardener.Application
         /// <summary>
         /// 刷新Token
         /// </summary>
+        /// <remarks>
+        /// 通过刷新token获取新的token
+        /// </remarks>
         /// <returns></returns>
         [AllowAnonymous, IgnoreAudit]
         public async Task<TokenOutput> RefreshToken(RefreshTokenInput input)
@@ -88,6 +99,9 @@ namespace Gardener.Application
         /// <summary>
         /// 移除当前用户token
         /// </summary>
+        /// <remarks>
+        /// 移除当前用户token
+        /// </remarks>
         /// <returns></returns>
         public async Task<bool> RemoveCurrentUserRefreshToken()
         {
@@ -96,6 +110,10 @@ namespace Gardener.Application
         /// <summary>
         /// 查看用户角色
         /// </summary>
+        /// <remarks>
+        /// 查看当前用户角色
+        /// </remarks>
+        /// <returns></returns>
         public async Task<List<RoleDto>> GetCurrentUserRoles()
         {
             var user = _authorizationManager.GetUser();
@@ -107,6 +125,9 @@ namespace Gardener.Application
         /// <summary>
         /// 获取当前用户信息
         /// </summary>
+        /// <remarks>
+        /// 获取当前用户信息
+        /// </remarks>
         /// <returns></returns>
         public async Task<UserDto> GetCurrentUser()
         {
@@ -120,20 +141,44 @@ namespace Gardener.Application
         /// </summary>
         /// <param name="resourceTypes"></param>
         /// <returns></returns>
-        [HttpPost]
         public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType[] resourceTypes)
         {
             resourceTypes = resourceTypes ?? new ResourceType[] { };
-            // 获取用户Id
-            var userId = _authorizationManager.GetUserId();
-            List<Resource> resources =await _authorizationManager.GetUserResources(resourceTypes);
+            List<Resource> resources =await GetUserResources(resourceTypes);
             return resources.Adapt<List<ResourceDto>>();
 
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceTypes"></param>
+        /// <returns></returns>
+        private async Task<List<Resource>> GetUserResources(params ResourceType[] resourceTypes)
+        {
+            resourceTypes = resourceTypes ?? new ResourceType[] { };
+            if (_authorizationManager.IsSuperAdministrator())
+            {
+                //超级管库有拥有所有资源
+                return await _resourceRepository
+                    .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)).OrderBy(x => x.Order).ToListAsync();
+
+            }
+            return await _userRepository
+                     .Include(u => u.Roles)
+                         .ThenInclude(u => u.Resources)
+                     .Where(u => u.Id == _authorizationManager.GetUserId() && u.IsDeleted == false && u.IsLocked == false)
+                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                         .SelectMany(u => u.Resources
+                         .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
+                         )).OrderBy(x => x.Order).ToListAsync();
         }
 
         /// <summary>
         /// 获取当前用户的所有菜单
         /// </summary>
+        /// <remarks>
+        /// 获取当前用户的所有菜单
+        /// </remarks>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetCurrentUserMenus()
         {

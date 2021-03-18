@@ -6,14 +6,13 @@
 
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
-using Gardener.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public class RoleService : ApplicationServiceBase<RoleDto>,IRoleService
+    public class RoleService : LockExtendServiceBase<RoleDto>,IRoleService
     {
         private readonly static string controller = "role";
 

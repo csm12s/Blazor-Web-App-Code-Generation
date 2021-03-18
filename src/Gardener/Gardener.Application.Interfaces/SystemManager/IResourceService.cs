@@ -14,7 +14,7 @@ namespace Gardener.Application.Interfaces
     /// <summary>
     /// 资源服务
     /// </summary>
-    public interface IResourceService : IApplicationServiceBase<ResourceDto, Guid>
+    public interface IResourceService : IApplicationServiceBase<ResourceDto, Guid>, IApplicationLockServiceBase<Guid>
     {
         /// <summary>
         /// 获取所有子资源

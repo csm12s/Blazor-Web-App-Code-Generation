@@ -37,18 +37,8 @@ namespace Gardener.Client.Pages.UserCenter
         private bool _isLoading = false;
 
         private ResourceDto _editModel;
-        private string _currentEditModelHttpMethodType
-        {
-            get
-            {
-                return _editModel.Method?.ToString();
-            }
-            set
-            {
-                _editModel.Method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), value);
-            }
-        }
-        private ResourceType _currentEditResourceType = ResourceType.Api;
+
+        private ResourceType _currentEditResourceType = ResourceType.Menu;
         [Inject]
         MessageService messageService { get; set; }
         [Inject]

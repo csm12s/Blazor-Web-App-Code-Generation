@@ -19,8 +19,8 @@ namespace Gardener.Core.Audit
     public class AuditDataManager : IAuditDataManager
     {
         private readonly ILogger<AuditDataManager> _logger;
-        private readonly IRepository<AuditOperation> _auditOperationRepository;
-        private readonly IRepository<AuditEntity> _auditEntityRepository;
+        private readonly IRepository<AuditOperation, GardenerAuditDbContextLocator> _auditOperationRepository;
+        private readonly IRepository<AuditEntity, GardenerAuditDbContextLocator> _auditEntityRepository;
         private AuditOperation _auditOperation;
         private List<AuditEntity> _auditEntitys;
         /// <summary>
@@ -39,8 +39,8 @@ namespace Gardener.Core.Audit
         /// <param name="auditOperationRepository"></param>
         /// <param name="auditEntityRepository"></param>
         public AuditDataManager(ILogger<AuditDataManager> logger,
-            IRepository<AuditOperation> auditOperationRepository,
-            IRepository<AuditEntity> auditEntityRepository)
+            IRepository<AuditOperation, GardenerAuditDbContextLocator> auditOperationRepository,
+            IRepository<AuditEntity, GardenerAuditDbContextLocator> auditEntityRepository)
         {
             _logger = logger;
             _auditOperationRepository = auditOperationRepository;
@@ -57,7 +57,7 @@ namespace Gardener.Core.Audit
             _auditOperation = auditOperation;
             try
             {
-               await _auditOperationRepository.InsertAsync(auditOperation);
+               await _auditOperationRepository.InsertNowAsync(auditOperation);
             }
             catch (Exception ex)
             {

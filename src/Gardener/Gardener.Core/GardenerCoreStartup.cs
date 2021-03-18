@@ -23,7 +23,8 @@ namespace Gardener.Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddConfigurableOptions<JwtRefreshTokenSettings>()
-                .AddConfigurableOptions<LocalFileStoreSettings>();
+                .AddConfigurableOptions<LocalFileStoreSettings>()
+                .AddRemoteRequest();
         }
     }
 }

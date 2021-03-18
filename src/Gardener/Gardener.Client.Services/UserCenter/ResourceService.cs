@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public class ResourceService : ApplicationServiceBase<ResourceDto,Guid>,IResourceService
+    public class ResourceService : LockExtendServiceBase<ResourceDto,Guid>,IResourceService
     {
         private readonly static string controller = "resource";
         private readonly IApiCaller apiCaller;

@@ -8,6 +8,7 @@ using Furion;
 using Furion.DatabaseAccessor;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.EntityFramwork.Core.DbContexts;
+using Gardener.Core.Entites;
 
 namespace Gardener.EntityFramwork.Core
 {
@@ -25,6 +26,7 @@ namespace Gardener.EntityFramwork.Core
                 //options.AddDbPool<GardenerDbContext>($"{DbProvider.MySql}@8.0.22");
                 //options.AddDbPool<GardenerDbContext>(DbProvider.SqlServer);
                 options.AddDbPool<GardenerDbContext>(DbProvider.Sqlite);
+                options.AddDbPool<GardenerAuditDbContext, GardenerAuditDbContextLocator>(DbProvider.Sqlite);
             }, "Gardener.Database.Migrations");
         }
     }

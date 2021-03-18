@@ -53,16 +53,16 @@
                     <ResourceAuthorize ResourceKey="user_auth_role_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column Title="编号" @bind-Field="@model.Id" Sortable />
-                    <Column Title="名称" @bind-Field="@model.Name" />
-                    <Column Title="备注" @bind-Field="@model.Remark" />
-                    <Column Title="是否是超级管理" Field="@model.IsSuperAdministrator">
+                    <Column @bind-Field="@model.Id" Sortable />
+                    <Column @bind-Field="@model.Name" />
+                    <Column @bind-Field="@model.Remark" />
+                    <Column @bind-Field="@model.IsSuperAdministrator">
                         <TagYesNo Yes="model.IsSuperAdministrator"></TagYesNo>
                     </Column>
-                    <Column Title="是否是默认角色" Field="@model.IsDefault">
+                    <Column @bind-Field="@model.IsDefault">
                         <TagYesNo Yes="model.IsDefault"></TagYesNo>
                     </Column>
-                    <Column Title="是否锁定" Field="@model.IsLocked">
+                    <Column @bind-Field="@model.IsLocked">
                         <ResourceAuthorize ResourceKey="user_auth_role_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -72,7 +72,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="user_auth_role_edit">

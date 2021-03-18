@@ -19,31 +19,31 @@ namespace Gardener.Application.Interfaces
     public interface IApplicationServiceBase<TEntityDto, TKey> where TEntityDto : class, new()
     {
         /// <summary>
-        /// 删除一条
+        /// 删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<bool> Delete(TKey id);
         /// <summary>
-        /// 删除多条
+        /// 批量删除
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
         Task<bool> Deletes(TKey [] ids);
         /// <summary>
-        /// 删除一条(逻辑删除)
+        /// 逻辑删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<bool> FakeDelete(TKey id);
         /// <summary>
-        /// 删除多条(逻辑删除)
+        /// 批量逻辑删除
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
         Task<bool> FakeDeletes(TKey[] ids);
         /// <summary>
-        /// 查询一条
+        /// 查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -61,13 +61,13 @@ namespace Gardener.Application.Interfaces
         /// <returns></returns>
         Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10);
         /// <summary>
-        /// 新增一条
+        /// 新增
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         Task<TEntityDto> Insert(TEntityDto input);
         /// <summary>
-        /// 更新一条
+        /// 更新
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

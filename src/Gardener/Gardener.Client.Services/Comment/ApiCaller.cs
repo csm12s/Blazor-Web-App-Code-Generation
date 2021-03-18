@@ -63,6 +63,14 @@ namespace Gardener.Client.Services
                     //请求失败
                     log.Error("请求失败", (int)httpResponse.StatusCode);
                 }
+                else 
+                {
+                    var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<Object>>();
+                    if (!result.Succeeded)
+                    {
+                        log.Error(result.Errors?.ToString(), result.StatusCode);
+                    }
+                }
             }
             catch (Exception ex)
             {

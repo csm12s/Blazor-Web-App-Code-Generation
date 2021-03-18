@@ -26,7 +26,7 @@ namespace Gardener.Application
     /// <summary>
     /// 用户服务
     /// </summary>
-    [ApiDescriptionSettings("UserAuthorizationServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class UserService : LockExtendServiceBase<User, UserDto>, IUserService
     {
         private readonly IRepository<User> _userRepository;
@@ -55,6 +55,9 @@ namespace Gardener.Application
         /// <summary>
         /// 查看用户角色
         /// </summary>
+        /// <remarks>
+        /// 查看用户角色
+        /// </remarks>
         /// <param name="userId"></param>
         /// <returns></returns>
         public async Task<List<RoleDto>> GetRoles([ApiSeat(ApiSeats.ActionStart)] int userId)
@@ -72,6 +75,9 @@ namespace Gardener.Application
         /// <summary>
         /// 查看用户权限
         /// </summary>
+        /// <remarks>
+        /// 查看用户权限
+        /// </remarks>
         /// <param name="userId"></param>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetResources([ApiSeat(ApiSeats.ActionStart)] int userId)
@@ -87,8 +93,11 @@ namespace Gardener.Application
                .ToListAsync();
         }
         /// <summary>
-        /// 搜索用户
+        /// 搜索
         /// </summary>
+        /// <remarks>
+        /// 搜索用户数据
+        /// </remarks>
         /// <param name="name"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
@@ -112,8 +121,11 @@ namespace Gardener.Application
 
         }
         /// <summary>
-        /// 更新一条
+        /// 更新
         /// </summary>
+        /// <remarks>
+        /// 更新用户
+        /// </remarks>
         /// <param name="input"></param>
         /// <returns></returns>
         public override async Task<bool> Update(UserDto input)
@@ -162,8 +174,11 @@ namespace Gardener.Application
             return true;
         }
         /// <summary>
-        /// 新增一条
+        /// 新增
         /// </summary>
+        /// <remarks>
+        /// 新增用户
+        /// </remarks>
         /// <param name="input"></param>
         /// <returns></returns>
         public override async Task<UserDto> Insert(UserDto input)
@@ -200,8 +215,11 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 查询一条
+        /// 根据主键获取用户
         /// </summary>
+        /// <remarks>
+        /// 根据主键获取用户
+        /// </remarks>
         /// <param name="id"></param>
         public override async Task<UserDto> Get(int id)
         {
@@ -214,8 +232,11 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 设置用户角色
+        /// 设置角色
         /// </summary>
+        /// <remarks>
+        /// 给用户设置角色
+        /// </remarks>
         /// <param name="userId"></param>
         /// <param name="roleIds"></param>
         /// <returns></returns>
@@ -246,6 +267,9 @@ namespace Gardener.Application
         /// <summary>
         /// 更新头像
         /// </summary>
+        /// <remarks>
+        /// 更新用户的头像
+        /// </remarks>
         /// <param name="input"></param>
         /// <returns></returns>
         public async Task<bool> UpdateAvatar(UserUpdateAvatarInput input)

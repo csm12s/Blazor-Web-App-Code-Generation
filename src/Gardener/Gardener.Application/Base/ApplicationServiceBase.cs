@@ -15,6 +15,8 @@ using Gardener.Common;
 using System;
 using Gardener.Application.Interfaces;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Gardener.Application
 {
@@ -39,8 +41,11 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 新增一条
+        /// 添加
         /// </summary>
+        /// <remarks>
+        /// 添加一条数据
+        /// </remarks>
         /// <param name="input"></param>
         /// <returns></returns>
         public virtual async Task<TEntityDto> Insert(TEntityDto input)
@@ -57,8 +62,11 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 更新一条
+        /// 更新
         /// </summary>
+        /// <remarks>
+        /// 更新一条数据
+        /// </remarks>
         /// <param name="input"></param>
         /// <returns></returns>
         public virtual async Task<bool> Update(TEntityDto input)
@@ -69,19 +77,29 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 删除一条
+        /// 删除
         /// </summary>
+        /// <remarks>
+        /// 根据主键删除一条数据
+        /// </remarks>
         /// <param name="id"></param>
+        /// <returns></returns>
         public virtual async Task<bool> Delete(TKey id)
         {
             await _repository.DeleteAsync(id);
             return true;
         }
+
         /// <summary>
-        /// 删除多条
+        /// 批量删除
         /// </summary>
+        /// <remarks>
+        /// 根据多个主键批量删除
+        /// </remarks>
         /// <param name="ids"></param>
+        /// <returns></returns>
         [HttpPost]
+        [SwaggerOperation(Summary = "批量删除",Description = "根据多个主键批量删除")]
         public virtual async Task<bool> Deletes([FromBody] TKey[] ids)
         {
             foreach (TKey id in ids)
@@ -90,21 +108,32 @@ namespace Gardener.Application
             }
             return true;
         }
+
         /// <summary>
-        /// 删除一条(逻辑删除)
+        /// 逻辑删除
         /// </summary>
+        /// <remarks>
+        /// 根据主键逻辑删除
+        /// </remarks>
         /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         public virtual async Task<bool> FakeDelete(TKey id)
         {
             await _repository.FakeDeleteAsync(id);
             return true;
         }
+        
         /// <summary>
-        /// 删除一条(逻辑删除)
+        /// 批量逻辑删除
         /// </summary>
+        /// <remarks>
+        /// 根据多个主键批量逻辑删除
+        /// </remarks>
         /// <param name="ids"></param>
+        /// <returns></returns>
         [HttpPost]
+        [SwaggerOperation(Summary = "批量逻辑删除", Description = "根据多个主键批量逻辑删除")]
         public virtual async Task<bool> FakeDeletes([FromBody] TKey[] ids)
         {
             foreach (TKey id in ids)
@@ -113,10 +142,15 @@ namespace Gardener.Application
             }
             return true;
         }
+
         /// <summary>
-        /// 查询一条
+        /// 根据主键获取
         /// </summary>
+        /// <remarks>
+        /// 根据主键查找一条数据
+        /// </remarks>
         /// <param name="id"></param>
+        /// <returns></returns>
         public virtual async Task<TEntityDto> Get(TKey id)
         {
             var person = await _repository.FindAsync(id);
@@ -126,6 +160,9 @@ namespace Gardener.Application
         /// <summary>
         /// 查询所有
         /// </summary>
+        /// <remarks>
+        /// 查找到所有数据
+        /// </remarks>
         /// <returns></returns>
         public virtual async Task<List<TEntityDto>> GetAll()
         {
@@ -136,6 +173,9 @@ namespace Gardener.Application
         /// <summary>
         /// 分页查询
         /// </summary>
+        /// <remarks>
+        /// 根据分页参数，分页获取数据
+        /// </remarks>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>

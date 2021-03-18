@@ -34,6 +34,6 @@ namespace Gardener.Application.Dtos
         /// 查询实体数
         /// </summary>
         
-        public T SearchData { get; set; } = new T();
+        public T SearchData { get; set; }
     }
 }

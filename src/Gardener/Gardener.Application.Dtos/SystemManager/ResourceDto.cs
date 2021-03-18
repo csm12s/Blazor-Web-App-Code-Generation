@@ -24,41 +24,43 @@ namespace Gardener.Application.Dtos
         [Required(ErrorMessage ="不能为空")]
         public Guid Id { get; set; }
         /// <summary>
-        /// 权限名称
+        /// 名称
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
+        [DisplayName("名称")]
         public string Name { get; set; }
         /// <summary>
-        /// 权限key
+        /// 唯一键key
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
+        [DisplayName("唯一键")]
         public string Key { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
+        [DisplayName("备注")]
         public string Remark { get; set; }
         /// <summary>
         /// 资源地址
         /// </summary>
         [MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
+        [DisplayName("地址")]
         public string Path { get; set; }
-        /// <summary>
-        /// 接口请求方法
-        /// </summary>
-        public HttpMethodType? Method { get; set; }
         /// <summary>
         /// 资源图标
         /// </summary>
         [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        [DisplayName("图标")]
         public string Icon { get; set; }
         /// <summary>
         /// 资源排序
         /// </summary>
         [Required(ErrorMessage = "不能为空"), DefaultValue(0)]
+        [DisplayName("排序")]
         public int Order { get; set; }
         /// <summary>
-        /// 备注
+        /// 父级编号
         /// </summary>
         public Guid? ParentId { get; set; }
         /// <summary>
@@ -66,9 +68,10 @@ namespace Gardener.Application.Dtos
         /// </summary>
         public ICollection<ResourceDto> Children { get; set; }
         /// <summary>
-        /// 权限类型
+        /// 类型
         /// </summary>
-        [Required, DefaultValue(ResourceType.Api)]
+        [Required, DefaultValue(ResourceType.Menu)]
+        [DisplayName("类型")]
         public ResourceType Type { get; set; }
         /// <summary>
         /// 多对多
@@ -82,6 +85,7 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 创建时间
         /// </summary>
+        [DisplayName("创建时间")]
         public DateTimeOffset CreatedTime { get; set; }
         /// <summary>
         /// 是否锁定

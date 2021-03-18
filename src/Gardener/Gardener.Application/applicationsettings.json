@@ -5,9 +5,9 @@
     "GroupOpenApiInfos": [
       {
         "Order": 100,
-        "Group": "UserAuthorizationServices",
+        "Group": "UserCenterServices",
         "Title": "用户权限管理",
-        "Description": "用户权限管理",
+        "Description": "用户权限管理相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {
@@ -22,8 +22,25 @@
       },
       {
         "Order": 90,
-        "Group": "BaseDataServices",
-        "Title": "系统基础服务管理",
+        "Group": "SystemManagerServices",
+        "Title": "系统管理",
+        "Description": "系统管理服务相关接口",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      },
+      {
+        "Order": 80,
+        "Group": "BaseServices",
+        "Title": "基础服务",
         "Description": "系统基础服务相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",

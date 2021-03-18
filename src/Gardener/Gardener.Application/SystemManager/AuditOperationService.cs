@@ -21,7 +21,7 @@ namespace Gardener.Application.SystemManager
     /// <summary>
     /// 审计操作服务
     /// </summary>
-    [ApiDescriptionSettings("BaseDataServices")]
+    [ApiDescriptionSettings("SystemManagerServices")]
     public class AuditOperationService : ApplicationServiceBase<AuditOperation, AuditOperationDto, Guid>, IAuditOperationService
     {
         private readonly IRepository<AuditOperation> _repository;
@@ -39,6 +39,9 @@ namespace Gardener.Application.SystemManager
         /// <summary>
         /// 搜索
         /// </summary>
+        /// <remarks>
+        /// 搜索操作审计
+        /// </remarks>
         /// <param name="searchInput"></param>
         /// <returns></returns>
         [HttpPost]
@@ -50,8 +53,11 @@ namespace Gardener.Application.SystemManager
             return await queryable.OrderConditions(searchInput.OrderConditions).Select(x => x.Adapt<AuditOperationDto>()).ToPagedListAsync(searchInput);
         }
         /// <summary>
-        /// 根据操作审计ID获取数据审计数据
+        /// 根据操作审计ID获取数据审计
         /// </summary>
+        /// <remarks>
+        /// 根据操作审计ID获取数据审计
+        /// </remarks>
         /// <param name="operationId"></param>
         /// <returns></returns>
         public async Task<List<AuditEntityDto>> GetAuditEntity([ApiSeat(ApiSeats.ActionStart)] Guid operationId)

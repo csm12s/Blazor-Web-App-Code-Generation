@@ -22,7 +22,7 @@ namespace Gardener.Application
     /// <summary>
     /// 角色服务
     /// </summary>
-    [ApiDescriptionSettings("UserAuthorizationServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class RoleService : LockExtendServiceBase<Role, RoleDto>, IRoleService
     {
         private readonly IRepository<Role> _roleRepository;
@@ -39,8 +39,11 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 搜索角色
+        /// 搜索
         /// </summary>
+        /// <remarks>
+        /// 搜索角色数据
+        /// </remarks>
         /// <param name="name">角色名称</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
@@ -58,8 +61,14 @@ namespace Gardener.Application
                 .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
         }
         /// <summary>
-        /// 为角色分配权限（重置）
+        /// 分配权限
         /// </summary>
+        /// <remarks>
+        /// 分配权限（重置）
+        /// </remarks>
+        /// <param name="roleId"></param>
+        /// <param name="resourceIds"></param>
+        /// <returns></returns>
         public async Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId,[FromBody] Guid[] resourceIds)
         {
             //先删除所有资源
@@ -75,9 +84,13 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 删除角色的所有资源
+        /// 根据角色编号删除所有资源
         /// </summary>
+        /// <remarks>
+        /// 根据角色编号删除所有资源
+        /// </remarks>
         /// <param name="roleId"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteResource([ApiSeat(ApiSeats.ActionStart)] int roleId)
         {
             var entitys = _roleResourceRepository.Where(u => u.RoleId == roleId, false);
@@ -87,8 +100,11 @@ namespace Gardener.Application
             return true;
         }
         /// <summary>
-        /// 
+        /// 获取可用角色
         /// </summary>
+        /// <remarks>
+        /// 获取可用角色
+        /// </remarks>
         /// <returns></returns>
         public async Task<List<RoleDto>> GetEffective()
         {
@@ -100,6 +116,9 @@ namespace Gardener.Application
         /// <summary>
         /// 获取角色所有资源
         /// </summary>
+        /// <remarks>
+        /// 获取角色所有资源
+        /// </remarks>
         /// <param name="roleId"></param>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetResource([ApiSeat(ApiSeats.ActionStart)] int roleId)
@@ -113,8 +132,11 @@ namespace Gardener.Application
             return resources.Select(x=>x.Adapt<ResourceDto>()).ToList();
         }
         /// <summary>
-        /// 
+        /// 获取种子数据
         /// </summary>
+        /// <remarks>
+        /// 获取种子数据
+        /// </remarks>
         /// <returns></returns>
         public async Task<string> GetRoleResourceSeedData()
         {

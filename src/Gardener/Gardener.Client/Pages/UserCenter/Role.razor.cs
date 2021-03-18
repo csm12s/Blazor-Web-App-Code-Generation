@@ -38,6 +38,9 @@ namespace Gardener.Client.Pages.UserCenter
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
+        [Inject]
+        IAuthorizeService authorizeService { get; set; }
+
         /// <summary>
         /// 重新加载table
         /// </summary>

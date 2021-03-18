@@ -84,6 +84,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 多对多
         /// </summary>
+        [DisplayName("角色")]
         public ICollection<Role> Roles { get; set; }
 
         /// <summary>
@@ -110,63 +111,14 @@ namespace Gardener.Core.Entites
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<User> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-            entityBuilder.HasMany(p => p.Roles)
-                 .WithMany(p => p.Users)
-                 .UsingEntity<UserRole>(
-                   u => u.HasOne(c => c.Role).WithMany(c => c.UserRoles).HasForeignKey(c => c.RoleId)
-                 , u => u.HasOne(c => c.User).WithMany(c => c.UserRoles).HasForeignKey(c => c.UserId)
-                 , u =>
-                 {
-                     u.HasKey(c => new { c.UserId, c.RoleId });
-                     u.HasData(new { UserId = 1, RoleId = 1 ,CreatedTime=DateTimeOffset.Now});
-                     u.HasData(new { UserId = 2, RoleId = 3 ,CreatedTime=DateTimeOffset.Now});
-                 });
-
-            entityBuilder.HasComment("用户表");
-
-            entityBuilder.Property(e => e.Id).HasComment("用户id");
-
-            entityBuilder.Property(e => e.Gender).HasComment("性别").IsRequired().HasDefaultValue(Gender.Male);
-
-            entityBuilder.Property(e => e.UserName).IsRequired()
-                .HasColumnType("varchar(32)")
-                .HasComment("账号");
-            //.HasCharSet("utf8mb4")
-            //.HasCollation("utf8mb4_0900_ai_ci");
-
-            entityBuilder.Property(e => e.Avatar)
-                .HasColumnType("varchar(100)")
-                .HasComment("头像");
-                //.HasCharSet("utf8mb4")
-                //.HasCollation("utf8mb4_0900_ai_ci");
-
-            entityBuilder.Property(e => e.CreatedTime).IsRequired()
-                .HasMaxLength(6)
-                .HasComment("创建时间");
-
-            entityBuilder.Property(e => e.Email)
-                .HasColumnType("varchar(50)")
-                .HasComment("邮箱");
-                //.HasCharSet("utf8mb4")
-                //.HasCollation("utf8mb4_0900_ai_ci");
-
-            entityBuilder.Property(e => e.IsDeleted).HasComment("是否删除").IsRequired();
-
-            entityBuilder.Property(e => e.PhoneNumber)
-                .HasColumnType("varchar(20)")
-                .HasComment("手机");
-                //.HasCharSet("utf8mb4")
-                //.HasCollation("utf8mb4_0900_ai_ci");
-
-            entityBuilder.Property(e => e.Password).IsRequired()
-                .HasColumnType("varchar(64)")
-                .HasComment("密码");
-                //.HasCharSet("utf8mb4")
-                //.HasCollation("utf8mb4_0900_ai_ci");
-
-            entityBuilder.Property(e => e.UpdatedTime)
-                .HasMaxLength(6)
-                .HasComment("更新时间");
+            entityBuilder
+                .HasMany(x => x.Roles)
+                .WithMany(x => x.Users)
+                .UsingEntity<UserRole>(
+                    x => x.HasOne(r => r.Role).WithMany(r => r.UserRoles).HasForeignKey(r => r.RoleId),
+                    x => x.HasOne(r => r.User).WithMany(r => r.UserRoles).HasForeignKey(r => r.UserId),
+                    x => x.HasKey(t => new { t.UserId, t.RoleId })
+                );
         }
 
         /// <summary>
