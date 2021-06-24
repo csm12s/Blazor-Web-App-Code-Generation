@@ -72,6 +72,9 @@ namespace Gardener.Client.Services
         {
             return await apiCaller.PutAsync<T, bool>(controller, request: input);
         }
-
+        public async Task<bool> Lock(Tkey id, bool islocked = true)
+        {
+            return await apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
+        }
     }
 }

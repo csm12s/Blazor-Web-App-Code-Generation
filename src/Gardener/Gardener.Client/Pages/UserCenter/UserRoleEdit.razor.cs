@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.UserCenter
 {
-    public partial class UserRoleEdit: DrawerTemplate<int, bool>
+    public partial class UserRoleEdit: FeedbackComponent<int, bool>
     {
         private bool _isLoading = false;
         private CheckboxOption[] _roleOptions = new CheckboxOption[] { };
@@ -67,7 +67,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (result)
             {
                 messageService.Success("设置成功");
-                await base.CloseAsync(true);
+                await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
             }
             else
             {
@@ -80,7 +80,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async Task OnFormCancel()
         {
-            await base.CloseAsync(false);
+            await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
         }
         #region 全选
         private bool _indeterminateRole => _roleOptions.Count(o => o.Checked) > 0 && _roleOptions.Count(o => o.Checked) < _roleOptions.Count();

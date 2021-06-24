@@ -15,7 +15,7 @@ namespace Gardener.Core.Entites
     /// 刷新token
     /// </summary>
     [Description("用户Token信息")]
-    public class UserToken : Entity<Guid>
+    public class UserToken : GardenerEntityBase<Guid>
     {
         /// <summary>
         /// 用户id

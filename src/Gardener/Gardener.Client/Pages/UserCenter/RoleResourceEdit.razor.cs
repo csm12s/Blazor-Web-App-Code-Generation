@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.UserCenter
 {
-    public partial class RoleResourceEdit : DrawerTemplate<int, bool>
+    public partial class RoleResourceEdit : FeedbackComponent<int, bool>
     {
         private Tree<ResourceDto> _tree;
         private bool _isExpanded;
@@ -87,7 +87,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async Task OnCancelClick()
         {
-            await base.CloseAsync(false);
+            await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Gardener.Client.Pages.UserCenter
             if (result)
             {
                 messageService.Success("保存成功");
-                await base.CloseAsync(true);
+                await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
             }
             else
             {

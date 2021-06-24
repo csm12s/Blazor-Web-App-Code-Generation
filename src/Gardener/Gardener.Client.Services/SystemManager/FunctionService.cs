@@ -16,7 +16,7 @@ namespace Gardener.Client.Services
     /// <summary>
     /// 
     /// </summary>
-    public class FunctionService : LockExtendServiceBase<FunctionDto, Guid>, IFunctionService
+    public class FunctionService : ApplicationServiceBase<FunctionDto, Guid>, IFunctionService
     {
         private readonly static string controller = "function";
         private readonly IApiCaller apiCaller;

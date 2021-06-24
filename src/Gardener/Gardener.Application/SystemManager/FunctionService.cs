@@ -13,6 +13,7 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -23,7 +24,7 @@ namespace Gardener.Application.SystemManager
     /// 功能服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class FunctionService : LockExtendServiceBase<Function, FunctionDto, Guid>, IFunctionService
+    public class FunctionService : ApplicationServiceBase<Function, FunctionDto, Guid>, IFunctionService
     {
 
         private readonly IRepository<Function> _repository;
@@ -52,7 +53,7 @@ namespace Gardener.Application.SystemManager
             var entity = await _repository.FindAsync(id);
             if (entity == null) return false;
             entity.EnableAudit = enableAudit;
-            await _repository.UpdateIncludeExistsAsync(entity, new[] { nameof(Function.EnableAudit) });
+            await _repository.UpdateIncludeAsync(entity, new[] { nameof(Function.EnableAudit) });
             return true;
         }
 
@@ -93,6 +94,7 @@ namespace Gardener.Application.SystemManager
 
             return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).AnyAsync();
         }
+
         
     }
 }

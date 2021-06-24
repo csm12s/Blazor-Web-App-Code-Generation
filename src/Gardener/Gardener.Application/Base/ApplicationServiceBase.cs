@@ -15,8 +15,9 @@ using Gardener.Common;
 using System;
 using Gardener.Application.Interfaces;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Swashbuckle.AspNetCore.Annotations;
+using Gardener.Core;
+using Gardener.Core.Entites;
 
 namespace Gardener.Application
 {
@@ -120,7 +121,7 @@ namespace Gardener.Application
         [HttpDelete]
         public virtual async Task<bool> FakeDelete(TKey id)
         {
-            await _repository.FakeDeleteAsync(id);
+            await _repository.FakeDeleteByKeyAsync(id);
             return true;
         }
         
@@ -138,7 +139,7 @@ namespace Gardener.Application
         {
             foreach (TKey id in ids)
             {
-                await _repository.FakeDeleteAsync(id);
+                await _repository.FakeDeleteByKeyAsync(id);
             }
             return true;
         }
@@ -187,6 +188,27 @@ namespace Gardener.Application
 
             return result;
         }
+
+        /// <summary>
+        /// 锁定
+        /// </summary>
+        /// <remarks>
+        /// 根据主键锁定或解锁数据
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <param name="isLocked"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<bool> Lock([ApiSeat(ApiSeats.ActionStart)] TKey id, bool isLocked = true)
+        {
+            var entity = await _repository.FindAsync(id);
+            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
+            {
+                await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked) });
+                return true;
+            }
+            return false;
+        }
     }
 
     /// <summary>
@@ -205,7 +227,7 @@ namespace Gardener.Application
         {
         }
     }
-
+   
     /// <summary>
     /// 继承此类即可实现基础方法
     /// 方法包括：CURD、获取全部、分页获取 

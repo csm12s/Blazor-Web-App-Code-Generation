@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
-    public class RoleService : LockExtendServiceBase<RoleDto>,IRoleService
+    public class RoleService : ApplicationServiceBase<RoleDto>,IRoleService
     {
         private readonly static string controller = "role";
 

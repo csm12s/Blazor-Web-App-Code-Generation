@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.SystemManager
 {
-    public partial class FunctionImport : DrawerTemplate<int, bool>
+    public partial class FunctionImport : FeedbackComponent<int, bool>
     {
         List<SwaggerSpecificationOpenApiInfoDto> apiInfos = new List<SwaggerSpecificationOpenApiInfoDto>();
         [Inject]
@@ -74,34 +74,10 @@ namespace Gardener.Client.Pages.SystemManager
         {
             _loading = true;
             _functionDtos = new List<FunctionDto>();
-            SwaggerModel swaggerModel= await swaggerService.Analysis(_apiJsonUrl);
-            if (swaggerModel != null && swaggerModel.paths != null)
+            _functionDtos = await swaggerService.GetFunctionsFromJson(_apiJsonUrl);
+            if (_functionDtos != null)
             {
-                Dictionary<string, SwaggerTagInfo> tagMap = swaggerModel.tags.ToDictionary<SwaggerTagInfo, string>(x => x.name);
-                foreach (var item in swaggerModel.paths)
-                {
-                    foreach (var m in item.Value)
-                    {
-                        string tags = m.Value.tags==null?null: string.Join("_", m.Value.tags.Select(x => tagMap.ContainsKey(x) ? tagMap[x].description : x));
-                        FunctionDto function = new FunctionDto()
-                        {
-                            Path=item.Key,
-                            Method= (HttpMethodType)Enum.Parse(typeof(HttpMethodType),m.Key.ToUpper()),
-                            Key= MD5Encryption.Encrypt(item.Key+ m.Key.ToUpper()),
-                            Summary =m.Value.summary,
-                            Description=m.Value.description,
-                            Group=_selectedGroup.Title,
-                            Service= tags,
-                            IsLocked=false,
-                            EnableAudit=true
-                        };
-                        if (HttpMethodType.GET.Equals(function.Method))
-                        {
-                            function.EnableAudit = false;
-                        }
-                        _functionDtos.Add(function);
-                    }
-                }
+                _functionDtos.ForEach(x => x.Group = _selectedGroup.Title);
             }
             _loading = false;
 
@@ -121,7 +97,8 @@ namespace Gardener.Client.Pages.SystemManager
         /// <returns></returns>
         private async Task OnCancleClick()
         {
-            base.CloseAsync(false);
+            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+            await drawerRef!.CloseAsync(false);
         }
         /// <summary>
         /// 取消
@@ -139,17 +116,24 @@ namespace Gardener.Client.Pages.SystemManager
             //开始导入
             _importIsBegin = true;
             _importPercent = 0;
-            int count = 0;
-            int insertCount = 0;
+            int count = 0, insertCount = 0,errorCount=0, repetitionCount=0;
             foreach (var item in _selectedFunctionDtos)
             {
                 count++;
                 bool exists=await functionService.Exists(item.Method, item.Path);
                 if (!exists)
                 {
-                    await functionService.Insert(item);
-                    insertCount++;
+                    FunctionDto function = await functionService.Insert(item);
+                    if (function == null)
+                    {
+                        errorCount++;
+                    }
+                    else
+                    {
+                        insertCount++;
+                    }
                 }
+                else { repetitionCount++; }
                 _importPercent = Math.Round((count / (double)_selectedFunctionDtos.Count) * 100, 2);
                 await InvokeAsync(StateHasChanged);
                 
@@ -157,7 +141,7 @@ namespace Gardener.Client.Pages.SystemManager
             await noticeService.Open(new NotificationConfig()
             {
                 Message = "导入结果通知",
-                Description = $"已存在{_selectedFunctionDtos.Count - insertCount}条,导入成功{insertCount}条",
+                Description = $"共选择{count}条,已存在{repetitionCount}条,导入{insertCount}条,失败{errorCount}条",
                 NotificationType = NotificationType.Success,
                 Duration=2
             });

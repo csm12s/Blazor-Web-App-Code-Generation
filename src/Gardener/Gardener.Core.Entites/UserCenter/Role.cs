@@ -18,7 +18,7 @@ namespace Gardener.Core.Entites
     /// 角色表
     /// </summary>
     [Description("角色信息")]
-    public class Role : Entity, IEntitySeedData<Role>, IEntityTypeBuilder<Role>,ILockEntity
+    public class Role : GardenerEntityBase, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
     {
         /// <summary>
         /// 角色名称
@@ -47,12 +47,6 @@ namespace Gardener.Core.Entites
         /// </summary>
         [DisplayName("是否是默认角色")]
         public bool IsDefault { get; set; }
-
-        /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
 
         /// <summary>
         /// 多对多

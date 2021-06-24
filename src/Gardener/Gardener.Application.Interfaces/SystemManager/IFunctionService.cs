@@ -17,7 +17,7 @@ namespace Gardener.Application.Interfaces
     /// <summary>
     /// 功能服务
     /// </summary>
-    public interface IFunctionService : IApplicationServiceBase<FunctionDto, Guid>, IApplicationLockServiceBase<Guid>
+    public interface IFunctionService : IApplicationServiceBase<FunctionDto, Guid>
     {
         /// <summary>
         /// 搜索

@@ -19,7 +19,7 @@ namespace Gardener.Core.Entites
     /// 功能信息
     /// </summary>
     [Description("功能信息")]
-    public class Function : Entity<Guid>, IEntityTypeBuilder<Function>, ILockEntity
+    public class Function : GardenerEntityBase<Guid>, IEntityTypeBuilder<Function>
     {
         /// <summary>
         /// 分组
@@ -68,12 +68,6 @@ namespace Gardener.Core.Entites
         /// </summary>
         [DisplayName("请求方法")]
         public HttpMethodType Method { get; set; }
-
-        /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
 
         /// <summary>
         /// 启用审计

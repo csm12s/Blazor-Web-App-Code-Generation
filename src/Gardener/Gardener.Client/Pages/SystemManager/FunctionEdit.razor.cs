@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.SystemManager
 {
-    public partial class FunctionEdit: DrawerTemplate<Guid, bool>
+    public partial class FunctionEdit: FeedbackComponent<Guid, bool>
     {
         private bool _isLoading = false;
         private FunctionDto _editModel = new FunctionDto();
@@ -82,7 +82,8 @@ namespace Gardener.Client.Pages.SystemManager
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    await base.CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
@@ -96,7 +97,8 @@ namespace Gardener.Client.Pages.SystemManager
                 if (result)
                 {
                     messageService.Success("修改成功");
-                    await base.CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
@@ -110,7 +112,8 @@ namespace Gardener.Client.Pages.SystemManager
         /// </summary>
         private async Task OnFormCancel()
         {
-            await base.CloseAsync(false);
+            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+            await drawerRef!.CloseAsync(false);
         }
     }
 }

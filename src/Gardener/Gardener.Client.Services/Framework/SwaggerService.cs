@@ -35,5 +35,11 @@ namespace Gardener.Client.Services
         {
             return await apiCaller.GetAsync<List<SwaggerSpecificationOpenApiInfoDto>>($"{controller}/api-group");
         }
+
+        public async Task<List<FunctionDto>> GetFunctionsFromJson(string url)
+        {
+            url = HttpUtility.UrlEncode(url);
+            return await apiCaller.GetAsync<List<FunctionDto>>($"{controller}/functions-from-json/{url}");
+        }
     }
 }

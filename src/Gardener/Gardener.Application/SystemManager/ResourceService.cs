@@ -25,7 +25,7 @@ namespace Gardener.Application
     /// 资源服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class ResourceService : LockExtendServiceBase<Resource, ResourceDto,Guid>, IResourceService
+    public class ResourceService : ApplicationServiceBase<Resource, ResourceDto,Guid>, IResourceService
     {
         private readonly IRepository<Resource> resourceRepository;
         /// <summary>

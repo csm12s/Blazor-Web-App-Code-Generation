@@ -32,7 +32,7 @@ namespace Gardener.Client.Pages.UserCenter
         public int Type { get; set; }
     }
 
-    public partial class ResourceEdit: DrawerTemplate<ResourceEditOption, bool>
+    public partial class ResourceEdit: FeedbackComponent<ResourceEditOption, bool>
     {
         private bool _isLoading = false;
 
@@ -58,7 +58,8 @@ namespace Gardener.Client.Pages.UserCenter
             if (selectedResource == null)
             {
                 messageService.Error("所选资源不存在");
-                await base.CloseAsync(false);
+                DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                await drawerRef!.CloseAsync(false);
                 return;
             }
 
@@ -104,7 +105,8 @@ namespace Gardener.Client.Pages.UserCenter
                 if (result)
                 {
                     messageService.Success("更新成功");
-                    await base.CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
@@ -119,7 +121,8 @@ namespace Gardener.Client.Pages.UserCenter
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    await base.CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
@@ -133,7 +136,8 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async Task OnFormCancel()
         {
-            await base.CloseAsync(false);
+            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+            await drawerRef!.CloseAsync(false);
         }
 
     }

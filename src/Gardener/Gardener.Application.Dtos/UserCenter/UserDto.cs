@@ -92,10 +92,5 @@ namespace Gardener.Application.Dtos
         /// 用户扩展信息
         /// </summary>
         public UserExtensionDto UserExtension { get; set; }
-        /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
     }
 }

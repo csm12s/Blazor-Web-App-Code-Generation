@@ -110,6 +110,17 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Lock(`2,System.Boolean)">
+            <summary>
+            锁定
+            </summary>
+            <remarks>
+            根据主键锁定或解锁数据
+            </remarks>
+            <param name="id"></param>
+            <param name="isLocked"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.ApplicationServiceBase`1">
             <summary>
             继承此类即可实现基础方法
@@ -136,66 +147,6 @@
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="T:Gardener.Application.LockExtendServiceBase`3">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-            <typeparam name="TKey">数据实体主键类型</typeparam>
-        </member>
-        <member name="F:Gardener.Application.LockExtendServiceBase`3._repository">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`3.Lock(`2,System.Boolean)">
-            <summary>
-            锁定
-            </summary>
-            <remarks>
-            根据主键锁定或解锁数据
-            </remarks>
-            <param name="id"></param>
-            <param name="isLocked"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.Application.LockExtendServiceBase`1">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="T:Gardener.Application.LockExtendServiceBase`2">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
             </summary>
             <param name="repository"></param>
         </member>
@@ -273,6 +224,13 @@
             <remarks>
             获取api分组设置
             </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SwaggerService.GetFunctionsFromJson(System.String)">
+            <summary>
+            从json中获取function
+            </summary>
+            <param name="url"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.SystemManager.AttachmentService">

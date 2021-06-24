@@ -18,7 +18,7 @@ namespace Gardener.Core.Entites
     /// 审计实体表
     /// </summary>
     [Description("实体审计信息")]
-    public class AuditEntity : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditEntity : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计实体表

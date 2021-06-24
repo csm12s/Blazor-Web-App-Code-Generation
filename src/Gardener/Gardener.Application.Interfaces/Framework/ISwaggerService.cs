@@ -27,5 +27,12 @@ namespace Gardener.Application.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup();
+
+        /// <summary>
+        /// 从json中获取function
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        Task<List<FunctionDto>> GetFunctionsFromJson(string url);
     }
 }

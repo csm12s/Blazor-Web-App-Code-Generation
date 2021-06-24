@@ -14,7 +14,7 @@ namespace Gardener.Core.Entites
     /// 实体属性审计信息
     /// </summary>
     [Description("属性审计信息")]
-    public class AuditProperty : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditProperty : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 名称

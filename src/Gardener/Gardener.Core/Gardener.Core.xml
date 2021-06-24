@@ -127,6 +127,30 @@
             <param name="auditOperation"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Core.RepositoryExtensions">
+            <summary>
+            分部拓展类
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.RepositoryExtensions.FakeDeleteAsync``1(Furion.DatabaseAccessor.IRepository{``0},``0)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.RepositoryExtensions.FakeDeleteByKeyAsync``2(Furion.DatabaseAccessor.IRepository{``0},``1)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="repository"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Core.FileStore.IFileStoreService">
             <summary>
             文件存储服务

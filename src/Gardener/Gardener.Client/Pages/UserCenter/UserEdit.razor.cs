@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.UserCenter
 {
-    public partial class UserEdit: DrawerTemplate<int, bool>
+    public partial class UserEdit: FeedbackComponent<int, bool>
     {
         private bool _formIsLoading = false;
         private UserDto _editModel = new UserDto();
@@ -66,7 +66,7 @@ namespace Gardener.Client.Pages.UserCenter
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    await base.CloseAsync(true);
+                    await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
                 }
                 else
                 {
@@ -80,7 +80,7 @@ namespace Gardener.Client.Pages.UserCenter
                 if (result)
                 {
                     messageService.Success("修改成功");
-                    await base.CloseAsync(true);
+                    await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
                 }
                 else
                 {
@@ -94,7 +94,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async Task OnFormCancel()
         {
-            await base.CloseAsync(false);
+            await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
         }
         
 

@@ -8,6 +8,9 @@ using Furion.DatabaseAccessor;
 
 namespace Gardener.Core.Entites
 {
+    /// <summary>
+    /// 审计数据库定位器
+    /// </summary>
     public class GardenerAuditDbContextLocator: IDbContextLocator
     {
     }

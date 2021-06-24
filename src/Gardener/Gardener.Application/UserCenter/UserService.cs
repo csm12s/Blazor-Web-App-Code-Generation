@@ -27,7 +27,7 @@ namespace Gardener.Application
     /// 用户服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
-    public class UserService : LockExtendServiceBase<User, UserDto>, IUserService
+    public class UserService : ApplicationServiceBase<User, UserDto>, IUserService
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;

@@ -49,22 +49,22 @@
                     </Row>
                 </TitleTemplate>
                 <RowTemplate>
-                    <Selection CheckStrictly />
-                    <Column @bind-Field="@model.Name" Width="15%"/>
-                    
-                    <Column @bind-Field="@model.Key" Width="10%" />
-                    <Column @bind-Field="@model.Path" Width="10%"/>
-                    <Column @bind-Field="@model.Icon" Width="8%">
-                        @if (!string.IsNullOrEmpty(model.Icon))
-                        {
-                            <Icon Type="@model.Icon"></Icon>
-                        }
-                        <sppn>@model.Icon</sppn>
+                    <Selection CheckStrictly Width="5%" />
+                    <Column @bind-Field="@model.Name" Width="20%">
+                        <span>
+                            @if (!string.IsNullOrEmpty(model.Icon))
+                            {
+                                <Icon Type="@model.Icon"></Icon>
+                            }@model.Name
+                        </span>
                     </Column>
-                    <Column @bind-Field="@model.Order" Width="5%"/>
+
+                    @*<Column @bind-Field="@model.Key" Width="10%" />
+                    <Column @bind-Field="@model.Path" Width="10%"/>*@
                     <Column @bind-Field="@model.Type" Width="5%">
                         <Tag>@(EnumExtension.GetEnumDescription(model.Type))</Tag>
                     </Column>
+                    <Column @bind-Field="@model.Order" Width="5%" />
                     <Column @bind-Field="@model.IsLocked" Width="10%">
                         <ResourceAuthorize ResourceKey="user_auth_role_lock">
                             <Authorized>
@@ -73,10 +73,10 @@
                             <NotAuthorized>
                                 <TagYesNo Yes="model.IsLocked"></TagYesNo>
                             </NotAuthorized>
-                        </ResourceAuthorize>    
+                        </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Width="10%" Format="@SystemConstant.DateTimeFormat"/>
-                    <Column @bind-Field="@model.Remark" />
+                    <Column @bind-Field="@model.CreatedTime" Width="10%" Format="@SystemConstant.DateTimeFormat" />
+                    @*<Column @bind-Field="@model.Remark" />*@
                 </RowTemplate>
             </Table>
         </ChildContent>

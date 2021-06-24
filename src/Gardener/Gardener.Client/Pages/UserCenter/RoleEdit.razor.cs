@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.UserCenter
 {
-    public partial class RoleEdit : DrawerTemplate<int, bool>
+    public partial class RoleEdit : FeedbackComponent<int, bool>
     {
         private bool _isLoading = false;
         private RoleDto _editModel = new RoleDto();
@@ -67,7 +67,8 @@ namespace Gardener.Client.Pages.UserCenter
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    await base.CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
@@ -81,7 +82,8 @@ namespace Gardener.Client.Pages.UserCenter
                 if (result)
                 {
                     messageService.Success("修改成功");
-                    await base.CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
@@ -95,7 +97,7 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async Task OnFormCancel()
         {
-            await base.CloseAsync(false);
+           await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
         }
     }
 }

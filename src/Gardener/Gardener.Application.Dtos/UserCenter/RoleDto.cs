@@ -39,12 +39,6 @@ namespace Gardener.Application.Dtos
         public DateTimeOffset? UpdatedTime { get; set; }
 
         /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
-
-        /// <summary>
         /// 是否是超级管理员
         /// 超级管理员拥有所有权限
         /// </summary>

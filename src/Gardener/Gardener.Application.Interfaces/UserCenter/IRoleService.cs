@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Application.Interfaces
 {
-    public interface IRoleService : IApplicationServiceBase<RoleDto,int>, IApplicationLockServiceBase<int>
+    public interface IRoleService : IApplicationServiceBase<RoleDto,int>
     {
         Task<bool> DeleteResource( int roleId);
         Task<bool> Resource(int roleId, Guid[] resourceIds);

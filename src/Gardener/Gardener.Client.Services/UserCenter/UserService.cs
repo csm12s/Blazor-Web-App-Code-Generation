@@ -12,7 +12,7 @@ using Gardener.Application.Interfaces;
 
 namespace Gardener.Client.Services
 {
-    public class UserService : LockExtendServiceBase<UserDto>,IUserService
+    public class UserService : ApplicationServiceBase<UserDto>,IUserService
     {
         private readonly static string controller = "user";
 

@@ -72,5 +72,12 @@ namespace Gardener.Application.Interfaces
         /// <param name="input"></param>
         /// <returns></returns>
         Task<bool> Update(TEntityDto input);
+        /// <summary>
+        ///  锁定、解锁
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="islocked"></param>
+        /// <returns></returns>
+        Task<bool> Lock(TKey id, bool islocked = true);
     }
 }

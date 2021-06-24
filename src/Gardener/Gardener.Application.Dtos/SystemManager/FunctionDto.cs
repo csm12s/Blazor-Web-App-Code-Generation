@@ -67,12 +67,6 @@ namespace Gardener.Application.Dtos
         public HttpMethodType Method { get; set; }
 
         /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
-
-        /// <summary>
         /// 启用审计
         /// </summary>
         [DisplayName("启用审计")]

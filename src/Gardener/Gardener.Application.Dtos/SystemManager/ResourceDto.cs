@@ -16,13 +16,8 @@ namespace Gardener.Application.Dtos
     /// <summary>
     /// 资源
     /// </summary>
-    public class ResourceDto
+    public class ResourceDto: BaseDto<Guid>
     {
-        /// <summary>
-        /// 权限唯一名
-        /// </summary>
-        [Required(ErrorMessage ="不能为空")]
-        public Guid Id { get; set; }
         /// <summary>
         /// 名称
         /// </summary>
@@ -82,19 +77,7 @@ namespace Gardener.Application.Dtos
         /// 多对多中间表
         /// </summary>
         public List<RoleResourceDto> RoleResources { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayName("创建时间")]
-        public DateTimeOffset CreatedTime { get; set; }
-        /// <summary>
-        /// 是否锁定
-        /// </summary>
-        public bool IsLocked { get; set; }
-        /// <summary>
-        /// 是否逻辑删除
-        /// </summary>
-        public bool IsDeleted { get; set; }
+        
         /// <summary>
         /// 完整名称
         /// </summary>

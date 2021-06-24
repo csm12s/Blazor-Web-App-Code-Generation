@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.UserCenter
 {
-    public partial class UserUploadAvatar : DrawerTemplate<UserUploadAvatarParams, string>
+    public partial class UserUploadAvatar : FeedbackComponent<UserUploadAvatarParams, string>
     {
         bool loading = false;
 

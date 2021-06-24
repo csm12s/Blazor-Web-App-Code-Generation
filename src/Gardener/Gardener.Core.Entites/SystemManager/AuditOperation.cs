@@ -16,7 +16,7 @@ namespace Gardener.Core.Entites
     /// 操作审计信息
     /// </summary>
     [Description("操作审计信息")]
-    public class AuditOperation : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditOperation : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计操作
