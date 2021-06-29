@@ -22,7 +22,7 @@
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
-                            <ResourceAuthorize ResourceKey="user_auth_user_delete_selected">
+                            <ResourceAuthorize ResourceKey="system_manager_resource_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
                                     删除选中
                                 </Button>
@@ -30,14 +30,14 @@
                         </AntDesign.Col>
                         <AntDesign.Col Span="16" Style="text-align:right">
                             <Space>
-                                <ResourceAuthorize ResourceKey="user_auth_user_add">
+                                <ResourceAuthorize ResourceKey="system_manager_resource_add">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
                                             添加
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
-                                <ResourceAuthorize ResourceKey="user_auth_user_refresh">
+                                <ResourceAuthorize ResourceKey="system_manager_resource_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
                                             刷新
@@ -60,7 +60,7 @@
                     </Column>
 
                     @*<Column @bind-Field="@model.Key" Width="10%" />
-                    <Column @bind-Field="@model.Path" Width="10%"/>*@
+        <Column @bind-Field="@model.Path" Width="10%"/>*@
                     <Column @bind-Field="@model.Type" Width="5%">
                         <Tag>@(EnumExtension.GetEnumDescription(model.Type))</Tag>
                     </Column>
@@ -77,6 +77,24 @@
                     </Column>
                     <Column @bind-Field="@model.CreatedTime" Width="10%" Format="@SystemConstant.DateTimeFormat" />
                     @*<Column @bind-Field="@model.Remark" />*@
+                    <ActionColumn Width="10%" >
+                        <Space>
+                            @if (!model.Type.Equals(ResourceType.Root))
+                            {
+                                <ResourceAuthorize ResourceKey="system_manager_resource_edit">
+                                    <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>
+                                </ResourceAuthorize>
+
+                                <ResourceAuthorize ResourceKey="system_manager_resource_show_function">
+                                    <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model.Id)">关联接口</Button></SpaceItem>
+                                </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="system_manager_resource_delete">
+                                    <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                                </ResourceAuthorize>
+                            }
+
+                        </Space>
+                    </ActionColumn>
                 </RowTemplate>
             </Table>
         </ChildContent>

@@ -6,7 +6,6 @@
 
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
-using Gardener.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,7 +28,12 @@ namespace Gardener.Client.Services
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetChildren(Guid id)
         {
-            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{id}/Children");
+            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{id}/children");
+        }
+
+        public async Task<List<FunctionDto>> GetFunctions(Guid id)
+        {
+            return await apiCaller.GetAsync<List<FunctionDto>>($"{controller}/{id}/functions");
         }
 
         public async Task<List<ResourceDto>> GetRoot()

@@ -10,7 +10,7 @@ using System;
 namespace Gardener.Client.Services
 {
     /// <summary>
-    /// 系统配置
+    /// 系统配置-暂时写死吧
     /// </summary>
     public class SystemConfigService : ISystemConfigService
     {

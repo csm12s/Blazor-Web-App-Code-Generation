@@ -95,6 +95,13 @@ namespace Gardener.Application.SystemManager
             return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).AnyAsync();
         }
 
-        
+        /// <summary>
+        /// 获取有效的
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<FunctionDto>> GetEffective()
+        {
+            return await _repository.Where(x => x.IsDeleted == false && x.IsLocked == false).Select(x => x.Adapt<FunctionDto>()).ToListAsync();
+        }
     }
 }

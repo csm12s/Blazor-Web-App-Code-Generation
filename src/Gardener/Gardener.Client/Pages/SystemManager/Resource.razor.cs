@@ -97,14 +97,29 @@ namespace Gardener.Client.Pages.SystemManager
         /// <param name="roleDto"></param>
         private async Task OnEditClick(Guid id)
         {
-            
+            var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
+                   new ResourceEditOption() { Type = 1, SelectedResourceId = id },
+                   true,
+                   title: "编辑",
+                   width: 400,
+                   placement: "right");
+            if (result)
+            {
+                await ReLoadTable();
+            }
         }
         /// <summary>
         /// 点击添加按钮
         /// </summary>
         private async Task OnAddClick()
         {
-            
+            var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
+                   new ResourceEditOption() { Type = 0, SelectedResourceId = Guid.Empty },
+                   true,
+                   title: "添加",
+                   width: 400,
+                   placement: "right");
+            if (result) { await ReLoadTable(); }
         }
         
         /// <summary>
@@ -150,6 +165,21 @@ namespace Gardener.Client.Pages.SystemManager
                     messageService.Error("锁定失败");
                 }
             });
+        }
+
+        /// <summary>
+        /// 点击展示关联接口
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private async Task OnShowFunctionClick(Guid id)
+        {
+            var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
+                      new ResourceFunctionEditOption { Id=id,Type=0},
+                      true,
+                      title: "关联接口",
+                      width: 1200,
+                      placement: "right");
         }
     }
 }

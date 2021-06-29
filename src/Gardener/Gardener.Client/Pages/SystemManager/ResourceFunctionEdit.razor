@@ -1,0 +1,75 @@
+﻿@inherits FeedbackComponent<ResourceFunctionEditOption, bool>
+<Spin Spinning="_loading">
+    <Row Style="margin-top:10px;">
+        <AntDesign.Col>
+            <Table DataSource="@_functionDtos"
+                   TItem="FunctionDto"
+                   PageSize="_functionDtos.Count()"
+                   Loading="@_loading"
+                   Context="model"
+                   Size=@TableSize.Small
+                   ScrollY="500px"
+                   HidePagination="true"
+                   Bordered="true"
+                   SelectedRows="@_selectedFunctionDtos"
+                   SelectedRowsChanged="SelectedRowsChanged">
+                <TitleTemplate>
+                    @if (this.Options.Type == 0)
+                    {
+                        <Row>
+                            <AntDesign.Col Span="8">
+                                <ResourceAuthorize ResourceKey="system_manager_resource_delete_selected">
+                                    <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnFunctionDeletesClick">
+                                        删除选中
+                                    </Button>
+                                </ResourceAuthorize>
+                            </AntDesign.Col>
+                            <AntDesign.Col Span="16" Style="text-align:right">
+                                <Space>
+                                    <ResourceAuthorize ResourceKey="system_manager_resource_show_add_page">
+                                        <SpaceItem>
+                                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Id)">
+                                                关联
+                                            </Button>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                </Space>
+                            </AntDesign.Col>
+                        </Row>
+                    }
+                    else if (this.Options.Type == 1) 
+                    {
+                        <Row>
+                    
+                            <AntDesign.Col Span="24">
+                                <Space>
+                                    <ResourceAuthorize ResourceKey="system_manager_resource_add">
+                                        <SpaceItem>
+                                            <Button Type="@ButtonType.Primary" Icon="check" OnClick="x => OnFunctionAddClick()">
+                                                关联选中
+                                            </Button>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                </Space>
+                            </AntDesign.Col>
+                        </Row>
+                    }
+                </TitleTemplate>
+                <RowTemplate>
+                    <Selection Key="@(model.Path+"_"+model.Method)" />
+                    <Column @bind-Field="@model.Group" Width="150" Sortable="false" Filterable  />
+                    <Column @bind-Field="@model.Service" Width="150" Sortable="false" Filterable  />
+                    <Column @bind-Field="@model.Summary" Width="150" Sortable="false" />
+                    <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
+                    <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
+                    <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
+                        <Tag>@EnumExtension.GetEnumDescription(model.Method)</Tag>
+                    </Column>
+                    <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable >
+                        <TagYesNo Yes="@model.EnableAudit"></TagYesNo>
+                    </Column>
+                </RowTemplate>
+            </Table>
+        </AntDesign.Col>
+    </Row>
+</Spin>

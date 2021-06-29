@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -26,7 +25,7 @@ namespace Gardener.Application
     /// <summary>
     /// Swagger服务
     /// </summary>
-    [ApiDescriptionSettings("BaseServices")]
+    [ApiDescriptionSettings("SystemManagerServices")]
     public class SwaggerService : ISwaggerService, IDynamicApiController
     {
 

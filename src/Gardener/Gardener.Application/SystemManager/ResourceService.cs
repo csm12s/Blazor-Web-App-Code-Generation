@@ -27,14 +27,17 @@ namespace Gardener.Application
     [ApiDescriptionSettings("SystemManagerServices")]
     public class ResourceService : ApplicationServiceBase<Resource, ResourceDto,Guid>, IResourceService
     {
-        private readonly IRepository<Resource> resourceRepository;
+        private readonly IRepository<Resource> _resourceRepository;
+        private readonly IRepository<ResourceFunction> _resourceFunctionRespository;
         /// <summary>
         /// 资源服务
         /// </summary>
         /// <param name="resourceRepository"></param>
-        public ResourceService(IRepository<Resource> resourceRepository) : base(resourceRepository)
+        /// <param name="resourceFunctionRespository"></param>
+        public ResourceService(IRepository<Resource> resourceRepository, IRepository<ResourceFunction> resourceFunctionRespository) : base(resourceRepository)
         {
-            this.resourceRepository = resourceRepository;
+            _resourceRepository = resourceRepository;
+            _resourceFunctionRespository = resourceFunctionRespository;
         }
 
         /// <summary>
@@ -47,7 +50,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetChildren([ApiSeat(ApiSeats.ActionStart)] Guid id)
         {
-            var resources = await resourceRepository
+            var resources = await _resourceRepository
                 .Where(x => x.ParentId == id)
                 .Where(x => x.IsDeleted == false)
                 .OrderBy(x => x.Order)
@@ -65,7 +68,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetRoot()
         {
-            var resources = await resourceRepository
+            var resources = await _resourceRepository
                 .Where(x => x.ParentId ==null && x.Type.Equals(ResourceType.Root))
                 .Where(x => x.IsDeleted == false)
                 .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
@@ -81,7 +84,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public async Task<string> GetSeedData()
         {
-            List<Resource> resources = await resourceRepository.AsQueryable(false).Where(x=>x.IsDeleted==false).ToListAsync();
+            List<Resource> resources = await _resourceRepository.AsQueryable(false).Where(x=>x.IsDeleted==false).ToListAsync();
             StringBuilder sb = new StringBuilder();
             foreach (var resource in resources)
             {
@@ -119,7 +122,7 @@ namespace Gardener.Application
 
             List<ResourceDto> resourceDtos = new List<ResourceDto>();
 
-            var allResources=resourceRepository
+            var allResources=_resourceRepository
                 .Where(x => x.IsDeleted == false)
                 .OrderBy(x=>x.Order)
                 .ToList();
@@ -173,11 +176,27 @@ namespace Gardener.Application
         /// <returns></returns>
         public override async Task<ResourceDto> Insert(ResourceDto resourceDto)
         {
-            if (resourceRepository.Any(x => x.Key.Equals(resourceDto.Key), false))
+            if (_resourceRepository.Any(x => x.Key.Equals(resourceDto.Key), false))
             {
                 throw Oops.Oh(ExceptionCode.RESOURCE_KEY_REPEAT);
             }
             return await base.Insert(resourceDto);
         }
+        /// <summary>
+        /// 根据资源id获取功能信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<List<FunctionDto>> GetFunctions([ApiSeat(ApiSeats.ActionStart)] Guid id)
+        {
+            return await _resourceFunctionRespository.AsQueryable(false)
+                 .Include(x => x.Function)
+                 .Where(x=>x.ResourceId.Equals(id))
+                 .Select(x => x.Function)
+                 .Where(x => x.IsDeleted == false && x.IsLocked == false)
+                 .Select(x=>x.Adapt<FunctionDto>())
+                 .ToListAsync();
+        }
+
     }
 }

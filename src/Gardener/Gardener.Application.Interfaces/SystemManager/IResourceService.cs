@@ -40,5 +40,12 @@ namespace Gardener.Application.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<String> GetSeedData();
+
+        /// <summary>
+        /// 根据资源id获取
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<List<FunctionDto>> GetFunctions(Guid id);
     }
 }

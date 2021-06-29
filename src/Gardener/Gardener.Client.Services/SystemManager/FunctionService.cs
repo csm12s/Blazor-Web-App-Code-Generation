@@ -8,6 +8,7 @@ using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
 using Gardener.Enums;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -23,6 +24,11 @@ namespace Gardener.Client.Services
         public FunctionService(IApiCaller apiCaller) : base(apiCaller, controller)
         {
             this.apiCaller = apiCaller;
+        }
+
+        public async Task<List<FunctionDto>> GetEffective()
+        {
+            return await apiCaller.GetAsync<List<FunctionDto>>($"{controller}/effective");
         }
 
         public async Task<bool> EnableAudit(Guid id, bool enableAudit=true)

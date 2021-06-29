@@ -27,7 +27,7 @@ namespace Gardener.Application
     /// <summary>
     /// 权限认证服务
     /// </summary>
-    [ApiDescriptionSettings("UserCenterServices")]
+    [ApiDescriptionSettings("SystemManagerServices")]
     public class AuthorizeService : IDynamicApiController, IAuthorizeService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

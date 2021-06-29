@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AntDesign" Version="0.8.2" />
     <PackageReference Include="AntDesign.Charts" Version="0.2.1" />
-    <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-210129055145" />
+    <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-210416065052" />
     <PackageReference Include="Mapster" Version="7.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.7" />
@@ -37,6 +37,17 @@
     <Watch Include="**\*.less" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Pages\SystemManager\ResourceFunctionAdd.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Pages\SystemManager\ResourceFunctionAdd.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\SystemManager\ResourceFunctionAdd.razor" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">

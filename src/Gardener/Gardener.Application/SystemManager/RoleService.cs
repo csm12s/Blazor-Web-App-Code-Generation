@@ -22,7 +22,7 @@ namespace Gardener.Application
     /// <summary>
     /// 角色服务
     /// </summary>
-    [ApiDescriptionSettings("UserCenterServices")]
+    [ApiDescriptionSettings("SystemManagerServices")]
     public class RoleService : ApplicationServiceBase<Role, RoleDto>, IRoleService
     {
         private readonly IRepository<Role> _roleRepository;

@@ -204,34 +204,16 @@
             <param name="orderConditions"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.SwaggerService">
+        <member name="T:Gardener.Application.NewsService">
             <summary>
-            Swagger服务
+            新闻管理
             </summary>
         </member>
-        <member name="M:Gardener.Application.SwaggerService.Analysis(System.String)">
+        <member name="M:Gardener.Application.NewsService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.News})">
             <summary>
-            解析api json
+            
             </summary>
-            <remarks> swagger json 文件解析功能</remarks>
-            <param name="url"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.SwaggerService.GetApiGroup">
-            <summary>
-            获取哦 swagger 配置
-            </summary>
-            <remarks>
-            获取api分组设置
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.SwaggerService.GetFunctionsFromJson(System.String)">
-            <summary>
-            从json中获取function
-            </summary>
-            <param name="url"></param>
-            <returns></returns>
+            <param name="repository"></param>
         </member>
         <member name="T:Gardener.Application.SystemManager.AttachmentService">
             <summary>
@@ -394,62 +376,10 @@
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Application.ResourceService">
+        <member name="M:Gardener.Application.SystemManager.FunctionService.GetEffective">
             <summary>
-            资源服务
+            获取有效的
             </summary>
-        </member>
-        <member name="M:Gardener.Application.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
-            <summary>
-            资源服务
-            </summary>
-            <param name="resourceRepository"></param>
-        </member>
-        <member name="M:Gardener.Application.ResourceService.GetChildren(System.Guid)">
-            <summary>
-            获取所有子资源
-            </summary>
-            <remarks>
-            获取所有子资源
-            </remarks>
-            <param name="id">父级id</param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ResourceService.GetRoot">
-            <summary>
-            返回根节点
-            </summary>
-            <remarks>
-            返回根节点资源
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ResourceService.GetSeedData">
-            <summary>
-            获取种子数据
-            </summary>
-            <remarks>
-            获取种子数据
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ResourceService.GetTree">
-            <summary>
-            查询所有资源
-            </summary>
-            <remarks>
-            查询所有资源 按树形结构返回
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ResourceService.Insert(Gardener.Application.Dtos.ResourceDto)">
-            <summary>
-            添加资源
-            </summary>
-            <remarks>
-            添加资源
-            </remarks>
-            <param name="resourceDto"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.AuthorizeService">
@@ -539,6 +469,72 @@
             </remarks>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.ResourceService">
+            <summary>
+            资源服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.ResourceFunction})">
+            <summary>
+            资源服务
+            </summary>
+            <param name="resourceRepository"></param>
+            <param name="resourceFunctionRespository"></param>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.GetChildren(System.Guid)">
+            <summary>
+            获取所有子资源
+            </summary>
+            <remarks>
+            获取所有子资源
+            </remarks>
+            <param name="id">父级id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.GetRoot">
+            <summary>
+            返回根节点
+            </summary>
+            <remarks>
+            返回根节点资源
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.GetTree">
+            <summary>
+            查询所有资源
+            </summary>
+            <remarks>
+            查询所有资源 按树形结构返回
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.Insert(Gardener.Application.Dtos.ResourceDto)">
+            <summary>
+            添加资源
+            </summary>
+            <remarks>
+            添加资源
+            </remarks>
+            <param name="resourceDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.GetFunctions(System.Guid)">
+            <summary>
+            根据资源id获取功能信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.RoleService">
             <summary>
             角色服务
@@ -610,6 +606,35 @@
             <remarks>
             获取种子数据
             </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.SwaggerService">
+            <summary>
+            Swagger服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SwaggerService.Analysis(System.String)">
+            <summary>
+            解析api json
+            </summary>
+            <remarks> swagger json 文件解析功能</remarks>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SwaggerService.GetApiGroup">
+            <summary>
+            获取哦 swagger 配置
+            </summary>
+            <remarks>
+            获取api分组设置
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SwaggerService.GetFunctionsFromJson(System.String)">
+            <summary>
+            从json中获取function
+            </summary>
+            <param name="url"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.UserService">
