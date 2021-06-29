@@ -38,18 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\SystemManager\ResourceFunctionAdd.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Watch Remove="Pages\SystemManager\ResourceFunctionAdd.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\SystemManager\ResourceFunctionAdd.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
