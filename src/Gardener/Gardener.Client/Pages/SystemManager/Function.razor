@@ -57,17 +57,16 @@
                 </TitleTemplate>
                 <RowTemplate>
                     <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
-                        <Selection Key="@(model.Id.ToString())" />
+                        <Selection Key="@(model.Id.ToString())" Width="5%"/>
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.Group" />
-                    <Column @bind-Field="@model.Service" />
-                    <Column @bind-Field="@model.Summary" Width="200px" />
-                    <Column @bind-Field="@model.Description" Width="200px" />
-                    <Column @bind-Field="@model.Path" Width="150px" />
-                    <Column @bind-Field="@model.Method">
+                    <Column @bind-Field="@model.Group" Width="10%"/>
+                    <Column @bind-Field="@model.Service" Width="10%"/>
+                    <Column @bind-Field="@model.Summary" Width="10%" />
+                    <Column @bind-Field="@model.Path" />
+                    <Column @bind-Field="@model.Method" Width="5%">
                         <Tag>@EnumExtension.GetEnumDescription(model.Method)</Tag>
                     </Column>
-                    <Column @bind-Field="@model.EnableAudit">
+                    <Column @bind-Field="@model.EnableAudit" Width="8%">
                         <ResourceAuthorize ResourceKey="system_manager_function_enable_audit">
                             <Authorized>
                                 <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>
@@ -77,7 +76,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.IsLocked">
+                    <Column @bind-Field="@model.IsLocked" Width="8%">
                         <ResourceAuthorize ResourceKey="system_manager_function_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -87,8 +86,8 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
-                    <ActionColumn>
+                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable  Width="10%"/>
+                    <ActionColumn Width="10%">
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_function_edit">
                                 <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>

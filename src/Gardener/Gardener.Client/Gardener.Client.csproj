@@ -22,7 +22,7 @@
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <ProjectReference Include="..\Gardener.Client.Services\Gardener.Client.Services.csproj" />
     <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
   </ItemGroup>
