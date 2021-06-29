@@ -535,6 +535,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.ResourceService.AddResourceFunctions(System.Guid,System.Guid[])">
+            <summary>
+            添加资源与接口关系
+            </summary>
+            <param name="resourceId"></param>
+            <param name="functionIds"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.RoleService">
             <summary>
             角色服务

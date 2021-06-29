@@ -59,11 +59,11 @@ namespace Gardener.Client.Pages.SystemManager
             else if (this.Options.Type == 1)
             {
                 //查看可用的接口
-                _functionDtos=await functionService.GetEffective();
+                _functionDtos = await functionService.GetEffective();
                 //选择的
                 _selectedFunctionDtos = _oldFunctionDtos;
             }
-            
+
         }
         /// <summary>
         /// 取消
@@ -101,6 +101,10 @@ namespace Gardener.Client.Pages.SystemManager
                      title: "关联接口",
                      width: 1200,
                      placement: "right");
+            if (result)
+            {
+               await OnInitializedAsync();
+            }
         }
         /// <summary>
         /// 点击关联选中按钮
@@ -111,6 +115,16 @@ namespace Gardener.Client.Pages.SystemManager
             {
                 messageService.Warn("请选择至少一项");
                 return;
+            }
+            bool result = await resourceService.AddResourceFunctions(this.Options.Id, _selectedFunctionDtos.Select(x => x.Id).ToArray());
+            if (result)
+            {
+                messageService.Success("关联成功");
+                await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+            }
+            else
+            {
+                messageService.Error("关联失败");
             }
         }
     }

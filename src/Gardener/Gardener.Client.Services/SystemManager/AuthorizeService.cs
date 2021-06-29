@@ -43,7 +43,7 @@ namespace Gardener.Client.Services
 
         public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes)
         {
-            return await apiCaller.PostAsync< ResourceType[],List <ResourceDto>>($"{controller}/current-user-resources", resourceTypes ?? new ResourceType[] { });
+            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-resources");
         }
 
         public Task<List<RoleDto>> GetCurrentUserRoles()

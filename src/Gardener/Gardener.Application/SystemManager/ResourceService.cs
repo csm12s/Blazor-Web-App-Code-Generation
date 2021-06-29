@@ -25,7 +25,7 @@ namespace Gardener.Application
     /// 资源服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class ResourceService : ApplicationServiceBase<Resource, ResourceDto,Guid>, IResourceService
+    public class ResourceService : ApplicationServiceBase<Resource, ResourceDto, Guid>, IResourceService
     {
         private readonly IRepository<Resource> _resourceRepository;
         private readonly IRepository<ResourceFunction> _resourceFunctionRespository;
@@ -54,7 +54,7 @@ namespace Gardener.Application
                 .Where(x => x.ParentId == id)
                 .Where(x => x.IsDeleted == false)
                 .OrderBy(x => x.Order)
-               .Select(x=>x.Adapt<ResourceDto>()).ToListAsync();
+               .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
             return resources;
         }
 
@@ -69,7 +69,7 @@ namespace Gardener.Application
         public async Task<List<ResourceDto>> GetRoot()
         {
             var resources = await _resourceRepository
-                .Where(x => x.ParentId ==null && x.Type.Equals(ResourceType.Root))
+                .Where(x => x.ParentId == null && x.Type.Equals(ResourceType.Root))
                 .Where(x => x.IsDeleted == false)
                 .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
             return resources;
@@ -84,7 +84,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public async Task<string> GetSeedData()
         {
-            List<Resource> resources = await _resourceRepository.AsQueryable(false).Where(x=>x.IsDeleted==false).ToListAsync();
+            List<Resource> resources = await _resourceRepository.AsQueryable(false).Where(x => x.IsDeleted == false).ToListAsync();
             StringBuilder sb = new StringBuilder();
             foreach (var resource in resources)
             {
@@ -122,9 +122,9 @@ namespace Gardener.Application
 
             List<ResourceDto> resourceDtos = new List<ResourceDto>();
 
-            var allResources=_resourceRepository
+            var allResources = _resourceRepository
                 .Where(x => x.IsDeleted == false)
-                .OrderBy(x=>x.Order)
+                .OrderBy(x => x.Order)
                 .ToList();
 
             //var rootResources =allResources
@@ -143,7 +143,7 @@ namespace Gardener.Application
             //  SetChildren(root, otherResources);
             //}
 
-            return allResources.Where(x=>x.Type.Equals(ResourceType.Root)).Select(x => x.Adapt<ResourceDto>()).ToList();
+            return allResources.Where(x => x.Type.Equals(ResourceType.Root)).Select(x => x.Adapt<ResourceDto>()).ToList();
         }
 
         ///// <summary>
@@ -191,12 +191,35 @@ namespace Gardener.Application
         {
             return await _resourceFunctionRespository.AsQueryable(false)
                  .Include(x => x.Function)
-                 .Where(x=>x.ResourceId.Equals(id))
+                 .Where(x => x.ResourceId.Equals(id))
                  .Select(x => x.Function)
                  .Where(x => x.IsDeleted == false && x.IsLocked == false)
-                 .Select(x=>x.Adapt<FunctionDto>())
+                 .Select(x => x.Adapt<FunctionDto>())
                  .ToListAsync();
         }
 
+        /// <summary>
+        /// 添加资源与接口关系
+        /// </summary>
+        /// <param name="resourceId"></param>
+        /// <param name="functionIds"></param>
+        /// <returns></returns>
+        public async Task<bool> AddResourceFunctions([FromRoute][ApiSeat(ApiSeats.ActionStart)] Guid resourceId,[FromBody] Guid[] functionIds)
+        {
+            List<ResourceFunction> resourceFunctions = new List<ResourceFunction>();
+            foreach (Guid functionId in functionIds)
+            {
+                ResourceFunction resourceFunction = new ResourceFunction()
+                {
+                    ResourceId = resourceId,
+                    FunctionId = functionId,
+                    CreatedTime = DateTimeOffset.Now
+
+                };
+                resourceFunctions.Add(resourceFunction);
+            }
+            await _resourceFunctionRespository.InsertAsync(resourceFunctions);
+            return true;
+        }
     }
 }

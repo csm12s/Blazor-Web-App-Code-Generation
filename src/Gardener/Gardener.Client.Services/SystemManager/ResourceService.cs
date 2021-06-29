@@ -21,6 +21,12 @@ namespace Gardener.Client.Services
         {
             this.apiCaller = apiCaller;
         }
+
+        public async Task<bool> AddResourceFunctions(Guid resourceId, Guid[] functionIds)
+        {
+            return await apiCaller.PostAsync<Guid[],bool>($"{controller}/{resourceId}/resource-functions",functionIds);
+        }
+
         /// <summary>
         /// 
         /// </summary>
