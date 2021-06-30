@@ -64,7 +64,7 @@
                     <Column @bind-Field="@model.Type" Width="5%">
                         <Tag>@(EnumExtension.GetEnumDescription(model.Type))</Tag>
                     </Column>
-                    <Column @bind-Field="@model.Order" Width="5%" />
+                    @*<Column @bind-Field="@model.Order" Width="5%" />*@
                     <Column @bind-Field="@model.IsLocked" Width="10%">
                         <ResourceAuthorize ResourceKey="user_auth_role_lock">
                             <Authorized>
@@ -82,14 +82,14 @@
                             @if (!model.Type.Equals(ResourceType.Root))
                             {
                                 <ResourceAuthorize ResourceKey="system_manager_resource_edit">
-                                    <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>
+                                    <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)">编辑</Button></SpaceItem>
                                 </ResourceAuthorize>
 
                                 <ResourceAuthorize ResourceKey="system_manager_resource_show_function">
                                     <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model.Id)">关联接口</Button></SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_resource_delete">
-                                    <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                                    <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model)">删除</Button></SpaceItem>
                                 </ResourceAuthorize>
                             }
 

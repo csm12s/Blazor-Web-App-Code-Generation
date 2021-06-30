@@ -9,6 +9,7 @@ using AntDesign.TableModels;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
 using Gardener.Client.Pages.UserCenter;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Gardener.Client.Pages.SystemManager
     public partial class Resource
     {
         ITable _table;
-        ResourceDto[] _resources;
+        List<ResourceDto> _resources;
         IEnumerable<ResourceDto> _selectedRows;
 
         bool _tableIsLoading = false;
@@ -42,12 +43,8 @@ namespace Gardener.Client.Pages.SystemManager
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var resources = await resourceService.GetTree();
-            if (resources != null)
-            {
-                _resources = resources.ToArray();
-            }
-            else
+            _resources = await resourceService.GetTree();
+            if (_resources == null)
             {
                 messageService.Error("加载失败");
             }
@@ -74,38 +71,84 @@ namespace Gardener.Client.Pages.SystemManager
         /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        private async Task OnDeleteClick(Guid id)
+        private async Task OnDeleteClick(ResourceDto resource)
         {
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
             {
-                var result = await resourceService.FakeDelete(id);
+                //找到所有子集
+                List<Guid> ids = new List<Guid>() { resource.Id };
+                GetTreeAllChildrenNodes(resource,ids);
+                var result = await resourceService.FakeDeletes(ids.ToArray());
                 if (result)
                 {
                     messageService.Success("删除成功");
-                    await ReLoadTable();
+                    DeleteTreeNode(resource.ParentId.Value,resource.Id,_resources);
                 }
                 else
                 {
                     messageService.Error("删除失败");
                 }
             }
+        }
+        /// <summary>
+        /// 获取所有子集节点id
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="ids"></param>
+        private void GetTreeAllChildrenNodes(ResourceDto resource, List<Guid> ids)
+        {
+            if (resource.Children != null)
+            {
+                resource.Children.ForEach(x => { 
+                    ids.Add(x.Id);
+                    GetTreeAllChildrenNodes(x,ids);
+                });
+            }
 
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="id"></param>
+        /// <param name="resourceDtos"></param>
+        private bool DeleteTreeNode(Guid pId,Guid id,List<ResourceDto> resourceDtos)
+        {
+            foreach (ResourceDto dto in resourceDtos)
+            {
+                if (dto.Id.Equals(pId))
+                {
+                    dto.Children = dto.Children.Where(x => !x.Id.Equals(id)).ToList();
+                    return true;
+                }
+                if (dto.Children!=null) 
+                {
+                    if (DeleteTreeNode(pId, id, dto.Children.ToList()))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         /// <summary>
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        private async Task OnEditClick(Guid id)
+        private async Task OnEditClick(ResourceDto resource)
         {
             var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
-                   new ResourceEditOption() { Type = 1, SelectedResourceId = id },
+                   new ResourceEditOption() { Type = 1, SelectedResourceId = resource.Id },
                    true,
                    title: "编辑",
                    width: 400,
                    placement: "right");
             if (result)
             {
-                await ReLoadTable();
+                var newEntity=await resourceService.Get(resource.Id);
+                newEntity.Adapt(resource);
             }
         }
         /// <summary>
@@ -135,7 +178,10 @@ namespace Gardener.Client.Pages.SystemManager
             {
                 if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    var result = await resourceService.FakeDeletes(_selectedRows.Select(x => x.Id).ToArray());
+                    List<Guid> ids = new List<Guid>();
+                    ids.AddRange(_selectedRows.Select(x => x.Id).ToArray());
+                    _selectedRows.ForEach(x => { GetTreeAllChildrenNodes(x, ids); });
+                    var result = await resourceService.FakeDeletes(ids.Distinct().ToArray());
                     if (result)
                     {
                         messageService.Success("删除成功");

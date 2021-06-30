@@ -108,6 +108,7 @@ namespace Gardener.Client.Pages.SystemManager
             }
 
         }
+        private bool onDeletesLoading = false;
         /// <summary>
         /// 点击删除选中按钮
         /// </summary>
@@ -121,6 +122,8 @@ namespace Gardener.Client.Pages.SystemManager
             {
                 if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
+                    onDeletesLoading = true;
+                    await InvokeAsync(StateHasChanged);
                     var result = await functionService.Deletes(_selectedRows.Select(x => x.Id).ToArray());
                     if (result)
                     {
@@ -131,6 +134,8 @@ namespace Gardener.Client.Pages.SystemManager
                     {
                         messageService.Error($"删除失败");
                     }
+                    onDeletesLoading = false;
+                    await InvokeAsync(StateHasChanged);
                 }
             }
         }

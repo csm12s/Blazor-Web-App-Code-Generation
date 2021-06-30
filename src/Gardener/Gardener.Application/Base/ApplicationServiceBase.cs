@@ -202,7 +202,7 @@ namespace Gardener.Application
         public async Task<bool> Lock([ApiSeat(ApiSeats.ActionStart)] TKey id, bool isLocked = true)
         {
             var entity = await _repository.FindAsync(id);
-            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
+            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsLocked), isLocked))
             {
                 await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked) });
                 return true;
