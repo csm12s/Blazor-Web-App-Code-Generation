@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.Audit
+namespace Gardener.Client.Pages.SystemManager.AuditView
 {
     public partial class AuditOperation
     {

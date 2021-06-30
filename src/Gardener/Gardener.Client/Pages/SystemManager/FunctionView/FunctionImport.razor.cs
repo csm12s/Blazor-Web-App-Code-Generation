@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager
+namespace Gardener.Client.Pages.SystemManager.FunctionView
 {
     public partial class FunctionImport : FeedbackComponent<int, bool>
     {

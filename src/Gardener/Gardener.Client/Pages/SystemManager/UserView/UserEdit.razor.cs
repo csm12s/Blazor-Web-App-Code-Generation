@@ -7,64 +7,48 @@
 using AntDesign;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
-using Gardener.Enums;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager
+namespace Gardener.Client.Pages.SystemManager.UserView
 {
-    public partial class FunctionEdit: FeedbackComponent<Guid, bool>
+    public partial class UserEdit: FeedbackComponent<int, bool>
     {
-        private bool _isLoading = false;
-        private FunctionDto _editModel = new FunctionDto();
-        [Required(ErrorMessage ="不能为空")]
-        private string _currentEditModelHttpMethodType
-        {
-            get
-            {
-                return _editModel.Method.ToString();
-            }
-            set
-            {
-                _editModel.Method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), value);
-            }
-        }
+        private bool _formIsLoading = false;
+        private UserDto _editModel = new UserDto();
+        [Inject]
+        IUserService userService { get; set; }
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
-        IFunctionService functionService { get; set; }
-        /// <summary>
-        /// 页面初始化
-        /// </summary>
-        /// <returns></returns>
+        DrawerService drawerService { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            _isLoading = true;
+            _formIsLoading = true;
 
-            Guid id = this.Options;
+            int id = this.Options;
 
-            if (!Guid.Empty.Equals(id))
+            if (id > 0)
             {
                 //更新 回填数据
-                var model = await functionService.Get(id);
-                if (model != null)
+                var user = await userService.Get(id);
+                if (user != null)
                 {
+                    user.Password = null;
+                    if (user.UserExtension == null) user.UserExtension = new UserExtensionDto() { UserId=user.Id };
                     //赋值给编辑对象
-                    model.Adapt(_editModel);
+                    user.Adapt(_editModel);
                 }
                 else
                 {
-                    messageService.Error("数据已不存在");
+                    messageService.Error("用户不存在");
                 }
             }
-            _isLoading = false;
+            _formIsLoading = false;
             await base.OnInitializedAsync();
         }
-
         /// <summary>
         /// 表单完成时
         /// </summary>
@@ -72,18 +56,17 @@ namespace Gardener.Client.Pages.SystemManager
         /// <returns></returns>
         private async Task OnFormFinish(EditContext editContext)
         {
-            _isLoading = true;
+            _formIsLoading = true;
             //开始请求
-            if (Guid.Empty.Equals(_editModel.Id))
+            if (_editModel.Id == 0)
             {
                 //添加
-                var result = await functionService.Insert(_editModel);
-
+                var result = await userService.Insert(_editModel);
+                
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-                    await drawerRef!.CloseAsync(true);
+                    await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
                 }
                 else
                 {
@@ -93,27 +76,39 @@ namespace Gardener.Client.Pages.SystemManager
             else
             {
                 //修改
-                var result = await functionService.Update(_editModel);
+                var result = await userService.Update(_editModel);
                 if (result)
                 {
                     messageService.Success("修改成功");
-                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-                    await drawerRef!.CloseAsync(true);
+                    await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
                 }
                 else
                 {
                     messageService.Error("修改失败");
                 }
             }
-            _isLoading = false;
+            _formIsLoading = false;
         }
         /// <summary>
         /// 取消
         /// </summary>
         private async Task OnFormCancel()
         {
-            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-            await drawerRef!.CloseAsync(false);
+            await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
+        }
+        
+
+        /// <summary>
+        /// 点击头像
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private async Task OnAvatarClick(UserDto user)
+        {
+            int avatarDrawerWidth = 300;
+            //this.DrawerRef.Options.Width += avatarDrawerWidth;
+            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User =user }, true, title: "上传头像", width: avatarDrawerWidth, placement: "right");
+            //this.DrawerRef.Options.Width -= avatarDrawerWidth;
         }
     }
 }

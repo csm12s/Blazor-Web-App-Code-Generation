@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.UserCenter
+namespace Gardener.Client.Pages.SystemManager.UserView
 {
     public partial class UserRoleEdit: FeedbackComponent<int, bool>
     {

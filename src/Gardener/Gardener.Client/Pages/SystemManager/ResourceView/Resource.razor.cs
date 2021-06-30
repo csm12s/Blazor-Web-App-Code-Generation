@@ -8,7 +8,6 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
-using Gardener.Client.Pages.UserCenter;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -16,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager
+namespace Gardener.Client.Pages.SystemManager.ResourceView
 {
     public partial class Resource
     {

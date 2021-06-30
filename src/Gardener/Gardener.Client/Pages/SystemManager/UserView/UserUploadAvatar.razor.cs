@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.UserCenter
+namespace Gardener.Client.Pages.SystemManager.UserView
 {
     public partial class UserUploadAvatar : FeedbackComponent<UserUploadAvatarParams, string>
     {

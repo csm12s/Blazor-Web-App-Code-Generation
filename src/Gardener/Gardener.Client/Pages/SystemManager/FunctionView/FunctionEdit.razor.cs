@@ -7,21 +7,36 @@
 using AntDesign;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Enums;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.UserCenter
+namespace Gardener.Client.Pages.SystemManager.FunctionView
 {
-    public partial class RoleEdit : FeedbackComponent<int, bool>
+    public partial class FunctionEdit: FeedbackComponent<Guid, bool>
     {
         private bool _isLoading = false;
-        private RoleDto _editModel = new RoleDto();
+        private FunctionDto _editModel = new FunctionDto();
+        [Required(ErrorMessage ="不能为空")]
+        private string _currentEditModelHttpMethodType
+        {
+            get
+            {
+                return _editModel.Method.ToString();
+            }
+            set
+            {
+                _editModel.Method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), value);
+            }
+        }
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
-        IRoleService roleService { get; set; }
+        IFunctionService functionService { get; set; }
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -30,12 +45,12 @@ namespace Gardener.Client.Pages.UserCenter
         {
             _isLoading = true;
 
-            int id = this.Options;
+            Guid id = this.Options;
 
-            if (id > 0)
+            if (!Guid.Empty.Equals(id))
             {
                 //更新 回填数据
-                var model = await roleService.Get(id);
+                var model = await functionService.Get(id);
                 if (model != null)
                 {
                     //赋值给编辑对象
@@ -43,7 +58,7 @@ namespace Gardener.Client.Pages.UserCenter
                 }
                 else
                 {
-                    messageService.Error("角色不存在");
+                    messageService.Error("数据已不存在");
                 }
             }
             _isLoading = false;
@@ -59,10 +74,10 @@ namespace Gardener.Client.Pages.UserCenter
         {
             _isLoading = true;
             //开始请求
-            if (_editModel.Id == 0)
+            if (Guid.Empty.Equals(_editModel.Id))
             {
                 //添加
-                var result = await roleService.Insert(_editModel);
+                var result = await functionService.Insert(_editModel);
 
                 if (result != null)
                 {
@@ -78,7 +93,7 @@ namespace Gardener.Client.Pages.UserCenter
             else
             {
                 //修改
-                var result = await roleService.Update(_editModel);
+                var result = await functionService.Update(_editModel);
                 if (result)
                 {
                     messageService.Success("修改成功");
@@ -97,7 +112,8 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         private async Task OnFormCancel()
         {
-           await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+            await drawerRef!.CloseAsync(false);
         }
     }
 }

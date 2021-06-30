@@ -7,40 +7,40 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
+using Gardener.Application.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.Web;
-using Gardener.Application.Interfaces;
 
-namespace Gardener.Client.Pages.UserCenter
+namespace Gardener.Client.Pages.SystemManager.AuditView
 {
-    public partial class Role
+    public partial class AuditEntity
     {
         ITable _table;
-        RoleDto[] _roles;
-        IEnumerable<RoleDto> _selectedRows;
-
-        int _pageIndex = 1;
-        int _pageSize = 10;
+        AuditEntityDto[] _datas;
+        IEnumerable<AuditEntityDto> _selectedRows;
+        AuditEntitySearchInput searchInput = new AuditEntitySearchInput();
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
         [Inject]
         public MessageService messageService { get; set; }
         [Inject]
-        public IRoleService roleService { get; set; }
+        public IAuditEntityService AuditEntityService { get; set; }
         [Inject]
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-        [Inject]
-        IAuthorizeService authorizeService { get; set; }
-
+        /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+        }
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -48,11 +48,11 @@ namespace Gardener.Client.Pages.UserCenter
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await roleService.Search(_name, _pageIndex, _pageSize);
+            var pagedListResult = await AuditEntityService.Search(searchInput);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
-                _roles = pagedList.Items.ToArray();
+                _datas = pagedList.Items.ToArray();
                 _total = pagedList.TotalCount;
             }
             else
@@ -74,69 +74,43 @@ namespace Gardener.Client.Pages.UserCenter
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        private async Task onChange(QueryModel<RoleDto> queryModel)
+        private async Task OnChange(QueryModel<AuditEntityDto> queryModel)
         {
+            searchInput.OrderConditions = queryModel.
+                SortModel.
+                Select(x => x.Adapt<SearchSort>()).ToArray();
+            if (searchInput.OrderConditions.Length == 0)
+            {
+                searchInput.OrderConditions = new[] {
+                    new SearchSort()
+                    {
+                        FieldName=nameof(AuditEntityDto.CreatedTime),
+                        SortType=SearchSortType.Desc
+                    }
+                };
+            }
             await ReLoadTable();
         }
         /// <summary>
         /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        private async Task OnDeleteClick(int id)
+        private async Task OnDeleteClick(Guid id)
         {
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
             {
-                var result = await roleService.FakeDelete(id);
+                var result = await AuditEntityService.Delete(id);
                 if (result)
                 {
-                    _roles = _roles.Remove(_roles.FirstOrDefault(x => x.Id == id));
+                    await ReLoadTable();
                     messageService.Success("删除成功");
                 }
                 else
                 {
                     messageService.Error("删除失败");
                 }
-                //await InvokeAsync(StateHasChanged);
             }
 
-        }
-        /// <summary>
-        /// 点击编辑按钮
-        /// </summary>
-        /// <param name="roleDto"></param>
-        private async Task OnEditClick(int id)
-        {
-            var result = await drawerService.CreateDialogAsync<RoleEdit, int, bool>(id, true, title: "编辑", width: 500);
-
-            if (result)
-            {
-                //刷新列表
-                await ReLoadTable();
-            }
-        }
-        /// <summary>
-        /// 点击添加按钮
-        /// </summary>
-        private async Task OnAddClick()
-        {
-            var result = await drawerService.CreateDialogAsync<RoleEdit, int, bool>(0, true, title: "添加", width: 500);
-
-            if (result)
-            {
-                //刷新列表
-                _pageIndex = 1;
-                _name = string.Empty;
-                await ReLoadTable();
-            }
-        }
-        /// <summary>
-        /// 点击分配资源
-        /// </summary>
-        /// <returns></returns>
-        private async Task OnEditRoleResourceClick(int id)
-        {
-            var result = await drawerService.CreateDialogAsync<RoleResourceEdit, int, bool>(id, true, title: "分配资源", width: 600);
-            Console.WriteLine(result);
         }
         /// <summary>
         /// 点击删除选中按钮
@@ -151,37 +125,27 @@ namespace Gardener.Client.Pages.UserCenter
             {
                 if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    var result = await roleService.FakeDeletes(_selectedRows.Select(x => x.Id).ToArray());
+                    var result = await AuditEntityService.Deletes(_selectedRows.Select(x => x.Id).ToArray());
                     if (result)
                     {
-                        _roles = _roles.Where(x => !_selectedRows.Any(y => y.Id == x.Id)).ToArray();
+                        await ReLoadTable();
                         messageService.Success("删除成功");
                     }
                     else
                     {
                         messageService.Error($"删除失败");
                     }
-                    //await InvokeAsync(StateHasChanged);
                 }
             }
         }
         /// <summary>
-        /// 点击锁定按钮
+        /// 
         /// </summary>
-        /// <param name="model"></param>
-        /// <param name="isLocked"></param>
-        private async Task OnChangeIsLocked(RoleDto model, bool isLocked)
+        /// <param name="auditEntity"></param>
+        /// <returns></returns>
+        private async Task OnDetailClick(AuditEntityDto auditEntity)
         {
-            Task.Run(async () =>
-            {
-                var result = await roleService.Lock(model.Id, isLocked);
-                if (!result)
-                {
-                    model.IsLocked = !isLocked;
-                    messageService.Error("锁定失败");
-                }
-            });
+          await drawerService.CreateDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(new[] { auditEntity }, title: "字段变更详情", width: 960, placement:"left");
         }
-
     }
 }

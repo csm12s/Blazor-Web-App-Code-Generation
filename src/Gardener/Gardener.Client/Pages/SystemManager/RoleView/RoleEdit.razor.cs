@@ -12,43 +12,44 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.UserCenter
+namespace Gardener.Client.Pages.SystemManager.RoleView
 {
-    public partial class UserEdit: FeedbackComponent<int, bool>
+    public partial class RoleEdit : FeedbackComponent<int, bool>
     {
-        private bool _formIsLoading = false;
-        private UserDto _editModel = new UserDto();
-        [Inject]
-        IUserService userService { get; set; }
+        private bool _isLoading = false;
+        private RoleDto _editModel = new RoleDto();
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
-        DrawerService drawerService { get; set; }
+        IRoleService roleService { get; set; }
+        /// <summary>
+        /// 页面初始化
+        /// </summary>
+        /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _formIsLoading = true;
+            _isLoading = true;
 
             int id = this.Options;
 
             if (id > 0)
             {
                 //更新 回填数据
-                var user = await userService.Get(id);
-                if (user != null)
+                var model = await roleService.Get(id);
+                if (model != null)
                 {
-                    user.Password = null;
-                    if (user.UserExtension == null) user.UserExtension = new UserExtensionDto() { UserId=user.Id };
                     //赋值给编辑对象
-                    user.Adapt(_editModel);
+                    model.Adapt(_editModel);
                 }
                 else
                 {
-                    messageService.Error("用户不存在");
+                    messageService.Error("角色不存在");
                 }
             }
-            _formIsLoading = false;
+            _isLoading = false;
             await base.OnInitializedAsync();
         }
+
         /// <summary>
         /// 表单完成时
         /// </summary>
@@ -56,17 +57,18 @@ namespace Gardener.Client.Pages.UserCenter
         /// <returns></returns>
         private async Task OnFormFinish(EditContext editContext)
         {
-            _formIsLoading = true;
+            _isLoading = true;
             //开始请求
             if (_editModel.Id == 0)
             {
                 //添加
-                var result = await userService.Insert(_editModel);
-                
+                var result = await roleService.Insert(_editModel);
+
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
@@ -76,39 +78,26 @@ namespace Gardener.Client.Pages.UserCenter
             else
             {
                 //修改
-                var result = await userService.Update(_editModel);
+                var result = await roleService.Update(_editModel);
                 if (result)
                 {
                     messageService.Success("修改成功");
-                    await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
+                    await drawerRef!.CloseAsync(true);
                 }
                 else
                 {
                     messageService.Error("修改失败");
                 }
             }
-            _formIsLoading = false;
+            _isLoading = false;
         }
         /// <summary>
         /// 取消
         /// </summary>
         private async Task OnFormCancel()
         {
-            await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
-        }
-        
-
-        /// <summary>
-        /// 点击头像
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        private async Task OnAvatarClick(UserDto user)
-        {
-            int avatarDrawerWidth = 300;
-            //this.DrawerRef.Options.Width += avatarDrawerWidth;
-            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User =user }, true, title: "上传头像", width: avatarDrawerWidth, placement: "right");
-            //this.DrawerRef.Options.Width -= avatarDrawerWidth;
+           await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
         }
     }
 }
