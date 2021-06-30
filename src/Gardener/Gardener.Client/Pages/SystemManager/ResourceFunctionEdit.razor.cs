@@ -46,6 +46,8 @@ namespace Gardener.Client.Pages.SystemManager
         NotificationService noticeService { get; set; }
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
+        List<TableFilter<string>> groupFilters = null;
+        List<TableFilter<string>> serviceFilters = null;
         private bool _loading = false;
         /// <summary>
         /// 页面初始化
@@ -71,6 +73,19 @@ namespace Gardener.Client.Pages.SystemManager
                 }
                 _functionDtos = tempFunctionDtos;
             }
+            //groupFilters = new List<TableFilter<string>>();
+            //serviceFilters = new List<TableFilter<string>>();
+
+            //_functionDtos.Select(x => x.Group).Distinct().ForEach(x =>
+            //{
+            //    groupFilters.Add(new TableFilter<string>() { Text=x,Value=x });
+
+            //});
+            //_functionDtos.Select(x => x.Service).Distinct().ForEach(x =>
+            //{
+            //    serviceFilters.Add(new TableFilter<string>() { Text = x, Value = x });
+
+            //});
 
         }
         /// <summary>

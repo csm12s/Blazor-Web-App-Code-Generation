@@ -57,8 +57,8 @@
                 </TitleTemplate>
                 <RowTemplate>
                     <Selection Key="@(model.Path+"_"+model.Method)" />
-                    <Column @bind-Field="@model.Group" Width="150" Sortable="false" Filterable  />
-                    <Column @bind-Field="@model.Service" Width="150" Sortable="false" Filterable  />
+                    <Column TData="string" @bind-Field="@model.Group" Width="150" Sortable="false" Filters="groupFilters" OnFilter="((value,name)=>name.Equals(value))"  />
+                    <Column TData="string" @bind-Field="@model.Service" Width="150" Sortable="false"  Filters="serviceFilters"  OnFilter="((value,name)=>name.Equals(value))" />
                     <Column @bind-Field="@model.Summary" Width="150" Sortable="false" />
                     <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
                     <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
