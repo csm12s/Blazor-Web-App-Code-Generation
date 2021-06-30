@@ -469,6 +469,32 @@
             </remarks>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.ResourceFunctionService">
+            <summary>
+            资源与接口关系服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.ResourceFunction})">
+            <summary>
+            
+            </summary>
+            <param name="resourceFunctionRespository"></param>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.Add(System.Collections.Generic.List{Gardener.Application.Dtos.ResourceFunctionDto})">
+            <summary>
+            添加资源与接口关系
+            </summary>
+            <param name="resourceFunctionDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.Delete(System.Guid,System.Guid)">
+            <summary>
+            删除资源与接口关系
+            </summary>
+            <param name="resourceId"></param>
+            <param name="functionId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.ResourceService">
             <summary>
             资源服务
@@ -533,14 +559,6 @@
             根据资源id获取功能信息
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.ResourceService.AddResourceFunctions(System.Guid,System.Guid[])">
-            <summary>
-            添加资源与接口关系
-            </summary>
-            <param name="resourceId"></param>
-            <param name="functionIds"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.RoleService">

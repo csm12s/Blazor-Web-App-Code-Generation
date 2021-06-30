@@ -32,12 +32,16 @@ namespace Gardener.Client.Pages.SystemManager
         [Inject]
         IFunctionService functionService { get; set; }
         [Inject]
+        IResourceFunctionService resourceFunctionService { get; set; }
+        [Inject]
         IResourceService resourceService { get; set; }
         [Inject]
         MessageService messageService { get; set; }
 
         [Inject]
         DrawerService drawerService { get; set; }
+        [Inject]
+        ConfirmService confirmService { get; set; }
         [Inject]
         NotificationService noticeService { get; set; }
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
@@ -59,9 +63,13 @@ namespace Gardener.Client.Pages.SystemManager
             else if (this.Options.Type == 1)
             {
                 //查看可用的接口
-                _functionDtos = await functionService.GetEffective();
-                //选择的
-                _selectedFunctionDtos = _oldFunctionDtos;
+                List<FunctionDto> tempFunctionDtos = await functionService.GetEffective();
+                //移除已选择的
+                if (_oldFunctionDtos != null)
+                {
+                    _functionDtos = tempFunctionDtos.Where(y => !_oldFunctionDtos.Any(x => x.Id.Equals(y.Id))).ToList();
+                }
+                _functionDtos = tempFunctionDtos;
             }
 
         }
@@ -89,6 +97,20 @@ namespace Gardener.Client.Pages.SystemManager
         /// </summary>
         private async Task OnFunctionDeletesClick()
         {
+            if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
+            {
+                messageService.Warn("请选择至少一项");
+                return;
+            }
+            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
+            {
+                foreach (var item in _selectedFunctionDtos)
+                {
+                    await resourceFunctionService.Delete(this.Options.Id, item.Id);
+                }
+                messageService.Success("删除成功");
+                await OnInitializedAsync();
+            }
         }
         /// <summary>
         /// 点击显示关联按钮
@@ -103,7 +125,7 @@ namespace Gardener.Client.Pages.SystemManager
                      placement: "right");
             if (result)
             {
-               await OnInitializedAsync();
+                await OnInitializedAsync();
             }
         }
         /// <summary>
@@ -116,7 +138,16 @@ namespace Gardener.Client.Pages.SystemManager
                 messageService.Warn("请选择至少一项");
                 return;
             }
-            bool result = await resourceService.AddResourceFunctions(this.Options.Id, _selectedFunctionDtos.Select(x => x.Id).ToArray());
+
+            bool result = await resourceFunctionService.Add(_selectedFunctionDtos.Select(x =>
+            {
+                return new ResourceFunctionDto
+                {
+                    ResourceId = this.Options.Id,
+                    FunctionId = x.Id,
+                    CreatedTime = DateTimeOffset.Now
+                };
+            }).ToList());
             if (result)
             {
                 messageService.Success("关联成功");

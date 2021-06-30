@@ -48,12 +48,5 @@ namespace Gardener.Application.Interfaces
         /// <returns></returns>
         Task<List<FunctionDto>> GetFunctions(Guid id);
 
-        /// <summary>
-        /// 添加资源与接口关系
-        /// </summary>
-        /// <param name="resourceId"></param>
-        /// <param name="functionIds"></param>
-        /// <returns></returns>
-        Task<bool> AddResourceFunctions(Guid resourceId,Guid [] functionIds);
     }
 }

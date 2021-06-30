@@ -198,28 +198,6 @@ namespace Gardener.Application
                  .ToListAsync();
         }
 
-        /// <summary>
-        /// 添加资源与接口关系
-        /// </summary>
-        /// <param name="resourceId"></param>
-        /// <param name="functionIds"></param>
-        /// <returns></returns>
-        public async Task<bool> AddResourceFunctions([FromRoute][ApiSeat(ApiSeats.ActionStart)] Guid resourceId,[FromBody] Guid[] functionIds)
-        {
-            List<ResourceFunction> resourceFunctions = new List<ResourceFunction>();
-            foreach (Guid functionId in functionIds)
-            {
-                ResourceFunction resourceFunction = new ResourceFunction()
-                {
-                    ResourceId = resourceId,
-                    FunctionId = functionId,
-                    CreatedTime = DateTimeOffset.Now
-
-                };
-                resourceFunctions.Add(resourceFunction);
-            }
-            await _resourceFunctionRespository.InsertAsync(resourceFunctions);
-            return true;
-        }
+       
     }
 }

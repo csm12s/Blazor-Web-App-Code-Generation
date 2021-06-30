@@ -76,6 +76,7 @@ namespace Gardener.Client
             builder.Services.AddScoped<IAuditEntityService, AuditEntityService>();
             builder.Services.AddScoped<IFunctionService, FunctionService>();
             builder.Services.AddScoped<ISwaggerService, SwaggerService>();
+            builder.Services.AddScoped<IResourceFunctionService, ResourceFunctionService>();
 
             #endregion
 
