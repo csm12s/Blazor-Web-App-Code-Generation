@@ -14,7 +14,7 @@ namespace Gardener.Web.Core
     /// <summary>
     /// DateTimeOffset 类型序列化
     /// </summary>
-    [SkipScan]
+    [SuppressSniffer]
     public class DateTimeOffsetJsonConverter : JsonConverter<DateTimeOffset>
     {
         /// <summary>

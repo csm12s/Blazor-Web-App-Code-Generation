@@ -14,7 +14,7 @@ namespace Gardener.Web.Core
     /// <summary>
     /// DateTime 类型序列化
     /// </summary>
-    [SkipScan]
+    [SuppressSniffer]
     public class DateTimeJsonConverter : JsonConverter<DateTime>
     {
         /// <summary>

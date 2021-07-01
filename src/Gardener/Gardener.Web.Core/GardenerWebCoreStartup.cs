@@ -42,7 +42,10 @@ namespace Gardener.Web.Core
             //注册友好异常
             .AddFriendlyException()
             //注册规范返回格式
-            .AddUnifyResult();
+            //.AddUnifyResult()
+            ;
+            //注册规范返回格式
+            services.AddUnifyResult<MyRESTfulResultProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
