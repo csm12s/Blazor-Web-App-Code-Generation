@@ -5,13 +5,11 @@
 园丁是基于 .net 5开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，适合学习使用。
 ## 已有功能
 - 权限控制
-  - 客户端登录验证
-  - 客户端页面资源验证（展示信息、按钮）
-  - 服务端api请求验证
+  - 登录验证
+  - 客户端页面资源验证
+  - pi请求验证
 - 用户管理
-  - 角色分配、头像上传
 - 角色管理
-  - 资源分配
 - 资源管理
 - 附件管理
 - 操作审计
@@ -24,7 +22,7 @@
 ## 开始使用
 1. 确保安装了.net 5 sdk，如果使用vs,确保是vs2019最新版
 2. 打开 API.sln 设置Gardener.Web.Entry 为启动项目，F5启动接口
-3. 打开 Client.sln 设置 Gardener.Client 为启动项目，F5启动Client或右击wwwroot在浏览器打开（F5调试启动，较卡！！）
+3. 打开 Client.sln 设置 Gardener.Client 为启动项目，F5启动Client或右击wwwroot在浏览器打开
 4. 默认用户名密码 admin/admin、testuser/testuser
 
 ## 项目结构
@@ -53,18 +51,17 @@
 
 
 ## 常见问题
-- 如何切换数据库：项目ORM框架使用的是EF，默认已使用sqlite，切换其它数据库首先需要通过nuget安装ef对应的支持包到`Gardener.EntityFramwork.Core`（[看这里](https://dotnetchina.gitee.io/furion/docs/dbcontext-start#9011-%E5%AE%89%E8%A3%85%E5%AF%B9%E5%BA%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8C%85)），然后需要调整以下文件
+- 如何切换数据库：项目ORM框架使用的是EF，默认已使用sqlite，切换其它数据库首先需要通过nuget安装ef对应的支持包到`Gardener.EntityFramwork.Core`（[看这里](https://dotnetchina.gitee.io/furion/docs/dbcontext-start#9011-%E5%AE%89%E8%A3%85%E5%AF%B9%E5%BA%94%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8C%85)），然后需要调整以下文件种对于名称等
 `Gardener.EntityFramwork.Core.DbContexts.GardenerDbContext`
 `Gardener.EntityFramwork.Core/dbsettings.json`
 `Gardener.EntityFramwork.Core/GardenerEntityFrameworkCoreStartup`
-调整后开始迁移，设置Gardener.Web.Entry 为启动项目，打开 工具=> Nuget包管理器=> 程序包管理器控制台，控制台默认项目选 Gardener.Database.Migrations， 执行EF迁移命令`Add-Migration v0.0.1`，`Update-Database`即可。
+调整后开始迁移，设置Gardener.Web.Entry 为启动项目，打开 工具=> Nuget包管理器=> 程序包管理器控制台，控制台默认项目选 Gardener.Database.Migrations， 执行EF迁移命令`Add-Migration v0.0.1 -Context GardenerDbContext`，`Update-Database v0.0.1 -Context GardenerDbContext`即可。
 - client 打不开：client默认端口是 44388，在 `Gardener.Client/launchSettings.json`中可以调整，浏览器应打开 https://localhost:44388
-- 开发页面时如何热更新：在Gardener.Client目录执行`dotnet watch run`
+- 开发页面时如何热更新：在Gardener.Client目录执行`dotnet watch run`(最新vs2019 Ctrl+f5 即可热更新)
 
 ## 界面展示
 
 <img src="https://images.gitee.com/uploads/images/2020/1204/160750_e2d69ed2_302533.png" width="260px"/>
-<img src="https://images.gitee.com/uploads/images/2020/1204/160758_7192619c_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2020/1204/160739_fe82dff5_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2021/0110/204258_f869ad45_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2021/0110/204309_f9c711ba_302533.png" width="260px"/>
