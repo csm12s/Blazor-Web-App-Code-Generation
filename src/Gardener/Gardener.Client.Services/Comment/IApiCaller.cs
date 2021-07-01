@@ -13,7 +13,9 @@ namespace Gardener.Client.Services
     {
         Task DeleteAsync(string url, IDictionary<string, object> queryString = null);
         Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object> queryString = null);
-        Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString = null);
+        Task<TResponse> GetAsync<TResponse>(string url);
+        Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString);
+        Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString);
         Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request = default);
         Task PostAsync<TRequest>(string url, TRequest request = default);
         Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request = default);

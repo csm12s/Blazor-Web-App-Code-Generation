@@ -45,21 +45,21 @@
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column Title="编号" @bind-Field="@model.Id" />
-                    <Column Title="业务类型" @bind-Field="@model.BusinessType">
+                    <Column @bind-Field="@model.Id" />
+                    <Column @bind-Field="@model.BusinessType">
                         <Tag>@EnumExtension.GetEnumDescription(model.BusinessType)</Tag>
                     </Column>
-                    <Column Title="业务编号" @bind-Field="@model.BusinessId" />
-                    <Column Title="类型" Field="@model.FileType">
+                    <Column @bind-Field="@model.BusinessId" />
+                    <Column @bind-Field="@model.FileType">
                         <Tag>@EnumExtension.GetEnumDescription(model.FileType)</Tag> @model.ContentType
                     </Column>
-                    <Column Title="大小" Field="@model.Size">
+                    <Column @bind-Field="@model.Size">
                         @model.Size B
                     </Column>
-                    <Column Title="目录" @bind-Field="@model.Path"  />
-                    <Column Title="名称" @bind-Field="@model.Name"  />
-                    <Column Title="后缀" @bind-Field="@model.Suffix"  />
-                    <Column Title="原始名称" @bind-Field="@model.OriginalName" Style="max-width:200px"  />
+                    <Column @bind-Field="@model.Path"  />
+                    <Column @bind-Field="@model.Name"  />
+                    <Column @bind-Field="@model.Suffix"  />
+                    <Column @bind-Field="@model.OriginalName" Style="max-width:200px"  />
                     <Column Title="文件" @bind-Field="@model.Url">
 
                         @if (model.FileType.Equals(AttachmentFileType.Image))
@@ -81,7 +81,7 @@
                         }
 
                     </Column>
-                    <Column Title="创建时间" @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete">

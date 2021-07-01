@@ -32,33 +32,14 @@ namespace Gardener.Core
         /// <returns></returns>
         User GetUser();
         /// <summary>
-        /// 获取资源
-        /// </summary>
-        /// <param name="resourceTypes"></param>
-        /// <returns></returns>
-        Task<List<Resource>> GetUserResources(params ResourceType[] resourceTypes);
-        /// <summary>
-        /// 获取当前资源
+        /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
-        Task<Resource> GetContenxtResource();
+        Task<Function> GetContenxtFunction();
         /// <summary>
         /// 检查权限
         /// </summary>
         /// <returns></returns>
-        Task<bool> CheckSecurity();
-        /// <summary>
-        /// 检查授权
-        /// </summary>
-        /// <param name="resourceId"></param>
-        /// <returns></returns>
-        Task<bool> CheckSecurity(string resourceId);
-        /// <summary>
-        /// 检查权限
-        /// </summary>
-        /// <param name="method"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        Task<bool> CheckSecurity(HttpMethodType method, string path);
+        Task<bool> ChecktContenxtFunction();
     }
 }

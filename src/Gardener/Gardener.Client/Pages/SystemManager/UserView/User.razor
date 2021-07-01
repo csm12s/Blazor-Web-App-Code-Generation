@@ -1,0 +1,113 @@
+﻿@page "/user_auth/user"
+@using Gardener.Application.Dtos
+<div>
+    <PageContainer Title="">
+        <Breadcrumb>
+            <Breadcrumb>
+                <BreadcrumbItem>用户权限</BreadcrumbItem>
+                <BreadcrumbItem>用户管理</BreadcrumbItem>
+            </Breadcrumb>
+        </Breadcrumb>
+        <ChildContent>
+            <Table @ref="_table"
+                   TItem="UserDto"
+                   DataSource="@_users"
+                   Total="_total"
+                   OnChange="@onChange"
+                   @bind-PageIndex="_pageIndex"
+                   @bind-PageSize="_pageSize"
+                   @bind-SelectedRows="_selectedRows"
+                   Loading="@_tableIsLoading"
+                   Context="model">
+                <TitleTemplate>
+                    <Row>
+                        <AntDesign.Col Span="8">
+                            <ResourceAuthorize ResourceKey="system_manager_user_delete_selected">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                    删除选中
+                                </Button>
+                            </ResourceAuthorize>
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="16" Style="text-align:right">
+                            <Space>
+                                <ResourceAuthorize ResourceKey="system_manager_user_add">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                            添加
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="system_manager_user_refresh">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                            刷新
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                            </Space>
+                        </AntDesign.Col>
+                    </Row>
+                </TitleTemplate>
+                <RowTemplate>
+                    <ResourceAuthorize ResourceKey="system_manager_user_delete_selected">
+                        <Selection Key="@(model.Id.ToString())" />
+                    </ResourceAuthorize>
+                    <Column Title="编号" @bind-Field="@model.Id" Sortable />
+                    <Column Title="头像" Field="@model.Avatar">
+                            <ResourceAuthorize ResourceKey="system_manager_user_list_edit_avatar">
+                                <Authorized>
+                                    <Tooltip Placement="PlacementType.LeftTop" Title="@("点击修改头像")">
+                                        <a @onclick="_=>OnAvatarClick(model)">
+                                            <Avatar Src="@model.Avatar" />
+                                        </a>
+                                    </Tooltip>
+                                </Authorized>
+                                <NotAuthorized>
+                                    <Avatar Src="@model.Avatar" />
+                                </NotAuthorized>
+                            </ResourceAuthorize>
+                    </Column>
+                    <Column @bind-Field="@model.UserName" />
+                    <Column  @bind-Field="@model.NickName" />
+                    <Column  @bind-Field="@model.Gender">
+                        <Tag Color="@(model.Gender.Equals(Gender.Male)?"blue" :"pink")">@EnumExtension.GetEnumDescription(model.Gender)</Tag>
+                    </Column>
+                    <Column @bind-Field="@model.PhoneNumber" />
+                    <Column @bind-Field="@model.Email" />
+                    <Column @bind-Field="@model.Roles" Style="max-width:150px">
+                        @foreach (var role in model.Roles)
+                        {
+                            <Tooltip Placement="@PlacementType.Top" Title="@role.Remark">
+                                <Tag>@role.Name</Tag>
+                            </Tooltip>
+                        }
+                    </Column>
+                    <Column @bind-Field="@model.IsLocked">
+                        <ResourceAuthorize ResourceKey="system_manager_user_lock">
+                            <Authorized>
+                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <TagYesNo Yes="model.IsLocked"></TagYesNo>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
+                    </Column>
+                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <ActionColumn>
+                        <Space>
+                            <ResourceAuthorize ResourceKey="system_manager_user_edit">
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="system_manager_user_role_edit">
+                                <SpaceItem><Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)">分配角色</Button></SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="system_manager_user_delete">
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                            </ResourceAuthorize>
+                        </Space>
+                    </ActionColumn>
+                </RowTemplate>
+            </Table>
+        </ChildContent>
+    </PageContainer>
+</div>

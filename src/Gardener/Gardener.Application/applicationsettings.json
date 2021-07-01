@@ -5,9 +5,9 @@
     "GroupOpenApiInfos": [
       {
         "Order": 100,
-        "Group": "UserAuthorizationServices",
-        "Title": "用户权限管理",
-        "Description": "用户权限管理",
+        "Group": "SystemManagerServices",
+        "Title": "系统管理",
+        "Description": "系统管理服务相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {
@@ -22,9 +22,9 @@
       },
       {
         "Order": 90,
-        "Group": "BaseDataServices",
-        "Title": "系统基础服务管理",
-        "Description": "系统基础服务相关接口",
+        "Group": "NewsManagerServices",
+        "Title": "新闻服务",
+        "Description": "新闻服务相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {

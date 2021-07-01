@@ -1,0 +1,78 @@
+﻿@inherits FeedbackComponent<int, bool>
+<Spin Spinning="_importLoading">
+    <Row>
+        <AntDesign.Col Span="6">
+            <Select DataSource="apiInfos"
+                    @bind-Value="@_selectedGroupValue"
+                    ValueName="@nameof(SwaggerSpecificationOpenApiInfoDto.Group)"
+                    LabelName="@nameof(SwaggerSpecificationOpenApiInfoDto.Title)"
+                    DefaultActiveFirstOption
+                    Style="width: 100%;"
+                    Size="@InputSize.Large"
+                    OnSelectedItemChanged="OnSelectedItemChangedHandler">
+                <ItemTemplate>
+                    <span>@((context as SwaggerSpecificationOpenApiInfoDto).Title)</span>
+                </ItemTemplate>
+            </Select>
+        </AntDesign.Col>
+        <AntDesign.Col Span="16">
+            <Input Placeholder="swagger json url"
+                   Style="width:100%;"
+                   Size="@InputSize.Large"
+                   @bind-Value="@_apiJsonUrl" />
+        </AntDesign.Col>
+        <AntDesign.Col Span="2">
+            <Button Style="width:100%" Type="@ButtonType.Primary" Size="@ButtonSize.Large" Loading="_loading" OnClick="OnLoad">加载</Button>
+        </AntDesign.Col>
+
+    </Row>
+    <Row Style="margin-top:10px;">
+        <AntDesign.Col>
+            <Table DataSource="@_functionDtos"
+                   TItem="FunctionDto"
+                   PageSize="_functionDtos.Count()"
+                   Loading="@_loading"
+                   Context="model"
+                   Size=@TableSize.Small
+                   ScrollY="500px"
+                   HidePagination="true"
+                   Bordered="true"
+                   SelectedRows="@_selectedFunctionDtos"
+                   SelectedRowsChanged="SelectedRowsChanged">
+                <Selection Key="@(model.Path+"_"+model.Method)" />
+                <Column @bind-Field="@model.Service" Width="150" Sortable="false" />
+                <Column @bind-Field="@model.Summary" Width="150" Sortable="false" />
+                <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
+                <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
+                <Column @bind-Field="@model.Method" Width="100" Sortable="false">
+                    <Tag>@EnumExtension.GetEnumDescription(model.Method)</Tag>
+                </Column>
+                <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false">
+                    <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>
+                </Column>
+            </Table>
+        </AntDesign.Col>
+    </Row>
+</Spin>
+<Row style="height:30px;width:100%">
+    @if (_importIsBegin)
+    {
+        <Progress Percent=_importPercent />
+    }
+</Row>
+<Row>
+    <AntDesign.Col Span="8" Offset="8">
+        <Space>
+            <SpaceItem>
+                <Tooltip Placement="@PlacementType.Top" Title="@("去重后导入")">
+                    <Button Type="@ButtonType.Primary" OnClick="OnImportClick" Loading="_importLoading">
+                        导入选中数据
+                    </Button>
+                </Tooltip>
+                <Button Type="@ButtonType.Default" OnClick="OnCancleClick">
+                    关闭
+                </Button>
+            </SpaceItem>
+        </Space>
+    </AntDesign.Col>
+</Row>

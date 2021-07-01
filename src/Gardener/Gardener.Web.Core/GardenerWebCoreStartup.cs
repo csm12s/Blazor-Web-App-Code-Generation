@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
+using Gardener.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +30,17 @@ namespace Gardener.Web.Core
                 options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
                 options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetJsonConverter());
             })
-            //注册Furion
-            .AddInject()
+            //注册swagger
+            .AddSpecificationDocuments(configure=> {
+                configure.EnableAnnotations();
+                configure.OperationFilter<ApiFunctionFilter>();
+            })
+            //注册动态api
+            .AddDynamicApiControllers()
+            //注册数据验证
+            .AddDataValidation()
+            //注册友好异常
+            .AddFriendlyException()
             //注册规范返回格式
             .AddUnifyResult();
         }

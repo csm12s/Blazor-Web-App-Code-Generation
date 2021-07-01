@@ -16,7 +16,7 @@ namespace Gardener.Core.Entites
     /// 附件
     /// </summary>
     [Description("附件信息")]
-    public class Attachment : Entity<Guid>
+    public class Attachment : GardenerEntityBase<Guid>
     {
         /// <summary>
         /// 业务ID
@@ -76,5 +76,10 @@ namespace Gardener.Core.Entites
         [Required, MaxLength(20)]
         [DisplayName("后缀")]
         public string Suffix { get; set; }
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public bool IsDeleted { get; set; }
     }
 }

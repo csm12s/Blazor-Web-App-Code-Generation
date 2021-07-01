@@ -74,7 +74,7 @@ namespace Gardener.Core
         {
             var (oldRefreshToken, principal) = ReadToken(refreshTokenStr, JwtTokenType.RefreshToken);
 
-            UserToken refreshToken = _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.Id).FirstOrDefault();
+            UserToken refreshToken = _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
 
             //异常token检测
             if (refreshToken == null || refreshToken.Value != refreshTokenStr || refreshToken.EndTime <= DateTimeOffset.UtcNow)
@@ -116,7 +116,8 @@ namespace Gardener.Core
                 ClientId = clientId,
                 LoginClientType=clientType,
                 Value = newRefreshToken,
-                EndTime = refreshTokenExpires
+                EndTime = refreshTokenExpires,
+                CreatedTime=DateTimeOffset.UtcNow
             });
             //新的刷新token已经创建，删除上次的
             if (refreshToken != null)
@@ -192,11 +193,18 @@ namespace Gardener.Core
             if (user == null || !user.Identity.IsAuthenticated) return false;
 
             string userIdStr = user.FindFirstValue(ClaimTypes.NameIdentifier);
-            userIdStr.Validate(ValidationTypes.Required, ValidationTypes.Numeric);
+            if (string.IsNullOrEmpty(userIdStr))
+            {
+                throw new ArgumentNullException(ClaimTypes.NameIdentifier);
+            }
+            userIdStr.Validate(ValidationTypes.Numeric);
             int userId = int.Parse(userIdStr);
 
             string clientId = user.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
-            clientId.Validate(ValidationTypes.Required);
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentNullException(AuthKeyConstants.ClientIdKeyName);
+            }
 
             var refreshTokens = await _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == userId && x.ClientId.Equals(clientId)).ToListAsync();
             refreshTokens.ForEach(x => _repository.FakeDeleteAsync(x));
@@ -220,12 +228,18 @@ namespace Gardener.Core
             };
             ClaimsPrincipal principal = _tokenHandler.ValidateToken(tokenStr, parameters, out _);
             string userIdStr = principal.FindFirstValue(ClaimTypes.NameIdentifier);
-            userIdStr.Validate(ValidationTypes.Required, ValidationTypes.Numeric);
+            if (string.IsNullOrEmpty(userIdStr))
+            {
+                throw new ArgumentNullException(ClaimTypes.NameIdentifier);
+            }
+            userIdStr.Validate(ValidationTypes.Numeric);
             int userId = int.Parse(userIdStr);
 
             string clientId = principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
-            clientId.Validate(ValidationTypes.Required);
-
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentNullException(AuthKeyConstants.ClientIdKeyName);
+            }
             return (new UserToken { ClientId = clientId, UserId = userId, Value = tokenStr }, principal);
         }
         /// <summary>

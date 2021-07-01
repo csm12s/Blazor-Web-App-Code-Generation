@@ -19,7 +19,7 @@ namespace Gardener.Application.SystemManager
     /// <summary>
     /// 审计数据服务
     /// </summary>
-    [ApiDescriptionSettings("BaseDataServices")]
+    [ApiDescriptionSettings("SystemManagerServices")]
     public class AuditEntityService : ApplicationServiceBase<AuditEntity, AuditEntityDto, Guid>, IAuditEntityService
     {
         private readonly IRepository<AuditEntity> _repository;
@@ -34,6 +34,9 @@ namespace Gardener.Application.SystemManager
         /// <summary>
         /// 搜索
         /// </summary>
+        /// <remarks>
+        /// 搜索数据审计
+        /// </remarks>
         /// <param name="searchInput"></param>
         /// <returns></returns>
         [HttpPost]

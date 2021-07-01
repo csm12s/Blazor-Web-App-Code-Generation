@@ -72,10 +72,10 @@ namespace Gardener.Client.Pages.SystemManager
         private async Task OnChange(QueryModel<AttachmentDto> queryModel)
         {
 
-            searchInput.OrderConditions = queryModel.
-                SortModel.
-                Where(x => int.Parse(x.Sort) > 0).
-                Select(x => x.Adapt<SearchSort>()).ToArray();
+            //searchInput.OrderConditions = queryModel.
+            //    SortModel.
+            //    Where(x => x.SortType.Value > 0).
+            //    Select(x => x.Adapt<SearchSort>()).ToArray();
 
             await ReLoadTable();
         }

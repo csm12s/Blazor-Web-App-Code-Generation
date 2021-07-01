@@ -1,0 +1,20 @@
+﻿@inherits FeedbackComponent<int, bool>
+
+<Spin Spinning="_isLoading">
+    <Row Style="min-height:150px">
+        <AntDesign.Col Span="20" Offset="2">
+            <CheckboxGroup Options="@_roleOptions" OnChange="OnEditUserRoleChange" />
+        </AntDesign.Col>
+    </Row>
+    <Row>
+        <AntDesign.Col Span="20" Offset="2">
+            <Space>
+                <SpaceItem>
+                    <Checkbox Indeterminate="@_indeterminateRole" Checked="@_checkAllRole" CheckedChange="@CheckAllRoleChanged">全选</Checkbox>
+                </SpaceItem>
+                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnEditRoleSaveClick">保存</Button></SpaceItem>
+                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="_=>OnFormCancel()">取消</Button></SpaceItem>
+            </Space>
+        </AntDesign.Col>
+    </Row>
+</Spin>

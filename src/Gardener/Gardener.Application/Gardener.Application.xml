@@ -22,60 +22,103 @@
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.Insert(`1)">
             <summary>
-            新增一条
+            添加
             </summary>
+            <remarks>
+            添加一条数据
+            </remarks>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.Update(`1)">
             <summary>
-            更新一条
+            更新
             </summary>
+            <remarks>
+            更新一条数据
+            </remarks>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.Delete(`2)">
             <summary>
-            删除一条
+            删除
             </summary>
+            <remarks>
+            根据主键删除一条数据
+            </remarks>
             <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.Deletes(`2[])">
             <summary>
-            删除多条
+            批量删除
             </summary>
+            <remarks>
+            根据多个主键批量删除
+            </remarks>
             <param name="ids"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.FakeDelete(`2)">
             <summary>
-            删除一条(逻辑删除)
+            逻辑删除
             </summary>
+            <remarks>
+            根据主键逻辑删除
+            </remarks>
             <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.FakeDeletes(`2[])">
             <summary>
-            删除一条(逻辑删除)
+            批量逻辑删除
             </summary>
+            <remarks>
+            根据多个主键批量逻辑删除
+            </remarks>
             <param name="ids"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.Get(`2)">
             <summary>
-            查询一条
+            根据主键获取
             </summary>
+            <remarks>
+            根据主键查找一条数据
+            </remarks>
             <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.GetAll">
             <summary>
             查询所有
             </summary>
+            <remarks>
+            查找到所有数据
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.ApplicationServiceBase`3.GetPage(System.Int32,System.Int32)">
             <summary>
             分页查询
             </summary>
+            <remarks>
+            根据分页参数，分页获取数据
+            </remarks>
             <param name="pageIndex"></param>
             <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Lock(`2,System.Boolean)">
+            <summary>
+            锁定
+            </summary>
+            <remarks>
+            根据主键锁定或解锁数据
+            </remarks>
+            <param name="id"></param>
+            <param name="isLocked"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.ApplicationServiceBase`1">
@@ -104,63 +147,6 @@
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="T:Gardener.Application.LockExtendServiceBase`3">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-            <typeparam name="TKey">数据实体主键类型</typeparam>
-        </member>
-        <member name="F:Gardener.Application.LockExtendServiceBase`3._repository">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`3.Lock(`2,System.Boolean)">
-            <summary>
-            锁定
-            </summary>
-            <param name="id"></param>
-            <param name="isLocked"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.Application.LockExtendServiceBase`1">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <param name="repository"></param>
-        </member>
-        <member name="T:Gardener.Application.LockExtendServiceBase`2">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
-            </summary>
-            <typeparam name="TEntity">数据实体类型</typeparam>
-            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-        </member>
-        <member name="M:Gardener.Application.LockExtendServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
-            <summary>
-            继承此类即可实现基础方法
-            方法包括：CURD、获取全部、分页获取、锁定
             </summary>
             <param name="repository"></param>
         </member>
@@ -218,6 +204,17 @@
             <param name="orderConditions"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.NewsService">
+            <summary>
+            新闻管理
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.NewsService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.News})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
         <member name="T:Gardener.Application.SystemManager.AttachmentService">
             <summary>
             附件服务
@@ -234,40 +231,52 @@
             <summary>
             上传附件
             </summary>
+            <remarks>
+            上传单个附件
+            </remarks>
             <param name="input"></param>
             <param name="file"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.AttachmentService.Insert(Gardener.Application.Dtos.AttachmentDto)">
             <summary>
-            新增一条
+            新增
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.AttachmentService.Update(Gardener.Application.Dtos.AttachmentDto)">
             <summary>
-            更新一条
+            更新
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.AttachmentService.Delete(System.Guid)">
             <summary>
-            删除一条
+            删除
             </summary>
+            <remarks>
+            根据主键删除
+            </remarks>
             <param name="id"></param>
         </member>
         <member name="M:Gardener.Application.SystemManager.AttachmentService.Deletes(System.Guid[])">
             <summary>
-            删除多条
+            批量删除
             </summary>
+            <remarks>
+            根据主键批量删除
+            </remarks>
             <param name="ids"></param>
         </member>
         <member name="M:Gardener.Application.SystemManager.AttachmentService.Search(Gardener.Application.Dtos.AttachmentSearchInput)">
             <summary>
-            搜索附件
+            搜索
             </summary>
+            <remarks>
+            搜索附件数据
+            </remarks>
             <param name="searchInput"></param>
             <returns></returns>
         </member>
@@ -286,6 +295,9 @@
             <summary>
             搜索
             </summary>
+            <remarks>
+            搜索数据审计
+            </remarks>
             <param name="searchInput"></param>
             <returns></returns>
         </member>
@@ -305,22 +317,91 @@
             <summary>
             搜索
             </summary>
+            <remarks>
+            搜索操作审计
+            </remarks>
             <param name="searchInput"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.AuditOperationService.GetAuditEntity(System.Guid)">
             <summary>
-            根据操作审计ID获取数据审计数据
+            根据操作审计ID获取数据审计
             </summary>
+            <remarks>
+            根据操作审计ID获取数据审计
+            </remarks>
             <param name="operationId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.SystemManager.FunctionService">
+            <summary>
+            功能服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.FunctionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Function})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.FunctionService.EnableAudit(System.Guid,System.Boolean)">
+            <summary>
+            启用或禁用
+            </summary>
+            <remarks>
+            启用或禁用功能
+            </remarks>
+            <param name="id"></param>
+            <param name="enableAudit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.FunctionService.Search(Gardener.Application.Dtos.FunctionSearchInput)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索功能数据
+            </remarks>
+            <param name="searchInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.FunctionService.Exists(Gardener.Enums.HttpMethodType,System.String)">
+            <summary>
+            判断是否存在
+            </summary>
+            <remarks>
+            根据 HttpMethod 和 path 判断是否存在
+            </remarks>
+            <param name="method"></param>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.FunctionService.GetEffective">
+            <summary>
+            获取有效的
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.FunctionService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.AuthorizeService">
             <summary>
-            用户中心服务
+            权限认证服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Gardener.Core.IAuthorizationManager,Gardener.Core.IJwtBearerService)">
+        <member name="F:Gardener.Application.AuthorizeService._resourceRepository">
+            <summary>
+            资源仓储
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Gardener.Core.IAuthorizationManager,Gardener.Core.IJwtBearerService,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
             <summary>
             角色管理服务
             </summary>
@@ -328,48 +409,104 @@
             <param name="userRepository"></param>
             <param name="authorizationManager"></param>
             <param name="jwtBearerService"></param>
+            <param name="resourceRepository"></param>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.Login(Gardener.Application.Dtos.LoginInput)">
             <summary>
             登录
             </summary>
             <param name="input"></param>
-            <remarks>管理员：admin/admin；普通用户：testuser/testuser</remarks>
+            <remarks>登录接口</remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.RefreshToken(Gardener.Application.Dtos.RefreshTokenInput)">
             <summary>
             刷新Token
             </summary>
+            <remarks>
+            通过刷新token获取新的token
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.RemoveCurrentUserRefreshToken">
             <summary>
             移除当前用户token
             </summary>
+            <remarks>
+            移除当前用户token
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserRoles">
             <summary>
             查看用户角色
             </summary>
+            <remarks>
+            查看当前用户角色
+            </remarks>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUser">
             <summary>
             获取当前用户信息
             </summary>
+            <remarks>
+            获取当前用户信息
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType[])">
             <summary>
-            
+            获取用户资源
             </summary>
-            <param name="resourceTypes"></param>
+            <param name="resourceTypes">资源类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.AuthorizeService.GetUserResources(Gardener.Enums.ResourceType[])">
+            <summary>
+            获取用户资源
+            </summary>
+            <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserMenus">
             <summary>
             获取当前用户的所有菜单
+            </summary>
+            <remarks>
+            获取当前用户的所有菜单
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.ResourceFunctionService">
+            <summary>
+            资源与接口关系服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.ResourceFunction})">
+            <summary>
+            
+            </summary>
+            <param name="resourceFunctionRespository"></param>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.Add(System.Collections.Generic.List{Gardener.Application.Dtos.ResourceFunctionDto})">
+            <summary>
+            添加资源与接口关系
+            </summary>
+            <param name="resourceFunctionDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.Delete(System.Guid,System.Guid)">
+            <summary>
+            删除资源与接口关系
+            </summary>
+            <param name="resourceId"></param>
+            <param name="functionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.GetSeedData">
+            <summary>
+            获取种子数据
             </summary>
             <returns></returns>
         </member>
@@ -378,16 +515,20 @@
             资源服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+        <member name="M:Gardener.Application.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.ResourceFunction})">
             <summary>
             资源服务
             </summary>
             <param name="resourceRepository"></param>
+            <param name="resourceFunctionRespository"></param>
         </member>
         <member name="M:Gardener.Application.ResourceService.GetChildren(System.Guid)">
             <summary>
             获取所有子资源
             </summary>
+            <remarks>
+            获取所有子资源
+            </remarks>
             <param name="id">父级id</param>
             <returns></returns>
         </member>
@@ -395,25 +536,44 @@
             <summary>
             返回根节点
             </summary>
+            <remarks>
+            返回根节点资源
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.ResourceService.GetSeedData">
             <summary>
-            
+            获取种子数据
             </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.ResourceService.GetTree">
             <summary>
-            查询所有资源 按树形结构返回
+            查询所有资源
             </summary>
+            <remarks>
+            查询所有资源 按树形结构返回
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.ResourceService.Insert(Gardener.Application.Dtos.ResourceDto)">
             <summary>
             添加资源
             </summary>
+            <remarks>
+            添加资源
+            </remarks>
             <param name="resourceDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceService.GetFunctions(System.Guid)">
+            <summary>
+            根据资源id获取功能信息
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.RoleService">
@@ -430,8 +590,11 @@
         </member>
         <member name="M:Gardener.Application.RoleService.Search(System.String,System.Int32,System.Int32)">
             <summary>
-            搜索角色
+            搜索
             </summary>
+            <remarks>
+            搜索角色数据
+            </remarks>
             <param name="name">角色名称</param>
             <param name="pageIndex">页码</param>
             <param name="pageSize">分页大小</param>
@@ -439,32 +602,80 @@
         </member>
         <member name="M:Gardener.Application.RoleService.Resource(System.Int32,System.Guid[])">
             <summary>
-            为角色分配权限（重置）
+            分配权限
             </summary>
+            <remarks>
+            分配权限（重置）
+            </remarks>
+            <param name="roleId"></param>
+            <param name="resourceIds"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.RoleService.DeleteResource(System.Int32)">
             <summary>
-            删除角色的所有资源
+            根据角色编号删除所有资源
             </summary>
+            <remarks>
+            根据角色编号删除所有资源
+            </remarks>
             <param name="roleId"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.Application.RoleService.GetEffective">
             <summary>
-            
+            获取可用角色
             </summary>
+            <remarks>
+            获取可用角色
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.RoleService.GetResource(System.Int32)">
             <summary>
             获取角色所有资源
             </summary>
+            <remarks>
+            获取角色所有资源
+            </remarks>
             <param name="roleId"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.RoleService.GetRoleResourceSeedData">
             <summary>
-            
+            获取种子数据
             </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.SwaggerService">
+            <summary>
+            Swagger服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SwaggerService.Analysis(System.String)">
+            <summary>
+            解析api json
+            </summary>
+            <remarks> swagger json 文件解析功能</remarks>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SwaggerService.GetApiGroup">
+            <summary>
+            获取哦 swagger 配置
+            </summary>
+            <remarks>
+            获取api分组设置
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.SwaggerService.GetFunctionsFromJson(System.String)">
+            <summary>
+            从json中获取function
+            </summary>
+            <param name="url"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.UserService">
@@ -485,6 +696,9 @@
             <summary>
             查看用户角色
             </summary>
+            <remarks>
+            查看用户角色
+            </remarks>
             <param name="userId"></param>
             <returns></returns>
         </member>
@@ -492,13 +706,19 @@
             <summary>
             查看用户权限
             </summary>
+            <remarks>
+            查看用户权限
+            </remarks>
             <param name="userId"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.UserService.Search(System.String,System.Int32,System.Int32)">
             <summary>
-            搜索用户
+            搜索
             </summary>
+            <remarks>
+            搜索用户数据
+            </remarks>
             <param name="name"></param>
             <param name="pageIndex"></param>
             <param name="pageSize"></param>
@@ -506,28 +726,40 @@
         </member>
         <member name="M:Gardener.Application.UserService.Update(Gardener.Application.Dtos.UserDto)">
             <summary>
-            更新一条
+            更新
             </summary>
+            <remarks>
+            更新用户
+            </remarks>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.UserService.Insert(Gardener.Application.Dtos.UserDto)">
             <summary>
-            新增一条
+            新增
             </summary>
+            <remarks>
+            新增用户
+            </remarks>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.UserService.Get(System.Int32)">
             <summary>
-            查询一条
+            根据主键获取用户
             </summary>
+            <remarks>
+            根据主键获取用户
+            </remarks>
             <param name="id"></param>
         </member>
         <member name="M:Gardener.Application.UserService.Role(System.Int32,System.Int32[])">
             <summary>
-            设置用户角色
+            设置角色
             </summary>
+            <remarks>
+            给用户设置角色
+            </remarks>
             <param name="userId"></param>
             <param name="roleIds"></param>
             <returns></returns>
@@ -536,6 +768,9 @@
             <summary>
             更新头像
             </summary>
+            <remarks>
+            更新用户的头像
+            </remarks>
             <param name="input"></param>
             <returns></returns>
         </member>

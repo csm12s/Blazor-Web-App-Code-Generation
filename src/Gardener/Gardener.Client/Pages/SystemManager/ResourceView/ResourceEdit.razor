@@ -1,0 +1,77 @@
+﻿@inherits FeedbackComponent<ResourceEditOption, Guid>
+<Row Justify="space-between" Style="margin-bottom:20px;">
+    <Col Span="8" Style="text-align:right;"><label class="ant-form-item-required">父级：</label></Col>
+    <Col Span="16"><Cascader Size="large" Options="@_resourceCascaderNodes" @bind-Value="_resourceCascaderValue" ExpandTrigger="hover" ChangeOnSelect SelectedNodesChanged="CascaderOnChange"></Cascader></Col>
+</Row>
+@if (_editModel != null)
+{
+    <Form Loading="@_isLoading"
+          Model="@_editModel"
+          LabelCol="new ColLayoutParam { Span = 8 }"
+          WrapperCol="new ColLayoutParam { Span = 16 }"
+          OnFinish="OnFormFinish"
+          Context="model"
+          Style="min-height:600px;">
+        <FormItem Label="编号">
+            <Input @bind-Value="@model.Id" Disabled />
+        </FormItem>
+        @*<FormItem Label="父级">
+
+            </FormItem>*@
+        <FormItem Label="名称">
+            <Input @bind-Value="@model.Name" />
+        </FormItem>
+        <FormItem Label="键值">
+            <Input @bind-Value="@model.Key" />
+        </FormItem>
+        <FormItem Label="类型">
+            <RadioGroup @bind-Value="@(model.Type)">
+
+                @if (model.Id != Guid.Empty && model.Type.Equals(ResourceType.Root))
+                {
+                    <Radio Value="@(ResourceType.Root)">@EnumExtension.GetEnumDescription(ResourceType.Root)</Radio>
+                }
+                else
+                {
+                    foreach (var gitem in EnumExtension.EnumToDictionary<ResourceType>())
+                    {
+                        if ((int)gitem.Key >= (int)_currentEditResourceType)
+                        {
+                            <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                        }
+                    }
+                }
+            </RadioGroup>
+        </FormItem>
+        @if (model.Type.Equals(ResourceType.Menu))
+        {
+            <FormItem Label="地址">
+                <Input @bind-Value="@model.Path" />
+            </FormItem>
+            <FormItem Label="图标">
+                <Input @bind-Value="@model.Icon" />
+            </FormItem>
+
+        }
+        <FormItem Label="排序">
+            <AntDesign.InputNumber @bind-Value="@model.Order" />
+        </FormItem>
+        <FormItem Label="是否锁定">
+            <Switch @bind-Value="@model.IsLocked"></Switch>
+        </FormItem>
+
+        <FormItem Label="备注">
+            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
+        </FormItem>
+        <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
+            <Button Type="@ButtonType.Primary" HtmlType="submit">
+                保存
+            </Button>
+            <Button OnClick="_ => OnFormCancel()">
+                取消
+            </Button>
+        </FormItem>
+
+    </Form>
+
+}

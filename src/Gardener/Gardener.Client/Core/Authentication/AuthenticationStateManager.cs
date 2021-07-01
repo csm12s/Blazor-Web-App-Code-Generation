@@ -169,7 +169,7 @@ namespace Gardener.Client
                 {
                     //超级管理员
                     currentUserIsSuperAdmin = userResult.Roles!=null && userResult.Roles.Any(x => x.IsSuperAdministrator);
-                    this.uiResources = await authorizeService.GetCurrentUserResources(ResourceType.Button);
+                    this.uiResources = await authorizeService.GetCurrentUserResources(ResourceType.View,ResourceType.Menu,ResourceType.Action);
                     this.uiHashtableResources = null;
                     this.menuResources = await authorizeService.GetCurrentUserMenus();
                     this.currentUser = userResult;

@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Models;
-using Gardener.Common;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
@@ -14,7 +12,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
@@ -63,6 +60,14 @@ namespace Gardener.Client.Services
                     //请求失败
                     log.Error("请求失败", (int)httpResponse.StatusCode);
                 }
+                else 
+                {
+                    var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<Object>>();
+                    if (!result.Succeeded)
+                    {
+                        log.Error(result.Errors?.ToString(), result.StatusCode);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -74,6 +79,17 @@ namespace Gardener.Client.Services
             if (queryString != null && queryString.Count > 0)
             {
                 url = QueryHelpers.AddQueryString(url, queryString.ToDictionary(p => p.Key, p => p.Value==null?"": p.Value.ToString()));
+            }
+            return url;
+        }
+        private string GetUrl(string url, List<KeyValuePair<string, object>> queryString)
+        {
+            if (queryString != null && queryString.Count() > 0)
+            {
+                foreach (KeyValuePair<string, object> item in queryString)
+                {
+                    url = QueryHelpers.AddQueryString(url, item.Key, item.Value == null ? "" : item.Value.ToString());
+                }
             }
             return url;
         }
@@ -95,13 +111,30 @@ namespace Gardener.Client.Services
         }
         #endregion
         #region get
-        public async Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        public async Task<TResponse> GetAsync<TResponse>(string url)
+        {
+            return await ResponseHandle<TResponse>(() =>
+            {
+                return httpClient.GetAsync(url); ;
+            });
+
+        }
+        public async Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
         {
             return await ResponseHandle<TResponse>(() =>
              {
                  url = GetUrl(url, queryString);
                  return httpClient.GetAsync(url); ;
              });
+
+        }
+        public async Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString)
+        {
+            return await ResponseHandle<TResponse>(() =>
+            {
+                url = GetUrl(url, queryString);
+                return httpClient.GetAsync(url); ;
+            });
 
         }
         #endregion
