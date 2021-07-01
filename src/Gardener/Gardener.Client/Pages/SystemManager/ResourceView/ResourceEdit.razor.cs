@@ -32,7 +32,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         public int Type { get; set; }
     }
 
-    public partial class ResourceEdit : FeedbackComponent<ResourceEditOption, bool>
+    public partial class ResourceEdit : FeedbackComponent<ResourceEditOption, Guid>
     {
         private bool _isLoading = false;
 
@@ -77,7 +77,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
                 //添加
                 var newResource = new ResourceDto();
                 newResource.Id = Guid.Empty;
-                newResource.ParentId = Guid.Empty;
+                newResource.ParentId = option.SelectedResourceId;
                 //newResource.Key = selectedResource.Type.Equals(ResourceType.Root) ? "" : selectedResource.Key + "_";
                 //不能创建root节点
                 newResource.Type = ResourceType.Menu;
@@ -95,10 +95,10 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
                     await drawerRef!.CloseAsync(false);
                     return;
                 }
-
                 _editModel = selectedResource;
-                _resourceCascaderValue = _editModel.ParentId.ToString();
+                
             }
+            _resourceCascaderValue = _editModel.ParentId.ToString();
             //记录当前对象的类型
             _currentEditResourceType = _editModel.Type;
 
@@ -159,8 +159,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
                 if (result)
                 {
                     messageService.Success("更新成功");
-                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-                    await drawerRef!.CloseAsync(true);
+                    await (base.FeedbackRef as DrawerRef<Guid>)!.CloseAsync(_editModel.Id);
                 }
                 else
                 {
@@ -183,8 +182,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-                    await drawerRef!.CloseAsync(true);
+                    await (base.FeedbackRef as DrawerRef<Guid>)!.CloseAsync(result.Id);
                 }
                 else
                 {
@@ -198,8 +196,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         /// </summary>
         private async Task OnFormCancel()
         {
-            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-            await drawerRef!.CloseAsync(false);
+            await (base.FeedbackRef as DrawerRef<Guid>)!.CloseAsync(Guid.Empty);
         }
 
     }

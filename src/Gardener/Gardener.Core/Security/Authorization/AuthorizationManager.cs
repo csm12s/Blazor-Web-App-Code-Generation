@@ -118,7 +118,7 @@ namespace Gardener.Core
             if (IsSuperAdministrator()) return true;
             string functionKey = GetContextFunctionKey();
             // 查询用户拥有的权限
-            if (!await CurrentUserHaveResource(functionKey)) return false;
+            if (!string.IsNullOrEmpty(functionKey) && !await CurrentUserHaveResource(functionKey)) return false;
             var (method, path) = GetContextEndpoint();
             // 查询用户拥有的权限
             if (!await CurrentUserHaveResource(method, path)) return false;
@@ -146,6 +146,10 @@ namespace Gardener.Core
             //没有特性的可以通过路由+请求方法查找
             HttpMethodType method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), _httpContextAccessor.HttpContext.Request.Method.ToUpper());
             string path = ((Microsoft.AspNetCore.Routing.RouteEndpoint)_httpContextAccessor.HttpContext.GetEndpoint()).RoutePattern.RawText;
+            if (!path.StartsWith("/"))
+            {
+                path = "/" + path;
+            }
             return (method, path);
         }
         /// <summary>

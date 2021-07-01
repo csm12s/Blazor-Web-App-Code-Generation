@@ -137,9 +137,9 @@ namespace Gardener.Application
 
         }
         /// <summary>
-        /// 
+        /// 获取用户资源
         /// </summary>
-        /// <param name="resourceTypes"></param>
+        /// <param name="resourceTypes">资源类型</param>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType[] resourceTypes)
         {
@@ -149,9 +149,9 @@ namespace Gardener.Application
 
         }
         /// <summary>
-        /// 
+        /// 获取用户资源
         /// </summary>
-        /// <param name="resourceTypes"></param>
+        /// <param name="resourceTypes">资源类型</param>
         /// <returns></returns>
         private async Task<List<Resource>> GetUserResources(params ResourceType[] resourceTypes)
         {

@@ -183,5 +183,19 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
             });
         }
 
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnDownloadClick()
+        {
+            var result = await drawerService.CreateDialogAsync<RoleResourceDownload, string, bool>(
+                      string.Empty,
+                       true,
+                       title: "种子数据",
+                       width: 1300,
+                       placement: "right");
+        }
+
     }
 }

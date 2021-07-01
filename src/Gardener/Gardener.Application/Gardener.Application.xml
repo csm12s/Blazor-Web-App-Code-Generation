@@ -382,6 +382,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.SystemManager.FunctionService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.AuthorizeService">
             <summary>
             权限认证服务
@@ -448,16 +457,16 @@
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserResources(Gardener.Enums.ResourceType[])">
             <summary>
-            
+            获取用户资源
             </summary>
-            <param name="resourceTypes"></param>
+            <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetUserResources(Gardener.Enums.ResourceType[])">
             <summary>
-            
+            获取用户资源
             </summary>
-            <param name="resourceTypes"></param>
+            <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.AuthorizeService.GetCurrentUserMenus">
@@ -493,6 +502,12 @@
             </summary>
             <param name="resourceId"></param>
             <param name="functionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.ResourceFunctionService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.ResourceService">

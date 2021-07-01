@@ -18,7 +18,7 @@
                     {
                         <Row>
                             <AntDesign.Col Span="8">
-                                <ResourceAuthorize ResourceKey="system_manager_resource_delete_selected">
+                                <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
                                     <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnFunctionDeletesClick">
                                         删除选中
                                     </Button>
@@ -26,7 +26,7 @@
                             </AntDesign.Col>
                             <AntDesign.Col Span="16" Style="text-align:right">
                                 <Space>
-                                    <ResourceAuthorize ResourceKey="system_manager_resource_show_add_page">
+                                    <ResourceAuthorize ResourceKey="system_manager_resource_function_add_page_show">
                                         <SpaceItem>
                                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Id)">
                                                 关联
@@ -37,13 +37,13 @@
                             </AntDesign.Col>
                         </Row>
                     }
-                    else if (this.Options.Type == 1) 
+                    else if (this.Options.Type == 1)
                     {
                         <Row>
-                    
+
                             <AntDesign.Col Span="24">
                                 <Space>
-                                    <ResourceAuthorize ResourceKey="system_manager_resource_add">
+                                    <ResourceAuthorize ResourceKey="system_manager_resource_function_add">
                                         <SpaceItem>
                                             <Button Type="@ButtonType.Primary" Icon="check" OnClick="x => OnFunctionAddClick()">
                                                 关联选中
@@ -56,16 +56,18 @@
                     }
                 </TitleTemplate>
                 <RowTemplate>
-                    <Selection Key="@(model.Path+"_"+model.Method)" />
-                    <Column TData="string" @bind-Field="@model.Group" Width="150" Sortable="false" Filters="groupFilters" OnFilter="((value,name)=>name.Equals(value))"  />
-                    <Column TData="string" @bind-Field="@model.Service" Width="150" Sortable="false"  Filters="serviceFilters"  OnFilter="((value,name)=>name.Equals(value))" />
+                    <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
+                        <Selection Key="@(model.Path+"_"+model.Method)" Width="50" />
+                    </ResourceAuthorize>
+                    <Column TData="string" @bind-Field="@model.Group" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
+                    <Column TData="string" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
                     <Column @bind-Field="@model.Summary" Width="150" Sortable="false" />
                     <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
                     <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
                     <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
                         <Tag>@EnumExtension.GetEnumDescription(model.Method)</Tag>
                     </Column>
-                    <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable >
+                    <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable>
                         <TagYesNo Yes="@model.EnableAudit"></TagYesNo>
                     </Column>
                 </RowTemplate>

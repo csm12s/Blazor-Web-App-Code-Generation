@@ -44,6 +44,13 @@
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="system_manager_resource_download_seed_data">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadClick">
+                                            种子数据
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
                             </Space>
                         </AntDesign.Col>
                     </Row>
@@ -60,13 +67,13 @@
                     </Column>
 
                     @*<Column @bind-Field="@model.Key" Width="10%" />
-        <Column @bind-Field="@model.Path" Width="10%"/>*@
+                        <Column @bind-Field="@model.Path" Width="10%"/>*@
                     <Column @bind-Field="@model.Type" Width="5%">
                         <Tag>@(EnumExtension.GetEnumDescription(model.Type))</Tag>
                     </Column>
-                    @*<Column @bind-Field="@model.Order" Width="5%" />*@
+                    <Column @bind-Field="@model.Order" Width="5%" />
                     <Column @bind-Field="@model.IsLocked" Width="10%">
-                        <ResourceAuthorize ResourceKey="user_auth_role_lock">
+                        <ResourceAuthorize ResourceKey="system_manager_resource_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                             </Authorized>
@@ -77,8 +84,11 @@
                     </Column>
                     <Column @bind-Field="@model.CreatedTime" Width="10%" Format="@SystemConstant.DateTimeFormat" />
                     @*<Column @bind-Field="@model.Remark" />*@
-                    <ActionColumn Width="10%" >
+                    <ActionColumn Width="10%">
                         <Space>
+                            <ResourceAuthorize ResourceKey="system_manager_resource_add_children">
+                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnAddChildrenClick(model)">添加子项</Button></SpaceItem>
+                            </ResourceAuthorize>
                             @if (!model.Type.Equals(ResourceType.Root))
                             {
                                 <ResourceAuthorize ResourceKey="system_manager_resource_edit">
@@ -86,7 +96,7 @@
                                 </ResourceAuthorize>
 
                                 <ResourceAuthorize ResourceKey="system_manager_resource_show_function">
-                                    <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model.Id)">关联接口</Button></SpaceItem>
+                                    <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model)">接口</Button></SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_resource_delete">
                                     <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model)">删除</Button></SpaceItem>

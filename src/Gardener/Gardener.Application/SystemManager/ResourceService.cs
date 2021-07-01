@@ -88,7 +88,7 @@ namespace Gardener.Application
             StringBuilder sb = new StringBuilder();
             foreach (var resource in resources)
             {
-                sb.Append($"new {nameof(Resource)}()");
+                sb.Append($"\r\n new {nameof(Resource)}()");
                 sb.Append("{");
                 sb.Append($"{nameof(Resource.Id)}=Guid.Parse(\"{resource.Id}\"),");
                 if (resource.ParentId != null && resource.ParentId != Guid.Empty)
@@ -107,7 +107,7 @@ namespace Gardener.Application
                 sb.Append($"{nameof(Resource.Order)}={resource.Order}");
                 sb.Append("},");
             }
-            return sb.ToString();
+            return sb.ToString().TrimEnd(',');
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Gardener.Application
         /// <returns></returns>
         public override async Task<ResourceDto> Insert(ResourceDto resourceDto)
         {
-            if (_resourceRepository.Any(x => x.Key.Equals(resourceDto.Key), false))
+            if (_resourceRepository.Any(x => x.Key.Equals(resourceDto.Key) && x.IsDeleted==false && x.IsLocked==false, false))
             {
                 throw Oops.Oh(ExceptionCode.RESOURCE_KEY_REPEAT);
             }

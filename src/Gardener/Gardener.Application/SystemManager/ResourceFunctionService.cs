@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gardener.Application
@@ -65,6 +66,25 @@ namespace Gardener.Application
             await _resourceFunctionRespository.DeleteAsync(entitys);
 
             return true;
+        }
+        /// <summary>
+        /// 获取种子数据
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetSeedData()
+        {
+            List<ResourceFunction> list = await _resourceFunctionRespository.AsQueryable(false).ToListAsync();
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in list)
+            {
+                sb.Append($"\r\n new {nameof(ResourceFunction)}()");
+                sb.Append("{");
+                sb.Append($"{nameof(ResourceFunction.ResourceId)} = Guid.Parse(\"{item.ResourceId}\"),");
+                sb.Append($"{nameof(ResourceFunction.FunctionId)} = Guid.Parse(\"{item.FunctionId}\"),");
+                sb.Append($"{nameof(ResourceFunction.CreatedTime)}= DateTimeOffset.Now");
+                sb.Append("},");
+            }
+            return sb.ToString().TrimEnd(',');
         }
     }
 }

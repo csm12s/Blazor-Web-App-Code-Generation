@@ -138,32 +138,89 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         /// <param name="roleDto"></param>
         private async Task OnEditClick(ResourceDto resource)
         {
-            var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
+            var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, Guid>(
                    new ResourceEditOption() { Type = 1, SelectedResourceId = resource.Id },
                    true,
                    title: "编辑",
-                   width: 400,
+                   width: 800,
                    placement: "right");
-            if (result)
+            if (!result.Equals(Guid.Empty))
             {
                 var newEntity=await resourceService.Get(resource.Id);
+                ICollection<ResourceDto> children = resource.Children;
                 newEntity.Adapt(resource);
+                resource.Children = children;
+
+                _resources.ForEach(x=> 
+                {
+                    var p = GetNodeFromTree(resource.ParentId.Value,x);
+                    if (p != null)
+                    {
+                        p.Children = p.Children.OrderBy(x=>x.Order).ToList();
+                    }
+                });
+                
             }
+        }
+        /// <summary>
+        /// 从树种找到节点
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        private ResourceDto GetNodeFromTree(Guid id, ResourceDto resource)
+        {
+            if (resource.Id.Equals(id))
+            {
+                return resource;
+            }
+            else
+            {
+                if (resource.Children != null)
+                {
+                    foreach (ResourceDto item in resource.Children)
+                    {
+                        var node = GetNodeFromTree(id, item);
+                        if (node != null)
+                        {
+                            return node;
+                        }
+                    }
+                }
+            }
+            return null;
         }
         /// <summary>
         /// 点击添加按钮
         /// </summary>
         private async Task OnAddClick()
         {
-            var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, bool>(
+            var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, Guid>(
                    new ResourceEditOption() { Type = 0, SelectedResourceId = Guid.Empty },
                    true,
                    title: "添加",
-                   width: 400,
+                   width: 800,
                    placement: "right");
-            if (result) { await ReLoadTable(); }
+            if (!result.Equals(Guid.Empty)) { await ReLoadTable(); }
+        }/// <summary>
+         /// 点击添加按钮
+         /// </summary>
+        private async Task OnAddChildrenClick(ResourceDto resource)
+        {
+            var result = await drawerService.CreateDialogAsync<ResourceEdit, ResourceEditOption, Guid>(
+                   new ResourceEditOption() { Type = 0, SelectedResourceId = resource.Id },
+                   true,
+                   title: "添加",
+                   width: 800,
+                   placement: "right");
+            if (!result.Equals(Guid.Empty)) {
+                var newEntity = await resourceService.Get(result);
+                ICollection<ResourceDto> children= resource.Children ?? new List<ResourceDto>();
+                children.Add(newEntity);
+                resource.Children = children.OrderBy(x => x.Order).ToList();
+                await InvokeAsync(StateHasChanged);
+            }
         }
-        
         /// <summary>
         /// 点击删除选中按钮
         /// </summary>
@@ -217,14 +274,27 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        private async Task OnShowFunctionClick(Guid id)
+        private async Task OnShowFunctionClick(ResourceDto model)
         {
             var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                      new ResourceFunctionEditOption { Id=id,Type=0},
+                      new ResourceFunctionEditOption { Id=model.Id,Type=0,Name=model.Name},
                       true,
-                      title: "关联接口",
+                      title: $"关联接口-[{model.Name}]",
                       width: 1200,
                       placement: "right");
+        }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnDownloadClick()
+        {
+            var result = await drawerService.CreateDialogAsync<ResourceDownload, string, bool>(
+                      string.Empty,
+                       true,
+                       title: "种子数据",
+                       width: 1300,
+                       placement: "right");
         }
     }
 }

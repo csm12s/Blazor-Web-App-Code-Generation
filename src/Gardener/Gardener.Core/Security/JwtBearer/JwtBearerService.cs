@@ -74,7 +74,7 @@ namespace Gardener.Core
         {
             var (oldRefreshToken, principal) = ReadToken(refreshTokenStr, JwtTokenType.RefreshToken);
 
-            UserToken refreshToken = _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.Id).FirstOrDefault();
+            UserToken refreshToken = _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
 
             //异常token检测
             if (refreshToken == null || refreshToken.Value != refreshTokenStr || refreshToken.EndTime <= DateTimeOffset.UtcNow)
@@ -116,7 +116,8 @@ namespace Gardener.Core
                 ClientId = clientId,
                 LoginClientType=clientType,
                 Value = newRefreshToken,
-                EndTime = refreshTokenExpires
+                EndTime = refreshTokenExpires,
+                CreatedTime=DateTimeOffset.UtcNow
             });
             //新的刷新token已经创建，删除上次的
             if (refreshToken != null)

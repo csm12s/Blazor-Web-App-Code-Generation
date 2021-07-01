@@ -22,6 +22,10 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
         /// 0 展示
         /// 1 添加
         /// </summary>
@@ -71,7 +75,11 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
                 {
                     _functionDtos = tempFunctionDtos.Where(y => !_oldFunctionDtos.Any(x => x.Id.Equals(y.Id))).ToList();
                 }
-                _functionDtos = tempFunctionDtos;
+                else
+                {
+                    _functionDtos = tempFunctionDtos;
+                }
+                
             }
             //groupFilters = new List<TableFilter<string>>();
             //serviceFilters = new List<TableFilter<string>>();
@@ -135,7 +143,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
             var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
                      new ResourceFunctionEditOption { Id = id, Type = 1 },
                      true,
-                     title: "关联接口",
+                     title: $"关联接口-[{this.Options.Name}]",
                      width: 1200,
                      placement: "right");
             if (result)

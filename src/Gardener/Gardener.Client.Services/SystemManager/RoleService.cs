@@ -38,6 +38,11 @@ namespace Gardener.Client.Services
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{roleId}/resource");
         }
 
+        public async Task<string> GetRoleResourceSeedData()
+        {
+            return await apiCaller.GetAsync<string>($"{controller}/role-resource-seed-data");
+        }
+
         public async Task<bool> Resource(int roleId, Guid[] resourceIds)
         {
             return await apiCaller.PostAsync<Guid[], bool>($"{controller}/{roleId}/resource", resourceIds);

@@ -49,5 +49,14 @@ namespace Gardener.Application.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<List<FunctionDto>> GetEffective();
+
+        /// <summary>
+        /// 获取种子数据
+        /// </summary>
+        /// <remarks>
+        /// 获取种子数据
+        /// </remarks>
+        /// <returns></returns>
+        Task<string> GetSeedData();
     }
 }

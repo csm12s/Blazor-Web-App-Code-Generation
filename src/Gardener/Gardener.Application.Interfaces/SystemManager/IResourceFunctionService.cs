@@ -32,5 +32,14 @@ namespace Gardener.Application.Interfaces
         /// <param name="functionId"></param>
         /// <returns></returns>
         Task<bool> Delete(Guid resourceId, Guid functionId);
+
+        /// <summary>
+        /// 获取种子数据
+        /// </summary>
+        /// <remarks>
+        /// 获取种子数据
+        /// </remarks>
+        /// <returns></returns>
+        Task<string> GetSeedData();
     }
 }

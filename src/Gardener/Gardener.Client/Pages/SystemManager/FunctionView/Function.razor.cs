@@ -213,5 +213,18 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
             var result = await drawerService.CreateDialogAsync<FunctionImport, int, bool>(0, true, title: "导入", width: 1000);
             await ReLoadTable();
         }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnDownloadClick()
+        {
+            var result = await drawerService.CreateDialogAsync<FunctionDownload, string, bool>(
+                      string.Empty,
+                       true,
+                       title: "种子数据",
+                       width: 1300,
+                       placement: "right");
+        }
     }
 }

@@ -37,16 +37,24 @@
                                     </SpaceItem>
                                 </ResourceAuthorize>
                                 @*<ResourceAuthorize ResourceKey="system_manager_function_add">
-                                    <SpaceItem>
-                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
-                                            添加
-                                        </Button>
-                                    </SpaceItem>
-                                </ResourceAuthorize>*@
+            <SpaceItem>
+                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                    添加
+                </Button>
+            </SpaceItem>
+        </ResourceAuthorize>*@
+
                                 <ResourceAuthorize ResourceKey="system_manager_function_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
                                             刷新
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="system_manager_function_download_seed_data">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadClick">
+                                            种子数据
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
@@ -61,9 +69,9 @@
                     </ResourceAuthorize>
                     <Column @bind-Field="@model.Group" Width="10%"/>
                     <Column @bind-Field="@model.Service" Width="10%"/>
-                    <Column @bind-Field="@model.Summary" Width="10%" />
+                    <Column @bind-Field="@model.Summary" Width="10%"/>
                     <Column @bind-Field="@model.Path" />
-                    <Column @bind-Field="@model.Method" Width="5%">
+                    <Column @bind-Field="@model.Method" Width="5%" Filters="TableFiltersConstants.FunctionMethodFilters">
                         <Tag>@EnumExtension.GetEnumDescription(model.Method)</Tag>
                     </Column>
                     <Column @bind-Field="@model.EnableAudit" Width="8%">
@@ -92,6 +100,7 @@
                             <ResourceAuthorize ResourceKey="system_manager_function_edit">
                                 <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>
                             </ResourceAuthorize>
+
                             <ResourceAuthorize ResourceKey="system_manager_function_delete">
                                 <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
                             </ResourceAuthorize>

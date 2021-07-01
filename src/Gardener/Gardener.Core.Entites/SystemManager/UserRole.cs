@@ -63,7 +63,7 @@ namespace Gardener.Core.Entites
         {
             return new[] {
                 new UserRole{ UserId = 1, RoleId = 1, CreatedTime = DateTimeOffset.Now },
-                new UserRole{ UserId = 2, RoleId = 3, CreatedTime = DateTimeOffset.Now }
+                new UserRole{ UserId = 2, RoleId = 2, CreatedTime = DateTimeOffset.Now }
             };
         }
     }

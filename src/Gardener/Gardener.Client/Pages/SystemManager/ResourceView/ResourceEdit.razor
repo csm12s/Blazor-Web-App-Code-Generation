@@ -1,4 +1,4 @@
-﻿@inherits FeedbackComponent<ResourceEditOption, bool>
+﻿@inherits FeedbackComponent<ResourceEditOption, Guid>
 <Row Justify="space-between" Style="margin-bottom:20px;">
     <Col Span="8" Style="text-align:right;"><label class="ant-form-item-required">父级：</label></Col>
     <Col Span="16"><Cascader Size="large" Options="@_resourceCascaderNodes" @bind-Value="_resourceCascaderValue" ExpandTrigger="hover" ChangeOnSelect SelectedNodesChanged="CascaderOnChange"></Cascader></Col>

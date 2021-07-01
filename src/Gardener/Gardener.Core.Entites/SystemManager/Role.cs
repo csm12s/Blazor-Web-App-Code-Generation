@@ -103,11 +103,7 @@ namespace Gardener.Core.Entites
                 },
                 new Role
                 {
-                    Id=2,Name="登录者",Remark="只能登录系统",CreatedTime=DateTimeOffset.Now,IsDefault=true
-                },
-                new Role
-                {
-                    Id=3,Name="浏览者",Remark="只能浏览",CreatedTime=DateTimeOffset.Now
+                    Id=2,Name="浏览者",Remark="只能浏览",CreatedTime=DateTimeOffset.Now
                 }
             };
         }

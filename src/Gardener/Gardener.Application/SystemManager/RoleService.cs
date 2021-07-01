@@ -144,14 +144,14 @@ namespace Gardener.Application
             StringBuilder sb = new StringBuilder();
             foreach (var roleResource in roleResources)
             {
-                sb.Append($"u.HasData( new");
+                sb.Append($"\r\n new {nameof(RoleResource)}()");
                 sb.Append("{");
                 sb.Append($"{nameof(RoleResource.RoleId)}={roleResource.RoleId},");
                 sb.Append($"{nameof(RoleResource.ResourceId)} = Guid.Parse(\"{roleResource.ResourceId}\"),");
                 sb.Append($"{nameof(RoleResource.CreatedTime)}= DateTimeOffset.Now");
-                sb.Append("});");
+                sb.Append("},");
             }
-            return sb.ToString();
+            return sb.ToString().TrimEnd(',');
         }
     }
 }

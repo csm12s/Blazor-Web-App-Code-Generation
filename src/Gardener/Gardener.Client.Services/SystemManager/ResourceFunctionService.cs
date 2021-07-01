@@ -33,5 +33,10 @@ namespace Gardener.Client.Services
         {
             return await apiCaller.DeleteAsync<bool>($"{controller}/{resourceId}/{functionId}");
         }
+
+        public async Task<string> GetSeedData()
+        {
+            return await apiCaller.GetAsync<string>($"{controller}/seed-data");
+        }
     }
 }

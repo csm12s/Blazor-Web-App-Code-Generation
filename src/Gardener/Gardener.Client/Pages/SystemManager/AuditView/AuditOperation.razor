@@ -49,7 +49,7 @@
                     <Column @bind-Field="@model.OperaterName" />
                     <Column @bind-Field="@model.ResourceName" />
                     <Column @bind-Field="@model.Ip" />
-                    <Column @bind-Field="@model.Method" />
+                    <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters"/>
                     <Column @bind-Field="@model.Path" />
                     <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>

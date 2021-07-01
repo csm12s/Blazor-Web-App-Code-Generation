@@ -27,5 +27,14 @@ namespace Gardener.Application.Interfaces
         /// <param name="roleId"></param>
         /// <returns></returns>
         Task<List<ResourceDto>> GetResource(int roleId);
+
+        /// <summary>
+        /// 获取种子数据
+        /// </summary>
+        /// <remarks>
+        /// 获取种子数据
+        /// </remarks>
+        /// <returns></returns>
+        Task<string> GetRoleResourceSeedData();
     }
 }

@@ -46,5 +46,10 @@ namespace Gardener.Client.Services
         {
             return await apiCaller.PostAsync<FunctionSearchInput, PagedList<FunctionDto>>($"{controller}/search", searchInput);
         }
+
+        public async Task<string> GetSeedData()
+        {
+            return await apiCaller.GetAsync<string>($"{controller}/seed-data");
+        }
     }
 }
