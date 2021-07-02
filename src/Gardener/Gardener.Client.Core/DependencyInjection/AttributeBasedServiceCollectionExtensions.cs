@@ -12,9 +12,18 @@ using System.Reflection;
 
 namespace Gardener.Client.Core
 {
+    /// <summary>
+    /// 通过扫描特性注册服务
+    /// </summary>
     public static class AttributeBasedServiceCollectionExtensions
     {
-        public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection,params Assembly [] assemblys)
+        /// <summary>
+        /// 通过扫描特性注册服务
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <param name="assemblys"></param>
+        public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, params Assembly[] assemblys)
         {
             if (serviceCollection == null)
             {
@@ -28,6 +37,28 @@ namespace Gardener.Client.Core
 
             AddServicesWithAttributeOfType<T>(serviceCollection, assemblys.ToList());
         }
+        /// <summary>
+        /// 先判断是否注册过，没有注册时才注册
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <param name="serviceType"></param>
+        /// <param name="implementationType"></param>
+        /// <param name="lifetime"></param>
+        public static void TryAdd(this IServiceCollection serviceCollection, Type serviceType, Type implementationType, ServiceLifetime lifetime)
+        {
+            bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == implementationType);
+            if (!isAlreadyRegistered)
+            {
+                serviceCollection.Add(new ServiceDescriptor(serviceType, implementationType, lifetime));
+            }
+        }
+        /// <summary>
+        /// 通过扫描特性注册服务
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <param name="assembliesToBeScanned"></param>
         public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, IEnumerable<Assembly> assembliesToBeScanned)
         {
             if (serviceCollection == null)
@@ -49,8 +80,14 @@ namespace Gardener.Client.Core
 
             switch (typeof(T).Name)
             {
+                case nameof(TransientServiceAttribute):
+                    lifetime = ServiceLifetime.Transient;
+                    break;
                 case nameof(ScopedServiceAttribute):
                     lifetime = ServiceLifetime.Scoped;
+                    break;
+                case nameof(SingletonServiceAttribute):
+                    lifetime = ServiceLifetime.Singleton;
                     break;
                 default:
                     throw new ArgumentException($"The type {typeof(T).Name} is not a valid type in this context.");
@@ -82,24 +119,20 @@ namespace Gardener.Client.Core
                 {
                     foreach (Type implementation in implementations)
                     {
-                        bool isGenericTypeDefinition = implementation.IsGenericType && implementation.IsGenericTypeDefinition;
-                        Type service = isGenericTypeDefinition
-                            && serviceType.IsGenericType
-                            && serviceType.IsGenericTypeDefinition == false
-                            && serviceType.ContainsGenericParameters
-                                  ? serviceType.GetGenericTypeDefinition()
-                                  : serviceType;
-
-                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == service && s.ImplementationType == implementation);
-
-                        if (!isAlreadyRegistered)
+                        Type[] ts = implementation.GetInterfaces();
+                        if (ts?.Length > 0)
                         {
                             foreach (Type type in implementation.GetInterfaces())
                             {
-                                Console.WriteLine(type.FullName + "_" + implementation.FullName);
-                                serviceCollection.Add(new ServiceDescriptor(type, implementation, lifetime));
+                                if (type.IsInterface) 
+                                {
+                                    serviceCollection.TryAdd(type, implementation, lifetime);
+                                }
                             }
-                           
+                        }
+                        else
+                        {
+                            serviceCollection.TryAdd(implementation, implementation, lifetime);
                         }
                     }
                 }
@@ -107,13 +140,7 @@ namespace Gardener.Client.Core
                 {
                     if (serviceType.IsClass)
                     {
-                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == serviceType);
-
-                        if (!isAlreadyRegistered)
-                        {
-                            Console.WriteLine("class:"+serviceType.FullName + "_" + serviceType.FullName);
-                            serviceCollection.Add(new ServiceDescriptor(serviceType, serviceType, lifetime));
-                        }
+                        serviceCollection.TryAdd(serviceType, serviceType, lifetime);
                     }
                 }
             }

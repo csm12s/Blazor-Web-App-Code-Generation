@@ -48,9 +48,6 @@ namespace Gardener.Web.Core
             ;
             //注册规范返回格式
             services.AddUnifyResult<MyRESTfulResultProvider>();
-
-            Test.AddServicesWithAttributeOfType<ScopedServiceAttribute>(new List<Assembly>() { typeof(Test).Assembly });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -4,12 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Client.Services
+namespace Gardener.Client.Core
 {
     /// <summary>
-    /// 龙行天下
+    /// 入口
     /// </summary>
-    public static class Dragon
+    public static class CoreEntry
     {
     }
 }

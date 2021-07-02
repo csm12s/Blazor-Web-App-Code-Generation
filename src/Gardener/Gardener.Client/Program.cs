@@ -68,27 +68,9 @@ namespace Gardener.Client
             #endregion
 
             #region services
-            //builder.Services.AddScoped<IClientLogger, ConsoleClientLogger>();
-            //builder.Services.AddScoped<JsTool>();
-            //builder.Services.AddScoped<HttpClientManager>();
-            //builder.Services.AddScoped<IApiCaller, ApiCaller>();
-            //builder.Services.AddScoped<IClientErrorNotifier, ClientErrorNotifier>();
-            //builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
-            //builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
-            //builder.Services.AddScoped<IRoleService, RoleService>();
-            //builder.Services.AddScoped<IUserService, UserService>();
-            //builder.Services.AddScoped<IResourceService, ResourceService>();
-            //builder.Services.AddScoped<IAttachmentService, AttachmentService>();
-            //builder.Services.AddScoped<IAuditOperationService, AuditOperationService>();
-            //builder.Services.AddScoped<IAuditEntityService, AuditEntityService>();
-            //builder.Services.AddScoped<IFunctionService, FunctionService>();
-            //builder.Services.AddScoped<ISwaggerService, SwaggerService>();
-            //builder.Services.AddScoped<IResourceFunctionService, ResourceFunctionService>();
-            //builder.Services.AddScoped<IDeptService, DeptService>();
-
             builder.Services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(
-                typeof(Dragon).GetTypeInfo().Assembly,
-                typeof(ScopedServiceAttribute).GetTypeInfo().Assembly);
+                typeof(ServicesEntry).GetTypeInfo().Assembly,
+                typeof(CoreEntry).GetTypeInfo().Assembly);
             #endregion
 
             builder.Services.AddTypeAdapterConfigs();
