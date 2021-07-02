@@ -69,7 +69,7 @@
                     @*<Column @bind-Field="@model.Key" Width="10%" />
                         <Column @bind-Field="@model.Path" Width="10%"/>*@
                     <Column @bind-Field="@model.Type" Width="5%">
-                        <Tag>@(EnumExtension.GetEnumDescription(model.Type))</Tag>
+                        <TagRandomColor Text="@(EnumExtension.GetEnumDescription(model.Type))"></TagRandomColor>
                     </Column>
                     <Column @bind-Field="@model.Order" Width="5%" />
                     <Column @bind-Field="@model.IsLocked" Width="10%">

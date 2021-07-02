@@ -45,7 +45,7 @@
                 <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
                 <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
                 <Column @bind-Field="@model.Method" Width="100" Sortable="false">
-                    <Tag>@EnumExtension.GetEnumDescription(model.Method)</Tag>
+                    <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.Method)"></TagRandomColor>
                 </Column>
                 <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false">
                     <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>

@@ -70,7 +70,7 @@
                     <Column @bind-Field="@model.UserName" />
                     <Column @bind-Field="@model.NickName" />
                     <Column @bind-Field="@model.Gender">
-                        <Tag Color="@(model.Gender.Equals(Gender.Male)?"blue" :"pink")">@EnumExtension.GetEnumDescription(model.Gender)</Tag>
+                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.Gender)"></TagRandomColor>
                     </Column>
                     <Column @bind-Field="@model.PhoneNumber" />
                     <Column @bind-Field="@model.Email" />
