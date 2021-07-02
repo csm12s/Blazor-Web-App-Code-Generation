@@ -6,6 +6,7 @@
 
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Services
 {

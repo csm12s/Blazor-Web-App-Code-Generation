@@ -10,19 +10,19 @@
     <PackageReference Include="AntDesign" Version="0.8.2" />
     <PackageReference Include="AntDesign.Charts" Version="0.2.1" />
     <PackageReference Include="AntDesign.Pro.Layout" Version="0.1.0-nightly-210416065052" />
-    <PackageReference Include="Mapster" Version="7.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.7" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.7" />
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.JSInterop" Version="5.0.7" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
 	<ItemGroup>
+    <ProjectReference Include="..\Gardener.Client.Core\Gardener.Client.Core.csproj" />
     <ProjectReference Include="..\Gardener.Client.Services\Gardener.Client.Services.csproj" />
     <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
   </ItemGroup>

@@ -12,9 +12,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Services
 {
+    [ScopedService]
     public class SwaggerService : ISwaggerService
     {
         private readonly static string controller = "swagger";

@@ -10,12 +10,14 @@ using Gardener.Enums;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Services
 {
     /// <summary>
     /// 
     /// </summary>
+    [ScopedService]
     public class AuthorizeService : IAuthorizeService
     {
         private readonly static string controller = "authorize";

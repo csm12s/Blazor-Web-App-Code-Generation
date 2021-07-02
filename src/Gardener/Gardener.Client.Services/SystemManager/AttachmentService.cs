@@ -6,6 +6,7 @@
 
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Services
 {
+    [ScopedService]
     public class AttachmentService : ApplicationServiceBase<AttachmentDto, Guid>, IAttachmentService
     {
 

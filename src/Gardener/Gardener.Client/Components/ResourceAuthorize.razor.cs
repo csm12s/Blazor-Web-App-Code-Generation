@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;

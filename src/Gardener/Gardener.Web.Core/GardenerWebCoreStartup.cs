@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Gardener.Web.Core
 {
@@ -46,6 +48,9 @@ namespace Gardener.Web.Core
             ;
             //注册规范返回格式
             services.AddUnifyResult<MyRESTfulResultProvider>();
+
+            Test.AddServicesWithAttributeOfType<ScopedServiceAttribute>(new List<Assembly>() { typeof(Test).Assembly });
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

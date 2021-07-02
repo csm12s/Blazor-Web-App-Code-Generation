@@ -7,7 +7,7 @@
 using AntDesign;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
-using Gardener.Client.Models;
+using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;

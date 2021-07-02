@@ -87,10 +87,18 @@ namespace Gardener.Application.Dtos
         /// </summary>
         [DisplayName("角色")]
         public ICollection<RoleDto> Roles { get; set; }
-
         /// <summary>
         /// 用户扩展信息
         /// </summary>
         public UserExtensionDto UserExtension { get; set; }
+        /// <summary>
+        /// 部门编号
+        /// </summary>
+        [DisplayName("部门编号")]
+        public int DeptId { get; set; }
+        /// <summary>
+        /// 部门
+        /// </summary>
+        public DeptDto Dept { get; set; }
     }
 }

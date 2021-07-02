@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Constants;
+using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 

@@ -9,9 +9,11 @@ using Gardener.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Services
 {
+    [ScopedService]
     public class ResourceService : ApplicationServiceBase<ResourceDto,Guid>,IResourceService
     {
         private readonly static string controller = "resource";

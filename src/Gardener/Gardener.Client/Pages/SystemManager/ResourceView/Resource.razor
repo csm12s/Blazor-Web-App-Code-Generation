@@ -82,14 +82,14 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Width="10%" Format="@SystemConstant.DateTimeFormat" />
+                    <Column @bind-Field="@model.CreatedTime" Width="10%" Format="@ClientConstant.DateTimeFormat" />
                     @*<Column @bind-Field="@model.Remark" />*@
                     <ActionColumn Width="10%">
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_resource_add_children">
                                 <SpaceItem>
                                     <Tooltip Title="@("添加子项")" ArrowPointAtCenter="true">
-                                        <Button Icon="subnode" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnAddChildrenClick(model)"></Button>
+                                        <Button Icon="subnode" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnAddChildrenClick(model)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
@@ -98,7 +98,7 @@
                                 <ResourceAuthorize ResourceKey="system_manager_resource_edit">
                                     <SpaceItem>
                                         <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                            <Button Icon="edit" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)"></Button>
+                                            <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)"></Button>
                                         </Tooltip>
                                     </SpaceItem>
                                 </ResourceAuthorize>

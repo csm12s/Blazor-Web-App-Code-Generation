@@ -5,14 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-    <PackageReference Include="Microsoft.JSInterop" Version="5.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Gardener.Application.Dtos\Gardener.Application.Dtos.csproj" />
     <ProjectReference Include="..\Gardener.Application.Interfaces\Gardener.Application.Interfaces.csproj" />
-    <ProjectReference Include="..\Gardener.Client.Models\Gardener.Client.Models.csproj" />
+    <ProjectReference Include="..\Gardener.Client.Core\Gardener.Client.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@ using Gardener.Application.Dtos;
 using Gardener.Client.Services;
 using Gardener.Client.Constants;
 using System.Globalization;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Components
 {
@@ -66,7 +67,7 @@ namespace Gardener.Client.Components
             if (CultureInfo.CurrentCulture.Name != name)
             {
                 CultureInfo.CurrentCulture = new CultureInfo(name);
-                await JsTool.SessionStorage.SetAsync(SystemConstant.BlazorCultureKey, name);
+                await JsTool.SessionStorage.SetAsync(CultureExtension.BlazorCultureKey, name);
                 NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }
             

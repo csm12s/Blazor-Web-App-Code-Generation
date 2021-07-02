@@ -94,13 +94,13 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable Width="10%" />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" />
                     <ActionColumn Width="10%">
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_function_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>

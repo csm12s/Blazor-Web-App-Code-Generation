@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,11 +11,13 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AntDesign.Pro.Layout;
-using Gardener.Client.Extensions;
 using Microsoft.AspNetCore.Authorization;
-using Gardener.Application.Interfaces;
-using Gardener.Client.Constants;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
+using Gardener.Client.Services;
+using Gardener.Client.Core;
+using Gardener.Clientt.Core;
+using Gardener.Application.Interfaces;
 
 namespace Gardener.Client
 {
@@ -29,11 +30,17 @@ namespace Gardener.Client
             #region api settings
             builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
             #endregion
+
+            #region httpclient
             builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiSettings:BaseAddres")?.Value) });
-            //log
+            #endregion
+
+            #region log
             builder.Logging.AddConfiguration(
                 builder.Configuration.GetSection("Logging")
             );
+            #endregion
+
             #region ant design
             builder.Services.AddAntDesign();
             builder.Services.Configure<ProSettings>(builder.Configuration.GetSection("ProSettings"));
@@ -61,30 +68,33 @@ namespace Gardener.Client
             #endregion
 
             #region services
-            builder.Services.AddScoped<IClientLogger, ConsoleClientLogger>();
-            builder.Services.AddScoped<JsTool>();
-            builder.Services.AddScoped<HttpClientManager>();
-            builder.Services.AddScoped<IApiCaller, ApiCaller>();
-            builder.Services.AddScoped<IClientErrorNotifier, ClientErrorNotifier>();
-            builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
-            builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
-            builder.Services.AddScoped<IRoleService, RoleService>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IResourceService, ResourceService>();
-            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
-            builder.Services.AddScoped<IAuditOperationService, AuditOperationService>();
-            builder.Services.AddScoped<IAuditEntityService, AuditEntityService>();
-            builder.Services.AddScoped<IFunctionService, FunctionService>();
-            builder.Services.AddScoped<ISwaggerService, SwaggerService>();
-            builder.Services.AddScoped<IResourceFunctionService, ResourceFunctionService>();
+            //builder.Services.AddScoped<IClientLogger, ConsoleClientLogger>();
+            //builder.Services.AddScoped<JsTool>();
+            //builder.Services.AddScoped<HttpClientManager>();
+            //builder.Services.AddScoped<IApiCaller, ApiCaller>();
+            //builder.Services.AddScoped<IClientErrorNotifier, ClientErrorNotifier>();
+            //builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
+            //builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
+            //builder.Services.AddScoped<IRoleService, RoleService>();
+            //builder.Services.AddScoped<IUserService, UserService>();
+            //builder.Services.AddScoped<IResourceService, ResourceService>();
+            //builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            //builder.Services.AddScoped<IAuditOperationService, AuditOperationService>();
+            //builder.Services.AddScoped<IAuditEntityService, AuditEntityService>();
+            //builder.Services.AddScoped<IFunctionService, FunctionService>();
+            //builder.Services.AddScoped<ISwaggerService, SwaggerService>();
+            //builder.Services.AddScoped<IResourceFunctionService, ResourceFunctionService>();
+            //builder.Services.AddScoped<IDeptService, DeptService>();
 
+            builder.Services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(
+                typeof(Dragon).GetTypeInfo().Assembly,
+                typeof(ScopedServiceAttribute).GetTypeInfo().Assembly);
             #endregion
 
             builder.Services.AddTypeAdapterConfigs();
 
-           var host = await builder
-                .Build()
-                .UseCulture();
+            var host = await builder
+                 .Build().UseCulture();
             await host.RunAsync();
         }
     }

@@ -1,4 +1,4 @@
-﻿@page "/user_auth/user"
+﻿@page "/system_manager/user"
 @using Gardener.Application.Dtos
 <div>
     <PageContainer Title="">
@@ -92,27 +92,27 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_user_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_user_role_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@("分配角色")" ArrowPointAtCenter="true">
-                                        <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)"></Button>
+                                        <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_user_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
-                                        <Button Icon="delete" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>

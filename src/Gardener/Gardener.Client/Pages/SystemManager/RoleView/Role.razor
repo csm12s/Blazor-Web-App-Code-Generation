@@ -1,4 +1,4 @@
-﻿@page "/user_auth/role"
+﻿@page "/system_manager/role"
 @using Gardener.Application.Dtos
 <div>
     <PageContainer Title="">
@@ -79,20 +79,20 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_role_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_role_set_resource">
                                 <SpaceItem>
                                     <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
-                                        <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
+                                        <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>

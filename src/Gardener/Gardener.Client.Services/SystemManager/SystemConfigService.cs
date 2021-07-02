@@ -4,14 +4,15 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Models;
 using System;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Services
 {
     /// <summary>
     /// 系统配置-暂时写死吧
     /// </summary>
+    [ScopedService]
     public class SystemConfigService : ISystemConfigService
     {
         /// <summary>

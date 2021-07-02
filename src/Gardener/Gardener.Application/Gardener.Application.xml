@@ -478,6 +478,29 @@
             </remarks>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.DeptService">
+            <summary>
+            部门服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.DeptService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Dept})">
+            <summary>
+            部门服务
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Application.DeptService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Application.DeptService.GetTree">
+            <summary>
+            获取所有部门数据，以树形结构返回
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.ResourceFunctionService">
             <summary>
             资源与接口关系服务

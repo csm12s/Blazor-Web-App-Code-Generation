@@ -51,7 +51,7 @@
                     <Column @bind-Field="@model.OperationType">
                         <Tag>@EnumExtension.GetEnumDescription(model.OperationType)</Tag>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_entity_detail">

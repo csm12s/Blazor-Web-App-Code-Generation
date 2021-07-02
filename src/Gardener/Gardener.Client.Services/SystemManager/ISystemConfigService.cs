@@ -4,7 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Models;
+
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Services
 {

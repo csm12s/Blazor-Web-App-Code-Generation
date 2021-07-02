@@ -6,7 +6,7 @@
 
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
-using Gardener.Client.Models;
+using Gardener.Client.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

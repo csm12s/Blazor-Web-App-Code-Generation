@@ -6,8 +6,7 @@
 
 using AntDesign.Pro.Layout;
 using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces;
-using Gardener.Client.Models;
+using Gardener.Client.Core;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;

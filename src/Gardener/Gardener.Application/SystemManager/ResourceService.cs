@@ -123,7 +123,7 @@ namespace Gardener.Application
             List<ResourceDto> resourceDtos = new List<ResourceDto>();
 
             var allResources = _resourceRepository
-                .Where(x => x.IsDeleted == false)
+                .Where(x => x.IsDeleted == false && x.IsLocked==false)
                 .OrderBy(x => x.Order)
                 .ToList();
 

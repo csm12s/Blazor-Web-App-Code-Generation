@@ -98,6 +98,16 @@ namespace Gardener.Core.Entites
         public UserExtension UserExtension { get; set; }
 
         /// <summary>
+        /// 部门编号
+        /// </summary>
+        [DisplayName("部门编号")]
+        public int DeptId { get; set; }
+        /// <summary>
+        /// 部门
+        /// </summary>
+        public Dept Dept { get; set; }
+
+        /// <summary>
         /// 配置多对多关系
         /// </summary>
         /// <param name="entityBuilder"></param>
@@ -134,7 +144,8 @@ namespace Gardener.Core.Entites
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
                     Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
-                    CreatedTime=DateTimeOffset.Now
+                    CreatedTime=DateTimeOffset.Now,
+                    DeptId=1
                 },
                 new User
                 {
@@ -144,7 +155,8 @@ namespace Gardener.Core.Entites
                     PasswordEncryptKey=passwordEncryptKey,
                     Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
                     Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
-                    CreatedTime=DateTimeOffset.Now
+                    CreatedTime=DateTimeOffset.Now,
+                    DeptId=1
                 }
             };
         }

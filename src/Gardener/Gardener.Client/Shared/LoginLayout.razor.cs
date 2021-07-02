@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign.Pro.Layout;
-using Gardener.Client.Models;
+using Gardener.Client.Core;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;

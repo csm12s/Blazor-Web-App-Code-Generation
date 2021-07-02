@@ -11,12 +11,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Services
 {
     /// <summary>
     /// 
     /// </summary>
+    [ScopedService]
     public class FunctionService : ApplicationServiceBase<FunctionDto, Guid>, IFunctionService
     {
         private readonly static string controller = "function";

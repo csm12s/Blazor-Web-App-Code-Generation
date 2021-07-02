@@ -6,14 +6,14 @@
             <Space>
                 <SpaceItem>
                     <Tooltip Placement="PlacementType.TopLeft" Title="@(_isExpanded?"收起":"展开")">
-                        <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@SystemConstant.OperationButtonSize" OnClick="OnExpandClick" />
+                        <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
                     </Tooltip>
                 </SpaceItem>
                 <SpaceItem>
-                    <Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="OnSaveClick">保存</Button>
+                    <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">保存</Button>
                 </SpaceItem>
                 <SpaceItem>
-                    <Button Type="@ButtonType.Default" Size="@SystemConstant.OperationButtonSize" OnClick="OnCancelClick">取消</Button>
+                    <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">取消</Button>
                 </SpaceItem>
             </Space>
         </AntDesign.Col>

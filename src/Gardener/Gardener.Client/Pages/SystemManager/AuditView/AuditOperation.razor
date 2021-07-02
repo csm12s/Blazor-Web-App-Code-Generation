@@ -51,7 +51,7 @@
                     <Column @bind-Field="@model.Ip" />
                     <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters" />
                     <Column @bind-Field="@model.Path" />
-                    <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_operation_detail">
