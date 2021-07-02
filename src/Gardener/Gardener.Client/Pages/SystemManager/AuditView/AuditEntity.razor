@@ -48,17 +48,25 @@
                     <Column @bind-Field="@model.Name" />
                     <Column @bind-Field="@model.TypeName" />
                     <Column @bind-Field="@model.DataId" />
-                    <Column @bind-Field="@model.OperationType" >
+                    <Column @bind-Field="@model.OperationType">
                         <Tag>@EnumExtension.GetEnumDescription(model.OperationType)</Tag>
                     </Column>
                     <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_entity_detail">
-                                <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model)">详情</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                        <Button Icon="read" Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                         </Space>
                     </ActionColumn>

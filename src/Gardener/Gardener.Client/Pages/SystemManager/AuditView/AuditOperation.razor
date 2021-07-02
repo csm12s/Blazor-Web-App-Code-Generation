@@ -49,16 +49,24 @@
                     <Column @bind-Field="@model.OperaterName" />
                     <Column @bind-Field="@model.ResourceName" />
                     <Column @bind-Field="@model.Ip" />
-                    <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters"/>
+                    <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters" />
                     <Column @bind-Field="@model.Path" />
                     <Column @bind-Field="@model.CreatedTime" Format="@SystemConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_operation_detail">
-                                <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model.Id)">数据变更详情</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("数据变更详情")" ArrowPointAtCenter="true">
+                                        <Button Icon="read" Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                         </Space>
                     </ActionColumn>

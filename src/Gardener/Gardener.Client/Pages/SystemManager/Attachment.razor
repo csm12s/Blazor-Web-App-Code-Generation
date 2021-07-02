@@ -56,10 +56,10 @@
                     <Column @bind-Field="@model.Size">
                         @model.Size B
                     </Column>
-                    <Column @bind-Field="@model.Path"  />
-                    <Column @bind-Field="@model.Name"  />
-                    <Column @bind-Field="@model.Suffix"  />
-                    <Column @bind-Field="@model.OriginalName" Style="max-width:200px"  />
+                    <Column @bind-Field="@model.Path" />
+                    <Column @bind-Field="@model.Name" />
+                    <Column @bind-Field="@model.Suffix" />
+                    <Column @bind-Field="@model.OriginalName" Style="max-width:200px" />
                     <Column Title="文件" @bind-Field="@model.Url">
 
                         @if (model.FileType.Equals(AttachmentFileType.Image))
@@ -75,7 +75,7 @@
                                 <img src="@model.Url" width="100" height="100" />
                             }
                         }
-                        else 
+                        else
                         {
                             <a href="@model.Url" target="_blank">@model.OriginalName</a>
                         }
@@ -85,7 +85,11 @@
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                         </Space>
                     </ActionColumn>

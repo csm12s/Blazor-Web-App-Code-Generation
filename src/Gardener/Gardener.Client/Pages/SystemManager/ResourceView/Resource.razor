@@ -87,19 +87,35 @@
                     <ActionColumn Width="10%">
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_resource_add_children">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnAddChildrenClick(model)">添加子项</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("添加子项")" ArrowPointAtCenter="true">
+                                        <Button Icon="subnode" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnAddChildrenClick(model)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                             @if (!model.Type.Equals(ResourceType.Root))
                             {
                                 <ResourceAuthorize ResourceKey="system_manager_resource_edit">
-                                    <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)">编辑</Button></SpaceItem>
+                                    <SpaceItem>
+                                        <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
+                                            <Button Icon="edit" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model)"></Button>
+                                        </Tooltip>
+                                    </SpaceItem>
                                 </ResourceAuthorize>
 
                                 <ResourceAuthorize ResourceKey="system_manager_resource_show_function">
-                                    <SpaceItem><Button Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model)">接口</Button></SpaceItem>
+                                    <SpaceItem>
+                                        <Tooltip Title="@("关联接口")" ArrowPointAtCenter="true">
+                                            <Button Icon="api" Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model)"></Button>
+                                        </Tooltip>
+                                    </SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_resource_delete">
-                                    <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model)">删除</Button></SpaceItem>
+                                    <SpaceItem>
+                                    <Tooltip Title="@("删除(包含子节点)")" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model)"></Button>
+                                        </Tooltip>
+                                    </SpaceItem>
                                 </ResourceAuthorize>
                             }
 

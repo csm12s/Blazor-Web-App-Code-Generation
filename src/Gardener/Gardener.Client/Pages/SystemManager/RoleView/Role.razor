@@ -83,13 +83,25 @@
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_role_edit">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)">编辑</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_role_set_resource">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)">分配资源</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
+                                        <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@SystemConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_role_delete">
-                                <SpaceItem><Button Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)">删除</Button></SpaceItem>
+                                <SpaceItem>
+                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
                             </ResourceAuthorize>
                         </Space>
                     </ActionColumn>
