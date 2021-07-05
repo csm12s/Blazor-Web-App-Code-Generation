@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Gardener.Enums;
 using Mapster;
 using Microsoft.AspNetCore.Components;
@@ -104,18 +105,22 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
 
             //所有资源
             var resources = await resourceService.GetTree();
+
+
             //生成级联对象
             if (resources != null)
             {
-                _resourceCascaderNodes=new List<CascaderNode>();
-                foreach (ResourceDto item in resources)
-                {
-                    CascaderNode node = new CascaderNode();
-                    node.Label = item.Name;
-                    node.Value = item.Id.ToString();
-                    node.Children = GetChildrenCascaderNodes(item);
-                    _resourceCascaderNodes.Add(node);
-                }
+                _resourceCascaderNodes = ComponentUtils.DtoConvertToCascaderNode<ResourceDto>(resources, dto => dto.Children, dto => dto.Name, dto => dto.Id.ToString());
+
+                //_resourceCascaderNodes = new List<CascaderNode>();
+                //foreach (ResourceDto item in resources)
+                //{
+                //    CascaderNode node = new CascaderNode();
+                //    node.Label = item.Name;
+                //    node.Value = item.Id.ToString();
+                //    node.Children = GetChildrenCascaderNodes(item);
+                //    _resourceCascaderNodes.Add(node);
+                //}
             }
 
             _isLoading = false;

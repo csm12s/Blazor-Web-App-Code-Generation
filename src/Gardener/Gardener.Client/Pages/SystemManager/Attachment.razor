@@ -45,19 +45,19 @@
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.Id" />
+                    @*<Column @bind-Field="@model.Id" />*@
                     <Column @bind-Field="@model.BusinessType">
-                        <Tag>@EnumExtension.GetEnumDescription(model.BusinessType)</Tag>
+                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.BusinessType)"></TagRandomColor>
                     </Column>
                     <Column @bind-Field="@model.BusinessId" />
                     <Column @bind-Field="@model.FileType">
-                        <Tag>@EnumExtension.GetEnumDescription(model.FileType)</Tag> @model.ContentType
+                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
                     </Column>
                     <Column @bind-Field="@model.Size">
                         @model.Size B
                     </Column>
-                    <Column @bind-Field="@model.Path" />
-                    <Column @bind-Field="@model.Name" />
+                    @*<Column @bind-Field="@model.Path" />
+                    <Column @bind-Field="@model.Name" />*@
                     <Column @bind-Field="@model.Suffix" />
                     <Column @bind-Field="@model.OriginalName" Style="max-width:200px" />
                     <Column Title="文件" @bind-Field="@model.Url">

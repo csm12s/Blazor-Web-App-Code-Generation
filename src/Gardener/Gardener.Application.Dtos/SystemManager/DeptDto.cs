@@ -55,7 +55,7 @@ namespace Gardener.Application.Dtos
         /// 父级id
         /// </summary>
         [DisplayName("父级编号")]
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// 父级

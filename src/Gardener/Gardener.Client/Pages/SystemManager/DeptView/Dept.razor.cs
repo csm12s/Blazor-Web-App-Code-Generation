@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,22 +98,26 @@ namespace Gardener.Client.Pages.SystemManager.DeptView
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        private async Task OnEditClick(int id)
+        private async Task OnEditClick(DeptDto model)
         {
-            //var result = await drawerService.CreateDialogAsync<RoleEdit, int, bool>(id, true, title: "编辑", width: 500);
+            var result = await drawerService.CreateDialogAsync<DeptEdit, int, bool>(model.Id, true, title: "编辑", width: 500);
 
-            //if (result)
-            //{
-            //    //刷新列表
-            //    await ReLoadTable();
-            //}
+            if (result)
+            {
+                //刷新列表
+                var newEntity=await deptService.Get(model.Id);
+
+                newEntity.Adapt(model);
+                await InvokeAsync(StateHasChanged);
+
+            }
         }
         /// <summary>
         /// 点击添加按钮
         /// </summary>
         private async Task OnAddClick()
         {
-            //var result = await drawerService.CreateDialogAsync<RoleEdit, int, bool>(0, true, title: "添加", width: 500);
+            var result = await drawerService.CreateDialogAsync<DeptEdit, int, bool>(0, true, title: "添加", width: 500);
 
             //if (result)
             //{
@@ -122,7 +127,7 @@ namespace Gardener.Client.Pages.SystemManager.DeptView
             //    await ReLoadTable();
             //}
         }
-        
+
         /// <summary>
         /// 点击删除选中按钮
         /// </summary>
