@@ -67,6 +67,11 @@
 <img src="https://images.gitee.com/uploads/images/2021/0110/204309_f9c711ba_302533.png" width="260px"/>
 <img src="https://images.gitee.com/uploads/images/2021/0110/204318_0cb9fadc_302533.png" width="260px"/>
 
+## 贡献代码
+
+感谢每一位为 Furion 贡献代码的朋友，欢迎大家提交 PR 或 Issue。
+[![Giteye chart](https://chart.giteye.net/gitee/hgflydream/Gardener/PPVXK76M.png)](https://giteye.net/chart/PPVXK76M)
+
 ## 基情链接
 👉 **[Furion](https://gitee.com/monksoul/Furion)**
 👉 **[ant-design-blazor](https://github.com/ant-design-blazor/ant-design-blazor)**
