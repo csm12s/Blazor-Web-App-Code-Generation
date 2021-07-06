@@ -24,7 +24,7 @@ namespace Gardener.Client.Core
         /// <param name="valueFunc"></param>
         /// <param name="labelFunc"></param>
         /// <returns></returns>
-        public static List<CascaderNode> DtoConvertToCascaderNode<TDto>(IEnumerable<TDto> dtos,Func<TDto,IEnumerable<TDto>> childrenFunc,Func<TDto, String> labelFunc, Func<TDto, String> valueFunc)
+        public static List<CascaderNode> DtoConvertToCascaderNode<TDto>(IEnumerable<TDto> dtos,Func<TDto,IEnumerable<TDto>> childrenFunc,Func<TDto, String> labelFunc, Func<TDto, String> valueFunc,String [] disabledIds)
         {
             List<CascaderNode> nodes = new List<CascaderNode>();
             //生成级联对象
@@ -36,7 +36,8 @@ namespace Gardener.Client.Core
                     nodes.Add(node);
                     node.Label = labelFunc(item);
                     node.Value = valueFunc(item);
-                    node.Children = DtoConvertToCascaderNode<TDto>(childrenFunc(item),childrenFunc,labelFunc,valueFunc);
+                    node.Disabled = disabledIds == null ? true : disabledIds.Any(x => x.Equals(node.Value));
+                    node.Children = DtoConvertToCascaderNode<TDto>(childrenFunc(item),childrenFunc,labelFunc,valueFunc, disabledIds);
                 }
             }
             return nodes;

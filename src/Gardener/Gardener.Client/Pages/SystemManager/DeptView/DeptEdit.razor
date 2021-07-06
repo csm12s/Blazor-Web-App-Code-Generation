@@ -1,5 +1,8 @@
-﻿@inherits FeedbackComponent<int, bool>
-
+﻿@inherits FeedbackComponent<EditInput<int?>, EditOutput<int>>
+<Row Justify="space-between" Style="margin-bottom:20px;">
+    <Col Span="8" Style="text-align:right;"><label class="ant-form-item-required">父级：</label></Col>
+    <Col Span="16"><Cascader Size="large" Options="@_deptCascaderNodes" @bind-Value="_deptCascaderValue" ExpandTrigger="hover" ChangeOnSelect SelectedNodesChanged="CascaderOnChange" Style="width:100%"></Cascader></Col>
+</Row>
 @if (_editModel != null) 
 { 
 <Form Loading="@_isLoading"
@@ -8,9 +11,9 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="编号">
+    @*<FormItem Label="编号">
         <Input @bind-Value="@model.Id" Disabled />
-    </FormItem>
+    </FormItem>*@
     <FormItem Label="名称">
         <Input @bind-Value="@model.Name" />
     </FormItem>

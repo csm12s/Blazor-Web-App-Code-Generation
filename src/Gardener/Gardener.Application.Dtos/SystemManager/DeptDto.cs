@@ -58,11 +58,6 @@ namespace Gardener.Application.Dtos
         public int? ParentId { get; set; }
 
         /// <summary>
-        /// 父级
-        /// </summary>
-        public DeptDto Parent { get; set; }
-
-        /// <summary>
         /// 子集
         /// </summary>
         public ICollection<DeptDto> Children { get; set; }

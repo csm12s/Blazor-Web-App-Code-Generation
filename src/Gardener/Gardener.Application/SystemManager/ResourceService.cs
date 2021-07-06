@@ -122,49 +122,13 @@ namespace Gardener.Application
 
             List<ResourceDto> resourceDtos = new List<ResourceDto>();
 
-            var allResources = _resourceRepository
+            var allResources =await _resourceRepository
                 .Where(x => x.IsDeleted == false && x.IsLocked==false)
                 .OrderBy(x => x.Order)
-                .ToList();
-
-            //var rootResources =allResources
-            //    .Where(x =>x.ParentId == null && x.Type.Equals(ResourceType.ROOT))
-            //    .OrderBy(x => x.Order).ToList();
-
-            //resourceDtos.AddRange(rootResources);
-
-
-            //var otherResources= allResources
-            //     .Where(x => x.ParentId != null && !x.Type.Equals(ResourceType.ROOT))
-            //     .OrderBy(x => x.Order).ToList();
-
-            //foreach (var root in resourceDtos)
-            //{
-            //  SetChildren(root, otherResources);
-            //}
+                .ToListAsync();
 
             return allResources.Where(x => x.Type.Equals(ResourceType.Root)).Select(x => x.Adapt<ResourceDto>()).ToList();
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="resource"></param>
-        ///// <param name="resources"></param>
-        ///// <returns></returns>
-        //private async Task SetChildren(ResourceDto resource, List<ResourceDto> resources)
-        //{
-
-        //    if (resources.Any(x => x.ParentId == resource.Id))
-        //    {
-        //        resource.Children =resources.Where(x => x.ParentId == resource.Id).OrderBy(x=>x.Order).ToList();
-
-        //        foreach (var r in resource.Children)
-        //        {
-        //          SetChildren(r, resources);
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// 添加资源

@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.SystemManager.DeptView
 {
-    public partial class DeptEdit:FeedbackComponent<int, bool>
+    public partial class DeptEdit:FeedbackComponent<EditInput<int?>, EditOutput<int>>
     {
         [Inject]
         MessageService messageService { get; set; }
@@ -29,11 +30,11 @@ namespace Gardener.Client.Pages.SystemManager.DeptView
         /// <summary>
         /// 父级选择数据
         /// </summary>
-        private List<CascaderNode> _resourceCascaderNodes;
+        private List<CascaderNode> _deptCascaderNodes;
         /// <summary>
         /// 选择器绑定值
         /// </summary>
-        private string _resourceCascaderValue = String.Empty;
+        private string _deptCascaderValue = String.Empty;
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -42,25 +43,35 @@ namespace Gardener.Client.Pages.SystemManager.DeptView
         {
             _isLoading = true;
 
-            int id = this.Options;
+            EditInput<int?> editInput = this.Options;
 
-            if (id > 0)
+            if (editInput.Type.Equals(EditInputType.Edit))
             {
                 //更新 回填数据
-                var model = await deptService.Get(id);
+                var model = await deptService.Get(editInput.Id ?? 0);
                 if (model != null)
                 {
                     //赋值给编辑对象
                     _editModel = model;
+                   
                 }
                 else
                 {
                     messageService.Error("数据已不存在");
+                    await base.FeedbackRef.CloseAsync(EditOutput<int>.Fail());
                 }
             }
-            else 
+            else if (editInput.Type.Equals(EditInputType.Add))
             {
                 _editModel = new DeptDto();
+                _editModel.ParentId = editInput.Id;
+            }
+            _deptCascaderValue = _editModel.ParentId.ToString();
+            //父级选择器
+            List<DeptDto> depts=await deptService.GetTree();
+            if (depts != null)
+            {
+                _deptCascaderNodes = ComponentUtils.DtoConvertToCascaderNode<DeptDto>(depts, dto => dto.Children, dto => dto.Name, dto => dto.Id.ToString(),new[] { _editModel.Id.ToString()});
             }
             _isLoading = false;
             await base.OnInitializedAsync();
@@ -75,7 +86,7 @@ namespace Gardener.Client.Pages.SystemManager.DeptView
         {
             _isLoading = true;
             //开始请求
-            if (_editModel.Id<=0)
+            if (this.Options.Type.Equals(EditInputType.Add))
             {
                 //添加
                 var result = await deptService.Insert(_editModel);
@@ -83,21 +94,21 @@ namespace Gardener.Client.Pages.SystemManager.DeptView
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    await (base.FeedbackRef as DrawerRef<bool>)!.CloseAsync(true);
+                    await base.FeedbackRef.CloseAsync(EditOutput<int>.Succeed(result.Id));
                 }
                 else
                 {
                     messageService.Error("添加失败");
                 }
             }
-            else
+            else if (this.Options.Type.Equals(EditInputType.Edit))
             {
                 //修改
                 var result = await deptService.Update(_editModel);
                 if (result)
                 {
                     messageService.Success("修改成功");
-                    await (base.FeedbackRef as DrawerRef<bool>)!.CloseAsync(true);
+                    await base.FeedbackRef.CloseAsync(EditOutput<int>.Succeed(_editModel.Id));
                 }
                 else
                 {
@@ -111,7 +122,16 @@ namespace Gardener.Client.Pages.SystemManager.DeptView
         /// </summary>
         private async Task OnFormCancel()
         {
-            await (base.FeedbackRef as DrawerRef<bool>)!.CloseAsync(false);
+            await base.FeedbackRef.CloseAsync(EditOutput<int>.Cancel());
         }
+        /// <summary>
+        /// 父级选择数据
+        /// </summary>
+        /// <param name="selectedNodes"></param>
+        private void CascaderOnChange(CascaderNode[] selectedNodes)
+        {
+            _editModel.ParentId = int.Parse(_deptCascaderValue);
+        }
+
     }
 }

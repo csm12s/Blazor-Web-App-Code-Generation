@@ -1,5 +1,6 @@
 ﻿@page "/system_manager/resource"
 @using Gardener.Application.Dtos
+@inherits TreeTableBase<ResourceDto, Guid, ResourceEdit, EditInput<Guid>, EditOutput<Guid>>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -9,9 +10,8 @@
             </Breadcrumb>
         </Breadcrumb>
         <ChildContent>
-            <Table @ref="_table"
-                   TItem="ResourceDto"
-                   DataSource="@_resources"
+            <Table TItem="ResourceDto"
+                   DataSource="@_dtos"
                    OnChange="@onChange"
                    Loading="@_tableIsLoading"
                    TreeChildren="item=>item.Children"
@@ -112,8 +112,8 @@
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_resource_delete">
                                     <SpaceItem>
-                                    <Tooltip Title="@("删除(包含子节点)")" ArrowPointAtCenter="true">
-                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model)"></Button>
+                                        <Tooltip Title="@("删除(包含子节点)")" ArrowPointAtCenter="true">
+                                            <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model)"></Button>
                                         </Tooltip>
                                     </SpaceItem>
                                 </ResourceAuthorize>

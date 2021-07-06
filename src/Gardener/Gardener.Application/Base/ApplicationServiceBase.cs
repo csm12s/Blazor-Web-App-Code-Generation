@@ -58,7 +58,7 @@ namespace Gardener.Application
                 input.SetPropertyValue("CreatedTime", DateTimeOffset.Now);
             }
 
-            var newEntity = await _repository.InsertAsync(input.Adapt<TEntity>());
+            var newEntity = await _repository.InsertNowAsync(input.Adapt<TEntity>());
             return newEntity.Entity.Adapt<TEntityDto>();
         }
 
@@ -182,11 +182,11 @@ namespace Gardener.Application
         /// <returns></returns>
         public virtual async Task<Dtos.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
-            var pageResult = _repository.AsQueryable().Select(x => x.Adapt<TEntityDto>());
+            var pageResult = _repository.AsQueryable();
 
             var result= await pageResult.ToPagedListAsync(pageIndex, pageSize);
-
-            return result;
+            
+            return result.Adapt<Dtos.PagedList<TEntityDto>>();
         }
 
         /// <summary>

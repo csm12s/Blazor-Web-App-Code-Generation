@@ -19,21 +19,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.SystemManager.ResourceView
 {
-
-    public class ResourceEditOption
-    {
-        /// <summary>
-        /// 选中的节点
-        /// </summary>
-        public Guid SelectedResourceId { get; set; }
-        /// <summary>
-        /// 0添加
-        /// 1编辑
-        /// </summary>
-        public int Type { get; set; }
-    }
-
-    public partial class ResourceEdit : FeedbackComponent<ResourceEditOption, Guid>
+    public partial class ResourceEdit : FeedbackComponent<EditInput<Guid>, EditOutput<Guid>>
     {
         private bool _isLoading = false;
 
@@ -60,7 +46,6 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         {
             _editModel.ParentId = Guid.Parse(_resourceCascaderValue);
         }
-
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -69,31 +54,26 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         {
             _isLoading = true;
 
-            ResourceEditOption option = this.Options;
+            EditInput<Guid> option = this.Options;
 
-           
-
-            if (option.Type == 0)
+            if (option.Type.Equals(EditInputType.Add))
             {
                 //添加
                 var newResource = new ResourceDto();
                 newResource.Id = Guid.Empty;
-                newResource.ParentId = option.SelectedResourceId;
-                //newResource.Key = selectedResource.Type.Equals(ResourceType.Root) ? "" : selectedResource.Key + "_";
+                newResource.ParentId = option.Id;
                 //不能创建root节点
                 newResource.Type = ResourceType.Menu;
-                //newResource.Order = (children == null || !children.Any() ? 0 : children.Max(x => x.Order) + 1);
                 _editModel = newResource;
             }
-            else if (option.Type == 1)
+            else if (option.Type.Equals(EditInputType.Edit))
             {
 
-                var selectedResource = await resourceService.Get(option.SelectedResourceId);
+                var selectedResource = await resourceService.Get(option.Id);
                 if (selectedResource == null)
                 {
                     messageService.Error("所选资源不存在");
-                    DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-                    await drawerRef!.CloseAsync(false);
+                    await base.FeedbackRef.CloseAsync(EditOutput<Guid>.Fail());
                     return;
                 }
                 _editModel = selectedResource;
@@ -110,7 +90,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
             //生成级联对象
             if (resources != null)
             {
-                _resourceCascaderNodes = ComponentUtils.DtoConvertToCascaderNode<ResourceDto>(resources, dto => dto.Children, dto => dto.Name, dto => dto.Id.ToString());
+                _resourceCascaderNodes = ComponentUtils.DtoConvertToCascaderNode<ResourceDto>(resources, dto => dto.Children, dto => dto.Name, dto => dto.Id.ToString(),new []{ _editModel.Id.ToString() });
 
                 //_resourceCascaderNodes = new List<CascaderNode>();
                 //foreach (ResourceDto item in resources)
@@ -164,7 +144,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
                 if (result)
                 {
                     messageService.Success("更新成功");
-                    await (base.FeedbackRef as DrawerRef<Guid>)!.CloseAsync(_editModel.Id);
+                    await base.FeedbackRef.CloseAsync(EditOutput<Guid>.Succeed(_editModel.Id));
                 }
                 else
                 {
@@ -187,7 +167,8 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
                 if (result != null)
                 {
                     messageService.Success("添加成功");
-                    await (base.FeedbackRef as DrawerRef<Guid>)!.CloseAsync(result.Id);
+
+                    await base.FeedbackRef.CloseAsync(EditOutput<Guid>.Succeed(result.Id));
                 }
                 else
                 {
@@ -201,7 +182,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         /// </summary>
         private async Task OnFormCancel()
         {
-            await (base.FeedbackRef as DrawerRef<Guid>)!.CloseAsync(Guid.Empty);
+            await base.FeedbackRef.CloseAsync(EditOutput<Guid>.Cancel());
         }
 
     }

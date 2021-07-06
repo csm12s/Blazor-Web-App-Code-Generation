@@ -49,11 +49,10 @@ namespace Gardener.Application
         {
             List<DeptDto> depts = new List<DeptDto>();
 
-            var list = await _repository.AsQueryable(false)
+            var list =await _repository
                 .Where(x => x.IsDeleted == false && x.IsLocked==false)
                 .OrderBy(x => x.Order)
                 .ToListAsync();
-
             return list.Where(x => !x.ParentId.HasValue).Select(x => x.Adapt<DeptDto>()).ToList();
         }
     }

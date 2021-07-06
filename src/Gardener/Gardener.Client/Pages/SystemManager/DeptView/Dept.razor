@@ -1,4 +1,5 @@
-﻿@page "/system_manager/dept"
+﻿@inherits TreeTableBase<DeptDto, int, DeptEdit, EditInput<int?>, EditOutput<int>>
+@page "/system_manager/dept"
 @using Gardener.Application.Dtos
 <div>
     <PageContainer Title="">
@@ -12,12 +13,12 @@
             <Table @ref="_table"
                    TItem="DeptDto"
                    DataSource="@_dtos"
-                   Total="_total"
                    OnChange="@onChange"
-                   @bind-PageIndex="_pageIndex"
-                   @bind-PageSize="_pageSize"
+                   TreeChildren="item=>item.Children"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
+                   HidePagination="true"
+                   IndentSize="25"
                    Context="model">
                 <TitleTemplate>
                     <Row>
@@ -57,16 +58,13 @@
 
                 </TitleTemplate>
                 <RowTemplate>
-                    <ResourceAuthorize ResourceKey="system_manager_dept_delete_selected">
-                        <Selection Key="@(model.Id.ToString())" />
-                    </ResourceAuthorize>
-                    <Column @bind-Field="@model.Id" Sortable />
-                    <Column @bind-Field="@model.Name" />
-                    <Column @bind-Field="@model.Contacts" />
-                    <Column @bind-Field="@model.Tel" />
-                    <Column @bind-Field="@model.Order" />
-                    <Column @bind-Field="@model.Remark" />
-                    <Column @bind-Field="@model.IsLocked">
+                    <Selection CheckStrictly Width="5%" />
+                    <Column @bind-Field="@model.Name" Width="25%" />
+                    <Column @bind-Field="@model.Contacts" Width="10%" />
+                    <Column @bind-Field="@model.Tel" Width="10%" />
+                    <Column @bind-Field="@model.Order" Width="10%" />
+                    <Column @bind-Field="@model.Remark" Width="10%" />
+                    <Column @bind-Field="@model.IsLocked" Width="10%">
                         <ResourceAuthorize ResourceKey="system_manager_dept_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -76,9 +74,16 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
-                    <ActionColumn>
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" />
+                    <ActionColumn Width="10%">
                         <Space>
+                            <ResourceAuthorize ResourceKey="system_manager_dept_add_children">
+                                <SpaceItem>
+                                    <Tooltip Title="@("添加子项")" ArrowPointAtCenter="true">
+                                        <Button Icon="subnode" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnAddChildrenClick(model)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_dept_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
@@ -87,16 +92,16 @@
                                 </SpaceItem>
                             </ResourceAuthorize>
                             @*<ResourceAuthorize ResourceKey="system_manager_dept_set_resource">
-                                <SpaceItem>
-                                    <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
-                                        <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
-                                    </Tooltip>
-                                </SpaceItem>
-                            </ResourceAuthorize>*@
+                    <SpaceItem>
+                        <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
+                            <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
+                        </Tooltip>
+                    </SpaceItem>
+                </ResourceAuthorize>*@
                             <ResourceAuthorize ResourceKey="system_manager_dept_delete">
                                 <SpaceItem>
-                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
-                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                    <Tooltip Title="@("删除(包含子节点)")" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
