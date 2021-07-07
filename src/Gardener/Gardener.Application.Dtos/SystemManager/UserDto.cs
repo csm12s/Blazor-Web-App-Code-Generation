@@ -95,7 +95,7 @@ namespace Gardener.Application.Dtos
         /// 部门编号
         /// </summary>
         [DisplayName("部门编号")]
-        public int DeptId { get; set; }
+        public int? DeptId { get; set; }
         /// <summary>
         /// 部门
         /// </summary>

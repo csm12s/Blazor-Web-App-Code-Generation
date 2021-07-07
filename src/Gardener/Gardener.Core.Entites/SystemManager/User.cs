@@ -101,7 +101,7 @@ namespace Gardener.Core.Entites
         /// 部门编号
         /// </summary>
         [DisplayName("部门编号")]
-        public int DeptId { get; set; }
+        public int? DeptId { get; set; }
         /// <summary>
         /// 部门
         /// </summary>
@@ -123,6 +123,8 @@ namespace Gardener.Core.Entites
                     x => x.HasOne(r => r.User).WithMany(r => r.UserRoles).HasForeignKey(r => r.UserId),
                     x => x.HasKey(t => new { t.UserId, t.RoleId })
                 );
+
+            entityBuilder.HasOne(x => x.Dept).WithMany(x => x.Users).HasForeignKey(x=>x.DeptId);
         }
 
         /// <summary>

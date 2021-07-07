@@ -1,5 +1,10 @@
 ﻿@inherits FeedbackComponent<int, bool>
 
+<Row Justify="space-between" Style="margin-bottom:20px;">
+    <Col Span="8" Style="text-align:right;"><label class="ant-form-item-required">部门：</label></Col>
+    <Col Span="16"><Cascader Size="large" Options="@_deptCascaderNodes" @bind-Value="_deptCascaderValue" ExpandTrigger="hover" ChangeOnSelect SelectedNodesChanged="CascaderOnChange" Style="width:100%"></Cascader></Col>
+</Row>
+
 <Form Loading="@_formIsLoading"
       Model="@_editModel"
       LabelCol="new ColLayoutParam { Span = 8 }"

@@ -21,6 +21,7 @@
                               KeyExpression="x => x.DataItem.Id.ToString()"
                               IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
                               @bind-SelectedKey="@_deptTreeSelectedKey"
+                              OnClick="OnClickDeptTree"
                               TItem="DeptDto" Style="min-height:500px;">
                         </Tree>
                     </Spin>

@@ -24,7 +24,6 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         int _pageIndex = 1;
         int _pageSize = 10;
         int _total = 0;
-        string _name = string.Empty;
         bool _tableIsLoading = false;
 
         private Tree<DeptDto> _deptTree;
@@ -51,10 +50,17 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         protected override async Task OnInitializedAsync()
         {
             _deptTreeIsLoading = true;
-            depts =await deptService.GetTree();
+            depts = await deptService.GetTree();
             _deptTreeIsLoading = false;
         }
-
+        /// <summary>
+        /// 重新加载table
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnClickDeptTree(TreeEventArgs<DeptDto> e)
+        {
+            await ReLoadTable();
+        }
 
         /// <summary>
         /// 重新加载table
@@ -63,7 +69,8 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await userService.Search(_name, _pageIndex, _pageSize);
+            int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
+            var pagedListResult = await userService.Search(deptId, _pageIndex, _pageSize);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -121,9 +128,9 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// <param name="model"></param>
         private async Task OnEditClick(int userId)
         {
-            var result = await drawerService.CreateDialogAsync<UserEdit, int, bool>(userId, true, title: "编辑", width: 500);
+            var result = await drawerService.CreateDialogAsync<UserEdit, int, bool>(userId, true, title: "编辑", width: 800);
 
-            if (result) 
+            if (result)
             {
                 await ReLoadTable();
             }
@@ -133,13 +140,12 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// </summary>
         private async Task OnAddClick()
         {
-            var result = await drawerService.CreateDialogAsync<UserEdit, int, bool>(0, true, title: "添加", width: 500);
+            var result = await drawerService.CreateDialogAsync<UserEdit, int, bool>(0, true, title: "添加", width: 800);
 
             if (result)
             {
                 //刷新列表
                 _pageIndex = 1;
-                _name = string.Empty;
                 await ReLoadTable();
             }
         }
@@ -206,12 +212,11 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        private async Task OnAvatarClick(UserDto user) 
+        private async Task OnAvatarClick(UserDto user)
         {
             int avatarDrawerWidth = 300;
-            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User=user,SaveDb=true }, true, title: "上传头像", width: avatarDrawerWidth, placement: "left");
+            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User = user, SaveDb = true }, true, title: "上传头像", width: avatarDrawerWidth, placement: "left");
         }
 
-        
     }
 }

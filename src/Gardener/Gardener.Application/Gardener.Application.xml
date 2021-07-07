@@ -735,14 +735,14 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserService.Search(System.String,System.Int32,System.Int32)">
+        <member name="M:Gardener.Application.UserService.Search(System.Nullable{System.Int32},System.Int32,System.Int32)">
             <summary>
             搜索
             </summary>
             <remarks>
             搜索用户数据
             </remarks>
-            <param name="name"></param>
+            <param name="deptId"></param>
             <param name="pageIndex"></param>
             <param name="pageSize"></param>
             <returns></returns>

@@ -88,11 +88,6 @@ namespace Gardener.Core.Entites
               .WithOne(x => x.Parent)
               .HasForeignKey(x => x.ParentId)
               .OnDelete(DeleteBehavior.ClientSetNull); // 必须设置这一行
-
-            entityBuilder
-              .HasMany(x => x.Users)
-              .WithOne(x => x.Dept)
-              .HasForeignKey(x => x.DeptId);
         }
         /// <summary>
         /// 

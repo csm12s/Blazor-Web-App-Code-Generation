@@ -7,9 +7,11 @@
 using AntDesign;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Pages.SystemManager.UserView
@@ -24,6 +26,16 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         MessageService messageService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
+        [Inject]
+        IDeptService deptService { get; set; }
+        /// <summary>
+        /// 父级选择数据
+        /// </summary>
+        private List<CascaderNode> _deptCascaderNodes;
+        /// <summary>
+        /// 选择器绑定值
+        /// </summary>
+        private string _deptCascaderValue = string.Empty;
         protected override async Task OnInitializedAsync()
         {
             _formIsLoading = true;
@@ -40,12 +52,21 @@ namespace Gardener.Client.Pages.SystemManager.UserView
                     if (user.UserExtension == null) user.UserExtension = new UserExtensionDto() { UserId=user.Id };
                     //赋值给编辑对象
                     user.Adapt(_editModel);
+                    _deptCascaderValue = _editModel.DeptId?.ToString();
                 }
                 else
                 {
                     messageService.Error("用户不存在");
                 }
             }
+
+            //父级选择器
+            List<DeptDto> depts = await deptService.GetTree();
+            if (depts != null)
+            {
+                _deptCascaderNodes = ComponentUtils.DtoConvertToCascaderNode<DeptDto>(depts, dto => dto.Children, dto => dto.Name, dto => dto.Id.ToString());
+            }
+
             _formIsLoading = false;
             await base.OnInitializedAsync();
         }
@@ -96,8 +117,6 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
         }
-        
-
         /// <summary>
         /// 点击头像
         /// </summary>
@@ -109,6 +128,15 @@ namespace Gardener.Client.Pages.SystemManager.UserView
             //this.DrawerRef.Options.Width += avatarDrawerWidth;
             await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User =user }, true, title: "上传头像", width: avatarDrawerWidth, placement: "right");
             //this.DrawerRef.Options.Width -= avatarDrawerWidth;
+        }
+
+        /// <summary>
+        /// 父级选择数据
+        /// </summary>
+        /// <param name="selectedNodes"></param>
+        private void CascaderOnChange(CascaderNode[] selectedNodes)
+        {
+            _editModel.DeptId =string.IsNullOrEmpty(_deptCascaderValue)?null: int.Parse(_deptCascaderValue);
         }
     }
 }

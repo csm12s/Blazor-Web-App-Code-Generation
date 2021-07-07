@@ -98,18 +98,19 @@ namespace Gardener.Application
         /// <remarks>
         /// 搜索用户数据
         /// </remarks>
-        /// <param name="name"></param>
+        /// <param name="deptId"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] string name, int pageIndex = 1, int pageSize = 10)
+        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] int? deptId, int pageIndex = 1, int pageSize = 10)
         {
             var users = _userRepository
-              .Include(u => u.UserExtension, false)
+              .Include(true, u => u.UserExtension)
+              //.Include(true,u => u.Dept)
               .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false))
               .Where(u => u.IsDeleted == false)
-              .Where(!string.IsNullOrEmpty(name), u => u.NickName.Contains(name) || u.NickName.Contains(name))
+              .Where(deptId.HasValue, u => u.DeptId.Equals(deptId.Value))
               .OrderByDescending(x => x.CreatedTime)
               .Select(u => u.Adapt<UserDto>());
             var pageList = await users.ToPagedListAsync(pageIndex, pageSize);
