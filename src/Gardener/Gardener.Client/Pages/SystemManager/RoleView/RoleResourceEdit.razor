@@ -23,14 +23,13 @@
             <Tree @ref="_tree"
                   TItem="ResourceDto"
                   ShowLine
-                  ShowIcon
                   Checkable
                   DataSource="_resources"
                   KeyExpression="x=>x.Id.ToString()"
                   TitleExpression="x=> x.DataItem.GetFullName()"
                   ChildrenExpression="x=>x.DataItem.Children?.ToList()"
                   IconExpression="x=>x.DataItem.Icon"
-                  IsLeafExpression="x=>false"
+                  IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
                   Style="min-height:466px;min-width:400px">
             </Tree>
         </AntDesign.Col>

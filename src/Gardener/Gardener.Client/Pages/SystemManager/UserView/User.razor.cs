@@ -26,6 +26,14 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
+
+        private Tree<DeptDto> _deptTree;
+
+        private List<DeptDto> depts;
+
+        private string _deptTreeSelectedKey;
+        private bool _deptTreeIsLoading = false;
+
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
@@ -34,20 +42,20 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
+        [Inject]
+        IDeptService deptService { get; set; }
         /// <summary>
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            messageService.Config(new MessageGlobalConfig()
-            {
-                Top = 24,
-                Duration = 1,
-                MaxCount = 3,
-                Rtl = true,
-            });
+            _deptTreeIsLoading = true;
+            depts =await deptService.GetTree();
+            _deptTreeIsLoading = false;
         }
+
+
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -203,5 +211,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
             int avatarDrawerWidth = 300;
             await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User=user,SaveDb=true }, true, title: "上传头像", width: avatarDrawerWidth, placement: "left");
         }
+
+        
     }
 }
