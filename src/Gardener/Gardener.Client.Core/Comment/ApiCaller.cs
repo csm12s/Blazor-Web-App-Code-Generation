@@ -20,10 +20,12 @@ namespace Gardener.Client.Core
     {
         private readonly HttpClient httpClient;
         private readonly IClientLogger log;
-        public ApiCaller(HttpClient httpClient, IClientLogger log)
+        private readonly IEventBus eventBus;
+        public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus)
         {
             this.httpClient = httpClient;
             this.log = log;
+            this.eventBus = eventBus;
         }
         async Task<TResponse> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func)
         {
@@ -36,12 +38,24 @@ namespace Gardener.Client.Core
                     if (!result.Succeeded)
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
+                        //时间戳过期
+                        if (result.StatusCode == 500 && result.Errors?.ToString().IndexOf(AuthConstant.RefreshtokenNoExistOrExpireErrorFlag) >= 0)
+                        {
+                            await eventBus.Publish(new RefreshTokenErrorEvent());
+                        }
+
                         return default(TResponse);
                     }
                     return result.Data;
                 }
                 //请求失败 
                 log.Error("请求失败", (int)httpResponse.StatusCode);
+                //身份验证失败
+                if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
+                {
+                    await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
+                }
+
                 return default(TResponse);
             }
             catch (Exception ex)
@@ -59,6 +73,11 @@ namespace Gardener.Client.Core
                 {
                     //请求失败
                     log.Error("请求失败", (int)httpResponse.StatusCode);
+                    //身份验证失败
+                    if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
+                    {
+                        await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode=httpResponse.StatusCode});
+                    }
                 }
                 else 
                 {
@@ -66,6 +85,11 @@ namespace Gardener.Client.Core
                     if (!result.Succeeded)
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
+                        //时间戳过期
+                        if (result.StatusCode == 500 && result.Errors?.ToString().IndexOf(AuthConstant.RefreshtokenNoExistOrExpireErrorFlag) >= 0)
+                        {
+                            await eventBus.Publish(new RefreshTokenErrorEvent());
+                        }
                     }
                 }
             }

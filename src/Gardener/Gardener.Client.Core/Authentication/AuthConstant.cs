@@ -13,6 +13,14 @@ namespace Gardener.Client.Core
         /// </summary>
         public static readonly string DefaultAuthenticatedPolicy = "default";
         /// <summary>
+        /// 登录路由地址
+        /// </summary>
+        public static readonly string LoginUrl = "/auth/login";
+        /// <summary>
+        /// 刷新token不存在或已过期异常标识
+        /// </summary>
+        public static readonly string RefreshtokenNoExistOrExpireErrorFlag = "REFRESHTOKEN_NO_EXIST_OR_EXPIRE";
+        /// <summary>
         /// 
         /// </summary>
         public static readonly string ClientUIResourcePolicy = "client-ui-resource-policy";

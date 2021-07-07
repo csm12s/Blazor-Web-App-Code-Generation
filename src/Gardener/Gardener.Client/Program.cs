@@ -71,6 +71,12 @@ namespace Gardener.Client
             builder.Services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(
                 typeof(ServicesEntry).GetTypeInfo().Assembly,
                 typeof(CoreEntry).GetTypeInfo().Assembly);
+            builder.Services.AddServicesWithAttributeOfType<TransientServiceAttribute>(
+                typeof(ServicesEntry).GetTypeInfo().Assembly,
+                typeof(CoreEntry).GetTypeInfo().Assembly);
+            builder.Services.AddServicesWithAttributeOfType<SingletonServiceAttribute>(
+                typeof(ServicesEntry).GetTypeInfo().Assembly,
+                typeof(CoreEntry).GetTypeInfo().Assembly);
             #endregion
 
             builder.Services.AddTypeAdapterConfigs();

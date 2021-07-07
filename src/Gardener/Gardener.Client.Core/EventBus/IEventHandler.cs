@@ -10,10 +10,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Web.Core
+namespace Gardener.Client.Core.EventBus
 {
-    interface ITest
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TCommand"></typeparam>
+    public interface IEventHandler<TEvent> where TEvent : EventBase
     {
-        void Add();
+        /// <summary>
+        /// 处理
+        /// </summary>
+        /// <param name="e"></param>
+        Task Handler(TEvent e);
     }
 }

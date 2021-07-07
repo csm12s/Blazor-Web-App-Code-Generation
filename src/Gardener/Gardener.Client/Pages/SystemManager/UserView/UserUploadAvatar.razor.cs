@@ -70,7 +70,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
                 //上传附件附带参数
                 uploadAttachmentInput.Add("BusinessId", userDto != null ? userDto.Id.ToString() : null);
                 //上传附件附带身份信息
-                headers = authenticationStateManager.GetCurrentTokenHeaders();
+                headers = await authenticationStateManager.GetCurrentTokenHeaders();
             }
             await base.OnInitializedAsync();
         }

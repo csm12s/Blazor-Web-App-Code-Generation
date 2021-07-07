@@ -48,6 +48,8 @@ namespace Gardener.Web.Core
             ;
             //注册规范返回格式
             services.AddUnifyResult<MyRESTfulResultProvider>();
+
+            //Cs.Ce(new Assembly[] { typeof(Cs).GetTypeInfo().Assembly });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

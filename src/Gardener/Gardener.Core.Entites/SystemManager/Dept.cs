@@ -104,7 +104,11 @@ namespace Gardener.Core.Entites
         {
             return new Dept[]
             {
-                new Dept{ Id=1,Name="珠穆拉玛峰分部",Contacts="凡尔赛",Tel="400-8888888",Order=1,Remark="这是我们的大本营",IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.UtcNow }
+                new Dept{ Id=1,Name="北京分部",Contacts="老A",Tel="400-8888888",Order=1,Remark="北京分部",IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.UtcNow },
+                new Dept{ Id=2,ParentId=1, Name="昌平办事处",Contacts="老B",Tel="400-8888888",Order=1,Remark="昌平办事处",IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.UtcNow },
+                new Dept{ Id=3,ParentId=1,Name="海淀办事处",Contacts="老C",Tel="400-8888888",Order=1,Remark="海淀办事处",IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.UtcNow },
+                new Dept{ Id=4,Name="河北分部",Contacts="老D",Tel="400-8888888",Order=1,Remark="河北分部",IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.UtcNow },
+                new Dept{ Id=5,ParentId=4,Name="石家庄办事处",Contacts="老E",Tel="400-8888888",Order=1,Remark="石家庄办事处",IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.UtcNow },
             };
         }
     }

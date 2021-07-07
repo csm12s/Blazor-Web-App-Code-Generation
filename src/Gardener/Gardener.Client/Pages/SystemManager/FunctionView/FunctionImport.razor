@@ -40,11 +40,11 @@
                    SelectedRows="@_selectedFunctionDtos"
                    SelectedRowsChanged="SelectedRowsChanged">
                 <Selection Key="@(model.Path+"_"+model.Method)" />
-                <Column @bind-Field="@model.Service" Width="150" Sortable="false" />
+                <Column @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))"/>
                 <Column @bind-Field="@model.Summary" Width="150" Sortable="false" />
                 <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
                 <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
-                <Column @bind-Field="@model.Method" Width="100" Sortable="false">
+                <Column @bind-Field="@model.Method" Width="100" Sortable="false"  Filters="TableFiltersConstants.FunctionMethodFilters">
                     <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.Method)"></TagRandomColor>
                 </Column>
                 <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false">

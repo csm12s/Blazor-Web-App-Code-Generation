@@ -124,14 +124,20 @@ namespace Gardener.Client.Core
                         {
                             foreach (Type type in implementation.GetInterfaces())
                             {
-                                if (type.IsInterface) 
-                                {
-                                    serviceCollection.TryAdd(type, implementation, lifetime);
-                                }
+                                //Console.WriteLine(type.FullName + "__1___" + implementation.FullName);
+                                serviceCollection.TryAdd(type, implementation, lifetime);
                             }
+                        }
+
+                        Type baseType = implementation.BaseType;
+                        if (!baseType.Equals(typeof(Object)))
+                        {
+                            //Console.WriteLine(baseType.FullName + "__2___" + implementation.FullName);
+                            serviceCollection.TryAdd(baseType, implementation, lifetime);
                         }
                         else
                         {
+                            //Console.WriteLine(implementation.FullName + "__3___" + implementation.FullName);
                             serviceCollection.TryAdd(implementation, implementation, lifetime);
                         }
                     }

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Core;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.RegularExpressions;
@@ -12,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client
 {
+    /// <summary>
+    /// 客户端异常记录器
+    /// </summary>
     [ScopedService]
     public class ConsoleClientLogger : IClientLogger
     {
