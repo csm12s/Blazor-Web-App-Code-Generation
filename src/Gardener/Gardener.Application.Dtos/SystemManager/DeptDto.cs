@@ -61,10 +61,5 @@ namespace Gardener.Application.Dtos
         /// 子集
         /// </summary>
         public ICollection<DeptDto> Children { get; set; }
-
-        /// <summary>
-        /// 多对多
-        /// </summary>
-        public ICollection<UserDto> Users { get; set; }
     }
 }

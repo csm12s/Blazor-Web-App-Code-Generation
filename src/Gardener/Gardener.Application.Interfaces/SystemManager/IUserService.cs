@@ -17,11 +17,11 @@ namespace Gardener.Application.Interfaces
         /// <summary>
         /// 查询
         /// </summary>
-        /// <param name="deptId"></param>
+        /// <param name="deptIds"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<PagedList<UserDto>> Search(int? deptId,  int pageIndex = 1, int pageSize = 10);
+        Task<PagedList<UserDto>> Search(int[] deptIds,  int pageIndex = 1, int pageSize = 10);
         /// <summary>
         /// 设置用户角色
         /// </summary>

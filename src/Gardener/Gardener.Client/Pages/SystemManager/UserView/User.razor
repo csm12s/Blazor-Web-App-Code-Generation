@@ -10,7 +10,7 @@
         </Breadcrumb>
         <ChildContent>
             <Row>
-                <AntDesign.Col Span="6">
+                <AntDesign.Col Span="4">
                     <Spin Spinning="_deptTreeIsLoading">
                         <Tree @ref="_deptTree"
                               ShowLine
@@ -27,9 +27,9 @@
                     </Spin>
                 </AntDesign.Col>
                 <AntDesign.Col Span="1">
-                   
+
                 </AntDesign.Col>
-                <AntDesign.Col Span="17">
+                <AntDesign.Col Span="19">
                     <Table @ref="_table"
                            TItem="UserDto"
                            DataSource="@_users"
@@ -40,8 +40,7 @@
                            @bind-SelectedRows="_selectedRows"
                            Loading="@_tableIsLoading"
                            Context="model"
-                           Size=@TableSize.Small
-                           >
+                           Size=@TableSize.Small>
                         <TitleTemplate>
                             <Row>
                                 <AntDesign.Col Span="8">
@@ -92,11 +91,14 @@
                             </Column>
                             <Column @bind-Field="@model.UserName" />
                             <Column @bind-Field="@model.NickName" />
+                            <Column Title="部门" TData="string">
+                                @model.Dept?.Name
+                            </Column>
                             <Column @bind-Field="@model.Gender">
                                 <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.Gender)"></TagRandomColor>
                             </Column>
                             @*<Column @bind-Field="@model.PhoneNumber" />
-                            <Column @bind-Field="@model.Email" />*@
+                                <Column @bind-Field="@model.Email" />*@
                             <Column @bind-Field="@model.Roles" Style="max-width:150px">
                                 @foreach (var role in model.Roles)
                                 {

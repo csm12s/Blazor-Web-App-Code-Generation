@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Gardener.Application.Interfaces;
+using Gardener.Common;
 
 namespace Gardener.Client.Pages.SystemManager.UserView
 {
@@ -70,7 +71,17 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             _tableIsLoading = true;
             int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
-            var pagedListResult = await userService.Search(deptId, _pageIndex, _pageSize);
+
+            List<int> ids = null;
+            if (deptId.HasValue)
+            {
+                var node= TreeTools.QueryNode(depts, d => d.Id.Equals(deptId.Value), d => d.Children);
+
+                ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+            }
+            
+
+            var pagedListResult = await userService.Search(ids?.ToArray(), _pageIndex, _pageSize);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;

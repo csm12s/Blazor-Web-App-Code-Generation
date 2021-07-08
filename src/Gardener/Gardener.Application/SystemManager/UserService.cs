@@ -33,6 +33,7 @@ namespace Gardener.Application
         private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<UserExtension> _userExtensionRepository;
+        private readonly IRepository<Dept> _deptRepository;
         /// <summary>
         /// 用户服务
         /// </summary>
@@ -40,16 +41,18 @@ namespace Gardener.Application
         /// <param name="userExtensionRepository"></param>
         /// <param name="userRoleRepository"></param>
         /// <param name="roleRepository"></param>
+        /// <param name="deptRepository"></param>
         public UserService(
             IRepository<User> userRepository,
             IRepository<UserExtension> userExtensionRepository,
-            IRepository<UserRole> userRoleRepository, 
-            IRepository<Role> roleRepository) : base(userRepository)
+            IRepository<UserRole> userRoleRepository,
+            IRepository<Role> roleRepository, IRepository<Dept> deptRepository) : base(userRepository)
         {
             _userRepository = userRepository;
             _userExtensionRepository = userExtensionRepository;
             _userRoleRepository = userRoleRepository;
             _roleRepository = roleRepository;
+            _deptRepository = deptRepository;
         }
 
         /// <summary>
@@ -98,21 +101,21 @@ namespace Gardener.Application
         /// <remarks>
         /// 搜索用户数据
         /// </remarks>
-        /// <param name="deptId"></param>
+        /// <param name="deptIds"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] int? deptId, int pageIndex = 1, int pageSize = 10)
+        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] int [] deptIds, int pageIndex = 1, int pageSize = 10)
         {
             var users = _userRepository
-              .Include(true, u => u.UserExtension)
-              //.Include(true,u => u.Dept)
+              .Include(u => u.UserExtension)
+              .Include(u => u.Dept)
               .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false))
-              .Where(u => u.IsDeleted == false)
-              .Where(deptId.HasValue, u => u.DeptId.Equals(deptId.Value))
+              .Where(u => u.IsDeleted == false && u.IsLocked==false)
+              .Where(deptIds!=null && deptIds.Length>0, u => u.DeptId.HasValue && deptIds.Contains(u.DeptId.Value))
               .OrderByDescending(x => x.CreatedTime)
-              .Select(u => u.Adapt<UserDto>());
+              .Select(x=>x.Adapt<UserDto>());
             var pageList = await users.ToPagedListAsync(pageIndex, pageSize);
             foreach (var item in pageList.Items)
             {

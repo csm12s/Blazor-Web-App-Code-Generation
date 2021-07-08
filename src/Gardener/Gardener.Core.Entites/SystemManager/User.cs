@@ -26,7 +26,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required,StringLength(32)]
+        [Required, StringLength(32)]
         [DisplayName("用户名")]
         public string UserName { get; set; }
         /// <summary>
@@ -78,7 +78,7 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 性别
         /// </summary>
-        [Required,DefaultValue(Gender.Male)]
+        [Required, DefaultValue(Gender.Male)]
         [DisplayName("性别")]
         public Gender Gender { get; set; }
         /// <summary>
@@ -124,7 +124,11 @@ namespace Gardener.Core.Entites
                     x => x.HasKey(t => new { t.UserId, t.RoleId })
                 );
 
-            entityBuilder.HasOne(x => x.Dept).WithMany(x => x.Users).HasForeignKey(x=>x.DeptId);
+            entityBuilder
+                .HasOne(x => x.Dept)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.DeptId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
 
         /// <summary>
