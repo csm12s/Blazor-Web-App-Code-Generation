@@ -1,7 +1,7 @@
 ﻿{
   "ConnectionStrings": {
     "GardenerMysqlDbConnectionString": "Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
-    "GardenerSqlServerDbConnectionString": "Server=192.168.1.254;Database=gardener;User=sa;Password=hututu.123;MultipleActiveResultSets=True;",
+    "GardenerSqlServerDbConnectionString": "Server=192.168.1.234;Database=gardener;User=sa;Password=admin.123456;MultipleActiveResultSets=True;",
     "GardenerSqlite3ConnectionString": "Data Source=./gardener.db"
   }
 }

@@ -16,7 +16,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
     /// <summary>
     /// 数据库上下文
     /// </summary>
-    [AppDbContext("GardenerSqlite3ConnectionString")]
+    [AppDbContext("GardenerSqlServerDbConnectionString")]
     public class GardenerAuditDbContext : AppDbContext<GardenerAuditDbContext, GardenerAuditDbContextLocator>
     {
         public GardenerAuditDbContext(DbContextOptions<GardenerAuditDbContext> options) : base(options)

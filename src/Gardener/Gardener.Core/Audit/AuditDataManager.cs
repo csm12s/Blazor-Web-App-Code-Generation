@@ -57,7 +57,7 @@ namespace Gardener.Core.Audit
             _auditOperation = auditOperation;
             try
             {
-               await _auditOperationRepository.InsertNowAsync(auditOperation);
+               _auditOperationRepository.InsertNow(auditOperation);
             }
             catch (Exception ex)
             {
@@ -98,7 +98,7 @@ namespace Gardener.Core.Audit
             }
             try
             {
-               await _auditEntityRepository.InsertNowAsync(auditEntitys);
+               _auditEntityRepository.InsertNow(auditEntitys);
             }
             catch (Exception ex)
             {
