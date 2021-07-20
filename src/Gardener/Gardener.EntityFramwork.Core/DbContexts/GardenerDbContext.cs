@@ -21,13 +21,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Gardener.EntityFramwork.Core.DbContexts
 {
     /// <summary>
     /// 数据库上下文
     /// </summary>
-    [AppDbContext("GardenerSqlServerDbConnectionString")]
+    [AppDbContext("GardenerSqlite3ConnectionString")]
     public class GardenerDbContext : AppDbContext<GardenerDbContext>
     {
         public GardenerDbContext(DbContextOptions<GardenerDbContext> options) : base(options)
@@ -126,7 +127,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="result"></param>
-        protected override void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
+        protected override async void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
         {
             IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
             if (auditDataManager == null) return;
@@ -142,7 +143,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
                     entity.DataId = string.Join(',', pkValues);
                     entity.AuditProperties = auditProperties;
                 }
-                auditDataManager.SaveAuditEntitys(auditEntitys);
+               await auditDataManager.SaveAuditEntitys(auditEntitys);
             }
             catch (Exception ex)
             {
