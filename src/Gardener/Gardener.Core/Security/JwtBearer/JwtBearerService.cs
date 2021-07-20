@@ -207,7 +207,7 @@ namespace Gardener.Core
             }
 
             var refreshTokens = await _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == userId && x.ClientId.Equals(clientId)).ToListAsync();
-            refreshTokens.ForEach(x => _repository.FakeDeleteAsync(x));
+            refreshTokens.ForEach(async x => await _repository.FakeDeleteAsync(x));
             return true;
         }
 

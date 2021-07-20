@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Gardener.EntityFramwork.Core.DbContexts
 {
@@ -126,7 +127,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="result"></param>
-        protected override void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
+        protected override async void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
         {
             IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
             if (auditDataManager == null) return;
@@ -142,7 +143,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
                     entity.DataId = string.Join(',', pkValues);
                     entity.AuditProperties = auditProperties;
                 }
-                auditDataManager.SaveAuditEntitys(auditEntitys);
+               await auditDataManager.SaveAuditEntitys(auditEntitys);
             }
             catch (Exception ex)
             {

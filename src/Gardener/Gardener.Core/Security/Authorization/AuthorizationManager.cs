@@ -48,6 +48,7 @@ namespace Gardener.Core
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         /// <param name="userRepository"></param>
+        /// <param name="functionRepository"></param>
         public AuthorizationManager(IHttpContextAccessor httpContextAccessor,
             IRepository<User> userRepository, 
             IRepository<Function> functionRepository)

@@ -293,6 +293,7 @@
             </summary>
             <param name="httpContextAccessor"></param>
             <param name="userRepository"></param>
+            <param name="functionRepository"></param>
         </member>
         <member name="M:Gardener.Core.AuthorizationManager.GetUserId">
             <summary>
