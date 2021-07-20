@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="logs\**" />
     <Compile Remove="wwwroot\upload\avatar\**" />
+    <Content Remove="logs\**" />
     <Content Remove="wwwroot\upload\avatar\**" />
+    <EmbeddedResource Remove="logs\**" />
     <EmbeddedResource Remove="wwwroot\upload\avatar\**" />
+    <None Remove="logs\**" />
     <None Remove="wwwroot\upload\avatar\**" />
   </ItemGroup>
 
@@ -23,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="logs\" />
     <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 
