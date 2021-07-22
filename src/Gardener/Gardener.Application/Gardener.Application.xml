@@ -501,6 +501,29 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.PositionService">
+            <summary>
+            岗位管理服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.PositionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Position})">
+            <summary>
+            
+            </summary>
+            <param name="positionRepository"></param>
+        </member>
+        <member name="M:Gardener.Application.PositionService.Search(System.String,System.Int32,System.Int32)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索角色数据
+            </remarks>
+            <param name="name">角色名称</param>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">分页大小</param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.ResourceFunctionService">
             <summary>
             资源与接口关系服务
