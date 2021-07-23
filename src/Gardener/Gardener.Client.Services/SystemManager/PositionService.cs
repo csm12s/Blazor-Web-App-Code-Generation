@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces.SystemManager;
+using Gardener.Application.Interfaces;
 using Gardener.Client.Core;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Gardener.Client.Services
 {
     [ScopedService]
-    public class PositionService : ApplicationServiceBase<PositionDto, Guid>, IPositionService
+    public class PositionService : ApplicationServiceBase<PositionDto, int>, IPositionService
     {
         private readonly static string controller = "position";
 

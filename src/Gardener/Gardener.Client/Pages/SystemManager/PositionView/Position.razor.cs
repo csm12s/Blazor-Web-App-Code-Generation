@@ -7,14 +7,14 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces.SystemManager;
+using Gardener.Application.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.PositionManagementView
+namespace Gardener.Client.Pages.SystemManager.PositionView
 {
     public partial class Position
     {
@@ -77,7 +77,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionManagementView
         /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        private async Task OnDeleteClick(Guid id)
+        private async Task OnDeleteClick(int id)
         {
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
             {
@@ -98,9 +98,9 @@ namespace Gardener.Client.Pages.SystemManager.PositionManagementView
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        private async Task OnEditClick(Guid id)
+        private async Task OnEditClick(int id)
         {
-            var result = await drawerService.CreateDialogAsync<PositionEdit, Guid, bool>(id, true, title: "编辑", width: 500);
+            var result = await drawerService.CreateDialogAsync<PositionEdit, int, bool>(id, true, title: "编辑", width: 500);
 
             if (result)
             {
@@ -113,7 +113,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionManagementView
         /// </summary>
         private async Task OnAddClick()
         {
-            var result = await drawerService.CreateDialogAsync<PositionEdit, Guid, bool>(Guid.Empty, true, title: "添加", width: 500);
+            var result = await drawerService.CreateDialogAsync<PositionEdit, int, bool>(0, true, title: "添加", width: 500);
 
             if (result)
             {
@@ -122,14 +122,6 @@ namespace Gardener.Client.Pages.SystemManager.PositionManagementView
                 _name = string.Empty;
                 await ReLoadTable();
             }
-        }
-        /// <summary>
-        /// 点击分配资源
-        /// </summary>
-        /// <returns></returns>
-        private async Task OnEditRoleResourceClick(int id)
-        {
-
         }
         /// <summary>
         /// 点击删除选中按钮
@@ -163,7 +155,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionManagementView
         /// </summary>
         /// <param name="model"></param>
         /// <param name="isLocked"></param>
-        private async Task OnChangeIsLocked(RoleDto model, bool isLocked)
+        private async Task OnChangeIsLocked(PositionDto model, bool isLocked)
         {
 
         }

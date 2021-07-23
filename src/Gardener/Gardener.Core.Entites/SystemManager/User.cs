@@ -106,6 +106,15 @@ namespace Gardener.Core.Entites
         /// 部门
         /// </summary>
         public Dept Dept { get; set; }
+        /// <summary>
+        /// 岗位编号
+        /// </summary>
+        [DisplayName("岗位编号")]
+        public int? PositionId { get; set; }
+        /// <summary>
+        /// 岗位
+        /// </summary>
+        public Position Position;
 
         /// <summary>
         /// 配置多对多关系
@@ -129,6 +138,11 @@ namespace Gardener.Core.Entites
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.DeptId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+            entityBuilder
+                .HasOne(x => x.Position)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.PositionId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
 
         /// <summary>
@@ -151,7 +165,8 @@ namespace Gardener.Core.Entites
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
                     Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
                     CreatedTime=DateTimeOffset.Now,
-                    DeptId=1
+                    DeptId=2,
+                    PositionId=1
                 },
                 new User
                 {
@@ -162,7 +177,8 @@ namespace Gardener.Core.Entites
                     Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
                     Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
                     CreatedTime=DateTimeOffset.Now,
-                    DeptId=1
+                    DeptId=3,
+                    PositionId=2
                 }
             };
         }

@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces.SystemManager;
+using Gardener.Application.Interfaces;
 using Gardener.Core.Entites;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ namespace Gardener.Application
     /// 岗位管理服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class PositionService : ApplicationServiceBase<Position, PositionDto, Guid>, IPositionService
+    public class PositionService : ApplicationServiceBase<Position, PositionDto, int>, IPositionService
     {
 
         private readonly IRepository<Position> _positionRepository;
@@ -40,9 +40,9 @@ namespace Gardener.Application
         /// 搜索
         /// </summary>
         /// <remarks>
-        /// 搜索角色数据
+        /// 搜索岗位数据
         /// </remarks>
-        /// <param name="name">角色名称</param>
+        /// <param name="name">岗位名称</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
         /// <returns></returns>

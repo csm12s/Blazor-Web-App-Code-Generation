@@ -11,9 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Application.Interfaces.SystemManager
+namespace Gardener.Application.Interfaces
 {
-    public interface IPositionService : IApplicationServiceBase<PositionDto, Guid>
+    public interface IPositionService : IApplicationServiceBase<PositionDto, int>
     {
         Task<PagedList<PositionDto>> Search(string name, int pageIndex = 1, int pageSize = 10);
     }

@@ -1,28 +1,28 @@
-﻿@page "/system_manager/audit-operation"
+﻿@page "/system_manager/position"
+@using Gardener.Application.Dtos
 <div>
     <PageContainer Title="">
         <Breadcrumb>
             <Breadcrumb>
                 <BreadcrumbItem>系统管理</BreadcrumbItem>
-                <BreadcrumbItem>操作审计</BreadcrumbItem>
+                <BreadcrumbItem>岗位管理</BreadcrumbItem>
             </Breadcrumb>
         </Breadcrumb>
         <ChildContent>
             <Table @ref="_table"
-                   TItem="AuditOperationDto"
-                   DataSource="@_datas"
+                   TItem="PositionDto"
+                   DataSource="@_positions"
                    Total="_total"
-                   OnChange="@OnChange"
-                   @bind-PageIndex="searchInput.PageIndex"
-                   @bind-PageSize="searchInput.PageSize"
+                   OnChange="@onChange"
+                   @bind-PageIndex="_pageIndex"
+                   @bind-PageSize="_pageSize"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
-                   RowExpandable="@(r=>true)"
                    Context="model">
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
-                            <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
+                            <ResourceAuthorize ResourceKey="system_manager_position_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
                                     删除选中
                                 </Button>
@@ -30,7 +30,14 @@
                         </AntDesign.Col>
                         <AntDesign.Col Span="16" Style="text-align:right">
                             <Space>
-                                <ResourceAuthorize ResourceKey="system_manager_audit_operation_refresh">
+                                <ResourceAuthorize ResourceKey="system_manager_position_add">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                            添加
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="system_manager_position_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
                                             刷新
@@ -40,28 +47,35 @@
                             </Space>
                         </AntDesign.Col>
                     </Row>
-
                 </TitleTemplate>
                 <RowTemplate>
-                    <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
+                    <ResourceAuthorize ResourceKey="system_manager_position_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.OperaterName" />
-                    <Column @bind-Field="@model.ResourceName" />
-                    <Column @bind-Field="@model.Ip" />
-                    <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters" />
-                    <Column @bind-Field="@model.Path" Width="300" />
+                    <Column @bind-Field="@model.Name" />
+                    <Column @bind-Field="@model.Duty" />
+                    <Column @bind-Field="@model.Grade" />
+                    <Column @bind-Field="@model.IsLocked">
+                        <ResourceAuthorize ResourceKey="system_manager_position_lock">
+                            <Authorized>
+                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <TagYesNo Yes="model.IsLocked"></TagYesNo>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
+                    </Column>
                     <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
                     <ActionColumn>
                         <Space>
-                            <ResourceAuthorize ResourceKey="system_manager_audit_operation_detail">
+                            <ResourceAuthorize ResourceKey="system_manager_position_edit">
                                 <SpaceItem>
-                                    <Tooltip Title="@("数据变更详情")" ArrowPointAtCenter="true">
-                                        <Button Icon="read" Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model.Id)"></Button>
+                                    <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
-                            <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete">
+                            <ResourceAuthorize ResourceKey="system_manager_position_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
                                         <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>

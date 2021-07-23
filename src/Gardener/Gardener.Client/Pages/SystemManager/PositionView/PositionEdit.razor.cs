@@ -6,18 +6,16 @@
 
 using AntDesign;
 using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces.SystemManager;
+using Gardener.Application.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.PositionManagementView
+namespace Gardener.Client.Pages.SystemManager.PositionView
 {
-    public partial class PositionEdit : FeedbackComponent<Guid, bool>
+    public partial class PositionEdit : FeedbackComponent<int, bool>
     {
         private bool _isLoading = false;
         private PositionDto _editModel = new PositionDto();
@@ -33,8 +31,8 @@ namespace Gardener.Client.Pages.SystemManager.PositionManagementView
         {
             _isLoading = true;
 
-            Guid id = this.Options;
-            if (id != Guid.Empty)
+            int id = this.Options;
+            if (id >0)
             {
                 //更新 回填数据
                 var model = await positionService.Get(id);
@@ -61,7 +59,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionManagementView
         {
             _isLoading = true;
             //开始请求
-            if (_editModel.Id == Guid.Empty)
+            if (_editModel.Id ==0)
             {
                 //添加
                 var result = await positionService.Insert(_editModel);

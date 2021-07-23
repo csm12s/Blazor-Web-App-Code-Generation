@@ -5,13 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
-using Gardener.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace Gardener.Web.Core
 {
@@ -33,9 +30,8 @@ namespace Gardener.Web.Core
                 options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetJsonConverter());
             })
             //注册swagger
-            .AddSpecificationDocuments(configure=> {
-                configure.EnableAnnotations();
-                configure.OperationFilter<ApiFunctionFilter>();
+            .AddSpecificationDocuments(x=> {
+                x.SwaggerGenConfigure = config => config.EnableAnnotations();
             })
             //注册动态api
             .AddDynamicApiControllers()
@@ -69,8 +65,9 @@ namespace Gardener.Web.Core
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseInject();
+            app.UseSpecificationDocuments();
 
+            app.UseInject();
 
             app.UseEndpoints(endpoints =>
             {

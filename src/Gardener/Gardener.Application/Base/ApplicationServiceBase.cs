@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using System.Linq.Dynamic.Core;
 using Furion.DatabaseAccessor;
 using Furion.DynamicApiController;
 using Microsoft.EntityFrameworkCore;
@@ -172,6 +173,31 @@ namespace Gardener.Application
         }
 
         /// <summary>
+        /// 查询所有可以用的
+        /// </summary>
+        /// <remarks>
+        /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
+        /// </remarks>
+        /// <returns></returns>
+        public virtual async Task<List<TEntityDto>> GetAllUsable()
+        {
+
+            System.Text.StringBuilder where = new System.Text.StringBuilder();
+            where.Append(" 1==1 ");
+            //判断是否有IsDelete、IsLock
+            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted))) 
+            {
+                where.Append($"and {nameof(GardenerEntityBase.IsDeleted)}==false ");
+            }
+            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsLocked)))
+            {
+                where.Append($"and {nameof(GardenerEntityBase.IsLocked)}==false ");
+            }
+            var persons = _repository.AsQueryable().Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
+            return await persons.ToListAsync();
+        }
+
+        /// <summary>
         /// 分页查询
         /// </summary>
         /// <remarks>
@@ -193,7 +219,7 @@ namespace Gardener.Application
         /// 锁定
         /// </summary>
         /// <remarks>
-        /// 根据主键锁定或解锁数据
+        /// 根据主键锁定或解锁数据（必须有IsLock才能生效）
         /// </remarks>
         /// <param name="id"></param>
         /// <param name="isLocked"></param>

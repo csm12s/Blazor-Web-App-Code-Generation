@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,13 @@ namespace Gardener.Application.Dtos
     /// <summary>
     /// 
     /// </summary>
-    public class PositionDto : BaseDto<Guid>
+    public class PositionDto : BaseDto<int>
     {
         /// <summary>
         /// 岗位名称
         /// </summary>
         [DisplayName("名称")]
+        [Required(ErrorMessage = "岗位名称")]
         public string Name { get; set; }
 
         /// <summary>

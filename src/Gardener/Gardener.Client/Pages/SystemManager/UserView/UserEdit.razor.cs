@@ -11,6 +11,7 @@ using Gardener.Client.Core;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
     {
         private bool _formIsLoading = false;
         private UserDto _editModel = new UserDto();
+        private List<PositionDto> positions = new List<PositionDto>();
         [Inject]
         IUserService userService { get; set; }
         [Inject]
@@ -28,6 +30,8 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         DrawerService drawerService { get; set; }
         [Inject]
         IDeptService deptService { get; set; }
+        [Inject]
+        IPositionService positionService { get; set; }
         /// <summary>
         /// 父级选择数据
         /// </summary>
@@ -39,6 +43,8 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         protected override async Task OnInitializedAsync()
         {
             _formIsLoading = true;
+
+            positions=await positionService.GetAllUsable();
 
             int id = this.Options;
 
@@ -137,6 +143,10 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         private void CascaderOnChange(CascaderNode[] selectedNodes)
         {
             _editModel.DeptId =string.IsNullOrEmpty(_deptCascaderValue)?null: int.Parse(_deptCascaderValue);
+        }
+        private void OnSelectedItemChangedHandler(PositionDto value)
+        {
+            Console.WriteLine($"selected: ${value?.Name}");
         }
     }
 }

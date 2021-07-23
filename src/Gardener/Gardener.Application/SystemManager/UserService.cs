@@ -134,6 +134,10 @@ namespace Gardener.Application
         /// <returns></returns>
         public override async Task<bool> Update(UserDto input)
         {
+            if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.Id!=input.Id, false))
+            {
+                throw Oops.Oh(ExceptionCode.USER_NAME_REPEAT);
+            }
             //不操作角色关系
             input.Roles = null;
             var user = input.Adapt<User>();

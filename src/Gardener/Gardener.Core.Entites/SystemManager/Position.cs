@@ -4,6 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,12 +21,12 @@ namespace Gardener.Core.Entites
     /// 部门信息
     /// </summary>
     [Description("岗位信息")]
-    public class Position : GardenerEntityBase<Guid>
+    public class Position : GardenerEntityBase<int>, IEntityTypeBuilder<Position>, IEntitySeedData<Position>
     {
         /// <summary>
         /// 角色名称
         /// </summary>
-        [MaxLength(100)]
+        [Required,MaxLength(100)]
         [DisplayName("名称")]
         public string Name { get; set; }
         /// <summary>
@@ -68,5 +71,32 @@ namespace Gardener.Core.Entites
         [DisplayName("任职资格")]
         [MaxLength(500)]
         public string Qualifications { get; set; }
+
+        /// <summary>
+        /// 多对多
+        /// </summary>
+        public ICollection<User> Users { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        public void Configure(EntityTypeBuilder<Position> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <returns></returns>
+        public IEnumerable<Position> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[]{
+            new Position(){ Id=1, Name="董事长",CreatedTime=DateTimeOffset.Now },
+            new Position(){ Id=2, Name="总经理",CreatedTime=DateTimeOffset.Now }
+            };
+        }
     }
 }

@@ -54,6 +54,14 @@ namespace Gardener.Application.Interfaces
         /// <returns></returns>
         Task<List<TEntityDto>> GetAll();
         /// <summary>
+        /// 查询所有可以用的
+        /// </summary>
+        /// <remarks>
+        /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
+        /// </remarks>
+        /// <returns></returns>
+        Task<List<TEntityDto>> GetAllUsable();
+        /// <summary>
         /// 分页查询
         /// </summary>
         /// <param name="pageIndex"></param>

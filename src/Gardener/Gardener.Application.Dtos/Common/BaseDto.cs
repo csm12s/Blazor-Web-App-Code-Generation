@@ -12,14 +12,14 @@ namespace Gardener.Application.Dtos
     /// <summary>
     /// dto基础类
     /// </summary>
-    /// <typeparam name="Tkey"></typeparam>
-    public abstract class BaseDto<Tkey>
+    /// <typeparam name="TKey"></typeparam>
+    public abstract class BaseDto<TKey>
     {
         /// <summary>
         /// 唯一键
         /// </summary>
         [DisplayName("编号")]
-        public Tkey Id { get; set; }
+        public TKey Id { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary>
