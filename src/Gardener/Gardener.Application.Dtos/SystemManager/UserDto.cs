@@ -100,5 +100,14 @@ namespace Gardener.Application.Dtos
         /// 部门
         /// </summary>
         public DeptDto Dept { get; set; }
+        /// <summary>
+        /// 岗位编号
+        /// </summary>
+        [DisplayName("岗位编号")]
+        public int? PositionId { get; set; }
+        /// <summary>
+        /// 岗位
+        /// </summary>
+        public PositionDto Position;
     }
 }

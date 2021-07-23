@@ -55,7 +55,7 @@ namespace Gardener.Client.Services
 
         public async Task<List<T>> GetAll()
         {
-            return await apiCaller.GetAsync<List<T>>($"{controller}");
+            return await apiCaller.GetAsync<List<T>>($"{controller}/all");
         }
 
         public async Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
@@ -75,6 +75,11 @@ namespace Gardener.Client.Services
         public async Task<bool> Lock(Tkey id, bool islocked = true)
         {
             return await apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
+        }
+
+        public async Task<List<T>> GetAllUsable()
+        {
+            return await apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
         }
     }
 }

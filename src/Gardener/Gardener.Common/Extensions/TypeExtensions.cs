@@ -284,6 +284,14 @@ namespace Gardener.Common
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 判断是否包含指定属性
+        /// </summary>
+        public static bool ExistsProperty(this Type type,String propertyName)
+        {
+            PropertyInfo[]  properties= type.GetProperties();
+           return properties.Any(x => x.Name.ToLower().Equals(propertyName.ToLower()));
+        }
         #region 私有方法
 
         private static readonly Dictionary<Type, string> _builtInTypeNames = new Dictionary<Type, string>

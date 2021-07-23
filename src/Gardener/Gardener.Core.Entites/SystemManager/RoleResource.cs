@@ -76,6 +76,7 @@ namespace Gardener.Core.Entites
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("1efd01cf-42f2-45c7-95f2-84be55e65646"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("24ace337-41fe-429d-b32e-d9f88bd97aaa"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("2dd1a78c-f725-461b-8bc6-66112a7e156c"),CreatedTime= DateTimeOffset.Now},
+ new RoleResource(){RoleId=2,ResourceId = Guid.Parse("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("365fc5c4-404e-408a-88dc-7614dffad91b"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),CreatedTime= DateTimeOffset.Now},
@@ -93,6 +94,7 @@ namespace Gardener.Core.Entites
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("e252c0c6-0f19-4768-954c-c0d83fb96d74"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("e44bb45d-514c-4217-bfba-452c0bd38f28"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("f1649263-ef9a-4f42-85ac-16009283efff"),CreatedTime= DateTimeOffset.Now},
+ new RoleResource(){RoleId=2,ResourceId = Guid.Parse("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),CreatedTime= DateTimeOffset.Now},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),CreatedTime= DateTimeOffset.Now}
 
             };
