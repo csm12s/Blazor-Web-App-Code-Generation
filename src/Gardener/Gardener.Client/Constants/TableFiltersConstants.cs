@@ -16,6 +16,6 @@ namespace Gardener.Client.Constants
         /// <summary>
         /// 
         /// </summary>
-        public readonly static TableFilter<HttpMethodType>[] FunctionMethodFilters = EnumExtension.EnumToList<HttpMethodType>().Select(x => { return new TableFilter<HttpMethodType>() { Text = x.ToString(), Value = x }; }).ToArray();
+        public readonly static TableFilter<HttpMethodType>[] FunctionMethodFilters = EnumHelper.EnumToList<HttpMethodType>().Select(x => { return new TableFilter<HttpMethodType>() { Text = x.ToString(), Value = x }; }).ToArray();
     }
 }

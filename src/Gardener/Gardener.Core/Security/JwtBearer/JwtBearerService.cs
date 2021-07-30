@@ -12,6 +12,7 @@ using Furion.FriendlyException;
 using Gardener.Common;
 using Gardener.Core.Entites;
 using Gardener.Enums;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -86,7 +87,7 @@ namespace Gardener.Core
                 }
                 throw Oops.Oh(ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE);
             }
-            LoginClientType? clientType = principal.Claims.FirstOrDefault(m => m.Type == AuthKeyConstants.ClientTypeKeyName)?.Value.CastTo<LoginClientType>() ?? LoginClientType.Browser;
+            LoginClientType? clientType = principal.Claims.FirstOrDefault(m => m.Type == AuthKeyConstants.ClientTypeKeyName)?.Value.Adapt<LoginClientType>() ?? LoginClientType.Browser;
             JsonWebToken token = await CreateToken(oldRefreshToken.UserId, clientType.Value, refreshToken);
             return token;
         }

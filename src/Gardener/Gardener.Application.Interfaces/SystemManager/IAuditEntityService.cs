@@ -15,11 +15,6 @@ namespace Gardener.Application.Interfaces
     /// </summary>
     public interface IAuditEntityService : IApplicationServiceBase<AuditEntityDto, Guid>
     {
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        public Task<PagedList<AuditEntityDto>> Search(AuditEntitySearchInput searchInput);
+        
     }
 }

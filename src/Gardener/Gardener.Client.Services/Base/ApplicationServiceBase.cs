@@ -81,5 +81,10 @@ namespace Gardener.Client.Services
         {
             return await apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
         }
+
+        public async Task<PagedList<T>> Search(PageRequest request)
+        {
+            return await apiCaller.PostAsync<PageRequest, PagedList<T>>($"{controller}/search",request);
+        }
     }
 }

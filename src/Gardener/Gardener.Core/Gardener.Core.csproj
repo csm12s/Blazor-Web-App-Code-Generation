@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gardener.Application.Dtos\Gardener.Application.Dtos.csproj" />
     <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\Gardener.Core.Entites\Gardener.Core.Entites.csproj" />
   </ItemGroup>

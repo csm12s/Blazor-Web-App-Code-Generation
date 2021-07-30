@@ -20,6 +20,7 @@ using Furion.FriendlyException;
 using Gardener.Enums;
 using Gardener.Core;
 using Gardener.Application.Interfaces;
+using Furion;
 
 namespace Gardener.Application
 {
@@ -101,22 +102,24 @@ namespace Gardener.Application
         /// <remarks>
         /// 搜索用户数据
         /// </remarks>
-        /// <param name="deptIds"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] int [] deptIds, int pageIndex = 1, int pageSize = 10)
+        [HttpPost]
+        public override async Task<Dtos.PagedList<UserDto>> Search(PageRequest request)
         {
+            IFilterService filterService = App.GetService<IFilterService>();
+
+            Expression<Func<User, bool>> expression = filterService.GetExpression<User>(request.FilterGroup);
+
             var users = _userRepository
               .Include(u => u.UserExtension)
               .Include(u => u.Dept)
               .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false))
               .Where(u => u.IsDeleted == false && u.IsLocked==false)
-              .Where(deptIds!=null && deptIds.Length>0, u => u.DeptId.HasValue && deptIds.Contains(u.DeptId.Value))
+              .Where(expression)
               .OrderByDescending(x => x.CreatedTime)
               .Select(x=>x.Adapt<UserDto>());
-            var pageList = await users.ToPagedListAsync(pageIndex, pageSize);
+            var pageList = await users.ToPageAsync(request.PageIndex, request.PageSize);
             foreach (var item in pageList.Items)
             {
                 item.Password = null;

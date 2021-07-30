@@ -39,28 +39,6 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <remarks>
-        /// 搜索角色数据
-        /// </remarks>
-        /// <param name="name">角色名称</param>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<Dtos.PagedList<RoleDto>> Search([FromQuery] string name,
-            int pageIndex = 1,
-            int pageSize = 10)
-        {
-            return await _roleRepository
-                .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
-                .Where(x => x.IsDeleted == false)
-                .OrderByDescending(x => x.CreatedTime)
-                .Select(x => x.Adapt<RoleDto>())
-                .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
-        }
-        /// <summary>
         /// 分配权限
         /// </summary>
         /// <remarks>

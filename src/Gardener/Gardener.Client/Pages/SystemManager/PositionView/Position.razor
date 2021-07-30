@@ -14,8 +14,8 @@
                    DataSource="@_positions"
                    Total="_total"
                    OnChange="@onChange"
-                   @bind-PageIndex="_pageIndex"
-                   @bind-PageSize="_pageSize"
+                   @bind-PageIndex="pageRequest.PageIndex"
+                   @bind-PageSize="pageRequest.PageSize"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
                    Context="model">

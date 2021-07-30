@@ -15,6 +15,5 @@ namespace Gardener.Application.Interfaces
 {
     public interface IPositionService : IApplicationServiceBase<PositionDto, int>
     {
-        Task<PagedList<PositionDto>> Search(string name, int pageIndex = 1, int pageSize = 10);
     }
 }

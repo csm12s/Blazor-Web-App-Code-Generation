@@ -17,12 +17,6 @@ namespace Gardener.Application.Interfaces
     public interface IAuditOperationService : IApplicationServiceBase<AuditOperationDto, Guid>
     {
         /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        Task<Dtos.PagedList<AuditOperationDto>> Search(AuditOperationSearchInput searchInput);
-        /// <summary>
         /// 根据操作审计ID获取数据审计数据
         /// </summary>
         /// <param name="operationId"></param>

@@ -29,11 +29,11 @@
 
                 @if (model.Id != Guid.Empty && model.Type.Equals(ResourceType.Root))
                 {
-                    <Radio Value="@(ResourceType.Root)">@EnumExtension.GetEnumDescription(ResourceType.Root)</Radio>
+                    <Radio Value="@(ResourceType.Root)">@EnumHelper.GetEnumDescription(ResourceType.Root)</Radio>
                 }
                 else
                 {
-                    foreach (var gitem in EnumExtension.EnumToDictionary<ResourceType>())
+                    foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
                     {
                         if ((int)gitem.Key >= (int)_currentEditResourceType)
                         {

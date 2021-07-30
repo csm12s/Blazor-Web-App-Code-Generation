@@ -13,9 +13,19 @@ namespace Gardener.Application.Interfaces
 {
     public interface IRoleService : IApplicationServiceBase<RoleDto,int>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
         Task<bool> DeleteResource( int roleId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="resourceIds"></param>
+        /// <returns></returns>
         Task<bool> Resource(int roleId, Guid[] resourceIds);
-        Task<PagedList<RoleDto>> Search(string name,  int pageIndex = 1,  int pageSize = 10);
         /// <summary>
         /// 获取有效的角色
         /// </summary>

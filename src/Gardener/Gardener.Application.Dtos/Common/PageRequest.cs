@@ -4,12 +4,14 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace Gardener.Application.Dtos
 {
     /// <summary>
     /// 
     /// </summary>
-    public class PagedSearchBaseInfo
+    public class PageRequest
     {
         /// <summary>
         /// 页码
@@ -22,18 +24,11 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 排序集合
         /// </summary>
-        public SearchSort [] OrderConditions { get; set; }
-
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    public class PagedSearchBaseInfo<T>:PagedSearchBaseInfo where T : new()
-    {
+        public ICollection<ListSortDirection> OrderConditions { get; set; } = new List<ListSortDirection>();
         /// <summary>
-        /// 查询实体数
+        /// 查询条件组
         /// </summary>
-        
-        public T SearchData { get; set; }
+        public FilterGroup FilterGroup { get; set; }
+
     }
 }

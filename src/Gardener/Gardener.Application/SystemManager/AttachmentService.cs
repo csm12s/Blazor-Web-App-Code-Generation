@@ -128,30 +128,5 @@ namespace Gardener.Application.SystemManager
             }
             return true;
         }
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <remarks>
-        /// 搜索附件数据
-        /// </remarks>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [NonValidation]
-        public async Task<PagedList<AttachmentDto>> Search(AttachmentSearchInput searchInput)
-        {
-
-            IQueryable<Attachment> queryable = repository.Where(x => x.IsDeleted == false);
-            AttachmentDto attachment = searchInput.SearchData;
-            if (attachment != null)
-            {
-                queryable = queryable
-                    .Where(!string.IsNullOrEmpty(attachment.BusinessId), x => x.BusinessId.Equals(attachment.BusinessId))
-                    .Where(attachment.BusinessType.HasValue, x => x.BusinessType.Equals(attachment.BusinessType.Value))
-                    .Where(attachment.FileType.HasValue, x => x.FileType.Equals(attachment.FileType.Value));
-            }
-            return await queryable.OrderConditions(searchInput.OrderConditions).Select(x => x.Adapt<AttachmentDto>()).ToPagedListAsync(searchInput);
-
-        }
     }
 }

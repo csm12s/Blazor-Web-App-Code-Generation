@@ -23,7 +23,6 @@ namespace Gardener.Client.Pages.SystemManager
         ITable _table;
         AttachmentDto[] _datas;
         IEnumerable<AttachmentDto> _selectedRows;
-        AttachmentSearchInput searchInput = new AttachmentSearchInput() ;
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
@@ -35,7 +34,7 @@ namespace Gardener.Client.Pages.SystemManager
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-
+        PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -43,7 +42,7 @@ namespace Gardener.Client.Pages.SystemManager
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await attachmentService.Search(searchInput);
+            var pagedListResult = await attachmentService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;

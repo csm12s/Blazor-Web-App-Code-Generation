@@ -67,7 +67,7 @@ namespace Gardener.Application.Interfaces
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10);
+        Task<Dtos.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10);
         /// <summary>
         /// 新增
         /// </summary>
@@ -87,5 +87,15 @@ namespace Gardener.Application.Interfaces
         /// <param name="islocked"></param>
         /// <returns></returns>
         Task<bool> Lock(TKey id, bool islocked = true);
+
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        /// <remarks>
+        /// 搜索功能数据
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<Dtos.PagedList<TEntityDto>> Search(PageRequest request);
     }
 }

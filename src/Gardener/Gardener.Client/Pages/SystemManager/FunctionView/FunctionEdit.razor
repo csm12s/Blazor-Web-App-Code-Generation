@@ -26,7 +26,7 @@
                       DefaultValue="@(model.Method.ToString())"
                       Style="width:120px;">
             <SelectOptions>
-                @foreach (var gitem in EnumExtension.EnumToDictionary<HttpMethodType>())
+                @foreach (var gitem in EnumHelper.EnumToDictionary<HttpMethodType>())
                 {
                     <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@(gitem.Value)"></SimpleSelectOption>
                 }

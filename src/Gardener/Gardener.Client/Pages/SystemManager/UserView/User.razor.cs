@@ -22,8 +22,6 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         ITable _table;
         UserDto[] _users;
         IEnumerable<UserDto> _selectedRows;
-        int _pageIndex = 1;
-        int _pageSize = 10;
         int _total = 0;
         bool _tableIsLoading = false;
 
@@ -44,6 +42,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         DrawerService drawerService { get; set; }
         [Inject]
         IDeptService deptService { get; set; }
+        PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 页面初始化完成
         /// </summary>
@@ -79,9 +78,9 @@ namespace Gardener.Client.Pages.SystemManager.UserView
 
                 ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
             }
-            
+            pageRequest.FilterGroup.AddRule(new FilterRule(nameof(UserDto.DeptId),ids,Enums.FilterOperate.In));
 
-            var pagedListResult = await userService.Search(ids?.ToArray(), _pageIndex, _pageSize);
+            var pagedListResult = await userService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -156,7 +155,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
             if (result)
             {
                 //刷新列表
-                _pageIndex = 1;
+                pageRequest.PageIndex = 1;
                 await ReLoadTable();
             }
         }

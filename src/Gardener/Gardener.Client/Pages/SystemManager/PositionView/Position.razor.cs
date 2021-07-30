@@ -22,10 +22,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionView
         PositionDto[] _positions;
         IEnumerable<PositionDto> _selectedRows;
 
-        int _pageIndex = 1;
-        int _pageSize = 10;
         int _total = 0;
-        string _name = string.Empty;
         bool _tableIsLoading = false;
         [Inject]
         public MessageService messageService { get; set; }
@@ -35,7 +32,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionView
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-
+        PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -43,7 +40,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await positionService.Search(_name, _pageIndex, _pageSize);
+            var pagedListResult = await positionService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -118,8 +115,7 @@ namespace Gardener.Client.Pages.SystemManager.PositionView
             if (result)
             {
                 //刷新列表
-                _pageIndex = 1;
-                _name = string.Empty;
+                pageRequest.PageIndex = 1;
                 await ReLoadTable();
             }
         }

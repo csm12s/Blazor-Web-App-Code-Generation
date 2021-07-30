@@ -4,12 +4,24 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Enums;
+
 namespace Gardener.Application.Dtos
 {
     /// <summary>
-    /// 
+    /// 搜索排序
     /// </summary>
-    public class AuditEntitySearchInput : PagedSearchBaseInfo<AuditEntityDto>
+    public class ListSortDirection
     {
+        /// <summary>
+        /// 字段名
+        /// </summary>
+        public string FieldName { get; set; }
+        /// <summary>
+        /// 0 asc 
+        /// 1 desc
+        /// </summary>
+        public ListSortType SortType { get; set; } = ListSortType.Desc;
     }
+    
 }

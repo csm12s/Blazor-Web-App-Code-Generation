@@ -23,11 +23,5 @@ namespace Gardener.Application.Interfaces
         /// <param name="file"></param>
         /// <returns></returns>
         Task<UploadAttachmentOutput> Upload(UploadAttachmentInput input, IFormFile file);
-        /// <summary>
-        /// 搜索附件
-        /// </summary>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        Task<PagedList<AttachmentDto>> Search(AttachmentSearchInput searchInput);
     }
 }

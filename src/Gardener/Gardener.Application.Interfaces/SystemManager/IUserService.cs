@@ -12,16 +12,18 @@ namespace Gardener.Application.Interfaces
 {
     public interface IUserService:IApplicationServiceBase<UserDto, int>
     {
-        Task<List<ResourceDto>> GetResources(int userId);
-        Task<List<RoleDto>> GetRoles(int userId);
         /// <summary>
-        /// 查询
+        /// 
         /// </summary>
-        /// <param name="deptIds"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        Task<PagedList<UserDto>> Search(int[] deptIds,  int pageIndex = 1, int pageSize = 10);
+        Task<List<ResourceDto>> GetResources(int userId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<List<RoleDto>> GetRoles(int userId);
         /// <summary>
         /// 设置用户角色
         /// </summary>

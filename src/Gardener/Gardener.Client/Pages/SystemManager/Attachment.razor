@@ -13,8 +13,8 @@
                    DataSource="@_datas"
                    Total="_total"
                    OnChange="@OnChange"
-                   @bind-PageIndex="searchInput.PageIndex"
-                   @bind-PageSize="searchInput.PageSize"
+                   @bind-PageIndex="pageRequest.PageIndex"
+                   @bind-PageSize="pageRequest.PageSize"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
                    Context="model">
@@ -47,11 +47,11 @@
                     </ResourceAuthorize>
                     @*<Column @bind-Field="@model.Id" />*@
                     <Column @bind-Field="@model.BusinessType">
-                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.BusinessType)"></TagRandomColor>
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagRandomColor>
                     </Column>
                     <Column @bind-Field="@model.BusinessId" />
                     <Column @bind-Field="@model.FileType">
-                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
                     </Column>
                     <Column @bind-Field="@model.Size">
                         @model.Size B

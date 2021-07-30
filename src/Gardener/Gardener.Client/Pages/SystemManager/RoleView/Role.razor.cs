@@ -25,8 +25,6 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         RoleDto[] _roles;
         IEnumerable<RoleDto> _selectedRows;
 
-        int _pageIndex = 1;
-        int _pageSize = 10;
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
@@ -40,7 +38,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         DrawerService drawerService { get; set; }
         [Inject]
         IAuthorizeService authorizeService { get; set; }
-
+        PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -48,7 +46,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await roleService.Search(_name, _pageIndex, _pageSize);
+            var pagedListResult = await roleService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -124,7 +122,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
             if (result)
             {
                 //刷新列表
-                _pageIndex = 1;
+                pageRequest.PageIndex = 1;
                 _name = string.Empty;
                 await ReLoadTable();
             }

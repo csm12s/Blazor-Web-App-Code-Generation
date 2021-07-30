@@ -22,7 +22,6 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         ITable _table;
         AuditEntityDto[] _datas;
         IEnumerable<AuditEntityDto> _selectedRows;
-        AuditEntitySearchInput searchInput = new AuditEntitySearchInput();
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
@@ -34,6 +33,7 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
+        PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 页面初始化完成
         /// </summary>
@@ -48,7 +48,7 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await AuditEntityService.Search(searchInput);
+            var pagedListResult = await AuditEntityService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -76,19 +76,7 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         /// <returns></returns>
         private async Task OnChange(QueryModel<AuditEntityDto> queryModel)
         {
-            searchInput.OrderConditions = queryModel.
-                SortModel.
-                Select(x => x.Adapt<SearchSort>()).ToArray();
-            if (searchInput.OrderConditions.Length == 0)
-            {
-                searchInput.OrderConditions = new[] {
-                    new SearchSort()
-                    {
-                        FieldName=nameof(AuditEntityDto.CreatedTime),
-                        SortType=SearchSortType.Desc
-                    }
-                };
-            }
+           
             await ReLoadTable();
         }
         /// <summary>

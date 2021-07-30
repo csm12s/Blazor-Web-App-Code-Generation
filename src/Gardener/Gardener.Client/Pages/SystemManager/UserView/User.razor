@@ -35,8 +35,8 @@
                            DataSource="@_users"
                            Total="_total"
                            OnChange="@onChange"
-                           @bind-PageIndex="_pageIndex"
-                           @bind-PageSize="_pageSize"
+                           @bind-PageIndex="pageRequest.PageIndex"
+                           @bind-PageSize="pageRequest.PageSize"
                            @bind-SelectedRows="_selectedRows"
                            Loading="@_tableIsLoading"
                            Context="model"
@@ -95,7 +95,7 @@
                                 @model.Dept?.Name
                             </Column>
                             <Column @bind-Field="@model.Gender">
-                                <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.Gender)"></TagRandomColor>
+                                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Gender)"></TagRandomColor>
                             </Column>
                             @*<Column @bind-Field="@model.PhoneNumber" />
                                 <Column @bind-Field="@model.Email" />*@

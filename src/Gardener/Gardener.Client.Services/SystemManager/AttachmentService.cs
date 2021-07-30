@@ -37,11 +37,6 @@ namespace Gardener.Client.Services
             return await apiCaller.GetAsync<PagedList<AttachmentDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
         }
 
-        public async Task<PagedList<AttachmentDto>> Search(AttachmentSearchInput searchInput)
-        {
-            return await apiCaller.PostAsync<AttachmentSearchInput, PagedList<AttachmentDto>>($"{controller}/search", searchInput);
-        }
-
         public Task<UploadAttachmentOutput> Upload(UploadAttachmentInput input, IFormFile file)
         {
             throw new NotImplementedException();

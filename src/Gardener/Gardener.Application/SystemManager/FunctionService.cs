@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Core;
 using Gardener.Core.Entites;
 using Gardener.Enums;
 using Mapster;
@@ -56,27 +57,6 @@ namespace Gardener.Application.SystemManager
             entity.EnableAudit = enableAudit;
             await _repository.UpdateIncludeAsync(entity, new[] { nameof(Function.EnableAudit) });
             return true;
-        }
-
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <remarks>
-        /// 搜索功能数据
-        /// </remarks>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [NonValidation]
-        public async Task<Dtos.PagedList<FunctionDto>> Search(FunctionSearchInput searchInput)
-        {
-            IQueryable<Function> queryable = _repository
-                .Where(x => x.IsDeleted == false);
-            FunctionDto search = searchInput.SearchData;
-            return await queryable
-                .OrderConditions(searchInput.OrderConditions)
-                .Select(x => x.Adapt<FunctionDto>())
-                .ToPagedListAsync(searchInput);
         }
 
         /// <summary>
