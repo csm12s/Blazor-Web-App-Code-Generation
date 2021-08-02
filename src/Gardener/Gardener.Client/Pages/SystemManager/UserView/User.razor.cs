@@ -79,8 +79,8 @@ namespace Gardener.Client.Pages.SystemManager.UserView
                 ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
             }
             if (queryModel != null)
-            { 
-                
+            {
+
             }
             pageRequest.FilterGroup.ResetRule().AddRule(new FilterRule(nameof(UserDto.DeptId),ids,Enums.FilterOperate.In));
 

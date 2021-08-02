@@ -89,12 +89,12 @@
                                     </NotAuthorized>
                                 </ResourceAuthorize>
                             </Column>
-                            <Column @bind-Field="@model.UserName" />
-                            <Column @bind-Field="@model.NickName" />
+                            <Column @bind-Field="@model.UserName" Filterable />
+                            <Column @bind-Field="@model.NickName" Filterable />
                             <Column Title="部门" TData="string">
                                 @model.Dept?.Name
                             </Column>
-                            <Column @bind-Field="@model.Gender">
+                            <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters">
                                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Gender)"></TagRandomColor>
                             </Column>
                             @*<Column @bind-Field="@model.PhoneNumber" />
@@ -107,7 +107,7 @@
                                     </Tooltip>
                                 }
                             </Column>
-                            <Column @bind-Field="@model.IsLocked">
+                            <Column @bind-Field="@model.IsLocked" Filterable>
                                 <ResourceAuthorize ResourceKey="system_manager_user_lock">
                                     <Authorized>
                                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -117,7 +117,7 @@
                                     </NotAuthorized>
                                 </ResourceAuthorize>
                             </Column>
-                            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+                            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable/>
                             <ActionColumn>
                                 <Space>
                                     <ResourceAuthorize ResourceKey="system_manager_user_edit">
