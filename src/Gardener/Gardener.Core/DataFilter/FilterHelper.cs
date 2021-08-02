@@ -14,6 +14,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Mapster;
+using System.Text.Json;
 
 namespace Gardener.Core.DataFilter
 {
@@ -100,9 +101,26 @@ namespace Gardener.Core.DataFilter
                             ?? throw new InvalidOperationException($"名称为“Contains”的方法不存在"),
                             right));
                     }
+                },
+                {
+                    FilterOperate.In, (left, right) =>
+                    {
+                        if (!right.Type.IsArray)
+                        {
+                            return null;
+                        }
+                        return Expression.Call(typeof (Enumerable), "Contains", new[] {left.Type}, right, left);
+                    }
                 }
             };
 
+        private static readonly Dictionary<Type, Func<JsonElement, Object>> jsonElementConvertDic = new Dictionary<Type, Func<JsonElement, object>>()
+        {
+            {typeof(short),e=> e.GetInt16()},
+            {typeof(short?),e=> e.GetInt16()},
+            {typeof(int),e=> e.GetInt32()},
+            {typeof(int?),e=> e.GetInt32()},
+        };
         #endregion
 
         /// <summary>
@@ -205,36 +223,26 @@ namespace Gardener.Core.DataFilter
 
         private static LambdaExpression GetPropertyLambdaExpression(ParameterExpression param, FilterRule rule)
         {
-            string[] propertyNames = rule.Field.Split('.');
             Expression propertyAccess = param;
             Type type = param.Type;
-            for (var index = 0; index < propertyNames.Length; index++)
+            string propertyName = rule.Field;
+            PropertyInfo property = type.GetProperty(propertyName);
+            if (property == null)
             {
-                string propertyName = propertyNames[index];
-                PropertyInfo property = type.GetProperty(propertyName);
-                if (property == null)
-                {
-                    throw Oops.Oh(ExceptionCode.FIELD_IN_TYPE_NOT_FOUND, rule.Field, type.FullName);
-                }
-
-                type = property.PropertyType;
-                //验证最后一个属性与属性值是否匹配
-                if (index == propertyNames.Length - 1)
-                {
-                    bool flag = CheckFilterRule(type, rule);
-                    if (!flag)
-                    {
-                        return null;
-                    }
-                }
-
-                propertyAccess = Expression.MakeMemberAccess(propertyAccess, property);
+                throw Oops.Oh(ExceptionCode.FIELD_IN_TYPE_NOT_FOUND, rule.Field, type.FullName);
             }
+            //验证属性与属性值是否匹配
+            bool flag = CheckFilterRule(property.PropertyType, rule);
+            if (!flag)
+            {
+                return null;
+            }
+            propertyAccess = Expression.MakeMemberAccess(propertyAccess, property);
             return Expression.Lambda(propertyAccess, param);
         }
 
         /// <summary>
-        /// 验证最后一个属性与属性值是否匹配 
+        /// 验证属性与属性值是否匹配 
         /// </summary>
         /// <param name="type">最后一个属性</param>
         /// <param name="rule">条件信息</param>
@@ -260,10 +268,35 @@ namespace Gardener.Core.DataFilter
 
         private static Expression ChangeTypeToExpression(FilterRule rule, Type conversionType)
         {
-            object value = rule.Value.Adapt(rule.Value.GetType(),conversionType);
+            
+            if (rule.Operate.Equals(FilterOperate.In) ) 
+            {
+                List<Expression> expressionList = new List<Expression>();
+                if (rule.Value is JsonElement)
+                {
+                    JsonElement values = (JsonElement)rule.Value;
+                    if (values.ValueKind.Equals(JsonValueKind.Array))
+                    {
+                        //if (conversionType.IsNullableType()) 
+                        //{
+                        //    conversionType = conversionType.GetUnNullableType();
+                        //}
+                        if (jsonElementConvertDic.ContainsKey(conversionType))
+                        {
+                            foreach (var e in values.EnumerateArray())
+                            {
+                                expressionList.Add(Expression.Constant(jsonElementConvertDic[conversionType].Invoke(e), conversionType));
+                            }
+                        }
+                        
+                    }
+                }
+                return Expression.NewArrayInit(conversionType, expressionList);
+            }
+            object value = rule.Value.CastTo(conversionType);
             return Expression.Constant(value, conversionType);
         }
-
+        
         #endregion
     }
 }

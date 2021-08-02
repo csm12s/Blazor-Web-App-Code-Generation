@@ -163,7 +163,7 @@
         </member>
         <member name="M:Gardener.Core.DataFilter.FilterHelper.CheckFilterRule(System.Type,Gardener.Application.Dtos.FilterRule)">
             <summary>
-            验证最后一个属性与属性值是否匹配 
+            验证属性与属性值是否匹配 
             </summary>
             <param name="type">最后一个属性</param>
             <param name="rule">条件信息</param>

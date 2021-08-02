@@ -35,6 +35,7 @@ namespace Gardener.Application
         private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<UserExtension> _userExtensionRepository;
         private readonly IRepository<Dept> _deptRepository;
+        private readonly IFilterService _filterService;
         /// <summary>
         /// 用户服务
         /// </summary>
@@ -43,17 +44,20 @@ namespace Gardener.Application
         /// <param name="userRoleRepository"></param>
         /// <param name="roleRepository"></param>
         /// <param name="deptRepository"></param>
+        /// <param name="filterService"></param>
         public UserService(
             IRepository<User> userRepository,
             IRepository<UserExtension> userExtensionRepository,
             IRepository<UserRole> userRoleRepository,
-            IRepository<Role> roleRepository, IRepository<Dept> deptRepository) : base(userRepository)
+            IRepository<Role> roleRepository, IRepository<Dept> deptRepository, 
+            IFilterService filterService) : base(userRepository)
         {
             _userRepository = userRepository;
             _userExtensionRepository = userExtensionRepository;
             _userRoleRepository = userRoleRepository;
             _roleRepository = roleRepository;
             _deptRepository = deptRepository;
+            _filterService = filterService;
         }
 
         /// <summary>
@@ -107,10 +111,7 @@ namespace Gardener.Application
         [HttpPost]
         public override async Task<Dtos.PagedList<UserDto>> Search(PageRequest request)
         {
-            IFilterService filterService = App.GetService<IFilterService>();
-
-            Expression<Func<User, bool>> expression = filterService.GetExpression<User>(request.FilterGroup);
-
+            Expression<Func<User, bool>> expression = _filterService.GetExpression<User>(request.FilterGroup);
             var users = _userRepository
               .Include(u => u.UserExtension)
               .Include(u => u.Dept)

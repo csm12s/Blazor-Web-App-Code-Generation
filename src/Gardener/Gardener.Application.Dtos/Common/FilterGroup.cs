@@ -53,6 +53,14 @@ namespace Gardener.Application.Dtos
 
             return this;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public FilterGroup ResetRule()
+        {
+            this.Rules = new List<FilterRule>();
+            return this;
+        }
 
         /// <summary>
         /// 添加规则

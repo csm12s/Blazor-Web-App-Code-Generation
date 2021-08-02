@@ -630,7 +630,7 @@
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Dept})">
+        <member name="M:Gardener.Application.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Dept},Gardener.Core.IFilterService)">
             <summary>
             用户服务
             </summary>
@@ -639,6 +639,7 @@
             <param name="userRoleRepository"></param>
             <param name="roleRepository"></param>
             <param name="deptRepository"></param>
+            <param name="filterService"></param>
         </member>
         <member name="M:Gardener.Application.UserService.GetRoles(System.Int32)">
             <summary>

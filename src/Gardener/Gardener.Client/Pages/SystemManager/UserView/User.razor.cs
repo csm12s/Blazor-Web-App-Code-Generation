@@ -66,7 +66,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
-        private async Task ReLoadTable()
+        private async Task ReLoadTable(QueryModel<UserDto> queryModel=null)
         {
             _tableIsLoading = true;
             int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
@@ -78,7 +78,11 @@ namespace Gardener.Client.Pages.SystemManager.UserView
 
                 ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
             }
-            pageRequest.FilterGroup.AddRule(new FilterRule(nameof(UserDto.DeptId),ids,Enums.FilterOperate.In));
+            if (queryModel != null)
+            { 
+                
+            }
+            pageRequest.FilterGroup.ResetRule().AddRule(new FilterRule(nameof(UserDto.DeptId),ids,Enums.FilterOperate.In));
 
             var pagedListResult = await userService.Search(pageRequest);
             if (pagedListResult != null)
@@ -108,7 +112,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// <returns></returns>
         private async Task onChange(QueryModel<UserDto> queryModel)
         {
-            await ReLoadTable();
+            await ReLoadTable(queryModel);
         }
         /// <summary>
         /// 点击删除按钮

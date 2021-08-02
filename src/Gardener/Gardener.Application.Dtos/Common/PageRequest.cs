@@ -28,7 +28,7 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 查询条件组
         /// </summary>
-        public FilterGroup FilterGroup { get; set; }
+        public FilterGroup FilterGroup { get; set; } = new FilterGroup() { Operate=Enums.FilterOperate.And };
 
     }
 }

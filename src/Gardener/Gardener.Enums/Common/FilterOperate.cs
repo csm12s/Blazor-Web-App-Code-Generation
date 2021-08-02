@@ -102,13 +102,14 @@ namespace Gardener.Enums
         /// </summary>
         [Code("in")]
         [Description("包括在")]
-        In = 13,
+        In = 13
+        //    ,
 
-        /// <summary>
-        /// 不包括在
-        /// </summary>
-        [Code("notin")]
-        [Description("不包括在")]
-        NotIn = 14
+        ///// <summary>
+        ///// 不包括在
+        ///// </summary>
+        //[Code("notin")]
+        //[Description("不包括在")]
+        //NotIn = 14
     }
 }
