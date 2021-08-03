@@ -253,7 +253,7 @@ namespace Gardener.Application
         {
             IFilterService filterService= App.GetService<IFilterService>();
 
-            Expression<Func<TEntity, bool>> expression= filterService.GetExpression<TEntity>(request.FilterGroup);
+            Expression<Func<TEntity, bool>> expression= filterService.GetExpression<TEntity>(request.FilterGroups);
 
             IQueryable<TEntity> queryable = _repository.AsQueryable(false).Where(expression);
             return await queryable

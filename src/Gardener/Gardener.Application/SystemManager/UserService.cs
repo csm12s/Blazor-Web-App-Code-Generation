@@ -111,7 +111,7 @@ namespace Gardener.Application
         [HttpPost]
         public override async Task<Dtos.PagedList<UserDto>> Search(PageRequest request)
         {
-            Expression<Func<User, bool>> expression = _filterService.GetExpression<User>(request.FilterGroup);
+            Expression<Func<User, bool>> expression = _filterService.GetExpression<User>(request.FilterGroups);
             var users = _userRepository
               .Include(u => u.UserExtension)
               .Include(u => u.Dept)

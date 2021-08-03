@@ -53,6 +53,11 @@ namespace Gardener.Enums
         /// 指定的属性“{0}”在类型“{1}”中不存在
         /// </summary>
         [Description("指定的属性“{0}”在类型“{1}”中不存在")]
-        FIELD_IN_TYPE_NOT_FOUND
+        FIELD_IN_TYPE_NOT_FOUND,
+        /// <summary>
+        /// 指定的属性“{0}”在类型“{1}”中不存在
+        /// </summary>
+        [Description("查询的值类型“{0}”未找到转换器")]
+        QUERY_VALUE_TYPE_NO_FIND_CONVERTER
     }
 }

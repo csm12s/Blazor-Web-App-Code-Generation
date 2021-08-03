@@ -132,12 +132,12 @@
             查询表达式辅助操作类
             </summary>
         </member>
-        <member name="M:Gardener.Core.DataFilter.FilterHelper.GetExpression``1(Gardener.Application.Dtos.FilterGroup)">
+        <member name="M:Gardener.Core.DataFilter.FilterHelper.GetExpression``1(System.Collections.Generic.List{Gardener.Application.Dtos.FilterGroup})">
             <summary>
             获取指定查询条件组的查询表达式
             </summary>
             <typeparam name="T">表达式实体类型</typeparam>
-            <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
+            <param name="groups">查询条件组，如果为null，则直接返回 true 表达式</param>
             <returns>查询表达式</returns>
         </member>
         <member name="M:Gardener.Core.DataFilter.FilterHelper.GetExpression``1(Gardener.Application.Dtos.FilterRule)">
@@ -161,6 +161,29 @@
             <param name="code">操作码</param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.DataFilter.FilterHelper.Divide(System.Collections.Generic.List{Gardener.Application.Dtos.FilterRule})">
+            <summary>
+            根据 or 拆分
+            </summary>
+            <param name="rules"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.DataFilter.FilterHelper.GetExpressionBody(System.Linq.Expressions.ParameterExpression,System.Collections.Generic.List{Gardener.Application.Dtos.FilterGroup})">
+            <summary>
+            
+            </summary>
+            <param name="param"></param>
+            <param name="groups"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.DataFilter.FilterHelper.GetExpressionBody(System.Linq.Expressions.ParameterExpression,Gardener.Application.Dtos.FilterRule)">
+            <summary>
+            
+            </summary>
+            <param name="param"></param>
+            <param name="rule"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Core.DataFilter.FilterHelper.CheckFilterRule(System.Type,Gardener.Application.Dtos.FilterRule)">
             <summary>
             验证属性与属性值是否匹配 
@@ -179,20 +202,12 @@
             初始化一个<see cref="T:Gardener.Core.DataFilter.FilterService"/>类型的新实例
             </summary>
         </member>
-        <member name="M:Gardener.Core.DataFilter.FilterService.GetExpression``1(Gardener.Application.Dtos.FilterGroup)">
+        <member name="M:Gardener.Core.DataFilter.FilterService.GetExpression``1(System.Collections.Generic.List{Gardener.Application.Dtos.FilterGroup})">
             <summary>
             获取指定查询条件组的查询表达式
             </summary>
             <typeparam name="T">表达式实体类型</typeparam>
             <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
-            <returns>查询表达式</returns>
-        </member>
-        <member name="M:Gardener.Core.DataFilter.FilterService.GetExpression``1(Gardener.Application.Dtos.FilterRule)">
-            <summary>
-            获取指定查询条件的查询表达式
-            </summary>
-            <typeparam name="T">表达式实体类型</typeparam>
-            <param name="rule">查询条件，如果为null，则直接返回 true 表达式</param>
             <returns>查询表达式</returns>
         </member>
         <member name="T:Gardener.Core.IFilterService">
@@ -200,20 +215,12 @@
             定义过滤表达式功能
             </summary>
         </member>
-        <member name="M:Gardener.Core.IFilterService.GetExpression``1(Gardener.Application.Dtos.FilterGroup)">
+        <member name="M:Gardener.Core.IFilterService.GetExpression``1(System.Collections.Generic.List{Gardener.Application.Dtos.FilterGroup})">
             <summary>
             获取指定查询条件组的查询表达式
             </summary>
             <typeparam name="T">表达式实体类型</typeparam>
             <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
-            <returns>查询表达式</returns>
-        </member>
-        <member name="M:Gardener.Core.IFilterService.GetExpression``1(Gardener.Application.Dtos.FilterRule)">
-            <summary>
-            获取指定查询条件的查询表达式
-            </summary>
-            <typeparam name="T">表达式实体类型</typeparam>
-            <param name="rule">查询条件，如果为null，则直接返回 true 表达式</param>
             <returns>查询表达式</returns>
         </member>
         <member name="T:Gardener.Core.PagedQueryableExtensions">

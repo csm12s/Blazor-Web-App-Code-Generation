@@ -53,7 +53,7 @@ namespace Gardener.Application
             await DeleteResource(roleId);
             resourceIds ??= Array.Empty<Guid>();
             var list = new List<RoleResource>();
-            foreach (var securityId in resourceIds)
+            foreach (var securityId in resourceIds.Distinct())
             {
                 list.Add(new RoleResource { RoleId = roleId, ResourceId = securityId, CreatedTime = DateTimeOffset.Now });
             }

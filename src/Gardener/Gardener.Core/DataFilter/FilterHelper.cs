@@ -120,6 +120,17 @@ namespace Gardener.Core.DataFilter
             {typeof(short?),e=> e.GetInt16()},
             {typeof(int),e=> e.GetInt32()},
             {typeof(int?),e=> e.GetInt32()},
+            {typeof(long),e=> e.GetInt64()},
+            {typeof(long?),e=> e.GetInt64()},
+            {typeof(decimal),e=> e.GetDecimal()},
+            {typeof(decimal?),e=> e.GetDecimal()},
+            {typeof(double?),e=> e.GetDouble()},
+            {typeof(double),e=> e.GetDouble()},
+            {typeof(string),e=> e.GetString()},
+            {typeof(DateTime),e=> e.GetDateTime()},
+            {typeof(DateTimeOffset),e=> e.GetDateTimeOffset()},
+            {typeof(bool),e=> e.GetBoolean()},
+            {typeof(Guid),e=> e.GetGuid()}
         };
         #endregion
 
@@ -127,12 +138,12 @@ namespace Gardener.Core.DataFilter
         /// 获取指定查询条件组的查询表达式
         /// </summary>
         /// <typeparam name="T">表达式实体类型</typeparam>
-        /// <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
+        /// <param name="groups">查询条件组，如果为null，则直接返回 true 表达式</param>
         /// <returns>查询表达式</returns>
-        public static Expression<Func<T, bool>> GetExpression<T>(FilterGroup group)
+        public static Expression<Func<T, bool>> GetExpression<T>(List<FilterGroup> groups)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "m");
-            Expression body = GetExpressionBody(param, group);
+            Expression body = GetExpressionBody(param, groups);
             Expression<Func<T, bool>> expression = Expression.Lambda<Func<T, bool>>(body, param);
             return expression;
         }
@@ -181,30 +192,83 @@ namespace Gardener.Core.DataFilter
         }
 
         #region 私有方法
-
-        private static Expression GetExpressionBody(ParameterExpression param, FilterGroup group)
+        /// <summary>
+        /// 根据 or 拆分
+        /// </summary>
+        /// <param name="rules"></param>
+        /// <returns></returns>
+        private static List<FilterGroup> Divide(List<FilterRule> rules)
+        {
+            if (rules == null || rules.Count == 0)
+            {
+                return null;
+            }
+            List<FilterGroup> groups = new List<FilterGroup>();
+            for (int i = 0; i < rules.Count; i++)
+            {
+                if (i == 0)
+                {
+                    groups.Add(new FilterGroup().AddRule(rules[i]));
+                }
+                else 
+                {
+                    if (rules[i].Condition.Equals(FilterCondition.Or))
+                    {
+                        groups.Add(new FilterGroup() .AddRule(rules[i]));
+                    }
+                    else 
+                    {
+                        groups.Last().Rules.Add(rules[i]);
+                    }
+                }
+            
+            }
+            return groups;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="groups"></param>
+        /// <returns></returns>
+        private static Expression GetExpressionBody(ParameterExpression param, List<FilterGroup> groups)
         {
 
             //如果无条件或条件为空，直接返回 true表达式
-            if (group == null || (group.Rules.Count == 0 && group.Groups.Count == 0))
+            if (groups == null || groups.Count == 0)
             {
                 return Expression.Constant(true);
             }
             List<Expression> bodies = new List<Expression>();
-            bodies.AddRange(group.Rules.Select(rule => GetExpressionBody(param, rule)));
-            bodies.AddRange(group.Groups.Select(subGroup => GetExpressionBody(param, subGroup)));
+            foreach (FilterGroup group in groups)
+            {
+                if (group.Rules == null || group.Rules.Count == 0) { continue; }
+                List<Expression> groupExs = new List<Expression>();
+                List<FilterGroup> dGroups = Divide(group.Rules.ToList());
 
-            if (group.Operate == FilterOperate.And)
-            {
-                return bodies.Aggregate(Expression.AndAlso);
+                foreach (FilterGroup dgroup in dGroups)
+                {
+
+                    if (dgroup.Rules.Count > 1)
+                    {
+                        groupExs.Add(dgroup.Rules.Select(x=>GetExpressionBody(param,x)).Aggregate(Expression.AndAlso));
+                    }
+                    else 
+                    {
+                        groupExs.Add(GetExpressionBody(param, dgroup.Rules.First()));
+                    }
+
+                }
+                bodies.Add(groupExs.Aggregate(Expression.OrElse));
             }
-            if (group.Operate == FilterOperate.Or)
-            {
-                return bodies.Aggregate(Expression.OrElse);
-            }
-            throw Oops.Oh(ExceptionCode.FILTER_GROUP_OPERATE_ERROR);
+            return bodies.Aggregate(Expression.AndAlso);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="rule"></param>
+        /// <returns></returns>
         private static Expression GetExpressionBody(ParameterExpression param, FilterRule rule)
         {
             // if (rule == null || rule.Value == null || string.IsNullOrEmpty(rule.Value.ToString()))
@@ -268,8 +332,8 @@ namespace Gardener.Core.DataFilter
 
         private static Expression ChangeTypeToExpression(FilterRule rule, Type conversionType)
         {
-            
-            if (rule.Operate.Equals(FilterOperate.In) ) 
+
+            if (rule.Operate.Equals(FilterOperate.In))
             {
                 List<Expression> expressionList = new List<Expression>();
                 if (rule.Value is JsonElement)
@@ -288,15 +352,38 @@ namespace Gardener.Core.DataFilter
                                 expressionList.Add(Expression.Constant(jsonElementConvertDic[conversionType].Invoke(e), conversionType));
                             }
                         }
-                        
+                        else
+                        {
+                            throw Oops.Oh(ExceptionCode.QUERY_VALUE_TYPE_NO_FIND_CONVERTER, conversionType.Name);
+                        }
+
                     }
                 }
                 return Expression.NewArrayInit(conversionType, expressionList);
             }
-            object value = rule.Value.CastTo(conversionType);
-            return Expression.Constant(value, conversionType);
+            else if (rule.Value is JsonElement)
+            {
+                JsonElement json = (JsonElement)rule.Value;
+                object value = null;
+                //枚举
+                if (conversionType.IsEnum)
+                {
+                    value = Enum.ToObject(conversionType, json.GetInt64());
+                }
+                else
+                {
+                    value = jsonElementConvertDic[conversionType].Invoke(json);
+                }
+                return Expression.Constant(value, conversionType);
+            }
+            else
+            {
+                object value = rule.Value.CastTo(conversionType);
+                return Expression.Constant(value, conversionType);
+            }
+
         }
-        
+
         #endregion
     }
 }

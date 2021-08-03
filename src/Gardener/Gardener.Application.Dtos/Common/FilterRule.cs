@@ -44,6 +44,11 @@ namespace Gardener.Application.Dtos
         /// 获取或设置 操作类型
         /// </summary>
         public FilterOperate Operate { get; set; }
+
+        /// <summary>
+        /// 获取或设置 条件间操作方式，仅限And, Or
+        /// </summary>
+        public FilterCondition Condition { get; set; } = FilterCondition.And;
         /// <summary>
         /// 
         /// </summary>

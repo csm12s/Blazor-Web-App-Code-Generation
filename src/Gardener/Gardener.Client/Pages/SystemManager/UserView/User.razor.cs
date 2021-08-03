@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System;
 using Gardener.Application.Interfaces;
 using Gardener.Common;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Pages.SystemManager.UserView
 {
@@ -51,6 +52,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             _deptTreeIsLoading = true;
             depts = await deptService.GetTree();
+            await ReLoadTable();
             _deptTreeIsLoading = false;
         }
         /// <summary>
@@ -61,28 +63,37 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             await ReLoadTable();
         }
-
+        /// <summary>
+        /// 查询变化
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        private async Task onChange(QueryModel<UserDto> queryModel)
+        {
+            await ReLoadTable();
+        }
         /// <summary>
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
-        private async Task ReLoadTable(QueryModel<UserDto> queryModel=null)
+        private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
 
-            List<int> ids = null;
+            pageRequest.FilterGroups = _table?.GetQueryModel().ToFilterGroup();
+
+            #region 当前选中部门
+            int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
             if (deptId.HasValue)
             {
                 var node= TreeTools.QueryNode(depts, d => d.Id.Equals(deptId.Value), d => d.Children);
-
-                ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                List<int> ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                if (ids != null)
+                {
+                    pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, Enums.FilterOperate.In)));
+                }
             }
-            if (queryModel != null)
-            {
-
-            }
-            pageRequest.FilterGroup.ResetRule().AddRule(new FilterRule(nameof(UserDto.DeptId),ids,Enums.FilterOperate.In));
+            #endregion
 
             var pagedListResult = await userService.Search(pageRequest);
             if (pagedListResult != null)
@@ -105,15 +116,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             await ReLoadTable();
         }
-        /// <summary>
-        /// 查询变化
-        /// </summary>
-        /// <param name="queryModel"></param>
-        /// <returns></returns>
-        private async Task onChange(QueryModel<UserDto> queryModel)
-        {
-            await ReLoadTable(queryModel);
-        }
+        
         /// <summary>
         /// 点击删除按钮
         /// </summary>

@@ -61,15 +61,15 @@
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
                     <Column @bind-Field="@model.Id" Sortable />
-                    <Column @bind-Field="@model.Name" />
-                    <Column @bind-Field="@model.Remark" />
-                    <Column @bind-Field="@model.IsSuperAdministrator">
+                    <Column @bind-Field="@model.Name" Filterable/>
+                    <Column @bind-Field="@model.Remark" Filterable/>
+                    <Column @bind-Field="@model.IsSuperAdministrator" Filterable>
                         <TagYesNo Yes="model.IsSuperAdministrator"></TagYesNo>
                     </Column>
-                    <Column @bind-Field="@model.IsDefault">
+                    <Column @bind-Field="@model.IsDefault" Filterable>
                         <TagYesNo Yes="model.IsDefault"></TagYesNo>
                     </Column>
-                    <Column @bind-Field="@model.IsLocked">
+                    <Column @bind-Field="@model.IsLocked" Filterable>
                         <ResourceAuthorize ResourceKey="system_manager_role_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>

@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Web;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Pages.SystemManager.RoleView
 {
@@ -46,6 +47,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
+            pageRequest.FilterGroups = _table?.GetQueryModel().ToFilterGroup();
             var pagedListResult = await roleService.Search(pageRequest);
             if (pagedListResult != null)
             {

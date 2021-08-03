@@ -15,20 +15,6 @@ namespace Gardener.Enums
     public enum FilterOperate
     {
         /// <summary>
-        /// 并且
-        /// </summary>
-        [Code("and")]
-        [Description("并且")]
-        And = 1,
-
-        /// <summary>
-        /// 或者
-        /// </summary>
-        [Code("or")]
-        [Description("或者")]
-        Or = 2,
-
-        /// <summary>
         /// 等于
         /// </summary>
         [Code("equal")]
