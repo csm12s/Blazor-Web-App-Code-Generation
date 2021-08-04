@@ -26,11 +26,7 @@ namespace Gardener.Application.Interfaces
         /// <param name="resourceIds"></param>
         /// <returns></returns>
         Task<bool> Resource(int roleId, Guid[] resourceIds);
-        /// <summary>
-        /// 获取有效的角色
-        /// </summary>
-        /// <returns></returns>
-        Task<List<RoleDto>> GetEffective();
+        
         /// <summary>
         /// 获取角色所有资源
         /// </summary>

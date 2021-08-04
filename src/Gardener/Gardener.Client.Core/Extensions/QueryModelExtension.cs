@@ -7,7 +7,9 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
+using Mapster;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gardener.Client.Core
 {
@@ -18,8 +20,9 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        public static List<FilterGroup> ToFilterGroup(this QueryModel queryModel)
+        public static List<FilterGroup> GetFilterGroups(this ITable table)
         {
+            QueryModel queryModel = table.GetQueryModel();
 
             List<FilterGroup> filterGroups = new List<FilterGroup>();
             if (queryModel != null)
@@ -55,6 +58,45 @@ namespace Gardener.Client.Core
                 }
             }
             return filterGroups;
+        }
+
+        /// <summary>
+        /// QueryModel 转换成api的数据结构
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        public static List<ListSortDirection> GetOrderConditions(this ITable table)
+        {
+            QueryModel queryModel = table.GetQueryModel();
+            List<ListSortDirection> sortDirections = new List<ListSortDirection>();
+            if (queryModel ==null || queryModel.SortModel == null || queryModel.SortModel.Count == 0)
+            {
+                return sortDirections;
+            }
+            sortDirections = queryModel.
+                SortModel
+                .Where(x=>!string.IsNullOrEmpty(x.Sort))
+                .Select(x => x.Adapt<ListSortDirection>()).ToList();
+            return sortDirections;
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        public static PageRequest GetPageRequest(this ITable table) 
+        {
+            QueryModel queryModel = table.GetQueryModel();
+            PageRequest request = new PageRequest();
+            if (queryModel != null) 
+            {
+                request.PageIndex = queryModel.PageIndex;
+                request.PageSize = queryModel.PageSize;
+                request.FilterGroups = table.GetFilterGroups();
+                request.OrderConditions = table.GetOrderConditions();
+            }
+            return request;
         }
     }
 }

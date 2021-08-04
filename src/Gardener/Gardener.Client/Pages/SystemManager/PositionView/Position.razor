@@ -13,7 +13,7 @@
                    TItem="PositionDto"
                    DataSource="@_positions"
                    Total="_total"
-                   OnChange="@onChange"
+                   OnChange="@OnChange"
                    @bind-PageIndex="pageRequest.PageIndex"
                    @bind-PageSize="pageRequest.PageSize"
                    @bind-SelectedRows="_selectedRows"
@@ -52,10 +52,10 @@
                     <ResourceAuthorize ResourceKey="system_manager_position_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.Name" />
-                    <Column @bind-Field="@model.Duty" />
-                    <Column @bind-Field="@model.Grade" />
-                    <Column @bind-Field="@model.IsLocked">
+                    <Column @bind-Field="@model.Name" Filterable/>
+                    <Column @bind-Field="@model.Duty" Filterable/>
+                    <Column @bind-Field="@model.Grade" Filterable/>
+                    <Column @bind-Field="@model.IsLocked" Filterable>
                         <ResourceAuthorize ResourceKey="system_manager_position_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -65,7 +65,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_position_edit">

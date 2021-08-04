@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -40,6 +41,24 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            await ReLoadTable();
+        }
+        /// <summary>
+        /// 查询变化
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        private async Task OnChange(QueryModel<AuditEntityDto> queryModel)
+        {
+            if (_table != null) { await ReLoadTable(); }
+        }
+        /// <summary>
+        /// 刷新页面
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnReLoadTable()
+        {
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
@@ -48,6 +67,7 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
+            pageRequest = _table?.GetPageRequest() ?? new PageRequest();
             var pagedListResult = await AuditEntityService.Search(pageRequest);
             if (pagedListResult != null)
             {
@@ -60,24 +80,6 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
                 messageService.Error("加载失败");
             }
             _tableIsLoading = false;
-        }
-        /// <summary>
-        /// 刷新页面
-        /// </summary>
-        /// <returns></returns>
-        private async Task OnReLoadTable()
-        {
-            await ReLoadTable();
-        }
-        /// <summary>
-        /// 查询变化
-        /// </summary>
-        /// <param name="queryModel"></param>
-        /// <returns></returns>
-        private async Task OnChange(QueryModel<AuditEntityDto> queryModel)
-        {
-           
-            await ReLoadTable();
         }
         /// <summary>
         /// 点击删除按钮

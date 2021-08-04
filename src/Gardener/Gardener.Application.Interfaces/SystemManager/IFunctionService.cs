@@ -39,12 +39,6 @@ namespace Gardener.Application.Interfaces
         Task<bool> Exists(HttpMethodType method, string path);
 
         /// <summary>
-        /// 获取有效的
-        /// </summary>
-        /// <returns></returns>
-        Task<List<FunctionDto>> GetEffective();
-
-        /// <summary>
         /// 获取种子数据
         /// </summary>
         /// <remarks>

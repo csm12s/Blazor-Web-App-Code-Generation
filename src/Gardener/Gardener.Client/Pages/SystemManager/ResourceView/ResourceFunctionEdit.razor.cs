@@ -69,7 +69,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
             else if (this.Options.Type == 1)
             {
                 //查看可用的接口
-                List<FunctionDto> tempFunctionDtos = await functionService.GetEffective();
+                List<FunctionDto> tempFunctionDtos = await functionService.GetAllUsable();
                 //移除已选择的
                 if (_oldFunctionDtos != null)
                 {

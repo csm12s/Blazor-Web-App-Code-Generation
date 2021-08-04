@@ -118,7 +118,7 @@ namespace Gardener.Application
               .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false))
               .Where(u => u.IsDeleted == false && u.IsLocked==false)
               .Where(expression)
-              .OrderByDescending(x => x.CreatedTime)
+              .OrderConditions(request.OrderConditions)
               .Select(x=>x.Adapt<UserDto>());
             var pageList = await users.ToPageAsync(request.PageIndex, request.PageSize);
             foreach (var item in pageList.Items)

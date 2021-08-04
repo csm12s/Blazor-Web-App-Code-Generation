@@ -29,9 +29,9 @@ namespace Gardener.Enums
         [Description("Word")]
         Word,
         /// <summary>
-        /// word
+        /// Other
         /// </summary>
-        [Description("Word")]
+        [Description("其他")]
         Other
     }
 }

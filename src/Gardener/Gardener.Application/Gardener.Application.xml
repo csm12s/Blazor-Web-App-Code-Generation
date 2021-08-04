@@ -246,6 +246,16 @@
             </summary>
             <param name="repository"></param>
         </member>
+        <member name="M:Gardener.Application.SystemManager.AuditEntityService.Search(Gardener.Application.Dtos.PageRequest)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索数据
+            </remarks>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.SystemManager.AuditOperationService">
             <summary>
             审计操作服务
@@ -299,12 +309,6 @@
             </remarks>
             <param name="method"></param>
             <param name="path"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.SystemManager.FunctionService.GetEffective">
-            <summary>
-            获取有效的
-            </summary>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.FunctionService.GetSeedData">
@@ -566,15 +570,6 @@
             根据角色编号删除所有资源
             </remarks>
             <param name="roleId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.RoleService.GetEffective">
-            <summary>
-            获取可用角色
-            </summary>
-            <remarks>
-            获取可用角色
-            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.RoleService.GetResource(System.Int32)">

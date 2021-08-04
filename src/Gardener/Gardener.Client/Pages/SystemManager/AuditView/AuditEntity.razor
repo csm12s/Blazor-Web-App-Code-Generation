@@ -44,14 +44,14 @@
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.OperaterName" />
-                    <Column @bind-Field="@model.Name" />
-                    <Column @bind-Field="@model.TypeName" />
+                    <Column @bind-Field="@model.OperaterName" Filterable/>
+                    <Column @bind-Field="@model.Name" Filterable/>
+                    <Column @bind-Field="@model.TypeName" Filterable/>
                     <Column @bind-Field="@model.DataId" Width="300"/>
-                    <Column @bind-Field="@model.OperationType">
+                    <Column @bind-Field="@model.OperationType" Filters="TableFiltersConstants.OperationTypeFilters">
                         <Tag>@EnumHelper.GetEnumDescription(model.OperationType)</Tag>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_entity_detail">

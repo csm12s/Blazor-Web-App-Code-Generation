@@ -21,5 +21,17 @@ namespace Gardener.Client.Constants
         /// 
         /// </summary>
         public readonly static TableFilter<Gender>[] GenderFilters = EnumHelper.EnumToList<Gender>().Select(x => { return new TableFilter<Gender>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly static TableFilter<OperationType>[] OperationTypeFilters = EnumHelper.EnumToList<OperationType>().Select(x => { return new TableFilter<OperationType>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly static TableFilter<AttachmentBusinessType?>[] AttachmentBusinessTypeFilters = EnumHelper.EnumToList<AttachmentBusinessType>().Select(x => { return new TableFilter<AttachmentBusinessType?>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly static TableFilter<AttachmentFileType?>[] AttachmentFileTypeFilters = EnumHelper.EnumToList<AttachmentFileType>().Select(x => { return new TableFilter<AttachmentFileType?>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
     }
 }

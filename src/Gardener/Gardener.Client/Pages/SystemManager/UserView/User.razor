@@ -34,7 +34,7 @@
                            TItem="UserDto"
                            DataSource="@_users"
                            Total="_total"
-                           OnChange="@onChange"
+                           OnChange="@OnChange"
                            @bind-PageIndex="pageRequest.PageIndex"
                            @bind-PageSize="pageRequest.PageSize"
                            @bind-SelectedRows="_selectedRows"
@@ -117,7 +117,7 @@
                                     </NotAuthorized>
                                 </ResourceAuthorize>
                             </Column>
-                            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable/>
+                            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
                             <ActionColumn>
                                 <Space>
                                     <ResourceAuthorize ResourceKey="system_manager_user_edit">

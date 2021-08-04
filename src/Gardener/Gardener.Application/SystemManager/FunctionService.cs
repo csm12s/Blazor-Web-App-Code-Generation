@@ -77,15 +77,6 @@ namespace Gardener.Application.SystemManager
         }
 
         /// <summary>
-        /// 获取有效的
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<FunctionDto>> GetEffective()
-        {
-            return await _repository.Where(x => x.IsDeleted == false && x.IsLocked == false).Select(x => x.Adapt<FunctionDto>()).ToListAsync();
-        }
-
-        /// <summary>
         /// 获取种子数据
         /// </summary>
         /// <remarks>

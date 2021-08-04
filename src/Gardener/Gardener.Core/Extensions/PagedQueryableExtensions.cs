@@ -74,7 +74,18 @@ namespace Gardener.Core
                 HasPrevPages = pageIndex - 1 > 0
             };
         }
-        
+        /// <summary>
+        /// 多字段排序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="orderConditions"></param>
+        /// <returns></returns>
+        public static IQueryable<T> OrderConditions<T>(this IQueryable<T> query, System.Collections.Generic.List<ListSortDirection> orderConditions)
+        {
+            if (orderConditions == null || !orderConditions.Any()) return query;
+            return query.OrderConditions<T>(orderConditions.ToArray());
+        }
         /// <summary>
         /// 多字段排序
         /// </summary>

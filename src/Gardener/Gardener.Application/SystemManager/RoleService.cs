@@ -77,20 +77,7 @@ namespace Gardener.Application
 
             return true;
         }
-        /// <summary>
-        /// 获取可用角色
-        /// </summary>
-        /// <remarks>
-        /// 获取可用角色
-        /// </remarks>
-        /// <returns></returns>
-        public async Task<List<RoleDto>> GetEffective()
-        {
-            return await _roleRepository.AsQueryable()
-                .Where(x => x.IsDeleted == false && x.IsLocked == false)
-                .Select(x => x.Adapt<RoleDto>())
-                .ToListAsync();
-        }
+     
         /// <summary>
         /// 获取角色所有资源
         /// </summary>

@@ -30,11 +30,6 @@ namespace Gardener.Client.Services
             return await apiCaller.DeleteAsync<bool>($"{controller}/{roleId}/resource");
         }
 
-        public async Task<List<RoleDto>> GetEffective()
-        {
-            return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/effective");
-        }
-
         public async Task<List<ResourceDto>> GetResource(int roleId)
         {
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/{roleId}/resource");

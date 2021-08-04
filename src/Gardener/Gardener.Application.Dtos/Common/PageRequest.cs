@@ -24,7 +24,7 @@ namespace Gardener.Application.Dtos
         /// <summary>
         /// 排序集合
         /// </summary>
-        public ICollection<ListSortDirection> OrderConditions { get; set; } = new List<ListSortDirection>();
+        public List<ListSortDirection> OrderConditions { get; set; } = new List<ListSortDirection>();
         /// <summary>
         /// 查询条件组
         /// </summary>

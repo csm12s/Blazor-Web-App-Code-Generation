@@ -41,13 +41,30 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         IAuthorizeService authorizeService { get; set; }
         PageRequest pageRequest = new PageRequest();
         /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await ReLoadTable();
+        }
+        /// <summary>
+        /// 查询变化
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        private async Task OnChange(QueryModel<RoleDto> queryModel)
+        {
+            if (_table != null) { await ReLoadTable(); }
+        }
+        /// <summary>
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            pageRequest.FilterGroups = _table?.GetQueryModel().ToFilterGroup();
+            pageRequest = _table?.GetPageRequest() ?? new PageRequest();
             var pagedListResult = await roleService.Search(pageRequest);
             if (pagedListResult != null)
             {
@@ -69,15 +86,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         {
             await ReLoadTable();
         }
-        /// <summary>
-        /// 查询变化
-        /// </summary>
-        /// <param name="queryModel"></param>
-        /// <returns></returns>
-        private async Task onChange(QueryModel<RoleDto> queryModel)
-        {
-            await ReLoadTable();
-        }
+        
         /// <summary>
         /// 点击删除按钮
         /// </summary>

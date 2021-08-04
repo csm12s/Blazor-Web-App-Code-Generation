@@ -52,8 +52,8 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             _deptTreeIsLoading = true;
             depts = await deptService.GetTree();
-            await ReLoadTable();
             _deptTreeIsLoading = false;
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
@@ -68,9 +68,12 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        private async Task onChange(QueryModel<UserDto> queryModel)
+        private async Task OnChange(QueryModel<UserDto> queryModel)
         {
-            await ReLoadTable();
+            if (_table != null)
+            {
+                await ReLoadTable();
+            }
         }
         /// <summary>
         /// 重新加载table
@@ -80,7 +83,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             _tableIsLoading = true;
 
-            pageRequest.FilterGroups = _table?.GetQueryModel().ToFilterGroup();
+            pageRequest= _table?.GetPageRequest() ?? new PageRequest();
 
             #region 当前选中部门
             int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);

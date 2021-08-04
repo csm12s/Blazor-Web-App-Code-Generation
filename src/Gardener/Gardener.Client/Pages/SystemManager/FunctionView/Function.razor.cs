@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -37,12 +38,21 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         DrawerService drawerService { get; set; }
         PageRequest pageRequest = new PageRequest();
         /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await ReLoadTable();
+        }
+        /// <summary>
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
+            pageRequest = _table?.GetPageRequest() ?? new PageRequest();
             var pagedListResult = await functionService.Search(pageRequest);
             if (pagedListResult != null)
             {
@@ -71,7 +81,7 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         /// <returns></returns>
         private async Task OnChange(QueryModel<FunctionDto> queryModel)
         {
-            await ReLoadTable();
+            if (_table != null) { await ReLoadTable(); }
         }
         /// <summary>
         /// 点击删除按钮
