@@ -20,12 +20,6 @@ namespace Gardener.Application.Interfaces
     public interface IFunctionService : IApplicationServiceBase<FunctionDto, Guid>
     {
         /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        Task<PagedList<FunctionDto>> Search(FunctionSearchInput searchInput);
-        /// <summary>
         /// 启用禁用审计
         /// </summary>
         /// <param name="id"></param>
@@ -43,12 +37,6 @@ namespace Gardener.Application.Interfaces
         /// <param name="path"></param>
         /// <returns></returns>
         Task<bool> Exists(HttpMethodType method, string path);
-
-        /// <summary>
-        /// 获取有效的
-        /// </summary>
-        /// <returns></returns>
-        Task<List<FunctionDto>> GetEffective();
 
         /// <summary>
         /// 获取种子数据

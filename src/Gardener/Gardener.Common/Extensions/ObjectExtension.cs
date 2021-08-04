@@ -76,6 +76,67 @@ namespace Gardener.Common
         }
 
         /// <summary>
+        /// 判断当前值是否介于指定范围内
+        /// </summary>
+        /// <typeparam name="T"> 动态类型 </typeparam>
+        /// <param name="value"> 动态类型对象 </param>
+        /// <param name="start"> 范围起点 </param>
+        /// <param name="end"> 范围终点 </param>
+        /// <param name="leftEqual"> 是否可等于上限（默认等于） </param>
+        /// <param name="rightEqual"> 是否可等于下限（默认等于） </param>
+        /// <returns> 是否介于 </returns>
+        public static bool IsBetween<T>(this IComparable<T> value, T start, T end, bool leftEqual = true, bool rightEqual = true) where T : IComparable
+        {
+            bool flag = leftEqual ? value.CompareTo(start) >= 0 : value.CompareTo(start) > 0;
+            return flag && (rightEqual ? value.CompareTo(end) <= 0 : value.CompareTo(end) < 0);
+        }
+
+        /// <summary>
+        /// 判断当前值是否介于指定范围内
+        /// </summary>
+        /// <typeparam name="T"> 动态类型 </typeparam>
+        /// <param name="value"> 动态类型对象 </param>
+        /// <param name="min">范围小值</param>
+        /// <param name="max">范围大值</param>
+        /// <param name="minEqual">是否可等于小值（默认等于）</param>
+        /// <param name="maxEqual">是否可等于大值（默认等于）</param>
+        public static bool IsInRange<T>(this IComparable<T> value, T min, T max, bool minEqual = true, bool maxEqual = true) where T : IComparable
+        {
+            bool flag = minEqual ? value.CompareTo(min) >= 0 : value.CompareTo(min) > 0;
+            return flag && (maxEqual ? value.CompareTo(max) <= 0 : value.CompareTo(max) < 0);
+        }
+
+
+        #region 对象转成字典
+        /// <summary>
+        /// 对象转换为字典
+        /// </summary>
+        /// <param name="obj">待转化的对象</param>
+        /// <returns></returns>
+        public static Dictionary<string, string> ToMap(this object obj)
+        {
+            Dictionary<string, string> map = new Dictionary<string, string>();
+
+            Type t = obj.GetType(); // 获取对象对应的类， 对应的类型
+
+            PropertyInfo[] pi = t.GetProperties(BindingFlags.Public | BindingFlags.Instance); // 获取当前type公共属性
+
+            foreach (PropertyInfo p in pi)
+            {
+                MethodInfo m = p.GetGetMethod();
+
+                if (m != null && m.IsPublic)
+                {
+                    // 进行判NULL处理
+                    if (m.Invoke(obj, new object[] { }) != null)
+                    {
+                        map.Add(p.Name, m.Invoke(obj, new object[] { }).ToString()); // 向字典添加元素
+                    }
+                }
+            }
+            return map;
+        }
+        /// <summary>
         /// 把对象类型转换为指定类型
         /// </summary>
         /// <param name="value"></param>
@@ -139,68 +200,6 @@ namespace Gardener.Common
             {
                 return defaultValue;
             }
-        }
-
-        /// <summary>
-        /// 判断当前值是否介于指定范围内
-        /// </summary>
-        /// <typeparam name="T"> 动态类型 </typeparam>
-        /// <param name="value"> 动态类型对象 </param>
-        /// <param name="start"> 范围起点 </param>
-        /// <param name="end"> 范围终点 </param>
-        /// <param name="leftEqual"> 是否可等于上限（默认等于） </param>
-        /// <param name="rightEqual"> 是否可等于下限（默认等于） </param>
-        /// <returns> 是否介于 </returns>
-        public static bool IsBetween<T>(this IComparable<T> value, T start, T end, bool leftEqual = true, bool rightEqual = true) where T : IComparable
-        {
-            bool flag = leftEqual ? value.CompareTo(start) >= 0 : value.CompareTo(start) > 0;
-            return flag && (rightEqual ? value.CompareTo(end) <= 0 : value.CompareTo(end) < 0);
-        }
-
-        /// <summary>
-        /// 判断当前值是否介于指定范围内
-        /// </summary>
-        /// <typeparam name="T"> 动态类型 </typeparam>
-        /// <param name="value"> 动态类型对象 </param>
-        /// <param name="min">范围小值</param>
-        /// <param name="max">范围大值</param>
-        /// <param name="minEqual">是否可等于小值（默认等于）</param>
-        /// <param name="maxEqual">是否可等于大值（默认等于）</param>
-        public static bool IsInRange<T>(this IComparable<T> value, T min, T max, bool minEqual = true, bool maxEqual = true) where T : IComparable
-        {
-            bool flag = minEqual ? value.CompareTo(min) >= 0 : value.CompareTo(min) > 0;
-            return flag && (maxEqual ? value.CompareTo(max) <= 0 : value.CompareTo(max) < 0);
-        }
-
-
-        #region 对象转成字典
-        /// <summary>
-        /// 对象转换为字典
-        /// </summary>
-        /// <param name="obj">待转化的对象</param>
-        /// <returns></returns>
-        public static Dictionary<string, string> ToMap(this object obj)
-        {
-            Dictionary<string, string> map = new Dictionary<string, string>();
-
-            Type t = obj.GetType(); // 获取对象对应的类， 对应的类型
-
-            PropertyInfo[] pi = t.GetProperties(BindingFlags.Public | BindingFlags.Instance); // 获取当前type公共属性
-
-            foreach (PropertyInfo p in pi)
-            {
-                MethodInfo m = p.GetGetMethod();
-
-                if (m != null && m.IsPublic)
-                {
-                    // 进行判NULL处理
-                    if (m.Invoke(obj, new object[] { }) != null)
-                    {
-                        map.Add(p.Name, m.Invoke(obj, new object[] { }).ToString()); // 向字典添加元素
-                    }
-                }
-            }
-            return map;
         }
         #endregion
 

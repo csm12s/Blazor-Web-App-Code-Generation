@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -23,7 +24,6 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         ITable _table;
         FunctionDto[] _datas;
         IEnumerable<FunctionDto> _selectedRows;
-        FunctionSearchInput searchInput = new FunctionSearchInput();
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
@@ -36,7 +36,15 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-
+        PageRequest pageRequest = new PageRequest();
+        /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await ReLoadTable();
+        }
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -44,7 +52,8 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await functionService.Search(searchInput);
+            pageRequest = _table?.GetPageRequest() ?? new PageRequest();
+            var pagedListResult = await functionService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -72,20 +81,7 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         /// <returns></returns>
         private async Task OnChange(QueryModel<FunctionDto> queryModel)
         {
-            searchInput.OrderConditions = queryModel.
-                SortModel.
-                Select(x => x.Adapt<SearchSort>()).ToArray();
-            if (searchInput.OrderConditions.Length == 0)
-            {
-                searchInput.OrderConditions = new[] {
-                    new SearchSort()
-                    {
-                        FieldName=nameof(FunctionDto.CreatedTime),
-                        SortType=SearchSortType.Desc
-                    }
-                };
-            }
-            await ReLoadTable();
+            if (_table != null) { await ReLoadTable(); }
         }
         /// <summary>
         /// 点击删除按钮
@@ -186,7 +182,7 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
             if (result)
             {
                 //刷新列表
-                searchInput.PageIndex = 1;
+                pageRequest.PageIndex = 1;
                 await ReLoadTable();
             }
         }

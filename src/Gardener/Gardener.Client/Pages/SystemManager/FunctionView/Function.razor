@@ -13,8 +13,8 @@
                    DataSource="@_datas"
                    Total="_total"
                    OnChange="@OnChange"
-                   @bind-PageIndex="searchInput.PageIndex"
-                   @bind-PageSize="searchInput.PageSize"
+                   @bind-PageIndex="pageRequest.PageIndex"
+                   @bind-PageSize="pageRequest.PageSize"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
                    Context="model">
@@ -67,14 +67,14 @@
                     <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
                         <Selection Key="@(model.Id.ToString())" Width="5%" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.Group" Width="10%" />
-                    <Column @bind-Field="@model.Service" Width="10%" />
-                    <Column @bind-Field="@model.Summary" Width="10%" />
-                    <Column @bind-Field="@model.Path" Width="60" />
+                    <Column @bind-Field="@model.Group" Width="10%" Filterable/>
+                    <Column @bind-Field="@model.Service" Width="10%" Filterable/>
+                    <Column @bind-Field="@model.Summary" Width="10%" Filterable/>
+                    <Column @bind-Field="@model.Path" Width="60" Filterable/>
                     <Column @bind-Field="@model.Method" Width="10%" Filters="TableFiltersConstants.FunctionMethodFilters">
-                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.Method)"></TagRandomColor>
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Method)"></TagRandomColor>
                     </Column>
-                    <Column @bind-Field="@model.EnableAudit" Width="8%">
+                    <Column @bind-Field="@model.EnableAudit" Width="8%" Filterable>
                         <ResourceAuthorize ResourceKey="system_manager_function_enable_audit">
                             <Authorized>
                                 <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>
@@ -84,7 +84,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.IsLocked" Width="8%">
+                    <Column @bind-Field="@model.IsLocked" Width="8%" Filterable>
                         <ResourceAuthorize ResourceKey="system_manager_function_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -94,7 +94,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" DefaultSortOrder="@SortDirection.Descending"/>
                     <ActionColumn Width="10%">
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_function_edit">

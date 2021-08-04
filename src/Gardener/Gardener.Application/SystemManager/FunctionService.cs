@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Core;
 using Gardener.Core.Entites;
 using Gardener.Enums;
 using Mapster;
@@ -59,27 +60,6 @@ namespace Gardener.Application.SystemManager
         }
 
         /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <remarks>
-        /// 搜索功能数据
-        /// </remarks>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [NonValidation]
-        public async Task<Dtos.PagedList<FunctionDto>> Search(FunctionSearchInput searchInput)
-        {
-            IQueryable<Function> queryable = _repository
-                .Where(x => x.IsDeleted == false);
-            FunctionDto search = searchInput.SearchData;
-            return await queryable
-                .OrderConditions(searchInput.OrderConditions)
-                .Select(x => x.Adapt<FunctionDto>())
-                .ToPagedListAsync(searchInput);
-        }
-
-        /// <summary>
         /// 判断是否存在
         /// </summary>
         /// <remarks>
@@ -94,15 +74,6 @@ namespace Gardener.Application.SystemManager
             path = HttpUtility.UrlDecode(path);
 
             return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).AnyAsync();
-        }
-
-        /// <summary>
-        /// 获取有效的
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<FunctionDto>> GetEffective()
-        {
-            return await _repository.Where(x => x.IsDeleted == false && x.IsLocked == false).Select(x => x.Adapt<FunctionDto>()).ToListAsync();
         }
 
         /// <summary>

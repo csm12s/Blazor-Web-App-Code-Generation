@@ -4,34 +4,26 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using System.ComponentModel;
 
 namespace Gardener.Enums
 {
-    /// <summary>
-    /// 上传文件类型
-    /// </summary>
-    public enum AttachmentFileType
+    public enum FilterCondition
     {
+
         /// <summary>
-        /// 图片
+        /// 并且
         /// </summary>
-        [Description("图片")]
-        Image,
+        [Code("and")]
+        [Description("并且")]
+        And = 1,
+
         /// <summary>
-        /// excel
+        /// 或者
         /// </summary>
-        [Description("Excel")]
-        Excel,
-        /// <summary>
-        /// word
-        /// </summary>
-        [Description("Word")]
-        Word,
-        /// <summary>
-        /// Other
-        /// </summary>
-        [Description("其他")]
-        Other
+        [Code("or")]
+        [Description("或者")]
+        Or = 2
     }
 }

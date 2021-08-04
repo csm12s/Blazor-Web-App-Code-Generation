@@ -84,7 +84,7 @@ namespace Gardener.Application.Dtos
         /// <returns></returns>
         public string GetFullName()
         {
-            return $"{Name} [{EnumExtension.GetEnumDescription(Type)}]";
+            return $"{Name} [{EnumHelper.GetEnumDescription(Type)}]";
         }
         /// <summary>
         /// 启用审计

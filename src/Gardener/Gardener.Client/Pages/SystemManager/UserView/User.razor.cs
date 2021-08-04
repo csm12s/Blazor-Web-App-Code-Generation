@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System;
 using Gardener.Application.Interfaces;
 using Gardener.Common;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Pages.SystemManager.UserView
 {
@@ -22,8 +23,6 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         ITable _table;
         UserDto[] _users;
         IEnumerable<UserDto> _selectedRows;
-        int _pageIndex = 1;
-        int _pageSize = 10;
         int _total = 0;
         bool _tableIsLoading = false;
 
@@ -44,6 +43,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         DrawerService drawerService { get; set; }
         [Inject]
         IDeptService deptService { get; set; }
+        PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 页面初始化完成
         /// </summary>
@@ -53,6 +53,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
             _deptTreeIsLoading = true;
             depts = await deptService.GetTree();
             _deptTreeIsLoading = false;
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
@@ -62,7 +63,18 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             await ReLoadTable();
         }
-
+        /// <summary>
+        /// 查询变化
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        private async Task OnChange(QueryModel<UserDto> queryModel)
+        {
+            if (_table != null)
+            {
+                await ReLoadTable();
+            }
+        }
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -70,18 +82,23 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
 
-            List<int> ids = null;
+            pageRequest= _table?.GetPageRequest() ?? new PageRequest();
+
+            #region 当前选中部门
+            int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
             if (deptId.HasValue)
             {
                 var node= TreeTools.QueryNode(depts, d => d.Id.Equals(deptId.Value), d => d.Children);
-
-                ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                List<int> ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                if (ids != null)
+                {
+                    pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, Enums.FilterOperate.In)));
+                }
             }
-            
+            #endregion
 
-            var pagedListResult = await userService.Search(ids?.ToArray(), _pageIndex, _pageSize);
+            var pagedListResult = await userService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -102,15 +119,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             await ReLoadTable();
         }
-        /// <summary>
-        /// 查询变化
-        /// </summary>
-        /// <param name="queryModel"></param>
-        /// <returns></returns>
-        private async Task onChange(QueryModel<UserDto> queryModel)
-        {
-            await ReLoadTable();
-        }
+        
         /// <summary>
         /// 点击删除按钮
         /// </summary>
@@ -156,7 +165,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
             if (result)
             {
                 //刷新列表
-                _pageIndex = 1;
+                pageRequest.PageIndex = 1;
                 await ReLoadTable();
             }
         }

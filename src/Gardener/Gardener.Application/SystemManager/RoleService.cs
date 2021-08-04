@@ -39,28 +39,6 @@ namespace Gardener.Application
         }
 
         /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <remarks>
-        /// 搜索角色数据
-        /// </remarks>
-        /// <param name="name">角色名称</param>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<Dtos.PagedList<RoleDto>> Search([FromQuery] string name,
-            int pageIndex = 1,
-            int pageSize = 10)
-        {
-            return await _roleRepository
-                .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
-                .Where(x => x.IsDeleted == false)
-                .OrderByDescending(x => x.CreatedTime)
-                .Select(x => x.Adapt<RoleDto>())
-                .ToPagedListAsync<RoleDto>(pageIndex, pageSize);
-        }
-        /// <summary>
         /// 分配权限
         /// </summary>
         /// <remarks>
@@ -75,7 +53,7 @@ namespace Gardener.Application
             await DeleteResource(roleId);
             resourceIds ??= Array.Empty<Guid>();
             var list = new List<RoleResource>();
-            foreach (var securityId in resourceIds)
+            foreach (var securityId in resourceIds.Distinct())
             {
                 list.Add(new RoleResource { RoleId = roleId, ResourceId = securityId, CreatedTime = DateTimeOffset.Now });
             }
@@ -99,20 +77,7 @@ namespace Gardener.Application
 
             return true;
         }
-        /// <summary>
-        /// 获取可用角色
-        /// </summary>
-        /// <remarks>
-        /// 获取可用角色
-        /// </remarks>
-        /// <returns></returns>
-        public async Task<List<RoleDto>> GetEffective()
-        {
-            return await _roleRepository.AsQueryable()
-                .Where(x => x.IsDeleted == false && x.IsLocked == false)
-                .Select(x => x.Adapt<RoleDto>())
-                .ToListAsync();
-        }
+     
         /// <summary>
         /// 获取角色所有资源
         /// </summary>

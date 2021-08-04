@@ -12,6 +12,7 @@ using Mapster;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Gardener.Core;
 using Gardener.Common;
 using System;
 using Gardener.Application.Interfaces;
@@ -19,6 +20,9 @@ using System.Collections.Generic;
 using Swashbuckle.AspNetCore.Annotations;
 using Gardener.Core;
 using Gardener.Core.Entites;
+using Furion;
+using System.Linq.Expressions;
+using Gardener.Application.Dtos;
 
 namespace Gardener.Application
 {
@@ -210,7 +214,7 @@ namespace Gardener.Application
         {
             var pageResult = _repository.AsQueryable();
 
-            var result= await pageResult.ToPagedListAsync(pageIndex, pageSize);
+            var result= await pageResult.ToPageAsync(pageIndex, pageSize);
             
             return result.Adapt<Dtos.PagedList<TEntityDto>>();
         }
@@ -225,7 +229,7 @@ namespace Gardener.Application
         /// <param name="isLocked"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<bool> Lock([ApiSeat(ApiSeats.ActionStart)] TKey id, bool isLocked = true)
+        public virtual async Task<bool> Lock([ApiSeat(ApiSeats.ActionStart)] TKey id, bool isLocked = true)
         {
             var entity = await _repository.FindAsync(id);
             if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsLocked), isLocked))
@@ -234,6 +238,28 @@ namespace Gardener.Application
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        /// <remarks>
+        /// 搜索数据
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<Dtos.PagedList<TEntityDto>> Search(PageRequest request)
+        {
+            IFilterService filterService= App.GetService<IFilterService>();
+
+            Expression<Func<TEntity, bool>> expression= filterService.GetExpression<TEntity>(request.FilterGroups);
+
+            IQueryable<TEntity> queryable = _repository.AsQueryable(false).Where(expression);
+            return await queryable
+                .OrderConditions(request.OrderConditions.ToArray())
+                .Select(x => x.Adapt<TEntityDto>())
+                .ToPageAsync(request.PageIndex,request.PageSize);
         }
     }
 

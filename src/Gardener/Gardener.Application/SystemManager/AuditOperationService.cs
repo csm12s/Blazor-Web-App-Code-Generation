@@ -36,22 +36,7 @@ namespace Gardener.Application.SystemManager
             this._repository = repository;
             _auditEntityRepository = auditEntityRepository;
         }
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <remarks>
-        /// 搜索操作审计
-        /// </remarks>
-        /// <param name="searchInput"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [NonValidation]
-        public async Task<Dtos.PagedList<AuditOperationDto>> Search(AuditOperationSearchInput searchInput)
-        {
-            IQueryable<AuditOperation> queryable = _repository.Where(x => x.IsDeleted == false);
-            AuditOperationDto search = searchInput.SearchData;
-            return await queryable.OrderConditions(searchInput.OrderConditions).Select(x => x.Adapt<AuditOperationDto>()).ToPagedListAsync(searchInput);
-        }
+        
         /// <summary>
         /// 根据操作审计ID获取数据审计
         /// </summary>

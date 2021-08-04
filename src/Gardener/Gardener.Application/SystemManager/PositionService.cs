@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Core;
 using Gardener.Core.Entites;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -36,27 +37,5 @@ namespace Gardener.Application
             this._positionRepository = positionRepository;
         }
 
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        /// <remarks>
-        /// 搜索岗位数据
-        /// </remarks>
-        /// <param name="name">岗位名称</param>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<Dtos.PagedList<PositionDto>> Search([FromQuery] string name,
-            int pageIndex = 1,
-            int pageSize = 10)
-        {
-            return await _positionRepository
-                .Where(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
-                .Where(x => x.IsDeleted == false)
-                .OrderByDescending(x => x.CreatedTime)
-                .Select(x => x.Adapt<PositionDto>())
-                .ToPagedListAsync<PositionDto>(pageIndex, pageSize);
-        }
     }
 }

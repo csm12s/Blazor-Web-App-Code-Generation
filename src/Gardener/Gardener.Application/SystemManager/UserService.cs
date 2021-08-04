@@ -20,6 +20,7 @@ using Furion.FriendlyException;
 using Gardener.Enums;
 using Gardener.Core;
 using Gardener.Application.Interfaces;
+using Furion;
 
 namespace Gardener.Application
 {
@@ -34,6 +35,7 @@ namespace Gardener.Application
         private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<UserExtension> _userExtensionRepository;
         private readonly IRepository<Dept> _deptRepository;
+        private readonly IFilterService _filterService;
         /// <summary>
         /// 用户服务
         /// </summary>
@@ -42,17 +44,20 @@ namespace Gardener.Application
         /// <param name="userRoleRepository"></param>
         /// <param name="roleRepository"></param>
         /// <param name="deptRepository"></param>
+        /// <param name="filterService"></param>
         public UserService(
             IRepository<User> userRepository,
             IRepository<UserExtension> userExtensionRepository,
             IRepository<UserRole> userRoleRepository,
-            IRepository<Role> roleRepository, IRepository<Dept> deptRepository) : base(userRepository)
+            IRepository<Role> roleRepository, IRepository<Dept> deptRepository, 
+            IFilterService filterService) : base(userRepository)
         {
             _userRepository = userRepository;
             _userExtensionRepository = userExtensionRepository;
             _userRoleRepository = userRoleRepository;
             _roleRepository = roleRepository;
             _deptRepository = deptRepository;
+            _filterService = filterService;
         }
 
         /// <summary>
@@ -101,22 +106,21 @@ namespace Gardener.Application
         /// <remarks>
         /// 搜索用户数据
         /// </remarks>
-        /// <param name="deptIds"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<Dtos.PagedList<UserDto>> Search([FromQuery] int [] deptIds, int pageIndex = 1, int pageSize = 10)
+        [HttpPost]
+        public override async Task<Dtos.PagedList<UserDto>> Search(PageRequest request)
         {
+            Expression<Func<User, bool>> expression = _filterService.GetExpression<User>(request.FilterGroups);
             var users = _userRepository
               .Include(u => u.UserExtension)
               .Include(u => u.Dept)
               .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false))
               .Where(u => u.IsDeleted == false && u.IsLocked==false)
-              .Where(deptIds!=null && deptIds.Length>0, u => u.DeptId.HasValue && deptIds.Contains(u.DeptId.Value))
-              .OrderByDescending(x => x.CreatedTime)
+              .Where(expression)
+              .OrderConditions(request.OrderConditions)
               .Select(x=>x.Adapt<UserDto>());
-            var pageList = await users.ToPagedListAsync(pageIndex, pageSize);
+            var pageList = await users.ToPageAsync(request.PageIndex, request.PageSize);
             foreach (var item in pageList.Items)
             {
                 item.Password = null;

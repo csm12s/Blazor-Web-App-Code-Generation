@@ -4,12 +4,26 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Application.Dtos
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Gardener.Enums
 {
     /// <summary>
-    /// 审计操作
+    /// 排序类型
     /// </summary>
-    public class AuditOperationSearchInput : PagedSearchBaseInfo<AuditOperationDto>
+    public enum ListSortType
     {
+        /// <summary>
+        /// 倒序
+        /// </summary>
+        Desc,
+        /// <summary>
+        /// 正序
+        /// </summary>
+        Asc
     }
 }

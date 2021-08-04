@@ -130,6 +130,16 @@
             <param name="isLocked"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Application.ApplicationServiceBase`3.Search(Gardener.Application.Dtos.PageRequest)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索数据
+            </remarks>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.ApplicationServiceBase`1">
             <summary>
             继承此类即可实现基础方法
@@ -158,60 +168,6 @@
             方法包括：CURD、获取全部、分页获取 
             </summary>
             <param name="repository"></param>
-        </member>
-        <member name="T:Gardener.Application.PagedQueryableExtensions">
-            <summary>
-            分部拓展类
-            </summary>
-        </member>
-        <member name="M:Gardener.Application.PagedQueryableExtensions.ToPagedList``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
-            <summary>
-            分页拓展
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="entities"></param>
-            <param name="pageIndex"></param>
-            <param name="pageSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.PagedQueryableExtensions.ToPagedList``1(System.Linq.IQueryable{``0},Gardener.Application.Dtos.PagedSearchBaseInfo)">
-            <summary>
-            分页拓展
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="entities"></param>
-            <param name="pagedSearchBaseInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.PagedQueryableExtensions.ToPagedListAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            分页拓展
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="entities"></param>
-            <param name="pageIndex"></param>
-            <param name="pageSize"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.PagedQueryableExtensions.ToPagedListAsync``1(System.Linq.IQueryable{``0},Gardener.Application.Dtos.PagedSearchBaseInfo,System.Threading.CancellationToken)">
-            <summary>
-            分页拓展
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="entities"></param>
-            <param name="pagedSearchBaseInfo"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.PagedQueryableExtensions.OrderConditions``1(System.Linq.IQueryable{``0},Gardener.Application.Dtos.SearchSort[])">
-            <summary>
-            多字段排序
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="query"></param>
-            <param name="orderConditions"></param>
-            <returns></returns>
         </member>
         <member name="T:Gardener.Application.NewsService">
             <summary>
@@ -279,16 +235,6 @@
             </remarks>
             <param name="ids"></param>
         </member>
-        <member name="M:Gardener.Application.SystemManager.AttachmentService.Search(Gardener.Application.Dtos.AttachmentSearchInput)">
-            <summary>
-            搜索
-            </summary>
-            <remarks>
-            搜索附件数据
-            </remarks>
-            <param name="searchInput"></param>
-            <returns></returns>
-        </member>
         <member name="T:Gardener.Application.SystemManager.AuditEntityService">
             <summary>
             审计数据服务
@@ -300,14 +246,14 @@
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="M:Gardener.Application.SystemManager.AuditEntityService.Search(Gardener.Application.Dtos.AuditEntitySearchInput)">
+        <member name="M:Gardener.Application.SystemManager.AuditEntityService.Search(Gardener.Application.Dtos.PageRequest)">
             <summary>
             搜索
             </summary>
             <remarks>
-            搜索数据审计
+            搜索数据
             </remarks>
-            <param name="searchInput"></param>
+            <param name="request"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Application.SystemManager.AuditOperationService">
@@ -321,16 +267,6 @@
             </summary>
             <param name="repository"></param>
             <param name="auditEntityRepository"></param>
-        </member>
-        <member name="M:Gardener.Application.SystemManager.AuditOperationService.Search(Gardener.Application.Dtos.AuditOperationSearchInput)">
-            <summary>
-            搜索
-            </summary>
-            <remarks>
-            搜索操作审计
-            </remarks>
-            <param name="searchInput"></param>
-            <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.AuditOperationService.GetAuditEntity(System.Guid)">
             <summary>
@@ -364,16 +300,6 @@
             <param name="enableAudit"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.SystemManager.FunctionService.Search(Gardener.Application.Dtos.FunctionSearchInput)">
-            <summary>
-            搜索
-            </summary>
-            <remarks>
-            搜索功能数据
-            </remarks>
-            <param name="searchInput"></param>
-            <returns></returns>
-        </member>
         <member name="M:Gardener.Application.SystemManager.FunctionService.Exists(Gardener.Enums.HttpMethodType,System.String)">
             <summary>
             判断是否存在
@@ -383,12 +309,6 @@
             </remarks>
             <param name="method"></param>
             <param name="path"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.SystemManager.FunctionService.GetEffective">
-            <summary>
-            获取有效的
-            </summary>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.SystemManager.FunctionService.GetSeedData">
@@ -521,18 +441,6 @@
             </summary>
             <param name="positionRepository"></param>
         </member>
-        <member name="M:Gardener.Application.PositionService.Search(System.String,System.Int32,System.Int32)">
-            <summary>
-            搜索
-            </summary>
-            <remarks>
-            搜索岗位数据
-            </remarks>
-            <param name="name">岗位名称</param>
-            <param name="pageIndex">页码</param>
-            <param name="pageSize">分页大小</param>
-            <returns></returns>
-        </member>
         <member name="T:Gardener.Application.ResourceFunctionService">
             <summary>
             资源与接口关系服务
@@ -643,18 +551,6 @@
             <param name="roleRepository"></param>
             <param name="roleResourceRepository"></param>
         </member>
-        <member name="M:Gardener.Application.RoleService.Search(System.String,System.Int32,System.Int32)">
-            <summary>
-            搜索
-            </summary>
-            <remarks>
-            搜索角色数据
-            </remarks>
-            <param name="name">角色名称</param>
-            <param name="pageIndex">页码</param>
-            <param name="pageSize">分页大小</param>
-            <returns></returns>
-        </member>
         <member name="M:Gardener.Application.RoleService.Resource(System.Int32,System.Guid[])">
             <summary>
             分配权限
@@ -674,15 +570,6 @@
             根据角色编号删除所有资源
             </remarks>
             <param name="roleId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Application.RoleService.GetEffective">
-            <summary>
-            获取可用角色
-            </summary>
-            <remarks>
-            获取可用角色
-            </remarks>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.RoleService.GetResource(System.Int32)">
@@ -738,7 +625,7 @@
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.Application.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Dept})">
+        <member name="M:Gardener.Application.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Role},Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Dept},Gardener.Core.IFilterService)">
             <summary>
             用户服务
             </summary>
@@ -747,6 +634,7 @@
             <param name="userRoleRepository"></param>
             <param name="roleRepository"></param>
             <param name="deptRepository"></param>
+            <param name="filterService"></param>
         </member>
         <member name="M:Gardener.Application.UserService.GetRoles(System.Int32)">
             <summary>
@@ -768,16 +656,14 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Application.UserService.Search(System.Int32[],System.Int32,System.Int32)">
+        <member name="M:Gardener.Application.UserService.Search(Gardener.Application.Dtos.PageRequest)">
             <summary>
             搜索
             </summary>
             <remarks>
             搜索用户数据
             </remarks>
-            <param name="deptIds"></param>
-            <param name="pageIndex"></param>
-            <param name="pageSize"></param>
+            <param name="request"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Application.UserService.Update(Gardener.Application.Dtos.UserDto)">

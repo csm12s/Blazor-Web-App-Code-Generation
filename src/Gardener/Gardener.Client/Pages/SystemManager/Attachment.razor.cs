@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mapster;
+using Gardener.Client.Core;
 
 namespace Gardener.Client.Pages.SystemManager
 {
@@ -23,7 +24,6 @@ namespace Gardener.Client.Pages.SystemManager
         ITable _table;
         AttachmentDto[] _datas;
         IEnumerable<AttachmentDto> _selectedRows;
-        AttachmentSearchInput searchInput = new AttachmentSearchInput() ;
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
@@ -35,7 +35,24 @@ namespace Gardener.Client.Pages.SystemManager
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-
+        PageRequest pageRequest = new PageRequest();
+        /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await ReLoadTable();
+        }
+        /// <summary>
+        /// 查询变化
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        private async Task OnChange(QueryModel<AttachmentDto> queryModel)
+        {
+            if (_table != null) { await ReLoadTable(); }
+        }
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -43,7 +60,8 @@ namespace Gardener.Client.Pages.SystemManager
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await attachmentService.Search(searchInput);
+            pageRequest = _table?.GetPageRequest() ?? new PageRequest();
+            var pagedListResult = await attachmentService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -64,21 +82,7 @@ namespace Gardener.Client.Pages.SystemManager
         {
             await ReLoadTable();
         }
-        /// <summary>
-        /// 查询变化
-        /// </summary>
-        /// <param name="queryModel"></param>
-        /// <returns></returns>
-        private async Task OnChange(QueryModel<AttachmentDto> queryModel)
-        {
-
-            //searchInput.OrderConditions = queryModel.
-            //    SortModel.
-            //    Where(x => x.SortType.Value > 0).
-            //    Select(x => x.Adapt<SearchSort>()).ToArray();
-
-            await ReLoadTable();
-        }
+        
         /// <summary>
         /// 点击删除按钮
         /// </summary>

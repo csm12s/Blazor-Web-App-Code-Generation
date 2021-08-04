@@ -27,10 +27,5 @@ namespace Gardener.Client.Services
         {
             return await apiCaller.GetAsync<List<AuditEntityDto>>($"{controller}/{operationId}/audit-entity");
         }
-
-        public async Task<PagedList<AuditOperationDto>> Search(AuditOperationSearchInput searchInput)
-        {
-            return await apiCaller.PostAsync<AuditOperationSearchInput, PagedList<AuditOperationDto>>($"{controller}/search", searchInput);
-        }
     }
 }

@@ -40,7 +40,7 @@
         </FormItem>
         <FormItem Label="性别">
             <RadioGroup @bind-Value="@(model.Gender)">
-                @foreach (var gitem in EnumExtension.EnumToDictionary<Gender>())
+                @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                 {
                     <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
                 }

@@ -72,12 +72,15 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
                     return;
                 }
                 ////回填
-                await _tree.CheckAll(_tree.ChildNodes, (resource) =>
+                foreach (ResourceDto dto in roleResourceResult) 
                 {
-                    Guid id = resource.Id;
-                    if (roleResourceResult == null) return false;
-                    return roleResourceResult.Any(x => x.Id == id && (x.Children == null || !x.Children.Any()));
-                });
+                    TreeNode<ResourceDto> node= _tree.FindFirstOrDefaultNode(node => 
+                    {
+                        return dto.Id.Equals(node.DataItem.Id);
+                    }, true);
+                    if (node != null && node.IsLeaf) { node.SetChecked(true); }
+                }
+
                 _isLoading = false;
             }
         }
@@ -99,20 +102,26 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         {
             _isLoading = true;
 
-            Guid[] resourceIds = new Guid[] { };
+            List<Guid> resourceIds = new List<Guid>();
 
-            if (_tree.CheckedNodes?.Count > 0)
+            if (_tree.CheckedKeys.Length > 0)
             {
-                List<TreeNode<ResourceDto>> parents = new List<TreeNode<ResourceDto>>();
-                _tree.CheckedNodes.ForEach(x =>
+                _tree.CheckedKeys.ForEach(x =>
                 {
-                    parents.AddRange(_tree.GetParents(x));
+                   TreeNode<ResourceDto> node = _tree.FindFirstOrDefaultNode(node => { return node.Key.Equals(x);}, true);
+                    if (node != null)
+                    {
+                        resourceIds.Add(node.DataItem.Id);
+                        List<TreeNode<ResourceDto>> parents = _tree.GetParents(node);
+                        if (parents != null)
+                        {
+                            resourceIds.AddRange(parents.Select(x=>x.DataItem.Id));
+                        }
+                    }
                 });
-                parents.AddRange(_tree.CheckedNodes);
-                resourceIds = parents.Select(x => ((ResourceDto)x.DataItem).Id).Distinct().ToArray();
             }
             //删除所有资源
-            var result = await roleService.Resource(_roleId, resourceIds);
+            var result = await roleService.Resource(_roleId, resourceIds.Distinct().ToArray());
             if (result)
             {
                 messageService.Success("保存成功");
@@ -133,16 +142,14 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         {
             _isExpanded = !_isExpanded;
 
-            var selectedNode = _tree.SelectedNodes?.FirstOrDefault();
-            if (selectedNode != null)
-            {
-                //仅操作选中的节点
-                await _tree.ExpandAll(new List<TreeNode<ResourceDto>> { selectedNode }, _isExpanded);
-            }
-            else
-            {
-                //操作所有的节点
-                await _tree.ExpandAll(_tree.ChildNodes, _isExpanded);
+            //操作所有的节点
+            if (_isExpanded) 
+            { 
+                _tree.ExpandAll();
+            } 
+            else 
+            { 
+                _tree.CollapseAll();
             }
         }
     }

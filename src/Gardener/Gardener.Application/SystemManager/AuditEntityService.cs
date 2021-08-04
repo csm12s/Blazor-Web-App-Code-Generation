@@ -4,14 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion;
 using Furion.DatabaseAccessor;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Core;
 using Gardener.Core.Entites;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Gardener.Application.SystemManager
@@ -31,27 +34,29 @@ namespace Gardener.Application.SystemManager
         {
             this._repository = repository;
         }
+
         /// <summary>
         /// 搜索
         /// </summary>
         /// <remarks>
-        /// 搜索数据审计
+        /// 搜索数据
         /// </remarks>
-        /// <param name="searchInput"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [NonValidation]
-        public async Task<PagedList<AuditEntityDto>> Search(AuditEntitySearchInput searchInput)
+        public override async Task<Dtos.PagedList<AuditEntityDto>> Search(PageRequest request)
         {
+            IFilterService filterService = App.GetService<IFilterService>();
+
+            Expression<Func<AuditEntity, bool>> expression = filterService.GetExpression<AuditEntity>(request.FilterGroups);
+
             IQueryable<AuditEntity> queryable = _repository
                 .Include(x=>x.AuditProperties)
-                .Where(x => x.IsDeleted == false);
-            AuditEntityDto search = searchInput.SearchData;
+                .Where(expression);
             return await queryable
-                .OrderConditions(searchInput.OrderConditions)
+                .OrderConditions(request.OrderConditions)
                 .Select(x => x.Adapt<AuditEntityDto>())
-                .ToPagedListAsync(searchInput);
+                .ToPageAsync(request.PageIndex, request.PageSize);
         }
-       
     }
 }

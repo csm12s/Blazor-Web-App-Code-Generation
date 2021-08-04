@@ -31,7 +31,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
             _userId = this.Options;
             if (_userId > 0)
             {
-                var rolesResult = await roleService.GetEffective();
+                var rolesResult = await roleService.GetAllUsable();
                 if (rolesResult == null || !rolesResult.Any()) 
                 {
                     messageService.Error("没有可用角色，请先添加角色");

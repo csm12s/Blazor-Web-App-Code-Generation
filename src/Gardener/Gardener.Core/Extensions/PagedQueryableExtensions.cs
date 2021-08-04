@@ -4,8 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.FriendlyException;
 using Gardener.Application.Dtos;
-using Mapster;
+using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gardener.Application
+namespace Gardener.Core
 {
     /// <summary>
     /// 分部拓展类
@@ -28,7 +29,7 @@ namespace Gardener.Application
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public static PagedList<TEntity> ToPagedList<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20)
+        public static PagedList<TEntity> ToPage<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20)
             where TEntity : class, new()
         {
             var totalCount = entities.Count();
@@ -51,26 +52,11 @@ namespace Gardener.Application
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="entities"></param>
-        /// <param name="pagedSearchBaseInfo"></param>
-        /// <returns></returns>
-        public static PagedList<TEntity> ToPagedList<TEntity>(this IQueryable<TEntity> entities, PagedSearchBaseInfo pagedSearchBaseInfo)
-            where TEntity : class, new()
-        {
-            int pageIndex = pagedSearchBaseInfo.PageIndex;
-            int pageSize = pagedSearchBaseInfo.PageSize;
-
-            return entities.ToPagedList<TEntity>(pageIndex, pageSize);
-        }
-        /// <summary>
-        /// 分页拓展
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <param name="entities"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static async Task<PagedList<TEntity>> ToPagedListAsync<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20, CancellationToken cancellationToken = default)
+        public static async Task<PagedList<TEntity>> ToPageAsync<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20, CancellationToken cancellationToken = default)
             where TEntity : class, new()
         {
             var totalCount = await entities.CountAsync(cancellationToken);
@@ -89,20 +75,16 @@ namespace Gardener.Application
             };
         }
         /// <summary>
-        /// 分页拓展
+        /// 多字段排序
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <param name="entities"></param>
-        /// <param name="pagedSearchBaseInfo"></param>
-        /// <param name="cancellationToken"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="orderConditions"></param>
         /// <returns></returns>
-        public static async Task<PagedList<TEntity>> ToPagedListAsync<TEntity>(this IQueryable<TEntity> entities, PagedSearchBaseInfo pagedSearchBaseInfo, CancellationToken cancellationToken = default)
-            where TEntity : class, new()
+        public static IQueryable<T> OrderConditions<T>(this IQueryable<T> query, System.Collections.Generic.List<ListSortDirection> orderConditions)
         {
-            int pageIndex = pagedSearchBaseInfo.PageIndex;
-            int pageSize = pagedSearchBaseInfo.PageSize;
-
-            return await entities.ToPagedListAsync<TEntity>(pageIndex, pageSize, cancellationToken);
+            if (orderConditions == null || !orderConditions.Any()) return query;
+            return query.OrderConditions<T>(orderConditions.ToArray());
         }
         /// <summary>
         /// 多字段排序
@@ -111,7 +93,7 @@ namespace Gardener.Application
         /// <param name="query"></param>
         /// <param name="orderConditions"></param>
         /// <returns></returns>
-        public static IQueryable<T> OrderConditions<T>(this IQueryable<T> query,SearchSort[] orderConditions)
+        public static IQueryable<T> OrderConditions<T>(this IQueryable<T> query,ListSortDirection[] orderConditions)
         {
             if (orderConditions == null || !orderConditions.Any()) return query; 
             var parameter = Expression.Parameter(typeof(T), "o");
@@ -120,11 +102,15 @@ namespace Gardener.Application
                 var orderinfo = orderConditions[i];
                 var t = typeof(T);
                 var property = t.GetProperty(orderinfo.FieldName);
+                if (property == null) 
+                {
+                    throw Oops.Oh(ExceptionCode.FIELD_IN_TYPE_NOT_FOUND, orderinfo.FieldName,t.Name);
+                }
                 //创建一个访问属性的表达式
                 var propertyAccess = Expression.MakeMemberAccess(parameter, property);
                 var orderByExp = Expression.Lambda(propertyAccess, parameter);
                 string OrderName = i > 0? "ThenBy" : "OrderBy";
-                OrderName = OrderName + (orderinfo.SortType.Equals(SearchSortType.Desc) ? "Descending" : "");
+                OrderName = OrderName + (orderinfo.SortType.Equals(ListSortType.Desc) ? "Descending" : "");
                 MethodCallExpression resultExp = Expression.Call(typeof(Queryable), OrderName, new Type[] { typeof(T), property.PropertyType }, query.Expression, Expression.Quote(orderByExp));
                 query = query.Provider.CreateQuery<T>(resultExp);
             }

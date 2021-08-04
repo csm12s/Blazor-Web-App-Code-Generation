@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
+using Gardener.Client.Core;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -22,7 +23,6 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         ITable _table;
         AuditOperationDto[] _datas;
         IEnumerable<AuditOperationDto> _selectedRows;
-        AuditOperationSearchInput searchInput = new AuditOperationSearchInput();
         int _total = 0;
         string _name = string.Empty;
         bool _tableIsLoading = false;
@@ -34,12 +34,14 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
+        PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
@@ -48,7 +50,8 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         private async Task ReLoadTable()
         {
             _tableIsLoading = true;
-            var pagedListResult = await AuditOperationService.Search(searchInput);
+            pageRequest = _table?.GetPageRequest() ?? new PageRequest();
+            var pagedListResult = await AuditOperationService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
@@ -76,20 +79,7 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         /// <returns></returns>
         private async Task OnChange(QueryModel<AuditOperationDto> queryModel)
         {
-            searchInput.OrderConditions = queryModel.
-                SortModel.
-                Select(x => x.Adapt<SearchSort>()).ToArray();
-            if (searchInput.OrderConditions.Length == 0)
-            {
-                searchInput.OrderConditions = new[] { 
-                    new SearchSort() 
-                    { 
-                        FieldName=nameof(AuditOperationDto.CreatedTime),
-                        SortType=SearchSortType.Desc 
-                    } 
-                };
-            }
-            await ReLoadTable();
+            if (_table != null) { await ReLoadTable(); }
         }
         /// <summary>
         /// 点击删除按钮

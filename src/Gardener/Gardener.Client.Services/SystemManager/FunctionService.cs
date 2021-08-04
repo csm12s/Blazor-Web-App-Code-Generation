@@ -28,11 +28,6 @@ namespace Gardener.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public async Task<List<FunctionDto>> GetEffective()
-        {
-            return await apiCaller.GetAsync<List<FunctionDto>>($"{controller}/effective");
-        }
-
         public async Task<bool> EnableAudit(Guid id, bool enableAudit=true)
         {
             return await apiCaller.PutAsync<bool, bool>($"{controller}/{id}/enable-audit/{enableAudit}");
@@ -42,11 +37,6 @@ namespace Gardener.Client.Services
         {
             path=HttpUtility.UrlEncode(path);
             return await apiCaller.GetAsync<bool>($"{controller}/exists/{method}/{path}");
-        }
-
-        public async Task<PagedList<FunctionDto>> Search(FunctionSearchInput searchInput)
-        {
-            return await apiCaller.PostAsync<FunctionSearchInput, PagedList<FunctionDto>>($"{controller}/search", searchInput);
         }
 
         public async Task<string> GetSeedData()

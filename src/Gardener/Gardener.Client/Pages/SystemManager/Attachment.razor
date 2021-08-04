@@ -13,8 +13,8 @@
                    DataSource="@_datas"
                    Total="_total"
                    OnChange="@OnChange"
-                   @bind-PageIndex="searchInput.PageIndex"
-                   @bind-PageSize="searchInput.PageSize"
+                   @bind-PageIndex="pageRequest.PageIndex"
+                   @bind-PageSize="pageRequest.PageSize"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
                    Context="model">
@@ -46,21 +46,21 @@
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
                     @*<Column @bind-Field="@model.Id" />*@
-                    <Column @bind-Field="@model.BusinessType">
-                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.BusinessType)"></TagRandomColor>
+                    <Column @bind-Field="@model.BusinessType" TData="AttachmentBusinessType?" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagRandomColor>
                     </Column>
-                    <Column @bind-Field="@model.BusinessId" />
-                    <Column @bind-Field="@model.FileType">
-                        <TagRandomColor Text="@EnumExtension.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
+                    <Column @bind-Field="@model.BusinessId" Filterable/>
+                    <Column @bind-Field="@model.FileType" TData="AttachmentFileType?"  Filters="TableFiltersConstants.AttachmentFileTypeFilters">
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
                     </Column>
-                    <Column @bind-Field="@model.Size">
+                    <Column @bind-Field="@model.Size" Filterable>
                         @model.Size B
                     </Column>
                     @*<Column @bind-Field="@model.Path" />
                     <Column @bind-Field="@model.Name" />*@
-                    <Column @bind-Field="@model.Suffix" />
-                    <Column @bind-Field="@model.OriginalName" Style="max-width:200px" />
-                    <Column Title="文件" @bind-Field="@model.Url">
+                    <Column @bind-Field="@model.Suffix" Filterable/>
+                    <Column @bind-Field="@model.OriginalName" Style="max-width:200px" Filterable/>
+                    <Column Title="文件" @bind-Field="@model.Url" Filterable>
 
                         @if (model.FileType.Equals(AttachmentFileType.Image))
                         {
@@ -81,7 +81,7 @@
                         }
 
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete">

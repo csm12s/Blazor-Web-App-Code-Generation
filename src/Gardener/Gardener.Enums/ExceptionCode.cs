@@ -43,6 +43,21 @@ namespace Gardener.Enums
         /// 未包含文件
         /// </summary>
         [Description("未包含文件")]
-        NO_INCLUD_FILE
+        NO_INCLUD_FILE,
+        /// <summary>
+        /// 条件组中的操作类型错误
+        /// </summary>
+        [Description("条件组中的操作类型错误")]
+        FILTER_GROUP_OPERATE_ERROR,
+        /// <summary>
+        /// 指定的属性“{0}”在类型“{1}”中不存在
+        /// </summary>
+        [Description("指定的属性“{0}”在类型“{1}”中不存在")]
+        FIELD_IN_TYPE_NOT_FOUND,
+        /// <summary>
+        /// 指定的属性“{0}”在类型“{1}”中不存在
+        /// </summary>
+        [Description("查询的值类型“{0}”未找到转换器")]
+        QUERY_VALUE_TYPE_NO_FIND_CONVERTER
     }
 }

@@ -13,9 +13,9 @@
                    TItem="RoleDto"
                    DataSource="@_roles"
                    Total="_total"
-                   OnChange="@onChange"
-                   @bind-PageIndex="_pageIndex"
-                   @bind-PageSize="_pageSize"
+                   OnChange="@OnChange"
+                   @bind-PageIndex="pageRequest.PageIndex"
+                   @bind-PageSize="pageRequest.PageSize"
                    @bind-SelectedRows="_selectedRows"
                    Loading="@_tableIsLoading"
                    Context="model">
@@ -61,15 +61,15 @@
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
                     <Column @bind-Field="@model.Id" Sortable />
-                    <Column @bind-Field="@model.Name" />
-                    <Column @bind-Field="@model.Remark" />
-                    <Column @bind-Field="@model.IsSuperAdministrator">
+                    <Column @bind-Field="@model.Name" Filterable/>
+                    <Column @bind-Field="@model.Remark" Filterable/>
+                    <Column @bind-Field="@model.IsSuperAdministrator" Filterable>
                         <TagYesNo Yes="model.IsSuperAdministrator"></TagYesNo>
                     </Column>
-                    <Column @bind-Field="@model.IsDefault">
+                    <Column @bind-Field="@model.IsDefault" Filterable>
                         <TagYesNo Yes="model.IsDefault"></TagYesNo>
                     </Column>
-                    <Column @bind-Field="@model.IsLocked">
+                    <Column @bind-Field="@model.IsLocked" Filterable>
                         <ResourceAuthorize ResourceKey="system_manager_role_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -79,7 +79,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_role_edit">

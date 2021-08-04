@@ -245,7 +245,7 @@ namespace Gardener.EntityFramwork.Core.DbContexts
             else if (value.GetType().IsSubclassOf(typeof(Enum)))
             {
                 //枚举展示的是Description
-                var des= EnumExtension.GetEnumDescription((Enum)value);
+                var des= EnumHelper.GetEnumDescription((Enum)value);
                 return des ?? value.ToString();
             }
             return value.ToString();
