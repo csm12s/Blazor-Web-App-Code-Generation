@@ -253,7 +253,7 @@ namespace Gardener.Application
         /// <param name="roleIds"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<bool> Role([ApiSeat(ApiSeats.ActionStart)] int userId, int[] roleIds)
+        public async Task<bool> Role([ApiSeat(ApiSeats.ActionStart)] int userId,[FromBody] int[] roleIds)
         {
             //先删除现有的
             var userRoles = await _userRoleRepository.AsQueryable(x => x.UserId == userId).ToListAsync();

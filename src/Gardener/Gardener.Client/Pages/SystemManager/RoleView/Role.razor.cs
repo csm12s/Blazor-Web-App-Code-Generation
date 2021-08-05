@@ -25,20 +25,18 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         ITable _table;
         RoleDto[] _roles;
         IEnumerable<RoleDto> _selectedRows;
-
         int _total = 0;
-        string _name = string.Empty;
         bool _tableIsLoading = false;
+
         [Inject]
-        public MessageService messageService { get; set; }
+        MessageService messageService { get; set; }
         [Inject]
-        public IRoleService roleService { get; set; }
+        IRoleService roleService { get; set; }
         [Inject]
         ConfirmService confirmService { get; set; }
         [Inject]
         DrawerService drawerService { get; set; }
-        [Inject]
-        IAuthorizeService authorizeService { get; set; }
+
         PageRequest pageRequest = new PageRequest();
         /// <summary>
         /// 页面初始化完成
@@ -48,6 +46,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         {
             await ReLoadTable();
         }
+
         /// <summary>
         /// 查询变化
         /// </summary>
@@ -134,7 +133,6 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
             {
                 //刷新列表
                 pageRequest.PageIndex = 1;
-                _name = string.Empty;
                 await ReLoadTable();
             }
         }
