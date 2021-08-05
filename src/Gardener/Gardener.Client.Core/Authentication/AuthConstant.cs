@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Enums;
+
 namespace Gardener.Client.Core
 {
     public static class AuthConstant
@@ -12,14 +14,9 @@ namespace Gardener.Client.Core
         /// 
         /// </summary>
         public static readonly string DefaultAuthenticatedPolicy = "default";
-        /// <summary>
-        /// 登录路由地址
-        /// </summary>
-        public static readonly string LoginUrl = "/auth/login";
-        /// <summary>
         /// 刷新token不存在或已过期异常标识
         /// </summary>
-        public static readonly string RefreshtokenNoExistOrExpireErrorFlag = "REFRESHTOKEN_NO_EXIST_OR_EXPIRE";
+        public static readonly string RefreshtokenNoExistOrExpireErrorFlag = ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString();
         /// <summary>
         /// 
         /// </summary>

@@ -13,8 +13,9 @@ namespace Gardener.Client.Core
     {
         /// <summary>
         /// token刷新间隔（单位：秒）
+        /// token 过期时间是API 配置 JWTSettings.ExpiredTime
         /// </summary>
-        public int RefreshTokenCheckInterval { get; set; } = 30;
+        public int RefreshTokenCheckInterval { get; set; } = 240;
 
         /// <summary>
         /// token刷新过期时间阈值（单位：秒）
