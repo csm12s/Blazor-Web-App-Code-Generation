@@ -12,6 +12,7 @@ using Gardener.Client.Services;
 using Gardener.Client.Constants;
 using System.Globalization;
 using Gardener.Client.Core;
+using AntDesign.ProLayout;
 
 namespace Gardener.Client.Components
 {
@@ -42,7 +43,13 @@ namespace Gardener.Client.Components
                 .Clear()
                 .Add("right");
         }
-
+        public AvatarMenuItem[] AvatarMenuItems { get; set; } = new AvatarMenuItem[]
+        {
+            new() { Key = "center", IconType = "user", Option = "个人中心"},
+            new() { Key = "setting", IconType = "setting", Option = "个人设置"},
+            new() { IsDivider = true },
+            new() { Key = "logout", IconType = "logout", Option = "退出登录"}
+        };
         public async Task HandleSelectUser(MenuItem item)
         {
             switch (item.Key)

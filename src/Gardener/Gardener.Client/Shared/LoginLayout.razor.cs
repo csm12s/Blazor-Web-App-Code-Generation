@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign.Pro.Layout;
+using AntDesign.ProLayout;
 using Gardener.Client.Core;
 using Gardener.Client.Services;
 using Microsoft.AspNetCore.Components;
