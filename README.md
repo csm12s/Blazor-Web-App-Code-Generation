@@ -16,6 +16,7 @@
 - 附件管理
 - 操作审计
 - 数据审计
+- 登录Token管理
 
 ## 项目特点
 - 新：.Net5 、Blazor WebAssembly 、Furion ；全部新鲜。
