@@ -21,11 +21,6 @@ namespace Gardener.Application.Dtos
         [DisplayName("编号")]
         public TKey Id { get; set; }
         /// <summary>
-        /// 创建日期
-        /// </summary>
-        [DisplayName("创建时间")]
-        public DateTimeOffset CreatedTime { get; set; }
-        /// <summary>
         /// 是否锁定
         /// </summary>
         [DisplayName("是否锁定")]
@@ -35,5 +30,15 @@ namespace Gardener.Application.Dtos
         /// </summary>
         [DisplayName("是否删除")]
         public bool IsDeleted { get; set; }
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        [DisplayName("创建时间")]
+        public DateTimeOffset CreatedTime { get; set; }
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        [DisplayName("更新时间")]
+        public DateTimeOffset? UpdatedTime { get; set; }
     }
 }

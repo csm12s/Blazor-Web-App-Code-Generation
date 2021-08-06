@@ -4,18 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DatabaseAccessor;
 using Gardener.Enums;
 using System;
 using System.ComponentModel;
 
-namespace Gardener.Core.Entites
+namespace Gardener.Application.Dtos
 {
     /// <summary>
     /// 用户Token信息
     /// </summary>
     [Description("用户Token信息")]
-    public class UserToken : GardenerEntityBase<Guid>
+    public class UserTokenDto : BaseDto<Guid>
     {
         /// <summary>
         /// 用户id
@@ -26,7 +25,8 @@ namespace Gardener.Core.Entites
         /// <summary>
         /// 用户信息
         /// </summary>
-        public User User { get; set; }
+        [DisplayName("用户信息")]
+        public UserDto User { get; set; }
 
         /// <summary>
         /// 获取或设置 客户端Id

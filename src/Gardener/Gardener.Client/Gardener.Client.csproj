@@ -32,10 +32,12 @@
     <SolutionDir>./</SolutionDir>
   </PropertyGroup>
   
-  <ItemGroup>
+  <!--<ItemGroup>
     <Watch Include="**\*.razor" />
     <Watch Include="**\*.less" />
-  </ItemGroup>
+  </ItemGroup>-->
+  
+
 
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">

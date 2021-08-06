@@ -75,7 +75,7 @@ namespace Gardener.Core
         {
             var (oldRefreshToken, principal) = ReadToken(refreshTokenStr, JwtTokenType.RefreshToken);
 
-            UserToken refreshToken = _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
+            UserToken refreshToken = _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked==false && x.UserId == oldRefreshToken.UserId && x.ClientId.Equals(oldRefreshToken.ClientId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
 
             //异常token检测
             if (refreshToken == null || refreshToken.Value != refreshTokenStr || refreshToken.EndTime <= DateTimeOffset.UtcNow)
@@ -110,21 +110,28 @@ namespace Gardener.Core
             };
             //创建刷新token
             var (newRefreshToken, refreshTokenExpires) = CreateToken(claims, JwtTokenType.RefreshToken, refreshToken);
-            //写入刷新token
-            await _repository.InsertAsync(new UserToken()
+            if (refreshToken == null)
             {
-                UserId = userId,
-                ClientId = clientId,
-                LoginClientType=clientType,
-                Value = newRefreshToken,
-                EndTime = refreshTokenExpires,
-                CreatedTime=DateTimeOffset.UtcNow
-            });
-            //新的刷新token已经创建，删除上次的
-            if (refreshToken != null)
-            {
-                await _repository.FakeDeleteAsync(refreshToken);
+                //写入刷新token
+                await _repository.InsertAsync(new UserToken()
+                {
+                    UserId = userId,
+                    ClientId = clientId,
+                    LoginClientType = clientType,
+                    Value = newRefreshToken,
+                    EndTime = refreshTokenExpires,
+                    CreatedTime = DateTimeOffset.UtcNow
+                });
             }
+            else 
+            {
+                //更新token
+                refreshToken.UpdatedTime = DateTimeOffset.Now;
+                refreshToken.Value = newRefreshToken;
+                refreshToken.EndTime = refreshTokenExpires;
+                await _repository.UpdateAsync(refreshToken);
+            }
+            
             //New AccessToken
             var (newAccessToken, accessTokenExpires) = CreateToken(claims, JwtTokenType.AccessToken);
 

@@ -37,7 +37,7 @@ namespace Gardener.Client.Core
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<TResponse>>();
                     if (!result.Succeeded)
                     {
-                        await log.Error(result.Errors?.ToString(), result.StatusCode);
+                        log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
                         if (result.StatusCode == 500 && result.Errors?.ToString().IndexOf(AuthConstant.RefreshtokenNoExistOrExpireErrorFlag) >= 0)
                         {
@@ -49,7 +49,7 @@ namespace Gardener.Client.Core
                     return result.Data;
                 }
                 //请求失败 
-                await log.Error("请求失败", (int)httpResponse.StatusCode);
+                log.Error("请求失败", (int)httpResponse.StatusCode);
                 //身份验证失败
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                 {
@@ -60,7 +60,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                await log.Error(ex.Message, -999, ex);
+                log.Error(ex.Message, -999, ex);
                 return default(TResponse);
             }
         }
@@ -72,7 +72,7 @@ namespace Gardener.Client.Core
                 if (!HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
                     //请求失败
-                    await log.Error("请求失败", (int)httpResponse.StatusCode);
+                    log.Error("请求失败", (int)httpResponse.StatusCode);
                     //身份验证失败
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                     {
@@ -84,7 +84,7 @@ namespace Gardener.Client.Core
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<Object>>();
                     if (!result.Succeeded)
                     {
-                        await log.Error(result.Errors?.ToString(), result.StatusCode);
+                        log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
                         if (result.StatusCode == 500 && result.Errors?.ToString().IndexOf(AuthConstant.RefreshtokenNoExistOrExpireErrorFlag) >= 0)
                         {
@@ -95,7 +95,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                await log.Error(ex.Message, -999, ex);
+                log.Error(ex.Message, -999, ex);
             }
         }
         private string GetUrl(string url, IDictionary<string, object> queryString = null)

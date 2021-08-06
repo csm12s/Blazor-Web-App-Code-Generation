@@ -56,11 +56,11 @@ namespace Gardener.Application
         /// <returns></returns>
         public virtual async Task<TEntityDto> Insert(TEntityDto input)
         {
-            DateTimeOffset defaultValue = input.GetPropertyValue<TEntityDto, DateTimeOffset>("CreatedTime");
+            DateTimeOffset defaultValue = input.GetPropertyValue<TEntityDto, DateTimeOffset>(nameof(GardenerEntityBase.CreatedTime));
 
             if (defaultValue.Equals(default(DateTimeOffset)))
             {
-                input.SetPropertyValue("CreatedTime", DateTimeOffset.Now);
+                input.SetPropertyValue(nameof(GardenerEntityBase.CreatedTime), DateTimeOffset.Now);
             }
 
             var newEntity = await _repository.InsertNowAsync(input.Adapt<TEntity>());
@@ -77,8 +77,8 @@ namespace Gardener.Application
         /// <returns></returns>
         public virtual async Task<bool> Update(TEntityDto input)
         {
-            input.SetPropertyValue("UpdatedTime", DateTimeOffset.Now);
-            await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { "CreatedTime" });
+            input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
+            await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime) });
             return true;
         }
 
@@ -234,7 +234,8 @@ namespace Gardener.Application
             var entity = await _repository.FindAsync(id);
             if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsLocked), isLocked))
             {
-                await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked) });
+                entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
+                await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked), nameof(GardenerEntityBase.UpdatedTime) });
                 return true;
             }
             return false;
@@ -252,7 +253,12 @@ namespace Gardener.Application
         public virtual async Task<Dtos.PagedList<TEntityDto>> Search(PageRequest request)
         {
             IFilterService filterService= App.GetService<IFilterService>();
-
+            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
+            {
+                FilterGroup defaultFilterGroup = new FilterGroup();
+                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, Enums.FilterOperate.Equal));
+                request.FilterGroups.Add(defaultFilterGroup);
+            }
             Expression<Func<TEntity, bool>> expression= filterService.GetExpression<TEntity>(request.FilterGroups);
 
             IQueryable<TEntity> queryable = _repository.AsQueryable(false).Where(expression);

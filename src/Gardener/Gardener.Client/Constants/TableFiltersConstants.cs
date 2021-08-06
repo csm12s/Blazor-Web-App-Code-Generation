@@ -33,5 +33,9 @@ namespace Gardener.Client.Constants
         /// 
         /// </summary>
         public readonly static TableFilter<AttachmentFileType?>[] AttachmentFileTypeFilters = EnumHelper.EnumToList<AttachmentFileType>().Select(x => { return new TableFilter<AttachmentFileType?>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly static TableFilter<LoginClientType>[] LoginClientTypeFilters = EnumHelper.EnumToList<LoginClientType>().Select(x => { return new TableFilter<LoginClientType>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
     }
 }
