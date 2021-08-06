@@ -320,6 +320,27 @@
             </remarks>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Application.SystemManager.UserTokenService">
+            <summary>
+            用户登录TOKEN服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.UserTokenService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.UserToken})">
+            <summary>
+            用户登录TOKEN服务
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Application.SystemManager.UserTokenService.Search(Gardener.Application.Dtos.PageRequest)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索数据
+            </remarks>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.AuthorizeService">
             <summary>
             权限认证服务

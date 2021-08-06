@@ -59,6 +59,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            _loading = true;
             //根据资源编号获取关联的接口
             List<FunctionDto> _oldFunctionDtos = await resourceService.GetFunctions(this.Options.Id);
             if (this.Options.Type == 0)
@@ -94,6 +95,7 @@ namespace Gardener.Client.Pages.SystemManager.ResourceView
             //    serviceFilters.Add(new TableFilter<string>() { Text = x, Value = x });
 
             //});
+            _loading = false;
 
         }
         /// <summary>

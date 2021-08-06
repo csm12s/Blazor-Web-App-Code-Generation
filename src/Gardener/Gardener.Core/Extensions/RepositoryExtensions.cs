@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Common;
 using Gardener.Core.Entites;
+using System;
 using System.Threading.Tasks;
 
 namespace Gardener.Core
@@ -27,7 +28,8 @@ namespace Gardener.Core
         {
             if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
             {
-                await repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsDeleted) });
+                entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
+                await repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsDeleted), nameof(GardenerEntityBase.UpdatedTime) });
             }
         }
         /// <summary>

@@ -16,8 +16,6 @@ using Microsoft.Extensions.Logging;
 using System.Reflection;
 using Gardener.Client.Services;
 using Gardener.Client.Core;
-using Gardener.Clientt.Core;
-using Gardener.Application.Interfaces;
 
 namespace Gardener.Client
 {
