@@ -17,12 +17,16 @@ namespace Gardener.Common
         /// <returns></returns>
         public static AttachmentFileType GetAttachmentFileType(string contentType)
         {
+            if (string.IsNullOrEmpty(contentType))
+            {
+                return AttachmentFileType.Other;
+            }
+            contentType = contentType.Split("/")[0];
             switch (contentType)
             {
-                case "image/png": return AttachmentFileType.Image;
-                case "image/jpg": return AttachmentFileType.Image;
-                case "image/jpeg": return AttachmentFileType.Image;
-                case "image/gif": return AttachmentFileType.Image;
+                case "image": return AttachmentFileType.Image;
+                case "video": return AttachmentFileType.Video;
+                case "audio": return AttachmentFileType.Audio;
                 default:return AttachmentFileType.Other;
             }
         }

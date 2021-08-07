@@ -6,32 +6,23 @@
 
 using System.ComponentModel;
 
-namespace Gardener.Enums
+namespace Gardener.Application.Dtos
 {
     /// <summary>
-    /// 上传文件类型
+    /// 
     /// </summary>
-    public enum AttachmentFileType
+    [Description("图片验证码")]
+    public class ImageVerifyCodeDto
     {
         /// <summary>
-        /// 图片
+        /// 验证码唯一键
         /// </summary>
-        [Description("图片")]
-        Image,
+        [DisplayName("验证码唯一键")]
+        public string Key { get; set; }
         /// <summary>
-        /// 视频
+        /// Base64图片
         /// </summary>
-        [Description("视频")]
-        Video,
-        /// <summary>
-        /// 音频
-        /// </summary>
-        [Description("音频")]
-        Audio,
-        /// <summary>
-        /// Other
-        /// </summary>
-        [Description("其他")]
-        Other
+        [DisplayName("Base64图片")]
+        public string Base64Image { get; set; }
     }
 }

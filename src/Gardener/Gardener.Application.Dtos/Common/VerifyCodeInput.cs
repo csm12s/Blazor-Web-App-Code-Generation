@@ -5,33 +5,26 @@
 // -----------------------------------------------------------------------------
 
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Enums
+namespace Gardener.Application.Dtos
 {
     /// <summary>
-    /// 上传文件类型
+    /// 验证码输入
     /// </summary>
-    public enum AttachmentFileType
+    public class VerifyCodeInput
     {
         /// <summary>
-        /// 图片
+        /// 验证码Key
         /// </summary>
-        [Description("图片")]
-        Image,
+        [Required(ErrorMessage = "验证码Key不能为空。")]
+        [DisplayName("验证码Key")]
+        public string VerifyCodeKey { get; set; }
         /// <summary>
-        /// 视频
+        /// 验证码
         /// </summary>
-        [Description("视频")]
-        Video,
-        /// <summary>
-        /// 音频
-        /// </summary>
-        [Description("音频")]
-        Audio,
-        /// <summary>
-        /// Other
-        /// </summary>
-        [Description("其他")]
-        Other
+        [Required(ErrorMessage = "验证码不能为空。")]
+        [DisplayName("验证码")]
+        public string VerifyCode { get; set; }
     }
 }

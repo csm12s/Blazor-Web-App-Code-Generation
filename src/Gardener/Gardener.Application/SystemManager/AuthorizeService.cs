@@ -21,6 +21,7 @@ using Gardener.Core;
 using Gardener.Application.Interfaces;
 using Gardener.Attributes;
 using Microsoft.EntityFrameworkCore;
+using Gardener.Core.VerifyCode;
 
 namespace Gardener.Application
 {
@@ -34,6 +35,7 @@ namespace Gardener.Application
         private readonly IRepository<User> _userRepository;
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IJwtBearerService _jwtBearerService;
+        private readonly IImageVerifyCodeService _imageVerifyCodeService;
         /// <summary>
         /// 资源仓储
         /// </summary>
@@ -51,13 +53,14 @@ namespace Gardener.Application
             IRepository<User> userRepository,
             IAuthorizationManager authorizationManager,
             IJwtBearerService jwtBearerService,
-            IRepository<Resource> resourceRepository)
+            IRepository<Resource> resourceRepository, IImageVerifyCodeService imageVerifyCodeService)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _authorizationManager = authorizationManager;
             _jwtBearerService = jwtBearerService;
             _resourceRepository = resourceRepository;
+            _imageVerifyCodeService = imageVerifyCodeService;
         }
 
         /// <summary>
@@ -66,9 +69,14 @@ namespace Gardener.Application
         /// <param name="input"></param>
         /// <remarks>登录接口</remarks>
         /// <returns></returns>
-        [AllowAnonymous, IgnoreAudit]
+        [AllowAnonymous, IgnoreAudit, VerifyCodeAutoVerification]
         public async Task<TokenOutput> Login(LoginInput input)
         {
+            //if (!await _imageVerifyCodeService.Verify(input.VerifyCodeKey, input.VerifyCode))
+            //{
+            //    throw Oops.Oh(ExceptionCode.VERIFY_CODE_VERIFICATION_FAILED);
+            //}
+
             // 验证用户是否存在
             var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
             if (user.IsLocked) throw Oops.Oh(ExceptionCode.USER_LOCKED);

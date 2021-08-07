@@ -724,6 +724,253 @@
             <param name="encryptKey"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Core.VerifyCode.IImageVerifyCodeService">
+            <summary>
+            校验码服务接口
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.IImageVerifyCodeService.CreateFromType(Gardener.Enums.CodeCharacterTypeEnum)">
+            <summary>
+            创建校验码
+            </summary>
+            <param name="codeType">验证码类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.IImageVerifyCodeService.Create(Gardener.Core.VerifyCode.ImageVerifyCodeCreateParam)">
+            <summary>
+            创建校验码
+            </summary>
+            <param name="param">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.IImageVerifyCodeService.Verify(System.String,System.String)">
+            <summary>
+            验证校验码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.ImageVerifyCodeService">
+            <summary>
+            图片验证码服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.ImageVerifyCodeService.#ctor(Gardener.Core.VerifyCode.IImageVerifyCodeStoreService,Microsoft.Extensions.Options.IOptions{Gardener.Core.VerifyCode.ImageVerifyCodeSettings})">
+            <summary>
+            图片验证码服务
+            </summary>
+            <param name="store"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.ImageVerifyCodeService.CreateFromType(Gardener.Enums.CodeCharacterTypeEnum)">
+            <summary>
+            创建校验码
+            </summary>
+            <param name="codeType">验证码类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.ImageVerifyCodeService.Create(Gardener.Core.VerifyCode.ImageVerifyCodeCreateParam)">
+            <summary>
+            创建校验码
+            </summary>
+            <param name="param">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.ImageVerifyCodeService.InnerCreate(Gardener.Core.VerifyCode.ImageVerifyCodeCreateParam)">
+            <summary>
+            
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.ImageVerifyCodeService.Verify(System.String,System.String)">
+            <summary>
+            校验校验码
+            </summary>
+            <param name="key"></param>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.ImageVerifyCodeCreateParam">
+            <summary>
+            生成校验码参数
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeCreateParam.FontSize">
+            <summary>
+            校验码字体大小
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeCreateParam.CharacterCount">
+            <summary>
+            校验码字符数量
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeCreateParam.Type">
+            <summary>
+            校验码类别,有三种类别可选，分别是纯数字，纯字符，数字加字符
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.ImageVerifyCodeInfo">
+            <summary>
+            验证码信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeInfo.Key">
+            <summary>
+            校验码KEY，校验时回传
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeInfo.Code">
+            <summary>
+            校验码（注意：校验码字段只做程序调试使用，不可传递到前端）
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeInfo.Image">
+            <summary>
+            校验码图片
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.ImageVerifyCodeSettings">
+            <summary>
+            图片验证码
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeSettings.CodeCacheExpire">
+            <summary>
+            校验码缓存时间(默认10分钟)
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeSettings.CodeFontSize">
+            <summary>
+            校验码字体大小（默认18）
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeSettings.CodeCharacterCount">
+            <summary>
+            校验码字符数量（默认4个字符）
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeSettings.CodeType">
+            <summary>
+            校验码类别,有三种类别可选，分别是纯数字，纯字符，数字加字符
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeSettings.IgnoreCase">
+            <summary>
+            是否忽略字母大小写(默认为true)
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.ImageVerifyCodeSettings.UseOnce">
+            <summary>
+            只验证一次（验证通过后，删除校验码，防止用一个校验码反复提交）
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCode">
+            <summary>
+            图片验证码
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCode.Key">
+            <summary>
+            验证码唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCode.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCode.EndTime">
+            <summary>
+            获取或设置 过期时间
+            </summary>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCodeDbStoreService">
+            <summary>
+            图片验证码数据库存储服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCodeDbStoreService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCode})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCodeDbStoreService.Add(System.String,System.String,System.TimeSpan)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="code"></param>
+            <param name="expire"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCodeDbStoreService.GetCode(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.Store.DbStore.ImageVerifyCodeDbStoreService.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.IImageVerifyCodeStoreService">
+            <summary>
+            图片验证码存储
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.IImageVerifyCodeStoreService.Add(System.String,System.String,System.TimeSpan)">
+            <summary>
+            保存校验码
+            </summary>
+            <param name="key"></param>
+            <param name="code"></param>
+            <param name="expire"></param>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.IImageVerifyCodeStoreService.GetCode(System.String)">
+            <summary>
+            获取校验码
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.IImageVerifyCodeStoreService.Remove(System.String)">
+            <summary>
+            移除校验码
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.VerifyCode.VerifyCodeAutoVerificationFilter">
+            <summary>
+            验证码自动验证过滤器
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.VerifyCodeAutoVerificationFilter.#ctor(Gardener.Core.VerifyCode.IImageVerifyCodeService)">
+            <summary>
+            
+            </summary>
+            <param name="imageVerifyCodeService"></param>
+        </member>
+        <member name="M:Gardener.Core.VerifyCode.VerifyCodeAutoVerificationFilter.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.VerifyCodeAutoVerificationAttribute">
+            <summary>
+            验证码自动验证
+            但是要保证参数要继承<see cref="T:Gardener.Application.Dtos.VerifyCodeInput"/>
+            </summary>
+        </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.AuditServiceCollectionExtensions">
             <summary>
             审计
@@ -744,6 +991,18 @@
         <member name="M:Microsoft.Extensions.DependencyInjection.SecurityServiceCollectionExtensions.AddSecurity(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             添加安全服务
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.VerifyCodeAutoVerificationExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.VerifyCodeAutoVerificationExtensions.AddVerifyCodeAutoVerification(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加审计服务
             </summary>
             <param name="services"></param>
             <returns></returns>

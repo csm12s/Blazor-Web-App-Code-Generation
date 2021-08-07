@@ -351,7 +351,7 @@
             资源仓储
             </summary>
         </member>
-        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Gardener.Core.IAuthorizationManager,Gardener.Core.IJwtBearerService,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource})">
+        <member name="M:Gardener.Application.AuthorizeService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.User},Gardener.Core.IAuthorizationManager,Gardener.Core.IJwtBearerService,Furion.DatabaseAccessor.IRepository{Gardener.Core.Entites.Resource},Gardener.Core.VerifyCode.IImageVerifyCodeService)">
             <summary>
             角色管理服务
             </summary>
@@ -735,6 +735,24 @@
             更新用户的头像
             </remarks>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Application.VerifyCodeService">
+            <summary>
+            验证码服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.VerifyCodeService.#ctor(Gardener.Core.VerifyCode.IImageVerifyCodeService)">
+            <summary>
+            验证码服务
+            </summary>
+            <param name="imageVerifyCodeService"></param>
+        </member>
+        <member name="M:Gardener.Application.VerifyCodeService.GetImageVerifyCode(Gardener.Enums.CodeCharacterTypeEnum)">
+            <summary>
+            获取图片验证码
+            </summary>
+            <param name="codeType">类型</param>
             <returns></returns>
         </member>
     </members>

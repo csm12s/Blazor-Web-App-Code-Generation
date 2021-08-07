@@ -6,6 +6,7 @@
 
 using Furion;
 using Gardener.Core.FileStore;
+using Gardener.Core.VerifyCode;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Gardener.Core
@@ -22,8 +23,10 @@ namespace Gardener.Core
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddConfigurableOptions<JwtRefreshTokenSettings>()
+            services
+                .AddConfigurableOptions<JwtRefreshTokenSettings>()
                 .AddConfigurableOptions<LocalFileStoreSettings>()
+                .AddConfigurableOptions<ImageVerifyCodeSettings>()
                 .AddRemoteRequest();
         }
     }

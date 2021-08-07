@@ -21,6 +21,8 @@ namespace Gardener.Web.Core
             services.AddSecurity();
             //审计
             services.AddAudit();
+            //验证码自动验证
+            services.AddVerifyCodeAutoVerification();
             //注册跨域
             services.AddCorsAccessor();
             //注册控制器和视图

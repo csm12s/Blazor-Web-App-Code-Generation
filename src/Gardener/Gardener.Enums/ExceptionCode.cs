@@ -35,6 +35,11 @@ namespace Gardener.Enums
         [Description("用户名或密码错误")]
         USER_NAME_OR_PASSWORD_ERROR,
         /// <summary>
+        /// 验证码验证失败
+        /// </summary>
+        [Description("验证码验证失败")]
+        VERIFY_CODE_VERIFICATION_FAILED,
+        /// <summary>
         /// 用户名重复
         /// </summary>
         [Description("用户名重复")]

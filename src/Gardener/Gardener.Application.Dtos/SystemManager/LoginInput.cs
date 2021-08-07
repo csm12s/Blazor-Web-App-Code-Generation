@@ -13,7 +13,7 @@ namespace Gardener.Application.Dtos
     /// <summary>
     /// 登录输入参数
     /// </summary>
-    public class LoginInput
+    public class LoginInput: VerifyCodeInput
     {
         /// <summary>
         /// 用户名

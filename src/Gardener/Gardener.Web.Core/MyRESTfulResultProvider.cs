@@ -35,13 +35,14 @@ namespace Gardener.Web.Core
         {
             // 解析异常信息
             var (StatusCode, ErrorCode, Errors) = UnifyContext.GetExceptionMetadata(context);
-
+            string errorCode = ErrorCode?.ToString();
+            string errors = Errors == null ? null : Errors.ToString().Replace("["+errorCode+"]","");
             return new JsonResult(new
             {
                 StatusCode = StatusCode,
                 Succeeded = false,
-                Errors = Errors,
-                ErrorCode= ErrorCode?.ToString(),
+                Errors = errors,
+                ErrorCode= errorCode,
                 Extras = UnifyContext.Take(),
                 Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
             });
