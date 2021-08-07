@@ -84,11 +84,6 @@ namespace Gardener.Client.Core
             //RefreshToken已经过期了
             if (currentToken.RefreshTokenExpires < DateTimeOffset.Now.ToUnixTimeSeconds()) { await Logout(); return; }
             //AccessToken时间还很充裕
-            Console.Write(currentToken.AccessTokenExpires);
-            Console.Write(" - ");
-            Console.Write(DateTimeOffset.Now.ToUnixTimeSeconds());
-            Console.Write(" = ");
-            Console.WriteLine(currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds());
             if (currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold) return;
             //拿到新的token
             var tokenResult = await authorizeService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
