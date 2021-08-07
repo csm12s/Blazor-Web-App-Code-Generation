@@ -64,11 +64,15 @@
 
 ## 界面展示
 
-<img src="https://images.gitee.com/uploads/images/2020/1204/160750_e2d69ed2_302533.png" width="260px"/>
-<img src="https://images.gitee.com/uploads/images/2020/1204/160739_fe82dff5_302533.png" width="260px"/>
-<img src="https://images.gitee.com/uploads/images/2021/0110/204258_f869ad45_302533.png" width="260px"/>
-<img src="https://images.gitee.com/uploads/images/2021/0110/204309_f9c711ba_302533.png" width="260px"/>
-<img src="https://images.gitee.com/uploads/images/2021/0110/204318_0cb9fadc_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0807/101651_4fed42b7_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0807/101709_a9342323_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0807/101720_47067234_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0807/101731_7dd825d7_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0807/101742_918c9d0a_302533.png" width="260px"/>
+
+<img src="https://images.gitee.com/uploads/images/2021/0807/101926_87c9983b_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0807/101940_8e831f99_302533.png" width="260px"/>
+<img src="https://images.gitee.com/uploads/images/2021/0807/101951_6a928009_302533.png" width="260px"/>
 
 ## 贡献代码
 
