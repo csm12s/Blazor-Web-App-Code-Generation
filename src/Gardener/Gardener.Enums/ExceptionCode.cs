@@ -15,6 +15,16 @@ namespace Gardener.Enums
     public enum ExceptionCode
     {
         /// <summary>
+        /// 身份验证失败
+        /// </summary>
+        [Description("身份验证失败")]
+        UNAUTHORIZED,
+        /// <summary>
+        /// 拒绝访问资源
+        /// </summary>
+        [Description("拒绝访问资源")]
+        FORBIDDEN,
+        /// <summary>
         /// 用户锁定
         /// </summary>
         [Description("用户锁定")]

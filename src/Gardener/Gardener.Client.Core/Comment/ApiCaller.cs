@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Gardener.Enums;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Gardener.Client.Core
@@ -39,7 +40,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
-                        if (result.StatusCode == 500 && result.Errors?.ToString().IndexOf(AuthConstant.RefreshtokenNoExistOrExpireErrorFlag) >= 0)
+                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
@@ -86,7 +87,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
-                        if (result.StatusCode == 500 && result.Errors?.ToString().IndexOf(AuthConstant.RefreshtokenNoExistOrExpireErrorFlag) >= 0)
+                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }

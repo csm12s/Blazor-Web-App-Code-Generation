@@ -8,6 +8,8 @@ using Furion;
 using Furion.DataValidation;
 using Furion.DependencyInjection;
 using Furion.UnifyResult;
+using Gardener.Common;
+using Gardener.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -32,13 +34,14 @@ namespace Gardener.Web.Core
         public IActionResult OnException(ExceptionContext context)
         {
             // 解析异常信息
-            var (StatusCode, _, Errors) = UnifyContext.GetExceptionMetadata(context);
+            var (StatusCode, ErrorCode, Errors) = UnifyContext.GetExceptionMetadata(context);
 
             return new JsonResult(new
             {
                 StatusCode = StatusCode,
                 Succeeded = false,
                 Errors = Errors,
+                ErrorCode= ErrorCode?.ToString(),
                 Extras = UnifyContext.Take(),
                 Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
             });
@@ -110,7 +113,8 @@ namespace Gardener.Web.Core
                     {
                         StatusCode = StatusCodes.Status401Unauthorized,
                         Succeeded = false,
-                        Errors = "401 Unauthorized",
+                        Errors = EnumHelper.GetEnumDescription(ExceptionCode.UNAUTHORIZED),
+                        ErrorCode = ExceptionCode.UNAUTHORIZED,
                         Extras = UnifyContext.Take(),
                         Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                     }, App.GetOptions<JsonOptions>()?.JsonSerializerOptions);
@@ -121,7 +125,8 @@ namespace Gardener.Web.Core
                     {
                         StatusCode = StatusCodes.Status403Forbidden,
                         Succeeded = false,
-                        Errors = "403 Forbidden",
+                        Errors = EnumHelper.GetEnumDescription(ExceptionCode.FORBIDDEN),
+                        ErrorCode = ExceptionCode.FORBIDDEN,
                         Extras = UnifyContext.Take(),
                         Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                     }, App.GetOptions<JsonOptions>()?.JsonSerializerOptions);

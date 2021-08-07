@@ -14,9 +14,6 @@ namespace Gardener.Client.Core
         /// 
         /// </summary>
         public static readonly string DefaultAuthenticatedPolicy = "default";
-        /// 刷新token不存在或已过期异常标识
-        /// </summary>
-        public static readonly string RefreshtokenNoExistOrExpireErrorFlag = ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString();
         /// <summary>
         /// 
         /// </summary>

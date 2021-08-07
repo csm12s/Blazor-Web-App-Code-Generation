@@ -44,6 +44,11 @@ namespace Gardener.Client.Core
         public object Errors { get; set; }
 
         /// <summary>
+        /// 错误码
+        /// </summary>
+        public object ErrorCode { get; set; }
+
+        /// <summary>
         /// 附加数据
         /// </summary>
         public object Extras { get; set; }
