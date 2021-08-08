@@ -78,17 +78,17 @@ namespace Gardener.Application
             //}
 
             // 验证用户是否存在
-            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
-            if (user.IsLocked) throw Oops.Oh(ExceptionCode.USER_LOCKED);
+            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Bah(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
+            if (user.IsLocked) throw Oops.Bah(ExceptionCode.USER_LOCKED);
             //密码是否正确
             var encryptedPassword = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
             if (!encryptedPassword.Equals(user.Password))
             {
-                throw Oops.Oh(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
+                throw Oops.Bah(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
             }
             var token = await _jwtBearerService.CreateToken(user.Id, input.LoginClientType);
             // 设置 Swagger 刷新自动授权
-            _httpContextAccessor.SigninToSwagger(token.AccessToken);
+            _httpContextAccessor.HttpContext.SigninToSwagger(token.AccessToken);
             return token.Adapt<TokenOutput>();
         }
         /// <summary>

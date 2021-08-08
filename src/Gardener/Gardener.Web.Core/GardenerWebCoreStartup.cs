@@ -67,8 +67,6 @@ namespace Gardener.Web.Core
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseSpecificationDocuments();
-
             app.UseInject();
 
             app.UseEndpoints(endpoints =>

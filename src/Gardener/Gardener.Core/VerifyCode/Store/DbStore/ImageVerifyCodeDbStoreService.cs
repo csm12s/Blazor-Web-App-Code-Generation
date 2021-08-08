@@ -60,7 +60,7 @@ namespace Gardener.Core.VerifyCode.Store.DbStore
                 return null;
             }
             await _repository.DeleteNowAsync(verifyCode);
-            if (verifyCode.EndTime.CompareTo(DateTimeOffset.Now) >= 0)
+            if (verifyCode.EndTime.CompareTo(DateTimeOffset.Now) <= 0)
             {
                 return null;
             }

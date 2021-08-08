@@ -104,8 +104,8 @@ namespace Gardener.Core.VerifyCode
         {
             //code为空，直接返回错误
             if (string.IsNullOrEmpty(code)) return false;
-
-            bool success = string.Compare( await this.store.GetCode(key), code, settings.IgnoreCase) == 0;
+            string dbCode = await this.store.GetCode(key);
+            bool success = string.Compare(dbCode, code, settings.IgnoreCase) == 0;
             if (success && settings.UseOnce)
             {
                 await this.store.Remove(key);

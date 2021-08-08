@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Threading.Tasks;
 using Gardener.Application.Interfaces;
 using Gardener.Client.Core;
+using Gardener.Client.Components;
 
 namespace Gardener.Client.Pages
 {
@@ -26,8 +27,10 @@ namespace Gardener.Client.Pages
         public IAuthorizeService AuthorizeService { get; set; }
         [Inject]
         public NavigationManager Navigation { get; set; }
-        [Inject] 
+        [Inject]
         public IAuthenticationStateManager authenticationStateManager { get; set; }
+       
+        private ImageVerifyCode _imageVerifyCode;
 
         private string returnUrl;
 
@@ -49,8 +52,8 @@ namespace Gardener.Client.Pages
             {
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
-           
         }
+        
         private async Task OnLogin()
         {
             loading = true;
@@ -63,6 +66,7 @@ namespace Gardener.Client.Pages
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
             else {
+                await _imageVerifyCode.ReLoadVerifyCode();
                 loading = false;
                 MsgSvr.Error($"登录失败");
                 //await InvokeAsync(StateHasChanged);

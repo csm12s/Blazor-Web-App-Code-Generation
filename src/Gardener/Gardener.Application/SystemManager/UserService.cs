@@ -140,7 +140,7 @@ namespace Gardener.Application
         {
             if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.Id!=input.Id, false))
             {
-                throw Oops.Oh(ExceptionCode.USER_NAME_REPEAT);
+                throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
             }
             //不操作角色关系
             input.Roles = null;
@@ -197,7 +197,7 @@ namespace Gardener.Application
         {
             if (_userRepository.Any(x => x.UserName.Equals(input.UserName), false))
             {
-                throw Oops.Oh(ExceptionCode.USER_NAME_REPEAT);
+                throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
             }
 
             //未传入密码时，自动生成密码
