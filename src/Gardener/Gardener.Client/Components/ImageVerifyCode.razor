@@ -1,5 +1,8 @@
-﻿<a  @onclick="ReLoadVerifyCode">
-    <Spin Spinning="isLoading">
-        <Image Style="@Style" Src="@verifyCodeImage" Preview="false" />
-    </Spin>
-</a>
+﻿
+    <a @onclick="ReLoadVerifyCode">
+        <Spin Spinning="isLoading">
+            <Tooltip Placement="@PlacementType.Right" Title="@("点击刷新")">
+                <Image Style="@Style" Src="@verifyCodeImage" Preview="false" />
+            </Tooltip>
+        </Spin>
+    </a>

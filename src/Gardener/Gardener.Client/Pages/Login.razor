@@ -27,10 +27,10 @@
                         <FormItem Label="验证码">
                             <Row>
                                 <AntDesign.Col Span="18">
-                                    <Input Placeholder="验证码" Size="large" @bind-Value="@context.VerifyCode" />
+                                    <AntDesign.Input Placeholder="验证码" Size="large" @bind-Value="@context.VerifyCode" />
                                 </AntDesign.Col>
                                 <AntDesign.Col Span="6">
-                                    <ImageVerifyCode @bind-Key="@context.VerifyCodeKey" @ref="_imageVerifyCode"></ImageVerifyCode>
+                                    <ImageVerifyCode @bind-VerifyCodeKey="@context.VerifyCodeKey" @ref="_imageVerifyCode"></ImageVerifyCode>
                                     @*<Image Style="height:38px;margin-left:2px;" Src="@verifyCodeImage" Preview="false" />*@
                                 </AntDesign.Col>
                             </Row>
