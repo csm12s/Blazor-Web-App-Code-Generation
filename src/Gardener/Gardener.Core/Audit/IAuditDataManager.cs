@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Core.Entites;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,27 +17,22 @@ namespace Gardener.Core.Audit
     public interface IAuditDataManager
     {
         /// <summary>
-        /// 获取 实体审计数据
+        /// 
         /// </summary>
-        /// <returns></returns>
-        public List<AuditEntity> GetAuditEntities();
+        /// <param name="eventData"></param>
+        /// <param name="result"></param>
+        public Task SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result);
         /// <summary>
-        /// 设置实体审计数据
+        /// 数据保存后
         /// </summary>
-        /// <param name="auditEntitys"></param>
-        /// <returns></returns>
-        public void SetAuditEntitys(List<AuditEntity> auditEntitys);
+        /// <param name="eventData"></param>
+        /// <param name="result"></param>
+        public Task SavedChangesEvent(SaveChangesCompletedEventData eventData, int result);
+
         /// <summary>
-        /// 保存
-        /// </summary>
-        /// <param name="auditEntitys"></param>
-        /// <returns></returns>
-        public Task SaveAuditEntitys(List<AuditEntity> auditEntitys);
-        /// <summary>
-        /// 保存
+        /// 保存操作审计
         /// </summary>
         /// <param name="auditOperation"></param>
-        /// <returns></returns>
         public Task SaveAuditOperation(AuditOperation auditOperation);
     }
 }

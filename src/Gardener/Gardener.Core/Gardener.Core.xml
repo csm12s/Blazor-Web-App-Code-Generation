@@ -75,19 +75,6 @@
             </summary>
             <param name="auditOperation"></param>
         </member>
-        <member name="M:Gardener.Core.Audit.AuditDataManager.GetAuditEntities">
-            <summary>
-            获取 实体审计数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.Audit.AuditDataManager.SetAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
-            <summary>
-            设置实体审计数据
-            </summary>
-            <param name="auditEntitys"></param>
-            <returns></returns>
-        </member>
         <member name="M:Gardener.Core.Audit.AuditDataManager.SaveAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
             <summary>
             保存实体审计数据
@@ -95,37 +82,61 @@
             <param name="auditEntitys"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.SavingChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="eventData"></param>
+            <param name="result"></param>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.SavedChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="eventData"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.GetAuditProperties(Gardener.Enums.OperationType,Microsoft.EntityFrameworkCore.ChangeTracking.PropertyValues,Microsoft.EntityFrameworkCore.ChangeTracking.PropertyValues)">
+            <summary>
+            获取属性审计信息
+            </summary>
+            <param name="operationType"></param>
+            <param name="currentValues"></param>
+            <param name="originalValues"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Core.Audit.AuditDataManager.ValueToString(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Core.Audit.IAuditDataManager">
             <summary>
             当前请求的审计数据管理
             </summary>
         </member>
-        <member name="M:Gardener.Core.Audit.IAuditDataManager.GetAuditEntities">
+        <member name="M:Gardener.Core.Audit.IAuditDataManager.SavingChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32})">
             <summary>
-            获取 实体审计数据
+            
             </summary>
-            <returns></returns>
+            <param name="eventData"></param>
+            <param name="result"></param>
         </member>
-        <member name="M:Gardener.Core.Audit.IAuditDataManager.SetAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
+        <member name="M:Gardener.Core.Audit.IAuditDataManager.SavedChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32)">
             <summary>
-            设置实体审计数据
+            数据保存后
             </summary>
-            <param name="auditEntitys"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Core.Audit.IAuditDataManager.SaveAuditEntitys(System.Collections.Generic.List{Gardener.Core.Entites.AuditEntity})">
-            <summary>
-            保存
-            </summary>
-            <param name="auditEntitys"></param>
-            <returns></returns>
+            <param name="eventData"></param>
+            <param name="result"></param>
         </member>
         <member name="M:Gardener.Core.Audit.IAuditDataManager.SaveAuditOperation(Gardener.Core.Entites.AuditOperation)">
             <summary>
-            保存
+            保存操作审计
             </summary>
             <param name="auditOperation"></param>
-            <returns></returns>
         </member>
         <member name="T:Gardener.Core.DataFilter.FilterHelper">
             <summary>

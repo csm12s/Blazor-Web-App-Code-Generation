@@ -70,57 +70,11 @@ namespace Gardener.EntityFramwork.Core.DbContexts
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="result"></param>
-        protected override void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
+        protected override async void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
         {
             IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
             if (auditDataManager == null) return;
-            ILogger<GardenerDbContext> _logger = App.GetService<ILogger<GardenerDbContext>>();
-            try
-            {
-                // 获取当前事件对应上下文
-                var dbContext = eventData.Context;
-                // 获取所有实体  
-                var entitys = dbContext.ChangeTracker.Entries().Where(w =>
-                w.Entity.GetType() != typeof(AuditEntity)
-                && w.Entity.GetType() != typeof(AuditOperation)
-                && w.Entity.GetType() != typeof(AuditProperty)
-                && w.Entity.GetType() != typeof(UserToken)
-                && (w.State == EntityState.Added || w.State == EntityState.Modified || w.State == EntityState.Deleted)
-                );
-                if (!entitys.Any()) return;
-                var user = App.GetService<IAuthorizationManager>().GetUser();
-                List<AuditEntity> auditEntities = new List<AuditEntity>();
-                foreach (var entity in entitys)
-                {
-                    // 获取实体的类型
-                    var entityType = entity.Entity.GetType();
-                    // 获取实体当前的值
-                    var currentValues = entity.CurrentValues;
-                    AuditEntity auditEntity = new AuditEntity();
-                    auditEntity.TypeName = entityType.FullName;
-                    auditEntity.Name = entityType.GetDescription();
-                    auditEntity.OperaterId = user != null ? user.Id.ToString() : null;
-                    auditEntity.OperaterName = user != null ? (user.NickName ?? user.UserName) : null;
-                    auditEntity.OperationId = Guid.NewGuid();
-                    auditEntity.CurrentValues = currentValues;
-                    auditEntity.OldValues = entity.GetDatabaseValues();
-                    auditEntity.CreatedTime = DateTimeOffset.Now;
-                    switch (entity.State)
-                    {
-                        case EntityState.Modified: auditEntity.OperationType = OperationType.Update; break;
-                        case EntityState.Added: auditEntity.OperationType = OperationType.Add; break;
-                        case EntityState.Deleted: auditEntity.OperationType = OperationType.Delete; break;
-                    }
-                    //记录下变化的实体
-                    auditEntities.Add(auditEntity);
-                }
-                auditDataManager.SetAuditEntitys(auditEntities);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "审计日志异常");
-
-            }
+            await auditDataManager.SavingChangesEvent(eventData, result);
         }
         /// <summary>
         /// 数据保存后
@@ -131,125 +85,9 @@ namespace Gardener.EntityFramwork.Core.DbContexts
         {
             IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
             if (auditDataManager == null) return;
-            ILogger<GardenerDbContext> _logger = App.GetService<ILogger<GardenerDbContext>>();
-            try
-            {
-                List<AuditEntity> auditEntitys = auditDataManager.GetAuditEntities();
-                if (auditEntitys == null) return;
-
-                foreach (var entity in auditEntitys)
-                {
-                    var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
-                    entity.DataId = string.Join(',', pkValues);
-                    entity.AuditProperties = auditProperties;
-                }
-               await auditDataManager.SaveAuditEntitys(auditEntitys);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "审计日志异常");
-
-            }
+            await auditDataManager.SavedChangesEvent(eventData,result);
 
         }
-        /// <summary>
-        /// 获取属性审计信息
-        /// </summary>
-        /// <param name="operationType"></param>
-        /// <param name="currentValues"></param>
-        /// <param name="originalValues"></param>
-        /// <returns></returns>
-        private (List<object> ,ICollection<AuditProperty>) GetAuditProperties(OperationType operationType,PropertyValues currentValues, PropertyValues originalValues)
-        {
-            ICollection<AuditProperty> auditProperties = new List<AuditProperty>();
-            List<object> pkValues = new List<object>();
 
-            // 获取实体的所有属性，排除【NotMapper】属性
-            var props = currentValues.Properties;
-            // 遍历所有的属性
-            foreach (var prop in props)
-            {
-                //不需要审计
-                if (prop.PropertyInfo.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) continue;
-                // 获取属性值
-                var propName = prop.Name;
-                // 获取属性当前的值
-                var newValue = currentValues[propName];
-
-                //添加的时候，空值字段就不记录了
-                if (OperationType.Add.Equals(operationType) && string.IsNullOrEmpty(ValueToString(newValue))) continue;
-                object oldValue = null;
-                if (originalValues != null)
-                {
-                    oldValue = originalValues[propName];
-                }
-                //是主键
-                IKey pk = prop.FindContainingPrimaryKey();
-                if (pk != null && (newValue != null || oldValue != null))
-                {
-                    pkValues.Add(newValue ?? oldValue);
-                }
-                //更新的话需对比到底有没有变化
-                if (operationType.Equals(OperationType.Update) && 
-                        (
-                            (newValue == null && oldValue == null) 
-                            || 
-                            (newValue != null && newValue.Equals(oldValue))
-                        )
-                    ) continue;
-                var property = new AuditProperty()
-                {
-                    DisplayName = prop.PropertyInfo.GetDescription(),
-                    FieldName = propName,
-                    OriginalValue = ValueToString(oldValue),
-                    CreatedTime=DateTimeOffset.Now
-                };
-                if (!operationType.Equals(OperationType.Delete))
-                {
-                    property.NewValue = ValueToString(newValue);
-                }
-                Type fieldType = prop.PropertyInfo.PropertyType;
-                if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                {
-                    property.DataType = fieldType.GetGenericArguments()[0].Name;
-                }
-                else
-                {
-                    property.DataType = prop.PropertyInfo.PropertyType.Name;
-                }
-                auditProperties.Add(property);
-            }
-
-            return (pkValues, auditProperties);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private string ValueToString(Object value)
-        {
-            if (value == null) return null;
-            if (value is DateTime)
-            {
-                if (value.Equals(DateTime.MinValue)) return null;
-            }
-            else if (value is DateTimeOffset)
-            {
-                if (value.Equals(DateTimeOffset.MinValue)) return null;
-            }
-            else if (value is Guid)
-            {
-                if (value.Equals(Guid.Empty)) return null;
-            }
-            else if (value.GetType().IsSubclassOf(typeof(Enum)))
-            {
-                //枚举展示的是Description
-                var des= EnumHelper.GetEnumDescription((Enum)value);
-                return des ?? value.ToString();
-            }
-            return value.ToString();
-
-        }
     }
 }

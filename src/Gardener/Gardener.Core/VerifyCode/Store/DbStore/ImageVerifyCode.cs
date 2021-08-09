@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using Gardener.Core.Entites;
 using System;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace Gardener.Core.VerifyCode.Store.DbStore
     /// 图片验证码
     /// </summary>
     [Description("图片验证码")]
+    [IgnoreAudit]
     public class ImageVerifyCode : GardenerEntityBase<Guid>
     {
         /// <summary>

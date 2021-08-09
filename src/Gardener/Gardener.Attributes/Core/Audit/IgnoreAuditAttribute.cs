@@ -11,7 +11,7 @@ namespace Gardener.Attributes
     /// <summary>
     /// 忽略操作审计、数据审计
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method)]
     public class IgnoreAuditAttribute : Attribute
     {
     }
