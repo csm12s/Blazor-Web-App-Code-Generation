@@ -62,8 +62,8 @@ namespace Gardener.Core.Entites
         public IEnumerable<UserRole> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[] {
-                new UserRole{ UserId = 1, RoleId = 1, CreatedTime = DateTimeOffset.Now },
-                new UserRole{ UserId = 2, RoleId = 2, CreatedTime = DateTimeOffset.Now }
+                new UserRole{ UserId = 1, RoleId = 1, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
+                new UserRole{ UserId = 2, RoleId = 2, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) }
             };
         }
     }

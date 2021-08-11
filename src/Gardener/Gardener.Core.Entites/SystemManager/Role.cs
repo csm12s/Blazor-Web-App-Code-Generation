@@ -99,11 +99,11 @@ namespace Gardener.Core.Entites
             {
                 new Role
                 {
-                    Id=1,Name="超级管理员",Remark="拥有所有权限",IsSuperAdministrator=true,CreatedTime=DateTimeOffset.Now
+                    Id=1,Name="超级管理员",Remark="拥有所有权限",IsSuperAdministrator=true,CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)
                 },
                 new Role
                 {
-                    Id=2,Name="浏览者",Remark="只能浏览",CreatedTime=DateTimeOffset.Now
+                    Id=2,Name="浏览者",Remark="只能浏览",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)
                 }
             };
         }
