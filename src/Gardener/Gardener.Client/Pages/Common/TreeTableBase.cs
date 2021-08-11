@@ -30,6 +30,19 @@ namespace Gardener.Client.Pages
         [Inject]
         DrawerService drawerService { get; set; }
         /// <summary>
+        /// 组件渲染后
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                //首次渲染 触发table OnChange
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>

@@ -42,7 +42,20 @@ namespace Gardener.Client.Pages.SystemManager
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await ReLoadTable();
+            
+        }
+        /// <summary>
+        /// 组件渲染后
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                //首次渲染 触发table OnChange
+                await InvokeAsync(StateHasChanged);
+            }
         }
         /// <summary>
         /// 查询变化
@@ -51,7 +64,7 @@ namespace Gardener.Client.Pages.SystemManager
         /// <returns></returns>
         private async Task OnChange(QueryModel<AttachmentDto> queryModel)
         {
-            if (_table != null) { await ReLoadTable(); }
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
