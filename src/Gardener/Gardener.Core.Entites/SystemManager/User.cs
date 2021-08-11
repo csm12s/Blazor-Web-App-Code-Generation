@@ -153,7 +153,7 @@ namespace Gardener.Core.Entites
         /// <returns></returns>
         public IEnumerable<User> HasData(DbContext dbContext, Type dbContextLocator)
         {
-            string passwordEncryptKey = Guid.NewGuid().ToString();
+            string passwordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4";
             return new[]
             {
                 new User
@@ -164,7 +164,7 @@ namespace Gardener.Core.Entites
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
                     Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
-                    CreatedTime=DateTimeOffset.Now,
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
                 },
@@ -176,7 +176,7 @@ namespace Gardener.Core.Entites
                     PasswordEncryptKey=passwordEncryptKey,
                     Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
                     Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
-                    CreatedTime=DateTimeOffset.Now,
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=3,
                     PositionId=2
                 }
