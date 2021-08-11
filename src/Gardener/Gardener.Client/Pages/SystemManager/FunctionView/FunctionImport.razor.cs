@@ -75,10 +75,11 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         {
             _loading = true;
             _functionDtos = new List<FunctionDto>();
-            _functionDtos = await swaggerService.GetFunctionsFromJson(_apiJsonUrl);
-            if (_functionDtos != null)
+            var result = await swaggerService.GetFunctionsFromJson(_apiJsonUrl);
+            if (result != null)
             {
-                _functionDtos.ForEach(x => x.Group = _selectedGroup.Title);
+                result.ForEach(x => x.Group = _selectedGroup.Title);
+                _functionDtos = result;
             }
             _loading = false;
 

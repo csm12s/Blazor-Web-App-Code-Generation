@@ -6,6 +6,7 @@
 
 using Furion;
 using Furion.DynamicApiController;
+using Furion.FriendlyException;
 using Furion.RemoteRequest.Extensions;
 using Furion.SpecificationDocument;
 using Gardener.Application.Dtos;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -41,7 +43,15 @@ namespace Gardener.Application
         {
             url = HttpUtility.UrlDecode(url);
 
-            var swaggerInfo = await url.GetAsAsync<SwaggerModel>();
+            var swaggerInfo = await url.OnException((res, errors) =>
+            {
+
+                if (!res.StatusCode.Equals(HttpStatusCode.OK))
+                {
+                    throw Oops.Bah(ExceptionCode.REQUEST_URL_IS_INVALID);
+                }
+
+            }).GetAsAsync<SwaggerModel>();
 
             return swaggerInfo;
         }
@@ -55,7 +65,7 @@ namespace Gardener.Application
         public async Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup()
         {
             // 载入配置
-            SpecificationDocumentSettingsOptions options= App.GetOptions<SpecificationDocumentSettingsOptions>();
+            SpecificationDocumentSettingsOptions options = App.GetOptions<SpecificationDocumentSettingsOptions>();
             if (options == null) return null;
             return options.GroupOpenApiInfos.Select(x => x.Adapt<SwaggerSpecificationOpenApiInfoDto>()).ToList();
         }
