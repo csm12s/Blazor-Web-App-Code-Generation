@@ -44,9 +44,20 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await ReLoadTable();
         }
-
+        /// <summary>
+        /// 组件渲染后
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                //首次渲染 触发table OnChange
+                await InvokeAsync(StateHasChanged);
+            }
+        }
         /// <summary>
         /// 查询变化
         /// </summary>
@@ -54,7 +65,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         /// <returns></returns>
         private async Task OnChange(QueryModel<RoleDto> queryModel)
         {
-            if (_table != null) { await ReLoadTable(); }
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
@@ -85,7 +96,7 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         {
             await ReLoadTable();
         }
-        
+
         /// <summary>
         /// 点击删除按钮
         /// </summary>

@@ -41,7 +41,20 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await ReLoadTable();
+            
+        }
+        /// <summary>
+        /// 组件渲染后
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                //首次渲染 触发table OnChange
+                await InvokeAsync(StateHasChanged);
+            }
         }
         /// <summary>
         /// 查询变化
@@ -50,7 +63,7 @@ namespace Gardener.Client.Pages.SystemManager.AuditView
         /// <returns></returns>
         private async Task OnChange(QueryModel<AuditEntityDto> queryModel)
         {
-            if (_table != null) { await ReLoadTable(); }
+            await ReLoadTable();
         }
         /// <summary>
         /// 刷新页面
