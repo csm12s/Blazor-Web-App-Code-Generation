@@ -40,7 +40,20 @@ namespace Gardener.Client.Pages.SystemManager.UserTokenView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await ReLoadTable();
+            
+        }
+        /// <summary>
+        /// 组件渲染后
+        /// </summary>
+        /// <param name="firstRender"></param>
+        /// <returns></returns>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                //首次渲染 触发table OnChange
+                await InvokeAsync(StateHasChanged);
+            }
         }
         /// <summary>
         /// 刷新页面
@@ -57,7 +70,7 @@ namespace Gardener.Client.Pages.SystemManager.UserTokenView
         /// <returns></returns>
         private async Task OnChange(QueryModel<UserTokenDto> queryModel)
         {
-            if (_table != null) { await ReLoadTable(); }
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table

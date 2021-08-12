@@ -100,7 +100,7 @@ namespace Gardener.Application.SystemManager
                 sb.Append($"{nameof(Function.Description)}=\"{item.Description}\",");
                 sb.Append($"{nameof(Function.Path)}=\"{item.Path}\",");
                 sb.Append($"{nameof(Function.Method)}=(HttpMethodType){(int)item.Method},");
-                sb.Append($"{nameof(Function.CreatedTime)}= DateTimeOffset.Now");
+                sb.Append($"{nameof(Function.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.UtcNow.ToUnixTimeSeconds()})");
                 sb.Append("},");
             }
             return sb.ToString().TrimEnd(',');

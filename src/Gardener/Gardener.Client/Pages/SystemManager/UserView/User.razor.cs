@@ -53,7 +53,6 @@ namespace Gardener.Client.Pages.SystemManager.UserView
             _deptTreeIsLoading = true;
             depts = await deptService.GetTree();
             _deptTreeIsLoading = false;
-            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table
@@ -70,10 +69,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// <returns></returns>
         private async Task OnChange(QueryModel<UserDto> queryModel)
         {
-            if (_table != null)
-            {
-                await ReLoadTable();
-            }
+            await ReLoadTable();
         }
         /// <summary>
         /// 重新加载table

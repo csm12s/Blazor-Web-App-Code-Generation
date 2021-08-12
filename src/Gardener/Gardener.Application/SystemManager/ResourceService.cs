@@ -100,7 +100,7 @@ namespace Gardener.Application
                 sb.Append($"{nameof(Resource.Remark)}=\"{resource.Remark}\",");
                 sb.Append($"{nameof(Resource.Key)}=\"{resource.Key}\",");
                 sb.Append($"{nameof(Resource.Path)}=\"{resource.Path}\",");
-                sb.Append($"{nameof(Resource.CreatedTime)}=DateTimeOffset.Now,");
+                sb.Append($"{nameof(Resource.CreatedTime)}=DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.UtcNow.ToUnixTimeSeconds()}),");
                 sb.Append($"{nameof(Resource.IsDeleted)}={resource.IsDeleted.ToString().ToLower()},");
                 sb.Append($"{nameof(Resource.IsLocked)}={resource.IsLocked.ToString().ToLower()},");
                 sb.Append($"{nameof(Resource.Type)}=(ResourceType){((int)resource.Type)},");

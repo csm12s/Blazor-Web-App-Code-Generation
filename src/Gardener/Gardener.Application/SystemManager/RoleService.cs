@@ -113,7 +113,7 @@ namespace Gardener.Application
                 sb.Append("{");
                 sb.Append($"{nameof(RoleResource.RoleId)}={roleResource.RoleId},");
                 sb.Append($"{nameof(RoleResource.ResourceId)} = Guid.Parse(\"{roleResource.ResourceId}\"),");
-                sb.Append($"{nameof(RoleResource.CreatedTime)}= DateTimeOffset.Now");
+                sb.Append($"{nameof(RoleResource.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.UtcNow.ToUnixTimeSeconds()})");
                 sb.Append("},");
             }
             return sb.ToString().TrimEnd(',');
