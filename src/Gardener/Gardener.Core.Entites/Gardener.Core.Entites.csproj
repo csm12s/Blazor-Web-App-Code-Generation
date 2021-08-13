@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Gardener.Core.Entites.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Furion" Version="2.16.9" />
   </ItemGroup>
 

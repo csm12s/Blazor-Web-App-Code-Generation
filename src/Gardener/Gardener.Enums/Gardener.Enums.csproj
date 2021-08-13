@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Gardener.Enums.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Gardener.Attributes\Gardener.Attributes.csproj" />
   </ItemGroup>
 
