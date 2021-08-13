@@ -190,15 +190,12 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
         /// <param name="isLocked"></param>
         private async Task OnChangeIsLocked(RoleDto model, bool isLocked)
         {
-            Task.Run(async () =>
+            var result = await roleService.Lock(model.Id, isLocked);
+            if (!result)
             {
-                var result = await roleService.Lock(model.Id, isLocked);
-                if (!result)
-                {
-                    model.IsLocked = !isLocked;
-                    messageService.Error("锁定失败");
-                }
-            });
+                model.IsLocked = !isLocked;
+                messageService.Error("锁定/解锁失败");
+            }
         }
 
         /// <summary>

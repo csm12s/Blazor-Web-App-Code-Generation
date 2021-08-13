@@ -147,15 +147,12 @@ namespace Gardener.Client.Pages.SystemManager.UserTokenView
         /// <param name="isLocked"></param>
         private async Task OnChangeIsLocked(UserTokenDto model, bool isLocked)
         {
-            Task.Run(async () =>
+            var result = await userTokenService.Lock(model.Id, isLocked);
+            if (!result)
             {
-                var result = await userTokenService.Lock(model.Id, isLocked);
-                if (!result)
-                {
-                    model.IsLocked = !isLocked;
-                    messageService.Error("锁定失败");
-                }
-            });
+                model.IsLocked = !isLocked;
+                messageService.Error("锁定/解锁失败");
+            }
         }
 
     }

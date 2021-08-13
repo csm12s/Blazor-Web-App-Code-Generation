@@ -116,7 +116,7 @@ namespace Gardener.Application
               .Include(u => u.UserExtension)
               .Include(u => u.Dept)
               .Include(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false))
-              .Where(u => u.IsDeleted == false && u.IsLocked==false)
+              .Where(u => u.IsDeleted == false)
               .Where(expression)
               .OrderConditions(request.OrderConditions)
               .Select(x=>x.Adapt<UserDto>());

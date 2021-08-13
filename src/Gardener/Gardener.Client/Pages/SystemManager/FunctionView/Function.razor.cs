@@ -154,15 +154,12 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         /// <param name="isLocked"></param>
         private async Task OnChangeIsLocked(FunctionDto model, bool isLocked)
         {
-            Task.Run(async () =>
+            var result = await functionService.Lock(model.Id, isLocked);
+            if (!result)
             {
-                var result = await functionService.Lock(model.Id, isLocked);
-                if (!result)
-                {
-                    model.IsLocked = !isLocked;
-                    messageService.Error("锁定失败");
-                }
-            });
+                model.IsLocked = !isLocked;
+                messageService.Error("锁定/解锁失败");
+            }
         }
 
         // <summary>
@@ -172,15 +169,12 @@ namespace Gardener.Client.Pages.SystemManager.FunctionView
         /// <param name="isLocked"></param>
         private async Task OnChangeEnableAudit(FunctionDto model, bool enableAudit)
         {
-            Task.Run(async () =>
+            var result = await functionService.EnableAudit(model.Id, enableAudit);
+            if (!result)
             {
-                var result = await functionService.EnableAudit(model.Id, enableAudit);
-                if (!result)
-                {
-                    model.EnableAudit = !enableAudit;
-                    messageService.Error((enableAudit?"启用":"禁用")+"失败");
-                }
-            });
+                model.EnableAudit = !enableAudit;
+                messageService.Error((enableAudit ? "启用" : "禁用") + "失败");
+            }
         }
         
 

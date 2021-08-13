@@ -176,15 +176,12 @@ namespace Gardener.Client.Pages.SystemManager.PositionView
         /// <param name="isLocked"></param>
         private async Task OnChangeIsLocked(PositionDto model, bool isLocked)
         {
-            Task.Run(async () =>
+            var result = await positionService.Lock(model.Id, isLocked);
+            if (!result)
             {
-                var result = await positionService.Lock(model.Id, isLocked);
-                if (!result)
-                {
-                    model.IsLocked = !isLocked;
-                    messageService.Error("锁定失败");
-                }
-            });
+                model.IsLocked = !isLocked;
+                messageService.Error("锁定/解锁失败");
+            }
         }
     }
 }
