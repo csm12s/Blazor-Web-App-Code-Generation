@@ -40,7 +40,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
-                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+                        if (result.StatusCode == 500 && ((int)ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE).ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
@@ -87,7 +87,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
-                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+                        if (result.StatusCode == 500 && ((int)ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE).ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
