@@ -61,7 +61,6 @@
 `Gardener.EntityFramwork.Core/dbsettings.json`
 `Gardener.EntityFramwork.Core/GardenerEntityFrameworkCoreStartup`
 调整后开始迁移，设置Gardener.Web.Entry 为启动项目，打开 工具=> Nuget包管理器=> 程序包管理器控制台，控制台默认项目选 Gardener.Database.Migrations， 执行EF迁移命令`Add-Migration v0.0.1 -Context GardenerDbContext`，`Update-Database v0.0.1 -Context GardenerDbContext`即可。
-- client 打不开：client默认端口是 44388，在 `Gardener.Client/launchSettings.json`中可以调整，浏览器应打开 https://localhost:44388
 - 开发页面时如何热更新：在Gardener.Client目录执行`dotnet watch run`(最新vs2019 Ctrl+f5 即可热更新)
 
 ## 界面展示
