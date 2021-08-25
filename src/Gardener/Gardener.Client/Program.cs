@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using System.Reflection;
 using Gardener.Client.Services;
 using Gardener.Client.Core;
+using Microsoft.Extensions.Configuration;
 
 namespace Gardener.Client
 {
@@ -26,11 +27,14 @@ namespace Gardener.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             #region api settings
-            builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+            builder.AddApiSetting();
             #endregion
 
             #region httpclient
-            builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiSettings:BaseAddres")?.Value) });
+            builder.Services.AddSingleton(sp => {
+                ApiSettings settings = sp.GetService<ApiSettings>();
+                return new HttpClient { BaseAddress = new Uri(settings.BaseAddres) }; 
+            });
             #endregion
 
             #region log

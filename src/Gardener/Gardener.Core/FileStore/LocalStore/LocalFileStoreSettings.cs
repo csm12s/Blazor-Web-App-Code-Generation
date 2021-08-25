@@ -14,13 +14,9 @@ namespace Gardener.Core.FileStore
     public class LocalFileStoreSettings : IConfigurableOptions
     {
         /// <summary>
-        /// 存储的基础目录
-        /// 为空时，默认是wwwroot/upload 路径
+        /// 存储的基础目录,在wwwroot下
+        /// 为空时，默认是upload 路径
         /// </summary>
         public string BaseDirectory { get; set; }
-        /// <summary>
-        /// 文件访问路径
-        /// </summary>
-        public string BaseUrl { get; set; }
     }
 }

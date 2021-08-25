@@ -112,10 +112,10 @@ namespace Gardener.Client.Pages.SystemManager.RoleView
                     if (node != null)
                     {
                         resourceIds.Add(node.DataItem.Id);
-                        List<TreeNode<ResourceDto>> parents = _tree.GetParents(node);
-                        if (parents != null)
+                        List<TreeNode<ResourceDto>> predecessors = node.GetPredecessors();
+                        if (predecessors != null)
                         {
-                            resourceIds.AddRange(parents.Select(x=>x.DataItem.Id));
+                            resourceIds.AddRange(predecessors.Select(x=>x.DataItem.Id));
                         }
                     }
                 });

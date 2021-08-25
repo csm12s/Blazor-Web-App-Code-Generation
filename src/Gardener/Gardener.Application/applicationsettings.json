@@ -96,7 +96,7 @@
     ]
   },
   "LocalFileStoreSettings": {
-    "BaseUrl": "https://localhost:44323/upload/"
+    "BaseDirectory": "upload"
   },
   "Serilog": {
     "MinimumLevel": {

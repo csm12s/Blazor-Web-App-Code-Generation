@@ -6,7 +6,9 @@
 
 using Furion.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -21,14 +23,20 @@ namespace Gardener.Core.FileStore
         private LocalFileStoreSettings _localFileStoreSettings;
         private readonly IWebHostEnvironment _hostingEnvironment;
         /// <summary>
+        /// 请求上下文访问器
+        /// </summary>
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
         /// <param name="hostingEnvironment"></param>
-        public LocalFileStoreService(IOptions<LocalFileStoreSettings> options, IWebHostEnvironment hostingEnvironment)
+        /// <param name="httpContextAccessor"></param>
+        public LocalFileStoreService(IOptions<LocalFileStoreSettings> options, IWebHostEnvironment hostingEnvironment, IHttpContextAccessor httpContextAccessor)
         {
-            _localFileStoreSettings = options.Value;
-            _hostingEnvironment = hostingEnvironment;
+            this._localFileStoreSettings = options.Value;
+            this._hostingEnvironment = hostingEnvironment;
+            this._httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -37,11 +45,31 @@ namespace Gardener.Core.FileStore
         /// <returns></returns>
         private string GetBaseDirectory()
         {
-            if (_localFileStoreSettings != null && !string.IsNullOrEmpty(_localFileStoreSettings.BaseDirectory)) return _localFileStoreSettings.BaseDirectory;
-            string baseDirectory =Path.Combine(_hostingEnvironment.WebRootPath, "upload");
+            if (_localFileStoreSettings != null && !string.IsNullOrEmpty(_localFileStoreSettings.BaseDirectory))
+            {
+                return _localFileStoreSettings.BaseDirectory;
+            }
+            return "upload";
+        }
+        /// <summary>
+        /// 获取文件存储目录地址
+        /// </summary>
+        /// <returns></returns>
+        private string GetBaseDirectorPath()
+        {
+            string baseDirectory = Path.Combine(_hostingEnvironment.WebRootPath, GetBaseDirectory());
             return baseDirectory;
         }
+        /// <summary>
+        /// 获取服务器的访问地址
+        /// </summary>
+        /// <returns></returns>
+        private string GetBaseUrl() 
+        {
 
+            Uri url = new Uri(_httpContextAccessor.HttpContext.Request.GetRequestUrlAddress());
+            return url.Scheme+"://"+url.Authority +"/"+ GetBaseDirectory()+"/";
+        }
         /// <summary>
         ///  保存文件
         /// </summary>
@@ -49,7 +77,7 @@ namespace Gardener.Core.FileStore
         /// <param name="path"></param>
         public async Task<string> Save(Stream file, string path)
         {
-            string filePath = Path.Combine(GetBaseDirectory(), path);
+            string filePath = Path.Combine(GetBaseDirectorPath(), path);
             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -59,7 +87,7 @@ namespace Gardener.Core.FileStore
                 await file.CopyToAsync(filestream);
             }
 
-            return _localFileStoreSettings.BaseUrl + path;
+            return GetBaseUrl() + path;
         }
         /// <summary>
         ///  删除文件
@@ -67,7 +95,7 @@ namespace Gardener.Core.FileStore
         /// <param name="path"></param>
         public void Delete(string path)
         {
-            string filePath = Path.Combine(GetBaseDirectory(), path);
+            string filePath = Path.Combine(GetBaseDirectorPath(), path);
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
@@ -80,7 +108,7 @@ namespace Gardener.Core.FileStore
         /// <returns></returns>
         public Stream Get(string path)
         {
-            string filePath = Path.Combine(GetBaseDirectory(), path);
+            string filePath = Path.Combine(GetBaseDirectorPath(), path);
             if (File.Exists(filePath))
             {
                 // 打开文件 
