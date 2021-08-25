@@ -23,7 +23,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         [Inject]
         MessageService messagerService { get; set; }
         [Inject]
-        IOptions<ApiSettings> apiOptions { get; set; }
+        ApiSettings apiSettings { get; set; }
         [Inject]
         IUserService userService { get; set; }
         [Inject]
@@ -35,8 +35,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             get
             {
-                ApiSettings apiSettings = apiOptions.Value;
-                return apiSettings.BaseAddres + apiSettings.UploadUrl;
+                return apiSettings.BaseAddres + apiSettings.UploadPath;
             }
         }
         /// <summary>
@@ -46,7 +45,6 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         {
             { "BusinessType", Enums.AttachmentBusinessType.Avatar}
         };
-
 
         private Dictionary<string, string> headers;
 

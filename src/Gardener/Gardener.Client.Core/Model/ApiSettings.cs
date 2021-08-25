@@ -8,11 +8,18 @@ using System;
 
 namespace Gardener.Client.Core
 {
+    /// <summary>
+    /// api的配置
+    /// 如何装配需要看<see cref="ApiSettingExtension"/>
+    /// </summary>
     public class ApiSettings
     {
 
-        public String BaseAddres { get; set; }
-        public String UploadUrl { get; set; }
+        public String BaseAddres { get { return this.Host + ":" + this.Port+"/"+this.BasePath+"/"; } }
+        public String Host { get; set; }
+        public String Port { get; set; }
+        public String BasePath { get; set; }
+        public String UploadPath { get; set; }
 
     }
 }
