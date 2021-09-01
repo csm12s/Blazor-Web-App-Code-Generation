@@ -33,6 +33,10 @@ namespace Gardener.Client.Core
             {
                 port = baseUri.Port.ToString();
             }
+            if (host.IndexOf("http://") < 0 && host.IndexOf("https://") < 0) 
+            {
+                host = baseUri.Scheme + "://" + host;
+            }
             builder.Services.AddSingleton(typeof(ApiSettings), sp => {
                 return new ApiSettings { 
                     Host = host,
