@@ -9,7 +9,10 @@ using Furion.DynamicApiController;
 using Gardener.Application.Dtos;
 using Gardener.Application.Interfaces;
 using Gardener.Common;
+using Gardener.Core.Entites;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +22,59 @@ using System.Threading.Tasks;
 namespace Gardener.Application
 {
     /// <summary>
-    /// 代码生成服务 CodeGenerationServices
+    /// 代码生成服务
     /// </summary>
-    [ApiDescriptionSettings("CodeGenerationServices")]
+    [ApiDescriptionSettings( Groups = new[] { "SystemToolServices" })]
     public class CodeGenerationService : ICodeGenerationService, IDynamicApiController
     {
+        private readonly IRepository<EntityCodeGenerationSetting> repository;
+        /// <summary>
+        /// 代码生成服务
+        /// </summary>
+        /// <param name="repository"></param>
+        public CodeGenerationService(IRepository<EntityCodeGenerationSetting> repository)
+        {
+            this.repository = repository;
+        }
+
+        /// <summary>
+        /// 更新实体的代码生成配置
+        /// </summary>
+        /// <param name="settingDto"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateEntityCodeGenerationSetting(EntityCodeGenerationSettingDto settingDto)
+        {
+            EntityCodeGenerationSetting entity = await repository.FindAsync(settingDto.Id);
+            if (entity == null) 
+            {
+                return false;
+            }
+            settingDto.Adapt(entity);
+            entity.UpdatedTime = DateTimeOffset.Now;
+            await repository.UpdateAsync(entity);
+            return true;
+        }
+        /// <summary>
+        /// 添加实体的代码生成配置
+        /// </summary>
+        /// <param name="settingDto"></param>
+        /// <returns></returns>
+        public async Task<bool> AddEntityCodeGenerationSetting(EntityCodeGenerationSettingDto settingDto)
+        {
+            await repository.InsertAsync(settingDto.Adapt<EntityCodeGenerationSetting>());
+            return true;
+        }
+        /// <summary>
+        /// 获取实体的代码生成配置
+        /// </summary>
+        /// <param name="entityFullName">实体完整名称</param>
+        /// <returns></returns>
+        public async Task<EntityCodeGenerationSettingDto> GetEntityCodeGenerationSetting(string entityFullName)
+        {
+            EntityCodeGenerationSettingDto dto=await repository.AsQueryable(false).Where(x => x.EntityFullName.Equals(repository)).Select(x => x.Adapt<EntityCodeGenerationSettingDto>()).FirstOrDefaultAsync();
+            return dto;
+        }
+
         /// <summary>
         /// 获取所有实体定义
         /// </summary>

@@ -39,9 +39,9 @@
       },
       {
         "Order": 80,
-        "Group": "CodeGenerationServices",
-        "Title": "代码生成服务",
-        "Description": "代码生成服务相关接口",
+        "Group": "SystemToolServices",
+        "Title": "系统工具服务",
+        "Description": "系统工具服务相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {
