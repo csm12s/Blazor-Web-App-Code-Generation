@@ -169,6 +169,17 @@
             </summary>
             <param name="repository"></param>
         </member>
+        <member name="T:Gardener.Application.CodeGenerationService">
+            <summary>
+            代码生成服务 CodeGenerationServices
+            </summary>
+        </member>
+        <member name="M:Gardener.Application.CodeGenerationService.GetEntityDefinitions">
+            <summary>
+            获取所有实体定义
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Application.NewsService">
             <summary>
             新闻管理

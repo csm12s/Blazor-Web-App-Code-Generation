@@ -27,7 +27,7 @@ namespace Gardener.Client.Core
             Uri baseUri = new Uri(builder.HostEnvironment.BaseAddress);
             if (string.IsNullOrEmpty(host))
             {
-                host = baseUri.Scheme+"://"+baseUri.Host;
+                host = baseUri.Host;
             }
             if (string.IsNullOrEmpty(port))
             {
