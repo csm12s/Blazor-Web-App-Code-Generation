@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="2.16.9" />
+    <PackageReference Include="Mapster" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
+    <ProjectReference Include="..\Gardener.EntityFramwork\Gardener.EntityFramwork.csproj" />
+    <ProjectReference Include="..\Gardener\Gardener.csproj" />
+  </ItemGroup>
+
+</Project>

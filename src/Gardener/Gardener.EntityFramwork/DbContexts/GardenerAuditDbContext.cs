@@ -4,24 +4,22 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
-using Gardener.Core.Audit;
+using Gardener.Audit.DbContextLocator;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Linq;
 
-namespace Gardener.EntityFramwork.Core.DbContexts
+namespace Gardener.EntityFrameworkCore
 {
     /// <summary>
-    /// 数据库上下文
+    /// 审计数据库上下文
     /// </summary>
-    [AppDbContext("GardenerSqlite3ConnectionString")]
-    public class GardenerDbContext : AppDbContext<GardenerDbContext>
+    [AppDbContext("GardenerConnectionString")]
+    public class GardenerAuditDbContext : AppDbContext<GardenerAuditDbContext, GardenerAuditDbContextLocator>
     {
-        public GardenerDbContext(DbContextOptions<GardenerDbContext> options) : base(options)
+        public GardenerAuditDbContext(DbContextOptions<GardenerAuditDbContext> options) : base(options)
         {
         }
         /// <summary>
@@ -55,29 +53,5 @@ namespace Gardener.EntityFramwork.Core.DbContexts
                 }
             }
         }
-        /// <summary>
-        /// 数据保存
-        /// </summary>
-        /// <param name="eventData"></param>
-        /// <param name="result"></param>
-        protected override async void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
-        {
-            IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
-            if (auditDataManager == null) return;
-            await auditDataManager.SavingChangesEvent(eventData, result);
-        }
-        /// <summary>
-        /// 数据保存后
-        /// </summary>
-        /// <param name="eventData"></param>
-        /// <param name="result"></param>
-        protected override async void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
-        {
-            IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
-            if (auditDataManager == null) return;
-            await auditDataManager.SavedChangesEvent(eventData,result);
-
-        }
-
     }
 }

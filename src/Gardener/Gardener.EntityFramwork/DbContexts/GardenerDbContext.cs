@@ -6,19 +6,19 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
-using Gardener.Core.Audit;
+using Gardener.Audit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Linq;
 
-namespace Gardener.EntityFramwork.Core.DbContexts
+namespace Gardener.EntityFrameworkCore
 {
     /// <summary>
     /// 数据库上下文
     /// </summary>
-    [AppDbContext("GardenerSqlite3ConnectionString")]
+    [AppDbContext("GardenerConnectionString")]
     public class GardenerDbContext : AppDbContext<GardenerDbContext>
     {
         public GardenerDbContext(DbContextOptions<GardenerDbContext> options) : base(options)
