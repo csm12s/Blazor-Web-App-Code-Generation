@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.EntityFramwork.Domain;
+using Gardener.EntityFramwork.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;

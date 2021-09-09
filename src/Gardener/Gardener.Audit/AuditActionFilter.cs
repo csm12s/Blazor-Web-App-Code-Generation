@@ -26,13 +26,14 @@ namespace Gardener.Audit
     public class AuditActionFilter : IAsyncActionFilter
     {
         private readonly IAuthorizationManager authorizationManager;
-        private readonly IAuditDataManager auditDataManager;
+        private readonly AuditService auditDataManager;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="authorizationManager"></param>
         /// <param name="auditDataManager"></param>
-        public AuditActionFilter(IAuthorizationManager authorizationManager, IAuditDataManager auditDataManager)
+        public AuditActionFilter(IAuthorizationManager authorizationManager,
+            AuditService auditDataManager)
         {
             this.authorizationManager = authorizationManager;
             this.auditDataManager = auditDataManager;

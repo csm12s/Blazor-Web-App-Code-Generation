@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Gardener.EntityFramwork.Domain
+namespace Gardener.EntityFramwork.Dto
 {
     /// <summary>
     /// 过滤组

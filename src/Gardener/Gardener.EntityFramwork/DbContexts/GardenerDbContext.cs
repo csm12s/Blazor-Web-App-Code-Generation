@@ -62,7 +62,7 @@ namespace Gardener.EntityFrameworkCore
         /// <param name="result"></param>
         protected override async void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
         {
-            IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
+            IAuditService auditDataManager = App.GetService<IAuditService>();
             if (auditDataManager == null) return;
             await auditDataManager.SavingChangesEvent(eventData, result);
         }
@@ -73,7 +73,7 @@ namespace Gardener.EntityFrameworkCore
         /// <param name="result"></param>
         protected override async void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
         {
-            IAuditDataManager auditDataManager = App.GetService<IAuditDataManager>();
+            IAuditService auditDataManager = App.GetService<IAuditService>();
             if (auditDataManager == null) return;
             await auditDataManager.SavedChangesEvent(eventData,result);
 

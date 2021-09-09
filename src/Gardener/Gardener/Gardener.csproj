@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="2.16.9" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Gardener.Enums\Gardener.Enums.csproj" />
   </ItemGroup>
 

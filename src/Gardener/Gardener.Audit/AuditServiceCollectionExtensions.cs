@@ -40,7 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Filters.Add<AuditActionFilter>();
             });
             //数据管理
-            services.AddScoped<IAuditDataManager, AuditDataManager<TDbContextLocator>>();
+            services.AddScoped<IAuditService, AuditService<TDbContextLocator>>();
             return services;
         }
     }

@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
-    <ProjectReference Include="..\Gardener\Gardener.csproj" />
+    <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
   </ItemGroup>
 
 </Project>

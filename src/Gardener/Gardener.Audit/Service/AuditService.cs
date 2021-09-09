@@ -28,9 +28,9 @@ namespace Gardener.Audit
     /// <summary>
     /// 当前请求的审计数据管理
     /// </summary>
-    public class AuditDataManager<TDbContextLocator> : IAuditDataManager where TDbContextLocator:class, IDbContextLocator
+    public class AuditService<TDbContextLocator> : IAuditService where TDbContextLocator:class, IDbContextLocator
     {
-        private readonly ILogger<AuditDataManager<TDbContextLocator>> _logger;
+        private readonly ILogger<AuditService<TDbContextLocator>> _logger;
         private readonly IRepository<AuditOperation, TDbContextLocator> _auditOperationRepository;
         private readonly IRepository<AuditEntity, TDbContextLocator> _auditEntityRepository;
         private AuditOperation _auditOperation;
@@ -50,7 +50,7 @@ namespace Gardener.Audit
         /// <param name="logger"></param>
         /// <param name="auditOperationRepository"></param>
         /// <param name="auditEntityRepository"></param>
-        public AuditDataManager(ILogger<AuditDataManager<TDbContextLocator>> logger,
+        public AuditService(ILogger<AuditService<TDbContextLocator>> logger,
             IRepository<AuditOperation, TDbContextLocator> auditOperationRepository,
             IRepository<AuditEntity, TDbContextLocator> auditEntityRepository)
         {

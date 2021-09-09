@@ -6,7 +6,7 @@
 
 using Gardener.Enums;
 
-namespace Gardener.EntityFramwork.Domain
+namespace Gardener.EntityFramwork.Dto
 {
     /// <summary>
     /// 筛选规则

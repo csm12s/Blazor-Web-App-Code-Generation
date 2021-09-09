@@ -15,25 +15,15 @@ namespace Gardener.Authorization
     public interface IAuthorizationManager
     {
         /// <summary>
-        /// 获取用户 Id
+        /// 获取身份
         /// </summary>
         /// <returns></returns>
-        int GetUserId();
-        /// <summary>
-        /// 是否是超级管理员
-        /// </summary>
-        /// <returns></returns>
-        bool IsSuperAdministrator();
-        /// <summary>
-        /// 获取用户
-        /// </summary>
-        /// <returns></returns>
-        User GetUser();
+        Identity GetIdentity();
         /// <summary>
         /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
-        Task<Function> GetContenxtFunction();
+        Task<FunctionDto> GetContenxtFunction();
         /// <summary>
         /// 检查权限
         /// </summary>

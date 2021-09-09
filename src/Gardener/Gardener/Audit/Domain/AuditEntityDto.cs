@@ -4,31 +4,19 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DatabaseAccessor;
-using Gardener.Audit.DbContextLocator;
-using Gardener.EntityFramwork.Domain;
+using Gardener.Base;
 using Gardener.Enums;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.Audit.Domain
 {
     /// <summary>
-    /// 审计实体表
+    /// 实体审计信息
     /// </summary>
-    [Description("实体审计信息")]
-    public class AuditEntity : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditEntityDto : BaseDto<Guid>
     {
-        /// <summary>
-        /// 审计实体表
-        /// </summary>
-        public AuditEntity() 
-        {
-            this.AuditProperties = new List<AuditProperty>();
-        }
         /// <summary>
         /// 数据编号
         /// </summary>
@@ -65,18 +53,8 @@ namespace Gardener.Audit.Domain
         [DisplayName("操作审计编号")]
         public Guid OperationId { get; set; }
         /// <summary>
-        /// 操作实体属性集合
+        /// 获取或设置 操作实体属性集合
         /// </summary>
-        public ICollection<AuditProperty> AuditProperties { get; set; }
-        /// <summary>
-        /// 新值
-        /// </summary>
-        [NotMapped]
-        public PropertyValues CurrentValues { get; set; }
-        /// <summary>
-        /// 老值
-        /// </summary>
-        [NotMapped]
-        public PropertyValues OldValues { get; set; }
+        public ICollection<AuditPropertyDto> AuditProperties { get; set; }
     }
 }

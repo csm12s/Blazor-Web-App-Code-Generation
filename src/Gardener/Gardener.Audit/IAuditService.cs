@@ -6,14 +6,15 @@
 
 using Gardener.Audit.Domain;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gardener.Audit
 {
-    /// <summary>
-    /// 当前请求的审计数据管理
-    /// </summary>
-    public interface IAuditDataManager
+    public interface IAuditService
     {
         /// <summary>
         /// 
@@ -33,5 +34,6 @@ namespace Gardener.Audit
         /// </summary>
         /// <param name="auditOperation"></param>
         public Task SaveAuditOperation(AuditOperation auditOperation);
+
     }
 }
