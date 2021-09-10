@@ -69,7 +69,7 @@ namespace Gardener.Application.SystemManager
         /// <param name="path"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<bool> Exists(HttpMethodType method, string path)
+        public async Task<bool> Exists(HttpMethod method, string path)
         {
             path = HttpUtility.UrlDecode(path);
 

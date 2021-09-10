@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Mapster;
 using System.Text.Json;
-using Gardener.EntityFramwork.Domain;
+using Gardener.EntityFramwork.Domains;
 using Gardener.EntityFramwork.Dto;
 
 namespace Gardener.EntityFramwork

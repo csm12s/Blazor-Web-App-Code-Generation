@@ -78,6 +78,16 @@ namespace Gardener.Enums
         /// 请求的地址无效
         /// </summary>
         [Description("请求的地址无效")]
-        REQUEST_URL_IS_INVALID
+        REQUEST_URL_IS_INVALID,
+        /// <summary>
+        /// 刷新token不能用于鉴权
+        /// </summary>
+        [Description("刷新token不能用于鉴权")]
+        REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION,
+        // <summary>
+        /// TOKEN无效
+        /// </summary>
+        [Description("TOKEN无效")]
+        TOKEN_INVALID,
     }
 }

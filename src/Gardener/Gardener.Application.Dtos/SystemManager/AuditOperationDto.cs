@@ -55,7 +55,7 @@ namespace Gardener.Application.Dtos
         /// 请求方法
         /// </summary>
         [DisplayName("请求方法")]
-        public HttpMethodType Method { get; set; }
+        public HttpMethod Method { get; set; }
         /// <summary>
         /// 请求参数
         /// </summary>

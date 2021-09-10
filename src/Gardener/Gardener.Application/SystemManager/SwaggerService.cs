@@ -89,7 +89,7 @@ namespace Gardener.Application
                         FunctionDto function = new FunctionDto()
                         {
                             Path = item.Key,
-                            Method = (HttpMethodType)Enum.Parse(typeof(HttpMethodType), m.Key.ToUpper()),
+                            Method = (HttpMethod)Enum.Parse(typeof(HttpMethod), m.Key.ToUpper()),
                             Key = MD5Encryption.Encrypt(item.Key + m.Key.ToUpper()),
                             Summary = m.Value.summary,
                             Description = m.Value.description,
@@ -98,7 +98,7 @@ namespace Gardener.Application
                             IsLocked = false,
                             EnableAudit = true
                         };
-                        if (HttpMethodType.GET.Equals(function.Method))
+                        if (HttpMethod.GET.Equals(function.Method))
                         {
                             function.EnableAudit = false;
                         }

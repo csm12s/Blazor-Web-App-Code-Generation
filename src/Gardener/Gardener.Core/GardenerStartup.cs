@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Gardener.Audit;
+using Gardener.Core.DbContexts;
+using Gardener.Audit.Core;
 
 namespace Gardener.Admin
 {
@@ -34,14 +37,14 @@ namespace Gardener.Admin
                 options.AddDbPool<GardenerAuditDbContext,GardenerAuditDbContextLocator>(DbProvider.Sqlite, connectionMetadata: "GardenerSqlite3ConnectionString");
             }, migrationAssemblyName);
             //开启审计
-            services.AddAudit<GardenerAuditDbContextLocator>();
+            services.AddAudit();
             //开启安全
             services.AddSecurity();
             //开启图片验证码
             services.AddImageVerifyCode<ImageVerifyCodeDbStoreService>(true);
             //开启本地文件存储
             services.AddFileLocalStore();
-
+            services.AddSimpleEventBus();
             //注册跨域
             services.AddCorsAccessor();
             //注册控制器和视图

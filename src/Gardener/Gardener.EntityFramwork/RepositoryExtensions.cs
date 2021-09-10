@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Common;
-using Gardener.EntityFramwork.Domain;
+using Gardener.EntityFramwork.Domains;
 using System;
 using System.Threading.Tasks;
 

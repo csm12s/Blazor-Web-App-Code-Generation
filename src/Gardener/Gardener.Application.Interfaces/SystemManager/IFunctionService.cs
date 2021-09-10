@@ -36,7 +36,7 @@ namespace Gardener.Application.Interfaces
         /// <param name="method"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        Task<bool> Exists(HttpMethodType method, string path);
+        Task<bool> Exists(HttpMethod method, string path);
 
         /// <summary>
         /// 获取种子数据
