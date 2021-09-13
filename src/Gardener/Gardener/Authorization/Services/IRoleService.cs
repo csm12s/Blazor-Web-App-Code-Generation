@@ -4,7 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Application.Dtos;
+using Gardener.Authorization.Dtos;
+using Gardener.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

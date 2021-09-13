@@ -4,11 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Application.Dtos;
+using Gardener.Authorization.Dtos;
+using Gardener.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Application.Interfaces
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 部门服务

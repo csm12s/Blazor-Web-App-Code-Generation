@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Authorization.Dtos
 {
     /// <summary>
     /// 用户角色关系

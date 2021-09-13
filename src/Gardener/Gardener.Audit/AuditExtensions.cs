@@ -22,23 +22,13 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddAudit(this IServiceCollection services)
         {
-            return services;
-        }
-
-        /// <summary>
-        /// 添加审计服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddAudit<TDbContextLocator>(this IServiceCollection services) where TDbContextLocator : class, IDbContextLocator
-        {
             services.Configure<MvcOptions>(options =>
             {
                 //审计过滤器
                 options.Filters.Add<AuditActionFilter>();
             });
             //数据管理
-            services.AddScoped<IAuditService, AuditService<TDbContextLocator>>();
+            services.AddScoped<IAuditService, AuditService<GardenerAuditDbContextLocator>>();
             return services;
         }
     }

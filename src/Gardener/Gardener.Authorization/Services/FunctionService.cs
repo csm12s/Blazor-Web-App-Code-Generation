@@ -73,7 +73,7 @@ namespace Gardener.Authorization.Services
             return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).AnyAsync();
         }
 
-        public Task<FunctionDto> Get(string path, HttpMethod method)
+        public Task<FunctionDto> GetByPathAndMethod(string path, HttpMethod method)
         {
             throw new NotImplementedException();
         }

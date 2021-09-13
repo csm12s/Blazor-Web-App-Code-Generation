@@ -8,7 +8,7 @@ using System;
 
 namespace Gardener.EntityFramwork.Event
 {
-    public class SavedChangesEvent
+    public class GardenerDbContextSavedChangesEvent
     {
         public Object Data { get; set; }
     }

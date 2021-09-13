@@ -7,7 +7,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Authorization.Dtos
 {
     /// <summary>
     /// 角色资源关系

@@ -6,7 +6,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Authorization.Dtos
 {
     /// <summary>
     /// 用户扩展数据

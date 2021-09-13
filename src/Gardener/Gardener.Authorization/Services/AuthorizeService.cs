@@ -163,6 +163,20 @@ namespace Gardener.Authorization.Services
 
         }
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> CurrentUserIsSuperAdmin() 
+        {
+            List<RoleDto> roleDtos =await GetCurrentUserRoles();
+            if (roleDtos.Any(x => x.IsSuperAdministrator))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// 获取用户资源
         /// </summary>
         /// <param name="resourceTypes">资源类型</param>
@@ -170,7 +184,9 @@ namespace Gardener.Authorization.Services
         private async Task<List<Resource>> GetUserResources(params ResourceType[] resourceTypes)
         {
             resourceTypes = resourceTypes ?? new ResourceType[] { };
-            if (_authorizationManager.IsSuperAdministrator())
+            var userId = _authorizationManager.GetIdentityId();
+
+            if (await CurrentUserIsSuperAdmin())
             {
                 //超级管库有拥有所有资源
                 return await _resourceRepository
@@ -180,7 +196,7 @@ namespace Gardener.Authorization.Services
             return await _userRepository
                      .Include(u => u.Roles)
                          .ThenInclude(u => u.Resources)
-                     .Where(u => u.Id == _authorizationManager.GetUserId() && u.IsDeleted == false && u.IsLocked == false)
+                     .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
                      .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
                          .SelectMany(u => u.Resources
                          .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))

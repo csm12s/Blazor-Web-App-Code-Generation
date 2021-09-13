@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authorization.Enums;
 using Gardener.Enums;
 using Gardener.ImageVerifyCode.Domain;
 using System.ComponentModel;

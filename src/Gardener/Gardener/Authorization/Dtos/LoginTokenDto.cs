@@ -4,17 +4,18 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Enums;
 using System;
 using System.ComponentModel;
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Authorization.Dtos
 {
     /// <summary>
     /// 用户Token信息
     /// </summary>
     [Description("用户Token信息")]
-    public class UserTokenDto : BaseDto<Guid>
+    public class LoginTokenDto : BaseDto<Guid>
     {
         /// <summary>
         /// 用户id

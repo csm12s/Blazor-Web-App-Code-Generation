@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Application.Dtos
+namespace Gardener.Authorization.Dtos
 {
     /// <summary>
     /// 

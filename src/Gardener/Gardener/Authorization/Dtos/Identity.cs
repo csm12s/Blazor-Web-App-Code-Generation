@@ -8,7 +8,7 @@ using Gardener.Authorization.Enums;
 using Gardener.Enums;
 using System.ComponentModel;
 
-namespace Gardener.Authorization.Domains
+namespace Gardener.Authorization.Dtos
 {
     /// <summary>
     /// 身份信息
@@ -36,7 +36,6 @@ namespace Gardener.Authorization.Domains
         /// 客户端类型
         /// </summary>
         public LoginClientType LoginClientType { get; set; }
-
         /// <summary>
         /// 获取或设置 客户端Id
         /// </summary>

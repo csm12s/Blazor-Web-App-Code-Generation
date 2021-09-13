@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Gardener.Authorization.Domains
+namespace Gardener.Authorization.Dtos
 {
     /// <summary>
     /// 功能信息
