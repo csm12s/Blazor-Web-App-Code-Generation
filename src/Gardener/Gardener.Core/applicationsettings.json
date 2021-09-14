@@ -1,0 +1,140 @@
+﻿{
+  "SpecificationDocumentSettings": {
+    "DocumentTitle": "Gardener Api 文档",
+    "DocExpansionState": "None",
+    "GroupOpenApiInfos": [
+      {
+        "Order": 100,
+        "Group": "SystemManagerServices",
+        "Title": "系统管理",
+        "Description": "系统管理服务相关接口",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      },
+      {
+        "Order": 90,
+        "Group": "NewsManagerServices",
+        "Title": "新闻服务",
+        "Description": "新闻服务相关接口",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      },
+      {
+        "Order": 80,
+        "Group": "SystemToolServices",
+        "Title": "系统工具服务",
+        "Description": "系统工具服务相关接口",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      }
+    ],
+    "EnableAuthorized": true,
+    "SecurityDefinitions": [
+      {
+        "Id": "Bearer",
+        "Type": "Http",
+        "Name": "Authorization",
+        "Description": "JWT Authorization header using the Bearer scheme.",
+        "BearerFormat": "JWT",
+        "Scheme": "bearer",
+        "In": "Header",
+        "Requirement": {
+          "Scheme": {
+            "Reference": {
+              "Id": "Bearer",
+              "Type": "SecurityScheme"
+            },
+            "Accesses": []
+          }
+        }
+      }
+    ]
+  },
+  "JWTSettings": {
+    "ValidateIssuerSigningKey": true, // 是否验证密钥，bool 类型，默认true
+    "IssuerSigningKey": "GF6JxZhTc5SvKoirjaYtXAlBcl3Y3rTnaVrns3BXbkSwiR07JRRnKXwbyVKTjoyeYLEUzTECsJZinveE7rNbp1OsoplcW2Bu5DU", // 密钥，string 类型，必须是复杂密钥，长度大于16
+    "ValidateIssuer": true, // 是否验证签发方，bool 类型，默认true
+    "ValidIssuer": "Gardener", // 签发方，string 类型
+    "ValidateAudience": true, // 是否验证签收方，bool 类型，默认true
+    "ValidAudience": "Gardener", // 签收方，string 类型
+    "ValidateLifetime": true, // 是否验证过期时间，bool 类型，默认true，建议true
+    "ExpiredTime": 5, // 过期时间，long 类型，单位分钟，默认20分钟
+    "ClockSkew": 5 // 过期时间容错值，long 类型，耽误秒，默认 5秒
+  },
+  "JwtRefreshTokenSettings": {
+    "IssuerSigningKey": "vZeG9AzggRvPezYsMloCIUQ3taIzIOqczOIUON2P35F4nlBRhIfPJY7OxrCXyRlLlZKNFquFewlsewF44CylIaBaIbCjoflDZwJ",
+    "RefreshExpireMins": 2880,
+    "IsRefreshAbsoluteExpired": true
+  },
+  "ValidationTypeMessageSettings": {
+    "Definitions": [
+      [ "Required", "值不能为空或Null" ]
+    ]
+  },
+  "ErrorCodeMessageSettings": {
+    "Definitions": [
+      [ "USER_NAME_REPEAT", "用户名重复" ],
+      [ "USER_NAME_OR_PASSWORD_ERROR", "用户名或密码错误" ],
+      [ "USER_LOCKED", "用户已锁定" ],
+      [ "RESOURCE_KEY_REPEAT", "资源键值重复" ],
+      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "刷新token不存在或已过期" ],
+      [ "NO_INCLUD_FILE", "未包含文件" ],
+      [ "FILTER_GROUP_OPERATE_ERROR", "条件组中的操作类型错误" ],
+      [ "FIELD_IN_TYPE_NOT_FOUND", "指定的属性“{0}”在类型“{1}”中不存在" ],
+      [ "VERIFY_CODE_VERIFICATION_FAILED", "验证码验证失败" ],
+      [ "REQUEST_URL_IS_INVALID", "请求的地址无效,请检查" ],
+    ]
+  },
+  "LocalFileStoreSettings": {
+    "BaseDirectory": "upload"
+  },
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Debug",
+      "Override": {
+        "System": "Warning",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information",
+        "Microsoft.EntityFrameworkCore": "Information"
+      }
+    }
+  },
+  "ImageVerifyCodeSettings": {
+    "CodeFontSize": 18,
+    "CodeCharacterCount": 4,
+    "CodeType": 3,
+    "IgnoreCase": true,
+    "UseOnce": true
+  },
+  "FriendlyExceptionSettings": {
+    "DefaultErrorMessage": "系统异常，请联系管理员",
+    "HideErrorCode": true
+  }
+}
