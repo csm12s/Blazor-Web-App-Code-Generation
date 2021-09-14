@@ -8,7 +8,7 @@ using Gardener.Authorization.Dtos;
 using Gardener.Base;
 using System;
 
-namespace Gardener.Application.Interfaces
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 用户Token服务

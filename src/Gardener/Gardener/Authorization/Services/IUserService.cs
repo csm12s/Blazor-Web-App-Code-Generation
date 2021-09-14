@@ -9,7 +9,7 @@ using Gardener.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Application.Interfaces
+namespace Gardener.Authorization.Services
 {
     public interface IUserService:IApplicationServiceBase<UserDto, int>
     {

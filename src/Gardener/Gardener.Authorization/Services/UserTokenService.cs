@@ -6,11 +6,10 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
-using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces;
-using Gardener.Common;
-using Gardener.Core;
-using Gardener.Core.Entites;
+using Gardener.Authorization.Domains;
+using Gardener.Authorization.Dtos;
+using Gardener.EntityFramwork;
+using Gardener.EntityFramwork.Dto;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,20 +17,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Gardener.Application.SystemManager
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 用户登录TOKEN服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class UserTokenService : ApplicationServiceBase<UserToken, UserTokenDto,Guid>, IUserTokenService
+    public class LoginTokenService : ServiceBase<LoginToken, LoginTokenDto, Guid>, ILoginTokenService
     {
-        private readonly IRepository<UserToken> _repository;
+        private readonly IRepository<LoginToken> _repository;
         /// <summary>
         /// 用户登录TOKEN服务
         /// </summary>
         /// <param name="repository"></param>
-        public UserTokenService(IRepository<UserToken> repository) : base(repository)
+        public LoginTokenService(IRepository<LoginToken> repository) : base(repository)
         {
             _repository = repository;
         }
@@ -44,17 +43,17 @@ namespace Gardener.Application.SystemManager
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public override async Task<PagedList<UserTokenDto>> Search(PageRequest request)
+        public override async Task<PagedList<LoginTokenDto>> Search(PageRequest request)
         {
-            IFilterService filterService = App.GetService<IFilterService>();
-            Expression<Func<UserToken, bool>> expression = filterService.GetExpression<UserToken>(request.FilterGroups);
+            IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
+            Expression<Func<LoginToken, bool>> expression = filterService.GetExpression<LoginToken>(request.FilterGroups);
 
-            IQueryable<UserToken> queryable = _repository.Include(x=>x.User)
+            IQueryable<LoginToken> queryable = _repository.AsQueryable(false)
                 .Where(u => u.IsDeleted == false)
                 .Where(expression);
             return await queryable
                 .OrderConditions(request.OrderConditions.ToArray())
-                .Select(x => x.Adapt<UserTokenDto>())
+                .Select(x => x.Adapt<LoginTokenDto>())
                 .ToPageAsync(request.PageIndex, request.PageSize);
         }
     }

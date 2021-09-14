@@ -41,7 +41,7 @@ namespace Gardener
         /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ApplicationServiceBase(IRepository<TEntity> repository)
+        protected ServiceBase(IRepository<TEntity> repository)
         {
             _repository = repository;
         }
@@ -274,14 +274,14 @@ namespace Gardener
     /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
     /// <typeparam name="TEntity">数据实体类型</typeparam>
-    public abstract class ApplicationServiceBase<TEntity> : ApplicationServiceBase<TEntity, TEntity, int> where TEntity : class, IPrivateEntity, new()
+    public abstract class ServiceBase<TEntity> : ServiceBase<TEntity, TEntity, int> where TEntity : class, IPrivateEntity, new()
     {
         /// <summary>
         /// 继承此类即可实现基础方法
         /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ApplicationServiceBase(IRepository<TEntity> repository) : base(repository)
+        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
         {
         }
     }
@@ -292,14 +292,14 @@ namespace Gardener
     /// </summary>
     /// <typeparam name="TEntity">数据实体类型</typeparam>
     /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-    public abstract class ApplicationServiceBase<TEntity, TEntityDto> : ApplicationServiceBase<TEntity, TEntityDto, int> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    public abstract class ServiceBase<TEntity, TEntityDto> : ServiceBase<TEntity, TEntityDto, int> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
         /// <summary>
         /// 继承此类即可实现基础方法
         /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ApplicationServiceBase(IRepository<TEntity> repository) : base(repository)
+        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
         {
         }
     }

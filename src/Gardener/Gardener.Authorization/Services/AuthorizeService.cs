@@ -22,6 +22,7 @@ using Gardener.Authorization.Domains;
 using Gardener.ImageVerifyCode;
 using Gardener.Authorization.Dtos;
 using System;
+using Gardener.ImageVerifyCode.Core;
 
 namespace Gardener.Authorization.Services
 {

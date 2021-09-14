@@ -27,6 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gardener.Core\Gardener.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="gardener.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

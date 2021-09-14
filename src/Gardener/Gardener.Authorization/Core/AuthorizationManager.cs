@@ -147,9 +147,9 @@ namespace Gardener.Authorization.Core
         private async Task<FunctionDto> GetFunctionFromContext()
         {
             string functionKey = GetContextFunctionKey();
-            if (!string.IsNullOrEmpty(functionKey)) return await _functionService.GetFunction(Guid.Parse(functionKey));
+            if (!string.IsNullOrEmpty(functionKey)) return await _functionService.Get(Guid.Parse(functionKey));
             var (method, path) = GetContextEndpoint();
-            return await _functionService.Get(path, method);
+            return await _functionService.Query(path, method);
         }
 
         public object GetIdentityId()

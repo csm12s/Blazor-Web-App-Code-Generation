@@ -7,7 +7,7 @@
 using Gardener.Authorization.Dtos;
 using Gardener.Base;
 
-namespace Gardener.Application.Interfaces
+namespace Gardener.Authorization.Services
 {
     public interface IPositionService : IApplicationServiceBase<PositionDto, int>
     {

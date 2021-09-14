@@ -8,6 +8,7 @@ using Furion.DatabaseAccessor;
 using Gardener.Authorization.Domains;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -72,10 +73,16 @@ namespace Gardener.Authorization.Services
 
             return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).AnyAsync();
         }
-
-        public Task<FunctionDto> GetByPathAndMethod(string path, HttpMethod method)
+        /// <summary>
+        /// 根据path,method获取功能点
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public async Task<FunctionDto> Query(string path, HttpMethod method)
         {
-            throw new NotImplementedException();
+            Function function= await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).FirstOrDefaultAsync();
+            return function?.Adapt<FunctionDto>();
         }
 
         /// <summary>
@@ -106,6 +113,17 @@ namespace Gardener.Authorization.Services
                 sb.Append("},");
             }
             return sb.ToString().TrimEnd(',');
+        }
+
+        /// <summary>
+        /// 根据key获取功能点
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public async Task<FunctionDto> Query(string key)
+        {
+            Function function = await _repository.Where(x => x.Key.Equals(key)).FirstOrDefaultAsync();
+            return function?.Adapt<FunctionDto>();
         }
     }
 }

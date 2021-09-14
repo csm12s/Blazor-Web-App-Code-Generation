@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Application.Dtos;
-using Gardener.Core.Entites;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +14,17 @@ using Microsoft.EntityFrameworkCore;
 using Gardener.Enums;
 using Furion.FriendlyException;
 using System;
-using Gardener.Application.Interfaces;
 using System.Text;
+using Gardener.Authorization.Domains;
+using Gardener.Authorization.Dtos;
 
-namespace Gardener.Application
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 资源服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class ResourceService : ApplicationServiceBase<Resource, ResourceDto, Guid>, IResourceService
+    public class ResourceService : ServiceBase<Resource, ResourceDto, Guid>, IResourceService
     {
         private readonly IRepository<Resource> _resourceRepository;
         private readonly IRepository<ResourceFunction> _resourceFunctionRespository;

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authorization;
+using Gardener.Authorization.Core;
 using Gardener.Authorization.Options;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

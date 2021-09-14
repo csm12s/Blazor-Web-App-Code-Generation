@@ -7,14 +7,11 @@
 using Furion;
 using Furion.DatabaseAccessor;
 using Gardener.Admin.JsonConverters;
-using Gardener.Audit.DbContextLocator;
-using Gardener.EntityFrameworkCore;
 using Gardener.ImageVerifyCode.DbStore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Gardener.Audit;
 using Gardener.Core.DbContexts;
 using Gardener.Audit.Core;
 

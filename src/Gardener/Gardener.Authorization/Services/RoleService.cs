@@ -5,9 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces;
-using Gardener.Core.Entites;
+using Gardener.Authorization.Domains;
+using Gardener.Authorization.Dtos;
+using Gardener;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,13 +17,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Application
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 角色服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class RoleService : ApplicationServiceBase<Role, RoleDto>, IRoleService
+    public class RoleService : ServiceBase<Role, RoleDto>, IRoleService
     {
         private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<RoleResource> _roleResourceRepository;

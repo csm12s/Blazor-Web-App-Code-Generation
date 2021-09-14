@@ -5,25 +5,17 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces;
-using Gardener.Core;
-using Gardener.Core.Entites;
-using Mapster;
+using Gardener.Authorization.Domains;
+using Gardener.Authorization.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Gardener.Application
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 岗位管理服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class PositionService : ApplicationServiceBase<Position, PositionDto, int>, IPositionService
+    public class PositionService : ServiceBase<Position, PositionDto, int>, IPositionService
     {
 
         private readonly IRepository<Position> _positionRepository;

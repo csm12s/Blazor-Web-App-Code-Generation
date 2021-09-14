@@ -6,7 +6,6 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
-using Gardener.Application.Interfaces;
 using Gardener.Audit.Dtos;
 using Gardener.EntityFramwork;
 using Gardener.EntityFramwork.Dto;

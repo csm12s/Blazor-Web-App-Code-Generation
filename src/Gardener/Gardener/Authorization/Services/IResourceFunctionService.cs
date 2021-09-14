@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Application.Interfaces
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 

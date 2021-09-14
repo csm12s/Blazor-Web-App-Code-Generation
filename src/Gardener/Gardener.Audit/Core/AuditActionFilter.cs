@@ -6,8 +6,8 @@
 
 using Gardener.Attributes;
 using Gardener.Audit.Dtos;
-using Gardener.Authorization;
-using Gardener.Authorization.Domains;
+using Gardener.Authorization.Core;
+using Gardener.Authorization.Dtos;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;

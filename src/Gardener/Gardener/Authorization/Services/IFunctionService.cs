@@ -48,6 +48,13 @@ namespace Gardener.Authorization.Services
         /// <param name="path"></param>
         /// <param name="method"></param>
         /// <returns></returns>
-        Task<FunctionDto> Get(string path, HttpMethod method);
+        Task<FunctionDto> Query(string path, HttpMethod method);
+
+        /// <summary>
+        /// 根据key获取功能点
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Task<FunctionDto> Query(string key);
     }
 }

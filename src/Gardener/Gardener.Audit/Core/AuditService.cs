@@ -9,6 +9,7 @@ using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Audit.Dtos;
 using Gardener.Authorization;
+using Gardener.Authorization.Core;
 using Gardener.Common;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;

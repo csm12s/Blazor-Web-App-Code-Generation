@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authorization.Enums;
 using Gardener.Base;
 using Gardener.Enums;
 using System;

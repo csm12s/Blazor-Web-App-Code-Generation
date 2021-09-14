@@ -6,9 +6,8 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DynamicApiController;
-using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces;
-using Gardener.Core.Entites;
+using Gardener.Authorization.Domains;
+using Gardener.Authorization.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Application
+namespace Gardener.Authorization.Services
 {
 
     /// <summary>

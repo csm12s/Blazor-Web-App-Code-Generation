@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Application.Dtos;
-using Gardener.Core.Entites;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,24 +16,26 @@ using Gardener.Common;
 using System.Linq.Expressions;
 using Furion.FriendlyException;
 using Gardener.Enums;
-using Gardener.Core;
-using Gardener.Application.Interfaces;
-using Furion;
+using Gardener.Authorization.Domains;
+using Gardener.Authorization.Dtos;
+using Gardener.EntityFramwork;
+using Gardener.EntityFramwork.Dto;
+using Gardener.Authorization.Core;
 
-namespace Gardener.Application
+namespace Gardener.Authorization.Services
 {
     /// <summary>
     /// 用户服务
     /// </summary>
     [ApiDescriptionSettings("SystemManagerServices")]
-    public class UserService : ApplicationServiceBase<User, UserDto>, IUserService
+    public class UserService : ServiceBase<User, UserDto>, IUserService
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<UserRole> _userRoleRepository;
         private readonly IRepository<UserExtension> _userExtensionRepository;
         private readonly IRepository<Dept> _deptRepository;
-        private readonly IFilterService _filterService;
+        private readonly IDynamicFilterService _filterService;
         /// <summary>
         /// 用户服务
         /// </summary>
@@ -49,8 +49,8 @@ namespace Gardener.Application
             IRepository<User> userRepository,
             IRepository<UserExtension> userExtensionRepository,
             IRepository<UserRole> userRoleRepository,
-            IRepository<Role> roleRepository, IRepository<Dept> deptRepository, 
-            IFilterService filterService) : base(userRepository)
+            IRepository<Role> roleRepository, IRepository<Dept> deptRepository,
+            IDynamicFilterService filterService) : base(userRepository)
         {
             _userRepository = userRepository;
             _userExtensionRepository = userExtensionRepository;
@@ -109,7 +109,7 @@ namespace Gardener.Application
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public override async Task<Dtos.PagedList<UserDto>> Search(PageRequest request)
+        public override async Task<EntityFramwork.Dto.PagedList<UserDto>> Search(PageRequest request)
         {
             Expression<Func<User, bool>> expression = _filterService.GetExpression<User>(request.FilterGroups);
             var users = _userRepository
@@ -155,7 +155,7 @@ namespace Gardener.Application
             if (!string.IsNullOrEmpty(user.Password))
             {
                 user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
-                user.Password = PasswordEncrypt.Encrypt(user.Password, user.PasswordEncryptKey);
+                user.Password = PasswordEncryptHelper.Encrypt(user.Password, user.PasswordEncryptKey);
             }
             else
             {
@@ -207,7 +207,7 @@ namespace Gardener.Application
             }
             User user = input.Adapt<User>();
             user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
-            user.Password = PasswordEncrypt.Encrypt(input.Password, user.PasswordEncryptKey);
+            user.Password = PasswordEncryptHelper.Encrypt(input.Password, user.PasswordEncryptKey);
             user.CreatedTime = DateTimeOffset.Now;
             if (user.UserExtension == null)
             {

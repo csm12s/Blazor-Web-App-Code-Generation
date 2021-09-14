@@ -6,9 +6,10 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
-using Gardener.Audit.DbContextLocator;
+using Gardener.Audit.Core;
 using Gardener.EntityFramwork.Domains;
 using Gardener.Enums;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
