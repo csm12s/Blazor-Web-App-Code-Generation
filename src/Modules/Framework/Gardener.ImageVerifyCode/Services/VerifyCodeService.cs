@@ -19,7 +19,7 @@ namespace Gardener.ImageVerifyCode.Services
     /// <summary>
     /// 验证码服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("SystemBaseServices")]
     public class VerifyCodeService : IVerifyCodeService, IDynamicApiController
     {
         private readonly IImageVerifyCodeService imageVerifyCodeService;

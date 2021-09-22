@@ -24,7 +24,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// <summary>
     /// 资源与接口关系服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class ResourceFunctionService :  IResourceFunctionService, IDynamicApiController
     {
         private readonly IRepository<ResourceFunction> _resourceFunctionRespository;

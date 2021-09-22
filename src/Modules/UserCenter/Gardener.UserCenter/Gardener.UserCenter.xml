@@ -1,0 +1,691 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.UserCenter</name>
+    </assembly>
+    <members>
+        <member name="T:Gardener.UserCenter.Dtos.DeptDto">
+            <summary>
+            部门信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.DeptDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.DeptDto.Contacts">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.DeptDto.Tel">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.DeptDto.Order">
+            <summary>
+            资源排序
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.DeptDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.DeptDto.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.DeptDto.Children">
+            <summary>
+            子集
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.FunctionDto">
+            <summary>
+            功能信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.Service">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.Summary">
+            <summary>
+            概要
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.Key">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.Path">
+            <summary>
+            API路由地址
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.Method">
+            <summary>
+            接口请求方法
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.FunctionDto.EnableAudit">
+            <summary>
+            启用审计
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.PositionDto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.PositionDto.Name">
+            <summary>
+            岗位名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.PositionDto.Target">
+            <summary>
+            设置该岗位的目标
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.PositionDto.Duty">
+            <summary>
+            职责
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.PositionDto.Right">
+            <summary>
+            权利
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.PositionDto.Grade">
+            <summary>
+            岗位等级
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.PositionDto.Salary">
+            <summary>
+            岗位薪资
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.PositionDto.Qualifications">
+            <summary>
+            任职资格
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.ResourceDto">
+            <summary>
+            资源
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Key">
+            <summary>
+            唯一键key
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Path">
+            <summary>
+            资源地址
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Icon">
+            <summary>
+            资源图标
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Order">
+            <summary>
+            资源排序
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.ParentId">
+            <summary>
+            父级编号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Children">
+            <summary>
+            子集
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.RoleResources">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.FullName">
+            <summary>
+            完整名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceDto.EnableAudit">
+            <summary>
+            启用审计
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.ResourceFunctionDto">
+            <summary>
+            资源功能信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceFunctionDto.ResourceId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceFunctionDto.FunctionId">
+            <summary>
+            功能Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ResourceFunctionDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.RoleDto">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleDto.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleDto.Remark">
+            <summary>
+            角色描述
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleDto.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleDto.IsSuperAdministrator">
+            <summary>
+            是否是超级管理员
+            超级管理员拥有所有权限
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleDto.IsDefault">
+            <summary>
+            是否是默认权限
+            注册用户时默认设置
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleDto.Resources">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.RoleResourceDto">
+            <summary>
+            角色资源关系
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleResourceDto.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleResourceDto.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleResourceDto.ResourceId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleResourceDto.Resource">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.RoleResourceDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.UserDto">
+            <summary>
+            用户数据转换实体
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Dtos.UserDto.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.Password">
+            <summary>
+            密码加密后的
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.EmailConfirmed">
+            <summary>
+            邮箱是否确认
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.PhoneNumber">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.PhoneNumberConfirmed">
+            <summary>
+            手机是否确认
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.UserExtension">
+            <summary>
+            用户扩展信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.DeptId">
+            <summary>
+            部门编号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.Dept">
+            <summary>
+            部门
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserDto.PositionId">
+            <summary>
+            岗位编号
+            </summary>
+        </member>
+        <member name="F:Gardener.UserCenter.Dtos.UserDto.Position">
+            <summary>
+            岗位
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.UserExtensionDto">
+            <summary>
+            用户扩展数据
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserExtensionDto.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserExtensionDto.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserExtensionDto.WeChat">
+            <summary>
+            微信号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserExtensionDto.CityId">
+            <summary>
+            城市ID
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.UserRoleDto">
+            <summary>
+            用户角色关系
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserRoleDto.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserRoleDto.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserRoleDto.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserRoleDto.Role">
+            <summary>
+            角色信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserRoleDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Dtos.UserUpdateAvatarInput">
+            <summary>
+            更新头像
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserUpdateAvatarInput.Id">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.UserUpdateAvatarInput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Enums.ResourceType">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="F:Gardener.UserCenter.Enums.ResourceType.Root">
+            <summary>
+            根节点
+            </summary>
+        </member>
+        <member name="F:Gardener.UserCenter.Enums.ResourceType.Menu">
+            <summary>
+            菜单
+            </summary>
+        </member>
+        <member name="F:Gardener.UserCenter.Enums.ResourceType.Action">
+            <summary>
+            操作
+            </summary>
+        </member>
+        <member name="F:Gardener.UserCenter.Enums.ResourceType.View">
+            <summary>
+            视图
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserRoles">
+            <summary>
+            获取当前用户的角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.Login(Gardener.Authorization.Dtos.LoginInput)">
+            <summary>
+            登录
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.RefreshToken(Gardener.Authorization.Dtos.RefreshTokenInput)">
+            <summary>
+            刷新Token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUser">
+            <summary>
+            获取当前用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResources(Gardener.UserCenter.Enums.ResourceType[])">
+            <summary>
+            获取指定类型的资源
+            </summary>
+            <param name="resourceTypes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserMenus">
+            <summary>
+            获取当前用户的所有菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.RemoveCurrentUserRefreshToken">
+            <summary>
+            移除当前用户token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Services.IDeptService">
+            <summary>
+            部门服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IDeptService.GetTree">
+            <summary>
+            查询所有部门 按树形结构返回
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IDeptService.GetSeedData">
+            <summary>
+            获取资源的种子数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IFunctionService.EnableAudit(System.Guid,System.Boolean)">
+            <summary>
+            启用禁用审计
+            </summary>
+            <param name="id"></param>
+            <param name="enableAudit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IFunctionService.Exists(Gardener.Enums.HttpMethod,System.String)">
+            <summary>
+            判断是否存在
+            </summary>
+            <remarks>
+            根据 HttpMethod 和 path 判断是否存在
+            </remarks>
+            <param name="method"></param>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IFunctionService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Services.IResourceFunctionService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceFunctionService.Add(System.Collections.Generic.List{Gardener.UserCenter.Dtos.ResourceFunctionDto})">
+            <summary>
+            添加资源与接口关系
+            </summary>
+            <param name="resourceFunctionDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceFunctionService.Delete(System.Guid,System.Guid)">
+            <summary>
+            删除资源与接口关系
+            </summary>
+            <param name="resourceId"></param>
+            <param name="functionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceFunctionService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Services.IResourceService">
+            <summary>
+            资源服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceService.GetChildren(System.Guid)">
+            <summary>
+            获取所有子资源
+            </summary>
+            <param name="id">父id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceService.GetRoot">
+            <summary>
+            返回根节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceService.GetTree">
+            <summary>
+            查询所有资源 按树形结构返回
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceService.GetSeedData">
+            <summary>
+            获取资源的种子数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IResourceService.GetFunctions(System.Guid)">
+            <summary>
+            根据资源id获取
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IRoleService.DeleteResource(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IRoleService.Resource(System.Int32,System.Guid[])">
+            <summary>
+            
+            </summary>
+            <param name="roleId"></param>
+            <param name="resourceIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IRoleService.GetResource(System.Int32)">
+            <summary>
+            获取角色所有资源
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IRoleService.GetRoleResourceSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IUserService.GetResources(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IUserService.GetRoles(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IUserService.Role(System.Int32,System.Int32[])">
+            <summary>
+            设置用户角色
+            </summary>
+            <param name="userId"></param>
+            <param name="roleIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IUserService.UpdateAvatar(Gardener.UserCenter.Dtos.UserUpdateAvatarInput)">
+            <summary>
+            更新头像
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.Api.Core</name>
+    </assembly>
+    <members>
+        <member name="M:Gardener.Authorization.Core.ApiEndpointStoreService.Query(System.String)">
+            <summary>
+            根据key获取功能点
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.ApiEndpointStoreService.Query(System.String,Gardener.Enums.HttpMethod)">
+            <summary>
+            根据path,method获取功能点
+            </summary>
+            <param name="path"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Gardener.Authorization.Core.IdentityPermissionService._userRepository">
+            <summary>
+            用户仓储
+            </summary>
+        </member>
+        <member name="F:Gardener.Authorization.Core.IdentityPermissionService._clientRepository">
+            <summary>
+            用户仓储
+            </summary>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.CurrentUserHaveResource(System.Int32,System.String)">
+            <summary>
+            判断是否拥有该权限
+            </summary>
+            <param name="functionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.CurrentClientHaveResource(System.String,System.String)">
+            <summary>
+            判断是否拥有该权限
+            </summary>
+            <param name="functionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.GetIdentityId(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.GetUserId(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.GetClientId(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Core.DbContexts.GardenerAuditDbContext">
+            <summary>
+            审计数据库上下文
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.DbContexts.GardenerAuditDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            解决sqlite 不支持datetimeoffset问题（损失很小的精度）
+            https://blog.dangl.me/archive/handling-datetimeoffset-in-sqlite-with-entity-framework-core/
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:Gardener.Core.DbContexts.GardenerDbContext">
+            <summary>
+            数据库上下文
+            </summary>
+        </member>
+        <member name="M:Gardener.Core.DbContexts.GardenerDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            解决sqlite 不支持datetimeoffset问题（损失很小的精度）
+            https://blog.dangl.me/archive/handling-datetimeoffset-in-sqlite-with-entity-framework-core/
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Gardener.Core.DbContexts.GardenerDbContext.SavingChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32})">
+            <summary>
+            数据保存
+            </summary>
+            <param name="eventData"></param>
+            <param name="result"></param>
+        </member>
+        <member name="M:Gardener.Core.DbContexts.GardenerDbContext.SavedChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32)">
+            <summary>
+            数据保存后
+            </summary>
+            <param name="eventData"></param>
+            <param name="result"></param>
+        </member>
+        <member name="T:Gardener.Admin.GardenerAdminStartup">
+            <summary>
+            启动类
+            </summary>
+        </member>
+        <member name="T:Gardener.Admin.JsonConverters.DateTimeJsonConverter">
+            <summary>
+            DateTime 类型序列化
+            </summary>
+        </member>
+        <member name="M:Gardener.Admin.JsonConverters.DateTimeJsonConverter.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="format"></param>
+        </member>
+        <member name="P:Gardener.Admin.JsonConverters.DateTimeJsonConverter.Format">
+            <summary>
+            时间格式化格式
+            </summary>
+        </member>
+        <member name="M:Gardener.Admin.JsonConverters.DateTimeJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Admin.JsonConverters.DateTimeJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            序列化
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Gardener.Admin.JsonConverters.DateTimeOffsetJsonConverter">
+            <summary>
+            DateTimeOffset 类型序列化
+            </summary>
+        </member>
+        <member name="M:Gardener.Admin.JsonConverters.DateTimeOffsetJsonConverter.#ctor(System.String)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="format"></param>
+        </member>
+        <member name="P:Gardener.Admin.JsonConverters.DateTimeOffsetJsonConverter.Format">
+            <summary>
+            时间格式化格式
+            </summary>
+        </member>
+        <member name="M:Gardener.Admin.JsonConverters.DateTimeOffsetJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Admin.JsonConverters.DateTimeOffsetJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTimeOffset,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            序列化
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Gardener.Admin.MyRESTfulResultProvider">
+            <summary>
+            RESTful 风格返回值
+            </summary>
+        </member>
+        <member name="M:Gardener.Admin.MyRESTfulResultProvider.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext,Furion.UnifyResult.Internal.ExceptionMetadata)">
+            <summary>
+            异常返回值
+            </summary>
+            <param name="context"></param>
+            <param name="metadata"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Admin.MyRESTfulResultProvider.OnSucceeded(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext,System.Object)">
+            <summary>
+            成功返回值
+            </summary>
+            <param name="context"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Admin.MyRESTfulResultProvider.OnValidateFailed(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Furion.DataValidation.ValidationMetadata)">
+            <summary>
+            验证失败返回值
+            </summary>
+            <param name="context"></param>
+            <param name="metadata"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Admin.MyRESTfulResultProvider.OnResponseStatusCodes(Microsoft.AspNetCore.Http.HttpContext,System.Int32,Furion.UnifyResult.UnifyResultSettingsOptions)">
+            <summary>
+            特定状态码返回值
+            </summary>
+            <param name="context"></param>
+            <param name="statusCode"></param>
+            <param name="unifyResultSettings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Admin.MyRESTfulResultProvider.RESTfulResult(System.Int32,System.Boolean,System.Object,System.Object,System.Object)">
+            <summary>
+            返回 RESTful 风格结果集
+            </summary>
+            <param name="statusCode"></param>
+            <param name="succeeded"></param>
+            <param name="data"></param>
+            <param name="errors"></param>
+            <param name="errorCode"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

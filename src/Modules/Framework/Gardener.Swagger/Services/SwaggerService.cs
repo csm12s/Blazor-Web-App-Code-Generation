@@ -27,7 +27,7 @@ namespace Gardener.Swagger.Services
     /// <summary>
     /// Swagger服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("SystemBaseServices")]
     public class SwaggerService : ISwaggerService, IDynamicApiController
     {
 

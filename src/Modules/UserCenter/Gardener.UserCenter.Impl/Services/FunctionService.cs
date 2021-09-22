@@ -24,7 +24,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// <summary>
     /// 功能服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class FunctionService : ServiceBase<Function, FunctionDto, Guid>, IFunctionService
     {
 

@@ -21,7 +21,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// <summary>
     /// 部门服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class DeptService : ServiceBase<Dept, DeptDto, int>,IDeptService
     {
         private IRepository<Dept> _repository;

@@ -35,7 +35,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// <summary>
     /// 权限认证服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class AccountService : IDynamicApiController, IAccountService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

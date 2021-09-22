@@ -23,7 +23,7 @@ namespace Gardener.CodeGeneration.Services
     /// <summary>
     /// 代码生成服务
     /// </summary>
-    [ApiDescriptionSettings( Groups = new[] { "SystemToolServices" })]
+    [ApiDescriptionSettings( Groups = new[] { "SystemBaseServices" })]
     public class CodeGenerationService : ICodeGenerationService, IDynamicApiController
     {
         private readonly IRepository<EntityCodeGenerationSetting> repository;

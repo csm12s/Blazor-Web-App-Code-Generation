@@ -2,13 +2,13 @@
   "SpecificationDocumentSettings": {
     "DocumentTitle": "Gardener Api 文档",
     "DocExpansionState": "None",
-    "XmlComments": "Gardener.xml",
+    "XmlComments": [ "Gardener.xml" ],
     "GroupOpenApiInfos": [
       {
         "Order": 100,
-        "Group": "SystemManagerServices",
-        "Title": "系统管理",
-        "Description": "系统管理服务相关接口",
+        "Group": "UserCenterServices",
+        "Title": "用户中心服务",
+        "Description": "用户中心服务相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {
@@ -23,26 +23,9 @@
       },
       {
         "Order": 90,
-        "Group": "NewsManagerServices",
-        "Title": "新闻服务",
-        "Description": "新闻服务相关接口",
-        "Version": "1.0.0",
-        "TermsOfService": "https://gitee.com/hgflydream",
-        "Contact": {
-          "Name": "hhf",
-          "Url": "https://gitee.com/hgflydream",
-          "Email": "326794739@qq.com"
-        },
-        "License": {
-          "Name": "Apache-2.0",
-          "Url": "https://gitee.com/hgflydream"
-        }
-      },
-      {
-        "Order": 80,
-        "Group": "SystemToolServices",
-        "Title": "系统工具服务",
-        "Description": "系统工具服务相关接口",
+        "Group": "SystemBaseServices",
+        "Title": "系统基础服务",
+        "Description": "系统基础服务相关接口",
         "Version": "1.0.0",
         "TermsOfService": "https://gitee.com/hgflydream",
         "Contact": {

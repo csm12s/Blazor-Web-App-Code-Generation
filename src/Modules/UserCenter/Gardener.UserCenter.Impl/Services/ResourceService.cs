@@ -25,7 +25,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// <summary>
     /// 资源服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class ResourceService : ServiceBase<Resource, ResourceDto, Guid>, IResourceService
     {
         private readonly IRepository<Resource> _resourceRepository;

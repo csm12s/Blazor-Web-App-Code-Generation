@@ -13,10 +13,7 @@ using System.IO;
 using System;
 using Furion.FriendlyException;
 using Gardener.Enums;
-using Gardener.Common;
 using Gardener.Attachment.Dtos;
-using Gardener.Attachment.Services;
-using Gardener.Attachment.Domains;
 using Gardener.FileStore;
 using Gardener.Attachment.Core;
 
@@ -25,7 +22,7 @@ namespace Gardener.Attachment.Services
     /// <summary>
     /// 附件服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("SystemBaseServices")]
     public class AttachmentService : ServiceBase<Domains.Attachment, AttachmentDto, Guid>, IAttachmentService
     {
         private readonly IFileStoreService fileStoreService;

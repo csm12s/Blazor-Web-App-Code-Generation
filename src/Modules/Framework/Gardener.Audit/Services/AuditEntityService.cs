@@ -21,7 +21,7 @@ namespace Gardener.Audit.Services
     /// <summary>
     /// 审计数据服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("SystemBaseServices")]
     public class AuditEntityService : ServiceBase<AuditEntity, AuditEntityDto, Guid>, IAuditEntityService
     {
         private readonly IRepository<AuditEntity> _repository;

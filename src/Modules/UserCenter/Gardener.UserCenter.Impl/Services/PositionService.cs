@@ -15,7 +15,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// <summary>
     /// 岗位管理服务
     /// </summary>
-    [ApiDescriptionSettings("SystemManagerServices")]
+    [ApiDescriptionSettings("UserCenterServices")]
     public class PositionService : ServiceBase<Position, PositionDto, int>, IPositionService
     {
 
