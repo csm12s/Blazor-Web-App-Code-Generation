@@ -12,9 +12,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Gardener.Core.DbContexts;
-using Gardener.Audit.Core;
 using Gardener.Authorization.Core;
+using Gardener.EntityFramwork.DbContexts;
 
 namespace Gardener.Admin
 {
@@ -24,7 +23,11 @@ namespace Gardener.Admin
     [AppStartup(600)]
     public sealed class GardenerAdminStartup : AppStartup
     {
-        private static readonly string migrationAssemblyName="Gardener.Migrations";
+        private static readonly string migrationAssemblyName= "Gardener.Api.Core";
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             //业务库
@@ -47,15 +50,16 @@ namespace Gardener.Admin
             services.AddSimpleEventBus();
             //注册跨域
             services.AddCorsAccessor();
+
+            //注册swagger
+            services.AddSpecificationDocuments(x => {
+                x.SwaggerGenConfigure = config => config.EnableAnnotations();
+            });
             //注册控制器和视图
             services.AddControllersWithViews().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
                 options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetJsonConverter());
-            })
-            //注册swagger
-            .AddSpecificationDocuments(x => {
-                x.SwaggerGenConfigure = config => config.EnableAnnotations();
             })
             //注册动态api
             .AddDynamicApiControllers()
@@ -64,11 +68,15 @@ namespace Gardener.Admin
             //注册友好异常
             .AddFriendlyException()
             //注册规范返回格式
-            //.AddUnifyResult()
+            .AddUnifyResult<MyRESTfulResultProvider>()
             ;
-            //注册规范返回格式
-            services.AddUnifyResult<MyRESTfulResultProvider>();
+
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -77,6 +85,7 @@ namespace Gardener.Admin
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -84,6 +93,7 @@ namespace Gardener.Admin
             app.UseCorsAccessor();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseInject();

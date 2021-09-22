@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Audit.Core;
+using Gardener.EntityFramwork.DbContexts;
 using Gardener.EntityFramwork.Domains;
 using System;
 using System.ComponentModel;

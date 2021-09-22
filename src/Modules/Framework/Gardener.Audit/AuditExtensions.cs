@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Audit.Core;
+using Gardener.EntityFramwork.DbContexts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microsoft.Extensions.DependencyInjection

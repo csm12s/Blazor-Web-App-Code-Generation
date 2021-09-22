@@ -4,10 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
 using Furion.EventBus;
-using Gardener.Audit;
 using Gardener.EntityFramwork.Event;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -15,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Linq;
 
-namespace Gardener.Core.DbContexts
+namespace Gardener.EntityFramwork.DbContexts
 {
     /// <summary>
     /// 数据库上下文

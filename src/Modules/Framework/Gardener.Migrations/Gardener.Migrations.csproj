@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gardener.EntityFramwork\Gardener.EntityFramwork.csproj" />
+    <ProjectReference Include="..\..\..\Api\Gardener.Api.Core\Gardener.Api.Core.csproj" />
   </ItemGroup>
 
 </Project>

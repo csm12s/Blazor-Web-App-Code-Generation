@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 
-namespace Gardener.Audit.Core
+namespace Gardener.EntityFramwork.DbContexts
 {
     /// <summary>
     /// 审计数据库定位器

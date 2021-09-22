@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +22,6 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.FileStore\Gardener.FileStore.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.ImageVerifyCode.DbStore\Gardener.ImageVerifyCode.DbStore.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.ImageVerifyCode\Gardener.ImageVerifyCode.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.Migrations\Gardener.Migrations.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />
   </ItemGroup>

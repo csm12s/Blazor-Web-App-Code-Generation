@@ -5,13 +5,12 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Audit.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Linq;
 
-namespace Gardener.Core.DbContexts
+namespace Gardener.EntityFramwork.DbContexts
 {
     /// <summary>
     /// 审计数据库上下文

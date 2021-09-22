@@ -64,48 +64,23 @@
             <param name="identity"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Core.DbContexts.GardenerAuditDbContext">
-            <summary>
-            审计数据库上下文
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.DbContexts.GardenerAuditDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <summary>
-            解决sqlite 不支持datetimeoffset问题（损失很小的精度）
-            https://blog.dangl.me/archive/handling-datetimeoffset-in-sqlite-with-entity-framework-core/
-            </summary>
-            <param name="builder"></param>
-        </member>
-        <member name="T:Gardener.Core.DbContexts.GardenerDbContext">
-            <summary>
-            数据库上下文
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.DbContexts.GardenerDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <summary>
-            解决sqlite 不支持datetimeoffset问题（损失很小的精度）
-            https://blog.dangl.me/archive/handling-datetimeoffset-in-sqlite-with-entity-framework-core/
-            </summary>
-            <param name="builder"></param>
-        </member>
-        <member name="M:Gardener.Core.DbContexts.GardenerDbContext.SavingChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32})">
-            <summary>
-            数据保存
-            </summary>
-            <param name="eventData"></param>
-            <param name="result"></param>
-        </member>
-        <member name="M:Gardener.Core.DbContexts.GardenerDbContext.SavedChangesEvent(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32)">
-            <summary>
-            数据保存后
-            </summary>
-            <param name="eventData"></param>
-            <param name="result"></param>
-        </member>
         <member name="T:Gardener.Admin.GardenerAdminStartup">
             <summary>
             启动类
             </summary>
+        </member>
+        <member name="M:Gardener.Admin.GardenerAdminStartup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Gardener.Admin.GardenerAdminStartup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
         </member>
         <member name="T:Gardener.Admin.JsonConverters.DateTimeJsonConverter">
             <summary>

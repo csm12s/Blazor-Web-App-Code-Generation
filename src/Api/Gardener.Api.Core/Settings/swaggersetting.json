@@ -2,7 +2,6 @@
   "SpecificationDocumentSettings": {
     "DocumentTitle": "Gardener Api 文档",
     "DocExpansionState": "None",
-    "XmlComments": [ "Gardener.xml" ],
     "GroupOpenApiInfos": [
       {
         "Order": 100,
