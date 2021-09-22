@@ -1,0 +1,110 @@
+﻿// -----------------------------------------------------------------------------
+// 园丁,是个很简单的管理系统
+//  gitee:https://gitee.com/hgflydream/Gardener 
+//  issues:https://gitee.com/hgflydream/Gardener/issues 
+// -----------------------------------------------------------------------------
+
+using Gardener.Authentication.Core;
+using Gardener.Authentication.Enums;
+using Gardener.Authentication.Options;
+using Gardener.Authorization.Core;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    /// <summary>
+    /// 安全服务
+    /// </summary>
+    public static class AuthenticationExtensions
+    {
+        /// <summary>
+        /// 添加安全服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddAuthen(this IServiceCollection services)
+        {
+            services.AddConfigurableOptions<JWTOptions>();
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IJwtService, JwtBearerService>();
+            services.Configure<MvcOptions>(options =>
+            {
+                //身份认证
+                options.Filters.Add(new AuthorizeFilter());
+            });
+            using var serviceProvider = services.BuildServiceProvider();
+            var jwtSettings = serviceProvider.GetService<IOptions<JWTOptions>>().Value;
+
+            //jwt身份认证配置
+            services.AddAuthentication(options =>
+           {
+               options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+           }).AddJwtBearer(IdentityType.User.ToString(), options =>
+           {
+               options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.User]);
+
+           }).AddJwtBearer(IdentityType.Client.ToString(), options =>
+           {
+               options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.Client]);
+           });
+
+            services.AddAuthorization(options =>
+                {
+                    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .AddAuthenticationSchemes(IdentityType.User.ToString(), IdentityType.Client.ToString())
+                        .Build();
+
+                    options.AddPolicy(IdentityType.User.ToString(), new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .AddAuthenticationSchemes(IdentityType.User.ToString())
+                        .Build());
+
+                    options.AddPolicy(IdentityType.Client.ToString(), new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .AddAuthenticationSchemes(IdentityType.Client.ToString())
+                        .Build());
+                });
+            return services;
+        }
+
+
+        /// <summary>
+        /// 生成Token验证参数
+        /// </summary>
+        /// <param name="jwtSettings"></param>
+        /// <returns></returns>
+        private static TokenValidationParameters CreateTokenValidationParameters(JWTSettingsOptions jwtSettings)
+        {
+            return new TokenValidationParameters
+            {
+                // 验证签发方密钥
+                ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey.Value,
+                // 签发方密钥
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.IssuerSigningKey)),
+                // 验证签发方
+                ValidateIssuer = jwtSettings.ValidateIssuer.Value,
+                // 设置签发方
+                ValidIssuer = jwtSettings.ValidIssuer,
+                // 验证签收方
+                ValidateAudience = jwtSettings.ValidateAudience.Value,
+                // 设置接收方
+                ValidAudience = jwtSettings.ValidAudience,
+                // 验证生存期
+                ValidateLifetime = jwtSettings.ValidateLifetime.Value,
+                // 过期时间容错值
+                ClockSkew = TimeSpan.FromSeconds(jwtSettings.ClockSkew.Value),
+            };
+        }
+    }
+}

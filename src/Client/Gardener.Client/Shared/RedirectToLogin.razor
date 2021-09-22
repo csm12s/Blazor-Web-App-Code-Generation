@@ -1,0 +1,21 @@
+﻿@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.WebUtilities
+@code {
+    protected override void OnInitialized()
+    {
+        string returnUrl = "";
+        var uri = new Uri(Navigation.Uri);
+        if (!uri.AbsolutePath.Equals("/auth/login"))
+        {
+            returnUrl = Navigation.Uri;
+        }
+        var query = uri.Query;
+
+        if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
+        {
+            returnUrl = value;
+        }
+        returnUrl = Uri.EscapeDataString(returnUrl);
+        Navigation.NavigateTo($"/auth/login{(string.IsNullOrEmpty(returnUrl)?"": "?returnUrl="+ returnUrl)}");
+    }
+}

@@ -1,0 +1,81 @@
+﻿{
+  "SpecificationDocumentSettings": {
+    "DocumentTitle": "Gardener Api 文档",
+    "DocExpansionState": "None",
+    "XmlComments": "Gardener.xml",
+    "GroupOpenApiInfos": [
+      {
+        "Order": 100,
+        "Group": "SystemManagerServices",
+        "Title": "系统管理",
+        "Description": "系统管理服务相关接口",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      },
+      {
+        "Order": 90,
+        "Group": "NewsManagerServices",
+        "Title": "新闻服务",
+        "Description": "新闻服务相关接口",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      },
+      {
+        "Order": 80,
+        "Group": "SystemToolServices",
+        "Title": "系统工具服务",
+        "Description": "系统工具服务相关接口",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
+      }
+    ],
+    "EnableAuthorized": true,
+    "SecurityDefinitions": [
+      {
+        "Id": "Bearer",
+        "Type": "Http",
+        "Name": "Authorization",
+        "Description": "JWT Authorization header using the Bearer scheme.",
+        "BearerFormat": "JWT",
+        "Scheme": "bearer",
+        "In": "Header",
+        "Requirement": {
+          "Scheme": {
+            "Reference": {
+              "Id": "Bearer",
+              "Type": "SecurityScheme"
+            },
+            "Accesses": []
+          }
+        }
+      }
+    ]
+  }
+}

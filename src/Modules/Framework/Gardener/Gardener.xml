@@ -1,0 +1,1340 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener</name>
+    </assembly>
+    <members>
+        <member name="T:Gardener.Attachment.Dtos.AttachmentDto">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.BusinessId">
+            <summary>
+            业务ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.BusinessType">
+            <summary>
+            附件业务类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.FileType">
+            <summary>
+            上传的文件类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.ContentType">
+            <summary>
+            原始类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.Size">
+            <summary>
+            文件大小 byte
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.Path">
+            <summary>
+            存储地址 无name
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.Name">
+            <summary>
+            文件名称 随机生成
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.OriginalName">
+            <summary>
+            原始文件名
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.Url">
+            <summary>
+            访问地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.Suffix">
+            <summary>
+            后缀
+            .jpg
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.UpdatedTime">
+            <summary>
+            更新日期
+            </summary>
+        </member>
+        <member name="T:Gardener.Attachment.Dtos.UploadAttachmentInput">
+            <summary>
+            上传附件
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.UploadAttachmentInput.BusinessId">
+            <summary>
+            业务ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.UploadAttachmentInput.BusinessType">
+            <summary>
+            附件业务类型
+            </summary>
+        </member>
+        <member name="T:Gardener.Attachment.Dtos.UploadAttachmentOutput">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.UploadAttachmentOutput.Url">
+            <summary>
+            文件地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Dtos.UploadAttachmentOutput.Id">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="T:Gardener.Attachment.Enums.AttachmentBusinessType">
+            <summary>
+            附件业务类型类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Attachment.Enums.AttachmentBusinessType.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="F:Gardener.Attachment.Enums.AttachmentBusinessType.Order">
+            <summary>
+            订单
+            </summary>
+        </member>
+        <member name="T:Gardener.Attachment.Enums.AttachmentFileType">
+            <summary>
+            上传文件类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Attachment.Enums.AttachmentFileType.Image">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="F:Gardener.Attachment.Enums.AttachmentFileType.Video">
+            <summary>
+            视频
+            </summary>
+        </member>
+        <member name="F:Gardener.Attachment.Enums.AttachmentFileType.Audio">
+            <summary>
+            音频
+            </summary>
+        </member>
+        <member name="F:Gardener.Attachment.Enums.AttachmentFileType.Other">
+            <summary>
+            Other
+            </summary>
+        </member>
+        <member name="T:Gardener.Attachment.Services.IAttachmentService">
+            <summary>
+            附件服务接口
+            </summary>
+        </member>
+        <member name="M:Gardener.Attachment.Services.IAttachmentService.Upload(Gardener.Attachment.Dtos.UploadAttachmentInput,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Audit.Dtos.AuditEntityDto">
+            <summary>
+            实体审计信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.DataId">
+            <summary>
+            数据编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.Name">
+            <summary>
+            实体名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.TypeName">
+            <summary>
+            实体类型名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperaterId">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperaterName">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperationId">
+            <summary>
+            操作ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.AuditProperties">
+            <summary>
+            获取或设置 操作实体属性集合
+            </summary>
+        </member>
+        <member name="T:Gardener.Audit.Dtos.AuditOperationDto">
+            <summary>
+            操作审计信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.ResourceName">
+            <summary>
+            资源名
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.ResourceId">
+            <summary>
+            资源编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.OperaterId">
+            <summary>
+            用户标识
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.OperaterName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.Ip">
+            <summary>
+            访问IP
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.UserAgent">
+            <summary>
+            UserAgent
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.Path">
+            <summary>
+            请求地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.Method">
+            <summary>
+            请求方法
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.Parameters">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.AuditEntitys">
+            <summary>
+            关联数据审计
+            </summary>
+        </member>
+        <member name="T:Gardener.Audit.Dtos.AuditPropertyDto">
+            <summary>
+            属性审计信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditPropertyDto.DisplayName">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditPropertyDto.FieldName">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditPropertyDto.OriginalValue">
+            <summary>
+            旧值
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditPropertyDto.NewValue">
+            <summary>
+            新值
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditPropertyDto.DataType">
+            <summary>
+            数据类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditPropertyDto.AuditEntityid">
+            <summary>
+            实体审计编号  
+            </summary>
+        </member>
+        <member name="T:Gardener.Audit.Services.IAuditEntityService">
+            <summary>
+            审计数据服务接口
+            </summary>
+        </member>
+        <member name="T:Gardener.Audit.Services.IAuditOperationService">
+            <summary>
+            审计操作服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Audit.Services.IAuditOperationService.GetAuditEntity(System.Guid)">
+            <summary>
+            根据操作审计ID获取数据审计数据
+            </summary>
+            <param name="operationId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.IIdentityService.GetIdentity">
+            <summary>
+            获取身份
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authentication.Core.IJwtService">
+            <summary>
+            jwt
+            </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Core.IJwtService.CreateToken(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            创建token
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.IJwtService.RefreshToken(System.String)">
+            <summary>
+            刷新token
+            </summary>
+            <param name="orlRefreshToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.IJwtService.RemoveRefreshToken(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            移除当前用户的刷新token
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authentication.Dtos.Identity">
+            <summary>
+            身份信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.Identity.Id">
+            <summary>
+            身份唯一编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.Identity.Name">
+            <summary>
+            身份唯一名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.Identity.GivenName">
+            <summary>
+            身份昵称
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.Identity.IdentityType">
+            <summary>
+            身份类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.Identity.LoginClientType">
+            <summary>
+            客户端类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.Identity.ClientId">
+            <summary>
+            获取或设置 客户端Id
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Dtos.JsonWebToken">
+            <summary>
+            JWT
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.JsonWebToken.AccessToken">
+            <summary>
+            获取或设置 用于业务身份认证的AccessToken
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.JsonWebToken.AccessTokenExpires">
+            <summary>
+            获取或设置 AccessToken有效期，UTC标准
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.JsonWebToken.RefreshToken">
+            <summary>
+            获取或设置 用于刷新AccessToken的RefreshToken
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.JsonWebToken.RefreshTokenExpires">
+            <summary>
+            获取或设置 RefreshToken有效期，UTC标准
+            </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Dtos.JsonWebToken.IsRefreshTokenExpired">
+            <summary>
+            刷新Token是否过期
+            </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Dtos.JsonWebToken.IsAccessTokenExpired">
+            <summary>
+            刷新Token是否过期
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Dtos.LoginTokenDto">
+            <summary>
+            用户Token信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.IdentityId">
+            <summary>
+            身份编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.IdentityName">
+            <summary>
+            身份唯一名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.IdentityGivenName">
+            <summary>
+            身份昵称
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.IdentityType">
+            <summary>
+            身份类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.ClientId">
+            <summary>
+            获取或设置 客户端Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.LoginClientType">
+            <summary>
+            登录的客户端类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.Value">
+            <summary>
+            获取或设置 标识值
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.EndTime">
+            <summary>
+            获取或设置 过期时间
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Enums.IdentityType">
+            <summary>
+            身份类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.IdentityType.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.IdentityType.Client">
+            <summary>
+            客户端
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Enums.JwtTokenType">
+            <summary>
+            token 类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.JwtTokenType.AccessToken">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.JwtTokenType.RefreshToken">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Enums.LoginClientType">
+            <summary>
+            请求登录的客户端类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.LoginClientType.Browser">
+            <summary>
+            浏览器类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.LoginClientType.Desktop">
+            <summary>
+            桌面客户端
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.LoginClientType.Mobile">
+            <summary>
+            手机客户端
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.LoginClientType.Server">
+            <summary>
+            服务端
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Services.ILoginTokenService">
+            <summary>
+            用户Token服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Services.ILoginTokenService.Login(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            登录
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authorization.Core.IApiEndpointStoreService">
+            <summary>
+            终结点存储服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IApiEndpointStoreService.Query(System.String,Gardener.Enums.HttpMethod)">
+            <summary>
+            根据path,method获取功能点
+            </summary>
+            <param name="path"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IApiEndpointStoreService.Query(System.String)">
+            <summary>
+            根据key获取功能点
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authorization.Core.IAuthorizationService">
+            <summary>
+            授权服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IAuthorizationService.GetIdentity">
+            <summary>
+            获取身份
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IAuthorizationService.GetApiEndpoint">
+            <summary>
+            获取当前请求的功能点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IAuthorizationService.ChecktContenxtApiEndpoint">
+            <summary>
+            检查权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IAuthorizationService.GetIdentityId">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authorization.Core.IIdentityPermissionService">
+            <summary>
+            身份权限服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IIdentityPermissionService.Check(Gardener.Authentication.Dtos.Identity,Gardener.Authorization.Dtos.ApiEndpoint)">
+            <summary>
+            检测是否有该功能点的使用权限
+            </summary>
+            <param name="identity"></param>
+            <param name="api"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IIdentityPermissionService.GetIdentityId(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authorization.Dtos.ApiEndpoint">
+            <summary>
+            api终结点
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Key">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Path">
+            <summary>
+            API路由地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Method">
+            <summary>
+            接口请求方法
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Id">
+            <summary>
+            唯一id
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.EnableAudit">
+            <summary>
+            启用审计
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Service">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Summary">
+            <summary>
+            概要
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ApiEndpoint.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:Gardener.Authorization.Dtos.LoginInput">
+            <summary>
+            登录输入参数
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.LoginInput.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.LoginInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.LoginInput.LoginType">
+            <summary>
+            登录类型
+            </summary>
+            
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.LoginInput.LoginClientType">
+            <summary>
+            登录客户端类型
+            </summary>
+        </member>
+        <member name="T:Gardener.Authorization.Dtos.RefreshTokenInput">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.RefreshTokenInput.RefreshToken">
+            <summary>
+            刷新token
+            </summary>
+        </member>
+        <member name="T:Gardener.Authorization.Dtos.TokenOutput">
+            <summary>
+            token刷新返回结果
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.TokenOutput.AccessToken">
+            <summary>
+            获取或设置 用于业务身份认证的AccessToken
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.TokenOutput.AccessTokenExpires">
+            <summary>
+            获取或设置 AccessToken有效期(时间戳精确到秒)
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.TokenOutput.RefreshToken">
+            <summary>
+            获取或设置 用于刷新AccessToken的RefreshToken
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.TokenOutput.RefreshTokenExpires">
+            <summary>
+            获取或设置 RefreshToken有效期(时间戳精确到秒)
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.BaseDto`1">
+            <summary>
+            dto基础类
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:Gardener.Base.BaseDto`1.Id">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.BaseDto`1.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.BaseDto`1.IsDeleted">
+            <summary>
+            是否逻辑删除
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.BaseDto`1.CreatedTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.BaseDto`1.UpdatedTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.IApplicationServiceBase`2">
+            <summary>
+            定义了基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntityDto"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.Delete(`1)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.Deletes(`1[])">
+            <summary>
+            批量删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.FakeDelete(`1)">
+            <summary>
+            逻辑删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.FakeDeletes(`1[])">
+            <summary>
+            批量逻辑删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.Get(`1)">
+            <summary>
+            查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.GetAll">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.GetAllUsable">
+            <summary>
+            查询所有可以用的
+            </summary>
+            <remarks>
+            查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.GetPage(System.Int32,System.Int32)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.Insert(`0)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.Update(`0)">
+            <summary>
+            更新
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.Lock(`1,System.Boolean)">
+            <summary>
+             锁定、解锁
+            </summary>
+            <param name="id"></param>
+            <param name="islocked"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IApplicationServiceBase`2.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索功能数据
+            </remarks>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto">
+            <summary>
+            代码生成设置信息
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto.EntityFullName">
+            <summary>
+            实体全称
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto.ControllerRoute">
+            <summary>
+            控制器路由
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto.ControllerGroup">
+            <summary>
+            控制器分组   
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto.ModuleName">
+            <summary>
+            模块名称   
+            </summary>
+        </member>
+        <member name="T:Gardener.CodeGeneration.Dtos.EntityDefinitionDto">
+            <summary>
+            实体信息
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityDefinitionDto.Name">
+            <summary>
+            实体名称
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityDefinitionDto.FullName">
+            <summary>
+            实体完整名称
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityDefinitionDto.Description">
+            <summary>
+            实体描述
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityDefinitionDto.Properties">
+            <summary>
+            实体属性信息
+            </summary>
+        </member>
+        <member name="T:Gardener.CodeGeneration.Dtos.EntityPropertyDto">
+            <summary>
+            实体属性信息
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityPropertyDto.DisplayName">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityPropertyDto.FieldName">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityPropertyDto.DataTypeName">
+            <summary>
+            数据类型
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityPropertyDto.DataTypeFullName">
+            <summary>
+            数据类型
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Dtos.EntityPropertyDto.IsNullableType">
+            <summary>
+            是否是可为NULL类型
+            </summary>
+        </member>
+        <member name="T:Gardener.CodeGeneration.Services.ICodeGenerationService">
+            <summary>
+            代码生成服务
+            </summary>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.ICodeGenerationService.GetEntityDefinitions">
+            <summary>
+            获取所有实体定义
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.ICodeGenerationService.GetEntityCodeGenerationSetting(System.String)">
+            <summary>
+            获取实体的代码生成配置
+            </summary>
+            <param name="entityFullName">实体完整名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.ICodeGenerationService.AddEntityCodeGenerationSetting(Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto)">
+            <summary>
+            添加实体的代码生成配置
+            </summary>
+            <param name="settingDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.ICodeGenerationService.UpdateEntityCodeGenerationSetting(Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto)">
+            <summary>
+            更新实体的代码生成配置
+            </summary>
+            <param name="settingDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Dto.FilterGroup">
+            <summary>
+            过滤组
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.FilterGroup.Rules">
+            <summary>
+            获取或设置 条件集合
+            </summary>
+        </member>
+        <member name="M:Gardener.EntityFramwork.Dto.FilterGroup.AddRule(Gardener.EntityFramwork.Dto.FilterRule)">
+            <summary>
+            添加规则
+            </summary>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Dto.FilterRule">
+            <summary>
+            筛选规则
+            </summary>
+        </member>
+        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.#ctor">
+            <summary>
+            初始化一个<see cref="T:Gardener.EntityFramwork.Dto.FilterRule"/>的新实例
+            </summary>
+        </member>
+        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.#ctor(System.String,System.Object,Gardener.Enums.FilterOperate)">
+            <summary>
+            使用指定数据名称，数据值及操作方式初始化一个<see cref="T:Gardener.EntityFramwork.Dto.FilterRule"/>的新实例
+            </summary>
+            <param name="field">数据名称</param>
+            <param name="value">数据值</param>
+            <param name="operate">操作方式</param>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Field">
+            <summary>
+            获取或设置 属性名称
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Value">
+            <summary>
+            获取或设置 属性值
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Operate">
+            <summary>
+            获取或设置 操作类型
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Condition">
+            <summary>
+            获取或设置 条件间操作方式，仅限And, Or
+            </summary>
+        </member>
+        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.Equals(Gardener.EntityFramwork.Dto.FilterRule)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Dto.ListSortDirection">
+            <summary>
+            搜索排序
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.ListSortDirection.FieldName">
+            <summary>
+            字段名
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.ListSortDirection.SortType">
+            <summary>
+            0 asc 
+            1 desc
+            </summary>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Dto.PagedList`1">
+            <summary>
+            分页泛型集合
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.PageSize">
+            <summary>
+            页容量
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.TotalCount">
+            <summary>
+            总条数
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.TotalPages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.Items">
+            <summary>
+            当前页集合
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.HasPrevPages">
+            <summary>
+            是否有上一页
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.HasNextPages">
+            <summary>
+            是否有下一页
+            </summary>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Dto.PagedList">
+            <summary>
+            分页集合
+            </summary>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Dto.PageRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.PageSize">
+            <summary>
+            每页大小
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.OrderConditions">
+            <summary>
+            排序集合
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.FilterGroups">
+            <summary>
+            查询条件组
+            </summary>
+        </member>
+        <member name="T:Gardener.EntityFramwork.IDynamicFilterService">
+            <summary>
+            定义过滤表达式功能
+            </summary>
+        </member>
+        <member name="M:Gardener.EntityFramwork.IDynamicFilterService.GetExpression``1(System.Collections.Generic.List{Gardener.EntityFramwork.Dto.FilterGroup})">
+            <summary>
+            获取指定查询条件组的查询表达式
+            </summary>
+            <typeparam name="T">表达式实体类型</typeparam>
+            <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
+            <returns>查询表达式</returns>
+        </member>
+        <member name="T:Gardener.FileStore.IFileStoreService">
+            <summary>
+            文件存储服务
+            </summary>
+        </member>
+        <member name="M:Gardener.FileStore.IFileStoreService.Delete(System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:Gardener.FileStore.IFileStoreService.Get(System.String)">
+            <summary>
+            获取文件
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.FileStore.IFileStoreService.Save(System.IO.Stream,System.String)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="file"></param>
+            <param name="path"></param>
+            <returns>文件访问路径</returns>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Core.IImageVerifyCodeService">
+            <summary>
+            校验码服务接口
+            </summary>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.IImageVerifyCodeService.CreateFromType(Gardener.Enums.CodeCharacterTypeEnum)">
+            <summary>
+            创建校验码
+            </summary>
+            <param name="codeType">验证码类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.IImageVerifyCodeService.Create(Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeCreateParam)">
+            <summary>
+            创建校验码
+            </summary>
+            <param name="param">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.IImageVerifyCodeService.Verify(System.String,System.String)">
+            <summary>
+            验证校验码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Core.IImageVerifyCodeStoreService">
+            <summary>
+            图片验证码存储
+            </summary>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.IImageVerifyCodeStoreService.Add(System.String,System.String,System.TimeSpan)">
+            <summary>
+            保存校验码
+            </summary>
+            <param name="key"></param>
+            <param name="code"></param>
+            <param name="expire"></param>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.IImageVerifyCodeStoreService.GetCode(System.String)">
+            <summary>
+            获取校验码
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.IImageVerifyCodeStoreService.Remove(System.String)">
+            <summary>
+            移除校验码
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Core.VerifyCodeAutoVerificationAttribute">
+            <summary>
+            验证码自动验证
+            但是要保证参数要继承<see cref="!:Gardener.Application.Dtos.VerifyCodeInput"/>
+            </summary>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeCreateParam">
+            <summary>
+            生成校验码参数
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeCreateParam.FontSize">
+            <summary>
+            校验码字体大小
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeCreateParam.CharacterCount">
+            <summary>
+            校验码字符数量
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeCreateParam.Type">
+            <summary>
+            校验码类别,有三种类别可选，分别是纯数字，纯字符，数字加字符
+            </summary>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeDto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeDto.Key">
+            <summary>
+            验证码唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeDto.Base64Image">
+            <summary>
+            Base64图片
+            </summary>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeInfo">
+            <summary>
+            验证码信息
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeInfo.Key">
+            <summary>
+            校验码KEY，校验时回传
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeInfo.Code">
+            <summary>
+            校验码（注意：校验码字段只做程序调试使用，不可传递到前端）
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.ImageVerifyCodeInfo.Image">
+            <summary>
+            校验码图片
+            </summary>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Dtos.VerifyCodeInput">
+            <summary>
+            验证码输入
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.VerifyCodeInput.VerifyCodeKey">
+            <summary>
+            验证码Key
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Dtos.VerifyCodeInput.VerifyCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.Enums.CodeCharacterTypeEnum">
+            <summary>
+            校验码字符类别，有数字，字符，数字加字符
+            </summary>
+        </member>
+        <member name="F:Gardener.ImageVerifyCode.Enums.CodeCharacterTypeEnum.Number">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:Gardener.ImageVerifyCode.Enums.CodeCharacterTypeEnum.Character">
+            <summary>
+            字符
+            </summary>
+        </member>
+        <member name="F:Gardener.ImageVerifyCode.Enums.CodeCharacterTypeEnum.NumberAndCharacter">
+            <summary>
+            数字加字符
+            </summary>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Services.IVerifyCodeService.GetImageVerifyCode(Gardener.Enums.CodeCharacterTypeEnum)">
+            <summary>
+            获取图片验证码
+            </summary>
+            <param name="codeType">类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Swagger.Dtos.SwaggerSpecificationOpenApiInfoDto">
+            <summary>
+            swagger 文档分组信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerSpecificationOpenApiInfoDto.Order">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerSpecificationOpenApiInfoDto.Group">
+            <summary>
+            所属组
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerSpecificationOpenApiInfoDto.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="T:Gardener.Swagger.Dtos.SwaggerModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.Swagger.Dtos.SwaggerInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.Swagger.Dtos.SwaggerApiInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.Swagger.Services.ISwaggerService">
+            <summary>
+            swagger 服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Swagger.Services.ISwaggerService.Analysis(System.String)">
+            <summary>
+            解析open api json
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Swagger.Services.ISwaggerService.GetApiGroup">
+            <summary>
+            获取哦 swagger 配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Swagger.Services.ISwaggerService.GetFunctionsFromJson(System.String)">
+            <summary>
+            从json中获取function
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

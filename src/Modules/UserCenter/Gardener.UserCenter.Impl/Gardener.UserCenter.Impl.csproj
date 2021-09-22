@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Gardener.Base\Gardener.Base.csproj" />
+    <ProjectReference Include="..\Gardener.UserCenter\Gardener.UserCenter.csproj" />
+  </ItemGroup>
+
+</Project>

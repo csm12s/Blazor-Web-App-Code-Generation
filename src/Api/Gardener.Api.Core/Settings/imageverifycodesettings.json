@@ -1,0 +1,9 @@
+{
+  "ImageVerifyCodeSettings": {
+    "CodeFontSize": 18,
+    "CodeCharacterCount": 4,
+    "CodeType": 3,
+    "IgnoreCase": true,
+    "UseOnce": true
+  }
+}

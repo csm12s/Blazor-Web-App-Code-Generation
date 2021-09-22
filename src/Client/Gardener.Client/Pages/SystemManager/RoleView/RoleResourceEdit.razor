@@ -1,0 +1,37 @@
+﻿@inherits FeedbackComponent<int, bool>
+
+<Spin Spinning="@_isLoading">
+    <Row>
+        <AntDesign.Col>
+            <Space>
+                <SpaceItem>
+                    <Tooltip Placement="PlacementType.TopLeft" Title="@(_isExpanded?"收起":"展开")">
+                        <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
+                    </Tooltip>
+                </SpaceItem>
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">保存</Button>
+                </SpaceItem>
+                <SpaceItem>
+                    <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">取消</Button>
+                </SpaceItem>
+            </Space>
+        </AntDesign.Col>
+    </Row>
+    <Row>
+        <AntDesign.Col Span="24">
+            <Tree @ref="_tree"
+                  TItem="ResourceDto"
+                  ShowLine
+                  Checkable
+                  DataSource="_resources"
+                  KeyExpression="x=>x.Id.ToString()"
+                  TitleExpression="x=> x.DataItem.GetFullName()"
+                  ChildrenExpression="x=>x.DataItem.Children?.ToList()"
+                  IconExpression="x=>x.DataItem.Icon"
+                  IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
+                  Style="min-height:466px;min-width:400px">
+            </Tree>
+        </AntDesign.Col>
+    </Row>
+</Spin>
