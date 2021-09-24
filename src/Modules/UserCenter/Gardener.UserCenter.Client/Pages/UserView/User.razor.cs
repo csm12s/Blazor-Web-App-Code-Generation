@@ -12,8 +12,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Gardener.Common;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
+using Gardener.EntityFramwork.Dto;
+using Gardener.Client.Base;
+using Gardener.Enums;
+using Gardener.EntityFramwork.Enums;
 
-namespace Gardener.Client.Pages.SystemManager.UserView
+namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class User
     {
@@ -86,7 +92,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
                 List<int> ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
                 if (ids != null)
                 {
-                    pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, Enums.FilterOperate.In)));
+                    pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
                 }
             }
             #endregion

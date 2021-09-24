@@ -7,7 +7,7 @@
 using Gardener.Attributes;
 using System.ComponentModel;
 
-namespace Gardener.Enums
+namespace Gardener.EntityFramwork.Enums
 {
     public enum FilterCondition
     {

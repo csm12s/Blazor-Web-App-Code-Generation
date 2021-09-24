@@ -5,6 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Client.Base;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -12,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.UserView
+namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserEdit: FeedbackComponent<int, bool>
     {

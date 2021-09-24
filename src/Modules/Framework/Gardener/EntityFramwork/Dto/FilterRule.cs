@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Enums;
+using Gardener.EntityFramwork.Enums;
 
 namespace Gardener.EntityFramwork.Dto
 {

@@ -5,13 +5,16 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Client.Base;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.ResourceView
+namespace Gardener.UserCenter.Client.Pages.ResourceView
 {
     public class ResourceFunctionEditOption
     {

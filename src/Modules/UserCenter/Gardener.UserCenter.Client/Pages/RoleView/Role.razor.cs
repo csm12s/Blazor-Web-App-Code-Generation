@@ -6,13 +6,17 @@
 
 using AntDesign;
 using AntDesign.TableModels;
+using Gardener.Client.Base;
+using Gardener.EntityFramwork.Dto;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.RoleView
+namespace Gardener.UserCenter.Client.Pages.RoleView
 {
     public partial class Role
     {

@@ -5,19 +5,17 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces;
-using Gardener.Client.Core;
-using Gardener.Enums;
-using Mapster;
+using Gardener.Client.Base;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Enums;
+using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.ResourceView
+namespace Gardener.UserCenter.Client.Pages.ResourceView
 {
     public partial class ResourceEdit : FeedbackComponent<EditInput<Guid>, EditOutput<Guid>>
     {

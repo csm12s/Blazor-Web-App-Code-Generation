@@ -5,15 +5,17 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Application.Dtos;
-using Gardener.Application.Interfaces;
+using Gardener.Client.Base;
+using Gardener.Client.Base.Components;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.ResourceView
+namespace Gardener.UserCenter.Client.Pages.ResourceView
 {
     public partial class Resource : TreeTableBase<ResourceDto,Guid,ResourceEdit, EditInput<Guid>, EditOutput<Guid>>
     {

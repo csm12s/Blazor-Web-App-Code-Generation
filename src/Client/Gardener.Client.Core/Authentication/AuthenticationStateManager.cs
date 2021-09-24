@@ -16,7 +16,6 @@ using Gardener.Authorization.Dtos;
 using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Enums;
 using Gardener.Client.Base;
-using Gardener.Client.Base.Authentication;
 
 namespace Gardener.Client.Core
 {

@@ -5,11 +5,16 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Attachment.Dtos;
+using Gardener.Attachment.Enums;
+using Gardener.Client.Base;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.UserView
+namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserUploadAvatar : FeedbackComponent<UserUploadAvatarParams, string>
     {
@@ -39,7 +44,7 @@ namespace Gardener.Client.Pages.SystemManager.UserView
         /// </summary>
         private Dictionary<string,object> uploadAttachmentInput=new Dictionary<string, object>() 
         {
-            { "BusinessType", Enums.AttachmentBusinessType.Avatar}
+            { "BusinessType", AttachmentBusinessType.Avatar}
         };
 
         private Dictionary<string, string> headers;

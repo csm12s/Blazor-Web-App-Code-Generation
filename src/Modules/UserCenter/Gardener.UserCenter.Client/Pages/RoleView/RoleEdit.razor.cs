@@ -5,12 +5,14 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Pages.SystemManager.RoleView
+namespace Gardener.UserCenter.Client.Pages.RoleView
 {
     public partial class RoleEdit : FeedbackComponent<int, bool>
     {

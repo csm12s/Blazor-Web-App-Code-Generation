@@ -953,7 +953,7 @@
             初始化一个<see cref="T:Gardener.EntityFramwork.Dto.FilterRule"/>的新实例
             </summary>
         </member>
-        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.#ctor(System.String,System.Object,Gardener.Enums.FilterOperate)">
+        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.#ctor(System.String,System.Object,Gardener.EntityFramwork.Enums.FilterOperate)">
             <summary>
             使用指定数据名称，数据值及操作方式初始化一个<see cref="T:Gardener.EntityFramwork.Dto.FilterRule"/>的新实例
             </summary>
@@ -1073,6 +1073,76 @@
         <member name="P:Gardener.EntityFramwork.Dto.PageRequest.FilterGroups">
             <summary>
             查询条件组
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterCondition.And">
+            <summary>
+            并且
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterCondition.Or">
+            <summary>
+            或者
+            </summary>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Enums.FilterOperate">
+            <summary>
+            筛选操作方式
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Equal">
+            <summary>
+            等于
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.NotEqual">
+            <summary>
+            不等于
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Less">
+            <summary>
+            小于
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.LessOrEqual">
+            <summary>
+            小于或等于
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Greater">
+            <summary>
+            大于
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.GreaterOrEqual">
+            <summary>
+            大于或等于
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.StartsWith">
+            <summary>
+            以……开始
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.EndsWith">
+            <summary>
+            以……结束
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Contains">
+            <summary>
+            字符串的包含（相似）
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.NotContains">
+            <summary>
+            字符串的不包含
+            </summary>
+        </member>
+        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.In">
+            <summary>
+            包括在
             </summary>
         </member>
         <member name="T:Gardener.EntityFramwork.IDynamicFilterService">
