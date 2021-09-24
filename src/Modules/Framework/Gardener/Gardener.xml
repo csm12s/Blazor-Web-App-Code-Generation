@@ -507,13 +507,6 @@
             用户Token服务
             </summary>
         </member>
-        <member name="M:Gardener.Authentication.Services.ILoginTokenService.Login(Gardener.Authentication.Dtos.Identity)">
-            <summary>
-            登录
-            </summary>
-            <param name="identity"></param>
-            <returns></returns>
-        </member>
         <member name="T:Gardener.Authorization.Core.IApiEndpointStoreService">
             <summary>
             终结点存储服务

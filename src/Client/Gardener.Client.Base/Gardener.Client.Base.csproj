@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Components\ImageVerifyCode.razor" />
+    <None Remove="Components\ResourceAuthorize.razor" />
+    <None Remove="Components\ResourceAuthorizePro.razor" />
+    <None Remove="Components\RightContent.razor" />
+    <None Remove="Components\TagGroup.razor" />
+    <None Remove="Components\TagRandomColor.razor" />
+    <None Remove="Components\TagYesNo.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Components\ImageVerifyCode.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Components\ResourceAuthorize.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Components\ResourceAuthorizePro.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Components\RightContent.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Components\TagGroup.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Components\TagRandomColor.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Components\TagYesNo.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AntDesign" Version="0.9.1" />
+    <PackageReference Include="AntDesign.Charts" Version="0.2.1" />
+    <PackageReference Include="AntDesign.ProLayout" Version="0.1.4" />
+    <PackageReference Include="Mapster" Version="7.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Framework\Gardener\Gardener.csproj" />
+    <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter\Gardener.UserCenter.csproj" />
+  </ItemGroup>
+
+</Project>

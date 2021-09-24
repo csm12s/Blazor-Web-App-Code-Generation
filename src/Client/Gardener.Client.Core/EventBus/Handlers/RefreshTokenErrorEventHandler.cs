@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

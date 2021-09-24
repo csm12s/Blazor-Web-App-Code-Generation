@@ -9,7 +9,6 @@ using Furion.DatabaseAccessor;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Domains;
 using Gardener.Authentication.Dtos;
-using Gardener.Authorization.Dtos;
 using Gardener.EntityFramwork;
 using Gardener.EntityFramwork.Dto;
 using Mapster;
@@ -37,12 +36,6 @@ namespace Gardener.Authentication.Services
         {
             _repository = repository;
             _jwtBearerService = jwtBearerService;
-        }
-
-        public async Task<JsonWebToken> Login(Identity identity)
-        {
-            var token = await _jwtBearerService.CreateToken(identity);
-            return token;
         }
 
         /// <summary>

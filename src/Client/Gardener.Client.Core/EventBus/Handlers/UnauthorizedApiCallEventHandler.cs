@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.Base;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core.EventBus.Handlers

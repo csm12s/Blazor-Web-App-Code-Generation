@@ -18,8 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gardener.Application.Dtos\Gardener.Application.Dtos.csproj" />
-    <ProjectReference Include="..\Gardener.Application.Interfaces\Gardener.Application.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.Attachment.Client\Gardener.Attachment.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.Audit.Client\Gardener.Audit.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.Authentication.Client\Gardener.Authentication.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.CodeGeneration.Client\Gardener.CodeGeneration.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.ImageVerifyCode.Client\Gardener.ImageVerifyCode.Client.csproj" />
+    <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Client\Gardener.UserCenter.Client.csproj" />
+    <ProjectReference Include="..\Gardener.Client.Base\Gardener.Client.Base.csproj" />
   </ItemGroup>
 
 </Project>

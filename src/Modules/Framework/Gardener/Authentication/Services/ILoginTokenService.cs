@@ -17,12 +17,5 @@ namespace Gardener.Authentication.Services
     /// </summary>
     public interface ILoginTokenService : IApplicationServiceBase<LoginTokenDto, Guid>
     {
-
-        /// <summary>
-        /// 登录
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <returns></returns>
-        public Task<JsonWebToken> Login(Identity identity);
     }
 }

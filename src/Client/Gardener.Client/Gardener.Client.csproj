@@ -11,9 +11,7 @@
     <PackageReference Include="AntDesign.Charts" Version="0.2.1" />
     <PackageReference Include="AntDesign.ProLayout" Version="0.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.9" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.9" />
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
@@ -22,9 +20,8 @@
   </ItemGroup>
 
 	<ItemGroup>
+    <ProjectReference Include="..\..\Common\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\Gardener.Client.Core\Gardener.Client.Core.csproj" />
-    <ProjectReference Include="..\Gardener.Client.Services\Gardener.Client.Services.csproj" />
-    <ProjectReference Include="..\Gardener.Common\Gardener.Common.csproj" />
   </ItemGroup>
 
 

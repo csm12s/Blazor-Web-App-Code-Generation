@@ -4,7 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Application.Dtos;
+using Gardener.Client.Base;
+using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
