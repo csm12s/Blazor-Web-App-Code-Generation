@@ -6,6 +6,7 @@
 
 using System;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 
 namespace Gardener.Client.Core.Services
 {

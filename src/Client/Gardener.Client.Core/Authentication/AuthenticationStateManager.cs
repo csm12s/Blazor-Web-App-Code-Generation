@@ -25,7 +25,7 @@ namespace Gardener.Client.Core
     /// </summary>
     public class AuthenticationStateManager : IAuthenticationStateManager
     {
-        private readonly JsTool jsTool;
+        private readonly IJsTool jsTool;
         private readonly HttpClientManager httpClientManager;
         private readonly IAccountService accountService;
         private readonly IClientLogger logger;
@@ -40,7 +40,7 @@ namespace Gardener.Client.Core
         private bool isAutoLogin = true;
         private AuthSettings authSettings;
 
-        public AuthenticationStateManager(JsTool jsTool, HttpClientManager httpClientManager, IAccountService accountService, IClientLogger logger, IOptions<AuthSettings> authSettingsOpt)
+        public AuthenticationStateManager(IJsTool jsTool, HttpClientManager httpClientManager, IAccountService accountService, IClientLogger logger, IOptions<AuthSettings> authSettingsOpt)
         {
             this.authSettings = authSettingsOpt.Value;
             this.jsTool = jsTool;

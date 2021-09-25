@@ -1,0 +1,63 @@
+﻿@page "/auth/login"
+@layout Gardener.Client.Base.Shared.LoginLayout
+@attribute [AllowAnonymous]
+<div class="main__b__0">
+    <div class="login">
+        <Form Model="@loginInput"
+              OnFinish="OnLogin"
+              Loading="loading"
+              LabelCol="new ColLayoutParam { Span = 4 }"
+              WrapperCol="new ColLayoutParam { Span = 20 }">
+            <Tabs ActiveKey="@(context.LoginType.ToString())">
+                <TabPane Key="1">
+                    <TabTemplate>
+                        账户密码登录
+                    </TabTemplate>
+                    <ChildContent>
+                        <FormItem Label="用户名">
+                            <AntDesign.Input Placeholder="用户名: admin" Size="large" @bind-Value="@context.UserName">
+                                <Prefix><Icon Type="user" /></Prefix>
+                            </AntDesign.Input>
+                        </FormItem>
+                        <FormItem Label="密　码">
+                            <AntDesign.Input Placeholder="密码: admin" Size="large" @bind-Value="@context.Password" Type="password">
+                                <Prefix><Icon Type="lock" /></Prefix>
+                            </AntDesign.Input>
+                        </FormItem>
+                        <FormItem Label="验证码">
+                            <Row>
+                                <AntDesign.Col Span="18">
+                                    <AntDesign.Input Placeholder="验证码" Size="large" @bind-Value="@context.VerifyCode" />
+                                </AntDesign.Col>
+                                <AntDesign.Col Span="6">
+                                    <ImageVerifyCode @bind-VerifyCodeKey="@context.VerifyCodeKey" @ref="_imageVerifyCode"></ImageVerifyCode>
+                                    @*<Image Style="height:38px;margin-left:2px;" Src="@verifyCodeImage" Preview="false" />*@
+                                </AntDesign.Col>
+                            </Row>
+                        </FormItem>
+                        <FormItem Label="验证码Key" Style="display:none">
+                            <Input @bind-Value="@context.VerifyCodeKey" />
+                        </FormItem>
+                    </ChildContent>
+                </TabPane>
+            </Tabs>
+            <div>
+                <Checkbox @bind-Value="autoLogin">
+                    自动登录
+                </Checkbox>
+                @*<a style="float: right;">
+                        忘记密码
+                    </a>*@
+            </div>
+            <Button Type="@ButtonType.Primary" HtmlType="submit" Class="submit" Size="large" Block>登&nbsp;录</Button>
+            @*<div class="other">
+                    其他登录方式
+                    <Icon Type="alipay-circle" />
+                    <Icon Type="taobao-circle" />
+                    <Icon Type="weibo-circle" />
+                    <a class="register" href="/user/register">注册账户</a>
+                </div>*@
+        </Form>
+    </div>
+</div>
+<AntContainer />

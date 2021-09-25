@@ -1,25 +1,25 @@
 {
   "ValidationTypeMessageSettings": {
     "Definitions": [
-      [ "Required", "ֵ����Ϊ�ջ�Null" ]
+      [ "Required", "值不能为空或Null" ]
     ]
   },
   "ErrorCodeMessageSettings": {
     "Definitions": [
-      [ "USER_NAME_REPEAT", "�û����ظ�" ],
-      [ "USER_NAME_OR_PASSWORD_ERROR", "�û������������" ],
-      [ "USER_LOCKED", "�û�������" ],
-      [ "RESOURCE_KEY_REPEAT", "��Դ��ֵ�ظ�" ],
-      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "ˢ��token�����ڻ��ѹ���" ],
-      [ "NO_INCLUD_FILE", "δ�����ļ�" ],
-      [ "FILTER_GROUP_OPERATE_ERROR", "�������еĲ������ʹ���" ],
-      [ "FIELD_IN_TYPE_NOT_FOUND", "ָ�������ԡ�{0}�������͡�{1}���в�����" ],
-      [ "VERIFY_CODE_VERIFICATION_FAILED", "��֤����֤ʧ��" ],
-      [ "REQUEST_URL_IS_INVALID", "����ĵ�ַ��Ч,����" ]
+      [ "USER_NAME_REPEAT", "用户名重复" ],
+      [ "USER_NAME_OR_PASSWORD_ERROR", "用户名或密码错误" ],
+      [ "USER_LOCKED", "用户已锁定" ],
+      [ "RESOURCE_KEY_REPEAT", "资源键值重复" ],
+      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "刷新token不存在或已过期" ],
+      [ "NO_INCLUD_FILE", "未包含文件" ],
+      [ "FILTER_GROUP_OPERATE_ERROR", "条件组中的操作类型错误" ],
+      [ "FIELD_IN_TYPE_NOT_FOUND", "指定的属性“{0}”在类型“{1}”中不存在" ],
+      [ "VERIFY_CODE_VERIFICATION_FAILED", "验证码验证失败" ],
+      [ "REQUEST_URL_IS_INVALID", "请求的地址无效,请检查" ]
     ]
   },
   "FriendlyExceptionSettings": {
-    "DefaultErrorMessage": "ϵͳ�쳣������ϵ����Ա",
+    "DefaultErrorMessage": "系统异常，请联系管理员",
     "HideErrorCode": true
   }
 }

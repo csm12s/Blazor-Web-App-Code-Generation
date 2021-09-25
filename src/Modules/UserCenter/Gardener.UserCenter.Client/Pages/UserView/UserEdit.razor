@@ -14,7 +14,7 @@
         @if (model.Id > 0)
         {
             <FormItem Label="头像">
-                <Tooltip Placement="PlacementType.LeftTop" Title="@("点击修改头像")">
+                <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
                     <a @onclick="_ => OnAvatarClick(model)">
                         <Avatar Src="@model.Avatar" />
                     </a>

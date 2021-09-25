@@ -1,17 +1,17 @@
-<Router AppAssembly="@typeof(Program).Assembly"  AdditionalAssemblies="new[] {typeof(Gardener.Client.Base.Program).Assembly}">
+<Router AppAssembly="@typeof(Program).Assembly"  AdditionalAssemblies="new[] {typeof(Gardener.Client.Core.CoreEntry).Assembly}">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
             <Authorizing>
                 Authorizing...
             </Authorizing>
             <NotAuthorized>
-                <RedirectToLogin />
+                <Gardener.Client.Base.Shared.RedirectToLogin />
             </NotAuthorized>
         </AuthorizeRouteView>
     </Found>
     <NotFound>
         <CascadingAuthenticationState>
-            <LayoutView Layout="@typeof(LoginLayout)">
+            <LayoutView Layout="@typeof(Gardener.Client.Base.Shared.LoginLayout)">
                 <Result Status="404"
                         Title="404"
                         SubTitle="Sorry, the page you visited does not exist.">

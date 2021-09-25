@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -203,5 +204,21 @@ namespace Gardener.Common
         }
         #endregion
 
+        /// <summary>
+        /// 获取描述特性值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static string GetDescription<T>(this T t)
+        {
+            var attrs = t.GetType().GetField(t.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true);
+            if (attrs != null && attrs.Length > 0)
+            {
+                DescriptionAttribute descAttr = attrs[0] as DescriptionAttribute;
+                return descAttr.Description;
+            }
+            return null;
+        }
     }
 }

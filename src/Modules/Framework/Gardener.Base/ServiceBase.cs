@@ -23,6 +23,7 @@ using Gardener.EntityFramwork;
 using Gardener.Base;
 using Gardener.EntityFramwork.Dto;
 using System.Linq.Dynamic.Core;
+using Gardener.EntityFramwork.Enums;
 
 namespace Gardener
 {
@@ -256,7 +257,7 @@ namespace Gardener
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
                 FilterGroup defaultFilterGroup = new FilterGroup();
-                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, Enums.FilterOperate.Equal));
+                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false,FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }
             Expression<Func<TEntity, bool>> expression= filterService.GetExpression<TEntity>(request.FilterGroups);

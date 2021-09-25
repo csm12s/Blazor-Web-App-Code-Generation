@@ -7,6 +7,7 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.EntityFramwork.Dto;
+using Gardener.EntityFramwork.Enums;
 using Mapster;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,24 +35,24 @@ namespace Gardener.Client.Base
                     IList<TableFilter> tableFilters = model.Filters;
                     foreach (TableFilter filter in tableFilters)
                     {
-                        Enums.FilterOperate operate = Enums.FilterOperate.Equal;
+                        FilterOperate operate = FilterOperate.Equal;
                         switch (filter.FilterCompareOperator)
                         {
-                            case TableFilterCompareOperator.Equals: operate = Enums.FilterOperate.Equal; break;
-                            case TableFilterCompareOperator.IsNull: operate = Enums.FilterOperate.Equal; break;
-                            case TableFilterCompareOperator.NotEquals: operate = Enums.FilterOperate.NotEqual; break;
-                            case TableFilterCompareOperator.IsNotNull: operate = Enums.FilterOperate.NotEqual; break;
-                            case TableFilterCompareOperator.Contains: operate = Enums.FilterOperate.Contains; break;
-                            case TableFilterCompareOperator.NotContains: operate = Enums.FilterOperate.NotContains; break;
-                            case TableFilterCompareOperator.StartsWith: operate = Enums.FilterOperate.StartsWith; break;
-                            case TableFilterCompareOperator.EndsWith: operate = Enums.FilterOperate.EndsWith; break;
-                            case TableFilterCompareOperator.LessThan: operate = Enums.FilterOperate.Less; break;
-                            case TableFilterCompareOperator.LessThanOrEquals: operate = Enums.FilterOperate.LessOrEqual; break;
-                            case TableFilterCompareOperator.GreaterThan: operate = Enums.FilterOperate.Greater; break;
-                            case TableFilterCompareOperator.GreaterThanOrEquals: operate = Enums.FilterOperate.GreaterOrEqual; break;
+                            case TableFilterCompareOperator.Equals: operate = FilterOperate.Equal; break;
+                            case TableFilterCompareOperator.IsNull: operate = FilterOperate.Equal; break;
+                            case TableFilterCompareOperator.NotEquals: operate = FilterOperate.NotEqual; break;
+                            case TableFilterCompareOperator.IsNotNull: operate = FilterOperate.NotEqual; break;
+                            case TableFilterCompareOperator.Contains: operate = FilterOperate.Contains; break;
+                            case TableFilterCompareOperator.NotContains: operate = FilterOperate.NotContains; break;
+                            case TableFilterCompareOperator.StartsWith: operate = FilterOperate.StartsWith; break;
+                            case TableFilterCompareOperator.EndsWith: operate = FilterOperate.EndsWith; break;
+                            case TableFilterCompareOperator.LessThan: operate = FilterOperate.Less; break;
+                            case TableFilterCompareOperator.LessThanOrEquals: operate = FilterOperate.LessOrEqual; break;
+                            case TableFilterCompareOperator.GreaterThan: operate = FilterOperate.Greater; break;
+                            case TableFilterCompareOperator.GreaterThanOrEquals: operate = FilterOperate.GreaterOrEqual; break;
                         }
                         FilterRule rule = new FilterRule(model.FieldName, filter.Value, operate);
-                        rule.Condition = filter.FilterCondition.Equals(TableFilterCondition.And) ? Enums.FilterCondition.And : Enums.FilterCondition.Or;
+                        rule.Condition = filter.FilterCondition.Equals(TableFilterCondition.And) ? FilterCondition.And : FilterCondition.Or;
 
                         fieldGroup.Rules.Add(rule);
                     }

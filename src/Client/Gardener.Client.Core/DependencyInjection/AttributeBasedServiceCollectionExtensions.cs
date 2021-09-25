@@ -24,6 +24,28 @@ namespace Gardener.Client.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="serviceCollection"></param>
         /// <param name="assemblys"></param>
+        public static void AddServicesWithAttributeOfType(this IServiceCollection serviceCollection, params Assembly[] assemblys)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            if (assemblys == null)
+            {
+                throw new ArgumentNullException(nameof(assemblys));
+            }
+
+            AddServicesWithAttributeOfType<ScopedServiceAttribute>(serviceCollection, assemblys.ToList());
+            AddServicesWithAttributeOfType<TransientServiceAttribute>(serviceCollection, assemblys.ToList());
+            AddServicesWithAttributeOfType<SingletonServiceAttribute>(serviceCollection, assemblys.ToList());
+        }
+        /// <summary>
+        /// 通过扫描特性注册服务
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <param name="assemblys"></param>
         public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, params Assembly[] assemblys)
         {
             if (serviceCollection == null)
@@ -125,7 +147,7 @@ namespace Gardener.Client.Core
                         {
                             foreach (Type type in implementation.GetInterfaces())
                             {
-                                //Console.WriteLine(type.FullName + "__1___" + implementation.FullName);
+                                Console.WriteLine(type.FullName + "__1___" + implementation.FullName);
                                 serviceCollection.TryAdd(type, implementation, lifetime);
                             }
                         }
@@ -133,12 +155,12 @@ namespace Gardener.Client.Core
                         Type baseType = implementation.BaseType;
                         if (!baseType.Equals(typeof(Object)))
                         {
-                            //Console.WriteLine(baseType.FullName + "__2___" + implementation.FullName);
+                            Console.WriteLine(baseType.FullName + "__2___" + implementation.FullName);
                             serviceCollection.TryAdd(baseType, implementation, lifetime);
                         }
                         else
                         {
-                            //Console.WriteLine(implementation.FullName + "__3___" + implementation.FullName);
+                            Console.WriteLine(implementation.FullName + "__3___" + implementation.FullName);
                             serviceCollection.TryAdd(implementation, implementation, lifetime);
                         }
                     }

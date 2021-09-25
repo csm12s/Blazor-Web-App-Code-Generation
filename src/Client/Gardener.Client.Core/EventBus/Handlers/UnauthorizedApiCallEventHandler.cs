@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core.EventBus.Handlers
@@ -25,7 +26,10 @@ namespace Gardener.Client.Core.EventBus.Handlers
 
         public async Task Handler(UnauthorizedApiCallEvent e)
         {
-            await authenticationStateManager.ReloadCurrentUserInfos();
+            if (e.HttpStatusCode.Equals(HttpStatusCode.Unauthorized)) 
+            {
+                await authenticationStateManager.ReloadCurrentUserInfos();
+            }
         }
     }
 }

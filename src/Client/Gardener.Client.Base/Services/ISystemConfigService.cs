@@ -4,9 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
 
-namespace Gardener.Client.Core.Services
+namespace Gardener.Client.Base.Services
 {
     public interface ISystemConfigService
     {

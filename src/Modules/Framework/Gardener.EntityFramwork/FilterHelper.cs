@@ -16,6 +16,7 @@ using Mapster;
 using System.Text.Json;
 using Gardener.EntityFramwork.Domains;
 using Gardener.EntityFramwork.Dto;
+using Gardener.EntityFramwork.Enums;
 
 namespace Gardener.EntityFramwork
 {

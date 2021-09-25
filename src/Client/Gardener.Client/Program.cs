@@ -17,6 +17,7 @@ using System.Reflection;
 using Gardener.Client.Services;
 using Gardener.Client.Core;
 using Microsoft.Extensions.Configuration;
+using Gardener.Client.Base;
 
 namespace Gardener.Client
 {
@@ -71,14 +72,11 @@ namespace Gardener.Client
 
             #region services
             builder.Services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(
-                typeof(ServicesEntry).GetTypeInfo().Assembly,
-                typeof(CoreEntry).GetTypeInfo().Assembly);
+                typeof(Entry).GetTypeInfo().Assembly);
             builder.Services.AddServicesWithAttributeOfType<TransientServiceAttribute>(
-                typeof(ServicesEntry).GetTypeInfo().Assembly,
-                typeof(CoreEntry).GetTypeInfo().Assembly);
+                typeof(Entry).GetTypeInfo().Assembly);
             builder.Services.AddServicesWithAttributeOfType<SingletonServiceAttribute>(
-                typeof(ServicesEntry).GetTypeInfo().Assembly,
-                typeof(CoreEntry).GetTypeInfo().Assembly);
+                typeof(Entry).GetTypeInfo().Assembly);
             #endregion
 
             builder.Services.AddTypeAdapterConfigs();

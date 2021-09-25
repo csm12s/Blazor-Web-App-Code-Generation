@@ -5,7 +5,7 @@
         <AntDesign.Col>
             <Space>
                 <SpaceItem>
-                    <Tooltip Placement="PlacementType.TopLeft" Title="@(_isExpanded?"收起":"展开")">
+                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?"收起":"展开")">
                         <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
                     </Tooltip>
                 </SpaceItem>
@@ -26,7 +26,7 @@
                   Checkable
                   DataSource="_resources"
                   KeyExpression="x=>x.Id.ToString()"
-                  TitleExpression="x=> x.DataItem.GetFullName()"
+                  TitleExpression="x=>GetFullName(x.DataItem)"
                   ChildrenExpression="x=>x.DataItem.Children?.ToList()"
                   IconExpression="x=>x.DataItem.Icon"
                   IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
@@ -35,3 +35,10 @@
         </AntDesign.Col>
     </Row>
 </Spin>
+
+@{ 
+    string GetFullName(ResourceDto resource)
+    {
+        return "[" + resource.Type.GetDescription() + "]" + resource.Name;
+    }
+}

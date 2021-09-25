@@ -79,11 +79,6 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         public List<RoleResourceDto> RoleResources { get; set; }
         
-        /// <summary>
-        /// 完整名称
-        /// </summary>
-        /// <returns></returns>
-        public string FullName { get; set; }
 
         /// <summary>
         /// 启用审计

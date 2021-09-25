@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.Base;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 

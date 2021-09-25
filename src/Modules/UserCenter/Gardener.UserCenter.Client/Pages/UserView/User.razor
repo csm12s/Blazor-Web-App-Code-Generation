@@ -77,7 +77,7 @@
                             <Column Title="头像" Field="@model.Avatar">
                                 <ResourceAuthorize ResourceKey="system_manager_user_list_edit_avatar">
                                     <Authorized>
-                                        <Tooltip Placement="PlacementType.LeftTop" Title="@("点击修改头像")">
+                                        <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
                                             <a @onclick="_=>OnAvatarClick(model)">
                                                 <Avatar Src="@model.Avatar" />
                                             </a>
@@ -101,7 +101,7 @@
                             <Column @bind-Field="@model.Roles" Style="max-width:150px">
                                 @foreach (var role in model.Roles)
                                 {
-                                    <Tooltip Placement="@PlacementType.Top" Title="@role.Remark">
+                                    <Tooltip Placement="@Placement.Top" Title="@role.Remark">
                                         <Tag>@role.Name</Tag>
                                     </Tooltip>
                                 }

@@ -1,19 +1,24 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="AntDesign" Version="0.9.1" />
-    <PackageReference Include="AntDesign.Charts" Version="0.2.1" />
-    <PackageReference Include="AntDesign.ProLayout" Version="0.1.4" />
-    <PackageReference Include="Mapster" Version="7.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.10" />
+    <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AntDesign" Version="0.10.0" />
+    <PackageReference Include="AntDesign.Charts" Version="0.2.1" />
+    <PackageReference Include="AntDesign.ProLayout" Version="0.1.7" />
+    <PackageReference Include="Mapster" Version="7.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener\Gardener.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter\Gardener.UserCenter.csproj" />
   </ItemGroup>

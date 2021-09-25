@@ -5,9 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign.ProLayout;
-using Gardener.Application.Dtos;
-using Gardener.Client.Core;
-using Gardener.Client.Services;
+using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
+using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System;
@@ -32,7 +32,7 @@ namespace Gardener.Client.Shared
         [Inject]
         private ISystemConfigService systemConfigService { get; set; }
         [Inject]
-        private JsTool JsTool { get; set; }
+        private IJsTool JsTool { get; set; }
         [Inject]
         private IStringLocalizer<App> Loc { get; set; }
         [Inject]
