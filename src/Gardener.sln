@@ -73,6 +73,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Client.Base", "Cli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Client.Entry", "Client\Gardener.Client.Entry\Gardener.Client.Entry.csproj", "{2A079B52-D3CA-4D22-8E05-35304DBC6EBD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Entry", "Gardener.Entry\Gardener.Entry.csproj", "{7C766D7C-876E-4513-9406-74B3A5CF2589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -195,6 +197,10 @@ Global
 		{2A079B52-D3CA-4D22-8E05-35304DBC6EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A079B52-D3CA-4D22-8E05-35304DBC6EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A079B52-D3CA-4D22-8E05-35304DBC6EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C766D7C-876E-4513-9406-74B3A5CF2589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C766D7C-876E-4513-9406-74B3A5CF2589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C766D7C-876E-4513-9406-74B3A5CF2589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C766D7C-876E-4513-9406-74B3A5CF2589}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

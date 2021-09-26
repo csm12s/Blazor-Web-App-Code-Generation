@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Gardener.Api.Entry.xml</DocumentationFile>
+    <DocumentationFile>Gardener.Entry.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,7 +34,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gardener.Api.Core\Gardener.Api.Core.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.10" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Api\Gardener.Api.Core\Gardener.Api.Core.csproj" />
+    <ProjectReference Include="..\Client\Gardener.Client.Entry\Gardener.Client.Entry.csproj" />
+  </ItemGroup>
+
+
 
 </Project>

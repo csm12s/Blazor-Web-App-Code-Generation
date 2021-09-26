@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Gardener.Web.Entry
+namespace Gardener.Entry
 {
     public class Startup
     {
@@ -22,6 +22,15 @@ namespace Gardener.Web.Entry
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseWebAssemblyDebugging();
+            }
+            app.UseBlazorFrameworkFiles();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapFallbackToFile("index.html");
+            });
         }
     }
 }

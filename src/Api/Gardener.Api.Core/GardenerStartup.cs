@@ -100,6 +100,8 @@ namespace Gardener.Admin
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapRazorPages();
+                //endpoints.MapFallbackToFile("index.html");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
