@@ -27,7 +27,7 @@ namespace Gardener.Authorization.Core
         /// <summary>
         /// 功能仓储
         /// </summary>
-        private readonly IApiEndpointStoreService _functionQueryService;
+        private readonly IApiEndpointStoreService _apiEndpointStoreService;
         /// <summary>
         /// 身份权限服务
         /// </summary>
@@ -41,25 +41,28 @@ namespace Gardener.Authorization.Core
         /// 构造函数
         /// </summary>
         /// <param name="httpContextAccessor"></param>
-        /// <param name="functionQueryService"></param>
+        /// <param name="apiEndpointStoreService"></param>
         /// <param name="identityPermissionService"></param>
+        /// <param name="identityService"></param>
         public AuthorizationService(IHttpContextAccessor httpContextAccessor,
-            IApiEndpointStoreService functionQueryService, 
-            IIdentityPermissionService identityPermissionService)
+            IApiEndpointStoreService apiEndpointStoreService,
+            IIdentityPermissionService identityPermissionService, 
+            IIdentityService identityService)
         {
-            this._httpContextAccessor = httpContextAccessor;
-            this._functionQueryService = functionQueryService;
-            this._identityPermissionService = identityPermissionService;
+            _httpContextAccessor = httpContextAccessor;
+            _apiEndpointStoreService = apiEndpointStoreService;
+            _identityPermissionService = identityPermissionService;
+            _identityService = identityService;
         }
-        
-        
+
+
         /// <summary>
         /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
         public async Task<ApiEndpoint> GetApiEndpoint()
         {
-            return await GetFunctionFromContext();
+            return await GetApiEndpointFromContext();
         }
         /// <summary>
         /// 检查权限
@@ -67,7 +70,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public async Task<bool> ChecktContenxtApiEndpoint()
         {
-            ApiEndpoint function =await GetFunctionFromContext();
+            ApiEndpoint function =await GetApiEndpointFromContext();
 
             return await _identityPermissionService.Check(this._identityService.GetIdentity(), function);
         }
@@ -78,7 +81,7 @@ namespace Gardener.Authorization.Core
         /// 获取功能Key
         /// </summary>
         /// <returns></returns>
-        private string GetContextFunctionKey()
+        private string GetApiEndpointKeyFromContext()
         {
             // 获取权限特性
             var securityDefineAttribute = _httpContextAccessor.HttpContext.GetMetadata<SecurityDefineAttribute>();
@@ -105,12 +108,12 @@ namespace Gardener.Authorization.Core
         /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
-        private async Task<ApiEndpoint> GetFunctionFromContext()
+        private async Task<ApiEndpoint> GetApiEndpointFromContext()
         {
-            string functionKey = GetContextFunctionKey();
-            if (!string.IsNullOrEmpty(functionKey)) return await _functionQueryService.Query(functionKey);
+            string functionKey = GetApiEndpointKeyFromContext();
+            if (!string.IsNullOrEmpty(functionKey)) return await _apiEndpointStoreService.Query(functionKey);
             var (method, path) = GetContextEndpoint();
-            return await _functionQueryService.Query(path, method);
+            return await _apiEndpointStoreService.Query(path, method);
         }
 
         public Identity GetIdentity()

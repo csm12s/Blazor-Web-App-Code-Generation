@@ -38,8 +38,14 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IJwtService, JwtBearerService>();
             services.Configure<MvcOptions>(options =>
             {
+
+                AuthorizationPolicy policy= new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .AddAuthenticationSchemes(IdentityType.User.ToString())
+                        .Build();
+
                 //身份认证
-                options.Filters.Add(new AuthorizeFilter());
+                options.Filters.Add(new AuthorizeFilter(policy));
             });
             using var serviceProvider = services.BuildServiceProvider();
             var jwtSettings = serviceProvider.GetService<IOptions<JWTOptions>>().Value;
@@ -48,33 +54,19 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddAuthentication(options =>
            {
                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-           }).AddJwtBearer(IdentityType.User.ToString(), options =>
+
+           }).AddJwtBearer(IdentityType.User.ToString(),options =>
            {
                options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.User]);
 
-           }).AddJwtBearer(IdentityType.Client.ToString(), options =>
+           })
+           .AddJwtBearer(IdentityType.Client.ToString(), options =>
            {
                options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.Client]);
-           });
-
-            services.AddAuthorization(options =>
-                {
-                    options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                        .RequireAuthenticatedUser()
-                        .AddAuthenticationSchemes(IdentityType.User.ToString(), IdentityType.Client.ToString())
-                        .Build();
-
-                    options.AddPolicy(IdentityType.User.ToString(), new AuthorizationPolicyBuilder()
-                        .RequireAuthenticatedUser()
-                        .AddAuthenticationSchemes(IdentityType.User.ToString())
-                        .Build());
-
-                    options.AddPolicy(IdentityType.Client.ToString(), new AuthorizationPolicyBuilder()
-                        .RequireAuthenticatedUser()
-                        .AddAuthenticationSchemes(IdentityType.Client.ToString())
-                        .Build());
-                });
+           })
+           ;
             return services;
         }
 
@@ -104,6 +96,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 ValidateLifetime = jwtSettings.ValidateLifetime.Value,
                 // 过期时间容错值
                 ClockSkew = TimeSpan.FromSeconds(jwtSettings.ClockSkew.Value),
+                ValidAlgorithms=new[] {jwtSettings.Algorithm }
             };
         }
     }

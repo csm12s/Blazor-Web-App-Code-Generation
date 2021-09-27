@@ -73,20 +73,18 @@
                             <ResourceAuthorize ResourceKey="system_manager_user_delete_selected">
                                 <Selection Key="@(model.Id.ToString())" />
                             </ResourceAuthorize>
-                            @*<Column Title="编号" @bind-Field="@model.Id" Sortable />*@
-                            <Column Title="头像" Field="@model.Avatar">
-                                <ResourceAuthorize ResourceKey="system_manager_user_list_edit_avatar">
+                            <Column @bind-Field="@model.Id" Sortable />
+                            <Column @bind-Field="@model.Avatar">
+                                <ResourceAuthorizePro ResourceKey="system_manager_user_list_edit_avatar">
                                     <Authorized>
-                                        <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
-                                            <a @onclick="_=>OnAvatarClick(model)">
-                                                <Avatar Src="@model.Avatar" />
-                                            </a>
-                                        </Tooltip>
+                                        @*<button @onclick="_=>OnAvatarClick(model)">
+                                        </button>*@
+                                        <Avatar Src="@model.Avatar" />
                                     </Authorized>
                                     <NotAuthorized>
                                         <Avatar Src="@model.Avatar" />
                                     </NotAuthorized>
-                                </ResourceAuthorize>
+                                </ResourceAuthorizePro>
                             </Column>
                             <Column @bind-Field="@model.UserName" Filterable />
                             <Column @bind-Field="@model.NickName" Filterable />
@@ -98,14 +96,14 @@
                             </Column>
                             @*<Column @bind-Field="@model.PhoneNumber" />
                                 <Column @bind-Field="@model.Email" />*@
-                            <Column @bind-Field="@model.Roles" Style="max-width:150px">
+                            @*<Column @bind-Field="@model.Roles" Style="max-width:150px">
                                 @foreach (var role in model.Roles)
                                 {
                                     <Tooltip Placement="@Placement.Top" Title="@role.Remark">
                                         <Tag>@role.Name</Tag>
                                     </Tooltip>
                                 }
-                            </Column>
+                            </Column>*@
                             <Column @bind-Field="@model.IsLocked" Filterable>
                                 <ResourceAuthorize ResourceKey="system_manager_user_lock">
                                     <Authorized>

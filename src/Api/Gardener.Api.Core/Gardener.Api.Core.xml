@@ -19,6 +19,11 @@
             <param name="method"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Authorization.Core.IdentityPermissionService">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="F:Gardener.Authorization.Core.IdentityPermissionService._userRepository">
             <summary>
             用户仓储
@@ -29,10 +34,33 @@
             用户仓储
             </summary>
         </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.User},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Client})">
+            <summary>
+            
+            </summary>
+            <param name="userRepository"></param>
+            <param name="clientRepository"></param>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.Check(Gardener.Authentication.Dtos.Identity,Gardener.Authorization.Dtos.ApiEndpoint)">
+            <summary>
+            判断审核是否用于api访问权限
+            </summary>
+            <param name="identity"></param>
+            <param name="api"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.IsSuperAdministrator(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Authorization.Core.IdentityPermissionService.CurrentUserHaveResource(System.Int32,System.String)">
             <summary>
             判断是否拥有该权限
             </summary>
+            <param name="userId"></param>
             <param name="functionKey"></param>
             <returns></returns>
         </member>

@@ -18,21 +18,51 @@ using System.Threading.Tasks;
 
 namespace Gardener.Authorization.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class IdentityPermissionService : IIdentityPermissionService
     {
         /// <summary>
         /// 用户仓储
         /// </summary>
         private readonly IRepository<User> _userRepository;
+
         /// <summary>
         /// 用户仓储
         /// </summary>
         private readonly IRepository<Client> _clientRepository;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userRepository"></param>
+        /// <param name="clientRepository"></param>
+        public IdentityPermissionService(IRepository<User> userRepository, IRepository<Client> clientRepository)
+        {
+            _userRepository = userRepository;
+            _clientRepository = clientRepository;
+        }
+
+        /// <summary>
+        /// 判断审核是否用于api访问权限
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="api"></param>
+        /// <returns></returns>
         public async Task<bool> Check(Identity identity, ApiEndpoint api)
         {
+            if (identity == null) 
+            {
+                return false;
+            }
+            
             if (IdentityType.User.Equals(identity.IdentityType))
             {
+                if (await IsSuperAdministrator(GetUserId(identity)))
+                {
+                    return true;
+                }
                 return await CurrentUserHaveResource(int.Parse(identity.Id), api.Key);
             }else if (IdentityType.Client.Equals(identity.IdentityType))
             {
@@ -40,10 +70,28 @@ namespace Gardener.Authorization.Core
             }
             return false;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private async Task<bool> IsSuperAdministrator(int userId) 
+        {
+            //超管
+            if (await _userRepository.AsQueryable(false)
+                 .Include(u => u.Roles)
+                 .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
+                 .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsSuperAdministrator == true))
+                 .AnyAsync())
+            {
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// 判断是否拥有该权限
         /// </summary>
+        /// <param name="userId"></param>
         /// <param name="functionKey"></param>
         /// <returns></returns>
         private async Task<bool> CurrentUserHaveResource(int userId,string functionKey)

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Gardener.Authentication.Options
 {
-    public class JWTOptions : JWTSettingsOptions,IConfigurableOptions
+    public class JWTOptions : IConfigurableOptions
     {
         /// <summary>
         /// 

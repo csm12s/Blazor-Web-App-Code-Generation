@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using System.Reflection;
+
 namespace Gardener.Client.Core
 {
     /// <summary>
@@ -11,9 +13,22 @@ namespace Gardener.Client.Core
     /// </summary>
     public static class Entry
     {
-        static Entry()
+        private static readonly Assembly[] assemblies =
+         {
+            typeof(Entry).Assembly,
+            typeof(Base.Entry).Assembly,
+            typeof(UserCenter.Client.Entry).Assembly,
+            typeof(Attachment.Client.Entry).Assembly,
+            typeof(Audit.Client.Entry).Assembly,
+            typeof(Authentication.Client.Entry).Assembly,
+            typeof(CodeGeneration.Client.Entry).Assembly,
+            typeof(Swagger.Client.Entry).Assembly,
+            typeof(ImageVerifyCode.Client.Entry).Assembly,
+        };
+
+        public static Assembly[] GetAssemblies()
         {
-            Base.Entry.Add(typeof(Entry).Assembly);
+            return assemblies;
         }
     }
 }

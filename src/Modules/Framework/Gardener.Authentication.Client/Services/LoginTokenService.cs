@@ -18,7 +18,7 @@ namespace Gardener.Client.Services
     [ScopedService]
     public class LoginTokenService : ApplicationServiceBase<LoginTokenDto, Guid>, ILoginTokenService
     {
-        private static readonly string controller = "user-token";
+        private static readonly string controller = "login-token";
         private readonly IApiCaller apiCaller;
         public LoginTokenService(IApiCaller apiCaller) : base(apiCaller, controller)
         {

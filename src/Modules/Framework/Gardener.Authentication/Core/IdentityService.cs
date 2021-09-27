@@ -17,10 +17,6 @@ namespace Gardener.Authentication.Core
     public class IdentityService : IIdentityService
     {
         /// <summary>
-        /// 当前登录身份
-        /// </summary>
-        private readonly Identity _identity;
-        /// <summary>
         /// 请求上下文访问器
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -28,17 +24,11 @@ namespace Gardener.Authentication.Core
         public IdentityService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            if (this._httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                //当前请求的用户
-                this._identity = GetIdentityFromContext();
-
-            }
         }
 
         public Identity GetIdentity()
         {
-            return this._identity;
+            return GetIdentityFromContext();
         }
 
 

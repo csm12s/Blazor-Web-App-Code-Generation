@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20210922101718_v1.0.1")]
-    partial class v101
+    [Migration("20210927073747_v1.0.0")]
+    partial class v100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -641,7 +641,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "9F7F841076617DA5F308E11132F7E666",
                             Method = 0,
-                            Path = "/api/authorize/current-user-roles",
+                            Path = "/api/account/current-user-roles",
                             Service = "权限认证服务",
                             Summary = "查看用户角色"
                         },
@@ -656,7 +656,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "8B52F19B65946082EBFB93CE354018DE",
                             Method = 0,
-                            Path = "/api/authorize/current-user",
+                            Path = "/api/account/current-user",
                             Service = "权限认证服务",
                             Summary = "获取当前用户信息"
                         },
@@ -671,7 +671,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "58B28787804A078C4A724AF9A151DEDC",
                             Method = 0,
-                            Path = "/api/authorize/current-user-resources",
+                            Path = "/api/account/current-user-resources",
                             Service = "权限认证服务",
                             Summary = "获取用户资源"
                         },
@@ -1046,7 +1046,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "B181FD356A433DD14FE2F54E4115AAC0",
                             Method = 0,
-                            Path = "/api/authorize/current-user-menus",
+                            Path = "/api/account/current-user-menus",
                             Service = "权限认证服务",
                             Summary = "获取当前用户的所有菜单"
                         },
@@ -1061,7 +1061,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "CFCB833E52DBB2A3C4B4F5EAD96701DC",
                             Method = 3,
-                            Path = "/api/authorize/current-user-refresh-token",
+                            Path = "/api/account/current-user-refresh-token",
                             Service = "权限认证服务",
                             Summary = "移除当前用户token"
                         },
@@ -1076,7 +1076,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "943DE09097CAE8DED8AAAF2C489E30D5",
                             Method = 1,
-                            Path = "/api/authorize/refresh-token",
+                            Path = "/api/account/refresh-token",
                             Service = "权限认证服务",
                             Summary = "刷新Token"
                         },
@@ -2156,7 +2156,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "BBDF1AED32167D0970DA83229C7A8A03",
                             Method = 1,
-                            Path = "/api/authorize/login",
+                            Path = "/api/account/login",
                             Service = "权限认证服务",
                             Summary = "登录"
                         },

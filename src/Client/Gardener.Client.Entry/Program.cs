@@ -67,7 +67,7 @@ namespace Gardener.Client.Entry
             #endregion
 
             #region services
-            builder.Services.AddServicesWithAttributeOfType(Base.Entry.GetAssemblies());
+            builder.Services.AddServicesWithAttributeOfType(Core.Entry.GetAssemblies());
             #endregion
 
             builder.Services.AddTypeAdapterConfigs();

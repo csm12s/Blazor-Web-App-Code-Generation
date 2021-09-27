@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gardener.Api.Core.Migrations
 {
-    public partial class v101 : Migration
+    public partial class v100 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -580,7 +580,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("fe3c8d2c-02ce-4073-a2b5-0b05168e7fc9"), 1305892581478400000L, "登录接口", true, "系统管理", false, false, "BBDF1AED32167D0970DA83229C7A8A03", 1, "/api/authorize/login", "权限认证服务", "登录", null });
+                values: new object[] { new Guid("fe3c8d2c-02ce-4073-a2b5-0b05168e7fc9"), 1305892581478400000L, "登录接口", true, "系统管理", false, false, "BBDF1AED32167D0970DA83229C7A8A03", 1, "/api/account/login", "权限认证服务", "登录", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -955,17 +955,17 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3204c8c0-2c00-47ea-b2b3-711c0e7a2c70"), 1305892581478400000L, "获取当前用户的所有菜单", false, "系统管理", false, false, "B181FD356A433DD14FE2F54E4115AAC0", 0, "/api/authorize/current-user-menus", "权限认证服务", "获取当前用户的所有菜单", null });
+                values: new object[] { new Guid("3204c8c0-2c00-47ea-b2b3-711c0e7a2c70"), 1305892581478400000L, "获取当前用户的所有菜单", false, "系统管理", false, false, "B181FD356A433DD14FE2F54E4115AAC0", 0, "/api/account/current-user-menus", "权限认证服务", "获取当前用户的所有菜单", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("bdecc6f3-86f4-4818-af34-5e61001bdeeb"), 1305892581478400000L, "移除当前用户token", true, "系统管理", false, false, "CFCB833E52DBB2A3C4B4F5EAD96701DC", 3, "/api/authorize/current-user-refresh-token", "权限认证服务", "移除当前用户token", null });
+                values: new object[] { new Guid("bdecc6f3-86f4-4818-af34-5e61001bdeeb"), 1305892581478400000L, "移除当前用户token", true, "系统管理", false, false, "CFCB833E52DBB2A3C4B4F5EAD96701DC", 3, "/api/account/current-user-refresh-token", "权限认证服务", "移除当前用户token", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7602df12-8a81-4ab1-8314-df9ce948a876"), 1305892581478400000L, "通过刷新token获取新的token", true, "系统管理", false, false, "943DE09097CAE8DED8AAAF2C489E30D5", 1, "/api/authorize/refresh-token", "权限认证服务", "刷新Token", null });
+                values: new object[] { new Guid("7602df12-8a81-4ab1-8314-df9ce948a876"), 1305892581478400000L, "通过刷新token获取新的token", true, "系统管理", false, false, "943DE09097CAE8DED8AAAF2C489E30D5", 1, "/api/account/refresh-token", "权限认证服务", "刷新Token", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1030,17 +1030,17 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("39812ff6-2c40-4017-9d11-fd7b13fe2a6b"), 1305892581478400000L, "查看当前用户角色", false, "系统管理", false, false, "9F7F841076617DA5F308E11132F7E666", 0, "/api/authorize/current-user-roles", "权限认证服务", "查看用户角色", null });
+                values: new object[] { new Guid("39812ff6-2c40-4017-9d11-fd7b13fe2a6b"), 1305892581478400000L, "查看当前用户角色", false, "系统管理", false, false, "9F7F841076617DA5F308E11132F7E666", 0, "/api/account/current-user-roles", "权限认证服务", "查看用户角色", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("03f2bbda-d0d4-429f-9c95-03345d00c2cd"), 1305892581478400000L, "获取当前用户信息", false, "系统管理", false, false, "8B52F19B65946082EBFB93CE354018DE", 0, "/api/authorize/current-user", "权限认证服务", "获取当前用户信息", null });
+                values: new object[] { new Guid("03f2bbda-d0d4-429f-9c95-03345d00c2cd"), 1305892581478400000L, "获取当前用户信息", false, "系统管理", false, false, "8B52F19B65946082EBFB93CE354018DE", 0, "/api/account/current-user", "权限认证服务", "获取当前用户信息", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2eb943e9-5b65-4572-b76e-4ef2de07bcd3"), 1305892581478400000L, "", false, "系统管理", false, false, "58B28787804A078C4A724AF9A151DEDC", 0, "/api/authorize/current-user-resources", "权限认证服务", "获取用户资源", null });
+                values: new object[] { new Guid("2eb943e9-5b65-4572-b76e-4ef2de07bcd3"), 1305892581478400000L, "", false, "系统管理", false, false, "58B28787804A078C4A724AF9A151DEDC", 0, "/api/account/current-user-resources", "权限认证服务", "获取用户资源", null });
 
             migrationBuilder.InsertData(
                 table: "Function",

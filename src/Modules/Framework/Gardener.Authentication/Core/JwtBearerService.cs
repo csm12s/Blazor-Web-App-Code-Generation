@@ -104,6 +104,8 @@ namespace Gardener.Authentication.Core
             Claim[] claims =
                 {
                 new Claim(ClaimTypes.NameIdentifier, identity.Id),
+                new Claim(ClaimTypes.GivenName, identity.GivenName),
+                new Claim(ClaimTypes.Name, identity.Name),
                 new Claim(AuthKeyConstants.IdentityType, identity.IdentityType.ToString()),
                 new Claim(AuthKeyConstants.ClientIdKeyName, identity.ClientId),
                 new Claim(AuthKeyConstants.ClientTypeKeyName, identity.LoginClientType.ToString()),
@@ -125,7 +127,7 @@ namespace Gardener.Authentication.Core
             }
             else
             {
-                return jWTOptions;
+                throw Oops.Oh(identityType+" JWTSettings is no find");
             }
         }
         /// <summary>
@@ -144,10 +146,8 @@ namespace Gardener.Authentication.Core
             expires = now.AddMinutes(minutes);
 
             SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(issuerSigningKey));
-            SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-
-            SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
+            SigningCredentials credentials = new SigningCredentials(key, jwtOpt.Algorithm);
+           SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
                 Audience = jwtOpt.ValidAudience,
@@ -176,7 +176,7 @@ namespace Gardener.Authentication.Core
             {
                 throw Oops.Oh(ExceptionCode.TOKEN_INVALID);
             }
-            IdentityType identityType = Enum.Parse<IdentityType>(identityTypeCla.Type);
+            IdentityType identityType = Enum.Parse<IdentityType>(identityTypeCla.Value);
             JWTSettingsOptions jWTSettingsOptions= GetJWTSettingsOptions(identityType);
 
             TokenValidationParameters parameters = new TokenValidationParameters()
@@ -193,7 +193,7 @@ namespace Gardener.Authentication.Core
             identity.Id= principal.FindFirstValue(ClaimTypes.NameIdentifier);
             identity.Name = principal.FindFirstValue(ClaimTypes.Name);
             identity.GivenName = principal.FindFirstValue(ClaimTypes.GivenName);
-            string loginClientType =principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
+            string loginClientType =principal.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
             identity.LoginClientType = Enum.Parse<LoginClientType>(loginClientType);
             identity.IdentityType = identityType;
             identity.ClientId =principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);

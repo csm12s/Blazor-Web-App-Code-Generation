@@ -11,9 +11,6 @@ namespace Gardener.Authentication.Client
     /// </summary>
     public static class Entry
     {
-        static Entry()
-        {
-            Gardener.Client.Base.Entry.Add(typeof(Entry).Assembly);
-        }
+        
     }
 }
