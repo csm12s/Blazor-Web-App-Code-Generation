@@ -210,9 +210,14 @@ namespace Gardener.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static string GetDescription<T>(this T t)
+        public static string GetEnumDescription<T>(this T t)
         {
-            var attrs = t.GetType().GetField(t.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true);
+            Type type = t.GetType();
+            if (!type.IsEnum) 
+            {
+                throw new ArgumentException("非枚举类型请使用 type.GetDescription()");
+            }
+            object[] attrs =  t.GetType().GetField(t.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true); ;
             if (attrs != null && attrs.Length > 0)
             {
                 DescriptionAttribute descAttr = attrs[0] as DescriptionAttribute;
@@ -220,5 +225,7 @@ namespace Gardener.Common
             }
             return null;
         }
+
+
     }
 }

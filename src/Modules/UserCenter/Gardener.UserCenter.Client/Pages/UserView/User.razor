@@ -1,4 +1,5 @@
 ﻿@page "/system_manager/user"
+@inherits TableBase<UserDto, int>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -19,8 +20,7 @@
                               ChildrenExpression="x => x.DataItem.Children?.ToList()"
                               KeyExpression="x => x.DataItem.Id.ToString()"
                               IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
-                              @bind-SelectedKey="@_deptTreeSelectedKey"
-                              OnClick="OnClickDeptTree"
+                              SelectedKeyChanged="SelectedKeyChanged"
                               TItem="DeptDto" Style="min-height:500px;">
                         </Tree>
                     </Spin>
@@ -31,7 +31,7 @@
                 <AntDesign.Col Span="19">
                     <Table @ref="_table"
                            TItem="UserDto"
-                           DataSource="@_users"
+                           DataSource="@_datas"
                            Total="_total"
                            OnChange="@OnChange"
                            @bind-PageIndex="pageRequest.PageIndex"
@@ -44,7 +44,7 @@
                             <Row>
                                 <AntDesign.Col Span="8">
                                     <ResourceAuthorize ResourceKey="system_manager_user_delete_selected">
-                                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
                                             删除选中
                                         </Button>
                                     </ResourceAuthorize>
@@ -60,7 +60,7 @@
                                         </ResourceAuthorize>
                                         <ResourceAuthorize ResourceKey="system_manager_user_refresh">
                                             <SpaceItem>
-                                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                                     刷新
                                                 </Button>
                                             </SpaceItem>
@@ -77,9 +77,11 @@
                             <Column @bind-Field="@model.Avatar">
                                 <ResourceAuthorizePro ResourceKey="system_manager_user_list_edit_avatar">
                                     <Authorized>
-                                        @*<button @onclick="_=>OnAvatarClick(model)">
-                                        </button>*@
-                                        <Avatar Src="@model.Avatar" />
+                                        <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
+                                            <a @onclick="_=>OnAvatarClick(model)">
+                                                <Avatar Src="@model.Avatar" />
+                                            </a>
+                                        </Tooltip>
                                     </Authorized>
                                     <NotAuthorized>
                                         <Avatar Src="@model.Avatar" />

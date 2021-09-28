@@ -1,4 +1,5 @@
 ﻿@page "/system_manager/audit-operation"
+@inherits TableBase<AuditOperationDto, Guid>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -23,7 +24,7 @@
                     <Row>
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
-                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
                                     删除选中
                                 </Button>
                             </ResourceAuthorize>
@@ -32,7 +33,7 @@
                             <Space>
                                 <ResourceAuthorize ResourceKey="system_manager_audit_operation_refresh">
                                     <SpaceItem>
-                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                             刷新
                                         </Button>
                                     </SpaceItem>

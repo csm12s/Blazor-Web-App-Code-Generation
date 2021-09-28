@@ -6,13 +6,12 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
-using Gardener.Audit.Core;
 using Gardener.EntityFramwork.DbContexts;
 using Gardener.EntityFramwork.Domains;
 using System;
 using System.ComponentModel;
 
-namespace Gardener.Audit.Dtos
+namespace Gardener.EntityFramwork.Audit.Domains
 {
     /// <summary>
     /// 实体属性审计信息

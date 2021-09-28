@@ -39,6 +39,6 @@
 @{ 
     string GetFullName(ResourceDto resource)
     {
-        return "[" + resource.Type.GetDescription() + "]" + resource.Name;
+        return "[" + resource.Type.GetEnumDescription() + "]" + resource.Name;
     }
 }

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Gardener.Audit.Dtos
+namespace Gardener.EntityFramwork.Audit.Domains
 {
     /// <summary>
     /// 审计实体表

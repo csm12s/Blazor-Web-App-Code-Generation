@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Audit.Dtos;
+using Gardener.EntityFramwork.Audit.Domains;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

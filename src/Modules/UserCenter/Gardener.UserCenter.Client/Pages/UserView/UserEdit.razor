@@ -1,12 +1,8 @@
 ﻿@inherits FeedbackComponent<int, bool>
-<Row Justify="space-between" Style="margin-bottom:20px;">
-    <Col Span="8" Style="text-align:right;"><label class="ant-form-item-required">部门：</label></Col>
-    <Col Span="16"><Cascader Size="large" Options="@_deptCascaderNodes" @bind-Value="_deptCascaderValue" ExpandTrigger="hover" ChangeOnSelect SelectedNodesChanged="CascaderOnChange" Style="width:100%"></Cascader></Col>
-</Row>
-@if (_editModel != null)
+@if (editModel != null)
 {
-    <Form Loading="@_formIsLoading"
-          Model="@_editModel"
+    <Form Loading="@formIsLoading"
+          Model="@editModel"
           LabelCol="new ColLayoutParam { Span = 8 }"
           WrapperCol="new ColLayoutParam { Span = 16 }"
           OnFinish="OnFormFinish"
@@ -21,6 +17,20 @@
                 </Tooltip>
             </FormItem>
         }
+    <FormItem Label="部门">
+        <TreeSelect TItem="DeptDto"
+                    Style="width:100%;"
+                    DataSource="deptDatas"
+                    @bind-Value="@deptId"
+                    Placeholder="请选择"
+                    AllowClear
+                    TitleExpression="data => data.Name"
+                    KeyExpression="data => data.Id.ToString()"
+                    ChildrenExpression="data => data.Children?.ToList()"
+                    IsLeafExpression="data => data.Children == null "
+                    TreeDefaultExpandAll>
+        </TreeSelect>
+    </FormItem>
         <FormItem Label="岗位">
             <Select DataSource="@positions"
                     @bind-Value="@model.PositionId"

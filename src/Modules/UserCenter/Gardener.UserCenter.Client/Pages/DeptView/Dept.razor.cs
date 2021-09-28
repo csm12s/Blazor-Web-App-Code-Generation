@@ -48,10 +48,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
             return EditInput<int?>.IsEdit(dto.Id);
         }
 
-        public override int GetKey(DeptDto dto)
-        {
-            return dto.Id;
-        }
+
 
         public override int GetParentKey(DeptDto dto)
         {
@@ -68,10 +65,6 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
             dto.Children = children;
         }
 
-        public override void SetIsLocked(DeptDto dto, bool isLocked)
-        {
-            dto.IsLocked = isLocked;
-        }
 
         public override ICollection<DeptDto> SortChildren(ICollection<DeptDto> children)
         {

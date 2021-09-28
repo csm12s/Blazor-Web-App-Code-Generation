@@ -13,13 +13,21 @@ namespace Gardener.Base
     /// dto基础类
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseDto<TKey>
+    public abstract class BaseDto<TKey>: BaseDto
     {
         /// <summary>
         /// 唯一键
         /// </summary>
         [DisplayName("编号")]
         public TKey Id { get; set; }
+       
+    }
+
+    /// <summary>
+    /// dto基础类
+    /// </summary>
+    public class BaseDto
+    {
         /// <summary>
         /// 是否锁定
         /// </summary>

@@ -27,14 +27,9 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
 
         private DeptDto _editModel=null;
 
-        /// <summary>
-        /// 父级选择数据
-        /// </summary>
-        private List<CascaderNode> _deptCascaderNodes;
-        /// <summary>
-        /// 选择器绑定值
-        /// </summary>
-        private string _deptCascaderValue = String.Empty;
+        //部门树
+        List<DeptDto> deptDatas;
+        private string deptId = null;
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -66,13 +61,9 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
                 _editModel = new DeptDto();
                 _editModel.ParentId = editInput.Id;
             }
-            _deptCascaderValue = _editModel.ParentId.ToString();
-            //父级选择器
-            List<DeptDto> depts=await deptService.GetTree();
-            if (depts != null)
-            {
-                _deptCascaderNodes = ComponentUtils.DtoConvertToCascaderNode<DeptDto>(depts, dto => dto.Children, dto => dto.Name, dto => dto.Id.ToString(),new[] { _editModel.Id.ToString()});
-            }
+            deptId = _editModel.ParentId.ToString();
+            //父级
+            deptDatas = await deptService.GetTree();
             _isLoading = false;
             await base.OnInitializedAsync();
         }
@@ -85,6 +76,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         private async Task OnFormFinish(EditContext editContext)
         {
             _isLoading = true;
+            _editModel.ParentId = int.Parse(deptId);
             //开始请求
             if (this.Options.Type.Equals(EditInputType.Add))
             {
@@ -123,14 +115,6 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         private async Task OnFormCancel()
         {
             await base.FeedbackRef.CloseAsync(EditOutput<int>.Cancel());
-        }
-        /// <summary>
-        /// 父级选择数据
-        /// </summary>
-        /// <param name="selectedNodes"></param>
-        private void CascaderOnChange(CascaderNode[] selectedNodes)
-        {
-            _editModel.ParentId = int.Parse(_deptCascaderValue);
         }
 
     }

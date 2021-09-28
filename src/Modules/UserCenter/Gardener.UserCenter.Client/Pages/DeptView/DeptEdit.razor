@@ -1,8 +1,4 @@
 ﻿@inherits FeedbackComponent<EditInput<int?>, EditOutput<int>>
-<Row Justify="space-between" Style="margin-bottom:20px;">
-    <Col Span="8" Style="text-align:right;"><label class="ant-form-item-required">父级：</label></Col>
-    <Col Span="16"><Cascader Size="large" Options="@_deptCascaderNodes" @bind-Value="_deptCascaderValue" ExpandTrigger="hover" ChangeOnSelect SelectedNodesChanged="CascaderOnChange" Style="width:100%"></Cascader></Col>
-</Row>
 @if (_editModel != null) 
 { 
 <Form Loading="@_isLoading"
@@ -14,6 +10,21 @@
     @*<FormItem Label="编号">
         <Input @bind-Value="@model.Id" Disabled />
     </FormItem>*@
+    <FormItem Label="父级" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true } })>
+        <TreeSelect 
+                    TItem="DeptDto"
+                    Style="width:100%;"
+                    DataSource="deptDatas"
+                    @bind-Value="@deptId"
+                    Placeholder="请选择"
+                    AllowClear="false"
+                    TitleExpression="data => data.Name"
+                    KeyExpression="data => data.Id.ToString()"
+                    ChildrenExpression="data => data.Children?.ToList()"
+                    IsLeafExpression="data => data.Children == null "
+                    TreeDefaultExpandAll>
+        </TreeSelect>
+    </FormItem>
     <FormItem Label="名称">
         <Input @bind-Value="@model.Name" />
     </FormItem>

@@ -18,35 +18,18 @@ using Gardener.EntityFramwork.Dto;
 using Gardener.Client.Base;
 using Gardener.Enums;
 using Gardener.EntityFramwork.Enums;
+using Gardener.Client.Base.Components;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class User
+    public partial class User : TableBase<UserDto, int>
     {
-        ITable _table;
-        UserDto[] _users;
-        IEnumerable<UserDto> _selectedRows;
-        int _total = 0;
-        bool _tableIsLoading = false;
-
         private Tree<DeptDto> _deptTree;
-
         private List<DeptDto> depts;
-
-        private string _deptTreeSelectedKey;
         private bool _deptTreeIsLoading = false;
-
-        [Inject]
-        MessageService messageService { get; set; }
-        [Inject]
-        IUserService userService { get; set; }
-        [Inject]
-        ConfirmService confirmService { get; set; }
-        [Inject]
-        DrawerService drawerService { get; set; }
         [Inject]
         IDeptService deptService { get; set; }
-        PageRequest pageRequest = new PageRequest();
+        int _currentDeptId = 0;
         /// <summary>
         /// 页面初始化完成
         /// </summary>
@@ -61,86 +44,39 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
-        private async Task OnClickDeptTree(TreeEventArgs<DeptDto> e)
+        private async Task SelectedKeyChanged(string key)
         {
-            await ReLoadTable();
-        }
-        /// <summary>
-        /// 查询变化
-        /// </summary>
-        /// <param name="queryModel"></param>
-        /// <returns></returns>
-        private async Task OnChange(QueryModel<UserDto> queryModel)
-        {
-            await ReLoadTable();
-        }
-        /// <summary>
-        /// 重新加载table
-        /// </summary>
-        /// <returns></returns>
-        private async Task ReLoadTable()
-        {
-            _tableIsLoading = true;
-
-            pageRequest= _table?.GetPageRequest() ?? new PageRequest();
-
-            #region 当前选中部门
-            int? deptId = string.IsNullOrEmpty(_deptTreeSelectedKey) ? null : int.Parse(_deptTreeSelectedKey);
-            if (deptId.HasValue)
+            if (string.IsNullOrEmpty(key))
             {
-                var node= TreeTools.QueryNode(depts, d => d.Id.Equals(deptId.Value), d => d.Children);
+                _currentDeptId = 0;
+            }
+            else 
+            {
+                int newId = int.Parse(key);
+                _currentDeptId = newId;
+            }
+            await ReLoadTable();
+        }
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="pageRequest"></param>
+        /// <returns></returns>
+        protected override PageRequest ConfigurationPageRequest(PageRequest pageRequest)
+        {
+            if (_currentDeptId>0)
+            {
+                var node = TreeTools.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
                 List<int> ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
                 if (ids != null)
                 {
                     pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
                 }
             }
-            #endregion
 
-            var pagedListResult = await userService.Search(pageRequest);
-            if (pagedListResult != null)
-            {
-                var pagedList = pagedListResult;
-                _users = pagedList.Items.ToArray();
-                _total = pagedList.TotalCount;
-            }
-            else
-            {
-                messageService.Error("加载失败");
-            }
-            _tableIsLoading = false;
-        }
-        /// <summary>
-        /// 刷新页面
-        /// </summary>
-        /// <returns></returns>
-        private async Task OnReLoadTable()
-        {
-            await ReLoadTable();
+            return pageRequest;
         }
         
-        /// <summary>
-        /// 点击删除按钮
-        /// </summary>
-        /// <param name="id"></param>
-        private async Task OnDeleteClick(int id)
-        {
-            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
-            {
-                var result = await userService.FakeDelete(id);
-                if (result)
-                {
-                    _users = _users.Remove(_users.FirstOrDefault(x => x.Id == id));
-                    messageService.Success("删除成功");
-                }
-                else
-                {
-                    messageService.Error("删除失败");
-                }
-                //await InvokeAsync(StateHasChanged);
-            }
-
-        }
         /// <summary>
         /// 点击编辑按钮
         /// </summary>
@@ -166,47 +102,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 //刷新列表
                 pageRequest.PageIndex = 1;
                 await ReLoadTable();
-            }
-        }
-        /// <summary>
-        /// 点击删除选中按钮
-        /// </summary>
-        private async Task OnDeletesClick()
-        {
-            if (_selectedRows == null || _selectedRows.Count() == 0)
-            {
-                messageService.Warn("未选中任何行");
-            }
-            else
-            {
-                if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
-                {
-                    var result = await userService.FakeDeletes(_selectedRows.Select(x => x.Id).ToArray());
-                    if (result)
-                    {
-                        _users = _users.Where(x => !_selectedRows.Any(y => y.Id == x.Id)).ToArray();
-                        messageService.Success("删除成功");
-                    }
-                    else
-                    {
-                        messageService.Error($"删除失败");
-                    }
-                    //await InvokeAsync(StateHasChanged);
-                }
-            }
-        }
-        /// <summary>
-        /// 点击锁定按钮
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="isLocked"></param>
-        private async Task OnChangeIsLocked(UserDto model, bool isLocked)
-        {
-            var result = await userService.Lock(model.Id, isLocked);
-            if (!result)
-            {
-                model.IsLocked = !isLocked;
-                messageService.Error("锁定/解锁失败");
             }
         }
 

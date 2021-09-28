@@ -698,22 +698,27 @@
             唯一键
             </summary>
         </member>
-        <member name="P:Gardener.Base.BaseDto`1.IsLocked">
+        <member name="T:Gardener.Base.BaseDto">
+            <summary>
+            dto基础类
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.BaseDto.IsLocked">
             <summary>
             是否锁定
             </summary>
         </member>
-        <member name="P:Gardener.Base.BaseDto`1.IsDeleted">
+        <member name="P:Gardener.Base.BaseDto.IsDeleted">
             <summary>
             是否逻辑删除
             </summary>
         </member>
-        <member name="P:Gardener.Base.BaseDto`1.CreatedTime">
+        <member name="P:Gardener.Base.BaseDto.CreatedTime">
             <summary>
             创建日期
             </summary>
         </member>
-        <member name="P:Gardener.Base.BaseDto`1.UpdatedTime">
+        <member name="P:Gardener.Base.BaseDto.UpdatedTime">
             <summary>
             创建日期
             </summary>

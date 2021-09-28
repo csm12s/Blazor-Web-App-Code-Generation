@@ -71,5 +71,6 @@ namespace Gardener.Client.Base.Components
             var isAuth = await authenticationStateManager.CheckCurrentUserHaveBtnResourceKey(ResourceKey);
             state = (short)(isAuth ? 1 : -1);
         }
+
     }
 }

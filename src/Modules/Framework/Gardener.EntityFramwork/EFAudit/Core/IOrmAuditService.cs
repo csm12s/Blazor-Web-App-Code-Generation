@@ -4,30 +4,28 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Audit.Dtos;
+using Gardener.EntityFramwork.Audit.Domains;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.Audit.Core
+namespace Gardener.EntityFramwork.Audit.Core
 {
-    public interface IAuditService
+    public interface IOrmAuditService
     {
         /// <summary>
-        /// 
+        /// 数据保存前
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="result"></param>
-        public Task SavingChangesEvent(DbContextEventData eventData);
+        public void SavingChangesEvent(IEnumerable<EntityEntry> entitys);
         /// <summary>
         /// 数据保存后
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="result"></param>
-        public Task SavedChangesEvent(SaveChangesCompletedEventData eventData);
+        public Task SavedChangesEvent();
 
         /// <summary>
         /// 保存操作审计

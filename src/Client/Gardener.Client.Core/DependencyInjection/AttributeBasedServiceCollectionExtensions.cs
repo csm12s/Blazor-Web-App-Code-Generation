@@ -147,7 +147,7 @@ namespace Gardener.Client.Core
                         {
                             foreach (Type type in implementation.GetInterfaces())
                             {
-                                Console.WriteLine(type.FullName + "__1___" + implementation.FullName);
+                                Console.WriteLine("注入服务："+type.Name + "," + implementation.Name);
                                 serviceCollection.TryAdd(type, implementation, lifetime);
                             }
                         }
@@ -155,12 +155,12 @@ namespace Gardener.Client.Core
                         Type baseType = implementation.BaseType;
                         if (!baseType.Equals(typeof(Object)))
                         {
-                            Console.WriteLine(baseType.FullName + "__2___" + implementation.FullName);
+                            Console.WriteLine("注入服务：" + baseType.Name + "," + implementation.Name);
                             serviceCollection.TryAdd(baseType, implementation, lifetime);
                         }
                         else
                         {
-                            Console.WriteLine(implementation.FullName + "__3___" + implementation.FullName);
+                            Console.WriteLine("注入服务：" + implementation.Name + "," + implementation.Name);
                             serviceCollection.TryAdd(implementation, implementation, lifetime);
                         }
                     }

@@ -9,6 +9,8 @@ using Gardener.Audit.Dtos;
 using Gardener.Authentication.Dtos;
 using Gardener.Authorization.Core;
 using Gardener.Authorization.Dtos;
+using Gardener.EntityFramwork.Audit.Core;
+using Gardener.EntityFramwork.Audit.Domains;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -27,14 +29,14 @@ namespace Gardener.Audit.Core
     public class AuditActionFilter : IAsyncActionFilter
     {
         private readonly IAuthorizationService authorizationManager;
-        private readonly IAuditService auditService;
+        private readonly IOrmAuditService auditService;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="authorizationManager"></param>
         /// <param name="auditService"></param>
         public AuditActionFilter(IAuthorizationService authorizationManager,
-            IAuditService auditService)
+            IOrmAuditService auditService)
         {
             this.authorizationManager = authorizationManager;
             this.auditService = auditService;

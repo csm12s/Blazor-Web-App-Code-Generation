@@ -1,4 +1,5 @@
 ﻿@page "/system_manager/position"
+@inherits TableBase<PositionDto, int>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -10,7 +11,7 @@
         <ChildContent>
             <Table @ref="_table"
                    TItem="PositionDto"
-                   DataSource="@_positions"
+                   DataSource="@_datas"
                    Total="_total"
                    OnChange="@OnChange"
                    @bind-PageIndex="pageRequest.PageIndex"
@@ -22,7 +23,7 @@
                     <Row>
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_position_delete_selected">
-                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
                                     删除选中
                                 </Button>
                             </ResourceAuthorize>
@@ -38,7 +39,7 @@
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_position_refresh">
                                     <SpaceItem>
-                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                             刷新
                                         </Button>
                                     </SpaceItem>

@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Gardener.EntityFramwork.Audit.Domains;
 
 namespace Gardener.Audit.Services
 {

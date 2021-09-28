@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Base.Components
 {
-    public abstract class TreeTableBase<TDto, TKey, TEditDrawer, TEditOption, TEditResult> : ComponentBase where TEditDrawer : FeedbackComponent<TEditOption, TEditResult> where TEditResult : EditOutput<TKey> where TDto : class, new()
+    public abstract class TreeTableBase<TDto, TKey, TEditDrawer, TEditOption, TEditResult> : ComponentBase where TEditDrawer : FeedbackComponent<TEditOption, TEditResult> where TEditResult : EditOutput<TKey> where TDto : BaseDto<TKey>, new()
     {
         public bool _tableIsLoading = false;
         public List<TDto> _dtos;
@@ -61,7 +61,10 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public abstract TKey GetKey(TDto dto);
+        public TKey GetKey(TDto dto) 
+        {
+            return dto.Id;
+        }
         /// <summary>
         /// 获取父级主键
         /// </summary>
@@ -200,7 +203,10 @@ namespace Gardener.Client.Base.Components
 
             }
         }
-        public abstract void SetIsLocked(TDto dto, bool isLocked);
+        public void SetIsLocked(TDto dto, bool isLocked) 
+        {
+            dto.IsLocked = isLocked;
+        }
         /// <summary>
         /// 点击锁定按钮
         /// </summary>

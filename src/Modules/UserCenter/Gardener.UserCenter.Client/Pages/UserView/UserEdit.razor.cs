@@ -19,8 +19,8 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserEdit: FeedbackComponent<int, bool>
     {
-        private bool _formIsLoading = false;
-        private UserDto _editModel = new UserDto();
+        private bool formIsLoading = false;
+        private UserDto editModel = new UserDto();
         private List<PositionDto> positions = new List<PositionDto>();
         [Inject]
         IUserService userService { get; set; }
@@ -32,17 +32,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         IDeptService deptService { get; set; }
         [Inject]
         IPositionService positionService { get; set; }
-        /// <summary>
-        /// 父级选择数据
-        /// </summary>
-        private List<CascaderNode> _deptCascaderNodes;
-        /// <summary>
-        /// 选择器绑定值
-        /// </summary>
-        private string _deptCascaderValue = string.Empty;
+        //部门树
+        List<DeptDto> deptDatas;
+        private string deptId;
         protected override async Task OnInitializedAsync()
         {
-            _formIsLoading = true;
+            formIsLoading = true;
 
             positions=await positionService.GetAllUsable();
 
@@ -57,8 +52,8 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                     user.Password = null;
                     if (user.UserExtension == null) user.UserExtension = new UserExtensionDto() { UserId=user.Id };
                     //赋值给编辑对象
-                    user.Adapt(_editModel);
-                    _deptCascaderValue = _editModel.DeptId?.ToString();
+                    user.Adapt(editModel);
+                    deptId = editModel.DeptId?.ToString();
                 }
                 else
                 {
@@ -66,14 +61,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 }
             }
 
-            //父级选择器
-            List<DeptDto> depts = await deptService.GetTree();
-            if (depts != null)
-            {
-                _deptCascaderNodes = ComponentUtils.DtoConvertToCascaderNode<DeptDto>(depts, dto => dto.Children, dto => dto.Name, dto => dto.Id.ToString());
-            }
-
-            _formIsLoading = false;
+            //部门
+            deptDatas = await deptService.GetTree();
+            formIsLoading = false;
             await base.OnInitializedAsync();
         }
         /// <summary>
@@ -83,12 +73,16 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         private async Task OnFormFinish(EditContext editContext)
         {
-            _formIsLoading = true;
+            formIsLoading = true;
+            if (!string.IsNullOrEmpty(deptId)) 
+            {
+                editModel.DeptId = int.Parse(deptId);
+            }
             //开始请求
-            if (_editModel.Id == 0)
+            if (editModel.Id == 0)
             {
                 //添加
-                var result = await userService.Insert(_editModel);
+                var result = await userService.Insert(editModel);
                 
                 if (result != null)
                 {
@@ -103,7 +97,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             else
             {
                 //修改
-                var result = await userService.Update(_editModel);
+                var result = await userService.Update(editModel);
                 if (result)
                 {
                     messageService.Success("修改成功");
@@ -114,7 +108,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                     messageService.Error("修改失败");
                 }
             }
-            _formIsLoading = false;
+            formIsLoading = false;
         }
         /// <summary>
         /// 取消
@@ -136,14 +130,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             //this.DrawerRef.Options.Width -= avatarDrawerWidth;
         }
 
-        /// <summary>
-        /// 父级选择数据
-        /// </summary>
-        /// <param name="selectedNodes"></param>
-        private void CascaderOnChange(CascaderNode[] selectedNodes)
-        {
-            _editModel.DeptId =string.IsNullOrEmpty(_deptCascaderValue)?null: int.Parse(_deptCascaderValue);
-        }
         private void OnSelectedItemChangedHandler(PositionDto value)
         {
             Console.WriteLine($"selected: ${value?.Name}");

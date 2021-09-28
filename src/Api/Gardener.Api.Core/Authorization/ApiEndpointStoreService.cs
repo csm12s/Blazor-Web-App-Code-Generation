@@ -11,6 +11,7 @@ using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Impl.Domains;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gardener.Authorization.Core
@@ -31,7 +32,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public async Task<ApiEndpoint> Query(string key)
         {
-            Function function = await _repository.Where(x => x.Key.Equals(key)).FirstOrDefaultAsync();
+            Function function = await _repository.AsQueryable(false).Where(x => x.Key.Equals(key)).FirstOrDefaultAsync();
             return function?.Adapt<ApiEndpoint>();
         }
 
@@ -43,7 +44,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public async Task<ApiEndpoint> Query(string path, HttpMethod method)
         {
-            Function function = await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).FirstOrDefaultAsync();
+            Function function = await _repository.AsQueryable(false).Where(x => x.Method.Equals(method) && x.Path.Equals(path)).FirstOrDefaultAsync();
             return function?.Adapt<ApiEndpoint>();
         }
     }

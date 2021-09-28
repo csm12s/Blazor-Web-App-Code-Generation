@@ -4,13 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion;
 using Furion.DatabaseAccessor;
 using Furion.EventBus;
+using Gardener.Attributes;
+using Gardener.Audit.Dtos;
+using Gardener.Authorization.Core;
+using Gardener.Common;
+using Gardener.EntityFramwork.Audit.Core;
 using Gardener.EntityFramwork.Event;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Gardener.EntityFramwork.DbContexts
@@ -62,24 +69,19 @@ namespace Gardener.EntityFramwork.DbContexts
         /// <param name="result"></param>
         protected override void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
         {
-            GardenerDbContextSavingChangesEvent changesEvent = new GardenerDbContextSavingChangesEvent
-            {
-                Data=eventData
-            };
-            MessageCenter.Send(nameof(GardenerDbContextSavingChangesEvent), changesEvent);
+            IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
+            ormAuditService.SavingChangesEvent(eventData.Context.ChangeTracker.Entries());
         }
+       
         /// <summary>
         /// 数据保存后
         /// </summary>
         /// <param name="eventData"></param>
         /// <param name="result"></param>
-        protected override async void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
+        protected override void SavedChangesEvent(SaveChangesCompletedEventData eventData, int result)
         {
-            GardenerDbContextSavedChangesEvent changesEvent = new GardenerDbContextSavedChangesEvent
-            {
-                Data=eventData
-            };
-            MessageCenter.Send(nameof(GardenerDbContextSavedChangesEvent), changesEvent);
+            IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
+            ormAuditService.SavedChangesEvent();
         }
 
     }

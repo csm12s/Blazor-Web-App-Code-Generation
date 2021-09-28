@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Audit\Core\" />
+  </ItemGroup>
+
 </Project>

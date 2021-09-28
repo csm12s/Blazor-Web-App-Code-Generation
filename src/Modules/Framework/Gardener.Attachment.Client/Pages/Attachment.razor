@@ -1,4 +1,5 @@
 ﻿@page "/system_manager/attachment"
+@inherits TableBase<AttachmentDto, Guid>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -22,7 +23,7 @@
                     <Row>
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
-                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
                                     删除选中
                                 </Button>
                             </ResourceAuthorize>
@@ -31,7 +32,7 @@
                             <Space>
                                 <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
                                     <SpaceItem>
-                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                             刷新
                                         </Button>
                                     </SpaceItem>
@@ -49,17 +50,17 @@
                     <Column @bind-Field="@model.BusinessType" TData="AttachmentBusinessType?" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
                         <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagRandomColor>
                     </Column>
-                    <Column @bind-Field="@model.BusinessId" Filterable/>
-                    <Column @bind-Field="@model.FileType" TData="AttachmentFileType?"  Filters="TableFiltersConstants.AttachmentFileTypeFilters">
+                    <Column @bind-Field="@model.BusinessId" Filterable />
+                    <Column @bind-Field="@model.FileType" TData="AttachmentFileType?" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
                         <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
                     </Column>
                     <Column @bind-Field="@model.Size" Filterable>
                         @model.Size B
                     </Column>
                     @*<Column @bind-Field="@model.Path" />
-                    <Column @bind-Field="@model.Name" />*@
-                    <Column @bind-Field="@model.Suffix" Filterable/>
-                    <Column @bind-Field="@model.OriginalName" Style="max-width:200px" Filterable/>
+                        <Column @bind-Field="@model.Name" />*@
+                    <Column @bind-Field="@model.Suffix" Filterable />
+                    <Column @bind-Field="@model.OriginalName" Style="max-width:200px" Filterable />
                     <Column Title="文件" @bind-Field="@model.Url" Filterable>
 
                         @if (model.FileType.Equals(AttachmentFileType.Image))
@@ -81,7 +82,7 @@
                         }
 
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete">

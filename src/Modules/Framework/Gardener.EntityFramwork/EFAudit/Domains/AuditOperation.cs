@@ -6,7 +6,6 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
-using Gardener.Audit.Core;
 using Gardener.EntityFramwork.DbContexts;
 using Gardener.EntityFramwork.Domains;
 using Gardener.Enums;
@@ -14,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Gardener.Audit.Dtos
+namespace Gardener.EntityFramwork.Audit.Domains
 {
     /// <summary>
     /// 操作审计信息

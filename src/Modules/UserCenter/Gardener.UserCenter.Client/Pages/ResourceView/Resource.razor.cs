@@ -69,11 +69,6 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
             dto.Children = children;
         }
 
-        public override Guid GetKey(ResourceDto dto)
-        {
-           return dto.Id;
-        }
-
         public override Guid GetParentKey(ResourceDto dto)
         {
             return dto.ParentId.HasValue? dto.ParentId.Value:Guid.Empty;
@@ -97,11 +92,6 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
         public override EditDrawerSettings GetDrawerSettings()
         {
             return new EditDrawerSettings { Width=800,Placement="right" };
-        }
-
-        public override void SetIsLocked(ResourceDto dto, bool isLocked)
-        {
-            dto.IsLocked = isLocked;
         }
 
         public override ICollection<ResourceDto> SortChildren(ICollection<ResourceDto> children)

@@ -11,6 +11,7 @@ using Gardener.Audit.Dtos;
 using Gardener.Authorization;
 using Gardener.Authorization.Core;
 using Gardener.Common;
+using Gardener.EntityFramwork.Audit.Domains;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -22,26 +23,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Audit.Core
+namespace Gardener.EntityFramwork.Audit.Core
 {
     /// <summary>
     /// 当前请求的审计数据管理
     /// </summary>
-    public class AuditService<TDbContextLocator> : IAuditService where TDbContextLocator:class, IDbContextLocator
+    public class EntityFramworkAuditService<TDbContextLocator> : IOrmAuditService where TDbContextLocator:class, IDbContextLocator
     {
-        private readonly ILogger<AuditService<TDbContextLocator>> _logger;
+        private readonly ILogger<EntityFramworkAuditService<TDbContextLocator>> _logger;
         private readonly IRepository<AuditOperation, TDbContextLocator> _auditOperationRepository;
         private readonly IRepository<AuditEntity, TDbContextLocator> _auditEntityRepository;
         private AuditOperation _auditOperation;
         private List<AuditEntity> _auditEntitys;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public AuditOperation GetAuditOperation()
-        {
-            return this._auditOperation;
-        }
         
         /// <summary>
         /// 
@@ -49,7 +42,7 @@ namespace Gardener.Audit.Core
         /// <param name="logger"></param>
         /// <param name="auditOperationRepository"></param>
         /// <param name="auditEntityRepository"></param>
-        public AuditService(ILogger<AuditService<TDbContextLocator>> logger,
+        public EntityFramworkAuditService(ILogger<EntityFramworkAuditService<TDbContextLocator>> logger,
             IRepository<AuditOperation, TDbContextLocator> auditOperationRepository,
             IRepository<AuditEntity, TDbContextLocator> auditEntityRepository)
         {
@@ -88,7 +81,6 @@ namespace Gardener.Audit.Core
             {
                 auditEntitys.ForEach(x => {
                     x.OperationId = _auditOperation.Id;
-                    _logger.LogDebug($"写入操作审计信息 {x.Name} {x.OperationType.ToString()}");
                 });
             }
             try
@@ -104,14 +96,17 @@ namespace Gardener.Audit.Core
         /// 
         /// </summary>
         /// <param name="eventData"></param>
-        public async Task SavingChangesEvent(DbContextEventData eventData)
+        public void SavingChangesEvent(IEnumerable<EntityEntry> entitys)
         {
             try
             {
+                if (entitys == null || !entitys.Any()) 
+                {
+                    return;
+                }
                 // 获取当前事件对应上下文
-                var dbContext = eventData.Context;
                 // 获取所有实体  
-                var entitys = dbContext.ChangeTracker.Entries().Where(w =>
+                entitys = entitys.Where(w =>
                (w.State == EntityState.Added || w.State == EntityState.Modified || w.State == EntityState.Deleted)
                 );
                 if (!entitys.Any()) return;
@@ -156,7 +151,7 @@ namespace Gardener.Audit.Core
        /// </summary>
        /// <param name="eventData"></param>
        /// <returns></returns>
-        public async Task SavedChangesEvent(SaveChangesCompletedEventData eventData)
+        public async Task SavedChangesEvent()
         {
             try
             {

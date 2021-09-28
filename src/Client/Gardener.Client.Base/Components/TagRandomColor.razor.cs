@@ -27,10 +27,7 @@ namespace Gardener.Client.Base.Components
         {
             int code = Math.Abs(Text.ToString().GetHashCode());
             int colorIndex = (code % 1000) % colors.Length;
-
             color = colors[colorIndex];
-            Console.WriteLine( code + "_" + colors.Length + "_" + colorIndex + "_" + color);
-
         }
 
     }

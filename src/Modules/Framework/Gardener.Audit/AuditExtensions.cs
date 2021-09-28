@@ -4,8 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DatabaseAccessor;
 using Gardener.Audit.Core;
+using Gardener.EntityFramwork.Audit.Core;
 using Gardener.EntityFramwork.DbContexts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Filters.Add<AuditActionFilter>();
             });
             //数据管理
-            services.AddScoped<IAuditService, AuditService<GardenerAuditDbContextLocator>>();
+            services.AddScoped<IOrmAuditService, EntityFramworkAuditService<GardenerAuditDbContextLocator>>();
             return services;
         }
     }
