@@ -1,0 +1,1180 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.UserCenter.Impl</name>
+    </assembly>
+    <members>
+        <member name="T:Gardener.UserCenter.Impl.Core.PasswordEncryptHelper">
+            <summary>
+            加密密码
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Core.PasswordEncryptHelper.Encrypt(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="password"></param>
+            <param name="encryptKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Core.Subscribes.FunctionChangeSubscribeHandler">
+            <summary>
+            功能点变化
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Core.Subscribes.FunctionChangeSubscribeHandler.Change(System.String,System.Object)">
+            <summary>
+            功能点变化
+            </summary>
+            <param name="eventId"></param>
+            <param name="payload"></param>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.Client">
+            <summary>
+            客户端信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.Remark">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.Contacts">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.Tel">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.EncryptKey">
+            <summary>
+            加密Key
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.Functions">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.ClientFunctions">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.ClientFunction">
+            <summary>
+            客户端功能信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ClientFunction.ClientId">
+            <summary>
+            客户端编号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ClientFunction.Client">
+            <summary>
+            客户端
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ClientFunction.FunctionId">
+            <summary>
+            功能Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ClientFunction.Function">
+            <summary>
+            功能
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ClientFunction.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.Dept">
+            <summary>
+            部门信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Contacts">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Tel">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Order">
+            <summary>
+            资源排序
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Parent">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Children">
+            <summary>
+            子集
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Dept.Users">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Dept.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.Dept},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Dept.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.Function">
+            <summary>
+            功能信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Service">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Summary">
+            <summary>
+            概要
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Key">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Path">
+            <summary>
+            API路由地址
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Method">
+            <summary>
+            接口请求方法
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.EnableAudit">
+            <summary>
+            启用审计
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Resources">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.ResourceFunctions">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.Clients">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Function.ClientFunctions">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Function.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.Function},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Function.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.Position">
+            <summary>
+            部门信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Target">
+            <summary>
+            设置该岗位的目标
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Duty">
+            <summary>
+            职责
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Right">
+            <summary>
+            权利
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Grade">
+            <summary>
+            岗位等级
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Salary">
+            <summary>
+            岗位薪资
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Qualifications">
+            <summary>
+            任职资格
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Position.Users">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Position.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.Position},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Position.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.Resource">
+            <summary>
+            资源表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Name">
+            <summary>
+            资源名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Key">
+            <summary>
+            资源名称简写-唯一
+            内部鉴权使用
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Path">
+            <summary>
+            资源地址 菜单：页面路由地址
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Icon">
+            <summary>
+            资源图标
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Order">
+            <summary>
+            资源排序
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Parent">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Children">
+            <summary>
+            子集
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.RoleResources">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.Functions">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Resource.ResourceFunctions">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Resource.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.Resource},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Resource.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.ResourceFunction">
+            <summary>
+            资源功能信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ResourceFunction.ResourceId">
+            <summary>
+            资源编号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ResourceFunction.Resource">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ResourceFunction.FunctionId">
+            <summary>
+            功能Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ResourceFunction.Function">
+            <summary>
+            功能
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.ResourceFunction.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.ResourceFunction.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.Role">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.Remark">
+            <summary>
+            角色描述
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.IsSuperAdministrator">
+            <summary>
+            是否是超级管理员
+            超级管理员拥有所有权限
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.IsDefault">
+            <summary>
+            是否是默认权限
+            注册用户时默认设置
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.Users">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.UserRoles">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.Resources">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.Role.RoleResources">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Role.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.Role},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置多对多关系
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Role.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.RoleResource">
+            <summary>
+            用户和角色关系表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.RoleResource.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.RoleResource.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.RoleResource.ResourceId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.RoleResource.Resource">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.RoleResource.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.RoleResource.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.RoleResource},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置多对多关系
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.RoleResource.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.User">
+            <summary>
+            用户表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.Password">
+            <summary>
+            密码加密后的
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.PasswordEncryptKey">
+            <summary>
+            密码加密Key
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.EmailConfirmed">
+            <summary>
+            邮箱是否确认
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.PhoneNumber">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.PhoneNumberConfirmed">
+            <summary>
+            手机是否确认
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.Roles">
+            <summary>
+            多对多
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.UserRoles">
+            <summary>
+            多对多中间表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.UserExtension">
+            <summary>
+            用户扩展信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.DeptId">
+            <summary>
+            部门编号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.Dept">
+            <summary>
+            部门
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.User.PositionId">
+            <summary>
+            岗位编号
+            </summary>
+        </member>
+        <member name="F:Gardener.UserCenter.Impl.Domains.User.Position">
+            <summary>
+            岗位
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.User.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.User},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置多对多关系
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.User.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.UserExtension">
+            <summary>
+            用户扩展信息表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserExtension.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserExtension.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserExtension.WeChat">
+            <summary>
+            微信号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserExtension.CityId">
+            <summary>
+            城市ID
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserExtension.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserExtension.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserExtension.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.UserExtension.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.UserExtension},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Domains.UserRole">
+            <summary>
+            用户和角色关系表
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserRole.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserRole.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserRole.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserRole.Role">
+            <summary>
+            角色信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Impl.Domains.UserRole.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.UserRole.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.UserRole},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.UserRole.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            种子数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.AccountService">
+            <summary>
+            用户账户认证授权服务
+            </summary>
+        </member>
+        <member name="F:Gardener.UserCenter.Impl.Services.AccountService._resourceRepository">
+            <summary>
+            资源仓储
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.User},Gardener.Authorization.Core.IAuthorizationService,Gardener.Authentication.Core.IJwtService,Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Resource},Gardener.Authorization.Core.IIdentityPermissionService)">
+            <summary>
+            角色管理服务
+            </summary>
+            <param name="httpContextAccessor"></param>
+            <param name="userRepository"></param>
+            <param name="authorizationManager"></param>
+            <param name="jwtBearerService"></param>
+            <param name="resourceRepository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.Login(Gardener.Authorization.Dtos.LoginInput)">
+            <summary>
+            登录
+            </summary>
+            <param name="input"></param>
+            <remarks>登录接口</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.RefreshToken(Gardener.Authorization.Dtos.RefreshTokenInput)">
+            <summary>
+            刷新Token
+            </summary>
+            <remarks>
+            通过刷新token获取新的token
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.RemoveCurrentUserRefreshToken">
+            <summary>
+            移除当前用户token
+            </summary>
+            <remarks>
+            移除当前用户token
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserRoles">
+            <summary>
+            查看用户角色
+            </summary>
+            <remarks>
+            查看当前用户角色
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUser">
+            <summary>
+            获取当前用户信息
+            </summary>
+            <remarks>
+            获取当前用户信息
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResources(Gardener.UserCenter.Enums.ResourceType[])">
+            <summary>
+            获取用户资源
+            </summary>
+            <param name="resourceTypes">资源类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.CurrentUserIsSuperAdmin">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResources(Gardener.UserCenter.Enums.ResourceType[])">
+            <summary>
+            获取用户资源
+            </summary>
+            <param name="resourceTypes">资源类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserMenus">
+            <summary>
+            获取当前用户的所有菜单
+            </summary>
+            <remarks>
+            获取当前用户的所有菜单
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.DeptService">
+            <summary>
+            部门服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.DeptService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Dept})">
+            <summary>
+            部门服务
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.DeptService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.DeptService.GetTree">
+            <summary>
+            获取所有部门数据，以树形结构返回
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.FunctionService">
+            <summary>
+            功能服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.FunctionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Function})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.FunctionService.EnableAudit(System.Guid,System.Boolean)">
+            <summary>
+            启用或禁用
+            </summary>
+            <remarks>
+            启用或禁用功能
+            </remarks>
+            <param name="id"></param>
+            <param name="enableAudit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.FunctionService.Exists(Gardener.Enums.HttpMethod,System.String)">
+            <summary>
+            判断是否存在
+            </summary>
+            <remarks>
+            根据 HttpMethod 和 path 判断是否存在
+            </remarks>
+            <param name="method"></param>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.FunctionService.GetByKey(System.String)">
+            <summary>
+            根据key获取
+            </summary>
+            <remarks>
+            根据key获取 功能点
+            </remarks>
+            <param name="key">key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.FunctionService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.PositionService">
+            <summary>
+            岗位管理服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.PositionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Position})">
+            <summary>
+            
+            </summary>
+            <param name="positionRepository"></param>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.ResourceFunctionService">
+            <summary>
+            资源与接口关系服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceFunctionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.ResourceFunction})">
+            <summary>
+            
+            </summary>
+            <param name="resourceFunctionRespository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceFunctionService.Add(System.Collections.Generic.List{Gardener.UserCenter.Dtos.ResourceFunctionDto})">
+            <summary>
+            添加资源与接口关系
+            </summary>
+            <param name="resourceFunctionDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceFunctionService.Delete(System.Guid,System.Guid)">
+            <summary>
+            删除资源与接口关系
+            </summary>
+            <param name="resourceId"></param>
+            <param name="functionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceFunctionService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.ResourceService">
+            <summary>
+            资源服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Resource},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.ResourceFunction})">
+            <summary>
+            资源服务
+            </summary>
+            <param name="resourceRepository"></param>
+            <param name="resourceFunctionRespository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.GetChildren(System.Guid)">
+            <summary>
+            获取所有子资源
+            </summary>
+            <remarks>
+            获取所有子资源
+            </remarks>
+            <param name="id">父级id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.GetRoot">
+            <summary>
+            返回根节点
+            </summary>
+            <remarks>
+            返回根节点资源
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.GetSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.GetTree">
+            <summary>
+            查询所有资源
+            </summary>
+            <remarks>
+            查询所有资源 按树形结构返回
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.Insert(Gardener.UserCenter.Dtos.ResourceDto)">
+            <summary>
+            添加资源
+            </summary>
+            <remarks>
+            添加资源
+            </remarks>
+            <param name="resourceDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.GetFunctions(System.Guid)">
+            <summary>
+            根据资源id获取功能信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.RoleService">
+            <summary>
+            角色服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.RoleService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Role},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.RoleResource})">
+            <summary>
+            角色服务
+            </summary>
+            <param name="roleRepository"></param>
+            <param name="roleResourceRepository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.RoleService.Resource(System.Int32,System.Guid[])">
+            <summary>
+            分配权限
+            </summary>
+            <remarks>
+            分配权限（重置）
+            </remarks>
+            <param name="roleId"></param>
+            <param name="resourceIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.RoleService.DeleteResource(System.Int32)">
+            <summary>
+            根据角色编号删除所有资源
+            </summary>
+            <remarks>
+            根据角色编号删除所有资源
+            </remarks>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.RoleService.GetResource(System.Int32)">
+            <summary>
+            获取角色所有资源
+            </summary>
+            <remarks>
+            获取角色所有资源
+            </remarks>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.RoleService.GetRoleResourceSeedData">
+            <summary>
+            获取种子数据
+            </summary>
+            <remarks>
+            获取种子数据
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.UserService">
+            <summary>
+            用户服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.User},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Role},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Dept},Gardener.EntityFramwork.IDynamicFilterService)">
+            <summary>
+            用户服务
+            </summary>
+            <param name="userRepository"></param>
+            <param name="userExtensionRepository"></param>
+            <param name="userRoleRepository"></param>
+            <param name="roleRepository"></param>
+            <param name="deptRepository"></param>
+            <param name="filterService"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.GetRoles(System.Int32)">
+            <summary>
+            查看用户角色
+            </summary>
+            <remarks>
+            查看用户角色
+            </remarks>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.GetResources(System.Int32)">
+            <summary>
+            查看用户权限
+            </summary>
+            <remarks>
+            查看用户权限
+            </remarks>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索用户数据
+            </remarks>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.Update(Gardener.UserCenter.Dtos.UserDto)">
+            <summary>
+            更新
+            </summary>
+            <remarks>
+            更新用户
+            </remarks>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.Insert(Gardener.UserCenter.Dtos.UserDto)">
+            <summary>
+            新增
+            </summary>
+            <remarks>
+            新增用户
+            </remarks>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.Get(System.Int32)">
+            <summary>
+            根据主键获取用户
+            </summary>
+            <remarks>
+            根据主键获取用户
+            </remarks>
+            <param name="id"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.Role(System.Int32,System.Int32[])">
+            <summary>
+            设置角色
+            </summary>
+            <remarks>
+            给用户设置角色
+            </remarks>
+            <param name="userId"></param>
+            <param name="roleIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.UpdateAvatar(Gardener.UserCenter.Dtos.UserUpdateAvatarInput)">
+            <summary>
+            更新头像
+            </summary>
+            <remarks>
+            更新用户的头像
+            </remarks>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

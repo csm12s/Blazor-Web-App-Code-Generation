@@ -80,7 +80,7 @@ namespace Gardener.Authentication.Core
                 //过期token删除
                 if (refreshToken != null && refreshToken.EndTime <= DateTime.UtcNow)
                 {
-                    await repository.FakeDeleteAsync(refreshToken);
+                    await repository.FakeDeleteByKeyAsync(refreshToken.Id);
                 }
                 throw Oops.Oh(ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE);
             }
@@ -90,7 +90,7 @@ namespace Gardener.Authentication.Core
         public async Task<bool> RemoveRefreshToken(Identity identity)
         {
             var refreshTokens = await repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.ClientId.Equals(identity.ClientId)).ToListAsync();
-            refreshTokens.ForEach(async x => await repository.FakeDeleteAsync(x));
+            refreshTokens.ForEach(async x => await repository.FakeDeleteByKeyAsync(x.Id));
             return true;
         }
         /// <summary>

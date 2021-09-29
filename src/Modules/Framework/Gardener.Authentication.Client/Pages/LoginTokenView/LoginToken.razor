@@ -22,7 +22,7 @@
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
-                            <ResourceAuthorize ResourceKey="system_manager_user_token_delete_selected">
+                            <ResourceAuthorize ResourceKey="system_manager_login_token_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
                                     删除选中
                                 </Button>
@@ -31,7 +31,7 @@
                         <AntDesign.Col Span="16" Style="text-align:right">
                             <Space>
 
-                                <ResourceAuthorize ResourceKey="system_manager_user_token_refresh">
+                                <ResourceAuthorize ResourceKey="system_manager_login_token_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                             刷新
@@ -43,7 +43,7 @@
                     </Row>
                 </TitleTemplate>
                 <RowTemplate>
-                    <ResourceAuthorize ResourceKey="system_manager_user_token_delete_selected">
+                    <ResourceAuthorize ResourceKey="system_manager_login_token_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
                     <Column @bind-Field="@model.IdentityId" Filterable />
@@ -57,7 +57,7 @@
                         <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagRandomColor>
                     </Column>
                     <Column @bind-Field="@model.IsLocked" Filterable>
-                        <ResourceAuthorize ResourceKey="system_manager_user_token_lock">
+                        <ResourceAuthorize ResourceKey="system_manager_login_token_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                             </Authorized>
@@ -71,7 +71,7 @@
                     <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
                     <ActionColumn>
                         <Space>
-                            <ResourceAuthorize ResourceKey="system_manager_user_token_delete">
+                            <ResourceAuthorize ResourceKey="system_manager_login_token_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
                                         <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>

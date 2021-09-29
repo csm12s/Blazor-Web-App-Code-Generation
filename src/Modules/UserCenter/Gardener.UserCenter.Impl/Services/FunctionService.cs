@@ -72,9 +72,23 @@ namespace Gardener.UserCenter.Impl.Services
         {
             path = HttpUtility.UrlDecode(path);
 
-            return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path)).AnyAsync();
+            return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path),tracking:false).AnyAsync();
         }
-       
+
+        /// <summary>
+        /// 根据key获取
+        /// </summary>
+        /// <remarks>
+        /// 根据key获取 功能点
+        /// </remarks>
+        /// <param name="key">key</param>
+        /// <returns></returns>
+        public async Task<FunctionDto> GetByKey(string key)
+        {
+            Function function= await _repository.Where(x => x.Key.Equals(key), tracking: false).FirstOrDefaultAsync();
+            return function?.Adapt<FunctionDto>();
+        }
+
 
         /// <summary>
         /// 获取种子数据
@@ -106,6 +120,5 @@ namespace Gardener.UserCenter.Impl.Services
             return sb.ToString().TrimEnd(',');
         }
 
-        
     }
 }

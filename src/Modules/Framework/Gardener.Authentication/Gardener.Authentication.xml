@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.Authentication</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.DependencyInjection.AuthenticationExtensions">
+            <summary>
+            安全服务
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.AuthenticationExtensions.AddAuthen(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加安全服务
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.AuthenticationExtensions.CreateTokenValidationParameters(Gardener.Authentication.Options.JWTSettingsOptions)">
+            <summary>
+            生成Token验证参数
+            </summary>
+            <param name="jwtSettings"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authentication.Core.AuthKeyConstants">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Core.AuthKeyConstants.ClientIdKeyName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Core.AuthKeyConstants.ClientTypeKeyName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Core.AuthKeyConstants.TokenTypeKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Core.AuthKeyConstants.UserIsSuperAdministratorKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Core.AuthKeyConstants.IdentityType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Core.IdentityService._httpContextAccessor">
+            <summary>
+            请求上下文访问器
+            </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Core.IdentityService.GetIdentityFromContext">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.CreateToken(Gardener.Authentication.Dtos.Identity,Gardener.Authentication.Enums.JwtTokenType)">
+            <summary>
+            创建
+            </summary>
+            <param name="identity"></param>
+            <param name="clientId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.GetJWTSettingsOptions(Gardener.Authentication.Enums.IdentityType)">
+            <summary>
+            
+            </summary>
+            <param name="identityType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.CreateToken(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},Gardener.Authentication.Options.JWTSettingsOptions)">
+            <summary>
+            创建
+            </summary>
+            <param name="claims"></param>
+            <param name="jwtOpt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.ReadToken(System.String)">
+            <summary>
+            从token中读取数据
+            </summary>
+            <param name="tokenStr"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Authentication.Domains.LoginToken">
+            <summary>
+            登录Token信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.IdentityId">
+            <summary>
+            身份编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.IdentityName">
+            <summary>
+            身份唯一名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.IdentityGivenName">
+            <summary>
+            身份昵称
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.IdentityType">
+            <summary>
+            身份类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.ClientId">
+            <summary>
+            获取或设置 客户端Id
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.LoginClientType">
+            <summary>
+            登录的客户端类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.Value">
+            <summary>
+            获取或设置 标识值
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.EndTime">
+            <summary>
+            获取或设置 过期时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTOptions.Settings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Options.JWTSettingsOptions">
+            <summary>
+            Jwt 配置
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ValidateIssuerSigningKey">
+            <summary>
+            验证签发方密钥
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.IssuerSigningKey">
+            <summary>
+            签发方密钥
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ValidateIssuer">
+            <summary>
+            验证签发方
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ValidIssuer">
+            <summary>
+            签发方
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ValidateAudience">
+            <summary>
+            验证签收方
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ValidAudience">
+            <summary>
+            签收方
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ValidateLifetime">
+            <summary>
+            验证生存期
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ClockSkew">
+            <summary>
+            过期时间容错值，解决服务器端时间不同步问题（秒）
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.ExpiredTime">
+            <summary>
+            过期时间（分钟）
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.Algorithm">
+            <summary>
+            加密算法
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.RefreshExpireMins">
+            <summary>
+            获取或设置 RefreshToken有效期分钟数
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.IsRefreshAbsoluteExpired">
+            <summary>
+            获取或设置 RefreshToken是否绝对过期
+            </summary>
+        </member>
+        <member name="T:Gardener.Authentication.Services.LoginTokenService">
+            <summary>
+            用户登录TOKEN服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Services.LoginTokenService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Authentication.Domains.LoginToken},Gardener.Authentication.Core.IJwtService)">
+            <summary>
+            用户登录TOKEN服务
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.Authentication.Services.LoginTokenService.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+            <summary>
+            搜索
+            </summary>
+            <remarks>
+            搜索数据
+            </remarks>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

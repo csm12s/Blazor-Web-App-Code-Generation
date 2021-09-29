@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.ImageVerifyCode.DbStore</name>
+    </assembly>
+    <members>
+        <member name="T:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode.Key">
+            <summary>
+            验证码唯一键
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode.EndTime">
+            <summary>
+            获取或设置 过期时间
+            </summary>
+        </member>
+        <member name="T:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService">
+            <summary>
+            图片验证码数据库存储服务
+            </summary>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.Add(System.String,System.String,System.TimeSpan)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="code"></param>
+            <param name="expire"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.GetCode(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -5,8 +5,11 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.EventBus;
 using Gardener.Common;
 using Gardener.EntityFramwork.Domains;
+using Gardener.Enums;
+using Gardener.EventBus;
 using System;
 using System.Threading.Tasks;
 
@@ -24,7 +27,7 @@ namespace Gardener.EntityFramwork
         /// <param name="repository"></param>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static async Task FakeDeleteAsync<TEntity>(this IRepository<TEntity> repository, TEntity entity) where TEntity : class, IPrivateEntity, new()
+        private static async Task FakeDeleteAsync<TEntity>(this IRepository<TEntity> repository, TEntity entity) where TEntity : class, IPrivateEntity, new()
         {
             if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
             {

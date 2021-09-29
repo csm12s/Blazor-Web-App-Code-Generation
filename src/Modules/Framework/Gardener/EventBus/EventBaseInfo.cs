@@ -4,31 +4,23 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System.ComponentModel;
+using System;
 
-namespace Gardener.Enums
+namespace Gardener.EventBus
 {
     /// <summary>
-    /// 操作类型
+    /// 时间基本信息
     /// </summary>
-    public enum OperationType
+    public class EventBaseInfo
     {
         /// <summary>
-        /// 添加
+        /// 时间基本信息
         /// </summary>
-        [Description("添加")]
-        Add,
+        public EventBaseInfo()
+        {
+            SendTime = DateTimeOffset.UtcNow;
+        }
 
-        /// <summary>
-        /// 修改
-        /// </summary>
-        [Description("修改")]
-        Update,
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        [Description("删除")]
-        Delete
+        public DateTimeOffset SendTime { get; }
     }
 }

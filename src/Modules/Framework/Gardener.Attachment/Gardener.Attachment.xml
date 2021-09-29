@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.Attachment</name>
+    </assembly>
+    <members>
+        <member name="M:Gardener.Attachment.Core.FileTypeDistinguishHelper.GetAttachmentFileType(System.String)">
+            <summary>
+            识别附件文件类型
+            </summary>
+            <param name="contentType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Attachment.Domains.Attachment">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.BusinessId">
+            <summary>
+            业务ID
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.BusinessType">
+            <summary>
+            附件业务类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.FileType">
+            <summary>
+            文件类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.ContentType">
+            <summary>
+            原始类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.Size">
+            <summary>
+            文件大小 byte
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.Path">
+            <summary>
+            存储地址 无name
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.Name">
+            <summary>
+            文件名称 随机生成
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.OriginalName">
+            <summary>
+            原始文件名
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.Url">
+            <summary>
+            访问地址
+            </summary>
+        </member>
+        <member name="P:Gardener.Attachment.Domains.Attachment.Suffix">
+            <summary>
+            后缀
+            .jpg
+            </summary>
+        </member>
+        <member name="T:Gardener.Attachment.Services.AttachmentService">
+            <summary>
+            附件服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Attachment.Services.AttachmentService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Attachment.Domains.Attachment},Gardener.FileStore.IFileStoreService)">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+            <param name="fileStoreService"></param>
+        </member>
+        <member name="M:Gardener.Attachment.Services.AttachmentService.Upload(Gardener.Attachment.Dtos.UploadAttachmentInput,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传附件
+            </summary>
+            <remarks>
+            上传单个附件
+            </remarks>
+            <param name="input"></param>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Attachment.Services.AttachmentService.Insert(Gardener.Attachment.Dtos.AttachmentDto)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Attachment.Services.AttachmentService.Update(Gardener.Attachment.Dtos.AttachmentDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Attachment.Services.AttachmentService.Delete(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <remarks>
+            根据主键删除
+            </remarks>
+            <param name="id"></param>
+        </member>
+        <member name="M:Gardener.Attachment.Services.AttachmentService.Deletes(System.Guid[])">
+            <summary>
+            批量删除
+            </summary>
+            <remarks>
+            根据主键批量删除
+            </remarks>
+            <param name="ids"></param>
+        </member>
+    </members>
+</doc>

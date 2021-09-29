@@ -33,7 +33,7 @@ using Gardener.UserCenter.Impl.Core;
 namespace Gardener.UserCenter.Impl.Services
 {
     /// <summary>
-    /// 权限认证服务
+    /// 用户账户认证授权服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
     public class AccountService : IDynamicApiController, IAccountService

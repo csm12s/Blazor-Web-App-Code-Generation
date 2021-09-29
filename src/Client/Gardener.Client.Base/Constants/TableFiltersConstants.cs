@@ -26,7 +26,7 @@ namespace Gardener.Client.Base.Constants
         /// <summary>
         /// 
         /// </summary>
-        public readonly static TableFilter<OperationType>[] OperationTypeFilters = EnumHelper.EnumToList<OperationType>().Select(x => { return new TableFilter<OperationType>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
+        public readonly static TableFilter<EntityOperationType>[] OperationTypeFilters = EnumHelper.EnumToList<EntityOperationType>().Select(x => { return new TableFilter<EntityOperationType>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
         /// <summary>
         /// 
         /// </summary>

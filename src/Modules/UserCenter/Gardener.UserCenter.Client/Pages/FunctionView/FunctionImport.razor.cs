@@ -28,7 +28,7 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
         [Inject]
         IFunctionService functionService { get; set; }
         [Inject]
-        IOptions<ApiSettings> apiOptions { get; set; }
+        ApiSettings apiSettings { get; set; }
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
@@ -63,8 +63,8 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
         {
             _functionDtos = new List<FunctionDto>();
             _selectedGroup = value;
-
-            Uri uri = new Uri(apiOptions.Value.BaseAddres);
+            Console.WriteLine(apiSettings);
+            Uri uri = new Uri(apiSettings.BaseAddres);
             
             _apiJsonUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}/swagger/{value.Group}/swagger.json";
         }
@@ -125,8 +125,8 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
             foreach (var item in _selectedFunctionDtos)
             {
                 count++;
-                bool exists=await functionService.Exists(item.Method, item.Path);
-                if (!exists)
+                FunctionDto dto =await functionService.GetByKey(item.Key);
+                if (dto==null)
                 {
                     FunctionDto function = await functionService.Insert(item);
                     if (function == null)
@@ -138,7 +138,20 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
                         insertCount++;
                     }
                 }
-                else { repetitionCount++; }
+                else 
+                {
+                    item.Id = dto.Id;
+                    bool result= await functionService.Update(item);
+                    if (result)
+                    {
+                         repetitionCount++;
+                    }
+                    else 
+                    {
+                        errorCount++;
+                    }
+                    
+                }
                 _importPercent = Math.Round((count / (double)_selectedFunctionDtos.Count) * 100, 2);
                 await InvokeAsync(StateHasChanged);
                 
@@ -146,7 +159,7 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
             await noticeService.Open(new NotificationConfig()
             {
                 Message = "导入结果通知",
-                Description = $"共选择{count}条,已存在{repetitionCount}条,导入{insertCount}条,失败{errorCount}条",
+                Description = $"共选择{count}条,更新已存在{repetitionCount}条,导入{insertCount}条,失败{errorCount}条",
                 NotificationType = NotificationType.Success,
                 Duration=2
             });

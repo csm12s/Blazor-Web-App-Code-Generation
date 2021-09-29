@@ -38,6 +38,11 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<bool>($"{controller}/exists/{method}/{path}");
         }
 
+        public async Task<FunctionDto> GetByKey(string key)
+        {
+            return await apiCaller.GetAsync<FunctionDto>($"{controller}/by-key/{key}");
+        }
+
         public async Task<string> GetSeedData()
         {
             return await apiCaller.GetAsync<string>($"{controller}/seed-data");

@@ -131,9 +131,9 @@ namespace Gardener.EntityFramwork.Audit.Core
                     auditEntity.CreatedTime = DateTimeOffset.Now;
                     switch (entity.State)
                     {
-                        case EntityState.Modified: auditEntity.OperationType = OperationType.Update; break;
-                        case EntityState.Added: auditEntity.OperationType = OperationType.Add; break;
-                        case EntityState.Deleted: auditEntity.OperationType = OperationType.Delete; break;
+                        case EntityState.Modified: auditEntity.OperationType = EntityOperationType.Update; break;
+                        case EntityState.Added: auditEntity.OperationType = EntityOperationType.Add; break;
+                        case EntityState.Deleted: auditEntity.OperationType = EntityOperationType.Delete; break;
                     }
                     //记录下变化的实体
                     auditEntities.Add(auditEntity);
@@ -179,7 +179,7 @@ namespace Gardener.EntityFramwork.Audit.Core
         /// <param name="currentValues"></param>
         /// <param name="originalValues"></param>
         /// <returns></returns>
-        private (List<object>, ICollection<AuditProperty>) GetAuditProperties(OperationType operationType, PropertyValues currentValues, PropertyValues originalValues)
+        private (List<object>, ICollection<AuditProperty>) GetAuditProperties(EntityOperationType operationType, PropertyValues currentValues, PropertyValues originalValues)
         {
             ICollection<AuditProperty> auditProperties = new List<AuditProperty>();
             List<object> pkValues = new List<object>();
@@ -197,7 +197,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                 var newValue = currentValues[propName];
 
                 //添加的时候，空值字段就不记录了
-                if (OperationType.Add.Equals(operationType) && string.IsNullOrEmpty(ValueToString(newValue))) continue;
+                if (EntityOperationType.Add.Equals(operationType) && string.IsNullOrEmpty(ValueToString(newValue))) continue;
                 object oldValue = null;
                 if (originalValues != null)
                 {
@@ -210,7 +210,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     pkValues.Add(newValue ?? oldValue);
                 }
                 //更新的话需对比到底有没有变化
-                if (operationType.Equals(OperationType.Update) &&
+                if (operationType.Equals(EntityOperationType.Update) &&
                         (
                             (newValue == null && oldValue == null)
                             ||
@@ -224,7 +224,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     OriginalValue = ValueToString(oldValue),
                     CreatedTime = DateTimeOffset.Now
                 };
-                if (!operationType.Equals(OperationType.Delete))
+                if (!operationType.Equals(EntityOperationType.Delete))
                 {
                     property.NewValue = ValueToString(newValue);
                 }

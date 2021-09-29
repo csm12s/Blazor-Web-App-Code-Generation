@@ -4,11 +4,11 @@
     <Column @bind-Field="@context.FieldName" />
     <Column @bind-Field="@context.DisplayName" />
     <Column @bind-Field="@context.DataType" />
-    @if (!OperationType.Add.Equals(OperationType))
+    @if (!EntityOperationType.Add.Equals(OperationType))
     {
         <Column @bind-Field="@context.OriginalValue" Style="max-width:200px" />
     }
-    @if (!OperationType.Delete.Equals(OperationType))
+    @if (!EntityOperationType.Delete.Equals(OperationType))
     {
         <Column @bind-Field="@context.NewValue" Style="max-width:200px" />
     }
@@ -23,5 +23,5 @@
     /// 操作类型
     /// </summary>
     [Parameter]
-    public OperationType OperationType { get; set; }
+    public EntityOperationType OperationType { get; set; }
 }

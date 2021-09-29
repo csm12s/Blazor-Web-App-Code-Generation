@@ -34,6 +34,16 @@ namespace Gardener.UserCenter.Services
         Task<bool> Exists(HttpMethod method, string path);
 
         /// <summary>
+        /// 根据key获取
+        /// </summary>
+        /// <remarks>
+        /// 根据key获取 功能点
+        /// </remarks>
+        /// <param name="key">key</param>
+        /// <returns></returns>
+        Task<FunctionDto> GetByKey(string key);
+
+        /// <summary>
         /// 获取种子数据
         /// </summary>
         /// <remarks>

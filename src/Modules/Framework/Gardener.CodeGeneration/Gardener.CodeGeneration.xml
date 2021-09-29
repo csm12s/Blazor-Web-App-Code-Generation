@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.CodeGeneration</name>
+    </assembly>
+    <members>
+        <member name="T:Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting">
+            <summary>
+            代码生成设置信息
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting.EntityFullName">
+            <summary>
+            实体全称
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting.ControllerRoute">
+            <summary>
+            控制器路由
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting.ControllerGroup">
+            <summary>
+            控制器分组   
+            </summary>
+        </member>
+        <member name="P:Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting.ModuleName">
+            <summary>
+            模块名称   
+            </summary>
+        </member>
+        <member name="T:Gardener.CodeGeneration.Services.CodeGenerationService">
+            <summary>
+            代码生成服务
+            </summary>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.CodeGenerationService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting})">
+            <summary>
+            代码生成服务
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.CodeGenerationService.UpdateEntityCodeGenerationSetting(Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto)">
+            <summary>
+            更新实体的代码生成配置
+            </summary>
+            <param name="settingDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.CodeGenerationService.AddEntityCodeGenerationSetting(Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto)">
+            <summary>
+            添加实体的代码生成配置
+            </summary>
+            <param name="settingDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.CodeGenerationService.GetEntityCodeGenerationSetting(System.String)">
+            <summary>
+            获取实体的代码生成配置
+            </summary>
+            <param name="entityFullName">实体完整名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.CodeGeneration.Services.CodeGenerationService.GetEntityDefinitions">
+            <summary>
+            获取所有实体定义
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

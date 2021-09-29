@@ -546,6 +546,16 @@
             <param name="path"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.UserCenter.Services.IFunctionService.GetByKey(System.String)">
+            <summary>
+            根据key获取
+            </summary>
+            <remarks>
+            根据key获取 功能点
+            </remarks>
+            <param name="key">key</param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.UserCenter.Services.IFunctionService.GetSeedData">
             <summary>
             获取种子数据

@@ -1163,6 +1163,68 @@
             <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
             <returns>查询表达式</returns>
         </member>
+        <member name="T:Gardener.EventBus.EntityChangeEvent`2">
+            <summary>
+            实体变化事件
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="M:Gardener.EventBus.EntityChangeEvent`2.#ctor(Gardener.Enums.EntityOperationType,`0)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:Gardener.EventBus.EntityChangeEvent`2.#ctor(Gardener.Enums.EntityOperationType)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+        </member>
+        <member name="M:Gardener.EventBus.EntityChangeEvent`2.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.EventBus.EntityChangeEvent`2.Operation">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="P:Gardener.EventBus.EntityChangeEvent`2.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:Gardener.EventBus.EntityChangeEvent`2.key">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Gardener.EventBus.EntityChangeEvent`2.IsFakeDelete">
+            <summary>
+            是否是逻辑删除
+            </summary>
+        </member>
+        <member name="M:Gardener.EventBus.EntityChangeEvent`2.GetKey(System.Func{`0,`1})">
+            <summary>
+            获取Key
+            </summary>
+            <param name="keySelecter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.EventBus.EventBaseInfo">
+            <summary>
+            时间基本信息
+            </summary>
+        </member>
+        <member name="M:Gardener.EventBus.EventBaseInfo.#ctor">
+            <summary>
+            时间基本信息
+            </summary>
+        </member>
         <member name="T:Gardener.FileStore.IFileStoreService">
             <summary>
             文件存储服务

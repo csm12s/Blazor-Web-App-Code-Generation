@@ -50,6 +50,8 @@ namespace Gardener.Admin
             services.AddSimpleEventBus();
             //注册跨域
             services.AddCorsAccessor();
+            //远程请求
+            services.AddRemoteRequest();
 
             //注册swagger
             services.AddSpecificationDocuments(x => {
