@@ -11,6 +11,7 @@
         <Input @bind-Value="@model.Id" Disabled />
     </FormItem>*@
     <FormItem Label="父级" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true } })>
+        <Input @bind-Value="@model.ParentId" Type="hidden" />
         <TreeSelect 
                     TItem="DeptDto"
                     Style="width:100%;"
@@ -21,8 +22,10 @@
                     TitleExpression="data => data.Name"
                     KeyExpression="data => data.Id.ToString()"
                     ChildrenExpression="data => data.Children?.ToList()"
-                    IsLeafExpression="data => data.Children == null "
-                    TreeDefaultExpandAll>
+                    IsLeafExpression="data => data.Children == null"
+                    TreeDefaultExpandAll
+                    DisabledExpression="data=>data.Id.Equals(_editModel.Id)"
+                    >
         </TreeSelect>
     </FormItem>
     <FormItem Label="名称">

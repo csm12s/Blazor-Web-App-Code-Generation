@@ -77,7 +77,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <remarks>登录接口</remarks>
         /// <returns></returns>
         [AllowAnonymous, IgnoreAudit]
-        //[VerifyCodeAutoVerification]
+        [VerifyCodeAutoVerification]
         public async Task<TokenOutput> Login(LoginInput input)
         {
             // 验证用户是否存在
