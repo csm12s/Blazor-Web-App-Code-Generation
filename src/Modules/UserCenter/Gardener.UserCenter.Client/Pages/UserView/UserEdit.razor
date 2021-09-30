@@ -18,7 +18,8 @@
             </FormItem>
         }
     <FormItem Label="部门">
-        <TreeSelect TItem="DeptDto"
+        <Input @bind-Value="@model.DeptId" Type="hidden" />
+        <TreeSelect @ref="treeSelect" TItem="DeptDto"
                     Style="width:100%;"
                     DataSource="deptDatas"
                     @bind-Value="@deptId"
@@ -27,7 +28,7 @@
                     TitleExpression="data => data.Name"
                     KeyExpression="data => data.Id.ToString()"
                     ChildrenExpression="data => data.Children?.ToList()"
-                    IsLeafExpression="data => data.Children == null "
+                    IsLeafExpression="data => data.Children == null"
                     TreeDefaultExpandAll>
         </TreeSelect>
     </FormItem>

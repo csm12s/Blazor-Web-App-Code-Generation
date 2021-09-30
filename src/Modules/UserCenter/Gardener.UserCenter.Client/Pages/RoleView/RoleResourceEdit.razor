@@ -1,23 +1,6 @@
-﻿@inherits FeedbackComponent<int, bool>
+﻿@inherits FeedbackComponent<DrawerInput<int>, bool>
 
 <Spin Spinning="@_isLoading">
-    <Row>
-        <AntDesign.Col>
-            <Space>
-                <SpaceItem>
-                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?"收起":"展开")">
-                        <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
-                    </Tooltip>
-                </SpaceItem>
-                <SpaceItem>
-                    <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">保存</Button>
-                </SpaceItem>
-                <SpaceItem>
-                    <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">取消</Button>
-                </SpaceItem>
-            </Space>
-        </AntDesign.Col>
-    </Row>
     <Row>
         <AntDesign.Col Span="24">
             <Tree @ref="_tree"
@@ -30,13 +13,37 @@
                   ChildrenExpression="x=>x.DataItem.Children?.ToList()"
                   IconExpression="x=>x.DataItem.Icon"
                   IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
-                  Style="min-height:466px;min-width:400px">
+                  DefaultExpandParent="true"
+                  Style="height: 80Vh; overflow-y: scroll; min-width: 400px ">
             </Tree>
+        </AntDesign.Col>
+    </Row>
+    <Row>
+        <AntDesign.Col>
+            <Space>
+                <SpaceItem>
+                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?"收起":"展开")">
+                        <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
+                    </Tooltip>
+                </SpaceItem>
+                <SpaceItem>
+                    <ResourceAuthorize ResourceKey="user_center_role_set_resource_save">
+                        <Space>
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">保存</Button>
+                            </SpaceItem>
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">取消</Button>
+                            </SpaceItem>
+                        </Space>
+                    </ResourceAuthorize>
+                </SpaceItem>
+            </Space>
         </AntDesign.Col>
     </Row>
 </Spin>
 
-@{ 
+@{
     string GetFullName(ResourceDto resource)
     {
         return "[" + resource.Type.GetEnumDescription() + "]" + resource.Name;

@@ -1,113 +1,120 @@
-﻿@page "/system_manager/role"
-@inherits  TableBase<RoleDto, int>
-    <div>
-        <PageContainer Title="">
+﻿@page "/user_center/role"
+@inherits TableBase<RoleDto, int, RoleEdit>
+<div>
+    <PageContainer Title="">
+        <Breadcrumb>
             <Breadcrumb>
-                <Breadcrumb>
-                    <BreadcrumbItem>系统管理</BreadcrumbItem>
-                    <BreadcrumbItem>角色管理</BreadcrumbItem>
-                </Breadcrumb>
+                <BreadcrumbItem>系统管理</BreadcrumbItem>
+                <BreadcrumbItem>角色管理</BreadcrumbItem>
             </Breadcrumb>
-            <ChildContent>
-                <Table @ref="_table"
-                       TItem="RoleDto"
-                       DataSource="@_datas"
-                       Total="_total"
-                       OnChange="@OnChange"
-                       @bind-PageIndex="pageRequest.PageIndex"
-                       @bind-PageSize="pageRequest.PageSize"
-                       @bind-SelectedRows="_selectedRows"
-                       Loading="@_tableIsLoading"
-                       Context="model"
-                       RemoteDataSource>
-                    <TitleTemplate>
-                        <Row>
-                            <AntDesign.Col Span="8">
-                                <ResourceAuthorize ResourceKey="system_manager_role_delete_selected">
-                                    <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
-                                        删除选中
-                                    </Button>
-                                </ResourceAuthorize>
-                            </AntDesign.Col>
-                            <AntDesign.Col Span="16" Style="text-align:right">
-                                <Space>
-                                    <ResourceAuthorize ResourceKey="system_manager_role_add">
-                                        <SpaceItem>
-                                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
-                                                添加
-                                            </Button>
-                                        </SpaceItem>
-                                    </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="system_manager_role_refresh">
-                                        <SpaceItem>
-                                            <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                                刷新
-                                            </Button>
-                                        </SpaceItem>
-                                    </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="system_manager_role_resource_download_seed_data">
-                                        <SpaceItem>
-                                            <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadClick">
-                                                种子数据
-                                            </Button>
-                                        </SpaceItem>
-                                    </ResourceAuthorize>
-                                </Space>
-                            </AntDesign.Col>
-                        </Row>
-
-                    </TitleTemplate>
-                    <RowTemplate>
-                        <ResourceAuthorize ResourceKey="system_manager_role_delete_selected">
-                            <Selection Key="@(model.Id.ToString())" />
-                        </ResourceAuthorize>
-                        <Column @bind-Field="@model.Id" Sortable />
-                        <Column @bind-Field="@model.Name" Filterable />
-                        <Column @bind-Field="@model.Remark" Filterable />
-                        <Column @bind-Field="@model.IsSuperAdministrator" Filterable>
-                            <TagYesNo Yes="model.IsSuperAdministrator"></TagYesNo>
-                        </Column>
-                        <Column @bind-Field="@model.IsDefault" Filterable>
-                            <TagYesNo Yes="model.IsDefault"></TagYesNo>
-                        </Column>
-                        <Column @bind-Field="@model.IsLocked" Filterable>
-                            <ResourceAuthorize ResourceKey="system_manager_role_lock">
-                                <Authorized>
-                                    <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
-                                </Authorized>
-                                <NotAuthorized>
-                                    <TagYesNo Yes="model.IsLocked"></TagYesNo>
-                                </NotAuthorized>
+        </Breadcrumb>
+        <ChildContent>
+            <Table @ref="_table"
+                   TItem="RoleDto"
+                   DataSource="@_datas"
+                   Total="_total"
+                   OnChange="@OnChange"
+                   @bind-PageIndex="pageRequest.PageIndex"
+                   @bind-PageSize="pageRequest.PageSize"
+                   @bind-SelectedRows="_selectedRows"
+                   Loading="@_tableIsLoading"
+                   Context="model"
+                   RemoteDataSource>
+                <TitleTemplate>
+                    <Row>
+                        <AntDesign.Col Span="8">
+                            <ResourceAuthorize ResourceKey="user_center_role_delete_selected">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                                    删除选中
+                                </Button>
                             </ResourceAuthorize>
-                        </Column>
-                        <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
-                        <ActionColumn>
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="16" Style="text-align:right">
                             <Space>
-                                <ResourceAuthorize ResourceKey="system_manager_role_edit">
+                                <ResourceAuthorize ResourceKey="user_center_role_add">
                                     <SpaceItem>
-                                        <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                            <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
-                                        </Tooltip>
+                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                            添加
+                                        </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
-                                <ResourceAuthorize ResourceKey="system_manager_role_set_resource">
+                                <ResourceAuthorize ResourceKey="user_center_role_refresh">
                                     <SpaceItem>
-                                        <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
-                                            <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
-                                        </Tooltip>
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                            刷新
+                                        </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
-                                <ResourceAuthorize ResourceKey="system_manager_role_delete">
+                                <ResourceAuthorize ResourceKey="user_center_role_resource_download_seed_data">
                                     <SpaceItem>
-                                        <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
-                                            <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
-                                        </Tooltip>
+                                        <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadClick">
+                                            种子数据
+                                        </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
                             </Space>
-                        </ActionColumn>
-                    </RowTemplate>
-                </Table>
-            </ChildContent>
-        </PageContainer>
-    </div>
+                        </AntDesign.Col>
+                    </Row>
+
+                </TitleTemplate>
+                <RowTemplate>
+                    <ResourceAuthorize ResourceKey="user_center_role_delete_selected">
+                        <Selection Key="@(model.Id.ToString())" />
+                    </ResourceAuthorize>
+                    <Column @bind-Field="@model.Id" Sortable />
+                    <Column @bind-Field="@model.Name" Filterable />
+                    <Column @bind-Field="@model.Remark" Filterable />
+                    <Column @bind-Field="@model.IsSuperAdministrator" Filterable>
+                        <TagYesNo Yes="model.IsSuperAdministrator"></TagYesNo>
+                    </Column>
+                    <Column @bind-Field="@model.IsDefault" Filterable>
+                        <TagYesNo Yes="model.IsDefault"></TagYesNo>
+                    </Column>
+                    <Column @bind-Field="@model.IsLocked" Filterable>
+                        <ResourceAuthorize ResourceKey="user_center_role_lock">
+                            <Authorized>
+                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <TagYesNo Yes="model.IsLocked"></TagYesNo>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
+                    </Column>
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+                    <ActionColumn>
+                        <Space>
+                            <ResourceAuthorize ResourceKey="user_center_role_edit">
+                                <SpaceItem>
+                                    <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_center_role_set_resource">
+                                <SpaceItem>
+                                    <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
+                                        <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_center_role_detail">
+                                <SpaceItem>
+                                    <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                        <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_center_role_delete">
+                                <SpaceItem>
+                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                        </Space>
+                    </ActionColumn>
+                </RowTemplate>
+            </Table>
+        </ChildContent>
+    </PageContainer>
+</div>

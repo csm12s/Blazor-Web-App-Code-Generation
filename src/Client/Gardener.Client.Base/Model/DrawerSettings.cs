@@ -4,13 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
-using Gardener.UserCenter.Dtos;
+using AntDesign;
 
-namespace Gardener.UserCenter.Client.Pages.PositionView
+namespace Gardener.Client.Base.Model
 {
-    public partial class PositionEdit : EditDrawerBase<PositionDto,int>
+    /// <summary>
+    /// 抽屉的设置
+    /// </summary>
+    public class DrawerSettings
     {
-      
+        public bool Closable { get; set; } = true;
+        public int Width { get; set; }
+        public Placement Placement { get; set; } = Placement.Right;
     }
 }

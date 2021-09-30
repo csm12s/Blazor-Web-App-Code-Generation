@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
+using Gardener.Client.Base.Model;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -17,8 +18,13 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ResourceView
 {
-    public partial class Resource : TreeTableBase<ResourceDto,Guid,ResourceEdit, EditInput<Guid>, EditOutput<Guid>>
+    public partial class Resource : TreeTableBase<ResourceDto,Guid,ResourceEdit>
     {
+
+        public Resource() : base(new DrawerSettings { Width = 800 })
+        {
+
+        }
         [Inject]
         DrawerService drawerService { get; set; }
 
@@ -53,48 +59,31 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
                        placement: "right");
         }
 
-        public override async Task<List<ResourceDto>> GetTree()
+
+        protected override async Task<List<ResourceDto>> GetTree()
         {
             return await resourceService.GetTree();
             
         }
 
-        public override ICollection<ResourceDto> GetChildren(ResourceDto dto)
+
+        protected override ICollection<ResourceDto> GetChildren(ResourceDto dto)
         {
             return dto.Children;
         }
 
-        public override void SetChildren(ResourceDto dto, ICollection<ResourceDto> children)
+
+        protected override void SetChildren(ResourceDto dto, ICollection<ResourceDto> children)
         {
             dto.Children = children;
         }
 
-        public override Guid GetParentKey(ResourceDto dto)
+        protected override Guid GetParentKey(ResourceDto dto)
         {
             return dto.ParentId.HasValue? dto.ParentId.Value:Guid.Empty;
         }
 
-        public override EditInput<Guid> GetEditOption(ResourceDto dto)
-        {
-            return new EditInput<Guid> { Type=EditInputType.Edit,Id=dto.Id };
-        }
-
-        public override EditInput<Guid> GetAddOption(ResourceDto dto)
-        {
-            return new EditInput<Guid> { Type = EditInputType.Add, Id = dto.Id };
-        }
-
-        public override EditInput<Guid> GetAddOption()
-        {
-            return new EditInput<Guid> { Type = EditInputType.Add, Id = Guid.Empty };
-        }
-
-        public override EditDrawerSettings GetDrawerSettings()
-        {
-            return new EditDrawerSettings { Width=800,Placement="right" };
-        }
-
-        public override ICollection<ResourceDto> SortChildren(ICollection<ResourceDto> children)
+        protected override ICollection<ResourceDto> SortChildren(ICollection<ResourceDto> children)
         {
             return children.OrderBy(x => x.Order).ToList();
         }

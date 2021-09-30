@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/resource"
-@inherits TreeTableBase<ResourceDto, Guid, ResourceEdit, EditInput<Guid>, EditOutput<Guid>>
+@inherits TreeTableBase<ResourceDto, Guid, ResourceEdit>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -109,6 +109,15 @@
                                         </Tooltip>
                                     </SpaceItem>
                                 </ResourceAuthorize>
+
+                                <ResourceAuthorize ResourceKey="system_manager_resource_detail">
+                                    <SpaceItem>
+                                        <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                            <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnDetailClick(model)"></Button>
+                                        </Tooltip>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+
                                 <ResourceAuthorize ResourceKey="system_manager_resource_delete">
                                     <SpaceItem>
                                         <Tooltip Title="@("删除(包含子节点)")" ArrowPointAtCenter="true">

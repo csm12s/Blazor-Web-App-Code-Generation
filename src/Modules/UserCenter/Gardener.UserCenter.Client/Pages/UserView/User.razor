@@ -1,4 +1,4 @@
-﻿@page "/system_manager/user"
+﻿@page "/user_center/user"
 @inherits TableBase<UserDto, int>
 <div>
     <PageContainer Title="">
@@ -43,22 +43,22 @@
                         <TitleTemplate>
                             <Row>
                                 <AntDesign.Col Span="8">
-                                    <ResourceAuthorize ResourceKey="system_manager_user_delete_selected">
-                                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
+                                    <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
+                                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                                             删除选中
                                         </Button>
                                     </ResourceAuthorize>
                                 </AntDesign.Col>
                                 <AntDesign.Col Span="16" Style="text-align:right">
                                     <Space>
-                                        <ResourceAuthorize ResourceKey="system_manager_user_add">
+                                        <ResourceAuthorize ResourceKey="user_center_user_add">
                                             <SpaceItem>
                                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
                                                     添加
                                                 </Button>
                                             </SpaceItem>
                                         </ResourceAuthorize>
-                                        <ResourceAuthorize ResourceKey="system_manager_user_refresh">
+                                        <ResourceAuthorize ResourceKey="user_center_user_refresh">
                                             <SpaceItem>
                                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                                     刷新
@@ -70,12 +70,12 @@
                             </Row>
                         </TitleTemplate>
                         <RowTemplate>
-                            <ResourceAuthorize ResourceKey="system_manager_user_delete_selected">
+                            <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
                                 <Selection Key="@(model.Id.ToString())" />
                             </ResourceAuthorize>
                             <Column @bind-Field="@model.Id" Sortable />
                             <Column @bind-Field="@model.Avatar">
-                                <ResourceAuthorizePro ResourceKey="system_manager_user_list_edit_avatar">
+                                <ResourceAuthorizePro ResourceKey="user_center_user_list_edit_avatar">
                                     <Authorized>
                                         <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
                                             <a @onclick="_=>OnAvatarClick(model)">
@@ -107,7 +107,7 @@
                                 }
                             </Column>*@
                             <Column @bind-Field="@model.IsLocked" Filterable>
-                                <ResourceAuthorize ResourceKey="system_manager_user_lock">
+                                <ResourceAuthorize ResourceKey="user_center_user_lock">
                                     <Authorized>
                                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                                     </Authorized>
@@ -119,24 +119,24 @@
                             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
                             <ActionColumn>
                                 <Space>
-                                    <ResourceAuthorize ResourceKey="system_manager_user_edit">
+                                    <ResourceAuthorize ResourceKey="user_center_user_edit">
                                         <SpaceItem>
                                             <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
                                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="system_manager_user_role_edit">
+                                    <ResourceAuthorize ResourceKey="user_center_user_role_edit">
                                         <SpaceItem>
                                             <Tooltip Title="@("分配角色")" ArrowPointAtCenter="true">
                                                 <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)"></Button>
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="system_manager_user_delete">
+                                    <ResourceAuthorize ResourceKey="user_center_user_delete">
                                         <SpaceItem>
                                             <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
-                                                <Button Icon="delete" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                                <Button Icon="delete" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>

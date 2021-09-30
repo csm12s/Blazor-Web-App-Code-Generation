@@ -1,4 +1,4 @@
-﻿@inherits FeedbackComponent<Guid, bool>
+﻿@inherits EditDrawerBase<FunctionDto, Guid>
 
 <Form Loading="@_isLoading"
       Model="@_editModel"
@@ -42,12 +42,21 @@
     <FormItem Label="是否锁定">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
-    <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-        <Button Type="@ButtonType.Primary" HtmlType="submit">
-            保存
-        </Button>
-        <Button OnClick="_=>OnFormCancel()">
-            取消
-        </Button>
+    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Space>
+            @if (!DrawerInputType.Select.Equals(this.Options.Type))
+            {
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        保存
+                    </Button>
+                </SpaceItem>
+            }
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    取消
+                </Button>
+            </SpaceItem>
+        </Space>
     </FormItem>
 </Form>

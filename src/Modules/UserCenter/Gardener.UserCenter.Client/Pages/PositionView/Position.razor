@@ -1,5 +1,5 @@
-﻿@page "/system_manager/position"
-@inherits TableBase<PositionDto, int>
+﻿@page "/user_center/position"
+@inherits TableBase<PositionDto, int, PositionEdit>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -22,22 +22,22 @@
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
-                            <ResourceAuthorize ResourceKey="system_manager_position_delete_selected">
-                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
+                            <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                                     删除选中
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
                         <AntDesign.Col Span="16" Style="text-align:right">
                             <Space>
-                                <ResourceAuthorize ResourceKey="system_manager_position_add">
+                                <ResourceAuthorize ResourceKey="user_center_position_add">
                                     <SpaceItem>
-                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
                                             添加
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
-                                <ResourceAuthorize ResourceKey="system_manager_position_refresh">
+                                <ResourceAuthorize ResourceKey="user_center_position_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                             刷新
@@ -49,14 +49,14 @@
                     </Row>
                 </TitleTemplate>
                 <RowTemplate>
-                    <ResourceAuthorize ResourceKey="system_manager_position_delete_selected">
+                    <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
                     <Column @bind-Field="@model.Name" Filterable/>
                     <Column @bind-Field="@model.Duty" Filterable/>
                     <Column @bind-Field="@model.Grade" Filterable/>
                     <Column @bind-Field="@model.IsLocked" Filterable>
-                        <ResourceAuthorize ResourceKey="system_manager_position_lock">
+                        <ResourceAuthorize ResourceKey="user_center_position_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                             </Authorized>
@@ -68,17 +68,17 @@
                     <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
                     <ActionColumn>
                         <Space>
-                            <ResourceAuthorize ResourceKey="system_manager_position_edit">
+                            <ResourceAuthorize ResourceKey="user_center_position_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
-                            <ResourceAuthorize ResourceKey="system_manager_position_delete">
+                            <ResourceAuthorize ResourceKey="user_center_position_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
-                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>

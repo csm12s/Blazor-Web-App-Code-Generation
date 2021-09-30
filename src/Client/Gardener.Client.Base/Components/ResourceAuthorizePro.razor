@@ -1,6 +1,6 @@
 ﻿@if (NotAuthorized != null || Authorized != null || Authorizing != null)
 {
-<AuthorizeView Resource="@(ResourceKey)" Policy="@Policy">
+<AuthorizeView Resource="@(Resource)" Policy="@Policy">
     <Authorized>
         @if (Authorized != null)
         {

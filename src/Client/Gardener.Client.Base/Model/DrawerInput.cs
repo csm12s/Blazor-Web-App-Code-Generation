@@ -15,7 +15,7 @@ namespace Gardener.Client.Base
     /// 参数
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public class EditInput<TKey>
+    public class DrawerInput<TKey>
     {
         /// <summary>
         /// 选中的节点主键
@@ -25,33 +25,42 @@ namespace Gardener.Client.Base
         /// 0添加
         /// 1编辑
         /// </summary>
-        public EditInputType Type { get; set; }
+        public DrawerInputType Type { get; set; }
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static EditInput<TKey> IsAdd()
+        public static DrawerInput<TKey> IsAdd()
         {
-            return new EditInput<TKey> { Type = EditInputType.Add };
+            return new DrawerInput<TKey> { Type = DrawerInputType.Add };
         }
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static EditInput<TKey> IsAdd(TKey id)
+        public static DrawerInput<TKey> IsAdd(TKey id)
         {
-            return new EditInput<TKey> { Id = id, Type = EditInputType.Add };
+            return new DrawerInput<TKey> { Id = id, Type = DrawerInputType.Add };
         }
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static EditInput<TKey> IsEdit(TKey id)
+        public static DrawerInput<TKey> IsEdit(TKey id)
         {
-            return new EditInput<TKey> { Id = id, Type = EditInputType.Edit };
+            return new DrawerInput<TKey> { Id = id, Type = DrawerInputType.Edit };
+        }
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static DrawerInput<TKey> IsSelect(TKey id)
+        {
+            return new DrawerInput<TKey> { Id = id, Type = DrawerInputType.Select };
         }
 
 
@@ -59,7 +68,7 @@ namespace Gardener.Client.Base
     /// <summary>
     /// 类型
     /// </summary>
-    public enum EditInputType
+    public enum DrawerInputType
     {
         /// <summary>
         /// 添加
@@ -68,6 +77,10 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 编辑
         /// </summary>
-        Edit
+        Edit=1,
+        /// <summary>
+        /// 查看
+        /// </summary>
+        Select=2,
     }
 }

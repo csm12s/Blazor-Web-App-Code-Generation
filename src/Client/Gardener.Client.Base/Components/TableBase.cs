@@ -7,14 +7,21 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
+using Gardener.Client.Base.Model;
 using Gardener.EntityFramwork.Dto;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Base.Components
 {
+    /// <summary>
+    /// 普通table基类
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
     public abstract class TableBase<TDto,TKey> : ComponentBase where TDto:BaseDto<TKey>,new()
     {
         protected ITable _table;
@@ -41,7 +48,14 @@ namespace Gardener.Client.Base.Components
         {
             return pageRequest;
         }
-
+        /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            _tableIsLoading = true;
+        }
         /// <summary>
         /// 组件渲染后
         /// </summary>
@@ -91,7 +105,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        protected async Task OnChange(QueryModel<TDto> queryModel)
+        protected virtual async Task OnChange(QueryModel<TDto> queryModel)
         {
             if (firstRenderAfter)
             {
@@ -103,7 +117,7 @@ namespace Gardener.Client.Base.Components
         /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        protected virtual async Task OnDeleteClick(TKey id)
+        protected virtual async Task OnClickDelete(TKey id)
         {
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
             {
@@ -112,6 +126,12 @@ namespace Gardener.Client.Base.Components
                 {
                     await ReLoadTable();
                     _datas = _datas.Remove(_datas.FirstOrDefault(x => x.Id.Equals(id)));
+                    //当前页被删完了
+                    if(pageRequest.PageIndex>1 && _datas.Length==0)
+                    {
+                        pageRequest.PageIndex = pageRequest.PageIndex - 1;
+                    }
+                    await ReLoadTable();
                     messageService.Success("删除成功");
                 }
                 else
@@ -125,7 +145,7 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 点击删除选中按钮
         /// </summary>
-        protected virtual async Task OnDeletesClick()
+        protected virtual async Task OnClickDeletes()
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
@@ -139,7 +159,12 @@ namespace Gardener.Client.Base.Components
                     var result = await _service.FakeDeletes(_selectedRows.Select(x => x.Id).ToArray());
                     if (result)
                     {
-                        _datas = _datas.Where(x => !_selectedRows.Any(y => y.Id.Equals(x.Id))).ToArray();
+                        //删除整页
+                        if (_selectedRows.Count() == pageRequest.PageSize && pageRequest.PageIndex * pageRequest.PageSize >= _total)
+                        {
+                            pageRequest.PageIndex = pageRequest.PageIndex - 1;
+                        }
+                        await ReLoadTable();
                         messageService.Success("删除成功");
                     }
                     else
@@ -164,6 +189,65 @@ namespace Gardener.Client.Base.Components
                 model.IsLocked = !isLocked;
                 messageService.Error("锁定/解锁失败");
             }
+        }
+    }
+    /// <summary>
+    /// 普通table基类
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TDrawer"></typeparam>
+    public abstract class TableBase<TDto, TKey, TDrawer> : TableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>>
+    {
+
+
+        private DrawerSettings drawerSettings = new DrawerSettings { Width = 500 };
+
+        protected TableBase(DrawerSettings drawerSettings)
+        {
+            this.drawerService = drawerService;
+        }
+        protected TableBase()
+        {
+        }
+        /// <summary>
+        /// 点击添加按钮
+        /// </summary>
+        protected async Task OnClickAdd()
+        {
+            DrawerInput<TKey> input = DrawerInput<TKey>.IsAdd();
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: "添加", width: this.drawerSettings.Width);
+
+            if (result.Succeeded)
+            {
+                //刷新列表
+                pageRequest.PageIndex = 1;
+                await ReLoadTable();
+            }
+        }
+        /// <summary>
+        /// 点击编辑按钮
+        /// </summary>
+        /// <param name="model"></param>
+        protected async Task OnClickEdit(TKey id)
+        {
+            DrawerInput<TKey> input = DrawerInput<TKey>.IsEdit(id);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: "编辑", width: this.drawerSettings.Width);
+
+            if (result.Succeeded)
+            {
+                await ReLoadTable();
+            }
+        }
+
+        /// <summary>
+        /// 点击编辑按钮
+        /// </summary>
+        /// <param name="roleDto"></param>
+        public async Task OnClickDetail(TKey id)
+        {
+            DrawerInput<TKey> input = DrawerInput<TKey>.IsSelect(id);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: "详情", width: this.drawerSettings.Width);
         }
     }
 }

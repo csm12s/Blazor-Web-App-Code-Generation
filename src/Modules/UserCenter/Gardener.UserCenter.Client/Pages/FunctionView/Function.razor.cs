@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.FunctionView
 {
-    public partial class Function : TableBase<FunctionDto, Guid>
+    public partial class Function : TableBase<FunctionDto, Guid, FunctionEdit>
     {
         [Inject]
         public IFunctionService functionService { get; set; }
@@ -39,35 +39,6 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
             }
         }
         
-
-        /// <summary>
-        /// 点击添加按钮
-        /// </summary>
-        private async Task OnAddClick()
-        {
-            var result = await drawerService.CreateDialogAsync<FunctionEdit, Guid, bool>(Guid.Empty, true, title: "添加", width: 500);
-
-            if (result)
-            {
-                //刷新列表
-                pageRequest.PageIndex = 1;
-                await ReLoadTable();
-            }
-        }
-        /// <summary>
-        /// 点击编辑按钮
-        /// </summary>
-        /// <param name="model"></param>
-        private async Task OnEditClick(Guid id)
-        {
-            var result = await drawerService.CreateDialogAsync<FunctionEdit, Guid, bool>(id, true, title: "编辑", width: 500);
-
-            if (result)
-            {
-                await ReLoadTable();
-            }
-        }
-
         /// <summary>
         /// 点击导入按钮
         /// </summary>
@@ -77,6 +48,7 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
             var result = await drawerService.CreateDialogAsync<FunctionImport, int, bool>(0, true, title: "导入", width: 1000);
             await ReLoadTable();
         }
+
         /// <summary>
         /// 导出
         /// </summary>

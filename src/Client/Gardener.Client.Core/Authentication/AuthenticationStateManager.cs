@@ -168,7 +168,7 @@ namespace Gardener.Client.Core
         {
             this.onMenusLoaded = action;
         }
-        private async Task<List<ResourceDto>> GetCurrentUserBtnResources()
+        private async Task<List<ResourceDto>> GetCurrentUserUiResources()
         {
             return uiResources ?? new List<ResourceDto>();
         }
@@ -179,7 +179,7 @@ namespace Gardener.Client.Core
 
             if (uiHashtableResources == null)
             {
-                var resources = await GetCurrentUserBtnResources();
+                var resources = await GetCurrentUserUiResources();
                 uiHashtableResources = new Hashtable(resources.Count);
                 resources.ForEach(x => { uiHashtableResources.Add(x.Key, null); });
             }

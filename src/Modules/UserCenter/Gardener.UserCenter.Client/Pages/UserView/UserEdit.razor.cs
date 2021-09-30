@@ -35,6 +35,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         //部门树
         List<DeptDto> deptDatas;
         private string deptId;
+        TreeSelect<DeptDto> treeSelect;
         protected override async Task OnInitializedAsync()
         {
             formIsLoading = true;

@@ -1,8 +1,4 @@
-﻿@inherits FeedbackComponent<EditInput<Guid>, EditOutput<Guid>>
-<Row Justify="space-between" Style="margin-bottom:20px;">
-    <Col Span="8" Style="text-align:right;"><label class="ant-form-item-required">父级：</label></Col>
-    <Col Span="16"><Cascader Size="large" Options="@_resourceCascaderNodes" @bind-Value="_resourceCascaderValue" ExpandTrigger="hover" ChangeOnSelect SelectedNodesChanged="CascaderOnChange" Style="width:100%"></Cascader></Col>
-</Row>
+﻿@inherits EditDrawerBase<ResourceDto, Guid>
 @if (_editModel != null)
 {
     <Form Loading="@_isLoading"
@@ -15,9 +11,24 @@
         <FormItem Label="编号">
             <Input @bind-Value="@model.Id" Disabled />
         </FormItem>
-        @*<FormItem Label="父级">
-
-            </FormItem>*@
+        <FormItem Label="父级">
+            <Input @bind-Value="@model.ParentId" Type="hidden" />
+            <TreeSelect TItem="ResourceDto"
+                        Style="width:100%;"
+                        DataSource="resources"
+                        @bind-Value="@ParentId"
+                        Placeholder="请选择"
+                        AllowClear="false"
+                        TitleExpression="data => data.Name"
+                        KeyExpression="data =>data.Id.ToString()"
+                        ChildrenExpression="data => data.Children?.ToList()"
+                        IsLeafExpression="data => data.Children==null || !data.Children.Any()"
+                        TreeDefaultExpandAll="true"
+                        ShowExpand="true"
+                        DisabledExpression="data=>data.Id.Equals(_editModel.Id)"
+                        >
+            </TreeSelect>
+        </FormItem>
         <FormItem Label="名称">
             <Input @bind-Value="@model.Name" />
         </FormItem>
@@ -26,20 +37,9 @@
         </FormItem>
         <FormItem Label="类型">
             <RadioGroup @bind-Value="@(model.Type)">
-
-                @if (model.Id != Guid.Empty && model.Type.Equals(ResourceType.Root))
+                @foreach (var gitem in resourceTypes)
                 {
-                    <Radio Value="@(ResourceType.Root)">@EnumHelper.GetEnumDescription(ResourceType.Root)</Radio>
-                }
-                else
-                {
-                    foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
-                    {
-                        if ((int)gitem.Key >= (int)_currentEditResourceType)
-                        {
-                            <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
-                        }
-                    }
+                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
                 }
             </RadioGroup>
         </FormItem>
@@ -63,13 +63,22 @@
         <FormItem Label="备注">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
-            <Button Type="@ButtonType.Primary" HtmlType="submit">
-                保存
-            </Button>
-            <Button OnClick="_ => OnFormCancel()">
-                取消
-            </Button>
+        <FormItem WrapperColOffset="8" WrapperColSpan="16">
+            <Space>
+                @if (!DrawerInputType.Select.Equals(this.Options.Type))
+                {
+                    <SpaceItem>
+                        <Button Type="@ButtonType.Primary" HtmlType="submit">
+                            保存
+                        </Button>
+                    </SpaceItem>
+                }
+                <SpaceItem>
+                    <Button OnClick="_=>OnFormCancel()">
+                        取消
+                    </Button>
+                </SpaceItem>
+            </Space>
         </FormItem>
 
     </Form>

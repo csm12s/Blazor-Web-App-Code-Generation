@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/function"
-@inherits TableBase<FunctionDto, Guid>
+@inherits TableBase<FunctionDto, Guid, FunctionEdit>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -23,7 +23,7 @@
                     <Row>
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
-                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnDeletesClick" Loading="_deletesBtnLoading">
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                                     删除选中
                                 </Button>
                             </ResourceAuthorize>
@@ -101,15 +101,21 @@
                             <ResourceAuthorize ResourceKey="system_manager_function_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
-
+                            <ResourceAuthorize ResourceKey="system_manager_function_detail">
+                                <SpaceItem>
+                                    <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                        <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_function_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
-                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnDeleteClick(model.Id)"></Button>
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
