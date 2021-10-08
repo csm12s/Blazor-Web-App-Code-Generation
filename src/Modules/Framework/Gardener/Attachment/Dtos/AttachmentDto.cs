@@ -21,7 +21,7 @@ namespace Gardener.Attachment.Dtos
         /// <summary>
         /// 业务ID
         /// </summary>
-        [Required(ErrorMessage = "业务Id不能为空")]
+        [Required(ErrorMessage = "业务编号不能为空")]
         [DisplayName("业务编号")]
         public string BusinessId { get; set; }
         /// <summary>

@@ -1,0 +1,82 @@
+﻿@inherits EditDrawerBase<AttachmentDto, Guid>
+@if (_editModel != null)
+{
+<Form Loading="@_isLoading"
+      Model="@_editModel"
+      LabelCol="new ColLayoutParam { Span = 8 }"
+      WrapperCol="new ColLayoutParam { Span = 16 }"
+      OnFinish="OnFormFinish"
+      Context="model">
+    <FormItem Label="编号">
+        <Input @bind-Value="@model.Id" Disabled />
+    </FormItem>
+    <FormItem Label="业务编号">
+        <Input @bind-Value="@model.BusinessId" Disabled />
+    </FormItem>
+    <FormItem Label="业务类型">
+        <SimpleSelect @bind-Value="@_currentEditModelBusinessType"
+                      DefaultValue="@(model.BusinessType.ToString())"
+                      Style="">
+            <SelectOptions>
+                @foreach (var gitem in EnumHelper.EnumToDictionary<AttachmentBusinessType>())
+                {
+                    <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@(gitem.Value)"></SimpleSelectOption>
+                }
+            </SelectOptions>
+        </SimpleSelect>
+    </FormItem>
+    <FormItem Label="原始类型">
+        <Input @bind-Value="@model.ContentType" />
+    </FormItem>
+    <FormItem Label="文件类型">
+        <SimpleSelect @bind-Value="@_currentEditModelFileType"
+                      DefaultValue="@(model.FileType.ToString())"
+                      Style="">
+            <SelectOptions>
+                @foreach (var gitem in EnumHelper.EnumToDictionary<AttachmentFileType>())
+                {
+                    <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@(gitem.Value)"></SimpleSelectOption>
+                }
+            </SelectOptions>
+        </SimpleSelect>
+    </FormItem>
+    <FormItem Label="原始名称">
+        <Input @bind-Value="@model.OriginalName" />
+    </FormItem>
+    <FormItem Label="访问名称">
+        <Input @bind-Value="@model.Name" />
+    </FormItem>
+
+    <FormItem Label="后缀">
+        <Input @bind-Value="@model.Suffix" />
+    </FormItem>
+    <FormItem Label="大小">
+        <Input @bind-Value="@model.Size" />
+    </FormItem>
+    <FormItem Label="路径">
+        <Input @bind-Value="@model.Path" />
+    </FormItem>
+    <FormItem Label="访问地址">
+        <Input @bind-Value="@model.Url" />
+    </FormItem>
+
+    @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+    {
+        <FormItem Label="创建时间">
+            <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+        <FormItem Label="更新时间">
+            <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+    }
+    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Space>
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    取消
+                </Button>
+            </SpaceItem>
+        </Space>
+    </FormItem>
+</Form>
+}

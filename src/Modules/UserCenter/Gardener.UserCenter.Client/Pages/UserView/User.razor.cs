@@ -4,25 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign.TableModels;
 using AntDesign;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System;
 using Gardener.Common;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Gardener.EntityFramwork.Dto;
-using Gardener.Client.Base;
-using Gardener.Enums;
 using Gardener.EntityFramwork.Enums;
 using Gardener.Client.Base.Components;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class User : TableBase<UserDto, int>
+    public partial class User : TableBase<UserDto, int, UserEdit>
     {
         private Tree<DeptDto> _deptTree;
         private List<DeptDto> depts;
@@ -75,34 +70,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             }
 
             return pageRequest;
-        }
-        
-        /// <summary>
-        /// 点击编辑按钮
-        /// </summary>
-        /// <param name="model"></param>
-        private async Task OnEditClick(int userId)
-        {
-            var result = await drawerService.CreateDialogAsync<UserEdit, int, bool>(userId, true, title: "编辑", width: 800);
-
-            if (result)
-            {
-                await ReLoadTable();
-            }
-        }
-        /// <summary>
-        /// 点击添加按钮
-        /// </summary>
-        private async Task OnAddClick()
-        {
-            var result = await drawerService.CreateDialogAsync<UserEdit, int, bool>(0, true, title: "添加", width: 800);
-
-            if (result)
-            {
-                //刷新列表
-                pageRequest.PageIndex = 1;
-                await ReLoadTable();
-            }
         }
 
         /// <summary>

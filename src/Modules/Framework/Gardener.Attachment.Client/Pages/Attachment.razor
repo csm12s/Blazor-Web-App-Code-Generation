@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/attachment"
-@inherits TableBase<AttachmentDto, Guid>
+@inherits TableBase<AttachmentDto, Guid, AttachmentEdit>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -84,7 +84,15 @@
                     </Column>
                     <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
                     <ActionColumn>
+
                         <Space>
+                            <ResourceAuthorize ResourceKey="system_manager_attachment_detail">
+                                <SpaceItem>
+                                    <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                        <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@("删除")" ArrowPointAtCenter="true">

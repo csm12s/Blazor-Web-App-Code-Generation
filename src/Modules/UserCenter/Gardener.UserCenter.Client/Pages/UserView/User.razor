@@ -1,5 +1,5 @@
 ﻿@page "/user_center/user"
-@inherits TableBase<UserDto, int>
+@inherits TableBase<UserDto, int, UserEdit>
 <div>
     <PageContainer Title="">
         <Breadcrumb>
@@ -53,7 +53,7 @@
                                     <Space>
                                         <ResourceAuthorize ResourceKey="user_center_user_add">
                                             <SpaceItem>
-                                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">
+                                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
                                                     添加
                                                 </Button>
                                             </SpaceItem>
@@ -75,7 +75,7 @@
                             </ResourceAuthorize>
                             <Column @bind-Field="@model.Id" Sortable />
                             <Column @bind-Field="@model.Avatar">
-                                <ResourceAuthorizePro ResourceKey="user_center_user_list_edit_avatar">
+                                <ResourceAuthorize ResourceKey="user_center_user_list_edit_avatar">
                                     <Authorized>
                                         <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
                                             <a @onclick="_=>OnAvatarClick(model)">
@@ -86,7 +86,7 @@
                                     <NotAuthorized>
                                         <Avatar Src="@model.Avatar" />
                                     </NotAuthorized>
-                                </ResourceAuthorizePro>
+                                </ResourceAuthorize>
                             </Column>
                             <Column @bind-Field="@model.UserName" Filterable />
                             <Column @bind-Field="@model.NickName" Filterable />
@@ -122,7 +122,14 @@
                                     <ResourceAuthorize ResourceKey="user_center_user_edit">
                                         <SpaceItem>
                                             <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
-                                                <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditClick(model.Id)"></Button>
+                                                <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
+                                            </Tooltip>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                    <ResourceAuthorize ResourceKey="user_center_user_detail">
+                                        <SpaceItem>
+                                            <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                                <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                                             </Tooltip>
                                         </SpaceItem>
                                     </ResourceAuthorize>

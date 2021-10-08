@@ -75,6 +75,13 @@
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_center_position_detail">
+                                <SpaceItem>
+                                    <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                        <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_center_position_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@("删除")" ArrowPointAtCenter="true">

@@ -21,6 +21,16 @@
     <FormItem Label="是否锁定">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
+
+    @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+    {
+        <FormItem Label="创建时间">
+            <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+        <FormItem Label="更新时间">
+            <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+    }
     <FormItem WrapperColOffset="8" WrapperColSpan="16">
         <Space>
             @if (!DrawerInputType.Select.Equals(this.Options.Type))

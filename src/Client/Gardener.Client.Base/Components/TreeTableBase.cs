@@ -152,7 +152,7 @@ namespace Gardener.Client.Base.Components
         /// 点击删除按钮
         /// </summary>
         /// <param name="id"></param>
-        protected async Task OnDeleteClick(TDto dto)
+        protected async Task OnClickDelete(TDto dto)
         {
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
             {
@@ -184,7 +184,7 @@ namespace Gardener.Client.Base.Components
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        protected async Task OnEditClick(TDto dto)
+        protected async Task OnClickEdit(TDto dto)
         {
             TDrawerOption option = GetEditOption(dto);
             DrawerSettings settings = GetDrawerSettings();
@@ -253,7 +253,7 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 点击添加按钮
         /// </summary>
-        protected async Task OnAddClick()
+        protected async Task OnClickAdd()
         {
             DrawerSettings settings = GetDrawerSettings();
             var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
@@ -273,7 +273,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="dto">点击的项</param>
         /// <returns></returns>
-        protected async Task OnAddChildrenClick(TDto dto)
+        protected async Task OnClickAddChildren(TDto dto)
         {
             DrawerSettings settings = GetDrawerSettings();
             var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
@@ -295,7 +295,7 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 点击删除选中按钮
         /// </summary>
-        protected async Task OnDeletesClick()
+        protected async Task OnClickDeletes()
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
@@ -326,7 +326,7 @@ namespace Gardener.Client.Base.Components
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        protected async Task OnDetailClick(TDto dto)
+        protected async Task OnClickDetail(TDto dto)
         {
             TDrawerOption option = GetSelectOption(dto);
             DrawerSettings settings = GetDrawerSettings();
