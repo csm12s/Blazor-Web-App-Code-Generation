@@ -117,7 +117,163 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="account_center" xml:space="preserve">
+    <value>Account center</value>
+  </data>
+  <data name="account_setting" xml:space="preserve">
+    <value>Account setting</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="add_children" xml:space="preserve">
+    <value>Add children</value>
+  </data>
   <data name="admin_home" xml:space="preserve">
     <value>Home</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="binding" xml:space="preserve">
+    <value>Binding</value>
+  </data>
+  <data name="binding_api" xml:space="preserve">
+    <value>Binding api</value>
+  </data>
+  <data name="binding_resource" xml:space="preserve">
+    <value>Binding resource</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="confirm_msg" xml:space="preserve">
+    <value>Are you sure want to {0} ?</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="delete_includ_children" xml:space="preserve">
+    <value>Delete(includ children)</value>
+  </data>
+  <data name="delete_selected" xml:space="preserve">
+    <value>Delete Selected</value>
+  </data>
+  <data name="detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="do" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="load" xml:space="preserve">
+    <value>load</value>
+  </data>
+  <data name="lock" xml:space="preserve">
+    <value>lock</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="not_find_data" xml:space="preserve">
+    <value>Not find data</value>
+  </data>
+  <data name="no_selected_row" xml:space="preserve">
+    <value>No selected row</value>
+  </data>
+  <data name="refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="seed_data" xml:space="preserve">
+    <value>Seed data</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="setting_roles" xml:space="preserve">
+    <value>Setting roles</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="system_manager" xml:space="preserve">
+    <value>System manager</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_attachment" xml:space="preserve">
+    <value>Attachment</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_audit" xml:space="preserve">
+    <value>Audit</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_audit_entity" xml:space="preserve">
+    <value>Audit entity</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_audit_operation" xml:space="preserve">
+    <value>Audit operation</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_client" xml:space="preserve">
+    <value>Client</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_function" xml:space="preserve">
+    <value>Api</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_login_token" xml:space="preserve">
+    <value>Login token</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="system_manager_resource" xml:space="preserve">
+    <value>Resource</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="unlock" xml:space="preserve">
+    <value>unlock</value>
+  </data>
+  <data name="user_center" xml:space="preserve">
+    <value>User center</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="user_center_dept" xml:space="preserve">
+    <value>Dept</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="user_center_position" xml:space="preserve">
+    <value>Position</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="user_center_role" xml:space="preserve">
+    <value>Role</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="user_center_user" xml:space="preserve">
+    <value>User</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

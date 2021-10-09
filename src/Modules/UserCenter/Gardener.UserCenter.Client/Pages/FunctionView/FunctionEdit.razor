@@ -58,13 +58,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        保存
+                        @localizer["save"]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    取消
+                    @localizer["cancel"]
                 </Button>
             </SpaceItem>
         </Space>

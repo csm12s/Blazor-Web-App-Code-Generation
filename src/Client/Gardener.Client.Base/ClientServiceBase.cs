@@ -11,17 +11,31 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
 {
-    public abstract class ApplicationServiceBase<T> : ApplicationServiceBase<T, int> where T : class, new()
+    /// <summary>
+    /// 客户端服务基类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class ClientServiceBase<T> : ClientServiceBase<T, int> where T : class, new()
     {
-        protected ApplicationServiceBase(IApiCaller apiCaller, string controller) : base(apiCaller, controller)
+        /// <summary>
+        /// 客户端服务基类
+        /// </summary>
+        /// <param name="apiCaller"></param>
+        /// <param name="controller"></param>
+        protected ClientServiceBase(IApiCaller apiCaller, string controller) : base(apiCaller, controller)
         {
         }
     }
-    public abstract class ApplicationServiceBase<T,Tkey> : IApplicationServiceBase<T, Tkey> where T : class, new()
+    /// <summary>
+    /// 客户端服务基类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="Tkey"></typeparam>
+    public abstract class ClientServiceBase<T,Tkey> : IServiceBase<T, Tkey> where T : class, new()
     {
         private string controller;
         private readonly IApiCaller apiCaller;
-        protected ApplicationServiceBase(IApiCaller apiCaller, string controller)
+        protected ClientServiceBase(IApiCaller apiCaller, string controller)
         {
             this.apiCaller = apiCaller;
             this.controller = controller;

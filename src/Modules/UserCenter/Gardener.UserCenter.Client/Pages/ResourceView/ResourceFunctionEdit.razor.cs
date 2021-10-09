@@ -49,6 +49,8 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
         ConfirmService confirmService { get; set; }
         [Inject]
         NotificationService noticeService { get; set; }
+        [Inject]
+        IClientLocalizer localizer { get; set; }
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
         List<TableFilter<string>> groupFilters = null;
@@ -125,7 +127,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn("请选择至少一项");
+                messageService.Warn(localizer["no_selected_row"]);
                 return;
             }
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -134,7 +136,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
                 {
                     await resourceFunctionService.Delete(this.Options.Id, item.Id);
                 }
-                messageService.Success("删除成功");
+                messageService.Success(localizer.Combination("delete", "success"));
                 await OnInitializedAsync();
             }
         }
@@ -146,7 +148,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
             var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
                      new ResourceFunctionEditOption { Id = id, Type = 1 },
                      true,
-                     title: $"关联接口-[{this.Options.Name}]",
+                     title: $"{localizer["binding_api"]}-[{this.Options.Name}]",
                      width: 1200,
                      placement: "right");
             if (result)
@@ -161,7 +163,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn("请选择至少一项");
+                messageService.Warn(localizer["no_selected_row"]);
                 return;
             }
 
@@ -176,12 +178,12 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
             }).ToList());
             if (result)
             {
-                messageService.Success("关联成功");
+                messageService.Success(localizer.Combination("binding","success"));
                 await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
             }
             else
             {
-                messageService.Error("关联失败");
+                messageService.Error(localizer.Combination("binding", "fail"));
             }
         }
     }

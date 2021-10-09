@@ -15,7 +15,7 @@ namespace Gardener.Audit.Client.Services
     /// 审计数据服务
     /// </summary>
     [ScopedService]
-    public class AuditEntityService : ApplicationServiceBase<AuditEntityDto, Guid>, IAuditEntityService
+    public class AuditEntityService : ClientServiceBase<AuditEntityDto, Guid>, IAuditEntityService
     {
         private readonly static string controller = "audit-entity";
         private readonly IApiCaller apiCaller;

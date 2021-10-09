@@ -8,9 +8,9 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Client.Base.Model;
+using Gardener.Client.Base.Services;
 using Gardener.EntityFramwork.Dto;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,13 +32,15 @@ namespace Gardener.Client.Base.Components
         protected bool _deletesBtnLoading = false;
         protected PageRequest pageRequest = new PageRequest();
         [Inject]
-        protected IApplicationServiceBase<TDto, TKey> _service { get; set; }
+        protected IServiceBase<TDto, TKey> _service { get; set; }
         [Inject]
         protected MessageService messageService { get; set; }
         [Inject]
         protected ConfirmService confirmService { get; set; }
         [Inject]
         protected DrawerService drawerService { get; set; }
+        [Inject]
+        protected IClientLocalizer localizer { get; set; }
         /// <summary>
         /// 配置
         /// </summary>
@@ -95,7 +97,7 @@ namespace Gardener.Client.Base.Components
             }
             else
             {
-                messageService.Error("加载失败");
+                messageService.Error(localizer.Combination("load","fail"));
             }
             _tableIsLoading = false;
         }
@@ -132,11 +134,11 @@ namespace Gardener.Client.Base.Components
                         pageRequest.PageIndex = pageRequest.PageIndex - 1;
                     }
                     await ReLoadTable();
-                    messageService.Success("删除成功");
+                    messageService.Success(localizer.Combination("delete", "success"));
                 }
                 else
                 {
-                    messageService.Error("删除失败");
+                    messageService.Error(localizer.Combination("delete", "fail"));
                 }
             }
 
@@ -149,7 +151,7 @@ namespace Gardener.Client.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                messageService.Warn("未选中任何行");
+                messageService.Warn(localizer["no_selected_row"]);
             }
             else
             {
@@ -165,11 +167,11 @@ namespace Gardener.Client.Base.Components
                             pageRequest.PageIndex = pageRequest.PageIndex - 1;
                         }
                         await ReLoadTable();
-                        messageService.Success("删除成功");
+                        messageService.Success(localizer.Combination("delete", "success"));
                     }
                     else
                     {
-                        messageService.Error($"删除失败");
+                        messageService.Error(localizer.Combination("delete", "fail"));
                     }
                 }
                 _deletesBtnLoading = false;
@@ -187,7 +189,9 @@ namespace Gardener.Client.Base.Components
             if (!result)
             {
                 model.IsLocked = !isLocked;
-                messageService.Error("锁定/解锁失败");
+                string msg = isLocked ? localizer["lock"] : localizer["unlock"];
+
+                messageService.Error($"{msg} {localizer["fail"]}");
             }
         }
     }
@@ -216,7 +220,7 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickAdd()
         {
             DrawerInput<TKey> input = DrawerInput<TKey>.IsAdd();
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: "添加", width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["add"], width: this.drawerSettings.Width);
 
             if (result.Succeeded)
             {
@@ -232,7 +236,7 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickEdit(TKey id)
         {
             DrawerInput<TKey> input = DrawerInput<TKey>.IsEdit(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: "编辑", width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["edit"], width: this.drawerSettings.Width);
 
             if (result.Succeeded)
             {
@@ -247,7 +251,7 @@ namespace Gardener.Client.Base.Components
         public async Task OnClickDetail(TKey id)
         {
             DrawerInput<TKey> input = DrawerInput<TKey>.IsSelect(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: "详情", width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["detail"], width: this.drawerSettings.Width);
         }
     }
 }

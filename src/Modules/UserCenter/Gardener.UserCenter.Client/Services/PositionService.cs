@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Gardener.UserCenter.Client.Services
 {
     [ScopedService]
-    public class PositionService : ApplicationServiceBase<PositionDto, int>, IPositionService
+    public class PositionService : ClientServiceBase<PositionDto, int>, IPositionService
     {
         private readonly static string controller = "position";
 

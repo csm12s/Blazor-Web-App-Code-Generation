@@ -117,7 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="home" xml:space="preserve">
-    <value>首页</value>
+  <data name="account_center" xml:space="preserve">
+    <value>个人中心</value>
+  </data>
+  <data name="account_setting" xml:space="preserve">
+    <value>个人设置</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="add_children" xml:space="preserve">
+    <value>添加子项</value>
+  </data>
+  <data name="binding" xml:space="preserve">
+    <value>绑定</value>
+  </data>
+  <data name="binding_api" xml:space="preserve">
+    <value>绑定接口</value>
+  </data>
+  <data name="binding_resource" xml:space="preserve">
+    <value>绑定资源</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="confirm_msg" xml:space="preserve">
+    <value>确定要执行{0}吗?</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="delete_includ_children" xml:space="preserve">
+    <value>删除(包含子项)</value>
+  </data>
+  <data name="delete_selected" xml:space="preserve">
+    <value>删除选中</value>
+  </data>
+  <data name="detail" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="do" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="expand" xml:space="preserve">
+    <value>展开</value>
+  </data>
+  <data name="fail" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="import" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="load" xml:space="preserve">
+    <value>加载</value>
+  </data>
+  <data name="lock" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>退出登录</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="not_find_data" xml:space="preserve">
+    <value>数据未找到</value>
+  </data>
+  <data name="no_selected_row" xml:space="preserve">
+    <value>未选中任何行</value>
+  </data>
+  <data name="refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="seed_data" xml:space="preserve">
+    <value>种子数据</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="setting_roles" xml:space="preserve">
+    <value>设置角色</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="unlock" xml:space="preserve">
+    <value>解锁</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>是</value>
   </data>
 </root>

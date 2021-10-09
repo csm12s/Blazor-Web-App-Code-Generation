@@ -844,6 +844,16 @@
             </remarks>
             <returns></returns>
         </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.ClientService">
+            <summary>
+            客户端服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Client})">
+            <summary>
+            客户端服务
+            </summary>
+        </member>
         <member name="T:Gardener.UserCenter.Impl.Services.DeptService">
             <summary>
             部门服务

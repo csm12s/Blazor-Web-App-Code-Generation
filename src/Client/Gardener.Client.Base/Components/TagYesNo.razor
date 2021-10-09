@@ -1,8 +1,9 @@
 ﻿<Tag Color="@(Yes?"blue":"red")">
-    @(Yes ? "是":"否")
+    @(Yes ? localizer["yes"]: localizer["no"])
 </Tag>
 @code {
-
+    [Inject]
+    protected IClientLocalizer localizer { get; set; }
     [Parameter]
     public bool Yes { get; set; }
 }

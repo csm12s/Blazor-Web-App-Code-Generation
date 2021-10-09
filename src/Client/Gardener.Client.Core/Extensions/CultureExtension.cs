@@ -6,6 +6,7 @@
 
 using Gardener.Client.Base;
 using Gardener.Client.Base.Constants;
+using Gardener.Client.Core.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
@@ -27,8 +28,19 @@ namespace Gardener.Client.Core
             var culture = new CultureInfo(string.IsNullOrEmpty(result) ? "zh-CN" : result);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
+            //
+            LocalizerUtil.Localizer = host.Services.GetRequiredService<IClientLocalizer>();
+
             return host;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host"></param>
+        public static IServiceCollection AddCulture<T>(this IServiceCollection services)
+        {
+            services.AddScoped<IClientLocalizer, ClientLocalizer<T>>();
+            return services;
+        }
     }
 }

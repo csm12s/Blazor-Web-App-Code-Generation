@@ -16,7 +16,7 @@ namespace Gardener.UserCenter.Client.Services
     /// 部门服务
     /// </summary>
     [ScopedService]
-    public class DeptService : ApplicationServiceBase<DeptDto>, IDeptService
+    public class DeptService : ClientServiceBase<DeptDto>, IDeptService
     {
         private static readonly string controller = "dept";
         private readonly IApiCaller apiCaller;

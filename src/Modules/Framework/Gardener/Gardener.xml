@@ -723,7 +723,7 @@
             创建日期
             </summary>
         </member>
-        <member name="T:Gardener.Base.IApplicationServiceBase`2">
+        <member name="T:Gardener.Base.IServiceBase`2">
             <summary>
             定义了基础方法
             方法包括：CURD、获取全部、分页获取 
@@ -731,48 +731,48 @@
             <typeparam name="TEntityDto"></typeparam>
             <typeparam name="TKey"></typeparam>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.Delete(`1)">
+        <member name="M:Gardener.Base.IServiceBase`2.Delete(`1)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.Deletes(`1[])">
+        <member name="M:Gardener.Base.IServiceBase`2.Deletes(`1[])">
             <summary>
             批量删除
             </summary>
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.FakeDelete(`1)">
+        <member name="M:Gardener.Base.IServiceBase`2.FakeDelete(`1)">
             <summary>
             逻辑删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.FakeDeletes(`1[])">
+        <member name="M:Gardener.Base.IServiceBase`2.FakeDeletes(`1[])">
             <summary>
             批量逻辑删除
             </summary>
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.Get(`1)">
+        <member name="M:Gardener.Base.IServiceBase`2.Get(`1)">
             <summary>
             查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.GetAll">
+        <member name="M:Gardener.Base.IServiceBase`2.GetAll">
             <summary>
             查询所有
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.GetAllUsable">
+        <member name="M:Gardener.Base.IServiceBase`2.GetAllUsable">
             <summary>
             查询所有可以用的
             </summary>
@@ -781,7 +781,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.GetPage(System.Int32,System.Int32)">
+        <member name="M:Gardener.Base.IServiceBase`2.GetPage(System.Int32,System.Int32)">
             <summary>
             分页查询
             </summary>
@@ -789,21 +789,21 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.Insert(`0)">
+        <member name="M:Gardener.Base.IServiceBase`2.Insert(`0)">
             <summary>
             新增
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.Update(`0)">
+        <member name="M:Gardener.Base.IServiceBase`2.Update(`0)">
             <summary>
             更新
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.Lock(`1,System.Boolean)">
+        <member name="M:Gardener.Base.IServiceBase`2.Lock(`1,System.Boolean)">
             <summary>
              锁定、解锁
             </summary>
@@ -811,7 +811,7 @@
             <param name="islocked"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IApplicationServiceBase`2.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+        <member name="M:Gardener.Base.IServiceBase`2.Search(Gardener.EntityFramwork.Dto.PageRequest)">
             <summary>
             搜索
             </summary>

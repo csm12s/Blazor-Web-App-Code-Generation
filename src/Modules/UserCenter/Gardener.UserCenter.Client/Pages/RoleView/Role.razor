@@ -25,7 +25,7 @@
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="user_center_role_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                                    删除选中
+                                    @localizer["delete_selected"]
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
@@ -34,21 +34,21 @@
                                 <ResourceAuthorize ResourceKey="user_center_role_add">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                            添加
+                                            @localizer["add"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="user_center_role_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                            刷新
+                                            @localizer["refresh"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="user_center_role_resource_download_seed_data">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadClick">
-                                            种子数据
+                                            @localizer["seed_data"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
@@ -85,28 +85,28 @@
                         <Space>
                             <ResourceAuthorize ResourceKey="user_center_role_edit">
                                 <SpaceItem>
-                                    <Tooltip Title="@("编辑")" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["edit"])" ArrowPointAtCenter="true">
                                         <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_center_role_set_resource">
                                 <SpaceItem>
-                                    <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["binding_resource"])" ArrowPointAtCenter="true">
                                         <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_center_role_detail">
                                 <SpaceItem>
-                                    <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["detail"])" ArrowPointAtCenter="true">
                                         <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_center_role_delete">
                                 <SpaceItem>
-                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["delete"])" ArrowPointAtCenter="true">
                                         <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>

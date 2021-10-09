@@ -14,7 +14,7 @@ using Gardener.Client.Base;
 namespace Gardener.Audit.Client.Services
 {
     [ScopedService]
-    public class AuditOperationService : ApplicationServiceBase<AuditOperationDto, Guid>, IAuditOperationService
+    public class AuditOperationService : ClientServiceBase<AuditOperationDto, Guid>, IAuditOperationService
     {
         private readonly static string controller = "audit-operation";
         private readonly IApiCaller apiCaller;

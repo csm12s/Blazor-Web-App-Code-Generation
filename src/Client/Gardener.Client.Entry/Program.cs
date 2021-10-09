@@ -64,6 +64,7 @@ namespace Gardener.Client.Entry
             {
                 option.ResourcesPath = "Resources";
             });
+            builder.Services.AddCulture<App>();
             #endregion
 
             #region services

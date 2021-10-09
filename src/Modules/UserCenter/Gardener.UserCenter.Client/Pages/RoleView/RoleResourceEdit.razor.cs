@@ -28,7 +28,9 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
-        IRoleService roleService { get; set; }
+        IRoleService roleService { get; set; } 
+        [Inject]
+        IClientLocalizer localizer { get; set; }
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -125,12 +127,12 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             var result = await roleService.Resource(_roleId, resourceIds.Distinct().ToArray());
             if (result)
             {
-                messageService.Success("保存成功");
+                messageService.Success(localizer.Combination("save", "success"));
                 await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
             }
             else
             {
-                messageService.Error("保存失败");
+                messageService.Error(localizer.Combination("save", "fail"));
             }
             _isLoading = false;
         }

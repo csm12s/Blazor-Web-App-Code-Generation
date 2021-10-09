@@ -24,7 +24,7 @@
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                                    删除选中
+                                    @localizer["delete_selected"]
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
@@ -33,7 +33,7 @@
                                 <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                            刷新
+                                            @localizer["refresh"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
@@ -88,14 +88,14 @@
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_attachment_detail">
                                 <SpaceItem>
-                                    <Tooltip Title="@("详情")" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["detail"])" ArrowPointAtCenter="true">
                                         <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_attachment_delete">
                                 <SpaceItem>
-                                    <Tooltip Title="@("删除")" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["delete"])" ArrowPointAtCenter="true">
                                         <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>

@@ -38,7 +38,7 @@ namespace Gardener
     /// <typeparam name="TEntity">数据实体类型</typeparam>
     /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
     /// <typeparam name="TKey">数据实体主键类型</typeparam>
-    public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IApplicationServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
         private readonly IRepository<TEntity> _repository;
         /// <summary>

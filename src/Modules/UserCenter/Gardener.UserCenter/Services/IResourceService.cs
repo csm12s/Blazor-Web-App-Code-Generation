@@ -15,7 +15,7 @@ namespace Gardener.UserCenter.Services
     /// <summary>
     /// 资源服务
     /// </summary>
-    public interface IResourceService : IApplicationServiceBase<ResourceDto, Guid>
+    public interface IResourceService : IServiceBase<ResourceDto, Guid>
     {
         /// <summary>
         /// 获取所有子资源

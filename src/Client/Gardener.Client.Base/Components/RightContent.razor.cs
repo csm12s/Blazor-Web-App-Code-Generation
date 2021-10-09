@@ -27,6 +27,8 @@ namespace Gardener.Client.Base.Components
 
         [Inject]
         private IJsTool JsTool { get; set; }
+        [Inject]
+        private IClientLocalizer localizer{ get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -43,10 +45,10 @@ namespace Gardener.Client.Base.Components
         }
         public AvatarMenuItem[] AvatarMenuItems { get; set; } = new AvatarMenuItem[]
         {
-            new() { Key = "center", IconType = "user", Option = "个人中心"},
-            new() { Key = "setting", IconType = "setting", Option = "个人设置"},
+            new() { Key = "center", IconType = "user", Option = LocalizerUtil.GetValue("account_center")},
+            new() { Key = "setting", IconType = "setting", Option =LocalizerUtil.GetValue("account_setting")},
             new() { IsDivider = true },
-            new() { Key = "logout", IconType = "logout", Option = "退出登录"}
+            new() { Key = "logout", IconType = "logout", Option = LocalizerUtil.GetValue("logout")}
         };
         public async Task HandleSelectUser(MenuItem item)
         {

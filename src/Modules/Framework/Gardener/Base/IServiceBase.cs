@@ -16,7 +16,7 @@ namespace Gardener.Base
     /// </summary>
     /// <typeparam name="TEntityDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IApplicationServiceBase<TEntityDto, TKey> where TEntityDto : class, new()
+    public interface IServiceBase<TEntityDto, TKey> where TEntityDto : class, new()
     {
         /// <summary>
         /// 删除

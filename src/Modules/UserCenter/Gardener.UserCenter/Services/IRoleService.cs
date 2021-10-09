@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Services
 {
-    public interface IRoleService : IApplicationServiceBase<RoleDto,int>
+    public interface IRoleService : IServiceBase<RoleDto,int>
     {
         /// <summary>
         /// 

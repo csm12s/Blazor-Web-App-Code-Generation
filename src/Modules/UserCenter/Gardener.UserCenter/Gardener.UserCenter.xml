@@ -4,6 +4,41 @@
         <name>Gardener.UserCenter</name>
     </assembly>
     <members>
+        <member name="T:Gardener.UserCenter.Dtos.ClientDto">
+            <summary>
+            客户端信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientDto.Remark">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientDto.Contacts">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientDto.Tel">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientDto.EncryptKey">
+            <summary>
+            加密Key
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
         <member name="T:Gardener.UserCenter.Dtos.DeptDto">
             <summary>
             部门信息
@@ -509,6 +544,11 @@
             移除当前用户token
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Services.IClientService">
+            <summary>
+            客户端服务
+            </summary>
         </member>
         <member name="T:Gardener.UserCenter.Services.IDeptService">
             <summary>

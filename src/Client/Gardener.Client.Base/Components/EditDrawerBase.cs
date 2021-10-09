@@ -9,10 +9,6 @@ using Gardener.Base;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
@@ -20,14 +16,15 @@ namespace Gardener.Client.Base
     public class EditDrawerBase<TDto, TKey> : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
         [Inject]
-        protected IApplicationServiceBase<TDto, TKey> _service { get; set; }
+        protected IServiceBase<TDto, TKey> _service { get; set; }
         [Inject]
         protected MessageService messageService { get; set; }
         [Inject]
         protected ConfirmService confirmService { get; set; }
         [Inject]
         protected DrawerService drawerService { get; set; }
-
+        [Inject]
+        protected IClientLocalizer localizer { get; set; }
         /// <summary>
         /// 编辑区域的加载中标识
         /// </summary>
@@ -58,7 +55,7 @@ namespace Gardener.Client.Base
                 }
                 else
                 {
-                    messageService.Error("数据已不存在");
+                    messageService.Error(localizer["not_find_data"]);
                 }
             }
             _isLoading = false;
@@ -89,12 +86,12 @@ namespace Gardener.Client.Base
 
                 if (result != null)
                 {
-                    messageService.Success("添加成功");
+                    messageService.Success(localizer.Combination("add", "success"));
                     await base.FeedbackRef.CloseAsync(DrawerOutput<TKey>.Succeed(result.Id));
                 }
                 else
                 {
-                    messageService.Error("添加失败");
+                    messageService.Error(localizer.Combination("add", "fail"));
                 }
             }
             else
@@ -103,12 +100,12 @@ namespace Gardener.Client.Base
                 var result = await _service.Update(_editModel);
                 if (result)
                 {
-                    messageService.Success("修改成功");
+                    messageService.Success(localizer.Combination("edit", "success"));
                     await base.FeedbackRef.CloseAsync(DrawerOutput<TKey>.Succeed(_editModel.Id));
                 }
                 else
                 {
-                    messageService.Error("修改失败");
+                    messageService.Error(localizer.Combination("edit", "fail"));
                 }
             }
             _isLoading = false;

@@ -22,7 +22,7 @@
                    @bind-Value="@_apiJsonUrl" />
         </AntDesign.Col>
         <AntDesign.Col Span="2">
-            <Button Style="width:100%" Type="@ButtonType.Primary" Size="@ButtonSize.Large" Loading="_loading" OnClick="OnLoad">加载</Button>
+            <Button Style="width:100%" Type="@ButtonType.Primary" Size="@ButtonSize.Large" Loading="_loading" OnClick="OnLoad">@localizer["load"]</Button>
         </AntDesign.Col>
 
     </Row>
@@ -64,13 +64,13 @@
     <AntDesign.Col Span="8" Offset="8">
         <Space>
             <SpaceItem>
-                <Tooltip Placement="@Placement.Top" Title="@("去重后导入")">
+                <Tooltip Placement="@Placement.Top" Title="@(localizer["import"])">
                     <Button Type="@ButtonType.Primary" OnClick="OnImportClick" Loading="_importLoading">
-                        导入选中数据
+                        @localizer["import"]
                     </Button>
                 </Tooltip>
                 <Button Type="@ButtonType.Default" OnClick="OnCancleClick">
-                    关闭
+                    @localizer["close"]
                 </Button>
             </SpaceItem>
         </Space>

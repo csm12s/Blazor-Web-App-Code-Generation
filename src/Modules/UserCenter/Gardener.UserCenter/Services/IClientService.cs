@@ -4,18 +4,16 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Authentication.Dtos;
-using Gardener.Authorization.Dtos;
 using Gardener.Base;
+using Gardener.UserCenter.Dtos;
 using System;
-using System.Threading.Tasks;
 
-namespace Gardener.Authentication.Services
+namespace Gardener.UserCenter.Services
 {
     /// <summary>
-    /// 用户Token服务
+    /// 客户端服务
     /// </summary>
-    public interface ILoginTokenService : IServiceBase<LoginTokenDto, Guid>
+    public interface IClientService : IServiceBase<ClientDto, Guid>
     {
     }
 }

@@ -14,7 +14,7 @@ using Gardener.UserCenter.Services;
 namespace Gardener.UserCenter.Client.Services
 {
     [ScopedService]
-    public class ResourceService : ApplicationServiceBase<ResourceDto,Guid>,IResourceService
+    public class ResourceService : ClientServiceBase<ResourceDto,Guid>,IResourceService
     {
         private readonly static string controller = "resource";
         private readonly IApiCaller apiCaller;

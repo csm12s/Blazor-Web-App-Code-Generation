@@ -33,6 +33,8 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
         MessageService messageService { get; set; }
         [Inject]
         NotificationService noticeService { get; set; }
+        [Inject]
+        IClientLocalizer localizer { get; set; }
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
 
@@ -114,7 +116,7 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
             _importLoading = true;
             if (_selectedFunctionDtos == null || !_selectedFunctionDtos.Any())
             {
-                messageService.Warn("请至少选中一行");
+                messageService.Warn(localizer["no_selected_row"]);
                 _importLoading = false;
                 return;
             }

@@ -16,7 +16,7 @@ using Gardener.UserCenter.Services;
 namespace Gardener.UserCenter.Client.Services
 {
     [ScopedService]
-    public class UserService : ApplicationServiceBase<UserDto>,IUserService
+    public class UserService : ClientServiceBase<UserDto>,IUserService
     {
         private readonly static string controller = "user";
 

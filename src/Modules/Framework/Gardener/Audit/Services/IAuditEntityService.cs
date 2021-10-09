@@ -13,7 +13,7 @@ namespace Gardener.Audit.Services
     /// <summary>
     /// 审计数据服务接口
     /// </summary>
-    public interface IAuditEntityService : IApplicationServiceBase<AuditEntityDto, Guid>
+    public interface IAuditEntityService : IServiceBase<AuditEntityDto, Guid>
     {
         
     }

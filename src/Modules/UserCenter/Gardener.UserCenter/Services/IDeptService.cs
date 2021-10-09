@@ -14,7 +14,7 @@ namespace Gardener.UserCenter.Services
     /// <summary>
     /// 部门服务
     /// </summary>
-    public interface IDeptService : IApplicationServiceBase<DeptDto, int>
+    public interface IDeptService : IServiceBase<DeptDto, int>
     {
         /// <summary>
         /// 查询所有部门 按树形结构返回

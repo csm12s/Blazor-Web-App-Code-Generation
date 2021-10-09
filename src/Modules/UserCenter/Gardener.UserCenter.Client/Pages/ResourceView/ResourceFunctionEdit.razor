@@ -21,7 +21,7 @@
                             <AntDesign.Col Span="8">
                                 <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
                                     <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnFunctionDeletesClick">
-                                        删除选中
+                                        @localizer["delete_selected"]
                                     </Button>
                                 </ResourceAuthorize>
                             </AntDesign.Col>
@@ -30,7 +30,7 @@
                                     <ResourceAuthorize ResourceKey="system_manager_resource_function_add_page_show">
                                         <SpaceItem>
                                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Id)">
-                                                关联
+                                                @localizer["select"]
                                             </Button>
                                         </SpaceItem>
                                     </ResourceAuthorize>
@@ -47,7 +47,7 @@
                                     <ResourceAuthorize ResourceKey="system_manager_resource_function_add">
                                         <SpaceItem>
                                             <Button Type="@ButtonType.Primary" Icon="check" OnClick="x => OnFunctionAddClick()">
-                                                关联选中
+                                                @localizer["binding"]
                                             </Button>
                                         </SpaceItem>
                                     </ResourceAuthorize>

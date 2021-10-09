@@ -15,7 +15,7 @@ using Gardener.UserCenter.Services;
 namespace Gardener.UserCenter.Client.Services
 {
     [ScopedService]
-    public class RoleService : ApplicationServiceBase<RoleDto>,IRoleService
+    public class RoleService : ClientServiceBase<RoleDto>,IRoleService
     {
         private readonly static string controller = "role";
 

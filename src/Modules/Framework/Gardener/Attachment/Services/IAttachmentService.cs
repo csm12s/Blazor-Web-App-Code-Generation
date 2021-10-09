@@ -15,7 +15,7 @@ namespace Gardener.Attachment.Services
     /// <summary>
     /// 附件服务接口
     /// </summary>
-    public interface IAttachmentService : IApplicationServiceBase<AttachmentDto, Guid>
+    public interface IAttachmentService : IServiceBase<AttachmentDto, Guid>
     {
         /// <summary>
         /// 

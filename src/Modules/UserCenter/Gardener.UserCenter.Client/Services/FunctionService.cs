@@ -18,7 +18,7 @@ namespace Gardener.UserCenter.Client.Services
     /// 
     /// </summary>
     [ScopedService]
-    public class FunctionService : ApplicationServiceBase<FunctionDto, Guid>, IFunctionService
+    public class FunctionService : ClientServiceBase<FunctionDto, Guid>, IFunctionService
     {
         private readonly static string controller = "function";
         private readonly IApiCaller apiCaller;

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Services
 {
-    public interface IFunctionService : IApplicationServiceBase<FunctionDto, Guid>
+    public interface IFunctionService : IServiceBase<FunctionDto, Guid>
     {
         /// <summary>
         /// 启用禁用审计

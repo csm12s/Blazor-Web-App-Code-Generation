@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Gardener.Attachment.Client.Services
 {
     [ScopedService]
-    public class AttachmentService : ApplicationServiceBase<AttachmentDto, Guid>, IAttachmentService
+    public class AttachmentService : ClientServiceBase<AttachmentDto, Guid>, IAttachmentService
     {
 
         private readonly static string controller = "attachment";

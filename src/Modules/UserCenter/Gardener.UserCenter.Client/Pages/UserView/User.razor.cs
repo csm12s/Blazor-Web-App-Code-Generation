@@ -78,7 +78,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="userId"></param>
         private async Task OnEditUserRoleClick(int userId)
         {
-            var result = await drawerService.CreateDialogAsync<UserRoleEdit, int, bool>(userId, true, title: "分配角色", width: 500);
+            var result = await drawerService.CreateDialogAsync<UserRoleEdit, int, bool>(userId, true, title: localizer["setting_roles"], width: 500);
 
             if (result)
             {

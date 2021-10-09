@@ -9,7 +9,7 @@ using Gardener.Base;
 
 namespace Gardener.UserCenter.Services
 {
-    public interface IPositionService : IApplicationServiceBase<PositionDto, int>
+    public interface IPositionService : IServiceBase<PositionDto, int>
     {
     }
 }
