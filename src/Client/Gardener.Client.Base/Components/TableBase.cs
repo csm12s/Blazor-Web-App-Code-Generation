@@ -97,7 +97,7 @@ namespace Gardener.Client.Base.Components
             }
             else
             {
-                messageService.Error(localizer.Combination("load","fail"));
+                messageService.Error(localizer.Combination("加载","失败"));
             }
             _tableIsLoading = false;
         }
@@ -134,11 +134,11 @@ namespace Gardener.Client.Base.Components
                         pageRequest.PageIndex = pageRequest.PageIndex - 1;
                     }
                     await ReLoadTable();
-                    messageService.Success(localizer.Combination("delete", "success"));
+                    messageService.Success(localizer.Combination("删除", "成功"));
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination("delete", "fail"));
+                    messageService.Error(localizer.Combination("删除", "失败"));
                 }
             }
 
@@ -151,7 +151,7 @@ namespace Gardener.Client.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                messageService.Warn(localizer["no_selected_row"]);
+                messageService.Warn(localizer["未选中任何行"]);
             }
             else
             {
@@ -167,11 +167,11 @@ namespace Gardener.Client.Base.Components
                             pageRequest.PageIndex = pageRequest.PageIndex - 1;
                         }
                         await ReLoadTable();
-                        messageService.Success(localizer.Combination("delete", "success"));
+                        messageService.Success(localizer.Combination("删除", "成功"));
                     }
                     else
                     {
-                        messageService.Error(localizer.Combination("delete", "fail"));
+                        messageService.Error(localizer.Combination("删除", "失败"));
                     }
                 }
                 _deletesBtnLoading = false;
@@ -189,9 +189,9 @@ namespace Gardener.Client.Base.Components
             if (!result)
             {
                 model.IsLocked = !isLocked;
-                string msg = isLocked ? localizer["lock"] : localizer["unlock"];
+                string msg = isLocked ? localizer["锁定"] : localizer["解锁"];
 
-                messageService.Error($"{msg} {localizer["fail"]}");
+                messageService.Error($"{msg} {localizer["失败"]}");
             }
         }
     }
@@ -220,7 +220,7 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickAdd()
         {
             DrawerInput<TKey> input = DrawerInput<TKey>.IsAdd();
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["add"], width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["添加"], width: this.drawerSettings.Width);
 
             if (result.Succeeded)
             {
@@ -236,7 +236,7 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickEdit(TKey id)
         {
             DrawerInput<TKey> input = DrawerInput<TKey>.IsEdit(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["edit"], width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["编辑"], width: this.drawerSettings.Width);
 
             if (result.Succeeded)
             {
@@ -251,7 +251,7 @@ namespace Gardener.Client.Base.Components
         public async Task OnClickDetail(TKey id)
         {
             DrawerInput<TKey> input = DrawerInput<TKey>.IsSelect(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["detail"], width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["详情"], width: this.drawerSettings.Width);
         }
     }
 }

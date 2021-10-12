@@ -16,7 +16,7 @@
                     Style="width:100%;"
                     DataSource="deptDatas"
                     @bind-Value="@ParentDeptId"
-                    Placeholder="请选择"
+                    Placeholder="@localizer["请选择"]"
                     AllowClear="false"
                     TitleExpression="data => data.Name"
                     KeyExpression="data =>data.Id.ToString()"
@@ -60,13 +60,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @localizer["save"]
+                        @localizer["保存"]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @localizer["cancel"]
+                    @localizer["取消"]
                 </Button>
             </SpaceItem>
         </Space>

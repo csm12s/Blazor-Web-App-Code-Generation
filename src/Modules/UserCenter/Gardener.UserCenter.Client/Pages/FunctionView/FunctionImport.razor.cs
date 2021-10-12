@@ -116,7 +116,7 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
             _importLoading = true;
             if (_selectedFunctionDtos == null || !_selectedFunctionDtos.Any())
             {
-                messageService.Warn(localizer["no_selected_row"]);
+                messageService.Warn(localizer["未选中任何行"]);
                 _importLoading = false;
                 return;
             }

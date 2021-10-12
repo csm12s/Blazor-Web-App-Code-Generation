@@ -5,20 +5,14 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Client.Base;
+using Microsoft.AspNetCore.Components;
 
 namespace Gardener.Client.Entry
 {
     public partial class App
     {
-        private FormConfig formConfig = new FormConfig
-        {
-            ValidateMessages = new FormValidateErrorMessages
-            {
-                Required = "'{0}' 不能为空"
-            }
-        };
-
-        
-
+        [Inject]
+        private ClientModuleContext moduleContext { get; set; }
     }
 }

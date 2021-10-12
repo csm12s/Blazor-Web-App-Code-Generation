@@ -23,7 +23,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnEditRoleResourceClick(int id)
         {
-            var result = await drawerService.CreateDialogAsync<RoleResourceEdit, DrawerInput<int>, bool>(DrawerInput<int>.IsEdit(id), true, title: localizer["binding_resource"], width: 600);
+            var result = await drawerService.CreateDialogAsync<RoleResourceEdit, DrawerInput<int>, bool>(DrawerInput<int>.IsEdit(id), true, title: localizer["绑定资源"], width: 600);
             Console.WriteLine(result);
         }
        
@@ -37,7 +37,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             var result = await drawerService.CreateDialogAsync<RoleResourceDownload, string, bool>(
                       string.Empty,
                        true,
-                       title: localizer["seed_data"],
+                       title: localizer["种子数据"],
                        width: 1300,
                        placement: "right");
         }

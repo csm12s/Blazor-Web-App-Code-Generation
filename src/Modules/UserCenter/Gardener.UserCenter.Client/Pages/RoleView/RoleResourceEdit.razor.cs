@@ -127,12 +127,12 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             var result = await roleService.Resource(_roleId, resourceIds.Distinct().ToArray());
             if (result)
             {
-                messageService.Success(localizer.Combination("save", "success"));
+                messageService.Success(localizer.Combination("保存", "成功"));
                 await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination("save", "fail"));
+                messageService.Error(localizer.Combination("保存", "失败"));
             }
             _isLoading = false;
         }

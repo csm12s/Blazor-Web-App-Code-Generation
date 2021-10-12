@@ -32,7 +32,7 @@ namespace Gardener.Audit.Client.Pages
         {
             List<AuditEntityDto>  auditEntityDtos= await auditOperationService.GetAuditEntity(id);
 
-            await drawerService.CreateDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(auditEntityDtos, title: localizer["detail"], width: 960, placement: "left");
+            await drawerService.CreateDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(auditEntityDtos, title: localizer["详情"], width: 960, placement: "left");
         }
     }
 }

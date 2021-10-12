@@ -86,12 +86,12 @@ namespace Gardener.Client.Base
 
                 if (result != null)
                 {
-                    messageService.Success(localizer.Combination("add", "success"));
+                    messageService.Success(localizer.Combination("添加", "成功"));
                     await base.FeedbackRef.CloseAsync(DrawerOutput<TKey>.Succeed(result.Id));
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination("add", "fail"));
+                    messageService.Error(localizer.Combination("添加", "失败"));
                 }
             }
             else
@@ -100,12 +100,12 @@ namespace Gardener.Client.Base
                 var result = await _service.Update(_editModel);
                 if (result)
                 {
-                    messageService.Success(localizer.Combination("edit", "success"));
+                    messageService.Success(localizer.Combination("编辑", "成功"));
                     await base.FeedbackRef.CloseAsync(DrawerOutput<TKey>.Succeed(_editModel.Id));
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination("edit", "fail"));
+                    messageService.Error(localizer.Combination("编辑", "失败"));
                 }
             }
             _isLoading = false;

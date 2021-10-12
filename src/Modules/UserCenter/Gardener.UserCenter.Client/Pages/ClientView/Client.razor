@@ -4,8 +4,8 @@
     <PageContainer Title="">
         <Breadcrumb>
             <Breadcrumb>
-                <BreadcrumbItem>系统管理</BreadcrumbItem>
-                <BreadcrumbItem>客户端管理</BreadcrumbItem>
+                <BreadcrumbItem>@localizer["系统管理"]</BreadcrumbItem>
+                <BreadcrumbItem>@localizer["客户端管理"]</BreadcrumbItem>
             </Breadcrumb>
         </Breadcrumb>
         <ChildContent>
@@ -24,7 +24,7 @@
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                                    @localizer["delete_selected"]
+                                    @localizer["删除选中"]
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
@@ -33,14 +33,14 @@
                                 <ResourceAuthorize ResourceKey="user_center_position_add">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                            @localizer["add"]
+                                            @localizer["添加"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="user_center_position_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                            @localizer["refresh"]
+                                            @localizer["刷新"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
@@ -71,21 +71,21 @@
                         <Space>
                             <ResourceAuthorize ResourceKey="user_center_position_edit">
                                 <SpaceItem>
-                                    <Tooltip Title="@(localizer["edit"])" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
                                         <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_center_position_detail">
                                 <SpaceItem>
-                                    <Tooltip Title="@(localizer["detail"])" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
                                         <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="user_center_position_delete">
                                 <SpaceItem>
-                                    <Tooltip Title="@(localizer["delete"])" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
                                         <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>

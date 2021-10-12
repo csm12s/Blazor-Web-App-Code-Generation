@@ -4,8 +4,8 @@
     <PageContainer Title="">
         <Breadcrumb>
             <Breadcrumb>
-                <BreadcrumbItem>系统管理</BreadcrumbItem>
-                <BreadcrumbItem>资源管理</BreadcrumbItem>
+                <BreadcrumbItem>@localizer["系统管理"]</BreadcrumbItem>
+                <BreadcrumbItem>@localizer["资源管理"]</BreadcrumbItem>
             </Breadcrumb>
         </Breadcrumb>
         <ChildContent>
@@ -23,7 +23,7 @@
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_resource_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes">
-                                    @localizer["delete_selected"]
+                                    @localizer["删除选中"]
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
@@ -32,21 +32,21 @@
                                 <ResourceAuthorize ResourceKey="system_manager_resource_add">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                            @localizer["add"]
+                                            @localizer["添加"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_resource_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
-                                            @localizer["refresh"]
+                                            @localizer["刷新"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_resource_download_seed_data">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadClick">
-                                            @localizer["seed_data"]
+                                            @localizer["种子数据"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
@@ -87,7 +87,7 @@
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_resource_add_children">
                                 <SpaceItem>
-                                    <Tooltip Title="@(localizer["add_children"])" ArrowPointAtCenter="true">
+                                    <Tooltip Title="@(localizer["添加子项"])" ArrowPointAtCenter="true">
                                         <Button Icon="subnode" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickAddChildren(model)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
@@ -96,7 +96,7 @@
                             {
                                 <ResourceAuthorize ResourceKey="system_manager_resource_edit">
                                     <SpaceItem>
-                                        <Tooltip Title="@(localizer["edit"])" ArrowPointAtCenter="true">
+                                        <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
                                             <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model)"></Button>
                                         </Tooltip>
                                     </SpaceItem>
@@ -104,7 +104,7 @@
 
                                 <ResourceAuthorize ResourceKey="system_manager_resource_show_function">
                                     <SpaceItem>
-                                        <Tooltip Title="@(localizer["binding_api"])" ArrowPointAtCenter="true">
+                                        <Tooltip Title="@(localizer["绑定接口"])" ArrowPointAtCenter="true">
                                             <Button Icon="api" Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model)"></Button>
                                         </Tooltip>
                                     </SpaceItem>
@@ -112,7 +112,7 @@
 
                                 <ResourceAuthorize ResourceKey="system_manager_resource_detail">
                                     <SpaceItem>
-                                        <Tooltip Title="@(localizer["detail"])" ArrowPointAtCenter="true">
+                                        <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
                                             <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model)"></Button>
                                         </Tooltip>
                                     </SpaceItem>
@@ -120,7 +120,7 @@
 
                                 <ResourceAuthorize ResourceKey="system_manager_resource_delete">
                                     <SpaceItem>
-                                        <Tooltip Title="@(localizer["delete_includ_children"])" ArrowPointAtCenter="true">
+                                        <Tooltip Title="@(localizer["删除(包含子项)"])" ArrowPointAtCenter="true">
                                             <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model)"></Button>
                                         </Tooltip>
                                     </SpaceItem>

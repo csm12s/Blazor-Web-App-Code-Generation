@@ -28,12 +28,12 @@ namespace Gardener.Client.Base
 
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService, string title, string content)
         {
-            return await confirmService.YesNo(title, content, ConfirmIcon.Question, LocalizerUtil.GetValue("do"), LocalizerUtil.GetValue("cancel"));
+            return await confirmService.YesNo(title, content, ConfirmIcon.Question, LocalizerUtil.GetValue("确定"), LocalizerUtil.GetValue("取消"));
         }
 
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService)
         {
-            return await confirmService.YesNoDelete(LocalizerUtil.GetValue("delete"), string.Format(LocalizerUtil.GetValue("confirm_msg"), LocalizerUtil.GetValue("delete",true)));
+            return await confirmService.YesNoDelete(LocalizerUtil.GetValue("删除"), string.Format(LocalizerUtil.GetValue("确定要执行{0}吗?"), LocalizerUtil.GetValue("删除", true)));
         }
     }
 }

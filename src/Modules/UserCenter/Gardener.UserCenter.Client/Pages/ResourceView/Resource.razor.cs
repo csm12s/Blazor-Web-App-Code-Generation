@@ -41,7 +41,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
             var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
                       new ResourceFunctionEditOption { Id=model.Id,Type=0,Name=model.Name},
                       true,
-                      title: $"{localizer["binding_api"]}-[{model.Name}]",
+                      title: $"{localizer["绑定接口"]}-[{model.Name}]",
                       width: 1200,
                       placement: "right");
         }
@@ -54,7 +54,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
             var result = await drawerService.CreateDialogAsync<ResourceDownload, string, bool>(
                       string.Empty,
                        true,
-                       title: localizer["seed_data"],
+                       title: localizer["种子数据"],
                        width: 1300,
                        placement: "right");
         }

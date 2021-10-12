@@ -194,7 +194,7 @@ namespace Gardener.Client.Base.Components
             var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
                    option,
                    settings.Closable,
-                   title: localizer["edit"],
+                   title: localizer["编辑"],
                    width: settings.Width,
                    placement: settings.Placement.ToString().ToLower());
             if (result.Succeeded)
@@ -262,7 +262,7 @@ namespace Gardener.Client.Base.Components
             var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
                   GetAddOption(),
                    settings.Closable,
-                   title: localizer["add"],
+                   title: localizer["添加"],
                    width: settings.Width,
                    placement: settings.Placement.ToString().ToLower());
             if (result.Succeeded) 
@@ -282,7 +282,7 @@ namespace Gardener.Client.Base.Components
             var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
                    GetAddOption(dto),
                    settings.Closable,
-                   title: localizer["add"],
+                   title: localizer["添加"],
                    width: settings.Width,
                    placement: settings.Placement.ToString().ToLower());
             if (result.Succeeded)
@@ -336,7 +336,7 @@ namespace Gardener.Client.Base.Components
             var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
                    option,
                    settings.Closable,
-                   title: localizer["detail"],
+                   title: localizer["详情"],
                    width: settings.Width,
                    placement: settings.Placement.ToString().ToLower());
         }

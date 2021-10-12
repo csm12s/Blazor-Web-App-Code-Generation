@@ -4,13 +4,15 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Authentication.Client
+using System.Collections.Generic;
+using System.Reflection;
+
+namespace Gardener.Client.Base
 {
-    /// <summary>
-    /// 入口
-    /// </summary>
-    public static class Entry
+    public class ClientModuleContext
     {
-        
+        public List<string> ModeuleDlls { get; set; }
+
+        public Assembly[] ModeuleAssemblies { get; set; }
     }
 }

@@ -20,13 +20,13 @@ namespace Gardener.UserCenter.Dtos
         /// 名称
         /// </summary>
         [DisplayName("名称")]
-        [Required, MaxLength(30)]
+        [Required, MaxLength(30,ErrorMessage = "最大长度不能大于{1}")]
         public string Name { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(500), Required]
+        [MaxLength(500, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         [DisplayName("备注")]
         public string Remark { get; set; }
 
@@ -34,27 +34,27 @@ namespace Gardener.UserCenter.Dtos
         /// 联系人
         /// </summary>
         [DisplayName("联系人")]
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
         public string Contacts { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
         [DisplayName("电话")]
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
         public string Tel { get; set; }
 
         /// <summary>
         /// 加密Key
         /// </summary>
-        [Required, StringLength(64)]
+        [Required(ErrorMessage = "不能为空"), StringLength(64, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("加密KEY")]
         public string EncryptKey { get; set; }
 
         /// <summary>
         /// 邮箱
         /// </summary>
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("邮箱")]
         public string Email { get; set; }
     }

@@ -1,24 +1,23 @@
-<ConfigProvider Form="formConfig">
-    <Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="Core.Entry.GetAssemblies()">
-        <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-                <Authorizing>
-                    Authorizing...
-                </Authorizing>
-                <NotAuthorized>
-                    <Gardener.Client.Base.Shared.RedirectToLogin />
-                </NotAuthorized>
-            </AuthorizeRouteView>
-        </Found>
-        <NotFound>
-            <CascadingAuthenticationState>
-                <LayoutView Layout="@typeof(Gardener.Client.Base.Shared.LoginLayout)">
-                    <Result Status="404"
-                            Title="404"
-                            SubTitle="Sorry, the page you visited does not exist.">
-                    </Result>
-                </LayoutView>
-            </CascadingAuthenticationState>
-        </NotFound>
-    </Router>
-</ConfigProvider>
+
+<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@moduleContext.ModeuleAssemblies">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <Authorizing>
+                Authorizing...
+            </Authorizing>
+            <NotAuthorized>
+                <Gardener.Client.Base.Shared.RedirectToLogin />
+            </NotAuthorized>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(Gardener.Client.Base.Shared.LoginLayout)">
+                <Result Status="404"
+                        Title="404"
+                        SubTitle="Sorry, the page you visited does not exist.">
+                </Result>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>

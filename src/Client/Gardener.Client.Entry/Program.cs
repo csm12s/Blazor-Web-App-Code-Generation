@@ -67,15 +67,20 @@ namespace Gardener.Client.Entry
             builder.Services.AddCulture<App>();
             #endregion
 
-            #region services
-            builder.Services.AddServicesWithAttributeOfType(Core.Entry.GetAssemblies());
+            #region module
+            builder.AddModuleLoader();
             #endregion
 
+            #region services
+            builder.Services.AddServicesWithAttributeOfTypeFromModuleContext();
+            #endregion
+
+            #region  Mapster ≈‰÷√
             builder.Services.AddTypeAdapterConfigs();
+            #endregion
 
-            var host = await builder
-                 .Build().UseCulture();
-
+            var host =builder.Build();
+            await host.UseCulture();
             await host.RunAsync();
         }
     }

@@ -127,7 +127,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer["no_selected_row"]);
+                messageService.Warn(localizer["未选中任何行"]);
                 return;
             }
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -136,7 +136,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
                 {
                     await resourceFunctionService.Delete(this.Options.Id, item.Id);
                 }
-                messageService.Success(localizer.Combination("delete", "success"));
+                messageService.Success(localizer.Combination("删除", "成功"));
                 await OnInitializedAsync();
             }
         }
@@ -148,7 +148,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
             var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
                      new ResourceFunctionEditOption { Id = id, Type = 1 },
                      true,
-                     title: $"{localizer["binding_api"]}-[{this.Options.Name}]",
+                     title: $"{localizer["绑定接口"]}-[{this.Options.Name}]",
                      width: 1200,
                      placement: "right");
             if (result)
@@ -163,7 +163,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer["no_selected_row"]);
+                messageService.Warn(localizer["未选中任何行"]);
                 return;
             }
 
@@ -178,12 +178,12 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
             }).ToList());
             if (result)
             {
-                messageService.Success(localizer.Combination("binding","success"));
+                messageService.Success(localizer.Combination("绑定","成功"));
                 await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination("binding", "fail"));
+                messageService.Error(localizer.Combination("绑定", "失败"));
             }
         }
     }

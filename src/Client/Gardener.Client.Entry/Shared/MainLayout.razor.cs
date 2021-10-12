@@ -49,7 +49,7 @@ namespace Gardener.Client.Entry.Shared
         private void InitEnum(ResourceDto resourceDto, MenuDataItem parent = null)
         {
 
-            string nameLocalizer = Loc[resourceDto.Key];
+            string nameLocalizer = Loc[resourceDto.Name];
 
             string path = resourceDto.Path;
             //path为空，还没有子级的会报错，设置个key
@@ -60,7 +60,7 @@ namespace Gardener.Client.Entry.Shared
             var current = new MenuDataItem
             {
                 Path = path,
-                Name = nameLocalizer.Equals(resourceDto.Key)? resourceDto.Name: nameLocalizer,
+                Name = nameLocalizer,
                 Key = resourceDto.Key,
                 Icon = resourceDto.Icon ?? "",
             };
