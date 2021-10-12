@@ -50,11 +50,11 @@ namespace Gardener.UserCenter.Impl.Domains
         public string Tel { get; set; }
 
         /// <summary>
-        /// 加密Key
+        /// 密匙
         /// </summary>
         [Required, StringLength(64)]
-        [DisplayName("加密KEY")]
-        public string EncryptKey { get; set; }
+        [DisplayName("密匙")]
+        public string SecretKey { get; set; }
 
         /// <summary>
         /// 邮箱
@@ -94,7 +94,7 @@ namespace Gardener.UserCenter.Impl.Domains
                 Contacts="园丁",
                 CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                 Email="qq@qq.com",
-                EncryptKey="9f700cec-b787-4e23-a2da-9e45b3bd6cbb",
+                SecretKey="9f700cec-b787-4e23-a2da-9e45b3bd6cbb",
                 Remark="用于测试",
                 Tel="13838888888"
                 }

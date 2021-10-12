@@ -626,6 +626,21 @@
             描述
             </summary>
         </member>
+        <member name="T:Gardener.Authorization.Dtos.ClientLoginInput">
+            <summary>
+            客户端登录输入
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ClientLoginInput.ClientId">
+            <summary>
+            客户端编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ClientLoginInput.SecretKey">
+            <summary>
+            密匙
+            </summary>
+        </member>
         <member name="T:Gardener.Authorization.Dtos.LoginInput">
             <summary>
             登录输入参数

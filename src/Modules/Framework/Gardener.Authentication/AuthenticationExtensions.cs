@@ -41,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 AuthorizationPolicy policy= new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
-                        .AddAuthenticationSchemes(IdentityType.User.ToString())
+                        .AddAuthenticationSchemes(IdentityType.User.ToString(), IdentityType.Client.ToString())
                         .Build();
 
                 //身份认证

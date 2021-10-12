@@ -54,9 +54,9 @@
             电话
             </summary>
         </member>
-        <member name="P:Gardener.UserCenter.Impl.Domains.Client.EncryptKey">
+        <member name="P:Gardener.UserCenter.Impl.Domains.Client.SecretKey">
             <summary>
-            加密Key
+            密匙
             </summary>
         </member>
         <member name="P:Gardener.UserCenter.Impl.Domains.Client.Email">
@@ -849,10 +849,21 @@
             客户端服务
             </summary>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Client})">
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.#ctor(Gardener.Authentication.Core.IJwtService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Client})">
             <summary>
-            客户端服务
+            
             </summary>
+            <param name="jwtBearerService"></param>
+            <param name="httpContextAccessor"></param>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.Login(Gardener.Authorization.Dtos.ClientLoginInput)">
+            <summary>
+            登录
+            </summary>
+            <param name="input"></param>
+            <remarks>登录接口</remarks>
+            <returns></returns>
         </member>
         <member name="T:Gardener.UserCenter.Impl.Services.DeptService">
             <summary>

@@ -29,9 +29,9 @@
             电话
             </summary>
         </member>
-        <member name="P:Gardener.UserCenter.Dtos.ClientDto.EncryptKey">
+        <member name="P:Gardener.UserCenter.Dtos.ClientDto.SecretKey">
             <summary>
-            加密Key
+            密匙
             </summary>
         </member>
         <member name="P:Gardener.UserCenter.Dtos.ClientDto.Email">

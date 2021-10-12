@@ -89,5 +89,10 @@ namespace Gardener.Enums
         /// </summary>
         [Description("TOKEN无效")]
         TOKEN_INVALID,
+        /// <summary>
+        /// 客户端登录失败
+        /// </summary>
+        [Description("客户端登录失败")]
+        CLIENT_LOGIN_FAIL
     }
 }

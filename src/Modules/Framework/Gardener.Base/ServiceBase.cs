@@ -40,7 +40,7 @@ namespace Gardener
     /// <typeparam name="TKey">数据实体主键类型</typeparam>
     public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
-        private readonly IRepository<TEntity> _repository;
+        public readonly IRepository<TEntity> _repository;
         /// <summary>
         /// 继承此类即可实现基础方法
         /// 方法包括：CURD、获取全部、分页获取 

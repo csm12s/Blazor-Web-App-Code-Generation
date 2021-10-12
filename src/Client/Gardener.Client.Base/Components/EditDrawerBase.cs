@@ -55,7 +55,7 @@ namespace Gardener.Client.Base
                 }
                 else
                 {
-                    messageService.Error(localizer["not_find_data"]);
+                    messageService.Error(localizer["数据未找到"]);
                 }
             }
             _isLoading = false;

@@ -22,7 +22,7 @@
                 <TitleTemplate>
                     <Row>
                         <AntDesign.Col Span="8">
-                            <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
+                            <ResourceAuthorize ResourceKey="system_manager_client_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                                     @localizer["删除选中"]
                                 </Button>
@@ -30,14 +30,14 @@
                         </AntDesign.Col>
                         <AntDesign.Col Span="16" Style="text-align:right">
                             <Space>
-                                <ResourceAuthorize ResourceKey="user_center_position_add">
+                                <ResourceAuthorize ResourceKey="system_manager_client_add">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
                                             @localizer["添加"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
-                                <ResourceAuthorize ResourceKey="user_center_position_refresh">
+                                <ResourceAuthorize ResourceKey="system_manager_client_refresh">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                             @localizer["刷新"]
@@ -49,7 +49,7 @@
                     </Row>
                 </TitleTemplate>
                 <RowTemplate>
-                    <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
+                    <ResourceAuthorize ResourceKey="system_manager_client_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
                     <Column @bind-Field="@model.Name" Filterable />
@@ -57,7 +57,7 @@
                     <Column @bind-Field="@model.Tel" Filterable />
                     <Column @bind-Field="@model.Email" Filterable />
                     <Column @bind-Field="@model.IsLocked" Filterable>
-                        <ResourceAuthorize ResourceKey="user_center_position_lock">
+                        <ResourceAuthorize ResourceKey="system_manager_client_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                             </Authorized>
@@ -69,21 +69,21 @@
                     <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
                     <ActionColumn>
                         <Space>
-                            <ResourceAuthorize ResourceKey="user_center_position_edit">
+                            <ResourceAuthorize ResourceKey="system_manager_client_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
                                         <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
-                            <ResourceAuthorize ResourceKey="user_center_position_detail">
+                            <ResourceAuthorize ResourceKey="system_manager_client_detail">
                                 <SpaceItem>
                                     <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
                                         <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
-                            <ResourceAuthorize ResourceKey="user_center_position_delete">
+                            <ResourceAuthorize ResourceKey="system_manager_client_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
                                         <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
