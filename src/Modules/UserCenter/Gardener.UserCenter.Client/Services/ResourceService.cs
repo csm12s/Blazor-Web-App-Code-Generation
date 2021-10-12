@@ -16,12 +16,8 @@ namespace Gardener.UserCenter.Client.Services
     [ScopedService]
     public class ResourceService : ClientServiceBase<ResourceDto,Guid>,IResourceService
     {
-        private readonly static string controller = "resource";
-        private readonly IApiCaller apiCaller;
-
-        public ResourceService(IApiCaller apiCaller):base(apiCaller,controller)
+        public ResourceService(IApiCaller apiCaller):base(apiCaller, "resource")
         {
-            this.apiCaller = apiCaller;
         }
 
         /// <summary>

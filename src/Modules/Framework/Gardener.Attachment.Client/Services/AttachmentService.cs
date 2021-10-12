@@ -19,12 +19,8 @@ namespace Gardener.Attachment.Client.Services
     public class AttachmentService : ClientServiceBase<AttachmentDto, Guid>, IAttachmentService
     {
 
-        private readonly static string controller = "attachment";
-        private readonly IApiCaller apiCaller;
-
-        public AttachmentService(IApiCaller apiCaller) : base(apiCaller, controller)
+        public AttachmentService(IApiCaller apiCaller) : base(apiCaller, "attachment")
         {
-            this.apiCaller = apiCaller;
         }
 
         public async Task<PagedList<AttachmentDto>> Search(int? businessType, int? fileType, string businessId, string order = "desc", int pageIndex = 1, int pageSize = 10)

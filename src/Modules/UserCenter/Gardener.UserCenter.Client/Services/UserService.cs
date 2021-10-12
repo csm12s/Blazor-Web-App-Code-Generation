@@ -18,13 +18,8 @@ namespace Gardener.UserCenter.Client.Services
     [ScopedService]
     public class UserService : ClientServiceBase<UserDto>,IUserService
     {
-        private readonly static string controller = "user";
-
-        private readonly IApiCaller apiCaller;
-
-        public UserService(IApiCaller apiCaller):base(apiCaller,controller)
+        public UserService(IApiCaller apiCaller):base(apiCaller, "user")
         {
-            this.apiCaller = apiCaller;
         }
 
         public Task<List<ResourceDto>> GetResources(int userId)

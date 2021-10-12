@@ -16,11 +16,8 @@ namespace Gardener.Audit.Client.Services
     [ScopedService]
     public class AuditOperationService : ClientServiceBase<AuditOperationDto, Guid>, IAuditOperationService
     {
-        private readonly static string controller = "audit-operation";
-        private readonly IApiCaller apiCaller;
-        public AuditOperationService(IApiCaller apiCaller) : base(apiCaller, controller)
+        public AuditOperationService(IApiCaller apiCaller) : base(apiCaller, "audit-operation")
         {
-            this.apiCaller = apiCaller;
         }
 
         public async Task<List<AuditEntityDto>> GetAuditEntity(Guid operationId)

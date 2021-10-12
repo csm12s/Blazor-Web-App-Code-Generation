@@ -1,4 +1,4 @@
-﻿@inherits FeedbackComponent<ResourceFunctionEditOption, bool>
+﻿@inherits FeedbackComponent<ClientFunctionEditOption, bool>
 <Spin Spinning="_loading">
     <Row Style="margin-top:10px;">
         <AntDesign.Col>
@@ -19,7 +19,7 @@
                     {
                         <Row>
                             <AntDesign.Col Span="8">
-                                <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
+                                <ResourceAuthorize ResourceKey="system_manager_client_function_delete_selected">
                                     <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnFunctionDeletesClick">
                                         @localizer["删除选中"]
                                     </Button>
@@ -27,7 +27,7 @@
                             </AntDesign.Col>
                             <AntDesign.Col Span="16" Style="text-align:right">
                                 <Space>
-                                    <ResourceAuthorize ResourceKey="system_manager_resource_function_add_page_show">
+                                    <ResourceAuthorize ResourceKey="system_manager_client_function_add_page_show">
                                         <SpaceItem>
                                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Id)">
                                                 @localizer["选择"]
@@ -44,7 +44,7 @@
 
                             <AntDesign.Col Span="24">
                                 <Space>
-                                    <ResourceAuthorize ResourceKey="system_manager_resource_function_binding">
+                                    <ResourceAuthorize ResourceKey="system_manager_client_function_binding">
                                         <SpaceItem>
                                             <Button Type="@ButtonType.Primary" Icon="check" OnClick="x => OnFunctionAddClick()">
                                                 @localizer["绑定"]
@@ -57,7 +57,7 @@
                     }
                 </TitleTemplate>
                 <RowTemplate>
-                    <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
+                    <ResourceAuthorize ResourceKey="system_manager_client_function_delete_selected">
                         <Selection Key="@(model.Path+"_"+model.Method)" Width="50" />
                     </ResourceAuthorize>
                     <Column TData="string" @bind-Field="@model.Group" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />

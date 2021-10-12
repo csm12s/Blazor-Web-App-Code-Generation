@@ -844,18 +844,52 @@
             </remarks>
             <returns></returns>
         </member>
+        <member name="T:Gardener.UserCenter.Impl.Services.ClientFunctionService">
+            <summary>
+            客户端与接口关系服务
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientFunctionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.ClientFunction})">
+            <summary>
+            客户端与接口关系服务
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientFunctionService.Add(System.Collections.Generic.List{Gardener.UserCenter.Dtos.ClientFunctionDto})">
+            <summary>
+            添加客户端与接口关系
+            </summary>
+            <param name="clientFunctionDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientFunctionService.Delete(System.Guid,System.Guid)">
+            <summary>
+            删除客户端与接口关系
+            </summary>
+            <param name="clientId"></param>
+            <param name="functionId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.UserCenter.Impl.Services.ClientService">
             <summary>
             客户端服务
             </summary>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.#ctor(Gardener.Authentication.Core.IJwtService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Client})">
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.#ctor(Gardener.Authentication.Core.IJwtService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Client},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.ClientFunction})">
             <summary>
             
             </summary>
             <param name="jwtBearerService"></param>
             <param name="httpContextAccessor"></param>
             <param name="repository"></param>
+            <param name="clientFunctionRespository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.GetFunctions(System.Guid)">
+            <summary>
+            根据客户端编号获取绑定的接口列表
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="M:Gardener.UserCenter.Impl.Services.ClientService.Login(Gardener.Authorization.Dtos.ClientLoginInput)">
             <summary>

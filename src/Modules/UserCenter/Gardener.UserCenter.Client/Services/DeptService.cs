@@ -18,11 +18,8 @@ namespace Gardener.UserCenter.Client.Services
     [ScopedService]
     public class DeptService : ClientServiceBase<DeptDto>, IDeptService
     {
-        private static readonly string controller = "dept";
-        private readonly IApiCaller apiCaller;
-        public DeptService(IApiCaller apiCaller) : base(apiCaller, controller)
+        public DeptService(IApiCaller apiCaller) : base(apiCaller, "dept")
         {
-            this.apiCaller = apiCaller;
         }
 
         public async Task<string> GetSeedData()

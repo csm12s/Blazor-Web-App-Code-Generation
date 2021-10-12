@@ -83,6 +83,13 @@
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="system_manager_client_show_function">
+                                <SpaceItem>
+                                    <Tooltip Title="@(localizer["绑定接口"])" ArrowPointAtCenter="true">
+                                        <Button Icon="api" Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
                             <ResourceAuthorize ResourceKey="system_manager_client_delete">
                                 <SpaceItem>
                                     <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">

@@ -18,11 +18,8 @@ namespace Gardener.Client.Services
     [ScopedService]
     public class LoginTokenService : ClientServiceBase<LoginTokenDto, Guid>, ILoginTokenService
     {
-        private static readonly string controller = "login-token";
-        private readonly IApiCaller apiCaller;
-        public LoginTokenService(IApiCaller apiCaller) : base(apiCaller, controller)
+        public LoginTokenService(IApiCaller apiCaller) : base(apiCaller, "login-token")
         {
-            this.apiCaller = apiCaller;
         }
 
         public async Task<bool> Disable(Guid id, bool isDisabled = true)

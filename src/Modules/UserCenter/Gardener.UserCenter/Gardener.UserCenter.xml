@@ -39,6 +39,26 @@
             邮箱
             </summary>
         </member>
+        <member name="T:Gardener.UserCenter.Dtos.ClientFunctionDto">
+            <summary>
+            客户端功能信息
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientFunctionDto.ClientId">
+            <summary>
+            客户端编号
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientFunctionDto.FunctionId">
+            <summary>
+            功能Id
+            </summary>
+        </member>
+        <member name="P:Gardener.UserCenter.Dtos.ClientFunctionDto.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="T:Gardener.UserCenter.Dtos.DeptDto">
             <summary>
             部门信息
@@ -545,10 +565,37 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Gardener.UserCenter.Services.IClientFunctionService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IClientFunctionService.Add(System.Collections.Generic.List{Gardener.UserCenter.Dtos.ClientFunctionDto})">
+            <summary>
+            添加客户端与接口关系
+            </summary>
+            <param name="clientFunctionDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IClientFunctionService.Delete(System.Guid,System.Guid)">
+            <summary>
+            删除客户端与接口关系
+            </summary>
+            <param name="clientId"></param>
+            <param name="functionId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.UserCenter.Services.IClientService">
             <summary>
             客户端服务
             </summary>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IClientService.GetFunctions(System.Guid)">
+            <summary>
+            根据客户端编号获取
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="T:Gardener.UserCenter.Services.IDeptService">
             <summary>

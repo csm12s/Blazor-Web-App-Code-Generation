@@ -33,8 +33,8 @@ namespace Gardener.Client.Base
     /// <typeparam name="Tkey"></typeparam>
     public abstract class ClientServiceBase<T,Tkey> : IServiceBase<T, Tkey> where T : class, new()
     {
-        private string controller;
-        private readonly IApiCaller apiCaller;
+        public readonly string controller;
+        public readonly IApiCaller apiCaller;
         protected ClientServiceBase(IApiCaller apiCaller, string controller)
         {
             this.apiCaller = apiCaller;

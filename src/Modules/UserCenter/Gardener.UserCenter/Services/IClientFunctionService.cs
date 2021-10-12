@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Gardener.UserCenter.Dtos;
 using System;
 using System.Collections.Generic;
@@ -13,15 +12,23 @@ using System.Threading.Tasks;
 namespace Gardener.UserCenter.Services
 {
     /// <summary>
-    /// 客户端服务
+    /// 
     /// </summary>
-    public interface IClientService : IServiceBase<ClientDto, Guid>
+    public interface IClientFunctionService
     {
         /// <summary>
-        /// 根据客户端编号获取
+        /// 添加客户端与接口关系
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="clientFunctionDtos"></param>
         /// <returns></returns>
-        Task<List<FunctionDto>> GetFunctions(Guid id);
+        Task<bool> Add(List<ClientFunctionDto> clientFunctionDtos);
+
+        /// <summary>
+        /// 删除客户端与接口关系
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="functionId"></param>
+        /// <returns></returns>
+        Task<bool> Delete(Guid clientId, Guid functionId);
     }
 }

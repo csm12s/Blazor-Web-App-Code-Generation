@@ -17,13 +17,8 @@ namespace Gardener.UserCenter.Client.Services
     [ScopedService]
     public class RoleService : ClientServiceBase<RoleDto>,IRoleService
     {
-        private readonly static string controller = "role";
-
-        private IApiCaller apiCaller;
-
-        public RoleService(IApiCaller apiCaller):base(apiCaller,controller)
+        public RoleService(IApiCaller apiCaller):base(apiCaller, "role")
         {
-            this.apiCaller = apiCaller;
         }
 
         public async Task<bool> DeleteResource(int roleId)

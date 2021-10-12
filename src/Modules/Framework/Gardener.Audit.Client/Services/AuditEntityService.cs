@@ -17,11 +17,8 @@ namespace Gardener.Audit.Client.Services
     [ScopedService]
     public class AuditEntityService : ClientServiceBase<AuditEntityDto, Guid>, IAuditEntityService
     {
-        private readonly static string controller = "audit-entity";
-        private readonly IApiCaller apiCaller;
-        public AuditEntityService(IApiCaller apiCaller) : base(apiCaller, controller)
+        public AuditEntityService(IApiCaller apiCaller) : base(apiCaller, "audit-entity")
         {
-            this.apiCaller = apiCaller;
         }
     }
 }

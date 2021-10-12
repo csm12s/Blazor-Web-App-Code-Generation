@@ -16,12 +16,8 @@ namespace Gardener.UserCenter.Client.Services
     [ScopedService]
     public class PositionService : ClientServiceBase<PositionDto, int>, IPositionService
     {
-        private readonly static string controller = "position";
-
-        private IApiCaller apiCaller;
-        public PositionService(IApiCaller apiCaller) : base(apiCaller, controller)
+        public PositionService(IApiCaller apiCaller) : base(apiCaller, "position")
         {
-            this.apiCaller = apiCaller;
         }
         
         public async Task<PagedList<PositionDto>> Search(string name, int pageIndex = 1, int pageSize = 10)

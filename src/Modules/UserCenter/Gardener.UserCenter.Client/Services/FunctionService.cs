@@ -20,11 +20,8 @@ namespace Gardener.UserCenter.Client.Services
     [ScopedService]
     public class FunctionService : ClientServiceBase<FunctionDto, Guid>, IFunctionService
     {
-        private readonly static string controller = "function";
-        private readonly IApiCaller apiCaller;
-        public FunctionService(IApiCaller apiCaller) : base(apiCaller, controller)
+        public FunctionService(IApiCaller apiCaller) : base(apiCaller, "function")
         {
-            this.apiCaller = apiCaller;
         }
 
         public async Task<bool> EnableAudit(Guid id, bool enableAudit=true)

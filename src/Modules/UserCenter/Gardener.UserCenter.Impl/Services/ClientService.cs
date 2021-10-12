@@ -19,7 +19,9 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,16 +35,34 @@ namespace Gardener.UserCenter.Impl.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IJwtService _jwtBearerService;
+        private readonly IRepository<ClientFunction> _clientFunctionRespository;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="jwtBearerService"></param>
         /// <param name="httpContextAccessor"></param>
         /// <param name="repository"></param>
-        public ClientService(IJwtService jwtBearerService, IHttpContextAccessor httpContextAccessor, IRepository<Client> repository) : base(repository)
+        /// <param name="clientFunctionRespository"></param>
+        public ClientService(IJwtService jwtBearerService, IHttpContextAccessor httpContextAccessor, IRepository<Client> repository, IRepository<ClientFunction> clientFunctionRespository) : base(repository)
         {
             _jwtBearerService = jwtBearerService;
             _httpContextAccessor = httpContextAccessor;
+            _clientFunctionRespository = clientFunctionRespository;
+        }
+        /// <summary>
+        /// 根据客户端编号获取绑定的接口列表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<List<FunctionDto>> GetFunctions(Guid id)
+        {
+            return await _clientFunctionRespository.AsQueryable(false)
+                  .Include(x => x.Function)
+                  .Where(x => x.ClientId.Equals(id))
+                  .Select(x => x.Function)
+                  .Where(x => x.IsDeleted == false && x.IsLocked == false)
+                  .Select(x => x.Adapt<FunctionDto>())
+                  .ToListAsync();
         }
 
         /// <summary>
