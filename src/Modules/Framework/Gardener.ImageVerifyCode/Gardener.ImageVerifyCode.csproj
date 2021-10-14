@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Gardener.ImageVerifyCode.CacheStore\Gardener.ImageVerifyCode.CacheStore.csproj" />
     <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
+    <ProjectReference Include="..\Gardener.ImageVerifyCode.CacheStore\Gardener.ImageVerifyCode.CacheStore.csproj" />
     <ProjectReference Include="..\Gardener.ImageVerifyCode.DbStore\Gardener.ImageVerifyCode.DbStore.csproj" />
     <ProjectReference Include="..\Gardener\Gardener.csproj" />
   </ItemGroup>
