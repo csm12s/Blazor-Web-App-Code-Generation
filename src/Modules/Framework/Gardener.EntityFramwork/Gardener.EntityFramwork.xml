@@ -184,12 +184,17 @@
         </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditEntity.OperaterId">
             <summary>
-            操作人
+            操作者编号
             </summary>
         </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditEntity.OperaterName">
             <summary>
-            操作人
+            操作者名称
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditEntity.OperaterType">
+            <summary>
+            操作者类型
             </summary>
         </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditEntity.OperationId">
@@ -234,12 +239,17 @@
         </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditOperation.OperaterId">
             <summary>
-            用户标识
+            操作者编号
             </summary>
         </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditOperation.OperaterName">
             <summary>
-            用户名
+            操作者名称
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditOperation.OperaterType">
+            <summary>
+            操作者类型
             </summary>
         </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditOperation.Ip">

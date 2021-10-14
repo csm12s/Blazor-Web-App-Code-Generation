@@ -14,7 +14,7 @@ namespace Gardener.Authentication.Core
         /// <summary>
         /// 
         /// </summary>
-        public static readonly string ClientIdKeyName = "clientId";
+        public static readonly string ClientIdKeyName = "loginId";
         /// <summary>
         /// 
         /// </summary>

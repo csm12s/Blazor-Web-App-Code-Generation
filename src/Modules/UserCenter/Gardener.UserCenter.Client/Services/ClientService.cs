@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
@@ -22,6 +23,17 @@ namespace Gardener.UserCenter.Client.Services
         public async Task<List<FunctionDto>> GetFunctions(Guid id)
         {
             return await apiCaller.GetAsync<List<FunctionDto>>($"{controller}/{id}/functions");
+        }
+
+        public async Task<TokenOutput> Login(ClientLoginInput input)
+        {
+            var result = await apiCaller.PostAsync<ClientLoginInput, TokenOutput>($"{controller}/login", input);
+            return result;
+        }
+
+        public async Task<TokenOutput> RefreshToken(RefreshTokenInput input)
+        {
+            return await apiCaller.PostAsync<RefreshTokenInput, TokenOutput>($"{controller}/refresh-token", input);
         }
     }
 }

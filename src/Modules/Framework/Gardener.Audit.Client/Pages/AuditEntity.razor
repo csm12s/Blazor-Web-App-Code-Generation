@@ -45,14 +45,18 @@
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.OperaterName" Filterable/>
-                    <Column @bind-Field="@model.Name" Filterable/>
-                    <Column @bind-Field="@model.TypeName" Filterable/>
-                    <Column @bind-Field="@model.DataId" Width="300"/>
+                    <Column @bind-Field="@model.OperaterId" Filterable />
+                    <Column @bind-Field="@model.OperaterName" Filterable />
+                    <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.OperaterType)"></TagRandomColor>
+                    </Column>
+                    <Column @bind-Field="@model.Name" Filterable />
+                    <Column @bind-Field="@model.TypeName" Filterable />
+                    <Column @bind-Field="@model.DataId" Width="300" />
                     <Column @bind-Field="@model.OperationType" Filters="TableFiltersConstants.OperationTypeFilters">
                         <Tag>@EnumHelper.GetEnumDescription(model.OperationType)</Tag>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_entity_detail">

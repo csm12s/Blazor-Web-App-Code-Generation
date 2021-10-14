@@ -7,6 +7,7 @@
 using Gardener.Attributes;
 using Gardener.Audit.Dtos;
 using Gardener.Authentication.Dtos;
+using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;
 using Gardener.Authorization.Dtos;
 using Gardener.EntityFramwork.Audit.Core;
@@ -93,7 +94,8 @@ namespace Gardener.Audit.Core
                 UserAgent = ua.ToString(),
                 OperaterId = identity != null? identity.Id.ToString():null,
                 OperaterName = identity != null ? (identity.GivenName ?? identity.Name):null,
-                ResourceId = api!=null? api.Id:Guid.Empty,
+                OperaterType = identity != null ? identity.IdentityType : IdentityType.Unknown,
+            ResourceId = api!=null? api.Id:Guid.Empty,
                 ResourceName = api!=null? api.Service+":"+api.Summary:null
             };
             await auditService.SaveAuditOperation(auditOperation);

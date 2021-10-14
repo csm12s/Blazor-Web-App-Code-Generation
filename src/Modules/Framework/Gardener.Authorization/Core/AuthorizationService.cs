@@ -6,6 +6,7 @@
 
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
+using Gardener.Authentication.Services;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +37,6 @@ namespace Gardener.Authorization.Core
         /// 
         /// </summary>
         private readonly IIdentityService _identityService;
-
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -46,7 +46,7 @@ namespace Gardener.Authorization.Core
         /// <param name="identityService"></param>
         public AuthorizationService(IHttpContextAccessor httpContextAccessor,
             IApiEndpointStoreService apiEndpointStoreService,
-            IIdentityPermissionService identityPermissionService, 
+            IIdentityPermissionService identityPermissionService,
             IIdentityService identityService)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -70,9 +70,19 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public async Task<bool> ChecktContenxtApiEndpoint()
         {
-            ApiEndpoint function =await GetApiEndpointFromContext();
+            Identity identity = this._identityService.GetIdentity();
+            if (identity == null) {
+                return false;
+            }
+            //clientId 已不可用
+            if (!await _identityPermissionService.CheckLoginIdUsable(identity.LoginId)) 
+            {
+                return false;
+            }
 
-            return await _identityPermissionService.Check(this._identityService.GetIdentity(), function);
+            ApiEndpoint api =await GetApiEndpointFromContext();
+
+            return await _identityPermissionService.Check(identity, api);
         }
 
         #region private
@@ -116,11 +126,19 @@ namespace Gardener.Authorization.Core
             return await _apiEndpointStoreService.Query(path, method);
         }
 
+        /// <summary>
+        /// 获取身份
+        /// </summary>
+        /// <returns></returns>
         public Identity GetIdentity()
         {
             return _identityService.GetIdentity();
         }
 
+        /// <summary>
+        /// 获取身份的编号
+        /// </summary>
+        /// <returns></returns>
         public object GetIdentityId()
         {
             return _identityPermissionService.GetIdentityId(GetIdentity());

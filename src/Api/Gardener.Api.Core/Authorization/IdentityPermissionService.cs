@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Furion.FriendlyException;
+using Gardener.Authentication.Domains;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Dtos;
@@ -23,26 +24,6 @@ namespace Gardener.Authorization.Core
     /// </summary>
     public class IdentityPermissionService : IIdentityPermissionService
     {
-        /// <summary>
-        /// 用户仓储
-        /// </summary>
-        private readonly IRepository<User> _userRepository;
-
-        /// <summary>
-        /// 用户仓储
-        /// </summary>
-        private readonly IRepository<Client> _clientRepository;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userRepository"></param>
-        /// <param name="clientRepository"></param>
-        public IdentityPermissionService(IRepository<User> userRepository, IRepository<Client> clientRepository)
-        {
-            _userRepository = userRepository;
-            _clientRepository = clientRepository;
-        }
 
         /// <summary>
         /// 判断审核是否用于api访问权限
@@ -66,7 +47,7 @@ namespace Gardener.Authorization.Core
                 return await CurrentUserHaveResource(int.Parse(identity.Id), api.Key);
             }else if (IdentityType.Client.Equals(identity.IdentityType))
             {
-                return await CurrentClientHaveResource(identity.Id, api.Key);
+                return await CurrentClientHaveResource(Guid.Parse(identity.Id), api.Key);
             }
             return false;
         }
@@ -77,6 +58,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         private async Task<bool> IsSuperAdministrator(int userId) 
         {
+            IRepository<User> _userRepository = Db.GetRepository<User>();
             //超管
             if (await _userRepository.AsQueryable(false)
                  .Include(u => u.Roles)
@@ -96,6 +78,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         private async Task<bool> CurrentUserHaveResource(int userId,string functionKey)
         {
+            IRepository<User> _userRepository = Db.GetRepository<User>();
             return await _userRepository.AsQueryable(false)
                     .Include(u => u.Roles)
                         .ThenInclude(u => u.Resources)
@@ -110,10 +93,13 @@ namespace Gardener.Authorization.Core
         /// <summary>
         /// 判断是否拥有该权限
         /// </summary>
+        /// <param name="clientId"></param>
         /// <param name="functionKey"></param>
         /// <returns></returns>
-        private async Task<bool> CurrentClientHaveResource(string clientId, string functionKey)
+        private async Task<bool> CurrentClientHaveResource(Guid clientId, string functionKey)
         {
+            IRepository<Client> _clientRepository = Db.GetRepository<Client>();
+
             return await _clientRepository.AsQueryable(false)
                     .Include(u => u.Functions)
                     .Where(u => u.Id.Equals(clientId) && u.IsDeleted == false && u.IsLocked == false)
@@ -169,6 +155,16 @@ namespace Gardener.Authorization.Core
             Guid clientId = Guid.Parse(identity.Id);
 
             return clientId;
+        }
+
+        /// <summary>
+        /// 检测loginId是否可用
+        /// </summary>
+        /// <param name="loginId"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckLoginIdUsable(string loginId)
+        {
+            return await Db.GetRepository<LoginToken>().AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.LoginId.Equals(loginId)).AnyAsync();
         }
 
     }

@@ -52,7 +52,7 @@
                     <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters">
                         <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.IdentityType)"></TagRandomColor>
                     </Column>
-                    <Column @bind-Field="@model.ClientId" Filterable />
+                    <Column @bind-Field="@model.LoginId" Filterable />
                     <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters">
                         <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagRandomColor>
                     </Column>

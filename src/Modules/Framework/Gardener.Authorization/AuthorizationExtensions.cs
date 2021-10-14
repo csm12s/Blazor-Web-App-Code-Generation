@@ -25,14 +25,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddAuthor<TIdentityPermissionService, TApiEndpointStoreService>(this IServiceCollection services) where TIdentityPermissionService:class, IIdentityPermissionService where TApiEndpointStoreService:class, IApiEndpointStoreService
         {
-            services.TryAddScoped<IIdentityService, IdentityService>();
+            services.TryAddSingleton<IIdentityService, IdentityService>();
 
             services.TryAddSingleton<IAuthorizationPolicyProvider, AppAuthorizationPolicyProvider>();
             services.TryAddSingleton<IAuthorizationHandler, JwtHandler>();
             
-            services.AddScoped<IApiEndpointStoreService, TApiEndpointStoreService>();
-            services.AddScoped<IIdentityPermissionService, TIdentityPermissionService>();
-            services.AddScoped<Gardener.Authorization.Core.IAuthorizationService, AuthorizationService>();
+            services.TryAddSingleton<IApiEndpointStoreService, TApiEndpointStoreService>();
+            services.TryAddSingleton<IIdentityPermissionService, TIdentityPermissionService>();
+            services.TryAddSingleton<Gardener.Authorization.Core.IAuthorizationService, AuthorizationService>();
             services.Configure<MvcOptions>(options =>
             {
                 // 添加策略需求

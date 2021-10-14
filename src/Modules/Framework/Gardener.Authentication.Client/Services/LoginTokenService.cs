@@ -22,6 +22,11 @@ namespace Gardener.Client.Services
         {
         }
 
+        public Task<bool> CheckLoginIdUsable(string clientId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> Disable(Guid id, bool isDisabled = true)
         {
             return await apiCaller.PutAsync<object, bool>($"{controller}/{id}/disable/{isDisabled}");

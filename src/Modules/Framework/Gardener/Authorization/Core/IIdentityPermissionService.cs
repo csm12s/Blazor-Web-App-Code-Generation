@@ -15,6 +15,7 @@ namespace Gardener.Authorization.Core
     /// </summary>
     public interface IIdentityPermissionService
     {
+
         /// <summary>
         /// 检测是否有该功能点的使用权限
         /// </summary>
@@ -24,10 +25,17 @@ namespace Gardener.Authorization.Core
         Task<bool> Check(Identity identity, ApiEndpoint api);
 
         /// <summary>
-        /// 
+        /// 获取身份的编号
         /// </summary>
         /// <param name="identity"></param>
         /// <returns></returns>
         object GetIdentityId(Identity identity);
+
+        /// <summary>
+        /// 检测loginId是否可用
+        /// </summary>
+        /// <param name="loginId"></param>
+        /// <returns></returns>
+        Task<bool> CheckLoginIdUsable(string loginId);
     }
 }

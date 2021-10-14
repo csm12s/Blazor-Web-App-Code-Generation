@@ -8,6 +8,7 @@ using Furion;
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Audit.Dtos;
+using Gardener.Authentication.Enums;
 using Gardener.Authorization;
 using Gardener.Authorization.Core;
 using Gardener.Common;
@@ -125,6 +126,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     auditEntity.Name = entityType.GetDescription();
                     auditEntity.OperaterId = user != null ? user.Id.ToString() : null;
                     auditEntity.OperaterName = user != null ? (user.GivenName ?? user.GivenName) : null;
+                    auditEntity.OperaterType = user != null ? user.IdentityType : IdentityType.Unknown;
                     auditEntity.OperationId = Guid.NewGuid();
                     auditEntity.CurrentValues = currentValues;
                     auditEntity.OldValues = entity.GetDatabaseValues();

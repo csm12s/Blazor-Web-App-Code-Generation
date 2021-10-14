@@ -24,23 +24,6 @@
             
             </summary>
         </member>
-        <member name="F:Gardener.Authorization.Core.IdentityPermissionService._userRepository">
-            <summary>
-            用户仓储
-            </summary>
-        </member>
-        <member name="F:Gardener.Authorization.Core.IdentityPermissionService._clientRepository">
-            <summary>
-            用户仓储
-            </summary>
-        </member>
-        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.User},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Client})">
-            <summary>
-            
-            </summary>
-            <param name="userRepository"></param>
-            <param name="clientRepository"></param>
-        </member>
         <member name="M:Gardener.Authorization.Core.IdentityPermissionService.Check(Gardener.Authentication.Dtos.Identity,Gardener.Authorization.Dtos.ApiEndpoint)">
             <summary>
             判断审核是否用于api访问权限
@@ -64,10 +47,11 @@
             <param name="functionKey"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.CurrentClientHaveResource(System.String,System.String)">
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.CurrentClientHaveResource(System.Guid,System.String)">
             <summary>
             判断是否拥有该权限
             </summary>
+            <param name="clientId"></param>
             <param name="functionKey"></param>
             <returns></returns>
         </member>
@@ -90,6 +74,13 @@
             
             </summary>
             <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IdentityPermissionService.CheckLoginIdUsable(System.String)">
+            <summary>
+            检测loginId是否可用
+            </summary>
+            <param name="loginId"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Admin.GardenerAdminStartup">

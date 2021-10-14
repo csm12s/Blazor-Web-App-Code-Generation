@@ -49,7 +49,7 @@ namespace Gardener.Authentication.Core
             identity.GivenName = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.GivenName);
             string identityType = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.IdentityType);
             identity.IdentityType = Enum.Parse<IdentityType>(identityType, true);
-            identity.ClientId = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
+            identity.LoginId = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
             string loginClientType = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
             identity.LoginClientType = Enum.Parse<LoginClientType>(loginClientType, true);
             return identity;

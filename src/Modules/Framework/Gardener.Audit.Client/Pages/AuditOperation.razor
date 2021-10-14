@@ -47,12 +47,16 @@
                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.OperaterName" Filterable/>
-                    <Column @bind-Field="@model.ResourceName" Filterable/>
+                    <Column @bind-Field="@model.OperaterId" Filterable />
+                    <Column @bind-Field="@model.OperaterName" Filterable />
+                    <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.OperaterType)"></TagRandomColor>
+                    </Column>
+                    <Column @bind-Field="@model.ResourceName" Filterable />
                     <Column @bind-Field="@model.Ip" />
                     <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters" />
-                    <Column @bind-Field="@model.Path" Width="300" Filterable/>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
+                    <Column @bind-Field="@model.Path" Width="300" Filterable />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="system_manager_audit_operation_detail">

@@ -175,12 +175,17 @@
         </member>
         <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperaterId">
             <summary>
-            操作人
+            操作者编号
             </summary>
         </member>
         <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperaterName">
             <summary>
-            操作人
+            操作者名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperaterType">
+            <summary>
+            操作者类型
             </summary>
         </member>
         <member name="P:Gardener.Audit.Dtos.AuditEntityDto.OperationId">
@@ -210,12 +215,17 @@
         </member>
         <member name="P:Gardener.Audit.Dtos.AuditOperationDto.OperaterId">
             <summary>
-            用户标识
+            操作者编号
             </summary>
         </member>
         <member name="P:Gardener.Audit.Dtos.AuditOperationDto.OperaterName">
             <summary>
-            用户名
+            操作者名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Audit.Dtos.AuditOperationDto.OperaterType">
+            <summary>
+            操作者类型
             </summary>
         </member>
         <member name="P:Gardener.Audit.Dtos.AuditOperationDto.Ip">
@@ -362,9 +372,9 @@
             客户端类型
             </summary>
         </member>
-        <member name="P:Gardener.Authentication.Dtos.Identity.ClientId">
+        <member name="P:Gardener.Authentication.Dtos.Identity.LoginId">
             <summary>
-            获取或设置 客户端Id
+            获取或设置 登录Id(每次登录该Id自动生成)
             </summary>
         </member>
         <member name="T:Gardener.Authentication.Dtos.JsonWebToken">
@@ -427,9 +437,9 @@
             身份类型
             </summary>
         </member>
-        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.ClientId">
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.LoginId">
             <summary>
-            获取或设置 客户端Id
+            获取或设置 登录Id
             </summary>
         </member>
         <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.LoginClientType">
@@ -450,6 +460,11 @@
         <member name="T:Gardener.Authentication.Enums.IdentityType">
             <summary>
             身份类型
+            </summary>
+        </member>
+        <member name="F:Gardener.Authentication.Enums.IdentityType.Unknown">
+            <summary>
+            未知
             </summary>
         </member>
         <member name="F:Gardener.Authentication.Enums.IdentityType.User">
@@ -571,9 +586,16 @@
         </member>
         <member name="M:Gardener.Authorization.Core.IIdentityPermissionService.GetIdentityId(Gardener.Authentication.Dtos.Identity)">
             <summary>
-            
+            获取身份的编号
             </summary>
             <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IIdentityPermissionService.CheckLoginIdUsable(System.String)">
+            <summary>
+            检测loginId是否可用
+            </summary>
+            <param name="loginId"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Authorization.Dtos.ApiEndpoint">

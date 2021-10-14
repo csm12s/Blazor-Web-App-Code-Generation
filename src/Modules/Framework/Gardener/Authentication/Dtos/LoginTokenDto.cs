@@ -42,10 +42,10 @@ namespace Gardener.Authentication.Dtos
         public IdentityType IdentityType { get; set; }
 
         /// <summary>
-        /// 获取或设置 客户端Id
+        /// 获取或设置 登录Id
         /// </summary>
-        [DisplayName("客户端编号")]
-        public string ClientId { get; set; }
+        [DisplayName("登录编号")]
+        public string LoginId { get; set; }
 
         /// <summary>
         /// 登录的客户端类型

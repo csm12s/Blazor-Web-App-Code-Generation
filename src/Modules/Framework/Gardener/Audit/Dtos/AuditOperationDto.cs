@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authentication.Enums;
 using Gardener.Base;
 using Gardener.Enums;
 using System;
@@ -28,15 +29,20 @@ namespace Gardener.Audit.Dtos
         [DisplayName("资源编号")]
         public Guid ResourceId { get; set; }
         /// <summary>
-        /// 用户标识
+        /// 操作者编号
         /// </summary>
-        [DisplayName("操作人编号")]
+        [DisplayName("操作者编号")]
         public string OperaterId { get; set; }
         /// <summary>
-        /// 用户名
+        /// 操作者名称
         /// </summary>
-        [DisplayName("操作人")]
+        [DisplayName("操作者名称")]
         public string OperaterName { get; set; }
+        /// <summary>
+        /// 操作者类型
+        /// </summary>
+        [DisplayName("操作者类型")]
+        public IdentityType OperaterType { get; set; }
         /// <summary>
         /// 访问IP
         /// </summary>

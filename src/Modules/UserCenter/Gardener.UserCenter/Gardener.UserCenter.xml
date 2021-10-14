@@ -597,6 +597,19 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.UserCenter.Services.IClientService.Login(Gardener.Authorization.Dtos.ClientLoginInput)">
+            <summary>
+            登录
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Services.IClientService.RefreshToken(Gardener.Authorization.Dtos.RefreshTokenInput)">
+            <summary>
+            刷新Token
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.UserCenter.Services.IDeptService">
             <summary>
             部门服务

@@ -32,12 +32,10 @@ namespace Gardener.Authentication.Core
 
         private readonly JWTOptions jWTOptions;
 
-        private readonly IRepository<LoginToken> repository;
 
-        public JwtBearerService(IOptions<JWTOptions> jWTOptions, IRepository<LoginToken> repository)
+        public JwtBearerService(IOptions<JWTOptions> jWTOptions)
         {
             this.jWTOptions = jWTOptions.Value;
-            this.repository = repository;
         }
 
         public async Task<JsonWebToken> CreateToken(Identity identity)
@@ -47,13 +45,13 @@ namespace Gardener.Authentication.Core
             var (refreshToken, refreshTokenExpires) = CreateToken(identity,JwtTokenType.RefreshToken);
             //存储refreshToken
             //写入刷新token
-            await repository.InsertAsync(new LoginToken()
+            await Db.GetRepository<LoginToken>().InsertAsync(new LoginToken()
             {
                 IdentityId=identity.Id,
                 IdentityName=identity.Name,
                 IdentityGivenName=identity.GivenName,
                 IdentityType=identity.IdentityType,
-                ClientId = identity.ClientId,
+                LoginId = identity.LoginId,
                 LoginClientType = identity.LoginClientType,
                 Value = refreshToken,
                 EndTime = refreshTokenExpires,
@@ -71,9 +69,9 @@ namespace Gardener.Authentication.Core
         public async Task<JsonWebToken> RefreshToken(string oldRefreshToken)
         {
             Identity identity = ReadToken(oldRefreshToken);
+            IRepository<LoginToken> repository= Db.GetRepository<LoginToken>();
 
-
-            LoginToken refreshToken = repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.ClientId.Equals(identity.ClientId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
+            LoginToken refreshToken = repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.LoginId.Equals(identity.LoginId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
             //异常token检测
             if (refreshToken == null || refreshToken.Value != oldRefreshToken || refreshToken.EndTime <= DateTimeOffset.UtcNow)
             {
@@ -89,7 +87,8 @@ namespace Gardener.Authentication.Core
 
         public async Task<bool> RemoveRefreshToken(Identity identity)
         {
-            var refreshTokens = await repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.ClientId.Equals(identity.ClientId)).ToListAsync();
+            IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
+            var refreshTokens = await repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.LoginId.Equals(identity.LoginId)).ToListAsync();
             refreshTokens.ForEach(async x => await repository.FakeDeleteByKeyAsync(x.Id));
             return true;
         }
@@ -107,7 +106,7 @@ namespace Gardener.Authentication.Core
                 new Claim(ClaimTypes.GivenName, identity.GivenName),
                 new Claim(ClaimTypes.Name, identity.Name),
                 new Claim(AuthKeyConstants.IdentityType, identity.IdentityType.ToString()),
-                new Claim(AuthKeyConstants.ClientIdKeyName, identity.ClientId),
+                new Claim(AuthKeyConstants.ClientIdKeyName, identity.LoginId),
                 new Claim(AuthKeyConstants.ClientTypeKeyName, identity.LoginClientType.ToString()),
                 new Claim(AuthKeyConstants.TokenTypeKey, jwtTokenType.ToString())
             };
@@ -196,7 +195,7 @@ namespace Gardener.Authentication.Core
             string loginClientType =principal.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
             identity.LoginClientType = Enum.Parse<LoginClientType>(loginClientType);
             identity.IdentityType = identityType;
-            identity.ClientId =principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
+            identity.LoginId =principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
             
             return identity;
         }

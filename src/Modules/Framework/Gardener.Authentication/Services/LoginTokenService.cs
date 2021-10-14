@@ -13,6 +13,7 @@ using Gardener.EntityFramwork;
 using Gardener.EntityFramwork.Dto;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -27,17 +28,15 @@ namespace Gardener.Authentication.Services
     public class LoginTokenService : ServiceBase<LoginToken, LoginTokenDto, Guid>, ILoginTokenService
     {
         private readonly IRepository<LoginToken> _repository;
-        private readonly IJwtService _jwtBearerService;
         /// <summary>
         /// 用户登录TOKEN服务
         /// </summary>
         /// <param name="repository"></param>
-        public LoginTokenService(IRepository<LoginToken> repository, IJwtService jwtBearerService) : base(repository)
+        public LoginTokenService(IRepository<LoginToken> repository) : base(repository)
         {
             _repository = repository;
-            _jwtBearerService = jwtBearerService;
         }
-
+        
         /// <summary>
         /// 搜索
         /// </summary>

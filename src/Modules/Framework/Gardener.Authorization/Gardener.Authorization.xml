@@ -131,6 +131,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Authorization.Core.AuthorizationService.GetIdentity">
+            <summary>
+            获取身份
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.AuthorizationService.GetIdentityId">
+            <summary>
+            获取身份的编号
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Authorization.Core.JwtHandler">
             <summary>
             JWT 授权自定义处理程序

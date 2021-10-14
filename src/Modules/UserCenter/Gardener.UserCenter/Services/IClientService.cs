@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authorization.Dtos;
 using Gardener.Base;
 using Gardener.UserCenter.Dtos;
 using System;
@@ -23,5 +24,18 @@ namespace Gardener.UserCenter.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task<List<FunctionDto>> GetFunctions(Guid id);
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<TokenOutput> Login(ClientLoginInput input);
+
+        /// <summary>
+        /// 刷新Token
+        /// </summary>
+        /// <returns></returns>
+        Task<TokenOutput> RefreshToken(RefreshTokenInput input);
     }
 }

@@ -14,6 +14,11 @@ namespace Gardener.Authentication.Enums
     public enum IdentityType
     {
         /// <summary>
+        /// 未知
+        /// </summary>
+        [Description("未知")]
+        Unknown,
+        /// <summary>
         /// 用户
         /// </summary>
         [Description("用户")]

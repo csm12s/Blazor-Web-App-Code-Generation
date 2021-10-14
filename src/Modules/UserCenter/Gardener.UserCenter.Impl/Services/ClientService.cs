@@ -54,7 +54,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<List<FunctionDto>> GetFunctions(Guid id)
+        public async Task<List<FunctionDto>> GetFunctions([ApiSeat(ApiSeats.ActionStart)] Guid id)
         {
             return await _clientFunctionRespository.AsQueryable(false)
                   .Include(x => x.Function)
@@ -82,7 +82,7 @@ namespace Gardener.UserCenter.Impl.Services
             Identity identity = new Identity
             {
                 Id = client.Id.ToString(),
-                ClientId = Guid.NewGuid().ToString(),
+                LoginId = Guid.NewGuid().ToString(),
                 LoginClientType = LoginClientType.Server,
                 IdentityType = IdentityType.Client,
                 Name = client.Name,
@@ -92,6 +92,20 @@ namespace Gardener.UserCenter.Impl.Services
             var token = await _jwtBearerService.CreateToken(identity);
             // 设置 Swagger 刷新自动授权
             _httpContextAccessor.HttpContext.SigninToSwagger(token.AccessToken);
+            return token.Adapt<TokenOutput>();
+        }
+
+        /// <summary>
+        /// 刷新Token
+        /// </summary>
+        /// <remarks>
+        /// 通过刷新token获取新的token
+        /// </remarks>
+        /// <returns></returns>
+        [AllowAnonymous, IgnoreAudit]
+        public async Task<TokenOutput> RefreshToken(RefreshTokenInput input)
+        {
+            var token = await _jwtBearerService.RefreshToken(input.RefreshToken);
             return token.Adapt<TokenOutput>();
         }
     }

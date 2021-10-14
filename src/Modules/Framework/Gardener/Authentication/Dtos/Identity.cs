@@ -37,8 +37,8 @@ namespace Gardener.Authentication.Dtos
         /// </summary>
         public LoginClientType LoginClientType { get; set; }
         /// <summary>
-        /// 获取或设置 客户端Id
+        /// 获取或设置 登录Id(每次登录该Id自动生成)
         /// </summary>
-        public string ClientId { get; set; }
+        public string LoginId { get; set; }
     }
 }

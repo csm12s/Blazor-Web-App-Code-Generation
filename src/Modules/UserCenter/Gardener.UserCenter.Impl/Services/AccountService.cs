@@ -92,7 +92,7 @@ namespace Gardener.UserCenter.Impl.Services
             Identity identity = new Identity 
             {
                 Id=user.Id.ToString(),
-                ClientId=Guid.NewGuid().ToString(),
+                LoginId=Guid.NewGuid().ToString(),
                 LoginClientType=input.LoginClientType,
                 IdentityType=IdentityType.User,
                 Name=user.UserName,

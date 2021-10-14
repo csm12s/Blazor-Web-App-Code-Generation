@@ -899,6 +899,15 @@
             <remarks>登录接口</remarks>
             <returns></returns>
         </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.ClientService.RefreshToken(Gardener.Authorization.Dtos.RefreshTokenInput)">
+            <summary>
+            刷新Token
+            </summary>
+            <remarks>
+            通过刷新token获取新的token
+            </remarks>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.UserCenter.Impl.Services.DeptService">
             <summary>
             部门服务

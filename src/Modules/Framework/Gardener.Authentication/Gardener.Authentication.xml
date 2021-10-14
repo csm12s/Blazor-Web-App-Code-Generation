@@ -119,9 +119,9 @@
             身份类型
             </summary>
         </member>
-        <member name="P:Gardener.Authentication.Domains.LoginToken.ClientId">
+        <member name="P:Gardener.Authentication.Domains.LoginToken.LoginId">
             <summary>
-            获取或设置 客户端Id
+            获取或设置 登录Id
             </summary>
         </member>
         <member name="P:Gardener.Authentication.Domains.LoginToken.LoginClientType">
@@ -214,7 +214,7 @@
             用户登录TOKEN服务
             </summary>
         </member>
-        <member name="M:Gardener.Authentication.Services.LoginTokenService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Authentication.Domains.LoginToken},Gardener.Authentication.Core.IJwtService)">
+        <member name="M:Gardener.Authentication.Services.LoginTokenService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.Authentication.Domains.LoginToken})">
             <summary>
             用户登录TOKEN服务
             </summary>

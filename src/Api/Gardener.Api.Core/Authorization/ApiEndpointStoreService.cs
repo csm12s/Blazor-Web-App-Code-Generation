@@ -7,7 +7,6 @@
 using Furion.DatabaseAccessor;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
-using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Impl.Domains;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +17,6 @@ namespace Gardener.Authorization.Core
 {
     public class ApiEndpointStoreService : IApiEndpointStoreService
     {
-        private readonly IRepository<Function> _repository;
-
-        public ApiEndpointStoreService(IRepository<Function> repository)
-        {
-            _repository = repository;
-        }
-
         /// <summary>
         /// 根据key获取功能点
         /// </summary>
@@ -32,7 +24,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public async Task<ApiEndpoint> Query(string key)
         {
-            Function function = await _repository.AsQueryable(false).Where(x => x.Key.Equals(key) && x.IsDeleted==false && x.IsLocked==false).FirstOrDefaultAsync();
+            Function function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Key.Equals(key) && x.IsDeleted==false && x.IsLocked==false).FirstOrDefaultAsync();
             return function?.Adapt<ApiEndpoint>();
         }
 
@@ -44,7 +36,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public async Task<ApiEndpoint> Query(string path, HttpMethod method)
         {
-            Function function = await _repository.AsQueryable(false).Where(x => x.Method.Equals(method) && x.Path.Equals(path) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
+            Function function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Method.Equals(method) && x.Path.Equals(path) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
             return function?.Adapt<ApiEndpoint>();
         }
     }
