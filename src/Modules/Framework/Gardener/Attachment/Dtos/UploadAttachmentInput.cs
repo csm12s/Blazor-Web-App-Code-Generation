@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attachment.Enums;
-using Gardener.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Attachment.Dtos

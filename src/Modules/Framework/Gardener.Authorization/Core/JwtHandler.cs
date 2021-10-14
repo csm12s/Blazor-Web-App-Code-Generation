@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.Authorization;
-using Gardener.Authorization.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

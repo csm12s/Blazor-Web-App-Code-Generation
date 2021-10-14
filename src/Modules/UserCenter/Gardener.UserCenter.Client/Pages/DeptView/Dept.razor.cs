@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign;
-using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Model;
 using Gardener.UserCenter.Dtos;

@@ -10,7 +10,6 @@ using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components.Authorization;
 using AntDesign.ProLayout;
 using Microsoft.AspNetCore.Authorization;
-using System.Reflection;
 
 namespace Gardener.Client.Entry
 {

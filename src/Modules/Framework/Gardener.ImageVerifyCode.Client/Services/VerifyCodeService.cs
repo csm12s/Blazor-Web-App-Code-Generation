@@ -27,6 +27,15 @@ namespace Gardener.Client.Services.SystemManager
         {
             return await apiCaller.GetAsync<ImageVerifyCodeDto>($"{controller}/image-verify-code/{codeType}");
         }
-        
+
+        public async Task<bool> RemoveImageVerifyCode(string key)
+        {
+            return await apiCaller.DeleteAsync<bool>($"{controller}/image-verify-code/{key}");
+        }
+
+        public async Task<bool> VerifyImageVerifyCode(VerifyCodeInput verifyCodeInput)
+        {
+            return await apiCaller.PostAsync<VerifyCodeInput, bool>($"/{controller}/verify-image-verify-code", verifyCodeInput);
+        }
     }
 }

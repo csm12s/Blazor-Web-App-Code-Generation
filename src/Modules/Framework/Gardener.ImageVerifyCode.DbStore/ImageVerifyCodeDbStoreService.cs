@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Furion.DependencyInjection;
 using Gardener.ImageVerifyCode.Core;
 using Gardener.ImageVerifyCode.DbStore.Domain;
 using Microsoft.EntityFrameworkCore;

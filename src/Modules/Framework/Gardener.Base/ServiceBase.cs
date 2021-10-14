@@ -11,7 +11,6 @@ using Mapster;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Gardener.Core;
 using Gardener.Common;
 using System;
 using System.Collections.Generic;
@@ -24,10 +23,8 @@ using Gardener.Base;
 using Gardener.EntityFramwork.Dto;
 using System.Linq.Dynamic.Core;
 using Gardener.EntityFramwork.Enums;
-using Furion.EventBus;
-using Gardener.EventBus;
-using Gardener.Enums;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Furion.EventBridge;
 
 namespace Gardener
 {
@@ -40,6 +37,9 @@ namespace Gardener
     /// <typeparam name="TKey">数据实体主键类型</typeparam>
     public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
+        /// <summary>
+        /// TEntity Repository
+        /// </summary>
         public readonly IRepository<TEntity> _repository;
         /// <summary>
         /// 继承此类即可实现基础方法
@@ -69,10 +69,8 @@ namespace Gardener
             }
 
             var newEntity = await _repository.InsertNowAsync(input.Adapt<TEntity>());
-            EntityChangeEvent<TEntity, TKey> changeEvent = new EntityChangeEvent<TEntity, TKey>(EntityOperationType.Add);
-            changeEvent.Data = newEntity.Entity;
-            //发送删除通知
-            MessageCenter.Send(nameof(TEntity), changeEvent);
+            //发送通知
+            await Event.EmitAsync(typeof(TEntity).Name + ":Insert", newEntity.Entity);
             return newEntity.Entity.Adapt<TEntityDto>();
         }
 
@@ -88,10 +86,8 @@ namespace Gardener
         {
             input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
             EntityEntry<TEntity> entityEntry= await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime) });
-            EntityChangeEvent<TEntity, TKey> changeEvent = new EntityChangeEvent<TEntity, TKey>(EntityOperationType.Update);
-            changeEvent.Data= entityEntry.Entity;
-            //发送删除通知
-            MessageCenter.Send(nameof(TEntity), changeEvent);
+            //发送通知
+            await Event.EmitAsync(typeof(TEntity).Name+ ":Update", entityEntry.Entity);
             return true;
         }
 
@@ -106,10 +102,8 @@ namespace Gardener
         public virtual async Task<bool> Delete(TKey id)
         {
             await _repository.DeleteAsync(id);
-            EntityChangeEvent<TEntity, TKey> changeEvent = new EntityChangeEvent<TEntity,TKey>(EntityOperationType.Delete);
-            changeEvent.key = id;
             //发送删除通知
-            MessageCenter.Send(nameof(TEntity), changeEvent);
+            await Event.EmitAsync(typeof(TEntity).Name + ":Delete", id);
             return true;
         }
 
@@ -130,13 +124,7 @@ namespace Gardener
                 await _repository.DeleteAsync(id);
                 
             }
-            foreach (TKey id in ids)
-            {
-                EntityChangeEvent<TEntity, TKey> changeEvent = new EntityChangeEvent<TEntity, TKey>(EntityOperationType.Delete);
-                changeEvent.key = id;
-                //发送删除通知
-                MessageCenter.Send(nameof(TEntity), changeEvent);
-            }
+            await Event.EmitAsync(typeof(TEntity).Name + ":Deletes", ids);
             return true;
         }
 
@@ -152,11 +140,7 @@ namespace Gardener
         public virtual async Task<bool> FakeDelete(TKey id)
         {
             await _repository.FakeDeleteByKeyAsync(id);
-            EntityChangeEvent<TEntity, TKey> changeEvent = new EntityChangeEvent<TEntity, TKey>(EntityOperationType.Delete);
-            changeEvent.key = id;
-            changeEvent.IsFakeDelete = true;
-            //发送删除通知
-            MessageCenter.Send(typeof(TEntity).Name, changeEvent);
+            await Event.EmitAsync(typeof(TEntity).Name + ":Delete", id);
             return true;
         }
         
@@ -176,14 +160,7 @@ namespace Gardener
             {
                 await _repository.FakeDeleteByKeyAsync(id);
             }
-            foreach (TKey id in ids)
-            {
-                EntityChangeEvent<TEntity, TKey> changeEvent = new EntityChangeEvent<TEntity, TKey>(EntityOperationType.Delete);
-                changeEvent.key = id;
-                changeEvent.IsFakeDelete = true;
-                //发送删除通知
-                MessageCenter.Send(typeof(TEntity).Name, changeEvent);
-            }
+            await Event.EmitAsync(typeof(TEntity).Name + ":Deletes", ids);
             return true;
         }
 
@@ -274,6 +251,7 @@ namespace Gardener
             {
                 entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
                 await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked), nameof(GardenerEntityBase.UpdatedTime) });
+                await Event.EmitAsync(typeof(TEntity).Name + ":Lock", entity);
                 return true;
             }
             return false;

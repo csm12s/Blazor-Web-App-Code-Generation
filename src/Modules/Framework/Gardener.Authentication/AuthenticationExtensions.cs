@@ -7,8 +7,6 @@
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Enums;
 using Gardener.Authentication.Options;
-using Gardener.Authorization.Core;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

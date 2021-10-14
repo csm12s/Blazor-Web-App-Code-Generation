@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Enums;
-
 namespace Gardener.Client.Base
 {
     public static class AuthConstant

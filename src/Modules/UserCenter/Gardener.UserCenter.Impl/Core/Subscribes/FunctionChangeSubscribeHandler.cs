@@ -5,44 +5,59 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Furion.DependencyInjection;
-using Furion.EventBus;
-using Gardener.Enums;
-using Gardener.EventBus;
+using Furion.EventBridge;
 using Gardener.UserCenter.Impl.Domains;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Impl.Core.Subscribes
 {
     /// <summary>
     /// 功能点变化
     /// </summary>
-    public class FunctionChangeSubscribeHandler : ISubscribeHandler
+    [EventHandler(nameof(Function))]
+    public class FunctionChangeSubscribeHandler : IEventHandler
     {
+        private readonly IRepository<ResourceFunction> resourceFunctionRepository;
+        private readonly IRepository<ClientFunction> clientFunctionRepository;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceFunctionRepository"></param>
+        /// <param name="clientFunctionRepository"></param>
+        public FunctionChangeSubscribeHandler(IRepository<ResourceFunction> resourceFunctionRepository, IRepository<ClientFunction> clientFunctionRepository)
+        {
+            this.resourceFunctionRepository = resourceFunctionRepository;
+            this.clientFunctionRepository = clientFunctionRepository;
+        }
+
+        
+
         /// <summary>
         /// 功能点变化
         /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="payload"></param>
-        [SubscribeMessage(nameof(Function))]   
-        public void Change(string eventId, object payload)   
+        /// <param name="eventMessage"></param>
+        [EventMessage]
+        public async Task Delete(EventMessage<Guid> eventMessage)
         {
-            if (payload is EntityChangeEvent<Function, Guid> entityChange) 
-            {
-                Scoped.CreateUow(async (_, scope) => {
-                    var services = scope.ServiceProvider;
-                    if (EntityOperationType.Delete.Equals(entityChange.Operation))
-                    {
-                        Guid id = entityChange.GetKey(x => x.Id);
-                        //移除与function相关联的关系数据
-                        var resourceFunctionRepository = Db.GetRepository<ResourceFunction>(services);
-                        await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => x.FunctionId.Equals(id)));
-
-                        var clientFunctionRepository = Db.GetRepository<ClientFunction>(services);
-                        await clientFunctionRepository.DeleteNowAsync(clientFunctionRepository.Where(x => x.FunctionId.Equals(id)));
-                    }
-                });
-            }
+            Guid id = eventMessage.Payload;
+            await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
+            await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
         }
+
+        /// <summary>
+        /// 功能点变化
+        /// </summary>
+        /// <param name="eventMessage"></param>
+        [EventMessage]
+        public async Task Deletes(EventMessage<Guid[]> eventMessage)
+        {
+            List<Guid> ids= eventMessage.Payload.ToList();
+            await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
+            await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
+        }
+        
     }
 }

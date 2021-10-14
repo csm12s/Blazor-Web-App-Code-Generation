@@ -22,12 +22,24 @@
             功能点变化
             </summary>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Core.Subscribes.FunctionChangeSubscribeHandler.Change(System.String,System.Object)">
+        <member name="M:Gardener.UserCenter.Impl.Core.Subscribes.FunctionChangeSubscribeHandler.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.ResourceFunction},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.ClientFunction})">
+            <summary>
+            
+            </summary>
+            <param name="resourceFunctionRepository"></param>
+            <param name="clientFunctionRepository"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Core.Subscribes.FunctionChangeSubscribeHandler.Delete(Furion.EventBridge.EventMessage{System.Guid})">
             <summary>
             功能点变化
             </summary>
-            <param name="eventId"></param>
-            <param name="payload"></param>
+            <param name="eventMessage"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Core.Subscribes.FunctionChangeSubscribeHandler.Deletes(Furion.EventBridge.EventMessage{System.Guid[]})">
+            <summary>
+            功能点变化
+            </summary>
+            <param name="eventMessage"></param>
         </member>
         <member name="T:Gardener.UserCenter.Impl.Domains.Client">
             <summary>

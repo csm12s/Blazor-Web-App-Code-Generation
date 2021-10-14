@@ -522,12 +522,27 @@
             用户Token服务
             </summary>
         </member>
-        <member name="T:Gardener.Authorization.Core.IApiEndpointStoreService">
+        <member name="T:Gardener.Authorization.Core.IApiEndpointQueryService">
             <summary>
-            终结点存储服务
+            接口查询服务
             </summary>
         </member>
-        <member name="M:Gardener.Authorization.Core.IApiEndpointStoreService.Query(System.String,Gardener.Enums.HttpMethod)">
+        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.GetApiEndpointCacheKey(System.String)">
+            <summary>
+            获取缓存key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.GetApiEndpointCacheKey(System.String,Gardener.Enums.HttpMethod)">
+            <summary>
+            获取缓存key
+            </summary>
+            <param name="path"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.Query(System.String,Gardener.Enums.HttpMethod)">
             <summary>
             根据path,method获取功能点
             </summary>
@@ -535,7 +550,7 @@
             <param name="method"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authorization.Core.IApiEndpointStoreService.Query(System.String)">
+        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.Query(System.String)">
             <summary>
             根据key获取功能点
             </summary>
@@ -857,6 +872,11 @@
             </remarks>
             <param name="request"></param>
             <returns></returns>
+        </member>
+        <member name="T:Gardener.Cache.ICache">
+            <summary>
+            缓存
+            </summary>
         </member>
         <member name="T:Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto">
             <summary>
@@ -1200,68 +1220,6 @@
             <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
             <returns>查询表达式</returns>
         </member>
-        <member name="T:Gardener.EventBus.EntityChangeEvent`2">
-            <summary>
-            实体变化事件
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <typeparam name="TKey"></typeparam>
-        </member>
-        <member name="M:Gardener.EventBus.EntityChangeEvent`2.#ctor(Gardener.Enums.EntityOperationType,`0)">
-            <summary>
-            
-            </summary>
-            <param name="operation"></param>
-            <param name="data"></param>
-        </member>
-        <member name="M:Gardener.EventBus.EntityChangeEvent`2.#ctor(Gardener.Enums.EntityOperationType)">
-            <summary>
-            
-            </summary>
-            <param name="operation"></param>
-        </member>
-        <member name="M:Gardener.EventBus.EntityChangeEvent`2.#ctor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Gardener.EventBus.EntityChangeEvent`2.Operation">
-            <summary>
-            操作类型
-            </summary>
-        </member>
-        <member name="P:Gardener.EventBus.EntityChangeEvent`2.Data">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="P:Gardener.EventBus.EntityChangeEvent`2.key">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:Gardener.EventBus.EntityChangeEvent`2.IsFakeDelete">
-            <summary>
-            是否是逻辑删除
-            </summary>
-        </member>
-        <member name="M:Gardener.EventBus.EntityChangeEvent`2.GetKey(System.Func{`0,`1})">
-            <summary>
-            获取Key
-            </summary>
-            <param name="keySelecter"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.EventBus.EventBaseInfo">
-            <summary>
-            时间基本信息
-            </summary>
-        </member>
-        <member name="M:Gardener.EventBus.EventBaseInfo.#ctor">
-            <summary>
-            时间基本信息
-            </summary>
-        </member>
         <member name="T:Gardener.FileStore.IFileStoreService">
             <summary>
             文件存储服务
@@ -1311,6 +1269,13 @@
             <summary>
             验证校验码
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.IImageVerifyCodeService.Remove(System.String)">
+            <summary>
+            移除
+            </summary>
+            <param name="key"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.ImageVerifyCode.Core.IImageVerifyCodeStoreService">
@@ -1436,11 +1401,30 @@
             数字加字符
             </summary>
         </member>
+        <member name="T:Gardener.ImageVerifyCode.Services.IVerifyCodeService">
+            <summary>
+            图片验证码服务
+            </summary>
+        </member>
         <member name="M:Gardener.ImageVerifyCode.Services.IVerifyCodeService.GetImageVerifyCode(Gardener.Enums.CodeCharacterTypeEnum)">
             <summary>
             获取图片验证码
             </summary>
             <param name="codeType">类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Services.IVerifyCodeService.RemoveImageVerifyCode(System.String)">
+            <summary>
+            移除图片验证码
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Services.IVerifyCodeService.VerifyImageVerifyCode(Gardener.ImageVerifyCode.Dtos.VerifyCodeInput)">
+            <summary>
+            验证图片验证码
+            </summary>
+            <param name="verifyCodeInput"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Swagger.Dtos.SwaggerSpecificationOpenApiInfoDto">

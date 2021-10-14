@@ -113,5 +113,17 @@ namespace Gardener.ImageVerifyCode.Core
 
             return success;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public async Task<bool> Remove(string key)
+        {
+            await this.store.Remove(key);
+
+            return true;
+        }
+        
     }
 }

@@ -11,11 +11,23 @@ using System.Threading.Tasks;
 namespace Gardener.Authorization.Core
 {
     /// <summary>
-    /// 终结点存储服务
+    /// 接口查询服务
     /// </summary>
-    public interface IApiEndpointStoreService
+    public interface IApiEndpointQueryService
     {
-
+        /// <summary>
+        /// 获取缓存key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        string GetApiEndpointCacheKey(string key);
+        /// <summary>
+        /// 获取缓存key
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        string GetApiEndpointCacheKey(string path, HttpMethod method);
         /// <summary>
         /// 根据path,method获取功能点
         /// </summary>
@@ -23,7 +35,6 @@ namespace Gardener.Authorization.Core
         /// <param name="method"></param>
         /// <returns></returns>
         Task<ApiEndpoint> Query(string path, HttpMethod method);
-
         /// <summary>
         /// 根据key获取功能点
         /// </summary>

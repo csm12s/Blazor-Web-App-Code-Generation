@@ -7,13 +7,13 @@
 using Furion;
 using Furion.DatabaseAccessor;
 using Gardener.Admin.JsonConverters;
-using Gardener.ImageVerifyCode.DbStore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.Authorization.Core;
 using Gardener.EntityFramwork.DbContexts;
+using Gardener.ImageVerifyCode.CacheStore;
 
 namespace Gardener.Admin
 {
@@ -42,17 +42,19 @@ namespace Gardener.Admin
             //开启身份认证
             services.AddAuthen();
             //开启授权
-            services.AddAuthor<IdentityPermissionService,ApiEndpointStoreService>();
+            services.AddAuthor<IdentityPermissionService,ApiEndpointQueryService>();
             //开启图片验证码
-            services.AddImageVerifyCode<ImageVerifyCodeDbStoreService>(true);
+            services.AddImageVerifyCode(true);
             //开启本地文件存储
             services.AddFileLocalStore();
-            services.AddSimpleEventBus();
+            //事件总线
+            services.AddEventBridge();
             //注册跨域
             services.AddCorsAccessor();
             //远程请求
             services.AddRemoteRequest();
-
+            //缓存服务
+            services.AddCache();
             //注册swagger
             services.AddSpecificationDocuments(x => {
                 x.SwaggerGenConfigure = config => config.EnableAnnotations();

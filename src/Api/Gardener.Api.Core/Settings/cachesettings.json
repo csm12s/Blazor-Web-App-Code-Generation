@@ -1,0 +1,14 @@
+{
+  "Cache": {
+    "Type": "Memory", //Memory,Redis,SqlServer
+    "Redis": {
+      "Configuration": "127.0.0.1:6379,password=",
+      "InstanceName": "gradener:"
+    },
+    "SqlServer": {
+      "ConnectionString": "ConnectionStrings:GardenerSqlServerDbConnectionString",
+      "SchemaName": "dbo",
+      "TableName": "TestCache"
+    }
+  }
+}

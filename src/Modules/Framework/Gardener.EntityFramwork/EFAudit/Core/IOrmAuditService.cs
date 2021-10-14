@@ -6,7 +6,6 @@
 
 using Gardener.EntityFramwork.Audit.Domains;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

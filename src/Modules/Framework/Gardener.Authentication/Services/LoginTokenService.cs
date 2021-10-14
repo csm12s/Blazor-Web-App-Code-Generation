@@ -6,14 +6,12 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
-using Gardener.Authentication.Core;
 using Gardener.Authentication.Domains;
 using Gardener.Authentication.Dtos;
 using Gardener.EntityFramwork;
 using Gardener.EntityFramwork.Dto;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

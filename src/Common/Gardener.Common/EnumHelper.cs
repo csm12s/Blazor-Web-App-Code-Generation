@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attributes;
-using Gardener.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

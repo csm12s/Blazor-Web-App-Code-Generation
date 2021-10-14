@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attributes;
-using Gardener.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

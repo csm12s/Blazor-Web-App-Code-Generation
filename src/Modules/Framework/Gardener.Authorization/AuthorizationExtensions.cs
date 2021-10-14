@@ -23,14 +23,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddAuthor<TIdentityPermissionService, TApiEndpointStoreService>(this IServiceCollection services) where TIdentityPermissionService:class, IIdentityPermissionService where TApiEndpointStoreService:class, IApiEndpointStoreService
+        public static IServiceCollection AddAuthor<TIdentityPermissionService, TApiEndpointStoreService>(this IServiceCollection services) where TIdentityPermissionService:class, IIdentityPermissionService where TApiEndpointStoreService:class, IApiEndpointQueryService
         {
             services.TryAddSingleton<IIdentityService, IdentityService>();
 
             services.TryAddSingleton<IAuthorizationPolicyProvider, AppAuthorizationPolicyProvider>();
             services.TryAddSingleton<IAuthorizationHandler, JwtHandler>();
             
-            services.TryAddSingleton<IApiEndpointStoreService, TApiEndpointStoreService>();
+            services.TryAddSingleton<IApiEndpointQueryService, TApiEndpointStoreService>();
             services.TryAddSingleton<IIdentityPermissionService, TIdentityPermissionService>();
             services.TryAddSingleton<Gardener.Authorization.Core.IAuthorizationService, AuthorizationService>();
             services.Configure<MvcOptions>(options =>

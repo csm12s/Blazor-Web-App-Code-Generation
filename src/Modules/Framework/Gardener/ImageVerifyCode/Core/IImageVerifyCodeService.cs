@@ -33,5 +33,12 @@ namespace Gardener.ImageVerifyCode.Core
         /// </summary>
         /// <returns></returns>
         Task<bool> Verify(string key, string code);
+
+        /// <summary>
+        /// 移除
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Task<bool> Remove(string key);
     }
 }

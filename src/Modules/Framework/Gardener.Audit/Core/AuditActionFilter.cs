@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attributes;
-using Gardener.Audit.Dtos;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;

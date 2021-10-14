@@ -40,6 +40,12 @@ namespace Gardener.Client.Base.Components
         public async Task ReLoadVerifyCode()
         {
             isLoading = true;
+            //移除上次的验证码
+            if (!string.IsNullOrEmpty(VerifyCodeKey))
+            {
+                await verifyCodeService.RemoveImageVerifyCode(VerifyCodeKey);
+            }
+
             ImageVerifyCodeDto imageVerifyCode = await verifyCodeService.GetImageVerifyCode(Type);
             if (imageVerifyCode != null)
             {

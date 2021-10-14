@@ -13,6 +13,11 @@
             <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
             <typeparam name="TKey">数据实体主键类型</typeparam>
         </member>
+        <member name="F:Gardener.ServiceBase`3._repository">
+            <summary>
+            TEntity Repository
+            </summary>
+        </member>
         <member name="M:Gardener.ServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
             <summary>
             继承此类即可实现基础方法

@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Enums;
-using Gardener.Enums;
 using System.ComponentModel;
 
 namespace Gardener.Authentication.Dtos

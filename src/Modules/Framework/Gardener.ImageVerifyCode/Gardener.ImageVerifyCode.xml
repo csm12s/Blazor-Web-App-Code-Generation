@@ -45,9 +45,23 @@
             <param name="code"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCodeService.Remove(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.ImageVerifyCode.Core.ImageVerifyCodeSettings">
             <summary>
             图片验证码
+            </summary>
+        </member>
+        <member name="P:Gardener.ImageVerifyCode.Core.ImageVerifyCodeSettings.StoreMode">
+            <summary>
+            存储方式
+            Cache 缓存
+            DB 数据库
             </summary>
         </member>
         <member name="P:Gardener.ImageVerifyCode.Core.ImageVerifyCodeSettings.CodeCacheExpire">
@@ -117,12 +131,26 @@
             <param name="codeType">类型</param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.ImageVerifyCode.Services.VerifyCodeService.RemoveImageVerifyCode(System.String)">
+            <summary>
+            移除图片验证码
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.ImageVerifyCode.Services.VerifyCodeService.VerifyImageVerifyCode(Gardener.ImageVerifyCode.Dtos.VerifyCodeInput)">
+            <summary>
+            验证图片验证码
+            </summary>
+            <param name="verifyCodeInput"></param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ImageVerifyCodeExtensions">
             <summary>
             
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ImageVerifyCodeExtensions.AddImageVerifyCode(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
+        <member name="M:Microsoft.Extensions.DependencyInjection.ImageVerifyCodeExtensions.AddImageVerifyCode``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
             <summary>
             添加验证码服务
             </summary>
@@ -130,7 +158,7 @@
             <param name="enableAutoVerification">是否启用自动验证</param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ImageVerifyCodeExtensions.AddImageVerifyCode``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
+        <member name="M:Microsoft.Extensions.DependencyInjection.ImageVerifyCodeExtensions.AddImageVerifyCode(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
             <summary>
             添加验证码服务
             </summary>

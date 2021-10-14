@@ -6,7 +6,6 @@
 
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
-using Gardener.Authentication.Services;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +27,7 @@ namespace Gardener.Authorization.Core
         /// <summary>
         /// 功能仓储
         /// </summary>
-        private readonly IApiEndpointStoreService _apiEndpointStoreService;
+        private readonly IApiEndpointQueryService _apiEndpointStoreService;
         /// <summary>
         /// 身份权限服务
         /// </summary>
@@ -45,7 +44,7 @@ namespace Gardener.Authorization.Core
         /// <param name="identityPermissionService"></param>
         /// <param name="identityService"></param>
         public AuthorizationService(IHttpContextAccessor httpContextAccessor,
-            IApiEndpointStoreService apiEndpointStoreService,
+            IApiEndpointQueryService apiEndpointStoreService,
             IIdentityPermissionService identityPermissionService,
             IIdentityService identityService)
         {

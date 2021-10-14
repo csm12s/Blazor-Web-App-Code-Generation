@@ -4,14 +4,40 @@
         <name>Gardener.Api.Core</name>
     </assembly>
     <members>
-        <member name="M:Gardener.Authorization.Core.ApiEndpointStoreService.Query(System.String)">
+        <member name="T:Gardener.Authorization.Core.ApiEndpointQueryService">
+            <summary>
+            接口查询服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.#ctor(Gardener.Cache.ICache)">
+            <summary>
+            
+            </summary>
+            <param name="cache"></param>
+        </member>
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.GetApiEndpointCacheKey(System.String)">
+            <summary>
+            获取缓存key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.GetApiEndpointCacheKey(System.String,Gardener.Enums.HttpMethod)">
+            <summary>
+            获取缓存key
+            </summary>
+            <param name="path"></param>
+            <param name="method"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.Query(System.String)">
             <summary>
             根据key获取功能点
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authorization.Core.ApiEndpointStoreService.Query(System.String,Gardener.Enums.HttpMethod)">
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.Query(System.String,Gardener.Enums.HttpMethod)">
             <summary>
             根据path,method获取功能点
             </summary>
@@ -82,6 +108,37 @@
             </summary>
             <param name="loginId"></param>
             <returns></returns>
+        </member>
+        <member name="T:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler">
+            <summary>
+            功能点变化
+            </summary>
+        </member>
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Function},Gardener.Cache.ICache,Gardener.Authorization.Core.IApiEndpointQueryService)">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+            <param name="cache"></param>
+            <param name="apiEndpointQueryService"></param>
+        </member>
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.Delete(Furion.EventBridge.EventMessage{System.Guid})">
+            <summary>
+            功能点变化
+            </summary>
+            <param name="eventMessage"></param>
+        </member>
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.Deletes(Furion.EventBridge.EventMessage{System.Guid[]})">
+            <summary>
+            功能点变化
+            </summary>
+            <param name="eventMessage"></param>
+        </member>
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.Update(Furion.EventBridge.EventMessage{Gardener.UserCenter.Impl.Domains.Function})">
+            <summary>
+            功能点变化
+            </summary>
+            <param name="eventMessage"></param>
         </member>
         <member name="T:Gardener.Admin.GardenerAdminStartup">
             <summary>

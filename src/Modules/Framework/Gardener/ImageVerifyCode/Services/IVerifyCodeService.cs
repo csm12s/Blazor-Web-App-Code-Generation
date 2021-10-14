@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.ImageVerifyCode.Services
 {
+    /// <summary>
+    /// 图片验证码服务
+    /// </summary>
     public interface IVerifyCodeService
     {
         /// <summary>
@@ -18,5 +21,20 @@ namespace Gardener.ImageVerifyCode.Services
         /// <param name="codeType">类型</param>
         /// <returns></returns>
         public Task<ImageVerifyCodeDto> GetImageVerifyCode(CodeCharacterTypeEnum codeType);
+
+        /// <summary>
+        /// 移除图片验证码
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Task<bool> RemoveImageVerifyCode(string key);
+
+        /// <summary>
+        /// 验证图片验证码
+        /// </summary>
+        /// <param name="verifyCodeInput"></param>
+        /// <returns></returns>
+        Task<bool> VerifyImageVerifyCode(VerifyCodeInput verifyCodeInput);
+
     }
 }

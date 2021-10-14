@@ -46,5 +46,26 @@ namespace Gardener.ImageVerifyCode.Services
             }
             return null;
         }
+        /// <summary>
+        /// 移除图片验证码
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [AllowAnonymous, IgnoreAudit]
+        public async Task<bool> RemoveImageVerifyCode(string key)
+        {
+           return await imageVerifyCodeService.Remove(key);
+        }
+
+        /// <summary>
+        /// 验证图片验证码
+        /// </summary>
+        /// <param name="verifyCodeInput"></param>
+        /// <returns></returns>
+        [AllowAnonymous, IgnoreAudit]
+        public async Task<bool> VerifyImageVerifyCode(VerifyCodeInput verifyCodeInput)
+        {
+            return await imageVerifyCodeService.Verify(verifyCodeInput.VerifyCode, verifyCodeInput.VerifyCodeKey);
+        }
     }
 }

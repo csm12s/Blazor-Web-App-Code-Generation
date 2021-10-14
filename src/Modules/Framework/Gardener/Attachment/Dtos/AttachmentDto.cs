@@ -6,7 +6,6 @@
 
 using Gardener.Attachment.Enums;
 using Gardener.Base;
-using Gardener.Enums;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

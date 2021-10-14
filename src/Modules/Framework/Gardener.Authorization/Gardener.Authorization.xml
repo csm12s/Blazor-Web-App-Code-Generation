@@ -92,7 +92,7 @@
             
             </summary>
         </member>
-        <member name="M:Gardener.Authorization.Core.AuthorizationService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Authorization.Core.IApiEndpointStoreService,Gardener.Authorization.Core.IIdentityPermissionService,Gardener.Authentication.Core.IIdentityService)">
+        <member name="M:Gardener.Authorization.Core.AuthorizationService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor,Gardener.Authorization.Core.IApiEndpointQueryService,Gardener.Authorization.Core.IIdentityPermissionService,Gardener.Authentication.Core.IIdentityService)">
             <summary>
             构造函数
             </summary>
