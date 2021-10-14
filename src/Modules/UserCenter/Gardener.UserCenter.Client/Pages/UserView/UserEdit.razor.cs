@@ -45,6 +45,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+            _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId=_editModel.Id};
             _isLoading = true;
             positions = await positionService.GetAllUsable();
             //部门
