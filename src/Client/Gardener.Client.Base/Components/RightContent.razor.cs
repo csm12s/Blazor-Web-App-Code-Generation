@@ -45,10 +45,10 @@ namespace Gardener.Client.Base.Components
         }
         public AvatarMenuItem[] AvatarMenuItems { get; set; } = new AvatarMenuItem[]
         {
-            new() { Key = "center", IconType = "user", Option = LocalizerUtil.GetValue("account_center")},
-            new() { Key = "setting", IconType = "setting", Option =LocalizerUtil.GetValue("account_setting")},
+            new() { Key = "center", IconType = "user", Option = LocalizerUtil.GetValue("个人中心")},
+            new() { Key = "setting", IconType = "setting", Option =LocalizerUtil.GetValue("个人设置")},
             new() { IsDivider = true },
-            new() { Key = "logout", IconType = "logout", Option = LocalizerUtil.GetValue("logout")}
+            new() { Key = "logout", IconType = "logout", Option = LocalizerUtil.GetValue("退出登录")}
         };
         public async Task HandleSelectUser(MenuItem item)
         {
