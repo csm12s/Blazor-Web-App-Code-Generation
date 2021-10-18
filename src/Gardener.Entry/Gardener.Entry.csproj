@@ -10,21 +10,17 @@
 
   <ItemGroup>
     <Compile Remove="logs\**" />
-    <Compile Remove="wwwroot\upload\avatar\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="logs\**" />
-    <Content Remove="wwwroot\upload\avatar\**" />
+    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="logs\**" />
-    <EmbeddedResource Remove="wwwroot\upload\avatar\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="logs\**" />
-    <None Remove="wwwroot\upload\avatar\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +40,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Api\Gardener.Api.Core\Gardener.Api.Core.csproj" />
     <ProjectReference Include="..\Client\Gardener.Client.Entry\Gardener.Client.Entry.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="gardener.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 
