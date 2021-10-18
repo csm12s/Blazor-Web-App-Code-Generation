@@ -9,7 +9,7 @@
  **docker 运行** 
 ```
 docker pull huhangfei/gardener
-docker run --name huhangfei/gardener-p 80:80 --restart=always -d gardener
+docker run --name huhangfei/gardener -p 80:80 --restart=always -d gardener
 ```
 
 ## 项目特点
