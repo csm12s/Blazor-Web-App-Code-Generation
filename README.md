@@ -6,7 +6,7 @@
 ## 演示地址
 请善待弱鸡 :two_hearts:[http://47.94.212.176:1000](http://47.94.212.176:1000)，初次加载较慢，客官先喝口水吧。
 
- **docker 运行 ** 
+ **docker 运行** 
 ```
 docker pull huhangfei/gardener
 docker run --name gardener -p 80:80 --restart=always -d gardener
