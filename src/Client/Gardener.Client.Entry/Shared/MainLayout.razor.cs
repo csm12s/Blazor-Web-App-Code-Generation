@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
 using AntDesign.ProLayout;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
@@ -41,6 +42,7 @@ namespace Gardener.Client.Entry.Shared
         private SystemConfig systemConfig;
 
         private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();
+        private ReuseTabs reuseTabs;
         /// <summary>
         /// 初始化菜单
         /// </summary>
@@ -64,6 +66,7 @@ namespace Gardener.Client.Entry.Shared
                 Key = resourceDto.Key,
                 Icon = resourceDto.Icon ?? "",
             };
+            ClientMenuCache.Add(current);
             if (parent == null)
             {
                 menuDataItems.Add(current);
@@ -108,6 +111,8 @@ namespace Gardener.Client.Entry.Shared
             systemConfig = systemConfigService.GetSystemConfig();
             await JsTool.Document.SetTitle(systemConfig.SystemName);
             await base.OnInitializedAsync();
+            //导航控制
+            ClientNavTabControl.SetReuseTabs(reuseTabs);
         }
 
         void toggle()

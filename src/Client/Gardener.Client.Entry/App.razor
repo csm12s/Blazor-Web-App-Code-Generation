@@ -1,14 +1,14 @@
 
 <Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@moduleContext.ModeuleAssemblies">
     <Found Context="routeData">
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+        <AuthorizeReuseTabsRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
             <Authorizing>
                 Authorizing...
             </Authorizing>
             <NotAuthorized>
                 <Gardener.Client.Base.Shared.RedirectToLogin />
             </NotAuthorized>
-        </AuthorizeRouteView>
+        </AuthorizeReuseTabsRouteView>
     </Found>
     <NotFound>
         <CascadingAuthenticationState>

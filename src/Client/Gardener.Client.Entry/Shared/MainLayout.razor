@@ -1,13 +1,12 @@
 ﻿@inherits LayoutComponentBase
 <AuthorizeView>
     <Authorized>
-        <AntDesign.ProLayout.BasicLayout Logo="@("./assets/logo.png")"
-                                          MenuData="_menuData">
+        <AntDesign.ProLayout.BasicLayout Logo="@("./assets/logo.png")" MenuData="_menuData">
             <RightContentRender>
-                <Gardener.Client.Base.Components.RightContent />
+                <RightContent />
             </RightContentRender>
             <ChildContent>
-                @Body
+                <ReuseTabs @ref="reuseTabs" Class="top-row px-4" TabPaneClass="content px-4" />
             </ChildContent>
             <FooterRender>
                 <FooterView Copyright="@systemConfig?.Copyright" Links="ClientConstant.FooterLinks"></FooterView>

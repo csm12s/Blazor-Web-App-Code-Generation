@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Client.Base.Model;
+using Gardener.Common;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDrawer"></typeparam>
     /// <typeparam name="TDrawerOption"></typeparam>
     /// <typeparam name="TDrawerResult"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TDrawer, TDrawerOption, TDrawerResult> : ComponentBase where TDrawer : FeedbackComponent<TDrawerOption, TDrawerResult> where TDrawerResult : DrawerOutput<TKey> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TDrawer, TDrawerOption, TDrawerResult> : ReuseTabsPageBase where TDrawer : FeedbackComponent<TDrawerOption, TDrawerResult> where TDrawerResult : DrawerOutput<TKey> where TDto : BaseDto<TKey>, new()
     {
         private DrawerSettings drawerSettings = new DrawerSettings { Width = 500 };
 
@@ -415,6 +416,8 @@ namespace Gardener.Client.Base.Components
             }
             return default(TDto);
         }
+
+        
         #endregion
     }
     /// <summary>
@@ -425,7 +428,7 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDrawer"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TDrawer> : TreeTableBase<TDto, TKey,TDrawer,DrawerInput<TKey>,DrawerOutput<TKey>> where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
-        protected TreeTableBase(DrawerSettings drawerSettings):base(drawerSettings)
+        protected TreeTableBase(DrawerSettings drawerSettings) :base(drawerSettings)
         {
         }
         protected TreeTableBase()

@@ -28,7 +28,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         public NavigationManager Navigation { get; set; }
         [Inject]
         public IAuthenticationStateManager authenticationStateManager { get; set; }
-       
+
         private Gardener.Client.Base.Components.ImageVerifyCode _imageVerifyCode;
 
         private string returnUrl;
@@ -51,6 +51,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             {
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
+           
         }
         
         private async Task OnLogin()
@@ -59,6 +60,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             var loginOutResult= await accountService.Login(loginInput);
             if (loginOutResult!=null)
             {
+                ClientNavTabControl.RemoveNavTabPageWithRegex(".*");
                 await MsgSvr.Success($"登录成功",0.8);
                 await authenticationStateManager.Login(loginOutResult, autoLogin);
                 loading = false;
@@ -70,6 +72,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
                 MsgSvr.Error($"登录失败");
                 //await InvokeAsync(StateHasChanged);
             }
+            
         }
     }
     

@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign.ProLayout;
+using AntDesign;
 using Gardener.Client.Base.Services;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
@@ -13,11 +13,6 @@ namespace Gardener.Client.Base.Shared
 {
     public partial class LoginLayout
     {
-        private readonly LinkItem[] _links =
-        {
-                new LinkItem{ Key = "", BlankTarget = true, Title = "Furion" ,Href="https://gitee.com/monksoul/Furion"},
-                new LinkItem{ Key = "", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-pro-blazor"},
-        };
         /// <summary>
         /// 系统配置服务
         /// </summary>
@@ -25,12 +20,17 @@ namespace Gardener.Client.Base.Shared
         private ISystemConfigService SystemConfigService { get; set; }
         [Inject]
         private IJsTool JsTool { get; set; }
+
         private SystemConfig systemConfig;
+
+        private ReuseTabs reuseTabs;
 
         protected async override Task OnInitializedAsync()
         {
             systemConfig = SystemConfigService.GetSystemConfig();
             await JsTool.Document.SetTitle(systemConfig.SystemName);
+            //登录模板导航控制
+            ClientNavTabControl.SetReuseTabs(reuseTabs);
         }
     }
 }

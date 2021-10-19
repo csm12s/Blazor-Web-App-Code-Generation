@@ -2,12 +2,6 @@
 @page "/system_manager/client"
 <div>
     <PageContainer Title="">
-        <Breadcrumb>
-            <Breadcrumb>
-                <BreadcrumbItem>@localizer["系统管理"]</BreadcrumbItem>
-                <BreadcrumbItem>@localizer["客户端管理"]</BreadcrumbItem>
-            </Breadcrumb>
-        </Breadcrumb>
         <ChildContent>
             <Table @ref="_table"
                    TItem="ClientDto"

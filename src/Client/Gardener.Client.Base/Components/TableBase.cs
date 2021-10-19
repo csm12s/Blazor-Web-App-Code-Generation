@@ -21,7 +21,7 @@ namespace Gardener.Client.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class TableBase<TDto,TKey> : ComponentBase where TDto:BaseDto<TKey>,new()
+    public abstract class TableBase<TDto,TKey> : ReuseTabsPageBase where TDto:BaseDto<TKey>,new()
     {
         protected ITable _table;
         protected TDto[] _datas;

@@ -99,13 +99,13 @@
                             @*<Column @bind-Field="@model.PhoneNumber" />
                                 <Column @bind-Field="@model.Email" />*@
                             @*<Column @bind-Field="@model.Roles" Style="max-width:150px">
-                                @foreach (var role in model.Roles)
-                                {
-                                    <Tooltip Placement="@Placement.Top" Title="@role.Remark">
-                                        <Tag>@role.Name</Tag>
-                                    </Tooltip>
-                                }
-                            </Column>*@
+                                    @foreach (var role in model.Roles)
+                                    {
+                                        <Tooltip Placement="@Placement.Top" Title="@role.Remark">
+                                            <Tag>@role.Name</Tag>
+                                        </Tooltip>
+                                    }
+                                </Column>*@
                             <Column @bind-Field="@model.IsLocked" Filterable>
                                 <ResourceAuthorize ResourceKey="user_center_user_lock">
                                     <Authorized>
@@ -116,7 +116,7 @@
                                     </NotAuthorized>
                                 </ResourceAuthorize>
                             </Column>
-                            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending"/>
+                            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
                             <ActionColumn>
                                 <Space>
                                     <ResourceAuthorize ResourceKey="user_center_user_edit">
