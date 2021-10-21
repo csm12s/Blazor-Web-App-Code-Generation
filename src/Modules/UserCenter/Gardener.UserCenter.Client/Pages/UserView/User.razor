@@ -2,159 +2,148 @@
 @inherits TableBase<UserDto, int, UserEdit>
 
 <div>
-    <PageContainer Title="@localizer["用户管理"]">
-        <Breadcrumb>
-            <Breadcrumb>
-                <BreadcrumbItem>@localizer["用户中心"]</BreadcrumbItem>
-                <BreadcrumbItem>@localizer["用户管理"]</BreadcrumbItem>
-            </Breadcrumb>
-        </Breadcrumb>
-        <ChildContent>
-            <Row>
-                <AntDesign.Col Span="4">
-                    <Spin Spinning="_deptTreeIsLoading">
-                        <Tree @ref="_deptTree"
-                              ShowLine
-                              DataSource="depts"
-                              Multiple="false"
-                              TitleExpression="x => x.DataItem.Name"
-                              ChildrenExpression="x => x.DataItem.Children?.ToList()"
-                              KeyExpression="x => x.DataItem.Id.ToString()"
-                              IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
-                              SelectedKeyChanged="SelectedKeyChanged"
-                              TItem="DeptDto" Style="min-height:500px;">
-                        </Tree>
-                    </Spin>
-                </AntDesign.Col>
-                <AntDesign.Col Span="1">
+    <Row>
+        <AntDesign.Col Span="4">
+            <Spin Spinning="_deptTreeIsLoading">
+                <Tree @ref="_deptTree"
+                      ShowLine
+                      DataSource="depts"
+                      Multiple="false"
+                      TitleExpression="x => x.DataItem.Name"
+                      ChildrenExpression="x => x.DataItem.Children?.ToList()"
+                      KeyExpression="x => x.DataItem.Id.ToString()"
+                      IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
+                      SelectedKeyChanged="SelectedKeyChanged"
+                      TItem="DeptDto" Style="min-height:500px;">
+                </Tree>
+            </Spin>
+        </AntDesign.Col>
+        <AntDesign.Col Span="1">
 
-                </AntDesign.Col>
-                <AntDesign.Col Span="19">
-                    <Table @ref="_table"
-                           TItem="UserDto"
-                           DataSource="@_datas"
-                           Total="_total"
-                           OnChange="@OnChange"
-                           @bind-PageIndex="pageRequest.PageIndex"
-                           @bind-PageSize="pageRequest.PageSize"
-                           @bind-SelectedRows="_selectedRows"
-                           Loading="@_tableIsLoading"
-                           Context="model"
-                           Size=@TableSize.Small>
-                        <TitleTemplate>
-                            <Row>
-                                <AntDesign.Col Span="8">
-                                    <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
-                                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                                            @localizer["删除选中"]
-                                        </Button>
-                                    </ResourceAuthorize>
-                                </AntDesign.Col>
-                                <AntDesign.Col Span="16" Style="text-align:right">
-                                    <Space>
-                                        <ResourceAuthorize ResourceKey="user_center_user_add">
-                                            <SpaceItem>
-                                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                                    @localizer["添加"]
-                                                </Button>
-                                            </SpaceItem>
-                                        </ResourceAuthorize>
-                                        <ResourceAuthorize ResourceKey="user_center_user_refresh">
-                                            <SpaceItem>
-                                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                                    @localizer["刷新"]
-                                                </Button>
-                                            </SpaceItem>
-                                        </ResourceAuthorize>
-                                    </Space>
-                                </AntDesign.Col>
-                            </Row>
-                        </TitleTemplate>
-                        <RowTemplate>
+        </AntDesign.Col>
+        <AntDesign.Col Span="19">
+            <Table @ref="_table"
+                   TItem="UserDto"
+                   DataSource="@_datas"
+                   Total="_total"
+                   OnChange="@OnChange"
+                   @bind-PageIndex="pageRequest.PageIndex"
+                   @bind-PageSize="pageRequest.PageSize"
+                   @bind-SelectedRows="_selectedRows"
+                   Loading="@_tableIsLoading"
+                   Context="model"
+                   Size=@TableSize.Small>
+                <TitleTemplate>
+                    <Row>
+                        <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
-                                <Selection Key="@(model.Id.ToString())" />
+                                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                                    @localizer["删除选中"]
+                                </Button>
                             </ResourceAuthorize>
-                            <Column @bind-Field="@model.Id" Sortable />
-                            <Column @bind-Field="@model.Avatar">
-                                <ResourceAuthorize ResourceKey="user_center_user_list_edit_avatar">
-                                    <Authorized>
-                                        <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
-                                            <a @onclick="_=>OnAvatarClick(model)">
-                                                <Avatar Src="@model.Avatar" />
-                                            </a>
-                                        </Tooltip>
-                                    </Authorized>
-                                    <NotAuthorized>
+                        </AntDesign.Col>
+                        <AntDesign.Col Span="16" Style="text-align:right">
+                            <Space>
+                                <ResourceAuthorize ResourceKey="user_center_user_add">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                            @localizer["添加"]
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                                <ResourceAuthorize ResourceKey="user_center_user_refresh">
+                                    <SpaceItem>
+                                        <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                            @localizer["刷新"]
+                                        </Button>
+                                    </SpaceItem>
+                                </ResourceAuthorize>
+                            </Space>
+                        </AntDesign.Col>
+                    </Row>
+                </TitleTemplate>
+                <RowTemplate>
+                    <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
+                        <Selection Key="@(model.Id.ToString())" />
+                    </ResourceAuthorize>
+                    <Column @bind-Field="@model.Id" Sortable />
+                    <Column @bind-Field="@model.Avatar">
+                        <ResourceAuthorize ResourceKey="user_center_user_list_edit_avatar">
+                            <Authorized>
+                                <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
+                                    <a @onclick="_=>OnAvatarClick(model)">
                                         <Avatar Src="@model.Avatar" />
-                                    </NotAuthorized>
-                                </ResourceAuthorize>
-                            </Column>
-                            <Column @bind-Field="@model.UserName" Filterable />
-                            <Column @bind-Field="@model.NickName" Filterable />
-                            <Column Title="部门" TData="string">
-                                @model.Dept?.Name
-                            </Column>
-                            <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters">
-                                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Gender)"></TagRandomColor>
-                            </Column>
-                            @*<Column @bind-Field="@model.PhoneNumber" />
-                                <Column @bind-Field="@model.Email" />*@
-                            @*<Column @bind-Field="@model.Roles" Style="max-width:150px">
-                                    @foreach (var role in model.Roles)
-                                    {
-                                        <Tooltip Placement="@Placement.Top" Title="@role.Remark">
-                                            <Tag>@role.Name</Tag>
-                                        </Tooltip>
-                                    }
-                                </Column>*@
-                            <Column @bind-Field="@model.IsLocked" Filterable>
-                                <ResourceAuthorize ResourceKey="user_center_user_lock">
-                                    <Authorized>
-                                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
-                                    </Authorized>
-                                    <NotAuthorized>
-                                        <TagYesNo Yes="model.IsLocked"></TagYesNo>
-                                    </NotAuthorized>
-                                </ResourceAuthorize>
-                            </Column>
-                            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
-                            <ActionColumn>
-                                <Space>
-                                    <ResourceAuthorize ResourceKey="user_center_user_edit">
-                                        <SpaceItem>
-                                            <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
-                                                <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
-                                            </Tooltip>
-                                        </SpaceItem>
-                                    </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="user_center_user_detail">
-                                        <SpaceItem>
-                                            <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
-                                                <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
-                                            </Tooltip>
-                                        </SpaceItem>
-                                    </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="user_center_user_role_edit">
-                                        <SpaceItem>
-                                            <Tooltip Title="@(localizer["设置角色"])" ArrowPointAtCenter="true">
-                                                <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)"></Button>
-                                            </Tooltip>
-                                        </SpaceItem>
-                                    </ResourceAuthorize>
-                                    <ResourceAuthorize ResourceKey="user_center_user_delete">
-                                        <SpaceItem>
-                                            <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
-                                                <Button Icon="delete" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
-                                            </Tooltip>
-                                        </SpaceItem>
-                                    </ResourceAuthorize>
-                                </Space>
-                            </ActionColumn>
-                        </RowTemplate>
-                    </Table>
-                </AntDesign.Col>
-            </Row>
-
-        </ChildContent>
-    </PageContainer>
+                                    </a>
+                                </Tooltip>
+                            </Authorized>
+                            <NotAuthorized>
+                                <Avatar Src="@model.Avatar" />
+                            </NotAuthorized>
+                        </ResourceAuthorize>
+                    </Column>
+                    <Column @bind-Field="@model.UserName" Filterable />
+                    <Column @bind-Field="@model.NickName" Filterable />
+                    <Column Title="部门" TData="string">
+                        @model.Dept?.Name
+                    </Column>
+                    <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters">
+                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Gender)"></TagRandomColor>
+                    </Column>
+                    @*<Column @bind-Field="@model.PhoneNumber" />
+                    <Column @bind-Field="@model.Email" />*@
+                    @*<Column @bind-Field="@model.Roles" Style="max-width:150px">
+                        @foreach (var role in model.Roles)
+                        {
+                            <Tooltip Placement="@Placement.Top" Title="@role.Remark">
+                                <Tag>@role.Name</Tag>
+                            </Tooltip>
+                        }
+                    </Column>*@
+                    <Column @bind-Field="@model.IsLocked" Filterable>
+                        <ResourceAuthorize ResourceKey="user_center_user_lock">
+                            <Authorized>
+                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <TagYesNo Yes="model.IsLocked"></TagYesNo>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
+                    </Column>
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+                    <ActionColumn>
+                        <Space>
+                            <ResourceAuthorize ResourceKey="user_center_user_edit">
+                                <SpaceItem>
+                                    <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
+                                        <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_center_user_detail">
+                                <SpaceItem>
+                                    <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
+                                        <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_center_user_role_edit">
+                                <SpaceItem>
+                                    <Tooltip Title="@(localizer["设置角色"])" ArrowPointAtCenter="true">
+                                        <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                            <ResourceAuthorize ResourceKey="user_center_user_delete">
+                                <SpaceItem>
+                                    <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
+                                        <Button Icon="delete" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
+                                    </Tooltip>
+                                </SpaceItem>
+                            </ResourceAuthorize>
+                        </Space>
+                    </ActionColumn>
+                </RowTemplate>
+            </Table>
+        </AntDesign.Col>
+    </Row>
 </div>
