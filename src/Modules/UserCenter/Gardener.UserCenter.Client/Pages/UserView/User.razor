@@ -1,7 +1,8 @@
 ﻿@page "/user_center/user"
 @inherits TableBase<UserDto, int, UserEdit>
+
 <div>
-    <PageContainer Title="">
+    <PageContainer Title="@localizer["用户管理"]">
         <Breadcrumb>
             <Breadcrumb>
                 <BreadcrumbItem>@localizer["用户中心"]</BreadcrumbItem>
