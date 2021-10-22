@@ -25,7 +25,7 @@ docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
 [![Giteye chart](https://chart.giteye.net/gitee/hgflydream/Gardener/PPVXK76M.png)](https://giteye.net/chart/PPVXK76M)
 
 ## 基情链接
-👉 **[Furion](https://gitee.com/monksoul/Furion)**
+👉 **[Furion](https://gitee.com/dotnetchina/Furion)**
 👉 **[ant-design-blazor](https://github.com/ant-design-blazor/ant-design-blazor)**
 
 ## 跟上组织
