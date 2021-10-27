@@ -5,13 +5,11 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DependencyInjection;
-using Gardener.EntityFramwork;
-using Gardener.EntityFramwork.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Gardener.Core.DataFilter
+namespace Gardener.Base
 {
     /// <summary>
     /// 查询表达式服务

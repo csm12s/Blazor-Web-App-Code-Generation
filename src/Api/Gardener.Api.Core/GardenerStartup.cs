@@ -13,7 +13,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.Authorization.Core;
 using Gardener.EntityFramwork.DbContexts;
-using Gardener.ImageVerifyCode.CacheStore;
 
 namespace Gardener.Admin
 {

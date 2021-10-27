@@ -4,12 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.EntityFramwork.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Gardener.EntityFramwork
+namespace Gardener.Base
 {
     /// <summary>
     /// 定义过滤表达式功能

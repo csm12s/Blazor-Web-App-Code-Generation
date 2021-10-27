@@ -8,7 +8,6 @@ using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
 using Gardener.EntityFramwork.DbContexts;
-using Gardener.EntityFramwork.Domains;
 using Gardener.Enums;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
     /// </summary>
     [Description("操作审计信息")]
     [IgnoreAudit]
-    public class AuditOperation : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditOperation : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计操作
@@ -80,6 +79,17 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// </summary>
         [DisplayName("请求参数")]
         public string Parameters { get; set; }
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        [DisplayName("是否锁定")]
+        public bool IsLocked { get; set; }
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        [DisplayName("是否删除")]
+        public bool IsDeleted { get; set; }
         /// <summary>
         /// 审计数据信息集合
         /// </summary>

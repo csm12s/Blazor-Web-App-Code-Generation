@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20211014100214_v0.0.1")]
+    [Migration("20211027093250_v0.0.1")]
     partial class v001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -3774,7 +3774,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "登录管理",
                             Order = 70,
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "system_manager/login-token",
+                            Path = "/system_manager/login-token",
                             Remark = "",
                             Type = 1000
                         },

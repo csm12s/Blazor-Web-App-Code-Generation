@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign.TableModels;
-using Gardener.EntityFramwork.Dto;
+using Gardener.Base;
 using Gardener.Enums;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;

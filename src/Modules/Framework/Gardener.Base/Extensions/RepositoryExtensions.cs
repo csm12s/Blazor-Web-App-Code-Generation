@@ -6,11 +6,10 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Common;
-using Gardener.EntityFramwork.Domains;
 using System;
 using System.Threading.Tasks;
 
-namespace Gardener.EntityFramwork
+namespace Gardener.Base
 {
     /// <summary>
     /// 分部拓展类

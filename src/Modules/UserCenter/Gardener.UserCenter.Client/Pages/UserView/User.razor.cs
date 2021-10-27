@@ -11,9 +11,8 @@ using System.Threading.Tasks;
 using Gardener.Common;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
-using Gardener.EntityFramwork.Dto;
-using Gardener.EntityFramwork.Enums;
 using Gardener.Client.Base.Components;
+using Gardener.Base;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {

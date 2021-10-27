@@ -7,7 +7,7 @@
 using Gardener.Attributes;
 using System.ComponentModel;
 
-namespace Gardener.EntityFramwork.Enums
+namespace Gardener.Base
 {
     /// <summary>
     /// 筛选操作方式

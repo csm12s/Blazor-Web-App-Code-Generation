@@ -6,7 +6,7 @@
 
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
-using Gardener.EntityFramwork.Domains;
+using Gardener.Base;
 using System;
 using System.ComponentModel;
 

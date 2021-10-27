@@ -4,6 +4,187 @@
         <name>Gardener.Base</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Base.PagedQueryableExtensions">
+            <summary>
+            分部拓展类
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.PagedQueryableExtensions.ToPage``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            分页拓展
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entities"></param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.PagedQueryableExtensions.ToPageAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            分页拓展
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entities"></param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.PagedQueryableExtensions.OrderConditions``1(System.Linq.IQueryable{``0},System.Collections.Generic.List{Gardener.Base.ListSortDirection})">
+            <summary>
+            多字段排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="orderConditions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.PagedQueryableExtensions.OrderConditions``1(System.Linq.IQueryable{``0},Gardener.Base.ListSortDirection[])">
+            <summary>
+            多字段排序
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="orderConditions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Base.RepositoryExtensions">
+            <summary>
+            分部拓展类
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteAsync``1(Furion.DatabaseAccessor.IRepository{``0},``0)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteByKeyAsync``2(Furion.DatabaseAccessor.IRepository{``0},``1)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="repository"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Base.GardenerEntityBase`3">
+            <summary>
+            基类
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.GardenerEntityBase`3.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.GardenerEntityBase`3.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.GardenerEntityBase`2">
+            <summary>
+            基类
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.GardenerEntityBase`1">
+            <summary>
+            基类
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.GardenerEntityBase">
+            <summary>
+            基类
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.DynamicFilterService">
+            <summary>
+            查询表达式服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.DynamicFilterService.#ctor(System.IServiceProvider)">
+            <summary>
+            初始化一个<see cref="T:Gardener.Base.DynamicFilterService"/>类型的新实例
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.DynamicFilterService.GetExpression``1(System.Collections.Generic.List{Gardener.Base.FilterGroup})">
+            <summary>
+            获取指定查询条件组的查询表达式
+            </summary>
+            <typeparam name="T">表达式实体类型</typeparam>
+            <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
+            <returns>查询表达式</returns>
+        </member>
+        <member name="T:Gardener.Base.FilterHelper">
+            <summary>
+            查询表达式辅助操作类
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.GetExpression``1(System.Collections.Generic.List{Gardener.Base.FilterGroup})">
+            <summary>
+            获取指定查询条件组的查询表达式
+            </summary>
+            <typeparam name="T">表达式实体类型</typeparam>
+            <param name="groups">查询条件组，如果为null，则直接返回 true 表达式</param>
+            <returns>查询表达式</returns>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.GetExpression``1(Gardener.Base.FilterRule)">
+            <summary>
+            获取指定查询条件的查询表达式
+            </summary>
+            <typeparam name="T">表达式实体类型</typeparam>
+            <param name="rule">查询条件，如果为null，则直接返回 true 表达式</param>
+            <returns>查询表达式</returns>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.ToOperateCode(Gardener.Base.FilterOperate)">
+            <summary>
+            把查询操作的枚举表示转换为操作码
+            </summary>
+            <param name="operate">查询操作的枚举表示</param>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.GetFilterOperate(System.String)">
+            <summary>
+            获取操作码的查询操作枚举表示
+            </summary>
+            <param name="code">操作码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.Divide(System.Collections.Generic.List{Gardener.Base.FilterRule})">
+            <summary>
+            根据 or 拆分
+            </summary>
+            <param name="rules"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.GetExpressionBody(System.Linq.Expressions.ParameterExpression,System.Collections.Generic.List{Gardener.Base.FilterGroup})">
+            <summary>
+            
+            </summary>
+            <param name="param"></param>
+            <param name="groups"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.GetExpressionBody(System.Linq.Expressions.ParameterExpression,Gardener.Base.FilterRule)">
+            <summary>
+            
+            </summary>
+            <param name="param"></param>
+            <param name="rule"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.FilterHelper.CheckFilterRule(System.Type,Gardener.Base.FilterRule)">
+            <summary>
+            验证属性与属性值是否匹配 
+            </summary>
+            <param name="type">最后一个属性</param>
+            <param name="rule">条件信息</param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.ServiceBase`3">
             <summary>
             继承此类即可实现基础方法
@@ -135,7 +316,7 @@
             <param name="isLocked"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+        <member name="M:Gardener.ServiceBase`3.Search(Gardener.Base.PageRequest)">
             <summary>
             搜索
             </summary>

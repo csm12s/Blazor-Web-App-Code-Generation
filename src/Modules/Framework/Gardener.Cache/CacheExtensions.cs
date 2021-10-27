@@ -6,7 +6,6 @@
 
 using Furion;
 using Gardener.Cache;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection

@@ -6,7 +6,7 @@
 
 using System.Collections.Generic;
 
-namespace Gardener.EntityFramwork.Dto
+namespace Gardener.Base
 {
     /// <summary>
     /// 分页泛型集合

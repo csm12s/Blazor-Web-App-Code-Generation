@@ -6,8 +6,7 @@
 
 using AntDesign;
 using AntDesign.TableModels;
-using Gardener.EntityFramwork.Dto;
-using Gardener.EntityFramwork.Enums;
+using Gardener.Base;
 using Mapster;
 using System.Collections.Generic;
 using System.Linq;

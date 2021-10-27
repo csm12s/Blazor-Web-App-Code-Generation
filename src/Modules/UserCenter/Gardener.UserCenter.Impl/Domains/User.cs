@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
-using Gardener.EntityFramwork.Domains;
+using Gardener.Base;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.EntityFramwork.Domains;
+using Gardener.Base;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -188,7 +188,7 @@ namespace Gardener.UserCenter.Impl.Domains
  new Function(){Id = Guid.Parse("f72f5e71-46f6-44eb-8a3d-f07082fa33e5"),EnableAudit=false,Group="用户中心服务",Service="客户端服务",Summary="查询所有可以用的",Key="6069031816C15D92B60A246C9CAD1287",Description="查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",Path="/api/client/all-usable",Method=(HttpMethod)0,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},
  new Function(){Id = Guid.Parse("8f0fb7b6-9087-40c3-a894-8be057ac044e"),EnableAudit=false,Group="用户中心服务",Service="客户端服务",Summary="分页查询",Key="A16E0CAA03E75A172F6A782E8BB86ECC",Description="根据分页参数，分页获取数据",Path="/api/client/page/{pageindex}/{pagesize}",Method=(HttpMethod)0,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},
  new Function(){Id = Guid.Parse("fc90ab49-b7c2-437e-bbdc-4f234cb0f79a"),EnableAudit=true,Group="用户中心服务",Service="客户端服务",Summary="锁定",Key="6D9355E642310F188E728A62002A6879",Description="根据主键锁定或解锁数据（必须有IsLock才能生效）",Path="/api/client/{id}/lock/{islocked}",Method=(HttpMethod)2,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},
- new Function(){Id = Guid.Parse("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),EnableAudit=true,Group="用户中心服务",Service="客户端服务",Summary="搜索",Key="DA7F00498254B5B31B18D7C877F96FB7",Description="搜索数据",Path="/api/client/search",Method=(HttpMethod)1,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},
+ new Function(){Id = Guid.Parse("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),EnableAudit=false,Group="用户中心服务",Service="客户端服务",Summary="搜索",Key="DA7F00498254B5B31B18D7C877F96FB7",Description="搜索数据",Path="/api/client/search",Method=(HttpMethod)1,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},
  new Function(){Id = Guid.Parse("38545a67-61ff-4e5c-90bb-a555a93fcbea"),EnableAudit=false,Group="用户中心服务",Service="用户账户认证授权服务",Summary="获取当前用户信息",Key="2FAAF199BA16D914E7796C0B65B7CD13",Description="获取当前用户信息",Path="/api/account/current-user",Method=(HttpMethod)0,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},
  new Function(){Id = Guid.Parse("ca7391b0-2691-4bb9-87c5-1230c5f1e00e"),EnableAudit=true,Group="系统管理",Service="用户登录TOKEN服务",Summary="批量删除",Key="B63C74AC690A1F5B2E8C23CD2F4C4A0B",Description="根据多个主键批量删除",Path="/api/user-token/deletes",Method=(HttpMethod)1,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},
  new Function(){Id = Guid.Parse("68ce42ff-acc7-485f-bc91-df471b520be7"),EnableAudit=false,Group="用户中心服务",Service="用户账户认证授权服务",Summary="查看用户角色",Key="7F3E99BDC443556613552A21A56D9B73",Description="查看当前用户角色",Path="/api/account/current-user-roles",Method=(HttpMethod)0,CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1634180728)},

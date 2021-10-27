@@ -47,36 +47,6 @@
             <param name="eventData"></param>
             <param name="result"></param>
         </member>
-        <member name="T:Gardener.EntityFramwork.Domains.GardenerEntityBase`3">
-            <summary>
-            基类
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Domains.GardenerEntityBase`3.IsLocked">
-            <summary>
-            是否锁定
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Domains.GardenerEntityBase`3.IsDeleted">
-            <summary>
-            是否删除
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Domains.GardenerEntityBase`2">
-            <summary>
-            基类
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Domains.GardenerEntityBase`1">
-            <summary>
-            基类
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Domains.GardenerEntityBase">
-            <summary>
-            基类
-            </summary>
-        </member>
         <member name="T:Gardener.EntityFramwork.Audit.Core.EntityFramworkAuditService`1">
             <summary>
             当前请求的审计数据管理
@@ -202,6 +172,16 @@
             操作ID
             </summary>
         </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditEntity.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditEntity.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditEntity.AuditProperties">
             <summary>
             操作实体属性集合
@@ -277,6 +257,16 @@
             请求参数
             </summary>
         </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditOperation.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditOperation.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditOperation.AuditEntities">
             <summary>
             审计数据信息集合
@@ -317,161 +307,20 @@
             实体审计编号  
             </summary>
         </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditProperty.IsLocked">
+            <summary>
+            是否锁定
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditProperty.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
         <member name="P:Gardener.EntityFramwork.Audit.Domains.AuditProperty.AuditEntity">
             <summary>
             审计实体
             </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.FilterHelper">
-            <summary>
-            查询表达式辅助操作类
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.GetExpression``1(System.Collections.Generic.List{Gardener.EntityFramwork.Dto.FilterGroup})">
-            <summary>
-            获取指定查询条件组的查询表达式
-            </summary>
-            <typeparam name="T">表达式实体类型</typeparam>
-            <param name="groups">查询条件组，如果为null，则直接返回 true 表达式</param>
-            <returns>查询表达式</returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.GetExpression``1(Gardener.EntityFramwork.Dto.FilterRule)">
-            <summary>
-            获取指定查询条件的查询表达式
-            </summary>
-            <typeparam name="T">表达式实体类型</typeparam>
-            <param name="rule">查询条件，如果为null，则直接返回 true 表达式</param>
-            <returns>查询表达式</returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.ToOperateCode(Gardener.EntityFramwork.Enums.FilterOperate)">
-            <summary>
-            把查询操作的枚举表示转换为操作码
-            </summary>
-            <param name="operate">查询操作的枚举表示</param>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.GetFilterOperate(System.String)">
-            <summary>
-            获取操作码的查询操作枚举表示
-            </summary>
-            <param name="code">操作码</param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.Divide(System.Collections.Generic.List{Gardener.EntityFramwork.Dto.FilterRule})">
-            <summary>
-            根据 or 拆分
-            </summary>
-            <param name="rules"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.GetExpressionBody(System.Linq.Expressions.ParameterExpression,System.Collections.Generic.List{Gardener.EntityFramwork.Dto.FilterGroup})">
-            <summary>
-            
-            </summary>
-            <param name="param"></param>
-            <param name="groups"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.GetExpressionBody(System.Linq.Expressions.ParameterExpression,Gardener.EntityFramwork.Dto.FilterRule)">
-            <summary>
-            
-            </summary>
-            <param name="param"></param>
-            <param name="rule"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.FilterHelper.CheckFilterRule(System.Type,Gardener.EntityFramwork.Dto.FilterRule)">
-            <summary>
-            验证属性与属性值是否匹配 
-            </summary>
-            <param name="type">最后一个属性</param>
-            <param name="rule">条件信息</param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.EntityFramwork.PagedQueryableExtensions">
-            <summary>
-            分部拓展类
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.PagedQueryableExtensions.ToPage``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
-            <summary>
-            分页拓展
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="entities"></param>
-            <param name="pageIndex"></param>
-            <param name="pageSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.PagedQueryableExtensions.ToPageAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Threading.CancellationToken)">
-            <summary>
-            分页拓展
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="entities"></param>
-            <param name="pageIndex"></param>
-            <param name="pageSize"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.PagedQueryableExtensions.OrderConditions``1(System.Linq.IQueryable{``0},System.Collections.Generic.List{Gardener.EntityFramwork.Dto.ListSortDirection})">
-            <summary>
-            多字段排序
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="query"></param>
-            <param name="orderConditions"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.PagedQueryableExtensions.OrderConditions``1(System.Linq.IQueryable{``0},Gardener.EntityFramwork.Dto.ListSortDirection[])">
-            <summary>
-            多字段排序
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="query"></param>
-            <param name="orderConditions"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.EntityFramwork.RepositoryExtensions">
-            <summary>
-            分部拓展类
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.RepositoryExtensions.FakeDeleteAsync``1(Furion.DatabaseAccessor.IRepository{``0},``0)">
-            <summary>
-            逻辑删除
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="repository"></param>
-            <param name="entity"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.EntityFramwork.RepositoryExtensions.FakeDeleteByKeyAsync``2(Furion.DatabaseAccessor.IRepository{``0},``1)">
-            <summary>
-            逻辑删除
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <typeparam name="TKey"></typeparam>
-            <param name="repository"></param>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.Core.DataFilter.DynamicFilterService">
-            <summary>
-            查询表达式服务
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.DataFilter.DynamicFilterService.#ctor(System.IServiceProvider)">
-            <summary>
-            初始化一个<see cref="T:Gardener.Core.DataFilter.DynamicFilterService"/>类型的新实例
-            </summary>
-        </member>
-        <member name="M:Gardener.Core.DataFilter.DynamicFilterService.GetExpression``1(System.Collections.Generic.List{Gardener.EntityFramwork.Dto.FilterGroup})">
-            <summary>
-            获取指定查询条件组的查询表达式
-            </summary>
-            <typeparam name="T">表达式实体类型</typeparam>
-            <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
-            <returns>查询表达式</returns>
         </member>
     </members>
 </doc>

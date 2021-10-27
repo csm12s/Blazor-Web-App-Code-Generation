@@ -8,7 +8,6 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Client.Base.Model;
-using Gardener.Common;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -339,6 +338,10 @@ namespace Gardener.Client.Base.Components
                    title: localizer["详情"],
                    width: settings.Width,
                    placement: settings.Placement.ToString().ToLower());
+            if (result.Succeeded) 
+            {
+                await ReLoadTable();
+            }
         }
 
         #region tree tool

@@ -4,24 +4,26 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Enums;
+using Gardener.Attributes;
+using System.ComponentModel;
 
-namespace Gardener.EntityFramwork.Dto
+namespace Gardener.Base
 {
-    /// <summary>
-    /// 搜索排序
-    /// </summary>
-    public class ListSortDirection
+    public enum FilterCondition
     {
+
         /// <summary>
-        /// 字段名
+        /// 并且
         /// </summary>
-        public string FieldName { get; set; }
+        [Code("and")]
+        [Description("并且")]
+        And = 1,
+
         /// <summary>
-        /// 0 asc 
-        /// 1 desc
+        /// 或者
         /// </summary>
-        public ListSortType SortType { get; set; } = ListSortType.Desc;
+        [Code("or")]
+        [Description("或者")]
+        Or = 2
     }
-    
 }

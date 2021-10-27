@@ -9,7 +9,6 @@ using Gardener.ImageVerifyCode.CacheStore;
 using Gardener.ImageVerifyCode.Core;
 using Gardener.ImageVerifyCode.DbStore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

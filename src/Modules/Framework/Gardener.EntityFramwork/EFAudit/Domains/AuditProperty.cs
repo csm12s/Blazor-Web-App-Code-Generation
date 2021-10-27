@@ -7,7 +7,6 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.EntityFramwork.DbContexts;
-using Gardener.EntityFramwork.Domains;
 using System;
 using System.ComponentModel;
 
@@ -18,7 +17,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
     /// </summary>
     [Description("属性审计信息")]
     [IgnoreAudit]
-    public class AuditProperty : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditProperty : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 名称
@@ -55,6 +54,17 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// </summary>
         [DisplayName("实体审计编号")]
         public Guid AuditEntityid { get; set; }
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        [DisplayName("是否锁定")]
+        public bool IsLocked { get; set; }
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        [DisplayName("是否删除")]
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// 审计实体

@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.FriendlyException;
-using Gardener.EntityFramwork.Dto;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,7 +13,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gardener.EntityFramwork
+namespace Gardener.Base
 {
     /// <summary>
     /// 分部拓展类

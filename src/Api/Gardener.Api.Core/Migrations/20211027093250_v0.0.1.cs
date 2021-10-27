@@ -47,10 +47,10 @@ namespace Gardener.Api.Core.Migrations
                     Path = table.Column<string>(type: "TEXT", nullable: true),
                     Method = table.Column<int>(type: "INTEGER", nullable: false),
                     Parameters = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -273,11 +273,11 @@ namespace Gardener.Api.Core.Migrations
                     OperaterName = table.Column<string>(type: "TEXT", nullable: true),
                     OperaterType = table.Column<int>(type: "INTEGER", nullable: false),
                     OperationId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     AuditOperationId = table.Column<Guid>(type: "TEXT", nullable: true),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -416,10 +416,10 @@ namespace Gardener.Api.Core.Migrations
                     NewValue = table.Column<string>(type: "TEXT", nullable: true),
                     DataType = table.Column<string>(type: "TEXT", nullable: true),
                     AuditEntityid = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1567,7 +1567,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 1306005245337600000L, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "system_manager/login-token", "", 1000, null });
+                values: new object[] { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 1306005245337600000L, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/login-token", "", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",

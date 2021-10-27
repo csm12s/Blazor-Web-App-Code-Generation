@@ -4,8 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Client.Base;
-using Gardener.EntityFramwork.Dto;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using System.Collections.Generic;

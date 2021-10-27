@@ -79,6 +79,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Cache", "Modules\F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.ImageVerifyCode.CacheStore", "Modules\Framework\Gardener.ImageVerifyCode.CacheStore\Gardener.ImageVerifyCode.CacheStore.csproj", "{F5175BD5-1032-4125-B52D-9C877B69A9D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.Email", "Modules\Framework\Gardener.Email\Gardener.Email.csproj", "{CE920F47-2562-40FA-B4AD-CA3ADCF28E1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -213,6 +215,10 @@ Global
 		{F5175BD5-1032-4125-B52D-9C877B69A9D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5175BD5-1032-4125-B52D-9C877B69A9D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5175BD5-1032-4125-B52D-9C877B69A9D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE920F47-2562-40FA-B4AD-CA3ADCF28E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE920F47-2562-40FA-B4AD-CA3ADCF28E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE920F47-2562-40FA-B4AD-CA3ADCF28E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE920F47-2562-40FA-B4AD-CA3ADCF28E1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -251,6 +257,7 @@ Global
 		{2A079B52-D3CA-4D22-8E05-35304DBC6EBD} = {4FBB8EA4-A1F9-48AA-A693-382664D2C1E3}
 		{A03468F2-A289-499E-A0F2-8B99AFBD2639} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
 		{F5175BD5-1032-4125-B52D-9C877B69A9D4} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
+		{CE920F47-2562-40FA-B4AD-CA3ADCF28E1C} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C032A5FB-7757-4E89-86BE-9C6CE6CAD014}

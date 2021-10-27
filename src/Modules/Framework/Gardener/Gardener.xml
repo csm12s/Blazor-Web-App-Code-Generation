@@ -775,6 +775,236 @@
             创建日期
             </summary>
         </member>
+        <member name="T:Gardener.Base.FilterGroup">
+            <summary>
+            过滤组
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.FilterGroup.Rules">
+            <summary>
+            获取或设置 条件集合
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.FilterGroup.AddRule(Gardener.Base.FilterRule)">
+            <summary>
+            添加规则
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.FilterRule">
+            <summary>
+            筛选规则
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.FilterRule.#ctor">
+            <summary>
+            初始化一个<see cref="T:Gardener.Base.FilterRule"/>的新实例
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.FilterRule.#ctor(System.String,System.Object,Gardener.Base.FilterOperate)">
+            <summary>
+            使用指定数据名称，数据值及操作方式初始化一个<see cref="T:Gardener.Base.FilterRule"/>的新实例
+            </summary>
+            <param name="field">数据名称</param>
+            <param name="value">数据值</param>
+            <param name="operate">操作方式</param>
+        </member>
+        <member name="P:Gardener.Base.FilterRule.Field">
+            <summary>
+            获取或设置 属性名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.FilterRule.Value">
+            <summary>
+            获取或设置 属性值
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.FilterRule.Operate">
+            <summary>
+            获取或设置 操作类型
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.FilterRule.Condition">
+            <summary>
+            获取或设置 条件间操作方式，仅限And, Or
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.FilterRule.Equals(Gardener.Base.FilterRule)">
+            <summary>
+            
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Base.ListSortDirection">
+            <summary>
+            搜索排序
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.ListSortDirection.FieldName">
+            <summary>
+            字段名
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.ListSortDirection.SortType">
+            <summary>
+            0 asc 
+            1 desc
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.PagedList`1">
+            <summary>
+            分页泛型集合
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="P:Gardener.Base.PagedList`1.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PagedList`1.PageSize">
+            <summary>
+            页容量
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PagedList`1.TotalCount">
+            <summary>
+            总条数
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PagedList`1.TotalPages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PagedList`1.Items">
+            <summary>
+            当前页集合
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PagedList`1.HasPrevPages">
+            <summary>
+            是否有上一页
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PagedList`1.HasNextPages">
+            <summary>
+            是否有下一页
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.PagedList">
+            <summary>
+            分页集合
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.PageRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PageRequest.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PageRequest.PageSize">
+            <summary>
+            每页大小
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PageRequest.OrderConditions">
+            <summary>
+            排序集合
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.PageRequest.FilterGroups">
+            <summary>
+            查询条件组
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterCondition.And">
+            <summary>
+            并且
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterCondition.Or">
+            <summary>
+            或者
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.FilterOperate">
+            <summary>
+            筛选操作方式
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.Equal">
+            <summary>
+            等于
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.NotEqual">
+            <summary>
+            不等于
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.Less">
+            <summary>
+            小于
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.LessOrEqual">
+            <summary>
+            小于或等于
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.Greater">
+            <summary>
+            大于
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.GreaterOrEqual">
+            <summary>
+            大于或等于
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.StartsWith">
+            <summary>
+            以……开始
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.EndsWith">
+            <summary>
+            以……结束
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.Contains">
+            <summary>
+            字符串的包含（相似）
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.NotContains">
+            <summary>
+            字符串的不包含
+            </summary>
+        </member>
+        <member name="F:Gardener.Base.FilterOperate.In">
+            <summary>
+            包括在
+            </summary>
+        </member>
+        <member name="T:Gardener.Base.IDynamicFilterService">
+            <summary>
+            定义过滤表达式功能
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.IDynamicFilterService.GetExpression``1(System.Collections.Generic.List{Gardener.Base.FilterGroup})">
+            <summary>
+            获取指定查询条件组的查询表达式
+            </summary>
+            <typeparam name="T">表达式实体类型</typeparam>
+            <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
+            <returns>查询表达式</returns>
+        </member>
         <member name="T:Gardener.Base.IServiceBase`2">
             <summary>
             定义了基础方法
@@ -863,7 +1093,7 @@
             <param name="islocked"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Base.IServiceBase`2.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+        <member name="M:Gardener.Base.IServiceBase`2.Search(Gardener.Base.PageRequest)">
             <summary>
             搜索
             </summary>
@@ -989,236 +1219,6 @@
             </summary>
             <param name="settingDto"></param>
             <returns></returns>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Dto.FilterGroup">
-            <summary>
-            过滤组
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.FilterGroup.Rules">
-            <summary>
-            获取或设置 条件集合
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.Dto.FilterGroup.AddRule(Gardener.EntityFramwork.Dto.FilterRule)">
-            <summary>
-            添加规则
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Dto.FilterRule">
-            <summary>
-            筛选规则
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.#ctor">
-            <summary>
-            初始化一个<see cref="T:Gardener.EntityFramwork.Dto.FilterRule"/>的新实例
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.#ctor(System.String,System.Object,Gardener.EntityFramwork.Enums.FilterOperate)">
-            <summary>
-            使用指定数据名称，数据值及操作方式初始化一个<see cref="T:Gardener.EntityFramwork.Dto.FilterRule"/>的新实例
-            </summary>
-            <param name="field">数据名称</param>
-            <param name="value">数据值</param>
-            <param name="operate">操作方式</param>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Field">
-            <summary>
-            获取或设置 属性名称
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Value">
-            <summary>
-            获取或设置 属性值
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Operate">
-            <summary>
-            获取或设置 操作类型
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.FilterRule.Condition">
-            <summary>
-            获取或设置 条件间操作方式，仅限And, Or
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.Dto.FilterRule.Equals(Gardener.EntityFramwork.Dto.FilterRule)">
-            <summary>
-            
-            </summary>
-            <param name="obj"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Dto.ListSortDirection">
-            <summary>
-            搜索排序
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.ListSortDirection.FieldName">
-            <summary>
-            字段名
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.ListSortDirection.SortType">
-            <summary>
-            0 asc 
-            1 desc
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Dto.PagedList`1">
-            <summary>
-            分页泛型集合
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.PageIndex">
-            <summary>
-            页码
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.PageSize">
-            <summary>
-            页容量
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.TotalCount">
-            <summary>
-            总条数
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.TotalPages">
-            <summary>
-            总页数
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.Items">
-            <summary>
-            当前页集合
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.HasPrevPages">
-            <summary>
-            是否有上一页
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PagedList`1.HasNextPages">
-            <summary>
-            是否有下一页
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Dto.PagedList">
-            <summary>
-            分页集合
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Dto.PageRequest">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.PageIndex">
-            <summary>
-            页码
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.PageSize">
-            <summary>
-            每页大小
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.OrderConditions">
-            <summary>
-            排序集合
-            </summary>
-        </member>
-        <member name="P:Gardener.EntityFramwork.Dto.PageRequest.FilterGroups">
-            <summary>
-            查询条件组
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterCondition.And">
-            <summary>
-            并且
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterCondition.Or">
-            <summary>
-            或者
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.Enums.FilterOperate">
-            <summary>
-            筛选操作方式
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Equal">
-            <summary>
-            等于
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.NotEqual">
-            <summary>
-            不等于
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Less">
-            <summary>
-            小于
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.LessOrEqual">
-            <summary>
-            小于或等于
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Greater">
-            <summary>
-            大于
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.GreaterOrEqual">
-            <summary>
-            大于或等于
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.StartsWith">
-            <summary>
-            以……开始
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.EndsWith">
-            <summary>
-            以……结束
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.Contains">
-            <summary>
-            字符串的包含（相似）
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.NotContains">
-            <summary>
-            字符串的不包含
-            </summary>
-        </member>
-        <member name="F:Gardener.EntityFramwork.Enums.FilterOperate.In">
-            <summary>
-            包括在
-            </summary>
-        </member>
-        <member name="T:Gardener.EntityFramwork.IDynamicFilterService">
-            <summary>
-            定义过滤表达式功能
-            </summary>
-        </member>
-        <member name="M:Gardener.EntityFramwork.IDynamicFilterService.GetExpression``1(System.Collections.Generic.List{Gardener.EntityFramwork.Dto.FilterGroup})">
-            <summary>
-            获取指定查询条件组的查询表达式
-            </summary>
-            <typeparam name="T">表达式实体类型</typeparam>
-            <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
-            <returns>查询表达式</returns>
         </member>
         <member name="T:Gardener.FileStore.IFileStoreService">
             <summary>

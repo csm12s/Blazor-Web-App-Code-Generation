@@ -13,10 +13,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
-using Gardener.EntityFramwork.Dto;
-using Gardener.EntityFramwork.Enums;
 
-namespace Gardener.EntityFramwork
+namespace Gardener.Base
 {
     /// <summary>
     /// 查询表达式辅助操作类

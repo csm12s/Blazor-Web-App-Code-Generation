@@ -61,7 +61,7 @@
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="M:Gardener.Audit.Services.AuditEntityService.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+        <member name="M:Gardener.Audit.Services.AuditEntityService.Search(Gardener.Base.PageRequest)">
             <summary>
             搜索
             </summary>

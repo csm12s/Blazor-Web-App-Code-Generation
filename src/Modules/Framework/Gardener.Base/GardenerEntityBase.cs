@@ -7,7 +7,7 @@
 using Furion.DatabaseAccessor;
 using System.ComponentModel;
 
-namespace Gardener.EntityFramwork.Domains
+namespace Gardener.Base
 {
     /// <summary>
     /// 基类

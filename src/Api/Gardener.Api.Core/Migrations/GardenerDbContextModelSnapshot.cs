@@ -3772,7 +3772,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "登录管理",
                             Order = 70,
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "system_manager/login-token",
+                            Path = "/system_manager/login-token",
                             Remark = "",
                             Type = 1000
                         },

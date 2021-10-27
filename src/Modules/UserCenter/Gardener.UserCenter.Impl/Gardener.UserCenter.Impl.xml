@@ -1161,7 +1161,7 @@
             用户服务
             </summary>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.User},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Role},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Dept},Gardener.EntityFramwork.IDynamicFilterService)">
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.User},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.UserExtension},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.UserRole},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Role},Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Dept},Gardener.Base.IDynamicFilterService)">
             <summary>
             用户服务
             </summary>
@@ -1192,7 +1192,7 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.UserService.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+        <member name="M:Gardener.UserCenter.Impl.Services.UserService.Search(Gardener.Base.PageRequest)">
             <summary>
             搜索
             </summary>

@@ -220,7 +220,7 @@
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="M:Gardener.Authentication.Services.LoginTokenService.Search(Gardener.EntityFramwork.Dto.PageRequest)">
+        <member name="M:Gardener.Authentication.Services.LoginTokenService.Search(Gardener.Base.PageRequest)">
             <summary>
             搜索
             </summary>

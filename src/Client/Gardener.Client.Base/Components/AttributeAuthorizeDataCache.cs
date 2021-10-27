@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Gardener.Client.Base.Components

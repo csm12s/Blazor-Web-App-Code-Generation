@@ -17,12 +17,8 @@ using System.Collections.Generic;
 using Swashbuckle.AspNetCore.Annotations;
 using Furion;
 using System.Linq.Expressions;
-using Gardener.EntityFramwork.Domains;
-using Gardener.EntityFramwork;
 using Gardener.Base;
-using Gardener.EntityFramwork.Dto;
 using System.Linq.Dynamic.Core;
-using Gardener.EntityFramwork.Enums;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Furion.EventBridge;
 
@@ -225,13 +221,13 @@ namespace Gardener
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public virtual async Task<EntityFramwork.Dto.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public virtual async Task<Base.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
             var pageResult = _repository.AsQueryable();
 
             var result= await pageResult.ToPageAsync(pageIndex, pageSize);
             
-            return result.Adapt<EntityFramwork.Dto.PagedList<TEntityDto>>();
+            return result.Adapt<Base.PagedList<TEntityDto>>();
         }
 
         /// <summary>
@@ -266,7 +262,7 @@ namespace Gardener
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual async Task<EntityFramwork.Dto.PagedList<TEntityDto>> Search(PageRequest request)
+        public virtual async Task<Base.PagedList<TEntityDto>> Search(PageRequest request)
         {
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))

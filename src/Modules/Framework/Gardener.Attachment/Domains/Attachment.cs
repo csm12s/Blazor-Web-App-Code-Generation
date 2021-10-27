@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attachment.Enums;
-using Gardener.EntityFramwork.Domains;
+using Gardener.Base;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

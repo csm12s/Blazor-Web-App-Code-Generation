@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Audit\Core\" />
+    <Folder Include="Email\" />
   </ItemGroup>
 
 </Project>

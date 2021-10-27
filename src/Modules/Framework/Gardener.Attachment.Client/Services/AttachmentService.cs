@@ -6,8 +6,8 @@
 
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Services;
+using Gardener.Base;
 using Gardener.Client.Base;
-using Gardener.EntityFramwork.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace Gardener.Attachment.Client.Services
         {
         }
 
-        public async Task<PagedList<AttachmentDto>> Search(int? businessType, int? fileType, string businessId, string order = "desc", int pageIndex = 1, int pageSize = 10)
+        public async Task<Base.PagedList<AttachmentDto>> Search(int? businessType, int? fileType, string businessId, string order = "desc", int pageIndex = 1, int pageSize = 10)
         {
             IDictionary<string, object> pramas = new Dictionary<string, object>()
             {
