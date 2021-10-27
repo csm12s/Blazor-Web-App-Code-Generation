@@ -16,6 +16,7 @@ using Gardener.Authorization.Dtos;
 using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Enums;
 using Gardener.Client.Base;
+using Microsoft.AspNetCore.Components;
 
 namespace Gardener.Client.Core
 {
@@ -34,13 +35,14 @@ namespace Gardener.Client.Core
         private List<ResourceDto> uiResources;
         private List<ResourceDto> menuResources;
         private Hashtable uiHashtableResources;
+        private NavigationManager navigationManager;
         /// <summary>
         /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
         /// </summary>
         private bool isAutoLogin = true;
         private AuthSettings authSettings;
 
-        public AuthenticationStateManager(IJsTool jsTool, HttpClientManager httpClientManager, IAccountService accountService, IClientLogger logger, IOptions<AuthSettings> authSettingsOpt)
+        public AuthenticationStateManager(IJsTool jsTool, HttpClientManager httpClientManager, IAccountService accountService, IClientLogger logger, IOptions<AuthSettings> authSettingsOpt, NavigationManager navigationManager)
         {
             this.authSettings = authSettingsOpt.Value;
             this.jsTool = jsTool;
@@ -48,6 +50,7 @@ namespace Gardener.Client.Core
             this.accountService = accountService;
             this.logger = logger;
             timer = new Timer(TimerCallback, true, 10000, authSettings.RefreshTokenCheckInterval * 1000);
+            this.navigationManager = navigationManager;
         }
 
         #region refresh token job
@@ -61,6 +64,10 @@ namespace Gardener.Client.Core
         /// <param name="state"></param>
         private async void TimerCallback(object state)
         {
+            if (navigationManager.Uri.IndexOf("/auth/login") > 0) 
+            {
+                return;
+            }
             TokenOutput currentToken =await GetCurrentToken();
             //未登录
             if (currentToken == null) return;
