@@ -38,6 +38,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 }
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -45,12 +46,14 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+            _editModel.Password = null;
             _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId=_editModel.Id};
             _isLoading = true;
             positions = await positionService.GetAllUsable();
             //部门
             deptDatas = await deptService.GetTree();
             _isLoading = false;
+
         }
        
         /// <summary>
