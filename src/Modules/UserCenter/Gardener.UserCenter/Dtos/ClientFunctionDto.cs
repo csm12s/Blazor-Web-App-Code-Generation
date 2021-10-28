@@ -19,14 +19,14 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 客户端编号
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "不能为空")]
         [DisplayName("客户端编号")]
         public Guid ClientId { get; set; }
 
         /// <summary>
         /// 功能Id
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "不能为空")]
         [DisplayName("功能编号")]
         public Guid FunctionId { get; set; }
 

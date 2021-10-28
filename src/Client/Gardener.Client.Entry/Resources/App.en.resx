@@ -161,6 +161,9 @@
     <value>Client</value>
     <comment>菜单</comment>
   </data>
+  <data name="对不起，页面不存在" xml:space="preserve">
+    <value>Sorry, the page you visited does not exist.</value>
+  </data>
   <data name="导入" xml:space="preserve">
     <value>Import</value>
   </data>
@@ -261,8 +264,14 @@
     <value>Resource</value>
     <comment>菜单</comment>
   </data>
+  <data name="返回首页" xml:space="preserve">
+    <value>Go home</value>
+  </data>
   <data name="退出登录" xml:space="preserve">
     <value>Logout</value>
+  </data>
+  <data name="邮件配置" xml:space="preserve">
+    <value>Email config</value>
   </data>
   <data name="部门管理" xml:space="preserve">
     <value>Dept</value>

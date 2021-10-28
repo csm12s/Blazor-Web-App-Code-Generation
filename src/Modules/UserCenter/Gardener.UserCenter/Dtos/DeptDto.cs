@@ -21,27 +21,27 @@ namespace Gardener.UserCenter.Dtos
         /// 名称
         /// </summary>
         [DisplayName("名称")]
-        [Required, MaxLength(30)]
+        [Required(ErrorMessage = "不能为空"), MaxLength(30, ErrorMessage = "最大长度不能大于{1}")]
         public string Name { get; set; }
 
         /// <summary>
         /// 联系人
         /// </summary>
         [DisplayName("联系人")]
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
         public string Contacts { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
         [DisplayName("电话")]
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
         public string Tel { get; set; }
 
         /// <summary>
         /// 资源排序
         /// </summary>
-        [Required, DefaultValue(0)]
+        [Required(ErrorMessage = "不能为空"), DefaultValue(0)]
         [DisplayName("排序")]
         public int Order { get; set; }
 
@@ -49,7 +49,7 @@ namespace Gardener.UserCenter.Dtos
         /// 备注
         /// </summary>
         [DisplayName("备注")]
-        [MaxLength(100)]
+        [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         public string Remark { get; set; }
 
         /// <summary>

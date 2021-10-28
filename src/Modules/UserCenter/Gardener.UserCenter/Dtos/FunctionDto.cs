@@ -62,7 +62,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 接口请求方法
         /// </summary>
-        [Required, DisplayName("请求方法")]
+        [Required(ErrorMessage = "不能为空"), DisplayName("请求方法")]
         public HttpMethod Method { get; set; }
 
         /// <summary>

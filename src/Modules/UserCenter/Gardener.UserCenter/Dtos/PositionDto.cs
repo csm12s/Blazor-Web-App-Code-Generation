@@ -19,7 +19,7 @@ namespace Gardener.UserCenter.Dtos
         /// 岗位名称
         /// </summary>
         [DisplayName("名称")]
-        [Required(ErrorMessage = "岗位名称")]
+        [Required(ErrorMessage = "不能为空")]
         public string Name { get; set; }
 
         /// <summary>

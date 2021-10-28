@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gardener.Email</name>
+    </assembly>
+    <members>
+        <member name="T:Gardener.Email.Domains.EmailServerConfig">
+            <summary>
+            邮件服务器配置信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Domains.EmailServerConfig.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Domains.EmailServerConfig.Remark">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Domains.EmailServerConfig.Host">
+            <summary>
+            主机
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Domains.EmailServerConfig.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Domains.EmailServerConfig.AccountName">
+            <summary>
+            账户名
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Domains.EmailServerConfig.AccountPassword">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Domains.EmailServerConfig.Tags">
+            <summary>
+            标签
+            </summary>
+            <remarks>多个标签，逗号隔开</remarks>
+        </member>
+        <member name="T:Gardener.Email.Services.EmailServerConfigService">
+            <summary>
+            邮件服务器配置服务
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gardener.Api.Core.Migrations
 {
-    public partial class v001 : Migration
+    public partial class v102 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,6 +104,29 @@ namespace Gardener.Api.Core.Migrations
                         principalTable: "Dept",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailServerConfig",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    Remark = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Host = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Port = table.Column<int>(type: "INTEGER", nullable: true),
+                    AccountName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    AccountPassword = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Tags = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailServerConfig", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1467,7 +1490,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), 1306005043773440000L, "搜索数据", true, "用户中心服务", false, false, "DA7F00498254B5B31B18D7C877F96FB7", 1, "/api/client/search", "客户端服务", "搜索", null });
+                values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), 1306005043773440000L, "搜索数据", false, "用户中心服务", false, false, "DA7F00498254B5B31B18D7C877F96FB7", 1, "/api/client/search", "客户端服务", "搜索", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -2910,6 +2933,9 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "ClientFunction");
+
+            migrationBuilder.DropTable(
+                name: "EmailServerConfig");
 
             migrationBuilder.DropTable(
                 name: "EntityCodeGenerationSetting");

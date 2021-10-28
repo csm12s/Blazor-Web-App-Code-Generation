@@ -5,20 +5,12 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Microsoft.AspNetCore.Components;
+using Gardener.Email.Dtos;
 
-namespace Gardener.Client.Entry
+namespace Gardener.Email.Client.Pages.ClientView
 {
-    public partial class App
+    public partial class EmailServerConfigEdit : EditDrawerBase<EmailServerConfigDto, int>
     {
-        [Inject]
-        private ClientModuleContext moduleContext { get; set; }
-        [Inject]
-        public NavigationManager Navigation { get; set; }
 
-        private void GoHome() 
-        {
-            Navigation.NavigateTo("/");
-        }
     }
 }

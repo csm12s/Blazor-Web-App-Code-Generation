@@ -1,0 +1,89 @@
+﻿@inherits TableBase<EmailServerConfigDto, int, EmailServerConfigEdit>
+@page "/system_manager/email_server_config"
+<div>
+    <Table @ref="_table"
+           TItem="EmailServerConfigDto"
+           DataSource="@_datas"
+           Total="_total"
+           OnChange="@OnChange"
+           @bind-PageIndex="pageRequest.PageIndex"
+           @bind-PageSize="pageRequest.PageSize"
+           @bind-SelectedRows="_selectedRows"
+           Loading="@_tableIsLoading"
+           Context="model">
+        <TitleTemplate>
+            <Row>
+                <AntDesign.Col Span="8">
+                    <ResourceAuthorize ResourceKey="system_manager_email_server_config_delete_selected">
+                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                            @localizer["删除选中"]
+                        </Button>
+                    </ResourceAuthorize>
+                </AntDesign.Col>
+                <AntDesign.Col Span="16" Style="text-align:right">
+                    <Space>
+                        <ResourceAuthorize ResourceKey="system_manager_email_server_config_add">
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                    @localizer["添加"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                        <ResourceAuthorize ResourceKey="system_manager_email_server_config_refresh">
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                    @localizer["刷新"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+        </TitleTemplate>
+        <RowTemplate>
+            <ResourceAuthorize ResourceKey="system_manager_email_server_config_delete_selected">
+                <Selection Key="@(model.Id.ToString())" />
+            </ResourceAuthorize>
+            <Column @bind-Field="@model.Name" Filterable />
+            <Column @bind-Field="@model.Host" Filterable />
+            <Column @bind-Field="@model.Port" Filterable />
+            <Column @bind-Field="@model.AccountName" Filterable />
+            <Column @bind-Field="@model.IsLocked" Filterable>
+                <ResourceAuthorize ResourceKey="system_manager_email_server_config_lock">
+                    <Authorized>
+                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                    </Authorized>
+                    <NotAuthorized>
+                        <TagYesNo Yes="model.IsLocked"></TagYesNo>
+                    </NotAuthorized>
+                </ResourceAuthorize>
+            </Column>
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <ActionColumn>
+                <Space>
+                    <ResourceAuthorize ResourceKey="system_manager_email_server_config_edit">
+                        <SpaceItem>
+                            <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
+                                <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey="system_manager_email_server_config_detail">
+                        <SpaceItem>
+                            <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
+                                <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey="system_manager_email_server_config_delete">
+                        <SpaceItem>
+                            <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
+                                <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                </Space>
+            </ActionColumn>
+        </RowTemplate>
+    </Table>
+</div>

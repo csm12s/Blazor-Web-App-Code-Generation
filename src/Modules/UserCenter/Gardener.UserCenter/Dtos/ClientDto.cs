@@ -20,7 +20,7 @@ namespace Gardener.UserCenter.Dtos
         /// 名称
         /// </summary>
         [DisplayName("名称")]
-        [Required, MaxLength(30,ErrorMessage = "最大长度不能大于{1}")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(30,ErrorMessage = "最大长度不能大于{1}")]
         public string Name { get; set; }
 
         /// <summary>

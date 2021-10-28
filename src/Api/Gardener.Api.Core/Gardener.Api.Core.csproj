@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Authorization\Gardener.Authorization.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Cache\Gardener.Cache.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.CodeGeneration\Gardener.CodeGeneration.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.Email\Gardener.Email.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.FileStore\Gardener.FileStore.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.ImageVerifyCode\Gardener.ImageVerifyCode.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />

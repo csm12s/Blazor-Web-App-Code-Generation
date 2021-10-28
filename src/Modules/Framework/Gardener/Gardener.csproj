@@ -9,16 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Audit\Core\**" />
+    <EmbeddedResource Remove="Audit\Core\**" />
+    <None Remove="Audit\Core\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Audit\Core\" />
-    <Folder Include="Email\" />
   </ItemGroup>
 
 </Project>

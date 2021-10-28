@@ -5,20 +5,16 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Microsoft.AspNetCore.Components;
+using Gardener.Email.Dtos;
+using Gardener.Email.Services;
 
-namespace Gardener.Client.Entry
+namespace Gardener.Email.Client.Services
 {
-    public partial class App
+    [ScopedService]
+    public class EmailServerConfigService : ClientServiceBase<EmailServerConfigDto>, IEmailServerConfigService
     {
-        [Inject]
-        private ClientModuleContext moduleContext { get; set; }
-        [Inject]
-        public NavigationManager Navigation { get; set; }
-
-        private void GoHome() 
+        public EmailServerConfigService(IApiCaller apiCaller) : base(apiCaller, "email-server-config")
         {
-            Navigation.NavigateTo("/");
         }
     }
 }

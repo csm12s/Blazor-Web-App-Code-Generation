@@ -20,14 +20,14 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 权限Id
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "不能为空")]
         [DisplayName("资源编号")]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// 功能Id
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "不能为空")]
         [DisplayName("功能编号")]
         public Guid FunctionId { get; set; }
 

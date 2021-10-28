@@ -15,6 +15,10 @@ namespace Gardener.Client.Base
 
         public static void Add(MenuDataItem menu)
         {
+            if (string.IsNullOrEmpty(menu.Path))
+            {
+                return;
+            }
             if (!pathMap.ContainsKey(menu.Path))
             {
                 pathMap.Add(menu.Path, menu);
@@ -22,6 +26,10 @@ namespace Gardener.Client.Base
         }
         public static MenuDataItem Get(string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                return null;
+            }
             if (pathMap.ContainsKey(path))
             {
                 return pathMap[path];

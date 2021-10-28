@@ -158,6 +158,59 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("EntityCodeGenerationSetting");
                 });
 
+            modelBuilder.Entity("Gardener.Email.Domains.EmailServerConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountPassword")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Host")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Port")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailServerConfig");
+                });
+
             modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1629,7 +1682,7 @@ namespace Gardener.Api.Core.Migrations
                             Id = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
                             CreatedTime = 1306005043773440000L,
                             Description = "搜索数据",
-                            EnableAudit = true,
+                            EnableAudit = false,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,

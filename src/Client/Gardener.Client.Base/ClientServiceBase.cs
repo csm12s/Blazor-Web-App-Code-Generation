@@ -13,7 +13,7 @@ namespace Gardener.Client.Base
     /// <summary>
     /// 客户端服务基类
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">Dto</typeparam>
     public abstract class ClientServiceBase<T> : ClientServiceBase<T, int> where T : class, new()
     {
         /// <summary>
