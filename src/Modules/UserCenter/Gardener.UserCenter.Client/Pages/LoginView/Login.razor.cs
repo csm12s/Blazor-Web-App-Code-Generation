@@ -60,7 +60,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             var loginOutResult= await accountService.Login(loginInput);
             if (loginOutResult!=null)
             {
-                ClientNavTabControl.RemoveNavTabPageWithRegex(".*");
+                ClientNavTabControl.RemoveAllNavTabPage();
                 await MsgSvr.Success($"登录成功",0.8);
                 await authenticationStateManager.Login(loginOutResult, autoLogin);
                 loading = false;

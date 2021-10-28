@@ -28,5 +28,13 @@ namespace Gardener.Client.Base
         {
             _reuseTabs.RouteView.RemovePageWithRegex(pattern);
         }
+
+        /// <summary>
+        /// 移除多标签导航
+        /// </summary>
+        public static void RemoveAllNavTabPage()
+        {
+            _reuseTabs.RouteView.RemovePageWithRegex(".*");
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace Gardener.Client.Base.Components
                 case "logout":
                     await authenticationStateManager.Logout();
                     //NavigationManager.NavigateTo("/auth/login?returnUrl="+ Uri.EscapeDataString(NavigationManager.Uri));
-                    await InvokeAsync(StateHasChanged);
+                    //await InvokeAsync(StateHasChanged);
                     break;
             }
         }
