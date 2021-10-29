@@ -12,7 +12,6 @@ using Gardener.Authentication.Enums;
 using Gardener.Authentication.Options;
 using Gardener.Base;
 using Gardener.Enums;
-using Gardener.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -89,8 +88,10 @@ namespace Gardener.Authentication.Core
         {
             IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
             var refreshTokens = await repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.LoginId.Equals(identity.LoginId)).ToListAsync();
-           
-            await refreshTokens.ForEachAsync(async x => await repository.FakeDeleteByKeyAsync(x.Id));
+            foreach (var rt in refreshTokens)
+            {
+                await repository.FakeDeleteByKeyAsync(rt.Id);
+            }
             return true;
         }
         /// <summary>
