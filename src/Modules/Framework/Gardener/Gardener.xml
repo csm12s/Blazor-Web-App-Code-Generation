@@ -1261,6 +1261,32 @@
             </summary>
             <remarks>多个标签，逗号隔开</remarks>
         </member>
+        <member name="T:Gardener.Email.Enums.EmailServerTag">
+            <summary>
+            邮件服务器标签
+            随便自定义
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.Base">
+            <summary>
+            基础
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.Activity">
+            <summary>
+            活动
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.Gmail">
+            <summary>
+            Gmail
+            </summary>
+        </member>
         <member name="T:Gardener.Email.Services.IEmailServerConfigService">
             <summary>
             邮件服务器配置服务

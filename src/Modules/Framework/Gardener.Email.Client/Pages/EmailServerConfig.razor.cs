@@ -10,7 +10,7 @@ using Gardener.UserCenter.Dtos;
 using System;
 using System.Threading.Tasks;
 
-namespace Gardener.Email.Client.Pages.ClientView
+namespace Gardener.Email.Client.Pages
 {
     public partial class EmailServerConfig : TableBase<EmailServerConfigDto, int, EmailServerConfigEdit>
     {

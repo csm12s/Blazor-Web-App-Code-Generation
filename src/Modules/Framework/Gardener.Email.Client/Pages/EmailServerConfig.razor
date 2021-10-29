@@ -48,6 +48,12 @@
             <Column @bind-Field="@model.Host" Filterable />
             <Column @bind-Field="@model.Port" Filterable />
             <Column @bind-Field="@model.AccountName" Filterable />
+            <Column @bind-Field="@model.Tags">
+                @foreach (string tag in model.Tags?.Split(",")) 
+                { 
+                    <TagRandomColor Text="@EnumHelper.GetEnumDescription(Enum.Parse<EmailServerTag>(tag))"></TagRandomColor>
+                }
+            </Column>
             <Column @bind-Field="@model.IsLocked" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_email_server_config_lock">
                     <Authorized>
