@@ -1,0 +1,32 @@
+﻿// -----------------------------------------------------------------------------
+// 园丁,是个很简单的管理系统
+//  gitee:https://gitee.com/hgflydream/Gardener 
+//  issues:https://gitee.com/hgflydream/Gardener/issues 
+// -----------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Gardener.Common
+{
+    public static class LinqExtension
+    {
+        /// <summary>
+        /// 使用异步遍历处理数据
+        /// </summary>
+        /// <typeparam name="T">需要遍历的基类</typeparam>
+        /// <param name="list">集合</param>
+        /// <param name="func">Lambda表达式</param>
+        /// <returns></returns>
+        public static async Task ForEachAsync<T>(this List<T> list, Func<T, Task> func)
+        {
+            foreach (T value in list)
+            {
+                await func(value);
+            }
+        }
+    }
+}
