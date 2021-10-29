@@ -342,8 +342,5 @@ healthchecksdb
 upload/
 logs/
 Gardener.Core.Entites.xml
-Gardener.Enums.xml
-Gardener.Application.Dtos.xml
 /src/package-lock.json
-/src/Client/Gardener.Client.Base/Shared/OtherPageLayout.razor.css
-/src/Client/Gardener.Client.Base/Shared/LoginLayout.razor.css
+

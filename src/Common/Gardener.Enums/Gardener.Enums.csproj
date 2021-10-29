@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Gardener.Enums.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Gardener.Attributes\Gardener.Attributes.csproj" />
   </ItemGroup>
 
