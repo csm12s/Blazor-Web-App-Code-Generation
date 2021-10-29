@@ -49,15 +49,35 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public async Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId,[FromBody] Guid[] resourceIds)
         {
-            //先删除所有资源
-            await DeleteResource(roleId);
             resourceIds ??= Array.Empty<Guid>();
-            var list = new List<RoleResource>();
-            foreach (var securityId in resourceIds.Distinct())
-            {
-                list.Add(new RoleResource { RoleId = roleId, ResourceId = securityId, CreatedTime = DateTimeOffset.Now });
+
+            //所有现有关系
+            var entitys =await _roleResourceRepository.Where(u => u.RoleId == roleId, false).ToListAsync();
+            //需要删除
+            List<RoleResource> needDelete = new List<RoleResource>();
+            entitys.ForEach(x => {
+
+                if (!resourceIds.Any(r => r.Equals(x.ResourceId))) {
+                    needDelete.Add(x);
+                }
+            });
+            if (needDelete.Any())
+            { 
+                await _roleResourceRepository.DeleteAsync(needDelete);
             }
-            await _roleResourceRepository.InsertAsync(list);
+
+            //需要添加
+            List<RoleResource> needAdd = new List<RoleResource>();
+            resourceIds.ToList().ForEach(id => {
+                if (!entitys.Any(r => r.ResourceId.Equals(id))) 
+                {
+                    needAdd.Add(new RoleResource { RoleId = roleId, ResourceId = id, CreatedTime = DateTimeOffset.Now });
+                }
+            });
+            if (needAdd.Any())
+            { 
+                await _roleResourceRepository.InsertAsync(needAdd);
+            }
             return true;
         }
 
