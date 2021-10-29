@@ -90,6 +90,7 @@ namespace Gardener.Authentication.Core
             IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
             var refreshTokens = await repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.LoginId.Equals(identity.LoginId)).ToListAsync();
             await refreshTokens.ForEachAsync(async x => await repository.FakeDeleteByKeyAsync(x.Id));
+            
             return true;
         }
         /// <summary>

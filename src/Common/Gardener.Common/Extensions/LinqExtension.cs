@@ -18,7 +18,7 @@ namespace Gardener.Common
         /// <typeparam name="T">需要遍历的基类</typeparam>
         /// <param name="list">集合</param>
         /// <param name="func">Lambda表达式</param>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static async Task ForEachAsync<T>(this IEnumerable<T> list, Func<T, Task> func)
         {
             foreach (T value in list)
