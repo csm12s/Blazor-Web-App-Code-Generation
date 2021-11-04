@@ -14,7 +14,7 @@ namespace Gardener.Api.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.10");
+                .HasAnnotation("ProductVersion", "5.0.11");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -7180,6 +7180,114 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 2,
+                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员2",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员3",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员4",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员5",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin5"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员6",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin6"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "管理员1",
+                            Password = "6b8ecfe60e9d1945869fdfc7e65c1315",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "admin1"
+                        },
+                        new
+                        {
+                            Id = 8,
                             Avatar = "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
                             CreatedTime = 1305892579553280000L,
                             CreatorIdentityType = 0,
@@ -7250,6 +7358,42 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             UserId = 2,
+                            RoleId = 1,
+                            CreatedTime = 1305892579553280000L
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 1,
+                            CreatedTime = 1305892579553280000L
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 1,
+                            CreatedTime = 1305892579553280000L
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            RoleId = 1,
+                            CreatedTime = 1305892579553280000L
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            RoleId = 1,
+                            CreatedTime = 1305892579553280000L
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            RoleId = 1,
+                            CreatedTime = 1305892579553280000L
+                        },
+                        new
+                        {
+                            UserId = 8,
                             RoleId = 2,
                             CreatedTime = 1305892579553280000L
                         });

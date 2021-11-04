@@ -1662,32 +1662,12 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), 1306032187207680000L, null, 0, "crown", false, false, "user_center_position", "岗位管理", 5, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/position", "", 1000, null });
+                values: new object[] { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), 1306032187207680000L, null, 0, "mail", false, false, "system_manager_email_tool", "邮件工具", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "邮件工具", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 1306032187207680000L, null, 0, "team", false, false, "user_center_dept", "部门管理", 0, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/dept", "", 1000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 1306032187207680000L, null, 0, "api", false, false, "system_manager_function", "接口管理", 40, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/function", "", 1000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 1306032187207680000L, null, 0, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/login-token", "", 1000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 1306032187207680000L, null, 0, "cloud-server", false, false, "system_manager_client", "客户端管理", 45, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/client", "客户端管理", 1000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), 1306032187207680000L, null, 0, "audit", false, false, "system_manager_audit", "审计管理", 60, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "审计管理", 1000, null });
+                values: new object[] { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 1306032187207680000L, null, 0, "user-switch", false, false, "user_center_role", "角色管理", 20, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/role", "", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1697,7 +1677,22 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), 1306032187207680000L, null, 0, "mail", false, false, "system_manager_email_tool", "邮件工具", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "邮件工具", 1000, null });
+                values: new object[] { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), 1306032187207680000L, null, 0, "audit", false, false, "system_manager_audit", "审计管理", 60, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "审计管理", 1000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 1306032187207680000L, null, 0, "cloud-server", false, false, "system_manager_client", "客户端管理", 45, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/client", "客户端管理", 1000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 1306032187207680000L, null, 0, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/login-token", "", 1000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 1306032187207680000L, null, 0, "api", false, false, "system_manager_function", "接口管理", 40, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/function", "", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1707,12 +1702,12 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 1306032187207680000L, null, 0, "user-switch", false, false, "user_center_role", "角色管理", 20, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/role", "", 1000, null });
+                values: new object[] { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 1306032187207680000L, null, 0, "team", false, false, "user_center_dept", "部门管理", 0, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/dept", "", 1000, null });
 
             migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), 1306032187207680000L, null, 0, "crown", false, false, "user_center_position", "岗位管理", 5, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/position", "", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
@@ -1727,12 +1722,12 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
+                values: new object[] { new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
+                values: new object[] { new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
@@ -1742,7 +1737,17 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
+                values: new object[] { new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306031945277440000L });
+
+            migrationBuilder.InsertData(
+                table: "RoleResource",
+                columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
+                values: new object[] { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 2, 1306031946629120000L });
 
             migrationBuilder.InsertData(
                 table: "RoleResource",
@@ -1752,22 +1757,47 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "RoleResource",
                 columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
-                values: new object[] { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), 2, 1306031946629120000L });
-
-            migrationBuilder.InsertData(
-                table: "RoleResource",
-                columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
                 values: new object[] { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), 2, 1306031946629120000L });
 
             migrationBuilder.InsertData(
                 table: "RoleResource",
                 columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
-                values: new object[] { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 2, 1306031946629120000L });
+                values: new object[] { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), 2, 1306031946629120000L });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "Avatar", "CreatedTime", "CreatorId", "CreatorIdentityType", "DeptId", "Email", "EmailConfirmed", "Gender", "IsDeleted", "IsLocked", "NickName", "Password", "PasswordEncryptKey", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "UpdatedTime", "UserName" },
-                values: new object[] { 2, "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png", 1305892579553280000L, null, 0, 3, null, false, 0, false, false, "测试员", "60759dd06243d0837b88ab9b7183e6df", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 2, null, "testuser" });
+                values: new object[] { 8, "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png", 1305892579553280000L, null, 0, 3, null, false, 0, false, false, "测试员", "60759dd06243d0837b88ab9b7183e6df", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 2, null, "testuser" });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Avatar", "CreatedTime", "CreatorId", "CreatorIdentityType", "DeptId", "Email", "EmailConfirmed", "Gender", "IsDeleted", "IsLocked", "NickName", "Password", "PasswordEncryptKey", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "UpdatedTime", "UserName" },
+                values: new object[] { 7, "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png", 1305892579553280000L, null, 0, 2, null, false, 0, false, false, "管理员1", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, "admin1" });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Avatar", "CreatedTime", "CreatorId", "CreatorIdentityType", "DeptId", "Email", "EmailConfirmed", "Gender", "IsDeleted", "IsLocked", "NickName", "Password", "PasswordEncryptKey", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "UpdatedTime", "UserName" },
+                values: new object[] { 6, "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png", 1305892579553280000L, null, 0, 2, null, false, 0, false, false, "管理员6", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, "admin6" });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Avatar", "CreatedTime", "CreatorId", "CreatorIdentityType", "DeptId", "Email", "EmailConfirmed", "Gender", "IsDeleted", "IsLocked", "NickName", "Password", "PasswordEncryptKey", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "UpdatedTime", "UserName" },
+                values: new object[] { 5, "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png", 1305892579553280000L, null, 0, 2, null, false, 0, false, false, "管理员5", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, "admin5" });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Avatar", "CreatedTime", "CreatorId", "CreatorIdentityType", "DeptId", "Email", "EmailConfirmed", "Gender", "IsDeleted", "IsLocked", "NickName", "Password", "PasswordEncryptKey", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "UpdatedTime", "UserName" },
+                values: new object[] { 4, "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png", 1305892579553280000L, null, 0, 2, null, false, 0, false, false, "管理员4", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, "admin4" });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Avatar", "CreatedTime", "CreatorId", "CreatorIdentityType", "DeptId", "Email", "EmailConfirmed", "Gender", "IsDeleted", "IsLocked", "NickName", "Password", "PasswordEncryptKey", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "UpdatedTime", "UserName" },
+                values: new object[] { 3, "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png", 1305892579553280000L, null, 0, 2, null, false, 0, false, false, "管理员3", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, "admin3" });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Avatar", "CreatedTime", "CreatorId", "CreatorIdentityType", "DeptId", "Email", "EmailConfirmed", "Gender", "IsDeleted", "IsLocked", "NickName", "Password", "PasswordEncryptKey", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "UpdatedTime", "UserName" },
+                values: new object[] { 2, "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png", 1305892579553280000L, null, 0, 2, null, false, 0, false, false, "管理员2", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, "admin2" });
 
             migrationBuilder.InsertData(
                 table: "User",
@@ -1777,32 +1807,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_add_children", "添加子资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_detail", "查看用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "查看用户", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_add", "添加用户", 2, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_delete_selected", "删除选中用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "删除选中", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_list_edit_avatar", "编辑用户头像-列表中", 8, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "编辑用户头像-列表中", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_refresh", "刷新角色", 3, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+                values: new object[] { new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_lock", "锁定资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1812,12 +1817,17 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_edit", "编辑用户", 4, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
+                values: new object[] { new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_lock", "锁定岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "锁定岗位", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_delete_selected", "删除选中角色", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+                values: new object[] { new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_delete_selected", "删除选中", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除选中", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("c18d4928-35d2-4085-aec9-379d00bcfd8f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_add_children", "添加子资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1832,7 +1842,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("a1958e51-06d4-4b29-9533-eae9d86c41d1"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_lock", "锁定资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
+                values: new object[] { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_detail", "查看岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "查看岗位", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1842,7 +1852,17 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_download_seed_data", "导出种子数据", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
+                values: new object[] { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_show_function", "关联资源接口", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_detail", "查看资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "查看资源", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_delete", "删除资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除资源", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1852,52 +1872,37 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_delete_selected", "删除选中", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除选中", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("87377abe-785d-426c-b052-f706a2c7173d"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_lock", "锁定用户", 7, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_refresh", "刷新用户", 3, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_role_edit", "用户分配角色", 5, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_lock", "锁定岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "锁定岗位", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_detail", "查看岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "查看岗位", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_edit", "编辑岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_add", "添加岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_delete", "删除岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null });
+                values: new object[] { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), 1306032187207680000L, null, 0, "", false, false, "system_manager_attachment_detail", "查看附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "查看附件", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
                 values: new object[] { new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_delete_selected", "删除选中岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("859aa714-67c7-4414-bc96-9de5b7aec2c4"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_download_seed_data", "导出种子数据", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_list_edit_avatar", "编辑用户头像-列表中", 8, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "编辑用户头像-列表中", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_delete_selected", "删除选中用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "删除选中", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_add", "添加用户", 2, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_add", "添加岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1937,7 +1942,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_add", "添加角色", 2, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+                values: new object[] { new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_edit", "编辑岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1947,27 +1952,47 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_detail", "查看资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "查看资源", 2000, null });
+                values: new object[] { new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_role_edit", "用户分配角色", 5, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_delete", "删除资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除资源", 2000, null });
+                values: new object[] { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_refresh", "刷新用户", 3, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), 1306032187207680000L, null, 0, "", false, false, "system_manager_resource_show_function", "关联资源接口", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null });
+                values: new object[] { new Guid("87377abe-785d-426c-b052-f706a2c7173d"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_lock", "锁定用户", 7, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_delete_selected", "删除选中客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除选中客户端", 2000, null });
+                values: new object[] { new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_edit", "编辑用户", 4, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_download_seed_data", "查看接口种子数据", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口种子数据", 2000, null });
+                values: new object[] { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), 1306032187207680000L, null, 0, "", false, false, "user_center_user_detail", "查看用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "查看用户", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), 1306032187207680000L, null, 0, "", false, false, "system_manager_attachment_refresh", "刷新附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"), 1306032187207680000L, null, 0, "", false, false, "system_manager_attachment_delete", "删除附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("d998802f-776e-4137-bc63-d8d818464f98"), 1306032187207680000L, null, 0, "null", false, false, "system_manager_attachment_delete_selected", "删除选中附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "null", "删除选中附件", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), 1306032187207680000L, null, 0, "", false, false, "system_manager_audit_entity", "数据审计", 2, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-entity", "数据审计", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1977,12 +2002,72 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_download_seed_data", "查看接口种子数据", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口种子数据", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_detail", "查看接口详情", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口详情", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_edit", "编辑接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
                 values: new object[] { new Guid("749c3a63-6bd8-4755-87ed-c1d455e5b717"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_import", "导入接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_enable_audit", "锁定接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_delete_selected", "删除选中接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_delete", "删除接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_delete_selected", "删除选中角色", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("d982a072-4681-45d9-8489-7a14218adb04"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_delete", "删除角色", 1, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_lock", "锁定角色", 7, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_set_resource", "角色分配资源", 5, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_detail", "查看角色详情", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "查看角色详情", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
                 values: new object[] { new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_resource_download_seed_data", "获取种子数据", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_edit", "编辑角色", 4, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1997,12 +2082,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), 1306032187207680000L, null, 0, "", false, false, "system_manager_login_token_delete_selected", "删除选中登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("6e487179-5bb2-4ab5-80e3-58c514c9595f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_enable_audit", "锁定接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
+                values: new object[] { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_refresh", "刷新角色", 3, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -2012,42 +2092,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("d982a072-4681-45d9-8489-7a14218adb04"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_delete", "删除角色", 1, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_detail", "查看角色详情", 0, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "查看角色详情", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_edit", "编辑客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "编辑客户端", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_refresh", "刷新客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "刷新客户端", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_add", "添加客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "添加客户端", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_edit", "编辑接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_detail", "查看客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "查看客户端", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_delete", "删除客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除客户端", 2000, null });
+                values: new object[] { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), 1306032187207680000L, null, 0, "", false, false, "system_manager_audit_operation", "操作审计", 1, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-operation", "操作审计", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -2057,82 +2102,52 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("bd7d1a4c-960a-48b2-9c9e-083aa5c5924f"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_delete_selected", "删除选中接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
+                values: new object[] { new Guid("a1260e4c-e67c-4d72-a758-560a13e9c496"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_delete", "删除客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除客户端", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_set_resource", "角色分配资源", 5, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+                values: new object[] { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_detail", "查看客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "查看客户端", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_delete", "删除接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null });
+                values: new object[] { new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_delete_selected", "删除选中客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除选中客户端", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), 1306032187207680000L, null, 0, "", false, false, "system_manager_audit_operation", "操作审计", 1, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-operation", "操作审计", 1000, null });
+                values: new object[] { new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), 1306032187207680000L, null, 0, "", false, false, "system_manager_login_token_delete_selected", "删除选中登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_edit", "编辑角色", 4, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+                values: new object[] { new Guid("757fdf0b-0cb9-4f24-92f6-24e18f3defcc"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_add", "添加客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "添加客户端", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), 1306032187207680000L, null, 0, "", false, false, "system_manager_audit_entity", "数据审计", 2, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-entity", "数据审计", 1000, null });
+                values: new object[] { new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_edit", "编辑客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "编辑客户端", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_lock", "锁定角色", 7, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
+                values: new object[] { new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"), 1306032187207680000L, null, 0, "", false, false, "user_center_role_add", "添加角色", 2, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"), 1306032187207680000L, null, 0, "", false, false, "system_manager_attachment_delete", "删除附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", 2000, null });
+                values: new object[] { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), 1306032187207680000L, null, 0, "", false, false, "system_manager_client_refresh", "刷新客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "刷新客户端", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), 1306032187207680000L, null, 0, "", false, false, "system_manager_attachment_refresh", "刷新附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("d998802f-776e-4137-bc63-d8d818464f98"), 1306032187207680000L, null, 0, "null", false, false, "system_manager_attachment_delete_selected", "删除选中附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "null", "删除选中附件", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), 1306032187207680000L, null, 0, "", false, false, "system_manager_attachment_detail", "查看附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "查看附件", 2000, null });
-
-            migrationBuilder.InsertData(
-                table: "Resource",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), 1306032187207680000L, null, 0, "", false, false, "system_manager_function_detail", "查看接口详情", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口详情", 2000, null });
+                values: new object[] { new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), 1306032187207680000L, null, 0, "", false, false, "user_center_position_delete", "删除岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"), new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), 1306031945277440000L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"), new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 1306031945277440000L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"), new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 1306031945277440000L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"), new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 1306031945277440000L });
+                values: new object[] { new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"), new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 1306031945277440000L });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
@@ -2142,7 +2157,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 1306031945277440000L });
+                values: new object[] { new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"), new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 1306031945277440000L });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
@@ -2152,7 +2167,22 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"), new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 1306031945277440000L });
+                values: new object[] { new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"), new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 1306031945277440000L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 1306031945277440000L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"), new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), 1306031945277440000L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"), new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 1306031945277440000L });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
@@ -2217,7 +2247,37 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId", "CreatedTime" },
-                values: new object[] { 2, 2, 1305892579553280000L });
+                values: new object[] { 1, 2, 1305892579553280000L });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedTime" },
+                values: new object[] { 1, 3, 1305892579553280000L });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedTime" },
+                values: new object[] { 1, 4, 1305892579553280000L });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedTime" },
+                values: new object[] { 2, 8, 1305892579553280000L });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedTime" },
+                values: new object[] { 1, 6, 1305892579553280000L });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedTime" },
+                values: new object[] { 1, 7, 1305892579553280000L });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedTime" },
+                values: new object[] { 1, 5, 1305892579553280000L });
 
             migrationBuilder.InsertData(
                 table: "UserRole",

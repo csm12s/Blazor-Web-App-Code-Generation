@@ -171,6 +171,74 @@ namespace Gardener.UserCenter.Impl.Domains
                 new User
                 {
                     Id=2,
+                    UserName="admin2",
+                    NickName="管理员2",
+                    PasswordEncryptKey=passwordEncryptKey ,
+                    Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1
+                },
+                new User
+                {
+                    Id=3,
+                    UserName="admin3",
+                    NickName="管理员3",
+                    PasswordEncryptKey=passwordEncryptKey ,
+                    Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1
+                },new User
+                {
+                    Id=4,
+                    UserName="admin4",
+                    NickName="管理员4",
+                    PasswordEncryptKey=passwordEncryptKey ,
+                    Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1
+                },new User
+                {
+                    Id=5,
+                    UserName="admin5",
+                    NickName="管理员5",
+                    PasswordEncryptKey=passwordEncryptKey ,
+                    Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1
+                },new User
+                {
+                    Id=6,
+                    UserName="admin6",
+                    NickName="管理员6",
+                    PasswordEncryptKey=passwordEncryptKey ,
+                    Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1
+                },new User
+                {
+                    Id=7,
+                    UserName="admin1",
+                    NickName="管理员1",
+                    PasswordEncryptKey=passwordEncryptKey ,
+                    Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
+                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1
+                },
+                new User
+                {
+                    Id=8,
                     UserName="testuser",
                     NickName="测试员",
                     PasswordEncryptKey=passwordEncryptKey,
