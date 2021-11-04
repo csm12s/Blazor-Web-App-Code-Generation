@@ -5,7 +5,9 @@
 园丁是基于 .net 5开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，喜欢的请点点star :kissing_heart: 。
 ## 演示地址
 用户名：admin、admin1、admin2、admin3、admin4、admin5、admin6
+
 密码：admin
+
 请善待弱鸡 :two_hearts:[http://47.94.212.176:1000](http://47.94.212.176:1000)，初次加载较慢，客官先喝口水吧。请不要随便删除用户数据，演示服务不定期初始化，推荐docker运行进行查看。
 
  **docker 运行** 
