@@ -673,9 +673,14 @@
             客户端编号
             </summary>
         </member>
-        <member name="P:Gardener.Authorization.Dtos.ClientLoginInput.SecretKey">
+        <member name="P:Gardener.Authorization.Dtos.ClientLoginInput.Timespan">
             <summary>
-            密匙
+            时间戳
+            </summary>
+        </member>
+        <member name="P:Gardener.Authorization.Dtos.ClientLoginInput.EncryptionValue">
+            <summary>
+            加密的值
             </summary>
         </member>
         <member name="T:Gardener.Authorization.Dtos.LoginInput">

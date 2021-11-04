@@ -45,10 +45,10 @@ namespace Gardener.UserCenter.Dtos
         public string Tel { get; set; }
 
         /// <summary>
-        /// 密匙
+        /// 私钥
         /// </summary>
         [Required(ErrorMessage = "不能为空"), StringLength(64, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("密匙")]
+        [DisplayName("私钥")]
         public string SecretKey { get; set; }
         
         /// <summary>

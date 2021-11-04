@@ -19,7 +19,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
     public class ClientFunctionEditOption
     {
         /// <summary>
-        /// 选中的资源id
+        /// 选中的id
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>

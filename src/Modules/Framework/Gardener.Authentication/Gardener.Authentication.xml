@@ -58,9 +58,15 @@
             请求上下文访问器
             </summary>
         </member>
+        <member name="M:Gardener.Authentication.Core.IdentityService.GetIdentity">
+            <summary>
+            获取身份
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Authentication.Core.IdentityService.GetIdentityFromContext">
             <summary>
-            
+            获取身份
             </summary>
             <returns></returns>
         </member>

@@ -126,6 +126,16 @@
             客户端登录失败
             </summary>
         </member>
+        <member name="F:Gardener.Enums.ExceptionCode.CLIENT_NO_FIND">
+            <summary>
+            客户端未找到
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.TIMESPAN_IS_EXPIRED">
+            <summary>
+            时间戳已过期
+            </summary>
+        </member>
         <member name="T:Gardener.Enums.Gender">
             <summary>
             性别枚举

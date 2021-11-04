@@ -63,8 +63,13 @@ namespace Gardener
             {
                 input.SetPropertyValue(nameof(GardenerEntityBase.CreatedTime), DateTimeOffset.Now);
             }
-
-            var newEntity = await _repository.InsertNowAsync(input.Adapt<TEntity>());
+            TEntity entity = input.Adapt<TEntity>();
+            if (entity is GardenerEntityBase<TKey> ge1)
+            {
+                ge1.CreatorId = IdentityUtil.GetIdentityId();
+                ge1.CreatorIdentityType = IdentityUtil.GetIdentityType();
+            }
+            var newEntity = await _repository.InsertNowAsync(entity);
             //发送通知
             await Event.EmitAsync(typeof(TEntity).Name + ":Insert", newEntity.Entity);
             return newEntity.Entity.Adapt<TEntityDto>();

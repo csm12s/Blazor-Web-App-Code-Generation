@@ -23,10 +23,17 @@ namespace Gardener.Authorization.Dtos
         public Guid ClientId { get; set; }
 
         /// <summary>
-        /// 密匙
+        /// 时间戳
         /// </summary>
-        [Required, StringLength(64)]
-        [DisplayName("密匙")]
-        public string SecretKey { get; set; }
+        [DisplayName("时间戳")]
+        [Required]
+        public long Timespan { get; set; }
+
+        /// <summary>
+        /// 加密的值
+        /// </summary>
+        [Required]
+        [DisplayName("加密的值")]
+        public string EncryptionValue { get; set; }
     }
 }

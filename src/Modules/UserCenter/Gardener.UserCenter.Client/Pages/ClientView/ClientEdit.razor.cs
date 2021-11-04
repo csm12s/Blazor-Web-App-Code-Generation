@@ -15,10 +15,6 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
     public partial class ClientEdit : EditDrawerBase<ClientDto, Guid>
     {
 
-        private FormValidationRule[] emailRules = new FormValidationRule[]{
-            new FormValidationRule { Type = FormFieldType.Email, Required = true,Message="请输入正确的邮箱地址" },
-        };
-
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -28,7 +24,8 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             await base.OnInitializedAsync();
             if (this.Options.Type.Equals(DrawerInputType.Add))
             { 
-             _editModel.Id = Guid.NewGuid();
+                 _editModel.Id = Guid.NewGuid();
+                 _editModel.SecretKey = Guid.NewGuid().ToString();
             }
         }
     }

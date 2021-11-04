@@ -68,7 +68,7 @@
         </member>
         <member name="P:Gardener.UserCenter.Impl.Domains.Client.SecretKey">
             <summary>
-            密匙
+            私钥
             </summary>
         </member>
         <member name="P:Gardener.UserCenter.Impl.Domains.Client.Email">

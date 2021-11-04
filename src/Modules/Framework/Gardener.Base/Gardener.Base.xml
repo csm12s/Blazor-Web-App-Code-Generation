@@ -87,6 +87,16 @@
             是否删除
             </summary>
         </member>
+        <member name="P:Gardener.Base.GardenerEntityBase`3.CreatorId">
+            <summary>
+            创建者编号
+            </summary>
+        </member>
+        <member name="P:Gardener.Base.GardenerEntityBase`3.CreatorIdentityType">
+            <summary>
+            创建者身份类型
+            </summary>
+        </member>
         <member name="T:Gardener.Base.GardenerEntityBase`2">
             <summary>
             基类
@@ -183,6 +193,29 @@
             </summary>
             <param name="type">最后一个属性</param>
             <param name="rule">条件信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Base.IdentityUtil">
+            <summary>
+            身份快捷操作
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.IdentityUtil.GetIdentity">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IdentityUtil.GetIdentityId">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.IdentityUtil.GetIdentityType">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Gardener.ServiceBase`3">

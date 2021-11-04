@@ -50,10 +50,10 @@ namespace Gardener.UserCenter.Impl.Domains
         public string Tel { get; set; }
 
         /// <summary>
-        /// 密匙
+        /// 私钥
         /// </summary>
         [Required, StringLength(64)]
-        [DisplayName("密匙")]
+        [DisplayName("私钥")]
         public string SecretKey { get; set; }
 
         /// <summary>

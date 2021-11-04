@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.DataEncryption;
 using Furion.FriendlyException;
 using Gardener.Attributes;
 using Gardener.Authentication.Core;
@@ -74,11 +75,27 @@ namespace Gardener.UserCenter.Impl.Services
         [AllowAnonymous, IgnoreAudit]
         public async Task<TokenOutput> Login(ClientLoginInput input)
         {
-            Client client = _repository.AsQueryable(false).Where(x => x.Id.Equals(input.ClientId) && x.SecretKey.Equals(input.SecretKey) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefault();
+            long currentTimespan = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            //校验时间戳
+            if (input.Timespan <= 0 || input.Timespan > currentTimespan || input.Timespan < (currentTimespan - 120)) 
+            {
+                throw Oops.Bah(ExceptionCode.TIMESPAN_IS_EXPIRED);
+            }
+
+            Client client = _repository.AsQueryable(false).Where(x => x.Id.Equals(input.ClientId) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefault();
             if (client == null)
+            {
+                throw Oops.Bah(ExceptionCode.CLIENT_NO_FIND);
+            }
+
+            //加密对比
+            bool flag= MD5Encryption.Compare((input.ClientId + client.SecretKey + input.Timespan).ToUpper(), input.EncryptionValue.ToUpper(), true);
+            if (!flag)
             {
                 throw Oops.Bah(ExceptionCode.CLIENT_LOGIN_FAIL);
             }
+
             Identity identity = new Identity
             {
                 Id = client.Id.ToString(),

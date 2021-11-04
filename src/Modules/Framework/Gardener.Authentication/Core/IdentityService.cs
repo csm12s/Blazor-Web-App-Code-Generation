@@ -21,19 +21,29 @@ namespace Gardener.Authentication.Core
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        private Identity _identity;
+
         public IdentityService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
-
+        /// <summary>
+        /// 获取身份
+        /// </summary>
+        /// <returns></returns>
         public Identity GetIdentity()
         {
-            return GetIdentityFromContext();
+            if (_identity != null)
+            {
+                return _identity;
+            }
+            _identity= GetIdentityFromContext();
+            return _identity;
         }
 
 
         /// <summary>
-        /// 
+        /// 获取身份
         /// </summary>
         /// <returns></returns>
         private Identity GetIdentityFromContext()

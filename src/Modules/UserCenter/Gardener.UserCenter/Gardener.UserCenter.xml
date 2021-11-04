@@ -31,7 +31,7 @@
         </member>
         <member name="P:Gardener.UserCenter.Dtos.ClientDto.SecretKey">
             <summary>
-            密匙
+            私钥
             </summary>
         </member>
         <member name="P:Gardener.UserCenter.Dtos.ClientDto.Email">

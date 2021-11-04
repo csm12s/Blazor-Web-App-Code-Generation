@@ -93,6 +93,16 @@ namespace Gardener.Enums
         /// 客户端登录失败
         /// </summary>
         [Description("客户端登录失败")]
-        CLIENT_LOGIN_FAIL
+        CLIENT_LOGIN_FAIL,
+        /// <summary>
+        /// 客户端未找到
+        /// </summary>
+        [Description("客户端未找到")]
+        CLIENT_NO_FIND,
+        /// <summary>
+        /// 时间戳已过期
+        /// </summary>
+        [Description("时间戳已过期")]
+        TIMESPAN_IS_EXPIRED
     }
 }
