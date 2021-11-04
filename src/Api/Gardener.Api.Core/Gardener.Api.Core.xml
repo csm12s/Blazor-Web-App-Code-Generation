@@ -15,6 +15,13 @@
             </summary>
             <param name="cache"></param>
         </member>
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.ClearApiEndpointCacheKey(Gardener.Authorization.Dtos.ApiEndpoint)">
+            <summary>
+            清除缓存key
+            </summary>
+            <param name="apiEndpoint"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.GetApiEndpointCacheKey(System.String)">
             <summary>
             获取缓存key
@@ -30,19 +37,21 @@
             <param name="method"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.Query(System.String)">
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.Query(System.String,System.Boolean)">
             <summary>
             根据key获取功能点
             </summary>
             <param name="key"></param>
+            <param name="enableCache"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.Query(System.String,Gardener.Enums.HttpMethod)">
+        <member name="M:Gardener.Authorization.Core.ApiEndpointQueryService.Query(System.String,Gardener.Enums.HttpMethod,System.Boolean)">
             <summary>
             根据path,method获取功能点
             </summary>
             <param name="path"></param>
             <param name="method"></param>
+            <param name="enableCache"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Authorization.Core.IdentityPermissionService">
@@ -109,36 +118,35 @@
             <param name="loginId"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler">
+        <member name="T:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeRefreshCacheSubscriber">
             <summary>
-            功能点变化
+            功能点变化刷新接口点缓存
             </summary>
         </member>
-        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.UserCenter.Impl.Domains.Function},Gardener.Cache.ICache,Gardener.Authorization.Core.IApiEndpointQueryService)">
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeRefreshCacheSubscriber.#ctor(Gardener.Cache.ICache,Gardener.Authorization.Core.IApiEndpointQueryService)">
             <summary>
             
             </summary>
-            <param name="repository"></param>
             <param name="cache"></param>
             <param name="apiEndpointQueryService"></param>
         </member>
-        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.Delete(Furion.EventBridge.EventMessage{System.Guid})">
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeRefreshCacheSubscriber.Delete(Furion.EventBus.EventHandlerExecutingContext)">
             <summary>
             功能点变化
             </summary>
-            <param name="eventMessage"></param>
+            <param name="context"></param>
         </member>
-        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.Deletes(Furion.EventBridge.EventMessage{System.Guid[]})">
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeRefreshCacheSubscriber.Deletes(Furion.EventBus.EventHandlerExecutingContext)">
             <summary>
             功能点变化
             </summary>
-            <param name="eventMessage"></param>
+            <param name="context"></param>
         </member>
-        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeSubscribeHandler.Update(Furion.EventBridge.EventMessage{Gardener.UserCenter.Impl.Domains.Function})">
+        <member name="M:Gardener.Api.Core.Authorization.Subscribes.FunctionChangeRefreshCacheSubscriber.Update(Furion.EventBus.EventHandlerExecutingContext)">
             <summary>
             功能点变化
             </summary>
-            <param name="eventMessage"></param>
+            <param name="context"></param>
         </member>
         <member name="T:Gardener.Admin.GardenerAdminStartup">
             <summary>

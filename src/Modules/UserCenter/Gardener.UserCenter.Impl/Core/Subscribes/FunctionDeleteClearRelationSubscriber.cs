@@ -5,7 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Furion.EventBridge;
+using Furion.EventBus;
+using Gardener.EventBus;
 using Gardener.UserCenter.Impl.Domains;
 using System;
 using System.Collections.Generic;
@@ -15,34 +16,22 @@ using System.Threading.Tasks;
 namespace Gardener.UserCenter.Impl.Core.Subscribes
 {
     /// <summary>
-    /// 功能点变化
+    /// 功能点变化清除关联关系
     /// </summary>
-    [EventHandler(nameof(Function))]
-    public class FunctionChangeSubscribeHandler : IEventHandler
+    public class FunctionDeleteClearRelationSubscriber : IEventSubscriber
     {
-        private readonly IRepository<ResourceFunction> resourceFunctionRepository;
-        private readonly IRepository<ClientFunction> clientFunctionRepository;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="resourceFunctionRepository"></param>
-        /// <param name="clientFunctionRepository"></param>
-        public FunctionChangeSubscribeHandler(IRepository<ResourceFunction> resourceFunctionRepository, IRepository<ClientFunction> clientFunctionRepository)
-        {
-            this.resourceFunctionRepository = resourceFunctionRepository;
-            this.clientFunctionRepository = clientFunctionRepository;
-        }
-
-        
 
         /// <summary>
         /// 功能点变化
         /// </summary>
-        /// <param name="eventMessage"></param>
-        [EventMessage]
-        public async Task Delete(EventMessage<Guid> eventMessage)
+        /// <param name="context"></param>
+        [EventSubscribe(nameof(Function)+ ":Delete")]
+        [EventSubscribe(nameof(Function)+ ":FakeDelete")]
+        public async Task Delete(EventHandlerExecutingContext context)
         {
-            Guid id = eventMessage.Payload;
+            IRepository<ResourceFunction> resourceFunctionRepository= Db.GetRepository<ResourceFunction>();
+            IRepository<ClientFunction> clientFunctionRepository= Db.GetRepository<ClientFunction>();
+            Guid id = (Guid)context.Source.Payload;
             await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
             await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
         }
@@ -50,11 +39,14 @@ namespace Gardener.UserCenter.Impl.Core.Subscribes
         /// <summary>
         /// 功能点变化
         /// </summary>
-        /// <param name="eventMessage"></param>
-        [EventMessage]
-        public async Task Deletes(EventMessage<Guid[]> eventMessage)
+        /// <param name="context"></param>
+        [EventSubscribe(nameof(Function) + ":Deletes")]
+        [EventSubscribe(nameof(Function) + ":FakeDeletes")]
+        public async Task Deletes(EventHandlerExecutingContext context)
         {
-            List<Guid> ids= eventMessage.Payload.ToList();
+            IRepository<ResourceFunction> resourceFunctionRepository = Db.GetRepository<ResourceFunction>();
+            IRepository<ClientFunction> clientFunctionRepository = Db.GetRepository<ClientFunction>();
+            IEnumerable<Guid> ids= (IEnumerable<Guid>)context.Source.Payload;
             await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
             await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
         }

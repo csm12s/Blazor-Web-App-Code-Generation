@@ -527,34 +527,28 @@
             接口查询服务
             </summary>
         </member>
-        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.GetApiEndpointCacheKey(System.String)">
+        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.ClearApiEndpointCacheKey(Gardener.Authorization.Dtos.ApiEndpoint)">
             <summary>
-            获取缓存key
+            清除缓存key
             </summary>
-            <param name="key"></param>
+            <param name="apiEndpoint"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.GetApiEndpointCacheKey(System.String,Gardener.Enums.HttpMethod)">
-            <summary>
-            获取缓存key
-            </summary>
-            <param name="path"></param>
-            <param name="method"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.Query(System.String,Gardener.Enums.HttpMethod)">
+        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.Query(System.String,Gardener.Enums.HttpMethod,System.Boolean)">
             <summary>
             根据path,method获取功能点
             </summary>
             <param name="path"></param>
             <param name="method"></param>
+            <param name="enableCache"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.Query(System.String)">
+        <member name="M:Gardener.Authorization.Core.IApiEndpointQueryService.Query(System.String,System.Boolean)">
             <summary>
             根据key获取功能点
             </summary>
             <param name="key"></param>
+            <param name="enableCache"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.Authorization.Core.IAuthorizationService">
@@ -1296,6 +1290,85 @@
             <summary>
             邮件服务器配置服务
             </summary>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyDeleteAsync``2(``1)">
+            <summary>
+            通知删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyDeletesAsync``2(System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            通知批量删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyFakeDeleteAsync``2(``1)">
+            <summary>
+            通知逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyFakeDeletesAsync``2(System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            通知批量逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyInsertAsync``1(``0)">
+            <summary>
+            通知插入
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyLockAsync``1(``0)">
+            <summary>
+            通知锁定
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyUpdateAsync``1(``0)">
+            <summary>
+            通知更新
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.PublishAsync``1(System.String,System.Object)">
+            <summary>
+            通知
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="action"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.EventBus.IEntityEventPublisher.PublishAsync``1(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            通知
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="action"></param>
+            <param name="data"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
         </member>
         <member name="T:Gardener.FileStore.IFileStoreService">
             <summary>

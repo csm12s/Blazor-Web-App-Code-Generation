@@ -33,11 +33,21 @@ namespace Gardener.Authorization.Core
             this.cache = cache;
         }
         /// <summary>
+        /// 清除缓存key
+        /// </summary>
+        /// <param name="apiEndpoint"></param>
+        /// <returns></returns>
+        public async Task ClearApiEndpointCacheKey(ApiEndpoint apiEndpoint)
+        {
+            await cache.RemoveAsync(GetApiEndpointCacheKey(apiEndpoint.Path, apiEndpoint.Method));
+            await cache.RemoveAsync(GetApiEndpointCacheKey(apiEndpoint.Key));
+        }
+        /// <summary>
         /// 获取缓存key
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string GetApiEndpointCacheKey(string key)
+        private string GetApiEndpointCacheKey(string key)
         { 
             return cacheKeyPre + key; 
         }
@@ -47,7 +57,7 @@ namespace Gardener.Authorization.Core
         /// <param name="path"></param>
         /// <param name="method"></param>
         /// <returns></returns>
-        public string GetApiEndpointCacheKey(string path, HttpMethod method)
+        private string GetApiEndpointCacheKey(string path, HttpMethod method)
         { 
             return cacheKeyPre + path + "_" + method;
         }
@@ -55,17 +65,21 @@ namespace Gardener.Authorization.Core
         /// 根据key获取功能点
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="enableCache"></param>
         /// <returns></returns>
-        public async Task<ApiEndpoint> Query(string key)
+        public async Task<ApiEndpoint> Query(string key, bool enableCache = true)
         {
-            key = GetApiEndpointCacheKey(key);
-
             Func<Task<ApiEndpoint>> func = async () => {
 
                 Function function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Key.Equals(key) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
                 return function?.Adapt<ApiEndpoint>();
             };
-            return await cache.GetAsync<ApiEndpoint>(key, func);
+            if (!enableCache)
+            {
+                return await func();
+            }
+            string cacheKey = GetApiEndpointCacheKey(key);
+            return await cache.GetAsync<ApiEndpoint>(cacheKey, func);
         }
 
         /// <summary>
@@ -73,15 +87,20 @@ namespace Gardener.Authorization.Core
         /// </summary>
         /// <param name="path"></param>
         /// <param name="method"></param>
+        /// <param name="enableCache"></param>
         /// <returns></returns>
-        public async Task<ApiEndpoint> Query(string path, HttpMethod method)
+        public async Task<ApiEndpoint> Query(string path, HttpMethod method, bool enableCache = true)
         {
-            string key = GetApiEndpointCacheKey(path,method);
             Func<Task<ApiEndpoint>> func = async () => {
                 Function function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Method.Equals(method) && x.Path.Equals(path) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
                 return function?.Adapt<ApiEndpoint>();
             };
-            return await cache.GetAsync<ApiEndpoint>(key, func);
+            if (!enableCache)
+            {
+                return await func();
+            }
+            string cacheKey = GetApiEndpointCacheKey(path, method);
+            return await cache.GetAsync<ApiEndpoint>(cacheKey, func);
         }
     }
 }

@@ -16,30 +16,25 @@ namespace Gardener.Authorization.Core
     public interface IApiEndpointQueryService
     {
         /// <summary>
-        /// 获取缓存key
+        /// 清除缓存key
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="apiEndpoint"></param>
         /// <returns></returns>
-        string GetApiEndpointCacheKey(string key);
-        /// <summary>
-        /// 获取缓存key
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="method"></param>
-        /// <returns></returns>
-        string GetApiEndpointCacheKey(string path, HttpMethod method);
+        Task ClearApiEndpointCacheKey(ApiEndpoint apiEndpoint);
         /// <summary>
         /// 根据path,method获取功能点
         /// </summary>
         /// <param name="path"></param>
         /// <param name="method"></param>
+        /// <param name="enableCache"></param>
         /// <returns></returns>
-        Task<ApiEndpoint> Query(string path, HttpMethod method);
+        Task<ApiEndpoint> Query(string path, HttpMethod method,bool enableCache=true);
         /// <summary>
         /// 根据key获取功能点
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="enableCache"></param>
         /// <returns></returns>
-        Task<ApiEndpoint> Query(string key);
+        Task<ApiEndpoint> Query(string key, bool enableCache = true);
     }
 }

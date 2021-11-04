@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.Authorization.Core;
 using Gardener.EntityFramwork.DbContexts;
+using Gardener.Api.Core.Authorization.Subscribes;
+using Gardener.UserCenter.Impl.Core.Subscribes;
 
 namespace Gardener.Admin
 {
@@ -47,7 +49,12 @@ namespace Gardener.Admin
             //开启本地文件存储
             services.AddFileLocalStore();
             //事件总线
-            services.AddEventBridge();
+            services.AddEventBusServices(builder =>
+            {
+                // 注册事件订阅者
+                builder.AddSubscriber<FunctionChangeRefreshCacheSubscriber>();
+                builder.AddSubscriber<FunctionDeleteClearRelationSubscriber>();
+            });
             //注册跨域
             services.AddCorsAccessor();
             //远程请求

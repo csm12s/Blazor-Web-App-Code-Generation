@@ -20,7 +20,6 @@ using System.Linq.Expressions;
 using Gardener.Base;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Furion.EventBridge;
 
 namespace Gardener
 {
@@ -71,7 +70,7 @@ namespace Gardener
             }
             var newEntity = await _repository.InsertNowAsync(entity);
             //发送通知
-            await Event.EmitAsync(typeof(TEntity).Name + ":Insert", newEntity.Entity);
+            await EntityEventNotityUtil.NotifyInsertAsync(newEntity.Entity);
             return newEntity.Entity.Adapt<TEntityDto>();
         }
 
@@ -88,7 +87,7 @@ namespace Gardener
             input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
             EntityEntry<TEntity> entityEntry= await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime) });
             //发送通知
-            await Event.EmitAsync(typeof(TEntity).Name+ ":Update", entityEntry.Entity);
+            await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
             return true;
         }
 
@@ -104,7 +103,7 @@ namespace Gardener
         {
             await _repository.DeleteAsync(id);
             //发送删除通知
-            await Event.EmitAsync(typeof(TEntity).Name + ":Delete", id);
+            await EntityEventNotityUtil.NotifyDeleteAsync<TEntity,TKey>(id);
             return true;
         }
 
@@ -125,7 +124,7 @@ namespace Gardener
                 await _repository.DeleteAsync(id);
                 
             }
-            await Event.EmitAsync(typeof(TEntity).Name + ":Deletes", ids);
+            await EntityEventNotityUtil.NotifyDeletesAsync<TEntity, TKey>(ids);
             return true;
         }
 
@@ -141,7 +140,7 @@ namespace Gardener
         public virtual async Task<bool> FakeDelete(TKey id)
         {
             await _repository.FakeDeleteByKeyAsync(id);
-            await Event.EmitAsync(typeof(TEntity).Name + ":Delete", id);
+            await EntityEventNotityUtil.NotifyFakeDeleteAsync<TEntity, TKey>(id);
             return true;
         }
         
@@ -161,7 +160,7 @@ namespace Gardener
             {
                 await _repository.FakeDeleteByKeyAsync(id);
             }
-            await Event.EmitAsync(typeof(TEntity).Name + ":Deletes", ids);
+            await EntityEventNotityUtil.NotifyFakeDeletesAsync<TEntity, TKey>(ids);
             return true;
         }
 
@@ -252,7 +251,7 @@ namespace Gardener
             {
                 entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
                 await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked), nameof(GardenerEntityBase.UpdatedTime) });
-                await Event.EmitAsync(typeof(TEntity).Name + ":Lock", entity);
+                await EntityEventNotityUtil.NotifyLockAsync(entity);
                 return true;
             }
             return false;

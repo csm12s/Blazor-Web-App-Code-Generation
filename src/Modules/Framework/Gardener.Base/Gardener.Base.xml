@@ -130,6 +130,77 @@
             <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
             <returns>查询表达式</returns>
         </member>
+        <member name="T:Gardener.Base.EntityEventNotityUtil">
+            <summary>
+            实体事件通知
+            </summary>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.GetPublisher">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.NotifyDeleteAsync``2(``1)">
+            <summary>
+            通知删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.NotifyDeletesAsync``2(System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            通知批量删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.NotifyFakeDeleteAsync``2(``1)">
+            <summary>
+            通知逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.NotifyFakeDeletesAsync``2(System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            通知批量逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.NotifyInsertAsync``1(``0)">
+            <summary>
+            通知插入
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.NotifyUpdateAsync``1(``0)">
+            <summary>
+            通知更新
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.EntityEventNotityUtil.NotifyLockAsync``1(``0)">
+            <summary>
+            通知锁定
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.Base.FilterHelper">
             <summary>
             查询表达式辅助操作类
