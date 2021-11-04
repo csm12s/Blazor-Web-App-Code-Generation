@@ -32,7 +32,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static string GetIdentityId()
         {
-            return GetIdentity().Id;
+            return GetIdentity()?.Id;
         }
         /// <summary>
         /// 
@@ -40,8 +40,8 @@ namespace Gardener.Base
         /// <returns></returns>
         public static IdentityType GetIdentityType()
         {
-
-            return GetIdentity().IdentityType;
+            Identity identity = GetIdentity();
+            return identity==null? IdentityType.Unknown: identity.IdentityType;
         }
     }
 }
