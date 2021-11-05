@@ -1,30 +1,44 @@
 ﻿@page "/"
 @inherits ReuseTabsPageBase
 <div>
-    <Card Title="AD">
-        <Extra>
-        </Extra>
-        <Body>
-            <p>有问题，找组织：QQ群:580133077</p>
-        </Body>
-    </Card>
+    <Row  Gutter="16">
+        <Col Span="16">
+        <Card Title="点点小星星">
+            <Extra>
+            </Extra>
+            <Body>
+                <a target="_blank" href="https://gitee.com/hgflydream/Gardener">
+                    <img src="https://chart.giteye.net/gitee/hgflydream/Gardener/3TYDH8Y9.png" height="300px" />
+                </a>
+            </Body>
+        </Card>
+        </Col>
+        <Col Span="8">
+        <Card Title="交流群">
+            <Extra>
+            </Extra>
+            <Body>
+                <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=ILV3MBrcZtr4uUSsKa3njjnpBiUvT0xe&jump_from=webapi">
+                    <img alt="点击加入" title="点击加入" src="./assets/qq-group.webp" height="300px" />
+                </a>
+            </Body>
+        </Card>
+        </Col>
+    </Row>
     <br />
-    <Card Title="AD">
-        <Extra>
-        </Extra>
-        <Body>
-            <a href="/api/index.html">swagger</a>
-        </Body>
-    </Card>
-    <br />
-    <Card Title="AD">
-        <Extra>
-        </Extra>
-        <Body>
-            <p>源码：<a href="https://gitee.com/hgflydream/Gardener">https://gitee.com/hgflydream/Gardener</a></p>
-        </Body>
-    </Card>
+    <Row>
+        <Col Span="24">
+        <Card Title="文档">
+            <Extra>
+            </Extra>
+            <Body>
+                <p>
+                    <a target="_blank" href="/api/index.html">swagger api document</a>
+                </p>
+                <p><a target="_blank" href="https://gitee.com/hgflydream/Gardener/wikis/%E5%BF%AB%E9%80%9F%E5%90%AF%E5%8A%A8">使用文档</a></p>
+                <p>源码：<a target="_blank" href="https://gitee.com/hgflydream/Gardener">https://gitee.com/hgflydream/Gardener</a></p>
+            </Body>
+        </Card>
+        </Col>
+    </Row>
 </div>
-@code {
-
-}
