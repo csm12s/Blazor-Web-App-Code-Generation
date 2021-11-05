@@ -4,5 +4,41 @@
         <name>Gardener.Entry</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Entry.Program">
+            <summary>
+            启动入口
+            </summary>
+        </member>
+        <member name="M:Gardener.Entry.Program.Main(System.String[])">
+            <summary>
+            入口方法
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Gardener.Entry.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.Entry.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Gardener.Entry.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Gardener.Entry.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
     </members>
 </doc>

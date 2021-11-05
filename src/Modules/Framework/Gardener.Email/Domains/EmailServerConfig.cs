@@ -1,4 +1,5 @@
 ﻿using Gardener.Base;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,7 +9,7 @@ namespace Gardener.Email.Domains
     /// 邮件服务器配置信息
     /// </summary>
     [Description("邮件服务器配置信息")]
-    public class EmailServerConfig: GardenerEntityBase
+    public class EmailServerConfig: GardenerEntityBase<Guid>
     {
         /// <summary>
         /// 名称

@@ -1,4 +1,4 @@
-﻿@inherits EditDrawerBase<EmailServerConfigDto, Guid>
+﻿@inherits EditDrawerBase<EmailTemplateDto, Guid>
 @if (_editModel != null)
 {
 
@@ -12,30 +12,13 @@
             <Input @bind-Value="@model.Name" />
         </FormItem>
         <FormItem>
-            <Input @bind-Value="@model.Host" />
-        </FormItem>
-        <FormItem>
-            <Input @bind-Value="@model.Port" />
-        </FormItem>
-        <FormItem>
-            <Input @bind-Value="@model.AccountName" />
-        </FormItem>
-        <FormItem>
-            <Input @bind-Value="@model.AccountPassword" Type="password" />
-        </FormItem>
-        <FormItem>
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
         <FormItem>
-            <Input @bind-Value="@model.Tags" Type="hidden" />
-            <SimpleSelect Mode="multiple" @bind-Values="@_tags">
-                <SelectOptions>
-                    @foreach (var gitem in EnumHelper.EnumToDictionary<EmailServerTag>())
-                    {
-                        <SimpleSelectOption Value="@(gitem.Key.ToString())" Label="@gitem.Value"></SimpleSelectOption>
-                    }
-                </SelectOptions>
-            </SimpleSelect>
+            <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Example"></TextArea>
+        </FormItem>
+        <FormItem>
+            <TextArea AutoSize="true" MinRows="5" MaxRows="10" @bind-Value="@model.Template"></TextArea>
         </FormItem>
         <FormItem>
             <Switch @bind-Value="@model.IsLocked"></Switch>

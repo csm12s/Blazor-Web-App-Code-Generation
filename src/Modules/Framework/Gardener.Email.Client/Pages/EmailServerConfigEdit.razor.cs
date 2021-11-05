@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailServerConfigEdit : EditDrawerBase<EmailServerConfigDto, int>
+    public partial class EmailServerConfigEdit : EditDrawerBase<EmailServerConfigDto, Guid>
     {
         private IEnumerable<string> _tags
         {

@@ -14,16 +14,16 @@ namespace Gardener.Email.Services
 {
 
     /// <summary>
-    /// 邮件服务器配置服务
+    /// 邮件模板服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class EmailServerConfigService : ServiceBase<EmailServerConfig, EmailServerConfigDto,Guid>, IEmailServerConfigService
+    public class EmailTemplateService : ServiceBase<EmailTemplate, EmailTemplateDto, Guid>, IEmailTemplateService
     {
         /// <summary>
-        /// 邮件服务器配置服务
+        /// 邮件模板服务
         /// </summary>
         /// <param name="repository"></param>
-        public EmailServerConfigService(IRepository<EmailServerConfig> repository) : base(repository)
+        public EmailTemplateService(IRepository<EmailTemplate> repository) : base(repository)
         {
         }
     }

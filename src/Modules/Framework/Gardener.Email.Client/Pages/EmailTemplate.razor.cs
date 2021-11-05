@@ -5,13 +5,17 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base.Components;
+using Gardener.Client.Base.Model;
 using Gardener.Email.Dtos;
 using System;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailServerConfig : TableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit>
+    public partial class EmailTemplate : TableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
     {
+        public EmailTemplate() : base(new DrawerSettings { Width = 800 })
+        { 
         
+        }
     }
 }

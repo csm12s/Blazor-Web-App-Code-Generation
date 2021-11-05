@@ -1260,6 +1260,31 @@
             </summary>
             <remarks>多个标签，逗号隔开</remarks>
         </member>
+        <member name="T:Gardener.Email.Dtos.EmailTemplateDto">
+            <summary>
+            邮件模板信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Dtos.EmailTemplateDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Dtos.EmailTemplateDto.Remark">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Dtos.EmailTemplateDto.Template">
+            <summary>
+            模板
+            </summary>
+        </member>
+        <member name="P:Gardener.Email.Dtos.EmailTemplateDto.Example">
+            <summary>
+            例子
+            </summary>
+        </member>
         <member name="T:Gardener.Email.Enums.EmailServerTag">
             <summary>
             邮件服务器标签
@@ -1289,6 +1314,11 @@
         <member name="T:Gardener.Email.Services.IEmailServerConfigService">
             <summary>
             邮件服务器配置服务
+            </summary>
+        </member>
+        <member name="T:Gardener.Email.Services.IEmailTemplateService">
+            <summary>
+            邮件模板服务
             </summary>
         </member>
         <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyDeleteAsync``2(``1)">

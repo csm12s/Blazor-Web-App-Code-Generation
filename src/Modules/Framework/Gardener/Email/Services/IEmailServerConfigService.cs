@@ -6,14 +6,14 @@
 
 using Gardener.Base;
 using Gardener.Email.Dtos;
-
+using System;
 
 namespace Gardener.Email.Services
 {
     /// <summary>
     /// 邮件服务器配置服务
     /// </summary>
-    public interface IEmailServerConfigService : IServiceBase<EmailServerConfigDto,int>
+    public interface IEmailServerConfigService : IServiceBase<EmailServerConfigDto,Guid>
     {
 
     }

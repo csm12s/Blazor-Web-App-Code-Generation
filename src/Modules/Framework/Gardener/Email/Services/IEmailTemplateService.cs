@@ -4,14 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base.Components;
+using Gardener.Base;
 using Gardener.Email.Dtos;
 using System;
 
-namespace Gardener.Email.Client.Pages
+namespace Gardener.Email.Services
 {
-    public partial class EmailServerConfig : TableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit>
+    /// <summary>
+    /// 邮件模板服务
+    /// </summary>
+    public interface IEmailTemplateService : IServiceBase<EmailTemplateDto, Guid>
     {
-        
+
     }
 }
