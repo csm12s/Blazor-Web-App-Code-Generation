@@ -26,15 +26,7 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDrawerResult"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TDrawer, TDrawerOption, TDrawerResult> : ReuseTabsPageBase where TDrawer : FeedbackComponent<TDrawerOption, TDrawerResult> where TDrawerResult : DrawerOutput<TKey> where TDto : BaseDto<TKey>, new()
     {
-        private DrawerSettings drawerSettings = new DrawerSettings { Width = 500 };
-
-        protected TreeTableBase(DrawerSettings drawerSettings)
-        {
-            this.drawerService = drawerService;
-        }
-        protected TreeTableBase()
-        {
-        }
+       
         protected ITable _table;
         protected bool _tableIsLoading = false;
         protected List<TDto> _dtos;
@@ -105,20 +97,19 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected abstract TDrawerOption GetAddOption();
         /// <summary>
-        /// 获取抽屉的配置信息
-        /// </summary>
-        /// <returns></returns>
-        protected DrawerSettings GetDrawerSettings()
-        {
-            return this.drawerSettings;
-        }
-        /// <summary>
         /// 排序
         /// </summary>
         /// <param name="children"></param>
         /// <returns></returns>
         protected abstract ICollection<TDto> SortChildren(ICollection<TDto> children);
-
+        /// <summary>
+        /// 抽屉配置
+        /// </summary>
+        /// <returns></returns>
+        protected virtual DrawerSettings GetDrawerSettings()
+        {
+            return new DrawerSettings { Width = 500 };
+        }
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -431,13 +422,6 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDrawer"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TDrawer> : TreeTableBase<TDto, TKey,TDrawer,DrawerInput<TKey>,DrawerOutput<TKey>> where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
-        protected TreeTableBase(DrawerSettings drawerSettings) :base(drawerSettings)
-        {
-        }
-        protected TreeTableBase()
-        {
-        }
-
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
         /// </summary>

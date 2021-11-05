@@ -20,9 +20,9 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
     public partial class Resource : TreeTableBase<ResourceDto,Guid,ResourceEdit>
     {
 
-        public Resource() : base(new DrawerSettings { Width = 800 })
+        protected override DrawerSettings GetDrawerSettings()
         {
-
+            return new DrawerSettings { Width = 800 };
         }
         [Inject]
         DrawerService drawerService { get; set; }

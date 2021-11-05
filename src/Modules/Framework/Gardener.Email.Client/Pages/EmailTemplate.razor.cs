@@ -13,9 +13,9 @@ namespace Gardener.Email.Client.Pages
 {
     public partial class EmailTemplate : TableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
     {
-        public EmailTemplate() : base(new DrawerSettings { Width = 800 })
-        { 
-        
+        protected override DrawerSettings GetDrawerSettings()
+        {
+            return new DrawerSettings { Width = 1000 };
         }
     }
 }

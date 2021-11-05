@@ -18,9 +18,9 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
     public partial class Dept : TreeTableBase<DeptDto, int, DeptEdit>
     {
 
-        public Dept() : base(new DrawerSettings { Width=800 })
-        { 
-        
+        protected override DrawerSettings GetDrawerSettings()
+        {
+            return new DrawerSettings { Width = 800 };
         }
 
         [Inject]

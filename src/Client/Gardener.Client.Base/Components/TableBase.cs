@@ -201,24 +201,28 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDrawer"></typeparam>
     public abstract class TableBase<TDto, TKey, TDrawer> : TableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>>
     {
-
-
-        private DrawerSettings drawerSettings = new DrawerSettings { Width = 500 };
-
-        protected TableBase(DrawerSettings drawerSettings)
+        /// <summary>
+        /// 抽屉配置
+        /// </summary>
+        /// <returns></returns>
+        protected virtual DrawerSettings GetDrawerSettings()
         {
-            this.drawerService = drawerService;
+            return new DrawerSettings { Width = 500 };
         }
-        protected TableBase()
-        {
-        }
+        
         /// <summary>
         /// 点击添加按钮
         /// </summary>
         protected async Task OnClickAdd()
         {
+            DrawerSettings drawerSettings = GetDrawerSettings();
             DrawerInput<TKey> input = DrawerInput<TKey>.IsAdd();
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["添加"], width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
+                input,
+                closable: drawerSettings.Closable,
+                title: localizer["添加"], 
+                width: drawerSettings.Width,
+                placement: drawerSettings.Placement.ToString().ToLower());
 
             if (result.Succeeded)
             {
@@ -233,8 +237,15 @@ namespace Gardener.Client.Base.Components
         /// <param name="model"></param>
         protected async Task OnClickEdit(TKey id)
         {
+            DrawerSettings drawerSettings = GetDrawerSettings();
             DrawerInput<TKey> input = DrawerInput<TKey>.IsEdit(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["编辑"], width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
+                input, 
+                closable: drawerSettings.Closable, 
+                true, 
+                title: localizer["编辑"], 
+                width: drawerSettings.Width,
+                placement: drawerSettings.Placement.ToString().ToLower());
 
             if (result.Succeeded)
             {
@@ -246,10 +257,17 @@ namespace Gardener.Client.Base.Components
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        public async Task OnClickDetail(TKey id)
+        protected async Task OnClickDetail(TKey id)
         {
+            DrawerSettings drawerSettings = GetDrawerSettings();
             DrawerInput<TKey> input = DrawerInput<TKey>.IsSelect(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(input, true, title: localizer["详情"], width: this.drawerSettings.Width);
+            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
+                input, 
+                closable: drawerSettings.Closable,
+                true, 
+                title: localizer["详情"],
+                width: drawerSettings.Width, 
+                placement: drawerSettings.Placement.ToString().ToLower());
         }
     }
 }
