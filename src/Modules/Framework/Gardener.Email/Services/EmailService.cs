@@ -59,8 +59,9 @@ namespace Gardener.Email.Services
         private async Task<EmailServerConfig> GetEmailServerConfig(EmailServerTag serverTag)
         {
             return await _emailServerRepository.AsQueryable(false)
-                .Where(x => ("," + x.Tags + ",")
-                .Contains("," + serverTag + ","))
+                .Where(x => ("," + x.Tags + ",").Contains("," + serverTag + ",")
+                && x.IsDeleted==false && x.IsLocked==false
+                )
                 .FirstOrDefaultAsync();
         }
         /// <summary>
