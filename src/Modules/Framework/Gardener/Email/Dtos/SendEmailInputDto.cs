@@ -34,11 +34,17 @@ namespace Gardener.Email.Dtos
         /// </summary>
         [DisplayName("接收方邮箱地址")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
+        [RegularExpression("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",ErrorMessage ="请输入正确的邮件地址")]
         public string ToEmail { get; set; }
         /// <summary>
         /// 邮件服务器标签
         /// </summary>
         [DisplayName("邮件服务器标签")]
         public EmailServerTag ServerTag { get; set; } = EmailServerTag.Base;
+        /// <summary>
+        /// 邮件服务器配置编号
+        /// </summary>
+        [DisplayName("邮件服务器配置编号")]
+        public Guid EmailServerConfigId { get; set; }
     }
 }

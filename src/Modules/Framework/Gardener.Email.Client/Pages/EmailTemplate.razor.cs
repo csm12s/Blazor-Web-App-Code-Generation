@@ -21,7 +21,7 @@ namespace Gardener.Email.Client.Pages
         }
 
         /// <summary>
-        /// 点击编辑按钮
+        /// 点击发送按钮
         /// </summary>
         /// <param name="roleDto"></param>
         protected async Task OnClickSend(Guid id)
@@ -34,10 +34,6 @@ namespace Gardener.Email.Client.Pages
                 title: localizer["发送"],
                 width: drawerSettings.Width,
                 placement: drawerSettings.Placement.ToString().ToLower());
-
-            if (result.Succeeded)
-            {
-            }
         }
     }
 }

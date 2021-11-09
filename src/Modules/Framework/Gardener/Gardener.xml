@@ -1335,6 +1335,11 @@
             邮件服务器标签
             </summary>
         </member>
+        <member name="P:Gardener.Email.Dtos.SendEmailInputDto.EmailServerConfigId">
+            <summary>
+            邮件服务器配置编号
+            </summary>
+        </member>
         <member name="T:Gardener.Email.Enums.EmailServerTag">
             <summary>
             邮件服务器标签

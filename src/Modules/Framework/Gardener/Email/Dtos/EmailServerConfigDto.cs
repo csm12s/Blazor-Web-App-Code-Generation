@@ -46,6 +46,7 @@ namespace Gardener.Email.Dtos
         /// </summary>
         [DisplayName("发件人邮箱")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
+        [RegularExpression("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", ErrorMessage = "请输入正确的邮件地址")]
         public string FromEmail { get; set; }
         /// <summary>
         /// 账户名

@@ -17,11 +17,11 @@ using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailTemplateTest : FeedbackComponent<DrawerInput<Guid>, DrawerOutput<Guid>>
+    public partial class EmailServerConfigTest : FeedbackComponent<DrawerInput<Guid>, DrawerOutput<Guid>>
     {
         private bool _isLoading = false;
         private SendEmailInputDto _sendEmailInput = new SendEmailInputDto();
-        private List<EmailServerConfigDto> emailServerConfigs;
+        private List<EmailTemplateDto> emailTemplates;
         [Inject]
         protected IClientLocalizer localizer { get; set; }
         [Inject]
@@ -44,26 +44,32 @@ namespace Gardener.Email.Client.Pages
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _sendEmailInput.TemplateId = this.Options.Id;
-            EmailTemplateDto templateDto = await emailTemplateService.Get(this.Options.Id);
-            if (templateDto == null)
+            _sendEmailInput.EmailServerConfigId = this.Options.Id;
+            emailTemplates = await emailTemplateService.GetAllUsable();
+            if (emailTemplates != null && emailTemplates.Any())
             {
-                messageService.Error(localizer["数据未找到"]);
-            }
-            else
-            {
+                EmailTemplateDto templateDto = emailTemplates.First();
+
+                _sendEmailInput.TemplateId = templateDto.Id;
+
                 if (templateDto.Example != null)
                 {
                     _sendEmailInput.Data = templateDto.Example;
                 }
             }
-            emailServerConfigs = await emailServerConfigService.GetAllUsable();
-            if (emailServerConfigs != null && emailServerConfigs.Any())
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateDto"></param>
+        /// <returns></returns>
+        private void OnEmailTemplateChanged(EmailTemplateDto templateDto)
+        {
+            if (templateDto.Example != null)
             {
-                _sendEmailInput.EmailServerConfigId = emailServerConfigs.First().Id;
+                _sendEmailInput.Data = templateDto.Example;
             }
         }
-
         /// <summary>
         /// 表单完成时
         /// </summary>

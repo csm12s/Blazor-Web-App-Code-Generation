@@ -6,6 +6,7 @@
 
 using Furion.ClayObject;
 using Furion.DatabaseAccessor;
+using Furion.DataValidation;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Furion.FriendlyException;
@@ -100,7 +101,16 @@ namespace Gardener.Email.Services
             EmailServerTag serverTag = input.ServerTag;
             object data = Clay.Parse(input.Data);
             string toEmail = input.ToEmail;
-            EmailServerConfig emailServerConfig = await GetEmailServerConfig(serverTag);
+            EmailServerConfig emailServerConfig;
+            if (!Guid.Empty.Equals(input.EmailServerConfigId))
+            {
+                emailServerConfig =await _emailServerRepository.FindAsync(input.EmailServerConfigId);
+            }
+            else 
+            {
+                emailServerConfig = await GetEmailServerConfig(serverTag);
+            }
+
             if (emailServerConfig == null) 
             {
                 throw Oops.Bah(ExceptionCode.EMAIL_SERVER_NO_FIND);

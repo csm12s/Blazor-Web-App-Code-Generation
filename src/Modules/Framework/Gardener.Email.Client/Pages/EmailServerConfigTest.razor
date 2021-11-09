@@ -7,7 +7,7 @@
       OnFinish="OnFormFinish"
       Context="model">
     <FormItem>
-        <Input Disabled="true" @bind-Value="@model.TemplateId" />
+        <Input Disabled="true" @bind-Value="@model.EmailServerConfigId" />
     </FormItem>
     <FormItem>
         <Input @bind-Value="@model.ToEmail" />
@@ -16,10 +16,12 @@
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@_sendEmailInput.Data"></TextArea>
     </FormItem>
     <FormItem>
-        <Select DataSource="@emailServerConfigs"
-                @bind-Value="@model.EmailServerConfigId"
-                ValueName="@nameof(EmailServerConfigDto.Id)"
-                LabelName="@nameof(EmailServerConfigDto.Name)">
+        <Select DataSource="@emailTemplates"
+                @bind-Value="@model.TemplateId"
+                ValueName="@nameof(EmailTemplateDto.Id)"
+                LabelName="@nameof(EmailTemplateDto.Name)"
+                OnSelectedItemChanged="OnEmailTemplateChanged"
+                >
         </Select>
     </FormItem>
 
