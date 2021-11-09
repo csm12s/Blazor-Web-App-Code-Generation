@@ -1,0 +1,41 @@
+﻿@inherits FeedbackComponent<DrawerInput<Guid>, DrawerOutput<Guid>>
+
+<Form Loading="@_isLoading"
+      Model="@_sendEmailInput"
+      LabelCol="new ColLayoutParam { Span = 8 }"
+      WrapperCol="new ColLayoutParam { Span = 16 }"
+      OnFinish="OnFormFinish"
+      Context="model">
+    <FormItem>
+        <Input Disabled="true" @bind-Value="@model.TemplateId" />
+    </FormItem>
+    <FormItem>
+        <Input @bind-Value="@model.ToEmail" />
+    </FormItem>
+    <FormItem>
+        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@_sendEmailInput.Data"></TextArea>
+    </FormItem>
+    <FormItem>
+        <RadioGroup @bind-Value="@(model.ServerTag)">
+            @foreach (var gitem in EnumHelper.EnumToDictionary<EmailServerTag>())
+            {
+                <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+            }
+        </RadioGroup>
+    </FormItem>
+
+    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Space>
+            <SpaceItem>
+                <Button Type="@ButtonType.Primary" HtmlType="submit">
+                    @localizer["发送"]
+                </Button>
+            </SpaceItem>
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    @localizer["取消"]
+                </Button>
+            </SpaceItem>
+        </Space>
+    </FormItem>
+</Form>

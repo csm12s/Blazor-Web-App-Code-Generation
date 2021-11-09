@@ -144,6 +144,9 @@
   <data name="加载" xml:space="preserve">
     <value>load</value>
   </data>
+  <data name="发送" xml:space="preserve">
+    <value>Send</value>
+  </data>
   <data name="取消" xml:space="preserve">
     <value>Cancel</value>
   </data>

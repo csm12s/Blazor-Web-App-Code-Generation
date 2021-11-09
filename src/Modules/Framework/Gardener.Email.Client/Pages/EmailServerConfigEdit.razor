@@ -18,6 +18,9 @@
             <Input @bind-Value="@model.Port" />
         </FormItem>
         <FormItem>
+            <Input @bind-Value="@model.FromEmail" />
+        </FormItem>
+        <FormItem>
             <Input @bind-Value="@model.AccountName" />
         </FormItem>
         <FormItem>
@@ -36,6 +39,9 @@
                     }
                 </SelectOptions>
             </SimpleSelect>
+        </FormItem>
+        <FormItem>
+            <Switch @bind-Value="@model.EnableSsl"></Switch>
         </FormItem>
         <FormItem>
             <Switch @bind-Value="@model.IsLocked"></Switch>

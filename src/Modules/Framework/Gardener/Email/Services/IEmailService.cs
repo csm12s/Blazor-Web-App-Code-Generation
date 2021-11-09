@@ -4,23 +4,23 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Gardener.Email.Dtos;
+using Gardener.Email.Enums;
 using System;
 using System.Threading.Tasks;
 
 namespace Gardener.Email.Services
 {
     /// <summary>
-    /// 邮件模板服务
+    /// 邮件服务
     /// </summary>
-    public interface IEmailTemplateService : IServiceBase<EmailTemplateDto, Guid>
+    public interface IEmailService
     {
         /// <summary>
         /// 发送邮件
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<bool> SendTest(SendEmailInputDto input);
+        Task<bool> Send(SendEmailInputDto input);
     }
 }

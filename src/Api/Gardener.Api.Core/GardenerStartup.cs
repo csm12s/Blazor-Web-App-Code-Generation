@@ -80,6 +80,8 @@ namespace Gardener.Admin
             //注册规范返回格式
             .AddUnifyResult<MyRESTfulResultProvider>()
             ;
+            //视图引擎
+            services.AddViewEngine();
 
         }
         /// <summary>

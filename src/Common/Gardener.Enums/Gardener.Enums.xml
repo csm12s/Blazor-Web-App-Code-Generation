@@ -47,7 +47,7 @@
         <member name="T:Gardener.Enums.ExceptionCode">
             <summary>
             异常状态码
-            详细提示见:applicationsettings.json/ErrorCodeMessageSettings
+            详细提示配置到:exceptionmessagesettings.json/ErrorCodeMessageSettings
             </summary>
         </member>
         <member name="F:Gardener.Enums.ExceptionCode.UNAUTHORIZED">
@@ -134,6 +134,11 @@
         <member name="F:Gardener.Enums.ExceptionCode.TIMESPAN_IS_EXPIRED">
             <summary>
             时间戳已过期
+            </summary>
+        </member>
+        <member name="F:Gardener.Enums.ExceptionCode.EMAIL_SERVER_NO_FIND">
+            <summary>
+            邮件服务器未找到
             </summary>
         </member>
         <member name="T:Gardener.Enums.Gender">

@@ -10,7 +10,7 @@ namespace Gardener.Enums
 {
     /// <summary>
     /// 异常状态码
-    /// 详细提示见:applicationsettings.json/ErrorCodeMessageSettings
+    /// 详细提示配置到:exceptionmessagesettings.json/ErrorCodeMessageSettings
     /// </summary>
     public enum ExceptionCode
     {
@@ -103,6 +103,11 @@ namespace Gardener.Enums
         /// 时间戳已过期
         /// </summary>
         [Description("时间戳已过期")]
-        TIMESPAN_IS_EXPIRED
+        TIMESPAN_IS_EXPIRED,
+        /// <summary>
+        /// 邮件服务器未找到
+        /// </summary>
+        [Description("邮件服务器未找到")]
+        EMAIL_SERVER_NO_FIND,
     }
 }

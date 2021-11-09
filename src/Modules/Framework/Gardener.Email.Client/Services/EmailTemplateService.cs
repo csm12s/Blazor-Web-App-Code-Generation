@@ -8,6 +8,7 @@ using Gardener.Client.Base;
 using Gardener.Email.Dtos;
 using Gardener.Email.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Services
 {
@@ -16,6 +17,11 @@ namespace Gardener.Email.Client.Services
     {
         public EmailTemplateService(IApiCaller apiCaller) : base(apiCaller, "email-template")
         {
+        }
+
+        public async Task<bool> SendTest(SendEmailInputDto input)
+        {
+            return await apiCaller.PostAsync<SendEmailInputDto, bool>($"{controller}/send-test", input);
         }
     }
 }

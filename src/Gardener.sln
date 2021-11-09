@@ -83,7 +83,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Email", "Modules\F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Email.Client", "Modules\Framework\Gardener.Email.Client\Gardener.Email.Client.csproj", "{1C9657E7-A2D2-40BE-994E-BF73C9E88A3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.EventBus", "Modules\Framework\Gardener.EventBus\Gardener.EventBus.csproj", "{16248EAD-5645-4D40-A05B-1FBBC263050B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.EventBus", "Modules\Framework\Gardener.EventBus\Gardener.EventBus.csproj", "{16248EAD-5645-4D40-A05B-1FBBC263050B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
