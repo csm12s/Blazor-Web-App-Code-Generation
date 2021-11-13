@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
-    <ProjectReference Include="..\Gardener.ImageVerifyCode.CacheStore\Gardener.ImageVerifyCode.CacheStore.csproj" />
-    <ProjectReference Include="..\Gardener.ImageVerifyCode.DbStore\Gardener.ImageVerifyCode.DbStore.csproj" />
+    <ProjectReference Include="..\Gardener.VerifyCode.CacheStore\Gardener.VerifyCode.CacheStore.csproj" />
+    <ProjectReference Include="..\Gardener.VerifyCode.DbStore\Gardener.VerifyCode.DbStore.csproj" />
     <ProjectReference Include="..\Gardener\Gardener.csproj" />
   </ItemGroup>
 

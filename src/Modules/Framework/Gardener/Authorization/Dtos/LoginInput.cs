@@ -6,7 +6,7 @@
 
 using Gardener.Authentication.Enums;
 using Gardener.Enums;
-using Gardener.ImageVerifyCode.Dtos;
+using Gardener.VerifyCode.Dtos;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 

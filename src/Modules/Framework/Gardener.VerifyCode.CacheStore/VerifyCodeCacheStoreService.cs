@@ -5,21 +5,21 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Cache;
-using Gardener.ImageVerifyCode.Core;
+using Gardener.VerifyCode.Core;
 using System;
 using System.Threading.Tasks;
 
-namespace Gardener.ImageVerifyCode.CacheStore
+namespace Gardener.VerifyCode.CacheStore
 {
     /// <summary>
     /// 图片验证码数据库存储服务
     /// </summary>
-    public class ImageVerifyCodeCacheStoreService : IImageVerifyCodeStoreService
+    public class VerifyCodeCacheStoreService : IVerifyCodeStoreService
     {
         private readonly ICache _cache;
         private readonly string keyPre = "ImageVerifyCode:";
 
-        public ImageVerifyCodeCacheStoreService(ICache cache)
+        public VerifyCodeCacheStoreService(ICache cache)
         {
             _cache = cache;
         }

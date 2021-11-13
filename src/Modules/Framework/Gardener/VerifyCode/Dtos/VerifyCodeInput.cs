@@ -7,7 +7,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.ImageVerifyCode.Dtos
+namespace Gardener.VerifyCode.Dtos
 {
     /// <summary>
     /// 验证码输入

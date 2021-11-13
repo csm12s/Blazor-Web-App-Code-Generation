@@ -6,7 +6,7 @@
 
 using Gardener.Enums;
 
-namespace Gardener.ImageVerifyCode.Dtos
+namespace Gardener.VerifyCode.Dtos
 {
     /// <summary>
     /// 生成校验码参数

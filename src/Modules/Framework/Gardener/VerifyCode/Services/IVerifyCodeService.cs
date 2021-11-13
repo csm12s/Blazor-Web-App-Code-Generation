@@ -4,36 +4,37 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
+using Gardener.Enums;
+using Gardener.VerifyCode.Dtos;
 using System.Threading.Tasks;
 
-namespace Gardener.ImageVerifyCode.Core
+namespace Gardener.VerifyCode.Services
 {
     /// <summary>
-    /// 图片验证码存储
+    /// 图片验证码服务
     /// </summary>
-    public interface IImageVerifyCodeStoreService
+    public interface IVerifyCodeService
     {
         /// <summary>
-        /// 保存校验码
+        /// 获取图片验证码
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="code"></param>
-        /// <param name="expire"></param>
-        Task Add(string key, string code, TimeSpan expire);
+        /// <param name="codeType">类型</param>
+        /// <returns></returns>
+        public Task<ImageVerifyCodeDto> GetImageVerifyCode(CodeCharacterTypeEnum codeType);
 
         /// <summary>
-        /// 获取校验码
+        /// 移除图片验证码
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<string> GetCode(string key);
+        Task<bool> RemoveImageVerifyCode(string key);
 
         /// <summary>
-        /// 移除校验码
+        /// 验证图片验证码
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="verifyCodeInput"></param>
         /// <returns></returns>
-        Task Remove(string key);
+        Task<bool> VerifyImageVerifyCode(VerifyCodeInput verifyCodeInput);
+
     }
 }

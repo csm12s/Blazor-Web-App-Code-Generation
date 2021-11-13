@@ -6,7 +6,7 @@
 
 using Furion.FriendlyException;
 using Gardener.Enums;
-using Gardener.ImageVerifyCode.Dtos;
+using Gardener.VerifyCode.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.ImageVerifyCode.Core
+namespace Gardener.VerifyCode.Core
 {
     /// <summary>
     /// 验证码自动验证过滤器

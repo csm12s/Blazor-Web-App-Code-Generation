@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Gardener.ImageVerifyCode.Core
+namespace Gardener.VerifyCode.Core
 {
     /// <summary>
     /// 验证码自动验证

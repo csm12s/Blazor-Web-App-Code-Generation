@@ -22,7 +22,6 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Email\Gardener.Email.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.EventBus\Gardener.EventBus.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.FileStore\Gardener.FileStore.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.ImageVerifyCode\Gardener.ImageVerifyCode.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />
   </ItemGroup>

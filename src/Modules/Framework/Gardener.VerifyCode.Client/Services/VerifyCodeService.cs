@@ -6,11 +6,11 @@
 
 using Gardener.Client.Base;
 using Gardener.Enums;
-using Gardener.ImageVerifyCode.Dtos;
-using Gardener.ImageVerifyCode.Services;
+using Gardener.VerifyCode.Dtos;
+using Gardener.VerifyCode.Services;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Services.SystemManager
+namespace Gardener.VerifyCode.Client.Services
 {
     [ScopedService]
     public class VerifyCodeService : IVerifyCodeService

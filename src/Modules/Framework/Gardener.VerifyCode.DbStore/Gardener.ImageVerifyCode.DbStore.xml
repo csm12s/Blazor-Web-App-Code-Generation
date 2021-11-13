@@ -1,41 +1,41 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Gardener.ImageVerifyCode.DbStore</name>
+        <name>Gardener.VerifyCode.DbStore</name>
     </assembly>
     <members>
-        <member name="T:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode">
+        <member name="T:Gardener.VerifyCode.DbStore.Domain.VerifyCodeLog">
             <summary>
             验证码
             </summary>
         </member>
-        <member name="P:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode.Key">
+        <member name="P:Gardener.VerifyCode.DbStore.Domain.VerifyCodeLog.Key">
             <summary>
             验证码唯一键
             </summary>
         </member>
-        <member name="P:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode.Code">
+        <member name="P:Gardener.VerifyCode.DbStore.Domain.VerifyCodeLog.Code">
             <summary>
             验证码
             </summary>
         </member>
-        <member name="P:Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode.EndTime">
+        <member name="P:Gardener.VerifyCode.DbStore.Domain.VerifyCodeLog.EndTime">
             <summary>
             获取或设置 过期时间
             </summary>
         </member>
-        <member name="T:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService">
+        <member name="T:Gardener.VerifyCode.DbStore.VerifyCodeDbStoreService">
             <summary>
             图片验证码数据库存储服务
             </summary>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.ImageVerifyCode.DbStore.Domain.VerifyCode})">
+        <member name="M:Gardener.VerifyCode.DbStore.VerifyCodeDbStoreService.#ctor(Furion.DatabaseAccessor.IRepository{Gardener.VerifyCode.DbStore.Domain.VerifyCodeLog})">
             <summary>
             
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.Add(System.String,System.String,System.TimeSpan)">
+        <member name="M:Gardener.VerifyCode.DbStore.VerifyCodeDbStoreService.Add(System.String,System.String,System.TimeSpan)">
             <summary>
             
             </summary>
@@ -44,14 +44,14 @@
             <param name="expire"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.GetCode(System.String)">
+        <member name="M:Gardener.VerifyCode.DbStore.VerifyCodeDbStoreService.GetCode(System.String)">
             <summary>
             
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.DbStore.ImageVerifyCodeDbStoreService.Remove(System.String)">
+        <member name="M:Gardener.VerifyCode.DbStore.VerifyCodeDbStoreService.Remove(System.String)">
             <summary>
             
             </summary>

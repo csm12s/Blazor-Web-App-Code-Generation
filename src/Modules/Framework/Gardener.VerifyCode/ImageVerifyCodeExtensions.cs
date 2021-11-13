@@ -5,9 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
-using Gardener.ImageVerifyCode.CacheStore;
-using Gardener.ImageVerifyCode.Core;
-using Gardener.ImageVerifyCode.DbStore;
+using Gardener.VerifyCode.CacheStore;
+using Gardener.VerifyCode.Core;
+using Gardener.VerifyCode.DbStore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -51,7 +51,7 @@ namespace Microsoft.Extensions.DependencyInjection
             string storeMode = App.Configuration["ImageVerifyCodeSettings:StoreMode"]; ;
             if (storeMode.Equals("Cache"))
             { 
-                services.AddImageVerifyCode<ImageVerifyCodeCacheStoreService>();
+                services.AddImageVerifyCode<VerifyCodeCacheStoreService>();
             }else if (storeMode.Equals("DB"))
             {
                 services.AddImageVerifyCode<ImageVerifyCodeDbStoreService>();

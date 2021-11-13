@@ -5,10 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Enums;
-using Gardener.ImageVerifyCode.Dtos;
+using Gardener.VerifyCode.Dtos;
 using System.Threading.Tasks;
 
-namespace Gardener.ImageVerifyCode.Core
+namespace Gardener.VerifyCode.Core
 {
     /// <summary>
     /// 校验码服务接口

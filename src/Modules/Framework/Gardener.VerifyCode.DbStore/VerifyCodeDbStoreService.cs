@@ -5,27 +5,27 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.ImageVerifyCode.Core;
-using Gardener.ImageVerifyCode.DbStore.Domain;
+using Gardener.VerifyCode.Core;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gardener.VerifyCode.DbStore.Domain;
 
-namespace Gardener.ImageVerifyCode.DbStore
+namespace Gardener.VerifyCode.DbStore
 {
     /// <summary>
     /// 图片验证码数据库存储服务
     /// </summary>
-    public class ImageVerifyCodeDbStoreService : IImageVerifyCodeStoreService
+    public class VerifyCodeDbStoreService : IVerifyCodeStoreService
     {
-        private readonly IRepository<VerifyCode> _repository;
+        private readonly IRepository<VerifyCodeLog> _repository;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
-        public ImageVerifyCodeDbStoreService(IRepository<VerifyCode> repository)
+        public VerifyCodeDbStoreService(IRepository<VerifyCodeLog> repository)
         {
             _repository = repository;
         }
@@ -38,7 +38,7 @@ namespace Gardener.ImageVerifyCode.DbStore
         /// <returns></returns>
         public async Task Add(string key, string code, TimeSpan expire)
         {
-            VerifyCode verifyCode = new VerifyCode();
+            VerifyCodeLog verifyCode = new VerifyCodeLog();
             verifyCode.Key = key;
             verifyCode.Code = code;
             verifyCode.EndTime = DateTimeOffset.Now.Add(expire);
@@ -53,7 +53,7 @@ namespace Gardener.ImageVerifyCode.DbStore
         /// <returns></returns>
         public async Task<string> GetCode(string key)
         {
-            VerifyCode verifyCode = await _repository.AsQueryable(false)
+            VerifyCodeLog verifyCode = await _repository.AsQueryable(false)
                 .Where(x => x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(key))
                 .FirstOrDefaultAsync();
             if (verifyCode == null) 
@@ -74,7 +74,7 @@ namespace Gardener.ImageVerifyCode.DbStore
         /// <returns></returns>
         public async Task Remove(string key)
         {
-            List<VerifyCode> verifyCodes =await _repository.AsQueryable(false).Where(x => x.Key.Equals(key)).ToListAsync();
+            List<VerifyCodeLog> verifyCodes =await _repository.AsQueryable(false).Where(x => x.Key.Equals(key)).ToListAsync();
             await _repository.DeleteNowAsync(verifyCodes);
         }
     }

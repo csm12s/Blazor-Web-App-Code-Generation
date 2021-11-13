@@ -9,14 +9,14 @@ using Gardener.Base;
 using System;
 using System.ComponentModel;
 
-namespace Gardener.ImageVerifyCode.DbStore.Domain
+namespace Gardener.VerifyCode.DbStore.Domain
 {
     /// <summary>
     /// 验证码
     /// </summary>
     [Description("验证码")]
     [IgnoreAudit]
-    public class VerifyCode : GardenerEntityBase<Guid>
+    public class VerifyCodeLog : GardenerEntityBase<Guid>
     {
         /// <summary>
         /// 验证码唯一键
