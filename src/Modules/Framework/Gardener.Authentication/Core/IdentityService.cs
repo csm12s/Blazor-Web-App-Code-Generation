@@ -14,6 +14,9 @@ using System.Security.Claims;
 
 namespace Gardener.Authentication.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class IdentityService : IIdentityService
     {
         /// <summary>
@@ -22,7 +25,10 @@ namespace Gardener.Authentication.Core
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         private Identity _identity;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpContextAccessor"></param>
         public IdentityService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;

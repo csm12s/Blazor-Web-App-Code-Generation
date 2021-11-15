@@ -53,10 +53,21 @@
             
             </summary>
         </member>
+        <member name="T:Gardener.Authentication.Core.IdentityService">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="F:Gardener.Authentication.Core.IdentityService._httpContextAccessor">
             <summary>
             请求上下文访问器
             </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Core.IdentityService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            
+            </summary>
+            <param name="httpContextAccessor"></param>
         </member>
         <member name="M:Gardener.Authentication.Core.IdentityService.GetIdentity">
             <summary>
