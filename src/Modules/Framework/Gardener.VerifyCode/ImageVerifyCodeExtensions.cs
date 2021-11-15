@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
+using Gardener.ImageVerifyCode.Core;
 using Gardener.VerifyCode.CacheStore;
 using Gardener.VerifyCode.Core;
 using Gardener.VerifyCode.DbStore;
@@ -13,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    /// 
+    /// 验证码
     /// </summary>
     public static class ImageVerifyCodeExtensions
     {
@@ -23,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="enableAutoVerification">是否启用自动验证</param>
         /// <returns></returns>
-        public static IServiceCollection AddImageVerifyCode<TImageVerifyCodeStoreService>(this IServiceCollection services, bool enableAutoVerification = true) where TImageVerifyCodeStoreService  :class, IImageVerifyCodeStoreService
+        public static IServiceCollection AddVerifyCode<TVerifyCodeStoreService>(this IServiceCollection services, bool enableAutoVerification = true) where TVerifyCodeStoreService : class, IVerifyCodeStoreService
         {
             if (enableAutoVerification)
             {
@@ -33,10 +34,12 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.Filters.Add<VerifyCodeAutoVerificationFilter>();
                 });
             }
+            //图片验证码
             services.AddScoped<IImageVerifyCodeService, ImageVerifyCodeService>();
+            //图片验证码配置
             services.AddConfigurableOptions<ImageVerifyCodeSettings>();
-
-            services.AddScoped<IImageVerifyCodeStoreService, TImageVerifyCodeStoreService>();
+            //验证码存储实现
+            services.AddScoped<IVerifyCodeStoreService, TVerifyCodeStoreService>();
             return services;
         }
 
@@ -46,15 +49,15 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="enableAutoVerification">是否启用自动验证</param>
         /// <returns></returns>
-        public static IServiceCollection AddImageVerifyCode(this IServiceCollection services, bool enableAutoVerification = true)
+        public static IServiceCollection AddVerifyCode(this IServiceCollection services, bool enableAutoVerification = true)
         {
-            string storeMode = App.Configuration["ImageVerifyCodeSettings:StoreMode"]; ;
+            string storeMode = App.Configuration["VerifyCodeStoreSettings:StoreMode"]; ;
             if (storeMode.Equals("Cache"))
             { 
-                services.AddImageVerifyCode<VerifyCodeCacheStoreService>();
+                services.AddVerifyCode<VerifyCodeCacheStoreService>();
             }else if (storeMode.Equals("DB"))
             {
-                services.AddImageVerifyCode<ImageVerifyCodeDbStoreService>();
+                services.AddVerifyCode<VerifyCodeDbStoreService>();
             }
             return services;
         }

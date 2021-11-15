@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.VerifyCode.Enums;
 using System;
 using System.Threading.Tasks;
 
@@ -17,23 +18,26 @@ namespace Gardener.VerifyCode.Core
         /// <summary>
         /// 保存校验码
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <param name="code"></param>
         /// <param name="expire"></param>
-        Task Add(string key, string code, TimeSpan expire);
+        Task Add(VerifyCodeTypeEnum verifyCodeType, string key, string code, TimeSpan expire);
 
         /// <summary>
         /// 获取校验码
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<string> GetCode(string key);
+        Task<string> GetCode(VerifyCodeTypeEnum verifyCodeType, string key);
 
         /// <summary>
         /// 移除校验码
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task Remove(string key);
+        Task Remove(VerifyCodeTypeEnum verifyCodeType, string key);
     }
 }

@@ -6,6 +6,7 @@
 
 using Gardener.Cache;
 using Gardener.VerifyCode.Core;
+using Gardener.VerifyCode.Enums;
 using System;
 using System.Threading.Tasks;
 
@@ -27,31 +28,34 @@ namespace Gardener.VerifyCode.CacheStore
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <param name="code"></param>
         /// <param name="expire"></param>
         /// <returns></returns>
-        public async Task Add(string key, string code, TimeSpan expire)
+        public async Task Add(VerifyCodeTypeEnum verifyCodeType, string key, string code, TimeSpan expire)
         {
-            await _cache.SetAsync(keyPre+key, code, expire);
+            await _cache.SetAsync(keyPre+ verifyCodeType + key, code, expire);
         }
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<string> GetCode(string key)
+        public async Task<string> GetCode(VerifyCodeTypeEnum verifyCodeType, string key)
         {
-            return await _cache.GetStringAsync(keyPre+key);
+            return await _cache.GetStringAsync(keyPre + verifyCodeType + key);
         }
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task Remove(string key)
+        public async Task Remove(VerifyCodeTypeEnum verifyCodeType, string key)
         {
-            await _cache.RemoveAsync(keyPre+key);
+            await _cache.RemoveAsync(keyPre + verifyCodeType + key);
         }
     }
 }

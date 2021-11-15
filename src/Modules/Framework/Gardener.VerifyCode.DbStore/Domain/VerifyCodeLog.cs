@@ -6,6 +6,7 @@
 
 using Gardener.Attributes;
 using Gardener.Base;
+using Gardener.VerifyCode.Enums;
 using System;
 using System.ComponentModel;
 
@@ -18,6 +19,11 @@ namespace Gardener.VerifyCode.DbStore.Domain
     [IgnoreAudit]
     public class VerifyCodeLog : GardenerEntityBase<Guid>
     {
+        /// <summary>
+        /// 验证码类型
+        /// </summary>
+        [DisplayName("验证码类型")]
+        public VerifyCodeTypeEnum VerifyCodeType { get; set; }
         /// <summary>
         /// 验证码唯一键
         /// </summary>

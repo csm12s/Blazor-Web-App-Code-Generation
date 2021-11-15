@@ -6,7 +6,9 @@
 
 using Gardener.Common;
 using Gardener.Enums;
-using Gardener.ImageVerifyCode.Dtos;
+using Gardener.VerifyCode.Core;
+using Gardener.VerifyCode.Dtos;
+using Gardener.VerifyCode.Enums;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
@@ -18,14 +20,14 @@ namespace Gardener.ImageVerifyCode.Core
     /// </summary>
     public class ImageVerifyCodeService : IImageVerifyCodeService
     {
-        IImageVerifyCodeStoreService store;
+        IVerifyCodeStoreService store;
         ImageVerifyCodeSettings settings;
         /// <summary>
         /// 图片验证码服务
         /// </summary>
         /// <param name="store"></param>
         /// <param name="options"></param>
-        public ImageVerifyCodeService(IImageVerifyCodeStoreService store, IOptions<ImageVerifyCodeSettings> options)
+        public ImageVerifyCodeService(IVerifyCodeStoreService store, IOptions<ImageVerifyCodeSettings> options)
         {
             this.store = store;
             this.settings = options.Value;
@@ -60,7 +62,7 @@ namespace Gardener.ImageVerifyCode.Core
             };
 
             ImageVerifyCodeInfo result = InnerCreate(tParam);
-            await this.store.Add(result.Key, result.Code, settings.CodeCacheExpire);
+            await this.store.Add(VerifyCodeTypeEnum.Image,result.Key, result.Code, settings.CodeExpire);
 
             return result;
         }
@@ -104,11 +106,11 @@ namespace Gardener.ImageVerifyCode.Core
         {
             //code为空，直接返回错误
             if (string.IsNullOrEmpty(code)) return false;
-            string dbCode = await this.store.GetCode(key);
+            string dbCode = await this.store.GetCode(VerifyCodeTypeEnum.Image, key);
             bool success = string.Compare(dbCode, code, settings.IgnoreCase) == 0;
             if (success && settings.UseOnce)
             {
-                await this.store.Remove(key);
+                await this.store.Remove(VerifyCodeTypeEnum.Image, key);
             }
 
             return success;
@@ -120,7 +122,7 @@ namespace Gardener.ImageVerifyCode.Core
         /// <returns></returns>
         public async Task<bool> Remove(string key)
         {
-            await this.store.Remove(key);
+            await this.store.Remove(VerifyCodeTypeEnum.Image, key);
 
             return true;
         }

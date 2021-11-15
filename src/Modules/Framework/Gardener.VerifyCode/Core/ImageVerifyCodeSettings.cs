@@ -16,15 +16,9 @@ namespace Gardener.ImageVerifyCode.Core
     public class ImageVerifyCodeSettings : IConfigurableOptions
     {
         /// <summary>
-        /// 存储方式
-        /// Cache 缓存
-        /// DB 数据库
+        /// 校验码过期时间(默认10分钟)
         /// </summary>
-        public string StoreMode { get; set; } = "Cache";
-        /// <summary>
-        /// 校验码缓存时间(默认10分钟)
-        /// </summary>
-        public TimeSpan CodeCacheExpire { get; set; } = new TimeSpan(0, 10, 0);
+        public TimeSpan CodeExpire { get; set; } = new TimeSpan(0, 10, 0);
 
         /// <summary>
         /// 校验码字体大小（默认18）

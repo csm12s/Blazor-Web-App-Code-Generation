@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Gardener.VerifyCode.DbStore.Domain;
+using Gardener.VerifyCode.Enums;
 
 namespace Gardener.VerifyCode.DbStore
 {
@@ -32,13 +33,15 @@ namespace Gardener.VerifyCode.DbStore
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <param name="code"></param>
         /// <param name="expire"></param>
         /// <returns></returns>
-        public async Task Add(string key, string code, TimeSpan expire)
+        public async Task Add(VerifyCodeTypeEnum verifyCodeType, string key, string code, TimeSpan expire)
         {
             VerifyCodeLog verifyCode = new VerifyCodeLog();
+            verifyCode.VerifyCodeType = verifyCodeType;
             verifyCode.Key = key;
             verifyCode.Code = code;
             verifyCode.EndTime = DateTimeOffset.Now.Add(expire);
@@ -49,12 +52,13 @@ namespace Gardener.VerifyCode.DbStore
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<string> GetCode(string key)
+        public async Task<string> GetCode(VerifyCodeTypeEnum verifyCodeType, string key)
         {
             VerifyCodeLog verifyCode = await _repository.AsQueryable(false)
-                .Where(x => x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(key))
+                .Where(x =>x.VerifyCodeType.Equals(verifyCodeType) && x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(key))
                 .FirstOrDefaultAsync();
             if (verifyCode == null) 
             {
@@ -70,11 +74,12 @@ namespace Gardener.VerifyCode.DbStore
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task Remove(string key)
+        public async Task Remove(VerifyCodeTypeEnum verifyCodeType, string key)
         {
-            List<VerifyCodeLog> verifyCodes =await _repository.AsQueryable(false).Where(x => x.Key.Equals(key)).ToListAsync();
+            List<VerifyCodeLog> verifyCodes =await _repository.AsQueryable(false).Where(x => x.VerifyCodeType.Equals(verifyCodeType) && x.Key.Equals(key)).ToListAsync();
             await _repository.DeleteNowAsync(verifyCodes);
         }
     }
