@@ -31,8 +31,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddAuthen(this IServiceCollection services)
         {
+            services.TryAddScoped<IIdentityService, IdentityService>();
+
             services.AddConfigurableOptions<JWTOptions>();
-            services.TryAddSingleton<IIdentityService, IdentityService>();
             services.TryAddSingleton<IJwtService, JwtBearerService>();
             services.Configure<MvcOptions>(options =>
             {
