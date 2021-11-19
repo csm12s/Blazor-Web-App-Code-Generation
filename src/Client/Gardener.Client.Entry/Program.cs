@@ -10,6 +10,7 @@ using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components.Authorization;
 using AntDesign.ProLayout;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Gardener.Client.Entry
 {
@@ -19,7 +20,7 @@ namespace Gardener.Client.Entry
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-
+            builder.RootComponents.Add<HeadOutlet>("head::after");
             //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             #region api settings

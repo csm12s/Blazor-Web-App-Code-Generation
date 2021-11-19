@@ -1,40 +1,17 @@
-// -----------------------------------------------------------------------------
-// 园丁,是个很简单的管理系统
-//  gitee:https://gitee.com/hgflydream/Gardener 
-//  issues:https://gitee.com/hgflydream/Gardener/issues 
-// -----------------------------------------------------------------------------
+var builder = WebApplication.CreateBuilder(args).Inject();
+var app = builder.Build();
 
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-
-namespace Gardener.Entry
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    /// <summary>
-    /// 启动入口
-    /// </summary>
-    public class Program
-    {
-        /// <summary>
-        /// 入口方法
-        /// </summary>
-        /// <param name="args"></param>
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder
-                    //注入Furion框架
-                    .Inject()
-                    .UseStartup<Startup>();
-                });//.UseSerilogDefault();
-    }
+    app.UseWebAssemblyDebugging();
 }
+else
+{
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+app.UseBlazorFrameworkFiles();
+app.MapFallbackToFile("index.html");
+app.Run();

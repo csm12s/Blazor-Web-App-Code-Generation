@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0.9
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 ENV TZ=Asia/Shanghai
 #System.Drawing.Common
 RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list 
