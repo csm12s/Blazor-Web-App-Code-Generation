@@ -54,6 +54,11 @@ namespace Gardener.Authentication.Core
         /// <returns></returns>
         private Identity GetIdentityFromContext()
         {
+            if (_httpContextAccessor.HttpContext == null)
+            {
+                //非http请求
+                return null;
+            }
             string tokenTypeKey = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.TokenTypeKey);
             if (JwtTokenType.RefreshToken.ToString().Equals(tokenTypeKey))
             {
