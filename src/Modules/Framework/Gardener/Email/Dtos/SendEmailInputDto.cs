@@ -28,7 +28,7 @@ namespace Gardener.Email.Dtos
         /// </summary>
         [DisplayName("数据")]
         [Required(ErrorMessage = "不能为空")]
-        public string Data { get; set; }
+        public object Data { get; set; }
         /// <summary>
         /// 接收方邮箱地址
         /// </summary>
@@ -44,6 +44,9 @@ namespace Gardener.Email.Dtos
         /// <summary>
         /// 邮件服务器配置编号
         /// </summary>
+        /// <remarks>
+        /// 优先使用，为空时使用ServerTag
+        /// </remarks>
         [DisplayName("邮件服务器配置编号")]
         public Guid EmailServerConfigId { get; set; }
     }

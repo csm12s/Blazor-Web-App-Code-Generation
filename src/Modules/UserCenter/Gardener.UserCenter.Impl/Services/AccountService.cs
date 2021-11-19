@@ -20,7 +20,6 @@ using Microsoft.EntityFrameworkCore;
 using Gardener.Authorization.Core;
 using Gardener.Authorization.Dtos;
 using System;
-using Gardener.ImageVerifyCode.Core;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
@@ -29,6 +28,7 @@ using Gardener.UserCenter.Enums;
 using Gardener.UserCenter.Impl.Domains;
 using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Impl.Core;
+using Gardener.VerifyCode.Core;
 
 namespace Gardener.UserCenter.Impl.Services
 {

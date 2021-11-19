@@ -4,30 +4,22 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Enums;
 using Gardener.VerifyCode.Dtos;
 using System.Threading.Tasks;
 
 namespace Gardener.VerifyCode.Core
 {
     /// <summary>
-    /// 校验码服务接口
+    /// 验证码基础服务
     /// </summary>
-    public interface IImageVerifyCodeService
+    public interface IVerifyCodeService
     {
         /// <summary>
         /// 创建校验码
         /// </summary>
-        /// <param name="codeType">验证码类型</param>
+        /// <param name="input">验证码类型</param>
         /// <returns></returns>
-        public Task<ImageVerifyCodeInfo> CreateFromType(CodeCharacterTypeEnum codeType = CodeCharacterTypeEnum.NumberAndCharacter);
-        /// <summary>
-        /// 创建校验码
-        /// </summary>
-        /// <param name="param">参数</param>
-        /// <returns></returns>
-        public Task<ImageVerifyCodeInfo> Create(ImageVerifyCodeCreateParam param = null);
-
+        public Task<VerifyCodeOutput> Create(VerifyCodeInput input);
         /// <summary>
         /// 验证校验码
         /// </summary>

@@ -4,23 +4,19 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.VerifyCode.Enums;
+using Furion.ConfigurableOptions;
 
-namespace Gardener.VerifyCode.Dtos
+namespace Gardener.VerifyCode.Core.Settings
 {
     /// <summary>
-    /// 验证码输入
+    /// 图片验证码
     /// </summary>
-    public class VerifyCodeInput
+    public class ImageVerifyCodeOptions : VerifyCodeOptions, IConfigurableOptions
     {
+        
         /// <summary>
-        /// 验证码类型
+        /// 校验码字体大小（默认18）
         /// </summary>
-        public virtual VerifyCodeTypeEnum VerifyCodeType { get;}
-        /// <summary>
-        /// 创建code参数
-        /// 不穿时使用配置
-        /// </summary>
-        public CharacterCodeCreateParam CreateCodeParam { get; set; }
+        public int CodeFontSize { get; set; } = 18;
     }
 }

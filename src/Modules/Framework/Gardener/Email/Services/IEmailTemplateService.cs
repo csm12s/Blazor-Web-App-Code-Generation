@@ -7,7 +7,6 @@
 using Gardener.Base;
 using Gardener.Email.Dtos;
 using System;
-using System.Threading.Tasks;
 
 namespace Gardener.Email.Services
 {
@@ -16,11 +15,5 @@ namespace Gardener.Email.Services
     /// </summary>
     public interface IEmailTemplateService : IServiceBase<EmailTemplateDto, Guid>
     {
-        /// <summary>
-        /// 发送邮件
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        Task<bool> SendTest(SendEmailInputDto input);
     }
 }

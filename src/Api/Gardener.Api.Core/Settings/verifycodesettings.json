@@ -1,7 +1,15 @@
 {
-  "VerifyCodeStoreSettings": "Cache", //Cache£¬DB
-  "ImageVerifyCodeSettings": {
+  "VerifyCodeStoreSetting": "Cache", //Cache£¬DB
+  "ImageVerifyCodeOptions": {
     "CodeFontSize": 18,
+    "CodeCharacterCount": 4,
+    "CodeType": 3,
+    "IgnoreCase": true,
+    "UseOnce": true
+  },
+  "EmailVerifyCodeOptions": {
+    "EmailTemplateId": "90587db9-3c8d-4ec1-80cc-ff001166fd25",
+    "EmailServerTag": 0,
     "CodeCharacterCount": 4,
     "CodeType": 3,
     "IgnoreCase": true,

@@ -9,18 +9,13 @@ using Gardener.VerifyCode.Enums;
 namespace Gardener.VerifyCode.Dtos
 {
     /// <summary>
-    /// 验证码输入
+    /// 图片验证码输入
     /// </summary>
-    public class VerifyCodeInput
+    public class ImageVerifyCodeCheckInput : VerifyCodeCheckInput
     {
         /// <summary>
-        /// 验证码类型
+        /// 
         /// </summary>
-        public virtual VerifyCodeTypeEnum VerifyCodeType { get;}
-        /// <summary>
-        /// 创建code参数
-        /// 不穿时使用配置
-        /// </summary>
-        public CharacterCodeCreateParam CreateCodeParam { get; set; }
+        public override VerifyCodeTypeEnum VerifyCodeType => VerifyCodeTypeEnum.Image;
     }
 }

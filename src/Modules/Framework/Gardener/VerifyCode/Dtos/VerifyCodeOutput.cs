@@ -5,22 +5,23 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.VerifyCode.Enums;
+using System.ComponentModel;
 
 namespace Gardener.VerifyCode.Dtos
 {
     /// <summary>
-    /// 验证码输入
+    /// 验证码返回结果
     /// </summary>
-    public class VerifyCodeInput
+    public class VerifyCodeOutput
     {
         /// <summary>
         /// 验证码类型
         /// </summary>
-        public virtual VerifyCodeTypeEnum VerifyCodeType { get;}
+        public virtual VerifyCodeTypeEnum VerifyCodeType { get; }
         /// <summary>
-        /// 创建code参数
-        /// 不穿时使用配置
+        /// 验证码唯一键
         /// </summary>
-        public CharacterCodeCreateParam CreateCodeParam { get; set; }
+        [DisplayName("验证码唯一键")]
+        public string Key { get; set; }
     }
 }

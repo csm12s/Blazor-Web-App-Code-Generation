@@ -8,15 +8,18 @@ using Furion;
 using Gardener.ImageVerifyCode.Core;
 using Gardener.VerifyCode.CacheStore;
 using Gardener.VerifyCode.Core;
+using Gardener.VerifyCode.Core.Settings;
 using Gardener.VerifyCode.DbStore;
+using Gardener.VerifyCode.Enums;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
     /// 验证码
     /// </summary>
-    public static class ImageVerifyCodeExtensions
+    public static class VerifyCodeExtensions
     {
         /// <summary>
         /// 添加验证码服务
@@ -35,11 +38,29 @@ namespace Microsoft.Extensions.DependencyInjection
                 });
             }
             //图片验证码
-            services.AddScoped<IImageVerifyCodeService, ImageVerifyCodeService>();
+            services.AddScoped<ImageVerifyCodeService>();
             //图片验证码配置
-            services.AddConfigurableOptions<ImageVerifyCodeSettings>();
+            services.AddConfigurableOptions<ImageVerifyCodeOptions>();
+             //邮件验证码
+            services.AddScoped<EmailVerifyCodeService>();
+            //邮件验证码配置
+            services.AddConfigurableOptions<EmailVerifyCodeOptions>();
             //验证码存储实现
             services.AddScoped<IVerifyCodeStoreService, TVerifyCodeStoreService>();
+            //验证码服务提供器
+            services.AddScoped(serviceProvider => {
+                Func<VerifyCodeTypeEnum, IVerifyCodeService> accesor = key =>
+                {
+                    if (VerifyCodeTypeEnum.Image.Equals(key))
+                        return serviceProvider.GetService<ImageVerifyCodeService>();
+                    else if (VerifyCodeTypeEnum.Email.Equals(key))
+                        return serviceProvider.GetService<EmailVerifyCodeService>();
+                    else
+                        throw new ArgumentException($"不支持的验证码类型: {key}");
+                };
+                return accesor;
+
+            });
             return services;
         }
 
@@ -51,11 +72,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddVerifyCode(this IServiceCollection services, bool enableAutoVerification = true)
         {
-            string storeMode = App.Configuration["VerifyCodeStoreSettings:StoreMode"]; ;
-            if (storeMode.Equals("Cache"))
+            string storeMode = App.Configuration["VerifyCodeStoreSetting"];
+            if ("Cache".Equals(storeMode))
             { 
                 services.AddVerifyCode<VerifyCodeCacheStoreService>();
-            }else if (storeMode.Equals("DB"))
+            }else if ("DB".Equals(storeMode))
             {
                 services.AddVerifyCode<VerifyCodeDbStoreService>();
             }

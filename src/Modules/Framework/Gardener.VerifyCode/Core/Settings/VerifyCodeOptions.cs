@@ -4,26 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.ConfigurableOptions;
 using Gardener.Enums;
 using System;
 
-namespace Gardener.ImageVerifyCode.Core
+namespace Gardener.VerifyCode.Core.Settings
 {
     /// <summary>
-    /// 图片验证码
+    /// 验证码配置
     /// </summary>
-    public class ImageVerifyCodeSettings : IConfigurableOptions
+    public class VerifyCodeOptions
     {
         /// <summary>
         /// 校验码过期时间(默认10分钟)
         /// </summary>
         public TimeSpan CodeExpire { get; set; } = new TimeSpan(0, 10, 0);
-
-        /// <summary>
-        /// 校验码字体大小（默认18）
-        /// </summary>
-        public int CodeFontSize { get; set; } = 18;
 
         /// <summary>
         /// 校验码字符数量（默认4个字符）

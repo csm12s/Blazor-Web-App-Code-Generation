@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Email.Dtos;
-using Gardener.Email.Enums;
-using System;
 using System.Threading.Tasks;
 
 namespace Gardener.Email.Services

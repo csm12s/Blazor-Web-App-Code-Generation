@@ -74,11 +74,10 @@ namespace Gardener.Email.Domains
                 Name="验证码",
                 FromName="园丁",
                 Remark="发送验证码",
-                SubjectTemplate="@Model.User ，你好，请查收验证码",
-                ContentTemplate=@"<p>你好，<span>@Model.User</span></p>
-                                  <p>您的验证码是：<b> @Model.Code </b></p>
+                SubjectTemplate="你好，请查收验证码",
+                ContentTemplate=@"<p>您的验证码是：<b> @Model.Code </b></p>
                                   <P>时间：@(System.DateTime.Now.ToString(""yyyy-MM-dd HH:mm:ss""))</p>",
-                Example="{\"Code\":123,\"User\":\"张三\"}",
+                Example="{\"Code\":123}",
                 IsHtml=true,
                 IsDeleted=false,
                 IsLocked=false,

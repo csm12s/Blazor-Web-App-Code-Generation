@@ -4,23 +4,24 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.VerifyCode.Enums;
+using Furion.ConfigurableOptions;
+using Gardener.Email.Enums;
+using System;
 
-namespace Gardener.VerifyCode.Dtos
+namespace Gardener.VerifyCode.Core.Settings
 {
     /// <summary>
-    /// 验证码输入
+    /// 
     /// </summary>
-    public class VerifyCodeInput
+    public class EmailVerifyCodeOptions: VerifyCodeOptions, IConfigurableOptions
     {
         /// <summary>
-        /// 验证码类型
+        /// 邮件模板编号
         /// </summary>
-        public virtual VerifyCodeTypeEnum VerifyCodeType { get;}
+        public Guid EmailTemplateId { get; set; }
         /// <summary>
-        /// 创建code参数
-        /// 不穿时使用配置
+        /// 邮件服务器标签
         /// </summary>
-        public CharacterCodeCreateParam CreateCodeParam { get; set; }
+        public EmailServerTag EmailServerTag { get; set; } = EmailServerTag.Base;
     }
 }

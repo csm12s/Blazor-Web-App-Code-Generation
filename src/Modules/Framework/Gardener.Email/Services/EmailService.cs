@@ -16,6 +16,7 @@ using Gardener.Email.Domains;
 using Gardener.Email.Dtos;
 using Gardener.Email.Enums;
 using Gardener.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace Gardener.Email.Services
     /// <summary>
     /// 邮件服务
     /// </summary>
-    public class EmailService : IEmailService, IScoped
+    [ApiDescriptionSettings("SystemBaseServices")]
+    public class EmailService : IEmailService, IScoped, IDynamicApiController
     {
         private readonly IRepository<EmailServerConfig> _emailServerRepository;
         private readonly IRepository<EmailTemplate> _emailTemplateRepository;
@@ -93,13 +95,14 @@ namespace Gardener.Email.Services
         /// <summary>
         /// 发送邮件
         /// </summary>
+        /// <remarks>发送邮件</remarks>
         /// <param name="input"></param>
         /// <returns></returns>
         public async Task<bool> Send(SendEmailInputDto input)
         {
             Guid templateId = input.TemplateId;
             EmailServerTag serverTag = input.ServerTag;
-            object data = Clay.Parse(input.Data);
+            object data = Clay.Object(input.Data);
             string toEmail = input.ToEmail;
             EmailServerConfig emailServerConfig;
             if (!Guid.Empty.Equals(input.EmailServerConfigId))

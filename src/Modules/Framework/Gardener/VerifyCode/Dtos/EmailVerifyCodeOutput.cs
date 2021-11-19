@@ -4,25 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.VerifyCode.Enums;
 using System.ComponentModel;
 
 namespace Gardener.VerifyCode.Dtos
 {
     /// <summary>
-    /// 
+    /// 邮件验证码返回结果
     /// </summary>
-    [Description("图片验证码")]
-    public class ImageVerifyCodeDto
+    [Description("邮件验证码返回结果")]
+    public class EmailVerifyCodeOutput : VerifyCodeOutput
     {
         /// <summary>
-        /// 验证码唯一键
+        /// 
         /// </summary>
-        [DisplayName("验证码唯一键")]
-        public string Key { get; set; }
-        /// <summary>
-        /// Base64图片
-        /// </summary>
-        [DisplayName("Base64图片")]
-        public string Base64Image { get; set; }
+        public override VerifyCodeTypeEnum VerifyCodeType => VerifyCodeTypeEnum.Email;
     }
 }

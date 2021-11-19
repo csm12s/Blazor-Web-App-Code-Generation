@@ -32,15 +32,5 @@ namespace Gardener.Email.Services
         {
             _emailService = emailService;
         }
-        /// <summary>
-        /// 发送邮件
-        /// </summary>
-        /// <remarks>发送测试邮件</remarks>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public async Task<bool> SendTest(SendEmailInputDto input)
-        {
-            return await _emailService.Send(input);
-        }
     }
 }

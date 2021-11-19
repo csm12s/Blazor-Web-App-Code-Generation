@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Enums;
 using System;
 using System.Text;
 
@@ -26,7 +27,29 @@ namespace Gardener.Common
             'a','b','c','d','e','f','g','h','i','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z',
             'A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'
         };
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static string Create(CodeCharacterTypeEnum type, int count)
+        {
+            string code = string.Empty;
+            switch (type)
+            {
+                case CodeCharacterTypeEnum.Character:
+                    code = RandomCodeCreator.CreatRandomChar(count);
+                    break;
+                case CodeCharacterTypeEnum.Number:
+                    code = RandomCodeCreator.CreatRandomNum(count);
+                    break;
+                case CodeCharacterTypeEnum.NumberAndCharacter:
+                    code = RandomCodeCreator.CreatRandomNumAndChar(count);
+                    break;
+            }
+            return code;
+        }
         /// <summary>  
         /// 生成指定位数的字符和数字随机数  
         /// </summary>  

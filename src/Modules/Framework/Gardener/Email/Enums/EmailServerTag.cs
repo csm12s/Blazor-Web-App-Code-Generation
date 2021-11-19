@@ -15,26 +15,34 @@ namespace Gardener.Email.Enums
     public enum EmailServerTag
     {
         /// <summary>
-        /// 基础
+        /// 默认
         /// </summary>
-        [Description("基础")]
+        [Description("默认")]
         Base = 0,
+        /// <summary>
+        /// QQ邮箱
+        /// </summary>
+        [Description("QQ邮箱")]
+        QQ,
+        /// <summary>
+        /// 163邮箱
+        /// </summary>
+        [Description("163邮箱")]
+        E163,
+        /// <summary>
+        /// Gmail邮箱
+        /// </summary>
+        [Description("Gmail邮箱")]
+        Gmail,
+        /// <summary>
+        /// 企业邮箱
+        /// </summary>
+        [Description("企业邮箱")]
+        Enterprise,
         /// <summary>
         /// 活动
         /// </summary>
-        [Description("活动")]
-        Activity,
-        /// <summary>
-        /// QQ
-        /// </summary>
-        [Description("QQ")]
-        QQ,
-        /// <summary>
-        /// Gmail
-        /// </summary>
-        [Description("Gmail")]
-        Gmail
-
-
+        [Description("活动邮箱")]
+        Activity
     }
 }

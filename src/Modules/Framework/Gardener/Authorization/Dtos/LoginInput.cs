@@ -15,7 +15,7 @@ namespace Gardener.Authorization.Dtos
     /// <summary>
     /// 登录输入参数
     /// </summary>
-    public class LoginInput: VerifyCodeInput
+    public class LoginInput: ImageVerifyCodeCheckInput
     {
         /// <summary>
         /// 用户名

@@ -183,6 +183,7 @@
             <summary>
             发送邮件
             </summary>
+            <remarks>发送邮件</remarks>
             <param name="input"></param>
             <returns></returns>
         </member>
@@ -197,14 +198,6 @@
             </summary>
             <param name="repository"></param>
             <param name="emailService"></param>
-        </member>
-        <member name="M:Gardener.Email.Services.EmailTemplateService.SendTest(Gardener.Email.Dtos.SendEmailInputDto)">
-            <summary>
-            发送邮件
-            </summary>
-            <remarks>发送测试邮件</remarks>
-            <param name="input"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>

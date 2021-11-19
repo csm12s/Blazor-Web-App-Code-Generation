@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Common;
-using Gardener.Enums;
 using Gardener.VerifyCode.Core;
+using Gardener.VerifyCode.Core.Settings;
 using Gardener.VerifyCode.Dtos;
 using Gardener.VerifyCode.Enums;
 using Microsoft.Extensions.Options;
@@ -18,16 +18,16 @@ namespace Gardener.ImageVerifyCode.Core
     /// <summary>
     /// 图片验证码服务
     /// </summary>
-    public class ImageVerifyCodeService : IImageVerifyCodeService
+    public class ImageVerifyCodeService : IVerifyCodeService
     {
         IVerifyCodeStoreService store;
-        ImageVerifyCodeSettings settings;
+        ImageVerifyCodeOptions settings;
         /// <summary>
         /// 图片验证码服务
         /// </summary>
         /// <param name="store"></param>
         /// <param name="options"></param>
-        public ImageVerifyCodeService(IVerifyCodeStoreService store, IOptions<ImageVerifyCodeSettings> options)
+        public ImageVerifyCodeService(IVerifyCodeStoreService store, IOptions<ImageVerifyCodeOptions> options)
         {
             this.store = store;
             this.settings = options.Value;
@@ -35,36 +35,19 @@ namespace Gardener.ImageVerifyCode.Core
         /// <summary>
         /// 创建校验码
         /// </summary>
-        /// <param name="codeType">验证码类型</param>
+        /// <param name="input">参数</param>
         /// <returns></returns>
-        public async Task<ImageVerifyCodeInfo> CreateFromType(CodeCharacterTypeEnum codeType= CodeCharacterTypeEnum.NumberAndCharacter)
+        public async Task<VerifyCodeOutput> Create(VerifyCodeInput input)
         {
-            return await Create(new ImageVerifyCodeCreateParam()
-            {
-                CharacterCount = settings.CodeCharacterCount,
-                FontSize = settings.CodeFontSize,
-                Type = codeType
-            });
-        }
-        /// <summary>
-        /// 创建校验码
-        /// </summary>
-        /// <param name="param">参数</param>
-        /// <returns></returns>
-        public async Task<ImageVerifyCodeInfo> Create(ImageVerifyCodeCreateParam param=null)
-        {
+            ImageVerifyCodeInput imageInput = input as ImageVerifyCodeInput;
             
-            ImageVerifyCodeCreateParam tParam = param ?? new ImageVerifyCodeCreateParam()
-            {
-                CharacterCount = settings.CodeCharacterCount,
-                FontSize = settings.CodeFontSize,
-                Type = settings.CodeType
+            var (code,image) = InnerCreate(imageInput);
+            ImageVerifyCodeOutput verifyCodeInfo = new ImageVerifyCodeOutput() {
+                Key = Guid.NewGuid().ToString(),
+                Base64Image = Convert.ToBase64String(image)
             };
-
-            ImageVerifyCodeInfo result = InnerCreate(tParam);
-            await this.store.Add(VerifyCodeTypeEnum.Image,result.Key, result.Code, settings.CodeExpire);
-
-            return result;
+            await this.store.Add(VerifyCodeTypeEnum.Image, verifyCodeInfo.Key, code, settings.CodeExpire);
+            return verifyCodeInfo;
         }
 
         /// <summary>
@@ -72,28 +55,29 @@ namespace Gardener.ImageVerifyCode.Core
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        private ImageVerifyCodeInfo InnerCreate(ImageVerifyCodeCreateParam param)
+        private (string,byte[]) InnerCreate(ImageVerifyCodeInput param)
         {
-            if (param == null) return null;
-
-            ImageVerifyCodeInfo result = new ImageVerifyCodeInfo();
-            result.Key = Guid.NewGuid().ToString("N");
-
-            switch (param.Type)
+            param.CreateCodeParam = param.CreateCodeParam ?? new CharacterCodeCreateParam();
+            if (!param.CreateCodeParam.CharacterCount.HasValue)
             {
-                case CodeCharacterTypeEnum.Character:
-                    result.Code = RandomCodeCreator.CreatRandomChar(param.CharacterCount);
-                    break;
-                case CodeCharacterTypeEnum.Number:
-                    result.Code = RandomCodeCreator.CreatRandomNum(param.CharacterCount);
-                    break;
-                case CodeCharacterTypeEnum.NumberAndCharacter:
-                    result.Code = RandomCodeCreator.CreatRandomNumAndChar(param.CharacterCount);
-                    break;
+                param.CreateCodeParam.CharacterCount = settings.CodeCharacterCount;
             }
-            result.Image = RandomCodeImageCreator.Create(result.Code, param.FontSize);
+            if (!param.CreateCodeParam.Type.HasValue)
+            {
+                param.CreateCodeParam.Type = settings.CodeType;
+            }
+            if (!param.FontSize.HasValue)
+            {
+                param.FontSize = settings.CodeFontSize;
+            }
 
-            return result;
+            string code = null;
+            byte[] image = null;
+            if (param == null) return (code,image);
+            CharacterCodeCreateParam CharacterVerifyCodeParam = param.CreateCodeParam;
+            code= RandomCodeCreator.Create(CharacterVerifyCodeParam.Type.Value, CharacterVerifyCodeParam.CharacterCount.Value);
+            image = RandomCodeImageCreator.Create(code, param.FontSize.Value);
+            return (code, image);
         }
 
         /// <summary>
@@ -126,6 +110,5 @@ namespace Gardener.ImageVerifyCode.Core
 
             return true;
         }
-        
     }
 }

@@ -13,7 +13,7 @@
         <Input @bind-Value="@model.ToEmail" />
     </FormItem>
     <FormItem>
-        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@_sendEmailInput.Data"></TextArea>
+        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@_emailData"></TextArea>
     </FormItem>
     <FormItem>
         <Select DataSource="@emailTemplates"

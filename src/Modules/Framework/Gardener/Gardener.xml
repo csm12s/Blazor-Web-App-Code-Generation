@@ -1339,6 +1339,9 @@
             <summary>
             邮件服务器配置编号
             </summary>
+            <remarks>
+            优先使用，为空时使用ServerTag
+            </remarks>
         </member>
         <member name="T:Gardener.Email.Enums.EmailServerTag">
             <summary>
@@ -1348,22 +1351,32 @@
         </member>
         <member name="F:Gardener.Email.Enums.EmailServerTag.Base">
             <summary>
-            基础
+            默认
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.QQ">
+            <summary>
+            QQ邮箱
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.E163">
+            <summary>
+            163邮箱
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.Gmail">
+            <summary>
+            Gmail邮箱
+            </summary>
+        </member>
+        <member name="F:Gardener.Email.Enums.EmailServerTag.Enterprise">
+            <summary>
+            企业邮箱
             </summary>
         </member>
         <member name="F:Gardener.Email.Enums.EmailServerTag.Activity">
             <summary>
             活动
-            </summary>
-        </member>
-        <member name="F:Gardener.Email.Enums.EmailServerTag.QQ">
-            <summary>
-            QQ
-            </summary>
-        </member>
-        <member name="F:Gardener.Email.Enums.EmailServerTag.Gmail">
-            <summary>
-            Gmail
             </summary>
         </member>
         <member name="T:Gardener.Email.Services.IEmailServerConfigService">
@@ -1387,13 +1400,6 @@
             <summary>
             邮件模板服务
             </summary>
-        </member>
-        <member name="M:Gardener.Email.Services.IEmailTemplateService.SendTest(Gardener.Email.Dtos.SendEmailInputDto)">
-            <summary>
-            发送邮件
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
         </member>
         <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyDeleteAsync``2(``1)">
             <summary>
@@ -1560,32 +1566,25 @@
             <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.VerifyCode.Core.IImageVerifyCodeService">
+        <member name="T:Gardener.VerifyCode.Core.IVerifyCodeService">
             <summary>
-            校验码服务接口
+            验证码基础服务
             </summary>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IImageVerifyCodeService.CreateFromType(Gardener.Enums.CodeCharacterTypeEnum)">
-            <summary>
-            创建校验码
-            </summary>
-            <param name="codeType">验证码类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.VerifyCode.Core.IImageVerifyCodeService.Create(Gardener.VerifyCode.Dtos.ImageVerifyCodeCreateParam)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeService.Create(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
             <summary>
             创建校验码
             </summary>
-            <param name="param">参数</param>
+            <param name="input">验证码类型</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IImageVerifyCodeService.Verify(System.String,System.String)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeService.Verify(System.String,System.String)">
             <summary>
             验证校验码
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IImageVerifyCodeService.Remove(System.String)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeService.Remove(System.String)">
             <summary>
             移除
             </summary>
@@ -1597,87 +1596,140 @@
             图片验证码存储
             </summary>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeStoreService.Add(System.String,System.String,System.TimeSpan)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeStoreService.Add(Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,System.String,System.String,System.TimeSpan)">
             <summary>
             保存校验码
             </summary>
+            <param name="verifyCodeType"></param>
             <param name="key"></param>
             <param name="code"></param>
             <param name="expire"></param>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeStoreService.GetCode(System.String)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeStoreService.GetCode(Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,System.String)">
             <summary>
             获取校验码
             </summary>
+            <param name="verifyCodeType"></param>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeStoreService.Remove(System.String)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeStoreService.Remove(Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,System.String)">
             <summary>
             移除校验码
             </summary>
+            <param name="verifyCodeType"></param>
             <param name="key"></param>
             <returns></returns>
         </member>
         <member name="T:Gardener.VerifyCode.Core.VerifyCodeAutoVerificationAttribute">
             <summary>
             验证码自动验证
-            但是要保证参数要继承<see cref="!:Gardener.Application.Dtos.VerifyCodeInput"/>
+            但是要保证参数要继承<see cref="T:Gardener.VerifyCode.Dtos.VerifyCodeCheckInput"/>
             </summary>
         </member>
-        <member name="T:Gardener.VerifyCode.Dtos.ImageVerifyCodeCreateParam">
+        <member name="T:Gardener.VerifyCode.Dtos.CharacterCodeCreateParam">
             <summary>
-            生成校验码参数
+            字符验证码参数
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeCreateParam.FontSize">
-            <summary>
-            校验码字体大小
-            </summary>
-        </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeCreateParam.CharacterCount">
+        <member name="P:Gardener.VerifyCode.Dtos.CharacterCodeCreateParam.CharacterCount">
             <summary>
             校验码字符数量
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeCreateParam.Type">
+        <member name="P:Gardener.VerifyCode.Dtos.CharacterCodeCreateParam.Type">
             <summary>
             校验码类别,有三种类别可选，分别是纯数字，纯字符，数字加字符
             </summary>
         </member>
-        <member name="T:Gardener.VerifyCode.Dtos.ImageVerifyCodeDto">
+        <member name="T:Gardener.VerifyCode.Dtos.EmailVerifyCodeCheckInput">
+            <summary>
+            邮件验证码输入
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.EmailVerifyCodeCheckInput.VerifyCodeType">
             <summary>
             
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeDto.Key">
+        <member name="T:Gardener.VerifyCode.Dtos.EmailVerifyCodeInput">
             <summary>
-            验证码唯一键
+            邮件验证码输入
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeDto.Base64Image">
+        <member name="P:Gardener.VerifyCode.Dtos.EmailVerifyCodeInput.ToEmail">
+            <summary>
+            接收方邮箱地址
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.EmailVerifyCodeInput.VerifyCodeType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.VerifyCode.Dtos.EmailVerifyCodeOutput">
+            <summary>
+            邮件验证码返回结果
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.EmailVerifyCodeOutput.VerifyCodeType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.VerifyCode.Dtos.ImageVerifyCodeCheckInput">
+            <summary>
+            图片验证码输入
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeCheckInput.VerifyCodeType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.VerifyCode.Dtos.ImageVerifyCodeInput">
+            <summary>
+            图片验证码输入
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeInput.FontSize">
+            <summary>
+            校验码字体大小
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeInput.VerifyCodeType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Gardener.VerifyCode.Dtos.ImageVerifyCodeOutput">
+            <summary>
+            图片验证码返回结果
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeOutput.Base64Image">
             <summary>
             Base64图片
             </summary>
         </member>
-        <member name="T:Gardener.VerifyCode.Dtos.ImageVerifyCodeInfo">
+        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeOutput.VerifyCodeType">
             <summary>
-            验证码信息
+            
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeInfo.Key">
+        <member name="T:Gardener.VerifyCode.Dtos.VerifyCodeCheckInput">
             <summary>
-            校验码KEY，校验时回传
+            验证码校验输入
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeInfo.Code">
+        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeCheckInput.VerifyCodeKey">
             <summary>
-            校验码（注意：校验码字段只做程序调试使用，不可传递到前端）
+            验证码Key
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.ImageVerifyCodeInfo.Image">
+        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeCheckInput.VerifyCode">
             <summary>
-            校验码图片
+            验证码
             </summary>
         </member>
         <member name="T:Gardener.VerifyCode.Dtos.VerifyCodeInput">
@@ -1685,36 +1737,98 @@
             验证码输入
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeInput.VerifyCodeKey">
+        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeInput.VerifyCodeType">
             <summary>
-            验证码Key
+            验证码类型
             </summary>
         </member>
-        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeInput.VerifyCode">
+        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeInput.CreateCodeParam">
             <summary>
-            验证码
+            创建code参数
+            不穿时使用配置
             </summary>
         </member>
-        <member name="T:Gardener.VerifyCode.Services.IVerifyCodeService">
+        <member name="T:Gardener.VerifyCode.Dtos.VerifyCodeOutput">
             <summary>
-            图片验证码服务
+            验证码返回结果
             </summary>
         </member>
-        <member name="M:Gardener.VerifyCode.Services.IVerifyCodeService.GetImageVerifyCode(Gardener.Enums.CodeCharacterTypeEnum)">
+        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeOutput.VerifyCodeType">
             <summary>
-            获取图片验证码
+            验证码类型
             </summary>
-            <param name="codeType">类型</param>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeOutput.Key">
+            <summary>
+            验证码唯一键
+            </summary>
+        </member>
+        <member name="T:Gardener.VerifyCode.Enums.VerifyCodeTypeEnum">
+            <summary>
+            验证码类型
+            </summary>
+        </member>
+        <member name="F:Gardener.VerifyCode.Enums.VerifyCodeTypeEnum.Image">
+            <summary>
+            图形验证码
+            </summary>
+        </member>
+        <member name="F:Gardener.VerifyCode.Enums.VerifyCodeTypeEnum.Email">
+            <summary>
+            邮件验证码
+            </summary>
+        </member>
+        <member name="F:Gardener.VerifyCode.Enums.VerifyCodeTypeEnum.SMS">
+            <summary>
+            短信验证码
+            </summary>
+        </member>
+        <member name="T:Gardener.VerifyCode.Services.IEmailVerifyCodeService">
+            <summary>
+            邮件验证码服务
+            </summary>
+        </member>
+        <member name="M:Gardener.VerifyCode.Services.IEmailVerifyCodeService.Create(Gardener.VerifyCode.Dtos.EmailVerifyCodeInput)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Services.IVerifyCodeService.RemoveImageVerifyCode(System.String)">
+        <member name="M:Gardener.VerifyCode.Services.IEmailVerifyCodeService.Remove(System.String)">
             <summary>
-            移除图片验证码
+            移除验证码
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Services.IVerifyCodeService.VerifyImageVerifyCode(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
+        <member name="M:Gardener.VerifyCode.Services.IEmailVerifyCodeService.Verify(Gardener.VerifyCode.Dtos.EmailVerifyCodeCheckInput)">
+            <summary>
+            验证图片验证码
+            </summary>
+            <param name="verifyCodeInput"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gardener.VerifyCode.Services.IImageVerifyCodeService">
+            <summary>
+            图片验证码服务
+            </summary>
+        </member>
+        <member name="M:Gardener.VerifyCode.Services.IImageVerifyCodeService.Create(Gardener.VerifyCode.Dtos.ImageVerifyCodeInput)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.VerifyCode.Services.IImageVerifyCodeService.Remove(System.String)">
+            <summary>
+            移除验证码
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.VerifyCode.Services.IImageVerifyCodeService.Verify(Gardener.VerifyCode.Dtos.ImageVerifyCodeCheckInput)">
             <summary>
             验证图片验证码
             </summary>

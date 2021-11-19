@@ -15,6 +15,7 @@ using Gardener.Authorization.Core;
 using Gardener.EntityFramwork.DbContexts;
 using Gardener.Api.Core.Authorization.Subscribes;
 using Gardener.UserCenter.Impl.Core.Subscribes;
+using Gardener.VerifyCode.Core;
 
 namespace Gardener.Admin
 {
@@ -44,8 +45,8 @@ namespace Gardener.Admin
             services.AddAuthen();
             //开启授权
             services.AddAuthor<IdentityPermissionService,ApiEndpointQueryService>();
-            //开启图片验证码
-            services.AddImageVerifyCode(true);
+            //开启验证码
+            services.AddVerifyCode(true);
             //开启本地文件存储
             services.AddFileLocalStore();
             //事件总线

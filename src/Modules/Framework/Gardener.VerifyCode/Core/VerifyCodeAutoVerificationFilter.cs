@@ -7,9 +7,11 @@
 using Furion.FriendlyException;
 using Gardener.Enums;
 using Gardener.VerifyCode.Dtos;
+using Gardener.VerifyCode.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,14 +23,14 @@ namespace Gardener.VerifyCode.Core
     /// </summary>
     public class VerifyCodeAutoVerificationFilter : IAsyncActionFilter
     {
-        private readonly IImageVerifyCodeService _imageVerifyCodeService;
+        private readonly Func<VerifyCodeTypeEnum, IVerifyCodeService> verifyCodeServiceresolve;
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="imageVerifyCodeService"></param>
-        public VerifyCodeAutoVerificationFilter(IImageVerifyCodeService imageVerifyCodeService)
+        /// <param name="resolve"></param>
+        public VerifyCodeAutoVerificationFilter(Func<VerifyCodeTypeEnum, IVerifyCodeService> resolve)
         {
-            _imageVerifyCodeService = imageVerifyCodeService;
+            this.verifyCodeServiceresolve = resolve;
         }
 
         /// <summary>
@@ -47,10 +49,12 @@ namespace Gardener.VerifyCode.Core
             {
                 await next(); return;
             }
-            ParameterDescriptor parameter = parameters.FirstOrDefault(x => x.ParameterType.IsSubclassOf(typeof(VerifyCodeInput)));
+            ParameterDescriptor parameter = parameters.FirstOrDefault(x => x.ParameterType.IsSubclassOf(typeof(VerifyCodeCheckInput)));
             if (parameter == null) { await next(); return; }
-            var input = context.ActionArguments[parameter.Name] as VerifyCodeInput;
-            if (await _imageVerifyCodeService.Verify(input.VerifyCodeKey, input.VerifyCode))
+            var input = context.ActionArguments[parameter.Name] as VerifyCodeCheckInput;
+            IVerifyCodeService _verifyCodeService = verifyCodeServiceresolve(input.VerifyCodeType);
+
+            if (await _verifyCodeService.Verify(input.VerifyCodeKey, input.VerifyCode))
             {
                 await next(); return;
             }
