@@ -32,7 +32,7 @@ namespace Gardener.Client.Core
         private readonly IClientLogger logger;
         private UserDto currentUser;
         private bool currentUserIsSuperAdmin = false;
-        private List<ResourceDto> uiResources;
+        private List<string> uiResourceKeys;
         private List<ResourceDto> menuResources;
         private Hashtable uiHashtableResources;
         private NavigationManager navigationManager;
@@ -119,7 +119,7 @@ namespace Gardener.Client.Core
             //移除所有tab
             ClientNavTabControl.RemoveAllNavTabPage();
             this.currentUser = null;
-            this.uiResources = null;
+            this.uiResourceKeys = null;
             this.uiHashtableResources = null;
             this.menuResources = null;
             await RemoveToken();
@@ -164,7 +164,7 @@ namespace Gardener.Client.Core
                 {
                     //超级管理员
                     currentUserIsSuperAdmin = userResult.Roles!=null && userResult.Roles.Any(x => x.IsSuperAdministrator);
-                    this.uiResources = await accountService.GetCurrentUserResources(ResourceType.View,ResourceType.Menu,ResourceType.Action);
+                    this.uiResourceKeys = await accountService.GetCurrentUserResourceKeys(ResourceType.View,ResourceType.Menu,ResourceType.Action);
                     this.uiHashtableResources = null;
                     this.menuResources = await accountService.GetCurrentUserMenus();
                     this.currentUser = userResult;
@@ -177,9 +177,9 @@ namespace Gardener.Client.Core
         {
             this.onMenusLoaded = action;
         }
-        private async Task<List<ResourceDto>> GetCurrentUserUiResources()
+        private List<string> GetCurrentUserUiResourceKeys()
         {
-            return uiResources ?? new List<ResourceDto>();
+            return uiResourceKeys ?? new List<string>();
         }
         public async Task<bool> CheckCurrentUserHaveBtnResourceKey(object key)
         {
@@ -188,9 +188,9 @@ namespace Gardener.Client.Core
 
             if (uiHashtableResources == null)
             {
-                var resources = await GetCurrentUserUiResources();
+                var resources = GetCurrentUserUiResourceKeys();
                 uiHashtableResources = new Hashtable(resources.Count);
-                resources.ForEach(x => { uiHashtableResources.Add(x.Key, null); });
+                resources.ForEach(x => { uiHashtableResources.Add(x, null); });
             }
             return uiHashtableResources.ContainsKey(key);
         }

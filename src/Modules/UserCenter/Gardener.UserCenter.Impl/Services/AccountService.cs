@@ -171,6 +171,18 @@ namespace Gardener.UserCenter.Impl.Services
 
         }
         /// <summary>
+        /// 获取用户资源的key
+        /// </summary>
+        /// <param name="resourceTypes">资源类型</param>
+        /// <returns></returns>
+        public async Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes)
+        {
+            resourceTypes = resourceTypes ?? new ResourceType[] { };
+            List<string> resourceKeys =await GetUserResourceKeys(resourceTypes);
+            return resourceKeys;
+
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
@@ -210,7 +222,35 @@ namespace Gardener.UserCenter.Impl.Services
                          .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
                          )).OrderBy(x => x.Order).ToListAsync();
         }
+        /// <summary>
+        /// 获取用户资源所有Key
+        /// </summary>
+        /// <param name="resourceTypes">资源类型</param>
+        /// <returns></returns>
+        private async Task<List<string>> GetUserResourceKeys(params ResourceType[] resourceTypes)
+        {
+            resourceTypes = resourceTypes ?? new ResourceType[] { };
+            var userId = _authorizationManager.GetIdentityId();
 
+            if (await CurrentUserIsSuperAdmin())
+            {
+                //超级管库有拥有所有资源
+                return await _resourceRepository
+                    .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
+                    .OrderBy(x => x.Order)
+                    .Select(x=>x.Key)
+                    .ToListAsync();
+
+            }
+            return await _userRepository
+                     .Include(u => u.Roles)
+                         .ThenInclude(u => u.Resources)
+                     .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
+                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                         .SelectMany(u => u.Resources
+                         .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
+                         )).OrderBy(x => x.Order).Select(x=>x.Key).ToListAsync();
+        }
         /// <summary>
         /// 获取当前用户的所有菜单
         /// </summary>

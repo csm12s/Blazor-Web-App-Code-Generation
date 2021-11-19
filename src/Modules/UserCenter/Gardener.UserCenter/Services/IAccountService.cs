@@ -42,6 +42,12 @@ namespace Gardener.UserCenter.Services
         /// <returns></returns>
         Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType[] resourceTypes);
         /// <summary>
+        /// 获取用户资源的key
+        /// </summary>
+        /// <param name="resourceTypes">资源类型</param>
+        /// <returns></returns>
+        Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes);
+        /// <summary>
         /// 获取当前用户的所有菜单
         /// </summary>
         /// <returns></returns>

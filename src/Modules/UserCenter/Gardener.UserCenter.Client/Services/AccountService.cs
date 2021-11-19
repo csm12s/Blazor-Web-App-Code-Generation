@@ -39,6 +39,16 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-menus");
         }
 
+        public async Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes)
+        {
+            List<KeyValuePair<string, object>> paras = new List<KeyValuePair<string, object>>();
+            for (int i = 0; i < resourceTypes.Length; i++)
+            {
+                paras.Add(new KeyValuePair<string, object>("resourceTypes", resourceTypes[i]));
+            }
+            return await apiCaller.GetAsync<List<string>>($"{controller}/current-user-resource-keys", paras);
+        }
+
         public List<ResourceDto> GetCurrentUserResources()
         {
             throw new NotImplementedException();

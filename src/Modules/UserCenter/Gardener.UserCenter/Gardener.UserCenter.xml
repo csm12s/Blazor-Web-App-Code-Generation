@@ -553,6 +553,13 @@
             <param name="resourceTypes"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResourceKeys(Gardener.UserCenter.Enums.ResourceType[])">
+            <summary>
+            获取用户资源的key
+            </summary>
+            <param name="resourceTypes">资源类型</param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserMenus">
             <summary>
             获取当前用户的所有菜单
