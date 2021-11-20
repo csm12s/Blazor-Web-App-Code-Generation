@@ -53,10 +53,10 @@
     <Exec WorkingDirectory="$(SolutionDir)" Command="npm run gulp:pro" />
   </Target>
 
-  <Target Name="PublishRunGulp" AfterTargets="ComputeFilesToPublish">
+  <!--<Target Name="PublishRunGulp" AfterTargets="ComputeFilesToPublish">
     <Exec WorkingDirectory="$(SolutionDir)" Command="npm install" />
     <Exec WorkingDirectory="$(SolutionDir)" Command="npm run gulp:pro" />
-  </Target>
+  </Target>-->
 
   <ItemGroup>
     <Watch Include="**\*.razor" />
