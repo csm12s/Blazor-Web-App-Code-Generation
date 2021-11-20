@@ -23,7 +23,7 @@ namespace Gardener.Common
         static readonly Color[] FontColors = { Color.Black, Color.Red, Color.DarkBlue, Color.Green, Color.Orange, Color.Brown, Color.DarkCyan, Color.Purple };
 
         //字体
-        static readonly string[] Fonts = { "Verdana", "Microsoft Sans Serif", "Comic Sans MS", "Arial", "宋体" };
+        static readonly string[] Fonts = { "Consolas" };
 
         /// <summary>  
         /// 生成图像

@@ -76,7 +76,7 @@ namespace Gardener.ImageVerifyCode.Core
             if (param == null) return (code,image);
             CharacterCodeCreateParam CharacterVerifyCodeParam = param.CreateCodeParam;
             code= RandomCodeCreator.Create(CharacterVerifyCodeParam.Type.Value, CharacterVerifyCodeParam.CharacterCount.Value);
-            image = RandomCodeImageCreator.Create(code, param.FontSize.Value);
+            image = RandomCodeImageCreatorFromSkiaSharp.Create(code, param.FontSize.Value);
             return (code, image);
         }
 

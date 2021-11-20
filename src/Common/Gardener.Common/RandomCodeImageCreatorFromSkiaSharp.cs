@@ -25,7 +25,7 @@ namespace Gardener.Common
         static readonly SKColor[] FontColors = { SKColors.Black, SKColors.Red, SKColors.DarkBlue, SKColors.Green, SKColors.Orange, SKColors.Brown, SKColors.DarkCyan, SKColors.Purple };
 
         //字体
-        static readonly string[] Fonts = { "Verdana", "Microsoft Sans Serif", "Comic Sans MS", "Arial", "宋体" };
+        static readonly string[] Fonts = { "Consolas"};
 
         /// <summary>  
         /// 生成图像

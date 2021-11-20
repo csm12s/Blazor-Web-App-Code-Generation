@@ -50,6 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Fonts\CONSOLA.TTF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Settings\cachesettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
