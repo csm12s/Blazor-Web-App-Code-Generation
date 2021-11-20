@@ -2,7 +2,7 @@
 
 ## 项目介绍
 
-园丁是基于 .net 5开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，喜欢的请点点star :kissing_heart: 。
+园丁是基于 .net 6开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，喜欢的请点点star :kissing_heart: 。
 ## 演示地址
 用户名：admin、admin1、admin2、admin3、admin4、admin5、admin6
 
