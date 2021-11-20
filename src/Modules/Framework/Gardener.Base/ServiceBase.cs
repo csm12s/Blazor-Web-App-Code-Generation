@@ -85,7 +85,7 @@ namespace Gardener
         public virtual async Task<bool> Update(TEntityDto input)
         {
             input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-            EntityEntry<TEntity> entityEntry= await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime) });
+            EntityEntry<TEntity> entityEntry= await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime),nameof(GardenerEntityBase.CreatorId),nameof(GardenerEntityBase.CreatorIdentityType) });
             //发送通知
             await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
             return true;
