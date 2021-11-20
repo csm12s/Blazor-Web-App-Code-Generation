@@ -23,12 +23,12 @@ namespace Gardener.ImageVerifyCode.Services
     [ApiDescriptionSettings("SystemBaseServices")]
     public class EmailVerifyCodeService : IEmailVerifyCodeService, IDynamicApiController
     {
-        private readonly IVerifyCodeService verifyCodeService;
+        private readonly IVerifyCode verifyCodeService;
         /// <summary>
         /// 验证码服务
         /// </summary>
         /// <param name="verifyCodeServiceProvider"></param>
-        public EmailVerifyCodeService(Func<VerifyCodeTypeEnum, IVerifyCodeService> verifyCodeServiceProvider)
+        public EmailVerifyCodeService(Func<VerifyCodeTypeEnum, IVerifyCode> verifyCodeServiceProvider)
         {
             this.verifyCodeService = verifyCodeServiceProvider(VerifyCodeTypeEnum.Email);
         }

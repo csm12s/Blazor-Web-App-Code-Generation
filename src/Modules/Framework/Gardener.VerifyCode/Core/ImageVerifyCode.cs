@@ -18,7 +18,7 @@ namespace Gardener.ImageVerifyCode.Core
     /// <summary>
     /// 图片验证码服务
     /// </summary>
-    public class ImageVerifyCodeService : IVerifyCodeService
+    public class ImageVerifyCode : IVerifyCode
     {
         IVerifyCodeStoreService store;
         ImageVerifyCodeOptions settings;
@@ -27,7 +27,7 @@ namespace Gardener.ImageVerifyCode.Core
         /// </summary>
         /// <param name="store"></param>
         /// <param name="options"></param>
-        public ImageVerifyCodeService(IVerifyCodeStoreService store, IOptions<ImageVerifyCodeOptions> options)
+        public ImageVerifyCode(IVerifyCodeStoreService store, IOptions<ImageVerifyCodeOptions> options)
         {
             this.store = store;
             this.settings = options.Value;

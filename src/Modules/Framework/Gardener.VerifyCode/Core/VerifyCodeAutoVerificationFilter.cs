@@ -23,12 +23,12 @@ namespace Gardener.VerifyCode.Core
     /// </summary>
     public class VerifyCodeAutoVerificationFilter : IAsyncActionFilter
     {
-        private readonly Func<VerifyCodeTypeEnum, IVerifyCodeService> verifyCodeServiceresolve;
+        private readonly Func<VerifyCodeTypeEnum, IVerifyCode> verifyCodeServiceresolve;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="resolve"></param>
-        public VerifyCodeAutoVerificationFilter(Func<VerifyCodeTypeEnum, IVerifyCodeService> resolve)
+        public VerifyCodeAutoVerificationFilter(Func<VerifyCodeTypeEnum, IVerifyCode> resolve)
         {
             this.verifyCodeServiceresolve = resolve;
         }
@@ -52,7 +52,7 @@ namespace Gardener.VerifyCode.Core
             ParameterDescriptor parameter = parameters.FirstOrDefault(x => x.ParameterType.IsSubclassOf(typeof(VerifyCodeCheckInput)));
             if (parameter == null) { await next(); return; }
             var input = context.ActionArguments[parameter.Name] as VerifyCodeCheckInput;
-            IVerifyCodeService _verifyCodeService = verifyCodeServiceresolve(input.VerifyCodeType);
+            IVerifyCode _verifyCodeService = verifyCodeServiceresolve(input.VerifyCodeType);
 
             if (await _verifyCodeService.Verify(input.VerifyCodeKey, input.VerifyCode))
             {

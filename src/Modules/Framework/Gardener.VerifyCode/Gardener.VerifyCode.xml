@@ -4,12 +4,12 @@
         <name>Gardener.VerifyCode</name>
     </assembly>
     <members>
-        <member name="T:Gardener.VerifyCode.Core.EmailVerifyCodeService">
+        <member name="T:Gardener.VerifyCode.Core.EmailVerifyCode">
             <summary>
             邮件验证码服务
             </summary>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCodeService.#ctor(Gardener.VerifyCode.Core.IVerifyCodeStoreService,Microsoft.Extensions.Options.IOptions{Gardener.VerifyCode.Core.Settings.EmailVerifyCodeOptions},Gardener.Email.Services.IEmailService)">
+        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCode.#ctor(Gardener.VerifyCode.Core.IVerifyCodeStoreService,Microsoft.Extensions.Options.IOptions{Gardener.VerifyCode.Core.Settings.EmailVerifyCodeOptions},Gardener.Email.Services.IEmailService)">
             <summary>
             
             </summary>
@@ -17,21 +17,21 @@
             <param name="settings"></param>
             <param name="emailService"></param>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCodeService.Create(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
+        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCode.Create(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
             <summary>
             创建验证码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCodeService.Remove(System.String)">
+        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCode.Remove(System.String)">
             <summary>
             移除验证码
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCodeService.Send(System.String,Gardener.VerifyCode.Dtos.CharacterCodeCreateParam)">
+        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCode.Send(System.String,Gardener.VerifyCode.Dtos.CharacterCodeCreateParam)">
             <summary>
             
             </summary>
@@ -39,7 +39,7 @@
             <param name="param"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCodeService.Verify(System.String,System.String)">
+        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCode.Verify(System.String,System.String)">
             <summary>
             验证验证码
             </summary>
@@ -47,7 +47,7 @@
             <param name="code"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCodeService.CreateCode(Gardener.VerifyCode.Dtos.CharacterCodeCreateParam)">
+        <member name="M:Gardener.VerifyCode.Core.EmailVerifyCode.CreateCode(Gardener.VerifyCode.Dtos.CharacterCodeCreateParam)">
             <summary>
             创建一个验证码code
             </summary>
@@ -114,7 +114,7 @@
             验证码自动验证过滤器
             </summary>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.VerifyCodeAutoVerificationFilter.#ctor(System.Func{Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,Gardener.VerifyCode.Core.IVerifyCodeService})">
+        <member name="M:Gardener.VerifyCode.Core.VerifyCodeAutoVerificationFilter.#ctor(System.Func{Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,Gardener.VerifyCode.Core.IVerifyCode})">
             <summary>
             
             </summary>
@@ -128,33 +128,33 @@
             <param name="next"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.ImageVerifyCode.Core.ImageVerifyCodeService">
+        <member name="T:Gardener.ImageVerifyCode.Core.ImageVerifyCode">
             <summary>
             图片验证码服务
             </summary>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCodeService.#ctor(Gardener.VerifyCode.Core.IVerifyCodeStoreService,Microsoft.Extensions.Options.IOptions{Gardener.VerifyCode.Core.Settings.ImageVerifyCodeOptions})">
+        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCode.#ctor(Gardener.VerifyCode.Core.IVerifyCodeStoreService,Microsoft.Extensions.Options.IOptions{Gardener.VerifyCode.Core.Settings.ImageVerifyCodeOptions})">
             <summary>
             图片验证码服务
             </summary>
             <param name="store"></param>
             <param name="options"></param>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCodeService.Create(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
+        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCode.Create(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
             <summary>
             创建校验码
             </summary>
             <param name="input">参数</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCodeService.InnerCreate(Gardener.VerifyCode.Dtos.ImageVerifyCodeInput)">
+        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCode.InnerCreate(Gardener.VerifyCode.Dtos.ImageVerifyCodeInput)">
             <summary>
             
             </summary>
             <param name="param"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCodeService.Verify(System.String,System.String)">
+        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCode.Verify(System.String,System.String)">
             <summary>
             校验校验码
             </summary>
@@ -162,7 +162,7 @@
             <param name="code"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCodeService.Remove(System.String)">
+        <member name="M:Gardener.ImageVerifyCode.Core.ImageVerifyCode.Remove(System.String)">
             <summary>
             
             </summary>
@@ -174,7 +174,7 @@
             邮件验证码服务
             </summary>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.Services.EmailVerifyCodeService.#ctor(System.Func{Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,Gardener.VerifyCode.Core.IVerifyCodeService})">
+        <member name="M:Gardener.ImageVerifyCode.Services.EmailVerifyCodeService.#ctor(System.Func{Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,Gardener.VerifyCode.Core.IVerifyCode})">
             <summary>
             验证码服务
             </summary>
@@ -206,7 +206,7 @@
             图片验证码服务
             </summary>
         </member>
-        <member name="M:Gardener.ImageVerifyCode.Services.ImageVerifyCodeService.#ctor(System.Func{Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,Gardener.VerifyCode.Core.IVerifyCodeService})">
+        <member name="M:Gardener.ImageVerifyCode.Services.ImageVerifyCodeService.#ctor(System.Func{Gardener.VerifyCode.Enums.VerifyCodeTypeEnum,Gardener.VerifyCode.Core.IVerifyCode})">
             <summary>
             验证码服务
             </summary>

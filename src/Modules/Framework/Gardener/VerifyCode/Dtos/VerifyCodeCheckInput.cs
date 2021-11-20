@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.VerifyCode.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +12,7 @@ namespace Gardener.VerifyCode.Dtos
     /// <summary>
     /// 验证码校验输入
     /// </summary>
-    public abstract class VerifyCodeCheckInput: VerifyCodeInput
+    public abstract class VerifyCodeCheckInput: VerifyCodeBase
     {
         /// <summary>
         /// 验证码Key

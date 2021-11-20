@@ -6,11 +6,13 @@
 
 using Furion;
 using Gardener.ImageVerifyCode.Core;
+using Gardener.ImageVerifyCode.Services;
 using Gardener.VerifyCode.CacheStore;
 using Gardener.VerifyCode.Core;
 using Gardener.VerifyCode.Core.Settings;
 using Gardener.VerifyCode.DbStore;
 using Gardener.VerifyCode.Enums;
+using Gardener.VerifyCode.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -38,23 +40,25 @@ namespace Microsoft.Extensions.DependencyInjection
                 });
             }
             //图片验证码
-            services.AddScoped<ImageVerifyCodeService>();
+            services.AddScoped<ImageVerifyCode>();
+            services.AddScoped<IImageVerifyCodeService, ImageVerifyCodeService>();
             //图片验证码配置
             services.AddConfigurableOptions<ImageVerifyCodeOptions>();
              //邮件验证码
-            services.AddScoped<EmailVerifyCodeService>();
+            services.AddScoped<EmailVerifyCode>();
+            services.AddScoped<IEmailVerifyCodeService, EmailVerifyCodeService>();
             //邮件验证码配置
             services.AddConfigurableOptions<EmailVerifyCodeOptions>();
             //验证码存储实现
             services.AddScoped<IVerifyCodeStoreService, TVerifyCodeStoreService>();
             //验证码服务提供器
             services.AddScoped(serviceProvider => {
-                Func<VerifyCodeTypeEnum, IVerifyCodeService> accesor = key =>
+                Func<VerifyCodeTypeEnum, IVerifyCode> accesor = key =>
                 {
                     if (VerifyCodeTypeEnum.Image.Equals(key))
-                        return serviceProvider.GetService<ImageVerifyCodeService>();
+                        return serviceProvider.GetService<ImageVerifyCode>();
                     else if (VerifyCodeTypeEnum.Email.Equals(key))
-                        return serviceProvider.GetService<EmailVerifyCodeService>();
+                        return serviceProvider.GetService<EmailVerifyCode>();
                     else
                         throw new ArgumentException($"不支持的验证码类型: {key}");
                 };

@@ -18,7 +18,7 @@ namespace Gardener.VerifyCode.Core
     /// <summary>
     /// 邮件验证码服务
     /// </summary>
-    public class EmailVerifyCodeService : IVerifyCodeService
+    public class EmailVerifyCode : IVerifyCode
     {
         private readonly IVerifyCodeStoreService store;
         private readonly EmailVerifyCodeOptions settings;
@@ -29,7 +29,7 @@ namespace Gardener.VerifyCode.Core
         /// <param name="store"></param>
         /// <param name="settings"></param>
         /// <param name="emailService"></param>
-        public EmailVerifyCodeService(IVerifyCodeStoreService store, IOptions<EmailVerifyCodeOptions> settings, IEmailService emailService)
+        public EmailVerifyCode(IVerifyCodeStoreService store, IOptions<EmailVerifyCodeOptions> settings, IEmailService emailService)
         {
             this.store = store;
             this.settings = settings.Value;

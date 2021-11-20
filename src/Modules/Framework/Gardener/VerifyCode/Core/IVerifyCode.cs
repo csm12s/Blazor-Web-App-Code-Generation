@@ -12,7 +12,7 @@ namespace Gardener.VerifyCode.Core
     /// <summary>
     /// 验证码基础服务
     /// </summary>
-    public interface IVerifyCodeService
+    public interface IVerifyCode
     {
         /// <summary>
         /// 创建校验码

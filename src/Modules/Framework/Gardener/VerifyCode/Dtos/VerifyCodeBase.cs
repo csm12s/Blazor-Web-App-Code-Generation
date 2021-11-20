@@ -5,18 +5,22 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.VerifyCode.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Gardener.VerifyCode.Dtos
 {
     /// <summary>
-    /// 验证码输入
+    /// 
     /// </summary>
-    public abstract class VerifyCodeInput: VerifyCodeBase
+    public abstract class VerifyCodeBase
     {
         /// <summary>
-        /// 创建code参数
-        /// 不穿时使用配置
+        /// 验证码类型
         /// </summary>
-        public CharacterCodeCreateParam CreateCodeParam { get; set; }
+        public abstract VerifyCodeTypeEnum VerifyCodeType { get; }
     }
 }

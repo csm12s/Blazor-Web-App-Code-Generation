@@ -1566,25 +1566,25 @@
             <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="T:Gardener.VerifyCode.Core.IVerifyCodeService">
+        <member name="T:Gardener.VerifyCode.Core.IVerifyCode">
             <summary>
             验证码基础服务
             </summary>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeService.Create(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCode.Create(Gardener.VerifyCode.Dtos.VerifyCodeInput)">
             <summary>
             创建校验码
             </summary>
             <param name="input">验证码类型</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeService.Verify(System.String,System.String)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCode.Verify(System.String,System.String)">
             <summary>
             验证校验码
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.VerifyCode.Core.IVerifyCodeService.Remove(System.String)">
+        <member name="M:Gardener.VerifyCode.Core.IVerifyCode.Remove(System.String)">
             <summary>
             移除
             </summary>
@@ -1717,6 +1717,16 @@
             
             </summary>
         </member>
+        <member name="T:Gardener.VerifyCode.Dtos.VerifyCodeBase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeBase.VerifyCodeType">
+            <summary>
+            验证码类型
+            </summary>
+        </member>
         <member name="T:Gardener.VerifyCode.Dtos.VerifyCodeCheckInput">
             <summary>
             验证码校验输入
@@ -1735,11 +1745,6 @@
         <member name="T:Gardener.VerifyCode.Dtos.VerifyCodeInput">
             <summary>
             验证码输入
-            </summary>
-        </member>
-        <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeInput.VerifyCodeType">
-            <summary>
-            验证码类型
             </summary>
         </member>
         <member name="P:Gardener.VerifyCode.Dtos.VerifyCodeInput.CreateCodeParam">
