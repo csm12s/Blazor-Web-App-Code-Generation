@@ -1,6 +1,6 @@
 ﻿@inherits FeedbackComponent<DrawerInput<int>, bool>
 
-<Spin Spinning="@_isLoading">
+<Spin Spinning="_isLoading">
     <Row>
         <AntDesign.Col Span="24">
             <Tree @ref="_tree"

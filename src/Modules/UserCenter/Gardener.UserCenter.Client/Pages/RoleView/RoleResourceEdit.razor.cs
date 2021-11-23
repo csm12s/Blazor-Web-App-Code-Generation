@@ -38,9 +38,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         protected override async Task OnInitializedAsync()
         {
             _isLoading = true;
-
             _roleId = this.Options.Id;
-
             if (_roleId > 0)
             {
                 var resourceResult = await resourceService.GetTree();
@@ -52,10 +50,9 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 }
                 _resources.AddRange(resourceResult);
             }
-            _isLoading = false;
             await base.OnInitializedAsync();
         }
-        
+
         /// <summary>
         /// 渲染后
         /// </summary>
@@ -65,13 +62,11 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         {
             if (firstRender)
             {
-                _isLoading = true;
                 //选中已有资源
                 var roleResourceResult = await roleService.GetResource(_roleId);
                 if (roleResourceResult == null)
                 {
                     messageService.Error("已分配资源加载失败");
-                    _isLoading = false;
                     return;
                 }
                 ////回填
@@ -83,7 +78,6 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                     }, true);
                     if (node != null && node.IsLeaf) { node.SetChecked(true); }
                 }
-
                 _isLoading = false;
             }
         }

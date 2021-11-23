@@ -821,7 +821,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResources(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResources(Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源
             </summary>
@@ -829,11 +829,10 @@
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResourceKeys(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResourceKeys(Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源的key
             </summary>
-            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
@@ -853,19 +852,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResources(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResources(Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源
             </summary>
-            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResourceKeys(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResourceKeys(Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源所有Key
             </summary>
-            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>

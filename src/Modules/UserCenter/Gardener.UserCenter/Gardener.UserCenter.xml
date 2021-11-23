@@ -551,19 +551,17 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResources(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResources(Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取指定类型的资源
             </summary>
-            <param name="rootKey"></param>
             <param name="resourceTypes"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResourceKeys(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResourceKeys(Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源的key
             </summary>
-            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>

@@ -117,8 +117,15 @@
                                 </Tooltip>
                             </SpaceItem>
                         </ResourceAuthorize>
+                    }else{
+                     <ResourceAuthorize ResourceKey="system_manager_resource_detail">
+                            <SpaceItem>
+                                <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
+                                    <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model)"></Button>
+                                </Tooltip>
+                            </SpaceItem>
+                        </ResourceAuthorize>
                     }
-
                 </Space>
             </ActionColumn>
         </RowTemplate>
