@@ -19,7 +19,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         IDeptService deptService { get; set; }
 
         //部门树
-        List<DeptDto> deptDatas;
+        List<DeptDto> deptDatas = new List<DeptDto>();
         /// <summary>
         /// 父级部门编号
         /// </summary>
@@ -41,16 +41,15 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await base.OnInitializedAsync();
-
             _isLoading = true;
+            //父级
+            deptDatas = await deptService.GetTree();
+            await base.OnInitializedAsync();
             DrawerInput<int> editInput = this.Options;
             if (editInput.Type.Equals(DrawerInputType.Add))
             {
-                _editModel.ParentId = editInput.Id;
+                _editModel.ParentId = editInput.Id==0?null: editInput.Id;
             }
-            //父级
-            deptDatas = await deptService.GetTree();
             _isLoading = false;
         }
 

@@ -40,7 +40,7 @@ namespace Gardener.UserCenter.Client.Pages.ResourceView
         /// <summary>
         /// 父级资源
         /// </summary>
-        private List<ResourceDto> resources;
+        private List<ResourceDto> resources=new List<ResourceDto>();
         /// <summary>
         /// 
         /// </summary>

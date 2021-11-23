@@ -59,7 +59,7 @@ namespace Gardener.Common
         /// <returns></returns>
         public static TDto QueryNode<TDto>(ICollection<TDto> dtos, Func<TDto, bool> query, Func<TDto, ICollection<TDto>> getChildren)
         {
-
+            Console.WriteLine("begin");
             if (dtos == null)
             {
                 return default(TDto);
@@ -70,7 +70,6 @@ namespace Gardener.Common
                 {
                     return dto;
                 }
-
                 var children = getChildren(dto);
                 if (children != null)
                 {

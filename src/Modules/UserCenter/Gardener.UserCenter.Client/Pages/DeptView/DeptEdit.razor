@@ -23,7 +23,8 @@
                     ChildrenExpression="data => data.Children?.ToList()"
                     IsLeafExpression="data => data.Children==null || !data.Children.Any()"
                     TreeDefaultExpandAll
-                    DisabledExpression="data=>data.Id.Equals(_editModel.Id)">
+                    DisabledExpression="data=>data.Id.Equals(_editModel.Id)"
+                    DataItemExpression="(deptDatas, id) => TreeTools.QueryNode<DeptDto>(deptDatas.ToArray(),item=>item.Id.ToString().Equals(id),item=>item.Children)">
         </TreeSelect>
     </FormItem>
     <FormItem Label="名称">

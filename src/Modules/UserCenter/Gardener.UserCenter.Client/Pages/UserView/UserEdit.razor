@@ -34,6 +34,7 @@
                     KeyExpression="data => data.Id.ToString()"
                     ChildrenExpression="data => data.Children?.ToList()"
                     IsLeafExpression="data => data.Children == null"
+                    DataItemExpression="(deptDatas, id) => TreeTools.QueryNode<DeptDto>(deptDatas.ToArray(),item=>item.Id.ToString().Equals(id),item=>item.Children)"
                     TreeDefaultExpandAll>
         </TreeSelect>
     </FormItem>

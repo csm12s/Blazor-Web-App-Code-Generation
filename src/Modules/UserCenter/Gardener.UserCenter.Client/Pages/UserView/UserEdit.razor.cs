@@ -21,7 +21,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         [Inject]
         IPositionService positionService { get; set; }
         //部门树
-        List<DeptDto> deptDatas;
+        List<DeptDto> deptDatas=new List<DeptDto>();
         /// <summary>
         /// 部门编号
         /// </summary>
@@ -45,15 +45,14 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await base.OnInitializedAsync();
-            _editModel.Password = null;
-            _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId=_editModel.Id};
             _isLoading = true;
             positions = await positionService.GetAllUsable();
             //部门
             deptDatas = await deptService.GetTree();
             _isLoading = false;
-
+            await base.OnInitializedAsync();
+            _editModel.Password = null;
+            _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId=_editModel.Id};
         }
        
         /// <summary>
