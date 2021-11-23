@@ -775,6 +775,7 @@
             <param name="authorizationManager"></param>
             <param name="jwtBearerService"></param>
             <param name="resourceRepository"></param>
+            <param name="identityPermissionService"></param>
         </member>
         <member name="M:Gardener.UserCenter.Impl.Services.AccountService.Login(Gardener.Authorization.Dtos.LoginInput)">
             <summary>
@@ -820,47 +821,52 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResources(Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResources(System.String,Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源
             </summary>
+            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResourceKeys(Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserResourceKeys(System.String,Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源的key
             </summary>
+            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.CurrentUserIsSuperAdmin">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResources(Gardener.UserCenter.Enums.ResourceType[])">
-            <summary>
-            获取用户资源
-            </summary>
-            <param name="resourceTypes">资源类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResourceKeys(Gardener.UserCenter.Enums.ResourceType[])">
-            <summary>
-            获取用户资源所有Key
-            </summary>
-            <param name="resourceTypes">资源类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserMenus">
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetCurrentUserMenus(System.String)">
             <summary>
             获取当前用户的所有菜单
             </summary>
             <remarks>
             获取当前用户的所有菜单
             </remarks>
+            <param name="rootKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.CurrentUserIsSuperAdmin">
+            <summary>
+            判断是否是超级管理员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResources(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+            <summary>
+            获取用户资源
+            </summary>
+            <param name="rootKey"></param>
+            <param name="resourceTypes">资源类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Services.AccountService.GetUserResourceKeys(System.String,Gardener.UserCenter.Enums.ResourceType[])">
+            <summary>
+            获取用户资源所有Key
+            </summary>
+            <param name="rootKey"></param>
+            <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
         <member name="T:Gardener.UserCenter.Impl.Services.ClientFunctionService">
@@ -1085,13 +1091,14 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.GetTree">
+        <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.GetTree(System.String)">
             <summary>
             查询所有资源
             </summary>
             <remarks>
             查询所有资源 按树形结构返回
             </remarks>
+            <param name="rootKey"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.UserCenter.Impl.Services.ResourceService.Insert(Gardener.UserCenter.Dtos.ResourceDto)">

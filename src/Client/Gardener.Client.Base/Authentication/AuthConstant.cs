@@ -20,5 +20,9 @@ namespace Gardener.Client.Base
         /// 
         /// </summary>
         public static readonly string ClientPageResourcePolicy = "client-page-resource-policy";
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly string ClientResourceRootKey = "admin_root";
     }
 }

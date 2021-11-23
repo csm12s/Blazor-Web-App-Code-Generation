@@ -521,6 +521,11 @@
             视图
             </summary>
         </member>
+        <member name="T:Gardener.UserCenter.Services.IAccountService">
+            <summary>
+            用户账户认证授权服务
+            </summary>
+        </member>
         <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserRoles">
             <summary>
             获取当前用户的角色
@@ -546,24 +551,27 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResources(Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResources(System.String,Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取指定类型的资源
             </summary>
+            <param name="rootKey"></param>
             <param name="resourceTypes"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResourceKeys(Gardener.UserCenter.Enums.ResourceType[])">
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserResourceKeys(System.String,Gardener.UserCenter.Enums.ResourceType[])">
             <summary>
             获取用户资源的key
             </summary>
+            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserMenus">
+        <member name="M:Gardener.UserCenter.Services.IAccountService.GetCurrentUserMenus(System.String)">
             <summary>
             获取当前用户的所有菜单
             </summary>
+            <param name="rootKey"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.UserCenter.Services.IAccountService.RemoveCurrentUserRefreshToken">
@@ -719,10 +727,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Gardener.UserCenter.Services.IResourceService.GetTree">
+        <member name="M:Gardener.UserCenter.Services.IResourceService.GetTree(System.String)">
             <summary>
             查询所有资源 按树形结构返回
             </summary>
+            <param name="rootKey"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.UserCenter.Services.IResourceService.GetSeedData">

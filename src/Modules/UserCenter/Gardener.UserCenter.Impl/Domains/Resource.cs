@@ -147,7 +147,8 @@ namespace Gardener.UserCenter.Impl.Domains
 
 
 
- new Resource(){Id=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Name="根节点",Icon="apartment",Remark="根根节点不能删除，不能改变类型！！。",Key="root",Path="",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1636443705),IsDeleted=false,IsLocked=false,Type=(ResourceType)0,Order=0},
+ new Resource(){Id=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Name="后台根节点",Icon="apartment",Remark="根根节点不能删除，不能改变类型！！。",Key="admin_root",Path="",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1636443705),IsDeleted=false,IsLocked=false,Type=(ResourceType)0,Order=0},
+ new Resource(){Id=Guid.Parse("f4239a53-b5e1-49bd-99c6-967a86f07cdc"),Name="前台根节点",Icon="apartment",Remark="根根节点不能删除，不能改变类型！！。",Key="front_root",Path="",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1636443705),IsDeleted=false,IsLocked=false,Type=(ResourceType)0,Order=1},
  new Resource(){Id=Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"),ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Name="首页",Icon="home",Remark="",Key="admin_home",Path="/",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1636443705),IsDeleted=false,IsLocked=false,Type=(ResourceType)1000,Order=10},
  new Resource(){Id=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Name="系统管理",Icon="setting",Remark="系统管理",Key="system_manager",Path="",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1636443705),IsDeleted=false,IsLocked=false,Type=(ResourceType)1000,Order=20},
  new Resource(){Id=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Name="登录",Icon="",Remark="登录系统",Key="system_login",Path="",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1636443705),IsDeleted=false,IsLocked=false,Type=(ResourceType)2000,Order=0},

@@ -33,8 +33,9 @@ namespace Gardener.UserCenter.Services
         /// <summary>
         /// 查询所有资源 按树形结构返回
         /// </summary>
+        /// <param name="rootKey"></param>
         /// <returns></returns>
-        Task<List<ResourceDto>> GetTree();
+        Task<List<ResourceDto>> GetTree(string rootKey = null);
         
         /// <summary>
         /// 获取资源的种子数据

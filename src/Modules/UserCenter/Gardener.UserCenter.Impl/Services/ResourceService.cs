@@ -117,14 +117,16 @@ namespace Gardener.UserCenter.Impl.Services
         /// <remarks>
         /// 查询所有资源 按树形结构返回
         /// </remarks>
+        /// <param name="rootKey"></param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetTree()
+        public async Task<List<ResourceDto>> GetTree([FromQuery]string rootKey=null)
         {
 
             List<ResourceDto> resourceDtos = new List<ResourceDto>();
 
             var allResources =await _resourceRepository
                 .Where(x => x.IsDeleted == false && x.IsLocked==false)
+                .Where(!string.IsNullOrEmpty(rootKey),x=>x.Key.Equals(rootKey))
                 .OrderBy(x => x.Order)
                 .ToListAsync();
 

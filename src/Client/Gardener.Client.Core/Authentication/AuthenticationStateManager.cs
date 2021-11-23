@@ -164,9 +164,9 @@ namespace Gardener.Client.Core
                 {
                     //超级管理员
                     currentUserIsSuperAdmin = userResult.Roles!=null && userResult.Roles.Any(x => x.IsSuperAdministrator);
-                    this.uiResourceKeys = await accountService.GetCurrentUserResourceKeys(ResourceType.View,ResourceType.Menu,ResourceType.Action);
+                    this.uiResourceKeys = await accountService.GetCurrentUserResourceKeys(AuthConstant.ClientResourceRootKey,ResourceType.View,ResourceType.Menu,ResourceType.Action);
                     this.uiHashtableResources = null;
-                    this.menuResources = await accountService.GetCurrentUserMenus();
+                    this.menuResources = await accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
                     this.currentUser = userResult;
                     onMenusLoaded.Invoke(this.menuResources);
                 }

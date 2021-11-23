@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20211119101418_v0.0.1")]
+    [Migration("20211123065214_v0.0.1")]
     partial class v001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -4570,9 +4570,24 @@ namespace Gardener.Api.Core.Migrations
                             Icon = "apartment",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "root",
-                            Name = "根节点",
+                            Key = "admin_root",
+                            Name = "后台根节点",
                             Order = 0,
+                            Path = "",
+                            Remark = "根根节点不能删除，不能改变类型！！。",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("f4239a53-b5e1-49bd-99c6-967a86f07cdc"),
+                            CreatedTime = 1306051389542400000L,
+                            CreatorIdentityType = 0,
+                            Icon = "apartment",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "front_root",
+                            Name = "前台根节点",
+                            Order = 1,
                             Path = "",
                             Remark = "根根节点不能删除，不能改变类型！！。",
                             Type = 0

@@ -1730,7 +1730,12 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
-                values: new object[] { new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), 1306051389542400000L, null, 0, "apartment", false, false, "root", "根节点", 0, null, "", "根根节点不能删除，不能改变类型！！。", 0, null });
+                values: new object[] { new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), 1306051389542400000L, null, 0, "apartment", false, false, "admin_root", "后台根节点", 0, null, "", "根根节点不能删除，不能改变类型！！。", 0, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("f4239a53-b5e1-49bd-99c6-967a86f07cdc"), 1306051389542400000L, null, 0, "apartment", false, false, "front_root", "前台根节点", 1, null, "", "根根节点不能删除，不能改变类型！！。", 0, null });
 
             migrationBuilder.InsertData(
                 table: "Role",

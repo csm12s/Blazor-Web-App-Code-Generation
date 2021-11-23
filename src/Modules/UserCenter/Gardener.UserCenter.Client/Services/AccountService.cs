@@ -34,14 +34,17 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<UserDto>($"{controller}/current-user");
         }
 
-        public async Task<List<ResourceDto>> GetCurrentUserMenus()
+        public async Task<List<ResourceDto>> GetCurrentUserMenus(string rootKey = null)
         {
-            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-menus");
+            IDictionary<string, object> queryString = new Dictionary<string, object>();
+            queryString.Add(nameof(rootKey), rootKey);
+            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-menus", queryString);
         }
 
-        public async Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes)
+        public async Task<List<string>> GetCurrentUserResourceKeys(string rootKey = null,params ResourceType[] resourceTypes)
         {
             List<KeyValuePair<string, object>> paras = new List<KeyValuePair<string, object>>();
+            paras.Add(new KeyValuePair<string, object>(nameof(rootKey), rootKey));
             for (int i = 0; i < resourceTypes.Length; i++)
             {
                 paras.Add(new KeyValuePair<string, object>("resourceTypes", resourceTypes[i]));
@@ -49,14 +52,10 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<List<string>>($"{controller}/current-user-resource-keys", paras);
         }
 
-        public List<ResourceDto> GetCurrentUserResources()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes)
+        public async Task<List<ResourceDto>> GetCurrentUserResources(string rootKey = null, params ResourceType [] resourceTypes)
         {
             List<KeyValuePair<string, object>> paras = new List<KeyValuePair<string, object>>();
+            paras.Add(new KeyValuePair<string, object>(nameof(rootKey), rootKey));
             for (int i = 0; i < resourceTypes.Length; i++)
             {
                 paras.Add(new KeyValuePair<string, object> ("resourceTypes" ,resourceTypes[i]));
@@ -64,9 +63,9 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-resources", paras);
         }
 
-        public Task<List<RoleDto>> GetCurrentUserRoles()
+        public async Task<List<RoleDto>> GetCurrentUserRoles()
         {
-            throw new NotImplementedException();
+            return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/current-user-roles");
         }
 
         public async Task<TokenOutput> Login(LoginInput input)

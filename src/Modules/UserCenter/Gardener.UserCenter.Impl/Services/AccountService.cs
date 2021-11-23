@@ -55,12 +55,14 @@ namespace Gardener.UserCenter.Impl.Services
         /// <param name="authorizationManager"></param>
         /// <param name="jwtBearerService"></param>
         /// <param name="resourceRepository"></param>
+        /// <param name="identityPermissionService"></param>
         public AccountService(
             IHttpContextAccessor httpContextAccessor,
             IRepository<User> userRepository,
             Authorization.Core.IAuthorizationService authorizationManager,
             IJwtService jwtBearerService,
-            IRepository<Resource> resourceRepository, IIdentityPermissionService identityPermissionService)
+            IRepository<Resource> resourceRepository, 
+            IIdentityPermissionService identityPermissionService)
         {
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
@@ -161,34 +163,57 @@ namespace Gardener.UserCenter.Impl.Services
         /// <summary>
         /// 获取用户资源
         /// </summary>
+        /// <param name="rootKey"></param>
         /// <param name="resourceTypes">资源类型</param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType[] resourceTypes)
+        public async Task<List<ResourceDto>> GetCurrentUserResources([FromQuery] string rootKey = null, [FromQuery] params ResourceType[] resourceTypes)
         {
             resourceTypes = resourceTypes ?? new ResourceType[] { };
-            List<Resource> resources =await GetUserResources(resourceTypes);
+            List<Resource> resources =await GetUserResources(rootKey,resourceTypes);
             return resources.Adapt<List<ResourceDto>>();
 
         }
         /// <summary>
         /// 获取用户资源的key
         /// </summary>
+        /// <param name="rootKey"></param>
         /// <param name="resourceTypes">资源类型</param>
         /// <returns></returns>
-        public async Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes)
+        public async Task<List<string>> GetCurrentUserResourceKeys([FromQuery] string rootKey = null, [FromQuery] params ResourceType[] resourceTypes)
         {
             resourceTypes = resourceTypes ?? new ResourceType[] { };
-            List<string> resourceKeys =await GetUserResourceKeys(resourceTypes);
+            List<string> resourceKeys =await GetUserResourceKeys(rootKey,resourceTypes);
             return resourceKeys;
 
         }
+        
         /// <summary>
-        /// 
+        /// 获取当前用户的所有菜单
+        /// </summary>
+        /// <remarks>
+        /// 获取当前用户的所有菜单
+        /// </remarks>
+        /// <param name="rootKey"></param>
+        /// <returns></returns>
+        public async Task<List<ResourceDto>> GetCurrentUserMenus([FromQuery] string rootKey = null)
+        {
+            // 获取用户Id
+            List<ResourceDto> resources = await GetCurrentUserResources(rootKey,ResourceType.Root, ResourceType.Menu);
+
+            if (resources == null) return new List<ResourceDto>();
+
+            return resources.Where(x => x.Type.Equals(ResourceType.Root)).FirstOrDefault()?.Children?.ToList();
+        }
+
+        #region 私有
+
+        /// <summary>
+        /// 判断是否是超级管理员
         /// </summary>
         /// <returns></returns>
-        private async Task<bool> CurrentUserIsSuperAdmin() 
+        private async Task<bool> CurrentUserIsSuperAdmin()
         {
-            List<RoleDto> roleDtos =await GetCurrentUserRoles();
+            List<RoleDto> roleDtos = await GetCurrentUserRoles();
             if (roleDtos.Any(x => x.IsSuperAdministrator))
             {
                 return true;
@@ -199,35 +224,10 @@ namespace Gardener.UserCenter.Impl.Services
         /// <summary>
         /// 获取用户资源
         /// </summary>
+        /// <param name="rootKey"></param>
         /// <param name="resourceTypes">资源类型</param>
         /// <returns></returns>
-        private async Task<List<Resource>> GetUserResources(params ResourceType[] resourceTypes)
-        {
-            resourceTypes = resourceTypes ?? new ResourceType[] { };
-            var userId = _authorizationManager.GetIdentityId();
-
-            if (await CurrentUserIsSuperAdmin())
-            {
-                //超级管库有拥有所有资源
-                return await _resourceRepository
-                    .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type)).OrderBy(x => x.Order).ToListAsync();
-
-            }
-            return await _userRepository
-                     .Include(u => u.Roles)
-                         .ThenInclude(u => u.Resources)
-                     .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
-                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                         .SelectMany(u => u.Resources
-                         .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
-                         )).OrderBy(x => x.Order).ToListAsync();
-        }
-        /// <summary>
-        /// 获取用户资源所有Key
-        /// </summary>
-        /// <param name="resourceTypes">资源类型</param>
-        /// <returns></returns>
-        private async Task<List<string>> GetUserResourceKeys(params ResourceType[] resourceTypes)
+        private async Task<List<Resource>> GetUserResources(string rootKey = null, params ResourceType[] resourceTypes)
         {
             resourceTypes = resourceTypes ?? new ResourceType[] { };
             var userId = _authorizationManager.GetIdentityId();
@@ -237,8 +237,39 @@ namespace Gardener.UserCenter.Impl.Services
                 //超级管库有拥有所有资源
                 return await _resourceRepository
                     .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
+                    .Where(!string.IsNullOrEmpty(rootKey), x => x.Key.Equals(rootKey))
+                    .OrderBy(x => x.Order).ToListAsync();
+
+            }
+            return await _userRepository
+                     .Include(u => u.Roles)
+                         .ThenInclude(u => u.Resources)
+                     .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
+                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                         .SelectMany(u => u.Resources
+                         .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
+                         .Where(!string.IsNullOrEmpty(rootKey), x => x.Key.Equals(rootKey))
+                         )).OrderBy(x => x.Order).ToListAsync();
+        }
+        /// <summary>
+        /// 获取用户资源所有Key
+        /// </summary>
+        /// <param name="rootKey"></param>
+        /// <param name="resourceTypes">资源类型</param>
+        /// <returns></returns>
+        private async Task<List<string>> GetUserResourceKeys(string rootKey = null, params ResourceType[] resourceTypes)
+        {
+            resourceTypes = resourceTypes ?? new ResourceType[] { };
+            var userId = _authorizationManager.GetIdentityId();
+
+            if (await CurrentUserIsSuperAdmin())
+            {
+                //超级管库有拥有所有资源
+                return await _resourceRepository
+                    .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
+                    .Where(!string.IsNullOrEmpty(rootKey), x => x.Key.Equals(rootKey))
                     .OrderBy(x => x.Order)
-                    .Select(x=>x.Key)
+                    .Select(x => x.Key)
                     .ToListAsync();
 
             }
@@ -249,23 +280,10 @@ namespace Gardener.UserCenter.Impl.Services
                      .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
                          .SelectMany(u => u.Resources
                          .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
-                         )).OrderBy(x => x.Order).Select(x=>x.Key).ToListAsync();
+                         .Where(!string.IsNullOrEmpty(rootKey), x => x.Key.Equals(rootKey))
+                         )).OrderBy(x => x.Order).Select(x => x.Key).ToListAsync();
         }
-        /// <summary>
-        /// 获取当前用户的所有菜单
-        /// </summary>
-        /// <remarks>
-        /// 获取当前用户的所有菜单
-        /// </remarks>
-        /// <returns></returns>
-        public async Task<List<ResourceDto>> GetCurrentUserMenus()
-        {
-            // 获取用户Id
-            List<ResourceDto> resources = await GetCurrentUserResources(ResourceType.Root, ResourceType.Menu);
 
-            if (resources == null) return new List<ResourceDto>();
-
-            return resources.Where(x => x.Type.Equals(ResourceType.Root)).FirstOrDefault()?.Children?.ToList();
-        }
+        #endregion
     }
 }
