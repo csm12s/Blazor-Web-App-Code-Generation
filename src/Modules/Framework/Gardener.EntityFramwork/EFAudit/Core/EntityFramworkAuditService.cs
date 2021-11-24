@@ -228,7 +228,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     property.NewValue = ValueToString(newValue);
                 }
                 Type fieldType = prop.PropertyInfo.PropertyType;
-                if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                if (fieldType.IsNullableType())
                 {
                     property.DataType = fieldType.GetGenericArguments()[0].Name;
                 }
