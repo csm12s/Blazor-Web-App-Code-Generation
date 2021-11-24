@@ -108,7 +108,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetResource([ApiSeat(ApiSeats.ActionStart)] int roleId)
         {
-            var resources= await _roleResourceRepository
+            var resources= await _roleResourceRepository.AsQueryable(false)
                 .Include(x => x.Resource)
                 .Where(x => x.RoleId == roleId && x.Resource.IsDeleted==false)
                 .Select(x => x.Resource)
