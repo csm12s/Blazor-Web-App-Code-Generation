@@ -1,0 +1,83 @@
+﻿@typeparam TDto
+<Row>
+	<AntDesign.Col Span="4">
+		<Select Mode="multiple"
+        Placeholder="@localizer["请选择过滤字段"]"
+		@bind-Values="@_selectedValues"
+		TItemValue="string"
+		TItem="string"
+		OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+		Style="width: 100%; margin-bottom: 8px;"
+		MaxTagCount="4"
+		AllowClear>
+		<SelectOptions>
+			@foreach(TableSearchField item in _fields)
+			{
+				<SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@item.DisplayName" />
+			}
+		</SelectOptions>
+		</Select>
+	</AntDesign.Col>
+	<AntDesign.Col Span="20">
+		@if(_selectedValues!=null && _selectedValues.Count()>0)
+		{
+			
+			string width = Math.Ceiling((decimal)100/_fields.Count())+"%";
+			string style=$"margin-left:5px;width:{width}";
+			foreach (string field in _selectedValues)
+			{ 
+				 TableSearchField fieldInfo= _fields.Where(x=>x.Name.Equals(field)).FirstOrDefault();
+				string placeholder=fieldInfo.DisplayName;
+				if (fieldInfo.Type.Equals(typeof(string)))
+				{ 
+					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" />
+				}else if (fieldInfo.Type.Equals(typeof(Guid)) ||(fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(Guid))))
+				{ 
+					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="Guid?" />
+				}else if (fieldInfo.Type.Equals(typeof(int)) || (fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(int))))
+				{ 
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="int?" />
+				}else if (fieldInfo.Type.Equals(typeof(short)) || (fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(short))))
+				{ 
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="short?" />
+				}else if (fieldInfo.Type.Equals(typeof(long)) || (fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(long))))
+				{ 
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="long?" />
+				}else if (fieldInfo.Type.Equals(typeof(decimal)) || (fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(decimal))))
+				{ 
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="decimal?" />
+				}else if (fieldInfo.Type.Equals(typeof(double)) || (fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(double))))
+				{ 
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="double?" />
+				}else if (fieldInfo.Type.Equals(typeof(DateTimeOffset)) || (fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(DateTimeOffset))))
+				{ 
+					<RangePicker TValue="DateTime?[]" ShowTime="@true" />
+				}else if (fieldInfo.Type.Equals(typeof(DateTime)) || (fieldInfo.Type.IsNullableType() && fieldInfo.Type.GetGenericTypeDefinition().Equals(typeof(DateTime))))
+				{ 
+					<RangePicker TValue="DateTime?[]" ShowTime="@true" />
+				}else if (fieldInfo.Type.Equals(typeof(bool)))
+				{ 
+					<Select 
+						Mode="multiple"
+						Placeholder="@placeholder"
+						TItemValue="bool"
+						TItem="string"
+						Style="margin-left:5px;width:110px;"
+						MaxTagCount="2"
+						AllowClear>
+					<SelectOptions>
+						<SelectOption TItemValue="bool" TItem="string" Value="true" Label="@localizer["是"]" />
+						<SelectOption TItemValue="bool" TItem="string" Value="false" Label="@localizer["否"]" />
+					</SelectOptions>
+					</Select>
+				}
+			}
+			<ResourceAuthorize ResourceKey="user_center_role_refresh">
+                                <Button Type="@ButtonType.Primary" Icon="search">
+                                    @localizer["搜索"]
+                                </Button>
+			</ResourceAuthorize>
+		}
+    </AntDesign.Col>
+</Row>
+

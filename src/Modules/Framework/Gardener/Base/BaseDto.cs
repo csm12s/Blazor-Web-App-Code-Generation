@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using System;
 using System.ComponentModel;
 
@@ -37,6 +38,7 @@ namespace Gardener.Base
         /// 是否逻辑删除
         /// </summary>
         [DisplayName("是否删除")]
+        [DisabledSearchField]
         public bool IsDeleted { get; set; }
         /// <summary>
         /// 创建日期
