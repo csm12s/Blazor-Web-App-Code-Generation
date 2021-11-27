@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
 using Gardener.Attributes;
 using Gardener.Base;
 using Gardener.Client.Base.Model;
@@ -26,12 +27,12 @@ namespace Gardener.Client.Base.Components
     {
         List<TableSearchField> _fields;
         IEnumerable<string> _selectedValues=new List<string>() { nameof(BaseDto<int>.Id)};
-
+        Dictionary<string, object> _bindValues=new Dictionary<string, object>();
         [Inject]
         protected IClientLocalizer localizer { get; set; }
 
         /// <summary>
-        /// 
+        /// 初始化
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
@@ -57,16 +58,23 @@ namespace Gardener.Client.Base.Components
                     Type = property.PropertyType,
                 });
             }
+            
         }
+
         /// <summary>
-        /// 
+        /// 筛选字段下拉选择
         /// </summary>
         /// <param name="values"></param>
         private void OnSelectedItemsChangedHandler(IEnumerable<string> values)
         {
-            if (values != null)
-                Console.WriteLine($"selected: ${string.Join(",", values)}");
             
+        }
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        private void OnSearch()
+        {
+            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(_bindValues));
         }
     }
 }

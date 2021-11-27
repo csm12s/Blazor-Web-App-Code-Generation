@@ -117,7 +117,6 @@ namespace Gardener.Client.Core
         public async Task CleanUserInfo()
         {
             //移除所有tab
-            ClientNavTabControl.RemoveAllNavTabPage();
             this.currentUser = null;
             this.uiResourceKeys = null;
             this.uiHashtableResources = null;

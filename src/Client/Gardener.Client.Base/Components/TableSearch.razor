@@ -31,17 +31,32 @@
 				 TableSearchField fieldInfo= _fields.Where(x=>x.Name.Equals(field)).FirstOrDefault();
 				string placeholder=fieldInfo.DisplayName;
 				if (fieldInfo.Type.Equals(typeof(string)))
-				{ 
-					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" />
+				{
+					if (!_bindValues.ContainsKey(field))
+					{
+						_bindValues.Add(field,"");
+					}
+					string value=(string)_bindValues[field];
+					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" @bind-Value="@value" />
 				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
 				{ 
-					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="Guid?" />
+					if (!_bindValues.ContainsKey(field))
+					{
+						_bindValues.Add(field,null);
+					}
+					Guid? value=(Guid?)_bindValues[field];
+					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="Guid?" @bind-Value="@value"/>
 				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
 				{ 
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="int?" />
+					if (!_bindValues.ContainsKey(field))
+					{
+						_bindValues.Add(field,null);
+					}
+					Int32? value=(Int32?)_bindValues[field];
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="int?" @bind-Value="@value"/>
 				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
 				{ 
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="short?" />
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="short?"/>
 				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
 				{ 
 					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="long?" />
@@ -53,12 +68,18 @@
 					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="double?" />
 				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)))
 				{ 
-					<RangePicker Style="margin-left:5px;" TValue="DateTime?[]" ShowTime="@true" Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}" />
+					<RangePicker Style="margin-left:5px;" TValue="DateTime?[]" ShowTime="@true" Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"/>
 				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
 				{ 
 					<RangePicker Style="margin-left:5px;" TValue="DateTime?[]" ShowTime="@true" Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"/>
 				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
 				{ 
+					if (!_bindValues.ContainsKey(field))
+					{
+						_bindValues.Add(field,new Boolean[0]);
+					}
+					IEnumerable<Boolean> value=(IEnumerable<Boolean>)_bindValues[field];
+
 					<Select 
 						Mode="multiple"
 						Placeholder="@placeholder"
@@ -66,7 +87,9 @@
 						TItem="string"
 						Style="margin-left:5px;margin-bottom:2px;width:110px;"
 						MaxTagCount="2"
-						AllowClear>
+						AllowClear
+						@bind-Values="@value"
+					>
 					<SelectOptions>
 						<SelectOption TItemValue="bool" TItem="string" Value="true" Label="@localizer["是"]" />
 						<SelectOption TItemValue="bool" TItem="string" Value="false" Label="@localizer["否"]" />
@@ -80,7 +103,7 @@
 		@if (_selectedValues != null && _selectedValues.Count() > 0)
 		{
 			<ResourceAuthorize ResourceKey="user_center_role_refresh">
-				<Button Icon="search" Shape="@ButtonShape.Round">
+				<Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearch">
 					@localizer["搜索"]
 				</Button>
 			</ResourceAuthorize>
