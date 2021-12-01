@@ -3,13 +3,14 @@
 <Row Style="margin-bottom:10px;">
 	<AntDesign.Col Span="4">
 		<Select Mode="multiple"
-        Placeholder="@localizer["请选择过滤字段"]"
+        Placeholder="@localizer["请选择搜索字段"]"
 		@bind-Values="@_selectedValues"
 		TItemValue="string"
 		TItem="string"
 		OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
 		MaxTagCount="@ResponsiveTag.Responsive"
 		AllowClear
+		OnClearSelected="OnClearSearchValue"
 		>
 		<SelectOptions>
 			@foreach(TableSearchField item in _fields)
@@ -20,82 +21,99 @@
 		</Select>
 	</AntDesign.Col>
 	<AntDesign.Col Span="18">
-		@if(_selectedValues!=null && _selectedValues.Count()>0)
-		{
+		@{
 			string width = Math.Ceiling((decimal)100/_fields.Count())+"%";
-			string style=$"margin-left:5px;margin-bottom:2px;width:{width}";
+			string style=$"margin-right:8px;margin-bottom:2px;width:100px";
 			string begin=localizer["开始"];
 			string end=localizer["结束"];
-			foreach (string field in _selectedValues)
+			foreach (TableSearchField fieldInfo in _fields)
 			{ 
-				 TableSearchField fieldInfo= _fields.Where(x=>x.Name.Equals(field)).FirstOrDefault();
 				string placeholder=fieldInfo.DisplayName;
+				string boStyle = "float:left;" + (_showFields[fieldInfo.Name] ? "" : "display:none;");
+				<div style="@boStyle">
+				<span>@(placeholder+":")</span>
+				@{
 				if (fieldInfo.Type.Equals(typeof(string)))
 				{
-					if (!_bindValues.ContainsKey(field))
-					{
-						_bindValues.Add(field,"");
-					}
-					string value=(string)_bindValues[field];
-					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" @bind-Value="@value" />
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
-				{ 
-					if (!_bindValues.ContainsKey(field))
-					{
-						_bindValues.Add(field,null);
-					}
-					Guid? value=(Guid?)_bindValues[field];
-					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="Guid?" @bind-Value="@value"/>
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
-				{ 
-					if (!_bindValues.ContainsKey(field))
-					{
-						_bindValues.Add(field,null);
-					}
-					Int32? value=(Int32?)_bindValues[field];
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="int?" @bind-Value="@value"/>
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
-				{ 
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="short?"/>
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
-				{ 
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="long?" />
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(decimal)))
-				{ 
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="decimal?" />
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(double)))
-				{ 
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="double?" />
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)))
-				{ 
-					<RangePicker Style="margin-left:5px;" TValue="DateTime?[]" ShowTime="@true" Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"/>
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
-				{ 
-					<RangePicker Style="margin-left:5px;" TValue="DateTime?[]" ShowTime="@true" Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"/>
-				}else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
-				{ 
-					if (!_bindValues.ContainsKey(field))
-					{
-						_bindValues.Add(field,new Boolean[0]);
-					}
-					IEnumerable<Boolean> value=(IEnumerable<Boolean>)_bindValues[field];
-
-					<Select 
-						Mode="multiple"
-						Placeholder="@placeholder"
-						TItemValue="bool"
-						TItem="string"
-						Style="margin-left:5px;margin-bottom:2px;width:110px;"
-						MaxTagCount="2"
-						AllowClear
-						@bind-Values="@value"
-					>
-					<SelectOptions>
-						<SelectOption TItemValue="bool" TItem="string" Value="true" Label="@localizer["是"]" />
-						<SelectOption TItemValue="bool" TItem="string" Value="false" Label="@localizer["否"]" />
-					</SelectOptions>
+					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
+				{
+					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
+				{
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
+				{
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
+				{
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(decimal)))
+				{
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(double)))
+				{
+					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
+				{
+					fieldInfo.Multiple=true;
+					<RangePicker Style="margin-left:5px;" 
+					TValue="DateTime?[]" 
+					ShowTime="@ShowTime" 
+					Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}" 
+					OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
+					DefaultValue="new DateTime?[] { BeginTime, EndTime}"
+					OnClearClick="()=>{fieldInfo.Values=new string[0];}"
+					/>
+						}
+						else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
+						{
+							fieldInfo.Multiple=true;
+							<Select 
+								Mode="multiple"
+								Placeholder="@placeholder"
+								TItemValue="string"
+								TItem="string"
+								MaxTagCount="@ResponsiveTag.Responsive"
+								Style="@style"
+								AllowClear
+								OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+							>
+						<SelectOptions>
+							<SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer["是"]" />
+							<SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer["否"]" />
+						</SelectOptions>
 					</Select>
 				}
+				else if (fieldInfo.Type.IsEnum) 
+				{ 
+					fieldInfo.Multiple=true;
+					<Select Mode="multiple"
+						Placeholder="@placeholder"
+						Style="@style"
+						TItemValue="string"
+						TItem="string"
+						MaxTagCount="@ResponsiveTag.Responsive"
+						AllowClear
+						OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+						>
+						<SelectOptions>
+							@foreach(var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
+							{
+								<SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@item.Value" />
+							}
+						</SelectOptions>
+					</Select>
+				}
+				}
+				</div>
 			}
 		}
     </AntDesign.Col>
@@ -103,7 +121,7 @@
 		@if (_selectedValues != null && _selectedValues.Count() > 0)
 		{
 			<ResourceAuthorize ResourceKey="user_center_role_refresh">
-				<Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearch">
+				<Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
 					@localizer["搜索"]
 				</Button>
 			</ResourceAuthorize>

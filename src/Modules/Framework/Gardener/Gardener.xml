@@ -746,7 +746,7 @@
         </member>
         <member name="P:Gardener.Base.BaseDto`1.Id">
             <summary>
-            唯一键
+            编号
             </summary>
         </member>
         <member name="T:Gardener.Base.BaseDto">

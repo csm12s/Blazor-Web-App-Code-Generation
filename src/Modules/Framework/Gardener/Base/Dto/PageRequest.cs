@@ -28,7 +28,6 @@ namespace Gardener.Base
         /// <summary>
         /// 查询条件组
         /// </summary>
-        //public FilterGroup FilterGroup { get; set; } = new FilterGroup() { Condition=Enums.FilterCondition.And };
         public List<FilterGroup> FilterGroups { get; set; } = new List<FilterGroup>() ;
 
     }

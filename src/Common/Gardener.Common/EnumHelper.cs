@@ -8,6 +8,7 @@ using Gardener.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace Gardener.Common
 {
@@ -61,6 +62,54 @@ namespace Gardener.Common
                     desc = descAttr.Description;
                 }
                 dic.Add((T)item, desc);
+            }
+            return dic;
+        }
+        /// <summary>
+        /// 枚举转字典
+        /// key 枚举值(数值) value 描述
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Dictionary<object, string> EnumToDictionary(Type type)
+        {
+            Dictionary<object, string> dic = new Dictionary<object, string>();
+            type = type.GetNonNullableType();
+            if (!type.IsEnum)
+            {
+                return dic;
+            }
+            Type underlyingType = type.GetEnumUnderlyingType();
+            string desc = string.Empty;
+            foreach (var item in Enum.GetValues(type))
+            {
+                //需要忽略的
+                FieldInfo? field = item.GetType().GetField(item.ToString());
+                if (field == null) { continue; }
+                var igAttrs = field.GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
+                if (igAttrs != null && igAttrs.Length > 0) continue;
+                //枚举的Description
+                var attrs = field.GetCustomAttributes(typeof(DescriptionAttribute), true);
+                if (attrs != null && attrs.Length > 0)
+                {
+                    DescriptionAttribute descAttr = attrs[0] as DescriptionAttribute;
+                    desc = descAttr.Description;
+                }
+                object value= null;
+                if (underlyingType.Equals(typeof(byte)))
+                { 
+                    value = (byte)item;
+                }if (underlyingType.Equals(typeof(short)))
+                { 
+                    value = (short)item;
+                }else if (underlyingType.Equals(typeof(int)))
+                {
+                    value = (int)item;
+                }else if (underlyingType.Equals(typeof(long)))
+                {
+                    value = (long)item;
+                }
+                dic.Add(value, desc);
             }
             return dic;
         }

@@ -13,7 +13,9 @@
            Context="model"
            RemoteDataSource>
         <TitleTemplate>
-            <TableSearch TDto="RoleDto"></TableSearch>
+             <ResourceAuthorize ResourceKey="user_center_role_refresh">
+                <TableSearch TDto="RoleDto" OnSearch="OnSearch"></TableSearch>
+             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="user_center_role_delete_selected">

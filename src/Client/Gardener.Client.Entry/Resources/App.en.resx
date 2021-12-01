@@ -177,12 +177,18 @@
     <value>Position</value>
     <comment>菜单</comment>
   </data>
+  <data name="开始" xml:space="preserve">
+    <value>Begin</value>
+  </data>
   <data name="成功" xml:space="preserve">
     <value>Success</value>
   </data>
   <data name="接口管理" xml:space="preserve">
     <value>Api</value>
     <comment>菜单</comment>
+  </data>
+  <data name="搜索" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="操作审计" xml:space="preserve">
     <value>Audit operation</value>
@@ -244,6 +250,9 @@
   <data name="绑定资源" xml:space="preserve">
     <value>Binding resource</value>
   </data>
+  <data name="结束" xml:space="preserve">
+    <value>End</value>
+  </data>
   <data name="编辑" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -262,6 +271,9 @@
   </data>
   <data name="请选择" xml:space="preserve">
     <value>Please Select</value>
+  </data>
+  <data name="请选择搜索字段" xml:space="preserve">
+    <value>Please Select Search Field </value>
   </data>
   <data name="资源管理" xml:space="preserve">
     <value>Resource</value>

@@ -12,6 +12,9 @@
            Loading="@_tableIsLoading"
            Context="model">
         <TitleTemplate>
+             <ResourceAuthorize ResourceKey="system_manager_login_token_refresh">
+                <TableSearch TDto="LoginTokenDto" OnSearch="OnSearch"></TableSearch>
+             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete_selected">

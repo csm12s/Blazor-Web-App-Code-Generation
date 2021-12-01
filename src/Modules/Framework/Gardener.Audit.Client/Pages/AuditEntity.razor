@@ -12,6 +12,9 @@
            Loading="@_tableIsLoading"
            Context="model">
         <TitleTemplate>
+             <ResourceAuthorize ResourceKey="system_manager_audit_entity_refresh">
+                <TableSearch TDto="AuditEntityDto" OnSearch="OnSearch"></TableSearch>
+             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete_selected">

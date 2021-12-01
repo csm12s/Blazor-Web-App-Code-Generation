@@ -10,8 +10,12 @@
            @bind-PageSize="pageRequest.PageSize"
            @bind-SelectedRows="_selectedRows"
            Loading="@_tableIsLoading"
-           Context="model">
+           Context="model"
+            >
         <TitleTemplate>
+            <ResourceAuthorize ResourceKey="system_manager_function_refresh">
+                <TableSearch TDto="FunctionDto" OnSearch="OnSearch"></TableSearch>
+             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">

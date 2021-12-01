@@ -26,10 +26,6 @@ namespace Gardener.UserCenter.Dtos
             UserExtension = new UserExtensionDto();
         }
         /// <summary>
-        /// 更新时间
-        /// </summary>
-        public DateTimeOffset? UpdatedTime { get; set; }
-        /// <summary>
         /// 用户名
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"),MinLength(5,ErrorMessage = "最小长度不能小于{1}")]

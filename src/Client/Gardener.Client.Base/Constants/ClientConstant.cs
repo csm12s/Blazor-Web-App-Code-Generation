@@ -32,6 +32,10 @@ namespace Gardener.Client.Base.Constants
                 new LinkItem{ Key = "Ant Design Blazor", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-blazor"},
                 new LinkItem{ Key = "Gardener", BlankTarget = true, Title = "Gardener",Href="https://gitee.com/hgflydream/Gardener"}
         };
+        /// <summary>
+        /// 时间显示格式化
+        /// </summary>
+        public readonly static string InputDateTimeFormat = "yyyy-MM-dd'T'HH:mm:ss zzz";
 
     }
 }

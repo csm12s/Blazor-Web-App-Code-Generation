@@ -14,13 +14,9 @@
 
   <ItemGroup>
     <Compile Remove="logs\**" />
-    <Compile Remove="wwwroot\**" />
     <Content Remove="logs\**" />
-    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="logs\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="logs\**" />
-    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +42,13 @@
     <ProjectReference Include="..\Client\Gardener.Client.Entry\Gardener.Client.Entry.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+    <Watch Include="**\*.razor" />
+    <Watch Include="**\*.less" />
+  </ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\" />
+	</ItemGroup>
 
 </Project>

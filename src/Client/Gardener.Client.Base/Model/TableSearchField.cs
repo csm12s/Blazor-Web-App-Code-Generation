@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace Gardener.Client.Base
 {
@@ -16,5 +17,12 @@ namespace Gardener.Client.Base
 
         public Type Type { get; set; }
 
+        public string Value { get; set; }
+
+        public IEnumerable<string> Values { get; set; }
+
+        public bool IsSearchable { get; set; }
+
+        public bool Multiple { get; set; }
     }
 }

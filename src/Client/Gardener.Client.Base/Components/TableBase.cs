@@ -29,6 +29,7 @@ namespace Gardener.Client.Base.Components
         protected bool _tableIsLoading = false;
         protected bool _deletesBtnLoading = false;
         protected PageRequest pageRequest = new PageRequest();
+        protected List<FilterGroup> _searchFilterGroups =new List<FilterGroup>();
         [Inject]
         protected IServiceBase<TDto, TKey> _service { get; set; }
         [Inject]
@@ -83,8 +84,28 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected virtual async Task ReLoadTable()
         {
+            await ReLoadTable(false);
+        }
+
+        /// <summary>
+        /// 重新加载table
+        /// </summary>
+        /// <param name="firstPage">是否从首页加载</param>
+        /// <returns></returns>
+        protected virtual async Task ReLoadTable(bool firstPage)
+        {
             _tableIsLoading = true;
             pageRequest = _table?.GetPageRequest() ?? new PageRequest();
+            if (firstPage)
+            {
+                pageRequest.PageIndex = 1;
+            }
+
+            //如果有搜索条件 就拼接上
+            if (_searchFilterGroups != null && _searchFilterGroups.Count > 0)
+            {
+                pageRequest.FilterGroups.AddRange(_searchFilterGroups);
+            }
             pageRequest= ConfigurationPageRequest(pageRequest);
             var pagedListResult = await _service.Search(pageRequest);
             if (pagedListResult != null)
@@ -191,6 +212,16 @@ namespace Gardener.Client.Base.Components
 
                 messageService.Error($"{msg} {localizer["失败"]}");
             }
+        }
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        /// <param name="searchValues"></param>
+        /// <returns></returns>
+        protected virtual async Task OnSearch(List<FilterGroup> filterGroups)
+        {
+            _searchFilterGroups = filterGroups;
+            await ReLoadTable(true);
         }
     }
     /// <summary>

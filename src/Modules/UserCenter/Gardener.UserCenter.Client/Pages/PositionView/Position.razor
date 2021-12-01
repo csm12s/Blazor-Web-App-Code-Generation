@@ -12,6 +12,9 @@
            Loading="@_tableIsLoading"
            Context="model">
         <TitleTemplate>
+            <ResourceAuthorize ResourceKey="user_center_position_refresh">
+                <TableSearch TDto="PositionDto" OnSearch="OnSearch"></TableSearch>
+             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="user_center_position_delete_selected">

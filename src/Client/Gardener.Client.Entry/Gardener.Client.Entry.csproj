@@ -58,9 +58,9 @@
     <Exec WorkingDirectory="$(SolutionDir)" Command="npm run gulp:pro" />
   </Target>-->
 
-  <!--<ItemGroup>
+  <ItemGroup>
     <Watch Include="**\*.razor" />
     <Watch Include="**\*.less" />
-  </ItemGroup>-->
+  </ItemGroup>
 
 </Project>

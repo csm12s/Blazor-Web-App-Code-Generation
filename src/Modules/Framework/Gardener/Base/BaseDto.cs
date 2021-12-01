@@ -17,7 +17,7 @@ namespace Gardener.Base
     public abstract class BaseDto<TKey>: BaseDto
     {
         /// <summary>
-        /// 唯一键
+        /// 编号
         /// </summary>
         [DisplayName("编号")]
         public TKey Id { get; set; }

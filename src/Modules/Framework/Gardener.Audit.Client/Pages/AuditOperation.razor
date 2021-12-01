@@ -13,6 +13,9 @@
            RowExpandable="@(r=>true)"
            Context="model">
         <TitleTemplate>
+             <ResourceAuthorize ResourceKey="system_manager_audit_operation_refresh">
+                <TableSearch TDto="AuditOperationDto" OnSearch="OnSearch"></TableSearch>
+             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
