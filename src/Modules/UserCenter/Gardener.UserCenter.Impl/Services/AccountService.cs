@@ -163,7 +163,6 @@ namespace Gardener.UserCenter.Impl.Services
         /// <summary>
         /// 获取用户资源
         /// </summary>
-        /// <param name="rootKey"></param>
         /// <param name="resourceTypes">资源类型</param>
         /// <returns></returns>
         public async Task<List<ResourceDto>> GetCurrentUserResources( [FromQuery] params ResourceType[] resourceTypes)

@@ -8,6 +8,9 @@ using Gardener.Authentication.Dtos;
 
 namespace Gardener.Authentication.Core
 {
+    /// <summary>
+    /// 身份认证
+    /// </summary>
     public interface IIdentityService
     {
         /// <summary>

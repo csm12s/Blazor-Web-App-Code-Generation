@@ -9,6 +9,9 @@ using Gardener.FileStore.Core.LocalStore;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// 文件存储扩展
+    /// </summary>
     public static class FileStoreExtensions
     {
         /// <summary>

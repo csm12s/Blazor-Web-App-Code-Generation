@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Gardener.UserCenter.Dtos
 {
     /// <summary>
-    /// 
+    /// 岗位
     /// </summary>
     public class PositionDto : BaseDto<int>
     {

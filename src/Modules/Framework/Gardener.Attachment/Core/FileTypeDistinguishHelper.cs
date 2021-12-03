@@ -8,6 +8,9 @@ using Gardener.Attachment.Enums;
 
 namespace Gardener.Attachment.Core
 {
+    /// <summary>
+    /// 识别附件文件类型
+    /// </summary>
     public class FileTypeDistinguishHelper
     {
         /// <summary>

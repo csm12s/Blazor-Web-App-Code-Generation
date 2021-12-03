@@ -9,6 +9,9 @@ using System.ComponentModel;
 
 namespace Gardener.Base
 {
+    /// <summary>
+    /// 过滤条件
+    /// </summary>
     public enum FilterCondition
     {
 

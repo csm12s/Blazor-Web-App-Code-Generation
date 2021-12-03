@@ -135,7 +135,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// 当展开关闭点击时触发
         /// </summary>
         /// <returns></returns>
-        private async Task OnExpandClick()
+        private void OnExpandClick()
         {
             _isExpanded = !_isExpanded;
 

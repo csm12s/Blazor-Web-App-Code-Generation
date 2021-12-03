@@ -175,7 +175,7 @@ namespace Gardener.Cache
                 .SetAbsoluteExpiration(DateTimeOffset.MaxValue));
         }
         /// <summary>
-        /// 添加到缓存中
+        /// 添加到缓存中，绝对过期时间
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
@@ -210,7 +210,7 @@ namespace Gardener.Cache
                .SetAbsoluteExpiration(DateTimeOffset.MaxValue));
         }
         /// <summary>
-        /// 添加到缓存中
+        /// 添加到缓存中，添加到缓存中
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>

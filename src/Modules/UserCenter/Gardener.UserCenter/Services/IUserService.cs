@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Services
 {
+    /// <summary>
+    /// 用户服务接口
+    /// </summary>
     public interface IUserService:IServiceBase<UserDto, int>
     {
         /// <summary>

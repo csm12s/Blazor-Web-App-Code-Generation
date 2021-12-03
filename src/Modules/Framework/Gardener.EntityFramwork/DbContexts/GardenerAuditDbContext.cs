@@ -18,6 +18,10 @@ namespace Gardener.EntityFramwork.DbContexts
     [AppDbContext("GardenerConnectionString")]
     public class GardenerAuditDbContext : AppDbContext<GardenerAuditDbContext, GardenerAuditDbContextLocator>
     {
+        /// <summary>
+        /// 初始化方法
+        /// </summary>
+        /// <param name="options"></param>
         public GardenerAuditDbContext(DbContextOptions<GardenerAuditDbContext> options) : base(options)
         {
         }

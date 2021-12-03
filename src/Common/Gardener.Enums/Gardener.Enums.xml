@@ -120,7 +120,11 @@
             刷新token不能用于鉴权
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Gardener.Enums.ExceptionCode.TOKEN_INVALID" -->
+        <member name="F:Gardener.Enums.ExceptionCode.TOKEN_INVALID">
+            <summary>
+            TOKEN无效
+            </summary>
+        </member>
         <member name="F:Gardener.Enums.ExceptionCode.CLIENT_LOGIN_FAIL">
             <summary>
             客户端登录失败

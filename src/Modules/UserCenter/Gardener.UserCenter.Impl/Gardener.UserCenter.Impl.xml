@@ -79,6 +79,22 @@
             多对多中间表
             </summary>
         </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Client.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{Gardener.UserCenter.Impl.Domains.Client},Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            配置信息
+            </summary>
+            <param name="entityBuilder"></param>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+        </member>
+        <member name="M:Gardener.UserCenter.Impl.Domains.Client.HasData(Microsoft.EntityFrameworkCore.DbContext,System.Type)">
+            <summary>
+            是否存在数据
+            </summary>
+            <param name="dbContext"></param>
+            <param name="dbContextLocator"></param>
+            <returns></returns>
+        </member>
         <member name="T:Gardener.UserCenter.Impl.Domains.ClientFunction">
             <summary>
             客户端功能信息
@@ -825,7 +841,6 @@
             <summary>
             获取用户资源
             </summary>
-            <param name="rootKey"></param>
             <param name="resourceTypes">资源类型</param>
             <returns></returns>
         </member>

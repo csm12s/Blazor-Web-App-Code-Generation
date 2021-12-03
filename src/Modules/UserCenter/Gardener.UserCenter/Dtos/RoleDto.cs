@@ -34,12 +34,6 @@ namespace Gardener.UserCenter.Dtos
         public string Remark { get; set; }
 
         /// <summary>
-        /// 更新时间
-        /// </summary>
-        [DisplayName("更新时间")]
-        public DateTimeOffset? UpdatedTime { get; set; }
-
-        /// <summary>
         /// 是否是超级管理员
         /// 超级管理员拥有所有权限
         /// </summary>

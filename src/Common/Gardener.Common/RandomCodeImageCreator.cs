@@ -32,7 +32,7 @@ namespace Gardener.Common
         /// <param name="fontSize">基准字体大小，实际生成的字体大小以此为基准进行缩放</param>
         public static byte[] Create(string code, int fontSize = 18)
         {
-            if (string.IsNullOrEmpty(code)) return new byte[0];
+            if (string.IsNullOrEmpty(code)) return Array.Empty<byte>();
 
             Random random = new Random();
             byte[] imageBuffer = null;

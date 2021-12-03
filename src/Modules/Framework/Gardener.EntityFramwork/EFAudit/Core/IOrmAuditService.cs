@@ -11,19 +11,19 @@ using System.Threading.Tasks;
 
 namespace Gardener.EntityFramwork.Audit.Core
 {
+    /// <summary>
+    /// Orm审计服务接口
+    /// </summary>
     public interface IOrmAuditService
     {
         /// <summary>
         /// 数据保存前
         /// </summary>
-        /// <param name="eventData"></param>
-        /// <param name="result"></param>
+        /// <param name="entitys"></param>
         public void SavingChangesEvent(IEnumerable<EntityEntry> entitys);
         /// <summary>
         /// 数据保存后
         /// </summary>
-        /// <param name="eventData"></param>
-        /// <param name="result"></param>
         public Task SavedChangesEvent();
 
         /// <summary>

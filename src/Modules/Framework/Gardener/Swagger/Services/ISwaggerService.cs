@@ -24,7 +24,7 @@ namespace Gardener.Swagger.Services
         Task<SwaggerModel> Analysis(string url);
 
         /// <summary>
-        /// 获取哦 swagger 配置
+        /// 获取 swagger 配置
         /// </summary>
         /// <returns></returns>
         Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup();

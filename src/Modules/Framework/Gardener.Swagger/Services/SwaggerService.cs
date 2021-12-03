@@ -56,7 +56,7 @@ namespace Gardener.Swagger.Services
             return swaggerInfo;
         }
         /// <summary>
-        /// 获取哦 swagger 配置
+        /// 获取 swagger 配置
         /// </summary>
         /// <remarks>
         /// 获取api分组设置

@@ -8,8 +8,14 @@ using System;
 
 namespace Gardener.EntityFramwork.Event
 {
+    /// <summary>
+    /// 保存数据更改事件
+    /// </summary>
     public class GardenerDbContextSavedChangesEvent
     {
-        public Object Data { get; set; }
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public object Data { get; set; }
     }
 }

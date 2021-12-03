@@ -9,6 +9,9 @@ using Gardener.Base;
 
 namespace Gardener.UserCenter.Services
 {
+    /// <summary>
+    /// 岗位服务接口
+    /// </summary>
     public interface IPositionService : IServiceBase<PositionDto, int>
     {
     }

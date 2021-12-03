@@ -60,11 +60,6 @@
             .jpg
             </summary>
         </member>
-        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.UpdatedTime">
-            <summary>
-            更新日期
-            </summary>
-        </member>
         <member name="T:Gardener.Attachment.Dtos.UploadAttachmentInput">
             <summary>
             上传附件
@@ -309,6 +304,11 @@
             </summary>
             <param name="operationId"></param>
             <returns></returns>
+        </member>
+        <member name="T:Gardener.Authentication.Core.IIdentityService">
+            <summary>
+            身份认证
+            </summary>
         </member>
         <member name="M:Gardener.Authentication.Core.IIdentityService.GetIdentity">
             <summary>
@@ -921,6 +921,11 @@
             查询条件组
             </summary>
         </member>
+        <member name="T:Gardener.Base.FilterCondition">
+            <summary>
+            过滤条件
+            </summary>
+        </member>
         <member name="F:Gardener.Base.FilterCondition.And">
             <summary>
             并且
@@ -1001,7 +1006,7 @@
             获取指定查询条件组的查询表达式
             </summary>
             <typeparam name="T">表达式实体类型</typeparam>
-            <param name="group">查询条件组，如果为null，则直接返回 true 表达式</param>
+            <param name="groups">查询条件组，如果为null，则直接返回 true 表达式</param>
             <returns>查询表达式</returns>
         </member>
         <member name="T:Gardener.Base.IServiceBase`2">
@@ -1106,6 +1111,136 @@
             <summary>
             缓存
             </summary>
+        </member>
+        <member name="M:Gardener.Cache.ICache.Get``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.Get``1(System.String,System.Func{``0})">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.Get``1(System.String,System.Func{``0},System.TimeSpan)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="func"></param>
+            <param name="absoluteExpiration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.GetAsync``1(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.GetAsync``1(System.String,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.GetAsync``1(System.String,System.Func{System.Threading.Tasks.Task{``0}},System.TimeSpan)">
+            <summary>
+            获取缓存
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="func"></param>
+            <param name="absoluteExpiration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.GetString(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.GetStringAsync(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.Refresh(System.String)">
+            <summary>
+            根据项的键刷新缓存中的项，重置其滑动过期超时（如果有）
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Gardener.Cache.ICache.RefreshAsync(System.String)">
+            <summary>
+            异步 根据项的键刷新缓存中的项，重置其滑动过期超时（如果有）
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.Remove(System.String)">
+            <summary>
+            根据缓存项的字符串键删除缓存项
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Gardener.Cache.ICache.RemoveAsync(System.String)">
+            <summary>
+            异步 根据缓存项的字符串键删除缓存项
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.Set``1(System.String,``0)">
+            <summary>
+            添加到缓存中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Gardener.Cache.ICache.Set``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            添加到缓存中，指定绝对过期时间
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="absoluteExpiration"></param>
+        </member>
+        <member name="M:Gardener.Cache.ICache.SetAsync``1(System.String,``0)">
+            <summary>
+            添加到缓存中
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Cache.ICache.SetAsync``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            添加到缓存中，指定绝对过期时间
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="absoluteExpiration"></param>
+            <returns></returns>
         </member>
         <member name="T:Gardener.CodeGeneration.Dtos.EntityCodeGenerationSettingDto">
             <summary>
@@ -1401,6 +1536,31 @@
             邮件模板服务
             </summary>
         </member>
+        <member name="T:Gardener.EntityFramwork.Event.GardenerDbContextSavedChangesEvent">
+            <summary>
+            保存数据更改事件
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Event.GardenerDbContextSavedChangesEvent.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Gardener.EntityFramwork.Event.GardenerDbContextSavingChangesEvent">
+            <summary>
+            保存数据更改事件
+            </summary>
+        </member>
+        <member name="P:Gardener.EntityFramwork.Event.GardenerDbContextSavingChangesEvent.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Gardener.EventBus.IEntityEventPublisher">
+            <summary>
+            实体事件发布接口
+            </summary>
+        </member>
         <member name="M:Gardener.EventBus.IEntityEventPublisher.NotifyDeleteAsync``2(``1)">
             <summary>
             通知删除
@@ -1528,17 +1688,102 @@
         </member>
         <member name="T:Gardener.Swagger.Dtos.SwaggerModel">
             <summary>
-            
+            数据模型
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerModel.openapi">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerModel.servers">
+            <summary>
+            服务器
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerModel.info">
+            <summary>
+            相关信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerModel.paths">
+            <summary>
+            路径
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerModel.tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="T:Gardener.Swagger.Dtos.SwaggerServerInfo">
+            <summary>
+            服务器信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerServerInfo.url">
+            <summary>
+            URL
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerServerInfo.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:Gardener.Swagger.Dtos.SwaggerTagInfo">
+            <summary>
+            标签信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerTagInfo.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerTagInfo.description">
+            <summary>
+            描述
             </summary>
         </member>
         <member name="T:Gardener.Swagger.Dtos.SwaggerInfo">
             <summary>
-            
+            swagger 接口信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerInfo.title">
+            <summary>
+            标题名称
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerInfo.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerInfo.version">
+            <summary>
+            版本
             </summary>
         </member>
         <member name="T:Gardener.Swagger.Dtos.SwaggerApiInfo">
             <summary>
-            
+            swagger API接口信息
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerApiInfo.tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerApiInfo.summary">
+            <summary>
+            概述
+            </summary>
+        </member>
+        <member name="P:Gardener.Swagger.Dtos.SwaggerApiInfo.description">
+            <summary>
+            描述
             </summary>
         </member>
         <member name="T:Gardener.Swagger.Services.ISwaggerService">
@@ -1555,7 +1800,7 @@
         </member>
         <member name="M:Gardener.Swagger.Services.ISwaggerService.GetApiGroup">
             <summary>
-            获取哦 swagger 配置
+            获取 swagger 配置
             </summary>
             <returns></returns>
         </member>

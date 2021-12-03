@@ -81,12 +81,44 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Gardener.Authentication.Core.JwtBearerService">
+            <summary>
+            JwtBearer服务
+            </summary>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.#ctor(Microsoft.Extensions.Options.IOptions{Gardener.Authentication.Options.JWTOptions})">
+            <summary>
+            初始化声明
+            </summary>
+            <param name="jWTOptions"></param>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.CreateToken(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            创建token
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.RefreshToken(System.String)">
+            <summary>
+            刷新token
+            </summary>
+            <param name="oldRefreshToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.RemoveRefreshToken(Gardener.Authentication.Dtos.Identity)">
+            <summary>
+            移除token自动刷新
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Authentication.Core.JwtBearerService.CreateToken(Gardener.Authentication.Dtos.Identity,Gardener.Authentication.Enums.JwtTokenType)">
             <summary>
             创建
             </summary>
             <param name="identity"></param>
-            <param name="clientId"></param>
+            <param name="jwtTokenType"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Authentication.Core.JwtBearerService.GetJWTSettingsOptions(Gardener.Authentication.Enums.IdentityType)">
@@ -156,9 +188,14 @@
             获取或设置 过期时间
             </summary>
         </member>
+        <member name="T:Gardener.Authentication.Options.JWTOptions">
+            <summary>
+            JWT 配置信息
+            </summary>
+        </member>
         <member name="P:Gardener.Authentication.Options.JWTOptions.Settings">
             <summary>
-            
+            设置字典
             </summary>
         </member>
         <member name="T:Gardener.Authentication.Options.JWTSettingsOptions">

@@ -91,9 +91,9 @@ namespace Gardener.EntityFramwork.Audit.Core
             }
         }
         /// <summary>
-        /// 
+        /// 保存实体审计数据过程
         /// </summary>
-        /// <param name="eventData"></param>
+        /// <param name="entitys"></param>
         public void SavingChangesEvent(IEnumerable<EntityEntry> entitys)
         {
             try
@@ -146,9 +146,8 @@ namespace Gardener.EntityFramwork.Audit.Core
             }
         }
        /// <summary>
-       /// 
+       /// 保存实体审计数据
        /// </summary>
-       /// <param name="eventData"></param>
        /// <returns></returns>
         public async Task SavedChangesEvent()
         {

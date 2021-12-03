@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.EventBus
 {
+    /// <summary>
+    /// 实体事件发布接口
+    /// </summary>
     public interface IEntityEventPublisher
     {
         /// <summary>

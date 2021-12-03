@@ -4,6 +4,11 @@
         <name>Gardener.Attachment</name>
     </assembly>
     <members>
+        <member name="T:Gardener.Attachment.Core.FileTypeDistinguishHelper">
+            <summary>
+            识别附件文件类型
+            </summary>
+        </member>
         <member name="M:Gardener.Attachment.Core.FileTypeDistinguishHelper.GetAttachmentFileType(System.String)">
             <summary>
             识别附件文件类型

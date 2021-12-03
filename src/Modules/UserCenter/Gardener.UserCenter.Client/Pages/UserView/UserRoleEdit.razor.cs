@@ -55,6 +55,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="values"></param>
         private async Task OnEditUserRoleChange(string[] values)
         {
+            //todo: Add operation logic here
         }
         /// <summary>
         /// 
@@ -90,7 +91,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 全选
         /// </summary>
         /// <returns></returns>
-        private async Task CheckAllRoleChanged()
+        private void CheckAllRoleChanged()
         {
             bool allChecked = _checkAllRole;
             _roleOptions.ForEach(o => o.Checked = !allChecked);

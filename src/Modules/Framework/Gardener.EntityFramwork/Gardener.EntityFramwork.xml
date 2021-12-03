@@ -9,6 +9,12 @@
             审计数据库上下文
             </summary>
         </member>
+        <member name="M:Gardener.EntityFramwork.DbContexts.GardenerAuditDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Gardener.EntityFramwork.DbContexts.GardenerAuditDbContext})">
+            <summary>
+            初始化方法
+            </summary>
+            <param name="options"></param>
+        </member>
         <member name="M:Gardener.EntityFramwork.DbContexts.GardenerAuditDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
             解决sqlite 不支持datetimeoffset问题（损失很小的精度）
@@ -25,6 +31,12 @@
             <summary>
             数据库上下文
             </summary>
+        </member>
+        <member name="M:Gardener.EntityFramwork.DbContexts.GardenerDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Gardener.EntityFramwork.DbContexts.GardenerDbContext})">
+            <summary>
+            初始化
+            </summary>
+            <param name="options"></param>
         </member>
         <member name="M:Gardener.EntityFramwork.DbContexts.GardenerDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
@@ -75,15 +87,14 @@
         </member>
         <member name="M:Gardener.EntityFramwork.Audit.Core.EntityFramworkAuditService`1.SavingChangesEvent(System.Collections.Generic.IEnumerable{Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry})">
             <summary>
-            
+            保存实体审计数据过程
             </summary>
-            <param name="eventData"></param>
+            <param name="entitys"></param>
         </member>
         <member name="M:Gardener.EntityFramwork.Audit.Core.EntityFramworkAuditService`1.SavedChangesEvent">
             <summary>
-            
+            保存实体审计数据
             </summary>
-            <param name="eventData"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.EntityFramwork.Audit.Core.EntityFramworkAuditService`1.GetAuditProperties(Gardener.Enums.EntityOperationType,Microsoft.EntityFrameworkCore.ChangeTracking.PropertyValues,Microsoft.EntityFrameworkCore.ChangeTracking.PropertyValues)">
@@ -102,19 +113,21 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.EntityFramwork.Audit.Core.IOrmAuditService">
+            <summary>
+            Orm审计服务接口
+            </summary>
+        </member>
         <member name="M:Gardener.EntityFramwork.Audit.Core.IOrmAuditService.SavingChangesEvent(System.Collections.Generic.IEnumerable{Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry})">
             <summary>
             数据保存前
             </summary>
-            <param name="eventData"></param>
-            <param name="result"></param>
+            <param name="entitys"></param>
         </member>
         <member name="M:Gardener.EntityFramwork.Audit.Core.IOrmAuditService.SavedChangesEvent">
             <summary>
             数据保存后
             </summary>
-            <param name="eventData"></param>
-            <param name="result"></param>
         </member>
         <member name="M:Gardener.EntityFramwork.Audit.Core.IOrmAuditService.SaveAuditOperation(Gardener.EntityFramwork.Audit.Domains.AuditOperation)">
             <summary>

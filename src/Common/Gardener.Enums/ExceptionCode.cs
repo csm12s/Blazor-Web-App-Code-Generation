@@ -84,7 +84,7 @@ namespace Gardener.Enums
         /// </summary>
         [Description("刷新token不能用于鉴权")]
         REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION,
-        // <summary>
+        /// <summary>
         /// TOKEN无效
         /// </summary>
         [Description("TOKEN无效")]

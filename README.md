@@ -1,5 +1,7 @@
 <p align="center"><img src="https://images.gitee.com/uploads/images/2020/1204/145903_cea2bf9d_302533.png" height="80"/></p>
 
+中文 | [English](README.en.md)
+
 ## 项目介绍
 
 园丁是基于 .net 6开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，喜欢的请点点star :kissing_heart: 。
@@ -17,7 +19,7 @@ docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
 ```
 
 ## 项目特点
-- 新：.Net5 、Blazor WebAssembly 、Furion ；全部新鲜。
+- 新：.Net6 、Blazor WebAssembly 、Furion ；全部新鲜。
 - 简：功能简单实用
 
 ## 项目文档
@@ -25,11 +27,11 @@ docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
 
 ## 贡献代码
 
-感谢每一位为 Furion 贡献代码的朋友，欢迎大家提交 PR 或 Issue。
+感谢每一位为 园丁 贡献代码的朋友，欢迎大家提交 PR 或 Issue。
 [![Giteye chart](https://chart.giteye.net/gitee/hgflydream/Gardener/PPVXK76M.png)](https://giteye.net/chart/PPVXK76M)
 
 ## 基情链接
-👉 **[Furion](https://gitee.com/dotnetchina/Furion)**
+👉 **[Furion](https://gitee.com/dotnetchina/Furion)**  
 👉 **[ant-design-blazor](https://github.com/ant-design-blazor/ant-design-blazor)**
 
 ## 跟上组织

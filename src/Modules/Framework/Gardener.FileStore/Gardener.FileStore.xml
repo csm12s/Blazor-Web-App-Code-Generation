@@ -71,6 +71,11 @@
             为空时，默认是upload 路径
             </summary>
         </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.FileStoreExtensions">
+            <summary>
+            文件存储扩展
+            </summary>
+        </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.FileStoreExtensions.AddFileLocalStore(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             添加服务

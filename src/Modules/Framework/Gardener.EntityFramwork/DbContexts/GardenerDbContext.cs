@@ -21,6 +21,10 @@ namespace Gardener.EntityFramwork.DbContexts
     [AppDbContext("GardenerConnectionString")]
     public class GardenerDbContext : AppDbContext<GardenerDbContext>
     {
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="options"></param>
         public GardenerDbContext(DbContextOptions<GardenerDbContext> options) : base(options)
         {
         }

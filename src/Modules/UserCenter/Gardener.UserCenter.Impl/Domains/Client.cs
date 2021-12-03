@@ -73,6 +73,12 @@ namespace Gardener.UserCenter.Impl.Domains
         /// </summary>
         public List<ClientFunction> ClientFunctions { get; set; }
 
+        /// <summary>
+        /// 配置信息
+        /// </summary>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<Client> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
             entityBuilder
@@ -85,6 +91,12 @@ namespace Gardener.UserCenter.Impl.Domains
                 );
         }
 
+        /// <summary>
+        /// 是否存在数据
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <returns></returns>
         public IEnumerable<Client> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[] {

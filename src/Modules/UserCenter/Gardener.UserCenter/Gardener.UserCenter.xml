@@ -146,7 +146,7 @@
         </member>
         <member name="T:Gardener.UserCenter.Dtos.PositionDto">
             <summary>
-            
+            岗位
             </summary>
         </member>
         <member name="P:Gardener.UserCenter.Dtos.PositionDto.Name">
@@ -282,11 +282,6 @@
         <member name="P:Gardener.UserCenter.Dtos.RoleDto.Remark">
             <summary>
             角色描述
-            </summary>
-        </member>
-        <member name="P:Gardener.UserCenter.Dtos.RoleDto.UpdatedTime">
-            <summary>
-            更新时间
             </summary>
         </member>
         <member name="P:Gardener.UserCenter.Dtos.RoleDto.IsSuperAdministrator">
@@ -635,6 +630,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Gardener.UserCenter.Services.IFunctionService">
+            <summary>
+            函数服务接口
+            </summary>
+        </member>
         <member name="M:Gardener.UserCenter.Services.IFunctionService.EnableAudit(System.Guid,System.Boolean)">
             <summary>
             启用禁用审计
@@ -672,6 +672,11 @@
             获取种子数据
             </remarks>
             <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Services.IPositionService">
+            <summary>
+            岗位服务接口
+            </summary>
         </member>
         <member name="T:Gardener.UserCenter.Services.IResourceFunctionService">
             <summary>
@@ -740,6 +745,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Gardener.UserCenter.Services.IRoleService">
+            <summary>
+            角色服务接口
+            </summary>
+        </member>
         <member name="M:Gardener.UserCenter.Services.IRoleService.DeleteResource(System.Int32)">
             <summary>
             
@@ -770,6 +780,11 @@
             获取种子数据
             </remarks>
             <returns></returns>
+        </member>
+        <member name="T:Gardener.UserCenter.Services.IUserService">
+            <summary>
+            用户服务接口
+            </summary>
         </member>
         <member name="M:Gardener.UserCenter.Services.IUserService.GetResources(System.Int32)">
             <summary>

@@ -26,18 +26,29 @@ using System.Threading.Tasks;
 
 namespace Gardener.Authentication.Core
 {
+    /// <summary>
+    /// JwtBearer服务
+    /// </summary>
     public class JwtBearerService : IJwtService
     {
         private readonly JwtSecurityTokenHandler _tokenHandler = new JwtSecurityTokenHandler();
 
         private readonly JWTOptions jWTOptions;
 
-
+        /// <summary>
+        /// 初始化声明
+        /// </summary>
+        /// <param name="jWTOptions"></param>
         public JwtBearerService(IOptions<JWTOptions> jWTOptions)
         {
             this.jWTOptions = jWTOptions.Value;
         }
 
+        /// <summary>
+        /// 创建token
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <returns></returns>
         public async Task<JsonWebToken> CreateToken(Identity identity)
         {
             // New Token
@@ -66,6 +77,11 @@ namespace Gardener.Authentication.Core
             };
         }
 
+        /// <summary>
+        /// 刷新token
+        /// </summary>
+        /// <param name="oldRefreshToken"></param>
+        /// <returns></returns>
         public async Task<JsonWebToken> RefreshToken(string oldRefreshToken)
         {
             Identity identity = ReadToken(oldRefreshToken);
@@ -85,6 +101,11 @@ namespace Gardener.Authentication.Core
             return await CreateToken(identity);
         }
 
+        /// <summary>
+        /// 移除token自动刷新
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <returns></returns>
         public async Task<bool> RemoveRefreshToken(Identity identity)
         {
             IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
@@ -97,7 +118,7 @@ namespace Gardener.Authentication.Core
         /// 创建
         /// </summary>
         /// <param name="identity"></param>
-        /// <param name="clientId"></param>
+        /// <param name="jwtTokenType"></param>
         /// <returns></returns>
         private (string, DateTimeOffset) CreateToken(Identity identity, JwtTokenType jwtTokenType)
         {

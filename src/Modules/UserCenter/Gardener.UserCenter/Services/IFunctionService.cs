@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Services
 {
+    /// <summary>
+    /// 函数服务接口
+    /// </summary>
     public interface IFunctionService : IServiceBase<FunctionDto, Guid>
     {
         /// <summary>

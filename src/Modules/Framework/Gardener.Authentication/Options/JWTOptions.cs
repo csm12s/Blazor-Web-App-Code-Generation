@@ -10,10 +10,13 @@ using System.Collections.Generic;
 
 namespace Gardener.Authentication.Options
 {
+    /// <summary>
+    /// JWT 配置信息
+    /// </summary>
     public class JWTOptions : IConfigurableOptions
     {
         /// <summary>
-        /// 
+        /// 设置字典
         /// </summary>
         public Dictionary<IdentityType, JWTSettingsOptions> Settings { get; set; }
     }
