@@ -16,6 +16,7 @@ using Gardener.EntityFramwork.DbContexts;
 using Gardener.Api.Core.Authorization.Subscribes;
 using Gardener.UserCenter.Impl.Core.Subscribes;
 using Gardener.VerifyCode.Core;
+using Serilog;
 
 namespace Gardener.Admin
 {
@@ -100,6 +101,8 @@ namespace Gardener.Admin
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

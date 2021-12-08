@@ -60,6 +60,11 @@
             .jpg
             </summary>
         </member>
+        <member name="P:Gardener.Attachment.Dtos.AttachmentDto.UpdatedTime">
+            <summary>
+            更新日期
+            </summary>
+        </member>
         <member name="T:Gardener.Attachment.Dtos.UploadAttachmentInput">
             <summary>
             上传附件

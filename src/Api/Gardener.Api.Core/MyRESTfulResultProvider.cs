@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Furion.UnifyResult.Internal;
 using Gardener.Enums;
 using Gardener.Common;
+using Microsoft.Extensions.Logging;
 
 namespace Gardener.Admin
 {
@@ -25,6 +26,15 @@ namespace Gardener.Admin
     [SuppressSniffer, UnifyModel(typeof(RESTfulResult<>))]
     public class MyRESTfulResultProvider : IUnifyResultProvider
     {
+
+        // 日志对象
+        private readonly ILogger<MyRESTfulResultProvider> _logger;
+
+        public MyRESTfulResultProvider(ILogger<MyRESTfulResultProvider> logger)
+        {
+            _logger = logger;
+        }
+
         /// <summary>
         /// 异常返回值
         /// </summary>
@@ -33,6 +43,7 @@ namespace Gardener.Admin
         /// <returns></returns>
         public IActionResult OnException(ExceptionContext context, ExceptionMetadata metadata)
         {
+            _logger.LogError(context.Exception, metadata.Errors?.ToString());
             return new JsonResult(RESTfulResult(metadata.StatusCode, errors: metadata.Errors, errorCode: metadata.ErrorCode));
         }
 
