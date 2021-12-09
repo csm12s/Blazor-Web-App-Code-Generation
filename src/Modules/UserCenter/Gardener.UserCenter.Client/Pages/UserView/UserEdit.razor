@@ -43,7 +43,9 @@
                 @bind-Value="@model.PositionId"
                 ValueName="@nameof(PositionDto.Id)"
                 LabelName="@nameof(PositionDto.Name)"
-                OnSelectedItemChanged="OnSelectedItemChangedHandler">
+                OnSelectedItemChanged="OnSelectedItemChangedHandler"
+                AllowClear
+        >
         </Select>
     </FormItem>
     <FormItem Label="用户名">

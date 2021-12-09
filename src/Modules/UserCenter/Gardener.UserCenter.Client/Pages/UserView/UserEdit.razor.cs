@@ -36,6 +36,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 {
                     _editModel.DeptId = int.Parse(value);
                 }
+                else 
+                {
+                    _editModel.DeptId = null;
+                }
             }
         }
 
