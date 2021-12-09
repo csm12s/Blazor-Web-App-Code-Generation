@@ -87,12 +87,17 @@ namespace Gardener.Authentication.Core
             Identity identity = ReadToken(oldRefreshToken);
             IRepository<LoginToken> repository= Db.GetRepository<LoginToken>();
 
-            LoginToken refreshToken = repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.LoginId.Equals(identity.LoginId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
+            LoginToken refreshToken = repository.AsQueryable(false).Where(x =>
+            x.IsDeleted == false
+            && x.IsLocked == false 
+            && x.IdentityId.Equals(identity.Id) 
+            && x.IdentityType.Equals(identity.IdentityType)
+            && x.LoginId.Equals(identity.LoginId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
             //异常token检测
             if (refreshToken == null || refreshToken.Value != oldRefreshToken || refreshToken.EndTime <= DateTimeOffset.UtcNow)
             {
-                //过期token删除
-                if (refreshToken != null && refreshToken.EndTime <= DateTime.UtcNow)
+                //token删除
+                if (refreshToken != null)
                 {
                     await repository.FakeDeleteByKeyAsync(refreshToken.Id);
                 }
