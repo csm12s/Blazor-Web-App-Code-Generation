@@ -1,22 +1,59 @@
 ﻿@page "/user_center/user"
 @inherits TableBase<UserDto, int, UserEdit>
-
 <div>
     <Row>
         <AntDesign.Col Span="4">
             <Spin Spinning="_deptTreeIsLoading">
-                <Tree @ref="_deptTree"
-                      ShowLine
-                      DataSource="depts"
-                      Multiple="false"
-                      TitleExpression="x => x.DataItem.Name"
-                      ChildrenExpression="x => x.DataItem.Children?.ToList()"
-                      KeyExpression="x => x.DataItem.Id.ToString()"
-                      IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
-                      SelectedKeyChanged="SelectedKeyChanged"
-                      DefaultExpandAll="true"
-                      TItem="DeptDto" Style="min-height:500px;">
-                </Tree>
+                <Row Style="margin-bottom:2px;">
+                    <Col Span="24">
+                        <Space>
+                            <SpaceItem>
+                                <Tooltip Placement="@Placement.Top" Title="@localizer["刷新"]">
+                                 <Button 
+                                    Type="@ButtonType.Default"
+                                    Size="small"
+                                    Icon="reload"
+                                    OnClick="ReLoadDepts" />
+                                </Tooltip>
+                            </SpaceItem>
+                        <SpaceItem>
+                             <Tooltip Placement="@Placement.Top" Title="@localizer["展开"]">
+                                <Button 
+                                    Type="@ButtonType.Default"
+                                    Icon="down"
+                                    Size="small"
+                                    OnClick="_=>{_deptTree.ExpandAll();}" />
+                             </Tooltip>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Tooltip Placement="@Placement.Top" Title="@localizer["收起"]">
+                                <Button 
+                                    Type="@ButtonType.Default"
+                                    Icon="up"
+                                    Size="small"
+                                    OnClick="_=>{_deptTree.CollapseAll();}" />
+                            </Tooltip>
+                        </SpaceItem>
+                        </Space>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col Span="24">
+                        <Tree @ref="_deptTree"
+                          ShowLine
+                          DataSource="depts"
+                          Multiple="false"
+                          TitleExpression="x => x.DataItem.Name"
+                          ChildrenExpression="x => x.DataItem.Children?.ToList()"
+                          KeyExpression="x => x.DataItem.Id.ToString()"
+                          IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
+                          SelectedKeyChanged="SelectedKeyChanged"
+                          DefaultExpandAll="true"
+                          TItem="DeptDto" Style="min-height:500px;">
+                    </Tree>
+                    </Col>
+                </Row>
+                
             </Spin>
         </AntDesign.Col>
         <AntDesign.Col Span="1">

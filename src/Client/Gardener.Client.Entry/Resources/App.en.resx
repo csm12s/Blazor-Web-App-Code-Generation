@@ -194,6 +194,9 @@
     <value>Audit operation</value>
     <comment>菜单</comment>
   </data>
+  <data name="收起" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
   <data name="数据审计" xml:space="preserve">
     <value>Audit entity</value>
     <comment>菜单</comment>
@@ -261,7 +264,7 @@
     <comment>菜单</comment>
   </data>
   <data name="解锁" xml:space="preserve">
-    <value>unlock</value>
+    <value>Unlock</value>
   </data>
   <data name="设置角色" xml:space="preserve">
     <value>Setting roles</value>

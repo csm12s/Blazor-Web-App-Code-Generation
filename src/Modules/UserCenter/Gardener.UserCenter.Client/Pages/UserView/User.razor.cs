@@ -13,6 +13,7 @@ using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Gardener.Client.Base.Components;
 using Gardener.Base;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
@@ -29,6 +30,14 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
+        {
+            await ReLoadDepts(null);
+        }
+        /// <summary>
+        /// 重载部门信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task ReLoadDepts(MouseEventArgs eventArgs)
         {
             _deptTreeIsLoading = true;
             depts = await deptService.GetTree();
