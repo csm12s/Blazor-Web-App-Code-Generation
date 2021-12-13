@@ -70,7 +70,7 @@ namespace Gardener.Email.Client.Pages
             {
                 if (templateDto.Example != null)
                 {
-                    _sendEmailInput.Data = templateDto.Example;
+                    _emailData = templateDto.Example;
                 }
             }
             emailServerConfigs = await emailServerConfigService.GetAllUsable();
