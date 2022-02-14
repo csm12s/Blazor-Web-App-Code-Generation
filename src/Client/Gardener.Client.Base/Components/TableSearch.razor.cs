@@ -102,6 +102,11 @@ namespace Gardener.Client.Base.Components
             {
                 foreach (TableSearchField field in _fields)
                 {
+                    
+                    if (_showFields.GetValueOrDefault(field.Name, true))
+                    {
+                        continue;
+                    }
                     field.Value = "";
                     //日期类型默认值
                     if (IsDateTimeType(field.Type))
@@ -132,13 +137,15 @@ namespace Gardener.Client.Base.Components
 
         }
 
+        private int lastFieldCount = 0;
+
         /// <summary>
         /// 筛选字段下拉选择
         /// </summary>
         /// <param name="values"></param>
-        private void OnSelectedItemsChangedHandler(IEnumerable<string> values)
+        private async void OnSelectedItemsChangedHandler(IEnumerable<string> values)
         {
-
+            bool increase = values.Count() > lastFieldCount;
             foreach (var item in _showFields)
             {
                 if (values != null && values.Any(x => x.Equals(item.Key)))
@@ -149,6 +156,12 @@ namespace Gardener.Client.Base.Components
                 {
                     _showFields[item.Key] = false;
                 }
+            }
+            lastFieldCount = values.Count();
+            if (!increase) 
+            {
+                ResetSearchFieldValue();
+                await OnSearchClick();
             }
         }
         /// <summary>
@@ -169,78 +182,78 @@ namespace Gardener.Client.Base.Components
             if (_selectedValues != null)
             {
                 foreach (string value in _selectedValues)
-            {
-                FilterGroup filterGroup = new FilterGroup();
-                var field = _fields.FirstOrDefault(f => f.Name.Equals(value));
-
-                if (IsDateTimeType(field.Type))
                 {
-                    //日期
-                    if (field.Values.Count() > 1 && !string.IsNullOrEmpty(field.Values.First()))
-                    {
-                        FilterRule ruleBegin = new FilterRule();
-                        ruleBegin.Field = field.Name;
-                        ruleBegin.Value = DateTime.Parse(field.Values.First());
-                        ruleBegin.Operate = FilterOperate.GreaterOrEqual;
-                        filterGroup.AddRule(ruleBegin);
-                    }
+                    FilterGroup filterGroup = new FilterGroup();
+                    var field = _fields.FirstOrDefault(f => f.Name.Equals(value));
 
-                    if (field.Values.Count() > 2 && !string.IsNullOrEmpty(field.Values.Last()))
+                    if (IsDateTimeType(field.Type))
                     {
-                        FilterRule ruleEnd = new FilterRule();
-                        ruleEnd.Field = field.Name;
-                        ruleEnd.Value = DateTime.Parse(field.Values.Last());
-                        ruleEnd.Operate = FilterOperate.LessOrEqual;
-                        filterGroup.AddRule(ruleEnd);
-                    }
-
-                }
-                else if (field.Multiple)
-                {
-                    //多值
-                    if (!field.Values.Any())
-                    {
-                        continue;
-                    }
-
-                    if (field.Type.IsEnum || field.Type.Equals(typeof(bool)))
-                    {
-                        foreach (string valueTemp in field.Values)
+                        //日期
+                        if (field.Values.Count() > 1 && !string.IsNullOrEmpty(field.Values.First()))
                         {
-                            FilterRule rule = new FilterRule();
-                            rule.Field = field.Name;
-                            rule.Value = valueTemp.CastTo(field.Type);
-                            rule.Operate = FilterOperate.Equal;
-                            rule.Condition = FilterCondition.Or;
-                            filterGroup.AddRule(rule);
+                            FilterRule ruleBegin = new FilterRule();
+                            ruleBegin.Field = field.Name;
+                            ruleBegin.Value = DateTime.Parse(field.Values.First());
+                            ruleBegin.Operate = FilterOperate.GreaterOrEqual;
+                            filterGroup.AddRule(ruleBegin);
                         }
+
+                        if (field.Values.Count() > 2 && !string.IsNullOrEmpty(field.Values.Last()))
+                        {
+                            FilterRule ruleEnd = new FilterRule();
+                            ruleEnd.Field = field.Name;
+                            ruleEnd.Value = DateTime.Parse(field.Values.Last());
+                            ruleEnd.Operate = FilterOperate.LessOrEqual;
+                            filterGroup.AddRule(ruleEnd);
+                        }
+
+                    }
+                    else if (field.Multiple)
+                    {
+                        //多值
+                        if (!field.Values.Any())
+                        {
+                            continue;
+                        }
+
+                        if (field.Type.IsEnum || field.Type.Equals(typeof(bool)))
+                        {
+                            foreach (string valueTemp in field.Values)
+                            {
+                                FilterRule rule = new FilterRule();
+                                rule.Field = field.Name;
+                                rule.Value = valueTemp.CastTo(field.Type);
+                                rule.Operate = FilterOperate.Equal;
+                                rule.Condition = FilterCondition.Or;
+                                filterGroup.AddRule(rule);
+                            }
                         
-                    }
+                        }
                    
-                }
-                else
-                {
-                    //单值
-                    FilterRule rule = new FilterRule();
-                    rule.Field = field.Name;
-                    if (string.IsNullOrEmpty(field.Value))
-                    {
-                        continue;
-                    }
-                    rule.Value = field.Value.CastTo(field.Type);
-                    if (field.Type.Equals(typeof(string)))
-                    {
-                        rule.Operate = FilterOperate.Contains;
                     }
                     else
                     {
-                        rule.Operate = FilterOperate.Equal;
+                        //单值
+                        FilterRule rule = new FilterRule();
+                        rule.Field = field.Name;
+                        if (string.IsNullOrEmpty(field.Value))
+                        {
+                            continue;
+                        }
+                        rule.Value = field.Value.CastTo(field.Type);
+                        if (field.Type.Equals(typeof(string)))
+                        {
+                            rule.Operate = FilterOperate.Contains;
+                        }
+                        else
+                        {
+                            rule.Operate = FilterOperate.Equal;
+                        }
+                        filterGroup.AddRule(rule);
                     }
-                    filterGroup.AddRule(rule);
-                }
 
-                filterGroups.Add(filterGroup);
-            }
+                    filterGroups.Add(filterGroup);
+                }
             }
 
             await OnSearch.InvokeAsync(filterGroups);
