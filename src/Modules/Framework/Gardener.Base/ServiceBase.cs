@@ -30,18 +30,19 @@ namespace Gardener
     /// <typeparam name="TEntity">数据实体类型</typeparam>
     /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
     /// <typeparam name="TKey">数据实体主键类型</typeparam>
-    public abstract class ServiceBase<TEntity, TEntityDto, TKey> : IDynamicApiController, IServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    /// <typeparam name="TDbContextLocator">数据库上下文定位器</typeparam>
+    public abstract class ServiceBase<TEntity, TEntityDto, TKey, TDbContextLocator> : IDynamicApiController, IServiceBase<TEntityDto, TKey> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new() where TDbContextLocator : class, IDbContextLocator
     {
         /// <summary>
         /// TEntity Repository
         /// </summary>
-        public readonly IRepository<TEntity> _repository;
+        public readonly IRepository<TEntity, TDbContextLocator> _repository;
         /// <summary>
         /// 继承此类即可实现基础方法
         /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ServiceBase(IRepository<TEntity> repository)
+        protected ServiceBase(IRepository<TEntity, TDbContextLocator> repository)
         {
             _repository = repository;
         }
@@ -290,14 +291,14 @@ namespace Gardener
     /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
     /// <typeparam name="TEntity">数据实体类型</typeparam>
-    public abstract class ServiceBase<TEntity> : ServiceBase<TEntity, TEntity, int> where TEntity : class, IPrivateEntity, new()
+    public abstract class ServiceBase<TEntity> : ServiceBase<TEntity, TEntity, int, MasterDbContextLocator> where TEntity : class, IPrivateEntity, new()
     {
         /// <summary>
         /// 继承此类即可实现基础方法
         /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
+        protected ServiceBase(IRepository<TEntity, MasterDbContextLocator> repository) : base(repository)
         {
         }
     }
@@ -308,15 +309,35 @@ namespace Gardener
     /// </summary>
     /// <typeparam name="TEntity">数据实体类型</typeparam>
     /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
-    public abstract class ServiceBase<TEntity, TEntityDto> : ServiceBase<TEntity, TEntityDto, int> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    public abstract class ServiceBase<TEntity, TEntityDto> : ServiceBase<TEntity, TEntityDto, int, MasterDbContextLocator> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
     {
         /// <summary>
         /// 继承此类即可实现基础方法
         /// 方法包括：CURD、获取全部、分页获取 
         /// </summary>
         /// <param name="repository"></param>
-        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
+        protected ServiceBase(IRepository<TEntity, MasterDbContextLocator> repository) : base(repository)
         {
         }
     }
+
+    /// <summary>
+    /// 继承此类即可实现基础方法
+    /// 方法包括：CURD、获取全部、分页获取 
+    /// </summary>
+    /// <typeparam name="TEntity">数据实体类型</typeparam>
+    /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+    /// <typeparam name="TKey">数据实体主键</typeparam>
+    public abstract class ServiceBase<TEntity, TEntityDto, TKey> : ServiceBase<TEntity, TEntityDto, TKey, MasterDbContextLocator> where TEntity : class, IPrivateEntity, new() where TEntityDto : class, new()
+    {
+        /// <summary>
+        /// 继承此类即可实现基础方法
+        /// 方法包括：CURD、获取全部、分页获取 
+        /// </summary>
+        /// <param name="repository"></param>
+        protected ServiceBase(IRepository<TEntity, MasterDbContextLocator> repository) : base(repository)
+        {
+        }
+    }
+
 }
