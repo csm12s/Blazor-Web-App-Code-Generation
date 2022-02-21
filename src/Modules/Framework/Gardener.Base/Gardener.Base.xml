@@ -62,12 +62,33 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteAsync``2(Furion.DatabaseAccessor.IRepository{``0,``1},``0)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TDbContextLocator"></typeparam>
+            <param name="repository"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteByKeyAsync``2(Furion.DatabaseAccessor.IRepository{``0},``1)">
             <summary>
             逻辑删除
             </summary>
             <typeparam name="TEntity"></typeparam>
             <typeparam name="TKey"></typeparam>
+            <param name="repository"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteByKeyAsync``3(Furion.DatabaseAccessor.IRepository{``0,``2},``1)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TDbContextLocator"></typeparam>
             <param name="repository"></param>
             <param name="id"></param>
             <returns></returns>
@@ -289,7 +310,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Gardener.ServiceBase`3">
+        <member name="T:Gardener.ServiceBase`4">
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
@@ -297,20 +318,21 @@
             <typeparam name="TEntity">数据实体类型</typeparam>
             <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
             <typeparam name="TKey">数据实体主键类型</typeparam>
+            <typeparam name="TDbContextLocator">数据库上下文定位器</typeparam>
         </member>
-        <member name="F:Gardener.ServiceBase`3._repository">
+        <member name="F:Gardener.ServiceBase`4._repository">
             <summary>
             TEntity Repository
             </summary>
         </member>
-        <member name="M:Gardener.ServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+        <member name="M:Gardener.ServiceBase`4.#ctor(Furion.DatabaseAccessor.IRepository{`0,`3})">
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
             </summary>
             <param name="repository"></param>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Insert(`1)">
+        <member name="M:Gardener.ServiceBase`4.Insert(`1)">
             <summary>
             添加
             </summary>
@@ -320,7 +342,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Update(`1)">
+        <member name="M:Gardener.ServiceBase`4.Update(`1)">
             <summary>
             更新
             </summary>
@@ -330,7 +352,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Delete(`2)">
+        <member name="M:Gardener.ServiceBase`4.Delete(`2)">
             <summary>
             删除
             </summary>
@@ -340,7 +362,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Deletes(`2[])">
+        <member name="M:Gardener.ServiceBase`4.Deletes(`2[])">
             <summary>
             批量删除
             </summary>
@@ -350,7 +372,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.FakeDelete(`2)">
+        <member name="M:Gardener.ServiceBase`4.FakeDelete(`2)">
             <summary>
             逻辑删除
             </summary>
@@ -360,7 +382,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.FakeDeletes(`2[])">
+        <member name="M:Gardener.ServiceBase`4.FakeDeletes(`2[])">
             <summary>
             批量逻辑删除
             </summary>
@@ -370,7 +392,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Get(`2)">
+        <member name="M:Gardener.ServiceBase`4.Get(`2)">
             <summary>
             根据主键获取
             </summary>
@@ -380,7 +402,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.GetAll">
+        <member name="M:Gardener.ServiceBase`4.GetAll">
             <summary>
             查询所有
             </summary>
@@ -389,7 +411,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.GetAllUsable">
+        <member name="M:Gardener.ServiceBase`4.GetAllUsable">
             <summary>
             查询所有可以用的
             </summary>
@@ -398,7 +420,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.GetPage(System.Int32,System.Int32)">
+        <member name="M:Gardener.ServiceBase`4.GetPage(System.Int32,System.Int32)">
             <summary>
             分页查询
             </summary>
@@ -409,7 +431,7 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Lock(`2,System.Boolean)">
+        <member name="M:Gardener.ServiceBase`4.Lock(`2,System.Boolean)">
             <summary>
             锁定
             </summary>
@@ -420,7 +442,7 @@
             <param name="isLocked"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.ServiceBase`3.Search(Gardener.Base.PageRequest)">
+        <member name="M:Gardener.ServiceBase`4.Search(Gardener.Base.PageRequest)">
             <summary>
             搜索
             </summary>
@@ -437,7 +459,7 @@
             </summary>
             <typeparam name="TEntity">数据实体类型</typeparam>
         </member>
-        <member name="M:Gardener.ServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+        <member name="M:Gardener.ServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0,Furion.DatabaseAccessor.MasterDbContextLocator})">
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
@@ -452,7 +474,23 @@
             <typeparam name="TEntity">数据实体类型</typeparam>
             <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
         </member>
-        <member name="M:Gardener.ServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+        <member name="M:Gardener.ServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0,Furion.DatabaseAccessor.MasterDbContextLocator})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="T:Gardener.ServiceBase`3">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <typeparam name="TEntity">数据实体类型</typeparam>
+            <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
+            <typeparam name="TKey">数据实体主键</typeparam>
+        </member>
+        <member name="M:Gardener.ServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0,Furion.DatabaseAccessor.MasterDbContextLocator})">
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
