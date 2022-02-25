@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_email_template_refresh">
-                <TableSearch TDto="EmailTemplateDto" OnSearch="OnSearch"></TableSearch>
+                <TableSearch TDto="EmailTemplateDto" OnSearchFieldChanged="SetOtherFilterGroups" OnSearch="ReLoadTable" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

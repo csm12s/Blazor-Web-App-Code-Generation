@@ -21,8 +21,6 @@ namespace Gardener.Client.Base
 
         public IEnumerable<string> Values { get; set; }
 
-        public bool IsSearchable { get; set; }
-
         public bool Multiple { get; set; }
     }
 }

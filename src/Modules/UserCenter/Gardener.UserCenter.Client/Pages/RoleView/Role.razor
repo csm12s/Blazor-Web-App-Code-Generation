@@ -14,7 +14,7 @@
            RemoteDataSource>
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="user_center_role_refresh">
-                <TableSearch TDto="RoleDto" OnSearch="OnSearch"></TableSearch>
+                <TableSearch TDto="RoleDto" OnSearchFieldChanged="SetOtherFilterGroups" OnSearch="ReLoadTable" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

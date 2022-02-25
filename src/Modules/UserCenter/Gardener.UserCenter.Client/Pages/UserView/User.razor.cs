@@ -32,6 +32,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         protected override async Task OnInitializedAsync()
         {
             await ReLoadDepts(null);
+            await base.OnInitializedAsync();
         }
         /// <summary>
         /// 重载部门信息

@@ -73,7 +73,7 @@
                    Size=@TableSize.Small>
                 <TitleTemplate>
                     <ResourceAuthorize ResourceKey="user_center_user_refresh">
-                        <TableSearch TDto="UserDto" OnSearch="OnSearch"></TableSearch>
+                        <TableSearch TDto="UserDto" OnSearchFieldChanged="SetOtherFilterGroups" OnSearch="ReLoadTable" DefaultValue="_defaultSearchValue"></TableSearch>
                     </ResourceAuthorize>
                     <Row>
                         <AntDesign.Col Span="8">

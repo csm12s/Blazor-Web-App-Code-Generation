@@ -26,7 +26,7 @@
 			string style=$"margin-right:8px;margin-bottom:2px;width:100px";
 			string begin=localizer["开始"];
 			string end=localizer["结束"];
-			foreach (TableSearchField fieldInfo in _fields)
+			foreach (TableSearchField fieldInfo in _currentFields)
 			{ 
 				string placeholder=fieldInfo.DisplayName;
 				string boStyle = "float:left;" + (_showFields[fieldInfo.Name] ? "" : "display:none;");
@@ -63,19 +63,19 @@
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
 				{
-					fieldInfo.Multiple=true;
+					DateTime tempBeginTime=DateTime.Parse(fieldInfo.Values.First());
+					DateTime tempEndTime=DateTime.Parse(fieldInfo.Values.Last());
 					<RangePicker Style="margin-left:5px;" 
 					TValue="DateTime?[]" 
 					ShowTime="@ShowTime" 
 					Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}" 
 					OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
-					DefaultValue="new DateTime?[] { BeginTime, EndTime}"
+					DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
 					OnClearClick="()=>{fieldInfo.Values=new string[0];}"
 					/>
-						}
-						else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
-						{
-							fieldInfo.Multiple=true;
+				}
+				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
+				{
 							<Select 
 								Mode="multiple"
 								Placeholder="@placeholder"
@@ -85,6 +85,8 @@
 								Style="@style"
 								AllowClear
 								OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+								DefaultValues="fieldInfo.Values"
+								Values="fieldInfo.Values"
 							>
 						<SelectOptions>
 							<SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer["是"]" />
@@ -94,7 +96,6 @@
 				}
 				else if (fieldInfo.Type.IsEnum) 
 				{ 
-					fieldInfo.Multiple=true;
 					<Select Mode="multiple"
 						Placeholder="@placeholder"
 						Style="@style"

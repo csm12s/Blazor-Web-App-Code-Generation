@@ -9,6 +9,9 @@ using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Client.Base.Model;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +33,11 @@ namespace Gardener.Client.Base.Components
         protected bool _deletesBtnLoading = false;
         protected PageRequest pageRequest = new PageRequest();
         protected List<FilterGroup> _searchFilterGroups =new List<FilterGroup>();
+        /// <summary>
+        /// 默认搜索值
+        /// </summary>
+        protected Dictionary<string, object> _defaultSearchValue = new Dictionary<string, object>();
+
         [Inject]
         protected IServiceBase<TDto, TKey> _service { get; set; }
         [Inject]
@@ -40,6 +48,8 @@ namespace Gardener.Client.Base.Components
         protected DrawerService drawerService { get; set; }
         [Inject]
         protected IClientLocalizer localizer { get; set; }
+        [Inject]
+        public NavigationManager navigation { get; set; }
         /// <summary>
         /// 配置
         /// </summary>
@@ -56,6 +66,7 @@ namespace Gardener.Client.Base.Components
         protected override async Task OnInitializedAsync()
         {
             _tableIsLoading = true;
+            await base.OnInitializedAsync();
         }
         /// <summary>
         /// 组件渲染后
@@ -71,6 +82,26 @@ namespace Gardener.Client.Base.Components
                 await ReLoadTable();
                 await InvokeAsync(StateHasChanged);
             }
+            await base.OnAfterRenderAsync(firstRender);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnParametersSetAsync()
+        {
+            var url = new Uri(navigation.Uri);
+            var query = url.Query;
+            Dictionary<string, StringValues> urlParams= QueryHelpers.ParseQuery(query);
+            if (urlParams != null && urlParams.Count() > 0)
+            {
+                urlParams.ForEach(x => 
+                {
+                    _defaultSearchValue.Add(x.Key,x.Value.ToString());
+                });
+            }
+
+            await base.OnParametersSetAsync();
         }
 
         /// <summary>
@@ -92,7 +123,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="firstPage">是否从首页加载</param>
         /// <returns></returns>
-        protected virtual async Task ReLoadTable(bool firstPage)
+        protected virtual async Task ReLoadTable(bool firstPage=true)
         {
             _tableIsLoading = true;
             pageRequest = _table?.GetPageRequest() ?? new PageRequest();
@@ -214,14 +245,13 @@ namespace Gardener.Client.Base.Components
             }
         }
         /// <summary>
-        /// 搜索
+        /// 设置其他过滤信息
         /// </summary>
         /// <param name="searchValues"></param>
         /// <returns></returns>
-        protected virtual async Task OnSearch(List<FilterGroup> filterGroups)
+        protected virtual async Task SetOtherFilterGroups(List<FilterGroup> filterGroups)
         {
             _searchFilterGroups = filterGroups;
-            await ReLoadTable(true);
         }
     }
     /// <summary>

@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_login_token_refresh">
-                <TableSearch TDto="LoginTokenDto" OnSearch="OnSearch"></TableSearch>
+                <TableSearch TDto="LoginTokenDto" OnSearchFieldChanged="SetOtherFilterGroups" OnSearch="ReLoadTable" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
