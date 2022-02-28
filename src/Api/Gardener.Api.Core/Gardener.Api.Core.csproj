@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="3.0.5" />
+    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="3.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
   </ItemGroup>
   <ItemGroup>
