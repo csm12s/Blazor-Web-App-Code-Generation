@@ -115,7 +115,7 @@ namespace Gardener.Admin
                 ErrorCode = errorCode,
                 Errors = errors,
                 Extras = UnifyContext.Take(),
-                Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
             };
             if (succeeded)
             {
@@ -127,7 +127,7 @@ namespace Gardener.Admin
                     ErrorCode = errorCode,
                     Errors = errors,
                     Extras = UnifyContext.Take(),
-                    Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                    Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
                 };
             }
             return result;

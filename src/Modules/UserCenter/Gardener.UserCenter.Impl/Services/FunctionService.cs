@@ -114,7 +114,7 @@ namespace Gardener.UserCenter.Impl.Services
                 sb.Append($"{nameof(Function.Description)}=\"{item.Description}\",");
                 sb.Append($"{nameof(Function.Path)}=\"{item.Path}\",");
                 sb.Append($"{nameof(Function.Method)}=({nameof(HttpMethod)}){(int)item.Method},");
-                sb.Append($"{nameof(Function.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.UtcNow.ToUnixTimeSeconds()})");
+                sb.Append($"{nameof(Function.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.Now.ToUnixTimeSeconds()})");
                 sb.Append("},");
             }
             return sb.ToString().TrimEnd(',');

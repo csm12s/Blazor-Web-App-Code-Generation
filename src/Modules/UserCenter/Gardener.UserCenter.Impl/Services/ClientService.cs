@@ -75,7 +75,7 @@ namespace Gardener.UserCenter.Impl.Services
         [AllowAnonymous, IgnoreAudit]
         public async Task<TokenOutput> Login(ClientLoginInput input)
         {
-            long currentTimespan = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            long currentTimespan = DateTimeOffset.Now.ToUnixTimeSeconds();
 
             //校验时间戳
             if (input.Timespan <= 0 || input.Timespan > currentTimespan || input.Timespan < (currentTimespan - 120)) 

@@ -64,5 +64,11 @@ namespace Gardener.Authentication.Dtos
         /// </summary>
         [DisplayName("过期时间")]
         public DateTimeOffset EndTime { get; set; }
+
+        /// <summary>
+        /// 访问IP
+        /// </summary>
+        [DisplayName("IP")]
+        public string Ip { get; set; }
     }
 }

@@ -219,6 +219,7 @@ namespace Gardener.Api.Core.Migrations
                     LoginClientType = table.Column<int>(type: "INTEGER", nullable: false),
                     Value = table.Column<string>(type: "TEXT", nullable: true),
                     EndTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    Ip = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),

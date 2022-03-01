@@ -51,6 +51,7 @@
             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters">
                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagRandomColor>
             </Column>
+            <Column @bind-Field="@model.Ip" Filterable />
             <Column @bind-Field="@model.IsLocked" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_login_token_lock">
                     <Authorized>

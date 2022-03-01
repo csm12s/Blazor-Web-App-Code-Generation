@@ -81,7 +81,7 @@ namespace Gardener.UserCenter.Impl.Services
                 sb.Append("{");
                 sb.Append($"{nameof(ResourceFunction.ResourceId)} = Guid.Parse(\"{item.ResourceId}\"),");
                 sb.Append($"{nameof(ResourceFunction.FunctionId)} = Guid.Parse(\"{item.FunctionId}\"),");
-                sb.Append($"{nameof(ResourceFunction.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.UtcNow.ToUnixTimeSeconds()})");
+                sb.Append($"{nameof(ResourceFunction.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.Now.ToUnixTimeSeconds()})");
                 sb.Append("},");
             }
             return sb.ToString().TrimEnd(',');

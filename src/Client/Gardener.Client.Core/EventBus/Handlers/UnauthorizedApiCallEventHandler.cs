@@ -28,7 +28,7 @@ namespace Gardener.Client.Core.EventBus.Handlers
         {
             if (e.HttpStatusCode.Equals(HttpStatusCode.Unauthorized)) 
             {
-                await authenticationStateManager.ReloadCurrentUserInfos();
+                await authenticationStateManager.RefreshToken();
             }
         }
     }

@@ -67,7 +67,7 @@ namespace Gardener.Authentication.Options
         public double RefreshExpireMins { get; set; }
 
         /// <summary>
-        /// 获取或设置 RefreshToken是否绝对过期
+        /// 获取或设置 RefreshToken是否绝对过期,绝对过期的刷新token在{RefreshExpireMins}分钟后需要重新登录
         /// </summary>
         public bool IsRefreshAbsoluteExpired { get; set; } = true;
     }

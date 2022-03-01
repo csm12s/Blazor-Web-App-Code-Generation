@@ -31,5 +31,10 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <returns></returns>
         Task<Dictionary<string, string>> GetCurrentTokenHeaders();
+        /// <summary>
+        /// 刷新token
+        /// </summary>
+        /// <returns></returns>
+        Task RefreshToken();
     }
 }

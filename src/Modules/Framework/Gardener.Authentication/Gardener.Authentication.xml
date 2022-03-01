@@ -128,12 +128,13 @@
             <param name="identityType"></param>
             <returns></returns>
         </member>
-        <member name="M:Gardener.Authentication.Core.JwtBearerService.CreateToken(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},Gardener.Authentication.Options.JWTSettingsOptions)">
+        <member name="M:Gardener.Authentication.Core.JwtBearerService.CreateToken(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},Gardener.Authentication.Options.JWTSettingsOptions,Gardener.Authentication.Enums.JwtTokenType)">
             <summary>
             创建
             </summary>
             <param name="claims"></param>
             <param name="jwtOpt"></param>
+            <param name="jwtTokenType"></param>
             <returns></returns>
         </member>
         <member name="M:Gardener.Authentication.Core.JwtBearerService.ReadToken(System.String)">
@@ -186,6 +187,11 @@
         <member name="P:Gardener.Authentication.Domains.LoginToken.EndTime">
             <summary>
             获取或设置 过期时间
+            </summary>
+        </member>
+        <member name="P:Gardener.Authentication.Domains.LoginToken.Ip">
+            <summary>
+            访问IP
             </summary>
         </member>
         <member name="T:Gardener.Authentication.Options.JWTOptions">
@@ -260,7 +266,7 @@
         </member>
         <member name="P:Gardener.Authentication.Options.JWTSettingsOptions.IsRefreshAbsoluteExpired">
             <summary>
-            获取或设置 RefreshToken是否绝对过期
+            获取或设置 RefreshToken是否绝对过期,绝对过期的刷新token在{RefreshExpireMins}分钟后需要重新登录
             </summary>
         </member>
         <member name="T:Gardener.Authentication.Services.LoginTokenService">

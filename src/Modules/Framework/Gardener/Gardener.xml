@@ -462,6 +462,11 @@
             获取或设置 过期时间
             </summary>
         </member>
+        <member name="P:Gardener.Authentication.Dtos.LoginTokenDto.Ip">
+            <summary>
+            访问IP
+            </summary>
+        </member>
         <member name="T:Gardener.Authentication.Enums.IdentityType">
             <summary>
             身份类型

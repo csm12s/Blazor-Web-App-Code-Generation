@@ -62,7 +62,26 @@
             <param name="entity"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteNowAsync``1(Furion.DatabaseAccessor.IRepository{``0},``0)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="repository"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteAsync``2(Furion.DatabaseAccessor.IRepository{``0,``1},``0)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TDbContextLocator"></typeparam>
+            <param name="repository"></param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteNowAsync``2(Furion.DatabaseAccessor.IRepository{``0,``1},``0)">
             <summary>
             逻辑删除
             </summary>
@@ -82,7 +101,28 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteNowByKeyAsync``2(Furion.DatabaseAccessor.IRepository{``0},``1)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="repository"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteByKeyAsync``3(Furion.DatabaseAccessor.IRepository{``0,``2},``1)">
+            <summary>
+            逻辑删除
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TDbContextLocator"></typeparam>
+            <param name="repository"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gardener.Base.RepositoryExtensions.FakeDeleteNowByKeyAsync``3(Furion.DatabaseAccessor.IRepository{``0,``2},``1)">
             <summary>
             逻辑删除
             </summary>

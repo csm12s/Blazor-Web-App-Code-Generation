@@ -51,10 +51,4 @@
 	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="gardener.db">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
 </Project>

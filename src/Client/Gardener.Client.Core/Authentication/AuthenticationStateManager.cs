@@ -64,17 +64,29 @@ namespace Gardener.Client.Core
         /// <param name="state"></param>
         private async void TimerCallback(object state)
         {
-            if (navigationManager.Uri.IndexOf("/auth/login") > 0) 
+            //刷新token
+            await RefreshToken();
+        }
+        #endregion
+
+        /// <summary>
+        /// 刷新token
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public async Task RefreshToken()
+        {
+            if (navigationManager.Uri.IndexOf("/auth/login") > 0)
             {
                 return;
             }
-            TokenOutput currentToken =await GetCurrentToken();
+            TokenOutput currentToken = await GetCurrentToken();
             //未登录
-            if (currentToken == null) return;
+            if (currentToken == null) { await CleanUserInfo(); return; }
             //RefreshToken已经过期了
-            if (currentToken.RefreshTokenExpires < DateTimeOffset.Now.ToUnixTimeSeconds()) { await Logout(); return; }
+            if (currentToken.RefreshTokenExpires < DateTimeOffset.Now.ToUnixTimeSeconds()) { await CleanUserInfo(); return; }
             //AccessToken时间还很充裕
-            if (currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold) return;
+            if (currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold) { return; }
             //拿到新的token
             var tokenResult = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
@@ -85,11 +97,9 @@ namespace Gardener.Client.Core
             }
             else
             {
-                //失败时退出登录
-                //await Logout();
+                await CleanUserInfo();
             }
         }
-        #endregion
 
         /// <summary>
         /// 登陆

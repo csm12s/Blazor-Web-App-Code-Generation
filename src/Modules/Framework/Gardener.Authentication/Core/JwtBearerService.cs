@@ -23,6 +23,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Furion;
+using Microsoft.AspNetCore.Http;
 
 namespace Gardener.Authentication.Core
 {
@@ -66,7 +68,9 @@ namespace Gardener.Authentication.Core
                 LoginClientType = identity.LoginClientType,
                 Value = refreshToken,
                 EndTime = refreshTokenExpires,
-                CreatedTime = DateTimeOffset.UtcNow
+                CreatedTime = DateTimeOffset.Now,
+                Ip=App.HttpContext?.GetRemoteIpAddressToIPv4()
+
             });
             return new JsonWebToken()
             {
@@ -87,23 +91,43 @@ namespace Gardener.Authentication.Core
             Identity identity = ReadToken(oldRefreshToken);
             IRepository<LoginToken> repository= Db.GetRepository<LoginToken>();
 
-            LoginToken refreshToken = repository.AsQueryable(false).Where(x =>
+            LoginToken loginToken = repository.AsQueryable(false).Where(x =>
             x.IsDeleted == false
             && x.IsLocked == false 
             && x.IdentityId.Equals(identity.Id) 
             && x.IdentityType.Equals(identity.IdentityType)
             && x.LoginId.Equals(identity.LoginId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
+            
             //异常token检测
-            if (refreshToken == null || refreshToken.Value != oldRefreshToken || refreshToken.EndTime <= DateTimeOffset.UtcNow)
+            if (loginToken == null || loginToken.Value != oldRefreshToken || loginToken.EndTime <= DateTimeOffset.Now)
             {
                 //token删除
-                if (refreshToken != null)
+                if (loginToken != null)
                 {
-                    await repository.FakeDeleteByKeyAsync(refreshToken.Id);
+                    await repository.FakeDeleteNowByKeyAsync(loginToken.Id);
                 }
                 throw Oops.Oh(ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE);
             }
-            return await CreateToken(identity);
+            var jwtOpt= GetJWTSettingsOptions(identity.IdentityType);
+            //设置非绝对过期，生成新的刷新token
+            if (!jwtOpt.IsRefreshAbsoluteExpired)
+            {
+                var (refreshToken, refreshTokenExpires) = CreateToken(identity, JwtTokenType.RefreshToken);
+                //更新刷新token
+                loginToken.Value = refreshToken;
+                loginToken.EndTime = refreshTokenExpires;
+                loginToken.UpdatedTime= DateTimeOffset.Now;
+                await repository.UpdateIncludeAsync(loginToken, new string[] { nameof(LoginToken.Value), nameof(LoginToken.EndTime), nameof(LoginToken.UpdatedTime) });
+            }
+            // New Token
+            var (accessToken, accessTokenExpires) = CreateToken(identity, JwtTokenType.AccessToken);
+            return new JsonWebToken()
+            {
+                AccessToken = accessToken,
+                AccessTokenExpires = accessTokenExpires.ToUnixTimeSeconds(),
+                RefreshToken = loginToken.Value,
+                RefreshTokenExpires = loginToken.EndTime.ToUnixTimeSeconds()
+            };
         }
 
         /// <summary>
@@ -137,7 +161,7 @@ namespace Gardener.Authentication.Core
                 new Claim(AuthKeyConstants.ClientTypeKeyName, identity.LoginClientType.ToString()),
                 new Claim(AuthKeyConstants.TokenTypeKey, jwtTokenType.ToString())
             };
-            return CreateToken(claims, GetJWTSettingsOptions(identity.IdentityType));
+            return CreateToken(claims, GetJWTSettingsOptions(identity.IdentityType), jwtTokenType);
         }
         /// <summary>
         /// 
@@ -161,19 +185,27 @@ namespace Gardener.Authentication.Core
         /// </summary>
         /// <param name="claims"></param>
         /// <param name="jwtOpt"></param>
+        /// <param name="jwtTokenType"></param>
         /// <returns></returns>
-        private (string, DateTimeOffset) CreateToken(IEnumerable<Claim> claims, JWTSettingsOptions jwtOpt)
+        private (string, DateTimeOffset) CreateToken(IEnumerable<Claim> claims, JWTSettingsOptions jwtOpt, JwtTokenType jwtTokenType)
         {
             DateTimeOffset expires;
             DateTimeOffset now = DateTimeOffset.Now;
             string issuerSigningKey = jwtOpt.IssuerSigningKey;
-
-            double minutes = jwtOpt.ExpiredTime.HasValue ? jwtOpt.ExpiredTime.Value : 5; //默认5分钟
-            expires = now.AddMinutes(minutes);
-
+           
+            if (jwtTokenType.Equals(JwtTokenType.RefreshToken))
+            {
+                expires = now.AddMinutes(jwtOpt.RefreshExpireMins);
+            }
+            else 
+            {
+                //默认5分钟
+                double minutes = jwtOpt.ExpiredTime.HasValue ? jwtOpt.ExpiredTime.Value : 5; 
+                expires = now.AddMinutes(minutes);
+            }
             SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(issuerSigningKey));
             SigningCredentials credentials = new SigningCredentials(key, jwtOpt.Algorithm);
-           SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
+            SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
                 Audience = jwtOpt.ValidAudience,
