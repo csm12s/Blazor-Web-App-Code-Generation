@@ -62,8 +62,18 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable />
             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+            <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+            <Column TData="string" Title="@(localizer["在线时长"])">
+                @if(model.UpdatedTime.HasValue)
+                {
+                    <span>@(DateTimeHelper.FormatDateTimeDiff(model.CreatedTime,model.UpdatedTime.Value))</span>
+                }
+                else
+                {
+                    <span>--</span>
+                }
+            </Column>
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
             <ActionColumn>
                 <Space>

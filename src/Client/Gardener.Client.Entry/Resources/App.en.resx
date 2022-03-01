@@ -153,6 +153,9 @@
   <data name="否" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="在线时长" xml:space="preserve">
+    <value>Online time</value>
+  </data>
   <data name="失败" xml:space="preserve">
     <value>Fail</value>
   </data>
