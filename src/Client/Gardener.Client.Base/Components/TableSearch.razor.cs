@@ -215,7 +215,7 @@ namespace Gardener.Client.Base.Components
         private async void OnSelectedItemsChangedHandler(IEnumerable<string> values)
         {
             values= values==null?new String[0]:values;
-            bool increase = values.Count() > lastFieldCount;
+            bool reduce = values.Count() < lastFieldCount;
             foreach (var item in _showFields)
             {
                 if (values != null && values.Any(x => x.Equals(item.Key)))
@@ -231,7 +231,7 @@ namespace Gardener.Client.Base.Components
             //刷新存在的搜索条件
             RefershCurrentFiled();
             //如果减少就刷新一下列表
-            if (!increase) 
+            if (reduce) 
             {
                 await OnSearchClick();
             }
