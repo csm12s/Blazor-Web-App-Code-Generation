@@ -17,6 +17,7 @@ using Gardener.Api.Core.Authorization.Subscribes;
 using Gardener.UserCenter.Impl.Core.Subscribes;
 using Gardener.VerifyCode.Core;
 using Serilog;
+using Microsoft.AspNetCore.Http;
 
 namespace Gardener.Admin
 {
@@ -99,6 +100,11 @@ namespace Gardener.Admin
             }
 
             app.UseHttpsRedirection();
+            //启用EnableBuffering 解决Request body获取不到
+            app.Use(next => context => {
+                context.Request.EnableBuffering();
+                return next(context);
+            });
 
             app.UseStaticFiles();
 

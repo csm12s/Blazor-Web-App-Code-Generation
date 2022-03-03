@@ -126,7 +126,6 @@ namespace Gardener.Audit.Core
         private async Task<string> ReadBodyAsync(HttpRequest request)
         {
             string result = string.Empty;
-            request.EnableBuffering();
             request.Body.Position = 0;
             var stream = request.Body;
             long? length = request.ContentLength;
