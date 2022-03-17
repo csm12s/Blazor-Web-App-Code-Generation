@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.FileStore\Gardener.FileStore.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.VerifyCode\Gardener.VerifyCode.csproj" />
+    <ProjectReference Include="..\..\Modules\NotificationSystem\Gardener.NotificationSystem.Impl\Gardener.NotificationSystem.Impl.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />
   </ItemGroup>
 

@@ -10,6 +10,31 @@ namespace Gardener.Api.Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Announcement",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Summary = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    Content = table.Column<string>(type: "TEXT", maxLength: 5000, nullable: true),
+                    FixTop = table.Column<bool>(type: "INTEGER", nullable: false),
+                    OpposeCount = table.Column<int>(type: "INTEGER", nullable: false),
+                    FavourCount = table.Column<int>(type: "INTEGER", nullable: false),
+                    ReplyCount = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatorId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatorIdentityType = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcement", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Attachment",
                 columns: table => new
                 {
@@ -3411,6 +3436,9 @@ namespace Gardener.Api.Core.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Announcement");
+
             migrationBuilder.DropTable(
                 name: "Attachment");
 

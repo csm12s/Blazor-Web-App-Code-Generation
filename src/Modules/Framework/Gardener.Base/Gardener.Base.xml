@@ -550,6 +550,13 @@
             </summary>
             <param name="repository"></param>
         </member>
+        <member name="M:Gardener.ServiceBase`4.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
         <member name="M:Gardener.ServiceBase`4.Insert(`1)">
             <summary>
             添加
@@ -684,6 +691,13 @@
             </summary>
             <param name="repository"></param>
         </member>
+        <member name="M:Gardener.ServiceBase`1.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
         <member name="T:Gardener.ServiceBase`2">
             <summary>
             继承此类即可实现基础方法
@@ -693,6 +707,13 @@
             <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
         </member>
         <member name="M:Gardener.ServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0,Furion.DatabaseAccessor.MasterDbContextLocator})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.ServiceBase`2.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 
@@ -709,6 +730,13 @@
             <typeparam name="TKey">数据实体主键</typeparam>
         </member>
         <member name="M:Gardener.ServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0,Furion.DatabaseAccessor.MasterDbContextLocator})">
+            <summary>
+            继承此类即可实现基础方法
+            方法包括：CURD、获取全部、分页获取 
+            </summary>
+            <param name="repository"></param>
+        </member>
+        <member name="M:Gardener.ServiceBase`3.#ctor(Furion.DatabaseAccessor.IRepository{`0})">
             <summary>
             继承此类即可实现基础方法
             方法包括：CURD、获取全部、分页获取 

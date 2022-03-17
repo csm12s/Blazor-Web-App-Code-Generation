@@ -46,6 +46,15 @@ namespace Gardener
         {
             _repository = repository;
         }
+        /// <summary>
+        /// 继承此类即可实现基础方法
+        /// 方法包括：CURD、获取全部、分页获取 
+        /// </summary>
+        /// <param name="repository"></param>
+        protected ServiceBase(IRepository<TEntity> repository)
+        {
+            _repository = (IRepository<TEntity, TDbContextLocator>)repository;
+        }
 
         /// <summary>
         /// 添加
@@ -301,6 +310,14 @@ namespace Gardener
         protected ServiceBase(IRepository<TEntity, MasterDbContextLocator> repository) : base(repository)
         {
         }
+        /// <summary>
+        /// 继承此类即可实现基础方法
+        /// 方法包括：CURD、获取全部、分页获取 
+        /// </summary>
+        /// <param name="repository"></param>
+        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
+        {
+        }
     }
    
     /// <summary>
@@ -317,6 +334,14 @@ namespace Gardener
         /// </summary>
         /// <param name="repository"></param>
         protected ServiceBase(IRepository<TEntity, MasterDbContextLocator> repository) : base(repository)
+        {
+        }
+        /// <summary>
+        /// 继承此类即可实现基础方法
+        /// 方法包括：CURD、获取全部、分页获取 
+        /// </summary>
+        /// <param name="repository"></param>
+        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
         {
         }
     }
@@ -336,6 +361,14 @@ namespace Gardener
         /// </summary>
         /// <param name="repository"></param>
         protected ServiceBase(IRepository<TEntity, MasterDbContextLocator> repository) : base(repository)
+        {
+        }
+        /// <summary>
+        /// 继承此类即可实现基础方法
+        /// 方法包括：CURD、获取全部、分页获取 
+        /// </summary>
+        /// <param name="repository"></param>
+        protected ServiceBase(IRepository<TEntity> repository) : base(repository)
         {
         }
     }

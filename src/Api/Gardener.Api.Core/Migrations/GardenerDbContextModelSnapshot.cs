@@ -482,6 +482,61 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("AuditProperty");
                 });
 
+            modelBuilder.Entity("Gardener.NotificationSystem.Impl.Domains.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FavourCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("FixTop")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OpposeCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ReplyCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcement");
+                });
+
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
                 {
                     b.Property<Guid>("Id")
