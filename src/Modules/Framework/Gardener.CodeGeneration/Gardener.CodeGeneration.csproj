@@ -2,12 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Gardener.CodeGeneration.xml</DocumentationFile>
-  </PropertyGroup>
-
+	
   <ItemGroup>
     <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
     <ProjectReference Include="..\Gardener\Gardener.csproj" />
