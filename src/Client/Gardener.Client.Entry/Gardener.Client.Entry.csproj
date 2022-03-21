@@ -5,7 +5,7 @@
     <UseBlazorWebAssembly>true</UseBlazorWebAssembly>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-	<BlazorEnableCompression>false</BlazorEnableCompression>
+	<BlazorEnableCompression>true</BlazorEnableCompression>
   </PropertyGroup>
 
 
