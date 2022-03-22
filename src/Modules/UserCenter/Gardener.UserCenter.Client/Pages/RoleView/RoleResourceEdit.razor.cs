@@ -44,7 +44,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 var resourceResult = await resourceService.GetTree();
                 if (resourceResult == null)
                 {
-                    messageService.Error("资源节点未加载到数据");
+                    messageService.Error(localizer.Combination("资源","加载", "失败"));
                     _isLoading = false;
                     return;
                 }
@@ -62,24 +62,24 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         {
             if (firstRender)
             {
+                _isLoading = true;
                 //选中已有资源
                 var roleResourceResult = await roleService.GetResource(_roleId);
-                if (roleResourceResult == null)
+                if (roleResourceResult != null && roleResourceResult.Any())
                 {
-                    messageService.Error("已分配资源加载失败");
-                    return;
-                }
-                ////回填
-                foreach (ResourceDto dto in roleResourceResult) 
-                {
-                    TreeNode<ResourceDto> node= _tree.FindFirstOrDefaultNode(node => 
+                    //回填
+                    foreach (ResourceDto dto in roleResourceResult)
                     {
-                        return dto.Id.Equals(node.DataItem.Id);
-                    }, true);
-                    if (node != null && node.IsLeaf) { node.SetChecked(true); }
+                        TreeNode<ResourceDto> node = _tree.FindFirstOrDefaultNode(node =>
+                        {
+                            return dto.Id.ToString().Equals(node.Key);
+                        }, true);
+                        if (node != null && node.IsLeaf) { node.SetChecked(true); }
+                    }
                 }
                 _isLoading = false;
             }
+            await base.OnAfterRenderAsync(firstRender);
         }
 
         /// <summary>

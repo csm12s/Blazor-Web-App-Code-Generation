@@ -8,7 +8,7 @@
                   ShowLine
                   Checkable
                   DataSource="_resources"
-                  KeyExpression="x=>x.Id.ToString()"
+                  KeyExpression="x=>x.DataItem.Id.ToString()"
                   TitleExpression="x=>GetFullName(x.DataItem)"
                   ChildrenExpression="x=>x.DataItem.Children?.ToList()"
                   IconExpression="x=>x.DataItem.Icon"

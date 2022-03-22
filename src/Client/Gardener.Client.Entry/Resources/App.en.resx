@@ -281,8 +281,11 @@
   <data name="请选择搜索字段" xml:space="preserve">
     <value>Please Select Search Field </value>
   </data>
-  <data name="资源管理" xml:space="preserve">
+  <data name="资源" xml:space="preserve">
     <value>Resource</value>
+  </data>
+  <data name="资源管理" xml:space="preserve">
+    <value>Resource manager</value>
     <comment>菜单</comment>
   </data>
   <data name="返回首页" xml:space="preserve">
