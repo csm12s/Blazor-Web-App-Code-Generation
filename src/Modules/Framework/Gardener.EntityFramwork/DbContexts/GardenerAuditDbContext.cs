@@ -15,7 +15,7 @@ namespace Gardener.EntityFramwork.DbContexts
     /// <summary>
     /// 审计数据库上下文
     /// </summary>
-    [AppDbContext("GardenerConnectionString")]
+    [AppDbContext("Default")]
     public class GardenerAuditDbContext : AppDbContext<GardenerAuditDbContext, GardenerAuditDbContextLocator>
     {
         /// <summary>

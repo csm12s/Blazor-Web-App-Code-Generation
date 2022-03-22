@@ -27,20 +27,12 @@ namespace Gardener.Admin
     [AppStartup(600)]
     public sealed class GardenerAdminStartup : AppStartup
     {
-        private static readonly string migrationAssemblyName= "Gardener.Api.Core";
         /// <summary>
         /// 
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            //业务库
-            services.AddDatabaseAccessor(options =>
-            {
-                //注入数据库上下文
-                options.AddDbPool<GardenerDbContext>(DbProvider.Sqlite);
-                options.AddDbPool<GardenerAuditDbContext,GardenerAuditDbContextLocator>(DbProvider.Sqlite);
-            }, migrationAssemblyName);
             //开启审计
             services.AddAudit();
             //开启身份认证

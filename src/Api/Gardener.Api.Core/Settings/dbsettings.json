@@ -1,8 +1,23 @@
 ﻿{
   "ConnectionStrings": {
-    "GardenerMysqlDbConnectionString": "Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
-    "GardenerSqlServerDbConnectionString": "Server=192.168.1.234;Database=gardener;User=sa;Password=admin.123456;MultipleActiveResultSets=True;",
-    "GardenerConnectionString": "Data Source=./gardener.db"
+    "Default": "Data Source=./gardener.db"
+    //MySql示例
+    //"Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
+    //SqlServer示例
+    //"Server=192.168.1.234;Database=gardener;User=sa;Password=admin.123456;MultipleActiveResultSets=True;",
+  },
+  "DefaultDbSettings": {
+    "DbProvider": "Microsoft.EntityFrameworkCore.Sqlite",
+    //可提供使用的DbProvider
+    //"Microsoft.EntityFrameworkCore.Sqlite",
+    //"Microsoft.EntityFrameworkCore.SqlServer", 
+    //"Pomelo.EntityFrameworkCore.MySql",
+    //"Microsoft.EntityFrameworkCore.Cosmos",
+    //"Microsoft.EntityFrameworkCore.InMemory"
+    //"Npgsql.EntityFrameworkCore.PostgreSQL"
+    //"FirebirdSql.EntityFrameworkCore.Firebird"
+    "InitDb": false, //打开数据库自动初始化
+    "AutoMigration": false //打开数据库自动迁移
   }
 }
 
