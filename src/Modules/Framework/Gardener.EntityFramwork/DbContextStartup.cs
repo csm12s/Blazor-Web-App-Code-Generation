@@ -24,7 +24,7 @@ namespace Gardener.EntityFramwork
     [AppStartup(601)]
     public class DbContextStartup : AppStartup
     {
-        private static readonly string migrationAssemblyName = "Gardener.Api.Core";
+        private static readonly string migrationAssemblyName = App.Configuration["DefaultDbSettings:MigrationAssemblyName"];
         private static readonly string dbProvider = App.Configuration["DefaultDbSettings:DbProvider"];
         /// <summary>
         /// 初始化默认数据库

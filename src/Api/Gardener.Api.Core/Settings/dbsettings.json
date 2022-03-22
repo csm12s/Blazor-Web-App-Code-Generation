@@ -8,7 +8,7 @@
   },
   "DefaultDbSettings": {
     "DbProvider": "Microsoft.EntityFrameworkCore.Sqlite",
-    //可提供使用的DbProvider
+    //可提供使用的DbProvider,需在Gardener.Api.Core程序集添加引用
     //"Microsoft.EntityFrameworkCore.Sqlite",
     //"Microsoft.EntityFrameworkCore.SqlServer", 
     //"Pomelo.EntityFrameworkCore.MySql",
@@ -17,7 +17,8 @@
     //"Npgsql.EntityFrameworkCore.PostgreSQL"
     //"FirebirdSql.EntityFrameworkCore.Firebird"
     "InitDb": false, //打开数据库自动初始化
-    "AutoMigration": false //打开数据库自动迁移
+    "AutoMigration": false, //打开数据库自动迁移
+    "MigrationAssemblyName": "Gardener.Api.Core" //迁移主程序集
   }
 }
 
