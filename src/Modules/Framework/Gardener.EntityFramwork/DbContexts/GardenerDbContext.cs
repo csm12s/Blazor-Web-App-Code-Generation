@@ -18,7 +18,7 @@ namespace Gardener.EntityFramwork.DbContexts
     /// <summary>
     /// 数据库上下文
     /// </summary>
-    [AppDbContext("GardenerConnectionString")]
+    [AppDbContext("Default")]
     public class GardenerDbContext : AppDbContext<GardenerDbContext>
     {
         /// <summary>
