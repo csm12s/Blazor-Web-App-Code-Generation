@@ -128,6 +128,12 @@ namespace Gardener.SysTimer.Services
         [HttpPost()]
         public override async Task<SysTimerDto> Insert(SysTimerDto input)
         {
+            var exits = await _repository.Where(x=>x.JobName == input.JobName).AnyAsync();
+            if (exits)
+            {
+                Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
+                return null;
+            }  
             var data = await base.Insert(input);
             AddTimerJob(data);
             return data;

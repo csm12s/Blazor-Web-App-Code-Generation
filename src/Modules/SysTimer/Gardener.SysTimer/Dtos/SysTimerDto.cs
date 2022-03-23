@@ -59,7 +59,7 @@ namespace Gardener.SysTimer.Dtos
         /// 执行间隔时间（单位秒）
         /// </summary>
         /// <example>5</example>
-        [DisplayName("间隔(秒)")]
+        [DisplayName("间隔(秒)")][Required]
         public int? Interval { get; set; }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using Gardener.Base;
 using Gardener.SysTimer.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace Gardener.SysTimer.Domains
     /// 定时任务
     /// </summary>
     [Comment("定时任务表")][Table("SysTimer")]
-    public class SysTimerEntity : GardenerEntityBase
+    public class SysTimerEntity : GardenerEntityBase, IEntityTypeConfiguration<SysTimerEntity>
     {
         /// <summary>
         /// 任务名称
@@ -95,5 +96,14 @@ namespace Gardener.SysTimer.Domains
         [Comment("备注")]
         [MaxLength(100)]
         public string Remark { get; set; }
+
+        /// <summary>
+        /// 配置Entity
+        /// </summary>
+        /// <param name="builder"></param>
+        public void Configure(EntityTypeBuilder<SysTimerEntity> builder)
+        {
+            builder.HasIndex(x => x.JobName).IsUnique();
+        }
     }
 }
