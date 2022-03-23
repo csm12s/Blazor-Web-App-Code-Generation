@@ -6,6 +6,7 @@
 using Gardener.Base;
 using Gardener.SysTimer.Enums;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.SysTimer.Dtos
 {
@@ -33,6 +34,7 @@ namespace Gardener.SysTimer.Dtos
         /// 任务名称
         /// </summary>
         [DisplayName("任务名称")]
+        [Required, MaxLength(20)]
         public string JobName { get; set; }
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace Gardener.SysTimer.Dtos
         /// Cron表达式
         /// </summary>
         [DisplayName("Cron表达式")]
+        [MaxLength(20)]
         public string Cron { get; set; }
 
         /// <summary>
@@ -76,6 +79,7 @@ namespace Gardener.SysTimer.Dtos
         /// 请求url
         /// </summary>
         [DisplayName("请求url")]
+        [MaxLength(200)]
         public string RequestUrl { get; set; }
 
         /// <summary>
@@ -101,6 +105,7 @@ namespace Gardener.SysTimer.Dtos
         /// 备注
         /// </summary>
         [DisplayName("备注")]
+        [MaxLength(100)]
         public string Remark { get; set; }
     }
 
