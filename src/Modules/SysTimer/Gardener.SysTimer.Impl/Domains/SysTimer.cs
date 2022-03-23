@@ -12,7 +12,7 @@ namespace Gardener.SysTimer.Domains
     /// <summary>
     /// 定时任务
     /// </summary>
-    [Comment("定时任务表")][Table("systimer")]
+    [Comment("定时任务表")]
     public class SysTimerEntity : GardenerEntityBase
     {
         /// <summary>
