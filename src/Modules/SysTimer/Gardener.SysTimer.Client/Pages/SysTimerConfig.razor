@@ -1,0 +1,100 @@
+﻿@page "/system_manager/systimer"
+@inherits TableBase<SysTimerDto, int, SysTimerEdit>
+
+<div>
+    <Table @ref="_table"
+           TItem="SysTimerDto"
+           DataSource="@_datas"
+           Total="_total"
+           OnChange="@OnChange"
+           @bind-PageIndex="pageRequest.PageIndex"
+           @bind-PageSize="pageRequest.PageSize"
+           @bind-SelectedRows="_selectedRows"
+           Loading="@_tableIsLoading"
+           Context="model">
+        <TitleTemplate>
+            <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                <TableSearch TDto="SysTimerDto" OnSearchFieldChanged="SetOtherFilterGroups" OnSearch="ReLoadTable" DefaultValue="_defaultSearchValue"></TableSearch>
+             </ResourceAuthorize>
+            <Row>
+                <AntDesign.Col Span="8">
+                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                            @localizer["删除选中"]
+                        </Button>
+                    </ResourceAuthorize>
+                </AntDesign.Col>
+                <AntDesign.Col Span="16" Style="text-align:right">
+                    <Space>
+                        <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                    @localizer["添加"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                        <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                    @localizer["刷新"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+        </TitleTemplate>
+        <RowTemplate>
+            <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                <Selection Key="@(model.Id.ToString())" />
+            </ResourceAuthorize>
+            <Column @bind-Field="@model.JobName" Filterable />
+            <Column @bind-Field="@model.RequestUrl" Filterable />
+            <Column @bind-Field="@model.RequestType" Width="10%" Filters="FunctionRequestTypeFilters">
+                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.RequestType)"></TagRandomColor>
+            </Column>
+            <Column @bind-Field="@model.RequestParameters" Filterable />
+            <Column @bind-Field="@model.Interval" Filterable />
+            <Column @bind-Field="@model.TimerStatus" Width="10%">
+                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.TimerStatus)"></TagRandomColor>
+            </Column>
+            <Column @bind-Field="@model.RunNumber" Filterable />
+            <Column @bind-Field="@model.Remark" Filterable />
+            <Column @bind-Field="@model.StartNow" Filterable>
+                <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                    <Authorized>
+                        <Tooltip Title="@(localizer["快速运行"])" ArrowPointAtCenter="true">
+                             <Button Icon="play-circle" Danger Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
+                        </Tooltip>
+                    </Authorized>
+                </ResourceAuthorize>
+            </Column>
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <ActionColumn>
+                <Space>
+                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                        <SpaceItem>
+                            <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
+                                <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                        <SpaceItem>
+                            <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
+                                <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                        <SpaceItem>
+                            <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
+                                <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                </Space>
+            </ActionColumn>
+        </RowTemplate>
+    </Table>
+</div>

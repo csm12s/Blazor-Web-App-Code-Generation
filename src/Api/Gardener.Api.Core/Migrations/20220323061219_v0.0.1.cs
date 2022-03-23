@@ -335,6 +335,37 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "systimer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    JobName = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false, comment: "任务名称"),
+                    DoOnce = table.Column<bool>(type: "INTEGER", nullable: false, comment: "只执行一次"),
+                    StartNow = table.Column<bool>(type: "INTEGER", nullable: false, comment: "立即执行"),
+                    ExecuteType = table.Column<int>(type: "INTEGER", nullable: false, comment: "执行类型"),
+                    Interval = table.Column<int>(type: "INTEGER", nullable: true, comment: "间隔时间"),
+                    Cron = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true, comment: "Cron表达式"),
+                    TimerType = table.Column<int>(type: "INTEGER", nullable: false, comment: "定时器类型"),
+                    RequestUrl = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true, comment: "请求url"),
+                    RequestParameters = table.Column<string>(type: "TEXT", nullable: true, comment: "请求参数"),
+                    Headers = table.Column<string>(type: "TEXT", nullable: true, comment: "Headers"),
+                    RequestType = table.Column<int>(type: "INTEGER", nullable: false, comment: "请求类型"),
+                    Remark = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true, comment: "备注"),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatorId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatorIdentityType = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_systimer", x => x.Id);
+                },
+                comment: "定时任务表");
+
+            migrationBuilder.CreateTable(
                 name: "VerifyCodeLog",
                 columns: table => new
                 {
@@ -1774,6 +1805,11 @@ namespace Gardener.Api.Core.Migrations
                 values: new object[] { 2, 1305892579553280000L, null, 0, false, false, false, false, "浏览者", "只能浏览", null });
 
             migrationBuilder.InsertData(
+                table: "systimer",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Cron", "DoOnce", "ExecuteType", "Headers", "Interval", "IsDeleted", "IsLocked", "JobName", "Remark", "RequestParameters", "RequestType", "RequestUrl", "StartNow", "TimerType", "UpdatedTime" },
+                values: new object[] { 1, 0L, null, 0, null, false, 1, null, 5, false, false, "百度api", "接口API", null, 2, "https://www.baidu.com", false, 0, null });
+
+            migrationBuilder.InsertData(
                 table: "Dept",
                 columns: new[] { "Id", "Contacts", "CreatedTime", "CreatorId", "CreatorIdentityType", "IsDeleted", "IsLocked", "Name", "Order", "ParentId", "Remark", "Tel", "UpdatedTime" },
                 values: new object[] { 2, "老B", 1305892579553280000L, null, 0, false, false, "昌平办事处", 1, 1, "昌平办事处", "400-8888888", null });
@@ -1837,6 +1873,11 @@ namespace Gardener.Api.Core.Migrations
                 table: "Resource",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
                 values: new object[] { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), 1306051389542400000L, null, 0, "crown", false, false, "user_center_position", "岗位管理", 5, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/position", "", 1000, null });
+
+            migrationBuilder.InsertData(
+                table: "Resource",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Icon", "IsDeleted", "IsLocked", "Key", "Name", "Order", "ParentId", "Path", "Remark", "Type", "UpdatedTime" },
+                values: new object[] { new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"), 1306051389542400000L, null, 0, "robot", false, false, "system_manager_systimer_config", "任务调度", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/systimer", "配置任务调度模式", 1000, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -3465,6 +3506,9 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoleResource");
+
+            migrationBuilder.DropTable(
+                name: "systimer");
 
             migrationBuilder.DropTable(
                 name: "UserExtension");

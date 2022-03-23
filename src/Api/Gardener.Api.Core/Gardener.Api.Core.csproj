@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.VerifyCode\Gardener.VerifyCode.csproj" />
     <ProjectReference Include="..\..\Modules\NotificationSystem\Gardener.NotificationSystem.Impl\Gardener.NotificationSystem.Impl.csproj" />
+    <ProjectReference Include="..\..\Modules\SysTimer\Gardener.SysTimer.Impl\Gardener.SysTimer.Impl.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />
   </ItemGroup>
 
@@ -79,6 +80,10 @@
     <None Update="Settings\verifycodesettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
