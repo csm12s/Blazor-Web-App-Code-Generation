@@ -131,8 +131,8 @@ namespace Gardener.SysTimer.Services
             var exits = await _repository.Where(x=>x.JobName == input.JobName).AnyAsync();
             if (exits)
             {
-                Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
                 return null;
+                throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
             }  
             var data = await base.Insert(input);
             AddTimerJob(data);
@@ -153,7 +153,7 @@ namespace Gardener.SysTimer.Services
             if (timer == null)
             {
                 return false;
-                throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
+                throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
             }
                 
             var result = await base.FakeDelete(id);
@@ -185,7 +185,7 @@ namespace Gardener.SysTimer.Services
             if (timer == null)
             {
                 return false;
-                throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
+                throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
             }
 
             var result = await base.Delete(id);
@@ -282,7 +282,7 @@ namespace Gardener.SysTimer.Services
         /// <summary>
         /// 新增定时任务
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="myinput"></param>
         [NonAction]
         public void AddTimerJob(SysTimerDto myinput)
         {
@@ -317,24 +317,31 @@ namespace Gardener.SysTimer.Services
                             var headers = string.IsNullOrEmpty(headersString)
                                 ? null
                                 : JSON.Deserialize<Dictionary<string, string>>(headersString);
-
-                            switch (input.RequestType)
+                            try
                             {
-                                case RequestType.Get:
-                                    await requestUrl.SetHeaders(headers).GetAsync();
-                                    break;
+                                switch (input.RequestType)
+                                {
+                                    case RequestType.Get:
+                                        await requestUrl.SetHeaders(headers).GetAsync();
+                                        break;
 
-                                case RequestType.Post:
-                                    await requestUrl.SetHeaders(headers).SetQueries(requestParameters).PostAsync();
-                                    break;
+                                    case RequestType.Post:
+                                        await requestUrl.SetHeaders(headers).SetQueries(requestParameters).PostAsync();
+                                        break;
 
-                                case RequestType.Put:
-                                    await requestUrl.SetHeaders(headers).SetQueries(requestParameters).PutAsync();
-                                    break;
+                                    case RequestType.Put:
+                                        await requestUrl.SetHeaders(headers).SetQueries(requestParameters).PutAsync();
+                                        break;
 
-                                case RequestType.Delete:
-                                    await requestUrl.SetHeaders(headers).DeleteAsync();
-                                    break;
+                                    case RequestType.Delete:
+                                        await requestUrl.SetHeaders(headers).DeleteAsync();
+                                        break;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                return;
+                                throw Oops.Oh(ex.Message);
                             }
                         };
                         break;

@@ -10,7 +10,6 @@ namespace Gardener.SysTimer.Enums
 {
     /// <summary>
     /// 异常状态码
-    /// 详细提示配置到:exceptionmessagesettings.json/ErrorCodeMessageSettings
     /// </summary>
     public enum ExceptionCode
     {
