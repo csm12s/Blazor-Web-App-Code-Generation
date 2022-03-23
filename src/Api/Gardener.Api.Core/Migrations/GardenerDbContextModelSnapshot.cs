@@ -616,7 +616,7 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("systimer");
+                    b.ToTable("SysTimer");
 
                     b.HasComment("定时任务表");
 

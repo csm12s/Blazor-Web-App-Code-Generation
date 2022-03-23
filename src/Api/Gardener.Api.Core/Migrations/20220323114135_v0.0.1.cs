@@ -335,7 +335,7 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "systimer",
+                name: "SysTimer",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -361,7 +361,7 @@ namespace Gardener.Api.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_systimer", x => x.Id);
+                    table.PrimaryKey("PK_SysTimer", x => x.Id);
                 },
                 comment: "定时任务表");
 
@@ -1805,7 +1805,7 @@ namespace Gardener.Api.Core.Migrations
                 values: new object[] { 2, 1305892579553280000L, null, 0, false, false, false, false, "浏览者", "只能浏览", null });
 
             migrationBuilder.InsertData(
-                table: "systimer",
+                table: "SysTimer",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Cron", "DoOnce", "ExecuteType", "Headers", "Interval", "IsDeleted", "IsLocked", "JobName", "Remark", "RequestParameters", "RequestType", "RequestUrl", "StartNow", "TimerType", "UpdatedTime" },
                 values: new object[] { 1, 0L, null, 0, null, false, 1, null, 5, false, false, "百度api", "接口API", null, 2, "https://www.baidu.com", false, 0, null });
 
@@ -3508,7 +3508,7 @@ namespace Gardener.Api.Core.Migrations
                 name: "RoleResource");
 
             migrationBuilder.DropTable(
-                name: "systimer");
+                name: "SysTimer");
 
             migrationBuilder.DropTable(
                 name: "UserExtension");
