@@ -234,8 +234,7 @@ namespace Gardener.SysTimer.Services
         /// </remarks>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("/sysTimers/detail")]
-        public async Task<SysTimerDto> GetTimer([FromQuery] QueryJobInput input)
+        public async Task<SysTimerDto> GetDetail([FromQuery] QueryJobInput input)
         {
             var data = await _repository.DetachedEntities.FirstOrDefaultAsync(u => u.Id == input.Id);
             return data.Adapt<SysTimerDto>();
