@@ -17,7 +17,7 @@
     //"Npgsql.EntityFrameworkCore.PostgreSQL"
     //"FirebirdSql.EntityFrameworkCore.Firebird"
     "InitDb": false, //打开数据库自动初始化
-    "AutoMigration": false, //打开数据库自动迁移
+    "AutoMigration": true, //打开数据库自动迁移
     "MigrationAssemblyName": "Gardener.Api.Core" //迁移主程序集
   }
 }

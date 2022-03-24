@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20220317091353_v0.0.1")]
+    [Migration("20220323115259_v0.0.1")]
     partial class v001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -537,6 +537,109 @@ namespace Gardener.Api.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Announcement");
+                });
+
+            modelBuilder.Entity("Gardener.SysTimer.Domains.SysTimerEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cron")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT")
+                        .HasComment("Cron表达式");
+
+                    b.Property<bool>("DoOnce")
+                        .HasColumnType("INTEGER")
+                        .HasComment("只执行一次");
+
+                    b.Property<int>("ExecuteType")
+                        .HasColumnType("INTEGER")
+                        .HasComment("执行类型");
+
+                    b.Property<string>("Headers")
+                        .HasColumnType("TEXT")
+                        .HasComment("Headers");
+
+                    b.Property<int?>("Interval")
+                        .HasColumnType("INTEGER")
+                        .HasComment("间隔时间");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT")
+                        .HasComment("任务名称");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasComment("备注");
+
+                    b.Property<string>("RequestParameters")
+                        .HasColumnType("TEXT")
+                        .HasComment("请求参数");
+
+                    b.Property<int>("RequestType")
+                        .HasColumnType("INTEGER")
+                        .HasComment("请求类型");
+
+                    b.Property<string>("RequestUrl")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasComment("请求url");
+
+                    b.Property<bool>("StartNow")
+                        .HasColumnType("INTEGER")
+                        .HasComment("立即执行");
+
+                    b.Property<int>("TimerType")
+                        .HasColumnType("INTEGER")
+                        .HasComment("定时器类型");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysTimer");
+
+                    b.HasComment("定时任务表");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = 0L,
+                            CreatorIdentityType = 0,
+                            DoOnce = false,
+                            ExecuteType = 1,
+                            Interval = 5,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            JobName = "百度api",
+                            Remark = "接口API",
+                            RequestType = 2,
+                            RequestUrl = "https://www.baidu.com",
+                            StartNow = false,
+                            TimerType = 0
+                        });
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
@@ -4620,6 +4723,22 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("Resource");
 
                     b.HasData(
+                        new
+                        {
+                            Id = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            CreatedTime = 1306051389542400000L,
+                            CreatorIdentityType = 0,
+                            Icon = "robot",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_systimer_config",
+                            Name = "任务调度",
+                            Order = 80,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_manager/systimer",
+                            Remark = "配置任务调度模式",
+                            Type = 1000
+                        },
                         new
                         {
                             Id = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
