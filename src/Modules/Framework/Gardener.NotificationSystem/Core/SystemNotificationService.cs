@@ -73,5 +73,53 @@ namespace Gardener.NotificationSystem.Core
             notifyData.Identity = Identity;
             await SendToAllClient<NotificationData>(notifyData);
         }
+        /// <summary>
+        /// 向指定用户发送信息
+        /// </summary>
+        /// <typeparam name="TData"></typeparam>
+        /// <param name="userId"></param>
+        /// <param name="dataType"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data) where TData : NotificationDataBase
+        {
+            await SendToUser(userId,dataType, data, null); 
+        }
+        /// <summary>
+        /// 向指定用户发送信息
+        /// </summary>
+        /// <typeparam name="TData"></typeparam>
+        /// <param name="userId"></param>
+        /// <param name="dataType"></param>
+        /// <param name="data"></param>
+        /// <param name="Identity"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data, Identity Identity) where TData : NotificationDataBase
+        {
+            NotificationData notifyData = new NotificationData();
+            notifyData.Data = System.Text.Json.JsonSerializer.Serialize(data);
+            notifyData.Type = dataType;
+            notifyData.Identity = Identity;
+            await SendToUser<NotificationData>(userId,notifyData);
+        }
+
+        /// <summary>
+        /// 向所有客户端发送信息
+        /// </summary>
+        /// <typeparam name="TData"></typeparam>
+        /// <param name="userId"></param>
+        /// <param name="notifyData"></param>
+        /// <returns></returns>
+        private async Task SendToUser<TData>(int userId, NotificationData notifyData) where TData : NotificationDataBase
+        {
+            if (notifyData.Identity == null)
+            {
+                notifyData.Identity = identityService.GetIdentity();
+
+            }
+            await hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveMessage", notifyData);
+        }
     }
 }
