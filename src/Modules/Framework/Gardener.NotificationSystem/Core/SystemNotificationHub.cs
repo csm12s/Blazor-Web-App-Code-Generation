@@ -37,17 +37,15 @@ namespace Gardener.NotificationSystem.Core
         /// <summary>
         /// 客户端发过来的通知
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public async Task Send(string message)
+        public async Task Send(NotificationData data)
         {
             //收到客户端信息
-            //解析消息，生成事件
-            if (string.IsNullOrEmpty(message))
+            if (data == null)
             {
                 return;
             }
-            NotificationData data = JsonSerializer.Deserialize<NotificationData>(message);
             Identity identity = identityService.GetIdentity();
             data.Identity = identity;
 

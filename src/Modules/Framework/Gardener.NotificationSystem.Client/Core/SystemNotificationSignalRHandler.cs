@@ -71,6 +71,16 @@ namespace Gardener.NotificationSystem.Client
         {
             await signalRClient.Close();
         }
+        /// <summary>
+        /// 向服务端发送通知数据
+        /// </summary>
+        /// <param name="notificationData"></param>
+        /// <returns></returns>
+        public async Task Send(NotificationData notificationData)
+        {
+            var connection= signalRClient.GetHubConnection();
+            await connection.SendAsync("Send", notificationData);
+        }
     }
 
 }
