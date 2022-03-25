@@ -89,6 +89,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.NotificationSystem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.NotificationSystem.Client", "Modules\Framework\Gardener.NotificationSystem.Client\Gardener.NotificationSystem.Client.csproj", "{57897849-AE44-4CE2-820C-A71C3AEB4C60}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SysTimer", "SysTimer", "{57BF47DA-3EAF-43CD-9BDD-23677707E9FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.SysTimer", "Modules\SysTimer\Gardener.SysTimer\Gardener.SysTimer.csproj", "{DD3FB3B0-B65D-4AC7-8CC4-AE4EDF600877}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SysTimer.Impl", "Modules\SysTimer\Gardener.SysTimer.Impl\Gardener.SysTimer.Impl.csproj", "{04142B49-2F7A-4E05-8A00-93092BE23A8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SysTimer.Client", "Modules\SysTimer\Gardener.SysTimer.Client\Gardener.SysTimer.Client.csproj", "{D9A3901F-838E-4643-87C6-4DCE455320E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +251,18 @@ Global
 		{57897849-AE44-4CE2-820C-A71C3AEB4C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57897849-AE44-4CE2-820C-A71C3AEB4C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57897849-AE44-4CE2-820C-A71C3AEB4C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD3FB3B0-B65D-4AC7-8CC4-AE4EDF600877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD3FB3B0-B65D-4AC7-8CC4-AE4EDF600877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD3FB3B0-B65D-4AC7-8CC4-AE4EDF600877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD3FB3B0-B65D-4AC7-8CC4-AE4EDF600877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04142B49-2F7A-4E05-8A00-93092BE23A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04142B49-2F7A-4E05-8A00-93092BE23A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04142B49-2F7A-4E05-8A00-93092BE23A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04142B49-2F7A-4E05-8A00-93092BE23A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A3901F-838E-4643-87C6-4DCE455320E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A3901F-838E-4643-87C6-4DCE455320E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A3901F-838E-4643-87C6-4DCE455320E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A3901F-838E-4643-87C6-4DCE455320E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -286,6 +306,10 @@ Global
 		{7EC041AF-220E-47B4-AB8C-A0BF51343D7A} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
 		{BAE61D8A-C556-4496-A600-A21E06A9C726} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
 		{57897849-AE44-4CE2-820C-A71C3AEB4C60} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
+		{57BF47DA-3EAF-43CD-9BDD-23677707E9FD} = {A0D0611E-1591-41C1-BD4D-80AE8F7D20C2}
+		{DD3FB3B0-B65D-4AC7-8CC4-AE4EDF600877} = {57BF47DA-3EAF-43CD-9BDD-23677707E9FD}
+		{04142B49-2F7A-4E05-8A00-93092BE23A8A} = {57BF47DA-3EAF-43CD-9BDD-23677707E9FD}
+		{D9A3901F-838E-4643-87C6-4DCE455320E9} = {57BF47DA-3EAF-43CD-9BDD-23677707E9FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C032A5FB-7757-4E89-86BE-9C6CE6CAD014}
