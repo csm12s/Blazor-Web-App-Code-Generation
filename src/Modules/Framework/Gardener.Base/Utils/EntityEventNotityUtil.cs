@@ -12,25 +12,60 @@ using System.Threading.Tasks;
 namespace Gardener.Base
 {
     /// <summary>
-    /// 实体事件通知
+    /// 实体事件通知静态类
     /// </summary>
     public static class EntityEventNotityUtil
     {
-        private static IEntityEventPublisher _publisher = null;
+        private static IEventBus _eventBus = null;
+        private static readonly object _senderLock = new object();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static IEntityEventPublisher GetPublisher()
+        public static IEventBus GetEventBus()
         {
-            if (_publisher != null)
+            
+            if (_eventBus != null)
             {
-                return _publisher;
+                return _eventBus;
             }
-            _publisher = App.GetService<IEntityEventPublisher>();
+            lock (_senderLock)
+            {
+                if (_eventBus == null)
+                {
+                    _eventBus = App.GetService<IEventBus>();
+                }
+            }
 
-            return _publisher;
+            return _eventBus;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TData"></typeparam>
+        /// <param name="operateType"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static async Task NotifyAsync<TEntity,TData>(EntityOperateType operateType,TData data)
+        {
+            EventInfo<TData> eventBase = new EventInfo<TData>(EventType.EntityOperate, data);
+            eventBase.EventGroup = typeof(TEntity).Name + operateType.ToString();
+            await GetEventBus().Publish(eventBase);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="operateType"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static async Task NotifyAsync<TEntity>(EntityOperateType operateType, TEntity data)
+        {
+            EventInfo<TEntity> eventBase = new EventInfo<TEntity>(EventType.EntityOperate, data);
+            eventBase.EventGroup = typeof(TEntity).Name + operateType.ToString();
+            await GetEventBus().Publish(eventBase);
         }
         /// <summary>
         /// 通知删除
@@ -41,7 +76,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task NotifyDeleteAsync<TEntity, TKey>(TKey key)
         {
-            await GetPublisher().NotifyDeleteAsync<TEntity, TKey>(key);
+            await NotifyAsync<TEntity, TKey>(EntityOperateType.Delete, key);
         }
         /// <summary>
         /// 通知批量删除
@@ -52,7 +87,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task NotifyDeletesAsync<TEntity, TKey>(IEnumerable<TKey> keys)
         {
-            await GetPublisher().NotifyDeletesAsync<TEntity, TKey>(keys);
+            await NotifyAsync<TEntity, IEnumerable<TKey>>(EntityOperateType.Deletes, keys);
         }
         /// <summary>
         /// 通知逻辑删除
@@ -63,7 +98,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task NotifyFakeDeleteAsync<TEntity, TKey>(TKey key)
         {
-            await GetPublisher().NotifyFakeDeleteAsync<TEntity, TKey>(key);
+            await NotifyAsync<TEntity, TKey>(EntityOperateType.FakeDelete, key);
         }
         /// <summary>
         /// 通知批量逻辑删除
@@ -74,7 +109,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task NotifyFakeDeletesAsync<TEntity, TKey>(IEnumerable<TKey> keys)
         {
-            await GetPublisher().NotifyFakeDeletesAsync<TEntity, TKey>(keys);
+            await NotifyAsync<TEntity, IEnumerable<TKey>>(EntityOperateType.FakeDeletes, keys);
         }
         /// <summary>
         /// 通知插入
@@ -84,7 +119,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task NotifyInsertAsync<TEntity>(TEntity entity)
         {
-            await GetPublisher().NotifyInsertAsync<TEntity>(entity);
+            await NotifyAsync<TEntity>(EntityOperateType.Insert, entity);
         }
         /// <summary>
         /// 通知更新
@@ -94,7 +129,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task NotifyUpdateAsync<TEntity>(TEntity entity)
         {
-            await GetPublisher().NotifyUpdateAsync<TEntity>(entity);
+            await NotifyAsync<TEntity>(EntityOperateType.Update, entity);
         }
         /// <summary>
         /// 通知锁定
@@ -104,7 +139,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task NotifyLockAsync<TEntity>(TEntity entity)
         {
-            await GetPublisher().NotifyLockAsync<TEntity>(entity);
+            await NotifyAsync<TEntity>(EntityOperateType.Lock, entity);
         }
     }
 }

@@ -19,9 +19,9 @@ namespace Gardener.Client.Core
     public class ConsoleClientLogger : IClientLogger
     {
         private readonly ILogger<ConsoleClientLogger> logger;
-        private readonly IClientErrorNotifier clientErrorNotifier;
+        private readonly IClientNotifier clientErrorNotifier;
 
-        public ConsoleClientLogger(IClientErrorNotifier clientErrorNotifier, ILogger<ConsoleClientLogger> logger)
+        public ConsoleClientLogger(IClientNotifier clientErrorNotifier, ILogger<ConsoleClientLogger> logger)
         {
             this.clientErrorNotifier = clientErrorNotifier;
             this.logger = logger;
@@ -61,21 +61,27 @@ namespace Gardener.Client.Core
                 logger.LogDebug(ex, msg);
             }
         }
-        public async Task Error(string msg, int? code = null, Exception ex = null)
+        public async Task Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"异常:{msg}", code);
             logger.LogError(ex, msg);
-            await clientErrorNotifier.Error(msg);
+            if (sendNotify)
+            {
+                await clientErrorNotifier.Error(msg);
+            }
         }
 
-        public async Task Fatal(string msg, int? code = null, Exception ex = null)
+        public async Task Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"致命异常:{msg}", code);
             logger.LogCritical(ex, msg);
-            await clientErrorNotifier.Error(msg);
+            if (sendNotify)
+            {
+                await clientErrorNotifier.Error(msg);
+            }
         }
 
-        public async Task Info(string msg, int? code = null, Exception ex = null)
+        public async Task Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false)
         {
             msg = FormatMsg($"提示:{msg}", code);
             if (ex == null)
@@ -86,10 +92,13 @@ namespace Gardener.Client.Core
             {
                 logger.LogInformation(ex, msg);
             }
-            await clientErrorNotifier.Info(msg);
+            if (sendNotify)
+            {
+                await clientErrorNotifier.Info(msg);
+            }
         }
 
-        public async Task Warn(string msg, int? code = null, Exception ex = null)
+        public async Task Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"警告:{msg}", code);
             if (ex == null)
@@ -100,7 +109,10 @@ namespace Gardener.Client.Core
             {
                 logger.LogWarning(ex, msg);
             }
-            await clientErrorNotifier.Warn(msg);
+            if (sendNotify) 
+            {
+                await clientErrorNotifier.Warn(msg);
+            }
         }
     }
 }

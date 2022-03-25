@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using AntDesign.ProLayout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Options;
+using Gardener.NotificationSystem.Client;
 
 namespace Gardener.Client.Entry
 {
@@ -29,8 +31,8 @@ namespace Gardener.Client.Entry
 
             #region httpclient
             builder.Services.AddScoped(sp => {
-                ApiSettings settings = sp.GetService<ApiSettings>();
-                return new HttpClient { BaseAddress = new Uri(settings.BaseAddres) };
+                IOptions<ApiSettings> settings = sp.GetService<IOptions<ApiSettings>>();
+                return new HttpClient { BaseAddress = new Uri(settings.Value.BaseAddres) };
             });
             #endregion
 
@@ -77,6 +79,10 @@ namespace Gardener.Client.Entry
 
             #region  Mapster 配置
             builder.Services.AddTypeAdapterConfigs();
+            #endregion
+
+            #region  系统通知
+            builder.AddSystemNotifyNotification();
             #endregion
 
             var host =builder.Build();

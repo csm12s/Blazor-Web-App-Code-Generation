@@ -5,19 +5,15 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
-using Furion.DatabaseAccessor;
 using Gardener.Admin.JsonConverters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.Authorization.Core;
-using Gardener.EntityFramwork.DbContexts;
-using Gardener.Api.Core.Authorization.Subscribes;
-using Gardener.UserCenter.Impl.Core.Subscribes;
-using Gardener.VerifyCode.Core;
 using Serilog;
 using Microsoft.AspNetCore.Http;
+using Gardener.NotificationSystem;
 
 namespace Gardener.Admin
 {
@@ -47,8 +43,6 @@ namespace Gardener.Admin
             services.AddEventBusServices(builder =>
             {
                 // 注册事件订阅者
-                builder.AddSubscriber<FunctionChangeRefreshCacheSubscriber>();
-                builder.AddSubscriber<FunctionDeleteClearRelationSubscriber>();
             });
             //注册跨域
             services.AddCorsAccessor();
@@ -77,6 +71,10 @@ namespace Gardener.Admin
             ;
             //视图引擎
             services.AddViewEngine();
+            //添加系统通知服务
+            services.AddSystemNotify();
+
+
 
         }
         /// <summary>
@@ -93,10 +91,11 @@ namespace Gardener.Admin
 
             app.UseHttpsRedirection();
             //启用EnableBuffering 解决Request body获取不到
-            app.Use(next => context => {
+            app.Use(next => context =>
+            {
                 context.Request.EnableBuffering();
                 return next(context);
-            });
+            }); ;
 
             app.UseStaticFiles();
 
@@ -114,6 +113,8 @@ namespace Gardener.Admin
 
             app.UseEndpoints(endpoints =>
             {
+                // 注册集线器
+                endpoints.MapHubs();
                 //endpoints.MapRazorPages();
                 //endpoints.MapFallbackToFile("index.html");
                 endpoints.MapControllerRoute(

@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -42,13 +43,23 @@ namespace Microsoft.Extensions.DependencyInjection
                         .RequireAuthenticatedUser()
                         .AddAuthenticationSchemes(IdentityType.User.ToString(), IdentityType.Client.ToString())
                         .Build();
-
                 //身份认证
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
             using var serviceProvider = services.BuildServiceProvider();
             var jwtSettings = serviceProvider.GetService<IOptions<JWTOptions>>().Value;
 
+            Func<MessageReceivedContext, Task> contextHandle = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && (path.Value.IndexOf("/ws/") > -1))
+                {
+                    context.Token = accessToken;
+                }
+
+                return Task.CompletedTask;
+            };
             //jwt身份认证配置
             services.AddAuthentication(options =>
            {
@@ -59,11 +70,18 @@ namespace Microsoft.Extensions.DependencyInjection
            }).AddJwtBearer(IdentityType.User.ToString(),options =>
            {
                options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.User]);
-
+               options.Events = new JwtBearerEvents
+               {
+                   OnMessageReceived = contextHandle
+               };
            })
            .AddJwtBearer(IdentityType.Client.ToString(), options =>
            {
                options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.Client]);
+               options.Events = new JwtBearerEvents
+               {
+                   OnMessageReceived = contextHandle
+               };
            })
            ;
             return services;

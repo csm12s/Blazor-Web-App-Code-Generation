@@ -11,6 +11,7 @@ using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         [Inject]
         MessageService messagerService { get; set; }
         [Inject]
-        ApiSettings apiSettings { get; set; }
+        IOptions<ApiSettings> apiSettings { get; set; }
         [Inject]
         IUserService userService { get; set; }
         [Inject]
@@ -36,7 +37,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             get
             {
-                return apiSettings.BaseAddres + apiSettings.UploadPath;
+                return apiSettings.Value.BaseAddres + apiSettings.Value.UploadPath;
             }
         }
         /// <summary>

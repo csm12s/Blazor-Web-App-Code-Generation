@@ -36,5 +36,10 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <returns></returns>
         Task RefreshToken();
+        /// <summary>
+        /// 获取当前token
+        /// </summary>
+        /// <returns></returns>
+        Task<TokenOutput> GetCurrentToken();
     }
 }

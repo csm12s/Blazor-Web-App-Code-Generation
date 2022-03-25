@@ -12,6 +12,7 @@ using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
         [Inject]
         IFunctionService functionService { get; set; }
         [Inject]
-        ApiSettings apiSettings { get; set; }
+        IOptions<ApiSettings> apiSettings { get; set; }
         [Inject]
         MessageService messageService { get; set; }
         [Inject]
@@ -65,7 +66,7 @@ namespace Gardener.UserCenter.Client.Pages.FunctionView
             _functionDtos = new List<FunctionDto>();
             _selectedGroup = value;
             Console.WriteLine(apiSettings);
-            Uri uri = new Uri(apiSettings.BaseAddres);
+            Uri uri = new Uri(apiSettings.Value.BaseAddres);
             
             _apiJsonUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}/swagger/{value.Group}/swagger.json";
         }

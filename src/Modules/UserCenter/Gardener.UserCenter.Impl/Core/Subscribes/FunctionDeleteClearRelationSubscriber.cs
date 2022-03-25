@@ -5,7 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
 using Furion.EventBus;
+using Gardener.Base;
 using Gardener.EventBus;
 using Gardener.UserCenter.Impl.Domains;
 using System;
@@ -18,20 +20,21 @@ namespace Gardener.UserCenter.Impl.Core.Subscribes
     /// <summary>
     /// 功能点变化清除关联关系
     /// </summary>
-    public class FunctionDeleteClearRelationSubscriber : IEventSubscriber
+    public class FunctionDeleteClearRelationSubscriber : IEventSubscriber, ISingleton
     {
 
         /// <summary>
         /// 功能点变化
         /// </summary>
         /// <param name="context"></param>
-        [EventSubscribe(nameof(Function)+ ":Delete")]
-        [EventSubscribe(nameof(Function)+ ":FakeDelete")]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.Delete))]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.FakeDelete))]
         public async Task Delete(EventHandlerExecutingContext context)
         {
-            IRepository<ResourceFunction> resourceFunctionRepository= Db.GetRepository<ResourceFunction>();
-            IRepository<ClientFunction> clientFunctionRepository= Db.GetRepository<ClientFunction>();
-            Guid id = (Guid)context.Source.Payload;
+            IEventSource eventSource = context.Source;
+            IRepository<ResourceFunction> resourceFunctionRepository = Db.GetRepository<ResourceFunction>();
+            IRepository<ClientFunction> clientFunctionRepository = Db.GetRepository<ClientFunction>();
+            Guid id = (Guid)eventSource.Payload;
             await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
             await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
         }
@@ -40,16 +43,17 @@ namespace Gardener.UserCenter.Impl.Core.Subscribes
         /// 功能点变化
         /// </summary>
         /// <param name="context"></param>
-        [EventSubscribe(nameof(Function) + ":Deletes")]
-        [EventSubscribe(nameof(Function) + ":FakeDeletes")]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.Deletes))]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.FakeDeletes))]
         public async Task Deletes(EventHandlerExecutingContext context)
         {
+            IEventSource eventSource = context.Source;
             IRepository<ResourceFunction> resourceFunctionRepository = Db.GetRepository<ResourceFunction>();
             IRepository<ClientFunction> clientFunctionRepository = Db.GetRepository<ClientFunction>();
-            IEnumerable<Guid> ids= (IEnumerable<Guid>)context.Source.Payload;
+            IEnumerable<Guid> ids = (IEnumerable<Guid>)eventSource.Payload;
             await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
             await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
         }
-        
+
     }
 }

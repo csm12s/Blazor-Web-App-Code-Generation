@@ -6,10 +6,13 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
 using Furion.EventBus;
 using Gardener.Authorization.Core;
 using Gardener.Authorization.Dtos;
+using Gardener.Base;
 using Gardener.Cache;
+using Gardener.EventBus;
 using Gardener.UserCenter.Impl.Domains;
 using Mapster;
 using System;
@@ -21,7 +24,7 @@ namespace Gardener.Api.Core.Authorization.Subscribes
     /// <summary>
     /// 功能点变化刷新接口点缓存
     /// </summary>
-    public class FunctionChangeRefreshCacheSubscriber : IEventSubscriber
+    public class FunctionChangeRefreshCacheSubscriber : IEventSubscriber, ISingleton
     {
         private readonly ICache cache;
         private readonly IApiEndpointQueryService apiEndpointQueryService;
@@ -40,12 +43,14 @@ namespace Gardener.Api.Core.Authorization.Subscribes
         /// 功能点变化
         /// </summary>
         /// <param name="context"></param>
-        [EventSubscribe(nameof(Function) + ":Delete")]
-        [EventSubscribe(nameof(Function) + ":FakeDelete")]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.Delete))]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.FakeDelete))]
         public async Task Delete(EventHandlerExecutingContext context)   
         {
+            IEventSource eventSource = context.Source;
+
             IRepository<Function> repository = Db.GetRepository<Function>();
-            Guid id = (Guid)context.Source.Payload;
+            Guid id = (Guid)eventSource.Payload;
             //移除IApiEndpointQueryService 的 function的缓存
             Function function = await repository.FindAsync(id);
             await apiEndpointQueryService.ClearApiEndpointCacheKey(function.Adapt<ApiEndpoint>());
@@ -55,12 +60,14 @@ namespace Gardener.Api.Core.Authorization.Subscribes
         /// 功能点变化
         /// </summary>
         /// <param name="context"></param>
-        [EventSubscribe(nameof(Function) + ":Deletes")]
-        [EventSubscribe(nameof(Function) + ":FakeDeletes")]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.Deletes))]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.FakeDeletes))]
         public async Task Deletes(EventHandlerExecutingContext context)   
         {
+            IEventSource eventSource = context.Source;
+
             IRepository<Function> repository = Db.GetRepository<Function>();
-            IEnumerable<Guid> ids = (IEnumerable<Guid>)context.Source.Payload;
+            IEnumerable<Guid> ids = (IEnumerable<Guid>)eventSource.Payload;
             foreach (Guid id in ids)
             {
                 //移除IApiEndpointQueryService 的 function的缓存
@@ -73,10 +80,13 @@ namespace Gardener.Api.Core.Authorization.Subscribes
         /// 功能点变化
         /// </summary>
         /// <param name="context"></param>
-        [EventSubscribe(nameof(Function) + ":Update")]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.Update))]
+        [EventSubscribe(nameof(EventType.EntityOperate) + nameof(Function) + nameof(EntityOperateType.Lock))]
         public async Task Update(EventHandlerExecutingContext context)   
         {
-            Function function = (Function)context.Source.Payload;
+            IEventSource eventSource = context.Source;
+
+            Function function = (Function)eventSource.Payload;
             IApiEndpointQueryService apiEndpointQueryService = App.GetService<IApiEndpointQueryService>();
             await apiEndpointQueryService.ClearApiEndpointCacheKey(function.Adapt<ApiEndpoint>());
         }

@@ -17,6 +17,8 @@ using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Enums;
 using Gardener.Client.Base;
 using Microsoft.AspNetCore.Components;
+using Gardener.Client.Base.EventBus.Events;
+using Gardener.EventBus;
 
 namespace Gardener.Client.Core
 {
@@ -26,23 +28,25 @@ namespace Gardener.Client.Core
     /// </summary>
     public class AuthenticationStateManager : IAuthenticationStateManager
     {
-        private readonly IJsTool jsTool;
-        private readonly HttpClientManager httpClientManager;
-        private readonly IAccountService accountService;
-        private readonly IClientLogger logger;
         private UserDto currentUser;
         private bool currentUserIsSuperAdmin = false;
         private List<string> uiResourceKeys;
         private List<ResourceDto> menuResources;
         private Hashtable uiHashtableResources;
-        private NavigationManager navigationManager;
+
+        private readonly IJsTool jsTool;
+        private readonly HttpClientManager httpClientManager;
+        private readonly IAccountService accountService;
+        private readonly IClientLogger logger;
+        private readonly NavigationManager navigationManager;
+        private readonly IEventBus eventBus;
         /// <summary>
         /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
         /// </summary>
         private bool isAutoLogin = true;
         private AuthSettings authSettings;
 
-        public AuthenticationStateManager(IJsTool jsTool, HttpClientManager httpClientManager, IAccountService accountService, IClientLogger logger, IOptions<AuthSettings> authSettingsOpt, NavigationManager navigationManager)
+        public AuthenticationStateManager(IJsTool jsTool, HttpClientManager httpClientManager, IAccountService accountService, IClientLogger logger, IOptions<AuthSettings> authSettingsOpt, NavigationManager navigationManager, IEventBus eventBus)
         {
             this.authSettings = authSettingsOpt.Value;
             this.jsTool = jsTool;
@@ -51,6 +55,7 @@ namespace Gardener.Client.Core
             this.logger = logger;
             timer = new Timer(TimerCallback, true, 10000, authSettings.RefreshTokenCheckInterval * 1000);
             this.navigationManager = navigationManager;
+            this.eventBus = eventBus;
         }
 
         #region refresh token job
@@ -91,6 +96,7 @@ namespace Gardener.Client.Core
             var tokenResult = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
             {
+                await eventBus.Publish(new RefreshTokenSucceedAfterEvent() { Token = tokenResult });
                 //token 设置
                 await SetToken(tokenResult);
                 await logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
@@ -112,6 +118,8 @@ namespace Gardener.Client.Core
             this.isAutoLogin = isAutoLogin;
             await SetToken(token);
             notifyAuthenticationStateChangedAction();
+            await eventBus.Publish(new LoginSucceedAfterEvent() { Token = token });
+
         }
         /// <summary>
         /// 注销
@@ -120,6 +128,7 @@ namespace Gardener.Client.Core
         {
             await accountService.RemoveCurrentUserRefreshToken();
             await CleanUserInfo();
+            await eventBus.Publish(new LogoutSucceedAfterEvent());
         }
         /// <summary>
         /// CleanClientLoginInfo
@@ -167,6 +176,7 @@ namespace Gardener.Client.Core
             var token = await ReloadToken();
             if (token != null)
             {
+                await eventBus.Publish(new ReloadCurrentUserEvent() { Token=token});
                 //重新请求user信息
                 var userResult = await accountService.GetCurrentUser();
                 if (userResult != null)
@@ -224,7 +234,7 @@ namespace Gardener.Client.Core
         #endregion
 
         #region local token  
-        private async Task<TokenOutput> GetCurrentToken()
+        public async Task<TokenOutput> GetCurrentToken()
         {
             var isAutoLoginStr = await jsTool.LocalStorage.GetAsync<string>(nameof(isAutoLogin));
             this.isAutoLogin = string.IsNullOrEmpty(isAutoLoginStr) ? false : bool.Parse(isAutoLoginStr);

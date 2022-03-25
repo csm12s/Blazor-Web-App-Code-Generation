@@ -59,6 +59,10 @@ namespace Gardener.Authentication.Core
                 //非http请求
                 return null;
             }
+            if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return null;
+            }
             string tokenTypeKey = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.TokenTypeKey);
             if (JwtTokenType.RefreshToken.ToString().Equals(tokenTypeKey))
             {

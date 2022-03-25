@@ -23,8 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddEventBusServices(this IServiceCollection services, Action<EventBusOptionsBuilder> configureOptionsBuilder)
         {
-            //实体变化发布者
-            services.AddScoped<IEntityEventPublisher, EntityEventPublisher>();
+            services.AddScoped<IEventBus, EventBusService>();
             services.AddEventBus(configureOptionsBuilder);
             return services;
         }

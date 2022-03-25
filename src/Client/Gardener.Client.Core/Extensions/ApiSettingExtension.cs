@@ -20,11 +20,22 @@ namespace Gardener.Client.Core
     {
         public static void AddApiSetting(this WebAssemblyHostBuilder builder)
         {
-            builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
-            string host = builder.Configuration.GetSection("ApiSettings:Host")?.Value;
-            string port = builder.Configuration.GetSection("ApiSettings:Port")?.Value;
-            string uploadUrl= builder.Configuration.GetSection("ApiSettings:UploadUrl")?.Value;
-            string basePath = builder.Configuration.GetSection("ApiSettings:BasePath")?.Value;
+            builder.Services.AddOptions<ApiSettings>().Bind(builder.Configuration.GetSection("ApiSettings"));
+            builder.Services.PostConfigure<ApiSettings>(setting => 
+            {
+                ConfigureApiSettings(builder,setting);
+            });
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static void ConfigureApiSettings(WebAssemblyHostBuilder builder, ApiSettings apiSettings)
+        {
+            string host = apiSettings.Host;
+            string port = apiSettings.Port;
+            string uploadUrl = apiSettings.UploadPath;
+            string basePath = apiSettings.BasePath;
             Uri baseUri = new Uri(builder.HostEnvironment.BaseAddress);
             if (string.IsNullOrEmpty(host))
             {
@@ -34,17 +45,14 @@ namespace Gardener.Client.Core
             {
                 port = baseUri.Port.ToString();
             }
-            if (host.IndexOf("http://") < 0 && host.IndexOf("https://") < 0) 
+            if (host.IndexOf("http://") < 0 && host.IndexOf("https://") < 0)
             {
                 host = baseUri.Scheme + "://" + host;
             }
-            builder.Services.AddSingleton(typeof(ApiSettings), sp => {
-                return new ApiSettings { 
-                    Host = host,
-                    Port = port,
-                    BasePath= basePath,
-                    UploadPath = uploadUrl };
-            });
+            apiSettings.Host = host;
+            apiSettings.Port = port;
+            apiSettings.BasePath = basePath;
+            apiSettings.UploadPath = uploadUrl;
         }
     }
 }

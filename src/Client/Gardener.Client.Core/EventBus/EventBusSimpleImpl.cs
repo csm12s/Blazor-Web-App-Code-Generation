@@ -5,31 +5,52 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
+using Gardener.EventBus;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core.EventBus
 {
     /// <summary>
-    /// 
+    /// 事件通知
     /// </summary>
     [ScopedService]
     public class EventBusSimpleImpl : IEventBus
     {
-        private IServiceProvider _serviceProvider;
-        public EventBusSimpleImpl(IServiceProvider serviceProvider)
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IClientLogger _logger;
+        public EventBusSimpleImpl(IServiceProvider serviceProvider, IClientLogger logger)
         {
             _serviceProvider = serviceProvider;
+            _logger = logger;
         }
-        public async Task Publish<TEvent>(TEvent e) where TEvent : EventBase
+
+        public async Task Publish<TEvent>(TEvent e, CancellationToken? cancellationToken) where TEvent : EventBase
         {
-            var handlers= _serviceProvider.GetServices<IEventHandler<TEvent>>();
-            if (handlers != null) 
+            _logger.Info($"eventBus publish event {e.GetType().FullName}  {System.Text.Json.JsonSerializer.Serialize(e)}");
+            var handlers = _serviceProvider.GetServices<IEventSubscriber<TEvent>>();
+            if (handlers != null)
             {
                 foreach (var handler in handlers)
                 {
-                    await handler.Handler(e);
+                    try
+                    {
+                        if(cancellationToken.HasValue && cancellationToken.Value.IsCancellationRequested) 
+                        {
+                            break;
+                        }
+                        if (handler.Ignore(e)) 
+                        {
+                            continue;
+                        }
+                        handler.CallBack(e);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error($"eventBus event handler error {e.GetType().FullName}  {System.Text.Json.JsonSerializer.Serialize(e)}", ex: ex);
+                    }
                 }
             }
         }
