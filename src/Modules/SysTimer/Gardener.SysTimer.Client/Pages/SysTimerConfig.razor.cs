@@ -36,30 +36,27 @@ namespace Gardener.SysTimer.Client.Pages
             {
                 case TimerStatus.Running:
                     var resultStop = await confirmService.YesNo("执行", "确认要停止运行吗？");
-                    if (resultStop == AntDesign.ConfirmResult.Yes)
+                    if (resultStop == ConfirmResult.Yes)
                     {
                         _systimerService.Stop(new StopJobInput { JobName = model.JobName });
-                        await ReLoadTable(false);
                     }
                     break;
                 case TimerStatus.Stopped:
                     var resultStart = await confirmService.YesNo("执行", "确认要开始运行吗？");
-                    if (resultStart == AntDesign.ConfirmResult.Yes)
+                    if (resultStart == ConfirmResult.Yes)
                     {
                         _systimerService.Start(model);
-                        await ReLoadTable(false);
                     }
                     break;
                 default:
                     var result = await confirmService.YesNo("执行", "任务处于非正常状态，尝试重新运行？");
-                    if (result == AntDesign.ConfirmResult.Yes)
+                    if (result == ConfirmResult.Yes)
                     {
                         _systimerService.Start(model);
-                        await ReLoadTable(false);
                     }
                     break;
             }
-            
+            await ReLoadTable(false);
         }
 
         public readonly static TableFilter<RequestType>[] FunctionRequestTypeFilters = EnumHelper.EnumToList<RequestType>().Select(x => { return new TableFilter<RequestType>() { Text = x.ToString(), Value = x }; }).ToArray();

@@ -45,9 +45,6 @@ namespace Gardener.SysTimer.Services
             _cache = cache;
         }
 
-        /// <summary>
-        /// 分页获取任务列表
-        /// </summary>
         /// <remarks>
         /// 分页获取任务列表
         /// </remarks>
@@ -76,9 +73,28 @@ namespace Gardener.SysTimer.Services
             return timers;
         }
 
-        /// <summary>
-        /// 搜索
-        /// </summary>
+        /// <remarks>
+        /// 获取任务信息
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public override async Task<SysTimerDto> Get(int id)
+        {
+            var data = await base.Get(id);
+            if(data != null)
+            {
+                var worker = SpareTime.GetWorker(data.JobName);
+                if (worker == null)
+                    throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
+
+                data.TimerStatus = (TimerStatus)worker.Status;
+                data.RunNumber = worker.Tally;
+                data.Exception = JSON.Serialize(worker.Exception);
+            }
+            return data;
+        }
+
         ///<remarks>
         /// 搜索
         /// </remarks>
@@ -104,9 +120,7 @@ namespace Gardener.SysTimer.Services
             timers.Items = lst;
             return timers;
         }
-        /// <summary>
-        /// 获取所有本地任务
-        /// </summary>
+
         /// <remarks>
         /// 获取所有本地任务
         /// </remarks>
@@ -117,9 +131,6 @@ namespace Gardener.SysTimer.Services
             return await GetTaskMethods();
         }
 
-        /// <summary>
-        /// 增加任务
-        /// </summary>
         /// <remarks>
         /// 增加任务
         /// </remarks>
@@ -139,9 +150,6 @@ namespace Gardener.SysTimer.Services
             return data;
         }
 
-        /// <summary>
-        /// 假删除任务
-        /// </summary>
         /// <remarks>
         /// 假删除任务
         /// </remarks>
@@ -158,22 +166,14 @@ namespace Gardener.SysTimer.Services
                 
             var result = await base.FakeDelete(id);
 
-            if(result)
+            if (result)
             {
                 // 从调度器里取消
                 SpareTime.Cancel(timer.JobName);
-                return true;
             }
-            else
-            {
-                return false;
-            }
-            
+            return result;
         }
 
-        /// <summary>
-        /// 删除任务
-        /// </summary>
         /// <remarks>
         /// 删除任务
         /// </remarks>
@@ -194,17 +194,10 @@ namespace Gardener.SysTimer.Services
             {
                 // 从调度器里取消
                 SpareTime.Cancel(timer.JobName);
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return result;
         }
 
-        /// <summary>
-        /// 修改任务
-        /// </summary>
         /// <remarks>
         /// 修改任务
         /// </remarks>
@@ -221,20 +214,14 @@ namespace Gardener.SysTimer.Services
             SpareTime.Cancel(oldTimer.JobName);
 
             var result = await base.Update(input);
-            if(result)
+            if (result)
             {
                 // 再添加到任务调度里
                 AddTimerJob(input);
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return result;
         }
-        /// <summary>
-        /// 查看任务
-        /// </summary>
+
         /// <remarks>
         /// 查看任务
         /// </remarks>
@@ -246,9 +233,6 @@ namespace Gardener.SysTimer.Services
             return data.Adapt<SysTimerDto>();
         }
 
-        /// <summary>
-        /// 停止任务
-        /// </summary>
         /// <remarks>
         /// 停止任务
         /// </remarks>
@@ -260,9 +244,6 @@ namespace Gardener.SysTimer.Services
             SpareTime.Stop(input.JobName);
         }
 
-        /// <summary>
-        /// 启动任务
-        /// </summary>
         /// <remarks>
         /// 启动任务
         /// </remarks>
