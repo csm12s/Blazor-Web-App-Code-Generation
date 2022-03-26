@@ -4,23 +4,26 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.NotificationSystem.Dtos;
-using Gardener.NotificationSystem.Enums;
+using System;
 
-namespace Gardener.NotificationSystem
+namespace Gardener.NotificationSystem.Dtos.Notification
 {
     /// <summary>
-    /// 用户在线状态变化通知
+    /// 聊天数据
     /// </summary>
-    public class UserOnlineChangeNotification : NotificationDataBase
+    public class ChatNotificationData : NotificationDataBase
     {
         /// <summary>
-        /// 在线状态
+        /// 昵称
         /// </summary>
-        public UserOnlineStatus OnlineStatus { get; set; }
+        public string NickName { get; set; }
         /// <summary>
-        /// 登录ip
+        /// 头像
         /// </summary>
-        public string Ip { get; set; }
+        public string Avatar { get; set; }
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public string Message { get; set; }
     }
 }

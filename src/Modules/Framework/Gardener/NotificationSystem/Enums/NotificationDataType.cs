@@ -14,6 +14,10 @@ namespace Gardener.NotificationSystem.Enums
         /// <summary>
         /// 用户上线
         /// </summary>
-        UserOnline
+        UserOnline,
+        /// <summary>
+        /// 聊天
+        /// </summary>
+        Chat
     }
 }

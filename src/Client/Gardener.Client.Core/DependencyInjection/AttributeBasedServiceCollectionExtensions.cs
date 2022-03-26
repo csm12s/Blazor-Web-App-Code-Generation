@@ -24,9 +24,12 @@ namespace Gardener.Client.Core
         /// <typeparam name="T"></typeparam>
         /// <param name="serviceCollection"></param>
         /// <param name="assemblys"></param>
-        public static void AddServicesWithAttributeOfTypeFromModuleContext(this IServiceCollection serviceCollection)
+        public static void AddServicesWithAttributeOfTypeFromModuleContext(this IServiceCollection serviceCollection, Assembly[] assemblys)
         {
-            serviceCollection.AddServicesWithAttributeOfType(ModuleExtension.GetModuleContext().ModeuleAssemblies);
+            List<Assembly> all = new List<Assembly>();
+            all.AddRange(ModuleExtension.GetModuleContext().ModeuleAssemblies);
+            all.AddRange(assemblys);
+            serviceCollection.AddServicesWithAttributeOfType(all.ToArray());
         }
             /// <summary>
             /// 通过扫描特性注册服务

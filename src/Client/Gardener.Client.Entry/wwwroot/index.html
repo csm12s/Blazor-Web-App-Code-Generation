@@ -192,11 +192,11 @@
             </div>
         </div>
     </app>
+    <script src="js-tool.js"></script>
     <!--<script src="_content/AntDesign.Charts/g2plot.js"></script>-->
     <script src="_content/AntDesign/js/ant-design-blazor.js"></script>
     <script src="_content/AntDesign.Charts/ant-design-charts-blazor.js"></script>
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
-
     <script type="module">
         import { BrotliDecode } from './decode.min.js';
         Blazor.start({
@@ -220,13 +220,6 @@
         });
     </script>
     <script type="text/javascript">
-        /**
-         * 设置title
-         * @param title
-         */
-        window.document.setTitle = function (title) {
-            document.title = title;
-        };
         navigator.serviceWorker.register('service-worker.js');
     </script>
 </body>

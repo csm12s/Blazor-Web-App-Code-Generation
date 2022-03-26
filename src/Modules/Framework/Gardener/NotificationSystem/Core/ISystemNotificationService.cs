@@ -23,29 +23,16 @@ namespace Gardener.NotificationSystem.Core
         /// <typeparam name="TData"></typeparam>
         /// <param name="dataType"></param>
         /// <param name="data"></param>
+        /// <param name="Identity"></param>
+        /// <param name="ip"></param>
         /// <returns></returns>
-        Task SendToAllClient<TData>(NotificationDataType dataType, TData data) where TData : NotificationDataBase;
-
-        /// <summary>
+        Task SendToAllClient<TData>(NotificationDataType dataType, TData data, Identity Identity = null, string ip = null) where TData : NotificationDataBase;
+        // <summary>
         /// 向所有客户端发送信息
         /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="dataType"></param>
-        /// <param name="data"></param>
-        /// <param name="Identity"></param>
+        /// <param name="notifyData"></param>
         /// <returns></returns>
-        Task SendToAllClient<TData>(NotificationDataType dataType, TData data, Identity Identity) where TData: NotificationDataBase;
-
-        /// <summary>
-        /// 向指定用户发送信息
-        /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="userId"></param>
-        /// <param name="dataType"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data) where TData : NotificationDataBase;
-
+        Task SendToAllClient(NotificationData notifyData);
         /// <summary>
         /// 向指定用户发送信息
         /// </summary>
@@ -54,7 +41,15 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="dataType"></param>
         /// <param name="data"></param>
         /// <param name="Identity"></param>
+        /// <param name="ip"></param>
         /// <returns></returns>
-        Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data, Identity Identity) where TData : NotificationDataBase;
+        Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data, Identity Identity = null, string ip = null) where TData : NotificationDataBase;
+        /// <summary>
+        /// 向指定用户发送信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="notifyData"></param>
+        /// <returns></returns>
+        Task SendToUser(int userId, NotificationData notifyData);
     }
 }

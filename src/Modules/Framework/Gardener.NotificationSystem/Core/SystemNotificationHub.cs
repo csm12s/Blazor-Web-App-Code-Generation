@@ -48,6 +48,7 @@ namespace Gardener.NotificationSystem.Core
             }
             Identity identity = identityService.GetIdentity();
             data.Identity = identity;
+            data.Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4();
 
             EventInfo<NotificationData> eventInfo = new EventInfo<NotificationData>(EventType.SystemNotify, data);
             eventInfo.EventGroup = data.Type.ToString();
@@ -60,12 +61,11 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
-            var notification = new UserOnlineChangeNotification()
+            var notification = new UserOnlineChangeNotificationData()
             {
-                OnlineStatus = UserOnlineStatus.Online,
-                Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4()
+                OnlineStatus = UserOnlineStatus.Online
             };
-            await systemNotificationService.SendToAllClient(NotificationDataType.UserOnline, notification, identityService.GetIdentity());
+            await systemNotificationService.SendToAllClient(NotificationDataType.UserOnline, notification, identityService.GetIdentity(), Context.GetHttpContext().GetRemoteIpAddressToIPv4());
 
             await base.OnConnectedAsync();
         }
@@ -75,12 +75,11 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            var notification = new UserOnlineChangeNotification()
+            var notification = new UserOnlineChangeNotificationData()
             {
-                OnlineStatus = UserOnlineStatus.Offline,
-                Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4()
+                OnlineStatus = UserOnlineStatus.Offline
             };
-            await systemNotificationService.SendToAllClient(NotificationDataType.UserOnline, notification, identityService.GetIdentity());
+            await systemNotificationService.SendToAllClient(NotificationDataType.UserOnline, notification, identityService.GetIdentity(), Context.GetHttpContext().GetRemoteIpAddressToIPv4());
             await base.OnDisconnectedAsync(exception);
         }
     }

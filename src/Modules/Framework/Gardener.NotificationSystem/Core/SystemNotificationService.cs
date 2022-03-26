@@ -19,16 +19,13 @@ namespace Gardener.NotificationSystem.Core
     public class SystemNotificationService : ISystemNotificationService
     {
         private readonly IHubContext<SystemNotificationHub> hubContext;
-        private readonly IIdentityService identityService;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="hubContext"></param>
-        /// <param name="identityService"></param>
-        public SystemNotificationService(IHubContext<SystemNotificationHub> hubContext, IIdentityService identityService)
+        public SystemNotificationService(IHubContext<SystemNotificationHub> hubContext)
         {
             this.hubContext = hubContext;
-            this.identityService = identityService;
         }
 
         /// <summary>
@@ -39,53 +36,38 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         private async Task SendToAllClient<TData>(NotificationData notifyData) where TData : NotificationDataBase
         {
-            if (notifyData.Identity == null)
-            {
-                notifyData.Identity = identityService.GetIdentity();
-
-            }
             await hubContext.Clients.All.SendAsync("ReceiveMessage", notifyData);
         }
+
         /// <summary>
         /// 向所有客户端发送信息
         /// </summary>
         /// <typeparam name="TData"></typeparam>
         /// <param name="dataType"></param>
         /// <param name="data"></param>
-        /// <returns></returns>
-        public async Task SendToAllClient<TData>(NotificationDataType dataType, TData data) where TData : NotificationDataBase
-        {
-            await SendToAllClient(dataType, data,null);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="dataType"></param>
-        /// <param name="data"></param>
         /// <param name="Identity"></param>
+        /// <param name="ip"></param>
         /// <returns></returns>
-        public async Task SendToAllClient<TData>(NotificationDataType dataType, TData data, Identity Identity) where TData : NotificationDataBase
+        public async Task SendToAllClient<TData>(NotificationDataType dataType, TData data, Identity Identity=null,string ip=null) where TData : NotificationDataBase
         {
             NotificationData notifyData = new NotificationData();
             notifyData.Data = System.Text.Json.JsonSerializer.Serialize(data);
             notifyData.Type = dataType;
             notifyData.Identity = Identity;
+            notifyData.Ip = ip;
             await SendToAllClient<NotificationData>(notifyData);
         }
+
         /// <summary>
-        /// 向指定用户发送信息
+        /// 向所有客户端发送信息
         /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="userId"></param>
-        /// <param name="dataType"></param>
-        /// <param name="data"></param>
+        /// <param name="notifyData"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data) where TData : NotificationDataBase
+        public async Task SendToAllClient(NotificationData notifyData)
         {
-            await SendToUser(userId,dataType, data, null); 
+            await SendToAllClient<NotificationData>(notifyData);
         }
+
         /// <summary>
         /// 向指定用户发送信息
         /// </summary>
@@ -94,9 +76,10 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="dataType"></param>
         /// <param name="data"></param>
         /// <param name="Identity"></param>
+        /// <param name="ip"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data, Identity Identity) where TData : NotificationDataBase
+        public async Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data, Identity Identity, string ip = null) where TData : NotificationDataBase
         {
             NotificationData notifyData = new NotificationData();
             notifyData.Data = System.Text.Json.JsonSerializer.Serialize(data);
@@ -106,7 +89,18 @@ namespace Gardener.NotificationSystem.Core
         }
 
         /// <summary>
-        /// 向所有客户端发送信息
+        /// 向指定用户发送信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="notifyData"></param>
+        /// <returns></returns>
+        public async Task SendToUser(int userId, NotificationData notifyData)
+        {
+            await SendToUser<NotificationData>(userId,notifyData);
+        }
+
+        /// <summary>
+        /// 向指定用户发送信息
         /// </summary>
         /// <typeparam name="TData"></typeparam>
         /// <param name="userId"></param>
@@ -114,11 +108,6 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         private async Task SendToUser<TData>(int userId, NotificationData notifyData) where TData : NotificationDataBase
         {
-            if (notifyData.Identity == null)
-            {
-                notifyData.Identity = identityService.GetIdentity();
-
-            }
             await hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveMessage", notifyData);
         }
     }

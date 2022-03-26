@@ -32,9 +32,9 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public bool Ignore(EventInfo<string> e)
+        public bool Ignore(EventInfo<NotificationData> e)
         {
-            if (e == null)
+            if (e == null || e.Data==null)
             {
                 return true;
             }
@@ -42,7 +42,7 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
             {
                 return true;
             }
-            if (!e.EventGroup.Equals(NotificationSystem.Enums.NotificationDataType.UserOnline.ToString()))
+            if (!e.Data.Type.Equals(NotificationDataType.UserOnline))
             {
                 return true; 
             }
@@ -70,13 +70,13 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
                 return;
             }
 
-            UserOnlineChangeNotification userOnlineNotification=System.Text.Json.JsonSerializer.Deserialize<UserOnlineChangeNotification>(notificationData.Data);
+            UserOnlineChangeNotificationData userOnlineNotification=System.Text.Json.JsonSerializer.Deserialize<UserOnlineChangeNotificationData>(notificationData.Data);
             if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Online))
             { 
-                await clientNotifier.Info("用户上线通知",$"{notificationData.Identity.GivenName} 刚刚上线了<br/>IP:[{userOnlineNotification.Ip}]");
+                await clientNotifier.Info("用户上线通知",$"{notificationData.Identity.GivenName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");
             }else if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Offline))
             {
-                await clientNotifier.Info("用户离线通知", $"{notificationData.Identity.GivenName} 刚刚离线了<br/>IP:[{userOnlineNotification.Ip}]");
+                await clientNotifier.Info("用户离线通知", $"{notificationData.Identity.GivenName} 刚刚离线了<br/>IP:[{notificationData.Ip}]");
             }
         }
     }

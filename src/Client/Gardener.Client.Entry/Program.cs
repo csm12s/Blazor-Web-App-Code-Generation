@@ -74,7 +74,8 @@ namespace Gardener.Client.Entry
             #endregion
 
             #region services
-            builder.Services.AddServicesWithAttributeOfTypeFromModuleContext();
+            
+            builder.Services.AddServicesWithAttributeOfTypeFromModuleContext(new [] { typeof(Program).Assembly });
             #endregion
 
             #region  Mapster ≈‰÷√

@@ -4,18 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
+using Gardener.NotificationSystem.Dtos;
+using Gardener.NotificationSystem.Enums;
 
-namespace Gardener.NotificationSystem.Dtos
+namespace Gardener.NotificationSystem
 {
     /// <summary>
-    /// 系统通知数据基类
+    /// 用户在线状态变化通知数据
     /// </summary>
-    public class NotificationDataBase
+    public class UserOnlineChangeNotificationData : NotificationDataBase
     {
         /// <summary>
-        /// 通知时间
+        /// 在线状态
         /// </summary>
-        public DateTimeOffset Time { get; set; } = DateTimeOffset.Now;
+        public UserOnlineStatus OnlineStatus { get; set; }
+        
     }
 }

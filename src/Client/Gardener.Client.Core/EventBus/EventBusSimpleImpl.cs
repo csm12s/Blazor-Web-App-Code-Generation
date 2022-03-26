@@ -41,11 +41,10 @@ namespace Gardener.Client.Core.EventBus
                         {
                             break;
                         }
-                        if (handler.Ignore(e)) 
+                        if (!handler.Ignore(e)) 
                         {
-                            continue;
+                            handler.CallBack(e);
                         }
-                        handler.CallBack(e);
                     }
                     catch (Exception ex)
                     {

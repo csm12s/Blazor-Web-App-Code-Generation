@@ -11,7 +11,7 @@ using Gardener.NotificationSystem.Enums;
 namespace Gardener.NotificationSystem.Dtos
 {
     /// <summary>
-    /// 通知基础消息
+    /// 系统通知数据
     /// </summary>
     public class NotificationData : NotificationDataBase
     {
@@ -29,6 +29,11 @@ namespace Gardener.NotificationSystem.Dtos
         /// 数据
         /// </summary>
         public string Data { get; set; }
+
+        /// <summary>
+        /// 用户ip
+        /// </summary>
+        public string Ip { get; set; }
     }
     ///// <summary>
     ///// 通知基础消息

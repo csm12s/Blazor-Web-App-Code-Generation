@@ -27,7 +27,7 @@ namespace Gardener.NotificationSystem
             // 添加即时通讯
             services.AddSignalR();
             services.TryAddSingleton<IUserIdProvider, JwtUserIdProvider>();
-            services.TryAddScoped<ISystemNotificationService, SystemNotificationService>();
+            services.TryAddSingleton<ISystemNotificationService, SystemNotificationService>();
 
             return services;
         }
