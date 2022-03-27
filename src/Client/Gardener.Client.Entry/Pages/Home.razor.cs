@@ -13,6 +13,7 @@ using Gardener.NotificationSystem.Client;
 using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Dtos.Notification;
 using Gardener.NotificationSystem.Enums;
+using Gardener.NotificationSystem.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
@@ -44,6 +45,8 @@ namespace Gardener.Client.Entry.Pages
         private MessageService messageService { get; set; }
         [Inject]
         private IJSRuntime js { get; set; }
+        [Inject]
+        private IChatDemoService chatDemoService { get; set; }
 
         /// <summary>
         /// 
@@ -64,6 +67,8 @@ namespace Gardener.Client.Entry.Pages
                 await InvokeAsync(StateHasChanged);
                 await ChatMessageBoxToBottom();
             };
+            IEnumerable<ChatNotificationData> history= await chatDemoService.GetHistory();
+            datas.AddRange(history);
             await base.OnInitializedAsync();
         }
         /// <summary>

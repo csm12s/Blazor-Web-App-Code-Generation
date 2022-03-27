@@ -12,6 +12,7 @@ using Gardener.EventBus;
 using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Dtos.Notification;
 using Gardener.NotificationSystem.Enums;
+using Gardener.NotificationSystem.Services;
 
 namespace Gardener.NotificationSystem.Core.Subscribes
 {
@@ -43,6 +44,7 @@ namespace Gardener.NotificationSystem.Core.Subscribes
             ChatNotificationData chatNotification = System.Text.Json.JsonSerializer.Deserialize<ChatNotificationData>(eventInfo.Data.Data);
             //收到聊天消息，转发给所有客户端
             await systemNotificationService.SendToAllClient(eventInfo.Data);
+            ChatDemoService.AddChatMessage(chatNotification);
         }
 
 
