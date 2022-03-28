@@ -130,8 +130,6 @@ namespace Gardener.Client.Base.Components
                     action = (fieid, value) =>
                     {
                         List<string> values = new List<string>();
-                        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(searchField.Type.FullName));
-                        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(searchField.Type.GetEnumUnderlyingType().FullName));
                         foreach (string item in value.ToString().Split(","))
                         {
                             if (item.IsNumber())

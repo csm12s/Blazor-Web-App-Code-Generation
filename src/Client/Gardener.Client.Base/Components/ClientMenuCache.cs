@@ -10,10 +10,20 @@ using System.Collections.Generic;
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// 客户端菜单缓存
+    /// </summary>
     public static class ClientMenuCache
     {
-       private static Dictionary<string, MenuDataItem> pathMap = new Dictionary<string, MenuDataItem>();
+        /// <summary>
+        /// 以path为key的字典
+        /// </summary>
+        private static Dictionary<string, MenuDataItem> pathMap = new Dictionary<string, MenuDataItem>();
 
+        /// <summary>
+        /// 添加到缓存中
+        /// </summary>
+        /// <param name="menu"></param>
         public static void Add(MenuDataItem menu)
         {
             if (string.IsNullOrEmpty(menu.Path))
@@ -26,6 +36,12 @@ namespace Gardener.Client.Base
                 pathMap.Add(uriBuilder.Path, menu);
             }
         }
+
+        /// <summary>
+        /// 根据path获取菜单信息
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static MenuDataItem Get(string path)
         {
             if (string.IsNullOrEmpty(path))

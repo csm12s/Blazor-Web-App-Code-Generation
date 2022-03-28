@@ -26,7 +26,10 @@ namespace Gardener.Client.Base
         /// </summary>
         public static void RemoveNavTabPageWithRegex(string pattern)
         {
-            _reuseTabs.RouteView.RemovePageWithRegex(pattern);
+            if (_reuseTabs != null)
+            {
+                _reuseTabs.RouteView.RemovePageWithRegex(pattern);
+            }
         }
 
         /// <summary>
@@ -34,7 +37,10 @@ namespace Gardener.Client.Base
         /// </summary>
         public static void RemoveAllNavTabPage()
         {
-            _reuseTabs.RouteView.RemovePageWithRegex(".*");
+            if (_reuseTabs != null)
+            {
+                _reuseTabs?.RouteView.RemovePageWithRegex(".*");
+            }
         }
     }
 }
