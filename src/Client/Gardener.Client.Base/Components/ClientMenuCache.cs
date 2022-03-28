@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign.ProLayout;
+using System;
 using System.Collections.Generic;
 
 namespace Gardener.Client.Base
@@ -19,9 +20,10 @@ namespace Gardener.Client.Base
             {
                 return;
             }
-            if (!pathMap.ContainsKey(menu.Path))
+            UriBuilder uriBuilder = new UriBuilder($"http://www.gardener.com{menu.Path}");
+            if (!pathMap.ContainsKey(uriBuilder.Path))
             {
-                pathMap.Add(menu.Path, menu);
+                pathMap.Add(uriBuilder.Path, menu);
             }
         }
         public static MenuDataItem Get(string path)
