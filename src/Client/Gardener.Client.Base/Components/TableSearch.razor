@@ -104,6 +104,8 @@
 						MaxTagCount="@ResponsiveTag.Responsive"
 						AllowClear
 						OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+						DefaultValues="fieldInfo.Values"
+						Values="fieldInfo.Values"
 						>
 						<SelectOptions>
 							@foreach(var item in EnumHelper.EnumToDictionary(fieldInfo.Type))

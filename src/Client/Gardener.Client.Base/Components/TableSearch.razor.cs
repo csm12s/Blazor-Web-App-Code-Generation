@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Base.Components
@@ -128,7 +129,24 @@ namespace Gardener.Client.Base.Components
                     searchField.Multiple = true;
                     action = (fieid, value) =>
                     {
-                        fieid.Values = value.ToString().Split(",");
+                        List<string> values = new List<string>();
+                        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(searchField.Type.FullName));
+                        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(searchField.Type.GetEnumUnderlyingType().FullName));
+                        foreach (string item in value.ToString().Split(","))
+                        {
+                            if (item.IsNumber())
+                            {
+                                values.Add(item);
+                            }
+                            else 
+                            {
+                                object enumValue = Enum.Parse(searchField.Type, item);
+                                object numValue = Convert.ChangeType(enumValue, searchField.Type.GetEnumUnderlyingType());
+                                values.Add(numValue.ToString());
+                            }
+                            
+                        }
+                        fieid.Values = values;
                     };
                 }
                 else if (searchField.Type.GetNonNullableType().Equals(typeof(bool)))
@@ -161,6 +179,7 @@ namespace Gardener.Client.Base.Components
             await OnSearchFieldChanged.InvokeAsync(GetFilterGroups());
             await base.OnInitializedAsync();
         }
+        
         /// <summary>
         /// 重置搜索字段值
         /// </summary>
