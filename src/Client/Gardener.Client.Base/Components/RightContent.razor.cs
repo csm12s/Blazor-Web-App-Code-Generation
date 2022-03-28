@@ -64,6 +64,8 @@ namespace Gardener.Client.Base.Components
                     await authenticationStateManager.Logout();
                     //NavigationManager.NavigateTo("/auth/login?returnUrl="+ Uri.EscapeDataString(NavigationManager.Uri));
                     //await InvokeAsync(StateHasChanged);
+                    //移除所有tab
+                    ClientNavTabControl.RemoveAllNavTabPage();
                     break;
             }
         }
