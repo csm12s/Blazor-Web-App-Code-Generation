@@ -39,7 +39,7 @@ namespace Gardener.Client.Base
         {
             if (_reuseTabs != null)
             {
-                _reuseTabs?.RouteView.RemovePageWithRegex(".*");
+                _reuseTabs.RouteView.RemovePageWithRegex(".*");
             }
         }
     }
