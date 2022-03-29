@@ -43,6 +43,39 @@ namespace Gardener.Common
         }
 
         /// <summary>
+        /// 根据属性名获取属性值
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <typeparam name="TValue">属性类型</typeparam>
+        /// <param name="t">对象</param>
+        /// <param name="name">属性名</param>
+        /// <param name="propertyType">属性类型</param>
+        /// <returns>属性的值</returns>
+        public static object GetPropertyValue<T>(this T t, string name)
+        {
+            Type type = t.GetType();
+            PropertyInfo p = type.GetProperty(name);
+            Type propertyType = p.PropertyType.GetUnNullableType();
+            if (p == null)
+            {
+                return propertyType.IsValueType ? Activator.CreateInstance(propertyType) : null;
+            }
+            if (!propertyType.IsClass)
+            {
+                return p.GetValue(t);
+            }
+            var param_obj = Expression.Parameter(typeof(T));
+            var param_val = Expression.Parameter(propertyType);
+
+            //转成真实类型，防止Dynamic类型转换成object
+            var body_obj = Expression.Convert(param_obj, type);
+
+            var body = Expression.Property(body_obj, p);
+            var getValue = Expression.Lambda<Func<T, object>>(body, param_obj).Compile();
+            return getValue(t);
+        }
+
+        /// <summary>
         /// 根据属性名称设置属性的值
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>

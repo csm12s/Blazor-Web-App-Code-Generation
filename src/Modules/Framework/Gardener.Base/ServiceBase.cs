@@ -321,28 +321,25 @@ namespace Gardener
             {
                 return string.Empty;
             }
-            Type type= typeof(TEntity);
-            PropertyInfo[]  properties= type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            string entityName = typeof(TEntity).Name;
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"public class {type.Name}SeedData : IEntitySeedData<{type.Name}>");
+            sb.AppendLine($"public class {entityName}SeedData : IEntitySeedData<{entityName}>");
             sb.AppendLine("{");
-            sb.AppendLine($"    public IEnumerable<{type.Name}> HasData(DbContext dbContext, Type dbContextLocator)");
+            sb.AppendLine($"    public IEnumerable<{entityName}> HasData(DbContext dbContext, Type dbContextLocator)");
             sb.AppendLine("     {");
             sb.AppendLine("         return new[]{");
 
             foreach (var item in result.Items)
             {
-                sb.AppendLine($"            new {type.Name}()");
+                Type type = item.GetType();
+                PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                sb.AppendLine($"            new {entityName}()");
                 sb.Append(" {");
                 foreach (PropertyInfo property in properties)
                 {
-                    var propertyType = property.GetType().GetUnNullableType();
-                    MethodInfo m = property.GetGetMethod();
-                    if (m == null || !m.IsPublic)
-                    {
-                        continue;
-                    }
-                    object value = m.Invoke(item, new object[] { });
+                    string propertyName= property.Name;
+                    var propertyType = property.PropertyType.GetUnNullableType();
+                    Object value = item.GetPropertyValue(propertyName);
                     if (value == null)
                     {
                         continue;
@@ -350,11 +347,11 @@ namespace Gardener
 
                     if (propertyType.Equals(typeof(string)) || propertyType.Equals(typeof(char)))
                     {
-                        sb.Append($"{property.Name}=\"{value}\"");
+                        sb.Append($"{propertyName}=\"{value}\"");
                     }
                     else if (propertyType.Equals(typeof(Guid)))
                     {
-                        sb.Append($"{property.Name}=Guid.Parse(\"{value}\")");
+                        sb.Append($"{propertyName}=Guid.Parse(\"{value}\")");
                     }
                     else if (propertyType.Equals(typeof(short))
                        || propertyType.Equals(typeof(int))
@@ -366,38 +363,42 @@ namespace Gardener
                        || propertyType.Equals(typeof(bool))
                        )
                     {
-                        sb.Append($"{property.Name}={value},");
+                        sb.Append($"{propertyName}={value.ToString().ToLower()}");
                     }
                     else if (propertyType.Equals(typeof(DateTime)))
                     {
-                        if (propertyType.Name.Equals(nameof(GardenerEntityBase.CreatedTime)))
+                        if (propertyName.Equals(nameof(GardenerEntityBase.CreatedTime)))
                         {
-                            sb.Append($"{property.Name}=DateTime.Now");
+                            sb.Append($"{propertyName}=DateTime.Now");
                         }
                         else
                         {
                             DateTime time = (DateTime)value;
-                            sb.Append($"{property.Name}=DateTime.Parse(\"{DateTime.Parse(time.ToString("yyyy-MM-dd HH:mm:ss:fff"))}\")");
+                            sb.Append($"{propertyName}=DateTime.Parse(\"{time.ToString("yyyy-MM-dd HH:mm:ss")}\")");
                         }
                     }
                     else if (propertyType.Equals(typeof(DateTimeOffset)))
                     {
-                        if (propertyType.Name.Equals(nameof(GardenerEntityBase.CreatedTime)))
+                        if (propertyName.Equals(nameof(GardenerEntityBase.CreatedTime)))
                         {
-                            sb.Append($"{property.Name}=DateTimeOffset.Now");
+                            sb.Append($"{propertyName}=DateTimeOffset.Now");
                         }
                         else
                         {
                             DateTimeOffset time = (DateTimeOffset)value;
-                            sb.Append($"{property.Name}=DateTimeOffset.Parse(\"{DateTimeOffset.Parse(time.ToString("yyyy-MM-dd HH:mm:ss:fff"))}\")");
+                            sb.Append($"{propertyName}=DateTimeOffset.Parse(\"{time.ToString("yyyy-MM-dd HH:mm:ss")}\")");
                         }
                     }
                     else if (propertyType.IsEnum)
                     {
-                        sb.Append($"{property.Name}=({property.Name})Enum.Parse({property.Name}, \"{value.ToString()}\")");
+                        sb.Append($"{propertyName}=({propertyName})Enum.Parse({propertyName}, \"{value.ToString()}\")");
+                    }
+                    else 
+                    {
+                        continue;
                     }
                     sb.Append(",");
-                    sb.Append("}");
+
                 }
                 sb.Append("}");
                 sb.Append(",");
@@ -405,7 +406,7 @@ namespace Gardener
             sb.AppendLine("         }");
             sb.AppendLine("     }");
             sb.AppendLine("}");
-            return string.Empty;
+            return sb.ToString();
         }
     }
 

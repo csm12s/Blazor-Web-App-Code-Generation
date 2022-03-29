@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Client.Base.Model;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
@@ -49,7 +50,7 @@ namespace Gardener.Client.Base.Components
         [Inject]
         protected IClientLocalizer localizer { get; set; }
         [Inject]
-        public NavigationManager navigation { get; set; }
+        protected NavigationManager navigation { get; set; }
         /// <summary>
         /// 配置
         /// </summary>
@@ -119,13 +120,12 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 重新加载table
+        /// 重置请求参数
         /// </summary>
-        /// <param name="firstPage">是否从首页加载</param>
+        /// <param name="firstPage">是否重置为首页</param>
         /// <returns></returns>
-        protected virtual async Task ReLoadTable(bool firstPage=true)
+        protected virtual PageRequest ReSetPageRequest(bool firstPage = true)
         {
-            _tableIsLoading = true;
             pageRequest = _table?.GetPageRequest() ?? new PageRequest();
             if (firstPage)
             {
@@ -137,7 +137,19 @@ namespace Gardener.Client.Base.Components
             {
                 pageRequest.FilterGroups.AddRange(_searchFilterGroups);
             }
-            pageRequest= ConfigurationPageRequest(pageRequest);
+            pageRequest = ConfigurationPageRequest(pageRequest);
+            return pageRequest;
+        }
+
+        /// <summary>
+        /// 重新加载table
+        /// </summary>
+        /// <param name="firstPage">是否从首页加载</param>
+        /// <returns></returns>
+        protected virtual async Task ReLoadTable(bool firstPage=true)
+        {
+            _tableIsLoading = true;
+            PageRequest pageRequest = ReSetPageRequest(firstPage);
             var pagedListResult = await _service.Search(pageRequest);
             if (pagedListResult != null)
             {
@@ -329,6 +341,27 @@ namespace Gardener.Client.Base.Components
                 title: localizer["详情"],
                 width: drawerSettings.Width, 
                 placement: drawerSettings.Placement.ToString().ToLower());
+        }
+
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
+        /// <returns></returns>
+        protected async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<string, bool>
+        {
+            PageRequest pageRequest = ReSetPageRequest(false);
+            PageRequest pageRequestTemp = new PageRequest();
+            pageRequest.Adapt(pageRequestTemp);
+            pageRequestTemp.PageSize=int.MaxValue;
+            pageRequestTemp.PageSize = 1;
+            string seedData=await _service.GenerateSeedData(pageRequestTemp);
+            var result = await drawerService.CreateDialogAsync<TShowSeedDataDrawer, string, bool>(
+                      seedData,
+                       true,
+                       title: localizer["种子数据"],
+                       width: 1300,
+                       placement: "right");
         }
     }
 }

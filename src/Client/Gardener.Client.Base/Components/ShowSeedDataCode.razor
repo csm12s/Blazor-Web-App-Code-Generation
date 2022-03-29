@@ -1,0 +1,14 @@
+﻿@inherits FeedbackComponent<string, bool>
+<TextArea Style="height: 75vh; overflow: scroll" Value="@seedData" AutoSize="true" />
+@code {
+    private string seedData = string.Empty;
+    /// <summary>
+    /// 页面初始化
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        seedData = this.Options;
+        await base.OnInitializedAsync();
+    }
+}
