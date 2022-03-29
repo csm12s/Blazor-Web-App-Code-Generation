@@ -66,7 +66,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// </summary>
         /// <param name="pageRequest"></param>
         /// <returns></returns>
-        protected override PageRequest ConfigurationPageRequest(PageRequest pageRequest)
+        protected override void ConfigurationPageRequest(PageRequest pageRequest)
         {
             if (_currentDeptId>0)
             {
@@ -77,8 +77,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                     pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
                 }
             }
-
-            return pageRequest;
         }
 
         /// <summary>

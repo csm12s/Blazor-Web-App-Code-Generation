@@ -8,7 +8,6 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Client.Base.Model;
-using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
@@ -24,20 +23,48 @@ namespace Gardener.Client.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class TableBase<TDto,TKey> : ReuseTabsPageBase where TDto:BaseDto<TKey>,new()
+    public abstract class TableBase<TDto, TKey> : ReuseTabsPageBase where TDto : BaseDto<TKey>, new()
     {
+        /// <summary>
+        /// table引用
+        /// </summary>
         protected ITable _table;
-        protected TDto[] _datas;
+        /// <summary>
+        /// 数据集合
+        /// </summary>
+        protected IEnumerable<TDto> _datas;
+        /// <summary>
+        /// 选择的行
+        /// </summary>
         protected IEnumerable<TDto> _selectedRows;
+        /// <summary>
+        /// 显示总数
+        /// </summary>
         protected int _total = 0;
+        /// <summary>
+        /// 控制分页页码
+        /// </summary>
+        protected int _pageIndex = 1;
+        /// <summary>
+        /// 控制分页每页数量
+        /// </summary>
+        protected int _pageSize = 10;
+        /// <summary>
+        /// table加载中控制
+        /// </summary>
         protected bool _tableIsLoading = false;
+        /// <summary>
+        /// 多选删除按钮加载中控制
+        /// </summary>
         protected bool _deletesBtnLoading = false;
-        protected PageRequest pageRequest = new PageRequest();
-        protected List<FilterGroup> _searchFilterGroups =new List<FilterGroup>();
         /// <summary>
         /// 默认搜索值
         /// </summary>
         protected Dictionary<string, object> _defaultSearchValue = new Dictionary<string, object>();
+        /// <summary>
+        /// 预设搜索过滤
+        /// </summary>
+        protected List<FilterGroup> _presetSearchFilterGroups;
 
         [Inject]
         protected IServiceBase<TDto, TKey> _service { get; set; }
@@ -52,22 +79,21 @@ namespace Gardener.Client.Base.Components
         [Inject]
         protected NavigationManager navigation { get; set; }
         /// <summary>
-        /// 配置
+        /// 在构建完成前配置搜索请求
         /// </summary>
         /// <param name="pageRequest"></param>
         /// <returns></returns>
-        protected virtual PageRequest ConfigurationPageRequest(PageRequest pageRequest)
+        protected virtual void ConfigurationPageRequest(PageRequest pageRequest)
         {
-            return pageRequest;
         }
         /// <summary>
-        /// 页面初始化完成
+        /// 初始化
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override Task OnInitializedAsync()
         {
             _tableIsLoading = true;
-            await base.OnInitializedAsync();
+            return base.OnInitializedAsync();
         }
         /// <summary>
         /// 组件渲染后
@@ -76,7 +102,6 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-
             if (firstRender)
             {
                 this.firstRenderAfter = true;
@@ -93,12 +118,12 @@ namespace Gardener.Client.Base.Components
         {
             var url = new Uri(navigation.Uri);
             var query = url.Query;
-            Dictionary<string, StringValues> urlParams= QueryHelpers.ParseQuery(query);
+            Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
             if (urlParams != null && urlParams.Count() > 0)
             {
-                urlParams.ForEach(x => 
+                urlParams.ForEach(x =>
                 {
-                    _defaultSearchValue.Add(x.Key,x.Value.ToString());
+                    _defaultSearchValue.Add(x.Key, x.Value.ToString());
                 });
             }
 
@@ -111,6 +136,22 @@ namespace Gardener.Client.Base.Components
         bool firstRenderAfter = false;
 
         /// <summary>
+        /// 重置请求参数
+        /// </summary>
+        /// <returns></returns>
+        protected virtual PageRequest GetPageRequest()
+        {
+            PageRequest pageRequest = _table?.GetPageRequest() ?? new PageRequest();
+            //如果有搜索条件 就拼接上
+            if (_presetSearchFilterGroups != null && _presetSearchFilterGroups.Any())
+            {
+                pageRequest.FilterGroups.AddRange(_presetSearchFilterGroups);
+            }
+            ConfigurationPageRequest(pageRequest);
+            return pageRequest;
+        }
+
+        /// <summary>
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
@@ -120,25 +161,18 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 重置请求参数
+        /// 重新加载table
         /// </summary>
-        /// <param name="firstPage">是否重置为首页</param>
+        /// <param name="firstPage">是否从首页加载</param>
         /// <returns></returns>
-        protected virtual PageRequest ReSetPageRequest(bool firstPage = true)
+        protected virtual async Task ReLoadTable(bool firstPage)
         {
-            pageRequest = _table?.GetPageRequest() ?? new PageRequest();
             if (firstPage)
             {
-                pageRequest.PageIndex = 1;
+                _pageIndex = 1;
             }
-
-            //如果有搜索条件 就拼接上
-            if (_searchFilterGroups != null && _searchFilterGroups.Count > 0)
-            {
-                pageRequest.FilterGroups.AddRange(_searchFilterGroups);
-            }
-            pageRequest = ConfigurationPageRequest(pageRequest);
-            return pageRequest;
+            PageRequest pageRequest = GetPageRequest();
+            await ReLoadTable(pageRequest);
         }
 
         /// <summary>
@@ -146,26 +180,25 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="firstPage">是否从首页加载</param>
         /// <returns></returns>
-        protected virtual async Task ReLoadTable(bool firstPage=true)
+        protected virtual async Task ReLoadTable(PageRequest pageRequest)
         {
             _tableIsLoading = true;
-            PageRequest pageRequest = ReSetPageRequest(firstPage);
             var pagedListResult = await _service.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
-                _datas = pagedList.Items.ToArray();
+                _datas = pagedList.Items;
                 _total = pagedList.TotalCount;
             }
             else
             {
-                messageService.Error(localizer.Combination("加载","失败"));
+                messageService.Error(localizer.Combination("加载", "失败"));
             }
             _tableIsLoading = false;
         }
         
         /// <summary>
-        /// 查询变化
+        /// table查询变化
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
@@ -173,6 +206,7 @@ namespace Gardener.Client.Base.Components
         {
             if (firstRenderAfter)
             {
+                Console.WriteLine(_pageIndex+"__"+_pageSize);
                 await ReLoadTable();
             }
         }
@@ -188,12 +222,11 @@ namespace Gardener.Client.Base.Components
                 var result = await _service.FakeDelete(id);
                 if (result)
                 {
-                    await ReLoadTable();
-                    _datas = _datas.Remove(_datas.FirstOrDefault(x => x.Id.Equals(id)));
+                    PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
-                    if(pageRequest.PageIndex>1 && _datas.Length==0)
+                    if (_pageIndex > 1 && _datas.Count() == 0)
                     {
-                        pageRequest.PageIndex = pageRequest.PageIndex - 1;
+                        _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
                     messageService.Success(localizer.Combination("删除", "成功"));
@@ -223,12 +256,15 @@ namespace Gardener.Client.Base.Components
                     var result = await _service.FakeDeletes(_selectedRows.Select(x => x.Id).ToArray());
                     if (result)
                     {
-                        //删除整页
-                        if (_selectedRows.Count() == pageRequest.PageSize && pageRequest.PageIndex * pageRequest.PageSize >= _total)
+                        //删除整页，且是最后一页
+                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
                         {
-                            pageRequest.PageIndex = pageRequest.PageIndex - 1;
+                            await ReLoadTable(true);
                         }
-                        await ReLoadTable();
+                        else
+                        {
+                            await ReLoadTable(false);
+                        }
                         messageService.Success(localizer.Combination("删除", "成功"));
                     }
                     else
@@ -257,22 +293,24 @@ namespace Gardener.Client.Base.Components
             }
         }
         /// <summary>
-        /// 设置其他过滤信息
+        /// 设置预设过滤信息
         /// </summary>
-        /// <param name="searchValues"></param>
+        /// <param name="filterGroups"></param>
         /// <returns></returns>
-        protected virtual async Task SetOtherFilterGroups(List<FilterGroup> filterGroups)
+        protected virtual Task SetPresetFilterGroups(List<FilterGroup> filterGroups)
         {
-            _searchFilterGroups = filterGroups;
+            _presetSearchFilterGroups = filterGroups;
+            return Task.CompletedTask;
         }
     }
+
     /// <summary>
     /// 普通table基类
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TDrawer"></typeparam>
-    public abstract class TableBase<TDto, TKey, TDrawer> : TableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>>
+    /// <typeparam name="TEditDrawer"></typeparam>
+    public abstract class TableBase<TDto, TKey, TEditDrawer> : TableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TEditDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>>
     {
         /// <summary>
         /// 抽屉配置
@@ -282,7 +320,7 @@ namespace Gardener.Client.Base.Components
         {
             return new DrawerSettings { Width = 500 };
         }
-        
+
         /// <summary>
         /// 点击添加按钮
         /// </summary>
@@ -290,18 +328,17 @@ namespace Gardener.Client.Base.Components
         {
             DrawerSettings drawerSettings = GetDrawerSettings();
             DrawerInput<TKey> input = DrawerInput<TKey>.IsAdd();
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
+            var result = await drawerService.CreateDialogAsync<TEditDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
                 input,
                 closable: drawerSettings.Closable,
-                title: localizer["添加"], 
+                title: localizer["添加"],
                 width: drawerSettings.Width,
                 placement: drawerSettings.Placement.ToString().ToLower());
 
             if (result.Succeeded)
             {
                 //刷新列表
-                pageRequest.PageIndex = 1;
-                await ReLoadTable();
+                await ReLoadTable(true);
             }
         }
         /// <summary>
@@ -312,17 +349,17 @@ namespace Gardener.Client.Base.Components
         {
             DrawerSettings drawerSettings = GetDrawerSettings();
             DrawerInput<TKey> input = DrawerInput<TKey>.IsEdit(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
-                input, 
-                closable: drawerSettings.Closable, 
-                true, 
-                title: localizer["编辑"], 
+            var result = await drawerService.CreateDialogAsync<TEditDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
+                input,
+                closable: drawerSettings.Closable,
+                true,
+                title: localizer["编辑"],
                 width: drawerSettings.Width,
                 placement: drawerSettings.Placement.ToString().ToLower());
 
             if (result.Succeeded)
             {
-                await ReLoadTable();
+                await ReLoadTable(false);
             }
         }
 
@@ -334,12 +371,12 @@ namespace Gardener.Client.Base.Components
         {
             DrawerSettings drawerSettings = GetDrawerSettings();
             DrawerInput<TKey> input = DrawerInput<TKey>.IsSelect(id);
-            var result = await drawerService.CreateDialogAsync<TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
-                input, 
+            var result = await drawerService.CreateDialogAsync<TEditDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
+                input,
                 closable: drawerSettings.Closable,
-                true, 
+                true,
                 title: localizer["详情"],
-                width: drawerSettings.Width, 
+                width: drawerSettings.Width,
                 placement: drawerSettings.Placement.ToString().ToLower());
         }
 
@@ -350,12 +387,10 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<string, bool>
         {
-            PageRequest pageRequest = ReSetPageRequest(false);
-            PageRequest pageRequestTemp = new PageRequest();
-            pageRequest.Adapt(pageRequestTemp);
-            pageRequestTemp.PageSize=int.MaxValue;
-            pageRequestTemp.PageSize = 1;
-            string seedData=await _service.GenerateSeedData(pageRequestTemp);
+            PageRequest pageRequest = GetPageRequest();
+            pageRequest.PageSize = int.MaxValue;
+            pageRequest.PageSize = 1;
+            string seedData = await _service.GenerateSeedData(pageRequest);
             var result = await drawerService.CreateDialogAsync<TShowSeedDataDrawer, string, bool>(
                       seedData,
                        true,

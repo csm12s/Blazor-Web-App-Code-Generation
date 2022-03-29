@@ -77,10 +77,5 @@ namespace Gardener.Attachment.Dtos
         [Required, MaxLength(20)]
         [DisplayName("后缀")]
         public string Suffix { get; set; }
-        /// <summary>
-        /// 更新日期
-        /// </summary>
-        [DisplayName("更新时间")]
-        public DateTimeOffset? UpdatedTime { get; set; }
     }
 }

@@ -6,15 +6,15 @@
            DataSource="@_datas"
            Total="_total"
            OnChange="@OnChange"
-           @bind-PageIndex="pageRequest.PageIndex"
-           @bind-PageSize="pageRequest.PageSize"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
            Loading="@_tableIsLoading"
            Context="model"
             >
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_function_refresh">
-                <TableSearch TDto="FunctionDto" OnSearchFieldChanged="SetOtherFilterGroups" OnSearch="ReLoadTable" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="FunctionDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
