@@ -98,5 +98,10 @@ namespace Gardener.Client.Base
         {
             return await apiCaller.PostAsync<PageRequest, PagedList<T>>($"{controller}/search",request);
         }
+
+        public async Task<string> GenerateSeedData(PageRequest request)
+        {
+            return await apiCaller.PostAsync<PageRequest, string>($"{controller}/generate-seed-data", request);
+        }
     }
 }

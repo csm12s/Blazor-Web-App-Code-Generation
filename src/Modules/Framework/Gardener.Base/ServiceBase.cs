@@ -20,6 +20,8 @@ using System.Linq.Expressions;
 using Gardener.Base;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Reflection;
+using System.Text;
 
 namespace Gardener
 {
@@ -46,6 +48,7 @@ namespace Gardener
         {
             _repository = repository;
         }
+
         /// <summary>
         /// 继承此类即可实现基础方法
         /// 方法包括：CURD、获取全部、分页获取 
@@ -54,6 +57,15 @@ namespace Gardener
         protected ServiceBase(IRepository<TEntity> repository)
         {
             _repository = (IRepository<TEntity, TDbContextLocator>)repository;
+        }
+
+        /// <summary>
+        /// 获取可读仓库对象
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IPrivateReadableRepository<TEntity> GetReadableRepository()
+        {
+            return _repository;
         }
 
         /// <summary>
@@ -184,7 +196,7 @@ namespace Gardener
         /// <returns></returns>
         public virtual async Task<TEntityDto> Get(TKey id)
         {
-            var person = await _repository.FindAsync(id);
+            var person = await GetReadableRepository().FindAsync(id);
             return person.Adapt<TEntityDto>();
         }
 
@@ -197,7 +209,7 @@ namespace Gardener
         /// <returns></returns>
         public virtual async Task<List<TEntityDto>> GetAll()
         {
-            var persons = _repository.AsQueryable().Select(x => x.Adapt<TEntityDto>());
+            var persons = GetReadableRepository().AsQueryable().Select(x => x.Adapt<TEntityDto>());
             return await persons.ToListAsync();
         }
 
@@ -211,7 +223,7 @@ namespace Gardener
         public virtual async Task<List<TEntityDto>> GetAllUsable()
         {
 
-            System.Text.StringBuilder where = new System.Text.StringBuilder();
+            System.Text.StringBuilder where = new StringBuilder();
             where.Append(" 1==1 ");
             //判断是否有IsDelete、IsLock
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted))) 
@@ -222,7 +234,7 @@ namespace Gardener
             {
                 where.Append($"and {nameof(GardenerEntityBase.IsLocked)}==false ");
             }
-            var persons = _repository.AsQueryable().Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
+            var persons = GetReadableRepository().AsQueryable().Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
             return await persons.ToListAsync();
         }
 
@@ -237,9 +249,9 @@ namespace Gardener
         /// <returns></returns>
         public virtual async Task<Base.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
-            var pageResult = _repository.AsQueryable();
+            var queryable = GetReadableRepository().AsQueryable();
 
-            var result= await pageResult.ToPageAsync(pageIndex, pageSize);
+            var result= await queryable.ToPageAsync(pageIndex, pageSize);
             
             return result.Adapt<Base.PagedList<TEntityDto>>();
         }
@@ -287,11 +299,113 @@ namespace Gardener
             }
             Expression<Func<TEntity, bool>> expression= filterService.GetExpression<TEntity>(request.FilterGroups);
 
-            IQueryable<TEntity> queryable = _repository.AsQueryable(false).Where(expression);
+            IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
             return await queryable
                 .OrderConditions(request.OrderConditions.ToArray())
                 .Select(x => x.Adapt<TEntityDto>())
                 .ToPageAsync(request.PageIndex,request.PageSize);
+        }
+
+        /// <summary>
+        /// 生成种子数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 根据搜索条叫生成种子数据
+        /// </remarks>
+        public virtual async Task<string> GenerateSeedData(PageRequest request)
+        {
+            var result = await this.Search(request);
+            if (result.TotalCount == 0)
+            {
+                return string.Empty;
+            }
+            Type type= typeof(TEntity);
+            PropertyInfo[]  properties= type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"public class {type.Name}SeedData : IEntitySeedData<{type.Name}>");
+            sb.AppendLine("{");
+            sb.AppendLine($"    public IEnumerable<{type.Name}> HasData(DbContext dbContext, Type dbContextLocator)");
+            sb.AppendLine("     {");
+            sb.AppendLine("         return new[]{");
+
+            foreach (var item in result.Items)
+            {
+                sb.AppendLine($"            new {type.Name}()");
+                sb.Append(" {");
+                foreach (PropertyInfo property in properties)
+                {
+                    var propertyType = property.GetType().GetUnNullableType();
+                    MethodInfo m = property.GetGetMethod();
+                    if (m == null || !m.IsPublic)
+                    {
+                        continue;
+                    }
+                    object value = m.Invoke(item, new object[] { });
+                    if (value == null)
+                    {
+                        continue;
+                    }
+
+                    if (propertyType.Equals(typeof(string)) || propertyType.Equals(typeof(char)))
+                    {
+                        sb.Append($"{property.Name}=\"{value}\"");
+                    }
+                    else if (propertyType.Equals(typeof(Guid)))
+                    {
+                        sb.Append($"{property.Name}=Guid.Parse(\"{value}\")");
+                    }
+                    else if (propertyType.Equals(typeof(short))
+                       || propertyType.Equals(typeof(int))
+                       || propertyType.Equals(typeof(long))
+                       || propertyType.Equals(typeof(float))
+                       || propertyType.Equals(typeof(double))
+                       || propertyType.Equals(typeof(decimal))
+                       || propertyType.Equals(typeof(byte))
+                       || propertyType.Equals(typeof(bool))
+                       )
+                    {
+                        sb.Append($"{property.Name}={value},");
+                    }
+                    else if (propertyType.Equals(typeof(DateTime)))
+                    {
+                        if (propertyType.Name.Equals(nameof(GardenerEntityBase.CreatedTime)))
+                        {
+                            sb.Append($"{property.Name}=DateTime.Now");
+                        }
+                        else
+                        {
+                            DateTime time = (DateTime)value;
+                            sb.Append($"{property.Name}=DateTime.Parse(\"{DateTime.Parse(time.ToString("yyyy-MM-dd HH:mm:ss:fff"))}\")");
+                        }
+                    }
+                    else if (propertyType.Equals(typeof(DateTimeOffset)))
+                    {
+                        if (propertyType.Name.Equals(nameof(GardenerEntityBase.CreatedTime)))
+                        {
+                            sb.Append($"{property.Name}=DateTimeOffset.Now");
+                        }
+                        else
+                        {
+                            DateTimeOffset time = (DateTimeOffset)value;
+                            sb.Append($"{property.Name}=DateTimeOffset.Parse(\"{DateTimeOffset.Parse(time.ToString("yyyy-MM-dd HH:mm:ss:fff"))}\")");
+                        }
+                    }
+                    else if (propertyType.IsEnum)
+                    {
+                        sb.Append($"{property.Name}=({property.Name})Enum.Parse({property.Name}, \"{value.ToString()}\")");
+                    }
+                    sb.Append(",");
+                    sb.Append("}");
+                }
+                sb.Append("}");
+                sb.Append(",");
+            }
+            sb.AppendLine("         }");
+            sb.AppendLine("     }");
+            sb.AppendLine("}");
+            return string.Empty;
         }
     }
 

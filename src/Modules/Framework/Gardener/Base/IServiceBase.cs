@@ -96,5 +96,15 @@ namespace Gardener.Base
         /// <param name="request"></param>
         /// <returns></returns>
         Task<PagedList<TEntityDto>> Search(PageRequest request);
+
+        /// <summary>
+        /// 生成种子数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 根据搜索条叫生成种子数据
+        /// </remarks>
+        Task<string> GenerateSeedData(PageRequest request);
     }
 }
