@@ -105,18 +105,20 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="builder"></param>
         public static void HubEndpointConventionBuilderSettings(HubEndpointConventionBuilder builder)
         {
-            string origins = App.Configuration["SignalR:SystemNotificationHub:Origins"];
             // 配置
-            builder.RequireCors(cpb =>
+            string origins = App.Configuration["SignalR:SystemNotificationHub:Origins"];
+            if (!string.IsNullOrEmpty(origins))
             {
-                cpb.AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .WithOrigins(origins)
-                    .AllowCredentials()
-                    .Build()
-                    ;
-            });
-
+                builder.RequireCors(cpb =>
+                {
+                    cpb.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins(origins)
+                        .AllowCredentials()
+                        .Build()
+                        ;
+                });
+            }
         }
     }
 
