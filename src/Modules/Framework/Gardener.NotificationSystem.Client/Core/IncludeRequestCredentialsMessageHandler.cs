@@ -43,7 +43,9 @@ namespace Gardener.NotificationSystem.Client
             {
                 _httpRequestConfigure.Invoke(request);
             }
+
             request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+            request.SetBrowserRequestMode(BrowserRequestMode.Cors);
             return base.SendAsync(request, cancellationToken);
         }
     }

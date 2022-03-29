@@ -74,6 +74,9 @@
     <None Update="Settings\serilogsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Settings\signalrsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Settings\swaggersetting.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
