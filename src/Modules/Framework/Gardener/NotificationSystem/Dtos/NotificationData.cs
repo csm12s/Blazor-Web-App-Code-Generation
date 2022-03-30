@@ -23,7 +23,7 @@ namespace Gardener.NotificationSystem.Dtos
         /// <summary>
         /// 发送者身份
         /// </summary>
-        public Identity? Identity { get; set; }
+        public Identity Identity { get; set; }
 
         /// <summary>
         /// 数据

@@ -84,7 +84,7 @@ namespace Gardener.Common
             foreach (var item in Enum.GetValues(type))
             {
                 //需要忽略的
-                FieldInfo? field = item.GetType().GetField(item.ToString());
+                FieldInfo field = item.GetType().GetField(item.ToString());
                 if (field == null) { continue; }
                 var igAttrs = field.GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
                 if (igAttrs != null && igAttrs.Length > 0) continue;

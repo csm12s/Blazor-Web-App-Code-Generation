@@ -27,7 +27,7 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="ip"></param>
         /// <returns></returns>
         Task SendToAllClient<TData>(NotificationDataType dataType, TData data, Identity Identity = null, string ip = null) where TData : NotificationDataBase;
-        // <summary>
+        /// <summary>
         /// 向所有客户端发送信息
         /// </summary>
         /// <param name="notifyData"></param>

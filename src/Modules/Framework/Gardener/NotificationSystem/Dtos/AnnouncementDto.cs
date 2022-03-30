@@ -22,14 +22,14 @@ namespace Gardener.NotificationSystem.Dtos
         /// </summary>
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         [DisplayName("概述")]
-        public string? Summary { get; set; }
+        public string Summary { get; set; }
 
         /// <summary>
         /// 内容
         /// </summary>
         [MaxLength(5000, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("内容")]
-        public string? Content { get; set; }
+        public string Content { get; set; }
 
         /// <summary>
         /// 是否置顶

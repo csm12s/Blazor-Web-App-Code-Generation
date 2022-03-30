@@ -206,7 +206,6 @@ namespace Gardener.Client.Base.Components
         {
             if (firstRenderAfter)
             {
-                Console.WriteLine(_pageIndex+"__"+_pageSize);
                 await ReLoadTable();
             }
         }
