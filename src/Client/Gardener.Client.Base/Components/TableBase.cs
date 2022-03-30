@@ -388,7 +388,7 @@ namespace Gardener.Client.Base.Components
         {
             PageRequest pageRequest = GetPageRequest();
             pageRequest.PageSize = int.MaxValue;
-            pageRequest.PageSize = 1;
+            pageRequest.PageIndex = 1;
             string seedData = await _service.GenerateSeedData(pageRequest);
             var result = await drawerService.CreateDialogAsync<TShowSeedDataDrawer, string, bool>(
                       seedData,
