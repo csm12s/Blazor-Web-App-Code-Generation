@@ -40,68 +40,68 @@ namespace Gardener.Client.Base
             this.controller = controller;
         }
 
-        public async Task<bool> Delete(Tkey id)
+        public Task<bool> Delete(Tkey id)
         {
-            return await apiCaller.DeleteAsync<bool>($"{controller}/{id}");
+            return apiCaller.DeleteAsync<bool>($"{controller}/{id}");
         }
 
-        public async Task<bool> Deletes(Tkey[] ids)
+        public Task<bool> Deletes(Tkey[] ids)
         {
-            return await apiCaller.PostAsync<Tkey[], bool>($"{controller}/deletes", ids);
+            return apiCaller.PostAsync<Tkey[], bool>($"{controller}/deletes", ids);
         }
 
-        public async Task<bool> FakeDelete(Tkey id)
+        public Task<bool> FakeDelete(Tkey id)
         {
-            return await apiCaller.DeleteAsync<bool>($"{controller}/fake-delete/{id}");
+            return apiCaller.DeleteAsync<bool>($"{controller}/fake-delete/{id}");
         }
 
-        public async Task<bool> FakeDeletes(Tkey[] ids)
+        public Task<bool> FakeDeletes(Tkey[] ids)
         {
-            return await apiCaller.PostAsync<Tkey[], bool>($"{controller}/fake-deletes", ids);
+            return apiCaller.PostAsync<Tkey[], bool>($"{controller}/fake-deletes", ids);
         }
 
-        public async Task<T> Get(Tkey id)
+        public Task<T> Get(Tkey id)
         {
-            return await apiCaller.GetAsync<T>($"{controller}/{id}");
+            return apiCaller.GetAsync<T>($"{controller}/{id}");
         }
 
-        public async Task<List<T>> GetAll()
+        public Task<List<T>> GetAll()
         {
-            return await apiCaller.GetAsync<List<T>>($"{controller}/all");
+            return apiCaller.GetAsync<List<T>>($"{controller}/all");
         }
 
-        public async Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
-            return await apiCaller.GetAsync<PagedList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
+            return apiCaller.GetAsync<PagedList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
         }
 
-        public async Task<T> Insert(T input)
+        public Task<T> Insert(T input)
         {
-            return await apiCaller.PostAsync<T, T>(controller, request: input);
+            return apiCaller.PostAsync<T, T>(controller, request: input);
         }
 
-        public async Task<bool> Update(T input)
+        public Task<bool> Update(T input)
         {
-            return await apiCaller.PutAsync<T, bool>(controller, request: input);
+            return apiCaller.PutAsync<T, bool>(controller, request: input);
         }
-        public async Task<bool> Lock(Tkey id, bool islocked = true)
+        public Task<bool> Lock(Tkey id, bool islocked = true)
         {
-            return await apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
-        }
-
-        public async Task<List<T>> GetAllUsable()
-        {
-            return await apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
+            return apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
         }
 
-        public async Task<PagedList<T>> Search(PageRequest request)
+        public Task<List<T>> GetAllUsable()
         {
-            return await apiCaller.PostAsync<PageRequest, PagedList<T>>($"{controller}/search",request);
+            return apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
         }
 
-        public async Task<string> GenerateSeedData(PageRequest request)
+        public Task<PagedList<T>> Search(PageRequest request)
         {
-            return await apiCaller.PostAsync<PageRequest, string>($"{controller}/generate-seed-data", request);
+            return apiCaller.PostAsync<PageRequest, PagedList<T>>($"{controller}/search",request);
+        }
+
+        public Task<string> GenerateSeedData(PageRequest request)
+        {
+            return apiCaller.PostAsync<PageRequest, string>($"{controller}/generate-seed-data", request);
         }
     }
 }

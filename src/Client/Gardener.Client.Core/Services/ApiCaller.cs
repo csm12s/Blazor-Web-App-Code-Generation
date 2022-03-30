@@ -121,16 +121,16 @@ namespace Gardener.Client.Core
             return url;
         }
         #region post
-        public async Task PostAsync<TRequest>(string url, TRequest request = default(TRequest))
+        public Task PostAsync<TRequest>(string url, TRequest request = default(TRequest))
         {
-            await ResponseHandle(() =>
+            return ResponseHandle(() =>
             {
                 return httpClient.PostAsJsonAsync<TRequest>(url, request);
             });
         }
-        public async Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request = default(TRequest))
+        public Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request = default(TRequest))
         {
-            return await ResponseHandle<TResponse>(() =>
+            return ResponseHandle<TResponse>(() =>
            {
                return httpClient.PostAsJsonAsync(url, request);
            });
@@ -138,26 +138,26 @@ namespace Gardener.Client.Core
         }
         #endregion
         #region get
-        public async Task<TResponse> GetAsync<TResponse>(string url)
+        public Task<TResponse> GetAsync<TResponse>(string url)
         {
-            return await ResponseHandle<TResponse>(() =>
+            return ResponseHandle<TResponse>(() =>
             {
                 return httpClient.GetAsync(url); ;
             });
 
         }
-        public async Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
+        public Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
         {
-            return await ResponseHandle<TResponse>(() =>
+            return ResponseHandle<TResponse>(() =>
              {
                  url = GetUrl(url, queryString);
                  return httpClient.GetAsync(url); ;
              });
 
         }
-        public async Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString)
+        public Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString)
         {
-            return await ResponseHandle<TResponse>(() =>
+            return ResponseHandle<TResponse>(() =>
             {
                 url = GetUrl(url, queryString);
                 return httpClient.GetAsync(url); ;
@@ -166,32 +166,32 @@ namespace Gardener.Client.Core
         }
         #endregion
         #region delete
-        public async Task DeleteAsync(string url, IDictionary<string, object> queryString = null)
+        public Task DeleteAsync(string url, IDictionary<string, object> queryString = null)
         {
-            await ResponseHandle(() =>
+           return ResponseHandle(() =>
             {
                 return httpClient.DeleteAsync(GetUrl(url, queryString));
             });
         }
-        public async Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        public Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
         {
-            return await ResponseHandle<TResponse>(() =>
+            return ResponseHandle<TResponse>(() =>
             {
                 return httpClient.DeleteAsync(GetUrl(url, queryString));
             });
         }
         #endregion
         #region put
-        public async Task PutAsync<TRequest>(string url, TRequest request = default)
+        public Task PutAsync<TRequest>(string url, TRequest request = default)
         {
-            await ResponseHandle(() =>
+            return ResponseHandle(() =>
             {
                 return httpClient.PutAsJsonAsync(url, request);
             });
         }
-        public async Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request = default)
+        public Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request = default)
         {
-            return await ResponseHandle<TResponse>(() =>
+            return ResponseHandle<TResponse>(() =>
            {
                return httpClient.PutAsJsonAsync(url, request);
            });
