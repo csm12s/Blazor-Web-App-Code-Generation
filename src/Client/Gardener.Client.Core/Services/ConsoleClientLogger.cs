@@ -49,7 +49,7 @@ namespace Gardener.Client.Core
             }
             return msg;
         }
-        public async Task Debug(string msg, int? code = null, Exception ex = null)
+        public void Debug(string msg, int? code = null, Exception ex = null)
         {
             msg = FormatMsg($"调试:{msg}", code);
             if (ex == null)
@@ -61,17 +61,17 @@ namespace Gardener.Client.Core
                 logger.LogDebug(ex, msg);
             }
         }
-        public async Task Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
+        public async void Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"异常:{msg}", code);
             logger.LogError(ex, msg);
             if (sendNotify)
             {
-                await clientErrorNotifier.Error(msg);
+               await clientErrorNotifier.Error(msg);
             }
         }
 
-        public async Task Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
+        public async void Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"致命异常:{msg}", code);
             logger.LogCritical(ex, msg);
@@ -79,9 +79,10 @@ namespace Gardener.Client.Core
             {
                 await clientErrorNotifier.Error(msg);
             }
+
         }
 
-        public async Task Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false)
+        public async void Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false)
         {
             msg = FormatMsg($"提示:{msg}", code);
             if (ex == null)
@@ -98,7 +99,7 @@ namespace Gardener.Client.Core
             }
         }
 
-        public async Task Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
+        public async void Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"警告:{msg}", code);
             if (ex == null)

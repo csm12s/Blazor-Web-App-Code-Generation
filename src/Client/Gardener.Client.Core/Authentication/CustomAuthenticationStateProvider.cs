@@ -43,7 +43,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                await logger.Error("用户信息获取失败,请重新登陆。",ex:ex);
+                logger.Error("用户信息获取失败,请重新登陆。",ex:ex);
                 return authenticationState;
             }
         }

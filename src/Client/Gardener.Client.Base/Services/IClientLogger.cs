@@ -11,10 +11,10 @@ namespace Gardener.Client.Base
 {
     public interface IClientLogger
     {
-        Task Debug(string msg, int? code = null, Exception ex = null);
-        Task Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
-        Task Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
-        Task Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false);
-        Task Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        void Debug(string msg, int? code = null, Exception ex = null);
+        void Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        void Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        void Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false);
+        void Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
     }
 }

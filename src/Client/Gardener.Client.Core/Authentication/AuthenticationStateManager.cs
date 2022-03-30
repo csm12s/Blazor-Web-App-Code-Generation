@@ -99,7 +99,7 @@ namespace Gardener.Client.Core
                 await eventBus.Publish(new RefreshTokenSucceedAfterEvent() { Token = tokenResult });
                 //token 设置
                 await SetToken(tokenResult);
-                await logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
+                logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
             }
             else
             {

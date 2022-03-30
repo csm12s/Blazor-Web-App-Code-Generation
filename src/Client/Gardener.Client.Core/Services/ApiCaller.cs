@@ -63,7 +63,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message, -999, ex);
+                log.Error($"接口请求异常[{ex.Message}]", -999, ex);
                 return default(TResponse);
             }
         }
@@ -98,7 +98,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message, -999, ex);
+                log.Error($"接口请求异常[{ex.Message}]", -999, ex);
             }
         }
         private string GetUrl(string url, IDictionary<string, object> queryString = null)
