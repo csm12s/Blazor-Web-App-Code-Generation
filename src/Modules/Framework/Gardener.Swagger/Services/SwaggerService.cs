@@ -62,12 +62,12 @@ namespace Gardener.Swagger.Services
         /// 获取api分组设置
         /// </remarks>
         /// <returns></returns>
-        public async Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup()
+        public Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup()
         {
             // 载入配置
             SpecificationDocumentSettingsOptions options = App.GetOptions<SpecificationDocumentSettingsOptions>();
             if (options == null) return null;
-            return options.GroupOpenApiInfos.Select(x => x.Adapt<SwaggerSpecificationOpenApiInfoDto>()).ToList();
+            return Task.FromResult(options.GroupOpenApiInfos.Select(x => x.Adapt<SwaggerSpecificationOpenApiInfoDto>()).ToList());
         }
         /// <summary>
         /// 从json中获取function

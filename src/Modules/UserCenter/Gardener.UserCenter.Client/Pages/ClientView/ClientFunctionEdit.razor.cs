@@ -53,8 +53,8 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         IClientLocalizer localizer { get; set; }
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
-        List<TableFilter<string>> groupFilters = null;
-        List<TableFilter<string>> serviceFilters = null;
+        //List<TableFilter<string>> groupFilters = null;
+        //List<TableFilter<string>> serviceFilters = null;
         private bool _loading = false;
         /// <summary>
         /// 页面初始化

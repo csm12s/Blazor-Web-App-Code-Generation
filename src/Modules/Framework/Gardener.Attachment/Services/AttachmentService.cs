@@ -78,7 +78,7 @@ namespace Gardener.Attachment.Services
         /// <param name="input"></param>
         /// <returns></returns>
         [NonAction]
-        public override async Task<AttachmentDto> Insert(AttachmentDto input)
+        public override Task<AttachmentDto> Insert(AttachmentDto input)
         {
             throw new NotImplementedException();
         }
@@ -89,7 +89,7 @@ namespace Gardener.Attachment.Services
         /// <param name="input"></param>
         /// <returns></returns>
         [NonAction]
-        public override async Task<bool> Update(AttachmentDto input)
+        public override Task<bool> Update(AttachmentDto input)
         {
             throw new NotImplementedException();
         }

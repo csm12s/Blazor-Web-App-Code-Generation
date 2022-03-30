@@ -23,14 +23,11 @@ namespace Gardener.Client.Base.Shared
 
         private SystemConfig systemConfig;
 
-        private ReuseTabs reuseTabs;
-
         protected async override Task OnInitializedAsync()
         {
             systemConfig = SystemConfigService.GetSystemConfig();
             await JsTool.Document.SetTitle(systemConfig.SystemName);
-            //登录模板导航控制
-            ClientNavTabControl.SetReuseTabs(reuseTabs);
+            await base.OnInitializedAsync();
         }
     }
 }

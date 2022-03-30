@@ -7,11 +7,12 @@
     /// 
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
         if (this.Options != null)
         {
             auditEntityDtos = this.Options;
         }
+        return base.OnInitializedAsync();
     }
 }

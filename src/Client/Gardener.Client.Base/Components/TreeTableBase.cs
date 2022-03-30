@@ -226,9 +226,9 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="model"></param>
         /// <param name="isLocked"></param>
-        protected async Task OnChangeIsLocked(TDto dto, bool isLocked)
+        protected Task OnChangeIsLocked(TDto dto, bool isLocked)
         {
-            Task.Run(async () =>
+           return Task.Run(async () =>
             {
                 var result = await serviceBase.Lock(GetKey(dto), isLocked);
                 if (!result)

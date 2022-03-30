@@ -36,12 +36,12 @@ namespace Gardener.Authorization.Core
         /// <param name="httpContext"></param>
         /// <param name="requirement"></param>
         /// <returns></returns>
-        public override async Task<bool> PolicyPipelineAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext, IAuthorizationRequirement requirement)
+        public override Task<bool> PolicyPipelineAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext, IAuthorizationRequirement requirement)
         {
             //所有验证需求都会过来但我们只关心自己关注的，其它的有其它处理器处理
-            if (requirement is AppAuthorizeRequirement) return true;
+            if (requirement is AppAuthorizeRequirement) return Task.FromResult(true);
 
-            return false;
+            return Task.FromResult(false);
         }
 
     }

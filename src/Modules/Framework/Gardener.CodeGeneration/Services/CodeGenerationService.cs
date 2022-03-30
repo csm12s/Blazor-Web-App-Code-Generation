@@ -78,7 +78,7 @@ namespace Gardener.CodeGeneration.Services
         /// 获取所有实体定义
         /// </summary>
         /// <returns></returns>
-        public async Task<List<EntityDefinitionDto>> GetEntityDefinitions()
+        public Task<List<EntityDefinitionDto>> GetEntityDefinitions()
         {
             List<EntityDefinitionDto> dtos = new List<EntityDefinitionDto>();
 
@@ -120,7 +120,7 @@ namespace Gardener.CodeGeneration.Services
                 dto.Properties = properties;
                 dtos.Add(dto);
             }
-            return dtos;
+            return Task.FromResult(dtos);
         }
     }
 }

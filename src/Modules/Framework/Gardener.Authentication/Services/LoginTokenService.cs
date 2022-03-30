@@ -24,14 +24,14 @@ namespace Gardener.Authentication.Services
     [ApiDescriptionSettings("UserCenterServices")]
     public class LoginTokenService : ServiceBase<LoginToken, LoginTokenDto, Guid>, ILoginTokenService
     {
-        private readonly IRepository<LoginToken> _repository;
+        private readonly IRepository<LoginToken> _loginTokenRepository;
         /// <summary>
         /// 用户登录TOKEN服务
         /// </summary>
         /// <param name="repository"></param>
         public LoginTokenService(IRepository<LoginToken> repository) : base(repository)
         {
-            _repository = repository;
+            _loginTokenRepository = repository;
         }
         
         /// <summary>
@@ -48,7 +48,7 @@ namespace Gardener.Authentication.Services
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             Expression<Func<LoginToken, bool>> expression = filterService.GetExpression<LoginToken>(request.FilterGroups);
 
-            IQueryable<LoginToken> queryable = _repository.AsQueryable(false)
+            IQueryable<LoginToken> queryable = _loginTokenRepository.AsQueryable(false)
                 .Where(u => u.IsDeleted == false)
                 .Where(expression);
             return await queryable

@@ -24,14 +24,14 @@ namespace Gardener.Audit.Services
     [ApiDescriptionSettings("SystemBaseServices")]
     public class AuditEntityService : ServiceBase<AuditEntity, AuditEntityDto, Guid>, IAuditEntityService
     {
-        private readonly IRepository<AuditEntity> _repository;
+        private readonly IRepository<AuditEntity> _auditRepository;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         public AuditEntityService(IRepository<AuditEntity> repository) : base(repository)
         {
-            this._repository = repository;
+            this._auditRepository = repository;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Gardener.Audit.Services
 
             Expression<Func<AuditEntity, bool>> expression = filterService.GetExpression<AuditEntity>(request.FilterGroups);
 
-            IQueryable<AuditEntity> queryable = _repository
+            IQueryable<AuditEntity> queryable = _auditRepository
                 .Include(x=>x.AuditProperties)
                 .Where(expression);
             return await queryable

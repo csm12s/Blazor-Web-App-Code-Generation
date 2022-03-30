@@ -49,9 +49,9 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// tag输入框失去焦点
         /// </summary>
-        private async Task HandleTagInputValue()
+        private Task HandleTagInputValue()
         {
-            if (string.IsNullOrEmpty(_tagInputValue)) return;
+            if (string.IsNullOrEmpty(_tagInputValue)) return Task.CompletedTask;
 
             if (!this.CurrentValue.Any(x => x.Equals(_tagInputValue)))
             {
@@ -59,15 +59,16 @@ namespace Gardener.Client.Base.Components
             }
             this._tagInputValue = string.Empty;
             this._tagInputVisible = false;
-            
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 点击添加标签
         /// </summary>
         /// <returns></returns>
-        private async Task OnTagAddClick()
+        private Task OnTagAddClick()
         {
             _tagInputVisible = !_tagInputVisible;
+            return Task.CompletedTask;
         }
     }
 }

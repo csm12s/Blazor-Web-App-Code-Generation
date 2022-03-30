@@ -23,7 +23,6 @@ namespace Gardener.Audit.Services
     [ApiDescriptionSettings("SystemBaseServices")]
     public class AuditOperationService : ServiceBase<AuditOperation, AuditOperationDto, Guid>, IAuditOperationService
     {
-        private readonly IRepository<AuditOperation> _repository;
         private readonly IRepository<AuditEntity> _auditEntityRepository;
         /// <summary>
         /// 
@@ -32,7 +31,6 @@ namespace Gardener.Audit.Services
         /// <param name="auditEntityRepository"></param>
         public AuditOperationService(IRepository<AuditOperation> repository, IRepository<AuditEntity> auditEntityRepository) : base(repository)
         {
-            this._repository = repository;
             _auditEntityRepository = auditEntityRepository;
         }
         

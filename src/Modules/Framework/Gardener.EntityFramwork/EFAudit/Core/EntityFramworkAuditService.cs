@@ -72,7 +72,7 @@ namespace Gardener.EntityFramwork.Audit.Core
         /// </summary>
         /// <param name="auditEntitys"></param>
         /// <returns></returns>
-        private async Task SaveAuditEntitys(List<AuditEntity> auditEntitys)
+        private void SaveAuditEntitys(List<AuditEntity> auditEntitys)
         {
             if (auditEntitys == null) return;
             if (this._auditOperation != null) 
@@ -142,19 +142,18 @@ namespace Gardener.EntityFramwork.Audit.Core
             catch (Exception ex)
             {
                 _logger.LogError(ex, "审计日志异常");
-
             }
         }
        /// <summary>
        /// 保存实体审计数据
        /// </summary>
        /// <returns></returns>
-        public async Task SavedChangesEvent()
+        public Task SavedChangesEvent()
         {
             try
             {
                 List<AuditEntity> auditEntitys = _auditEntitys;
-                if (auditEntitys == null) return;
+                if (auditEntitys == null) return Task.CompletedTask;
 
                 foreach (var entity in auditEntitys)
                 {
@@ -162,13 +161,14 @@ namespace Gardener.EntityFramwork.Audit.Core
                     entity.DataId = string.Join(',', pkValues);
                     entity.AuditProperties = auditProperties;
                 }
-                await SaveAuditEntitys(auditEntitys);
+                SaveAuditEntitys(auditEntitys);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "审计日志异常");
 
             }
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 获取属性审计信息
