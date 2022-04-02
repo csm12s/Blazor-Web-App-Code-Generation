@@ -22,6 +22,8 @@ namespace Gardener.NotificationSystem.Client
         private readonly SignalRClient signalRClient;
         private readonly IClientLogger clientLogger;
         private readonly IEventBus eventBus;
+        private readonly IOptions<ApiSettings> options;
+        private readonly IAuthenticationStateManager authenticationStateManager;
         /// <summary>
         /// 系统通知处理
         /// </summary>
@@ -29,31 +31,37 @@ namespace Gardener.NotificationSystem.Client
         /// <param name="navigationManager"></param>
         public SystemNotificationSignalRHandler(IOptions<ApiSettings> options, IClientLogger clientLogger, IEventBus eventBus, IAuthenticationStateManager authenticationStateManager)
         {
+            this.options = options;
             this.clientLogger = clientLogger;
             this.eventBus = eventBus;
+            this.authenticationStateManager = authenticationStateManager;
+            this.signalRClient = BuildClient();
+            
+        }
+        /// <summary>
+        /// 构建client
+        /// </summary>
+        /// <returns></returns>
+        private SignalRClient BuildClient()
+        {
             string url = options.Value.BaseAddres + "ws/system-notification";
-            signalRClient = new SignalRClient(url, clientLogger, ConnectedCallBack, async () => {
-                TokenOutput token= await authenticationStateManager.GetCurrentToken();
+            SignalRClient signalClient= new SignalRClient(url, clientLogger, async () => {
+                TokenOutput token = await authenticationStateManager.GetCurrentToken();
                 return token.AccessToken;
             });
+
+            return signalClient;
         }
         /// <summary>
         /// 启动
         /// </summary>
         /// <returns></returns>
-        public async Task Start()
+        public Task Start()
         {
-            await signalRClient.Connection();
-        }
-        /// <summary>
-        /// 连接回调
-        /// </summary>
-        /// <param name="hubConnection"></param>
-        private void ConnectedCallBack(HubConnection hubConnection)
-        {
-            hubConnection.On<NotificationData>("ReceiveMessage", async (data) =>
+            //注册接收回调
+            signalRClient.On<NotificationData>("ReceiveMessage", async (data) =>
             {
-                if (data==null)
+                if (data == null)
                 {
                     return;
                 }
@@ -62,24 +70,25 @@ namespace Gardener.NotificationSystem.Client
                 eventInfo.EventGroup = data.Type.ToString();
                 await eventBus.Publish(eventInfo);
             });
-        }
 
+            return signalRClient.Connection();
+        }
+        
         /// <summary>
         /// 关闭
         /// </summary>
-        public async Task Close()
+        public Task Close()
         {
-            await signalRClient.Close();
+            return signalRClient.Close();
         }
         /// <summary>
         /// 向服务端发送通知数据
         /// </summary>
         /// <param name="notificationData"></param>
         /// <returns></returns>
-        public async Task Send(NotificationData notificationData)
+        public Task Send(NotificationData notificationData)
         {
-            var connection= signalRClient.GetHubConnection();
-            await connection.SendAsync("Send", notificationData);
+            return signalRClient.SendAsync("Send", notificationData);
         }
     }
 
