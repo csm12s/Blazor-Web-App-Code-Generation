@@ -180,7 +180,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On(string methodName, Action resutHandler)
+        public SignalRClient On(string methodName, Action resutHandler)
         {
             if (connection == null)
             {
@@ -191,6 +191,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
         
         /// <summary>
@@ -199,7 +200,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On(string methodName, Func<Task> resutHandler)
+        public SignalRClient On(string methodName, Func<Task> resutHandler)
         {
             if (connection == null)
             {
@@ -210,6 +211,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
 
         /// <summary>
@@ -218,7 +220,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut>(string methodName, Action<TResut> resutHandler)
+        public SignalRClient On<TResut>(string methodName, Action<TResut> resutHandler)
         {
             if (connection == null)
             {
@@ -232,6 +234,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
         
         /// <summary>
@@ -240,7 +243,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut>(string methodName, Func<TResut,Task> resutHandler)
+        public SignalRClient On<TResut>(string methodName, Func<TResut,Task> resutHandler)
         {
             if (connection == null)
             {
@@ -254,6 +257,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On<TResut>(methodName, resutHandler);
             }
+            return this;
         }
 
         /// <summary>
@@ -262,7 +266,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut1, TResut2>(string methodName, Action<TResut1, TResut2> resutHandler)
+        public SignalRClient On<TResut1, TResut2>(string methodName, Action<TResut1, TResut2> resutHandler)
         {
             if (connection == null)
             {
@@ -276,6 +280,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
 
         /// <summary>
@@ -284,7 +289,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut1, TResut2>(string methodName, Func<TResut1, TResut2,Task> resutHandler)
+        public SignalRClient On<TResut1, TResut2>(string methodName, Func<TResut1, TResut2,Task> resutHandler)
         {
             if (connection == null)
             {
@@ -298,6 +303,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
 
         /// <summary>
@@ -306,7 +312,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1, TResut2, TResut3> resutHandler)
+        public SignalRClient On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1, TResut2, TResut3> resutHandler)
         {
             if (connection == null)
             {
@@ -320,6 +326,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
 
         /// <summary>
@@ -328,7 +335,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1, TResut2, TResut3,Task> resutHandler)
+        public SignalRClient On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1, TResut2, TResut3,Task> resutHandler)
         {
             if (connection == null)
             {
@@ -342,6 +349,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
 
         /// <summary>
@@ -350,7 +358,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1, TResut2, TResut3, TResut4> resutHandler)
+        public SignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1, TResut2, TResut3, TResut4> resutHandler)
         {
             if (connection == null)
             {
@@ -364,6 +372,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
 
 
@@ -373,7 +382,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public void On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1, TResut2, TResut3, TResut4,Task> resutHandler)
+        public SignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1, TResut2, TResut3, TResut4,Task> resutHandler)
         {
             if (connection == null)
             {
@@ -387,6 +396,7 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 connection.On(methodName, resutHandler);
             }
+            return this;
         }
 
         #endregion
