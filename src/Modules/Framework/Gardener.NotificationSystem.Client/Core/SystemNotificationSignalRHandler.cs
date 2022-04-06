@@ -48,19 +48,10 @@ namespace Gardener.NotificationSystem.Client
             SignalRClient signalClient= new SignalRClient(url, clientLogger, async () => {
                 TokenOutput token = await authenticationStateManager.GetCurrentToken();
                 return token.AccessToken;
-            });
-
-            return signalClient;
-        }
-        /// <summary>
-        /// 启动
-        /// </summary>
-        /// <returns></returns>
-        public Task Start()
-        {
-            //注册接收回调
-            signalRClient.On<NotificationData>("ReceiveMessage", async (data) =>
+            })
+            .On<NotificationData>("ReceiveMessage", async (data) =>
             {
+                //注册接收调用方法
                 if (data == null)
                 {
                     return;
@@ -71,6 +62,14 @@ namespace Gardener.NotificationSystem.Client
                 await eventBus.Publish(eventInfo);
             });
 
+            return signalClient;
+        }
+        /// <summary>
+        /// 启动
+        /// </summary>
+        /// <returns></returns>
+        public Task Start()
+        {
             return signalRClient.Connection();
         }
         
