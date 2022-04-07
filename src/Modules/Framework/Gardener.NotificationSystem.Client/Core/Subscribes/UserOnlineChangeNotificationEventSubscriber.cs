@@ -70,7 +70,11 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
                 return;
             }
 
-            UserOnlineChangeNotificationData userOnlineNotification=System.Text.Json.JsonSerializer.Deserialize<UserOnlineChangeNotificationData>(notificationData.Data);
+            UserOnlineChangeNotificationData? userOnlineNotification=System.Text.Json.JsonSerializer.Deserialize<UserOnlineChangeNotificationData>(notificationData.Data);
+            if (userOnlineNotification == null)
+            {
+                return;
+            }                
             if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Online))
             { 
                 await clientNotifier.Info("用户上线通知",$"{notificationData.Identity.GivenName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");

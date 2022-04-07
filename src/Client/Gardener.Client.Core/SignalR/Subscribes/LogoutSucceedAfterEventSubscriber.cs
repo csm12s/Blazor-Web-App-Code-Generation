@@ -6,8 +6,9 @@
 
 using Gardener.Client.Base;
 using Gardener.Client.Base.EventBus.Events;
+using System.Threading.Tasks;
 
-namespace Gardener.NotificationSystem.Client.Subscribes
+namespace Gardener.Client.Core.Subscribes
 {
     /// <summary>
     /// 登出后端口系统通知
@@ -15,16 +16,16 @@ namespace Gardener.NotificationSystem.Client.Subscribes
     [TransientService]
     public class LogoutSucceedAfterEventSubscriber : IEventSubscriber<LogoutSucceedAfterEvent>
     {
-        private readonly SystemNotificationSignalRHandler handler;
+        private readonly ISignalRClientManager signalRClientManager;
 
-        public LogoutSucceedAfterEventSubscriber(SystemNotificationSignalRHandler handler)
+        public LogoutSucceedAfterEventSubscriber(ISignalRClientManager signalRClientManager)
         {
-            this.handler = handler;
+            this.signalRClientManager = signalRClientManager;
         }
 
-        public async Task CallBack(LogoutSucceedAfterEvent e)
+        public Task CallBack(LogoutSucceedAfterEvent e)
         {
-           await handler.Close();
+            return signalRClientManager.StopAll();
         }
     }
 }

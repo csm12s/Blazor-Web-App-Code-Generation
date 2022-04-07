@@ -5,8 +5,12 @@
 // -----------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
+using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Gardener.NotificationSystem.Client
+namespace Gardener.Client.Core
 {
     /// <summary>
     /// 

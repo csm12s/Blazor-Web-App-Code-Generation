@@ -6,8 +6,9 @@
 
 using Gardener.Client.Base;
 using Gardener.Client.Base.EventBus.Events;
+using System.Threading.Tasks;
 
-namespace Gardener.NotificationSystem.Client.Subscribes
+namespace Gardener.Client.Core.Subscribes
 {
     /// <summary>
     /// 登录成功后，连接系统通知
@@ -15,16 +16,16 @@ namespace Gardener.NotificationSystem.Client.Subscribes
     [TransientService]
     public class LoginSucceedAfterEventSubscriber : IEventSubscriber<LoginSucceedAfterEvent>
     {
-        private readonly SystemNotificationSignalRHandler handler;
+        private readonly ISignalRClientManager signalRClientManager;
 
-        public LoginSucceedAfterEventSubscriber(SystemNotificationSignalRHandler handler)
+        public LoginSucceedAfterEventSubscriber(ISignalRClientManager signalRClientManager)
         {
-            this.handler = handler;
+            this.signalRClientManager = signalRClientManager;
         }
 
-        public async Task CallBack(LoginSucceedAfterEvent e)
+        public Task CallBack(LoginSucceedAfterEvent e)
         {
-          await handler.Start();
+            return signalRClientManager.ConnectionAndStartAll();
         }
     }
 }

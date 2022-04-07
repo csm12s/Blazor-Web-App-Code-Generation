@@ -82,8 +82,8 @@ namespace Gardener.Client.Entry
             builder.Services.AddTypeAdapterConfigs();
             #endregion
 
-            #region  ϵͳ֪ͨ
-            builder.AddSystemNotifyNotification();
+            #region  SignalR
+            builder.AddSignalRClientManager();
             #endregion
 
             var host =builder.Build();

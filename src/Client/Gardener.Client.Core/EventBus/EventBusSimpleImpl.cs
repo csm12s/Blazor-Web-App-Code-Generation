@@ -43,7 +43,7 @@ namespace Gardener.Client.Core.EventBus
                         }
                         if (!handler.Ignore(e)) 
                         {
-                            handler.CallBack(e);
+                           await handler.CallBack(e);
                         }
                     }
                     catch (Exception ex)

@@ -5,25 +5,24 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
-namespace Gardener.NotificationSystem.Client
+namespace Gardener.Client.Core
 {
     /// <summary>
-    /// 系统通知
+    /// SignalRClientManager
     /// </summary>
     public static class SystemNotificationExtension
     {
         /// <summary>
-        /// 系统通知
+        /// SignalRClientManager
         /// </summary>
         /// <param name="builder"></param>
-        public static void AddSystemNotifyNotification(this WebAssemblyHostBuilder builder) 
+        public static void AddSignalRClientManager(this WebAssemblyHostBuilder builder) 
         {
-            builder.Services.AddScoped<SystemNotificationSignalRHandler, SystemNotificationSignalRHandler>();
+            builder.Services.AddTransient<ISignalRClientBuilder, SignalRClientBuilder>();
+            builder.Services.AddScoped<ISignalRClientManager, SignalRClientManager>();
         }
 
     }

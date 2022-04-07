@@ -6,42 +6,75 @@
 
 using Gardener.Client.Base;
 using Microsoft.AspNetCore.SignalR.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Gardener.NotificationSystem.Client.Core
+namespace Gardener.Client.Core
 {
     /// <summary>
     /// signalr client
     /// </summary>
-    public class SignalRClient
+    public class SignalRClient : ISignalRClient
     {
-        private readonly static string serviceName = "通知服务";
+        /// <summary>
+        /// 客户端名称
+        /// </summary>
+        public string ClientName { get; }
+
+        /// <summary>
+        /// 是否自动重连
+        /// </summary>
+        private bool _automaticReconnect = true;
+        /// <summary>
+        /// 连接
+        /// </summary>
         private HubConnection? connection = null;
+        /// <summary>
+        /// 连接地址
+        /// </summary>
         private readonly string url;
+        /// <summary>
+        /// 日志记录
+        /// </summary>
         private readonly IClientLogger clientLogger;
+        /// <summary>
+        /// 身份token提供者
+        /// </summary>
         private readonly Func<Task<string?>> accessTokenProvider;
-
-        private readonly List<MessageCallBackInfo> messageCallBacks=new List<MessageCallBackInfo>();
-
+        /// <summary>
+        /// 消息请求回调集合
+        /// </summary>
+        private readonly List<MessageCallBackInfo> messageCallBacks = new List<MessageCallBackInfo>();
         /// <summary>
         /// signalr client
         /// </summary>
+        /// <param name="clientName">客户端唯一名称</param>
         /// <param name="url">连接地址</param>
         /// <param name="clientLogger">日志记录</param>
         /// <param name="accessTokenProvider">身份token提供方法</param>
-        public SignalRClient(string url, IClientLogger clientLogger,  Func<Task<string?>> accessTokenProvider)
+        public SignalRClient(string clientName, string url, IClientLogger clientLogger, Func<Task<string?>> accessTokenProvider)
         {
+            this.ClientName = clientName;
             this.url = url;
             this.clientLogger = clientLogger;
             this.accessTokenProvider = accessTokenProvider;
         }
-
-        public Func<Exception?, Task>? Closed;
-
-        public Func<Exception?, Task>? Reconnecting;
-
-        public Func<string?, Task>? Reconnected;
-
+        /// <summary>
+        /// 关闭
+        /// </summary>
+        public Func<Exception?, Task>? Closed { get; set; }
+        /// <summary>
+        /// 重连中
+        /// </summary>
+        public Func<Exception?, Task>? Reconnecting { get; set; }
+        /// <summary>
+        /// 重连后
+        /// </summary>
+        public Func<string?, Task>? Reconnected { get; set; }
         /// <summary>
         /// 连接断开
         /// </summary>
@@ -49,7 +82,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <returns></returns>
         private async Task ConnectionClosed(Exception? arg)
         {
-            clientLogger.Warn($"{serviceName}连接{(arg == null ? "关闭" : "中断")}", ex: arg, sendNotify: arg != null);
+            clientLogger.Warn($"{ClientName}连接{(arg == null ? "关闭" : "中断")}", ex: arg, sendNotify: arg != null);
             if (Closed != null)
             {
                 //回调
@@ -63,7 +96,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <returns></returns>
         private async Task ConnectionReconnecting(Exception? arg)
         {
-            clientLogger.Warn($"{serviceName}重连中", ex: arg,sendNotify:false);
+            clientLogger.Warn($"{ClientName}重连中", ex: arg, sendNotify: false);
             if (Reconnecting != null)
             {
                 await Reconnecting.Invoke(arg);
@@ -76,7 +109,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <returns></returns>
         private async Task ConnectionReconnected(string? arg)
         {
-            clientLogger.Warn($"{serviceName}重连完成![{(arg == null ? "" : arg)}]");
+            clientLogger.Warn($"{ClientName}重连完成![{(arg == null ? "" : arg)}]");
             if (Reconnected != null)
             {
                 await Reconnected.Invoke(arg);
@@ -84,27 +117,48 @@ namespace Gardener.NotificationSystem.Client.Core
         }
 
         /// <summary>
-        /// 创建连接
+        /// 自动重连
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <returns></returns>
+        public ISignalRClient AutomaticReconnect(bool enable = true)
+        {
+            this._automaticReconnect = enable;
+            return this;
+        }
+
+        /// <summary>
+        /// 创建连接并开启
         /// </summary>
         public Task Connection()
         {
             if (connection != null)
             {
+                if (connection.State.Equals(HubConnectionState.Disconnected))
+                {
+                    return connection.StartAsync();
+                }
                 return Task.CompletedTask;
             }
             try
             {
                 Uri uri = new Uri(url);
-                clientLogger.Info($"{serviceName}开始连接,url={uri.AbsoluteUri}");
-                connection = new HubConnectionBuilder()
-                //配置请求
-                .WithUrl(uri, options =>
+                clientLogger.Info($"{ClientName}开始连接,url={uri.AbsoluteUri}");
+
+                IHubConnectionBuilder builder = new HubConnectionBuilder()
+                            //配置请求
+                            .WithUrl(uri, options =>
+                            {
+                                options.AccessTokenProvider = accessTokenProvider;
+                                options.HttpMessageHandlerFactory = innerHandler => new IncludeRequestCredentialsMessageHandler(innerHandler);
+                            });
+
+                if (this._automaticReconnect)
                 {
-                    options.AccessTokenProvider = accessTokenProvider;
-                    options.HttpMessageHandlerFactory = innerHandler => new IncludeRequestCredentialsMessageHandler(innerHandler);
-                })
-                //配置重连
-                .WithAutomaticReconnect().Build();
+                    //配置重连
+                    builder.WithAutomaticReconnect();
+                }
+                connection = builder.Build();
                 if (connection != null)
                 {
                     connection.Reconnected += ConnectionReconnected;
@@ -121,24 +175,44 @@ namespace Gardener.NotificationSystem.Client.Core
             }
             catch (Exception ex)
             {
-                clientLogger.Error($"{serviceName}连接异常", ex: ex);
+                clientLogger.Error($"{ClientName}连接异常", ex: ex);
             }
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// 关闭
+        /// 停止
         /// </summary>
-        public async Task Close()
+        public async Task Stop()
+        {
+
+            if (connection != null && connection.State == HubConnectionState.Connected)
+            {
+                await connection.StopAsync();
+            }
+        }
+
+        /// <summary>
+        /// 开启
+        /// </summary>
+        public async Task Start()
+        {
+            if (connection != null && connection.State == HubConnectionState.Disconnected)
+            {
+                await connection.StartAsync();
+            }
+        }
+        /// <summary>
+        /// 释放
+        /// </summary>
+        public async Task Dispose()
         {
             if (connection != null)
             {
-                await connection.StopAsync();
                 await connection.DisposeAsync();
                 connection = null;
             }
         }
-
         /// <summary>
         /// 发送消息到服务端
         /// </summary>
@@ -180,27 +254,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On(string methodName, Action resutHandler)
-        {
-            if (connection == null)
-            {
-                //暂存
-                messageCallBacks.Add(new MessageCallBackInfo(methodName, resutHandler));
-            }
-            else
-            {
-                connection.On(methodName, resutHandler);
-            }
-            return this;
-        }
-        
-        /// <summary>
-        /// 当收到消息时处理
-        /// </summary>
-        /// <typeparam name="TResut"></typeparam>
-        /// <param name="methodName"></param>
-        /// <param name="resutHandler"></param>
-        public SignalRClient On(string methodName, Func<Task> resutHandler)
+        public ISignalRClient On(string methodName, Action resutHandler)
         {
             if (connection == null)
             {
@@ -220,40 +274,62 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut>(string methodName, Action<TResut> resutHandler)
+        public ISignalRClient On(string methodName, Func<Task> resutHandler)
         {
             if (connection == null)
             {
-                Action<object> callBack = data => {
-                    resutHandler((TResut)data);
-                };
                 //暂存
-                messageCallBacks.Add(new MessageCallBackInfo(methodName, typeof(TResut), callBack));
+                messageCallBacks.Add(new MessageCallBackInfo(methodName, resutHandler));
             }
-            else 
+            else
             {
                 connection.On(methodName, resutHandler);
             }
             return this;
         }
-        
+
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut>(string methodName, Func<TResut,Task> resutHandler)
+        public ISignalRClient On<TResut>(string methodName, Action<TResut> resutHandler)
         {
             if (connection == null)
             {
-                Func<object,Task> callBack = data => {
-                   return resutHandler((TResut)data);
+                Action<object> callBack = data =>
+                {
+                    resutHandler((TResut)data);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, typeof(TResut), callBack));
             }
-            else 
+            else
+            {
+                connection.On(methodName, resutHandler);
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// 当收到消息时处理
+        /// </summary>
+        /// <typeparam name="TResut"></typeparam>
+        /// <param name="methodName"></param>
+        /// <param name="resutHandler"></param>
+        public ISignalRClient On<TResut>(string methodName, Func<TResut, Task> resutHandler)
+        {
+            if (connection == null)
+            {
+                Func<object, Task> callBack = data =>
+                {
+                    return resutHandler((TResut)data);
+                };
+                //暂存
+                messageCallBacks.Add(new MessageCallBackInfo(methodName, typeof(TResut), callBack));
+            }
+            else
             {
                 connection.On<TResut>(methodName, resutHandler);
             }
@@ -263,14 +339,16 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
-        /// <typeparam name="TResut"></typeparam>
+        /// <typeparam name="TResut1"></typeparam>
+        /// <typeparam name="TResut2"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut1, TResut2>(string methodName, Action<TResut1, TResut2> resutHandler)
+        public ISignalRClient On<TResut1, TResut2>(string methodName, Action<TResut1, TResut2> resutHandler)
         {
             if (connection == null)
             {
-                Action<object[]> callBack = datas => {
+                Action<object[]> callBack = datas =>
+                {
                     resutHandler((TResut1)datas[0], (TResut2)datas[1]);
                 };
                 //暂存
@@ -286,15 +364,17 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
-        /// <typeparam name="TResut"></typeparam>
+        /// <typeparam name="TResut1"></typeparam>
+        /// <typeparam name="TResut2"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut1, TResut2>(string methodName, Func<TResut1, TResut2,Task> resutHandler)
+        public ISignalRClient On<TResut1, TResut2>(string methodName, Func<TResut1, TResut2, Task> resutHandler)
         {
             if (connection == null)
             {
-                Func<object[],Task> callBack = datas => {
-                   return resutHandler((TResut1)datas[0], (TResut2)datas[1]);
+                Func<object[], Task> callBack = datas =>
+                {
+                    return resutHandler((TResut1)datas[0], (TResut2)datas[1]);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2) }, callBack));
@@ -309,14 +389,17 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
-        /// <typeparam name="TResut"></typeparam>
+        /// <typeparam name="TResut1"></typeparam>
+        /// <typeparam name="TResut2"></typeparam>
+        /// <typeparam name="TResut3"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1, TResut2, TResut3> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1, TResut2, TResut3> resutHandler)
         {
             if (connection == null)
             {
-                Action<object[]> callBack = datas => {
+                Action<object[]> callBack = datas =>
+                {
                     resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2]);
                 };
                 //暂存
@@ -332,15 +415,18 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
-        /// <typeparam name="TResut"></typeparam>
+        /// <typeparam name="TResut1"></typeparam>
+        /// <typeparam name="TResut2"></typeparam>
+        /// <typeparam name="TResut3"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1, TResut2, TResut3,Task> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1, TResut2, TResut3, Task> resutHandler)
         {
             if (connection == null)
             {
-                Func<object[],Task> callBack = datas => {
-                   return resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2]);
+                Func<object[], Task> callBack = datas =>
+                {
+                    return resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2]);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2), typeof(TResut3) }, callBack));
@@ -355,14 +441,18 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
-        /// <typeparam name="TResut"></typeparam>
+        /// <typeparam name="TResut1"></typeparam>
+        /// <typeparam name="TResut2"></typeparam>
+        /// <typeparam name="TResut3"></typeparam>
+        /// <typeparam name="TResut4"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1, TResut2, TResut3, TResut4> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1, TResut2, TResut3, TResut4> resutHandler)
         {
             if (connection == null)
             {
-                Action<object[]> callBack = datas => {
+                Action<object[]> callBack = datas =>
+                {
                     resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2], (TResut4)datas[3]);
                 };
                 //暂存
@@ -379,14 +469,18 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
-        /// <typeparam name="TResut"></typeparam>
+        /// <typeparam name="TResut1"></typeparam>
+        /// <typeparam name="TResut2"></typeparam>
+        /// <typeparam name="TResut3"></typeparam>
+        /// <typeparam name="TResut4"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public SignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1, TResut2, TResut3, TResut4,Task> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1, TResut2, TResut3, TResut4, Task> resutHandler)
         {
             if (connection == null)
             {
-                Func<object[],Task> callBack = datas => {
+                Func<object[], Task> callBack = datas =>
+                {
                     return resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2], (TResut4)datas[3]);
                 };
                 //暂存
@@ -415,7 +509,8 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 MethodName = methodName;
                 ArgumentTypes = Type.EmptyTypes;
-                CallBack = delegate (object?[] objs) {
+                CallBack = delegate (object?[] objs)
+                {
                     callBack();
                     return Task.CompletedTask;
                 };
@@ -430,11 +525,12 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 MethodName = methodName;
                 ArgumentTypes = Type.EmptyTypes;
-                CallBack = delegate (object?[] objs) {
+                CallBack = delegate (object?[] objs)
+                {
                     return callBack();
                 };
             }
-            
+
 
             /// <summary>
             /// 
@@ -443,10 +539,11 @@ namespace Gardener.NotificationSystem.Client.Core
             /// <param name="argType"></param>
             /// <param name="callBack"></param>
             public MessageCallBackInfo(string methodName, Type argType, Action<object?> callBack)
-            { 
+            {
                 this.MethodName = methodName;
                 this.ArgumentTypes = new Type[] { argType };
-                CallBack = delegate (object?[] objs) {
+                CallBack = delegate (object?[] objs)
+                {
                     callBack(objs[0]);
                     return Task.CompletedTask;
                 };
@@ -458,11 +555,12 @@ namespace Gardener.NotificationSystem.Client.Core
             /// <param name="methodName"></param>
             /// <param name="argType"></param>
             /// <param name="callBack"></param>
-            public MessageCallBackInfo(string methodName, Type argType, Func<object?,Task> callBack)
-            { 
+            public MessageCallBackInfo(string methodName, Type argType, Func<object?, Task> callBack)
+            {
                 this.MethodName = methodName;
                 this.ArgumentTypes = new Type[] { argType };
-                CallBack = delegate (object?[] objs) {
+                CallBack = delegate (object?[] objs)
+                {
                     return callBack(objs[0]);
                 };
             }
@@ -477,7 +575,8 @@ namespace Gardener.NotificationSystem.Client.Core
             {
                 MethodName = methodName;
                 ArgumentTypes = argumentTypes;
-                CallBack = delegate (object?[] objs) {
+                CallBack = delegate (object?[] objs)
+                {
                     callBack(objs);
                     return Task.CompletedTask;
                 }; ;
@@ -489,11 +588,12 @@ namespace Gardener.NotificationSystem.Client.Core
             /// <param name="methodName"></param>
             /// <param name="argumentTypes"></param>
             /// <param name="callBack"></param>
-            public MessageCallBackInfo(string methodName, Type[] argumentTypes, Func<object?[],Task> callBack)
+            public MessageCallBackInfo(string methodName, Type[] argumentTypes, Func<object?[], Task> callBack)
             {
                 MethodName = methodName;
                 ArgumentTypes = argumentTypes;
-                CallBack = delegate (object?[] objs) {
+                CallBack = delegate (object?[] objs)
+                {
                     return callBack(objs);
                 }; ;
             }
@@ -509,7 +609,7 @@ namespace Gardener.NotificationSystem.Client.Core
             /// <summary>
             /// 回调
             /// </summary>
-            public Func<object?[],Task> CallBack { get; set; }
+            public Func<object?[], Task> CallBack { get; set; }
         }
     }
 }

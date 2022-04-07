@@ -5,10 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Authentication.Dtos;
 using Gardener.Client.Base;
-using Gardener.EventBus;
-using Gardener.NotificationSystem;
 using Gardener.NotificationSystem.Client;
 using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Dtos.Notification;
@@ -40,7 +37,7 @@ namespace Gardener.Client.Entry.Pages
         private IClientLocalizer localizer { get; set; }
 
         [Inject]
-        private SystemNotificationSignalRHandler systemNotificationSignalRHandler { get; set; }
+        private SystemNotificationTransceiver systemNotificationSignalRHandler { get; set; }
         [Inject]
         private MessageService messageService { get; set; }
         [Inject]

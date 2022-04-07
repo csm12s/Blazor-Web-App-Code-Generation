@@ -15,18 +15,11 @@ using System.Threading.Tasks;
 namespace Gardener.NotificationSystem.Client.Subscribes
 {
     /// <summary>
-    /// 刷新token后，修改通知系统的token
+    /// 刷新token后
     /// </summary>
     [TransientService]
     public class RefreshTokenSucceedAfterEventSubscriber : IEventSubscriber<RefreshTokenSucceedAfterEvent>
     {
-        private readonly SystemNotificationSignalRHandler handler;
-
-        public RefreshTokenSucceedAfterEventSubscriber(SystemNotificationSignalRHandler handler)
-        {
-            this.handler = handler;
-        }
-
         public Task CallBack(RefreshTokenSucceedAfterEvent e)
         {
             
