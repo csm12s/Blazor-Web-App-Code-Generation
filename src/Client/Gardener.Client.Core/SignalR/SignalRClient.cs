@@ -96,7 +96,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private async Task ConnectionReconnecting(Exception? arg)
         {
-            clientLogger.Warn($"{ClientName}重连中", ex: arg, sendNotify: false);
+            clientLogger.Warn($"{ClientName}重连中", ex: arg);
             if (Reconnecting != null)
             {
                 await Reconnecting.Invoke(arg);

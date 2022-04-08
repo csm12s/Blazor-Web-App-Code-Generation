@@ -64,8 +64,8 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
                 return;
             }
             var user = await authStateManager.GetCurrentUser();
-            //自己
-            if (user.Id.ToString() == notificationData.Identity.Id) 
+            //未登录，或是自己
+            if (user==null || user.Id.ToString() == notificationData.Identity.Id) 
             {
                 return;
             }
@@ -77,10 +77,10 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
             }                
             if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Online))
             { 
-                await clientNotifier.Info("用户上线通知",$"{notificationData.Identity.GivenName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");
+               await clientNotifier.Info("用户上线通知",$"{notificationData.Identity.GivenName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");
             }else if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Offline))
             {
-                await clientNotifier.Info("用户离线通知", $"{notificationData.Identity.GivenName} 刚刚离线了<br/>IP:[{notificationData.Ip}]");
+               await clientNotifier.Info("用户离线通知", $"{notificationData.Identity.GivenName} 刚刚离线了<br/>IP:[{notificationData.Ip}]");
             }
         }
     }
