@@ -29,7 +29,7 @@ namespace Gardener.EventBus
         /// <param name="e"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task Publish<TEvent>(TEvent e, CancellationToken? cancellationToken) where TEvent : EventBase
+        public Task Publish<TEvent>(TEvent e, CancellationToken? cancellationToken) where TEvent : EventBase
         {
             EventSource<TEvent> eventSource = new EventSource<TEvent>(e.EventType.ToString() + e.EventGroup);
             eventSource.Body = e;
@@ -37,8 +37,17 @@ namespace Gardener.EventBus
             {
                 eventSource.CancellationToken = cancellationToken.Value;
             }
-            await eventPublisher.PublishAsync(eventSource);
+            return eventPublisher.PublishAsync(eventSource);
         }
-        
+
+        public Subscriber Subscribe<TEvent>(Func<TEvent, Task> callBack) where TEvent : EventBase
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnSubscribe(Subscriber subscriber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
