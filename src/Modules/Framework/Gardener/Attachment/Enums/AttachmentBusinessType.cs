@@ -22,6 +22,11 @@ namespace Gardener.Attachment.Enums
         /// 订单
         /// </summary>
         [Description("订单")]
-        Order
+        Order,
+        /// <summary>
+        /// 聊天
+        /// </summary>
+        [Description("聊天")]
+        Chat
     }
 }

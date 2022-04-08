@@ -25,5 +25,9 @@ namespace Gardener.NotificationSystem.Dtos.Notification
         /// 消息
         /// </summary>
         public string Message { get; set; }
+        /// <summary>
+        /// 图片列表
+        /// </summary>
+        public string[] Images { get; set; }
     }
 }
