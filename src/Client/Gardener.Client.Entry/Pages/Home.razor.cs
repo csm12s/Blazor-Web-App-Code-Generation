@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Attachment.Dtos;
+using Gardener.Attachment.Enums;
 using Gardener.Client.Base;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;
@@ -15,9 +17,11 @@ using Gardener.NotificationSystem.Enums;
 using Gardener.NotificationSystem.Services;
 using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Entry.Pages
@@ -47,6 +51,34 @@ namespace Gardener.Client.Entry.Pages
         private IChatDemoService chatDemoService { get; set; }
         [Inject]
         private IEventBus eventBus { get; set; }
+        
+        bool _uploadLoading = false;
+
+        string imageUrl;
+
+        [Inject]
+        private IOptions<ApiSettings> apiSettings { get; set; }
+
+        /// <summary>
+        /// 上传地址
+        /// </summary>
+        private string _uploadUrl
+        {
+            get
+            {
+                return apiSettings.Value.BaseAddres + apiSettings.Value.UploadPath;
+            }
+        }
+
+        // <summary>
+        /// 上传附件附带参数
+        /// </summary>
+        private Dictionary<string, object> uploadAttachmentInput = new Dictionary<string, object>()
+        {
+            { "BusinessType", AttachmentBusinessType.Chat}
+        };
+
+        private Dictionary<string, string> headers;
 
         /// <summary>
         /// 
@@ -66,6 +98,11 @@ namespace Gardener.Client.Entry.Pages
             datas.AddRange(history);
             //进行订阅
             eventBus.Subscribe<EventInfo<NotificationData>>(EventCallBack);
+
+           
+            //上传附件附带身份信息
+            headers = await authenticationStateManager.GetCurrentTokenHeaders();
+
             await base.OnInitializedAsync();
         }
 
@@ -89,7 +126,7 @@ namespace Gardener.Client.Entry.Pages
         /// <summary>
         /// 提交消息
         /// </summary>
-        private async void OnSubmit()
+        private async Task OnSubmit()
         {
             if (string.IsNullOrEmpty(_message))
             {
@@ -111,7 +148,7 @@ namespace Gardener.Client.Entry.Pages
             chatData.Message = _message;
             chatData.NickName = user.NickName;
             NotificationData notificationData = new NotificationData();
-            notificationData.Data = System.Text.Json.JsonSerializer.Serialize(chatData);
+            notificationData.Data = JsonSerializer.Serialize(chatData);
             notificationData.Type = NotificationDataType.Chat;
             await systemNotificationSignalRHandler.Send(notificationData);
             _message = "";
@@ -165,6 +202,75 @@ namespace Gardener.Client.Entry.Pages
         {
             datas.Add(chatData);
             await InvokeAsync(StateHasChanged);
+        }
+
+        /// <summary>
+        /// 上传前检测
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        private bool UploadBefore(UploadFileItem file)
+        {
+            var typeOk = file.Type == "image/jpeg" || file.Type == "image/png" || file.Type == "image/gif";
+            if (!typeOk)
+            {
+                messageService.Error("只能选择JPG/PNG/GIF文件！");
+            }
+            var sizeOk = file.Size / 1024 < 500;
+            if (!sizeOk)
+            {
+                messageService.Error("必须小于500KB！");
+            }
+            if (uploadAttachmentInput.ContainsKey("BusinessId")) 
+            {
+                uploadAttachmentInput.Remove("BusinessId");
+            }
+            //上传附件附带参数
+            uploadAttachmentInput.Add("BusinessId", Guid.NewGuid());
+
+            return typeOk && sizeOk;
+        }
+        /// <summary>
+        /// 上传过程
+        /// </summary>
+        /// <param name="fileinfo"></param>
+        /// <returns></returns>
+        private async Task UploadHandleChange(UploadInfo fileinfo)
+        {
+            _uploadLoading = fileinfo.File.State == UploadState.Uploading;
+
+            if (fileinfo.File.State == UploadState.Success)
+            {
+                ApiResult<UploadAttachmentOutput> apiResult = fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (apiResult.Succeeded)
+                {
+                    //发送
+                    string imageUrl = apiResult.Data.Url;
+                    var user = await authenticationStateManager.GetCurrentUser();
+
+                    if (user == null)
+                    {
+                        return;
+                    }
+                    ChatNotificationData chatData = new ChatNotificationData();
+                    chatData.Avatar = user.Avatar;
+                    chatData.Images = new string [] { imageUrl };
+                    chatData.NickName = user.NickName;
+                    NotificationData notificationData = new NotificationData();
+                    notificationData.Data = JsonSerializer.Serialize(chatData);
+                    notificationData.Type = NotificationDataType.Chat;
+                    await systemNotificationSignalRHandler.Send(notificationData);
+                }
+                else
+                {
+                    messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
+                    messageService.Error(localizer["上传失败"]);
+                }
+            }
+            else if (fileinfo.File.State == UploadState.Fail)
+            {
+                messageService.Error(localizer["上传失败"]);
+            }
         }
     }
 }

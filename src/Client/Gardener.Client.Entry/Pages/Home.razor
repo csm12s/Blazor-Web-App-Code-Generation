@@ -1,9 +1,9 @@
 ﻿@page "/"
 @inherits ReuseTabsPageBase
 @{
- RenderFragment<ChatNotificationData> content =chatData=>
-        @<div>
-            @if (chatData.Images != null)
+    RenderFragment<ChatNotificationData> content = chatData =>
+    @<div>
+        @if (chatData.Images != null)
             {
                 foreach (var img in chatData.Images)
                 {
@@ -27,15 +27,15 @@
                     <Col Span="24" Style="height:50Vh;overflow-y:scroll;" Id="message-box">
                             @if (datas.Count > 0)
                             {
-                                <AntList DataSource="datas" TItem="ChatNotificationData">
-                                    <ListItem>
-                                        <Comment Avatar="@context.Avatar"
-                                             Author="@context.NickName"
-                                             Datetime="@context.Time.ToString("yyyy-MM-dd HH:mm:ss")"
-                                             ContentTemplate="@content(context)">
-                                             </Comment>
-                                    </ListItem>
-                                </AntList>
+                        <AntList DataSource="datas" TItem="ChatNotificationData">
+                            <ListItem>
+                                <Comment Avatar="@context.Avatar"
+                                     Author="@context.NickName"
+                                     Datetime="@context.Time.ToString("yyyy-MM-dd HH:mm:ss")"
+                                     ContentTemplate="@content(context)">
+                                </Comment>
+                            </ListItem>
+                        </AntList>
                             }
                     </Col>
                 </Row>
@@ -47,9 +47,28 @@
                                 <TextArea MinRows="4" @bind-Value="@_message" OnPressEnter="OnSubmit" />
                                 <br />
                                 <br />
-                                <Button Loading="@_submitting" OnClick="OnSubmit " type="primary">
-                                            @localizer["发送"]
-                                </Button>
+                                <Space>
+                                    <SpaceItem>
+                                        <Button Loading="@_submitting" OnClick="OnSubmit " type="primary">
+                                                    @localizer["发送"]
+                                        </Button>
+                                    </SpaceItem>
+                                    <SpaceItem>
+                                        <Spin Spinning="@_uploadLoading">
+                                            <Upload Action="@_uploadUrl"
+                                                    Name="file"
+                                                    BeforeUpload="UploadBefore"
+                                                    OnChange="UploadHandleChange"
+                                                    Data="uploadAttachmentInput"
+                                                    Headers="headers"
+                                                    ShowUploadList="false">
+                                                <Button Icon="upload">
+                                                    <span>@localizer["发送图片"]</span>
+                                                </Button>
+                                            </Upload>
+                                        </Spin>
+                                    </SpaceItem>
+                                </Space>
                             </div>
                         </ContentTemplate>
                     </Comment>
@@ -59,31 +78,31 @@
         </Card>
         </Col>
         <Col Span="7" Offset="1">
-            <Row>
-                <Col Span="24">
-                    <Card Title="交流群">
-                        <Extra>
-                        </Extra>
-                        <Body>
-                            <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=ILV3MBrcZtr4uUSsKa3njjnpBiUvT0xe&jump_from=webapi">
-                            <img alt="点击加入" title="点击加入" src="./assets/qq-group.webp" height="300px" />
-                            </a>
-                        </Body>
-                    </Card>
-                    <br/>
-                    <Card Title="文档">
-                        <Extra>
-                        </Extra>
-                        <Body>
-                            <p>
-                            <a target="_blank" href="/api/index.html">swagger api document</a>
-                            </p>
-                            <p><a target="_blank" href="https://gitee.com/hgflydream/Gardener/wikis/pages">使用文档</a></p>
-                            <p>源码：<a target="_blank" href="https://gitee.com/hgflydream/Gardener">https://gitee.com/hgflydream/Gardener</a></p>
-                        </Body>
-                    </Card>
-                </Col>
-             </Row>
+        <Row>
+            <Col Span="24">
+            <Card Title="交流群">
+                <Extra>
+                </Extra>
+                <Body>
+                    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=ILV3MBrcZtr4uUSsKa3njjnpBiUvT0xe&jump_from=webapi">
+                        <img alt="点击加入" title="点击加入" src="./assets/qq-group.webp" height="300px" />
+                    </a>
+                </Body>
+            </Card>
+            <br />
+            <Card Title="文档">
+                <Extra>
+                </Extra>
+                <Body>
+                    <p>
+                        <a target="_blank" href="/api/index.html">swagger api document</a>
+                    </p>
+                    <p><a target="_blank" href="https://gitee.com/hgflydream/Gardener/wikis/pages">使用文档</a></p>
+                    <p>源码：<a target="_blank" href="https://gitee.com/hgflydream/Gardener">https://gitee.com/hgflydream/Gardener</a></p>
+                </Body>
+            </Card>
+            </Col>
+        </Row>
         </Col>
     </Row>
 </div>
