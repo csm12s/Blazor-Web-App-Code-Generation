@@ -29,8 +29,7 @@ docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
 
 ## Contributor
 
-Thanks to everyone who contributed code to Gardener, and welcome everyone to submit a PR or Issue.
-[![Giteye chart](https://chart.giteye.net/gitee/hgflydream/Gardener/PPVXK76M.png)](https://giteye.net/chart/PPVXK76M)
+Thanks to everyone who contributed code to  **Gardener** , and welcome everyone to submit a PR or Issue.
 
 ## Links
 👉 **[Furion](https://gitee.com/dotnetchina/Furion)**  
