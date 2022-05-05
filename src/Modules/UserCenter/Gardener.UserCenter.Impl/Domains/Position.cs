@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // 园丁,是个很简单的管理系统
 //  gitee:https://gitee.com/hgflydream/Gardener 
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
@@ -16,7 +16,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Gardener.UserCenter.Impl.Domains
 {
     /// <summary>
-    /// 部门信息
+    /// 岗位信息
     /// </summary>
     [Description("岗位信息")]
     public class Position : GardenerEntityBase<int>, IEntityTypeBuilder<Position>, IEntitySeedData<Position>
