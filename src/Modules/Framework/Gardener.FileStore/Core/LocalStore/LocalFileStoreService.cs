@@ -120,7 +120,7 @@ namespace Gardener.FileStore.Core.LocalStore
                 Stream stream = new MemoryStream(bytes);
                 return stream;
             }
-            throw new FileNotFoundException("文件为找到,path=" + path);
+            throw new FileNotFoundException("文件未找到,path=" + path);
         }
     }
 }
