@@ -6,11 +6,13 @@ using Gardener.Authentication.Enums;
 using Gardener.EventBus;
 using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Enums;
+using Gardener.NotificationSystem.Options;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Options;
 
 namespace Gardener.NotificationSystem.Core
 {
@@ -21,8 +23,6 @@ namespace Gardener.NotificationSystem.Core
     [Authorize(AuthenticationSchemes = $"{nameof(IdentityType.User)},{nameof(IdentityType.Client)}")]
     public class SystemNotificationHub : Hub
     {
-       
-
         private readonly IEventBus eventBus;
         private readonly IIdentityService identityService;
         private readonly ISystemNotificationService systemNotificationService;
@@ -106,21 +106,26 @@ namespace Gardener.NotificationSystem.Core
         public static void HubEndpointConventionBuilderSettings(HubEndpointConventionBuilder builder)
         {
             // 配置
-            string origins = App.Configuration["SignalR:SystemNotificationHub:Origins"];
-            if (!string.IsNullOrEmpty(origins))
+            var options = App.GetService<IOptions<SignalROptions>>().Value;
+            if (options == null)
+                throw new ArgumentNullException("没有signalr的配置");
+
+            if (options.SystemNotificationHub == null)
+                throw new ArgumentNullException("没有对跨域进行配置");
+
+            var origins = options.SystemNotificationHub.Origins;
+
+            if (origins == null || origins.Count() == 0)
+                throw new ArgumentNullException("请至少配置一个域");
+
+            builder.RequireCors(cpb =>
             {
-                builder.RequireCors(cpb =>
-                {
-                    cpb.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .WithOrigins(origins)
-                        .AllowCredentials()
-                        .Build()
-                        ;
-                });
-            }
+                cpb.WithOrigins(origins)
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials()
+                   .Build();
+            });
         }
     }
-
-
 }

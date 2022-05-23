@@ -1,7 +1,11 @@
 {
   "SignalR": {
     "SystemNotificationHub": {
-      "Origins": "https://localhost:44321"
-    }
+      "Origins":
+        [
+          "https://localhost:44321",
+          "https://localhost:5001"
+        ]
+      }
   }
 }
