@@ -28,15 +28,12 @@ namespace Gardener.UserCenter.Impl.Services
     public class FunctionService : ServiceBase<Function, FunctionDto, Guid>, IFunctionService
     {
 
-        private readonly IRepository<Function> _repository;
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         public FunctionService(IRepository<Function> repository) : base(repository)
         {
-            _repository = repository;
         }
 
         /// <summary>
