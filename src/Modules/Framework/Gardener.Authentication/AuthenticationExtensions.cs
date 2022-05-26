@@ -52,8 +52,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Func<MessageReceivedContext, Task> contextHandle = context =>
             {
                 var accessToken = context.Request.Query["access_token"];
-                var path = context.HttpContext.Request.Path;
-                if (!string.IsNullOrEmpty(accessToken) && (path.Value.IndexOf("/ws/") > -1))
+                if (!string.IsNullOrEmpty(accessToken))
                 {
                     context.Token = accessToken;
                 }
