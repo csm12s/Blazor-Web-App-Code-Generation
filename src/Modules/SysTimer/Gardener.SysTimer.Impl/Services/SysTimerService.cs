@@ -82,15 +82,19 @@ namespace Gardener.SysTimer.Services
         public override async Task<SysTimerDto> Get(int id)
         {
             var data = await base.Get(id);
+            
             if(data != null)
             {
-                var worker = SpareTime.GetWorker(data.JobName);
-                if (worker == null)
-                    throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
-
-                data.TimerStatus = (TimerStatus)worker.Status;
-                data.RunNumber = worker.Tally;
-                data.Exception = JSON.Serialize(worker.Exception);
+                //只有当任务确认运行时才获取任务数据
+                if (data.StartNow == true)
+                {
+                    var worker = SpareTime.GetWorker(data.JobName);
+                    if (worker == null)
+                        throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
+                    data.TimerStatus = (TimerStatus)worker.Status;
+                    data.RunNumber = worker.Tally;
+                    data.Exception = JSON.Serialize(worker.Exception);
+                }
             }
             return data;
         }
