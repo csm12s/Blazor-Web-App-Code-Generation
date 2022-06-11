@@ -7,20 +7,20 @@
 using Gardener.Client.Base;
 using Gardener.NotificationSystem.Dtos;
 
-namespace Gardener.NotificationSystem.Client
+namespace Gardener.NotificationSystem.Client.Core
 {
-    /// <summary>
-    /// 系统通知收发器
-    /// </summary>
     [ScopedService]
-    public class SystemNotificationTransceiver
+    public class SystemNotificationSender
     {
-        private readonly ISignalRClientManager _signalRClientManager;
-        public SystemNotificationTransceiver(ISignalRClientManager signalRClientManager)
+        private readonly ISignalRClientManager signalRClientManager;
+
+        public SystemNotificationSender(ISignalRClientManager signalRClientManager)
         {
-            _signalRClientManager = signalRClientManager;
+            this.signalRClientManager = signalRClientManager;
         }
-        
+
+
+
         /// <summary>
         /// 发送
         /// </summary>
@@ -28,10 +28,8 @@ namespace Gardener.NotificationSystem.Client
         /// <returns></returns>
         public Task Send(NotificationData notificationData)
         {
-            return _signalRClientManager
-                .Get(NotificationSystemSignalRClientNames.SystemNotificationSignalRClientNames)
-                .SendAsync("Send", notificationData);
+            ISignalRClient signalRClient = signalRClientManager.Get(NotificationSystemSignalRClientNames.SystemNotificationSignalRClientNames);
+            return signalRClient.SendAsync("Send", notificationData);
         }
     }
-
 }

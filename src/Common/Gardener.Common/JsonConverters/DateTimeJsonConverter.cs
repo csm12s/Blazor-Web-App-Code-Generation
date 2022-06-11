@@ -4,17 +4,15 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DependencyInjection;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Gardener.Admin.JsonConverters
+namespace Gardener.Common.JsonConverters
 {
     /// <summary>
     /// DateTime 类型序列化
     /// </summary>
-    [SuppressSniffer]
     public class DateTimeJsonConverter : JsonConverter<DateTime>
     {
         /// <summary>

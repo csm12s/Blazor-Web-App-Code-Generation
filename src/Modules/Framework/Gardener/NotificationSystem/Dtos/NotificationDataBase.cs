@@ -13,9 +13,6 @@ namespace Gardener.NotificationSystem.Dtos
     /// </summary>
     public class NotificationDataBase
     {
-        /// <summary>
-        /// 通知时间
-        /// </summary>
-        public DateTimeOffset Time { get; set; } = DateTimeOffset.Now;
+        
     }
 }

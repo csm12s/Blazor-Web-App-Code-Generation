@@ -1,7 +1,7 @@
 ﻿@page "/"
 @inherits ReuseTabsPageBase
 @{
-    RenderFragment<ChatNotificationData> content = chatData =>
+    RenderFragment<ChatDemoNotificationData > content = chatData =>
     @<div>
         @if (chatData.Images != null)
             {
@@ -27,7 +27,7 @@
                     <Col Span="24" Style="height:50Vh;overflow-y:scroll;" Id="message-box">
                             @if (datas.Count > 0)
                             {
-                        <AntList DataSource="datas" TItem="ChatNotificationData">
+                        <AntList DataSource="datas" TItem="ChatDemoNotificationData ">
                             <ListItem>
                                 <Comment Avatar="@context.Avatar"
                                      Author="@context.NickName"

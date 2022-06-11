@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Common.JsonConverters;
 using Gardener.NotificationSystem.Core;
 using Gardener.NotificationSystem.Options;
 using Microsoft.AspNetCore.SignalR;
@@ -25,13 +26,24 @@ namespace Gardener.NotificationSystem
         /// <returns></returns>
         public static IServiceCollection AddSystemNotify(this IServiceCollection services)
         {
+            
             //添加配置信息
             services.AddConfigurableOptions<SignalROptions>();
             // 添加即时通讯
-            services.AddSignalR();
+            services.AddSignalR().AddJsonProtocol(options => {
+                options.PayloadSerializerOptions = new System.Text.Json.JsonSerializerOptions() 
+                {
+                    WriteIndented = true,
+                    Converters =
+                    {
+                        new DateTimeJsonConverter(),
+                        new DateTimeOffsetJsonConverter(),
+                        new NotificationDataJsonConverter()
+                    }
+                };
+            }); ;
             services.TryAddSingleton<IUserIdProvider, JwtUserIdProvider>();
             services.TryAddSingleton<ISystemNotificationService, SystemNotificationService>();
-
             return services;
         }
     }

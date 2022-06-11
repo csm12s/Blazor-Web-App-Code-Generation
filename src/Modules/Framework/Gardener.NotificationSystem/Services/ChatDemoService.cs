@@ -15,23 +15,23 @@ namespace Gardener.NotificationSystem.Services
     /// </summary>
     public class ChatDemoService : IChatDemoService, IDynamicApiController
     {
-        private static ConcurrentQueue<ChatNotificationData> concurrentQueue=new ConcurrentQueue<ChatNotificationData>();
+        private static ConcurrentQueue<ChatDemoNotificationData > concurrentQueue=new ConcurrentQueue<ChatDemoNotificationData >();
         private static object lockObj=new object();
         /// <summary>
         /// 获取聊天历史记录
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<IEnumerable<ChatNotificationData>> GetHistory()
+        public Task<IEnumerable<ChatDemoNotificationData >> GetHistory()
         {
-            IEnumerable<ChatNotificationData> datas= concurrentQueue.ToList();
+            IEnumerable<ChatDemoNotificationData > datas= concurrentQueue.ToList();
             return Task.FromResult(datas);
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
-        public static void AddChatMessage(ChatNotificationData data)
+        public static void AddChatMessage(ChatDemoNotificationData  data)
         {
             lock (lockObj)
             {

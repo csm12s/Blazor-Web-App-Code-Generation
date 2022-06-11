@@ -4,11 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Authentication.Core;
-using Gardener.Authentication.Dtos;
-using Gardener.EventBus;
 using Gardener.NotificationSystem.Dtos;
-using Gardener.NotificationSystem.Enums;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Gardener.NotificationSystem.Core
@@ -28,35 +24,6 @@ namespace Gardener.NotificationSystem.Core
             this.hubContext = hubContext;
         }
 
-        /// <summary>
-        /// 向所有客户端发送信息
-        /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="notifyData"></param>
-        /// <returns></returns>
-        private async Task SendToAllClient<TData>(NotificationData notifyData) where TData : NotificationDataBase
-        {
-            await hubContext.Clients.All.SendAsync("ReceiveMessage", notifyData);
-        }
-
-        /// <summary>
-        /// 向所有客户端发送信息
-        /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="dataType"></param>
-        /// <param name="data"></param>
-        /// <param name="Identity"></param>
-        /// <param name="ip"></param>
-        /// <returns></returns>
-        public async Task SendToAllClient<TData>(NotificationDataType dataType, TData data, Identity Identity=null,string ip=null) where TData : NotificationDataBase
-        {
-            NotificationData notifyData = new NotificationData();
-            notifyData.Data = System.Text.Json.JsonSerializer.Serialize(data);
-            notifyData.Type = dataType;
-            notifyData.Identity = Identity;
-            notifyData.Ip = ip;
-            await SendToAllClient<NotificationData>(notifyData);
-        }
 
         /// <summary>
         /// 向所有客户端发送信息
@@ -65,27 +32,8 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         public async Task SendToAllClient(NotificationData notifyData)
         {
-            await SendToAllClient<NotificationData>(notifyData);
-        }
-
-        /// <summary>
-        /// 向指定用户发送信息
-        /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="userId"></param>
-        /// <param name="dataType"></param>
-        /// <param name="data"></param>
-        /// <param name="Identity"></param>
-        /// <param name="ip"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task SendToUser<TData>(int userId, NotificationDataType dataType, TData data, Identity Identity, string ip = null) where TData : NotificationDataBase
-        {
-            NotificationData notifyData = new NotificationData();
-            notifyData.Data = System.Text.Json.JsonSerializer.Serialize(data);
-            notifyData.Type = dataType;
-            notifyData.Identity = Identity;
-            await SendToUser<NotificationData>(userId,notifyData);
+            string json= System.Text.Json.JsonSerializer.Serialize(notifyData,notifyData.GetType());
+            await hubContext.Clients.All.SendAsync("ReceiveMessage", json);
         }
 
         /// <summary>
@@ -96,19 +44,8 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         public async Task SendToUser(int userId, NotificationData notifyData)
         {
-            await SendToUser<NotificationData>(userId,notifyData);
-        }
-
-        /// <summary>
-        /// 向指定用户发送信息
-        /// </summary>
-        /// <typeparam name="TData"></typeparam>
-        /// <param name="userId"></param>
-        /// <param name="notifyData"></param>
-        /// <returns></returns>
-        private async Task SendToUser<TData>(int userId, NotificationData notifyData) where TData : NotificationDataBase
-        {
-            await hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveMessage", notifyData);
+            string json = System.Text.Json.JsonSerializer.Serialize(notifyData);
+            await hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveMessage", json);
         }
     }
 }

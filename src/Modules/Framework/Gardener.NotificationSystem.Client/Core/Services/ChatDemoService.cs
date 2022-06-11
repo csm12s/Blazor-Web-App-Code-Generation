@@ -27,9 +27,9 @@ namespace Gardener.NotificationSystem.Client.Core.Services
         {
             this.apiCaller = apiCaller;
         }
-        public async Task<IEnumerable<ChatNotificationData>> GetHistory()
+        public async Task<IEnumerable<ChatDemoNotificationData >> GetHistory()
         {
-            return await apiCaller.GetAsync<IEnumerable<ChatNotificationData>>($"{controller}/history");
+            return await apiCaller.GetAsync<IEnumerable<ChatDemoNotificationData >>($"{controller}/history");
         }
     }
 }

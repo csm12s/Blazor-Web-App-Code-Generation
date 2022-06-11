@@ -19,6 +19,6 @@ namespace Gardener.NotificationSystem.Services
         /// 获取历史聊天记录
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ChatNotificationData>> GetHistory();
+        Task<IEnumerable<ChatDemoNotificationData >> GetHistory();
     }
 }

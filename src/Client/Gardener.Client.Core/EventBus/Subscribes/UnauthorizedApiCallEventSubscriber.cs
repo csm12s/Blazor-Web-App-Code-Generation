@@ -14,7 +14,7 @@ namespace Gardener.Client.Core.EventBus.Subscribes
     /// 
     /// </summary>
     [TransientService]
-    public class UnauthorizedApiCallEventSubscriber : IEventSubscriber<UnauthorizedApiCallEvent>
+    public class UnauthorizedApiCallEventSubscriber : EventSubscriberBase<UnauthorizedApiCallEvent>
     {
 
         private readonly IAuthenticationStateManager authenticationStateManager;
@@ -24,7 +24,7 @@ namespace Gardener.Client.Core.EventBus.Subscribes
             this.authenticationStateManager = authenticationStateManager;
         }
 
-        public async Task CallBack(UnauthorizedApiCallEvent e)
+        public override async Task CallBack(UnauthorizedApiCallEvent e)
         {
             if (e.HttpStatusCode.Equals(HttpStatusCode.Unauthorized)) 
             {

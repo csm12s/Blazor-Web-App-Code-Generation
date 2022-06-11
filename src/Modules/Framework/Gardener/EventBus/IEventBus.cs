@@ -18,10 +18,9 @@ namespace Gardener.EventBus
         /// <summary>
         /// 发布
         /// </summary>
-        /// <typeparam name="TEvent"></typeparam>
         /// <param name="e"></param>
         /// <param name="cancellationToken"></param>
-        Task Publish<TEvent>(TEvent e, CancellationToken? cancellationToken=null) where TEvent : EventBase;
+        Task Publish(EventBase e, CancellationToken? cancellationToken=null);
 
         /// <summary>
         /// 订阅

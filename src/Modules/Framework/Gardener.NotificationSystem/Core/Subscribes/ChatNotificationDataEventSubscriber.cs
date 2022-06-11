@@ -39,11 +39,10 @@ namespace Gardener.NotificationSystem.Core.Subscribes
         public async Task Chat(EventHandlerExecutingContext context)
         {
             IEventSource eventSource = context.Source;
-            EventInfo<NotificationData> eventInfo = (EventInfo<NotificationData>)eventSource.Payload;
+            ChatDemoNotificationData chatNotification = (ChatDemoNotificationData)eventSource.Payload;
 
-            ChatNotificationData chatNotification = System.Text.Json.JsonSerializer.Deserialize<ChatNotificationData>(eventInfo.Data.Data);
             //收到聊天消息，转发给所有客户端
-            await systemNotificationService.SendToAllClient(eventInfo.Data);
+            await systemNotificationService.SendToAllClient(chatNotification);
             ChatDemoService.AddChatMessage(chatNotification);
         }
 
