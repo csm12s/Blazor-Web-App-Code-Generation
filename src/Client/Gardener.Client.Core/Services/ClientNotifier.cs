@@ -9,7 +9,7 @@ using Gardener.Client.Base;
 using System;
 using System.Threading.Tasks;
 
-namespace Gardener.Clientt.Core
+namespace Gardener.Client.Core
 {
     [ScopedService]
     public class ClientNotifier : IClientNotifier

@@ -1,20 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Client\Gardener.Client.Base\Gardener.Client.Base.csproj" />
-    <ProjectReference Include="..\Gardener\Gardener.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\Gardener.Client.Core\Gardener.Client.Core.csproj" />
   </ItemGroup>
 
 </Project>
