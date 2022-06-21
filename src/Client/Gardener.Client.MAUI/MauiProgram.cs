@@ -30,12 +30,6 @@ namespace Gardener.Client.MAUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
-
-            builder.Services.AddMauiBlazorWebView();
-            #if DEBUG
-		    builder.Services.AddBlazorWebViewDeveloperTools();
-            #endif
-
             #region 加载 Appsettings
             var a = Assembly.GetExecutingAssembly();
             using var stream = a.GetManifestResourceStream("Gardener.Client.MAUI.appsettings.json");
@@ -105,7 +99,10 @@ namespace Gardener.Client.MAUI
             #region  SignalR
             builder.AddSignalRClientManager();
             #endregion
-
+            builder.Services.AddMauiBlazorWebView();
+#if DEBUG
+            builder.Services.AddBlazorWebViewDeveloperTools();
+#endif
             return builder.Build();
         }
     }
