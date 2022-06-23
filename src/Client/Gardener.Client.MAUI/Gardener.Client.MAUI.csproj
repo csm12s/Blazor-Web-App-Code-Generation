@@ -78,6 +78,10 @@
 		<Watch Include="**\*.less" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Remove="wwwroot\service-worker.js" />
+	</ItemGroup>
+	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json" />
+	  <EmbeddedResource Include="wwwroot\service-worker.js" />
 	</ItemGroup>
 </Project>
