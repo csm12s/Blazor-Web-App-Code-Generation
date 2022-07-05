@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using Microsoft.AspNetCore.Components.WebView.Maui;
+using Gardener.NotificationSystem.Client;
 
 namespace Gardener.Client.MAUI
 {
@@ -30,6 +31,7 @@ namespace Gardener.Client.MAUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
+
             #region 加载 Appsettings
             var a = Assembly.GetExecutingAssembly();
             using var stream = a.GetManifestResourceStream("Gardener.Client.MAUI.appsettings.json");
@@ -84,12 +86,15 @@ namespace Gardener.Client.MAUI
             #endregion
 
             #region module
-            builder.AddModuleLoader().Wait();
+            builder.AddModuleLoader();
             #endregion
 
             #region services
 
-            builder.Services.AddServicesWithAttributeOfTypeFromModuleContext(new[] { typeof(App).Assembly });
+            builder.Services.AddServicesWithAttributeOfTypeFromModuleContextMAUI(new[] { typeof(App).Assembly });
+
+            builder.Services.AddScoped(typeof(HttpClientManager));
+            builder.Services.AddScoped(typeof(SystemNotificationTransceiver));
             #endregion
 
             #region  Mapster 配置
@@ -99,6 +104,7 @@ namespace Gardener.Client.MAUI
             #region  SignalR
             builder.AddSignalRClientManager();
             #endregion
+
             builder.Services.AddMauiBlazorWebView();
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

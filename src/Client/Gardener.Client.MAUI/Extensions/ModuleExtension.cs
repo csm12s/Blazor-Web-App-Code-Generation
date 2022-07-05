@@ -25,7 +25,7 @@ namespace Gardener.Client.MAUI.Extensions
             return moduleContext;
         }
 
-        public static async Task AddModuleLoader(this MauiAppBuilder builder)
+        public static void AddModuleLoader(this MauiAppBuilder builder)
         {
             IEnumerable<IConfigurationSection> sections = builder.Configuration.GetSection("ModuleSettings:Dlls").GetChildren();
             List<string> dlls = new List<string> {
@@ -40,7 +40,7 @@ namespace Gardener.Client.MAUI.Extensions
             List<Assembly> assemblies = new List<Assembly>();
             foreach (string dll in dlls)
             {
-                var rdll = await GetFromFileAsync(dll);
+                var rdll =  GetFromFile(dll);
                 if(rdll != null)
                     assemblies.Add(rdll);
                 System.Console.WriteLine("加载DLL：" + dll);
@@ -53,20 +53,19 @@ namespace Gardener.Client.MAUI.Extensions
             builder.Services.AddScoped(typeof(ClientModuleContext), p => moduleContext);
         }
 
-        private static async Task<Assembly> GetFromFileAsync(string fileName)
+        private static Assembly GetFromFile(string fileName)
         {
-            var stream = FileSystem.OpenAppPackageFileAsync(fileName).Result;
-
-            if(stream != null)
+            var ss = Environment.ProcessPath.Replace("Gardener.Client.MAUI.exe", "");
+            
+            try
             {
-                using (stream)
-                {
-                    byte[] data = new byte[stream.Length];
-                    await stream.ReadAsync(data, 0, data.Length);
-                    return Assembly.Load(data);
-                }
+                return Assembly.LoadFile(ss + fileName);
             }
-            return null;
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
     }
 }

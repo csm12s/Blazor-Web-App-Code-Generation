@@ -79,9 +79,18 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Remove="wwwroot\service-worker.js" />
+	  <Content Remove="wwwroot\service-worker.published.js" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Watch Remove="styles\global.less" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json" />
-	  <EmbeddedResource Include="wwwroot\service-worker.js" />
+	  <None Include="wwwroot\service-worker.js">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="wwwroot\service-worker.published.js" />
 	</ItemGroup>
 </Project>
