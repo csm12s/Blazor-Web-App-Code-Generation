@@ -1,0 +1,8 @@
+﻿<Application x:Class="Gardener.Client.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Gardener.Client.WPF">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
