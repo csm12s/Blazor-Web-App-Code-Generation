@@ -10,8 +10,7 @@ using Gardener.Attachment.Enums;
 using Gardener.Client.Base;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;
-using Gardener.NotificationSystem.Client;
-using Gardener.NotificationSystem.Dtos;
+using Gardener.NotificationSystem.Client.Core;
 using Gardener.NotificationSystem.Dtos.Notification;
 using Gardener.NotificationSystem.Enums;
 using Gardener.NotificationSystem.Services;
@@ -19,16 +18,13 @@ using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Gardener.Client.MAUI.Pages
 {
     public partial class Home : ReuseTabsPageBase
     {
-        public List<ChatNotificationData> datas = new List<ChatNotificationData>();
+        public List<ChatDemoNotificationData> datas = new List<ChatDemoNotificationData>();
 
         private bool _submitting = false;
         private string _message;
@@ -42,7 +38,7 @@ namespace Gardener.Client.MAUI.Pages
         private IClientLocalizer localizer { get; set; }
 
         [Inject]
-        private SystemNotificationTransceiver systemNotificationSignalRHandler { get; set; }
+        private SystemNotificationSender systemNotificationSender { get; set; }
         [Inject]
         private MessageService messageService { get; set; }
         [Inject]
@@ -51,10 +47,8 @@ namespace Gardener.Client.MAUI.Pages
         private IChatDemoService chatDemoService { get; set; }
         [Inject]
         private IEventBus eventBus { get; set; }
-        
-        bool _uploadLoading = false;
 
-        string imageUrl;
+        bool _uploadLoading = false;
 
         [Inject]
         private IOptions<ApiSettings> apiSettings { get; set; }
@@ -88,18 +82,18 @@ namespace Gardener.Client.MAUI.Pages
         {
             jsRef = await js.InvokeAsync<IJSObjectReference>("import", "./Pages/Home.razor.js");
 
-            var user= await authenticationStateManager.GetCurrentUser();
+            var user = await authenticationStateManager.GetCurrentUser();
             if (user != null)
             {
-                _currentUserAvatar=user.Avatar;
+                _currentUserAvatar = user.Avatar;
             }
-            
-            IEnumerable<ChatNotificationData> history= await chatDemoService.GetHistory();
+
+            IEnumerable<ChatDemoNotificationData> history = await chatDemoService.GetHistory();
             datas.AddRange(history);
             //进行订阅
-            eventBus.Subscribe<EventInfo<NotificationData>>(EventCallBack);
+            eventBus.Subscribe<ChatDemoNotificationData>(ChatDemoNotificationEventCallBack);
+            eventBus.Subscribe<UserOnlineChangeNotificationData>(UserOnlineChangeNotificationEventCallBack);
 
-           
             //上传附件附带身份信息
             headers = await authenticationStateManager.GetCurrentTokenHeaders();
 
@@ -122,7 +116,7 @@ namespace Gardener.Client.MAUI.Pages
                 await jsRef.InvokeVoidAsync("chatMessageBoxToBottom");
             }
         }
-        
+
         /// <summary>
         /// 提交消息
         /// </summary>
@@ -134,7 +128,7 @@ namespace Gardener.Client.MAUI.Pages
             }
             if (_message.Length > 100)
             {
-                await messageService.Warn("内容长度不能超过100");
+                messageService.Warn("内容长度不能超过100");
                 return;
             }
             var user = await authenticationStateManager.GetCurrentUser();
@@ -143,14 +137,11 @@ namespace Gardener.Client.MAUI.Pages
             {
                 return;
             }
-            ChatNotificationData chatData = new ChatNotificationData();
-            chatData.Avatar = user.Avatar;
-            chatData.Message = _message;
-            chatData.NickName = user.NickName;
-            NotificationData notificationData = new NotificationData();
-            notificationData.Data = JsonSerializer.Serialize(chatData);
-            notificationData.Type = NotificationDataType.Chat;
-            await systemNotificationSignalRHandler.Send(notificationData);
+            ChatDemoNotificationData notificationData = new ChatDemoNotificationData();
+            notificationData.Avatar = user.Avatar;
+            notificationData.Message = _message;
+            notificationData.NickName = user.NickName;
+            await systemNotificationSender.Send(notificationData);
             _message = "";
         }
 
@@ -160,49 +151,46 @@ namespace Gardener.Client.MAUI.Pages
         /// <param name="e"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        private async Task EventCallBack(EventInfo<NotificationData> e)
+        private async Task ChatDemoNotificationEventCallBack(ChatDemoNotificationData e)
         {
-            NotificationData notificationData = e.Data;
-            if (notificationData.Type.Equals(NotificationDataType.Chat))
-            {
-                ChatNotificationData chatData = System.Text.Json.JsonSerializer.Deserialize<ChatNotificationData>(notificationData.Data);
-                await ShowMessage(chatData);
-            }
-            else if (notificationData.Type.Equals(NotificationDataType.UserOnline))
-            {
-                UserDto user = await authenticationStateManager.GetCurrentUser();
-                if(user == null)
-                {
-                    return;
-                }
-                if (user.Id.ToString().Equals(notificationData.Identity.Id))
-                {
-                    return;
-                }
-                UserOnlineChangeNotificationData userOnlineNotification = System.Text.Json.JsonSerializer.Deserialize<UserOnlineChangeNotificationData>(notificationData.Data);
-                //用户上下线
-                ChatNotificationData chatData = new ChatNotificationData();
-                chatData.Avatar = "./assets/logo.png";
-                chatData.NickName = "系统";
-                if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Online))
-                {
-                    chatData.Message = $"{notificationData.Identity.GivenName} 刚刚上线了。IP:[{notificationData.Ip}]";
-                }
-                else if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Offline))
-                {
-                    chatData.Message = $"{notificationData.Identity.GivenName} 刚刚离线了。IP:[{notificationData.Ip}]";
-                }
-                await ShowMessage(chatData);
-            }
-           
+            await ShowMessage(e);
+
         }
-        
+        /// <summary>
+        /// 事件回调
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private async Task UserOnlineChangeNotificationEventCallBack(UserOnlineChangeNotificationData e)
+        {
+            UserOnlineChangeNotificationData notificationData = e;
+            UserDto user = await authenticationStateManager.GetCurrentUser();
+            if (user.Id.ToString().Equals(notificationData.Identity.Id))
+            {
+                return;
+            }
+            //用户上下线
+            ChatDemoNotificationData chatData = new ChatDemoNotificationData();
+            chatData.Avatar = "./assets/logo.png";
+            chatData.NickName = "系统";
+            if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Online))
+            {
+                chatData.Message = $"{notificationData.Identity.GivenName} 刚刚上线了。IP:[{notificationData.Ip}]";
+            }
+            else if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Offline))
+            {
+                chatData.Message = $"{notificationData.Identity.GivenName} 刚刚离线了。IP:[{notificationData.Ip}]";
+            }
+            await ShowMessage(chatData);
+        }
+
         /// <summary>
         /// 展示消息
         /// </summary>
         /// <param name="chatData"></param>
         /// <returns></returns>
-        private async Task ShowMessage(ChatNotificationData chatData) 
+        private async Task ShowMessage(ChatDemoNotificationData chatData)
         {
             datas.Add(chatData);
             await InvokeAsync(StateHasChanged);
@@ -225,7 +213,7 @@ namespace Gardener.Client.MAUI.Pages
             {
                 messageService.Error("必须小于500KB！");
             }
-            if (uploadAttachmentInput.ContainsKey("BusinessId")) 
+            if (uploadAttachmentInput.ContainsKey("BusinessId"))
             {
                 uploadAttachmentInput.Remove("BusinessId");
             }
@@ -256,24 +244,21 @@ namespace Gardener.Client.MAUI.Pages
                     {
                         return;
                     }
-                    ChatNotificationData chatData = new ChatNotificationData();
-                    chatData.Avatar = user.Avatar;
-                    chatData.Images = new string [] { imageUrl };
-                    chatData.NickName = user.NickName;
-                    NotificationData notificationData = new NotificationData();
-                    notificationData.Data = JsonSerializer.Serialize(chatData);
-                    notificationData.Type = NotificationDataType.Chat;
-                    await systemNotificationSignalRHandler.Send(notificationData);
+                    ChatDemoNotificationData notificationData = new ChatDemoNotificationData();
+                    notificationData.Avatar = user.Avatar;
+                    notificationData.Images = new string[] { imageUrl };
+                    notificationData.NickName = user.NickName;
+                    await systemNotificationSender.Send(notificationData);
                 }
                 else
                 {
-                    await messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    await messageService.Error(localizer["上传失败"]);
+                    messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
+                    messageService.Error(localizer["上传失败"]);
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-                await messageService.Error(localizer["上传失败"]);
+                messageService.Error(localizer["上传失败"]);
             }
         }
     }

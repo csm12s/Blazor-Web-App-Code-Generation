@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using System.Reflection;
 using Microsoft.AspNetCore.Components.WebView.Maui;
 using Gardener.NotificationSystem.Client;
+using Gardener.NotificationSystem.Client.Core;
 
 namespace Gardener.Client.MAUI
 {
@@ -94,7 +95,7 @@ namespace Gardener.Client.MAUI
             builder.Services.AddServicesWithAttributeOfTypeFromModuleContextMAUI(new[] { typeof(App).Assembly });
 
             builder.Services.AddScoped(typeof(HttpClientManager));
-            builder.Services.AddScoped(typeof(SystemNotificationTransceiver));
+            builder.Services.AddScoped(typeof(SystemNotificationSender));
             #endregion
 
             #region  Mapster 配置

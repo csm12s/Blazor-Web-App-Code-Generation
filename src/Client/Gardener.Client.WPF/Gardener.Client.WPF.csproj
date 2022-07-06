@@ -53,4 +53,9 @@
 		<Watch Include="**\*.razor" />
 		<Watch Include="**\*.less" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Pages\Home.razor.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 </Project>

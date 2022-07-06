@@ -23,6 +23,7 @@ using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Gardener.NotificationSystem.Client;
+using Gardener.NotificationSystem.Client.Core;
 
 namespace Gardener.Client.WPF
 {
@@ -98,7 +99,7 @@ namespace Gardener.Client.WPF
             services.AddServicesWithAttributeOfTypeFromModuleContextWPF(new[] { typeof(App).Assembly });
             services.AddScoped<IJsTool, JsTool>();
             services.AddScoped(typeof(HttpClientManager));
-            services.AddScoped(typeof(SystemNotificationTransceiver));
+            services.AddScoped(typeof(SystemNotificationSender));
             #endregion
 
             #region  Mapster 配置
