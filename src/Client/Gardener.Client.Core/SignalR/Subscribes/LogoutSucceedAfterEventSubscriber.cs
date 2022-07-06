@@ -14,7 +14,7 @@ namespace Gardener.Client.Core.Subscribes
     /// 登出后端口系统通知
     /// </summary>
     [TransientService]
-    public class LogoutSucceedAfterEventSubscriber : IEventSubscriber<LogoutSucceedAfterEvent>
+    public class LogoutSucceedAfterEventSubscriber : EventSubscriberBase<LogoutSucceedAfterEvent>
     {
         private readonly ISignalRClientManager signalRClientManager;
 
@@ -23,7 +23,7 @@ namespace Gardener.Client.Core.Subscribes
             this.signalRClientManager = signalRClientManager;
         }
 
-        public Task CallBack(LogoutSucceedAfterEvent e)
+        public override Task CallBack(LogoutSucceedAfterEvent e)
         {
             return signalRClientManager.StopAll();
         }

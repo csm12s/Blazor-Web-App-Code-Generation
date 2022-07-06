@@ -16,7 +16,7 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
     /// 
     /// </summary>
     [TransientService]
-    public class UserOnlineChangeNotificationEventSubscriber : IEventSubscriber<EventInfo<NotificationData>>
+    public class UserOnlineChangeNotificationEventSubscriber : EventSubscriberBase<UserOnlineChangeNotificationData>
     {
         private readonly IClientNotifier clientNotifier;
         private readonly IAuthenticationStateManager authStateManager;
@@ -32,32 +32,10 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public bool Ignore(EventInfo<NotificationData> e)
-        {
-            if (e == null || e.Data==null)
-            {
-                return true;
-            }
-            if (!e.EventType.Equals(EventType.SystemNotify))
-            {
-                return true;
-            }
-            if (!e.Data.Type.Equals(NotificationDataType.UserOnline))
-            {
-                return true; 
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task CallBack(EventInfo<NotificationData> e)
+        public override async Task CallBack(UserOnlineChangeNotificationData e)
         {
-            NotificationData notificationData = e.Data;
+            UserOnlineChangeNotificationData notificationData = e;
             //无数据 或 无身份 或 非user身份
             if (notificationData == null || notificationData.Identity==null || !notificationData.Identity.IdentityType.Equals(IdentityType.User))
             {
@@ -69,16 +47,11 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
             {
                 return;
             }
-
-            UserOnlineChangeNotificationData? userOnlineNotification=System.Text.Json.JsonSerializer.Deserialize<UserOnlineChangeNotificationData>(notificationData.Data);
-            if (userOnlineNotification == null)
-            {
-                return;
-            }                
-            if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Online))
+             
+            if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Online))
             { 
                await clientNotifier.Info("用户上线通知",$"{notificationData.Identity.GivenName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");
-            }else if (userOnlineNotification.OnlineStatus.Equals(UserOnlineStatus.Offline))
+            }else if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Offline))
             {
                await clientNotifier.Info("用户离线通知", $"{notificationData.Identity.GivenName} 刚刚离线了<br/>IP:[{notificationData.Ip}]");
             }

@@ -14,7 +14,7 @@ namespace Gardener.Client.Core.Subscribes
     /// 登录成功后，连接系统通知
     /// </summary>
     [TransientService]
-    public class LoginSucceedAfterEventSubscriber : IEventSubscriber<LoginSucceedAfterEvent>
+    public class LoginSucceedAfterEventSubscriber : EventSubscriberBase<LoginSucceedAfterEvent>
     {
         private readonly ISignalRClientManager signalRClientManager;
 
@@ -23,7 +23,7 @@ namespace Gardener.Client.Core.Subscribes
             this.signalRClientManager = signalRClientManager;
         }
 
-        public Task CallBack(LoginSucceedAfterEvent e)
+        public override Task CallBack(LoginSucceedAfterEvent e)
         {
             return signalRClientManager.ConnectionAndStartAll();
         }

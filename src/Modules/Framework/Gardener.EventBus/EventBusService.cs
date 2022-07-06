@@ -22,29 +22,41 @@ namespace Gardener.EventBus
         {
             this.eventPublisher = eventPublisher;
         }
+
         /// <summary>
-        /// 
+        /// 发布消息
         /// </summary>
-        /// <typeparam name="TEvent"></typeparam>
         /// <param name="e"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Publish<TEvent>(TEvent e, CancellationToken? cancellationToken) where TEvent : EventBase
+        public Task Publish(EventBase e, CancellationToken? cancellationToken = null)
         {
-            EventSource<TEvent> eventSource = new EventSource<TEvent>(e.EventType.ToString() + e.EventGroup);
+            EventSource<EventBase> eventSource = new EventSource<EventBase>(e.EventType.ToString() + e.EventGroup);
             eventSource.Body = e;
-            if (cancellationToken.HasValue) 
+            if (cancellationToken.HasValue)
             {
                 eventSource.CancellationToken = cancellationToken.Value;
             }
             return eventPublisher.PublishAsync(eventSource);
         }
 
+        /// <summary>
+        /// 订阅
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <param name="callBack"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         public Subscriber Subscribe<TEvent>(Func<TEvent, Task> callBack) where TEvent : EventBase
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 解绑
+        /// </summary>
+        /// <param name="subscriber"></param>
+        /// <exception cref="NotImplementedException"></exception>
         public void UnSubscribe(Subscriber subscriber)
         {
             throw new NotImplementedException();

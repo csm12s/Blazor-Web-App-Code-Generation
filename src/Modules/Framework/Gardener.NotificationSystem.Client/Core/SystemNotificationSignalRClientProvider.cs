@@ -5,8 +5,11 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
+using Gardener.Common.JsonConverters;
 using Gardener.EventBus;
+using Gardener.NotificationSystem.Core;
 using Gardener.NotificationSystem.Dtos;
+using System.Text.Json;
 
 namespace Gardener.NotificationSystem.Client.Core
 {
@@ -15,22 +18,34 @@ namespace Gardener.NotificationSystem.Client.Core
     {
         private readonly IEventBus _eventBus;
         private readonly ISignalRClientBuilder signalRClientBuilder;
+        private readonly IClientLogger clientLogger;
 
-        public SystemNotificationSignalRClientProvider(IEventBus eventBus, ISignalRClientBuilder signalRClientBuilder)
+        private JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventBus"></param>
+        /// <param name="signalRClientBuilder"></param>
+        public SystemNotificationSignalRClientProvider(IEventBus eventBus, ISignalRClientBuilder signalRClientBuilder, IClientLogger clientLogger)
         {
             _eventBus = eventBus;
             this.signalRClientBuilder = signalRClientBuilder;
+            jsonSerializerOptions.Converters.Add(new NotificationDataJsonConverter());
+            jsonSerializerOptions.IncludeFields = true;
+            this.clientLogger = clientLogger;
         }
 
         public ISignalRClient GetSignalRClient()
         {
-            ISignalRClient signalRClient= signalRClientBuilder
+            ISignalRClient signalRClient = signalRClientBuilder
                 .GetInstance()
                 .SetClientName(NotificationSystemSignalRClientNames.SystemNotificationSignalRClientNames)
                 .SetUrl("ws/system-notification")
                 .Build();
 
-            signalRClient.On<NotificationData>("ReceiveMessage", CallBack);
+            signalRClient.On<string>("ReceiveMessage", CallBack);
 
             return signalRClient;
         }
@@ -39,17 +54,23 @@ namespace Gardener.NotificationSystem.Client.Core
         /// </summary>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        private Task CallBack(NotificationData data)
+        private Task CallBack(string json)
         {
-            //注册接收调用方法
-            if (data == null)
+            try
             {
+                NotificationData notificationData = JsonSerializer.Deserialize<NotificationData>(json, jsonSerializerOptions);
+                //注册接收调用方法
+                if (notificationData == null)
+                {
+                    return Task.CompletedTask;
+                }
+                return _eventBus.Publish(notificationData);
+            }
+            catch (Exception ex) {
+                clientLogger.Error("Notification System CallBack Error", ex:ex, sendNotify:false);
                 return Task.CompletedTask;
             }
-            //解析为基本通知事件
-            EventInfo<NotificationData> eventInfo = new EventInfo<NotificationData>(EventType.SystemNotify, data);
-            eventInfo.EventGroup = data.Type.ToString();
-            return _eventBus.Publish(eventInfo);
-        }        
+        }
+
     }
 }

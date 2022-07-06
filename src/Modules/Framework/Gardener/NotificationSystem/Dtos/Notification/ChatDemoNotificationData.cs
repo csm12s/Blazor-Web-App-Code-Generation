@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.NotificationSystem.Enums;
 using System;
 
 namespace Gardener.NotificationSystem.Dtos.Notification
@@ -11,8 +12,15 @@ namespace Gardener.NotificationSystem.Dtos.Notification
     /// <summary>
     /// 聊天数据
     /// </summary>
-    public class ChatNotificationData : NotificationDataBase
+    public class ChatDemoNotificationData : NotificationData
     {
+        /// <summary>
+        /// 聊天数据
+        /// </summary>
+        public ChatDemoNotificationData() : base(NotificationDataType.Chat)
+        {
+        }
+
         /// <summary>
         /// 昵称
         /// </summary>

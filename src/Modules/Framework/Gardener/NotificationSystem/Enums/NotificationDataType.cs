@@ -12,9 +12,9 @@ namespace Gardener.NotificationSystem.Enums
     public enum NotificationDataType
     {
         /// <summary>
-        /// 用户上线
+        /// 用户上线下线
         /// </summary>
-        UserOnline,
+        UserOnlineChange,
         /// <summary>
         /// 聊天
         /// </summary>

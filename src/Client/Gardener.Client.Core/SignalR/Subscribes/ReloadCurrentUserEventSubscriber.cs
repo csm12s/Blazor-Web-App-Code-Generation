@@ -14,7 +14,7 @@ namespace Gardener.Client.Core.Subscribes
     /// 重载用户后，连接系统通知
     /// </summary>
     [TransientService]
-    public class ReloadCurrentUserEventSubscriber : IEventSubscriber<ReloadCurrentUserEvent>
+    public class ReloadCurrentUserEventSubscriber : EventSubscriberBase<ReloadCurrentUserEvent>
     {
         private readonly ISignalRClientManager signalRClientManager;
 
@@ -23,7 +23,7 @@ namespace Gardener.Client.Core.Subscribes
             this.signalRClientManager = signalRClientManager;
         }
 
-        public Task CallBack(ReloadCurrentUserEvent e)
+        public override Task CallBack(ReloadCurrentUserEvent e)
         {
             return signalRClientManager.ConnectionAndStartAll();
         }

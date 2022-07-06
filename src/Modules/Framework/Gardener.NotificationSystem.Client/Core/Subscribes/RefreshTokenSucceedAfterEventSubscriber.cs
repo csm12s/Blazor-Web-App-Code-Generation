@@ -13,11 +13,10 @@ namespace Gardener.NotificationSystem.Client.Subscribes
     /// 刷新token后
     /// </summary>
     [TransientService]
-    public class RefreshTokenSucceedAfterEventSubscriber : IEventSubscriber<RefreshTokenSucceedAfterEvent>
+    public class RefreshTokenSucceedAfterEventSubscriber : EventSubscriberBase<RefreshTokenSucceedAfterEvent>
     {
-        public Task CallBack(RefreshTokenSucceedAfterEvent e)
+        public override Task CallBack(RefreshTokenSucceedAfterEvent e)
         {
-            
             return Task.CompletedTask;
         }
     }

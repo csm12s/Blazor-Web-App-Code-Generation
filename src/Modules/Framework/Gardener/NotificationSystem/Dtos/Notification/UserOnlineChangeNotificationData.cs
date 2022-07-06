@@ -12,8 +12,15 @@ namespace Gardener.NotificationSystem
     /// <summary>
     /// 用户在线状态变化通知数据
     /// </summary>
-    public class UserOnlineChangeNotificationData : NotificationDataBase
+    public class UserOnlineChangeNotificationData : NotificationData
     {
+        /// <summary>
+        /// 用户在线状态变化通知数据
+        /// </summary>
+        public UserOnlineChangeNotificationData() : base(NotificationDataType.UserOnlineChange)
+        {
+        }
+        
         /// <summary>
         /// 在线状态
         /// </summary>

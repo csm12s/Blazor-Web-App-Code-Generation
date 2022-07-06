@@ -13,7 +13,7 @@ namespace Gardener.Client.Core.EventBus.Subscribes
     /// 刷新token失败事件处理器
     /// </summary>
     [TransientService]
-    public class RefreshTokenErrorEventSubscriber : IEventSubscriber<RefreshTokenErrorEvent>
+    public class RefreshTokenErrorEventSubscriber : EventSubscriberBase<RefreshTokenErrorEvent>
     {
         private readonly IAuthenticationStateManager authenticationStateManager;
 
@@ -22,7 +22,7 @@ namespace Gardener.Client.Core.EventBus.Subscribes
             this.authenticationStateManager = authenticationStateManager;
         }
 
-        public async Task CallBack(RefreshTokenErrorEvent e)
+        public override async Task CallBack(RefreshTokenErrorEvent e)
         {
             await authenticationStateManager.CleanUserInfo();
         }

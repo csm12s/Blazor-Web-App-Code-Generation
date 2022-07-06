@@ -22,25 +22,26 @@ namespace Gardener.Client.Core.EventBus
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IClientLogger _logger;
-        private readonly Dictionary<Type, List<Subscriber>> _subscribers = new Dictionary<Type, List<Subscriber>>();
+        private readonly Dictionary<String, List<Subscriber>> _subscribers = new Dictionary<String, List<Subscriber>>();
         public EventBusSimpleImpl(IServiceProvider serviceProvider, IClientLogger logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
+
         /// <summary>
         /// 发布消息
         /// </summary>
-        /// <typeparam name="TEvent"></typeparam>
         /// <param name="e"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Publish<TEvent>(TEvent e, CancellationToken? cancellationToken) where TEvent : EventBase
+        public Task Publish(EventBase e, CancellationToken? cancellationToken)
         {
+            string typeName = e.GetType().FullName;
             _logger.Info($"eventBus publish event {e.GetType().FullName}  {System.Text.Json.JsonSerializer.Serialize(e)}");
             List<Task> tasks = new List<Task>();
             //静态注册订阅者
-            var staticSubscribers = _serviceProvider.GetServices<IEventSubscriber<TEvent>>();
+            var staticSubscribers = _serviceProvider.GetServices<IEventSubscriber>();
             if (staticSubscribers != null)
             {
                 foreach (var handler in staticSubscribers)
@@ -51,10 +52,7 @@ namespace Gardener.Client.Core.EventBus
                         {
                             break;
                         }
-                        if (!handler.Ignore(e))
-                        {
-                            tasks.Add(handler.CallBack(e));
-                        }
+                        tasks.Add(handler.CallBack(e));
                     }
                     catch (Exception ex)
                     {
@@ -64,7 +62,7 @@ namespace Gardener.Client.Core.EventBus
 
             }
             //动态注册订阅者
-            if (_subscribers.TryGetValue(typeof(TEvent), out List<Subscriber> subscribers))
+            if (_subscribers.TryGetValue(typeName, out List<Subscriber> subscribers))
             {
                 //循环订阅者
                 foreach (var subscriber in subscribers)
@@ -98,10 +96,12 @@ namespace Gardener.Client.Core.EventBus
             Subscriber subscriber = new Subscriber(typeof(TEvent), e => callBack((TEvent)e));
             lock (_subscribers)
             {
-                if (!_subscribers.TryGetValue(typeof(TEvent), out List<Subscriber> subscribers))
+                string typeName = typeof(TEvent).FullName;
+                
+                if (!_subscribers.TryGetValue(typeName, out List<Subscriber> subscribers))
                 {
                     subscribers = new List<Subscriber>();
-                    _subscribers.Add(typeof(TEvent), subscribers);
+                    _subscribers.Add(typeName, subscribers);
                 }
                 subscribers.Add(subscriber);
             }
@@ -114,10 +114,11 @@ namespace Gardener.Client.Core.EventBus
         /// <param name="subscriber"></param>
         public void UnSubscribe(Subscriber subscriber)
         {
-            if (_subscribers.TryGetValue(subscriber.EventType, out List<Subscriber> subscribers))
+            if (_subscribers.TryGetValue(subscriber.EventType.FullName, out List<Subscriber> subscribers))
             {
-                subscribers.Remove(subscriber);
+                subscribers.RemoveAll(x => x.Id.Equals(subscriber.Id));
             }
         }
+        
     }
 }

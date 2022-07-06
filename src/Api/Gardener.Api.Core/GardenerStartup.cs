@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
-using Gardener.Admin.JsonConverters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +13,7 @@ using Gardener.Authorization.Core;
 using Serilog;
 using Microsoft.AspNetCore.Http;
 using Gardener.NotificationSystem;
+using Gardener.Common.JsonConverters;
 
 namespace Gardener.Admin
 {

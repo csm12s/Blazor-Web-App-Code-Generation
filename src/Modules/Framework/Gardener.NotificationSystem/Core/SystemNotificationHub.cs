@@ -56,10 +56,7 @@ namespace Gardener.NotificationSystem.Core
             Identity identity = identityService.GetIdentity();
             data.Identity = identity;
             data.Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4();
-
-            EventInfo<NotificationData> eventInfo = new EventInfo<NotificationData>(EventType.SystemNotify, data);
-            eventInfo.EventGroup = data.Type.ToString();
-            await eventBus.Publish(eventInfo);
+            await eventBus.Publish(data);
 
         }
         /// <summary>
@@ -70,10 +67,11 @@ namespace Gardener.NotificationSystem.Core
         {
             var notification = new UserOnlineChangeNotificationData()
             {
+                Identity= identityService.GetIdentity(),
+                Ip= Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
                 OnlineStatus = UserOnlineStatus.Online
             };
-            await systemNotificationService.SendToAllClient(NotificationDataType.UserOnline, notification, identityService.GetIdentity(), Context.GetHttpContext().GetRemoteIpAddressToIPv4());
-
+            await systemNotificationService.SendToAllClient(notification);
             await base.OnConnectedAsync();
         }
         /// <summary>
@@ -84,9 +82,11 @@ namespace Gardener.NotificationSystem.Core
         {
             var notification = new UserOnlineChangeNotificationData()
             {
+                Identity = identityService.GetIdentity(),
+                Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
                 OnlineStatus = UserOnlineStatus.Offline
             };
-            await systemNotificationService.SendToAllClient(NotificationDataType.UserOnline, notification, identityService.GetIdentity(), Context.GetHttpContext().GetRemoteIpAddressToIPv4());
+            await systemNotificationService.SendToAllClient(notification);
             await base.OnDisconnectedAsync(exception);
         }
 
@@ -126,6 +126,7 @@ namespace Gardener.NotificationSystem.Core
                    .AllowCredentials()
                    .Build();
             });
+
         }
     }
 }
