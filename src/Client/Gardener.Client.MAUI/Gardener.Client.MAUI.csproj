@@ -85,7 +85,9 @@
     <Exec WorkingDirectory="$(SolutionDir)" Command="npm install" />
     <Exec WorkingDirectory="$(SolutionDir)" Command="npm run gulp:pro" />
   </Target>-->
-
+	<ItemGroup>
+		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+	</ItemGroup>
 	<ItemGroup>
 		<Watch Include="**\*.razor" />
 		<Watch Include="**\*.less" />
