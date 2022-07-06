@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.NotificationSystem.Core;
+using Gardener.NotificationSystem.Options;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 namespace Gardener.NotificationSystem
 {
     /// <summary>
-    /// 
+    /// 系统通知服务扩展
     /// </summary>
     public static class SystemNotificationExtensions
     {
@@ -24,6 +25,8 @@ namespace Gardener.NotificationSystem
         /// <returns></returns>
         public static IServiceCollection AddSystemNotify(this IServiceCollection services)
         {
+            //添加配置信息
+            services.AddConfigurableOptions<SignalROptions>();
             // 添加即时通讯
             services.AddSignalR();
             services.TryAddSingleton<IUserIdProvider, JwtUserIdProvider>();

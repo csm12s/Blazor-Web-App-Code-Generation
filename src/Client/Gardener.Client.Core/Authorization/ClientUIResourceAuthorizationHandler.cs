@@ -57,8 +57,6 @@ namespace Gardener.Client.Core
                     context.Succeed(requirement);
                 }
             }
-            
-           
         }
     }
 }

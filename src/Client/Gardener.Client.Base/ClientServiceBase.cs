@@ -40,66 +40,66 @@ namespace Gardener.Client.Base
             this.controller = controller;
         }
 
-        public Task<bool> Delete(Tkey id)
+        public virtual Task<bool> Delete(Tkey id)
         {
             return apiCaller.DeleteAsync<bool>($"{controller}/{id}");
         }
 
-        public Task<bool> Deletes(Tkey[] ids)
+        public virtual Task<bool> Deletes(Tkey[] ids)
         {
             return apiCaller.PostAsync<Tkey[], bool>($"{controller}/deletes", ids);
         }
 
-        public Task<bool> FakeDelete(Tkey id)
+        public virtual Task<bool> FakeDelete(Tkey id)
         {
             return apiCaller.DeleteAsync<bool>($"{controller}/fake-delete/{id}");
         }
 
-        public Task<bool> FakeDeletes(Tkey[] ids)
+        public virtual Task<bool> FakeDeletes(Tkey[] ids)
         {
             return apiCaller.PostAsync<Tkey[], bool>($"{controller}/fake-deletes", ids);
         }
 
-        public Task<T> Get(Tkey id)
+        public virtual Task<T> Get(Tkey id)
         {
             return apiCaller.GetAsync<T>($"{controller}/{id}");
         }
 
-        public Task<List<T>> GetAll()
+        public virtual Task<List<T>> GetAll()
         {
             return apiCaller.GetAsync<List<T>>($"{controller}/all");
         }
 
-        public Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public virtual Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
             return apiCaller.GetAsync<PagedList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
         }
 
-        public Task<T> Insert(T input)
+        public virtual Task<T> Insert(T input)
         {
             return apiCaller.PostAsync<T, T>(controller, request: input);
         }
 
-        public Task<bool> Update(T input)
+        public virtual Task<bool> Update(T input)
         {
             return apiCaller.PutAsync<T, bool>(controller, request: input);
         }
-        public Task<bool> Lock(Tkey id, bool islocked = true)
+        public virtual Task<bool> Lock(Tkey id, bool islocked = true)
         {
             return apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
         }
 
-        public Task<List<T>> GetAllUsable()
+        public virtual Task<List<T>> GetAllUsable()
         {
             return apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
         }
 
-        public Task<PagedList<T>> Search(PageRequest request)
+        public virtual Task<PagedList<T>> Search(PageRequest request)
         {
             return apiCaller.PostAsync<PageRequest, PagedList<T>>($"{controller}/search",request);
         }
 
-        public Task<string> GenerateSeedData(PageRequest request)
+        public virtual Task<string> GenerateSeedData(PageRequest request)
         {
             return apiCaller.PostAsync<PageRequest, string>($"{controller}/generate-seed-data", request);
         }

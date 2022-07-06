@@ -24,14 +24,12 @@ namespace Gardener.UserCenter.Impl.Services
     [ApiDescriptionSettings("UserCenterServices")]
     public class DeptService : ServiceBase<Dept, DeptDto, int>,IDeptService
     {
-        private IRepository<Dept> _repository;
         /// <summary>
         /// 部门服务
         /// </summary>
         /// <param name="repository"></param>
         public DeptService(IRepository<Dept> repository) : base(repository)
         {
-            _repository = repository;
         }
         /// <summary>
         /// 获取种子数据
