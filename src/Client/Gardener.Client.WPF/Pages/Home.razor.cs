@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.MAUI.Pages
+namespace Gardener.Client.WPF.Pages
 {
     public partial class Home : ReuseTabsPageBase
     {
@@ -171,10 +171,6 @@ namespace Gardener.Client.MAUI.Pages
             else if (notificationData.Type.Equals(NotificationDataType.UserOnline))
             {
                 UserDto user = await authenticationStateManager.GetCurrentUser();
-                if(user == null)
-                {
-                    return;
-                }
                 if (user.Id.ToString().Equals(notificationData.Identity.Id))
                 {
                     return;
