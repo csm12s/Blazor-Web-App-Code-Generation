@@ -33,9 +33,21 @@ namespace Gardener.Client.WPF
                 throw new ArgumentNullException(nameof(services));
             
             InitializeComponent();
-
+            
             services.AddWpfBlazorWebView();
             Resources.Add("services", services.BuildServiceProvider());
+
+
+            // 设置全屏
+            this.WindowState = WindowState.Normal;
+            this.WindowStyle = WindowStyle.None;
+            this.ResizeMode = ResizeMode.NoResize;
+            this.Topmost = true;
+
+            this.Left = 0.0;
+            this.Top = 0.0;
+            this.Width = SystemParameters.PrimaryScreenWidth;
+            this.Height = SystemParameters.PrimaryScreenHeight;
         }
     }
 }
