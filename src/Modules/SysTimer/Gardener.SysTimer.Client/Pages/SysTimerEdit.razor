@@ -16,7 +16,7 @@
         </FormItem>
         <FormItem Label="请求类型">
         <RadioGroup @bind-Value="@model.RequestType">
-            @foreach (var gitem in EnumHelper.EnumToDictionary<RequestType>())
+            @foreach (var gitem in EnumHelper.EnumToDictionary<ExecuteType>())
             {
                 <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
             }
@@ -28,20 +28,30 @@
         <FormItem>
             <Input @bind-Value="@model.RequestParameters" />
         </FormItem>
-        <FormItem>
-            <Input @bind-Value="@model.Interval" />
-        </FormItem>
-        <FormItem>
-            <Input @bind-Value="@model.Cron" />
-        </FormItem>
+        
         <FormItem Label="定时器类型">
-        <RadioGroup @bind-Value="@model.TimerType">
-            @foreach (var gitem in EnumHelper.EnumToDictionary<TimerTypes>())
-            {
-                <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
-            }
-        </RadioGroup>
+            <RadioGroup @bind-Value="@model.TimerType">
+                @foreach (var gitem in EnumHelper.EnumToDictionary<TimerTypes>())
+                {
+                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                }
+            </RadioGroup>
         </FormItem>
+        @if (TimerTypes.Cron.Equals(model.TimerType))
+        {
+            <FormItem>
+                <Input @bind-Value="@model.Cron" />
+            </FormItem>
+
+        }
+        else if (TimerTypes.Interval.Equals(model.TimerType))
+        {
+            <FormItem>
+                <Input @bind-Value="@model.Interval" />
+            </FormItem>
+            
+        }
+        
         <FormItem Label="立即执行">
         <Switch @bind-Value="@model.StartNow"></Switch>
         </FormItem>
@@ -50,7 +60,7 @@
         </FormItem>
         <FormItem Label="执行类型">
         <RadioGroup @bind-Value="@model.ExecuteType">
-            @foreach (var gitem in EnumHelper.EnumToDictionary<ExecutType>())
+            @foreach (var gitem in EnumHelper.EnumToDictionary<ExecutMode>())
             {
                 <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
             }

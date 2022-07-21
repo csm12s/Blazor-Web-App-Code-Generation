@@ -59,7 +59,7 @@ namespace Gardener.SysTimer.Client.Pages
             await ReLoadTable(false);
         }
 
-        public readonly static TableFilter<RequestType>[] FunctionRequestTypeFilters = EnumHelper.EnumToList<RequestType>().Select(x => { return new TableFilter<RequestType>() { Text = x.ToString(), Value = x }; }).ToArray();
+        public readonly static TableFilter<ExecuteType>[] FunctionRequestTypeFilters = EnumHelper.EnumToList<ExecuteType>().Select(x => { return new TableFilter<ExecuteType>() { Text = x.ToString(), Value = x }; }).ToArray();
         public readonly static TableFilter<TimerStatus>[] FunctionTimerStatusFilters = EnumHelper.EnumToList<TimerStatus>().Select(x => { return new TableFilter<TimerStatus>() { Text = x.ToString(), Value = x }; }).ToArray();
     }
 }

@@ -4,19 +4,14 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Enums
 {
     /// <summary>
-    /// 执行类型
+    /// 执行模式
     /// </summary>
-    public enum ExecutType
+    public enum ExecutMode
     {
         /// <summary>
         /// 并行执行（不会等到上一个任务完成）

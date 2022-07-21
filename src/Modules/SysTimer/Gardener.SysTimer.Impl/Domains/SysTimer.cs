@@ -1,10 +1,12 @@
 ﻿using Furion.TaskScheduler;
 using Gardener.Base;
+using Gardener.Enums;
 using Gardener.SysTimer.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -37,10 +39,10 @@ namespace Gardener.SysTimer.Domains
         public bool StartNow { get; set; } = false;
 
         /// <summary>
-        /// 执行类型(并行、列队)
+        /// 执行模式(并行、列队)
         /// </summary>
-        [Comment("执行类型")]
-        public SpareTimeExecuteTypes ExecuteType { get; set; } = SpareTimeExecuteTypes.Parallel;
+        [Comment("执行模式")]
+        public ExecutMode ExecutMode { get; set; }
 
         /// <summary>
         /// 执行间隔时间（单位秒）
@@ -71,6 +73,13 @@ namespace Gardener.SysTimer.Domains
         public string RequestUrl { get; set; }
 
         /// <summary>
+        /// 本地方法
+        /// </summary>
+        [Comment("本地方法")]
+        [MaxLength(200)]
+        public string LocalMethod { get; set; }
+
+        /// <summary>
         /// 请求参数（Post，Put请求用）
         /// </summary>
         [Comment("请求参数")]
@@ -84,11 +93,18 @@ namespace Gardener.SysTimer.Domains
         public string Headers { get; set; }
 
         /// <summary>
-        /// 请求类型
+        /// 执行类型
         /// </summary>
         /// <example>2</example>
-        [Comment("请求类型")]
-        public RequestType RequestType { get; set; } = RequestType.Post;
+        [Comment("执行类型")]
+        public ExecuteType ExecuteType { get; set; }
+
+        /// <summary>
+        /// HTTP请求方式
+        /// </summary>
+        /// <example>2</example>
+        [Comment("HTTP请求方式")]
+        public HttpMethod HttpMethod { get; set; }
 
         /// <summary>
         /// 备注

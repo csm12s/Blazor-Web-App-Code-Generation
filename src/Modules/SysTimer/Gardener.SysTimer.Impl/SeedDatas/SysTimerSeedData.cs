@@ -1,5 +1,6 @@
 using Furion.DatabaseAccessor;
 using Furion.TaskScheduler;
+using Gardener.Enums;
 using Gardener.SysTimer.Domains;
 using Gardener.SysTimer.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -31,11 +32,26 @@ namespace Gardener.SysTimer
                     StartNow = false,
                     Interval = 5,
                     TimerType = SpareTimeTypes.Interval,
-                    ExecuteType = SpareTimeExecuteTypes.Serial,
+                    ExecuteType = ExecuteType.HTTP,
                     RequestUrl = "https://www.baidu.com",
-                    RequestType = RequestType.Post,
+                    HttpMethod = HttpMethod.GET,
+                    ExecutMode=ExecutMode.Scceeding,
                     IsDeleted = false,
                     Remark = "接口API"
+                },
+                new SysTimerEntity
+                {
+                    Id = 1,
+                    JobName = "本地DEMO",
+                    DoOnce = false,
+                    StartNow = false,
+                    Interval = 5,
+                    TimerType = SpareTimeTypes.Interval,
+                    ExecuteType = ExecuteType.LOCAL,
+                    HttpMethod = HttpMethod.GET,
+                    ExecutMode=ExecutMode.Scceeding,
+                    IsDeleted = false,
+                    Remark = "定时执行财经消息抓取推送"
                 }
             };
         }

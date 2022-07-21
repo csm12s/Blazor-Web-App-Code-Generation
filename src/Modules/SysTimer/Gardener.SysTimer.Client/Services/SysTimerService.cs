@@ -10,6 +10,7 @@ using Gardener.Email.Services;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Services
@@ -26,6 +27,12 @@ namespace Gardener.SysTimer.Client.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<TaskMethodInfo>> GetLocalJobs()
+        {
+            return apiCaller.GetAsync<IEnumerable<TaskMethodInfo>>($"{controller}/local-jobs");
+        }
+
         public async void Start(SysTimerDto input)
         {
             await apiCaller.PostAsync($"{controller}/start", input);

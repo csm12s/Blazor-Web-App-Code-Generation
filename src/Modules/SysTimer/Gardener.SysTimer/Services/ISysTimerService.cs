@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.SysTimer.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Services
 {
@@ -17,5 +19,11 @@ namespace Gardener.SysTimer.Services
         void Stop(StopJobInput input);
 
         void StartTimerJob();
+
+        /// <remarks>
+        /// 获取所有本地任务
+        /// </remarks>
+        /// <returns></returns>
+        Task<IEnumerable<TaskMethodInfo>> GetLocalJobs();
     }
 }

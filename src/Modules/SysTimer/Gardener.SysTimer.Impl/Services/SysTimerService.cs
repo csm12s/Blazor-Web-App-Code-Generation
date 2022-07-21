@@ -24,6 +24,8 @@ using Furion.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Domains;
+using Gardener.Enums;
+using ExceptionCode = Gardener.SysTimer.Enums.ExceptionCode;
 
 namespace Gardener.SysTimer.Services
 {
@@ -129,7 +131,7 @@ namespace Gardener.SysTimer.Services
         /// 获取所有本地任务
         /// </remarks>
         /// <returns></returns>
-        public async Task<IEnumerable<TaskMethodInfo>> GetLocalJobList()
+        public async Task<IEnumerable<TaskMethodInfo>> GetLocalJobs()
         {
             // 获取本地所有任务方法
             return await GetTaskMethods();
@@ -274,13 +276,13 @@ namespace Gardener.SysTimer.Services
             var input = myinput.Adapt<SysTimerEntity>();
             Action<SpareTimer, long> action = null;
 
-            switch (input.RequestType)
+            switch (input.ExecuteType)
             {
                 // 创建本地方法委托
-                case RequestType.Run:
+                case ExecuteType.LOCAL:
                     {
                         // 查询符合条件的任务方法
-                        var taskMethod = GetTaskMethods()?.Result.FirstOrDefault(m => m.RequestUrl == input.RequestUrl);
+                        var taskMethod = GetTaskMethods()?.Result.FirstOrDefault(m => m.LocalMethod == input.LocalMethod);
                         if (taskMethod == null) break;
 
                         // 创建任务对象
@@ -291,7 +293,7 @@ namespace Gardener.SysTimer.Services
                         break;
                     }
                 // 创建网络任务委托
-                default:
+                case ExecuteType.HTTP:
                     {
                         action = async (_, _) =>
                         {
@@ -304,21 +306,21 @@ namespace Gardener.SysTimer.Services
                                 : JSON.Deserialize<Dictionary<string, string>>(headersString);
                             try
                             {
-                                switch (input.RequestType)
+                                switch (input.HttpMethod)
                                 {
-                                    case RequestType.Get:
+                                    case HttpMethod.GET:
                                         await requestUrl.SetHeaders(headers).GetAsync();
                                         break;
 
-                                    case RequestType.Post:
+                                    case HttpMethod.POST:
                                         await requestUrl.SetHeaders(headers).SetQueries(requestParameters).PostAsync();
                                         break;
 
-                                    case RequestType.Put:
+                                    case HttpMethod.PUT:
                                         await requestUrl.SetHeaders(headers).SetQueries(requestParameters).PutAsync();
                                         break;
 
-                                    case RequestType.Delete:
+                                    case HttpMethod.DELETE:
                                         await requestUrl.SetHeaders(headers).DeleteAsync();
                                         break;
                                 }
@@ -336,7 +338,7 @@ namespace Gardener.SysTimer.Services
             if (action == null) return;
 
             // 缓存任务配置参数，以供任务运行时读取
-            if (input.RequestType == RequestType.Run)
+            if (input.ExecuteType == ExecuteType.LOCAL)
             {
                 var jobParametersName = $"{input.JobName}_Parameters";
                 var jobParameters = _cache.Exists<object>(jobParametersName);
@@ -348,19 +350,20 @@ namespace Gardener.SysTimer.Services
                 else if (!requestParametersIsNull)
                     _cache.SetAsync(jobParametersName, JSON.Deserialize<Dictionary<string, string>>(input.RequestParameters));
             }
+            SpareTimeExecuteTypes mode = ExecutMode.Scceeding.Equals(input.ExecutMode) ? SpareTimeExecuteTypes.Serial : SpareTimeExecuteTypes.Parallel;
 
             // 创建定时任务
             switch (input.TimerType)
             {
                 case SpareTimeTypes.Interval:
                     if (input.DoOnce)
-                        SpareTime.DoOnce((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
+                        SpareTime.DoOnce((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: mode);
                     else
-                        SpareTime.Do((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
+                        SpareTime.Do((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: mode);
                     break;
 
                 case SpareTimeTypes.Cron:
-                    SpareTime.Do(input.Cron, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
+                    SpareTime.Do(input.Cron, action, input.JobName, input.Remark, input.StartNow, executeType: mode);
                     break;
             }
         }
@@ -402,17 +405,17 @@ namespace Gardener.SysTimer.Services
                     return new TaskMethodInfo
                     {
                         JobName = spareTimeAttribute.WorkerName,
-                        RequestUrl = $"{m.DeclaringType.Name}/{m.Name}",
                         Cron = spareTimeAttribute.CronExpression,
                         DoOnce = spareTimeAttribute.DoOnce,
-                        ExecuteType = (ExecutType)spareTimeAttribute.ExecuteType,
+                        ExecuteMode = (ExecutMode)spareTimeAttribute.ExecuteType,
                         Interval = (int)spareTimeAttribute.Interval / 1000,
                         StartNow = spareTimeAttribute.StartNow,
-                        RequestType = RequestType.Run,
+                        ExecuteType = ExecuteType.LOCAL,
                         Remark = spareTimeAttribute.Description,
                         TimerType = string.IsNullOrEmpty(spareTimeAttribute.CronExpression) ? (TimerTypes)SpareTimeTypes.Interval : (TimerTypes)SpareTimeTypes.Cron,
                         MethodName = m.Name,
-                        DeclaringType = m.DeclaringType
+                        TypeName = m.DeclaringType.Name,
+                        DeclaringType=m.DeclaringType
                     };
                 }));
 

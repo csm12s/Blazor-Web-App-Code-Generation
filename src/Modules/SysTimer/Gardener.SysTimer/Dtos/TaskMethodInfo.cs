@@ -6,10 +6,7 @@
 
 using Gardener.SysTimer.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.SysTimer.Dtos
 {
@@ -26,7 +23,14 @@ namespace Gardener.SysTimer.Dtos
         /// <summary>
         /// 方法所属类的Type对象
         /// </summary>
+        [System.Text.Json.Serialization.JsonIgnore]
         public Type DeclaringType { get; set; }
+
+
+        /// <summary>
+        /// 方法所属类的Type名称
+        /// </summary>
+        public string TypeName { get; set; }
 
         /// <summary>
         /// 任务名称
@@ -44,9 +48,9 @@ namespace Gardener.SysTimer.Dtos
         public bool StartNow { get; set; } = false;
 
         /// <summary>
-        /// 执行类型(并行、列队)
+        /// 执行模式(并行、列队)
         /// </summary>
-        public ExecutType ExecuteType { get; set; }
+        public ExecutMode ExecuteMode { get; set; }
 
         /// <summary>
         /// 执行间隔时间（单位秒）
@@ -64,15 +68,19 @@ namespace Gardener.SysTimer.Dtos
         public TimerTypes TimerType { get; set; }
 
         /// <summary>
-        /// 请求url
+        /// 本地方法
         /// </summary>
-        public string RequestUrl { get; set; }
+        public string LocalMethod { 
+            get {
+                return $"{TypeName}/{MethodName}";
+            } 
+        }
 
         /// <summary>
-        /// 请求类型
+        /// 执行类型
         /// </summary>
         /// <example>2</example>
-        public RequestType RequestType { get; set; }
+        public ExecuteType ExecuteType { get; set; }
 
         /// <summary>
         /// 备注
