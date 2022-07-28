@@ -246,9 +246,10 @@ namespace Gardener.SysTimer.Services
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost()]
-        public void Stop(StopJobInput input)
+        public Task Stop(StopJobInput input)
         {
             SpareTime.Stop(input.JobName);
+            return Task.CompletedTask;
         }
 
         /// <remarks>
@@ -257,7 +258,7 @@ namespace Gardener.SysTimer.Services
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost()]
-        public void Start(SysTimerDto input)
+        public Task Start(SysTimerDto input)
         {
             var timer = SpareTime.GetWorkers().ToList().Find(u => u.WorkerName == input.JobName);
             if (timer == null)
@@ -265,6 +266,8 @@ namespace Gardener.SysTimer.Services
 
             // 如果 StartNow 为 flase , 执行 AddTimerJob 并不会启动任务
             SpareTime.Start(input.JobName);
+
+            return Task.CompletedTask;
         }
 
         /// <summary>

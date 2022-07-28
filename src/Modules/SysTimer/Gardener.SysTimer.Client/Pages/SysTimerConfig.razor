@@ -15,7 +15,7 @@
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_systimer_config">
                 <TableSearch TDto="SysTimerDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
-             </ResourceAuthorize>
+            </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_systimer_config">
@@ -52,19 +52,19 @@
             <Column @bind-Field="@model.ExecuteType" Width="10%" Filters="FunctionRequestTypeFilters">
                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.ExecuteType)"></TagRandomColor>
             </Column>
-            <Column Title="执行内容" TData="string" >
+            <Column Title="执行内容" TData="string">
                 @if (ExecuteType.LOCAL.Equals(model.ExecuteType))
                 {
                     <span>@model.LocalMethod</span>
                 }
                 else if (ExecuteType.HTTP.Equals(model.ExecuteType))
-                { 
+                {
                     <span>@EnumHelper.GetEnumDescription(model.HttpMethod)</span>
-                    <br/>
+                    <br />
                     <span>@model.RequestUrl</span>
-                    <br/>
+                    <br />
                     <span>@model.RequestParameters</span>
-                    <br/>
+                    <br />
                     <span>@model.Headers</span>
                 }
             </Column>
@@ -77,9 +77,18 @@
             <Column @bind-Field="@model.StartNow" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_systimer_config">
                     <Authorized>
-                        <Tooltip Title="@(localizer["快速运行"])" ArrowPointAtCenter="true">
-                             <Button Icon="play-circle" Danger Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
-                        </Tooltip>
+                        @if (TimerStatus.Running.Equals(model.TimerStatus))
+                        {
+                            <Tooltip Title="@(localizer["关闭"])" ArrowPointAtCenter="true">
+                                <Button Icon="pause-circle" Danger Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
+                            </Tooltip>
+                        }
+                        else
+                        {
+                            <Tooltip Title="@(localizer["开启"])" ArrowPointAtCenter="true">
+                                <Button Icon="play-circle" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
+                            </Tooltip>
+                        }
                     </Authorized>
                 </ResourceAuthorize>
             </Column>

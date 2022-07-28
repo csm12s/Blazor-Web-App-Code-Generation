@@ -33,9 +33,9 @@ namespace Gardener.SysTimer.Client.Services
             return apiCaller.GetAsync<IEnumerable<TaskMethodInfo>>($"{controller}/local-jobs");
         }
 
-        public async void Start(SysTimerDto input)
+        public Task Start(SysTimerDto input)
         {
-            await apiCaller.PostAsync($"{controller}/start", input);
+            return apiCaller.PostAsync($"{controller}/start", input);
         }
 
         public void StartTimerJob()
@@ -43,9 +43,9 @@ namespace Gardener.SysTimer.Client.Services
             throw new NotImplementedException();
         }
 
-        public async void Stop(StopJobInput input)
+        public Task Stop(StopJobInput input)
         {
-            await apiCaller.PostAsync($"{controller}/stop", input);
+            return apiCaller.PostAsync($"{controller}/stop", input);
         }
     }
 }

@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Pages
@@ -38,24 +39,25 @@ namespace Gardener.SysTimer.Client.Pages
                     var resultStop = await confirmService.YesNo("执行", "确认要停止运行吗？");
                     if (resultStop == ConfirmResult.Yes)
                     {
-                        _systimerService.Stop(new StopJobInput { JobName = model.JobName });
+                       await _systimerService.Stop(new StopJobInput { JobName = model.JobName });
                     }
                     break;
                 case TimerStatus.Stopped:
                     var resultStart = await confirmService.YesNo("执行", "确认要开始运行吗？");
                     if (resultStart == ConfirmResult.Yes)
                     {
-                        _systimerService.Start(model);
+                      await  _systimerService.Start(model);
                     }
                     break;
                 default:
                     var result = await confirmService.YesNo("执行", "任务处于非正常状态，尝试重新运行？");
                     if (result == ConfirmResult.Yes)
                     {
-                        _systimerService.Start(model);
+                       await _systimerService.Start(model);
                     }
                     break;
             }
+            Thread.Sleep(1000);
             await ReLoadTable(false);
         }
 
