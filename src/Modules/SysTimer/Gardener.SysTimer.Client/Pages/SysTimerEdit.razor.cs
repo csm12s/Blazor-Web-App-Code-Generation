@@ -21,6 +21,9 @@ namespace Gardener.SysTimer.Client.Pages
         [Inject]
         private ISysTimerService sysTimerService { get; set; }
 
+        /// <summary>
+        /// 本地方法
+        /// </summary>
         private IEnumerable<TaskMethodInfo> localJobs=new List<TaskMethodInfo>();
         /// <summary>
         /// 

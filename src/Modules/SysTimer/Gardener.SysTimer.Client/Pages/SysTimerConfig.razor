@@ -49,11 +49,25 @@
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
             <Column @bind-Field="@model.JobName" Filterable />
-            <Column @bind-Field="@model.RequestUrl" Filterable />
-            <Column @bind-Field="@model.RequestType" Width="10%" Filters="FunctionRequestTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.RequestType)"></TagRandomColor>
+            <Column @bind-Field="@model.ExecuteType" Width="10%" Filters="FunctionRequestTypeFilters">
+                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.ExecuteType)"></TagRandomColor>
             </Column>
-            <Column @bind-Field="@model.RequestParameters" Filterable />
+            <Column Title="执行内容" TData="string" >
+                @if (ExecuteType.LOCAL.Equals(model.ExecuteType))
+                {
+                    <span>@model.LocalMethod</span>
+                }
+                else if (ExecuteType.HTTP.Equals(model.ExecuteType))
+                { 
+                    <span>@EnumHelper.GetEnumDescription(model.HttpMethod)</span>
+                    <br/>
+                    <span>@model.RequestUrl</span>
+                    <br/>
+                    <span>@model.RequestParameters</span>
+                    <br/>
+                    <span>@model.Headers</span>
+                }
+            </Column>
             <Column @bind-Field="@model.Interval" Filterable />
             <Column @bind-Field="@model.TimerStatus" Width="10%">
                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.TimerStatus)"></TagRandomColor>

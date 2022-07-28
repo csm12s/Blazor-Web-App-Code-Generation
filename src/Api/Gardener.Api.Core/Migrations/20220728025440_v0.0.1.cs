@@ -343,14 +343,16 @@ namespace Gardener.Api.Core.Migrations
                     JobName = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false, comment: "任务名称"),
                     DoOnce = table.Column<bool>(type: "INTEGER", nullable: false, comment: "只执行一次"),
                     StartNow = table.Column<bool>(type: "INTEGER", nullable: false, comment: "立即执行"),
-                    ExecuteType = table.Column<int>(type: "INTEGER", nullable: false, comment: "执行类型"),
+                    ExecutMode = table.Column<int>(type: "INTEGER", nullable: false, comment: "执行模式"),
                     Interval = table.Column<int>(type: "INTEGER", nullable: true, comment: "间隔时间"),
                     Cron = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true, comment: "Cron表达式"),
                     TimerType = table.Column<int>(type: "INTEGER", nullable: false, comment: "定时器类型"),
                     RequestUrl = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true, comment: "请求url"),
+                    LocalMethod = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true, comment: "本地方法"),
                     RequestParameters = table.Column<string>(type: "TEXT", nullable: true, comment: "请求参数"),
                     Headers = table.Column<string>(type: "TEXT", nullable: true, comment: "Headers"),
-                    RequestType = table.Column<int>(type: "INTEGER", nullable: false, comment: "请求类型"),
+                    ExecuteType = table.Column<int>(type: "INTEGER", nullable: false, comment: "执行类型"),
+                    HttpMethod = table.Column<int>(type: "INTEGER", nullable: false, comment: "HTTP请求方式"),
                     Remark = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true, comment: "备注"),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
@@ -1806,8 +1808,13 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "SysTimer",
-                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Cron", "DoOnce", "ExecuteType", "Headers", "Interval", "IsDeleted", "IsLocked", "JobName", "Remark", "RequestParameters", "RequestType", "RequestUrl", "StartNow", "TimerType", "UpdatedTime" },
-                values: new object[] { 1, 0L, null, 0, null, false, 1, null, 5, false, false, "百度api", "接口API", null, 2, "https://www.baidu.com", false, 0, null });
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Cron", "DoOnce", "ExecutMode", "ExecuteType", "Headers", "HttpMethod", "Interval", "IsDeleted", "IsLocked", "JobName", "LocalMethod", "Remark", "RequestParameters", "RequestUrl", "StartNow", "TimerType", "UpdatedTime" },
+                values: new object[] { 1, 0L, null, 0, null, false, 1, 1, null, 0, 5, false, false, "百度api", null, "接口API", null, "https://www.baidu.com", false, 0, null });
+
+            migrationBuilder.InsertData(
+                table: "SysTimer",
+                columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Cron", "DoOnce", "ExecutMode", "ExecuteType", "Headers", "HttpMethod", "Interval", "IsDeleted", "IsLocked", "JobName", "LocalMethod", "Remark", "RequestParameters", "RequestUrl", "StartNow", "TimerType", "UpdatedTime" },
+                values: new object[] { 2, 0L, null, 0, null, false, 1, 0, null, 0, 5, false, false, "本地DEMO", null, "定时执行财经消息抓取推送", null, null, false, 0, null });
 
             migrationBuilder.InsertData(
                 table: "Dept",

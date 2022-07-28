@@ -70,11 +70,7 @@ namespace Gardener.SysTimer.Dtos
         /// <summary>
         /// 本地方法
         /// </summary>
-        public string LocalMethod { 
-            get {
-                return $"{TypeName}/{MethodName}";
-            } 
-        }
+        public string LocalMethod { get; set; }
 
         /// <summary>
         /// 执行类型

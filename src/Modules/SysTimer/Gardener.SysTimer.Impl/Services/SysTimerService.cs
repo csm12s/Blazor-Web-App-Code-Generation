@@ -26,6 +26,7 @@ using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Domains;
 using Gardener.Enums;
 using ExceptionCode = Gardener.SysTimer.Enums.ExceptionCode;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Gardener.SysTimer.Services
 {
@@ -33,7 +34,7 @@ namespace Gardener.SysTimer.Services
     /// 任务调度服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class SysTimerService:ServiceBase<SysTimerEntity, SysTimerDto>, ISysTimerService, IScoped
+    public class SysTimerService : ServiceBase<SysTimerEntity, SysTimerDto>, ISysTimerService, IScoped
     {
         private readonly ICache _cache;
 
@@ -42,7 +43,7 @@ namespace Gardener.SysTimer.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="cache"></param>
-        public SysTimerService(IRepository<SysTimerEntity> repository, ICache cache):base(repository)
+        public SysTimerService(IRepository<SysTimerEntity> repository, ICache cache) : base(repository)
         {
             _cache = cache;
         }
@@ -84,8 +85,8 @@ namespace Gardener.SysTimer.Services
         public override async Task<SysTimerDto> Get(int id)
         {
             var data = await base.Get(id);
-            
-            if(data != null)
+
+            if (data != null)
             {
                 //只有当任务确认运行时才获取任务数据
                 if (data.StartNow == true)
@@ -145,12 +146,12 @@ namespace Gardener.SysTimer.Services
         [HttpPost()]
         public override async Task<SysTimerDto> Insert(SysTimerDto input)
         {
-            var exits = await _repository.Where(x=>x.JobName == input.JobName).AnyAsync();
+            var exits = await _repository.Where(x => x.JobName == input.JobName).AnyAsync();
             if (exits)
             {
                 return null;
                 throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
-            }  
+            }
             var data = await base.Insert(input);
             AddTimerJob(data);
             return data;
@@ -169,7 +170,7 @@ namespace Gardener.SysTimer.Services
                 return false;
                 throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
             }
-                
+
             var result = await base.FakeDelete(id);
 
             if (result)
@@ -284,9 +285,9 @@ namespace Gardener.SysTimer.Services
                         // 查询符合条件的任务方法
                         var taskMethod = GetTaskMethods()?.Result.FirstOrDefault(m => m.LocalMethod == input.LocalMethod);
                         if (taskMethod == null) break;
-
+                        Type t = Type.GetType(taskMethod.TypeName);
                         // 创建任务对象
-                        var typeInstance = Activator.CreateInstance(taskMethod.DeclaringType);
+                        var typeInstance = Activator.CreateInstance(t);
 
                         // 创建委托
                         action = (Action<SpareTimer, long>)Delegate.CreateDelegate(typeof(Action<SpareTimer, long>), typeInstance, taskMethod.MethodName);
@@ -414,8 +415,9 @@ namespace Gardener.SysTimer.Services
                         Remark = spareTimeAttribute.Description,
                         TimerType = string.IsNullOrEmpty(spareTimeAttribute.CronExpression) ? (TimerTypes)SpareTimeTypes.Interval : (TimerTypes)SpareTimeTypes.Cron,
                         MethodName = m.Name,
-                        TypeName = m.DeclaringType.Name,
-                        DeclaringType=m.DeclaringType
+                        TypeName = m.DeclaringType.FullName,
+                        DeclaringType = m.DeclaringType,
+                        LocalMethod = $"{m.DeclaringType.FullName}|{m.Name}"
                     };
                 }));
 

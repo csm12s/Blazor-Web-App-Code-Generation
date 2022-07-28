@@ -54,7 +54,7 @@ namespace Gardener.SysTimer.Dtos
         /// 执行模式(并行、列队)
         /// </summary>
         [DisplayName("执行模式")]
-        public ExecutMode ExecuteType { get; set; }
+        public ExecutMode ExecutMode { get; set; }
 
         /// <summary>
         /// 执行间隔时间（单位秒）
@@ -108,7 +108,7 @@ namespace Gardener.SysTimer.Dtos
         /// </summary>
         /// <example>2</example>
         [DisplayName("执行类型")]
-        public ExecuteType RequestType { get; set; }
+        public ExecuteType ExecuteType { get; set; }
 
         /// <summary>
         /// HTTP请求方式
@@ -123,6 +123,7 @@ namespace Gardener.SysTimer.Dtos
         [DisplayName("备注")]
         [MaxLength(100)]
         public string Remark { get; set; }
+
     }
 
     public class StopJobInput

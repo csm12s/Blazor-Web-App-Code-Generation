@@ -41,17 +41,17 @@ namespace Gardener.SysTimer
                 },
                 new SysTimerEntity
                 {
-                    Id = 1,
-                    JobName = "本地DEMO",
+                    Id = 2,
+                    JobName = "测试本地定时任务DEMO",
                     DoOnce = false,
-                    StartNow = false,
+                    StartNow = true,
                     Interval = 5,
                     TimerType = SpareTimeTypes.Interval,
                     ExecuteType = ExecuteType.LOCAL,
-                    HttpMethod = HttpMethod.GET,
                     ExecutMode=ExecutMode.Scceeding,
                     IsDeleted = false,
-                    Remark = "定时执行财经消息抓取推送"
+                    Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",
+                    LocalMethod="Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething"
                 }
             };
         }

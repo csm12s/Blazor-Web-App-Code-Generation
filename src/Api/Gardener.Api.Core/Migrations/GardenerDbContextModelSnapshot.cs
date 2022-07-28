@@ -15,7 +15,7 @@ namespace Gardener.Api.Core.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -561,6 +561,10 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER")
                         .HasComment("只执行一次");
 
+                    b.Property<int>("ExecutMode")
+                        .HasColumnType("INTEGER")
+                        .HasComment("执行模式");
+
                     b.Property<int>("ExecuteType")
                         .HasColumnType("INTEGER")
                         .HasComment("执行类型");
@@ -568,6 +572,10 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<string>("Headers")
                         .HasColumnType("TEXT")
                         .HasComment("Headers");
+
+                    b.Property<int>("HttpMethod")
+                        .HasColumnType("INTEGER")
+                        .HasComment("HTTP请求方式");
 
                     b.Property<int?>("Interval")
                         .HasColumnType("INTEGER")
@@ -585,6 +593,11 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT")
                         .HasComment("任务名称");
 
+                    b.Property<string>("LocalMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasComment("本地方法");
+
                     b.Property<string>("Remark")
                         .HasMaxLength(100)
                         .HasColumnType("TEXT")
@@ -593,10 +606,6 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<string>("RequestParameters")
                         .HasColumnType("TEXT")
                         .HasComment("请求参数");
-
-                    b.Property<int>("RequestType")
-                        .HasColumnType("INTEGER")
-                        .HasComment("请求类型");
 
                     b.Property<string>("RequestUrl")
                         .HasMaxLength(200)
@@ -627,14 +636,32 @@ namespace Gardener.Api.Core.Migrations
                             CreatedTime = 0L,
                             CreatorIdentityType = 0,
                             DoOnce = false,
+                            ExecutMode = 1,
                             ExecuteType = 1,
+                            HttpMethod = 0,
                             Interval = 5,
                             IsDeleted = false,
                             IsLocked = false,
                             JobName = "百度api",
                             Remark = "接口API",
-                            RequestType = 2,
                             RequestUrl = "https://www.baidu.com",
+                            StartNow = false,
+                            TimerType = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = 0L,
+                            CreatorIdentityType = 0,
+                            DoOnce = false,
+                            ExecutMode = 1,
+                            ExecuteType = 0,
+                            HttpMethod = 0,
+                            Interval = 5,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            JobName = "本地DEMO",
+                            Remark = "定时执行财经消息抓取推送",
                             StartNow = false,
                             TimerType = 0
                         });
