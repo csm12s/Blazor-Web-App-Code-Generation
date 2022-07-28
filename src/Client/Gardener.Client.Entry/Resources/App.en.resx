@@ -123,6 +123,9 @@
   <data name="个人设置" xml:space="preserve">
     <value>Account setting</value>
   </data>
+  <data name="任务调度" xml:space="preserve">
+    <value>Task scheduling</value>
+  </data>
   <data name="保存" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -179,6 +182,9 @@
   <data name="岗位管理" xml:space="preserve">
     <value>Position</value>
     <comment>菜单</comment>
+  </data>
+  <data name="开启" xml:space="preserve">
+    <value>Open</value>
   </data>
   <data name="开始" xml:space="preserve">
     <value>Begin</value>
@@ -240,6 +246,10 @@
   <data name="确定要执行{0}吗?" xml:space="preserve">
     <value>Are you sure want to {0} ?</value>
   </data>
+  <data name="确认要执行该操作吗？" xml:space="preserve">
+    <value>Confirm that you want to do this operation?</value>
+    <comment>提示</comment>
+  </data>
   <data name="种子数据" xml:space="preserve">
     <value>Seed data</value>
   </data>
@@ -293,6 +303,18 @@
   </data>
   <data name="退出登录" xml:space="preserve">
     <value>Logout</value>
+  </data>
+  <data name="邮件工具" xml:space="preserve">
+    <value>Email util</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="邮件服务器" xml:space="preserve">
+    <value>Email server</value>
+    <comment>菜单</comment>
+  </data>
+  <data name="邮件模板" xml:space="preserve">
+    <value>Email template</value>
+    <comment>菜单</comment>
   </data>
   <data name="邮件配置" xml:space="preserve">
     <value>Email config</value>

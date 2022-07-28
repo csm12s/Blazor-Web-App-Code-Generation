@@ -17,11 +17,11 @@ namespace Gardener.Client.Base
             {
                 Button1Props = new ButtonProps
                 {
-                    ChildContent = btn1Text
+                    ChildContent = LocalizerUtil.GetValue(btn1Text)
                 },
                 Button2Props = new ButtonProps
                 {
-                    ChildContent = btn2Text
+                    ChildContent = LocalizerUtil.GetValue(btn2Text)
                 }
             });
         }

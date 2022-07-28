@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Pages
 {
-    public partial class SysTimerConfig: TableBase<SysTimerDto, int, SysTimerEdit>
+    public partial class SysTimerConfig : TableBase<SysTimerDto, int, SysTimerEdit>
     {
         [Inject]
         private ISysTimerService _systimerService { get; set; }
@@ -33,32 +33,26 @@ namespace Gardener.SysTimer.Client.Pages
         /// <returns></returns>
         protected async Task OnStartExecute(SysTimerDto model)
         {
-            switch (model.TimerStatus)
+            string title = TimerStatus.Running.Equals(model.TimerStatus) ? "关闭" : "开启";
+            var resultStop = await confirmService.YesNo(localizer[title], localizer["确认要执行该操作吗？"]);
+            if (resultStop == ConfirmResult.Yes)
             {
-                case TimerStatus.Running:
-                    var resultStop = await confirmService.YesNo("执行", "确认要停止运行吗？");
-                    if (resultStop == ConfirmResult.Yes)
-                    {
-                       await _systimerService.Stop(new StopJobInput { JobName = model.JobName });
-                    }
-                    break;
-                case TimerStatus.Stopped:
-                    var resultStart = await confirmService.YesNo("执行", "确认要开始运行吗？");
-                    if (resultStart == ConfirmResult.Yes)
-                    {
-                      await  _systimerService.Start(model);
-                    }
-                    break;
-                default:
-                    var result = await confirmService.YesNo("执行", "任务处于非正常状态，尝试重新运行？");
-                    if (result == ConfirmResult.Yes)
-                    {
-                       await _systimerService.Start(model);
-                    }
-                    break;
+                switch (model.TimerStatus)
+                {
+                    case TimerStatus.Running:
+                        await _systimerService.Stop(new StopJobInput { JobName = model.JobName });
+                        break;
+                    case TimerStatus.Stopped:
+                        await _systimerService.Start(model);
+                        break;
+                    default:
+                        await _systimerService.Start(model);
+                        break;
+                }
+                Thread.Sleep(1000);
+                await ReLoadTable(false);
             }
-            Thread.Sleep(1000);
-            await ReLoadTable(false);
+            
         }
 
         public readonly static TableFilter<ExecuteType>[] FunctionRequestTypeFilters = EnumHelper.EnumToList<ExecuteType>().Select(x => { return new TableFilter<ExecuteType>() { Text = x.ToString(), Value = x }; }).ToArray();
