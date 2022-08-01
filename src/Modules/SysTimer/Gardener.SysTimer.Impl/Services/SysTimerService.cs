@@ -48,9 +48,9 @@ namespace Gardener.SysTimer.Services
             _cache = cache;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 分页获取任务列表
-        /// </remarks>
+        /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
@@ -76,9 +76,9 @@ namespace Gardener.SysTimer.Services
             return timers;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 获取任务信息
-        /// </remarks>
+        /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
@@ -102,9 +102,9 @@ namespace Gardener.SysTimer.Services
             return data;
         }
 
-        ///<remarks>
+        ///<summary>
         /// 搜索
-        /// </remarks>
+        /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         public override async Task<Base.PagedList<SysTimerDto>> Search(Base.PageRequest request)
@@ -128,9 +128,9 @@ namespace Gardener.SysTimer.Services
             return timers;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 获取所有本地任务
-        /// </remarks>
+        /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<TaskMethodInfo>> GetLocalJobs()
         {
@@ -138,9 +138,9 @@ namespace Gardener.SysTimer.Services
             return await GetTaskMethods();
         }
 
-        /// <remarks>
+        /// <summary>
         /// 增加任务
-        /// </remarks>
+        /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost()]
@@ -157,9 +157,9 @@ namespace Gardener.SysTimer.Services
             return data;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 假删除任务
-        /// </remarks>
+        /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public override async Task<bool> FakeDelete(int id)
@@ -181,9 +181,9 @@ namespace Gardener.SysTimer.Services
             return result;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 删除任务
-        /// </remarks>
+        /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public override async Task<bool> Delete(int id)
@@ -205,9 +205,9 @@ namespace Gardener.SysTimer.Services
             return result;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 修改任务
-        /// </remarks>
+        /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         public override async Task<bool> Update(SysTimerDto input)
@@ -229,9 +229,9 @@ namespace Gardener.SysTimer.Services
             return result;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 查看任务
-        /// </remarks>
+        /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         public async Task<SysTimerDto> GetDetail([FromQuery] QueryJobInput input)
@@ -240,9 +240,9 @@ namespace Gardener.SysTimer.Services
             return data.Adapt<SysTimerDto>();
         }
 
-        /// <remarks>
+        /// <summary>
         /// 停止任务
-        /// </remarks>
+        /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost()]
@@ -252,9 +252,9 @@ namespace Gardener.SysTimer.Services
             return Task.CompletedTask;
         }
 
-        /// <remarks>
+        /// <summary>
         /// 启动任务
-        /// </remarks>
+        /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost()]
