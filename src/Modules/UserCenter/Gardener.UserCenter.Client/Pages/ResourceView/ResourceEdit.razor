@@ -19,14 +19,13 @@
                     @bind-Value="@ParentId"
                     Placeholder="@localizer["请选择"]"
                     AllowClear="false"
-                    TitleExpression="data => data.Name"
-                    KeyExpression="data =>data.Id.ToString()"
-                    ChildrenExpression="data => data.Children?.ToList()"
-                    IsLeafExpression="data => data.Children==null || !data.Children.Any()"
+                    TitleExpression="node=>node.DataItem.Name"
+                    KeyExpression="node =>node.DataItem.Id.ToString()"
+                    ChildrenExpression="node =>node.DataItem.Children?.ToList()"
+                    IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
                     TreeDefaultExpandAll="true"
                     ShowExpand="true"
-                    DisabledExpression="data=>data.Id.Equals(_editModel.Id)"
-                    DataItemExpression="(resources, id) => TreeTools.QueryNode<ResourceDto>(resources.ToArray(),item=>item.Id.ToString().Equals(id),item=>item.Children)">
+                    DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
         </TreeSelect>
     </FormItem>
     <FormItem Label="名称">
