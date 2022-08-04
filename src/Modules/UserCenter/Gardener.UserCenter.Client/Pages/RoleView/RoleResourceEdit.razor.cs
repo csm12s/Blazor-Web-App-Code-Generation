@@ -32,6 +32,10 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         [Inject]
         IClientLocalizer localizer { get; set; }
         /// <summary>
+        /// 默认选择
+        /// </summary>
+        private string[] _defaultCheckedKeys { get; set; }
+        /// <summary>
         /// 页面初始化
         /// </summary>
         /// <returns></returns>
@@ -41,6 +45,13 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             _roleId = this.Options.Id;
             if (_roleId > 0)
             {
+                //已有资源
+                var roleResourceResult = await roleService.GetResource(_roleId);
+                if (roleResourceResult != null && roleResourceResult.Any())
+                {
+                    _defaultCheckedKeys = roleResourceResult.Where(dto => dto.Children == null || !dto.Children.Any()).Select(dto => dto.Id.ToString()).ToArray();
+                }
+                //资源树
                 var resourceResult = await resourceService.GetTree();
                 if (resourceResult == null)
                 {
@@ -51,36 +62,9 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 _resources.AddRange(resourceResult);
             }
             await base.OnInitializedAsync();
+            _isLoading = false;
         }
-
-        /// <summary>
-        /// 渲染后
-        /// </summary>
-        /// <param name="firstRender"></param>
-        /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                _isLoading = true;
-                //选中已有资源
-                var roleResourceResult = await roleService.GetResource(_roleId);
-                if (roleResourceResult != null && roleResourceResult.Any())
-                {
-                    //回填
-                    foreach (ResourceDto dto in roleResourceResult)
-                    {
-                        TreeNode<ResourceDto> node = _tree.FindFirstOrDefaultNode(node =>
-                        {
-                            return dto.Id.ToString().Equals(node.Key);
-                        }, true);
-                        if (node != null && node.IsLeaf) { node.SetChecked(true); }
-                    }
-                }
-                _isLoading = false;
-            }
-            await base.OnAfterRenderAsync(firstRender);
-        }
+       
 
         /// <summary>
         /// 点击取消

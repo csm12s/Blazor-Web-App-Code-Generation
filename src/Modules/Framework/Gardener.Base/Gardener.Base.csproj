@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="4.1.7" />
+    <PackageReference Include="Furion" Version="4.1.9" />
     <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
   </ItemGroup>

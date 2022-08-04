@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <Content Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -13,9 +20,6 @@
     <ProjectReference Include="..\..\..\Client\Gardener.Client.Base\Gardener.Client.Base.csproj" />
     <ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\Gardener.UserCenter\Gardener.UserCenter.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

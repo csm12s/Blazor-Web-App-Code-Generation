@@ -2,20 +2,24 @@
 
 <Spin Spinning="_isLoading">
     <Row>
-        <AntDesign.Col Span="24">
-            <Tree @ref="_tree"
+        <AntDesign.Col Span="24" Style="max-height: 80Vh; min-height:80Vh; overflow-y: scroll; min-width: 400px ">
+            @if (_resources != null && _resources.Count > 0)
+            {
+                <Tree @ref="_tree"
                   TItem="ResourceDto"
                   ShowLine
                   Checkable
                   DataSource="_resources"
+                  DefaultCheckedKeys="_defaultCheckedKeys"
                   KeyExpression="x=>x.DataItem.Id.ToString()"
                   TitleExpression="x=>GetFullName(x.DataItem)"
                   ChildrenExpression="x=>x.DataItem.Children?.ToList()"
                   IconExpression="x=>x.DataItem.Icon"
                   IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
                   DefaultExpandParent="true"
-                  Style="height: 80Vh; overflow-y: scroll; min-width: 400px ">
-            </Tree>
+                 >
+                </Tree>
+            }
         </AntDesign.Col>
     </Row>
     <Row>
@@ -31,7 +35,7 @@
                         <Space>
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">
-                                @localizer["保存"]
+                                    @localizer["保存"]
                                 </Button>
                             </SpaceItem>
                             <SpaceItem>

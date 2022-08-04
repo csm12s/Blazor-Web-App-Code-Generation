@@ -10,6 +10,7 @@ using Furion.TaskScheduler;
 using Gardener.EventBus;
 using Gardener.NotificationSystem.Core;
 using Gardener.NotificationSystem.Dtos.Notification;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,20 +34,28 @@ namespace Gardener.SysTimer.Impl.Demo
         [SpareTime(100,workerName: "测试定时任务")]
         public void DoSomething(SpareTimer timer, long count) 
         {
-            List<NewsInfo> resultNews = GetLastNews().Result;
-            if (resultNews == null) { return; }
-            foreach (var newsInfo in resultNews)
+            ILogger logger= App.GetRequiredService<ILogger<DomeWorker>>();
+            try
             {
-                if (newsInfo == null)
+                List<NewsInfo> resultNews = GetLastNews().Result;
+                if (resultNews == null) { return; }
+                foreach (var newsInfo in resultNews)
                 {
-                    return;
+                    if (newsInfo == null)
+                    {
+                        return;
+                    }
+                    IEventBus eventBus = App.GetRequiredService<IEventBus>();
+                    ChatDemoNotificationData chatNotification = new ChatDemoNotificationData();
+                    chatNotification.Avatar = "./assets/logo.png";
+                    chatNotification.NickName = "系统";
+                    chatNotification.Message = $"{newsInfo.digest}";
+                    eventBus.Publish(chatNotification);
                 }
-                IEventBus eventBus = App.GetRequiredService<IEventBus>();
-                ChatDemoNotificationData chatNotification = new ChatDemoNotificationData();
-                chatNotification.Avatar = "./assets/logo.png";
-                chatNotification.NickName = "系统";
-                chatNotification.Message = $"{newsInfo.digest}";
-                eventBus.Publish(chatNotification);
+            }
+            catch (Exception ex) 
+            {
+                logger.LogError("测试定时任务执行异常", ex);
             }
         }
         /// <summary>

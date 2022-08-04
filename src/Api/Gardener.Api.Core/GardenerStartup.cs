@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Gardener.Authorization.Core;
-using Serilog;
 using Microsoft.AspNetCore.Http;
 using Gardener.NotificationSystem;
 using Gardener.Common.JsonConverters;
@@ -34,7 +33,7 @@ namespace Gardener.Admin
             //开启身份认证
             services.AddAuthen();
             //开启授权
-            services.AddAuthor<IdentityPermissionService,ApiEndpointQueryService>();
+            services.AddAuthor<IdentityPermissionService, ApiEndpointQueryService>();
             //开启验证码
             services.AddVerifyCode(true);
             //开启本地文件存储
@@ -51,7 +50,8 @@ namespace Gardener.Admin
             //缓存服务
             services.AddCache();
             //注册swagger
-            services.AddSpecificationDocuments(x => {
+            services.AddSpecificationDocuments(x =>
+            {
                 x.SwaggerGenConfigure = config => config.EnableAnnotations();
             });
             //注册控制器和视图
@@ -73,8 +73,8 @@ namespace Gardener.Admin
             services.AddViewEngine();
             //添加系统通知服务
             services.AddSystemNotify();
-
-
+            //文件日志
+            services.AddFileLogging();
 
         }
         /// <summary>
@@ -99,7 +99,6 @@ namespace Gardener.Admin
 
             app.UseStaticFiles();
 
-            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion.Extras.Logging.Serilog" Version="4.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
   </ItemGroup>
   <ItemGroup>
@@ -41,7 +40,7 @@
     <Resource Include="Settings\localfilestoresettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Settings\serilogsettings.json">
+    <Resource Include="Settings\logsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Settings\swaggersetting.json">
@@ -71,7 +70,7 @@
     <None Update="Settings\localfilestoresettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Settings\serilogsettings.json">
+    <None Update="Settings\logsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Settings\signalrsettings.json">

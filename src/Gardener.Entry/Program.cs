@@ -1,5 +1,4 @@
 var builder = WebApplication.CreateBuilder(args).Inject();
-builder.Host.UseSerilogDefault();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
