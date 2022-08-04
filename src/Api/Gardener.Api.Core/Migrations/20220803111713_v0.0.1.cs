@@ -1814,7 +1814,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "SysTimer",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Cron", "DoOnce", "ExecutMode", "ExecuteType", "Headers", "HttpMethod", "Interval", "IsDeleted", "IsLocked", "JobName", "LocalMethod", "Remark", "RequestParameters", "RequestUrl", "StartNow", "TimerType", "UpdatedTime" },
-                values: new object[] { 2, 0L, null, 0, null, false, 1, 0, null, 0, 5, false, false, "本地DEMO", null, "定时执行财经消息抓取推送", null, null, false, 0, null });
+                values: new object[] { 2, 0L, null, 0, null, false, 1, 0, null, 0, 5, false, false, "测试本地定时任务DEMO", "Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething", "定时抓取财经新闻，作为聊天数据推送到客户端", null, null, true, 0, null });
 
             migrationBuilder.InsertData(
                 table: "Dept",

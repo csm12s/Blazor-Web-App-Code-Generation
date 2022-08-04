@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20220728025440_v0.0.1")]
+    [Migration("20220803111713_v0.0.1")]
     partial class v001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -662,9 +662,10 @@ namespace Gardener.Api.Core.Migrations
                             Interval = 5,
                             IsDeleted = false,
                             IsLocked = false,
-                            JobName = "本地DEMO",
-                            Remark = "定时执行财经消息抓取推送",
-                            StartNow = false,
+                            JobName = "测试本地定时任务DEMO",
+                            LocalMethod = "Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething",
+                            Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",
+                            StartNow = true,
                             TimerType = 0
                         });
                 });
