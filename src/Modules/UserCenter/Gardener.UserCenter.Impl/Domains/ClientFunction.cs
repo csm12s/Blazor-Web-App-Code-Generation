@@ -5,6 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base.Domains;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +18,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 客户端功能信息
     /// </summary>
     [Description("客户端功能信息")]
-    public class ClientFunction : IEntity
+    public class ClientFunction : IEntity, IEntityTypeBuilder<ClientFunction>
     {
         /// <summary>
         /// 客户端编号
@@ -48,6 +51,21 @@ namespace Gardener.UserCenter.Impl.Domains
         /// </summary>
         [DisplayName("创建时间")]
         public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        public void Configure(EntityTypeBuilder<ClientFunction> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+            entityBuilder
+                .HasKey(t => new { t.ClientId, t.FunctionId });
+
+            entityBuilder
+                .HasOne(pt => pt.Client)
+                .WithMany(t => t.ClientFunctions)
+                .HasForeignKey(pt => pt.ClientId);
+        }
     }
 }

@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Gardener.Email.Dtos;
-using Gardener.Email.Services;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Services;
 using System;

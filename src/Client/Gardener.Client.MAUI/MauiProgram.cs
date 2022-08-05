@@ -14,8 +14,6 @@ using AntDesign.ProLayout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using System.Reflection;
-using Microsoft.AspNetCore.Components.WebView.Maui;
-using Gardener.NotificationSystem.Client;
 using Gardener.NotificationSystem.Client.Core;
 
 namespace Gardener.Client.MAUI

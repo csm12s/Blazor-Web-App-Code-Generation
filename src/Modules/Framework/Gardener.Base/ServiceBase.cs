@@ -323,8 +323,17 @@ namespace Gardener
             }
             string entityName = typeof(TEntity).Name;
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("/// <summary>");
+            sb.AppendLine("/// 种子数据");
+            sb.AppendLine("/// </summary>");
             sb.AppendLine($"public class {entityName}SeedData : IEntitySeedData<{entityName}>");
             sb.AppendLine("{");
+            sb.AppendLine("     /// <summary>");
+            sb.AppendLine("     /// 种子数据");
+            sb.AppendLine("     /// </summary>");
+            sb.AppendLine("     /// <param name=\"dbContext\"></param>");
+            sb.AppendLine("     /// <param name=\"dbContextLocator\"></param>");
+            sb.AppendLine("     /// <returns></returns>");
             sb.AppendLine($"    public IEnumerable<{entityName}> HasData(DbContext dbContext, Type dbContextLocator)");
             sb.AppendLine("     {");
             sb.AppendLine("         return new[]{");
@@ -333,7 +342,7 @@ namespace Gardener
             {
                 Type type = item.GetType();
                 PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                sb.AppendLine($"            new {entityName}()");
+                sb.Append($"                new {entityName}()");
                 sb.Append(" {");
                 foreach (PropertyInfo property in properties)
                 {
@@ -391,7 +400,7 @@ namespace Gardener
                     }
                     else if (propertyType.IsEnum)
                     {
-                        sb.Append($"{propertyName}=({propertyName})Enum.Parse({propertyName}, \"{value.ToString()}\")");
+                        sb.Append($"{propertyName}=Enum.Parse<{propertyType.Name}>(\"{value.ToString()}\")");
                     }
                     else 
                     {
@@ -402,8 +411,9 @@ namespace Gardener
                 }
                 sb.Append("}");
                 sb.Append(",");
+                sb.AppendLine("");
             }
-            sb.AppendLine("         }");
+            sb.AppendLine("         };");
             sb.AppendLine("     }");
             sb.AppendLine("}");
             return sb.ToString();

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gardener.Base;
 using Gardener.Client.Base;
+using Gardener.SystemManager.Dtos;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 

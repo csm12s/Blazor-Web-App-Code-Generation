@@ -4,14 +4,14 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Dtos;
-using Gardener.UserCenter.Enums;
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
+using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Enums;
 
 namespace Gardener.UserCenter.Client.Services
 {

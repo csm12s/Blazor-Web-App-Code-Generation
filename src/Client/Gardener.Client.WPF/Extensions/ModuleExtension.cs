@@ -5,15 +5,12 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.Client.WPF.Extensions
 {

@@ -7,7 +7,6 @@
 using AntDesign;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Client.Base.Components
 {

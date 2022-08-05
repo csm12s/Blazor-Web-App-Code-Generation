@@ -8,12 +8,7 @@ using Gardener.Client.Base;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Gardener.Client.WPF.Extensions;
 using Microsoft.Extensions.Options;
@@ -22,7 +17,6 @@ using AntDesign.ProLayout;
 using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Authorization;
-using Gardener.NotificationSystem.Client;
 using Gardener.NotificationSystem.Client.Core;
 
 namespace Gardener.Client.WPF

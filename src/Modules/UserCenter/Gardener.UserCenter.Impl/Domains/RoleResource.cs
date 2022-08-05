@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -57,6 +58,13 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<RoleResource> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
+            entityBuilder
+           .HasKey(t => new { t.RoleId, t.ResourceId });
+
+            entityBuilder
+                .HasOne(pt => pt.Role)
+                .WithMany(t => t.RoleResources)
+                .HasForeignKey(pt => pt.RoleId);
         }
         /// <summary>
         /// 种子数据
@@ -67,10 +75,6 @@ namespace Gardener.UserCenter.Impl.Domains
         public IEnumerable<RoleResource> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new RoleResource[] {
-
-
-
-
 
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1636429150)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1636429150)},

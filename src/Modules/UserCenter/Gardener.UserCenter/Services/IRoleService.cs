@@ -9,6 +9,7 @@ using Gardener.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gardener.SystemManager.Dtos;
 
 namespace Gardener.UserCenter.Services
 {

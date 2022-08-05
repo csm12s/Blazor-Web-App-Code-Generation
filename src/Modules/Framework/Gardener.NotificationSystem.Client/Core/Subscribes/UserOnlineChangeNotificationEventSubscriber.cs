@@ -6,8 +6,6 @@
 
 using Gardener.Authentication.Enums;
 using Gardener.Client.Base;
-using Gardener.EventBus;
-using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Enums;
 
 namespace Gardener.NotificationSystem.Client.Core.Subscribes

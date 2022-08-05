@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.FileStore\Gardener.FileStore.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.NotificationSystem\Gardener.NotificationSystem.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.SystemManager\Gardener.SystemManager.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.VerifyCode\Gardener.VerifyCode.csproj" />
     <ProjectReference Include="..\..\Modules\SysTimer\Gardener.SysTimer.Impl\Gardener.SysTimer.Impl.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />

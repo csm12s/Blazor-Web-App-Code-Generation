@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Gardener.Common.JsonConverters;
 using Gardener.EventBus;
 using Gardener.NotificationSystem.Core;
 using Gardener.NotificationSystem.Dtos;

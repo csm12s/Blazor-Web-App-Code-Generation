@@ -5,8 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authorization.Dtos;
+using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Enums;
 using Gardener.UserCenter.Dtos;
-using Gardener.UserCenter.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

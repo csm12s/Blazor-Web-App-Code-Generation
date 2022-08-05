@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authorization.Dtos;
+using Gardener.SystemManager.Dtos;
 using Gardener.UserCenter.Dtos;
 using System;
 using System.Collections.Generic;

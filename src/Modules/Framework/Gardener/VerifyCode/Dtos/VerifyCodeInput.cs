@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.VerifyCode.Enums;
-
 namespace Gardener.VerifyCode.Dtos
 {
     /// <summary>

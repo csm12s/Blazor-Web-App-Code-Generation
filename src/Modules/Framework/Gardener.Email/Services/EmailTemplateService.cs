@@ -9,7 +9,6 @@ using Gardener.Email.Domains;
 using Gardener.Email.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Threading.Tasks;
 
 namespace Gardener.Email.Services
 {

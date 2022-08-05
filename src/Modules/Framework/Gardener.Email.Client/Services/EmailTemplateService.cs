@@ -8,7 +8,6 @@ using Gardener.Client.Base;
 using Gardener.Email.Dtos;
 using Gardener.Email.Services;
 using System;
-using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Services
 {

@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Gardener.UserCenter.Services;
+using Gardener.SystemManager.Dtos;
 
 namespace Gardener.UserCenter.Impl.Services
 {

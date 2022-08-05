@@ -7,8 +7,11 @@
 
   <ItemGroup>
     <Compile Remove="Audit\Core\**" />
+    <Compile Remove="System\**" />
     <EmbeddedResource Remove="Audit\Core\**" />
+    <EmbeddedResource Remove="System\**" />
     <None Remove="Audit\Core\**" />
+    <None Remove="System\**" />
   </ItemGroup>
 
   <ItemGroup>

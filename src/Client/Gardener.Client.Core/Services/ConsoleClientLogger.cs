@@ -8,7 +8,6 @@ using Gardener.Client.Base;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Gardener.Client.Core
 {

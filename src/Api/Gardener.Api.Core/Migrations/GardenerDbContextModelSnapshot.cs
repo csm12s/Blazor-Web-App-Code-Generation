@@ -17,6 +17,21 @@ namespace Gardener.Api.Core.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
 
+            modelBuilder.Entity("FunctionResource", b =>
+                {
+                    b.Property<Guid>("FunctionsId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ResourcesId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("FunctionsId", "ResourcesId");
+
+                    b.HasIndex("ResourcesId");
+
+                    b.ToTable("FunctionResource");
+                });
+
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -144,748 +159,13 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("LoginToken");
                 });
 
-            modelBuilder.Entity("Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ControllerGroup")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ControllerRoute")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("EntityFullName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ModuleName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EntityCodeGenerationSetting");
-                });
-
-            modelBuilder.Entity("Gardener.Email.Domains.EmailServerConfig", b =>
+            modelBuilder.Entity("Gardener.Base.Domains.Function", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccountPassword")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CreatorIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("EnableSsl")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FromEmail")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Host")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Port")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tags")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailServerConfig");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("1812e5c1-7bcc-4d51-9b5e-45d610357e0e"),
-                            AccountName = "888888@qq.com",
-                            AccountPassword = "123456",
-                            CreatedTime = 1306051084984320000L,
-                            CreatorIdentityType = 0,
-                            EnableSsl = false,
-                            FromEmail = "888888@qq.com",
-                            Host = "smtp.qq.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "QQ Email",
-                            Port = 25,
-                            Remark = "QQ Email",
-                            Tags = "Base,QQ"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.Email.Domains.EmailTemplate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ContentTemplate")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CreatorIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Example")
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FromName")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsHtml")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SubjectTemplate")
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmailTemplate");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("90587db9-3c8d-4ec1-80cc-ff001166fd25"),
-                            ContentTemplate = "<p>您的验证码是：<b> @Model.Code </b></p>\r\n                                  <P>时间：@(System.DateTime.Now.ToString(\"yyyy-MM-dd HH:mm:ss\"))</p>",
-                            CreatedTime = 1306051084984320000L,
-                            CreatorIdentityType = 0,
-                            Example = "{\"Code\":123}",
-                            FromName = "园丁",
-                            IsDeleted = false,
-                            IsHtml = true,
-                            IsLocked = false,
-                            Name = "验证码",
-                            Remark = "发送验证码",
-                            SubjectTemplate = "你好，请查收验证码"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("AuditOperationId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DataId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperaterType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("OperationId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperationType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TypeName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuditOperationId");
-
-                    b.ToTable("AuditEntity");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Ip")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Method")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OperaterId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperaterType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Parameters")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ResourceName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserAgent")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditOperation");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditProperty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("AuditEntityid")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DataType")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FieldName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("NewValue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OriginalValue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuditEntityid");
-
-                    b.ToTable("AuditProperty");
-                });
-
-            modelBuilder.Entity("Gardener.NotificationSystem.Domains.Announcement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(5000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CreatorIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FavourCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("FixTop")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OpposeCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ReplyCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Summary")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Announcement");
-                });
-
-            modelBuilder.Entity("Gardener.SysTimer.Domains.SysTimerEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CreatorIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Cron")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT")
-                        .HasComment("Cron表达式");
-
-                    b.Property<bool>("DoOnce")
-                        .HasColumnType("INTEGER")
-                        .HasComment("只执行一次");
-
-                    b.Property<int>("ExecutMode")
-                        .HasColumnType("INTEGER")
-                        .HasComment("执行模式");
-
-                    b.Property<int>("ExecuteType")
-                        .HasColumnType("INTEGER")
-                        .HasComment("执行类型");
-
-                    b.Property<string>("Headers")
-                        .HasColumnType("TEXT")
-                        .HasComment("Headers");
-
-                    b.Property<int>("HttpMethod")
-                        .HasColumnType("INTEGER")
-                        .HasComment("HTTP请求方式");
-
-                    b.Property<int?>("Interval")
-                        .HasColumnType("INTEGER")
-                        .HasComment("间隔时间");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("JobName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT")
-                        .HasComment("任务名称");
-
-                    b.Property<string>("LocalMethod")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT")
-                        .HasComment("本地方法");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT")
-                        .HasComment("备注");
-
-                    b.Property<string>("RequestParameters")
-                        .HasColumnType("TEXT")
-                        .HasComment("请求参数");
-
-                    b.Property<string>("RequestUrl")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT")
-                        .HasComment("请求url");
-
-                    b.Property<bool>("StartNow")
-                        .HasColumnType("INTEGER")
-                        .HasComment("立即执行");
-
-                    b.Property<int>("TimerType")
-                        .HasColumnType("INTEGER")
-                        .HasComment("定时器类型");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SysTimer");
-
-                    b.HasComment("定时任务表");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedTime = 0L,
-                            CreatorIdentityType = 0,
-                            DoOnce = false,
-                            ExecutMode = 1,
-                            ExecuteType = 1,
-                            HttpMethod = 0,
-                            Interval = 5,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            JobName = "百度api",
-                            Remark = "接口API",
-                            RequestUrl = "https://www.baidu.com",
-                            StartNow = false,
-                            TimerType = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedTime = 0L,
-                            CreatorIdentityType = 0,
-                            DoOnce = false,
-                            ExecutMode = 1,
-                            ExecuteType = 0,
-                            HttpMethod = 0,
-                            Interval = 5,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            JobName = "测试本地定时任务DEMO",
-                            LocalMethod = "Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething",
-                            Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",
-                            StartNow = true,
-                            TimerType = 0
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Contacts")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CreatorIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SecretKey")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tel")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Client");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("96c0eec0-861f-4ed2-a183-5604b20bdff9"),
-                            Contacts = "园丁",
-                            CreatedTime = 1305892579553280000L,
-                            CreatorIdentityType = 0,
-                            Email = "qq@qq.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "测试client1",
-                            Remark = "用于测试",
-                            SecretKey = "9f700cec-b787-4e23-a2da-9e45b3bd6cbb",
-                            Tel = "13838888888"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
-                {
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("FunctionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ClientId", "FunctionId");
-
-                    b.HasIndex("FunctionId");
-
-                    b.ToTable("ClientFunction");
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Dept", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Contacts")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CreatorIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tel")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Dept");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Contacts = "老A",
-                            CreatedTime = 1305892579553280000L,
-                            CreatorIdentityType = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "北京分部",
-                            Order = 1,
-                            Remark = "北京分部",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Contacts = "老B",
-                            CreatedTime = 1305892579553280000L,
-                            CreatorIdentityType = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "昌平办事处",
-                            Order = 1,
-                            ParentId = 1,
-                            Remark = "昌平办事处",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Contacts = "老C",
-                            CreatedTime = 1305892579553280000L,
-                            CreatorIdentityType = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "海淀办事处",
-                            Order = 1,
-                            ParentId = 1,
-                            Remark = "海淀办事处",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Contacts = "老D",
-                            CreatedTime = 1305892579553280000L,
-                            CreatorIdentityType = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "河北分部",
-                            Order = 1,
-                            Remark = "河北分部",
-                            Tel = "400-8888888"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Contacts = "老E",
-                            CreatedTime = 1305892579553280000L,
-                            CreatorIdentityType = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "石家庄办事处",
-                            Order = 1,
-                            ParentId = 4,
-                            Remark = "石家庄办事处",
-                            Tel = "400-8888888"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Function", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("TEXT");
 
                     b.Property<long>("CreatedTime")
@@ -940,1005 +220,49 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.ToTable("Function");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("edcd4871-7520-4437-93b1-3150c63b3486"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("542d6de4-1b2c-4820-8f8c-b6fa17c023aa"),
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2BE2F4CAE116170A84E87A542B7B2E03",
-                            Method = 0,
-                            Path = "/api/news/page/{pageindex}/{pagesize}",
-                            Service = "新闻管理",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("a53a9c89-7968-4598-9c46-dad4e9188bd0"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取api分组设置",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "945B6A21E0C00F9BB0F7EEE37C671E3E",
-                            Method = 0,
-                            Path = "/api/swagger/api-group",
-                            Service = "Swagger服务",
-                            Summary = "获取哦 swagger 配置"
-                        },
-                        new
-                        {
-                            Id = new Guid("51d98131-fb32-4f4a-b9ed-a89ec4c0718a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "900D7247E48D5866026A9DFCDD9758C0",
-                            Method = 1,
-                            Path = "/api/news/deletes",
-                            Service = "新闻管理",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
+                            Description = "根据搜索条叫生成种子数据",
                             EnableAudit = true,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "C53E746377386D224D0941DB8F4CB539",
+                            Key = "6C10A6FBF3AD17499C371C48E0FEF6D6",
                             Method = 1,
-                            Path = "/api/audit-operation/fake-deletes",
-                            Service = "审计操作服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("03c9956e-b832-4202-9c47-55ba3793f606"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "778BD549C3ACEF321ECEDF39C80241D0",
-                            Method = 0,
-                            Path = "/api/audit-operation/page/{pageindex}/{pagesize}",
-                            Service = "审计操作服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("bdab8953-956d-4b1a-945b-b1806e9ac749"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "073E6E78B3A88E41DBDC46DCA32C4837",
-                            Method = 0,
-                            Path = "/api/user/all-usable",
-                            Service = "用户服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FE150D4F1EE3DDDE5BD78C718100A247",
-                            Method = 3,
-                            Path = "/api/resource-function/{resourceid}/{functionid}",
-                            Service = "资源与接口关系服务",
-                            Summary = "删除资源与接口关系"
-                        },
-                        new
-                        {
-                            Id = new Guid("814304bb-22fe-4a33-82e1-8ad7c64bab4a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取所有子资源",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C5668FD7C42E9FB532AB9CB2E1480E1F",
-                            Method = 0,
-                            Path = "/api/resource/{id}/children",
-                            Service = "资源服务",
-                            Summary = "获取所有子资源"
-                        },
-                        new
-                        {
-                            Id = new Guid("f512069b-3c5c-47c6-bb97-5f7e7b71039d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "CBD3FFEFF6C8E0CF0D8789610DCDB5B5",
-                            Method = 1,
-                            Path = "/api/news/fake-deletes",
-                            Service = "新闻管理",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("2a670df1-f01c-4cdb-b084-a46fdb339ced"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "097D7A323BFFCA32788EAA8C6BDB5157",
-                            Method = 3,
-                            Path = "/api/function/{id}",
-                            Service = "功能服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("12dbe1a6-7d23-48a4-bacb-164f0403d0f4"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "87F7F066F0A0605D1DB5CE8B7286E0CB",
-                            Method = 1,
-                            Path = "/api/audit-entity/fake-deletes",
-                            Service = "审计数据服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("4a127124-6348-4db1-aa38-5f3af2c8efdf"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A99DB9777E1C5C11D2FA6A8957F696E8",
-                            Method = 0,
-                            Path = "/api/audit-operation/all-usable",
-                            Service = "审计操作服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新用户的头像",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FEBD6097BE29268FDFDC295C98A9AD9F",
-                            Method = 2,
-                            Path = "/api/user/avatar",
-                            Service = "用户服务",
-                            Summary = "更新头像"
-                        },
-                        new
-                        {
-                            Id = new Guid("3402d3b2-cf24-4634-a65c-534f96e2991a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5C9E8B48C5C77A0CEB8E6A853D56A808",
-                            Method = 1,
-                            Path = "/api/user/deletes",
-                            Service = "用户服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "E2248234B183BA3EEA82273CB03F500C",
-                            Method = 2,
-                            Path = "/api/function",
-                            Service = "功能服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "给用户设置角色",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A843DEF0CDD97A394996DCF7C5E80F5B",
-                            Method = 1,
-                            Path = "/api/user/{userid}/role",
-                            Service = "用户服务",
-                            Summary = "设置角色"
-                        },
-                        new
-                        {
-                            Id = new Guid("5eb48cf2-6c45-47c2-a68b-84284a389c69"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "F74128AC93B49FC04CB29781E17E5302",
-                            Method = 1,
-                            Path = "/api/resource/deletes",
-                            Service = "资源服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("e7e8c401-2ff1-45ee-adfd-cebe90117575"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FEB756C21615385FC3C747ACB240DC2D",
-                            Method = 3,
-                            Path = "/api/resource/fake-delete/{id}",
-                            Service = "资源服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("2f820c7f-4f1c-4737-aae6-329585c75d92"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "271DFDC5E142CFE1AF0C4200C6DC060A",
-                            Method = 0,
-                            Path = "/api/attachment/{id}",
+                            Path = "/api/attachment/generate-seed-data",
                             Service = "附件服务",
-                            Summary = "根据主键获取"
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528137072640480L
                         },
                         new
                         {
-                            Id = new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3E010DCA7BAD6C3FCCCA32FB77F050F0",
-                            Method = 1,
-                            Path = "/api/user/fake-deletes",
-                            Service = "用户服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加资源",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "56C72854CD92865B84133D0D791DEC22",
-                            Method = 1,
-                            Path = "/api/resource",
-                            Service = "资源服务",
-                            Summary = "添加资源"
-                        },
-                        new
-                        {
-                            Id = new Guid("c9e572ab-6363-49a4-9c74-d6e21553e45d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取种子数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "49CCD72DC5A379DF8AC6925CF391FC54",
-                            Method = 0,
-                            Path = "/api/function/seed-data",
-                            Service = "功能服务",
-                            Summary = "获取种子数据"
-                        },
-                        new
-                        {
-                            Id = new Guid("db76ae46-851b-47bc-94be-b2e869043636"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "704D356B44E6DEA692BA099781A321DD",
-                            Method = 1,
-                            Path = "/api/audit-operation/search",
-                            Service = "审计操作服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("080dd200-8e8a-489c-86ca-8eb74c417c0b"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
+                            Description = "上传单个附件",
                             EnableAudit = true,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "A20264B6A44D74DBF0C7990CF3FE6DC1",
-                            Method = 3,
-                            Path = "/api/audit-operation/fake-delete/{id}",
-                            Service = "审计操作服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("fcebd316-c2f3-4f8e-97fc-498dd3a33d4e"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "951D030BDA5FAE619E5A7BB9EFB43F33",
+                            Key = "3BF647BFC6987B8CEA91C97FEE17CC6D",
                             Method = 1,
-                            Path = "/api/dept/deletes",
-                            Service = "部门服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "43844F96A173330CECD6470FD62A8A76",
-                            Method = 1,
-                            Path = "/api/resource-function",
-                            Service = "资源与接口关系服务",
-                            Summary = "添加资源与接口关系"
-                        },
-                        new
-                        {
-                            Id = new Guid("cd7db809-50f5-4bf3-a464-89218e24077f"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取角色所有资源",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "011A2E3F574F9C151E044EFA80A05F29",
-                            Method = 0,
-                            Path = "/api/role/{roleid}/resource",
-                            Service = "角色服务",
-                            Summary = "获取角色所有资源"
-                        },
-                        new
-                        {
-                            Id = new Guid("a8211f75-bf19-459a-bf66-9c31c6f334aa"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1C8C95EA831A3D031460A1390DF26E83",
-                            Method = 1,
-                            Path = "/api/audit-operation/deletes",
-                            Service = "审计操作服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1CCC2478B5AC5FDDB537DCD33166ABF7",
-                            Method = 0,
-                            Path = "/api/function/all-usable",
-                            Service = "功能服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4B11C588FC856C862E41859F189370C0",
-                            Method = 1,
-                            Path = "/api/role/search",
-                            Service = "角色服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索用户数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "04608E487B494D4597BBAD83DF59D2FF",
-                            Method = 1,
-                            Path = "/api/user/search",
-                            Service = "用户服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("622c1a11-7dff-4318-9d21-b57fbd1da9ba"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "718DFD76BA4C2997D3DDA216BDB98369",
-                            Method = 2,
-                            Path = "/api/user/{id}/lock/{islocked}",
-                            Service = "用户服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("1d994e50-d40a-465b-8445-646041a8131a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据操作审计ID获取数据审计",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "26806445F59D861F9FDB9F91B164A1CD",
-                            Method = 0,
-                            Path = "/api/audit-operation/{operationid}/audit-entity",
-                            Service = "审计操作服务",
-                            Summary = "根据操作审计ID获取数据审计"
-                        },
-                        new
-                        {
-                            Id = new Guid("99264e5a-76d3-4f92-a56a-9c8711067218"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索角色数据",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "0E961600B0A0BFF9928C779B1C49389D",
-                            Method = 0,
-                            Path = "/api/role/search/{pageindex}/{pagesize}",
-                            Service = "角色服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("7e5577d4-32b2-4f43-a83f-05410b59b195"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "CCD570BA5C66619052354D738927A007",
-                            Method = 3,
-                            Path = "/api/audit-entity/{id}",
-                            Service = "审计数据服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("5604fcc2-595f-4cc5-b0b8-c0d75a4c9351"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "ADF53A6D1C062BF2CC40EBDE20D8E841",
-                            Method = 2,
-                            Path = "/api/attachment/{id}/lock/{islocked}",
+                            Path = "/api/attachment/upload",
                             Service = "附件服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("7f0d7abb-06a4-4a35-b4e3-7798b21e37fa"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "9C888321143AC3E991B72D3B32193A35",
-                            Method = 1,
-                            Path = "/api/resource/fake-deletes",
-                            Service = "资源服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "B2A11324BCA0A9070B6160AE6B0EE6F2",
-                            Method = 0,
-                            Path = "/api/resource/{id}/functions",
-                            Service = "资源服务",
-                            Summary = "根据资源id获取功能信息"
-                        },
-                        new
-                        {
-                            Id = new Guid("1295aed2-ae71-411f-9542-d50f75432840"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "24C5B533C5DDC7D494830FF5E28F6EC2",
-                            Method = 1,
-                            Path = "/api/resource/search",
-                            Service = "资源服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("eefdb20f-b508-415a-b798-1aa9420a5b62"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6999F8BBB5F9BA97658BB99113A381F5",
-                            Method = 2,
-                            Path = "/api/audit-operation/{id}/lock/{islocked}",
-                            Service = "审计操作服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("08d002b9-d320-4410-b9f3-7986ed87ece4"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DA5651C09F319A1358B9948735712DCF",
-                            Method = 0,
-                            Path = "/api/audit-operation/{id}",
-                            Service = "审计操作服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("ffbd98b8-8945-4068-b70c-ea58b487bd25"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "AD48018AF04E0A4573815675E555E98D",
-                            Method = 3,
-                            Path = "/api/audit-operation/{id}",
-                            Service = "审计操作服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("0d2df690-6aa7-466b-b1e4-73fa4fda1b5d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8AED5C0B53588415D98E97119880AC6A",
-                            Method = 2,
-                            Path = "/api/dept/{id}/lock/{islocked}",
-                            Service = "部门服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("0ac7b7a5-1ca7-4345-b0cd-a328aaa76723"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DA5FD7BA5C124E41186D976D87084C19",
-                            Method = 0,
-                            Path = "/api/news/all",
-                            Service = "新闻管理",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("1562071d-e18c-4d29-a854-12a562961140"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "9B0AD48E75A6C37EDC7101236F93CF77",
-                            Method = 0,
-                            Path = "/api/user/all",
-                            Service = "用户服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("10190ac3-1092-49a9-8ad2-313454b40447"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "17B55B877E0FB6704577EA356573BBC3",
-                            Method = 1,
-                            Path = "/api/attachment/fake-deletes",
-                            Service = "附件服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("a3ea9c9f-da6f-48e1-8255-d250bb3e52d5"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3CBCB4608120758739D941BFCCC09C18",
-                            Method = 0,
-                            Path = "/api/attachment/all",
-                            Service = "附件服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("aedc9e9c-f011-4d46-966e-3b14fd5298c2"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "9BE552AEF35878A71ABE8179B80AA036",
-                            Method = 0,
-                            Path = "/api/attachment/page/{pageindex}/{pagesize}",
-                            Service = "附件服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6E9E5AA61727C2BD1E4142F0ED0F9DC5",
-                            Method = 0,
-                            Path = "/api/resource/{id}",
-                            Service = "资源服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("f4ba1bf6-c07e-4df2-b7de-93b35fb79bf0"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8650A7797FF354BBB742C87D0F560844",
-                            Method = 3,
-                            Path = "/api/resource/{id}",
-                            Service = "资源服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("8f1c2eeb-248f-41bb-a083-511664f2fd8e"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "717D6057E652BA28D3BF0CE337180E9E",
-                            Method = 1,
-                            Path = "/api/function/deletes",
-                            Service = "功能服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("46aef5bc-9d0f-4a05-b21d-747753b98569"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "30759F98C0CF4A34813C280451C2E4CF",
-                            Method = 3,
-                            Path = "/api/audit-entity/fake-delete/{id}",
-                            Service = "审计数据服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("9513e5e1-37ab-4937-94f1-1f6b99a385f7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "07BC6868FFAD4A5B26193E2372B9821C",
-                            Method = 1,
-                            Path = "/api/audit-operation",
-                            Service = "审计操作服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("7cb8921d-0a0c-4e80-8895-604c05480c43"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "0BBAF9866F200FEDE526AB75E03319CC",
-                            Method = 0,
-                            Path = "/api/dept/page/{pageindex}/{pagesize}",
-                            Service = "部门服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("9d26c715-9b8b-40c6-bbf4-9c51df1193da"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DE9B14A3BC0E0653399F870F27F24CEF",
-                            Method = 2,
-                            Path = "/api/audit-entity",
-                            Service = "审计数据服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("9a4766ee-e624-41ce-98fc-e8abb6ef580a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "BB2AEA0FA60BE9D7016A8271D23591E3",
-                            Method = 3,
-                            Path = "/api/news/{id}",
-                            Service = "新闻管理",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("a15ce231-80ae-46c6-ada8-49666e81e328"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据 HttpMethod 和 path 判断是否存在",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "27693C4354A64289D9A1D3EB50E68E7E",
-                            Method = 0,
-                            Path = "/api/function/exists/{method}/{path}",
-                            Service = "功能服务",
-                            Summary = "判断是否存在"
-                        },
-                        new
-                        {
-                            Id = new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "D4F99E0AE4263D647F3440B66DB7AC7B",
-                            Method = 0,
-                            Path = "/api/role/all-usable",
-                            Service = "角色服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("0a63566b-0a91-4d79-b417-60b1d8f92aeb"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2A6B6013C84E500CF451D706AF4FF7B8",
-                            Method = 0,
-                            Path = "/api/news/{id}",
-                            Service = "新闻管理",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "32ABBEA6610DE2420AC7B5E7FDAA315E",
-                            Method = 1,
-                            Path = "/api/dept/fake-deletes",
-                            Service = "部门服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("ff8621c9-1b88-4e6d-be00-34615c48c69f"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "EFFE9D726D7792B023DF91E15AA48C89",
-                            Method = 0,
-                            Path = "/api/dept/seed-data",
-                            Service = "部门服务",
-                            Summary = "获取种子数据"
-                        },
-                        new
-                        {
-                            Id = new Guid("9caf800a-de55-4d59-a138-675a16924c3c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "488BDECFA97ADDE5E940446C32C42693",
-                            Method = 0,
-                            Path = "/api/function/all",
-                            Service = "功能服务",
-                            Summary = "查询所有"
+                            Summary = "上传附件",
+                            UpdatedTime = 1306528136847360480L
                         },
                         new
                         {
                             Id = new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"),
-                            CreatedTime = 1306069132247040000L,
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
                             Description = "根据主键逻辑删除",
                             EnableAudit = true,
@@ -1949,12 +273,149 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/attachment/fake-delete/{id}",
                             Service = "附件服务",
-                            Summary = "逻辑删除"
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528136929280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("10190ac3-1092-49a9-8ad2-313454b40447"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "17B55B877E0FB6704577EA356573BBC3",
+                            Method = 1,
+                            Path = "/api/attachment/fake-deletes",
+                            Service = "附件服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528136949760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2f820c7f-4f1c-4737-aae6-329585c75d92"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "271DFDC5E142CFE1AF0C4200C6DC060A",
+                            Method = 0,
+                            Path = "/api/attachment/{id}",
+                            Service = "附件服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528136888320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("42b3486a-8ea0-4296-a526-7cd3ef9ea73a"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6B7B11626AE0ABB28C5331DB67DACAA0",
+                            Method = 0,
+                            Path = "/api/attachment/all-usable",
+                            Service = "附件服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528136990720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5604fcc2-595f-4cc5-b0b8-c0d75a4c9351"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "ADF53A6D1C062BF2CC40EBDE20D8E841",
+                            Method = 2,
+                            Path = "/api/attachment/{id}/lock/{islocked}",
+                            Service = "附件服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528137031680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0C58B2617EA08ED81F14B53C00C678D7",
+                            Method = 1,
+                            Path = "/api/attachment/search",
+                            Service = "附件服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528137052160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9c6cefe2-d57d-490c-8b0f-70749bc5cdfa"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "085CB1560C82B28FE4C8C5F28EA31A59",
+                            Method = 3,
+                            Path = "/api/attachment/{id}",
+                            Service = "附件服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528136867840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a3ea9c9f-da6f-48e1-8255-d250bb3e52d5"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3CBCB4608120758739D941BFCCC09C18",
+                            Method = 0,
+                            Path = "/api/attachment/all",
+                            Service = "附件服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528136970240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("aedc9e9c-f011-4d46-966e-3b14fd5298c2"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9BE552AEF35878A71ABE8179B80AA036",
+                            Method = 0,
+                            Path = "/api/attachment/page/{pageindex}/{pagesize}",
+                            Service = "附件服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528137011200480L
                         },
                         new
                         {
                             Id = new Guid("ef62671e-4d35-4993-83c4-4dcdf7cbf0d0"),
-                            CreatedTime = 1306069132247040000L,
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
                             Description = "根据多个主键批量删除",
                             EnableAudit = true,
@@ -1965,668 +426,81 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/attachment/deletes",
                             Service = "附件服务",
-                            Summary = "批量删除"
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528136908800480L
                         },
                         new
                         {
-                            Id = new Guid("2ea4faea-ec29-4383-833b-b5dedaa1b735"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("724e4ba8-59ff-458a-a940-325f973827d0"),
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "1B1FD29D8E0A4A89B600CAA46C82B02F",
-                            Method = 0,
-                            Path = "/api/email-template/page/{pageindex}/{pagesize}",
-                            Service = "邮件模板服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("2bf3ff67-c1a3-4426-8320-11839daa0a81"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "E4979CA111E299FA747D5A547C6E4A99",
+                            Key = "25F7A33EC2479E4589E5A540765C3DA0",
                             Method = 1,
-                            Path = "/api/email-template/search",
-                            Service = "邮件模板服务",
-                            Summary = "搜索"
+                            Path = "/api/audit-entity/generate-seed-data",
+                            Service = "审计数据服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528137318400480L
                         },
                         new
                         {
-                            Id = new Guid("9191206c-f35e-4eb7-b19a-5949dc560369"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("045945e7-94c4-4727-8392-31fc9d99cd9f"),
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "98410D052E1A609292E627692BFA3375",
-                            Method = 1,
-                            Path = "/api/email-template",
-                            Service = "邮件模板服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("736fd9b6-b56a-4860-8a1c-9a077be886e3"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "18B1E82C7D5150FD3EDC3BB52FB3ACF9",
-                            Method = 2,
-                            Path = "/api/email-template/{id}/lock/{islocked}",
-                            Service = "邮件模板服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("2bf807cd-7d48-40bd-839b-fdd71f419711"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "38B9A961DB74BD743A3B5D434B2EB66A",
-                            Method = 3,
-                            Path = "/api/email-template/{id}",
-                            Service = "邮件模板服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("3ac59980-d2df-4363-b8db-a4d043e362e7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
+                            Description = "查找到所有数据",
                             EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "2E69B891C48D1F7E7974825E470447DC",
+                            Key = "E46343E17F6F09D2DD0BB1B6C78C81F6",
                             Method = 0,
-                            Path = "/api/email-template/{id}",
-                            Service = "邮件模板服务",
-                            Summary = "根据主键获取"
+                            Path = "/api/audit-entity/all",
+                            Service = "审计数据服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528137256960480L
                         },
                         new
                         {
-                            Id = new Guid("33c2157a-884d-4030-abea-a9aeea51fdf8"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("0f372dde-1e65-441a-b002-eee8b2e1a1f9"),
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
-                            Description = "更新一条数据",
+                            Description = "根据多个主键批量删除",
                             EnableAudit = true,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "CDA3DE9664774C06E0D86F62F2FCDDE2",
-                            Method = 2,
-                            Path = "/api/email-template",
-                            Service = "邮件模板服务",
-                            Summary = "更新"
+                            Key = "13457B9CA71646A02E6F004CE877A0E6",
+                            Method = 1,
+                            Path = "/api/audit-entity/deletes",
+                            Service = "审计数据服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528137195520480L
                         },
                         new
                         {
-                            Id = new Guid("841c572c-5098-4e72-a590-2b81706aaa93"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C5F41046D8531C1E77B503560A7E220E",
-                            Method = 3,
-                            Path = "/api/email-template/fake-delete/{id}",
-                            Service = "邮件模板服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("31896c5d-2ed7-4e43-a952-4edc076d29d0"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("12dbe1a6-7d23-48a4-bacb-164f0403d0f4"),
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
                             Description = "根据多个主键批量逻辑删除",
                             EnableAudit = true,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "CBB8DE4E5D6DD206685DA33E90EF1EE1",
+                            Key = "87F7F066F0A0605D1DB5CE8B7286E0CB",
                             Method = 1,
-                            Path = "/api/email-template/fake-deletes",
-                            Service = "邮件模板服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("ae3a97a9-32fb-4402-a6c7-9a0ffd76ce49"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "B0F7A5E8F1984DD5545B50F04FB3106D",
-                            Method = 0,
-                            Path = "/api/email-template/all",
-                            Service = "邮件模板服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("aad857df-a1e7-43cb-be82-55c60865da86"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5F7047AD7EC090D04B2AF8C4847678A8",
-                            Method = 0,
-                            Path = "/api/email-template/all-usable",
-                            Service = "邮件模板服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("b6c1592b-cb4b-4ead-bea1-3dc4a917e4a8"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "9C103F0B6C167211465FB472E46EC968",
-                            Method = 1,
-                            Path = "/api/email-template/deletes",
-                            Service = "邮件模板服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "发送邮件",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2C72E2117E4F5092A5C6F2C807389D38",
-                            Method = 1,
-                            Path = "/api/email/send",
-                            Service = "邮件服务",
-                            Summary = "发送邮件"
-                        },
-                        new
-                        {
-                            Id = new Guid("ddeeea7e-09e3-42c1-b536-0ff16393db1c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "E23CF3B8D86A5D0E1F13759117676687",
-                            Method = 1,
-                            Path = "/api/email-verify-code",
-                            Service = "邮件验证码服务",
-                            Summary = "获取验证码"
-                        },
-                        new
-                        {
-                            Id = new Guid("3896ea42-a5ed-4bc5-8dc5-21e0e5adb2fa"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "88BF07EAB2CA231DE36CF2C1A2D2546D",
-                            Method = 3,
-                            Path = "/api/email-verify-code/{key}",
-                            Service = "邮件验证码服务",
-                            Summary = "移除验证码"
-                        },
-                        new
-                        {
-                            Id = new Guid("e466c648-4dc5-4ca4-b8f9-826c51b2a462"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1113744E52468C0ED06582D699F77B87",
-                            Method = 1,
-                            Path = "/api/email-verify-code/verify",
-                            Service = "邮件验证码服务",
-                            Summary = "验证验证码"
-                        },
-                        new
-                        {
-                            Id = new Guid("d7f59d52-a931-4bec-8312-5142d4d37fda"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "BA7BDB4454250C19379AD4FABE7A58B6",
-                            Method = 1,
-                            Path = "/api/image-verify-code",
-                            Service = "图片验证码服务",
-                            Summary = "获取验证码"
-                        },
-                        new
-                        {
-                            Id = new Guid("138283bd-f2ee-4b3b-b268-a12185264103"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "715A826DCD331B3155650A79BE0015D8",
-                            Method = 3,
-                            Path = "/api/image-verify-code/{key}",
-                            Service = "图片验证码服务",
-                            Summary = "移除验证码"
-                        },
-                        new
-                        {
-                            Id = new Guid("4795ae43-0d52-42f1-8aaf-fc6e6412ac1b"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A3F388958310A592E004DDD848AB0CB7",
-                            Method = 1,
-                            Path = "/api/image-verify-code/verify",
-                            Service = "图片验证码服务",
-                            Summary = "验证验证码"
-                        },
-                        new
-                        {
-                            Id = new Guid("81ee6d06-adc6-42c4-a8cd-5d1496581a6c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "0A1ABF7F373AA969110F03D1A1977088",
-                            Method = 2,
-                            Path = "/api/news",
-                            Service = "新闻管理",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "9A316E9E6A41D1F57870A5F0CDDC93EF",
-                            Method = 1,
-                            Path = "/api/function/search",
-                            Service = "功能服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("056ff2f6-009b-40ff-a1b9-a6983e471967"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "启用或禁用功能",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1DC1B5ECD34759A80CE8C468366A378F",
-                            Method = 2,
-                            Path = "/api/function/{id}/enable-audit/{enableaudit}",
-                            Service = "功能服务",
-                            Summary = "启用或禁用"
-                        },
-                        new
-                        {
-                            Id = new Guid("6e8d08f8-ba2a-4697-8b69-ac5a5bb31bff"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6C3EB756645619B25BF1323C05E781D8",
-                            Method = 1,
-                            Path = "/api/client-function",
-                            Service = "客户端与接口关系服务",
-                            Summary = "添加客户端与接口关系"
-                        },
-                        new
-                        {
-                            Id = new Guid("98fdbccd-fde2-414d-9cfe-0d6cf3339d58"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FF4F009CAC7CE2915AA92B3864ADD4CF",
-                            Method = 3,
-                            Path = "/api/user-token/fake-delete/{id}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("94f22c97-ae4a-40e0-95cd-d0a6347eacd7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据角色编号删除所有资源",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DECA4ECA67D27FC9932271EE3B0AC5DD",
-                            Method = 3,
-                            Path = "/api/role/{roleid}/resource",
-                            Service = "角色服务",
-                            Summary = "根据角色编号删除所有资源"
-                        },
-                        new
-                        {
-                            Id = new Guid("01944b79-bfe5-4304-ade0-9c66e038d5d4"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3005F52703299DD4885D51C80CA3B370",
-                            Method = 2,
-                            Path = "/api/role",
-                            Service = "角色服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("f5c318f6-9230-475a-830e-a404e17506b5"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3AB1D0424907EC010DC69F029B4FBD06",
-                            Method = 1,
-                            Path = "/api/dept",
-                            Service = "部门服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("45dd0581-3394-4c0a-bb8e-c9e0074d5611"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "CE39C474540DD96EAF373115B164EDC7",
-                            Method = 2,
-                            Path = "/api/resource",
-                            Service = "资源服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "02836036DDDF7900E5F5E9762F5E4229",
-                            Method = 3,
-                            Path = "/api/user/fake-delete/{id}",
-                            Service = "用户服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5A7181978F26890284CE44ED28A2F7AA",
-                            Method = 1,
-                            Path = "/api/audit-entity/search",
+                            Path = "/api/audit-entity/fake-deletes",
                             Service = "审计数据服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "9A501F3D2F0A3A2D47A17D6F42042CD5",
-                            Method = 1,
-                            Path = "/api/position/search",
-                            Service = "岗位管理服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("85f94b4c-e897-4f3c-b80a-c7ddb8ebf1b5"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "E6BAA5C7F35ED0CBD3902A30349A992B",
-                            Method = 1,
-                            Path = "/api/dept/search",
-                            Service = "部门服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("4e1a2966-bdfd-485a-b0cf-52004e40f6a7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "0730ED2F37C050E4994609C45BE0C4A4",
-                            Method = 0,
-                            Path = "/api/dept/all",
-                            Service = "部门服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("bd24a2bb-42cf-4a84-b114-7d727464ebd1"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "964B61937A0A0C000BC8D8D4251188EC",
-                            Method = 3,
-                            Path = "/api/news/fake-delete/{id}",
-                            Service = "新闻管理",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("b3577dc2-dfea-41be-ba8f-bb8efa389f36"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A46663EE883A6E5BE0A0C8FE0B3D7A4C",
-                            Method = 0,
-                            Path = "/api/audit-entity/{id}",
-                            Service = "审计数据服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("5c8381ec-7e8a-4060-9c04-83032d18872c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A5DA0BB6BEA388B99626E5A34BDE68F4",
-                            Method = 3,
-                            Path = "/api/dept/fake-delete/{id}",
-                            Service = "部门服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "213D1BBDB567A74636ACE841D780F663",
-                            Method = 0,
-                            Path = "/api/dept/{id}",
-                            Service = "部门服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("333edf31-c542-4fa1-baca-b770d558a4d7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "EA96F9C3B67BB0EB8E3D5337D3482162",
-                            Method = 3,
-                            Path = "/api/dept/{id}",
-                            Service = "部门服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("e23b555c-600a-4839-9439-2ee0ad0ae4f8"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "248BF161E6BEB662D259298A8E564433",
-                            Method = 2,
-                            Path = "/api/dept",
-                            Service = "部门服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("383c5aaf-a3e1-44d1-a1c8-3074abe55f95"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "91B03FFD3080A9684592C45A15C826A5",
-                            Method = 1,
-                            Path = "/api/role/deletes",
-                            Service = "角色服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("4b57474a-88b4-4393-bb49-4b59e8c3c41d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A401312992835BA902C0CFDC5FEEE1F3",
-                            Method = 3,
-                            Path = "/api/function/fake-delete/{id}",
-                            Service = "功能服务",
-                            Summary = "逻辑删除"
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528137236480480L
                         },
                         new
                         {
                             Id = new Guid("1fe857c9-c027-4ca3-b8f8-21ec2c1f5cde"),
-                            CreatedTime = 1306069132247040000L,
+                            CreatedTime = 1306528234616416736L,
                             CreatorIdentityType = 0,
                             Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
                             EnableAudit = false,
@@ -2637,76 +511,2588 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/audit-entity/all-usable",
                             Service = "审计数据服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528137256960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("46aef5bc-9d0f-4a05-b21d-747753b98569"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "30759F98C0CF4A34813C280451C2E4CF",
+                            Method = 3,
+                            Path = "/api/audit-entity/fake-delete/{id}",
+                            Service = "审计数据服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528137216000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("475207d6-4c0b-4054-a051-7315295694a1"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "44405A33B9DEC6F934920AF5AC6F7111",
+                            Method = 1,
+                            Path = "/api/audit-entity",
+                            Service = "审计数据服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528137113600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4b7e7f68-8925-4b5c-b8d2-8a51df917b0c"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "72DE329278C26111EB3F431ACB89B0A4",
+                            Method = 0,
+                            Path = "/api/audit-entity/page/{pageindex}/{pagesize}",
+                            Service = "审计数据服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528137277440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7e5577d4-32b2-4f43-a83f-05410b59b195"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CCD570BA5C66619052354D738927A007",
+                            Method = 3,
+                            Path = "/api/audit-entity/{id}",
+                            Service = "审计数据服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528137154560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5A7181978F26890284CE44ED28A2F7AA",
+                            Method = 1,
+                            Path = "/api/audit-entity/search",
+                            Service = "审计数据服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528137093120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9d26c715-9b8b-40c6-bbf4-9c51df1193da"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DE9B14A3BC0E0653399F870F27F24CEF",
+                            Method = 2,
+                            Path = "/api/audit-entity",
+                            Service = "审计数据服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528137134080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("aed3a535-b700-48a5-a8f5-3657e500e400"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "882FEEBFEAF1F50D83E0189AA69B9ED0",
+                            Method = 2,
+                            Path = "/api/audit-entity/{id}/lock/{islocked}",
+                            Service = "审计数据服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528137297920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b3577dc2-dfea-41be-ba8f-bb8efa389f36"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A46663EE883A6E5BE0A0C8FE0B3D7A4C",
+                            Method = 0,
+                            Path = "/api/audit-entity/{id}",
+                            Service = "审计数据服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528137175040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ca62cf90-fcfd-40aa-bd06-30afc7c6dd9f"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2F1D00EDA3F9BA770FC2D6E15892FBB4",
+                            Method = 1,
+                            Path = "/api/audit-operation/generate-seed-data",
+                            Service = "审计操作服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528137605120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("03c9956e-b832-4202-9c47-55ba3793f606"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "778BD549C3ACEF321ECEDF39C80241D0",
+                            Method = 0,
+                            Path = "/api/audit-operation/page/{pageindex}/{pagesize}",
+                            Service = "审计操作服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528137543680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("080dd200-8e8a-489c-86ca-8eb74c417c0b"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A20264B6A44D74DBF0C7990CF3FE6DC1",
+                            Method = 3,
+                            Path = "/api/audit-operation/fake-delete/{id}",
+                            Service = "审计操作服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528137461760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("08d002b9-d320-4410-b9f3-7986ed87ece4"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DA5651C09F319A1358B9948735712DCF",
+                            Method = 0,
+                            Path = "/api/audit-operation/{id}",
+                            Service = "审计操作服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528137420800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1d994e50-d40a-465b-8445-646041a8131a"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据操作审计ID获取数据审计",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "26806445F59D861F9FDB9F91B164A1CD",
+                            Method = 0,
+                            Path = "/api/audit-operation/{operationid}/audit-entity",
+                            Service = "审计操作服务",
+                            Summary = "根据操作审计ID获取数据审计",
+                            UpdatedTime = 1306528137338880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4a127124-6348-4db1-aa38-5f3af2c8efdf"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A99DB9777E1C5C11D2FA6A8957F696E8",
+                            Method = 0,
+                            Path = "/api/audit-operation/all-usable",
+                            Service = "审计操作服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528137523200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C53E746377386D224D0941DB8F4CB539",
+                            Method = 1,
+                            Path = "/api/audit-operation/fake-deletes",
+                            Service = "审计操作服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528137482240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7bb514a5-d62d-4ba1-a9b9-9e7756eaae2d"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D403D5F25D7ACA97A10BEF07B2A816F4",
+                            Method = 0,
+                            Path = "/api/audit-operation/all",
+                            Service = "审计操作服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528137502720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9513e5e1-37ab-4937-94f1-1f6b99a385f7"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "07BC6868FFAD4A5B26193E2372B9821C",
+                            Method = 1,
+                            Path = "/api/audit-operation",
+                            Service = "审计操作服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528137359360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a75bd9a7-e3f0-4736-9c27-8763a3d3768b"),
+                            CreatedTime = 1306528234616416736L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7037CCD6F97FA35692ED560CE1756F86",
+                            Method = 2,
+                            Path = "/api/audit-operation",
+                            Service = "审计操作服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528137379840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a8211f75-bf19-459a-bf66-9c31c6f334aa"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1C8C95EA831A3D031460A1390DF26E83",
+                            Method = 1,
+                            Path = "/api/audit-operation/deletes",
+                            Service = "审计操作服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528137441280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("db76ae46-851b-47bc-94be-b2e869043636"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "704D356B44E6DEA692BA099781A321DD",
+                            Method = 1,
+                            Path = "/api/audit-operation/search",
+                            Service = "审计操作服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528137584640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("eefdb20f-b508-415a-b798-1aa9420a5b62"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6999F8BBB5F9BA97658BB99113A381F5",
+                            Method = 2,
+                            Path = "/api/audit-operation/{id}/lock/{islocked}",
+                            Service = "审计操作服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528137564160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ffbd98b8-8945-4068-b70c-ea58b487bd25"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "AD48018AF04E0A4573815675E555E98D",
+                            Method = 3,
+                            Path = "/api/audit-operation/{id}",
+                            Service = "审计操作服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528137400320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("336b98be-e9f1-4f42-824b-a9a3b91350c5"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7A0F189854BBC9084AE004012A7870E9",
+                            Method = 1,
+                            Path = "/api/login-token/generate-seed-data",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528178339840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D522DFCA12CBF851EA48D676E7432DF8",
+                            Method = 1,
+                            Path = "/api/login-token/deletes",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528178319360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("20b7e3c2-1ab5-4a5e-993e-e5599a583fdd"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7E91BA4770C4FDF6B865C2D4C7984132",
+                            Method = 1,
+                            Path = "/api/login-token",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528178298880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5328608a-6b71-4507-a52a-e1beffa7a4ab"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "33D096038DC823412DC051FA7371FB68",
+                            Method = 0,
+                            Path = "/api/login-token/all-usable",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528178319360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("571200a8-bde2-430b-84ea-743db7b282cd"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A094FB1391CD1E7F7A2C7E8536A491DF",
+                            Method = 3,
+                            Path = "/api/login-token/fake-delete/{id}",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528178319360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "80A4CB99380D0D7A70F7C28604C5B0C7",
+                            Method = 1,
+                            Path = "/api/login-token/fake-deletes",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528178319360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "873AFCBA915D056ED9D8EDA9D23F9061",
+                            Method = 3,
+                            Path = "/api/login-token/{id}",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528178298880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a2e21aa5-c2ff-4893-954f-263822d168c3"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2909033694587286F3458217843E20D8",
+                            Method = 2,
+                            Path = "/api/login-token",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528178298880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e298058c-8ec9-4637-bf8b-4ece0bfa5a5b"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4A8F7B6AB1E6A30A9A65FEBE2B31CE4A",
+                            Method = 0,
+                            Path = "/api/login-token/page/{pageindex}/{pagesize}",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528178339840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "860A62FFC20FAAAE60E760D4305104DF",
+                            Method = 1,
+                            Path = "/api/login-token/search",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528178298880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f1267fbc-903b-4439-a7b6-a7290507d207"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C01E9238420548B6CA87C312935DD043",
+                            Method = 0,
+                            Path = "/api/login-token/{id}",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528178298880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B37ED1BEEE60098FACB7182C73B5FA3F",
+                            Method = 2,
+                            Path = "/api/login-token/{id}/lock/{islocked}",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528178339840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f6fd9621-f6e4-45ec-b919-6acb73c7b303"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8C9ED3E66D288CA942AD438AD9C50DBF",
+                            Method = 0,
+                            Path = "/api/login-token/all",
+                            Service = "用户登录TOKEN服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528178319360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a0decf1b-ed7a-4cd4-ac2f-ee85f52e6c95"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6AAF93FCBAC80E0FD4329B6852E1741D",
+                            Method = 2,
+                            Path = "/api/code-generation/entity-code-generation-setting",
+                            Service = "代码生成服务",
+                            Summary = "更新实体的代码生成配置",
+                            UpdatedTime = 1306528139448320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("becfbc6e-e75f-4c17-a0f8-d366cc0c0ecb"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FAC62F9BF65D4DD69EE5EDE973F67030",
+                            Method = 1,
+                            Path = "/api/code-generation/entity-code-generation-setting",
+                            Service = "代码生成服务",
+                            Summary = "添加实体的代码生成配置",
+                            UpdatedTime = 1306528139468800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("bfbcb606-6adb-460f-9730-20dbe3b32949"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "EC62EF7FF22A3D75FF0452966175ED6D",
+                            Method = 0,
+                            Path = "/api/code-generation/entity-definitions",
+                            Service = "代码生成服务",
+                            Summary = "获取所有实体定义",
+                            UpdatedTime = 1306528139509760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f9feca89-9856-4c20-aa82-b2260df498a9"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "51CDF306434E8148436781B9BFB4D520",
+                            Method = 0,
+                            Path = "/api/code-generation/entity-code-generation-setting/{entityfullname}",
+                            Service = "代码生成服务",
+                            Summary = "获取实体的代码生成配置",
+                            UpdatedTime = 1306528139489280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("bacd1963-f89e-4afb-862f-584cd9ba4c10"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7F4170917F4566615005DB297A93C7CE",
+                            Method = 1,
+                            Path = "/api/email-server-config/generate-seed-data",
+                            Service = "邮件服务器配置服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528137850880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1d325e63-3e9e-4cbc-b275-00a057c71e63"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4548CF61B82D6B6ED737DE1D568D5E7B",
+                            Method = 0,
+                            Path = "/api/email-server-config/all-usable",
+                            Service = "邮件服务器配置服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528137768960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1ef3b8a8-6e46-49d7-9a7e-f63137beaade"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DD71B200E8B3E6E24BD6F9C05E3D666C",
+                            Method = 1,
+                            Path = "/api/email-server-config",
+                            Service = "邮件服务器配置服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528137625600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("26d95428-ebbd-4bf2-9bcc-2eeec4263bd5"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "006AC2DA9C0126A631FE4092AAB706C0",
+                            Method = 1,
+                            Path = "/api/email-server-config/fake-deletes",
+                            Service = "邮件服务器配置服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528137748480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("39421a19-9cbf-477b-baea-34f40341357f"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FB316294679817930CABB93BE346C453",
+                            Method = 3,
+                            Path = "/api/email-server-config/fake-delete/{id}",
+                            Service = "邮件服务器配置服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528137728000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3ed89bcc-7eb1-4b51-86a5-dbe449370e1b"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4FBBC2EF99F020CC28878731394CF303",
+                            Method = 1,
+                            Path = "/api/email-server-config/deletes",
+                            Service = "邮件服务器配置服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528137707520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("6c9aa43e-921c-44bc-83fb-64a9c451255f"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C0F3F05AE24A0E8BBA9BAF52852E09D4",
+                            Method = 2,
+                            Path = "/api/email-server-config/{id}/lock/{islocked}",
+                            Service = "邮件服务器配置服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528137809920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("84247930-2035-443d-bde3-69d4d23bec85"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BA79EB71501051CA1F082DE15FBE73D3",
+                            Method = 3,
+                            Path = "/api/email-server-config/{id}",
+                            Service = "邮件服务器配置服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528137666560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("99546746-70b8-42d6-884d-ea1b79f88c0a"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D15206E2B2CEFD1CC520AF32A357F56E",
+                            Method = 2,
+                            Path = "/api/email-server-config",
+                            Service = "邮件服务器配置服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528137646080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9d25bf25-5470-4fed-b58c-c4ef4339d533"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4166A00DD3058EA57C09B869E68927D4",
+                            Method = 0,
+                            Path = "/api/email-server-config/{id}",
+                            Service = "邮件服务器配置服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528137687040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9fe5cc45-a851-4d3f-8b44-32dd96130946"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "87C5CB00FB6A44D52C1C4CC5E9312B02",
+                            Method = 1,
+                            Path = "/api/email-server-config/search",
+                            Service = "邮件服务器配置服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528137830400480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d5e9621c-ad9f-4bca-aa51-04aa0b55744e"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6946DB3F24E403A804F67F2B116C9392",
+                            Method = 0,
+                            Path = "/api/email-server-config/page/{pageindex}/{pagesize}",
+                            Service = "邮件服务器配置服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528137789440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d7fa048a-0bfd-4997-94e3-dda3402c3b08"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5AE5AD783D5821E6D300DBE1BDD6E631",
+                            Method = 0,
+                            Path = "/api/email-server-config/all",
+                            Service = "邮件服务器配置服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528137768960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "发送邮件",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2C72E2117E4F5092A5C6F2C807389D38",
+                            Method = 1,
+                            Path = "/api/email/send",
+                            Service = "邮件服务",
+                            Summary = "发送邮件",
+                            UpdatedTime = 1306528137871360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("75abfcbe-a00b-444f-baa6-503ae03b3434"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "53151648D7858D9061CC0D89B4EA43F5",
+                            Method = 1,
+                            Path = "/api/email-template/generate-seed-data",
+                            Service = "邮件模板服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528138137600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2bf3ff67-c1a3-4426-8320-11839daa0a81"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E4979CA111E299FA747D5A547C6E4A99",
+                            Method = 1,
+                            Path = "/api/email-template/search",
+                            Service = "邮件模板服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528138117120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2bf807cd-7d48-40bd-839b-fdd71f419711"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "38B9A961DB74BD743A3B5D434B2EB66A",
+                            Method = 3,
+                            Path = "/api/email-template/{id}",
+                            Service = "邮件模板服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528137932800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2ea4faea-ec29-4383-833b-b5dedaa1b735"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1B1FD29D8E0A4A89B600CAA46C82B02F",
+                            Method = 0,
+                            Path = "/api/email-template/page/{pageindex}/{pagesize}",
+                            Service = "邮件模板服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528138076160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("31896c5d-2ed7-4e43-a952-4edc076d29d0"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CBB8DE4E5D6DD206685DA33E90EF1EE1",
+                            Method = 1,
+                            Path = "/api/email-template/fake-deletes",
+                            Service = "邮件模板服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528138014720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("33c2157a-884d-4030-abea-a9aeea51fdf8"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CDA3DE9664774C06E0D86F62F2FCDDE2",
+                            Method = 2,
+                            Path = "/api/email-template",
+                            Service = "邮件模板服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528137912320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3ac59980-d2df-4363-b8db-a4d043e362e7"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2E69B891C48D1F7E7974825E470447DC",
+                            Method = 0,
+                            Path = "/api/email-template/{id}",
+                            Service = "邮件模板服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528137953280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("736fd9b6-b56a-4860-8a1c-9a077be886e3"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "18B1E82C7D5150FD3EDC3BB52FB3ACF9",
+                            Method = 2,
+                            Path = "/api/email-template/{id}/lock/{islocked}",
+                            Service = "邮件模板服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528138096640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("841c572c-5098-4e72-a590-2b81706aaa93"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C5F41046D8531C1E77B503560A7E220E",
+                            Method = 3,
+                            Path = "/api/email-template/fake-delete/{id}",
+                            Service = "邮件模板服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528137994240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9191206c-f35e-4eb7-b19a-5949dc560369"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "98410D052E1A609292E627692BFA3375",
+                            Method = 1,
+                            Path = "/api/email-template",
+                            Service = "邮件模板服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528137891840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("aad857df-a1e7-43cb-be82-55c60865da86"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5F7047AD7EC090D04B2AF8C4847678A8",
+                            Method = 0,
+                            Path = "/api/email-template/all-usable",
+                            Service = "邮件模板服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528138055680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ae3a97a9-32fb-4402-a6c7-9a0ffd76ce49"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B0F7A5E8F1984DD5545B50F04FB3106D",
+                            Method = 0,
+                            Path = "/api/email-template/all",
+                            Service = "邮件模板服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528138035200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b6c1592b-cb4b-4ead-bea1-3dc4a917e4a8"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9C103F0B6C167211465FB472E46EC968",
+                            Method = 1,
+                            Path = "/api/email-template/deletes",
+                            Service = "邮件模板服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528137973760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f7279175-4aa3-448a-ac71-a17004d66788"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DB4E6D22B47A0BBCB5F87643AA5EB527",
+                            Method = 1,
+                            Path = "/api/announcement/generate-seed-data",
+                            Service = "公告服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("25bad725-529b-4a67-814a-1a6171a4b6d1"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9AD6BA02957A5D79C763F37FC7350C1F",
+                            Method = 1,
+                            Path = "/api/announcement/search",
+                            Service = "公告服务",
+                            Summary = "搜索"
+                        },
+                        new
+                        {
+                            Id = new Guid("7da66506-ed83-40ec-97ad-5323e36af404"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F5A7F4A1B3C633F14D21BE37F2D8F7FC",
+                            Method = 2,
+                            Path = "/api/announcement/{id}/lock/{islocked}",
+                            Service = "公告服务",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("7cad69bf-2f23-44e8-b0ef-97bdc57fc6a4"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3034444DADCC535B882E3D20DA9E1904",
+                            Method = 0,
+                            Path = "/api/announcement/page/{pageindex}/{pagesize}",
+                            Service = "公告服务",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("841a3afa-a128-4751-b3b2-b2849da338e1"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7DAD544022ECAB407CA07965FBDEC6AB",
+                            Method = 0,
+                            Path = "/api/announcement/all-usable",
+                            Service = "公告服务",
                             Summary = "查询所有可以用的"
                         },
                         new
                         {
-                            Id = new Guid("16517409-c055-447b-8e91-7155537c6d15"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("a4e467c5-639c-40bf-a71c-7d3c0d0760e7"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "54C22639E8EF99A5CEEC744853C5DFCD",
+                            Method = 0,
+                            Path = "/api/announcement/all",
+                            Service = "公告服务",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("faa3ff98-22d5-4254-9297-ee976a5842de"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6A55E8C4030728438432973ECACF7433",
+                            Method = 1,
+                            Path = "/api/announcement/fake-deletes",
+                            Service = "公告服务",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("3c68f73b-5a83-4429-9046-4fe33473739f"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9D50105E0F127FF7F9C12C9EC2643787",
+                            Method = 3,
+                            Path = "/api/announcement/fake-delete/{id}",
+                            Service = "公告服务",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("ac3ae978-83b7-4fad-9322-d1e223618d7c"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FF53BAAC9AC941B38C99A08E032B9443",
+                            Method = 1,
+                            Path = "/api/announcement/deletes",
+                            Service = "公告服务",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("0d899b61-e2ba-4d0d-b2fd-83dad377ed78"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "336B54D6E3393F56F6C35FCA416A3EE5",
+                            Method = 0,
+                            Path = "/api/announcement/{id}",
+                            Service = "公告服务",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("a2eab26f-f15c-48be-a976-2411c18f42bf"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "411B20D0DAA265D807874613A8DCB9F9",
+                            Method = 3,
+                            Path = "/api/announcement/{id}",
+                            Service = "公告服务",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("ff955e68-22f5-47c2-88f2-2c901cd823e3"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "通知系统服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5C0F247E2ABB90F962DCB4E0D1F948E1",
+                            Method = 2,
+                            Path = "/api/announcement",
+                            Service = "公告服务",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("9bda79c9-783c-469c-acda-b72be7391a82"),
+                            CreatedTime = 1306528234616418784L,
                             CreatorIdentityType = 0,
                             Description = "添加一条数据",
                             EnableAudit = true,
-                            Group = "用户中心服务",
+                            Group = "通知系统服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "F57997ED31483BE396EB71C98D07B6F5",
+                            Key = "EDE2920EEFF4D581ED8EFB72359C19F5",
                             Method = 1,
-                            Path = "/api/role",
-                            Service = "角色服务",
+                            Path = "/api/announcement",
+                            Service = "公告服务",
                             Summary = "添加"
                         },
                         new
                         {
-                            Id = new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"),
+                            CreatedTime = 1306528234616418784L,
                             CreatorIdentityType = 0,
-                            Description = "",
                             EnableAudit = false,
-                            Group = "用户中心服务",
+                            Group = "示例服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2A74937190C8E652BF107434EFFD1C17",
+                            Method = 0,
+                            Path = "/api/chat-demo/history",
+                            Service = "聊天示例服务",
+                            Summary = "获取聊天历史记录"
+                        },
+                        new
+                        {
+                            Id = new Guid("8d94c826-ddba-47fe-94c9-333880fee187"),
+                            CreatedTime = 1306528234616418784L,
+                            CreatorIdentityType = 0,
+                            Description = "swagger json 文件解析功能",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7E9057E559FB68353DCA5D208B7B2A71",
+                            Method = 0,
+                            Path = "/api/swagger/analysis/{url}",
+                            Service = "Swagger服务",
+                            Summary = "解析api json",
+                            UpdatedTime = 1306528138137600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a53a9c89-7968-4598-9c46-dad4e9188bd0"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "获取api分组设置",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "945B6A21E0C00F9BB0F7EEE37C671E3E",
+                            Method = 0,
+                            Path = "/api/swagger/api-group",
+                            Service = "Swagger服务",
+                            Summary = "获取 swagger 配置",
+                            UpdatedTime = 1306528138158080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c591c0ca-3305-4684-89bb-278218d13c47"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "187E0857A128187E01EFBBD569C3DE92",
+                            Method = 0,
+                            Path = "/api/swagger/functions-from-json/{url}",
+                            Service = "Swagger服务",
+                            Summary = "从json中获取function",
+                            UpdatedTime = 1306528138178560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A53340931409D1BB2882CDB88AE6CB5D",
+                            Method = 1,
+                            Path = "/api/function/generate-seed-data",
+                            Service = "功能服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528138874880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("056ff2f6-009b-40ff-a1b9-a6983e471967"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "启用或禁用功能",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1DC1B5ECD34759A80CE8C468366A378F",
+                            Method = 2,
+                            Path = "/api/function/{id}/enable-audit/{enableaudit}",
+                            Service = "功能服务",
+                            Summary = "启用或禁用",
+                            UpdatedTime = 1306528138547200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2a670df1-f01c-4cdb-b084-a46fdb339ced"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "097D7A323BFFCA32788EAA8C6BDB5157",
+                            Method = 3,
+                            Path = "/api/function/{id}",
+                            Service = "功能服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528138670080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9A316E9E6A41D1F57870A5F0CDDC93EF",
+                            Method = 1,
+                            Path = "/api/function/search",
+                            Service = "功能服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528138854400480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4b57474a-88b4-4393-bb49-4b59e8c3c41d"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A401312992835BA902C0CFDC5FEEE1F3",
+                            Method = 3,
+                            Path = "/api/function/fake-delete/{id}",
+                            Service = "功能服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528138731520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("590cd04c-025c-4cc1-bdd1-e9cea201bb46"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "67C405B4CBCC02144945800F26CC1F4F",
+                            Method = 0,
+                            Path = "/api/function/page/{pageindex}/{pagesize}",
+                            Service = "功能服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528138813440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("84256e5b-2cef-4b16-8fd3-79ff8d47c731"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3F9869D1A16CD359E268F2C2DBEFD0E2",
+                            Method = 1,
+                            Path = "/api/function",
+                            Service = "功能服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528138629120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("8ae9c253-584e-46e4-b805-6ec90281d6dd"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E7F5596D4D8517C85871566D8EFA0855",
+                            Method = 2,
+                            Path = "/api/function/{id}/lock/{islocked}",
+                            Service = "功能服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528138833920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("8f1c2eeb-248f-41bb-a083-511664f2fd8e"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "717D6057E652BA28D3BF0CE337180E9E",
+                            Method = 1,
+                            Path = "/api/function/deletes",
+                            Service = "功能服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528138711040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9caf800a-de55-4d59-a138-675a16924c3c"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "488BDECFA97ADDE5E940446C32C42693",
+                            Method = 0,
+                            Path = "/api/function/all",
+                            Service = "功能服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528138772480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a15ce231-80ae-46c6-ada8-49666e81e328"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据 HttpMethod 和 path 判断是否存在",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "27693C4354A64289D9A1D3EB50E68E7E",
+                            Method = 0,
+                            Path = "/api/function/exists/{method}/{path}",
+                            Service = "功能服务",
+                            Summary = "判断是否存在",
+                            UpdatedTime = 1306528138567680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E2248234B183BA3EEA82273CB03F500C",
+                            Method = 2,
+                            Path = "/api/function",
+                            Service = "功能服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528138649600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b2dfaad3-e44a-4a76-ac91-34a571ba47e8"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据key获取 功能点",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CE34F0B4FCB2222CF693F501B370149D",
+                            Method = 0,
+                            Path = "/api/function/by-key/{key}",
+                            Service = "功能服务",
+                            Summary = "根据key获取",
+                            UpdatedTime = 1306528138588160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1CCC2478B5AC5FDDB537DCD33166ABF7",
+                            Method = 0,
+                            Path = "/api/function/all-usable",
+                            Service = "功能服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528138792960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FDD3EAB18820A6CD5C6DA3B17D40EEB9",
+                            Method = 0,
+                            Path = "/api/function/{id}",
+                            Service = "功能服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528138690560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c39030b8-d207-4c22-a3ba-74b0eccaa2fa"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4603BCE62CA130E67C2450C127DD7728",
+                            Method = 1,
+                            Path = "/api/function/fake-deletes",
+                            Service = "功能服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528138752000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c9e572ab-6363-49a4-9c74-d6e21553e45d"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "获取种子数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "49CCD72DC5A379DF8AC6925CF391FC54",
+                            Method = 0,
+                            Path = "/api/function/seed-data",
+                            Service = "功能服务",
+                            Summary = "获取种子数据",
+                            UpdatedTime = 1306528138608640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "43844F96A173330CECD6470FD62A8A76",
+                            Method = 1,
+                            Path = "/api/resource-function",
+                            Service = "资源与接口关系服务",
+                            Summary = "添加资源与接口关系",
+                            UpdatedTime = 1306528138895360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
                             Key = "DDE05A70BD80F948C9AEAFB9708090F3",
                             Method = 0,
                             Path = "/api/resource-function/seed-data",
                             Service = "资源与接口关系服务",
-                            Summary = "获取种子数据"
+                            Summary = "获取种子数据",
+                            UpdatedTime = 1306528138936320480L
                         },
                         new
                         {
-                            Id = new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"),
+                            CreatedTime = 1306528234616420832L,
                             CreatorIdentityType = 0,
-                            Description = "",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FE150D4F1EE3DDDE5BD78C718100A247",
+                            Method = 3,
+                            Path = "/api/resource-function/{resourceid}/{functionid}",
+                            Service = "资源与接口关系服务",
+                            Summary = "删除资源与接口关系",
+                            UpdatedTime = 1306528138915840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("910d2a4f-85ae-46ff-bddd-b65ffcc6b9e1"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "74B1FF2C0E45DDB2D649404A53E7F7E9",
+                            Method = 1,
+                            Path = "/api/resource/generate-seed-data",
+                            Service = "资源服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528139304960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "添加资源",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "56C72854CD92865B84133D0D791DEC22",
+                            Method = 1,
+                            Path = "/api/resource",
+                            Service = "资源服务",
+                            Summary = "添加资源",
+                            UpdatedTime = 1306528139018240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6E9E5AA61727C2BD1E4142F0ED0F9DC5",
+                            Method = 0,
+                            Path = "/api/resource/{id}",
+                            Service = "资源服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528139100160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1295aed2-ae71-411f-9542-d50f75432840"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "24C5B533C5DDC7D494830FF5E28F6EC2",
+                            Method = 1,
+                            Path = "/api/resource/search",
+                            Service = "资源服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528139284480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("424fd96a-a889-4ff9-910a-25a59204d2ec"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "返回根节点资源",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "34CFCB2759472E91321739C5D43B00D0",
+                            Method = 0,
+                            Path = "/api/resource/root",
+                            Service = "资源服务",
+                            Summary = "返回根节点",
+                            UpdatedTime = 1306528138977280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("45dd0581-3394-4c0a-bb8e-c9e0074d5611"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CE39C474540DD96EAF373115B164EDC7",
+                            Method = 2,
+                            Path = "/api/resource",
+                            Service = "资源服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528139038720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4d51608e-5988-4d3d-8f5e-00e0c0c07b02"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7971E7E4FDCB5CBA6EE06E7DFE3F199E",
+                            Method = 0,
+                            Path = "/api/resource/all",
+                            Service = "资源服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528139182080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5eb48cf2-6c45-47c2-a68b-84284a389c69"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F74128AC93B49FC04CB29781E17E5302",
+                            Method = 1,
+                            Path = "/api/resource/deletes",
+                            Service = "资源服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528139120640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7229563b-7311-41b8-947b-f07d58fa6c87"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6C03A3540C36BB4BD1BB9F1606F0F550",
+                            Method = 0,
+                            Path = "/api/resource/all-usable",
+                            Service = "资源服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528139202560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7f0d7abb-06a4-4a35-b4e3-7798b21e37fa"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9C888321143AC3E991B72D3B32193A35",
+                            Method = 1,
+                            Path = "/api/resource/fake-deletes",
+                            Service = "资源服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528139161600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("814304bb-22fe-4a33-82e1-8ad7c64bab4a"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "获取所有子资源",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C5668FD7C42E9FB532AB9CB2E1480E1F",
+                            Method = 0,
+                            Path = "/api/resource/{id}/children",
+                            Service = "资源服务",
+                            Summary = "获取所有子资源",
+                            UpdatedTime = 1306528138956800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a8c06d41-806a-4bf5-8ceb-15995dac08cb"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "获取种子数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3A4F1575935BB1B9D3B3F6F407EB43C6",
+                            Method = 0,
+                            Path = "/api/resource/seed-data",
+                            Service = "资源服务",
+                            Summary = "获取种子数据",
+                            UpdatedTime = 1306528138997760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cdd3c605-ed1d-4d94-a482-16430b729541"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BC8D1127FE54019A5476079400388CF3",
+                            Method = 2,
+                            Path = "/api/resource/{id}/lock/{islocked}",
+                            Service = "资源服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528139264000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有资源 按树形结构返回",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6AFF14D9D209CDEEFFC0E4872E060F42",
+                            Method = 0,
+                            Path = "/api/resource/tree",
+                            Service = "资源服务",
+                            Summary = "查询所有资源",
+                            UpdatedTime = 1306528138997760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e7e8c401-2ff1-45ee-adfd-cebe90117575"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FEB756C21615385FC3C747ACB240DC2D",
+                            Method = 3,
+                            Path = "/api/resource/fake-delete/{id}",
+                            Service = "资源服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528139141120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f4ba1bf6-c07e-4df2-b7de-93b35fb79bf0"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8650A7797FF354BBB742C87D0F560844",
+                            Method = 3,
+                            Path = "/api/resource/{id}",
+                            Service = "资源服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528139079680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f8ddd5e5-7c20-43c2-a2cf-31ebc3f9971a"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5848947AEE0064BC746DE38E1AC0E3D2",
+                            Method = 0,
+                            Path = "/api/resource/page/{pageindex}/{pagesize}",
+                            Service = "资源服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528139223040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B2A11324BCA0A9070B6160AE6B0EE6F2",
+                            Method = 0,
+                            Path = "/api/resource/{id}/functions",
+                            Service = "资源服务",
+                            Summary = "根据资源id获取功能信息",
+                            UpdatedTime = 1306528139059200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3a8c73cf-89a2-4606-90c3-51dec0d80e1d"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8323C7FD5DA09F6C5D7E6DD6BCBEAA3B",
+                            Method = 1,
+                            Path = "/api/sys-timer/generate-seed-data",
+                            Service = "任务调度服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528138526720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("300ef305-2c03-44ad-bd4b-7ffa246530a9"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7696121FE473CFEED7A7CD1CB4A6B647",
+                            Method = 2,
+                            Path = "/api/sys-timer/{id}/lock/{islocked}",
+                            Service = "任务调度服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528138506240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7c10e9a1-d0c0-4930-b49a-8a71190ab42a"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "96C246A2C223E0CE16088CC1FD0D0E0A",
+                            Method = 0,
+                            Path = "/api/sys-timer/all-usable",
+                            Service = "任务调度服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528138485760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("fee31eb9-c106-4e42-9464-0d2433fd4829"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "AFF0461EE391D477DE158E15F62B6D79",
+                            Method = 0,
+                            Path = "/api/sys-timer/all",
+                            Service = "任务调度服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528138485760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("99c24403-1417-4c04-b1ef-0c17243215e0"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "66DDF878D5F5ABFEF1EF618447F45A5B",
+                            Method = 1,
+                            Path = "/api/sys-timer/fake-deletes",
+                            Service = "任务调度服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528138465280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b2ffcf41-7c74-4815-a367-d55c9a536b22"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "AFD3A8A201452DB60D39E89FC7015C7D",
+                            Method = 1,
+                            Path = "/api/sys-timer/deletes",
+                            Service = "任务调度服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528138444800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("588829d2-fae6-40cd-bdfa-c0758e7f89fb"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BB1ECD48F7FF479DC85870F66A467A38",
+                            Method = 1,
+                            Path = "/api/sys-timer/start",
+                            Service = "任务调度服务",
+                            Summary = "启动任务",
+                            UpdatedTime = 1306528138424320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c96a611f-555b-4b96-8ee5-83a87ee03a6e"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "918B9A40A48CA6481E5C039AB9DF8F28",
+                            Method = 1,
+                            Path = "/api/sys-timer/stop",
+                            Service = "任务调度服务",
+                            Summary = "停止任务",
+                            UpdatedTime = 1306528138403840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("94a19350-777d-4d29-8d84-2a9c6e1ae46d"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2D7A312F51B40D39E3E8616B057A74A1",
+                            Method = 0,
+                            Path = "/api/sys-timer/detail",
+                            Service = "任务调度服务",
+                            Summary = "查看任务",
+                            UpdatedTime = 1306528138383360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b83c620b-e964-43bb-8590-d8d32277aa00"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2A47C77D4A33FEF2778D9729707BA5B1",
+                            Method = 3,
+                            Path = "/api/sys-timer/fake-delete/{id}",
+                            Service = "任务调度服务",
+                            Summary = "假删除任务",
+                            UpdatedTime = 1306528138362880480L
+                        },
+                        new
+                        {
+                            Id = new Guid("433d4ad9-7ae0-48ea-851e-c4e594c8e19a"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4AADC5D969F182119B00D77F9AB4D088",
+                            Method = 2,
+                            Path = "/api/sys-timer",
+                            Service = "任务调度服务",
+                            Summary = "修改任务",
+                            UpdatedTime = 1306528138342400480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4d664ef2-a462-494d-9c5c-453880f44017"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "97761592D436CFF8E47FA6FD3C9DA300",
+                            Method = 1,
+                            Path = "/api/sys-timer",
+                            Service = "任务调度服务",
+                            Summary = "增加任务",
+                            UpdatedTime = 1306528138321920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c7aa66f0-6ceb-4cc7-b1cc-8d62163aa957"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "842AFBBE14BB5C745BD820EF3C4A052B",
+                            Method = 0,
+                            Path = "/api/sys-timer/local-jobs",
+                            Service = "任务调度服务",
+                            Summary = "获取所有本地任务",
+                            UpdatedTime = 1306528138301440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a2504e15-4b43-4a6a-bc1a-9c06effa672c"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B45DAF70F5971948EF52E6726269814D",
+                            Method = 1,
+                            Path = "/api/sys-timer/search",
+                            Service = "任务调度服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528138280960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("31e5a68d-916b-4b74-8e59-da733724b322"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FDC1D135BD7B531A8B5DB65A2462450E",
+                            Method = 3,
+                            Path = "/api/sys-timer/{id}",
+                            Service = "任务调度服务",
+                            Summary = "删除任务",
+                            UpdatedTime = 1306528138260480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("81b4bb91-1f42-4043-9acb-dac756ce729b"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7CD8C319088D7195B2E9C236613DE833",
+                            Method = 0,
+                            Path = "/api/sys-timer/{id}",
+                            Service = "任务调度服务",
+                            Summary = "获取任务信息",
+                            UpdatedTime = 1306528138240000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3fb4ab7d-dcab-482d-af48-3080e2b89d10"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5F37C08165A82CACCDDE27447DE2D079",
+                            Method = 0,
+                            Path = "/api/sys-timer/page/{pageindex}/{pagesize}",
+                            Service = "任务调度服务",
+                            Summary = "分页获取任务列表",
+                            UpdatedTime = 1306528138219520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "通过刷新token获取新的token",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1549F5F1C34E25281CBC00CA283BC404",
+                            Method = 1,
+                            Path = "/api/account/refresh-token",
+                            Service = "用户账户认证授权服务",
+                            Summary = "刷新Token",
+                            UpdatedTime = 1306528124313600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "移除当前用户token",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "34925D025D1D97104B7A51EF41C393F3",
+                            Method = 3,
+                            Path = "/api/account/current-user-refresh-token",
+                            Service = "用户账户认证授权服务",
+                            Summary = "移除当前用户token",
+                            UpdatedTime = 1306528124334080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("38545a67-61ff-4e5c-90bb-a555a93fcbea"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "获取当前用户信息",
                             EnableAudit = false,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "6A85EF9D6FBD3B330E1827AB0949D7E4",
+                            Key = "2FAAF199BA16D914E7796C0B65B7CD13",
                             Method = 0,
-                            Path = "/api/dept/tree",
-                            Service = "部门服务",
-                            Summary = "获取所有部门数据，以树形结构返回"
+                            Path = "/api/account/current-user",
+                            Service = "用户账户认证授权服务",
+                            Summary = "获取当前用户信息",
+                            UpdatedTime = 1306528124375040480L
                         },
                         new
                         {
-                            Id = new Guid("2c3ec3c9-76c7-4d29-953f-e7430f22577b"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "查看当前用户角色",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7F3E99BDC443556613552A21A56D9B73",
+                            Method = 0,
+                            Path = "/api/account/current-user-roles",
+                            Service = "用户账户认证授权服务",
+                            Summary = "查看用户角色",
+                            UpdatedTime = 1306528124354560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("713341f2-47e1-42af-b717-bfa75904d32e"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3F2A1F37C00070D6D3EB4F27E24BB687",
+                            Method = 0,
+                            Path = "/api/account/current-user-resources",
+                            Service = "用户账户认证授权服务",
+                            Summary = "获取用户资源",
+                            UpdatedTime = 1306528124395520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0AC55E6880AE8FACEBACB093AF914C65",
+                            Method = 0,
+                            Path = "/api/account/current-user-resource-keys",
+                            Service = "用户账户认证授权服务",
+                            Summary = "获取用户资源的key",
+                            UpdatedTime = 1306528124416000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "登录接口",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B6792454A69F875EEC82455D02BB3AAA",
+                            Method = 1,
+                            Path = "/api/account/login",
+                            Service = "用户账户认证授权服务",
+                            Summary = "登录",
+                            UpdatedTime = 1306528124293120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "获取当前用户的所有菜单",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3317F3470BD4CCECEB26F73F6551D9D6",
+                            Method = 0,
+                            Path = "/api/account/current-user-menus",
+                            Service = "用户账户认证授权服务",
+                            Summary = "获取当前用户的所有菜单",
+                            UpdatedTime = 1306528124436480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4963631e-6343-469a-a189-10bfce6e3195"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1ADEBA08C209B9D06D9D6788FB0509E6",
+                            Method = 3,
+                            Path = "/api/client-function/{clientid}/{functionid}",
+                            Service = "客户端与接口关系服务",
+                            Summary = "删除客户端与接口关系",
+                            UpdatedTime = 1306528124477440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("6e8d08f8-ba2a-4697-8b69-ac5a5bb31bff"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6C3EB756645619B25BF1323C05E781D8",
+                            Method = 1,
+                            Path = "/api/client-function",
+                            Service = "客户端与接口关系服务",
+                            Summary = "添加客户端与接口关系",
+                            UpdatedTime = 1306528124456960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e81c2cc3-b2cb-4515-a5bb-b5ef3caa5050"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "80E175A5D68598258AE3022F6CD323F0",
+                            Method = 1,
+                            Path = "/api/client/generate-seed-data",
+                            Service = "客户端服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("63b4ad68-3fc7-46e3-93c3-1a9b87e18a85"),
+                            CreatedTime = 1306528234616420832L,
+                            CreatorIdentityType = 0,
+                            Description = "通过刷新token获取新的token",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DF709DE63630893E744DA34D950EC7AE",
+                            Method = 1,
+                            Path = "/api/client/refresh-token",
+                            Service = "客户端服务",
+                            Summary = "刷新Token"
+                        },
+                        new
+                        {
+                            Id = new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BB9E3C06F2507147FADEA21712CB70CA",
+                            Method = 0,
+                            Path = "/api/client/{id}/functions",
+                            Service = "客户端服务",
+                            Summary = "根据客户端编号获取绑定的接口列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("037d2517-d1fa-4b5f-adba-a8f4aae6c205"),
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "根据主键逻辑删除",
                             EnableAudit = true,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "BBF7B9CA0FE646DBAE2923B70DA8A7A4",
+                            Key = "EFC227D985161F0ED01B189C5CCF532F",
                             Method = 3,
-                            Path = "/api/role/fake-delete/{id}",
-                            Service = "角色服务",
-                            Summary = "逻辑删除"
+                            Path = "/api/client/fake-delete/{id}",
+                            Service = "客户端服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528124641280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("20b44c15-481f-4bba-8905-3e5f983927b0"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "登录接口",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6050B0AE0242E8D1D8A6B5B0EAFFA1E0",
+                            Method = 1,
+                            Path = "/api/client/login",
+                            Service = "客户端服务",
+                            Summary = "登录",
+                            UpdatedTime = 1306528124518400480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4c1b9201-09e6-421f-95d1-d98d009a3417"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8B2F2030F705698FEA9D98536F415ADD",
+                            Method = 0,
+                            Path = "/api/client/{id}",
+                            Service = "客户端服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528124600320480L
                         },
                         new
                         {
                             Id = new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"),
-                            CreatedTime = 1306069132247040000L,
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "",
                             EnableAudit = false,
@@ -2721,1496 +3107,8 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4963631e-6343-469a-a189-10bfce6e3195"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1ADEBA08C209B9D06D9D6788FB0509E6",
-                            Method = 3,
-                            Path = "/api/client-function/{clientid}/{functionid}",
-                            Service = "客户端与接口关系服务",
-                            Summary = "删除客户端与接口关系"
-                        },
-                        new
-                        {
-                            Id = new Guid("c0b7ba65-dd12-4733-b2f5-e7347aa9f301"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "61FD0B99A537BC225735AA062D6A9AEB",
-                            Method = 1,
-                            Path = "/api/news",
-                            Service = "新闻管理",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("7229563b-7311-41b8-947b-f07d58fa6c87"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6C03A3540C36BB4BD1BB9F1606F0F550",
-                            Method = 0,
-                            Path = "/api/resource/all-usable",
-                            Service = "资源服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("7bb514a5-d62d-4ba1-a9b9-9e7756eaae2d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "D403D5F25D7ACA97A10BEF07B2A816F4",
-                            Method = 0,
-                            Path = "/api/audit-operation/all",
-                            Service = "审计操作服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("84256e5b-2cef-4b16-8fd3-79ff8d47c731"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3F9869D1A16CD359E268F2C2DBEFD0E2",
-                            Method = 1,
-                            Path = "/api/function",
-                            Service = "功能服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("0f372dde-1e65-441a-b002-eee8b2e1a1f9"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "13457B9CA71646A02E6F004CE877A0E6",
-                            Method = 1,
-                            Path = "/api/audit-entity/deletes",
-                            Service = "审计数据服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("cdd3c605-ed1d-4d94-a482-16430b729541"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "BC8D1127FE54019A5476079400388CF3",
-                            Method = 2,
-                            Path = "/api/resource/{id}/lock/{islocked}",
-                            Service = "资源服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("c591c0ca-3305-4684-89bb-278218d13c47"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "187E0857A128187E01EFBBD569C3DE92",
-                            Method = 0,
-                            Path = "/api/swagger/functions-from-json/{url}",
-                            Service = "Swagger服务",
-                            Summary = "从json中获取function"
-                        },
-                        new
-                        {
-                            Id = new Guid("f8ddd5e5-7c20-43c2-a2cf-31ebc3f9971a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5848947AEE0064BC746DE38E1AC0E3D2",
-                            Method = 0,
-                            Path = "/api/resource/page/{pageindex}/{pagesize}",
-                            Service = "资源服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FDD3EAB18820A6CD5C6DA3B17D40EEB9",
-                            Method = 0,
-                            Path = "/api/function/{id}",
-                            Service = "功能服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("aed3a535-b700-48a5-a8f5-3657e500e400"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "882FEEBFEAF1F50D83E0189AA69B9ED0",
-                            Method = 2,
-                            Path = "/api/audit-entity/{id}/lock/{islocked}",
-                            Service = "审计数据服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("4b7e7f68-8925-4b5c-b8d2-8a51df917b0c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "72DE329278C26111EB3F431ACB89B0A4",
-                            Method = 0,
-                            Path = "/api/audit-entity/page/{pageindex}/{pagesize}",
-                            Service = "审计数据服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("f6843cdf-133d-4eb8-92b2-c36fe63ea9d7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "9501F9B0B5D4867FF65611B203B43D69",
-                            Method = 2,
-                            Path = "/api/position/{id}/lock/{islocked}",
-                            Service = "岗位管理服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("38c69230-1ed0-413e-9ae6-05bc1ef989e0"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "分配权限（重置）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2BBD7196A51542F56FAC25FF3D760D21",
-                            Method = 1,
-                            Path = "/api/role/{roleid}/resource",
-                            Service = "角色服务",
-                            Summary = "分配权限"
-                        },
-                        new
-                        {
-                            Id = new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5FFF46E52DE5943FA225B0F6E29A338D",
-                            Method = 0,
-                            Path = "/api/user/page/{pageindex}/{pagesize}",
-                            Service = "用户服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("5e8adf52-8db2-4d56-9ff3-003cae13e0aa"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "F19E71A217BEEADDD5EF20B65D93439E",
-                            Method = 1,
-                            Path = "/api/role/fake-deletes",
-                            Service = "角色服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("9c6cefe2-d57d-490c-8b0f-70749bc5cdfa"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "085CB1560C82B28FE4C8C5F28EA31A59",
-                            Method = 3,
-                            Path = "/api/attachment/{id}",
-                            Service = "附件服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("994bcc67-2758-4b1d-894c-1ff8aa234aa9"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "F246AC8F372EBBB4DBA7FD9E387C78CF",
-                            Method = 3,
-                            Path = "/api/user-token/{id}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "新增用户",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7CBF6D43C3F9935BF83629FCEED2FFFB",
-                            Method = 1,
-                            Path = "/api/user",
-                            Service = "用户服务",
-                            Summary = "新增"
-                        },
-                        new
-                        {
-                            Id = new Guid("69f70da1-fb4e-443f-9efe-e3d12cc95eed"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "88BAC4E29D23BD095207644BB397E5EE",
-                            Method = 0,
-                            Path = "/api/position/all",
-                            Service = "岗位管理服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("8d94c826-ddba-47fe-94c9-333880fee187"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "swagger json 文件解析功能",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7E9057E559FB68353DCA5D208B7B2A71",
-                            Method = 0,
-                            Path = "/api/swagger/analysis/{url}",
-                            Service = "Swagger服务",
-                            Summary = "解析api json"
-                        },
-                        new
-                        {
-                            Id = new Guid("89954833-64a5-4c87-a717-9c863ca3b263"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "710C2B0A026A9C3FF0D6235FCD8E0F26",
-                            Method = 1,
-                            Path = "/api/position/fake-deletes",
-                            Service = "岗位管理服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("ed340c0c-9b63-45f4-942a-c8a14c4491d3"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C9E5F9B494BBF428A85ECEA53B095285",
-                            Method = 1,
-                            Path = "/api/position/deletes",
-                            Service = "岗位管理服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("61cc62e4-34da-4a0a-9899-488d3ab399fa"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "34B7575A20F0D8D6B1B2522F9DD7A7B8",
-                            Method = 3,
-                            Path = "/api/position/{id}",
-                            Service = "岗位管理服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("20b7e3c2-1ab5-4a5e-993e-e5599a583fdd"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7E91BA4770C4FDF6B865C2D4C7984132",
-                            Method = 1,
-                            Path = "/api/login-token",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("a2e21aa5-c2ff-4893-954f-263822d168c3"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2909033694587286F3458217843E20D8",
-                            Method = 2,
-                            Path = "/api/login-token",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("29d09bb6-202c-43d4-b223-1bab9a8110c7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "F644EA520FFD15E462A5C058F5B034B3",
-                            Method = 0,
-                            Path = "/api/user-token/{id}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "873AFCBA915D056ED9D8EDA9D23F9061",
-                            Method = 3,
-                            Path = "/api/login-token/{id}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("63d7208e-45d3-406e-a4a1-c87e3afda04d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取种子数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "72B515FB99A1EFE42DEFCFC12954F93D",
-                            Method = 0,
-                            Path = "/api/role/role-resource-seed-data",
-                            Service = "角色服务",
-                            Summary = "获取种子数据"
-                        },
-                        new
-                        {
-                            Id = new Guid("868fc0df-7cdf-4b56-873e-16dd3e0aa528"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "439ED218846E25C27A388B09904AABC8",
-                            Method = 2,
-                            Path = "/api/role/{id}/lock/{islocked}",
-                            Service = "角色服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("cc73d556-6ded-4a2a-8b5c-62ea9c897351"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1DC4817A750A7C248B15EA766BDD53C8",
-                            Method = 1,
-                            Path = "/api/client/fake-deletes",
-                            Service = "客户端服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("a4a2536b-1cc6-438c-ba00-054e16fc2c7c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1A6C9AC4F4D71B0FC154AD8CE6FE6D29",
-                            Method = 3,
-                            Path = "/api/role/{id}",
-                            Service = "角色服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DF0B66D0FC43BB25047A470707E01EF8",
-                            Method = 0,
-                            Path = "/api/position/{id}",
-                            Service = "岗位管理服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "860A62FFC20FAAAE60E760D4305104DF",
-                            Method = 1,
-                            Path = "/api/login-token/search",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("39ccceae-2cba-4cd2-a44b-fc8fe8a3f2e4"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查看用户权限",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FAA3B104E6EBF3B5F16DB92C56836A63",
-                            Method = 0,
-                            Path = "/api/user/{userid}/resources",
-                            Service = "用户服务",
-                            Summary = "查看用户权限"
-                        },
-                        new
-                        {
-                            Id = new Guid("36843f91-b2dd-4be2-81bb-98ae3ca02905"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "20A3A8A905329855BDB1538D1FC4952E",
-                            Method = 2,
-                            Path = "/api/user-token",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("5eb3ac07-56a4-401f-86c5-686a512663ce"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "B8C5050A9AF405D498549684AFBE6BA5",
-                            Method = 1,
-                            Path = "/api/user-token",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("23f69ca2-fcef-4cc7-93ac-484a1e38ba22"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6707D74A420C1B835267E8F89B2A733C",
-                            Method = 1,
-                            Path = "/api/user-token/search",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键获取用户",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "011AC4559477AB1F24A281BDC1033AAB",
-                            Method = 0,
-                            Path = "/api/user/{id}",
-                            Service = "用户服务",
-                            Summary = "根据主键获取用户"
-                        },
-                        new
-                        {
-                            Id = new Guid("045945e7-94c4-4727-8392-31fc9d99cd9f"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "E46343E17F6F09D2DD0BB1B6C78C81F6",
-                            Method = 0,
-                            Path = "/api/audit-entity/all",
-                            Service = "审计数据服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("2428c3c3-740e-45fc-9047-5a2be3c9cd70"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FBAC1FD6280B05C7EAFD6BD24F0DE077",
-                            Method = 3,
-                            Path = "/api/user/{id}",
-                            Service = "用户服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("cb9f6387-5817-4fd6-b9eb-6553dcaf5e87"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8D8980AD32B8E49FB140F9DCE14B897C",
-                            Method = 0,
-                            Path = "/api/role/all",
-                            Service = "角色服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("424fd96a-a889-4ff9-910a-25a59204d2ec"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "返回根节点资源",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "34CFCB2759472E91321739C5D43B00D0",
-                            Method = 0,
-                            Path = "/api/resource/root",
-                            Service = "资源服务",
-                            Summary = "返回根节点"
-                        },
-                        new
-                        {
-                            Id = new Guid("7a3399b3-6003-4aae-8e24-2e478992630e"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1EB184263BA127C79364162F4E75E660",
-                            Method = 1,
-                            Path = "/api/position",
-                            Service = "岗位管理服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "0C58B2617EA08ED81F14B53C00C678D7",
-                            Method = 1,
-                            Path = "/api/attachment/search",
-                            Service = "附件服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("9b54a63a-b157-4bd3-adcc-daa0e248edc6"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "75D578DDEE9C4085A751D6DD1C66F861",
-                            Method = 0,
-                            Path = "/api/user-token/all",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "BB0B0620A9F5665B13ADC8D8C8B8F98A",
-                            Method = 3,
-                            Path = "/api/position/fake-delete/{id}",
-                            Service = "岗位管理服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("025150b5-37a7-4f19-b8a2-187cb1717928"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "64B675513AC8714610A3F1E35127EFCE",
-                            Method = 0,
-                            Path = "/api/user-token/all-usable",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d23c991-627c-4a7a-8fa5-267c6682115d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "12097C2120D203155FD96BDD7EB37F23",
-                            Method = 0,
-                            Path = "/api/user-token/page/{pageindex}/{pagesize}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("a0e6ea28-fcd8-4c9b-b937-35a2afa10b86"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DC9409CFC9E16F58BB9584E1445317AD",
-                            Method = 2,
-                            Path = "/api/user-token/{id}/lock/{islocked}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d51608e-5988-4d3d-8f5e-00e0c0c07b02"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7971E7E4FDCB5CBA6EE06E7DFE3F199E",
-                            Method = 0,
-                            Path = "/api/resource/all",
-                            Service = "资源服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("e8060504-9fce-43a4-a7f0-7818c2de567e"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索岗位数据",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8B38909A67FDFE704F49AFB6AF35995A",
-                            Method = 0,
-                            Path = "/api/position/search/{pageindex}/{pagesize}",
-                            Service = "岗位管理服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有资源 按树形结构返回",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6AFF14D9D209CDEEFFC0E4872E060F42",
-                            Method = 0,
-                            Path = "/api/resource/tree",
-                            Service = "资源服务",
-                            Summary = "查询所有资源"
-                        },
-                        new
-                        {
-                            Id = new Guid("b56c4126-411c-445e-86aa-a91a5ce816d4"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C47AACD68B1EF833AAC0EC90CD878FDD",
-                            Method = 0,
-                            Path = "/api/position/all-usable",
-                            Service = "岗位管理服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("05153ee4-dc99-4834-b398-5999f7dc8d01"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "47FEFB8B545A5A813AB9ABA70F02BD49",
-                            Method = 2,
-                            Path = "/api/position",
-                            Service = "岗位管理服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("42b3486a-8ea0-4296-a526-7cd3ef9ea73a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6B7B11626AE0ABB28C5331DB67DACAA0",
-                            Method = 0,
-                            Path = "/api/attachment/all-usable",
-                            Service = "附件服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("a75bd9a7-e3f0-4736-9c27-8763a3d3768b"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7037CCD6F97FA35692ED560CE1756F86",
-                            Method = 2,
-                            Path = "/api/audit-operation",
-                            Service = "审计操作服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("453f751d-70d5-4725-ac7c-ad083bd5253d"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3176F9202C7FE094C0BCDBA6E428E1F4",
-                            Method = 1,
-                            Path = "/api/user-token/fake-deletes",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("f6fd9621-f6e4-45ec-b919-6acb73c7b303"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8C9ED3E66D288CA942AD438AD9C50DBF",
-                            Method = 0,
-                            Path = "/api/login-token/all",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("e298058c-8ec9-4637-bf8b-4ece0bfa5a5b"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4A8F7B6AB1E6A30A9A65FEBE2B31CE4A",
-                            Method = 0,
-                            Path = "/api/login-token/page/{pageindex}/{pagesize}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "B37ED1BEEE60098FACB7182C73B5FA3F",
-                            Method = 2,
-                            Path = "/api/login-token/{id}/lock/{islocked}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("38545a67-61ff-4e5c-90bb-a555a93fcbea"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取当前用户信息",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2FAAF199BA16D914E7796C0B65B7CD13",
-                            Method = 0,
-                            Path = "/api/account/current-user",
-                            Service = "用户账户认证授权服务",
-                            Summary = "获取当前用户信息"
-                        },
-                        new
-                        {
-                            Id = new Guid("a8c06d41-806a-4bf5-8ceb-15995dac08cb"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取种子数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3A4F1575935BB1B9D3B3F6F407EB43C6",
-                            Method = 0,
-                            Path = "/api/resource/seed-data",
-                            Service = "资源服务",
-                            Summary = "获取种子数据"
-                        },
-                        new
-                        {
-                            Id = new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "通过刷新token获取新的token",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "1549F5F1C34E25281CBC00CA283BC404",
-                            Method = 1,
-                            Path = "/api/account/refresh-token",
-                            Service = "用户账户认证授权服务",
-                            Summary = "刷新Token"
-                        },
-                        new
-                        {
-                            Id = new Guid("ca7391b0-2691-4bb9-87c5-1230c5f1e00e"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "B63C74AC690A1F5B2E8C23CD2F4C4A0B",
-                            Method = 1,
-                            Path = "/api/user-token/deletes",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "获取当前用户的所有菜单",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3317F3470BD4CCECEB26F73F6551D9D6",
-                            Method = 0,
-                            Path = "/api/account/current-user-menus",
-                            Service = "用户账户认证授权服务",
-                            Summary = "获取当前用户的所有菜单"
-                        },
-                        new
-                        {
-                            Id = new Guid("b2dfaad3-e44a-4a76-ac91-34a571ba47e8"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据key获取 功能点",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "CE34F0B4FCB2222CF693F501B370149D",
-                            Method = 0,
-                            Path = "/api/function/by-key/{key}",
-                            Service = "功能服务",
-                            Summary = "根据key获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("f16b30b9-9e03-48d7-83a1-f09ae3e05345"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C75F9424DD51498CD9ADBFCBF2EB4D57",
-                            Method = 0,
-                            Path = "/api/client/all",
-                            Service = "客户端服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("bfbcb606-6adb-460f-9730-20dbe3b32949"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "EC62EF7FF22A3D75FF0452966175ED6D",
-                            Method = 0,
-                            Path = "/api/code-generation/entity-definitions",
-                            Service = "代码生成服务",
-                            Summary = "获取所有实体定义"
-                        },
-                        new
-                        {
-                            Id = new Guid("becfbc6e-e75f-4c17-a0f8-d366cc0c0ecb"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FAC62F9BF65D4DD69EE5EDE973F67030",
-                            Method = 1,
-                            Path = "/api/code-generation/entity-code-generation-setting",
-                            Service = "代码生成服务",
-                            Summary = "添加实体的代码生成配置"
-                        },
-                        new
-                        {
-                            Id = new Guid("a0decf1b-ed7a-4cd4-ac2f-ee85f52e6c95"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6AAF93FCBAC80E0FD4329B6852E1741D",
-                            Method = 2,
-                            Path = "/api/code-generation/entity-code-generation-setting",
-                            Service = "代码生成服务",
-                            Summary = "更新实体的代码生成配置"
-                        },
-                        new
-                        {
-                            Id = new Guid("20b44c15-481f-4bba-8905-3e5f983927b0"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "登录接口",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6050B0AE0242E8D1D8A6B5B0EAFFA1E0",
-                            Method = 1,
-                            Path = "/api/client/login",
-                            Service = "客户端服务",
-                            Summary = "登录"
-                        },
-                        new
-                        {
-                            Id = new Guid("8172d258-7a75-4ced-b5e2-b0be7350aa1f"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8ECC90D5D58B7FD57A1D06C0F5C4CECA",
-                            Method = 1,
-                            Path = "/api/client",
-                            Service = "客户端服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("7120bd2f-4491-41ac-bef3-7cd86615da14"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索用户数据",
-                            EnableAudit = false,
-                            Group = "系统管理",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "E0587A70B59848C9664BE0BF58E13A17",
-                            Method = 0,
-                            Path = "/api/user/search/{pageindex}/{pagesize}",
-                            Service = "用户服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("9d9233d8-df0a-43b7-929a-65b9bd532c8c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5CF48BAB60B771300975D93C49925CA0",
-                            Method = 0,
-                            Path = "/api/role/page/{pageindex}/{pagesize}",
-                            Service = "角色服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("d22007c6-fada-4ef1-bafa-08455b767883"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "F543F08AB768F7D444481F5D7EB52373",
-                            Method = 0,
-                            Path = "/api/position/page/{pageindex}/{pagesize}",
-                            Service = "岗位管理服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("a02b5d10-7dc1-474a-9802-781da1172c3f"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据",
-                            EnableAudit = true,
-                            Group = "新闻服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "59F9B25ACB6F71D8E351B43A6443FB6A",
-                            Method = 2,
-                            Path = "/api/news/{id}/lock/{islocked}",
-                            Service = "新闻管理",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "上传单个附件",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3BF647BFC6987B8CEA91C97FEE17CC6D",
-                            Method = 1,
-                            Path = "/api/attachment/upload",
-                            Service = "附件服务",
-                            Summary = "上传附件"
-                        },
-                        new
-                        {
-                            Id = new Guid("c39030b8-d207-4c22-a3ba-74b0eccaa2fa"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4603BCE62CA130E67C2450C127DD7728",
-                            Method = 1,
-                            Path = "/api/function/fake-deletes",
-                            Service = "功能服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("f9feca89-9856-4c20-aa82-b2260df498a9"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "51CDF306434E8148436781B9BFB4D520",
-                            Method = 0,
-                            Path = "/api/code-generation/entity-code-generation-setting/{entityfullname}",
-                            Service = "代码生成服务",
-                            Summary = "获取实体的代码生成配置"
-                        },
-                        new
-                        {
-                            Id = new Guid("590cd04c-025c-4cc1-bdd1-e9cea201bb46"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "67C405B4CBCC02144945800F26CC1F4F",
-                            Method = 0,
-                            Path = "/api/function/page/{pageindex}/{pagesize}",
-                            Service = "功能服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "80A4CB99380D0D7A70F7C28604C5B0C7",
-                            Method = 1,
-                            Path = "/api/login-token/fake-deletes",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("5328608a-6b71-4507-a52a-e1beffa7a4ab"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "33D096038DC823412DC051FA7371FB68",
-                            Method = 0,
-                            Path = "/api/login-token/all-usable",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("cba739f0-9f8a-40c2-afff-d66c3382e096"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "CC8DA87E574A106E9B14287FEC850037",
-                            Method = 0,
-                            Path = "/api/role/{id}",
-                            Service = "角色服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("037d2517-d1fa-4b5f-adba-a8f4aae6c205"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "EFC227D985161F0ED01B189C5CCF532F",
-                            Method = 3,
-                            Path = "/api/client/fake-delete/{id}",
-                            Service = "客户端服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("475207d6-4c0b-4054-a051-7315295694a1"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "添加一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "44405A33B9DEC6F934920AF5AC6F7111",
-                            Method = 1,
-                            Path = "/api/audit-entity",
-                            Service = "审计数据服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("973edc2c-42e1-473e-9656-a43890663d8a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3D033D8178E68247D2C34E53F00D468F",
-                            Method = 0,
-                            Path = "/api/dept/all-usable",
-                            Service = "部门服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DA7F00498254B5B31B18D7C877F96FB7",
-                            Method = 1,
-                            Path = "/api/client/search",
-                            Service = "客户端服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "移除当前用户token",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "34925D025D1D97104B7A51EF41C393F3",
-                            Method = 3,
-                            Path = "/api/account/current-user-refresh-token",
-                            Service = "用户账户认证授权服务",
-                            Summary = "移除当前用户token"
-                        },
-                        new
-                        {
-                            Id = new Guid("713341f2-47e1-42af-b717-bfa75904d32e"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "3F2A1F37C00070D6D3EB4F27E24BB687",
-                            Method = 0,
-                            Path = "/api/account/current-user-resources",
-                            Service = "用户账户认证授权服务",
-                            Summary = "获取用户资源"
-                        },
-                        new
-                        {
-                            Id = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查看用户角色",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "652940681CC97C52299C95242AB1E858",
-                            Method = 0,
-                            Path = "/api/user/{userid}/roles",
-                            Service = "用户服务",
-                            Summary = "查看用户角色"
-                        },
-                        new
-                        {
-                            Id = new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查看当前用户角色",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7F3E99BDC443556613552A21A56D9B73",
-                            Method = 0,
-                            Path = "/api/account/current-user-roles",
-                            Service = "用户账户认证授权服务",
-                            Summary = "查看用户角色"
-                        },
-                        new
-                        {
-                            Id = new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新用户",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8C82B0DF3A0F5EB8DFED7794B16DA9A5",
-                            Method = 2,
-                            Path = "/api/user",
-                            Service = "用户服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
                             Id = new Guid("5d67bd9d-853c-4e16-973d-be0511241fc0"),
-                            CreatedTime = 1306069132247040000L,
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "根据多个主键批量删除",
                             EnableAudit = true,
@@ -4221,220 +3119,47 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/client/deletes",
                             Service = "客户端服务",
-                            Summary = "批量删除"
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528124620800480L
                         },
                         new
                         {
-                            Id = new Guid("1ef3b8a8-6e46-49d7-9a7e-f63137beaade"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("8172d258-7a75-4ced-b5e2-b0be7350aa1f"),
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "添加一条数据",
                             EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "DD71B200E8B3E6E24BD6F9C05E3D666C",
-                            Method = 1,
-                            Path = "/api/email-server-config",
-                            Service = "邮件服务器配置服务",
-                            Summary = "添加"
-                        },
-                        new
-                        {
-                            Id = new Guid("84247930-2035-443d-bde3-69d4d23bec85"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键删除一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "BA79EB71501051CA1F082DE15FBE73D3",
-                            Method = 3,
-                            Path = "/api/email-server-config/{id}",
-                            Service = "邮件服务器配置服务",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("9d25bf25-5470-4fed-b58c-c4ef4339d533"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4166A00DD3058EA57C09B869E68927D4",
-                            Method = 0,
-                            Path = "/api/email-server-config/{id}",
-                            Service = "邮件服务器配置服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("571200a8-bde2-430b-84ea-743db7b282cd"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "A094FB1391CD1E7F7A2C7E8536A491DF",
-                            Method = 3,
-                            Path = "/api/login-token/fake-delete/{id}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("3ed89bcc-7eb1-4b51-86a5-dbe449370e1b"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4FBBC2EF99F020CC28878731394CF303",
+                            Key = "8ECC90D5D58B7FD57A1D06C0F5C4CECA",
                             Method = 1,
-                            Path = "/api/email-server-config/deletes",
-                            Service = "邮件服务器配置服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("26d95428-ebbd-4bf2-9bcc-2eeec4263bd5"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "006AC2DA9C0126A631FE4092AAB706C0",
-                            Method = 1,
-                            Path = "/api/email-server-config/fake-deletes",
-                            Service = "邮件服务器配置服务",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("fc90ab49-b7c2-437e-bbdc-4f234cb0f79a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6D9355E642310F188E728A62002A6879",
-                            Method = 2,
-                            Path = "/api/client/{id}/lock/{islocked}",
+                            Path = "/api/client",
                             Service = "客户端服务",
-                            Summary = "锁定"
+                            Summary = "添加",
+                            UpdatedTime = 1306528124559360480L
                         },
                         new
                         {
-                            Id = new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "登录接口",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "B6792454A69F875EEC82455D02BB3AAA",
-                            Method = 1,
-                            Path = "/api/account/login",
-                            Service = "用户账户认证授权服务",
-                            Summary = "登录"
-                        },
-                        new
-                        {
-                            Id = new Guid("d5e9621c-ad9f-4bca-aa51-04aa0b55744e"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6946DB3F24E403A804F67F2B116C9392",
-                            Method = 0,
-                            Path = "/api/email-server-config/page/{pageindex}/{pagesize}",
-                            Service = "邮件服务器配置服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("d7fa048a-0bfd-4997-94e3-dda3402c3b08"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5AE5AD783D5821E6D300DBE1BDD6E631",
-                            Method = 0,
-                            Path = "/api/email-server-config/all",
-                            Service = "邮件服务器配置服务",
-                            Summary = "查询所有"
-                        },
-                        new
-                        {
-                            Id = new Guid("9fe5cc45-a851-4d3f-8b44-32dd96130946"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "搜索数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "87C5CB00FB6A44D52C1C4CC5E9312B02",
-                            Method = 1,
-                            Path = "/api/email-server-config/search",
-                            Service = "邮件服务器配置服务",
-                            Summary = "搜索"
-                        },
-                        new
-                        {
-                            Id = new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据多个主键批量删除",
                             EnableAudit = true,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "D522DFCA12CBF851EA48D676E7432DF8",
+                            Key = "DA7F00498254B5B31B18D7C877F96FB7",
                             Method = 1,
-                            Path = "/api/login-token/deletes",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("f72f5e71-46f6-44eb-8a3d-f07082fa33e5"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6069031816C15D92B60A246C9CAD1287",
-                            Method = 0,
-                            Path = "/api/client/all-usable",
+                            Path = "/api/client/search",
                             Service = "客户端服务",
-                            Summary = "查询所有可以用的"
+                            Summary = "搜索",
+                            UpdatedTime = 1306528124764160480L
                         },
                         new
                         {
                             Id = new Guid("8f0fb7b6-9087-40c3-a894-8be057ac044e"),
-                            CreatedTime = 1306069132247040000L,
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "根据分页参数，分页获取数据",
                             EnableAudit = false,
@@ -4445,92 +3170,13 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/client/page/{pageindex}/{pagesize}",
                             Service = "客户端服务",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("6c9aa43e-921c-44bc-83fb-64a9c451255f"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C0F3F05AE24A0E8BBA9BAF52852E09D4",
-                            Method = 2,
-                            Path = "/api/email-server-config/{id}/lock/{islocked}",
-                            Service = "邮件服务器配置服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("8ae9c253-584e-46e4-b805-6ec90281d6dd"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "E7F5596D4D8517C85871566D8EFA0855",
-                            Method = 2,
-                            Path = "/api/function/{id}/lock/{islocked}",
-                            Service = "功能服务",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("1d325e63-3e9e-4cbc-b275-00a057c71e63"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4548CF61B82D6B6ED737DE1D568D5E7B",
-                            Method = 0,
-                            Path = "/api/email-server-config/all-usable",
-                            Service = "邮件服务器配置服务",
-                            Summary = "查询所有可以用的"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1267fbc-903b-4439-a7b6-a7290507d207"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键查找一条数据",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C01E9238420548B6CA87C312935DD043",
-                            Method = 0,
-                            Path = "/api/login-token/{id}",
-                            Service = "用户登录TOKEN服务",
-                            Summary = "根据主键获取"
-                        },
-                        new
-                        {
-                            Id = new Guid("cecdfb7d-6796-4bd8-a3d7-164c16a7c959"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4326F39D4D047A58AA7887EEB0A5B5A3",
-                            Method = 2,
-                            Path = "/api/client",
-                            Service = "客户端服务",
-                            Summary = "更新"
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528124743680480L
                         },
                         new
                         {
                             Id = new Guid("af1f0410-e9cc-4a73-9da7-ea45aadac8b2"),
-                            CreatedTime = 1306069132247040000L,
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "根据主键删除一条数据",
                             EnableAudit = true,
@@ -4541,153 +3187,1244 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/client/{id}",
                             Service = "客户端服务",
-                            Summary = "删除"
+                            Summary = "删除",
+                            UpdatedTime = 1306528124579840480L
                         },
                         new
                         {
-                            Id = new Guid("4c1b9201-09e6-421f-95d1-d98d009a3417"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("cc73d556-6ded-4a2a-8b5c-62ea9c897351"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1DC4817A750A7C248B15EA766BDD53C8",
+                            Method = 1,
+                            Path = "/api/client/fake-deletes",
+                            Service = "客户端服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528124661760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cecdfb7d-6796-4bd8-a3d7-164c16a7c959"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4326F39D4D047A58AA7887EEB0A5B5A3",
+                            Method = 2,
+                            Path = "/api/client",
+                            Service = "客户端服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528124559360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f16b30b9-9e03-48d7-83a1-f09ae3e05345"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C75F9424DD51498CD9ADBFCBF2EB4D57",
+                            Method = 0,
+                            Path = "/api/client/all",
+                            Service = "客户端服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528124682240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f72f5e71-46f6-44eb-8a3d-f07082fa33e5"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6069031816C15D92B60A246C9CAD1287",
+                            Method = 0,
+                            Path = "/api/client/all-usable",
+                            Service = "客户端服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528124702720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("fc90ab49-b7c2-437e-bbdc-4f234cb0f79a"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6D9355E642310F188E728A62002A6879",
+                            Method = 2,
+                            Path = "/api/client/{id}/lock/{islocked}",
+                            Service = "客户端服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528124743680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c2784668-075f-4b7e-a563-b6b92b072542"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "298FD49C905F1B1B812B226B95307CE0",
+                            Method = 1,
+                            Path = "/api/dept/generate-seed-data",
+                            Service = "部门服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("0d2df690-6aa7-466b-b1e4-73fa4fda1b5d"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8AED5C0B53588415D98E97119880AC6A",
+                            Method = 2,
+                            Path = "/api/dept/{id}/lock/{islocked}",
+                            Service = "部门服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528124968960480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"),
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
                             Description = "根据主键查找一条数据",
                             EnableAudit = false,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "8B2F2030F705698FEA9D98536F415ADD",
+                            Key = "213D1BBDB567A74636ACE841D780F663",
                             Method = 0,
-                            Path = "/api/client/{id}",
-                            Service = "客户端服务",
-                            Summary = "根据主键获取"
+                            Path = "/api/dept/{id}",
+                            Service = "部门服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528124866560480L
                         },
                         new
                         {
-                            Id = new Guid("99546746-70b8-42d6-884d-ea1b79f88c0a"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("333edf31-c542-4fa1-baca-b770d558a4d7"),
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
-                            Description = "更新一条数据",
+                            Description = "根据主键删除一条数据",
                             EnableAudit = true,
-                            Group = "系统基础服务",
+                            Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "D15206E2B2CEFD1CC520AF32A357F56E",
-                            Method = 2,
-                            Path = "/api/email-server-config",
-                            Service = "邮件服务器配置服务",
-                            Summary = "更新"
-                        },
-                        new
-                        {
-                            Id = new Guid("39421a19-9cbf-477b-baea-34f40341357f"),
-                            CreatedTime = 1306069132247040000L,
-                            CreatorIdentityType = 0,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FB316294679817930CABB93BE346C453",
+                            Key = "EA96F9C3B67BB0EB8E3D5337D3482162",
                             Method = 3,
-                            Path = "/api/email-server-config/fake-delete/{id}",
-                            Service = "邮件服务器配置服务",
-                            Summary = "逻辑删除"
+                            Path = "/api/dept/{id}",
+                            Service = "部门服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528124866560480L
                         },
                         new
                         {
-                            Id = new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"),
-                            CreatedTime = 1306069132247040000L,
+                            Id = new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"),
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
-                            Description = "",
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "32ABBEA6610DE2420AC7B5E7FDAA315E",
+                            Method = 1,
+                            Path = "/api/dept/fake-deletes",
+                            Service = "部门服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528124907520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4e1a2966-bdfd-485a-b0cf-52004e40f6a7"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
                             EnableAudit = false,
                             Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "0AC55E6880AE8FACEBACB093AF914C65",
+                            Key = "0730ED2F37C050E4994609C45BE0C4A4",
                             Method = 0,
-                            Path = "/api/account/current-user-resource-keys",
-                            Service = "用户账户认证授权服务",
-                            Summary = "获取用户资源的key"
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Position", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CreatorIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Duty")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Grade")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Qualifications")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Right")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Salary")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Target")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Position");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedTime = 1305892579553280000L,
-                            CreatorIdentityType = 0,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "董事长"
+                            Path = "/api/dept/all",
+                            Service = "部门服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528124928000480L
                         },
                         new
                         {
-                            Id = 2,
-                            CreatedTime = 1305892579553280000L,
+                            Id = new Guid("5c8381ec-7e8a-4060-9c04-83032d18872c"),
+                            CreatedTime = 1306528234616422880L,
                             CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Name = "总经理"
+                            Key = "A5DA0BB6BEA388B99626E5A34BDE68F4",
+                            Method = 3,
+                            Path = "/api/dept/fake-delete/{id}",
+                            Service = "部门服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528124907520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7cb8921d-0a0c-4e80-8895-604c05480c43"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0BBAF9866F200FEDE526AB75E03319CC",
+                            Method = 0,
+                            Path = "/api/dept/page/{pageindex}/{pagesize}",
+                            Service = "部门服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528124948480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("85f94b4c-e897-4f3c-b80a-c7ddb8ebf1b5"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E6BAA5C7F35ED0CBD3902A30349A992B",
+                            Method = 1,
+                            Path = "/api/dept/search",
+                            Service = "部门服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528124989440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("973edc2c-42e1-473e-9656-a43890663d8a"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3D033D8178E68247D2C34E53F00D468F",
+                            Method = 0,
+                            Path = "/api/dept/all-usable",
+                            Service = "部门服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528124948480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6A85EF9D6FBD3B330E1827AB0949D7E4",
+                            Method = 0,
+                            Path = "/api/dept/tree",
+                            Service = "部门服务",
+                            Summary = "获取所有部门数据，以树形结构返回",
+                            UpdatedTime = 1306528124805120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e23b555c-600a-4839-9439-2ee0ad0ae4f8"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "248BF161E6BEB662D259298A8E564433",
+                            Method = 2,
+                            Path = "/api/dept",
+                            Service = "部门服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528124846080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f5c318f6-9230-475a-830e-a404e17506b5"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3AB1D0424907EC010DC69F029B4FBD06",
+                            Method = 1,
+                            Path = "/api/dept",
+                            Service = "部门服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528124825600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("fcebd316-c2f3-4f8e-97fc-498dd3a33d4e"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "951D030BDA5FAE619E5A7BB9EFB43F33",
+                            Method = 1,
+                            Path = "/api/dept/deletes",
+                            Service = "部门服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528124887040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ff8621c9-1b88-4e6d-be00-34615c48c69f"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "EFFE9D726D7792B023DF91E15AA48C89",
+                            Method = 0,
+                            Path = "/api/dept/seed-data",
+                            Service = "部门服务",
+                            Summary = "获取种子数据",
+                            UpdatedTime = 1306528124805120480L
+                        },
+                        new
+                        {
+                            Id = new Guid("6b7f0b3c-c2ed-458e-8f26-abe68eb17854"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A074E8CFB7457551C240FE7D510618AC",
+                            Method = 1,
+                            Path = "/api/position/generate-seed-data",
+                            Service = "岗位管理服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528205127680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("05153ee4-dc99-4834-b398-5999f7dc8d01"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "47FEFB8B545A5A813AB9ABA70F02BD49",
+                            Method = 2,
+                            Path = "/api/position",
+                            Service = "岗位管理服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528205086720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("61cc62e4-34da-4a0a-9899-488d3ab399fa"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "34B7575A20F0D8D6B1B2522F9DD7A7B8",
+                            Method = 3,
+                            Path = "/api/position/{id}",
+                            Service = "岗位管理服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528205086720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BB0B0620A9F5665B13ADC8D8C8B8F98A",
+                            Method = 3,
+                            Path = "/api/position/fake-delete/{id}",
+                            Service = "岗位管理服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528205107200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("69f70da1-fb4e-443f-9efe-e3d12cc95eed"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "88BAC4E29D23BD095207644BB397E5EE",
+                            Method = 0,
+                            Path = "/api/position/all",
+                            Service = "岗位管理服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528205107200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("715a2905-da23-405d-98a0-1a1222f7d101"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DF0B66D0FC43BB25047A470707E01EF8",
+                            Method = 0,
+                            Path = "/api/position/{id}",
+                            Service = "岗位管理服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528205107200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7a3399b3-6003-4aae-8e24-2e478992630e"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1EB184263BA127C79364162F4E75E660",
+                            Method = 1,
+                            Path = "/api/position",
+                            Service = "岗位管理服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528205086720480L
+                        },
+                        new
+                        {
+                            Id = new Guid("89954833-64a5-4c87-a717-9c863ca3b263"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "710C2B0A026A9C3FF0D6235FCD8E0F26",
+                            Method = 1,
+                            Path = "/api/position/fake-deletes",
+                            Service = "岗位管理服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528205107200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b56c4126-411c-445e-86aa-a91a5ce816d4"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C47AACD68B1EF833AAC0EC90CD878FDD",
+                            Method = 0,
+                            Path = "/api/position/all-usable",
+                            Service = "岗位管理服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528205127680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9A501F3D2F0A3A2D47A17D6F42042CD5",
+                            Method = 1,
+                            Path = "/api/position/search",
+                            Service = "岗位管理服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528205127680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d22007c6-fada-4ef1-bafa-08455b767883"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F543F08AB768F7D444481F5D7EB52373",
+                            Method = 0,
+                            Path = "/api/position/page/{pageindex}/{pagesize}",
+                            Service = "岗位管理服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528205127680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ed340c0c-9b63-45f4-942a-c8a14c4491d3"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C9E5F9B494BBF428A85ECEA53B095285",
+                            Method = 1,
+                            Path = "/api/position/deletes",
+                            Service = "岗位管理服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528205107200480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f6843cdf-133d-4eb8-92b2-c36fe63ea9d7"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9501F9B0B5D4867FF65611B203B43D69",
+                            Method = 2,
+                            Path = "/api/position/{id}/lock/{islocked}",
+                            Service = "岗位管理服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528205127680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("0b7a9ed1-86cc-42a6-a260-f7ba33054054"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FD2CAFBFF34B435DF026315EF4D89CC5",
+                            Method = 1,
+                            Path = "/api/role/generate-seed-data",
+                            Service = "角色服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528207114240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("01944b79-bfe5-4304-ade0-9c66e038d5d4"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3005F52703299DD4885D51C80CA3B370",
+                            Method = 2,
+                            Path = "/api/role",
+                            Service = "角色服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528207073280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("16517409-c055-447b-8e91-7155537c6d15"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F57997ED31483BE396EB71C98D07B6F5",
+                            Method = 1,
+                            Path = "/api/role",
+                            Service = "角色服务",
+                            Summary = "添加",
+                            UpdatedTime = 1306528207073280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2c3ec3c9-76c7-4d29-953f-e7430f22577b"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BBF7B9CA0FE646DBAE2923B70DA8A7A4",
+                            Method = 3,
+                            Path = "/api/role/fake-delete/{id}",
+                            Service = "角色服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528207093760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("383c5aaf-a3e1-44d1-a1c8-3074abe55f95"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "91B03FFD3080A9684592C45A15C826A5",
+                            Method = 1,
+                            Path = "/api/role/deletes",
+                            Service = "角色服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528207093760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("38c69230-1ed0-413e-9ae6-05bc1ef989e0"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "分配权限（重置）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2BBD7196A51542F56FAC25FF3D760D21",
+                            Method = 1,
+                            Path = "/api/role/{roleid}/resource",
+                            Service = "角色服务",
+                            Summary = "分配权限",
+                            UpdatedTime = 1306528207052800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4B11C588FC856C862E41859F189370C0",
+                            Method = 1,
+                            Path = "/api/role/search",
+                            Service = "角色服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528207114240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5e8adf52-8db2-4d56-9ff3-003cae13e0aa"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F19E71A217BEEADDD5EF20B65D93439E",
+                            Method = 1,
+                            Path = "/api/role/fake-deletes",
+                            Service = "角色服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528207093760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D4F99E0AE4263D647F3440B66DB7AC7B",
+                            Method = 0,
+                            Path = "/api/role/all-usable",
+                            Service = "角色服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528207114240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("63d7208e-45d3-406e-a4a1-c87e3afda04d"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "获取种子数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "72B515FB99A1EFE42DEFCFC12954F93D",
+                            Method = 0,
+                            Path = "/api/role/role-resource-seed-data",
+                            Service = "角色服务",
+                            Summary = "获取种子数据",
+                            UpdatedTime = 1306528207073280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("868fc0df-7cdf-4b56-873e-16dd3e0aa528"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "439ED218846E25C27A388B09904AABC8",
+                            Method = 2,
+                            Path = "/api/role/{id}/lock/{islocked}",
+                            Service = "角色服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528207114240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("94f22c97-ae4a-40e0-95cd-d0a6347eacd7"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据角色编号删除所有资源",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DECA4ECA67D27FC9932271EE3B0AC5DD",
+                            Method = 3,
+                            Path = "/api/role/{roleid}/resource",
+                            Service = "角色服务",
+                            Summary = "根据角色编号删除所有资源",
+                            UpdatedTime = 1306528207052800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9d9233d8-df0a-43b7-929a-65b9bd532c8c"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5CF48BAB60B771300975D93C49925CA0",
+                            Method = 0,
+                            Path = "/api/role/page/{pageindex}/{pagesize}",
+                            Service = "角色服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528207114240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a4a2536b-1cc6-438c-ba00-054e16fc2c7c"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1A6C9AC4F4D71B0FC154AD8CE6FE6D29",
+                            Method = 3,
+                            Path = "/api/role/{id}",
+                            Service = "角色服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528207073280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cb9f6387-5817-4fd6-b9eb-6553dcaf5e87"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8D8980AD32B8E49FB140F9DCE14B897C",
+                            Method = 0,
+                            Path = "/api/role/all",
+                            Service = "角色服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528207093760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cba739f0-9f8a-40c2-afff-d66c3382e096"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CC8DA87E574A106E9B14287FEC850037",
+                            Method = 0,
+                            Path = "/api/role/{id}",
+                            Service = "角色服务",
+                            Summary = "根据主键获取",
+                            UpdatedTime = 1306528207093760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cd7db809-50f5-4bf3-a464-89218e24077f"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "获取角色所有资源",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "011A2E3F574F9C151E044EFA80A05F29",
+                            Method = 0,
+                            Path = "/api/role/{roleid}/resource",
+                            Service = "角色服务",
+                            Summary = "获取角色所有资源",
+                            UpdatedTime = 1306528207073280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("a6db8946-339f-423e-8641-902da36d3d39"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "071E85AC46B630CFCC89C5EAF1E23F68",
+                            Method = 1,
+                            Path = "/api/user/generate-seed-data",
+                            Service = "用户服务",
+                            Summary = "生成种子数据",
+                            UpdatedTime = 1306528209653760480L
+                        },
+                        new
+                        {
+                            Id = new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "02836036DDDF7900E5F5E9762F5E4229",
+                            Method = 3,
+                            Path = "/api/user/fake-delete/{id}",
+                            Service = "用户服务",
+                            Summary = "逻辑删除",
+                            UpdatedTime = 1306528209612800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "更新用户的头像",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FEBD6097BE29268FDFDC295C98A9AD9F",
+                            Method = 2,
+                            Path = "/api/user/avatar",
+                            Service = "用户服务",
+                            Summary = "更新头像",
+                            UpdatedTime = 1306528209612800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "给用户设置角色",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A843DEF0CDD97A394996DCF7C5E80F5B",
+                            Method = 1,
+                            Path = "/api/user/{userid}/role",
+                            Service = "用户服务",
+                            Summary = "设置角色",
+                            UpdatedTime = 1306528209612800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1562071d-e18c-4d29-a854-12a562961140"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9B0AD48E75A6C37EDC7101236F93CF77",
+                            Method = 0,
+                            Path = "/api/user/all",
+                            Service = "用户服务",
+                            Summary = "查询所有",
+                            UpdatedTime = 1306528209633280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("2428c3c3-740e-45fc-9047-5a2be3c9cd70"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FBAC1FD6280B05C7EAFD6BD24F0DE077",
+                            Method = 3,
+                            Path = "/api/user/{id}",
+                            Service = "用户服务",
+                            Summary = "删除",
+                            UpdatedTime = 1306528209612800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3402d3b2-cf24-4634-a65c-534f96e2991a"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5C9E8B48C5C77A0CEB8E6A853D56A808",
+                            Method = 1,
+                            Path = "/api/user/deletes",
+                            Service = "用户服务",
+                            Summary = "批量删除",
+                            UpdatedTime = 1306528209612800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查看用户角色",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "652940681CC97C52299C95242AB1E858",
+                            Method = 0,
+                            Path = "/api/user/{userid}/roles",
+                            Service = "用户服务",
+                            Summary = "查看用户角色",
+                            UpdatedTime = 1306528209571840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("39ccceae-2cba-4cd2-a44b-fc8fe8a3f2e4"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查看用户权限",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FAA3B104E6EBF3B5F16DB92C56836A63",
+                            Method = 0,
+                            Path = "/api/user/{userid}/resources",
+                            Service = "用户服务",
+                            Summary = "查看用户权限",
+                            UpdatedTime = 1306528209592320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5FFF46E52DE5943FA225B0F6E29A338D",
+                            Method = 0,
+                            Path = "/api/user/page/{pageindex}/{pagesize}",
+                            Service = "用户服务",
+                            Summary = "分页查询",
+                            UpdatedTime = 1306528209633280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("622c1a11-7dff-4318-9d21-b57fbd1da9ba"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "718DFD76BA4C2997D3DDA216BDB98369",
+                            Method = 2,
+                            Path = "/api/user/{id}/lock/{islocked}",
+                            Service = "用户服务",
+                            Summary = "锁定",
+                            UpdatedTime = 1306528209633280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3E010DCA7BAD6C3FCCCA32FB77F050F0",
+                            Method = 1,
+                            Path = "/api/user/fake-deletes",
+                            Service = "用户服务",
+                            Summary = "批量逻辑删除",
+                            UpdatedTime = 1306528209633280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "更新用户",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8C82B0DF3A0F5EB8DFED7794B16DA9A5",
+                            Method = 2,
+                            Path = "/api/user",
+                            Service = "用户服务",
+                            Summary = "更新",
+                            UpdatedTime = 1306528209592320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "新增用户",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7CBF6D43C3F9935BF83629FCEED2FFFB",
+                            Method = 1,
+                            Path = "/api/user",
+                            Service = "用户服务",
+                            Summary = "新增",
+                            UpdatedTime = 1306528209592320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "根据主键获取用户",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "011AC4559477AB1F24A281BDC1033AAB",
+                            Method = 0,
+                            Path = "/api/user/{id}",
+                            Service = "用户服务",
+                            Summary = "根据主键获取用户",
+                            UpdatedTime = 1306528209592320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("bdab8953-956d-4b1a-945b-b1806e9ac749"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "073E6E78B3A88E41DBDC46DCA32C4837",
+                            Method = 0,
+                            Path = "/api/user/all-usable",
+                            Service = "用户服务",
+                            Summary = "查询所有可以用的",
+                            UpdatedTime = 1306528209633280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),
+                            CreatedTime = 1306528234616422880L,
+                            CreatorIdentityType = 0,
+                            Description = "搜索用户数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "04608E487B494D4597BBAD83DF59D2FF",
+                            Method = 1,
+                            Path = "/api/user/search",
+                            Service = "用户服务",
+                            Summary = "搜索",
+                            UpdatedTime = 1306528209592320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3896ea42-a5ed-4bc5-8dc5-21e0e5adb2fa"),
+                            CreatedTime = 1306528234616424928L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "88BF07EAB2CA231DE36CF2C1A2D2546D",
+                            Method = 3,
+                            Path = "/api/email-verify-code/{key}",
+                            Service = "邮件验证码服务",
+                            Summary = "移除验证码",
+                            UpdatedTime = 1306528139345920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ddeeea7e-09e3-42c1-b536-0ff16393db1c"),
+                            CreatedTime = 1306528234616424928L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E23CF3B8D86A5D0E1F13759117676687",
+                            Method = 1,
+                            Path = "/api/email-verify-code",
+                            Service = "邮件验证码服务",
+                            Summary = "获取验证码",
+                            UpdatedTime = 1306528139325440480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e466c648-4dc5-4ca4-b8f9-826c51b2a462"),
+                            CreatedTime = 1306528234616424928L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1113744E52468C0ED06582D699F77B87",
+                            Method = 1,
+                            Path = "/api/email-verify-code/verify",
+                            Service = "邮件验证码服务",
+                            Summary = "验证验证码",
+                            UpdatedTime = 1306528139366400480L
+                        },
+                        new
+                        {
+                            Id = new Guid("138283bd-f2ee-4b3b-b268-a12185264103"),
+                            CreatedTime = 1306528234616424928L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "715A826DCD331B3155650A79BE0015D8",
+                            Method = 3,
+                            Path = "/api/image-verify-code/{key}",
+                            Service = "图片验证码服务",
+                            Summary = "移除验证码",
+                            UpdatedTime = 1306528139407360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4795ae43-0d52-42f1-8aaf-fc6e6412ac1b"),
+                            CreatedTime = 1306528234616424928L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A3F388958310A592E004DDD848AB0CB7",
+                            Method = 1,
+                            Path = "/api/image-verify-code/verify",
+                            Service = "图片验证码服务",
+                            Summary = "验证验证码",
+                            UpdatedTime = 1306528139427840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d7f59d52-a931-4bec-8312-5142d4d37fda"),
+                            CreatedTime = 1306528234616424928L,
+                            CreatorIdentityType = 0,
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BA7BDB4454250C19379AD4FABE7A58B6",
+                            Method = 1,
+                            Path = "/api/image-verify-code",
+                            Service = "图片验证码服务",
+                            Summary = "获取验证码",
+                            UpdatedTime = 1306528139386880480L
                         });
                 });
 
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Resource", b =>
+            modelBuilder.Entity("Gardener.Base.Domains.Resource", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -4736,6 +4473,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
@@ -4746,25 +4486,11 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasIndex("ParentId");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Resource");
 
                     b.HasData(
-                        new
-                        {
-                            Id = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            CreatedTime = 1306051389542400000L,
-                            CreatorIdentityType = 0,
-                            Icon = "robot",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_systimer_config",
-                            Name = "任务调度",
-                            Order = 80,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_manager/systimer",
-                            Remark = "配置任务调度模式",
-                            Type = 1000
-                        },
                         new
                         {
                             Id = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
@@ -6682,10 +6408,26 @@ namespace Gardener.Api.Core.Migrations
                             Path = "",
                             Remark = "发送测试邮件",
                             Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            CreatedTime = 1306051389542400000L,
+                            CreatorIdentityType = 0,
+                            Icon = "robot",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_systimer_config",
+                            Name = "任务调度",
+                            Order = 80,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_manager/systimer",
+                            Remark = "配置任务调度模式",
+                            Type = 1000
                         });
                 });
 
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ResourceFunction", b =>
+            modelBuilder.Entity("Gardener.Base.Domains.ResourceFunction", b =>
                 {
                     b.Property<Guid>("ResourceId")
                         .HasColumnType("TEXT");
@@ -6935,12 +6677,6 @@ namespace Gardener.Api.Core.Migrations
                         {
                             ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
                             FunctionId = new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"),
-                            CreatedTime = 1306069130997760000L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            FunctionId = new Guid("7120bd2f-4491-41ac-bef3-7cd86615da14"),
                             CreatedTime = 1306069130997760000L
                         },
                         new
@@ -7506,6 +7242,822 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
                             FunctionId = new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"),
                             CreatedTime = 1306069130997760000L
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ControllerGroup")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ControllerRoute")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EntityFullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ModuleName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EntityCodeGenerationSetting");
+                });
+
+            modelBuilder.Entity("Gardener.Email.Domains.EmailServerConfig", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountPassword")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("EnableSsl")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FromEmail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Host")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Port")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailServerConfig");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1812e5c1-7bcc-4d51-9b5e-45d610357e0e"),
+                            AccountName = "888888@qq.com",
+                            AccountPassword = "123456",
+                            CreatedTime = 1306051084984320000L,
+                            CreatorIdentityType = 0,
+                            EnableSsl = false,
+                            FromEmail = "888888@qq.com",
+                            Host = "smtp.qq.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "QQ Email",
+                            Port = 25,
+                            Remark = "QQ Email",
+                            Tags = "Base,QQ"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Email.Domains.EmailTemplate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContentTemplate")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Example")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FromName")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsHtml")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubjectTemplate")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailTemplate");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("90587db9-3c8d-4ec1-80cc-ff001166fd25"),
+                            ContentTemplate = "<p>您的验证码是：<b> @Model.Code </b></p>\r\n                                  <P>时间：@(System.DateTime.Now.ToString(\"yyyy-MM-dd HH:mm:ss\"))</p>",
+                            CreatedTime = 1306051084984320000L,
+                            CreatorIdentityType = 0,
+                            Example = "{\"Code\":123}",
+                            FromName = "园丁",
+                            IsDeleted = false,
+                            IsHtml = true,
+                            IsLocked = false,
+                            Name = "验证码",
+                            Remark = "发送验证码",
+                            SubjectTemplate = "你好，请查收验证码"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("AuditOperationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DataId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperaterType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("OperationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperationType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TypeName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditOperationId");
+
+                    b.ToTable("AuditEntity");
+                });
+
+            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Method")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OperaterId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperaterType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Parameters")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ResourceName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserAgent")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditOperation");
+                });
+
+            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditProperty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AuditEntityid")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DataType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FieldName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginalValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditEntityid");
+
+                    b.ToTable("AuditProperty");
+                });
+
+            modelBuilder.Entity("Gardener.NotificationSystem.Domains.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasMaxLength(5000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FavourCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("FixTop")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OpposeCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ReplyCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcement");
+                });
+
+            modelBuilder.Entity("Gardener.SysTimer.Domains.SysTimerEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cron")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT")
+                        .HasComment("Cron表达式");
+
+                    b.Property<bool>("DoOnce")
+                        .HasColumnType("INTEGER")
+                        .HasComment("只执行一次");
+
+                    b.Property<int>("ExecutMode")
+                        .HasColumnType("INTEGER")
+                        .HasComment("执行模式");
+
+                    b.Property<int>("ExecuteType")
+                        .HasColumnType("INTEGER")
+                        .HasComment("执行类型");
+
+                    b.Property<string>("Headers")
+                        .HasColumnType("TEXT")
+                        .HasComment("Headers");
+
+                    b.Property<int>("HttpMethod")
+                        .HasColumnType("INTEGER")
+                        .HasComment("HTTP请求方式");
+
+                    b.Property<int?>("Interval")
+                        .HasColumnType("INTEGER")
+                        .HasComment("间隔时间");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT")
+                        .HasComment("任务名称");
+
+                    b.Property<string>("LocalMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasComment("本地方法");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasComment("备注");
+
+                    b.Property<string>("RequestParameters")
+                        .HasColumnType("TEXT")
+                        .HasComment("请求参数");
+
+                    b.Property<string>("RequestUrl")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasComment("请求url");
+
+                    b.Property<bool>("StartNow")
+                        .HasColumnType("INTEGER")
+                        .HasComment("立即执行");
+
+                    b.Property<int>("TimerType")
+                        .HasColumnType("INTEGER")
+                        .HasComment("定时器类型");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysTimer");
+
+                    b.HasComment("定时任务表");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = 0L,
+                            CreatorIdentityType = 0,
+                            DoOnce = false,
+                            ExecutMode = 1,
+                            ExecuteType = 1,
+                            HttpMethod = 0,
+                            Interval = 5,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            JobName = "百度api",
+                            Remark = "接口API",
+                            RequestUrl = "https://www.baidu.com",
+                            StartNow = false,
+                            TimerType = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = 0L,
+                            CreatorIdentityType = 0,
+                            DoOnce = false,
+                            ExecutMode = 1,
+                            ExecuteType = 0,
+                            HttpMethod = 0,
+                            Interval = 5,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            JobName = "测试本地定时任务DEMO",
+                            LocalMethod = "Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething",
+                            Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",
+                            StartNow = true,
+                            TimerType = 0
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Contacts")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SecretKey")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Client");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("96c0eec0-861f-4ed2-a183-5604b20bdff9"),
+                            Contacts = "园丁",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            Email = "qq@qq.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "测试client1",
+                            Remark = "用于测试",
+                            SecretKey = "9f700cec-b787-4e23-a2da-9e45b3bd6cbb",
+                            Tel = "13838888888"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
+                {
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("FunctionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ClientId", "FunctionId");
+
+                    b.HasIndex("FunctionId");
+
+                    b.ToTable("ClientFunction");
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Dept", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Contacts")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Dept");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Contacts = "老A",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "北京分部",
+                            Order = 1,
+                            Remark = "北京分部",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Contacts = "老B",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "昌平办事处",
+                            Order = 1,
+                            ParentId = 1,
+                            Remark = "昌平办事处",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Contacts = "老C",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "海淀办事处",
+                            Order = 1,
+                            ParentId = 1,
+                            Remark = "海淀办事处",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Contacts = "老D",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "河北分部",
+                            Order = 1,
+                            Remark = "河北分部",
+                            Tel = "400-8888888"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Contacts = "老E",
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "石家庄办事处",
+                            Order = 1,
+                            ParentId = 4,
+                            Remark = "石家庄办事处",
+                            Tel = "400-8888888"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Duty")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Grade")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Qualifications")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Right")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Salary")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Target")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Position");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "董事长"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = 1305892579553280000L,
+                            CreatorIdentityType = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "总经理"
                         });
                 });
 
@@ -8266,6 +8818,60 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("VerifyCodeLog");
                 });
 
+            modelBuilder.Entity("FunctionResource", b =>
+                {
+                    b.HasOne("Gardener.Base.Domains.Function", null)
+                        .WithMany()
+                        .HasForeignKey("FunctionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gardener.Base.Domains.Resource", null)
+                        .WithMany()
+                        .HasForeignKey("ResourcesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Gardener.Base.Domains.Function", b =>
+                {
+                    b.HasOne("Gardener.UserCenter.Impl.Domains.Client", null)
+                        .WithMany("Functions")
+                        .HasForeignKey("ClientId");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Domains.Resource", b =>
+                {
+                    b.HasOne("Gardener.Base.Domains.Resource", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.HasOne("Gardener.UserCenter.Impl.Domains.Role", null)
+                        .WithMany("Resources")
+                        .HasForeignKey("RoleId");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Domains.ResourceFunction", b =>
+                {
+                    b.HasOne("Gardener.Base.Domains.Function", "Function")
+                        .WithMany("ResourceFunctions")
+                        .HasForeignKey("FunctionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gardener.Base.Domains.Resource", "Resource")
+                        .WithMany("ResourceFunctions")
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Function");
+
+                    b.Navigation("Resource");
+                });
+
             modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
                 {
                     b.HasOne("Gardener.EntityFramwork.Audit.Domains.AuditOperation", null)
@@ -8292,8 +8898,8 @@ namespace Gardener.Api.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Gardener.UserCenter.Impl.Domains.Function", "Function")
-                        .WithMany("ClientFunctions")
+                    b.HasOne("Gardener.Base.Domains.Function", "Function")
+                        .WithMany()
                         .HasForeignKey("FunctionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -8312,38 +8918,10 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Resource", b =>
-                {
-                    b.HasOne("Gardener.UserCenter.Impl.Domains.Resource", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
-
-                    b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ResourceFunction", b =>
-                {
-                    b.HasOne("Gardener.UserCenter.Impl.Domains.Function", "Function")
-                        .WithMany("ResourceFunctions")
-                        .HasForeignKey("FunctionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Gardener.UserCenter.Impl.Domains.Resource", "Resource")
-                        .WithMany("ResourceFunctions")
-                        .HasForeignKey("ResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Function");
-
-                    b.Navigation("Resource");
-                });
-
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.RoleResource", b =>
                 {
-                    b.HasOne("Gardener.UserCenter.Impl.Domains.Resource", "Resource")
-                        .WithMany("RoleResources")
+                    b.HasOne("Gardener.Base.Domains.Resource", "Resource")
+                        .WithMany()
                         .HasForeignKey("ResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -8404,6 +8982,18 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Domains.Function", b =>
+                {
+                    b.Navigation("ResourceFunctions");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Domains.Resource", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("ResourceFunctions");
+                });
+
             modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
                 {
                     b.Navigation("AuditProperties");
@@ -8417,6 +9007,8 @@ namespace Gardener.Api.Core.Migrations
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
                 {
                     b.Navigation("ClientFunctions");
+
+                    b.Navigation("Functions");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Dept", b =>
@@ -8426,29 +9018,15 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Function", b =>
-                {
-                    b.Navigation("ClientFunctions");
-
-                    b.Navigation("ResourceFunctions");
-                });
-
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Position", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Resource", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("ResourceFunctions");
-
-                    b.Navigation("RoleResources");
-                });
-
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Role", b =>
                 {
+                    b.Navigation("Resources");
+
                     b.Navigation("RoleResources");
 
                     b.Navigation("UserRoles");

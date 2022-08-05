@@ -6,9 +6,9 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authorization.Dtos;
+using Gardener.Base.Domains;
 using Gardener.Cache;
 using Gardener.Enums;
-using Gardener.UserCenter.Impl.Domains;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System;

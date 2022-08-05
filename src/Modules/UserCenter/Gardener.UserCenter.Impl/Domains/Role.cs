@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
+using Gardener.Base.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -78,14 +79,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<Role> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-            entityBuilder
-                .HasMany(x => x.Resources)
-                .WithMany(x => x.Roles)
-                .UsingEntity<RoleResource>(
-                    x => x.HasOne(r => r.Resource).WithMany(r => r.RoleResources).HasForeignKey(r => r.ResourceId),
-                    x => x.HasOne(r => r.Role).WithMany(r => r.RoleResources).HasForeignKey(r => r.RoleId),
-                    x => x.HasKey(t => new { t.RoleId, t.ResourceId })
-                );
+           
         }
 
         /// <summary>

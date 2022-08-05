@@ -14,15 +14,16 @@ using System.Linq;
 using Gardener.UserCenter.Dtos;
 using Gardener.Authorization.Dtos;
 using Gardener.UserCenter.Services;
-using Gardener.UserCenter.Enums;
 using Gardener.Client.Base;
 using Microsoft.AspNetCore.Components;
 using Gardener.Client.Base.EventBus.Events;
 using Gardener.EventBus;
+using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Enums;
 
 namespace Gardener.Client.Core
 {
-    
+
     /// <summary>
     /// 身份状态管理
     /// </summary>

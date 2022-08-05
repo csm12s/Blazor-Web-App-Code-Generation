@@ -8,6 +8,7 @@ using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.EventBus;
 using Gardener.Base;
+using Gardener.Base.Domains;
 using Gardener.EventBus;
 using Gardener.UserCenter.Impl.Domains;
 using System;
@@ -35,7 +36,6 @@ namespace Gardener.UserCenter.Impl.Core.Subscribes
             IRepository<ResourceFunction> resourceFunctionRepository = Db.GetRepository<ResourceFunction>();
             IRepository<ClientFunction> clientFunctionRepository = Db.GetRepository<ClientFunction>();
             Guid id = (Guid)eventSource.Payload;
-            await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
             await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => id.Equals(x.FunctionId)));
         }
 
@@ -51,7 +51,6 @@ namespace Gardener.UserCenter.Impl.Core.Subscribes
             IRepository<ResourceFunction> resourceFunctionRepository = Db.GetRepository<ResourceFunction>();
             IRepository<ClientFunction> clientFunctionRepository = Db.GetRepository<ClientFunction>();
             IEnumerable<Guid> ids = (IEnumerable<Guid>)eventSource.Payload;
-            await resourceFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
             await clientFunctionRepository.DeleteNowAsync(resourceFunctionRepository.Where(x => ids.Contains(x.FunctionId)));
         }
 

@@ -1,11 +1,9 @@
 using Furion.DatabaseAccessor;
-using Furion.TaskScheduler;
-using Gardener.SysTimer.Domains;
-using Gardener.UserCenter.Impl.Domains;
-using Gardener.UserCenter.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using Gardener.SystemManager.Enums;
+using Gardener.Base.Domains;
 
 namespace Gardener.SysTimer
 {

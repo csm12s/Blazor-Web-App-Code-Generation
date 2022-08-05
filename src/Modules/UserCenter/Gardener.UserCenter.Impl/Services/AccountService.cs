@@ -24,11 +24,13 @@ using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.UserCenter.Dtos;
-using Gardener.UserCenter.Enums;
 using Gardener.UserCenter.Impl.Domains;
 using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Impl.Core;
 using Gardener.VerifyCode.Core;
+using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Enums;
+using Gardener.Base.Domains;
 
 namespace Gardener.UserCenter.Impl.Services
 {

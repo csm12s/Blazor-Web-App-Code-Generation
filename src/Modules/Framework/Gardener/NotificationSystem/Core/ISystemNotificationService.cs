@@ -4,9 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Authentication.Dtos;
 using Gardener.NotificationSystem.Dtos;
-using Gardener.NotificationSystem.Enums;
 using System.Threading.Tasks;
 
 namespace Gardener.NotificationSystem.Core

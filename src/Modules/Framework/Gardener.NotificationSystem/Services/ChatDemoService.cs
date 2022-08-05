@@ -6,6 +6,7 @@
 
 using Furion.DynamicApiController;
 using Gardener.NotificationSystem.Dtos.Notification;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Concurrent;
 
 namespace Gardener.NotificationSystem.Services
@@ -13,6 +14,7 @@ namespace Gardener.NotificationSystem.Services
     /// <summary>
     /// 聊天示例服务
     /// </summary>
+    [ApiDescriptionSettings("Demos")]
     public class ChatDemoService : IChatDemoService, IDynamicApiController
     {
         private static ConcurrentQueue<ChatDemoNotificationData > concurrentQueue=new ConcurrentQueue<ChatDemoNotificationData >();
@@ -28,7 +30,7 @@ namespace Gardener.NotificationSystem.Services
             return Task.FromResult(datas);
         }
         /// <summary>
-        /// 
+        /// 添加一条消息通知到临时队列
         /// </summary>
         /// <param name="data"></param>
         public static void AddChatMessage(ChatDemoNotificationData  data)

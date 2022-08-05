@@ -21,7 +21,7 @@ namespace Gardener.Authentication.Services
     /// <summary>
     /// 用户登录TOKEN服务
     /// </summary>
-    [ApiDescriptionSettings("UserCenterServices")]
+    [ApiDescriptionSettings("SystemBaseServices")]
     public class LoginTokenService : ServiceBase<LoginToken, LoginTokenDto, Guid>, ILoginTokenService
     {
         private readonly IRepository<LoginToken> _loginTokenRepository;

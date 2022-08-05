@@ -6,7 +6,6 @@
 
 using Gardener.SysTimer.Enums;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.SysTimer.Dtos
 {

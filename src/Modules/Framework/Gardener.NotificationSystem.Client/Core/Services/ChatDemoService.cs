@@ -7,11 +7,6 @@
 using Gardener.Client.Base;
 using Gardener.NotificationSystem.Dtos.Notification;
 using Gardener.NotificationSystem.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.NotificationSystem.Client.Core.Services
 {

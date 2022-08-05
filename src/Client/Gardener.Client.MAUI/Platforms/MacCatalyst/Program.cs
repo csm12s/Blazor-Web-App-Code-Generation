@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using ObjCRuntime;
 using UIKit;
 
 namespace Gardener.Client.MAUI

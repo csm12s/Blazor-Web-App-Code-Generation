@@ -6,9 +6,7 @@
 
 using Gardener.Client.Base;
 using Gardener.Email.Dtos;
-using Gardener.Email.Enums;
 using System;
-using System.Collections.Generic;
 
 namespace Gardener.Email.Client.Pages
 {

@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
-
 namespace Gardener.EntityFramwork.Event
 {
     /// <summary>

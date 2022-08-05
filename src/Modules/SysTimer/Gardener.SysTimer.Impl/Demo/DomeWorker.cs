@@ -8,13 +8,11 @@ using Furion;
 using Furion.RemoteRequest.Extensions;
 using Furion.TaskScheduler;
 using Gardener.EventBus;
-using Gardener.NotificationSystem.Core;
 using Gardener.NotificationSystem.Dtos.Notification;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Impl.Demo

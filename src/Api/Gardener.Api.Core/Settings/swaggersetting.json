@@ -53,6 +53,23 @@
           "Name": "Apache-2.0",
           "Url": "https://gitee.com/hgflydream"
         }
+      },
+      {
+        "Order": 0,
+        "Group": "Demos",
+        "Title": "示例服务",
+        "Description": "各种示例服务",
+        "Version": "1.0.0",
+        "TermsOfService": "https://gitee.com/hgflydream",
+        "Contact": {
+          "Name": "hhf",
+          "Url": "https://gitee.com/hgflydream",
+          "Email": "326794739@qq.com"
+        },
+        "License": {
+          "Name": "Apache-2.0",
+          "Url": "https://gitee.com/hgflydream"
+        }
       }
     ],
     "EnableAuthorized": true,

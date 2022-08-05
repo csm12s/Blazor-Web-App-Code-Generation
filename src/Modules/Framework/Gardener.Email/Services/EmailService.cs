@@ -6,7 +6,6 @@
 
 using Furion.ClayObject;
 using Furion.DatabaseAccessor;
-using Furion.DataValidation;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Furion.FriendlyException;

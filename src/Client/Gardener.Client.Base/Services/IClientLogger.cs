@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
 {

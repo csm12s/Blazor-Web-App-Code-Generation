@@ -4,12 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.EventBus;
-using Gardener.Base;
 using Gardener.EventBus;
-using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Dtos.Notification;
 using Gardener.NotificationSystem.Enums;
 using Gardener.NotificationSystem.Services;

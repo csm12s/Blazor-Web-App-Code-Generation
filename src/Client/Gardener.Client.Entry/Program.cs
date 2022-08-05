@@ -12,7 +12,6 @@ using AntDesign.ProLayout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
-using Gardener.NotificationSystem.Client;
 
 namespace Gardener.Client.Entry
 {

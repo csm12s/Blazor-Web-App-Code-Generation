@@ -21,12 +21,10 @@ using Microsoft.EntityFrameworkCore;
 using Furion.JsonSerialization;
 using Furion.RemoteRequest.Extensions;
 using Furion.DependencyInjection;
-using Microsoft.AspNetCore.Authorization;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Domains;
 using Gardener.Enums;
 using ExceptionCode = Gardener.SysTimer.Enums.ExceptionCode;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Gardener.SysTimer.Services
 {

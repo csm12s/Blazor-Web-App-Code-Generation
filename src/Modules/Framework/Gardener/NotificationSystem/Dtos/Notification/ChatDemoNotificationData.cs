@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.NotificationSystem.Enums;
-using System;
 
 namespace Gardener.NotificationSystem.Dtos.Notification
 {

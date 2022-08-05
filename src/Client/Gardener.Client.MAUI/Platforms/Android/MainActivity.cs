@@ -6,7 +6,6 @@
 
 using Android.App;
 using Android.Content.PM;
-using Android.OS;
 
 namespace Gardener.Client.MAUI
 {

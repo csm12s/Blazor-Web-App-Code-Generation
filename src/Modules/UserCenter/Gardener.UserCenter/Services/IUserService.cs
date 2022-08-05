@@ -8,6 +8,7 @@ using Gardener.UserCenter.Dtos;
 using Gardener.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gardener.SystemManager.Dtos;
 
 namespace Gardener.UserCenter.Services
 {
