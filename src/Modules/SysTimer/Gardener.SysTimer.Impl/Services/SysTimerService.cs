@@ -66,7 +66,7 @@ namespace Gardener.SysTimer.Services
                 {
                     u.TimerStatus = (TimerStatus)timer.Status;
                     u.RunNumber = timer.Tally;
-                    u.Exception = JSON.Serialize(timer.Exception);
+                    u.Exception = timer.Exception.Values.LastOrDefault()?.Message;
                 }
                 lst.Add(u);
             });
@@ -94,7 +94,7 @@ namespace Gardener.SysTimer.Services
                         throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
                     data.TimerStatus = (TimerStatus)worker.Status;
                     data.RunNumber = worker.Tally;
-                    data.Exception = JSON.Serialize(worker.Exception);
+                    data.Exception = worker.Exception.Values.LastOrDefault()?.Message;
                 }
             }
             return data;
@@ -118,7 +118,7 @@ namespace Gardener.SysTimer.Services
                 {
                     u.TimerStatus = (TimerStatus)timer.Status;
                     u.RunNumber = timer.Tally;
-                    u.Exception = JSON.Serialize(timer.Exception);
+                    u.Exception = timer.Exception.Values.LastOrDefault()?.Message;
                 }
                 lst.Add(u);
             });
