@@ -13,6 +13,7 @@ using Gardener.Authorization.Core;
 using Microsoft.AspNetCore.Http;
 using Gardener.NotificationSystem;
 using Gardener.Common.JsonConverters;
+using Furion.Logging;
 
 namespace Gardener.Admin
 {
@@ -75,6 +76,10 @@ namespace Gardener.Admin
             services.AddSystemNotify();
             //文件日志
             services.AddFileLogging();
+            //默认读取 Logging:Monitor 下配置
+            services.AddMonitorLogging();
+            //全局启用 LoggingMonitor
+            services.AddMvcFilter<LoggingMonitorAttribute>();
 
         }
         /// <summary>
@@ -88,6 +93,7 @@ namespace Gardener.Admin
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseHttpLogging();
 
             app.UseHttpsRedirection();
             //启用EnableBuffering 解决Request body获取不到

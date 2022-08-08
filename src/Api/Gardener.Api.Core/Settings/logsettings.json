@@ -1,5 +1,11 @@
 {
   "Logging": {
+    "Monitor": {
+      "GlobalEnabled": true,
+      "IncludeOfMethods": [],
+      "ExcludeOfMethods": [],
+      "BahLogLevel": "Information"
+    },
     "Console": {
       "IncludeScopes": true,
       "LogLevel": {
