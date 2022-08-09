@@ -128,5 +128,17 @@ namespace Gardener.Cache
         /// <param name="absoluteExpiration"></param>
         /// <returns></returns>
         Task SetAsync<T>(string key, T value, TimeSpan absoluteExpiration);
+        /// <summary>
+        /// 判断是否存在
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        bool Exists(string key);
+        /// <summary>
+        /// 判断是否存在
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Task<bool> ExistsAsync(string key);
     }
 }
