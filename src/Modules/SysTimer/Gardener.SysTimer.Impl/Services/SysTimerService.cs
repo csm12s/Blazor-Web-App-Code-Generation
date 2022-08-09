@@ -273,7 +273,7 @@ namespace Gardener.SysTimer.Services
         /// </summary>
         /// <param name="myinput"></param>
         [NonAction]
-        public void AddTimerJob(SysTimerDto myinput)
+        public async void AddTimerJob(SysTimerDto myinput)
         {
             var input = myinput.Adapt<SysTimerEntity>();
             Action<SpareTimer, long> action = null;
@@ -343,14 +343,14 @@ namespace Gardener.SysTimer.Services
             if (input.ExecuteType == ExecuteType.LOCAL)
             {
                 var jobParametersName = $"{input.JobName}_Parameters";
-                var jobParameters = _cache.Exists<object>(jobParametersName);
+                var jobParameters = await _cache.ExistsAsync(jobParametersName);
                 var requestParametersIsNull = string.IsNullOrEmpty(input.RequestParameters);
 
                 // 如果没有任务配置却又存在缓存，则删除缓存
                 if (requestParametersIsNull && jobParameters)
-                    _cache.RemoveAsync(jobParametersName);
+                    await _cache.RemoveAsync(jobParametersName);
                 else if (!requestParametersIsNull)
-                    _cache.SetAsync(jobParametersName, JSON.Deserialize<Dictionary<string, string>>(input.RequestParameters));
+                    await _cache.SetAsync(jobParametersName, JSON.Deserialize<Dictionary<string, string>>(input.RequestParameters));
             }
             SpareTimeExecuteTypes mode = ExecutMode.Scceeding.Equals(input.ExecutMode) ? SpareTimeExecuteTypes.Serial : SpareTimeExecuteTypes.Parallel;
 
@@ -374,9 +374,9 @@ namespace Gardener.SysTimer.Services
         /// 启动自启动任务
         /// </summary>
         [NonAction]
-        public void StartTimerJob()
+        public async void StartTimerJob()
         {
-            var sysTimerList = _repository.DetachedEntities.Where(t => t.StartNow).ProjectToType<SysTimerDto>().ToList();
+            var sysTimerList = await _repository.DetachedEntities.Where(t => t.StartNow).ProjectToType<SysTimerDto>().ToListAsync();
             sysTimerList.ForEach(AddTimerJob);
         }
 

@@ -267,5 +267,27 @@ namespace Gardener.Cache
         {
             await _cache.RefreshAsync(key);
         }
+        /// <summary>
+        /// 判断是否存在
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool Exists(string key)
+        {
+            var data = _cache.Get(key);
+            return data == null || data.Length == 0 ? false : true;
+        }
+        /// <summary>
+        /// 判断是否存在
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> ExistsAsync(string key)
+        {
+            var data = await _cache.GetAsync(key);
+            return data == null || data.Length == 0 ? false : true;
+        }
     }
 }
