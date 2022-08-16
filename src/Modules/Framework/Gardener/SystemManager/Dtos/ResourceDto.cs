@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
-using Gardener.SystemManager.Enums;
+using Gardener.Base.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +25,7 @@ namespace Gardener.SystemManager.Dtos
         [DisplayName("名称")]
         public string Name { get; set; }
         /// <summary>
-        /// 唯一键key
+        /// 唯一键
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("唯一键")]
@@ -68,11 +68,5 @@ namespace Gardener.SystemManager.Dtos
         [Required, DefaultValue(ResourceType.Menu)]
         [DisplayName("类型")]
         public ResourceType Type { get; set; }
-        
-
-        /// <summary>
-        /// 启用审计
-        /// </summary>
-        public bool EnableAudit { get; set; } = false;
     }
 }

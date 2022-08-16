@@ -13,12 +13,12 @@
            Loading="@_tableIsLoading"
            Context="model">
         <TitleTemplate>
-            <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+            <ResourceAuthorize ResourceKey="system_manager_timer_refresh">
                 <TableSearch TDto="SysTimerDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
-                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                    <ResourceAuthorize ResourceKey="system_manager_timer_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                             @localizer["删除选中"]
                         </Button>
@@ -26,14 +26,14 @@
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
-                        <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                        <ResourceAuthorize ResourceKey="system_manager_timer_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
                                     @localizer["添加"]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
-                        <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                        <ResourceAuthorize ResourceKey="system_manager_timer_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                     @localizer["刷新"]
@@ -45,7 +45,7 @@
             </Row>
         </TitleTemplate>
         <RowTemplate>
-            <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+            <ResourceAuthorize ResourceKey="system_manager_timer_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
             <Column @bind-Field="@model.JobName" Filterable />
@@ -75,18 +75,23 @@
             <Column @bind-Field="@model.RunNumber" Filterable />
             <Column @bind-Field="@model.Remark" Filterable />
             <Column @bind-Field="@model.StartNow" Filterable>
-                <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                <ResourceAuthorize ResourceKey="system_manager_timer_start">
+                    <Authorized>
+                        @if (!TimerStatus.Running.Equals(model.TimerStatus))
+                        {
+                            <Tooltip Title="@(localizer["开启"])" ArrowPointAtCenter="true">
+                                <Button Icon="play-circle" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
+                            </Tooltip>
+                        }
+                    </Authorized>
+                </ResourceAuthorize>
+
+                <ResourceAuthorize ResourceKey="system_manager_timer_stop">
                     <Authorized>
                         @if (TimerStatus.Running.Equals(model.TimerStatus))
                         {
                             <Tooltip Title="@(localizer["关闭"])" ArrowPointAtCenter="true">
                                 <Button Icon="pause-circle" Danger Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
-                            </Tooltip>
-                        }
-                        else
-                        {
-                            <Tooltip Title="@(localizer["开启"])" ArrowPointAtCenter="true">
-                                <Button Icon="play-circle" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
                             </Tooltip>
                         }
                     </Authorized>
@@ -95,21 +100,21 @@
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
             <ActionColumn>
                 <Space>
-                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                    <ResourceAuthorize ResourceKey="system_manager_timer_edit">
                         <SpaceItem>
                             <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
-                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                    <ResourceAuthorize ResourceKey="system_manager_timer_detail">
                         <SpaceItem>
                             <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
-                    <ResourceAuthorize ResourceKey="system_manager_systimer_config">
+                    <ResourceAuthorize ResourceKey="system_manager_timer_delete">
                         <SpaceItem>
                             <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>

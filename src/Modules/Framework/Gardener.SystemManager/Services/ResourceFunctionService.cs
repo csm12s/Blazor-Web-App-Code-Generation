@@ -9,9 +9,9 @@ using Furion.DynamicApiController;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
 using Gardener.SystemManager.Dtos;
 using Gardener.Base.Domains;
+using Gardener.Common;
 
 namespace Gardener.SystemManager.Services
 {
@@ -62,24 +62,20 @@ namespace Gardener.SystemManager.Services
 
             return true;
         }
+
         /// <summary>
         /// 获取种子数据
         /// </summary>
+        /// <param name="resourceIds"></param>
         /// <returns></returns>
-        public async Task<string> GetSeedData()
+        [HttpPost]
+        public async Task<string> GetSeedData([FromBody] List<Guid> resourceIds)
         {
-            List<ResourceFunction> list = await _resourceFunctionRespository.AsQueryable(false).ToListAsync();
-            StringBuilder sb = new StringBuilder();
-            foreach (var item in list)
-            {
-                sb.Append($"\r\n new {nameof(ResourceFunction)}()");
-                sb.Append("{");
-                sb.Append($"{nameof(ResourceFunction.ResourceId)} = Guid.Parse(\"{item.ResourceId}\"),");
-                sb.Append($"{nameof(ResourceFunction.FunctionId)} = Guid.Parse(\"{item.FunctionId}\"),");
-                sb.Append($"{nameof(ResourceFunction.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.Now.ToUnixTimeSeconds()})");
-                sb.Append("},");
+            if (resourceIds == null) { 
+                resourceIds=new List<Guid>(0);
             }
-            return sb.ToString().TrimEnd(',');
+            List<ResourceFunction> list = await _resourceFunctionRespository.Where(x=> resourceIds.Any(r=>r.Equals(x.ResourceId))).OrderBy(x=>x.ResourceId).ToListAsync();
+            return SeedDataGenerateTool.Generate(list,typeof(ResourceFunction).Name);
         }
     }
 }

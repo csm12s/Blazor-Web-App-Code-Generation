@@ -37,11 +37,6 @@ namespace Gardener.SystemManager.Client.Services
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/root");
         }
 
-        public async Task<string> GetSeedData()
-        {
-            return await apiCaller.GetAsync<string>($"{controller}/seed-data");
-        }
-
         public async Task<List<ResourceDto>> GetTree(string rootKey=null)
         {
             IDictionary<string, object> queryString=new Dictionary<string, object>();

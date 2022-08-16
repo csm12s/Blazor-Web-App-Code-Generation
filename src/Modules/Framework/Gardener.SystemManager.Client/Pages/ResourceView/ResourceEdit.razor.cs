@@ -4,10 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Enums;
 using Gardener.Client.Base;
 using Gardener.Common;
 using Gardener.SystemManager.Dtos;
-using Gardener.SystemManager.Enums;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
 

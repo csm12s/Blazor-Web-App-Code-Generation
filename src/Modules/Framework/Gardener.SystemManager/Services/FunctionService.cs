@@ -80,37 +80,5 @@ namespace Gardener.SystemManager.Services
             Function function= await _repository.Where(x => x.Key.Equals(key), tracking: false).FirstOrDefaultAsync();
             return function?.Adapt<FunctionDto>();
         }
-
-
-        /// <summary>
-        /// 获取种子数据
-        /// </summary>
-        /// <remarks>
-        /// 获取种子数据
-        /// </remarks>
-        /// <returns></returns>
-        public async Task<string> GetSeedData()
-        {
-            List<Function> list = await _repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false).ToListAsync();
-            StringBuilder sb = new StringBuilder();
-            foreach (var item in list)
-            {
-                sb.Append($"\r\n new {nameof(Function)}()");
-                sb.Append("{");
-                sb.Append($"{nameof(Function.Id)} = Guid.Parse(\"{item.Id}\"),");
-                sb.Append($"{nameof(Function.EnableAudit)}={item.EnableAudit.ToString().ToLower()},");
-                sb.Append($"{nameof(Function.Group)}=\"{item.Group}\",");
-                sb.Append($"{nameof(Function.Service)}=\"{item.Service}\",");
-                sb.Append($"{nameof(Function.Summary)}=\"{item.Summary}\",");
-                sb.Append($"{nameof(Function.Key)}=\"{item.Key}\",");
-                sb.Append($"{nameof(Function.Description)}=\"{item.Description}\",");
-                sb.Append($"{nameof(Function.Path)}=\"{item.Path}\",");
-                sb.Append($"{nameof(Function.Method)}=({nameof(HttpMethod)}){(int)item.Method},");
-                sb.Append($"{nameof(Function.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.Now.ToUnixTimeSeconds()})");
-                sb.Append("},");
-            }
-            return sb.ToString().TrimEnd(',');
-        }
-
     }
 }

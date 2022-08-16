@@ -37,11 +37,6 @@ namespace Gardener.SystemManager.Services
         /// <returns></returns>
         Task<List<ResourceDto>> GetTree(string rootKey = null);
         
-        /// <summary>
-        /// 获取资源的种子数据
-        /// </summary>
-        /// <returns></returns>
-        Task<String> GetSeedData();
 
         /// <summary>
         /// 根据资源id获取

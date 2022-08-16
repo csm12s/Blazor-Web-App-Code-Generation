@@ -12,8 +12,8 @@ using Gardener.Enums;
 using Furion.FriendlyException;
 using System.Text;
 using Gardener.SystemManager.Dtos;
-using Gardener.SystemManager.Enums;
 using Gardener.Base.Domains;
+using Gardener.Base.Enums;
 
 namespace Gardener.SystemManager.Services
 {
@@ -69,41 +69,6 @@ namespace Gardener.SystemManager.Services
                 .Where(x => x.IsDeleted == false)
                 .Select(x => x.Adapt<ResourceDto>()).ToListAsync();
             return resources;
-        }
-
-        /// <summary>
-        /// 获取种子数据
-        /// </summary>
-        /// <remarks>
-        /// 获取种子数据
-        /// </remarks>
-        /// <returns></returns>
-        public async Task<string> GetSeedData()
-        {
-            List<Resource> resources = await _resourceRepository.AsQueryable(false).Where(x => x.IsDeleted == false).ToListAsync();
-            StringBuilder sb = new StringBuilder();
-            foreach (var resource in resources)
-            {
-                sb.Append($"\r\n new {nameof(Resource)}()");
-                sb.Append("{");
-                sb.Append($"{nameof(Resource.Id)}=Guid.Parse(\"{resource.Id}\"),");
-                if (resource.ParentId != null && resource.ParentId != Guid.Empty)
-                {
-                    sb.Append($"{nameof(Resource.ParentId)}=Guid.Parse(\"{resource.ParentId}\"),");
-                }
-                sb.Append($"{nameof(Resource.Name)}=\"{resource.Name}\",");
-                sb.Append($"{nameof(Resource.Icon)}=\"{resource.Icon}\",");
-                sb.Append($"{nameof(Resource.Remark)}=\"{resource.Remark}\",");
-                sb.Append($"{nameof(Resource.Key)}=\"{resource.Key}\",");
-                sb.Append($"{nameof(Resource.Path)}=\"{resource.Path}\",");
-                sb.Append($"{nameof(Resource.CreatedTime)}=DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.Now.ToUnixTimeSeconds()}),");
-                sb.Append($"{nameof(Resource.IsDeleted)}={resource.IsDeleted.ToString().ToLower()},");
-                sb.Append($"{nameof(Resource.IsLocked)}={resource.IsLocked.ToString().ToLower()},");
-                sb.Append($"{nameof(Resource.Type)}=(ResourceType){((int)resource.Type)},");
-                sb.Append($"{nameof(Resource.Order)}={resource.Order}");
-                sb.Append("},");
-            }
-            return sb.ToString().TrimEnd(',');
         }
 
         /// <summary>

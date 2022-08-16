@@ -25,7 +25,7 @@ namespace Gardener.SystemManager.Client.Services
 
         public async Task<bool> Add(List<ResourceFunctionDto> resourceFunctionDtos)
         {
-            return await apiCaller.PostAsync<List<ResourceFunctionDto>,bool>($"{controller}", resourceFunctionDtos);
+            return await apiCaller.PostAsync<List<ResourceFunctionDto>, bool>($"{controller}", resourceFunctionDtos);
         }
 
         public async Task<bool> Delete(Guid resourceId, Guid functionId)
@@ -33,9 +33,9 @@ namespace Gardener.SystemManager.Client.Services
             return await apiCaller.DeleteAsync<bool>($"{controller}/{resourceId}/{functionId}");
         }
 
-        public async Task<string> GetSeedData()
+        public async Task<string> GetSeedData(List<Guid> resourceIds)
         {
-            return await apiCaller.GetAsync<string>($"{controller}/seed-data");
+            return await apiCaller.PostAsync<List<Guid>, string>($"{controller}/seed-data", resourceIds);
         }
     }
 }

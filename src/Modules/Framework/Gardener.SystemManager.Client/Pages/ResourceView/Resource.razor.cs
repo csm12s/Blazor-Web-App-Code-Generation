@@ -4,15 +4,18 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Model;
+using Gardener.Common;
+using Gardener.Enums;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
-    public partial class Resource : TreeTableBase<ResourceDto,Guid,ResourceEdit>
+    public partial class Resource : TreeTableBase<ResourceDto, Guid, ResourceEdit>
     {
 
         protected override DrawerSettings GetDrawerSettings()
@@ -35,31 +38,63 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private async Task OnShowFunctionClick(ResourceDto model)
         {
             var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                      new ResourceFunctionEditOption { Id=model.Id,Type=0,Name=model.Name},
+                      new ResourceFunctionEditOption { Resource = model, Type = 0, Name = model.Name },
                       true,
                       title: $"{localizer["绑定接口"]}-[{model.Name}]",
                       width: 1200,
                       placement: "right");
         }
+
         /// <summary>
-        /// 导出
+        /// 下载种子数据
         /// </summary>
         /// <returns></returns>
-        private async Task OnDownloadClick()
+        private async Task OnDownloadSeedDataClick(ResourceDto dto)
         {
-            var result = await drawerService.CreateDialogAsync<ResourceDownload, string, bool>(
-                      string.Empty,
+
+            //找到所有编号
+            List<Guid> resourceIds = new List<Guid>() 
+            {
+                dto.Id
+            };
+            resourceIds.AddRange(TreeTools.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
+
+            string data = await serviceBase.GenerateSeedData(new PageRequest()
+            {
+                PageIndex = 1,
+                PageSize = int.MaxValue,
+                FilterGroups = new List<FilterGroup>()
+                {
+                   new FilterGroup().AddRule(new FilterRule()
+                   {
+                        Field=nameof(ResourceDto.Id),
+                        Operate=FilterOperate.In,
+                        Value=resourceIds
+                   })
+
+                },
+                OrderConditions=new List<ListSortDirection>() 
+                {
+                    new ListSortDirection()
+                    {
+                        FieldName=nameof(ResourceDto.Key),
+                        SortType=ListSortType.Asc
+                    }
+                }
+            });
+
+            var result = await drawerService.CreateDialogAsync<ShowSeedDataCode, string, bool>(
+                        data,
                        true,
                        title: localizer["种子数据"],
                        width: 1300,
                        placement: "right");
         }
 
-
         protected override async Task<List<ResourceDto>> GetTree()
         {
             return await resourceService.GetTree();
-            
+
         }
 
 
@@ -76,7 +111,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
         protected override Guid GetParentKey(ResourceDto dto)
         {
-            return dto.ParentId.HasValue? dto.ParentId.Value:Guid.Empty;
+            return dto.ParentId.HasValue ? dto.ParentId.Value : Guid.Empty;
         }
 
         protected override ICollection<ResourceDto> SortChildren(ICollection<ResourceDto> children)

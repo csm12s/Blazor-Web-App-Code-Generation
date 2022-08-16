@@ -35,13 +35,6 @@
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
-                        <ResourceAuthorize ResourceKey="system_manager_resource_download_seed_data">
-                            <SpaceItem>
-                                <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadClick">
-                                    @localizer["种子数据"]
-                                </Button>
-                            </SpaceItem>
-                        </ResourceAuthorize>
                     </Space>
                 </AntDesign.Col>
             </Row>
@@ -62,7 +55,7 @@
             <Column @bind-Field="@model.Type" Width="5%">
                 <TagRandomColor Text="@(EnumHelper.GetEnumDescription(model.Type))"></TagRandomColor>
             </Column>
-            <Column @bind-Field="@model.Order" Width="5%" />
+            <Column @bind-Field="@model.Key" Width="5%" />
             <Column @bind-Field="@model.IsLocked" Width="10%">
                 <ResourceAuthorize ResourceKey="system_manager_resource_lock">
                     <Authorized>
@@ -84,6 +77,13 @@
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey="system_manager_resource_download_seed_data">
+                        <SpaceItem>
+                            <Tooltip Title="@(localizer["种子数据"])" ArrowPointAtCenter="true">
+                                <Button Icon="download" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnDownloadSeedDataClick(model)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
                     @if (!model.Type.Equals(ResourceType.Root))
                     {
                         <ResourceAuthorize ResourceKey="system_manager_resource_edit">
@@ -93,7 +93,6 @@
                                 </Tooltip>
                             </SpaceItem>
                         </ResourceAuthorize>
-
                         <ResourceAuthorize ResourceKey="system_manager_resource_show_function">
                             <SpaceItem>
                                 <Tooltip Title="@(localizer["绑定接口"])" ArrowPointAtCenter="true">

@@ -20,7 +20,6 @@ using System.Linq.Expressions;
 using Gardener.Base;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Reflection;
 using System.Text;
 
 namespace Gardener
@@ -316,107 +315,20 @@ namespace Gardener
         /// </remarks>
         public virtual async Task<string> GenerateSeedData(PageRequest request)
         {
-            var result = await this.Search(request);
-            if (result.TotalCount == 0)
+            IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
+            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
-                return string.Empty;
+                FilterGroup defaultFilterGroup = new FilterGroup();
+                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
+                request.FilterGroups.Add(defaultFilterGroup);
             }
-            string entityName = typeof(TEntity).Name;
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("/// <summary>");
-            sb.AppendLine("/// 种子数据");
-            sb.AppendLine("/// </summary>");
-            sb.AppendLine($"public class {entityName}SeedData : IEntitySeedData<{entityName}>");
-            sb.AppendLine("{");
-            sb.AppendLine("     /// <summary>");
-            sb.AppendLine("     /// 种子数据");
-            sb.AppendLine("     /// </summary>");
-            sb.AppendLine("     /// <param name=\"dbContext\"></param>");
-            sb.AppendLine("     /// <param name=\"dbContextLocator\"></param>");
-            sb.AppendLine("     /// <returns></returns>");
-            sb.AppendLine($"    public IEnumerable<{entityName}> HasData(DbContext dbContext, Type dbContextLocator)");
-            sb.AppendLine("     {");
-            sb.AppendLine("         return new[]{");
+            Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
-            foreach (var item in result.Items)
-            {
-                Type type = item.GetType();
-                PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                sb.Append($"                new {entityName}()");
-                sb.Append(" {");
-                foreach (PropertyInfo property in properties)
-                {
-                    string propertyName= property.Name;
-                    var propertyType = property.PropertyType.GetUnNullableType();
-                    Object value = item.GetPropertyValue(propertyName);
-                    if (value == null)
-                    {
-                        continue;
-                    }
-
-                    if (propertyType.Equals(typeof(string)) || propertyType.Equals(typeof(char)))
-                    {
-                        sb.Append($"{propertyName}=\"{value}\"");
-                    }
-                    else if (propertyType.Equals(typeof(Guid)))
-                    {
-                        sb.Append($"{propertyName}=Guid.Parse(\"{value}\")");
-                    }
-                    else if (propertyType.Equals(typeof(short))
-                       || propertyType.Equals(typeof(int))
-                       || propertyType.Equals(typeof(long))
-                       || propertyType.Equals(typeof(float))
-                       || propertyType.Equals(typeof(double))
-                       || propertyType.Equals(typeof(decimal))
-                       || propertyType.Equals(typeof(byte))
-                       || propertyType.Equals(typeof(bool))
-                       )
-                    {
-                        sb.Append($"{propertyName}={value.ToString().ToLower()}");
-                    }
-                    else if (propertyType.Equals(typeof(DateTime)))
-                    {
-                        if (propertyName.Equals(nameof(GardenerEntityBase.CreatedTime)))
-                        {
-                            sb.Append($"{propertyName}=DateTime.Now");
-                        }
-                        else
-                        {
-                            DateTime time = (DateTime)value;
-                            sb.Append($"{propertyName}=DateTime.Parse(\"{time.ToString("yyyy-MM-dd HH:mm:ss")}\")");
-                        }
-                    }
-                    else if (propertyType.Equals(typeof(DateTimeOffset)))
-                    {
-                        if (propertyName.Equals(nameof(GardenerEntityBase.CreatedTime)))
-                        {
-                            sb.Append($"{propertyName}=DateTimeOffset.Now");
-                        }
-                        else
-                        {
-                            DateTimeOffset time = (DateTimeOffset)value;
-                            sb.Append($"{propertyName}=DateTimeOffset.Parse(\"{time.ToString("yyyy-MM-dd HH:mm:ss")}\")");
-                        }
-                    }
-                    else if (propertyType.IsEnum)
-                    {
-                        sb.Append($"{propertyName}=Enum.Parse<{propertyType.Name}>(\"{value.ToString()}\")");
-                    }
-                    else 
-                    {
-                        continue;
-                    }
-                    sb.Append(",");
-
-                }
-                sb.Append("}");
-                sb.Append(",");
-                sb.AppendLine("");
-            }
-            sb.AppendLine("         };");
-            sb.AppendLine("     }");
-            sb.AppendLine("}");
-            return sb.ToString();
+            IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
+            var result= await queryable
+                .OrderConditions(request.OrderConditions.ToArray())
+                .ToPageAsync(request.PageIndex, request.PageSize);
+            return SeedDataGenerateTool.Generate(result.Items,typeof(TEntity).Name);
         }
     }
 

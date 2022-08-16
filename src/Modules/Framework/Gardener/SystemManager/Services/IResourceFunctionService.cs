@@ -40,6 +40,6 @@ namespace Gardener.SystemManager.Services
         /// 获取种子数据
         /// </remarks>
         /// <returns></returns>
-        Task<string> GetSeedData();
+        Task<string> GetSeedData(List<Guid> resourceIds);
     }
 }

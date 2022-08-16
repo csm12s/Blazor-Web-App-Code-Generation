@@ -29,8 +29,15 @@
                                 <Space>
                                     <ResourceAuthorize ResourceKey="system_manager_resource_function_add_page_show">
                                         <SpaceItem>
-                                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Id)">
+                                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Resource)">
                                                 @localizer["选择"]
+                                            </Button>
+                                        </SpaceItem>
+                                    </ResourceAuthorize>
+                                    <ResourceAuthorize ResourceKey="system_manager_resource_function_download_seed_data">
+                                        <SpaceItem>
+                                            <Button Icon="download" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnDownloadSeedDataClick(this.Options.Resource)">
+                                                @localizer["种子数据"]
                                             </Button>
                                         </SpaceItem>
                                     </ResourceAuthorize>

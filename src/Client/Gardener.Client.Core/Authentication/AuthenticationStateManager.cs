@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Components;
 using Gardener.Client.Base.EventBus.Events;
 using Gardener.EventBus;
 using Gardener.SystemManager.Dtos;
-using Gardener.SystemManager.Enums;
+using Gardener.Base.Enums;
 
 namespace Gardener.Client.Core
 {

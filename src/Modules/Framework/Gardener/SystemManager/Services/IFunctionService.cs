@@ -46,14 +46,5 @@ namespace Gardener.SystemManager.Services
         /// <returns></returns>
         Task<FunctionDto> GetByKey(string key);
 
-        /// <summary>
-        /// 获取种子数据
-        /// </summary>
-        /// <remarks>
-        /// 获取种子数据
-        /// </remarks>
-        /// <returns></returns>
-        Task<string> GetSeedData();
-
     }
 }

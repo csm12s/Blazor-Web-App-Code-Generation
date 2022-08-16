@@ -397,5 +397,24 @@ namespace Gardener.Client.Base.Components
                        width: 1300,
                        placement: "right");
         }
+
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
+        /// <returns></returns>
+        protected async Task OnClickShowSeedData()
+        {
+            PageRequest pageRequest = GetPageRequest();
+            pageRequest.PageSize = int.MaxValue;
+            pageRequest.PageIndex = 1;
+            string seedData = await _service.GenerateSeedData(pageRequest);
+            var result = await drawerService.CreateDialogAsync<ShowSeedDataCode, string, bool>(
+                      seedData,
+                       true,
+                       title: localizer["种子数据"],
+                       width: 1300,
+                       placement: "right");
+        }
     }
 }

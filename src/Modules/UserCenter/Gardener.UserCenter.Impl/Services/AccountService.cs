@@ -29,8 +29,8 @@ using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Impl.Core;
 using Gardener.VerifyCode.Core;
 using Gardener.SystemManager.Dtos;
-using Gardener.SystemManager.Enums;
 using Gardener.Base.Domains;
+using Gardener.Base.Enums;
 
 namespace Gardener.UserCenter.Impl.Services
 {

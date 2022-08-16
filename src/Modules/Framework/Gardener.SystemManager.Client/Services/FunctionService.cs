@@ -37,10 +37,5 @@ namespace Gardener.SystemManager.Client.Services
         {
             return await apiCaller.GetAsync<FunctionDto>($"{controller}/by-key/{key}");
         }
-
-        public async Task<string> GetSeedData()
-        {
-            return await apiCaller.GetAsync<string>($"{controller}/seed-data");
-        }
     }
 }
