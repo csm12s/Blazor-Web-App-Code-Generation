@@ -363,37 +363,6 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Function",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Group = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Service = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Summary = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Method = table.Column<int>(type: "INTEGER", nullable: false),
-                    EnableAudit = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ClientId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatorId = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatorIdentityType = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Function", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Function_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -497,31 +466,6 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientFunction",
-                columns: table => new
-                {
-                    ClientId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    FunctionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClientFunction", x => new { x.ClientId, x.FunctionId });
-                    table.ForeignKey(
-                        name: "FK_ClientFunction_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClientFunction_Function_FunctionId",
-                        column: x => x.FunctionId,
-                        principalTable: "Function",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserExtension",
                 columns: table => new
                 {
@@ -569,25 +513,88 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FunctionResource",
+                name: "Function",
                 columns: table => new
                 {
-                    FunctionsId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ResourcesId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Group = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Service = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Summary = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Method = table.Column<int>(type: "INTEGER", nullable: false),
+                    EnableAudit = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ClientId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatorId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatorIdentityType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FunctionResource", x => new { x.FunctionsId, x.ResourcesId });
+                    table.PrimaryKey("PK_Function", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FunctionResource_Function_FunctionsId",
-                        column: x => x.FunctionsId,
-                        principalTable: "Function",
+                        name: "FK_Function_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Function_Resource_ResourceId",
+                        column: x => x.ResourceId,
+                        principalTable: "Resource",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleResource",
+                columns: table => new
+                {
+                    RoleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleResource", x => new { x.RoleId, x.ResourceId });
+                    table.ForeignKey(
+                        name: "FK_RoleResource_Resource_ResourceId",
+                        column: x => x.ResourceId,
+                        principalTable: "Resource",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FunctionResource_Resource_ResourcesId",
-                        column: x => x.ResourcesId,
-                        principalTable: "Resource",
+                        name: "FK_RoleResource_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientFunction",
+                columns: table => new
+                {
+                    ClientId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FunctionId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientFunction", x => new { x.ClientId, x.FunctionId });
+                    table.ForeignKey(
+                        name: "FK_ClientFunction_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClientFunction_Function_FunctionId",
+                        column: x => x.FunctionId,
+                        principalTable: "Function",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -613,31 +620,6 @@ namespace Gardener.Api.Core.Migrations
                         name: "FK_ResourceFunction_Resource_ResourceId",
                         column: x => x.ResourceId,
                         principalTable: "Resource",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleResource",
-                columns: table => new
-                {
-                    RoleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleResource", x => new { x.RoleId, x.ResourceId });
-                    table.ForeignKey(
-                        name: "FK_RoleResource_Resource_ResourceId",
-                        column: x => x.ResourceId,
-                        principalTable: "Resource",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RoleResource_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -669,1243 +651,1243 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("01944b79-bfe5-4304-ade0-9c66e038d5d4"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "3005F52703299DD4885D51C80CA3B370", 2, "/api/role", "角色服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("01944b79-bfe5-4304-ade0-9c66e038d5d4"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "3005F52703299DD4885D51C80CA3B370", 2, "/api/role", null, "角色服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"), null, 1306532718346240480L, null, 0, "上传单个附件", true, "系统基础服务", false, false, "3BF647BFC6987B8CEA91C97FEE17CC6D", 1, "/api/attachment/upload", "附件服务", "上传附件", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"), null, 1306532718346240480L, null, 0, "上传单个附件", true, "系统基础服务", false, false, "3BF647BFC6987B8CEA91C97FEE17CC6D", 1, "/api/attachment/upload", null, "附件服务", "上传附件", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("037d2517-d1fa-4b5f-adba-a8f4aae6c205"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "EFC227D985161F0ED01B189C5CCF532F", 3, "/api/client/fake-delete/{id}", "客户端服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("037d2517-d1fa-4b5f-adba-a8f4aae6c205"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "EFC227D985161F0ED01B189C5CCF532F", 3, "/api/client/fake-delete/{id}", null, "客户端服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("03c9956e-b832-4202-9c47-55ba3793f606"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "778BD549C3ACEF321ECEDF39C80241D0", 0, "/api/audit-operation/page/{pageindex}/{pagesize}", "审计操作服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("03c9956e-b832-4202-9c47-55ba3793f606"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "778BD549C3ACEF321ECEDF39C80241D0", 0, "/api/audit-operation/page/{pageindex}/{pagesize}", null, "审计操作服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"), null, 1306532718346240480L, null, 0, "通过刷新token获取新的token", true, "用户中心服务", false, false, "1549F5F1C34E25281CBC00CA283BC404", 1, "/api/account/refresh-token", "用户账户认证授权服务", "刷新Token", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"), null, 1306532718346240480L, null, 0, "通过刷新token获取新的token", true, "用户中心服务", false, false, "1549F5F1C34E25281CBC00CA283BC404", 1, "/api/account/refresh-token", null, "用户账户认证授权服务", "刷新Token", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "D522DFCA12CBF851EA48D676E7432DF8", 1, "/api/login-token/deletes", "用户登录TOKEN服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "D522DFCA12CBF851EA48D676E7432DF8", 1, "/api/login-token/deletes", null, "用户登录TOKEN服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("045945e7-94c4-4727-8392-31fc9d99cd9f"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "E46343E17F6F09D2DD0BB1B6C78C81F6", 0, "/api/audit-entity/all", "审计数据服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("045945e7-94c4-4727-8392-31fc9d99cd9f"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "E46343E17F6F09D2DD0BB1B6C78C81F6", 0, "/api/audit-entity/all", null, "审计数据服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"), null, 1306532718346240480L, null, 0, "添加资源", true, "系统基础服务", false, false, "56C72854CD92865B84133D0D791DEC22", 1, "/api/resource", "资源服务", "添加资源", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"), null, 1306532718346240480L, null, 0, "添加资源", true, "系统基础服务", false, false, "56C72854CD92865B84133D0D791DEC22", 1, "/api/resource", null, "资源服务", "添加资源", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("05153ee4-dc99-4834-b398-5999f7dc8d01"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "47FEFB8B545A5A813AB9ABA70F02BD49", 2, "/api/position", "岗位管理服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("05153ee4-dc99-4834-b398-5999f7dc8d01"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "47FEFB8B545A5A813AB9ABA70F02BD49", 2, "/api/position", null, "岗位管理服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("056ff2f6-009b-40ff-a1b9-a6983e471967"), null, 1306532718346240480L, null, 0, "启用或禁用功能", true, "系统基础服务", false, false, "1DC1B5ECD34759A80CE8C468366A378F", 2, "/api/function/{id}/enable-audit/{enableaudit}", "功能服务", "启用或禁用", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("056ff2f6-009b-40ff-a1b9-a6983e471967"), null, 1306532718346240480L, null, 0, "启用或禁用功能", true, "系统基础服务", false, false, "1DC1B5ECD34759A80CE8C468366A378F", 2, "/api/function/{id}/enable-audit/{enableaudit}", null, "功能服务", "启用或禁用", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "4A29177C50844829451B9ABBFA5DAFAC", 3, "/api/attachment/fake-delete/{id}", "附件服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "4A29177C50844829451B9ABBFA5DAFAC", 3, "/api/attachment/fake-delete/{id}", null, "附件服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("080dd200-8e8a-489c-86ca-8eb74c417c0b"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "A20264B6A44D74DBF0C7990CF3FE6DC1", 3, "/api/audit-operation/fake-delete/{id}", "审计操作服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("080dd200-8e8a-489c-86ca-8eb74c417c0b"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "A20264B6A44D74DBF0C7990CF3FE6DC1", 3, "/api/audit-operation/fake-delete/{id}", null, "审计操作服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("08d002b9-d320-4410-b9f3-7986ed87ece4"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "DA5651C09F319A1358B9948735712DCF", 0, "/api/audit-operation/{id}", "审计操作服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("08d002b9-d320-4410-b9f3-7986ed87ece4"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "DA5651C09F319A1358B9948735712DCF", 0, "/api/audit-operation/{id}", null, "审计操作服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "02836036DDDF7900E5F5E9762F5E4229", 3, "/api/user/fake-delete/{id}", "用户服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "02836036DDDF7900E5F5E9762F5E4229", 3, "/api/user/fake-delete/{id}", null, "用户服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0b7a9ed1-86cc-42a6-a260-f7ba33054054"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "FD2CAFBFF34B435DF026315EF4D89CC5", 1, "/api/role/generate-seed-data", "角色服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0b7a9ed1-86cc-42a6-a260-f7ba33054054"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "FD2CAFBFF34B435DF026315EF4D89CC5", 1, "/api/role/generate-seed-data", null, "角色服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"), null, 1306532718346240480L, null, 0, "更新用户的头像", true, "用户中心服务", false, false, "FEBD6097BE29268FDFDC295C98A9AD9F", 2, "/api/user/avatar", "用户服务", "更新头像", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"), null, 1306532718346240480L, null, 0, "更新用户的头像", true, "用户中心服务", false, false, "FEBD6097BE29268FDFDC295C98A9AD9F", 2, "/api/user/avatar", null, "用户服务", "更新头像", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0d2df690-6aa7-466b-b1e4-73fa4fda1b5d"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "8AED5C0B53588415D98E97119880AC6A", 2, "/api/dept/{id}/lock/{islocked}", "部门服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0d2df690-6aa7-466b-b1e4-73fa4fda1b5d"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "8AED5C0B53588415D98E97119880AC6A", 2, "/api/dept/{id}/lock/{islocked}", null, "部门服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"), null, 1306532718346240480L, null, 0, "给用户设置角色", true, "用户中心服务", false, false, "A843DEF0CDD97A394996DCF7C5E80F5B", 1, "/api/user/{userid}/role", "用户服务", "设置角色", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"), null, 1306532718346240480L, null, 0, "给用户设置角色", true, "用户中心服务", false, false, "A843DEF0CDD97A394996DCF7C5E80F5B", 1, "/api/user/{userid}/role", null, "用户服务", "设置角色", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0d899b61-e2ba-4d0d-b2fd-83dad377ed78"), null, 1306547608086225376L, null, 0, "根据主键查找一条数据", false, "通知系统服务", false, false, "336B54D6E3393F56F6C35FCA416A3EE5", 0, "/api/announcement/{id}", "公告服务", "根据主键获取", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0d899b61-e2ba-4d0d-b2fd-83dad377ed78"), null, 1306548821910077920L, null, 0, "根据主键查找一条数据", false, "通知系统服务", false, false, "336B54D6E3393F56F6C35FCA416A3EE5", 0, "/api/announcement/{id}", null, "公告服务", "根据主键获取", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0f372dde-1e65-441a-b002-eee8b2e1a1f9"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "13457B9CA71646A02E6F004CE877A0E6", 1, "/api/audit-entity/deletes", "审计数据服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("0f372dde-1e65-441a-b002-eee8b2e1a1f9"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "13457B9CA71646A02E6F004CE877A0E6", 1, "/api/audit-entity/deletes", null, "审计数据服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("10190ac3-1092-49a9-8ad2-313454b40447"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "17B55B877E0FB6704577EA356573BBC3", 1, "/api/attachment/fake-deletes", "附件服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("10190ac3-1092-49a9-8ad2-313454b40447"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "17B55B877E0FB6704577EA356573BBC3", 1, "/api/attachment/fake-deletes", null, "附件服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "6E9E5AA61727C2BD1E4142F0ED0F9DC5", 0, "/api/resource/{id}", "资源服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "6E9E5AA61727C2BD1E4142F0ED0F9DC5", 0, "/api/resource/{id}", null, "资源服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("1295aed2-ae71-411f-9542-d50f75432840"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "24C5B533C5DDC7D494830FF5E28F6EC2", 1, "/api/resource/search", "资源服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("1295aed2-ae71-411f-9542-d50f75432840"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "24C5B533C5DDC7D494830FF5E28F6EC2", 1, "/api/resource/search", null, "资源服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("12dbe1a6-7d23-48a4-bacb-164f0403d0f4"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "87F7F066F0A0605D1DB5CE8B7286E0CB", 1, "/api/audit-entity/fake-deletes", "审计数据服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("12dbe1a6-7d23-48a4-bacb-164f0403d0f4"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "87F7F066F0A0605D1DB5CE8B7286E0CB", 1, "/api/audit-entity/fake-deletes", null, "审计数据服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("138283bd-f2ee-4b3b-b268-a12185264103"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "715A826DCD331B3155650A79BE0015D8", 3, "/api/image-verify-code/{key}", "图片验证码服务", "移除验证码", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("138283bd-f2ee-4b3b-b268-a12185264103"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "715A826DCD331B3155650A79BE0015D8", 3, "/api/image-verify-code/{key}", null, "图片验证码服务", "移除验证码", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("1562071d-e18c-4d29-a854-12a562961140"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "9B0AD48E75A6C37EDC7101236F93CF77", 0, "/api/user/all", "用户服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("1562071d-e18c-4d29-a854-12a562961140"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "9B0AD48E75A6C37EDC7101236F93CF77", 0, "/api/user/all", null, "用户服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("16517409-c055-447b-8e91-7155537c6d15"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "F57997ED31483BE396EB71C98D07B6F5", 1, "/api/role", "角色服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("16517409-c055-447b-8e91-7155537c6d15"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "F57997ED31483BE396EB71C98D07B6F5", 1, "/api/role", null, "角色服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"), null, 1306532718346240480L, null, 0, "移除当前用户token", true, "用户中心服务", false, false, "34925D025D1D97104B7A51EF41C393F3", 3, "/api/account/current-user-refresh-token", "用户账户认证授权服务", "移除当前用户token", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"), null, 1306532718346240480L, null, 0, "移除当前用户token", true, "用户中心服务", false, false, "34925D025D1D97104B7A51EF41C393F3", 3, "/api/account/current-user-refresh-token", null, "用户账户认证授权服务", "移除当前用户token", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("1d325e63-3e9e-4cbc-b275-00a057c71e63"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "4548CF61B82D6B6ED737DE1D568D5E7B", 0, "/api/email-server-config/all-usable", "邮件服务器配置服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("1d325e63-3e9e-4cbc-b275-00a057c71e63"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "4548CF61B82D6B6ED737DE1D568D5E7B", 0, "/api/email-server-config/all-usable", null, "邮件服务器配置服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("1d994e50-d40a-465b-8445-646041a8131a"), null, 1306532718346240480L, null, 0, "根据操作审计ID获取数据审计", false, "系统基础服务", false, false, "26806445F59D861F9FDB9F91B164A1CD", 0, "/api/audit-operation/{operationid}/audit-entity", "审计操作服务", "根据操作审计ID获取数据审计", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("1d994e50-d40a-465b-8445-646041a8131a"), null, 1306532718346240480L, null, 0, "根据操作审计ID获取数据审计", false, "系统基础服务", false, false, "26806445F59D861F9FDB9F91B164A1CD", 0, "/api/audit-operation/{operationid}/audit-entity", null, "审计操作服务", "根据操作审计ID获取数据审计", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("1ef3b8a8-6e46-49d7-9a7e-f63137beaade"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "DD71B200E8B3E6E24BD6F9C05E3D666C", 1, "/api/email-server-config", "邮件服务器配置服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("1ef3b8a8-6e46-49d7-9a7e-f63137beaade"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "DD71B200E8B3E6E24BD6F9C05E3D666C", 1, "/api/email-server-config", null, "邮件服务器配置服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("1fe857c9-c027-4ca3-b8f8-21ec2c1f5cde"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "280713DC4618277C7BF307117835ED7B", 0, "/api/audit-entity/all-usable", "审计数据服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("1fe857c9-c027-4ca3-b8f8-21ec2c1f5cde"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "280713DC4618277C7BF307117835ED7B", 0, "/api/audit-entity/all-usable", null, "审计数据服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("20b44c15-481f-4bba-8905-3e5f983927b0"), null, 1306532718346240480L, null, 0, "登录接口", true, "用户中心服务", false, false, "6050B0AE0242E8D1D8A6B5B0EAFFA1E0", 1, "/api/client/login", "客户端服务", "登录", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("20b44c15-481f-4bba-8905-3e5f983927b0"), null, 1306532718346240480L, null, 0, "登录接口", true, "用户中心服务", false, false, "6050B0AE0242E8D1D8A6B5B0EAFFA1E0", 1, "/api/client/login", null, "客户端服务", "登录", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("20b7e3c2-1ab5-4a5e-993e-e5599a583fdd"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "7E91BA4770C4FDF6B865C2D4C7984132", 1, "/api/login-token", "用户登录TOKEN服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("20b7e3c2-1ab5-4a5e-993e-e5599a583fdd"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "7E91BA4770C4FDF6B865C2D4C7984132", 1, "/api/login-token", null, "用户登录TOKEN服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2428c3c3-740e-45fc-9047-5a2be3c9cd70"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "FBAC1FD6280B05C7EAFD6BD24F0DE077", 3, "/api/user/{id}", "用户服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2428c3c3-740e-45fc-9047-5a2be3c9cd70"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "FBAC1FD6280B05C7EAFD6BD24F0DE077", 3, "/api/user/{id}", null, "用户服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "213D1BBDB567A74636ACE841D780F663", 0, "/api/dept/{id}", "部门服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "213D1BBDB567A74636ACE841D780F663", 0, "/api/dept/{id}", null, "部门服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("25bad725-529b-4a67-814a-1a6171a4b6d1"), null, 1306547608086225376L, null, 0, "搜索数据", true, "通知系统服务", false, false, "9AD6BA02957A5D79C763F37FC7350C1F", 1, "/api/announcement/search", "公告服务", "搜索", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("25bad725-529b-4a67-814a-1a6171a4b6d1"), null, 1306548821910077920L, null, 0, "搜索数据", true, "通知系统服务", false, false, "9AD6BA02957A5D79C763F37FC7350C1F", 1, "/api/announcement/search", null, "公告服务", "搜索", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("26d95428-ebbd-4bf2-9bcc-2eeec4263bd5"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "006AC2DA9C0126A631FE4092AAB706C0", 1, "/api/email-server-config/fake-deletes", "邮件服务器配置服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("26d95428-ebbd-4bf2-9bcc-2eeec4263bd5"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "006AC2DA9C0126A631FE4092AAB706C0", 1, "/api/email-server-config/fake-deletes", null, "邮件服务器配置服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2a670df1-f01c-4cdb-b084-a46fdb339ced"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "097D7A323BFFCA32788EAA8C6BDB5157", 3, "/api/function/{id}", "功能服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2a670df1-f01c-4cdb-b084-a46fdb339ced"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "097D7A323BFFCA32788EAA8C6BDB5157", 3, "/api/function/{id}", null, "功能服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2bf3ff67-c1a3-4426-8320-11839daa0a81"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "E4979CA111E299FA747D5A547C6E4A99", 1, "/api/email-template/search", "邮件模板服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2bf3ff67-c1a3-4426-8320-11839daa0a81"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "E4979CA111E299FA747D5A547C6E4A99", 1, "/api/email-template/search", null, "邮件模板服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2bf807cd-7d48-40bd-839b-fdd71f419711"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "38B9A961DB74BD743A3B5D434B2EB66A", 3, "/api/email-template/{id}", "邮件模板服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2bf807cd-7d48-40bd-839b-fdd71f419711"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "38B9A961DB74BD743A3B5D434B2EB66A", 3, "/api/email-template/{id}", null, "邮件模板服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2c3ec3c9-76c7-4d29-953f-e7430f22577b"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "BBF7B9CA0FE646DBAE2923B70DA8A7A4", 3, "/api/role/fake-delete/{id}", "角色服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2c3ec3c9-76c7-4d29-953f-e7430f22577b"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "BBF7B9CA0FE646DBAE2923B70DA8A7A4", 3, "/api/role/fake-delete/{id}", null, "角色服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2ea4faea-ec29-4383-833b-b5dedaa1b735"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "1B1FD29D8E0A4A89B600CAA46C82B02F", 0, "/api/email-template/page/{pageindex}/{pagesize}", "邮件模板服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2ea4faea-ec29-4383-833b-b5dedaa1b735"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "1B1FD29D8E0A4A89B600CAA46C82B02F", 0, "/api/email-template/page/{pageindex}/{pagesize}", null, "邮件模板服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("2f820c7f-4f1c-4737-aae6-329585c75d92"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "271DFDC5E142CFE1AF0C4200C6DC060A", 0, "/api/attachment/{id}", "附件服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("2f820c7f-4f1c-4737-aae6-329585c75d92"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "271DFDC5E142CFE1AF0C4200C6DC060A", 0, "/api/attachment/{id}", null, "附件服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("300ef305-2c03-44ad-bd4b-7ffa246530a9"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "7696121FE473CFEED7A7CD1CB4A6B647", 2, "/api/sys-timer/{id}/lock/{islocked}", "任务调度服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("300ef305-2c03-44ad-bd4b-7ffa246530a9"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "7696121FE473CFEED7A7CD1CB4A6B647", 2, "/api/sys-timer/{id}/lock/{islocked}", null, "任务调度服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("31896c5d-2ed7-4e43-a952-4edc076d29d0"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "CBB8DE4E5D6DD206685DA33E90EF1EE1", 1, "/api/email-template/fake-deletes", "邮件模板服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("31896c5d-2ed7-4e43-a952-4edc076d29d0"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "CBB8DE4E5D6DD206685DA33E90EF1EE1", 1, "/api/email-template/fake-deletes", null, "邮件模板服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("31e5a68d-916b-4b74-8e59-da733724b322"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "FDC1D135BD7B531A8B5DB65A2462450E", 3, "/api/sys-timer/{id}", "任务调度服务", "删除任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("31e5a68d-916b-4b74-8e59-da733724b322"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "FDC1D135BD7B531A8B5DB65A2462450E", 3, "/api/sys-timer/{id}", null, "任务调度服务", "删除任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("333edf31-c542-4fa1-baca-b770d558a4d7"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "EA96F9C3B67BB0EB8E3D5337D3482162", 3, "/api/dept/{id}", "部门服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("333edf31-c542-4fa1-baca-b770d558a4d7"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "EA96F9C3B67BB0EB8E3D5337D3482162", 3, "/api/dept/{id}", null, "部门服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("336b98be-e9f1-4f42-824b-a9a3b91350c5"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "7A0F189854BBC9084AE004012A7870E9", 1, "/api/login-token/generate-seed-data", "用户登录TOKEN服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("336b98be-e9f1-4f42-824b-a9a3b91350c5"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "7A0F189854BBC9084AE004012A7870E9", 1, "/api/login-token/generate-seed-data", null, "用户登录TOKEN服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "32ABBEA6610DE2420AC7B5E7FDAA315E", 1, "/api/dept/fake-deletes", "部门服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "32ABBEA6610DE2420AC7B5E7FDAA315E", 1, "/api/dept/fake-deletes", null, "部门服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("33c2157a-884d-4030-abea-a9aeea51fdf8"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "CDA3DE9664774C06E0D86F62F2FCDDE2", 2, "/api/email-template", "邮件模板服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("33c2157a-884d-4030-abea-a9aeea51fdf8"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "CDA3DE9664774C06E0D86F62F2FCDDE2", 2, "/api/email-template", null, "邮件模板服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3402d3b2-cf24-4634-a65c-534f96e2991a"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "5C9E8B48C5C77A0CEB8E6A853D56A808", 1, "/api/user/deletes", "用户服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3402d3b2-cf24-4634-a65c-534f96e2991a"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "5C9E8B48C5C77A0CEB8E6A853D56A808", 1, "/api/user/deletes", null, "用户服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"), null, 1306532718346240480L, null, 0, "查看用户角色", false, "用户中心服务", false, false, "652940681CC97C52299C95242AB1E858", 0, "/api/user/{userid}/roles", "用户服务", "查看用户角色", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"), null, 1306532718346240480L, null, 0, "查看用户角色", false, "用户中心服务", false, false, "652940681CC97C52299C95242AB1E858", 0, "/api/user/{userid}/roles", null, "用户服务", "查看用户角色", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("383c5aaf-a3e1-44d1-a1c8-3074abe55f95"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "91B03FFD3080A9684592C45A15C826A5", 1, "/api/role/deletes", "角色服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("383c5aaf-a3e1-44d1-a1c8-3074abe55f95"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "91B03FFD3080A9684592C45A15C826A5", 1, "/api/role/deletes", null, "角色服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("38545a67-61ff-4e5c-90bb-a555a93fcbea"), null, 1306532718346240480L, null, 0, "获取当前用户信息", false, "用户中心服务", false, false, "2FAAF199BA16D914E7796C0B65B7CD13", 0, "/api/account/current-user", "用户账户认证授权服务", "获取当前用户信息", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("38545a67-61ff-4e5c-90bb-a555a93fcbea"), null, 1306532718346240480L, null, 0, "获取当前用户信息", false, "用户中心服务", false, false, "2FAAF199BA16D914E7796C0B65B7CD13", 0, "/api/account/current-user", null, "用户账户认证授权服务", "获取当前用户信息", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3896ea42-a5ed-4bc5-8dc5-21e0e5adb2fa"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "88BF07EAB2CA231DE36CF2C1A2D2546D", 3, "/api/email-verify-code/{key}", "邮件验证码服务", "移除验证码", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3896ea42-a5ed-4bc5-8dc5-21e0e5adb2fa"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "88BF07EAB2CA231DE36CF2C1A2D2546D", 3, "/api/email-verify-code/{key}", null, "邮件验证码服务", "移除验证码", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("38c69230-1ed0-413e-9ae6-05bc1ef989e0"), null, 1306532718346240480L, null, 0, "分配权限（重置）", true, "用户中心服务", false, false, "2BBD7196A51542F56FAC25FF3D760D21", 1, "/api/role/{roleid}/resource", "角色服务", "分配权限", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("38c69230-1ed0-413e-9ae6-05bc1ef989e0"), null, 1306532718346240480L, null, 0, "分配权限（重置）", true, "用户中心服务", false, false, "2BBD7196A51542F56FAC25FF3D760D21", 1, "/api/role/{roleid}/resource", null, "角色服务", "分配权限", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("39421a19-9cbf-477b-baea-34f40341357f"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "FB316294679817930CABB93BE346C453", 3, "/api/email-server-config/fake-delete/{id}", "邮件服务器配置服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("39421a19-9cbf-477b-baea-34f40341357f"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "FB316294679817930CABB93BE346C453", 3, "/api/email-server-config/fake-delete/{id}", null, "邮件服务器配置服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("39ccceae-2cba-4cd2-a44b-fc8fe8a3f2e4"), null, 1306532718346240480L, null, 0, "查看用户权限", false, "用户中心服务", false, false, "FAA3B104E6EBF3B5F16DB92C56836A63", 0, "/api/user/{userid}/resources", "用户服务", "查看用户权限", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("39ccceae-2cba-4cd2-a44b-fc8fe8a3f2e4"), null, 1306532718346240480L, null, 0, "查看用户权限", false, "用户中心服务", false, false, "FAA3B104E6EBF3B5F16DB92C56836A63", 0, "/api/user/{userid}/resources", null, "用户服务", "查看用户权限", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"), null, 1306547608086229472L, null, 0, null, false, "用户中心服务", false, false, "BB9E3C06F2507147FADEA21712CB70CA", 0, "/api/client/{id}/functions", "客户端服务", "根据客户端编号获取绑定的接口列表", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"), null, 1306548821910079968L, null, 0, null, false, "用户中心服务", false, false, "BB9E3C06F2507147FADEA21712CB70CA", 0, "/api/client/{id}/functions", null, "客户端服务", "根据客户端编号获取绑定的接口列表", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3a8c73cf-89a2-4606-90c3-51dec0d80e1d"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "8323C7FD5DA09F6C5D7E6DD6BCBEAA3B", 1, "/api/sys-timer/generate-seed-data", "任务调度服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3a8c73cf-89a2-4606-90c3-51dec0d80e1d"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "8323C7FD5DA09F6C5D7E6DD6BCBEAA3B", 1, "/api/sys-timer/generate-seed-data", null, "任务调度服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3ac59980-d2df-4363-b8db-a4d043e362e7"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "2E69B891C48D1F7E7974825E470447DC", 0, "/api/email-template/{id}", "邮件模板服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3ac59980-d2df-4363-b8db-a4d043e362e7"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "2E69B891C48D1F7E7974825E470447DC", 0, "/api/email-template/{id}", null, "邮件模板服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3c68f73b-5a83-4429-9046-4fe33473739f"), null, 1306547608086225376L, null, 0, "根据主键逻辑删除", true, "通知系统服务", false, false, "9D50105E0F127FF7F9C12C9EC2643787", 3, "/api/announcement/fake-delete/{id}", "公告服务", "逻辑删除", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3c68f73b-5a83-4429-9046-4fe33473739f"), null, 1306548821910077920L, null, 0, "根据主键逻辑删除", true, "通知系统服务", false, false, "9D50105E0F127FF7F9C12C9EC2643787", 3, "/api/announcement/fake-delete/{id}", null, "公告服务", "逻辑删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "5FFF46E52DE5943FA225B0F6E29A338D", 0, "/api/user/page/{pageindex}/{pagesize}", "用户服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "5FFF46E52DE5943FA225B0F6E29A338D", 0, "/api/user/page/{pageindex}/{pagesize}", null, "用户服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3ed89bcc-7eb1-4b51-86a5-dbe449370e1b"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "4FBBC2EF99F020CC28878731394CF303", 1, "/api/email-server-config/deletes", "邮件服务器配置服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3ed89bcc-7eb1-4b51-86a5-dbe449370e1b"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "4FBBC2EF99F020CC28878731394CF303", 1, "/api/email-server-config/deletes", null, "邮件服务器配置服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3fb4ab7d-dcab-482d-af48-3080e2b89d10"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "5F37C08165A82CACCDDE27447DE2D079", 0, "/api/sys-timer/page/{pageindex}/{pagesize}", "任务调度服务", "分页获取任务列表", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("3fb4ab7d-dcab-482d-af48-3080e2b89d10"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "5F37C08165A82CACCDDE27447DE2D079", 0, "/api/sys-timer/page/{pageindex}/{pagesize}", null, "任务调度服务", "分页获取任务列表", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "9A316E9E6A41D1F57870A5F0CDDC93EF", 1, "/api/function/search", "功能服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "9A316E9E6A41D1F57870A5F0CDDC93EF", 1, "/api/function/search", null, "功能服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("424fd96a-a889-4ff9-910a-25a59204d2ec"), null, 1306532718346240480L, null, 0, "返回根节点资源", false, "系统基础服务", false, false, "34CFCB2759472E91321739C5D43B00D0", 0, "/api/resource/root", "资源服务", "返回根节点", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("424fd96a-a889-4ff9-910a-25a59204d2ec"), null, 1306532718346240480L, null, 0, "返回根节点资源", false, "系统基础服务", false, false, "34CFCB2759472E91321739C5D43B00D0", 0, "/api/resource/root", null, "资源服务", "返回根节点", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("42b3486a-8ea0-4296-a526-7cd3ef9ea73a"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "6B7B11626AE0ABB28C5331DB67DACAA0", 0, "/api/attachment/all-usable", "附件服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("42b3486a-8ea0-4296-a526-7cd3ef9ea73a"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "6B7B11626AE0ABB28C5331DB67DACAA0", 0, "/api/attachment/all-usable", null, "附件服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("433d4ad9-7ae0-48ea-851e-c4e594c8e19a"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "4AADC5D969F182119B00D77F9AB4D088", 2, "/api/sys-timer", "任务调度服务", "修改任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("433d4ad9-7ae0-48ea-851e-c4e594c8e19a"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "4AADC5D969F182119B00D77F9AB4D088", 2, "/api/sys-timer", null, "任务调度服务", "修改任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("45dd0581-3394-4c0a-bb8e-c9e0074d5611"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "CE39C474540DD96EAF373115B164EDC7", 2, "/api/resource", "资源服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("45dd0581-3394-4c0a-bb8e-c9e0074d5611"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "CE39C474540DD96EAF373115B164EDC7", 2, "/api/resource", null, "资源服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("46aef5bc-9d0f-4a05-b21d-747753b98569"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "30759F98C0CF4A34813C280451C2E4CF", 3, "/api/audit-entity/fake-delete/{id}", "审计数据服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("46aef5bc-9d0f-4a05-b21d-747753b98569"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "30759F98C0CF4A34813C280451C2E4CF", 3, "/api/audit-entity/fake-delete/{id}", null, "审计数据服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("475207d6-4c0b-4054-a051-7315295694a1"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "44405A33B9DEC6F934920AF5AC6F7111", 1, "/api/audit-entity", "审计数据服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("475207d6-4c0b-4054-a051-7315295694a1"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "44405A33B9DEC6F934920AF5AC6F7111", 1, "/api/audit-entity", null, "审计数据服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4795ae43-0d52-42f1-8aaf-fc6e6412ac1b"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "A3F388958310A592E004DDD848AB0CB7", 1, "/api/image-verify-code/verify", "图片验证码服务", "验证验证码", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4795ae43-0d52-42f1-8aaf-fc6e6412ac1b"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "A3F388958310A592E004DDD848AB0CB7", 1, "/api/image-verify-code/verify", null, "图片验证码服务", "验证验证码", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4963631e-6343-469a-a189-10bfce6e3195"), null, 1306532718346240480L, null, 0, null, true, "用户中心服务", false, false, "1ADEBA08C209B9D06D9D6788FB0509E6", 3, "/api/client-function/{clientid}/{functionid}", "客户端与接口关系服务", "删除客户端与接口关系", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4963631e-6343-469a-a189-10bfce6e3195"), null, 1306532718346240480L, null, 0, null, true, "用户中心服务", false, false, "1ADEBA08C209B9D06D9D6788FB0509E6", 3, "/api/client-function/{clientid}/{functionid}", null, "客户端与接口关系服务", "删除客户端与接口关系", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "4B11C588FC856C862E41859F189370C0", 1, "/api/role/search", "角色服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("498638f7-dc92-4d0e-ac5e-26e48cf87a8d"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "4B11C588FC856C862E41859F189370C0", 1, "/api/role/search", null, "角色服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4a127124-6348-4db1-aa38-5f3af2c8efdf"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "A99DB9777E1C5C11D2FA6A8957F696E8", 0, "/api/audit-operation/all-usable", "审计操作服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4a127124-6348-4db1-aa38-5f3af2c8efdf"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "A99DB9777E1C5C11D2FA6A8957F696E8", 0, "/api/audit-operation/all-usable", null, "审计操作服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4b57474a-88b4-4393-bb49-4b59e8c3c41d"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "A401312992835BA902C0CFDC5FEEE1F3", 3, "/api/function/fake-delete/{id}", "功能服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4b57474a-88b4-4393-bb49-4b59e8c3c41d"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "A401312992835BA902C0CFDC5FEEE1F3", 3, "/api/function/fake-delete/{id}", null, "功能服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4b7e7f68-8925-4b5c-b8d2-8a51df917b0c"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "72DE329278C26111EB3F431ACB89B0A4", 0, "/api/audit-entity/page/{pageindex}/{pagesize}", "审计数据服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4b7e7f68-8925-4b5c-b8d2-8a51df917b0c"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "72DE329278C26111EB3F431ACB89B0A4", 0, "/api/audit-entity/page/{pageindex}/{pagesize}", null, "审计数据服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4c1b9201-09e6-421f-95d1-d98d009a3417"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "8B2F2030F705698FEA9D98536F415ADD", 0, "/api/client/{id}", "客户端服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4c1b9201-09e6-421f-95d1-d98d009a3417"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "8B2F2030F705698FEA9D98536F415ADD", 0, "/api/client/{id}", null, "客户端服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4d51608e-5988-4d3d-8f5e-00e0c0c07b02"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "7971E7E4FDCB5CBA6EE06E7DFE3F199E", 0, "/api/resource/all", "资源服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4d51608e-5988-4d3d-8f5e-00e0c0c07b02"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "7971E7E4FDCB5CBA6EE06E7DFE3F199E", 0, "/api/resource/all", null, "资源服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4d664ef2-a462-494d-9c5c-453880f44017"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "97761592D436CFF8E47FA6FD3C9DA300", 1, "/api/sys-timer", "任务调度服务", "增加任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4d664ef2-a462-494d-9c5c-453880f44017"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "97761592D436CFF8E47FA6FD3C9DA300", 1, "/api/sys-timer", null, "任务调度服务", "增加任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("4e1a2966-bdfd-485a-b0cf-52004e40f6a7"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "0730ED2F37C050E4994609C45BE0C4A4", 0, "/api/dept/all", "部门服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("4e1a2966-bdfd-485a-b0cf-52004e40f6a7"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "0730ED2F37C050E4994609C45BE0C4A4", 0, "/api/dept/all", null, "部门服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5328608a-6b71-4507-a52a-e1beffa7a4ab"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "33D096038DC823412DC051FA7371FB68", 0, "/api/login-token/all-usable", "用户登录TOKEN服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5328608a-6b71-4507-a52a-e1beffa7a4ab"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "33D096038DC823412DC051FA7371FB68", 0, "/api/login-token/all-usable", null, "用户登录TOKEN服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("542d6de4-1b2c-4820-8f8c-b6fa17c023aa"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "6C10A6FBF3AD17499C371C48E0FEF6D6", 1, "/api/attachment/generate-seed-data", "附件服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("542d6de4-1b2c-4820-8f8c-b6fa17c023aa"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "6C10A6FBF3AD17499C371C48E0FEF6D6", 1, "/api/attachment/generate-seed-data", null, "附件服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5604fcc2-595f-4cc5-b0b8-c0d75a4c9351"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "ADF53A6D1C062BF2CC40EBDE20D8E841", 2, "/api/attachment/{id}/lock/{islocked}", "附件服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5604fcc2-595f-4cc5-b0b8-c0d75a4c9351"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "ADF53A6D1C062BF2CC40EBDE20D8E841", 2, "/api/attachment/{id}/lock/{islocked}", null, "附件服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("571200a8-bde2-430b-84ea-743db7b282cd"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "A094FB1391CD1E7F7A2C7E8536A491DF", 3, "/api/login-token/fake-delete/{id}", "用户登录TOKEN服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("571200a8-bde2-430b-84ea-743db7b282cd"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "A094FB1391CD1E7F7A2C7E8536A491DF", 3, "/api/login-token/fake-delete/{id}", null, "用户登录TOKEN服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("588829d2-fae6-40cd-bdfa-c0758e7f89fb"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "BB1ECD48F7FF479DC85870F66A467A38", 1, "/api/sys-timer/start", "任务调度服务", "启动任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("588829d2-fae6-40cd-bdfa-c0758e7f89fb"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "BB1ECD48F7FF479DC85870F66A467A38", 1, "/api/sys-timer/start", null, "任务调度服务", "启动任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("590cd04c-025c-4cc1-bdd1-e9cea201bb46"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "67C405B4CBCC02144945800F26CC1F4F", 0, "/api/function/page/{pageindex}/{pagesize}", "功能服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("590cd04c-025c-4cc1-bdd1-e9cea201bb46"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "67C405B4CBCC02144945800F26CC1F4F", 0, "/api/function/page/{pageindex}/{pagesize}", null, "功能服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"), null, 1306547608086229472L, null, 0, "", false, "用户中心服务", false, false, "AF36C639E9127D2C3B5ECB8FE54D26A4", 0, "/api/client/{id}/functions", "客户端服务", "根据客户端编号获取绑定的接口列表", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"), null, 1306548821910079968L, null, 0, "", false, "用户中心服务", false, false, "AF36C639E9127D2C3B5ECB8FE54D26A4", 0, "/api/client/{id}/functions", null, "客户端服务", "根据客户端编号获取绑定的接口列表", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5c8381ec-7e8a-4060-9c04-83032d18872c"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "A5DA0BB6BEA388B99626E5A34BDE68F4", 3, "/api/dept/fake-delete/{id}", "部门服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5c8381ec-7e8a-4060-9c04-83032d18872c"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "A5DA0BB6BEA388B99626E5A34BDE68F4", 3, "/api/dept/fake-delete/{id}", null, "部门服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5d67bd9d-853c-4e16-973d-be0511241fc0"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "678276BC3559FA79B62455965C7229B8", 1, "/api/client/deletes", "客户端服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5d67bd9d-853c-4e16-973d-be0511241fc0"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "678276BC3559FA79B62455965C7229B8", 1, "/api/client/deletes", null, "客户端服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5e8adf52-8db2-4d56-9ff3-003cae13e0aa"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "F19E71A217BEEADDD5EF20B65D93439E", 1, "/api/role/fake-deletes", "角色服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5e8adf52-8db2-4d56-9ff3-003cae13e0aa"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "F19E71A217BEEADDD5EF20B65D93439E", 1, "/api/role/fake-deletes", null, "角色服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5eb48cf2-6c45-47c2-a68b-84284a389c69"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "F74128AC93B49FC04CB29781E17E5302", 1, "/api/resource/deletes", "资源服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5eb48cf2-6c45-47c2-a68b-84284a389c69"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "F74128AC93B49FC04CB29781E17E5302", 1, "/api/resource/deletes", null, "资源服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "D4F99E0AE4263D647F3440B66DB7AC7B", 0, "/api/role/all-usable", "角色服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "D4F99E0AE4263D647F3440B66DB7AC7B", 0, "/api/role/all-usable", null, "角色服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("61cc62e4-34da-4a0a-9899-488d3ab399fa"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "34B7575A20F0D8D6B1B2522F9DD7A7B8", 3, "/api/position/{id}", "岗位管理服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("61cc62e4-34da-4a0a-9899-488d3ab399fa"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "34B7575A20F0D8D6B1B2522F9DD7A7B8", 3, "/api/position/{id}", null, "岗位管理服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("622c1a11-7dff-4318-9d21-b57fbd1da9ba"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "718DFD76BA4C2997D3DDA216BDB98369", 2, "/api/user/{id}/lock/{islocked}", "用户服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("622c1a11-7dff-4318-9d21-b57fbd1da9ba"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "718DFD76BA4C2997D3DDA216BDB98369", 2, "/api/user/{id}/lock/{islocked}", null, "用户服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("63b4ad68-3fc7-46e3-93c3-1a9b87e18a85"), null, 1306547608086229472L, null, 0, "通过刷新token获取新的token", true, "用户中心服务", false, false, "DF709DE63630893E744DA34D950EC7AE", 1, "/api/client/refresh-token", "客户端服务", "刷新Token", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("63b4ad68-3fc7-46e3-93c3-1a9b87e18a85"), null, 1306548821910079968L, null, 0, "通过刷新token获取新的token", true, "用户中心服务", false, false, "DF709DE63630893E744DA34D950EC7AE", 1, "/api/client/refresh-token", null, "客户端服务", "刷新Token", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("63d7208e-45d3-406e-a4a1-c87e3afda04d"), null, 1306532718346240480L, null, 0, "获取种子数据", false, "用户中心服务", false, false, "72B515FB99A1EFE42DEFCFC12954F93D", 0, "/api/role/role-resource-seed-data", "角色服务", "获取种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("63d7208e-45d3-406e-a4a1-c87e3afda04d"), null, 1306532718346240480L, null, 0, "获取种子数据", false, "用户中心服务", false, false, "72B515FB99A1EFE42DEFCFC12954F93D", 0, "/api/role/role-resource-seed-data", null, "角色服务", "获取种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "BB0B0620A9F5665B13ADC8D8C8B8F98A", 3, "/api/position/fake-delete/{id}", "岗位管理服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "用户中心服务", false, false, "BB0B0620A9F5665B13ADC8D8C8B8F98A", 3, "/api/position/fake-delete/{id}", null, "岗位管理服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"), null, 1306532718346240480L, null, 0, "查看当前用户角色", false, "用户中心服务", false, false, "7F3E99BDC443556613552A21A56D9B73", 0, "/api/account/current-user-roles", "用户账户认证授权服务", "查看用户角色", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"), null, 1306532718346240480L, null, 0, "查看当前用户角色", false, "用户中心服务", false, false, "7F3E99BDC443556613552A21A56D9B73", 0, "/api/account/current-user-roles", null, "用户账户认证授权服务", "查看用户角色", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("69f70da1-fb4e-443f-9efe-e3d12cc95eed"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "88BAC4E29D23BD095207644BB397E5EE", 0, "/api/position/all", "岗位管理服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("69f70da1-fb4e-443f-9efe-e3d12cc95eed"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "88BAC4E29D23BD095207644BB397E5EE", 0, "/api/position/all", null, "岗位管理服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "0C58B2617EA08ED81F14B53C00C678D7", 1, "/api/attachment/search", "附件服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("6a9763c9-c40f-44f3-a248-a3b1e3d1f586"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "0C58B2617EA08ED81F14B53C00C678D7", 1, "/api/attachment/search", null, "附件服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "3E010DCA7BAD6C3FCCCA32FB77F050F0", 1, "/api/user/fake-deletes", "用户服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "3E010DCA7BAD6C3FCCCA32FB77F050F0", 1, "/api/user/fake-deletes", null, "用户服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("6b7f0b3c-c2ed-458e-8f26-abe68eb17854"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "A074E8CFB7457551C240FE7D510618AC", 1, "/api/position/generate-seed-data", "岗位管理服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("6b7f0b3c-c2ed-458e-8f26-abe68eb17854"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "A074E8CFB7457551C240FE7D510618AC", 1, "/api/position/generate-seed-data", null, "岗位管理服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("6c9aa43e-921c-44bc-83fb-64a9c451255f"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "C0F3F05AE24A0E8BBA9BAF52852E09D4", 2, "/api/email-server-config/{id}/lock/{islocked}", "邮件服务器配置服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("6c9aa43e-921c-44bc-83fb-64a9c451255f"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "C0F3F05AE24A0E8BBA9BAF52852E09D4", 2, "/api/email-server-config/{id}/lock/{islocked}", null, "邮件服务器配置服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "80A4CB99380D0D7A70F7C28604C5B0C7", 1, "/api/login-token/fake-deletes", "用户登录TOKEN服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "80A4CB99380D0D7A70F7C28604C5B0C7", 1, "/api/login-token/fake-deletes", null, "用户登录TOKEN服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("6e8d08f8-ba2a-4697-8b69-ac5a5bb31bff"), null, 1306532718346240480L, null, 0, null, true, "用户中心服务", false, false, "6C3EB756645619B25BF1323C05E781D8", 1, "/api/client-function", "客户端与接口关系服务", "添加客户端与接口关系", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("6e8d08f8-ba2a-4697-8b69-ac5a5bb31bff"), null, 1306532718346240480L, null, 0, null, true, "用户中心服务", false, false, "6C3EB756645619B25BF1323C05E781D8", 1, "/api/client-function", null, "客户端与接口关系服务", "添加客户端与接口关系", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("713341f2-47e1-42af-b717-bfa75904d32e"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "3F2A1F37C00070D6D3EB4F27E24BB687", 0, "/api/account/current-user-resources", "用户账户认证授权服务", "获取用户资源", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("713341f2-47e1-42af-b717-bfa75904d32e"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "3F2A1F37C00070D6D3EB4F27E24BB687", 0, "/api/account/current-user-resources", null, "用户账户认证授权服务", "获取用户资源", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("715a2905-da23-405d-98a0-1a1222f7d101"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "DF0B66D0FC43BB25047A470707E01EF8", 0, "/api/position/{id}", "岗位管理服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("715a2905-da23-405d-98a0-1a1222f7d101"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "DF0B66D0FC43BB25047A470707E01EF8", 0, "/api/position/{id}", null, "岗位管理服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7229563b-7311-41b8-947b-f07d58fa6c87"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "6C03A3540C36BB4BD1BB9F1606F0F550", 0, "/api/resource/all-usable", "资源服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7229563b-7311-41b8-947b-f07d58fa6c87"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "6C03A3540C36BB4BD1BB9F1606F0F550", 0, "/api/resource/all-usable", null, "资源服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("724e4ba8-59ff-458a-a940-325f973827d0"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "25F7A33EC2479E4589E5A540765C3DA0", 1, "/api/audit-entity/generate-seed-data", "审计数据服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("724e4ba8-59ff-458a-a940-325f973827d0"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "25F7A33EC2479E4589E5A540765C3DA0", 1, "/api/audit-entity/generate-seed-data", null, "审计数据服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("736fd9b6-b56a-4860-8a1c-9a077be886e3"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "18B1E82C7D5150FD3EDC3BB52FB3ACF9", 2, "/api/email-template/{id}/lock/{islocked}", "邮件模板服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("736fd9b6-b56a-4860-8a1c-9a077be886e3"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "18B1E82C7D5150FD3EDC3BB52FB3ACF9", 2, "/api/email-template/{id}/lock/{islocked}", null, "邮件模板服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "C53E746377386D224D0941DB8F4CB539", 1, "/api/audit-operation/fake-deletes", "审计操作服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "C53E746377386D224D0941DB8F4CB539", 1, "/api/audit-operation/fake-deletes", null, "审计操作服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("75abfcbe-a00b-444f-baa6-503ae03b3434"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "53151648D7858D9061CC0D89B4EA43F5", 1, "/api/email-template/generate-seed-data", "邮件模板服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("75abfcbe-a00b-444f-baa6-503ae03b3434"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "53151648D7858D9061CC0D89B4EA43F5", 1, "/api/email-template/generate-seed-data", null, "邮件模板服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7a3399b3-6003-4aae-8e24-2e478992630e"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "1EB184263BA127C79364162F4E75E660", 1, "/api/position", "岗位管理服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7a3399b3-6003-4aae-8e24-2e478992630e"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "1EB184263BA127C79364162F4E75E660", 1, "/api/position", null, "岗位管理服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7bb514a5-d62d-4ba1-a9b9-9e7756eaae2d"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "D403D5F25D7ACA97A10BEF07B2A816F4", 0, "/api/audit-operation/all", "审计操作服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7bb514a5-d62d-4ba1-a9b9-9e7756eaae2d"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "D403D5F25D7ACA97A10BEF07B2A816F4", 0, "/api/audit-operation/all", null, "审计操作服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7c10e9a1-d0c0-4930-b49a-8a71190ab42a"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "96C246A2C223E0CE16088CC1FD0D0E0A", 0, "/api/sys-timer/all-usable", "任务调度服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7c10e9a1-d0c0-4930-b49a-8a71190ab42a"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "96C246A2C223E0CE16088CC1FD0D0E0A", 0, "/api/sys-timer/all-usable", null, "任务调度服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7cad69bf-2f23-44e8-b0ef-97bdc57fc6a4"), null, 1306547608086225376L, null, 0, "根据分页参数，分页获取数据", false, "通知系统服务", false, false, "3034444DADCC535B882E3D20DA9E1904", 0, "/api/announcement/page/{pageindex}/{pagesize}", "公告服务", "分页查询", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7cad69bf-2f23-44e8-b0ef-97bdc57fc6a4"), null, 1306548821910077920L, null, 0, "根据分页参数，分页获取数据", false, "通知系统服务", false, false, "3034444DADCC535B882E3D20DA9E1904", 0, "/api/announcement/page/{pageindex}/{pagesize}", null, "公告服务", "分页查询", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7cb8921d-0a0c-4e80-8895-604c05480c43"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "0BBAF9866F200FEDE526AB75E03319CC", 0, "/api/dept/page/{pageindex}/{pagesize}", "部门服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7cb8921d-0a0c-4e80-8895-604c05480c43"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "0BBAF9866F200FEDE526AB75E03319CC", 0, "/api/dept/page/{pageindex}/{pagesize}", null, "部门服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7da66506-ed83-40ec-97ad-5323e36af404"), null, 1306547608086225376L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "通知系统服务", false, false, "F5A7F4A1B3C633F14D21BE37F2D8F7FC", 2, "/api/announcement/{id}/lock/{islocked}", "公告服务", "锁定", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7da66506-ed83-40ec-97ad-5323e36af404"), null, 1306548821910077920L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "通知系统服务", false, false, "F5A7F4A1B3C633F14D21BE37F2D8F7FC", 2, "/api/announcement/{id}/lock/{islocked}", null, "公告服务", "锁定", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7e5577d4-32b2-4f43-a83f-05410b59b195"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "CCD570BA5C66619052354D738927A007", 3, "/api/audit-entity/{id}", "审计数据服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7e5577d4-32b2-4f43-a83f-05410b59b195"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "CCD570BA5C66619052354D738927A007", 3, "/api/audit-entity/{id}", null, "审计数据服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7f0d7abb-06a4-4a35-b4e3-7798b21e37fa"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "9C888321143AC3E991B72D3B32193A35", 1, "/api/resource/fake-deletes", "资源服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7f0d7abb-06a4-4a35-b4e3-7798b21e37fa"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "9C888321143AC3E991B72D3B32193A35", 1, "/api/resource/fake-deletes", null, "资源服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"), null, 1306532718346240480L, null, 0, "发送邮件", true, "系统基础服务", false, false, "2C72E2117E4F5092A5C6F2C807389D38", 1, "/api/email/send", "邮件服务", "发送邮件", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7f36ba4f-ec97-4fa9-953b-fa2f1686c448"), null, 1306532718346240480L, null, 0, "发送邮件", true, "系统基础服务", false, false, "2C72E2117E4F5092A5C6F2C807389D38", 1, "/api/email/send", null, "邮件服务", "发送邮件", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "5A7181978F26890284CE44ED28A2F7AA", 1, "/api/audit-entity/search", "审计数据服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "5A7181978F26890284CE44ED28A2F7AA", 1, "/api/audit-entity/search", null, "审计数据服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("814304bb-22fe-4a33-82e1-8ad7c64bab4a"), null, 1306532718346240480L, null, 0, "获取所有子资源", false, "系统基础服务", false, false, "C5668FD7C42E9FB532AB9CB2E1480E1F", 0, "/api/resource/{id}/children", "资源服务", "获取所有子资源", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("814304bb-22fe-4a33-82e1-8ad7c64bab4a"), null, 1306532718346240480L, null, 0, "获取所有子资源", false, "系统基础服务", false, false, "C5668FD7C42E9FB532AB9CB2E1480E1F", 0, "/api/resource/{id}/children", null, "资源服务", "获取所有子资源", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8172d258-7a75-4ced-b5e2-b0be7350aa1f"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "8ECC90D5D58B7FD57A1D06C0F5C4CECA", 1, "/api/client", "客户端服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("8172d258-7a75-4ced-b5e2-b0be7350aa1f"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "8ECC90D5D58B7FD57A1D06C0F5C4CECA", 1, "/api/client", null, "客户端服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("81b4bb91-1f42-4043-9acb-dac756ce729b"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "7CD8C319088D7195B2E9C236613DE833", 0, "/api/sys-timer/{id}", "任务调度服务", "获取任务信息", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("81b4bb91-1f42-4043-9acb-dac756ce729b"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "7CD8C319088D7195B2E9C236613DE833", 0, "/api/sys-timer/{id}", null, "任务调度服务", "获取任务信息", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "DA7F00498254B5B31B18D7C877F96FB7", 1, "/api/client/search", "客户端服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "DA7F00498254B5B31B18D7C877F96FB7", 1, "/api/client/search", null, "客户端服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("841a3afa-a128-4751-b3b2-b2849da338e1"), null, 1306547608086225376L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "通知系统服务", false, false, "7DAD544022ECAB407CA07965FBDEC6AB", 0, "/api/announcement/all-usable", "公告服务", "查询所有可以用的", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("841a3afa-a128-4751-b3b2-b2849da338e1"), null, 1306548821910077920L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "通知系统服务", false, false, "7DAD544022ECAB407CA07965FBDEC6AB", 0, "/api/announcement/all-usable", null, "公告服务", "查询所有可以用的", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("841c572c-5098-4e72-a590-2b81706aaa93"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "C5F41046D8531C1E77B503560A7E220E", 3, "/api/email-template/fake-delete/{id}", "邮件模板服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("841c572c-5098-4e72-a590-2b81706aaa93"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "C5F41046D8531C1E77B503560A7E220E", 3, "/api/email-template/fake-delete/{id}", null, "邮件模板服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("84247930-2035-443d-bde3-69d4d23bec85"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "BA79EB71501051CA1F082DE15FBE73D3", 3, "/api/email-server-config/{id}", "邮件服务器配置服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("84247930-2035-443d-bde3-69d4d23bec85"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "BA79EB71501051CA1F082DE15FBE73D3", 3, "/api/email-server-config/{id}", null, "邮件服务器配置服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("84256e5b-2cef-4b16-8fd3-79ff8d47c731"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "3F9869D1A16CD359E268F2C2DBEFD0E2", 1, "/api/function", "功能服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("84256e5b-2cef-4b16-8fd3-79ff8d47c731"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "3F9869D1A16CD359E268F2C2DBEFD0E2", 1, "/api/function", null, "功能服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("85f94b4c-e897-4f3c-b80a-c7ddb8ebf1b5"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "E6BAA5C7F35ED0CBD3902A30349A992B", 1, "/api/dept/search", "部门服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("85f94b4c-e897-4f3c-b80a-c7ddb8ebf1b5"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "E6BAA5C7F35ED0CBD3902A30349A992B", 1, "/api/dept/search", null, "部门服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("868fc0df-7cdf-4b56-873e-16dd3e0aa528"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "439ED218846E25C27A388B09904AABC8", 2, "/api/role/{id}/lock/{islocked}", "角色服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("868fc0df-7cdf-4b56-873e-16dd3e0aa528"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "439ED218846E25C27A388B09904AABC8", 2, "/api/role/{id}/lock/{islocked}", null, "角色服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("89954833-64a5-4c87-a717-9c863ca3b263"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "710C2B0A026A9C3FF0D6235FCD8E0F26", 1, "/api/position/fake-deletes", "岗位管理服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("89954833-64a5-4c87-a717-9c863ca3b263"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "710C2B0A026A9C3FF0D6235FCD8E0F26", 1, "/api/position/fake-deletes", null, "岗位管理服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "0AC55E6880AE8FACEBACB093AF914C65", 0, "/api/account/current-user-resource-keys", "用户账户认证授权服务", "获取用户资源的key", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "0AC55E6880AE8FACEBACB093AF914C65", 0, "/api/account/current-user-resource-keys", null, "用户账户认证授权服务", "获取用户资源的key", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8ae9c253-584e-46e4-b805-6ec90281d6dd"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "E7F5596D4D8517C85871566D8EFA0855", 2, "/api/function/{id}/lock/{islocked}", "功能服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("8ae9c253-584e-46e4-b805-6ec90281d6dd"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "E7F5596D4D8517C85871566D8EFA0855", 2, "/api/function/{id}/lock/{islocked}", null, "功能服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"), null, 1306547608086225376L, null, 0, null, false, "示例服务", false, false, "2A74937190C8E652BF107434EFFD1C17", 0, "/api/chat-demo/history", "聊天示例服务", "获取聊天历史记录", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"), null, 1306548821910077920L, null, 0, null, false, "示例服务", false, false, "2A74937190C8E652BF107434EFFD1C17", 0, "/api/chat-demo/history", null, "聊天示例服务", "获取聊天历史记录", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8d94c826-ddba-47fe-94c9-333880fee187"), null, 1306532718346240480L, null, 0, "swagger json 文件解析功能", false, "系统基础服务", false, false, "7E9057E559FB68353DCA5D208B7B2A71", 0, "/api/swagger/analysis/{url}", "Swagger服务", "解析api json", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("8d94c826-ddba-47fe-94c9-333880fee187"), null, 1306532718346240480L, null, 0, "swagger json 文件解析功能", false, "系统基础服务", false, false, "7E9057E559FB68353DCA5D208B7B2A71", 0, "/api/swagger/analysis/{url}", null, "Swagger服务", "解析api json", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8f0fb7b6-9087-40c3-a894-8be057ac044e"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "A16E0CAA03E75A172F6A782E8BB86ECC", 0, "/api/client/page/{pageindex}/{pagesize}", "客户端服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("8f0fb7b6-9087-40c3-a894-8be057ac044e"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "A16E0CAA03E75A172F6A782E8BB86ECC", 0, "/api/client/page/{pageindex}/{pagesize}", null, "客户端服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "873AFCBA915D056ED9D8EDA9D23F9061", 3, "/api/login-token/{id}", "用户登录TOKEN服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "873AFCBA915D056ED9D8EDA9D23F9061", 3, "/api/login-token/{id}", null, "用户登录TOKEN服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8f1c2eeb-248f-41bb-a083-511664f2fd8e"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "717D6057E652BA28D3BF0CE337180E9E", 1, "/api/function/deletes", "功能服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("8f1c2eeb-248f-41bb-a083-511664f2fd8e"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "717D6057E652BA28D3BF0CE337180E9E", 1, "/api/function/deletes", null, "功能服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("910d2a4f-85ae-46ff-bddd-b65ffcc6b9e1"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "74B1FF2C0E45DDB2D649404A53E7F7E9", 1, "/api/resource/generate-seed-data", "资源服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("910d2a4f-85ae-46ff-bddd-b65ffcc6b9e1"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "74B1FF2C0E45DDB2D649404A53E7F7E9", 1, "/api/resource/generate-seed-data", null, "资源服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9191206c-f35e-4eb7-b19a-5949dc560369"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "98410D052E1A609292E627692BFA3375", 1, "/api/email-template", "邮件模板服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9191206c-f35e-4eb7-b19a-5949dc560369"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "98410D052E1A609292E627692BFA3375", 1, "/api/email-template", null, "邮件模板服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("94a19350-777d-4d29-8d84-2a9c6e1ae46d"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "2D7A312F51B40D39E3E8616B057A74A1", 0, "/api/sys-timer/detail", "任务调度服务", "查看任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("94a19350-777d-4d29-8d84-2a9c6e1ae46d"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "2D7A312F51B40D39E3E8616B057A74A1", 0, "/api/sys-timer/detail", null, "任务调度服务", "查看任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("94f22c97-ae4a-40e0-95cd-d0a6347eacd7"), null, 1306532718346240480L, null, 0, "根据角色编号删除所有资源", true, "用户中心服务", false, false, "DECA4ECA67D27FC9932271EE3B0AC5DD", 3, "/api/role/{roleid}/resource", "角色服务", "根据角色编号删除所有资源", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("94f22c97-ae4a-40e0-95cd-d0a6347eacd7"), null, 1306532718346240480L, null, 0, "根据角色编号删除所有资源", true, "用户中心服务", false, false, "DECA4ECA67D27FC9932271EE3B0AC5DD", 3, "/api/role/{roleid}/resource", null, "角色服务", "根据角色编号删除所有资源", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9513e5e1-37ab-4937-94f1-1f6b99a385f7"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "07BC6868FFAD4A5B26193E2372B9821C", 1, "/api/audit-operation", "审计操作服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9513e5e1-37ab-4937-94f1-1f6b99a385f7"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "系统基础服务", false, false, "07BC6868FFAD4A5B26193E2372B9821C", 1, "/api/audit-operation", null, "审计操作服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("973edc2c-42e1-473e-9656-a43890663d8a"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "3D033D8178E68247D2C34E53F00D468F", 0, "/api/dept/all-usable", "部门服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("973edc2c-42e1-473e-9656-a43890663d8a"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "3D033D8178E68247D2C34E53F00D468F", 0, "/api/dept/all-usable", null, "部门服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("99546746-70b8-42d6-884d-ea1b79f88c0a"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "D15206E2B2CEFD1CC520AF32A357F56E", 2, "/api/email-server-config", "邮件服务器配置服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("99546746-70b8-42d6-884d-ea1b79f88c0a"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "D15206E2B2CEFD1CC520AF32A357F56E", 2, "/api/email-server-config", null, "邮件服务器配置服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("99c24403-1417-4c04-b1ef-0c17243215e0"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "66DDF878D5F5ABFEF1EF618447F45A5B", 1, "/api/sys-timer/fake-deletes", "任务调度服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("99c24403-1417-4c04-b1ef-0c17243215e0"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "66DDF878D5F5ABFEF1EF618447F45A5B", 1, "/api/sys-timer/fake-deletes", null, "任务调度服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9bda79c9-783c-469c-acda-b72be7391a82"), null, 1306547608086225376L, null, 0, "添加一条数据", true, "通知系统服务", false, false, "EDE2920EEFF4D581ED8EFB72359C19F5", 1, "/api/announcement", "公告服务", "添加", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9bda79c9-783c-469c-acda-b72be7391a82"), null, 1306548821910077920L, null, 0, "添加一条数据", true, "通知系统服务", false, false, "EDE2920EEFF4D581ED8EFB72359C19F5", 1, "/api/announcement", null, "公告服务", "添加", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9c6cefe2-d57d-490c-8b0f-70749bc5cdfa"), null, 1306532718346240480L, null, 0, "根据主键删除", true, "系统基础服务", false, false, "085CB1560C82B28FE4C8C5F28EA31A59", 3, "/api/attachment/{id}", "附件服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9c6cefe2-d57d-490c-8b0f-70749bc5cdfa"), null, 1306532718346240480L, null, 0, "根据主键删除", true, "系统基础服务", false, false, "085CB1560C82B28FE4C8C5F28EA31A59", 3, "/api/attachment/{id}", null, "附件服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9caf800a-de55-4d59-a138-675a16924c3c"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "488BDECFA97ADDE5E940446C32C42693", 0, "/api/function/all", "功能服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9caf800a-de55-4d59-a138-675a16924c3c"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "488BDECFA97ADDE5E940446C32C42693", 0, "/api/function/all", null, "功能服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9d25bf25-5470-4fed-b58c-c4ef4339d533"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "4166A00DD3058EA57C09B869E68927D4", 0, "/api/email-server-config/{id}", "邮件服务器配置服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9d25bf25-5470-4fed-b58c-c4ef4339d533"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "4166A00DD3058EA57C09B869E68927D4", 0, "/api/email-server-config/{id}", null, "邮件服务器配置服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9d26c715-9b8b-40c6-bbf4-9c51df1193da"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "DE9B14A3BC0E0653399F870F27F24CEF", 2, "/api/audit-entity", "审计数据服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9d26c715-9b8b-40c6-bbf4-9c51df1193da"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "DE9B14A3BC0E0653399F870F27F24CEF", 2, "/api/audit-entity", null, "审计数据服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9d9233d8-df0a-43b7-929a-65b9bd532c8c"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "5CF48BAB60B771300975D93C49925CA0", 0, "/api/role/page/{pageindex}/{pagesize}", "角色服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9d9233d8-df0a-43b7-929a-65b9bd532c8c"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "5CF48BAB60B771300975D93C49925CA0", 0, "/api/role/page/{pageindex}/{pagesize}", null, "角色服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"), null, 1306532718346240480L, null, 0, "更新用户", true, "用户中心服务", false, false, "8C82B0DF3A0F5EB8DFED7794B16DA9A5", 2, "/api/user", "用户服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"), null, 1306532718346240480L, null, 0, "更新用户", true, "用户中心服务", false, false, "8C82B0DF3A0F5EB8DFED7794B16DA9A5", 2, "/api/user", null, "用户服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9fe5cc45-a851-4d3f-8b44-32dd96130946"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "87C5CB00FB6A44D52C1C4CC5E9312B02", 1, "/api/email-server-config/search", "邮件服务器配置服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("9fe5cc45-a851-4d3f-8b44-32dd96130946"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "87C5CB00FB6A44D52C1C4CC5E9312B02", 1, "/api/email-server-config/search", null, "邮件服务器配置服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a0decf1b-ed7a-4cd4-ac2f-ee85f52e6c95"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "6AAF93FCBAC80E0FD4329B6852E1741D", 2, "/api/code-generation/entity-code-generation-setting", "代码生成服务", "更新实体的代码生成配置", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a0decf1b-ed7a-4cd4-ac2f-ee85f52e6c95"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "6AAF93FCBAC80E0FD4329B6852E1741D", 2, "/api/code-generation/entity-code-generation-setting", null, "代码生成服务", "更新实体的代码生成配置", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a15ce231-80ae-46c6-ada8-49666e81e328"), null, 1306532718346240480L, null, 0, "根据 HttpMethod 和 path 判断是否存在", false, "系统基础服务", false, false, "27693C4354A64289D9A1D3EB50E68E7E", 0, "/api/function/exists/{method}/{path}", "功能服务", "判断是否存在", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a15ce231-80ae-46c6-ada8-49666e81e328"), null, 1306532718346240480L, null, 0, "根据 HttpMethod 和 path 判断是否存在", false, "系统基础服务", false, false, "27693C4354A64289D9A1D3EB50E68E7E", 0, "/api/function/exists/{method}/{path}", null, "功能服务", "判断是否存在", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a2504e15-4b43-4a6a-bc1a-9c06effa672c"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "B45DAF70F5971948EF52E6726269814D", 1, "/api/sys-timer/search", "任务调度服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a2504e15-4b43-4a6a-bc1a-9c06effa672c"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "B45DAF70F5971948EF52E6726269814D", 1, "/api/sys-timer/search", null, "任务调度服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a2e21aa5-c2ff-4893-954f-263822d168c3"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "2909033694587286F3458217843E20D8", 2, "/api/login-token", "用户登录TOKEN服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a2e21aa5-c2ff-4893-954f-263822d168c3"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "2909033694587286F3458217843E20D8", 2, "/api/login-token", null, "用户登录TOKEN服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a2eab26f-f15c-48be-a976-2411c18f42bf"), null, 1306547608086225376L, null, 0, "根据主键删除一条数据", true, "通知系统服务", false, false, "411B20D0DAA265D807874613A8DCB9F9", 3, "/api/announcement/{id}", "公告服务", "删除", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a2eab26f-f15c-48be-a976-2411c18f42bf"), null, 1306548821910077920L, null, 0, "根据主键删除一条数据", true, "通知系统服务", false, false, "411B20D0DAA265D807874613A8DCB9F9", 3, "/api/announcement/{id}", null, "公告服务", "删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a3ea9c9f-da6f-48e1-8255-d250bb3e52d5"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "3CBCB4608120758739D941BFCCC09C18", 0, "/api/attachment/all", "附件服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a3ea9c9f-da6f-48e1-8255-d250bb3e52d5"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "3CBCB4608120758739D941BFCCC09C18", 0, "/api/attachment/all", null, "附件服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a4a2536b-1cc6-438c-ba00-054e16fc2c7c"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "1A6C9AC4F4D71B0FC154AD8CE6FE6D29", 3, "/api/role/{id}", "角色服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a4a2536b-1cc6-438c-ba00-054e16fc2c7c"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "1A6C9AC4F4D71B0FC154AD8CE6FE6D29", 3, "/api/role/{id}", null, "角色服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a4e467c5-639c-40bf-a71c-7d3c0d0760e7"), null, 1306547608086225376L, null, 0, "查找到所有数据", false, "通知系统服务", false, false, "54C22639E8EF99A5CEEC744853C5DFCD", 0, "/api/announcement/all", "公告服务", "查询所有", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a4e467c5-639c-40bf-a71c-7d3c0d0760e7"), null, 1306548821910077920L, null, 0, "查找到所有数据", false, "通知系统服务", false, false, "54C22639E8EF99A5CEEC744853C5DFCD", 0, "/api/announcement/all", null, "公告服务", "查询所有", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a53a9c89-7968-4598-9c46-dad4e9188bd0"), null, 1306532718346240480L, null, 0, "获取api分组设置", false, "系统基础服务", false, false, "945B6A21E0C00F9BB0F7EEE37C671E3E", 0, "/api/swagger/api-group", "Swagger服务", "获取 swagger 配置", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a53a9c89-7968-4598-9c46-dad4e9188bd0"), null, 1306532718346240480L, null, 0, "获取api分组设置", false, "系统基础服务", false, false, "945B6A21E0C00F9BB0F7EEE37C671E3E", 0, "/api/swagger/api-group", null, "Swagger服务", "获取 swagger 配置", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a6db8946-339f-423e-8641-902da36d3d39"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "071E85AC46B630CFCC89C5EAF1E23F68", 1, "/api/user/generate-seed-data", "用户服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a6db8946-339f-423e-8641-902da36d3d39"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "071E85AC46B630CFCC89C5EAF1E23F68", 1, "/api/user/generate-seed-data", null, "用户服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a75bd9a7-e3f0-4736-9c27-8763a3d3768b"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "7037CCD6F97FA35692ED560CE1756F86", 2, "/api/audit-operation", "审计操作服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a75bd9a7-e3f0-4736-9c27-8763a3d3768b"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "7037CCD6F97FA35692ED560CE1756F86", 2, "/api/audit-operation", null, "审计操作服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a8211f75-bf19-459a-bf66-9c31c6f334aa"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "1C8C95EA831A3D031460A1390DF26E83", 1, "/api/audit-operation/deletes", "审计操作服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a8211f75-bf19-459a-bf66-9c31c6f334aa"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "1C8C95EA831A3D031460A1390DF26E83", 1, "/api/audit-operation/deletes", null, "审计操作服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "6A85EF9D6FBD3B330E1827AB0949D7E4", 0, "/api/dept/tree", "部门服务", "获取所有部门数据，以树形结构返回", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "6A85EF9D6FBD3B330E1827AB0949D7E4", 0, "/api/dept/tree", null, "部门服务", "获取所有部门数据，以树形结构返回", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("aad857df-a1e7-43cb-be82-55c60865da86"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "5F7047AD7EC090D04B2AF8C4847678A8", 0, "/api/email-template/all-usable", "邮件模板服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("aad857df-a1e7-43cb-be82-55c60865da86"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "5F7047AD7EC090D04B2AF8C4847678A8", 0, "/api/email-template/all-usable", null, "邮件模板服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ac3ae978-83b7-4fad-9322-d1e223618d7c"), null, 1306547608086225376L, null, 0, "根据多个主键批量删除", true, "通知系统服务", false, false, "FF53BAAC9AC941B38C99A08E032B9443", 1, "/api/announcement/deletes", "公告服务", "批量删除", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ac3ae978-83b7-4fad-9322-d1e223618d7c"), null, 1306548821910077920L, null, 0, "根据多个主键批量删除", true, "通知系统服务", false, false, "FF53BAAC9AC941B38C99A08E032B9443", 1, "/api/announcement/deletes", null, "公告服务", "批量删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ae3a97a9-32fb-4402-a6c7-9a0ffd76ce49"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "B0F7A5E8F1984DD5545B50F04FB3106D", 0, "/api/email-template/all", "邮件模板服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ae3a97a9-32fb-4402-a6c7-9a0ffd76ce49"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "B0F7A5E8F1984DD5545B50F04FB3106D", 0, "/api/email-template/all", null, "邮件模板服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "E2248234B183BA3EEA82273CB03F500C", 2, "/api/function", "功能服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "系统基础服务", false, false, "E2248234B183BA3EEA82273CB03F500C", 2, "/api/function", null, "功能服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("aed3a535-b700-48a5-a8f5-3657e500e400"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "882FEEBFEAF1F50D83E0189AA69B9ED0", 2, "/api/audit-entity/{id}/lock/{islocked}", "审计数据服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("aed3a535-b700-48a5-a8f5-3657e500e400"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "882FEEBFEAF1F50D83E0189AA69B9ED0", 2, "/api/audit-entity/{id}/lock/{islocked}", null, "审计数据服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("aedc9e9c-f011-4d46-966e-3b14fd5298c2"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "9BE552AEF35878A71ABE8179B80AA036", 0, "/api/attachment/page/{pageindex}/{pagesize}", "附件服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("aedc9e9c-f011-4d46-966e-3b14fd5298c2"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "9BE552AEF35878A71ABE8179B80AA036", 0, "/api/attachment/page/{pageindex}/{pagesize}", null, "附件服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("af1f0410-e9cc-4a73-9da7-ea45aadac8b2"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "E749E69D854D694E0BC4CD4D97142A49", 3, "/api/client/{id}", "客户端服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("af1f0410-e9cc-4a73-9da7-ea45aadac8b2"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "用户中心服务", false, false, "E749E69D854D694E0BC4CD4D97142A49", 3, "/api/client/{id}", null, "客户端服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"), null, 1306532718346240480L, null, 0, "新增用户", true, "用户中心服务", false, false, "7CBF6D43C3F9935BF83629FCEED2FFFB", 1, "/api/user", "用户服务", "新增", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"), null, 1306532718346240480L, null, 0, "新增用户", true, "用户中心服务", false, false, "7CBF6D43C3F9935BF83629FCEED2FFFB", 1, "/api/user", null, "用户服务", "新增", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b2dfaad3-e44a-4a76-ac91-34a571ba47e8"), null, 1306532718346240480L, null, 0, "根据key获取 功能点", false, "系统基础服务", false, false, "CE34F0B4FCB2222CF693F501B370149D", 0, "/api/function/by-key/{key}", "功能服务", "根据key获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b2dfaad3-e44a-4a76-ac91-34a571ba47e8"), null, 1306532718346240480L, null, 0, "根据key获取 功能点", false, "系统基础服务", false, false, "CE34F0B4FCB2222CF693F501B370149D", 0, "/api/function/by-key/{key}", null, "功能服务", "根据key获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b2ffcf41-7c74-4815-a367-d55c9a536b22"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "AFD3A8A201452DB60D39E89FC7015C7D", 1, "/api/sys-timer/deletes", "任务调度服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b2ffcf41-7c74-4815-a367-d55c9a536b22"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "AFD3A8A201452DB60D39E89FC7015C7D", 1, "/api/sys-timer/deletes", null, "任务调度服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b3577dc2-dfea-41be-ba8f-bb8efa389f36"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "A46663EE883A6E5BE0A0C8FE0B3D7A4C", 0, "/api/audit-entity/{id}", "审计数据服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b3577dc2-dfea-41be-ba8f-bb8efa389f36"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "A46663EE883A6E5BE0A0C8FE0B3D7A4C", 0, "/api/audit-entity/{id}", null, "审计数据服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"), null, 1306532718346240480L, null, 0, "根据主键获取用户", false, "用户中心服务", false, false, "011AC4559477AB1F24A281BDC1033AAB", 0, "/api/user/{id}", "用户服务", "根据主键获取用户", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"), null, 1306532718346240480L, null, 0, "根据主键获取用户", false, "用户中心服务", false, false, "011AC4559477AB1F24A281BDC1033AAB", 0, "/api/user/{id}", null, "用户服务", "根据主键获取用户", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b56c4126-411c-445e-86aa-a91a5ce816d4"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "C47AACD68B1EF833AAC0EC90CD878FDD", 0, "/api/position/all-usable", "岗位管理服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b56c4126-411c-445e-86aa-a91a5ce816d4"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "C47AACD68B1EF833AAC0EC90CD878FDD", 0, "/api/position/all-usable", null, "岗位管理服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b6c1592b-cb4b-4ead-bea1-3dc4a917e4a8"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "9C103F0B6C167211465FB472E46EC968", 1, "/api/email-template/deletes", "邮件模板服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b6c1592b-cb4b-4ead-bea1-3dc4a917e4a8"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "9C103F0B6C167211465FB472E46EC968", 1, "/api/email-template/deletes", null, "邮件模板服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "1CCC2478B5AC5FDDB537DCD33166ABF7", 0, "/api/function/all-usable", "功能服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b79d2f63-487c-44c8-b7d3-1e882994789b"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "1CCC2478B5AC5FDDB537DCD33166ABF7", 0, "/api/function/all-usable", null, "功能服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b83c620b-e964-43bb-8590-d8d32277aa00"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "2A47C77D4A33FEF2778D9729707BA5B1", 3, "/api/sys-timer/fake-delete/{id}", "任务调度服务", "假删除任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b83c620b-e964-43bb-8590-d8d32277aa00"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "2A47C77D4A33FEF2778D9729707BA5B1", 3, "/api/sys-timer/fake-delete/{id}", null, "任务调度服务", "假删除任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "FDD3EAB18820A6CD5C6DA3B17D40EEB9", 0, "/api/function/{id}", "功能服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "FDD3EAB18820A6CD5C6DA3B17D40EEB9", 0, "/api/function/{id}", null, "功能服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("bacd1963-f89e-4afb-862f-584cd9ba4c10"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "7F4170917F4566615005DB297A93C7CE", 1, "/api/email-server-config/generate-seed-data", "邮件服务器配置服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("bacd1963-f89e-4afb-862f-584cd9ba4c10"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "7F4170917F4566615005DB297A93C7CE", 1, "/api/email-server-config/generate-seed-data", null, "邮件服务器配置服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("bdab8953-956d-4b1a-945b-b1806e9ac749"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "073E6E78B3A88E41DBDC46DCA32C4837", 0, "/api/user/all-usable", "用户服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("bdab8953-956d-4b1a-945b-b1806e9ac749"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "073E6E78B3A88E41DBDC46DCA32C4837", 0, "/api/user/all-usable", null, "用户服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("becfbc6e-e75f-4c17-a0f8-d366cc0c0ecb"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "FAC62F9BF65D4DD69EE5EDE973F67030", 1, "/api/code-generation/entity-code-generation-setting", "代码生成服务", "添加实体的代码生成配置", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("becfbc6e-e75f-4c17-a0f8-d366cc0c0ecb"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "FAC62F9BF65D4DD69EE5EDE973F67030", 1, "/api/code-generation/entity-code-generation-setting", null, "代码生成服务", "添加实体的代码生成配置", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("bfbcb606-6adb-460f-9730-20dbe3b32949"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "EC62EF7FF22A3D75FF0452966175ED6D", 0, "/api/code-generation/entity-definitions", "代码生成服务", "获取所有实体定义", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("bfbcb606-6adb-460f-9730-20dbe3b32949"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "EC62EF7FF22A3D75FF0452966175ED6D", 0, "/api/code-generation/entity-definitions", null, "代码生成服务", "获取所有实体定义", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"), null, 1306547608086227424L, null, 0, "", true, "用户中心服务", false, false, "43844F96A173330CECD6470FD62A8A76", 1, "/api/resource-function", "资源与接口关系服务", "添加资源与接口关系", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"), null, 1306548821910077920L, null, 0, "", true, "用户中心服务", false, false, "43844F96A173330CECD6470FD62A8A76", 1, "/api/resource-function", null, "资源与接口关系服务", "添加资源与接口关系", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c2784668-075f-4b7e-a563-b6b92b072542"), null, 1306547608086229472L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "298FD49C905F1B1B812B226B95307CE0", 1, "/api/dept/generate-seed-data", "部门服务", "生成种子数据", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c2784668-075f-4b7e-a563-b6b92b072542"), null, 1306548821910079968L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "298FD49C905F1B1B812B226B95307CE0", 1, "/api/dept/generate-seed-data", null, "部门服务", "生成种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c39030b8-d207-4c22-a3ba-74b0eccaa2fa"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "4603BCE62CA130E67C2450C127DD7728", 1, "/api/function/fake-deletes", "功能服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c39030b8-d207-4c22-a3ba-74b0eccaa2fa"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "4603BCE62CA130E67C2450C127DD7728", 1, "/api/function/fake-deletes", null, "功能服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "A53340931409D1BB2882CDB88AE6CB5D", 1, "/api/function/generate-seed-data", "功能服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "A53340931409D1BB2882CDB88AE6CB5D", 1, "/api/function/generate-seed-data", null, "功能服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"), null, 1306547608086227424L, null, 0, "", false, "用户中心服务", false, false, "DDE05A70BD80F948C9AEAFB9708090F3", 0, "/api/resource-function/seed-data", "资源与接口关系服务", "获取种子数据", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"), null, 1306548821910077920L, null, 0, "", false, "用户中心服务", false, false, "DDE05A70BD80F948C9AEAFB9708090F3", 0, "/api/resource-function/seed-data", null, "资源与接口关系服务", "获取种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c591c0ca-3305-4684-89bb-278218d13c47"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "187E0857A128187E01EFBBD569C3DE92", 0, "/api/swagger/functions-from-json/{url}", "Swagger服务", "从json中获取function", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c591c0ca-3305-4684-89bb-278218d13c47"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "187E0857A128187E01EFBBD569C3DE92", 0, "/api/swagger/functions-from-json/{url}", null, "Swagger服务", "从json中获取function", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "9A501F3D2F0A3A2D47A17D6F42042CD5", 1, "/api/position/search", "岗位管理服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c715a6d5-cd99-4c94-8760-936817c1e09c"), null, 1306532718346240480L, null, 0, "搜索数据", true, "用户中心服务", false, false, "9A501F3D2F0A3A2D47A17D6F42042CD5", 1, "/api/position/search", null, "岗位管理服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c7aa66f0-6ceb-4cc7-b1cc-8d62163aa957"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "842AFBBE14BB5C745BD820EF3C4A052B", 0, "/api/sys-timer/local-jobs", "任务调度服务", "获取所有本地任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c7aa66f0-6ceb-4cc7-b1cc-8d62163aa957"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "842AFBBE14BB5C745BD820EF3C4A052B", 0, "/api/sys-timer/local-jobs", null, "任务调度服务", "获取所有本地任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c96a611f-555b-4b96-8ee5-83a87ee03a6e"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "918B9A40A48CA6481E5C039AB9DF8F28", 1, "/api/sys-timer/stop", "任务调度服务", "停止任务", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c96a611f-555b-4b96-8ee5-83a87ee03a6e"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "918B9A40A48CA6481E5C039AB9DF8F28", 1, "/api/sys-timer/stop", null, "任务调度服务", "停止任务", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"), null, 1306532718346240480L, null, 0, "登录接口", true, "用户中心服务", false, false, "B6792454A69F875EEC82455D02BB3AAA", 1, "/api/account/login", "用户账户认证授权服务", "登录", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"), null, 1306532718346240480L, null, 0, "登录接口", true, "用户中心服务", false, false, "B6792454A69F875EEC82455D02BB3AAA", 1, "/api/account/login", null, "用户账户认证授权服务", "登录", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ca62cf90-fcfd-40aa-bd06-30afc7c6dd9f"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "2F1D00EDA3F9BA770FC2D6E15892FBB4", 1, "/api/audit-operation/generate-seed-data", "审计操作服务", "生成种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ca62cf90-fcfd-40aa-bd06-30afc7c6dd9f"), null, 1306532718346240480L, null, 0, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "2F1D00EDA3F9BA770FC2D6E15892FBB4", 1, "/api/audit-operation/generate-seed-data", null, "审计操作服务", "生成种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("cb9f6387-5817-4fd6-b9eb-6553dcaf5e87"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "8D8980AD32B8E49FB140F9DCE14B897C", 0, "/api/role/all", "角色服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("cb9f6387-5817-4fd6-b9eb-6553dcaf5e87"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "8D8980AD32B8E49FB140F9DCE14B897C", 0, "/api/role/all", null, "角色服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("cba739f0-9f8a-40c2-afff-d66c3382e096"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "CC8DA87E574A106E9B14287FEC850037", 0, "/api/role/{id}", "角色服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("cba739f0-9f8a-40c2-afff-d66c3382e096"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "用户中心服务", false, false, "CC8DA87E574A106E9B14287FEC850037", 0, "/api/role/{id}", null, "角色服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"), null, 1306532718346240480L, null, 0, "搜索用户数据", true, "用户中心服务", false, false, "04608E487B494D4597BBAD83DF59D2FF", 1, "/api/user/search", "用户服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"), null, 1306532718346240480L, null, 0, "搜索用户数据", true, "用户中心服务", false, false, "04608E487B494D4597BBAD83DF59D2FF", 1, "/api/user/search", null, "用户服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("cc73d556-6ded-4a2a-8b5c-62ea9c897351"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "1DC4817A750A7C248B15EA766BDD53C8", 1, "/api/client/fake-deletes", "客户端服务", "批量逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("cc73d556-6ded-4a2a-8b5c-62ea9c897351"), null, 1306532718346240480L, null, 0, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "1DC4817A750A7C248B15EA766BDD53C8", 1, "/api/client/fake-deletes", null, "客户端服务", "批量逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("cd7db809-50f5-4bf3-a464-89218e24077f"), null, 1306532718346240480L, null, 0, "获取角色所有资源", false, "用户中心服务", false, false, "011A2E3F574F9C151E044EFA80A05F29", 0, "/api/role/{roleid}/resource", "角色服务", "获取角色所有资源", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("cd7db809-50f5-4bf3-a464-89218e24077f"), null, 1306532718346240480L, null, 0, "获取角色所有资源", false, "用户中心服务", false, false, "011A2E3F574F9C151E044EFA80A05F29", 0, "/api/role/{roleid}/resource", null, "角色服务", "获取角色所有资源", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("cdd3c605-ed1d-4d94-a482-16430b729541"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "BC8D1127FE54019A5476079400388CF3", 2, "/api/resource/{id}/lock/{islocked}", "资源服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("cdd3c605-ed1d-4d94-a482-16430b729541"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "BC8D1127FE54019A5476079400388CF3", 2, "/api/resource/{id}/lock/{islocked}", null, "资源服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("cecdfb7d-6796-4bd8-a3d7-164c16a7c959"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "4326F39D4D047A58AA7887EEB0A5B5A3", 2, "/api/client", "客户端服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("cecdfb7d-6796-4bd8-a3d7-164c16a7c959"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "4326F39D4D047A58AA7887EEB0A5B5A3", 2, "/api/client", null, "客户端服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("d22007c6-fada-4ef1-bafa-08455b767883"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "F543F08AB768F7D444481F5D7EB52373", 0, "/api/position/page/{pageindex}/{pagesize}", "岗位管理服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("d22007c6-fada-4ef1-bafa-08455b767883"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "F543F08AB768F7D444481F5D7EB52373", 0, "/api/position/page/{pageindex}/{pagesize}", null, "岗位管理服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("d5e9621c-ad9f-4bca-aa51-04aa0b55744e"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "6946DB3F24E403A804F67F2B116C9392", 0, "/api/email-server-config/page/{pageindex}/{pagesize}", "邮件服务器配置服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("d5e9621c-ad9f-4bca-aa51-04aa0b55744e"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "6946DB3F24E403A804F67F2B116C9392", 0, "/api/email-server-config/page/{pageindex}/{pagesize}", null, "邮件服务器配置服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("d7f59d52-a931-4bec-8312-5142d4d37fda"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "BA7BDB4454250C19379AD4FABE7A58B6", 1, "/api/image-verify-code", "图片验证码服务", "获取验证码", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("d7f59d52-a931-4bec-8312-5142d4d37fda"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "BA7BDB4454250C19379AD4FABE7A58B6", 1, "/api/image-verify-code", null, "图片验证码服务", "获取验证码", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("d7fa048a-0bfd-4997-94e3-dda3402c3b08"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "5AE5AD783D5821E6D300DBE1BDD6E631", 0, "/api/email-server-config/all", "邮件服务器配置服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("d7fa048a-0bfd-4997-94e3-dda3402c3b08"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "5AE5AD783D5821E6D300DBE1BDD6E631", 0, "/api/email-server-config/all", null, "邮件服务器配置服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("db76ae46-851b-47bc-94be-b2e869043636"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "704D356B44E6DEA692BA099781A321DD", 1, "/api/audit-operation/search", "审计操作服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("db76ae46-851b-47bc-94be-b2e869043636"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "704D356B44E6DEA692BA099781A321DD", 1, "/api/audit-operation/search", null, "审计操作服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ddeeea7e-09e3-42c1-b536-0ff16393db1c"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "E23CF3B8D86A5D0E1F13759117676687", 1, "/api/email-verify-code", "邮件验证码服务", "获取验证码", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ddeeea7e-09e3-42c1-b536-0ff16393db1c"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "E23CF3B8D86A5D0E1F13759117676687", 1, "/api/email-verify-code", null, "邮件验证码服务", "获取验证码", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e23b555c-600a-4839-9439-2ee0ad0ae4f8"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "248BF161E6BEB662D259298A8E564433", 2, "/api/dept", "部门服务", "更新", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e23b555c-600a-4839-9439-2ee0ad0ae4f8"), null, 1306532718346240480L, null, 0, "更新一条数据", true, "用户中心服务", false, false, "248BF161E6BEB662D259298A8E564433", 2, "/api/dept", null, "部门服务", "更新", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e298058c-8ec9-4637-bf8b-4ece0bfa5a5b"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "4A8F7B6AB1E6A30A9A65FEBE2B31CE4A", 0, "/api/login-token/page/{pageindex}/{pagesize}", "用户登录TOKEN服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e298058c-8ec9-4637-bf8b-4ece0bfa5a5b"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "4A8F7B6AB1E6A30A9A65FEBE2B31CE4A", 0, "/api/login-token/page/{pageindex}/{pagesize}", null, "用户登录TOKEN服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"), null, 1306532718346240480L, null, 0, "获取当前用户的所有菜单", false, "用户中心服务", false, false, "3317F3470BD4CCECEB26F73F6551D9D6", 0, "/api/account/current-user-menus", "用户账户认证授权服务", "获取当前用户的所有菜单", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"), null, 1306532718346240480L, null, 0, "获取当前用户的所有菜单", false, "用户中心服务", false, false, "3317F3470BD4CCECEB26F73F6551D9D6", 0, "/api/account/current-user-menus", null, "用户账户认证授权服务", "获取当前用户的所有菜单", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"), null, 1306532718346240480L, null, 0, "查询所有资源 按树形结构返回", false, "系统基础服务", false, false, "6AFF14D9D209CDEEFFC0E4872E060F42", 0, "/api/resource/tree", "资源服务", "查询所有资源", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"), null, 1306532718346240480L, null, 0, "查询所有资源 按树形结构返回", false, "系统基础服务", false, false, "6AFF14D9D209CDEEFFC0E4872E060F42", 0, "/api/resource/tree", null, "资源服务", "查询所有资源", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e466c648-4dc5-4ca4-b8f9-826c51b2a462"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "1113744E52468C0ED06582D699F77B87", 1, "/api/email-verify-code/verify", "邮件验证码服务", "验证验证码", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e466c648-4dc5-4ca4-b8f9-826c51b2a462"), null, 1306532718346240480L, null, 0, null, true, "系统基础服务", false, false, "1113744E52468C0ED06582D699F77B87", 1, "/api/email-verify-code/verify", null, "邮件验证码服务", "验证验证码", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "860A62FFC20FAAAE60E760D4305104DF", 1, "/api/login-token/search", "用户登录TOKEN服务", "搜索", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"), null, 1306532718346240480L, null, 0, "搜索数据", true, "系统基础服务", false, false, "860A62FFC20FAAAE60E760D4305104DF", 1, "/api/login-token/search", null, "用户登录TOKEN服务", "搜索", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e7e8c401-2ff1-45ee-adfd-cebe90117575"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "FEB756C21615385FC3C747ACB240DC2D", 3, "/api/resource/fake-delete/{id}", "资源服务", "逻辑删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e7e8c401-2ff1-45ee-adfd-cebe90117575"), null, 1306532718346240480L, null, 0, "根据主键逻辑删除", true, "系统基础服务", false, false, "FEB756C21615385FC3C747ACB240DC2D", 3, "/api/resource/fake-delete/{id}", null, "资源服务", "逻辑删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e81c2cc3-b2cb-4515-a5bb-b5ef3caa5050"), null, 1306547608086229472L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "80E175A5D68598258AE3022F6CD323F0", 1, "/api/client/generate-seed-data", "客户端服务", "生成种子数据", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("e81c2cc3-b2cb-4515-a5bb-b5ef3caa5050"), null, 1306548821910079968L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "80E175A5D68598258AE3022F6CD323F0", 1, "/api/client/generate-seed-data", null, "客户端服务", "生成种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ed340c0c-9b63-45f4-942a-c8a14c4491d3"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "C9E5F9B494BBF428A85ECEA53B095285", 1, "/api/position/deletes", "岗位管理服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ed340c0c-9b63-45f4-942a-c8a14c4491d3"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "C9E5F9B494BBF428A85ECEA53B095285", 1, "/api/position/deletes", null, "岗位管理服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("eefdb20f-b508-415a-b798-1aa9420a5b62"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "6999F8BBB5F9BA97658BB99113A381F5", 2, "/api/audit-operation/{id}/lock/{islocked}", "审计操作服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("eefdb20f-b508-415a-b798-1aa9420a5b62"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "6999F8BBB5F9BA97658BB99113A381F5", 2, "/api/audit-operation/{id}/lock/{islocked}", null, "审计操作服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ef62671e-4d35-4993-83c4-4dcdf7cbf0d0"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "33524956F6EC6C08F348500B3E2D9E9C", 1, "/api/attachment/deletes", "附件服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ef62671e-4d35-4993-83c4-4dcdf7cbf0d0"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "系统基础服务", false, false, "33524956F6EC6C08F348500B3E2D9E9C", 1, "/api/attachment/deletes", null, "附件服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f1267fbc-903b-4439-a7b6-a7290507d207"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "C01E9238420548B6CA87C312935DD043", 0, "/api/login-token/{id}", "用户登录TOKEN服务", "根据主键获取", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f1267fbc-903b-4439-a7b6-a7290507d207"), null, 1306532718346240480L, null, 0, "根据主键查找一条数据", false, "系统基础服务", false, false, "C01E9238420548B6CA87C312935DD043", 0, "/api/login-token/{id}", null, "用户登录TOKEN服务", "根据主键获取", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f16b30b9-9e03-48d7-83a1-f09ae3e05345"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "C75F9424DD51498CD9ADBFCBF2EB4D57", 0, "/api/client/all", "客户端服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f16b30b9-9e03-48d7-83a1-f09ae3e05345"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "用户中心服务", false, false, "C75F9424DD51498CD9ADBFCBF2EB4D57", 0, "/api/client/all", null, "客户端服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f4ba1bf6-c07e-4df2-b7de-93b35fb79bf0"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "8650A7797FF354BBB742C87D0F560844", 3, "/api/resource/{id}", "资源服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f4ba1bf6-c07e-4df2-b7de-93b35fb79bf0"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "8650A7797FF354BBB742C87D0F560844", 3, "/api/resource/{id}", null, "资源服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "B37ED1BEEE60098FACB7182C73B5FA3F", 2, "/api/login-token/{id}/lock/{islocked}", "用户登录TOKEN服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "B37ED1BEEE60098FACB7182C73B5FA3F", 2, "/api/login-token/{id}/lock/{islocked}", null, "用户登录TOKEN服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f5c318f6-9230-475a-830e-a404e17506b5"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "3AB1D0424907EC010DC69F029B4FBD06", 1, "/api/dept", "部门服务", "添加", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f5c318f6-9230-475a-830e-a404e17506b5"), null, 1306532718346240480L, null, 0, "添加一条数据", true, "用户中心服务", false, false, "3AB1D0424907EC010DC69F029B4FBD06", 1, "/api/dept", null, "部门服务", "添加", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f6843cdf-133d-4eb8-92b2-c36fe63ea9d7"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "9501F9B0B5D4867FF65611B203B43D69", 2, "/api/position/{id}/lock/{islocked}", "岗位管理服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f6843cdf-133d-4eb8-92b2-c36fe63ea9d7"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "9501F9B0B5D4867FF65611B203B43D69", 2, "/api/position/{id}/lock/{islocked}", null, "岗位管理服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f6fd9621-f6e4-45ec-b919-6acb73c7b303"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "8C9ED3E66D288CA942AD438AD9C50DBF", 0, "/api/login-token/all", "用户登录TOKEN服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f6fd9621-f6e4-45ec-b919-6acb73c7b303"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "8C9ED3E66D288CA942AD438AD9C50DBF", 0, "/api/login-token/all", null, "用户登录TOKEN服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f7279175-4aa3-448a-ac71-a17004d66788"), null, 1306547608086225376L, null, 0, "根据搜索条叫生成种子数据", true, "通知系统服务", false, false, "DB4E6D22B47A0BBCB5F87643AA5EB527", 1, "/api/announcement/generate-seed-data", "公告服务", "生成种子数据", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f7279175-4aa3-448a-ac71-a17004d66788"), null, 1306548821910077920L, null, 0, "根据搜索条叫生成种子数据", true, "通知系统服务", false, false, "DB4E6D22B47A0BBCB5F87643AA5EB527", 1, "/api/announcement/generate-seed-data", null, "公告服务", "生成种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f72f5e71-46f6-44eb-8a3d-f07082fa33e5"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "6069031816C15D92B60A246C9CAD1287", 0, "/api/client/all-usable", "客户端服务", "查询所有可以用的", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f72f5e71-46f6-44eb-8a3d-f07082fa33e5"), null, 1306532718346240480L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "6069031816C15D92B60A246C9CAD1287", 0, "/api/client/all-usable", null, "客户端服务", "查询所有可以用的", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f8ddd5e5-7c20-43c2-a2cf-31ebc3f9971a"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "5848947AEE0064BC746DE38E1AC0E3D2", 0, "/api/resource/page/{pageindex}/{pagesize}", "资源服务", "分页查询", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f8ddd5e5-7c20-43c2-a2cf-31ebc3f9971a"), null, 1306532718346240480L, null, 0, "根据分页参数，分页获取数据", false, "系统基础服务", false, false, "5848947AEE0064BC746DE38E1AC0E3D2", 0, "/api/resource/page/{pageindex}/{pagesize}", null, "资源服务", "分页查询", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f9feca89-9856-4c20-aa82-b2260df498a9"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "51CDF306434E8148436781B9BFB4D520", 0, "/api/code-generation/entity-code-generation-setting/{entityfullname}", "代码生成服务", "获取实体的代码生成配置", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("f9feca89-9856-4c20-aa82-b2260df498a9"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "51CDF306434E8148436781B9BFB4D520", 0, "/api/code-generation/entity-code-generation-setting/{entityfullname}", null, "代码生成服务", "获取实体的代码生成配置", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("faa3ff98-22d5-4254-9297-ee976a5842de"), null, 1306547608086225376L, null, 0, "根据多个主键批量逻辑删除", true, "通知系统服务", false, false, "6A55E8C4030728438432973ECACF7433", 1, "/api/announcement/fake-deletes", "公告服务", "批量逻辑删除", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("faa3ff98-22d5-4254-9297-ee976a5842de"), null, 1306548821910077920L, null, 0, "根据多个主键批量逻辑删除", true, "通知系统服务", false, false, "6A55E8C4030728438432973ECACF7433", 1, "/api/announcement/fake-deletes", null, "公告服务", "批量逻辑删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("fc90ab49-b7c2-437e-bbdc-4f234cb0f79a"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "6D9355E642310F188E728A62002A6879", 2, "/api/client/{id}/lock/{islocked}", "客户端服务", "锁定", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("fc90ab49-b7c2-437e-bbdc-4f234cb0f79a"), null, 1306532718346240480L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "6D9355E642310F188E728A62002A6879", 2, "/api/client/{id}/lock/{islocked}", null, "客户端服务", "锁定", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("fcebd316-c2f3-4f8e-97fc-498dd3a33d4e"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "951D030BDA5FAE619E5A7BB9EFB43F33", 1, "/api/dept/deletes", "部门服务", "批量删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("fcebd316-c2f3-4f8e-97fc-498dd3a33d4e"), null, 1306532718346240480L, null, 0, "根据多个主键批量删除", true, "用户中心服务", false, false, "951D030BDA5FAE619E5A7BB9EFB43F33", 1, "/api/dept/deletes", null, "部门服务", "批量删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("fee31eb9-c106-4e42-9464-0d2433fd4829"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "AFF0461EE391D477DE158E15F62B6D79", 0, "/api/sys-timer/all", "任务调度服务", "查询所有", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("fee31eb9-c106-4e42-9464-0d2433fd4829"), null, 1306532718346240480L, null, 0, "查找到所有数据", false, "系统基础服务", false, false, "AFF0461EE391D477DE158E15F62B6D79", 0, "/api/sys-timer/all", null, "任务调度服务", "查询所有", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ff8621c9-1b88-4e6d-be00-34615c48c69f"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "EFFE9D726D7792B023DF91E15AA48C89", 0, "/api/dept/seed-data", "部门服务", "获取种子数据", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ff8621c9-1b88-4e6d-be00-34615c48c69f"), null, 1306532718346240480L, null, 0, null, false, "用户中心服务", false, false, "EFFE9D726D7792B023DF91E15AA48C89", 0, "/api/dept/seed-data", null, "部门服务", "获取种子数据", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ff955e68-22f5-47c2-88f2-2c901cd823e3"), null, 1306547608086225376L, null, 0, "更新一条数据", true, "通知系统服务", false, false, "5C0F247E2ABB90F962DCB4E0D1F948E1", 2, "/api/announcement", "公告服务", "更新", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ff955e68-22f5-47c2-88f2-2c901cd823e3"), null, 1306548821910077920L, null, 0, "更新一条数据", true, "通知系统服务", false, false, "5C0F247E2ABB90F962DCB4E0D1F948E1", 2, "/api/announcement", null, "公告服务", "更新", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ffbd98b8-8945-4068-b70c-ea58b487bd25"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "AD48018AF04E0A4573815675E555E98D", 3, "/api/audit-operation/{id}", "审计操作服务", "删除", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ffbd98b8-8945-4068-b70c-ea58b487bd25"), null, 1306532718346240480L, null, 0, "根据主键删除一条数据", true, "系统基础服务", false, false, "AD48018AF04E0A4573815675E555E98D", 3, "/api/audit-operation/{id}", null, "审计操作服务", "删除", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"), null, 1306547608086227424L, null, 0, "", true, "用户中心服务", false, false, "FE150D4F1EE3DDDE5BD78C718100A247", 3, "/api/resource-function/{resourceid}/{functionid}", "资源与接口关系服务", "删除资源与接口关系", null });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"), null, 1306548821910077920L, null, 0, "", true, "用户中心服务", false, false, "FE150D4F1EE3DDDE5BD78C718100A247", 3, "/api/resource-function/{resourceid}/{functionid}", null, "资源与接口关系服务", "删除资源与接口关系", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
-                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "B2A11324BCA0A9070B6160AE6B0EE6F2", 0, "/api/resource/{id}/functions", "资源服务", "根据资源id获取功能信息", 1306532718346240480L });
+                columns: new[] { "Id", "ClientId", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "ResourceId", "Service", "Summary", "UpdatedTime" },
+                values: new object[] { new Guid("fff9f1e7-7fd3-42f5-afe7-d40cca07f0ca"), null, 1306532718346240480L, null, 0, null, false, "系统基础服务", false, false, "B2A11324BCA0A9070B6160AE6B0EE6F2", 0, "/api/resource/{id}/functions", null, "资源服务", "根据资源id获取功能信息", 1306532718346240480L });
 
             migrationBuilder.InsertData(
                 table: "Position",
@@ -3683,9 +3665,9 @@ namespace Gardener.Api.Core.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FunctionResource_ResourcesId",
-                table: "FunctionResource",
-                column: "ResourcesId");
+                name: "IX_Function_ResourceId",
+                table: "Function",
+                column: "ResourceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Resource_ParentId",
@@ -3747,9 +3729,6 @@ namespace Gardener.Api.Core.Migrations
                 name: "EntityCodeGenerationSetting");
 
             migrationBuilder.DropTable(
-                name: "FunctionResource");
-
-            migrationBuilder.DropTable(
                 name: "LoginToken");
 
             migrationBuilder.DropTable(
@@ -3777,9 +3756,6 @@ namespace Gardener.Api.Core.Migrations
                 name: "Function");
 
             migrationBuilder.DropTable(
-                name: "Resource");
-
-            migrationBuilder.DropTable(
                 name: "User");
 
             migrationBuilder.DropTable(
@@ -3789,13 +3765,16 @@ namespace Gardener.Api.Core.Migrations
                 name: "Client");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Resource");
 
             migrationBuilder.DropTable(
                 name: "Dept");
 
             migrationBuilder.DropTable(
                 name: "Position");
+
+            migrationBuilder.DropTable(
+                name: "Role");
         }
     }
 }

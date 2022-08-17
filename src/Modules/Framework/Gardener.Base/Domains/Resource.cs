@@ -87,7 +87,6 @@ namespace Gardener.Base.Domains
         [Required, DefaultValue(ResourceType.Menu)]
         public ResourceType Type { get; set; }
 
-
         /// <summary>
         /// 多对多
         /// </summary>

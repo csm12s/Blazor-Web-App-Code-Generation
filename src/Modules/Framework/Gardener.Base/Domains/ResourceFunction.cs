@@ -65,11 +65,6 @@ namespace Gardener.Base.Domains
                 .HasOne(pt => pt.Resource)
                 .WithMany(p => p.ResourceFunctions)
                 .HasForeignKey(pt => pt.ResourceId);
-
-            entityBuilder
-                .HasOne(pt => pt.Function)
-                .WithMany(t => t.ResourceFunctions)
-                .HasForeignKey(pt => pt.FunctionId);
         }
     }
 }
