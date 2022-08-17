@@ -42,7 +42,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 权限
         /// </summary>
         [DisplayName("资源")]
-        public ResourceExtend Resource { get; set; }
+        public Resource Resource { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -65,11 +65,6 @@ namespace Gardener.UserCenter.Impl.Domains
                 .HasOne(pt => pt.Role)
                 .WithMany(t => t.RoleResources)
                 .HasForeignKey(pt => pt.RoleId);
-
-            entityBuilder
-                .HasOne(pt => pt.Resource)
-                .WithMany(t => t.RoleResources)
-                .HasForeignKey(pt => pt.ResourceId);
         }
         /// <summary>
         /// 种子数据

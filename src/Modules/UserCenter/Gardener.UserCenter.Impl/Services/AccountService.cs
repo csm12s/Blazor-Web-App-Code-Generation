@@ -241,12 +241,14 @@ namespace Gardener.UserCenter.Impl.Services
             }
             return await _userRepository
                      .Include(u => u.Roles)
-                         .ThenInclude(u => u.Resources)
+                         .ThenInclude(u => u.RoleResources)
+                         .ThenInclude(u => u.Resource)
                      .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
                      .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                         .SelectMany(u => u.Resources
-                         .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
-                         )).OrderBy(x => x.Order).ToListAsync();
+                         .SelectMany(u => u.RoleResources
+                                .Select(u=>u.Resource)
+                                    .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
+                         )).Select(x=>(Resource)x).OrderBy(x => x.Order).ToListAsync();
         }
         /// <summary>
         /// 获取用户资源所有Key
@@ -270,10 +272,11 @@ namespace Gardener.UserCenter.Impl.Services
             }
             return await _userRepository
                      .Include(u => u.Roles)
-                         .ThenInclude(u => u.Resources)
+                         .ThenInclude(u => u.RoleResources)
+                         .ThenInclude(u => u.Resource)
                      .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
                      .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                         .SelectMany(u => u.Resources
+                         .SelectMany(u => u.RoleResources.Select(u=>u.Resource)
                          .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
                          )).OrderBy(x => x.Order).Select(x => x.Key).ToListAsync();
         }

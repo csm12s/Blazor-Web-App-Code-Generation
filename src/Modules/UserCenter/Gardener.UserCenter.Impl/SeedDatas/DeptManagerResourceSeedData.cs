@@ -17,7 +17,7 @@ namespace Gardener.UserCenter.Impl.SeedDatas
     /// <summary>
     /// 种子数据
     /// </summary>
-    public class DeptManagerResourceDtoSeedData : IEntitySeedData<Resource>
+    public class DeptManagerResourceSeedData : IEntitySeedData<Resource>
     {
         /// <summary>
         /// 种子数据

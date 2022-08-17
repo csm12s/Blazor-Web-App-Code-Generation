@@ -86,12 +86,13 @@ namespace Gardener.Authorization.Core
             IRepository<User> _userRepository = Db.GetRepository<User>();
             return await _userRepository.AsQueryable(false)
                     .Include(u => u.Roles)
-                        .ThenInclude(u => u.Resources)
-                            .ThenInclude(u => u.ResourceFunctions)
-                                .ThenInclude(u=>u.Function)
+                        .ThenInclude(u => u.RoleResources)
+                            .ThenInclude(u => u.Resource)
+                                .ThenInclude(u => u.ResourceFunctions)
+                                    .ThenInclude(u=>u.Function)
                     .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                        .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false)
+                        .SelectMany(u => u.RoleResources.Select(u=>u.Resource).Where(x => x.IsDeleted == false && x.IsLocked == false)
                                 .SelectMany(u => u.ResourceFunctions.Select(u=>u.Function).Where(x => x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(functionKey)))
                             )
                         ).AnyAsync();

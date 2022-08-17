@@ -93,11 +93,13 @@ namespace Gardener.UserCenter.Impl.Services
         {
             return await _userRepository
                .Include(u => u.Roles, false)
-                   .ThenInclude(u => u.Resources)
+                   .ThenInclude(u => u.RoleResources)
+                   .ThenInclude(u=>u.Resource)
                .Where(u => u.Id == userId)
                .Where(u => u.IsDeleted == false)
                .SelectMany(u => u.Roles
-                   .SelectMany(u => u.Resources))
+                   .SelectMany(u => u.RoleResources))
+                    .Select(u=>u.Resource)
                .ProjectToType<ResourceDto>()
                .ToListAsync();
         }

@@ -61,16 +61,11 @@ namespace Gardener.UserCenter.Impl.Domains
         public List<UserRole> UserRoles { get; set; }
 
         /// <summary>
-        /// 多对多
-        /// </summary>
-        public ICollection<Resource> Resources { get; set; }
-
-        /// <summary>
         /// 多对多中间表
         /// </summary>
         public List<RoleResource> RoleResources { get; set; }
 
-        
+
         /// <summary>
         /// 配置多对多关系
         /// </summary>
@@ -79,7 +74,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<Role> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-           
+
         }
 
         /// <summary>
