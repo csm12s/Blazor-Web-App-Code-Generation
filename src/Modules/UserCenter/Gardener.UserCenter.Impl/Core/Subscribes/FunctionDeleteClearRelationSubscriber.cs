@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Function = Gardener.Base.Domains.Function;
 
 namespace Gardener.UserCenter.Impl.Core.Subscribes
 {

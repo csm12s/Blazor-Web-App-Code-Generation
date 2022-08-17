@@ -12,6 +12,7 @@ using Gardener.Authentication.Enums;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
 using Gardener.UserCenter.Impl.Domains;
+using Gardener.Base.Domains;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -86,11 +87,12 @@ namespace Gardener.Authorization.Core
             return await _userRepository.AsQueryable(false)
                     .Include(u => u.Roles)
                         .ThenInclude(u => u.Resources)
-                            .ThenInclude(u => u.Functions)
+                            .ThenInclude(u => u.ResourceFunctions)
+                                .ThenInclude(u=>u.Function)
                     .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
                         .SelectMany(u => u.Resources.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                                .SelectMany(u => u.Functions.Where(x => x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(functionKey)))
+                                .SelectMany(u => u.ResourceFunctions.Select(u=>u.Function).Where(x => x.IsDeleted == false && x.IsLocked == false && x.Key.Equals(functionKey)))
                             )
                         ).AnyAsync();
         }
@@ -105,9 +107,10 @@ namespace Gardener.Authorization.Core
             IRepository<Client> _clientRepository = Db.GetRepository<Client>();
 
             return await _clientRepository.AsQueryable(false)
-                    .Include(u => u.Functions)
+                    .Include(u => u.ClientFunctions)
+                    .ThenInclude(u=>u.Function)
                     .Where(u => u.Id.Equals(clientId) && u.IsDeleted == false && u.IsLocked == false)
-                    .SelectMany(u => u.Functions.Where(x => x.Key.Equals(functionKey) && x.IsDeleted == false && x.IsLocked == false)
+                    .SelectMany(u => u.ClientFunctions.Select(u=>u.Function).Where(x => x.Key.Equals(functionKey) && x.IsDeleted == false && x.IsLocked == false)
                         ).AnyAsync();
         }
 

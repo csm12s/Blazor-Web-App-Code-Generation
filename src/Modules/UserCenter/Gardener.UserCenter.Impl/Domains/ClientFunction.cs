@@ -44,7 +44,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 功能
         /// </summary>
         [DisplayName("功能")]
-        public Function Function { get; set; }
+        public FunctionExtend Function { get; set; }
 
         /// <summary>
         /// 创建时间
@@ -66,6 +66,11 @@ namespace Gardener.UserCenter.Impl.Domains
                 .HasOne(pt => pt.Client)
                 .WithMany(t => t.ClientFunctions)
                 .HasForeignKey(pt => pt.ClientId);
+
+            entityBuilder
+                .HasOne(pt => pt.Function)
+                .WithMany(t => t.ClientFunctions)
+                .HasForeignKey(pt => pt.FunctionId);
         }
     }
 }

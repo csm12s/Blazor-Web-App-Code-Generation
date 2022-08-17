@@ -17,7 +17,7 @@ namespace Gardener.Base.Domains
     /// 资源功能信息
     /// </summary>
     [Description("资源功能信息")]
-    public class ResourceFunction : IEntity, IEntityTypeBuilder<ResourceFunction>
+    public class ResourceFunction : IEntity
     {
         /// <summary>
         /// 资源编号
@@ -49,22 +49,6 @@ namespace Gardener.Base.Domains
         /// </summary>
         [DisplayName("创建时间")]
         public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entityBuilder"></param>
-        /// <param name="dbContext"></param>
-        /// <param name="dbContextLocator"></param>
-        public void Configure(EntityTypeBuilder<ResourceFunction> entityBuilder, DbContext dbContext, Type dbContextLocator)
-        {
-
-            entityBuilder
-            .HasKey(t => new { t.ResourceId, t.FunctionId });
-
-            entityBuilder
-                .HasOne(pt => pt.Resource)
-                .WithMany(p => p.ResourceFunctions)
-                .HasForeignKey(pt => pt.ResourceId);
-        }
+        
     }
 }

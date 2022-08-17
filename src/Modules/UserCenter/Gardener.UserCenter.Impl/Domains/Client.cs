@@ -6,7 +6,6 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
-using Gardener.Base.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -63,11 +62,6 @@ namespace Gardener.UserCenter.Impl.Domains
         [MaxLength(50)]
         [DisplayName("邮箱")]
         public string Email { get; set; }
-
-        /// <summary>
-        /// 多对多
-        /// </summary>
-        public ICollection<Function> Functions { get; set; }
 
         /// <summary>
         /// 多对多中间表

@@ -72,6 +72,10 @@ namespace Gardener.Base.Domains
         [DisplayName("启用审计")]
         public bool EnableAudit { get; set; }
 
+        /// <summary>
+        /// 多对多中间表
+        ///// </summary>
+        public List<ResourceFunction> ResourceFunctions { get; set; }
 
     }
 }
