@@ -37,7 +37,8 @@ namespace Gardener.SysTimer
                     HttpMethod = HttpMethod.GET,
                     ExecutMode=ExecutMode.Scceeding,
                     IsDeleted = false,
-                    Remark = "接口API"
+                    Remark = "接口API",
+                    Started = true
                 },
                 new SysTimerEntity
                 {
@@ -51,7 +52,8 @@ namespace Gardener.SysTimer
                     ExecutMode=ExecutMode.Scceeding,
                     IsDeleted = false,
                     Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",
-                    LocalMethod="Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething"
+                    LocalMethod="Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething",
+                    Started = true
                 }
             };
         }

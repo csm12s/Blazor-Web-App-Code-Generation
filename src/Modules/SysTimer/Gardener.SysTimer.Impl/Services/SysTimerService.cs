@@ -31,6 +31,9 @@ namespace Gardener.SysTimer.Services
     /// <summary>
     /// 任务调度服务
     /// </summary>
+    /// <remarks>
+    /// 仅支持单点服务部署使用
+    /// </remarks>
     [ApiDescriptionSettings("SystemBaseServices")]
     public class SysTimerService : ServiceBase<SysTimerEntity, SysTimerDto>, ISysTimerService, IScoped
     {
@@ -117,7 +120,6 @@ namespace Gardener.SysTimer.Services
                 if (timer != null)
                 {
                     u.TimerStatus = (TimerStatus)timer.Status;
-                    u.RunNumber = timer.Tally;
                     u.Exception = timer.Exception.Values.LastOrDefault()?.Message;
                 }
                 lst.Add(u);
@@ -151,6 +153,10 @@ namespace Gardener.SysTimer.Services
                 throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
             }
             var data = await base.Insert(input);
+            if (data.StartNow) 
+            {
+                data.Started = true;
+            }
             AddTimerJob(data);
             return data;
         }
@@ -217,7 +223,8 @@ namespace Gardener.SysTimer.Services
             // 先从调度器里取消
             var oldTimer = await _repository.FirstOrDefaultAsync(u => u.Id == input.Id, false);
             SpareTime.Cancel(oldTimer.JobName);
-
+            //启动状态继承
+            input.Started = oldTimer.Started;
             var result = await base.Update(input);
             if (result)
             {
@@ -241,31 +248,32 @@ namespace Gardener.SysTimer.Services
         /// <summary>
         /// 停止任务
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="jobName"></param>
         /// <returns></returns>
         [HttpPost()]
-        public Task Stop(StopJobInput input)
+        public Task Stop([FromBody]string jobName)
         {
-            SpareTime.Stop(input.JobName);
+            SpareTime.Stop(jobName);
             return Task.CompletedTask;
         }
 
         /// <summary>
         /// 启动任务
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="jobName"></param>
         /// <returns></returns>
         [HttpPost()]
-        public Task Start(SysTimerDto input)
+        public async Task Start([FromBody] string jobName)
         {
-            var timer = SpareTime.GetWorkers().ToList().Find(u => u.WorkerName == input.JobName);
+            var timer = SpareTime.GetWorkers().ToList().Find(u => u.WorkerName == jobName);
             if (timer == null)
-                AddTimerJob(input);
-
-            // 如果 StartNow 为 flase , 执行 AddTimerJob 并不会启动任务
-            SpareTime.Start(input.JobName);
-
-            return Task.CompletedTask;
+            {
+                var dbTimer = await _repository.FirstOrDefaultAsync(u => u.JobName == jobName, false);
+                AddTimerJob(dbTimer.Adapt<SysTimerDto>());
+            }
+            // Start
+            SpareTime.Start(jobName);
+            return;
         }
 
         /// <summary>
@@ -359,13 +367,13 @@ namespace Gardener.SysTimer.Services
             {
                 case SpareTimeTypes.Interval:
                     if (input.DoOnce)
-                        SpareTime.DoOnce((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: mode);
+                        SpareTime.DoOnce((int)input.Interval * 1000, action, input.JobName, input.Remark, input.Started, executeType: mode);
                     else
-                        SpareTime.Do((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: mode);
+                        SpareTime.Do((int)input.Interval * 1000, action, input.JobName, input.Remark, input.Started, executeType: mode);
                     break;
 
                 case SpareTimeTypes.Cron:
-                    SpareTime.Do(input.Cron, action, input.JobName, input.Remark, input.StartNow, executeType: mode);
+                    SpareTime.Do(input.Cron, action, input.JobName, input.Remark, input.Started, executeType: mode);
                     break;
             }
         }

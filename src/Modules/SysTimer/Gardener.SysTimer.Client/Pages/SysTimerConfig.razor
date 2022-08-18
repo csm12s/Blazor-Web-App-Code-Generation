@@ -88,6 +88,10 @@
                     <Badge Count="(int)(model.RunNumber.HasValue ? model.RunNumber.Value : 0)"
                            Style="background-color: #52c41a; " />
                 </Tooltip>
+                <Tooltip Title="@($"运行失败{(model.RunErrorNumber.HasValue ? model.RunErrorNumber.Value : 0)}次")">
+                    <Badge Count="(int)(model.RunErrorNumber.HasValue ? model.RunErrorNumber.Value : 0)"
+                           Style="background-color: #52c41a; " />
+                </Tooltip>
             </Column>
             <Column @bind-Field="@model.Remark" Ellipsis Filterable />
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />

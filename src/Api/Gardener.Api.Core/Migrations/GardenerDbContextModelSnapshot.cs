@@ -1615,7 +1615,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("f7279175-4aa3-448a-ac71-a17004d66788"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据搜索条叫生成种子数据",
                             EnableAudit = true,
@@ -1631,7 +1631,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("25bad725-529b-4a67-814a-1a6171a4b6d1"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "搜索数据",
                             EnableAudit = true,
@@ -1647,7 +1647,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("7da66506-ed83-40ec-97ad-5323e36af404"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
                             EnableAudit = true,
@@ -1663,7 +1663,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("7cad69bf-2f23-44e8-b0ef-97bdc57fc6a4"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据分页参数，分页获取数据",
                             EnableAudit = false,
@@ -1679,7 +1679,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("841a3afa-a128-4751-b3b2-b2849da338e1"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
                             EnableAudit = false,
@@ -1695,7 +1695,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("a4e467c5-639c-40bf-a71c-7d3c0d0760e7"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "查找到所有数据",
                             EnableAudit = false,
@@ -1711,7 +1711,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("faa3ff98-22d5-4254-9297-ee976a5842de"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据多个主键批量逻辑删除",
                             EnableAudit = true,
@@ -1727,7 +1727,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("3c68f73b-5a83-4429-9046-4fe33473739f"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据主键逻辑删除",
                             EnableAudit = true,
@@ -1743,7 +1743,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("ac3ae978-83b7-4fad-9322-d1e223618d7c"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据多个主键批量删除",
                             EnableAudit = true,
@@ -1759,7 +1759,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("0d899b61-e2ba-4d0d-b2fd-83dad377ed78"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据主键查找一条数据",
                             EnableAudit = false,
@@ -1775,7 +1775,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("a2eab26f-f15c-48be-a976-2411c18f42bf"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据主键删除一条数据",
                             EnableAudit = true,
@@ -1791,7 +1791,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("ff955e68-22f5-47c2-88f2-2c901cd823e3"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "更新一条数据",
                             EnableAudit = true,
@@ -1807,7 +1807,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("9bda79c9-783c-469c-acda-b72be7391a82"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "添加一条数据",
                             EnableAudit = true,
@@ -1823,7 +1823,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             EnableAudit = false,
                             Group = "示例服务",
@@ -2160,7 +2160,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "",
                             EnableAudit = true,
@@ -2176,7 +2176,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "",
                             EnableAudit = false,
@@ -2192,7 +2192,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"),
-                            CreatedTime = 1306550935773348320L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "",
                             EnableAudit = true,
@@ -2940,7 +2940,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("e81c2cc3-b2cb-4515-a5bb-b5ef3caa5050"),
-                            CreatedTime = 1306550935773350368L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据搜索条叫生成种子数据",
                             EnableAudit = true,
@@ -2956,7 +2956,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("63b4ad68-3fc7-46e3-93c3-1a9b87e18a85"),
-                            CreatedTime = 1306550935773350368L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "通过刷新token获取新的token",
                             EnableAudit = true,
@@ -2972,7 +2972,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"),
-                            CreatedTime = 1306550935773350368L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             EnableAudit = false,
                             Group = "用户中心服务",
@@ -3038,7 +3038,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"),
-                            CreatedTime = 1306550935773350368L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "",
                             EnableAudit = false,
@@ -3224,7 +3224,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = new Guid("c2784668-075f-4b7e-a563-b6b92b072542"),
-                            CreatedTime = 1306550935773350368L,
+                            CreatedTime = 1306532718346240480L,
                             CreatorIdentityType = 0,
                             Description = "根据搜索条叫生成种子数据",
                             EnableAudit = true,
@@ -7825,9 +7825,21 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT")
                         .HasComment("请求url");
 
+                    b.Property<long?>("RunErrorNumber")
+                        .HasColumnType("INTEGER")
+                        .HasComment("任务运行异常次数");
+
+                    b.Property<long?>("RunNumber")
+                        .HasColumnType("INTEGER")
+                        .HasComment("任务运行次数");
+
                     b.Property<bool>("StartNow")
                         .HasColumnType("INTEGER")
                         .HasComment("立即执行");
+
+                    b.Property<bool>("Started")
+                        .HasColumnType("INTEGER")
+                        .HasComment("是否启动");
 
                     b.Property<int>("TimerType")
                         .HasColumnType("INTEGER")
@@ -7859,6 +7871,7 @@ namespace Gardener.Api.Core.Migrations
                             Remark = "接口API",
                             RequestUrl = "https://www.baidu.com",
                             StartNow = false,
+                            Started = true,
                             TimerType = 0
                         },
                         new
@@ -7877,6 +7890,7 @@ namespace Gardener.Api.Core.Migrations
                             LocalMethod = "Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething",
                             Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",
                             StartNow = true,
+                            Started = true,
                             TimerType = 0
                         });
                 });

@@ -37,13 +37,13 @@ namespace Gardener.SysTimer.Client.Pages
                 switch (model.TimerStatus)
                 {
                     case TimerStatus.Running:
-                        await _systimerService.Stop(new StopJobInput { JobName = model.JobName });
+                        await _systimerService.Stop(model.JobName);
                         break;
                     case TimerStatus.Stopped:
-                        await _systimerService.Start(model);
+                        await _systimerService.Start(model.JobName);
                         break;
                     default:
-                        await _systimerService.Start(model);
+                        await _systimerService.Start(model.JobName);
                         break;
                 }
                 Thread.Sleep(1000);

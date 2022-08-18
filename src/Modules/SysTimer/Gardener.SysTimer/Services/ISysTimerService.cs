@@ -14,9 +14,9 @@ namespace Gardener.SysTimer.Services
     {
         void AddTimerJob(SysTimerDto input);
 
-        Task Start(SysTimerDto input);
+        Task Start(string jobName);
 
-        Task Stop(StopJobInput input);
+        Task Stop(string jobName);
 
         void StartTimerJob();
 

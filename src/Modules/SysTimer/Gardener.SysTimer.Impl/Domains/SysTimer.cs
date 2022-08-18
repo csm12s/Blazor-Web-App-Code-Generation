@@ -118,5 +118,25 @@ namespace Gardener.SysTimer.Domains
         {
             builder.HasIndex(x => x.JobName).IsUnique();
         }
+
+        /// <summary>
+        /// 是否启动
+        /// </summary>
+        /// <remarks>持久化任务最后状态</remarks>
+        [Comment("是否启动")]
+        public bool Started { get; set; }
+
+        /// <summary>
+        /// 任务运行次数
+        /// </summary>
+        [Comment("任务运行次数")]
+        public long? RunNumber { get; set; }
+
+        /// <summary>
+        /// 任务运行异常次数
+        /// </summary>
+        [Comment("任务运行异常次数")]
+        public long? RunErrorNumber { get; set; } 
+
     }
 }
