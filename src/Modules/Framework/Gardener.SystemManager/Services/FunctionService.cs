@@ -5,11 +5,13 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base;
 using Gardener.Base.Domains;
 using Gardener.SystemManager.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Text;
 using System.Web;
 using HttpMethod = Gardener.Enums.HttpMethod;
@@ -46,7 +48,10 @@ namespace Gardener.SystemManager.Services
             var entity = await _repository.FindAsync(id);
             if (entity == null) return false;
             entity.EnableAudit = enableAudit;
-            await _repository.UpdateIncludeAsync(entity, new[] { nameof(Function.EnableAudit) });
+            entity.UpdatedTime = DateTimeOffset.UtcNow;
+            await _repository.UpdateIncludeAsync(entity, new[] { nameof(Function.EnableAudit), nameof(Function.UpdatedTime) });
+            //发送通知
+            await EntityEventNotityUtil.NotifyUpdateAsync(entity);
             return true;
         }
 
