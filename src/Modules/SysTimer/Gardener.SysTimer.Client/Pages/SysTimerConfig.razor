@@ -52,10 +52,12 @@
             <Column @bind-Field="@model.ExecuteType" Width="10%" Filters="FunctionRequestTypeFilters">
                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.ExecuteType)"></TagRandomColor>
             </Column>
-            <Column Title="执行内容" TData="string">
+            <Column Title="执行内容" TData="string" Ellipsis>
                 @if (ExecuteType.LOCAL.Equals(model.ExecuteType))
                 {
-                    <span>@model.LocalMethod</span>
+                    <Tooltip Title="@model.LocalMethod" Placement="Placement.TopCenter">
+                        <span>@model.LocalMethod</span>
+                    </Tooltip>
                 }
                 else if (ExecuteType.HTTP.Equals(model.ExecuteType))
                 {
@@ -68,36 +70,28 @@
                     <span>@model.Headers</span>
                 }
             </Column>
-            <Column @bind-Field="@model.Interval" Filterable />
+            <Column TData="string" Title="@localizer["调度"]">
+                @if (model.TimerType.Equals(TimerTypes.Cron))
+                {
+                    <span>@model.Cron</span>
+                }
+                else if (model.TimerType.Equals(TimerTypes.Interval))
+                {
+                    <span>@model.Interval</span>
+
+                    <span>秒</span>
+                }
+            </Column>
             <Column @bind-Field="@model.TimerStatus" Width="10%">
                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.TimerStatus)"></TagRandomColor>
+                <Tooltip Title="@($"已运行{(model.RunNumber.HasValue ? model.RunNumber.Value : 0)}次")">
+                    <Badge Count="(int)(model.RunNumber.HasValue ? model.RunNumber.Value : 0)"
+                           Style="background-color: #52c41a; " />
+                </Tooltip>
             </Column>
-            <Column @bind-Field="@model.RunNumber" Filterable />
-            <Column @bind-Field="@model.Remark" Filterable />
-            <Column @bind-Field="@model.StartNow" Filterable>
-                <ResourceAuthorize ResourceKey="system_manager_timer_start">
-                    <Authorized>
-                        @if (!TimerStatus.Running.Equals(model.TimerStatus))
-                        {
-                            <Tooltip Title="@(localizer["开启"])" ArrowPointAtCenter="true">
-                                <Button Icon="play-circle" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
-                            </Tooltip>
-                        }
-                    </Authorized>
-                </ResourceAuthorize>
-
-                <ResourceAuthorize ResourceKey="system_manager_timer_stop">
-                    <Authorized>
-                        @if (TimerStatus.Running.Equals(model.TimerStatus))
-                        {
-                            <Tooltip Title="@(localizer["关闭"])" ArrowPointAtCenter="true">
-                                <Button Icon="pause-circle" Danger Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
-                            </Tooltip>
-                        }
-                    </Authorized>
-                </ResourceAuthorize>
-            </Column>
+            <Column @bind-Field="@model.Remark" Ellipsis Filterable />
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_timer_edit">
@@ -120,6 +114,26 @@
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey="system_manager_timer_start">
+                        @if (!TimerStatus.Running.Equals(model.TimerStatus))
+                        {
+                            <SpaceItem>
+                                <Tooltip Title="@(localizer["开启"])" ArrowPointAtCenter="true">
+                                    <Button Icon="play-circle" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
+                                </Tooltip>
+                            </SpaceItem>
+                        }
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey="system_manager_timer_stop">
+                        @if (TimerStatus.Running.Equals(model.TimerStatus))
+                        {
+                            <SpaceItem>
+                                <Tooltip Title="@(localizer["关闭"])" ArrowPointAtCenter="true">
+                                    <Button Icon="pause-circle" Danger Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
+                                </Tooltip>
+                            </SpaceItem>
+                        }
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>

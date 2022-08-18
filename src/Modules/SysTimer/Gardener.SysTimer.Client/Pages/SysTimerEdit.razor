@@ -74,7 +74,7 @@
         else if (TimerTypes.Interval.Equals(model.TimerType))
         {
             <FormItem>
-                <Input @bind-Value="@model.Interval" />
+                <InputNumber @bind-Value="@model.Interval" Min="1"  DefaultValue="1"/>
             </FormItem>
 
         }
