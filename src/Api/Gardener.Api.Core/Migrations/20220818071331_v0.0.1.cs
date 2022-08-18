@@ -724,7 +724,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("0d899b61-e2ba-4d0d-b2fd-83dad377ed78"), 1306549167227816416L, null, 0, "根据主键查找一条数据", false, "通知系统服务", false, false, "336B54D6E3393F56F6C35FCA416A3EE5", 0, "/api/announcement/{id}", "公告服务", "根据主键获取", null });
+                values: new object[] { new Guid("0d899b61-e2ba-4d0d-b2fd-83dad377ed78"), 1306550935773348320L, null, 0, "根据主键查找一条数据", false, "通知系统服务", false, false, "336B54D6E3393F56F6C35FCA416A3EE5", 0, "/api/announcement/{id}", "公告服务", "根据主键获取", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -814,7 +814,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("25bad725-529b-4a67-814a-1a6171a4b6d1"), 1306549167227816416L, null, 0, "搜索数据", true, "通知系统服务", false, false, "9AD6BA02957A5D79C763F37FC7350C1F", 1, "/api/announcement/search", "公告服务", "搜索", null });
+                values: new object[] { new Guid("25bad725-529b-4a67-814a-1a6171a4b6d1"), 1306550935773348320L, null, 0, "搜索数据", true, "通知系统服务", false, false, "9AD6BA02957A5D79C763F37FC7350C1F", 1, "/api/announcement/search", "公告服务", "搜索", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -929,7 +929,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"), 1306549167227818464L, null, 0, null, false, "用户中心服务", false, false, "BB9E3C06F2507147FADEA21712CB70CA", 0, "/api/client/{id}/functions", "客户端服务", "根据客户端编号获取绑定的接口列表", null });
+                values: new object[] { new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"), 1306550935773350368L, null, 0, null, false, "用户中心服务", false, false, "BB9E3C06F2507147FADEA21712CB70CA", 0, "/api/client/{id}/functions", "客户端服务", "根据客户端编号获取绑定的接口列表", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -944,7 +944,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("3c68f73b-5a83-4429-9046-4fe33473739f"), 1306549167227816416L, null, 0, "根据主键逻辑删除", true, "通知系统服务", false, false, "9D50105E0F127FF7F9C12C9EC2643787", 3, "/api/announcement/fake-delete/{id}", "公告服务", "逻辑删除", null });
+                values: new object[] { new Guid("3c68f73b-5a83-4429-9046-4fe33473739f"), 1306550935773348320L, null, 0, "根据主键逻辑删除", true, "通知系统服务", false, false, "9D50105E0F127FF7F9C12C9EC2643787", 3, "/api/announcement/fake-delete/{id}", "公告服务", "逻辑删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1079,7 +1079,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"), 1306549167227818464L, null, 0, "", false, "用户中心服务", false, false, "AF36C639E9127D2C3B5ECB8FE54D26A4", 0, "/api/client/{id}/functions", "客户端服务", "根据客户端编号获取绑定的接口列表", null });
+                values: new object[] { new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"), 1306550935773350368L, null, 0, "", false, "用户中心服务", false, false, "AF36C639E9127D2C3B5ECB8FE54D26A4", 0, "/api/client/{id}/functions", "客户端服务", "根据客户端编号获取绑定的接口列表", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1119,7 +1119,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("63b4ad68-3fc7-46e3-93c3-1a9b87e18a85"), 1306549167227818464L, null, 0, "通过刷新token获取新的token", true, "用户中心服务", false, false, "DF709DE63630893E744DA34D950EC7AE", 1, "/api/client/refresh-token", "客户端服务", "刷新Token", null });
+                values: new object[] { new Guid("63b4ad68-3fc7-46e3-93c3-1a9b87e18a85"), 1306550935773350368L, null, 0, "通过刷新token获取新的token", true, "用户中心服务", false, false, "DF709DE63630893E744DA34D950EC7AE", 1, "/api/client/refresh-token", "客户端服务", "刷新Token", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1224,7 +1224,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7cad69bf-2f23-44e8-b0ef-97bdc57fc6a4"), 1306549167227816416L, null, 0, "根据分页参数，分页获取数据", false, "通知系统服务", false, false, "3034444DADCC535B882E3D20DA9E1904", 0, "/api/announcement/page/{pageindex}/{pagesize}", "公告服务", "分页查询", null });
+                values: new object[] { new Guid("7cad69bf-2f23-44e8-b0ef-97bdc57fc6a4"), 1306550935773348320L, null, 0, "根据分页参数，分页获取数据", false, "通知系统服务", false, false, "3034444DADCC535B882E3D20DA9E1904", 0, "/api/announcement/page/{pageindex}/{pagesize}", "公告服务", "分页查询", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1234,7 +1234,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("7da66506-ed83-40ec-97ad-5323e36af404"), 1306549167227816416L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "通知系统服务", false, false, "F5A7F4A1B3C633F14D21BE37F2D8F7FC", 2, "/api/announcement/{id}/lock/{islocked}", "公告服务", "锁定", null });
+                values: new object[] { new Guid("7da66506-ed83-40ec-97ad-5323e36af404"), 1306550935773348320L, null, 0, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "通知系统服务", false, false, "F5A7F4A1B3C633F14D21BE37F2D8F7FC", 2, "/api/announcement/{id}/lock/{islocked}", "公告服务", "锁定", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1279,7 +1279,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("841a3afa-a128-4751-b3b2-b2849da338e1"), 1306549167227816416L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "通知系统服务", false, false, "7DAD544022ECAB407CA07965FBDEC6AB", 0, "/api/announcement/all-usable", "公告服务", "查询所有可以用的", null });
+                values: new object[] { new Guid("841a3afa-a128-4751-b3b2-b2849da338e1"), 1306550935773348320L, null, 0, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "通知系统服务", false, false, "7DAD544022ECAB407CA07965FBDEC6AB", 0, "/api/announcement/all-usable", "公告服务", "查询所有可以用的", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1324,7 +1324,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"), 1306549167227816416L, null, 0, null, false, "示例服务", false, false, "2A74937190C8E652BF107434EFFD1C17", 0, "/api/chat-demo/history", "聊天示例服务", "获取聊天历史记录", null });
+                values: new object[] { new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"), 1306550935773348320L, null, 0, null, false, "示例服务", false, false, "2A74937190C8E652BF107434EFFD1C17", 0, "/api/chat-demo/history", "聊天示例服务", "获取聊天历史记录", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1389,7 +1389,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("9bda79c9-783c-469c-acda-b72be7391a82"), 1306549167227816416L, null, 0, "添加一条数据", true, "通知系统服务", false, false, "EDE2920EEFF4D581ED8EFB72359C19F5", 1, "/api/announcement", "公告服务", "添加", null });
+                values: new object[] { new Guid("9bda79c9-783c-469c-acda-b72be7391a82"), 1306550935773348320L, null, 0, "添加一条数据", true, "通知系统服务", false, false, "EDE2920EEFF4D581ED8EFB72359C19F5", 1, "/api/announcement", "公告服务", "添加", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1449,7 +1449,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a2eab26f-f15c-48be-a976-2411c18f42bf"), 1306549167227816416L, null, 0, "根据主键删除一条数据", true, "通知系统服务", false, false, "411B20D0DAA265D807874613A8DCB9F9", 3, "/api/announcement/{id}", "公告服务", "删除", null });
+                values: new object[] { new Guid("a2eab26f-f15c-48be-a976-2411c18f42bf"), 1306550935773348320L, null, 0, "根据主键删除一条数据", true, "通知系统服务", false, false, "411B20D0DAA265D807874613A8DCB9F9", 3, "/api/announcement/{id}", "公告服务", "删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1464,7 +1464,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("a4e467c5-639c-40bf-a71c-7d3c0d0760e7"), 1306549167227816416L, null, 0, "查找到所有数据", false, "通知系统服务", false, false, "54C22639E8EF99A5CEEC744853C5DFCD", 0, "/api/announcement/all", "公告服务", "查询所有", null });
+                values: new object[] { new Guid("a4e467c5-639c-40bf-a71c-7d3c0d0760e7"), 1306550935773348320L, null, 0, "查找到所有数据", false, "通知系统服务", false, false, "54C22639E8EF99A5CEEC744853C5DFCD", 0, "/api/announcement/all", "公告服务", "查询所有", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1499,7 +1499,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ac3ae978-83b7-4fad-9322-d1e223618d7c"), 1306549167227816416L, null, 0, "根据多个主键批量删除", true, "通知系统服务", false, false, "FF53BAAC9AC941B38C99A08E032B9443", 1, "/api/announcement/deletes", "公告服务", "批量删除", null });
+                values: new object[] { new Guid("ac3ae978-83b7-4fad-9322-d1e223618d7c"), 1306550935773348320L, null, 0, "根据多个主键批量删除", true, "通知系统服务", false, false, "FF53BAAC9AC941B38C99A08E032B9443", 1, "/api/announcement/deletes", "公告服务", "批量删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1599,12 +1599,12 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"), 1306549167227816416L, null, 0, "", true, "用户中心服务", false, false, "43844F96A173330CECD6470FD62A8A76", 1, "/api/resource-function", "资源与接口关系服务", "添加资源与接口关系", null });
+                values: new object[] { new Guid("c1e7fa06-b759-4bb0-9545-7265e3798d28"), 1306550935773348320L, null, 0, "", true, "用户中心服务", false, false, "43844F96A173330CECD6470FD62A8A76", 1, "/api/resource-function", "资源与接口关系服务", "添加资源与接口关系", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c2784668-075f-4b7e-a563-b6b92b072542"), 1306549167227818464L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "298FD49C905F1B1B812B226B95307CE0", 1, "/api/dept/generate-seed-data", "部门服务", "生成种子数据", null });
+                values: new object[] { new Guid("c2784668-075f-4b7e-a563-b6b92b072542"), 1306550935773350368L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "298FD49C905F1B1B812B226B95307CE0", 1, "/api/dept/generate-seed-data", "部门服务", "生成种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1619,7 +1619,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"), 1306549167227816416L, null, 0, "", false, "用户中心服务", false, false, "DDE05A70BD80F948C9AEAFB9708090F3", 0, "/api/resource-function/seed-data", "资源与接口关系服务", "获取种子数据", null });
+                values: new object[] { new Guid("c56d6a82-abc8-4b17-bc28-27b1904116c9"), 1306550935773348320L, null, 0, "", false, "用户中心服务", false, false, "DDE05A70BD80F948C9AEAFB9708090F3", 0, "/api/resource-function/seed-data", "资源与接口关系服务", "获取种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1754,7 +1754,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("e81c2cc3-b2cb-4515-a5bb-b5ef3caa5050"), 1306549167227818464L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "80E175A5D68598258AE3022F6CD323F0", 1, "/api/client/generate-seed-data", "客户端服务", "生成种子数据", null });
+                values: new object[] { new Guid("e81c2cc3-b2cb-4515-a5bb-b5ef3caa5050"), 1306550935773350368L, null, 0, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "80E175A5D68598258AE3022F6CD323F0", 1, "/api/client/generate-seed-data", "客户端服务", "生成种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1809,7 +1809,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("f7279175-4aa3-448a-ac71-a17004d66788"), 1306549167227816416L, null, 0, "根据搜索条叫生成种子数据", true, "通知系统服务", false, false, "DB4E6D22B47A0BBCB5F87643AA5EB527", 1, "/api/announcement/generate-seed-data", "公告服务", "生成种子数据", null });
+                values: new object[] { new Guid("f7279175-4aa3-448a-ac71-a17004d66788"), 1306550935773348320L, null, 0, "根据搜索条叫生成种子数据", true, "通知系统服务", false, false, "DB4E6D22B47A0BBCB5F87643AA5EB527", 1, "/api/announcement/generate-seed-data", "公告服务", "生成种子数据", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1829,7 +1829,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("faa3ff98-22d5-4254-9297-ee976a5842de"), 1306549167227816416L, null, 0, "根据多个主键批量逻辑删除", true, "通知系统服务", false, false, "6A55E8C4030728438432973ECACF7433", 1, "/api/announcement/fake-deletes", "公告服务", "批量逻辑删除", null });
+                values: new object[] { new Guid("faa3ff98-22d5-4254-9297-ee976a5842de"), 1306550935773348320L, null, 0, "根据多个主键批量逻辑删除", true, "通知系统服务", false, false, "6A55E8C4030728438432973ECACF7433", 1, "/api/announcement/fake-deletes", "公告服务", "批量逻辑删除", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1854,7 +1854,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ff955e68-22f5-47c2-88f2-2c901cd823e3"), 1306549167227816416L, null, 0, "更新一条数据", true, "通知系统服务", false, false, "5C0F247E2ABB90F962DCB4E0D1F948E1", 2, "/api/announcement", "公告服务", "更新", null });
+                values: new object[] { new Guid("ff955e68-22f5-47c2-88f2-2c901cd823e3"), 1306550935773348320L, null, 0, "更新一条数据", true, "通知系统服务", false, false, "5C0F247E2ABB90F962DCB4E0D1F948E1", 2, "/api/announcement", "公告服务", "更新", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -1864,7 +1864,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "Function",
                 columns: new[] { "Id", "CreatedTime", "CreatorId", "CreatorIdentityType", "Description", "EnableAudit", "Group", "IsDeleted", "IsLocked", "Key", "Method", "Path", "Service", "Summary", "UpdatedTime" },
-                values: new object[] { new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"), 1306549167227816416L, null, 0, "", true, "用户中心服务", false, false, "FE150D4F1EE3DDDE5BD78C718100A247", 3, "/api/resource-function/{resourceid}/{functionid}", "资源与接口关系服务", "删除资源与接口关系", null });
+                values: new object[] { new Guid("ffef6a8e-3f80-4a39-97c6-5b2b81582830"), 1306550935773348320L, null, 0, "", true, "用户中心服务", false, false, "FE150D4F1EE3DDDE5BD78C718100A247", 3, "/api/resource-function/{resourceid}/{functionid}", "资源与接口关系服务", "删除资源与接口关系", null });
 
             migrationBuilder.InsertData(
                 table: "Function",
@@ -2015,46 +2015,6 @@ namespace Gardener.Api.Core.Migrations
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
                 values: new object[] { new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"), new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), 1306540222341120480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("38545a67-61ff-4e5c-90bb-a555a93fcbea"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("713341f2-47e1-42af-b717-bfa75904d32e"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
-
-            migrationBuilder.InsertData(
-                table: "ResourceFunction",
-                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
-                values: new object[] { new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306069130997760480L });
 
             migrationBuilder.InsertData(
                 table: "RoleResource",
@@ -2547,6 +2507,11 @@ namespace Gardener.Api.Core.Migrations
                 values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 1306069130997760480L });
 
             migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"), new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 1306550924513280480L });
+
+            migrationBuilder.InsertData(
                 table: "RoleResource",
                 columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
                 values: new object[] { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 2, 1306546785505280000L });
@@ -2839,6 +2804,11 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"), new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"), 1306550925844480480L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
                 values: new object[] { new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"), new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), 1306069130997760480L });
 
             migrationBuilder.InsertData(
@@ -2920,6 +2890,16 @@ namespace Gardener.Api.Core.Migrations
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
                 values: new object[] { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), 1306069130997760480L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("571200a8-bde2-430b-84ea-743db7b282cd"), new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"), 1306550926888960480L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"), new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"), 1306550926888960480L });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
@@ -3169,6 +3149,11 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"), new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"), 1306550927503360480L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
                 values: new object[] { new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"), new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"), 1306547596206080480L });
 
             migrationBuilder.InsertData(
@@ -3255,6 +3240,16 @@ namespace Gardener.Api.Core.Migrations
                 table: "ResourceFunction",
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
                 values: new object[] { new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"), new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"), 1306069130997760480L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"), new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), 1306550928138240480L });
+
+            migrationBuilder.InsertData(
+                table: "ResourceFunction",
+                columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
+                values: new object[] { new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"), new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), 1306550928138240480L });
 
             migrationBuilder.InsertData(
                 table: "ResourceFunction",
