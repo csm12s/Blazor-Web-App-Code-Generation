@@ -153,7 +153,7 @@ namespace Gardener.SysTimer.Services
                 throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
             }
             var data = await base.Insert(input);
-            if (data.StartNow) 
+            if (data.StartNow)
             {
                 data.Started = true;
             }
@@ -251,7 +251,7 @@ namespace Gardener.SysTimer.Services
         /// <param name="jobName"></param>
         /// <returns></returns>
         [HttpPost()]
-        public Task Stop([FromBody]string jobName)
+        public Task Stop([FromBody] string jobName)
         {
             SpareTime.Stop(jobName);
             return Task.CompletedTask;
@@ -338,7 +338,6 @@ namespace Gardener.SysTimer.Services
                             catch (Exception ex)
                             {
                                 return;
-                                throw Oops.Oh(ex.Message);
                             }
                         };
                         break;
@@ -384,7 +383,7 @@ namespace Gardener.SysTimer.Services
         [NonAction]
         public async void StartTimerJob()
         {
-            var sysTimerList = await _repository.DetachedEntities.Where(t => t.StartNow).ProjectToType<SysTimerDto>().ToListAsync();
+            var sysTimerList = await _repository.DetachedEntities.Where(t => t.Started).ProjectToType<SysTimerDto>().ToListAsync();
             sysTimerList.ForEach(AddTimerJob);
         }
 
