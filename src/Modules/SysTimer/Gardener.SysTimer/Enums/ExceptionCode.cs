@@ -16,12 +16,10 @@ namespace Gardener.SysTimer.Enums
         /// <summary>
         /// 任务调度不存在
         /// </summary>
-        [Description("任务调度不存在")]
         TASK_NOT_EXIST,
         /// <summary>
         /// 已存在同名任务调度
         /// </summary>
-        [Description("已存在同名任务调度")]
         TASK_ALLREADY_EXIST,
     }
 }

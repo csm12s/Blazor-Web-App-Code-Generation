@@ -149,7 +149,6 @@ namespace Gardener.SysTimer.Services
             var exits = await _repository.Where(x => x.JobName == input.JobName).AnyAsync();
             if (exits)
             {
-                return null;
                 throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
             }
             var data = await base.Insert(input);

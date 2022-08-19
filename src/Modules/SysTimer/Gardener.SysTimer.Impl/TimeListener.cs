@@ -60,7 +60,9 @@ namespace Gardener.SysTimer.Impl
                     // 执行开始通知
                     case 0:
                         dbTimer.Started = true;
-                        await _repository.UpdateIncludeNowAsync(dbTimer, new[] { nameof(SysTimerEntity.Started), nameof(SysTimerEntity.UpdatedTime) });
+                        dbTimer.RunNumber = 0;
+                        dbTimer.RunErrorNumber = 0;
+                        await _repository.UpdateIncludeNowAsync(dbTimer, new[] { nameof(SysTimerEntity.RunErrorNumber), nameof(SysTimerEntity.RunNumber), nameof(SysTimerEntity.Started), nameof(SysTimerEntity.UpdatedTime) });
                         Console.WriteLine($"{executer.Timer.WorkerName} 任务开始通知");
                         break;
                     // 任务执行之前通知
@@ -83,7 +85,9 @@ namespace Gardener.SysTimer.Impl
                     // 任务执行停止通知
                     case -1:
                         dbTimer.Started = false;
-                        await _repository.UpdateIncludeNowAsync(dbTimer, new[] { nameof(SysTimerEntity.Started), nameof(SysTimerEntity.UpdatedTime) });
+                        dbTimer.RunNumber = 0;
+                        dbTimer.RunErrorNumber = 0;
+                        await _repository.UpdateIncludeNowAsync(dbTimer, new[] { nameof(SysTimerEntity.RunErrorNumber), nameof(SysTimerEntity.RunNumber), nameof(SysTimerEntity.Started), nameof(SysTimerEntity.UpdatedTime) });
                         Console.WriteLine($"{executer.Timer.WorkerName} 执行停止通知");
                         break;
                     // 任务执行取消通知

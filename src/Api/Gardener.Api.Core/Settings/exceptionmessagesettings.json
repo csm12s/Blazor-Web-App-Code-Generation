@@ -24,7 +24,9 @@
       [ "CLIENT_LOGIN_FAIL", "客户端登录失败" ],
       [ "CLIENT_NO_FIND", "客户端未找到" ],
       [ "TIMESPAN_IS_EXPIRED", "时间戳已过期" ],
-      [ "EMAIL_SERVER_NO_FIND", "邮件服务器未找到" ]
+      [ "EMAIL_SERVER_NO_FIND", "邮件服务器未找到" ],
+      [ "TASK_NOT_EXIST", "任务调度不存在" ],
+      [ "TASK_ALLREADY_EXIST", "已存在同名任务调度" ]
     ]
   },
   "FriendlyExceptionSettings": {
