@@ -103,5 +103,10 @@ namespace Gardener.Client.Base
         {
             return apiCaller.PostAsync<PageRequest, string>($"{controller}/generate-seed-data", request);
         }
+
+        public virtual async Task<string> Export(PageRequest request)
+        {
+            return await apiCaller.PostAsync<PageRequest, string>($"{controller}/export", request);
+        }
     }
 }

@@ -40,6 +40,13 @@
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
+                        <ResourceAuthorize ResourceKey="system_manager_timer_export">
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport">
+                                    @localizer["导出"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
                     </Space>
                 </AntDesign.Col>
             </Row>

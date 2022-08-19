@@ -15,6 +15,7 @@ namespace Gardener.SystemManager.Dtos
     /// <summary>
     /// 功能信息
     /// </summary>
+    [Description("功能信息")]
     public class FunctionDto : BaseDto<Guid>
     {
         /// <summary>

@@ -11,9 +11,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Gardener.SystemManager.Dtos
 {
     /// <summary>
-    /// 资源功能信息
+    /// 资源功能关系信息
     /// </summary>
-    [Description("资源功能信息")]
+    [Description("资源功能关系信息")]
     public class ResourceFunctionDto
     {
 

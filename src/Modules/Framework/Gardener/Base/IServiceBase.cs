@@ -28,7 +28,7 @@ namespace Gardener.Base
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<bool> Deletes(TKey [] ids);
+        Task<bool> Deletes(TKey[] ids);
         /// <summary>
         /// 逻辑删除
         /// </summary>
@@ -106,5 +106,15 @@ namespace Gardener.Base
         /// 根据搜索条叫生成种子数据
         /// </remarks>
         Task<string> GenerateSeedData(PageRequest request);
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <remarks>
+        /// 导出数据
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<string> Export(PageRequest request);
     }
 }

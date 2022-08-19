@@ -33,6 +33,13 @@
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
+                        <ResourceAuthorize ResourceKey="system_manager_function_export">
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport">
+                                    @localizer["导出"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
                         @*<ResourceAuthorize ResourceKey="system_manager_function_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnAddClick">

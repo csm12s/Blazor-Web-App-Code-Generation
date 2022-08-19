@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using Gardener.Base.Domains;
 using Gardener.Enums;
+using Gardener.Authentication.Enums;
 
 namespace Gardener.Authentication.SeedDatas
 {
@@ -40,6 +41,7 @@ namespace Gardener.Authentication.SeedDatas
                 new Function() {Group="系统基础服务",Service="用户登录TOKEN服务",Summary="根据主键获取",Key="C01E9238420548B6CA87C312935DD043",Description="根据主键查找一条数据",Path="/api/login-token/{id}",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("f1267fbc-903b-4439-a7b6-a7290507d207"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="用户登录TOKEN服务",Summary="锁定",Key="B37ED1BEEE60098FACB7182C73B5FA3F",Description="根据主键锁定或解锁数据（必须有IsLock才能生效）",Path="/api/login-token/{id}/lock/{islocked}",Method=Enum.Parse<HttpMethod>("PUT"),EnableAudit=true,Id=Guid.Parse("f59833a1-c9af-4bb2-be4b-d6935513fc99"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="用户登录TOKEN服务",Summary="查询所有",Key="8C9ED3E66D288CA942AD438AD9C50DBF",Description="查找到所有数据",Path="/api/login-token/all",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("f6fd9621-f6e4-45ec-b919-6acb73c7b303"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
+                new Function() {Group="系统基础服务",Service="用户登录TOKEN服务",Summary="导出",Key="91D755377D8744A976836037290BB199",Description="导出数据",Path="/api/login-token/export",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,IsLocked=false,IsDeleted=false,CreatorId="1",CreatorIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:25:20"),Id=Guid.Parse("cd1b93ed-2fae-47f2-83b2-e9b0a949f476"),},
          };
         }
     }

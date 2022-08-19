@@ -31,6 +31,8 @@ namespace Gardener.Audit.SeedDatas
                 new ResourceFunction() {ResourceId=Guid.Parse("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),FunctionId=Guid.Parse("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"),CreatedTime=DateTimeOffset.Parse("2021-11-19 08:19:47"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("b8224935-fae6-4bbe-ad91-1d8969baabe8"),FunctionId=Guid.Parse("db76ae46-851b-47bc-94be-b2e869043636"),CreatedTime=DateTimeOffset.Parse("2021-11-19 08:19:47"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("cc23917b-930a-4e34-9717-be71b9fd2dd5"),FunctionId=Guid.Parse("db76ae46-851b-47bc-94be-b2e869043636"),CreatedTime=DateTimeOffset.Parse("2021-11-19 08:19:47"),},
+                new ResourceFunction() {ResourceId=Guid.Parse("2ac78309-1719-4ea5-ac0f-6974a86f168c"),FunctionId=Guid.Parse("5df6ccb0-8985-4767-9ff2-b306d791194e"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:42:14"),},
+
          };
         }
     }

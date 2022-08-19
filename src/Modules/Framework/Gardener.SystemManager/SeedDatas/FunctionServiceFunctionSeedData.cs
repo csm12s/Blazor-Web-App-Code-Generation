@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Authentication.Enums;
 using Gardener.Base.Domains;
 using Microsoft.EntityFrameworkCore;
 using HttpMethod = Gardener.Enums.HttpMethod;
@@ -41,6 +42,7 @@ namespace Gardener.SystemManager.SeedDatas
                 new Function() {Group="系统基础服务",Service="功能服务",Summary="查询所有可以用的",Key="1CCC2478B5AC5FDDB537DCD33166ABF7",Description="查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",Path="/api/function/all-usable",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("b79d2f63-487c-44c8-b7d3-1e882994789b"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="功能服务",Summary="根据主键获取",Key="FDD3EAB18820A6CD5C6DA3B17D40EEB9",Description="根据主键查找一条数据",Path="/api/function/{id}",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="功能服务",Summary="批量逻辑删除",Key="4603BCE62CA130E67C2450C127DD7728",Description="根据多个主键批量逻辑删除",Path="/api/function/fake-deletes",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,Id=Guid.Parse("c39030b8-d207-4c22-a3ba-74b0eccaa2fa"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
+                new Function() {Group="系统基础服务",Service="功能服务",Summary="导出",Key="C159134CE2D63BC05680B2AD2BB86E7C",Description="导出数据",Path="/api/function/export",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,IsLocked=false,IsDeleted=false,CreatorId="1",CreatorIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:25:20"),Id=Guid.Parse("dca2b115-3363-4f7f-8bba-b051b8d8603a"),},
          };
         }
     }

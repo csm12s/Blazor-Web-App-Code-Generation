@@ -11,5 +11,7 @@ namespace Gardener.Client.Base
     public interface IDocument
     {
         Task SetTitle(string title);
+
+        Task DownloadFile(string url);
     }
 }

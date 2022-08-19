@@ -21,6 +21,9 @@ using Gardener.Base;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Text;
+using System.IO;
+using MiniExcelLibs;
+using Gardener.FileStore;
 
 namespace Gardener
 {
@@ -106,7 +109,7 @@ namespace Gardener
         public virtual async Task<bool> Update(TEntityDto input)
         {
             input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-            EntityEntry<TEntity> entityEntry= await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime),nameof(GardenerEntityBase.CreatorId),nameof(GardenerEntityBase.CreatorIdentityType) });
+            EntityEntry<TEntity> entityEntry = await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreatorId), nameof(GardenerEntityBase.CreatorIdentityType) });
             //发送通知
             await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
             return true;
@@ -124,7 +127,7 @@ namespace Gardener
         {
             await _repository.DeleteAsync(id);
             //发送删除通知
-            await EntityEventNotityUtil.NotifyDeleteAsync<TEntity,TKey>(id);
+            await EntityEventNotityUtil.NotifyDeleteAsync<TEntity, TKey>(id);
             return true;
         }
 
@@ -137,13 +140,13 @@ namespace Gardener
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        [SwaggerOperation(Summary = "批量删除",Description = "根据多个主键批量删除")]
+        [SwaggerOperation(Summary = "批量删除", Description = "根据多个主键批量删除")]
         public virtual async Task<bool> Deletes([FromBody] TKey[] ids)
         {
             foreach (TKey id in ids)
             {
                 await _repository.DeleteAsync(id);
-                
+
             }
             await EntityEventNotityUtil.NotifyDeletesAsync<TEntity, TKey>(ids);
             return true;
@@ -164,7 +167,7 @@ namespace Gardener
             await EntityEventNotityUtil.NotifyFakeDeleteAsync<TEntity, TKey>(id);
             return true;
         }
-        
+
         /// <summary>
         /// 批量逻辑删除
         /// </summary>
@@ -225,7 +228,7 @@ namespace Gardener
             System.Text.StringBuilder where = new StringBuilder();
             where.Append(" 1==1 ");
             //判断是否有IsDelete、IsLock
-            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted))) 
+            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
                 where.Append($"and {nameof(GardenerEntityBase.IsDeleted)}==false ");
             }
@@ -250,8 +253,8 @@ namespace Gardener
         {
             var queryable = GetReadableRepository().AsQueryable();
 
-            var result= await queryable.ToPageAsync(pageIndex, pageSize);
-            
+            var result = await queryable.ToPageAsync(pageIndex, pageSize);
+
             return result.Adapt<Base.PagedList<TEntityDto>>();
         }
 
@@ -293,16 +296,16 @@ namespace Gardener
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
                 FilterGroup defaultFilterGroup = new FilterGroup();
-                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false,FilterOperate.Equal));
+                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }
-            Expression<Func<TEntity, bool>> expression= filterService.GetExpression<TEntity>(request.FilterGroups);
+            Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
             IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
             return await queryable
                 .OrderConditions(request.OrderConditions.ToArray())
                 .Select(x => x.Adapt<TEntityDto>())
-                .ToPageAsync(request.PageIndex,request.PageSize);
+                .ToPageAsync(request.PageIndex, request.PageSize);
         }
 
         /// <summary>
@@ -325,11 +328,47 @@ namespace Gardener
             Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
             IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
-            var result= await queryable
+            var result = await queryable
                 .OrderConditions(request.OrderConditions.ToArray())
                 .ToPageAsync(request.PageIndex, request.PageSize);
-            return SeedDataGenerateTool.Generate(result.Items,typeof(TEntity).Name);
+            return SeedDataGenerateTool.Generate(result.Items, typeof(TEntity).Name);
         }
+
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <remarks>
+        /// 导出数据
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<string> Export(PageRequest request)
+        {
+            IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
+            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
+            {
+                FilterGroup defaultFilterGroup = new FilterGroup();
+                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
+                request.FilterGroups.Add(defaultFilterGroup);
+            }
+            Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
+
+            IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
+            var list = await queryable
+                 .OrderConditions(request.OrderConditions.ToArray())
+                 .Select(x => x.Adapt<TEntityDto>()).ToListAsync();
+
+            var memoryStream = new MemoryStream();
+            memoryStream.SaveAs(list);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            string fileName = typeof(TEntityDto).GetDescription() + DateTimeOffset.UtcNow.ToLocalTime().ToString("yyyyMMddHHmmss") + ".xlsx";
+            var fileService = App.GetService<IFileStoreService>();
+            
+            return await fileService.Save(memoryStream, "export/" + fileName);
+        }
+
     }
 
     /// <summary>
@@ -356,7 +395,7 @@ namespace Gardener
         {
         }
     }
-   
+
     /// <summary>
     /// 继承此类即可实现基础方法
     /// 方法包括：CURD、获取全部、分页获取 

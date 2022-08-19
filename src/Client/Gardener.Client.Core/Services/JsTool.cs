@@ -88,5 +88,10 @@ namespace Gardener.Client.Core
         {
             await js.InvokeVoidAsync("document.setTitle", title);
         }
+
+        public async Task DownloadFile(string url)
+        {
+            await js.InvokeVoidAsync("document.downloadFile", url);
+        }
     }
 }

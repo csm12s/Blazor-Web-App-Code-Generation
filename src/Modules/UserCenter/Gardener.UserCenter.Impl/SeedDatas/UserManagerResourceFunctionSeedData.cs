@@ -40,6 +40,7 @@ namespace Gardener.UserCenter.Impl.SeedDatas
                 new ResourceFunction() {ResourceId=Guid.Parse("e44bb45d-514c-4217-bfba-452c0bd38f28"),FunctionId=Guid.Parse("3e2f4464-6b69-4a00-acfb-d39184729cdd"),CreatedTime=DateTimeOffset.Parse("2021-11-19 08:19:47"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("ea0fb035-1f06-4f61-9946-8df027a7462d"),FunctionId=Guid.Parse("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),CreatedTime=DateTimeOffset.Parse("2021-11-19 08:19:47"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("ea0fb035-1f06-4f61-9946-8df027a7462d"),FunctionId=Guid.Parse("0c6f2138-e984-4fba-ad2a-2890716a7259"),CreatedTime=DateTimeOffset.Parse("2021-11-19 08:19:47"),},
+                new ResourceFunction() {ResourceId=Guid.Parse("a25da8f5-23d4-4118-b399-0a36f912a370"),FunctionId=Guid.Parse("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:35:18"),},
          };
         }
     }

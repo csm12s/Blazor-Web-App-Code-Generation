@@ -40,19 +40,6 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             var result = await drawerService.CreateDialogAsync<FunctionImport, int, bool>(0, true, title: localizer["导入"], width: 1000);
             await ReLoadTable();
         }
-
-        ///// <summary>
-        ///// 导出
-        ///// </summary>
-        ///// <returns></returns>
-        //private async Task OnDownloadClick()
-        //{
-        //    var result = await drawerService.CreateDialogAsync<FunctionDownload, string, bool>(
-        //              string.Empty,
-        //               true,
-        //               title: localizer["种子数据"],
-        //               width: 1300,
-        //               placement: "right");
-        //}
+       
     }
 }

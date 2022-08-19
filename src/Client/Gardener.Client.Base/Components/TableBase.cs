@@ -78,6 +78,8 @@ namespace Gardener.Client.Base.Components
         protected IClientLocalizer localizer { get; set; }
         [Inject]
         protected NavigationManager navigation { get; set; }
+        [Inject]
+        protected IJsTool jsTool { get; set; }
         /// <summary>
         /// 在构建完成前配置搜索请求
         /// </summary>
@@ -301,6 +303,54 @@ namespace Gardener.Client.Base.Components
             _presetSearchFilterGroups = filterGroups;
             return Task.CompletedTask;
         }
+
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
+        /// <returns></returns>
+        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<string, bool>
+        {
+            PageRequest pageRequest = GetPageRequest();
+            pageRequest.PageSize = int.MaxValue;
+            pageRequest.PageIndex = 1;
+            string seedData = await _service.GenerateSeedData(pageRequest);
+            var result = await drawerService.CreateDialogAsync<TShowSeedDataDrawer, string, bool>(
+                      seedData,
+                       true,
+                       title: localizer["种子数据"],
+                       width: 1300,
+                       placement: "right");
+        }
+
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
+        /// <returns></returns>
+        protected virtual async Task OnClickShowSeedData()
+        {
+            PageRequest pageRequest = GetPageRequest();
+            pageRequest.PageSize = int.MaxValue;
+            pageRequest.PageIndex = 1;
+            string seedData = await _service.GenerateSeedData(pageRequest);
+            var result = await drawerService.CreateDialogAsync<ShowSeedDataCode, string, bool>(
+                      seedData,
+                       true,
+                       title: localizer["种子数据"],
+                       width: 1300,
+                       placement: "right");
+        }
+
+        /// <summary>
+        /// 导出数据
+        /// </summary>
+        protected virtual async Task OnClickExport()
+        {
+            PageRequest pageRequest = GetPageRequest();
+            string url= await _service.Export(pageRequest);
+            await jsTool.Document.DownloadFile(url);
+        }
     }
 
     /// <summary>
@@ -379,42 +429,5 @@ namespace Gardener.Client.Base.Components
                 placement: drawerSettings.Placement.ToString().ToLower());
         }
 
-        /// <summary>
-        /// 种子数据
-        /// </summary>
-        /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
-        /// <returns></returns>
-        protected async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<string, bool>
-        {
-            PageRequest pageRequest = GetPageRequest();
-            pageRequest.PageSize = int.MaxValue;
-            pageRequest.PageIndex = 1;
-            string seedData = await _service.GenerateSeedData(pageRequest);
-            var result = await drawerService.CreateDialogAsync<TShowSeedDataDrawer, string, bool>(
-                      seedData,
-                       true,
-                       title: localizer["种子数据"],
-                       width: 1300,
-                       placement: "right");
-        }
-
-        /// <summary>
-        /// 种子数据
-        /// </summary>
-        /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
-        /// <returns></returns>
-        protected async Task OnClickShowSeedData()
-        {
-            PageRequest pageRequest = GetPageRequest();
-            pageRequest.PageSize = int.MaxValue;
-            pageRequest.PageIndex = 1;
-            string seedData = await _service.GenerateSeedData(pageRequest);
-            var result = await drawerService.CreateDialogAsync<ShowSeedDataCode, string, bool>(
-                      seedData,
-                       true,
-                       title: localizer["种子数据"],
-                       width: 1300,
-                       placement: "right");
-        }
     }
 }

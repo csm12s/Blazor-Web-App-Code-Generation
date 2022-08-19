@@ -37,6 +37,7 @@ namespace Gardener.SysTimer.Impl.SeedDatas
                 new ResourceFunction() {ResourceId=Guid.Parse("d0d6f112-73a4-44ba-82a4-a3ad8bdb6978"),FunctionId=Guid.Parse("a2504e15-4b43-4a6a-bc1a-9c06effa672c"),CreatedTime=DateTimeOffset.Parse("2022-08-16 14:52:29"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("df132f66-027e-4791-af7a-26e496dc8e5a"),FunctionId=Guid.Parse("81b4bb91-1f42-4043-9acb-dac756ce729b"),CreatedTime=DateTimeOffset.Parse("2022-08-16 14:53:56"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("f884f2f9-f884-4440-8a2c-7a883ac54660"),FunctionId=Guid.Parse("433d4ad9-7ae0-48ea-851e-c4e594c8e19a"),CreatedTime=DateTimeOffset.Parse("2022-08-16 14:53:01"),},
+                new ResourceFunction() {ResourceId=Guid.Parse("32809cde-b1bb-4076-a37b-6c9375e84aac"),FunctionId=Guid.Parse("ee8b1345-e0c0-47a7-9e85-cb0bd7ede472"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:45:07"),},
          };
         }
     }

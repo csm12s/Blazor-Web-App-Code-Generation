@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using Gardener.Base.Domains;
 using Gardener.Enums;
+using Gardener.Authentication.Enums;
 
 namespace Gardener.UserCenter.SeedDatas
 {
@@ -44,6 +45,7 @@ namespace Gardener.UserCenter.SeedDatas
                 new Function() {Group="用户中心服务",Service="用户服务",Summary="根据主键获取用户",Key="011AC4559477AB1F24A281BDC1033AAB",Description="根据主键获取用户",Path="/api/user/{id}",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("b38fb0cc-4275-4d1f-8bb7-6f5a962bcc35"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="用户中心服务",Service="用户服务",Summary="查询所有可以用的",Key="073E6E78B3A88E41DBDC46DCA32C4837",Description="查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",Path="/api/user/all-usable",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("bdab8953-956d-4b1a-945b-b1806e9ac749"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="用户中心服务",Service="用户服务",Summary="搜索",Key="04608E487B494D4597BBAD83DF59D2FF",Description="搜索用户数据",Path="/api/user/search",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,Id=Guid.Parse("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
+                new Function() {Group="用户中心服务",Service="用户服务",Summary="导出",Key="BF0393C2E61B44E125040F8947AEFB23",Description="导出数据",Path="/api/user/export",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,IsLocked=false,IsDeleted=false,CreatorId="1",CreatorIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:25:06"),Id=Guid.Parse("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),},
          };
         }
 

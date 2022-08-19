@@ -33,6 +33,7 @@ namespace Gardener.Authentication.SeedDatas
                 new ResourceFunction() {ResourceId=Guid.Parse("f077211f-0e79-44a3-935c-0f704f6a5962"),FunctionId=Guid.Parse("040878a9-1b78-494e-9ee1-b4a7eab118fb"),CreatedTime=DateTimeOffset.Parse("2022-08-18 15:07:18"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("f077211f-0e79-44a3-935c-0f704f6a5962"),FunctionId=Guid.Parse("6dc1a088-15f6-43b8-8465-3a95cc495bab"),CreatedTime=DateTimeOffset.Parse("2022-08-18 15:07:18"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),FunctionId=Guid.Parse("e651d9a4-9d6d-44c7-a833-08da6ed19892"),CreatedTime=DateTimeOffset.Parse("2022-08-18 15:04:21"),},
+                new ResourceFunction() {ResourceId=Guid.Parse("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),FunctionId=Guid.Parse("cd1b93ed-2fae-47f2-83b2-e9b0a949f476"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:43:50"),},
          };
         }
     }

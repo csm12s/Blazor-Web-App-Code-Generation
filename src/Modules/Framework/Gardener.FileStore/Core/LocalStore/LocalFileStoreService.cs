@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
@@ -85,7 +86,6 @@ namespace Gardener.FileStore.Core.LocalStore
             {
                 await file.CopyToAsync(filestream);
             }
-
             return GetBaseUrl() + path;
         }
         /// <summary>
