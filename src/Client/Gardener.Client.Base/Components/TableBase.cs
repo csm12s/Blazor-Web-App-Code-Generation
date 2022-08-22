@@ -341,15 +341,21 @@ namespace Gardener.Client.Base.Components
                        width: 1300,
                        placement: "right");
         }
+        /// <summary>
+        /// 导出数据加载中绑定数据
+        /// </summary>
+        protected bool _exportDataLoading = false;
 
         /// <summary>
         /// 导出数据
         /// </summary>
         protected virtual async Task OnClickExport()
         {
+            _exportDataLoading = true;
             PageRequest pageRequest = GetPageRequest();
-            string url= await _service.Export(pageRequest);
+            string url = await _service.Export(pageRequest);
             await jsTool.Document.DownloadFile(url);
+            _exportDataLoading = false;
         }
     }
 

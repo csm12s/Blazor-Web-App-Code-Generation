@@ -101,7 +101,7 @@
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="user_center_user_export">
                                     <SpaceItem>
-                                        <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport">
+                                        <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport" Loading="_exportDataLoading">
                                             @localizer["导出"]
                                         </Button>
                                     </SpaceItem>

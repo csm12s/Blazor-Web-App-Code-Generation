@@ -34,7 +34,7 @@
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_audit_entity_export">
                             <SpaceItem>
-                                <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport">
+                                <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport"  Loading="_exportDataLoading">
                                     @localizer["导出"]
                                 </Button>
                             </SpaceItem>
