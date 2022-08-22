@@ -42,13 +42,14 @@ namespace Gardener.UserCenter.Impl.Services
         /// <summary>
         /// 获取所有部门数据，以树形结构返回
         /// </summary>
+        /// <param name="includeLocked"></param>
         /// <returns></returns>
-        public async Task<List<DeptDto>> GetTree()
+        public async Task<List<DeptDto>> GetTree(bool includeLocked=false)
         {
             List<DeptDto> depts = new List<DeptDto>();
 
             var list =await _repository
-                .Where(x => x.IsDeleted == false && x.IsLocked==false)
+                .Where(x => x.IsDeleted == false && (x.IsLocked==false || includeLocked))
                 .OrderBy(x => x.Order)
                 .ToListAsync();
             return list.Where(x => !x.ParentId.HasValue).Select(x => x.Adapt<DeptDto>()).ToList();

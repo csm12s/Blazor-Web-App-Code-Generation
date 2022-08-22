@@ -27,9 +27,9 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<string>($"{controller}/seed-data");
         }
 
-        public async Task<List<DeptDto>> GetTree()
+        public async Task<List<DeptDto>> GetTree(bool includeLocked = false)
         {
-            return await apiCaller.GetAsync<List<DeptDto>>($"{controller}/tree");
+            return await apiCaller.GetAsync<List<DeptDto>>($"{controller}/tree/{includeLocked}");
         }
     }
 }

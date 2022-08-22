@@ -20,7 +20,7 @@ namespace Gardener.UserCenter.Services
         /// 查询所有部门 按树形结构返回
         /// </summary>
         /// <returns></returns>
-        Task<List<DeptDto>> GetTree();
+        Task<List<DeptDto>> GetTree(bool includeLocked = false);
 
         /// <summary>
         /// 获取资源的种子数据

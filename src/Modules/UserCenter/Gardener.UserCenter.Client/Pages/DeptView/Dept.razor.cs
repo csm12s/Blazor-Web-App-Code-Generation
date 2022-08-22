@@ -39,7 +39,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
 
         protected override async Task<List<DeptDto>> GetTree()
         {
-            return await deptService.GetTree();
+            return await deptService.GetTree(true);
         }
 
         protected override void SetChildren(DeptDto dto, ICollection<DeptDto> children)
