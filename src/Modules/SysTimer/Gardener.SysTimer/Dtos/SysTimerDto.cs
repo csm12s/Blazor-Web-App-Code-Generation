@@ -14,6 +14,7 @@ namespace Gardener.SysTimer.Dtos
     /// <summary>
     /// 定时任务Dto
     /// </summary>
+    [Description("任务调度信息")]
     public class SysTimerDto:BaseDto<int>
     {
         /// <summary>

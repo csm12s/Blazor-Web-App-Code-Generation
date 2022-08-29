@@ -16,6 +16,7 @@ namespace Gardener.Audit.Dtos
     /// <summary>
     /// 实体审计信息
     /// </summary>
+    [Description("实体审计信息")]
     public class AuditEntityDto : BaseDto<Guid>
     {
         /// <summary>
