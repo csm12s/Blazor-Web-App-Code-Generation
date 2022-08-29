@@ -7,6 +7,7 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
+using Gardener.Client.Base.Constants;
 using Gardener.Client.Base.Model;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
@@ -48,7 +49,7 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 控制分页每页数量
         /// </summary>
-        protected int _pageSize = 10;
+        protected int _pageSize = ClientConstant.pageSize;
         /// <summary>
         /// table加载中控制
         /// </summary>
