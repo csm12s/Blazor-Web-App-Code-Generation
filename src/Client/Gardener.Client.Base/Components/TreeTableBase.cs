@@ -26,7 +26,7 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDrawerResult"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TDrawer, TDrawerOption, TDrawerResult> : ReuseTabsPageBase where TDrawer : FeedbackComponent<TDrawerOption, TDrawerResult> where TDrawerResult : DrawerOutput<TKey> where TDto : BaseDto<TKey>, new()
     {
-       
+
         protected ITable _table;
         protected bool _tableIsLoading = false;
         protected List<TDto> _dtos;
@@ -41,7 +41,7 @@ namespace Gardener.Client.Base.Components
         protected DrawerService drawerService { get; set; }
         [Inject]
         protected IClientLocalizer localizer { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -62,7 +62,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected TKey GetKey(TDto dto) 
+        protected TKey GetKey(TDto dto)
         {
             return dto.Id;
         }
@@ -161,7 +161,7 @@ namespace Gardener.Client.Base.Components
                         await InvokeAsync(StateHasChanged);
 
                     }
-                    else 
+                    else
                     {
                         await ReLoadTable();
                     }
@@ -191,6 +191,14 @@ namespace Gardener.Client.Base.Components
             {
                 //最新的数据
                 var newEntity = await serviceBase.Get(GetKey(dto));
+                //父级变化重新加载列表
+                if (!GetParentKey(newEntity).Equals(GetParentKey(dto)))
+                {
+                    //最新的数据
+                    await ReLoadTable();
+                    return;
+                }
+                //父级未变化直接变化本地对象
                 ICollection<TDto> children = GetChildren(dto);
                 //重新赋值给界面对象
                 newEntity.Adapt(dto);
@@ -217,7 +225,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="isLocked"></param>
-        protected void SetIsLocked(TDto dto, bool isLocked) 
+        protected void SetIsLocked(TDto dto, bool isLocked)
         {
             dto.IsLocked = isLocked;
         }
@@ -228,19 +236,19 @@ namespace Gardener.Client.Base.Components
         /// <param name="isLocked"></param>
         protected Task OnChangeIsLocked(TDto dto, bool isLocked)
         {
-           return Task.Run(async () =>
-            {
-                var result = await serviceBase.Lock(GetKey(dto), isLocked);
-                if (!result)
-                {
-                    SetIsLocked(dto, !isLocked);
-                    messageService.Error((isLocked ? "锁定" : "解锁") + "失败");
-                }
-                else
-                {
-                    SetIsLocked(dto, isLocked);
-                }
-            });
+            return Task.Run(async () =>
+             {
+                 var result = await serviceBase.Lock(GetKey(dto), isLocked);
+                 if (!result)
+                 {
+                     SetIsLocked(dto, !isLocked);
+                     messageService.Error((isLocked ? "锁定" : "解锁") + "失败");
+                 }
+                 else
+                 {
+                     SetIsLocked(dto, isLocked);
+                 }
+             });
         }
 
         /// <summary>
@@ -255,7 +263,7 @@ namespace Gardener.Client.Base.Components
                    title: localizer["添加"],
                    width: settings.Width,
                    placement: settings.Placement.ToString().ToLower());
-            if (result.Succeeded) 
+            if (result.Succeeded)
             {
                 //最新的数据
                 await ReLoadTable();
@@ -329,7 +337,7 @@ namespace Gardener.Client.Base.Components
                    title: localizer["详情"],
                    width: settings.Width,
                    placement: settings.Placement.ToString().ToLower());
-            if (result.Succeeded) 
+            if (result.Succeeded)
             {
                 await ReLoadTable();
             }
@@ -411,7 +419,7 @@ namespace Gardener.Client.Base.Components
             return default(TDto);
         }
 
-        
+
         #endregion
     }
     /// <summary>
@@ -420,7 +428,7 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TDrawer"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TDrawer> : TreeTableBase<TDto, TKey,TDrawer,DrawerInput<TKey>,DrawerOutput<TKey>> where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TDrawer> : TreeTableBase<TDto, TKey, TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>> where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
@@ -460,5 +468,5 @@ namespace Gardener.Client.Base.Components
         }
     }
 
-   
+
 }

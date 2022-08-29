@@ -25,7 +25,8 @@
                     ChildrenExpression="node => node.DataItem.Children?.ToList()"
                     IsLeafExpression="node => node.DataItem.Children==null || !node.DataItem.Children.Any()"
                     TreeDefaultExpandAll
-                    DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
+                    DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)" 
+                    Disabled="this.Options.Id!=0 && !DrawerInputType.Edit.Equals(this.Options.Type)">
             </TreeSelect>
             }
         </FormItem>
