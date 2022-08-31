@@ -2,29 +2,29 @@
   "JWT": {
     "Settings": {
       "User": {
-        "ValidateIssuerSigningKey": true, // ÊÇ·ñÑéÖ¤ÃÜÔ¿£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue
-        "IssuerSigningKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // ÃÜÔ¿£¬string ÀàĞÍ£¬±ØĞëÊÇ¸´ÔÓÃÜÔ¿£¬³¤¶È´óÓÚ16
-        "ValidateIssuer": true, // ÊÇ·ñÑéÖ¤Ç©·¢·½£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue
-        "ValidIssuer": "Gardener", // Ç©·¢·½£¬string ÀàĞÍ
-        "ValidateAudience": true, // ÊÇ·ñÑéÖ¤Ç©ÊÕ·½£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue
-        "ValidAudience": "Gardener", // Ç©ÊÕ·½£¬string ÀàĞÍ
-        "ValidateLifetime": true, // ÊÇ·ñÑéÖ¤¹ıÆÚÊ±¼ä£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue£¬½¨Òétrue
-        "ExpiredTime": 5, // ¹ıÆÚÊ±¼ä£¬long ÀàĞÍ£¬µ¥Î»·ÖÖÓ£¬Ä¬ÈÏ20·ÖÖÓ
-        "ClockSkew": 5, // ¹ıÆÚÊ±¼äÈİ´íÖµ£¬long ÀàĞÍ£¬µ¢ÎóÃë£¬Ä¬ÈÏ 5Ãë
-        "RefreshExpireMins": 43200, //Ë¢ĞÂtoken¹ıÆÚÊ±¼ä£¨·ÖÖÓ£©
-        "IsRefreshAbsoluteExpired": false, //RefreshTokenÊÇ·ñ¾ø¶Ô¹ıÆÚ,¾ø¶Ô¹ıÆÚµÄË¢ĞÂtokenÔÚ{RefreshExpireMins}·ÖÖÓºóĞèÒªÖØĞÂµÇÂ¼
+        "ValidateIssuerSigningKey": true, // æ˜¯å¦éªŒè¯å¯†é’¥ï¼Œbool ç±»å‹ï¼Œé»˜è®¤true
+        "IssuerSigningKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // å¯†é’¥ï¼Œstring ç±»å‹ï¼Œå¿…é¡»æ˜¯å¤æ‚å¯†é’¥ï¼Œé•¿åº¦å¤§äº16
+        "ValidateIssuer": true, // æ˜¯å¦éªŒè¯ç­¾å‘æ–¹ï¼Œbool ç±»å‹ï¼Œé»˜è®¤true
+        "ValidIssuer": "Gardener", // ç­¾å‘æ–¹ï¼Œstring ç±»å‹
+        "ValidateAudience": true, // æ˜¯å¦éªŒè¯ç­¾æ”¶æ–¹ï¼Œbool ç±»å‹ï¼Œé»˜è®¤true
+        "ValidAudience": "Gardener", // ç­¾æ”¶æ–¹ï¼Œstring ç±»å‹
+        "ValidateLifetime": true, // æ˜¯å¦éªŒè¯è¿‡æœŸæ—¶é—´ï¼Œbool ç±»å‹ï¼Œé»˜è®¤trueï¼Œå»ºè®®true
+        "ExpiredTime": 5, // è¿‡æœŸæ—¶é—´ï¼Œlong ç±»å‹ï¼Œå•ä½åˆ†é’Ÿï¼Œé»˜è®¤20åˆ†é’Ÿ
+        "ClockSkew": 5, // è¿‡æœŸæ—¶é—´å®¹é”™å€¼ï¼Œlong ç±»å‹ï¼Œè€½è¯¯ç§’ï¼Œé»˜è®¤ 5ç§’
+        "RefreshExpireMins": 43200, //åˆ·æ–°tokenè¿‡æœŸæ—¶é—´ï¼ˆåˆ†é’Ÿï¼‰
+        "IsRefreshAbsoluteExpired": false, //RefreshTokenæ˜¯å¦ç»å¯¹è¿‡æœŸ,ç»å¯¹è¿‡æœŸçš„åˆ·æ–°tokenåœ¨{RefreshExpireMins}åˆ†é’Ÿåéœ€è¦é‡æ–°ç™»å½•
         "Algorithm": "HS256"
       },
       "Client": {
-        "ValidateIssuerSigningKey": true, // ÊÇ·ñÑéÖ¤ÃÜÔ¿£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue
-        "IssuerSigningKey": "cccccccccccccccccccccccccccccccccc", // ÃÜÔ¿£¬string ÀàĞÍ£¬±ØĞëÊÇ¸´ÔÓÃÜÔ¿£¬³¤¶È´óÓÚ16
-        "ValidateIssuer": true, // ÊÇ·ñÑéÖ¤Ç©·¢·½£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue
-        "ValidIssuer": "Gardener", // Ç©·¢·½£¬string ÀàĞÍ
-        "ValidateAudience": true, // ÊÇ·ñÑéÖ¤Ç©ÊÕ·½£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue
-        "ValidAudience": "Gardener", // Ç©ÊÕ·½£¬string ÀàĞÍ
-        "ValidateLifetime": true, // ÊÇ·ñÑéÖ¤¹ıÆÚÊ±¼ä£¬bool ÀàĞÍ£¬Ä¬ÈÏtrue£¬½¨Òétrue
-        "ExpiredTime": 60, // ¹ıÆÚÊ±¼ä£¬long ÀàĞÍ£¬µ¥Î»·ÖÖÓ£¬Ä¬ÈÏ20·ÖÖÓ
-        "ClockSkew": 20, // ¹ıÆÚÊ±¼äÈİ´íÖµ£¬long ÀàĞÍ£¬µ¢ÎóÃë£¬Ä¬ÈÏ 5Ãë
+        "ValidateIssuerSigningKey": true, // æ˜¯å¦éªŒè¯å¯†é’¥ï¼Œbool ç±»å‹ï¼Œé»˜è®¤true
+        "IssuerSigningKey": "cccccccccccccccccccccccccccccccccc", // å¯†é’¥ï¼Œstring ç±»å‹ï¼Œå¿…é¡»æ˜¯å¤æ‚å¯†é’¥ï¼Œé•¿åº¦å¤§äº16
+        "ValidateIssuer": true, // æ˜¯å¦éªŒè¯ç­¾å‘æ–¹ï¼Œbool ç±»å‹ï¼Œé»˜è®¤true
+        "ValidIssuer": "Gardener", // ç­¾å‘æ–¹ï¼Œstring ç±»å‹
+        "ValidateAudience": true, // æ˜¯å¦éªŒè¯ç­¾æ”¶æ–¹ï¼Œbool ç±»å‹ï¼Œé»˜è®¤true
+        "ValidAudience": "Gardener", // ç­¾æ”¶æ–¹ï¼Œstring ç±»å‹
+        "ValidateLifetime": true, // æ˜¯å¦éªŒè¯è¿‡æœŸæ—¶é—´ï¼Œbool ç±»å‹ï¼Œé»˜è®¤trueï¼Œå»ºè®®true
+        "ExpiredTime": 60, // è¿‡æœŸæ—¶é—´ï¼Œlong ç±»å‹ï¼Œå•ä½åˆ†é’Ÿï¼Œé»˜è®¤20åˆ†é’Ÿ
+        "ClockSkew": 20, // è¿‡æœŸæ—¶é—´å®¹é”™å€¼ï¼Œlong ç±»å‹ï¼Œè€½è¯¯ç§’ï¼Œé»˜è®¤ 5ç§’
         "RefreshExpireMins": 2880,
         "IsRefreshAbsoluteExpired": false,
         "Algorithm": "HS256"

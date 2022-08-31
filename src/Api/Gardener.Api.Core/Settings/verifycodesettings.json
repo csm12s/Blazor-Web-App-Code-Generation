@@ -1,5 +1,5 @@
 {
-  "VerifyCodeStoreSetting": "Cache", //Cache£¬DB
+  "VerifyCodeStoreSetting": "Cache", //Cacheï¼ŒDB
   "ImageVerifyCode": {
     "CodeFontSize": 16,
     "CodeCharacterCount": 4,
