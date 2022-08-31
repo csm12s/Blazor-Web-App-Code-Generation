@@ -10,7 +10,7 @@ using System;
 
 namespace Gardener.Authentication.Client.Pages.LoginTokenView
 {
-    public partial class LoginToken : TableBase<LoginTokenDto, Guid>
+    public partial class LoginToken : ListTableBase<LoginTokenDto, Guid>
     {
 
     }

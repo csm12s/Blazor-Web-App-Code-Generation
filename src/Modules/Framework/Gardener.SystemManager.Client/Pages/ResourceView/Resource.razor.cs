@@ -39,12 +39,10 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// <returns></returns>
         private async Task OnShowFunctionClick(ResourceDto model)
         {
-            var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
+            await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
+                      $"{localizer["绑定接口"]}-[{model.Name}]",
                       new ResourceFunctionEditOption { Resource = model, Type = 0, Name = model.Name },
-                      true,
-                      title: $"{localizer["绑定接口"]}-[{model.Name}]",
-                      width: 1200,
-                      placement: "right");
+                      width: 1200);
         }
 
         /// <summary>
@@ -61,7 +59,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             };
             resourceIds.AddRange(TreeTools.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
-            string data = await serviceBase.GenerateSeedData(new PageRequest()
+            string data = await _service.GenerateSeedData(new PageRequest()
             {
                 PageIndex = 1,
                 PageSize = int.MaxValue,
@@ -85,12 +83,10 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 }
             });
 
-            var result = await drawerService.CreateDialogAsync<ShowSeedDataCode, string, bool>(
+            await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+                        localizer["种子数据"],
                         data,
-                       true,
-                       title: localizer["种子数据"],
-                       width: 1300,
-                       placement: "right");
+                        width: 1300);
         }
 
         protected override async Task<List<ResourceDto>> GetTree()

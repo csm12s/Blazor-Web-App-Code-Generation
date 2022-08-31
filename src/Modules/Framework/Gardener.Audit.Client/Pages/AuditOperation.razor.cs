@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Audit.Client.Pages
 {
-    public partial class AuditOperation : TableBase<AuditOperationDto, Guid>
+    public partial class AuditOperation : ListTableBase<AuditOperationDto, Guid>
     {
         [Inject]
         public IAuditOperationService auditOperationService { get; set; }

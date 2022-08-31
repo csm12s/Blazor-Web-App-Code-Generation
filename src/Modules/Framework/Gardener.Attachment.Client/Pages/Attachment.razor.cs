@@ -10,7 +10,7 @@ using System;
 
 namespace Gardener.Attachment.Client.Pages
 {
-    public partial class Attachment : TableBase<AttachmentDto, Guid, AttachmentEdit>
+    public partial class Attachment : ListTableBase<AttachmentDto, Guid, AttachmentEdit>
     {
 
     }

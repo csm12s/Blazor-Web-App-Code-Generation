@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class Role : TableBase<RoleDto, int, RoleEdit>
+    public partial class Role : ListTableBase<RoleDto, int, RoleEdit>
     {
 
         /// <summary>

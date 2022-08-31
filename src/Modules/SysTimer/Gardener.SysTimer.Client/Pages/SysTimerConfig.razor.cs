@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Pages
 {
-    public partial class SysTimerConfig : TableBase<SysTimerDto, int, SysTimerEdit>
+    public partial class SysTimerConfig : ListTableBase<SysTimerDto, int, SysTimerEdit>
     {
         [Inject]
         private ISysTimerService _systimerService { get; set; }

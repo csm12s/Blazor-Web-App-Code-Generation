@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailTemplate : TableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
+    public partial class EmailTemplate : ListTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
     {
         protected override OperationDialogSettings GetOperationDialogSettings()
         {

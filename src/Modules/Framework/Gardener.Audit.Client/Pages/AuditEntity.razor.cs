@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Audit.Client.Pages
 {
-    public partial class AuditEntity : TableBase<AuditEntityDto, Guid>
+    public partial class AuditEntity : ListTableBase<AuditEntityDto, Guid>
     {
       
         /// <summary>

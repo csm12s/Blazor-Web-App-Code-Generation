@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/login-token"
-@inherits TableBase<LoginTokenDto, Guid>
+@inherits ListTableBase<LoginTokenDto, Guid>
 <div>
     <Table @ref="_table"
            TItem="LoginTokenDto"

@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/attachment"
-@inherits TableBase<AttachmentDto, Guid, AttachmentEdit>
+@inherits ListTableBase<AttachmentDto, Guid, AttachmentEdit>
 <div>
     <Table @ref="_table"
            TItem="AttachmentDto"

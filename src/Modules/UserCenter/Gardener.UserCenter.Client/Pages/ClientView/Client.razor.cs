@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ClientView
 {
-    public partial class Client : TableBase<ClientDto, Guid, ClientEdit>
+    public partial class Client : ListTableBase<ClientDto, Guid, ClientEdit>
     {
         /// <summary>
         /// 点击展示关联接口

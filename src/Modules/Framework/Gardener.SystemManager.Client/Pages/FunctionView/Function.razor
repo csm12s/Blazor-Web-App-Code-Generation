@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/function"
-@inherits TableBase<FunctionDto, Guid, FunctionEdit>
+@inherits ListTableBase<FunctionDto, Guid, FunctionEdit>
 <div>
     <Table @ref="_table"
            TItem="FunctionDto"

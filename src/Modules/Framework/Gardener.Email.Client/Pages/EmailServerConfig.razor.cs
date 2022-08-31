@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailServerConfig : TableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit>
+    public partial class EmailServerConfig : ListTableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit>
     {
         /// <summary>
         /// 点击发送按钮

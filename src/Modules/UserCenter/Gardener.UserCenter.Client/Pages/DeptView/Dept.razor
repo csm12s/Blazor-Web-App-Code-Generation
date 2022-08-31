@@ -3,7 +3,7 @@
 <div>
     <Table @ref="_table"
            TItem="DeptDto"
-           DataSource="@_dtos"
+           DataSource="@_datas"
            OnChange="@onChange"
            TreeChildren="item=>item.Children"
            @bind-SelectedRows="_selectedRows"

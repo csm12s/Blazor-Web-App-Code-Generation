@@ -19,7 +19,7 @@ using Gardener.Client.Base;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class User : TableBase<UserDto, int, UserEdit>
+    public partial class User : ListTableBase<UserDto, int, UserEdit>
     {
         private Tree<DeptDto> _deptTree;
         private List<DeptDto> depts;

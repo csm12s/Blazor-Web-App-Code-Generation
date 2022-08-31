@@ -2,7 +2,7 @@
 @inherits TreeTableBase<ResourceDto, Guid, ResourceEdit>
 <div>
     <Table TItem="ResourceDto"
-           DataSource="@_dtos"
+           DataSource="@_datas"
            OnChange="@onChange"
            Loading="@_tableIsLoading"
            TreeChildren="item=>item.Children"

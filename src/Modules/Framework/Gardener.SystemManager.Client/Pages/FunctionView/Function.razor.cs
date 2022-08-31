@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Gardener.SystemManager.Client.Pages.FunctionView
 {
-    public partial class Function : TableBase<FunctionDto, Guid, FunctionEdit>
+    public partial class Function : ListTableBase<FunctionDto, Guid, FunctionEdit>
     {
         [Inject]
         public IFunctionService functionService { get; set; }

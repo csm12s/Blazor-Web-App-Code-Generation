@@ -74,7 +74,7 @@ namespace Gardener.Base.Domains
 
         /// <summary>
         /// 多对多中间表
-        ///// </summary>
+        ///</summary>
         public List<ResourceFunction> ResourceFunctions { get; set; }
 
     }
