@@ -12,7 +12,6 @@ using Gardener.Authentication.Enums;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
 using Gardener.UserCenter.Impl.Domains;
-using Gardener.Base.Domains;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

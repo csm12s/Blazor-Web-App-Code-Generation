@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
-using Gardener.Client.Base.Model;
 using Gardener.Common;
 using Gardener.Enums;
 using Gardener.SystemManager.Dtos;
@@ -18,9 +18,11 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
     public partial class Resource : TreeTableBase<ResourceDto, Guid, ResourceEdit>
     {
 
-        protected override DrawerSettings GetDrawerSettings()
+        protected override OperationDialogSettings GetOperationDialogSettings()
         {
-            return new DrawerSettings { Width = 800 };
+            var settings = base.GetOperationDialogSettings();
+            settings.Width = 800;
+            return settings;
         }
 
         // 改为引用继承中的声明，如果发生bug，取消此处注释
@@ -53,7 +55,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
 
             //找到所有编号
-            List<Guid> resourceIds = new List<Guid>() 
+            List<Guid> resourceIds = new List<Guid>()
             {
                 dto.Id
             };
@@ -73,7 +75,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                    })
 
                 },
-                OrderConditions=new List<ListSortDirection>() 
+                OrderConditions = new List<ListSortDirection>()
                 {
                     new ListSortDirection()
                     {

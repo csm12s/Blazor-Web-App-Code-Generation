@@ -5,8 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

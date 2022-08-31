@@ -6,7 +6,7 @@
 
 namespace Gardener.Client.Base
 {
-    public class DrawerOutput<TKey>
+    public class OperationDialogOutput<TKey>
     {
         public bool Succeeded { get; set; }
 
@@ -18,25 +18,25 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static DrawerOutput<TKey> Succeed(TKey id)
+        public static OperationDialogOutput<TKey> Succeed(TKey id)
         {
-            return new DrawerOutput<TKey>() {Id= id ,Succeeded=true,Type=DrawerOutputType.Succeeded};
+            return new OperationDialogOutput<TKey>() {Id= id ,Succeeded=true,Type=DrawerOutputType.Succeeded};
         }
         /// <summary>
         /// 失败
         /// </summary>
         /// <returns></returns>
-        public static DrawerOutput<TKey> Fail()
+        public static OperationDialogOutput<TKey> Fail()
         {
-            return new DrawerOutput<TKey>() { Succeeded=false, Type = DrawerOutputType.Failed };
+            return new OperationDialogOutput<TKey>() { Succeeded=false, Type = DrawerOutputType.Failed };
         }
         /// <summary>
         /// 取消
         /// </summary>
         /// <returns></returns>
-        public static DrawerOutput<TKey> Cancel()
+        public static OperationDialogOutput<TKey> Cancel()
         {
-            return new DrawerOutput<TKey>() { Succeeded = false, Type = DrawerOutputType.Canceled };
+            return new OperationDialogOutput<TKey>() { Succeeded = false, Type = DrawerOutputType.Canceled };
         }
     }
     /// <summary>

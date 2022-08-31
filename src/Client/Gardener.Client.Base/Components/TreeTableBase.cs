@@ -7,9 +7,11 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
-using Gardener.Client.Base.Model;
+using Gardener.Client.Base.Constants;
+using Gardener.Client.Base.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +26,7 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDrawer"></typeparam>
     /// <typeparam name="TDrawerOption"></typeparam>
     /// <typeparam name="TDrawerResult"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TDrawer, TDrawerOption, TDrawerResult> : ReuseTabsPageBase where TDrawer : FeedbackComponent<TDrawerOption, TDrawerResult> where TDrawerResult : DrawerOutput<TKey> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TDrawer, TDrawerOption, TDrawerResult> : ReuseTabsPageBase where TDrawer : FeedbackComponent<TDrawerOption, TDrawerResult> where TDrawerResult : OperationDialogOutput<TKey> where TDto : BaseDto<TKey>, new()
     {
 
         protected ITable _table;
@@ -41,6 +43,8 @@ namespace Gardener.Client.Base.Components
         protected DrawerService drawerService { get; set; }
         [Inject]
         protected IClientLocalizer localizer { get; set; }
+        [Inject]
+        protected IOperationDialogService operationDialogService { get; set; }
 
         /// <summary>
         /// 
@@ -106,9 +110,11 @@ namespace Gardener.Client.Base.Components
         /// 抽屉配置
         /// </summary>
         /// <returns></returns>
-        protected virtual DrawerSettings GetDrawerSettings()
+        protected virtual OperationDialogSettings GetOperationDialogSettings()
         {
-            return new DrawerSettings { Width = 500 };
+            OperationDialogSettings dialogSettings = new OperationDialogSettings();
+            ClientConstant.DefaultOperationDialogSettings.Adapt(dialogSettings);
+            return dialogSettings;
         }
         /// <summary>
         /// 重新加载table
@@ -123,6 +129,7 @@ namespace Gardener.Client.Base.Components
                 messageService.Error("加载失败");
             }
             _tableIsLoading = false;
+            await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 刷新页面
@@ -180,45 +187,43 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickEdit(TDto dto)
         {
             TDrawerOption option = GetEditOption(dto);
-            DrawerSettings settings = GetDrawerSettings();
-            var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
-                   option,
-                   settings.Closable,
-                   title: localizer["编辑"],
-                   width: settings.Width,
-                   placement: settings.Placement.ToString().ToLower());
-            if (result.Succeeded)
-            {
-                //最新的数据
-                var newEntity = await serviceBase.Get(GetKey(dto));
-                //父级变化重新加载列表
-                if (!GetParentKey(newEntity).Equals(GetParentKey(dto)))
+            await OpenOperationDialogAsync(localizer["编辑"],
+                option,
+                async result =>
                 {
-                    //最新的数据
-                    await ReLoadTable();
-                    return;
-                }
-                //父级未变化直接变化本地对象
-                ICollection<TDto> children = GetChildren(dto);
-                //重新赋值给界面对象
-                newEntity.Adapt(dto);
-                //子集也重新赋值给他
-                SetChildren(dto, children);
-                //给子集重新排队
-                _dtos.ForEach(x =>
-                {
-                    var p = GetNodeFromTree(GetParentKey(x), x);
-                    if (p != null)
+                    if (result.Succeeded)
                     {
-                        ICollection<TDto> children = GetChildren(x);
-                        if (children != null)
+                        //最新的数据
+                        var newEntity = await serviceBase.Get(GetKey(dto));
+                        //父级变化重新加载列表
+                        if (!GetParentKey(newEntity).Equals(GetParentKey(dto)))
                         {
-                            SetChildren(p, SortChildren(children));
+                            //最新的数据
+                            await ReLoadTable();
+                            return;
                         }
+                        //父级未变化直接变化本地对象
+                        ICollection<TDto> children = GetChildren(dto);
+                        //重新赋值给界面对象
+                        newEntity.Adapt(dto);
+                        //子集也重新赋值给他
+                        SetChildren(dto, children);
+                        //给子集重新排队
+                        _dtos.ForEach(x =>
+                        {
+                            var p = GetNodeFromTree(GetParentKey(x), x);
+                            if (p != null)
+                            {
+                                ICollection<TDto> children = GetChildren(x);
+                                if (children != null)
+                                {
+                                    SetChildren(p, SortChildren(children));
+                                }
+                            }
+                        });
+                        await InvokeAsync(StateHasChanged);
                     }
                 });
-
-            }
         }
         /// <summary>
         /// 
@@ -256,18 +261,16 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         protected async Task OnClickAdd()
         {
-            DrawerSettings settings = GetDrawerSettings();
-            var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
-                  GetAddOption(),
-                   settings.Closable,
-                   title: localizer["添加"],
-                   width: settings.Width,
-                   placement: settings.Placement.ToString().ToLower());
-            if (result.Succeeded)
-            {
-                //最新的数据
-                await ReLoadTable();
-            }
+            await OpenOperationDialogAsync(localizer["添加"],
+                GetAddOption(),
+                async result =>
+                {
+                    if (result.Succeeded)
+                    {
+                        //最新的数据
+                        await ReLoadTable();
+                    }
+                });
         }
         /// <summary>
         /// 点击添加子项按钮
@@ -276,22 +279,20 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected async Task OnClickAddChildren(TDto dto)
         {
-            DrawerSettings settings = GetDrawerSettings();
-            var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
-                   GetAddOption(dto),
-                   settings.Closable,
-                   title: localizer["添加"],
-                   width: settings.Width,
-                   placement: settings.Placement.ToString().ToLower());
-            if (result.Succeeded)
-            {
-                //最新的数据
-                var newEntity = await serviceBase.Get(result.Id);
-                ICollection<TDto> children = GetChildren(dto) ?? new List<TDto>();
+            await OpenOperationDialogAsync(localizer["添加"],
+                GetAddOption(dto),
+                async result =>
+                {
+                    if (result.Succeeded)
+                    {
+                        //最新的数据
+                        var newEntity = await serviceBase.Get(result.Id);
+                        ICollection<TDto> children = GetChildren(dto) ?? new List<TDto>();
 
-                children.Add(newEntity);
-                SetChildren(dto, SortChildren(children));
-            }
+                        children.Add(newEntity);
+                        SetChildren(dto, SortChildren(children));
+                    }
+                });
         }
         /// <summary>
         /// 点击删除选中按钮
@@ -330,19 +331,48 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickDetail(TDto dto)
         {
             TDrawerOption option = GetSelectOption(dto);
-            DrawerSettings settings = GetDrawerSettings();
-            var result = await drawerService.CreateDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(
-                   option,
-                   settings.Closable,
-                   title: localizer["详情"],
-                   width: settings.Width,
-                   placement: settings.Placement.ToString().ToLower());
-            if (result.Succeeded)
-            {
-                await ReLoadTable();
-            }
+            await OpenOperationDialogAsync(localizer["详情"],
+                option,
+                async result =>
+                {
+                    if (result.Succeeded)
+                    {
+                        await ReLoadTable();
+                    }
+                });
         }
 
+        /// <summary>
+        /// 打开操作对话框
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="input"></param>
+        /// <param name="onClose"></param>
+        /// <param name="operationDialogSettings "></param>
+        /// <returns></returns>
+        private async Task OpenOperationDialogAsync(string title, TDrawerOption input, Func<TDrawerResult, Task> onClose = null, OperationDialogSettings operationDialogSettings = null)
+        {
+            await OpenOperationDialogAsync<TDrawer, TDrawerOption, TDrawerResult>(title, input, onClose, operationDialogSettings);
+        }
+
+        /// <summary>
+        /// 打开操作对话框
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="input"></param>
+        /// <param name="onClose"></param>
+        /// <param name="operationDialogSettings "></param>
+        /// <param name="width "></param>
+        /// <returns></returns>
+        protected async Task OpenOperationDialogAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings operationDialogSettings = null, int? width = null) where TComponent : FeedbackComponent<TComponentOptions, TResult>
+        {
+            OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
+            if (width.HasValue)
+            {
+                settings.Width = width.Value;
+            }
+            await operationDialogService.OpenAsync<TComponent, TComponentOptions, TResult>(title, input, onClose, settings);
+        }
         #region tree tool
         /// <summary>
         /// 获取所有子集节点id
@@ -428,43 +458,43 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TDrawer"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TDrawer> : TreeTableBase<TDto, TKey, TDrawer, DrawerInput<TKey>, DrawerOutput<TKey>> where TDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TDrawer> : TreeTableBase<TDto, TKey, TDrawer, OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDrawer : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected override DrawerInput<TKey> GetSelectOption(TDto dto)
+        protected override OperationDialogInput<TKey> GetSelectOption(TDto dto)
         {
-            return DrawerInput<TKey>.IsSelect(dto.Id);
+            return OperationDialogInput<TKey>.IsSelect(dto.Id);
         }
         /// <summary>
         /// 根据<TDto>获取编辑时传入抽屉的数据项<TEditOption>
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected override DrawerInput<TKey> GetEditOption(TDto dto)
+        protected override OperationDialogInput<TKey> GetEditOption(TDto dto)
         {
-            return DrawerInput<TKey>.IsEdit(dto.Id);
+            return OperationDialogInput<TKey>.IsEdit(dto.Id);
         }
         /// <summary>
         /// 根据<TDto>获取添加时传入抽屉的数据项<TEditOption>
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected override DrawerInput<TKey> GetAddOption(TDto dto)
+        protected override OperationDialogInput<TKey> GetAddOption(TDto dto)
         {
-            return DrawerInput<TKey>.IsAdd(dto.Id);
+            return OperationDialogInput<TKey>.IsAdd(dto.Id);
         }
         // <summary>
         /// 获取添加时传入抽屉的数据项<TEditOption>
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected override DrawerInput<TKey> GetAddOption()
+        protected override OperationDialogInput<TKey> GetAddOption()
         {
-            return DrawerInput<TKey>.IsAdd();
+            return OperationDialogInput<TKey>.IsAdd();
         }
     }
 

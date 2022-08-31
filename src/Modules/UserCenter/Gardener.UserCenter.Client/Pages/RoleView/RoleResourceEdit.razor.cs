@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class RoleResourceEdit : FeedbackComponent<DrawerInput<int>, bool>
+    public partial class RoleResourceEdit : FeedbackComponent<OperationDialogInput<int>, bool>
     {
         private Tree<ResourceDto> _tree;
         private bool _isExpanded;

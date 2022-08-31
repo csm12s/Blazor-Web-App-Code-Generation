@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
-    public partial class ResourceEdit : EditDrawerBase<ResourceDto,Guid>
+    public partial class ResourceEdit : OperationDialogBase<ResourceDto,Guid>
     {
         [Inject]
         IResourceService resourceService { get; set; }

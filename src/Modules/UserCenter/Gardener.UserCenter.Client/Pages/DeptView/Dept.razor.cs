@@ -4,8 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
-using Gardener.Client.Base.Model;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -18,9 +18,11 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
     public partial class Dept : TreeTableBase<DeptDto, int, DeptEdit>
     {
 
-        protected override DrawerSettings GetDrawerSettings()
+        protected override OperationDialogSettings GetOperationDialogSettings()
         {
-            return new DrawerSettings { Width = 800 };
+            OperationDialogSettings dialogSettings = base.GetOperationDialogSettings();
+            dialogSettings.Width = 1000;
+            return dialogSettings;
         }
 
         [Inject]

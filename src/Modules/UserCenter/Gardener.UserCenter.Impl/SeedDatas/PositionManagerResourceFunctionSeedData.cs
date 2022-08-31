@@ -5,9 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Authentication.Enums;
 using Gardener.Base.Domains;
-using Gardener.Base.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

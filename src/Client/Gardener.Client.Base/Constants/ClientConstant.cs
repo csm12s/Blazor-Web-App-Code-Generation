@@ -4,10 +4,14 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
 using AntDesign.ProLayout;
 
 namespace Gardener.Client.Base.Constants
 {
+    /// <summary>
+    /// 客户端常量配置
+    /// </summary>
     public class ClientConstant
     {
         /// <summary>
@@ -44,6 +48,19 @@ namespace Gardener.Client.Base.Constants
         /// 每页数据量大小
         /// </summary>
         public readonly static int pageSize = 15;
+
+        /// <summary>
+        /// 默认的操作框配置
+        /// </summary>
+        public readonly static OperationDialogSettings DefaultOperationDialogSettings = new OperationDialogSettings
+        {
+            Width = 500,
+            MaskClosable = true,
+            Closable = true,
+            ModalCentered=true,
+            DrawerPlacement= Placement.Right,
+            DialogType= OperationDialogType.Drawer,
+        };
 
     }
 }

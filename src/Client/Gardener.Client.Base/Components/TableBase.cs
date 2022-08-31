@@ -8,7 +8,8 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
 using Gardener.Client.Base.Constants;
-using Gardener.Client.Base.Model;
+using Gardener.Client.Base.Services;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
@@ -74,7 +75,7 @@ namespace Gardener.Client.Base.Components
         [Inject]
         protected ConfirmService confirmService { get; set; }
         [Inject]
-        protected DrawerService drawerService { get; set; }
+        protected IOperationDialogService operationDialogService { get; set; }
         [Inject]
         protected IClientLocalizer localizer { get; set; }
         [Inject]
@@ -185,6 +186,7 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected virtual async Task ReLoadTable(PageRequest pageRequest)
         {
+
             _tableIsLoading = true;
             var pagedListResult = await _service.Search(pageRequest);
             if (pagedListResult != null)
@@ -198,8 +200,9 @@ namespace Gardener.Client.Base.Components
                 messageService.Error(localizer.Combination("加载", "失败"));
             }
             _tableIsLoading = false;
+            await InvokeAsync(StateHasChanged);
         }
-        
+
         /// <summary>
         /// table查询变化
         /// </summary>
@@ -316,12 +319,9 @@ namespace Gardener.Client.Base.Components
             pageRequest.PageSize = int.MaxValue;
             pageRequest.PageIndex = 1;
             string seedData = await _service.GenerateSeedData(pageRequest);
-            var result = await drawerService.CreateDialogAsync<TShowSeedDataDrawer, string, bool>(
-                      seedData,
-                       true,
-                       title: localizer["种子数据"],
-                       width: 1300,
-                       placement: "right");
+            OperationDialogSettings drawerSettings = GetOperationDialogSettings();
+            drawerSettings.Width = 1300;
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, string, bool>(localizer["种子数据"], seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -331,16 +331,7 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected virtual async Task OnClickShowSeedData()
         {
-            PageRequest pageRequest = GetPageRequest();
-            pageRequest.PageSize = int.MaxValue;
-            pageRequest.PageIndex = 1;
-            string seedData = await _service.GenerateSeedData(pageRequest);
-            var result = await drawerService.CreateDialogAsync<ShowSeedDataCode, string, bool>(
-                      seedData,
-                       true,
-                       title: localizer["种子数据"],
-                       width: 1300,
-                       placement: "right");
+            await OnClickShowSeedData<ShowSeedDataCode>();
         }
         /// <summary>
         /// 导出数据加载中绑定数据
@@ -358,6 +349,36 @@ namespace Gardener.Client.Base.Components
             await jsTool.Document.DownloadFile(url);
             _exportDataLoading = false;
         }
+
+        /// <summary>
+        /// 操作会话配置
+        /// </summary>
+        /// <returns></returns>
+        protected virtual OperationDialogSettings GetOperationDialogSettings()
+        {
+            OperationDialogSettings dialogSettings = new OperationDialogSettings();
+            ClientConstant.DefaultOperationDialogSettings.Adapt(dialogSettings);
+            return dialogSettings;
+        }
+
+        /// <summary>
+        /// 打开操作对话框
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="input"></param>
+        /// <param name="onClose"></param>
+        /// <param name="operationDialogSettings "></param>
+        /// <param name="width "></param>
+        /// <returns></returns>
+        protected async Task OpenOperationDialogAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings operationDialogSettings = null, int? width = null) where TComponent : FeedbackComponent<TComponentOptions, TResult>
+        {
+            OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
+            if (width.HasValue)
+            {
+                settings.Width = width.Value;
+            }
+            await operationDialogService.OpenAsync<TComponent, TComponentOptions, TResult>(title, input, onClose, settings);
+        }
     }
 
     /// <summary>
@@ -366,36 +387,27 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TEditDrawer"></typeparam>
-    public abstract class TableBase<TDto, TKey, TEditDrawer> : TableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TEditDrawer : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>>
+    public abstract class TableBase<TDto, TKey, TEditDrawer> : TableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TEditDrawer : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
     {
-        /// <summary>
-        /// 抽屉配置
-        /// </summary>
-        /// <returns></returns>
-        protected virtual DrawerSettings GetDrawerSettings()
-        {
-            return new DrawerSettings { Width = 500 };
-        }
-
         /// <summary>
         /// 点击添加按钮
         /// </summary>
         protected async Task OnClickAdd()
         {
-            DrawerSettings drawerSettings = GetDrawerSettings();
-            DrawerInput<TKey> input = DrawerInput<TKey>.IsAdd();
-            var result = await drawerService.CreateDialogAsync<TEditDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
-                input,
-                closable: drawerSettings.Closable,
-                title: localizer["添加"],
-                width: drawerSettings.Width,
-                placement: drawerSettings.Placement.ToString().ToLower());
+            OperationDialogSettings drawerSettings = GetOperationDialogSettings();
+            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsAdd();
 
-            if (result.Succeeded)
+            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
             {
-                //刷新列表
-                await ReLoadTable(true);
-            }
+                if (result.Succeeded)
+                {
+                    //刷新列表
+                    await ReLoadTable(true);
+                }
+                return;
+            };
+
+            await OpenOperationDialogAsync(localizer["编辑"], input, onClose);
         }
         /// <summary>
         /// 点击编辑按钮
@@ -403,20 +415,17 @@ namespace Gardener.Client.Base.Components
         /// <param name="model"></param>
         protected async Task OnClickEdit(TKey id)
         {
-            DrawerSettings drawerSettings = GetDrawerSettings();
-            DrawerInput<TKey> input = DrawerInput<TKey>.IsEdit(id);
-            var result = await drawerService.CreateDialogAsync<TEditDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
-                input,
-                closable: drawerSettings.Closable,
-                true,
-                title: localizer["编辑"],
-                width: drawerSettings.Width,
-                placement: drawerSettings.Placement.ToString().ToLower());
-
-            if (result.Succeeded)
+            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsEdit(id);
+            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
             {
-                await ReLoadTable(false);
-            }
+                if (result.Succeeded)
+                {
+                    //刷新列表
+                    await ReLoadTable(true);
+                }
+                return;
+            };
+            await OpenOperationDialogAsync(localizer["添加"], input, onClose);
         }
 
         /// <summary>
@@ -425,16 +434,22 @@ namespace Gardener.Client.Base.Components
         /// <param name="roleDto"></param>
         protected async Task OnClickDetail(TKey id)
         {
-            DrawerSettings drawerSettings = GetDrawerSettings();
-            DrawerInput<TKey> input = DrawerInput<TKey>.IsSelect(id);
-            var result = await drawerService.CreateDialogAsync<TEditDrawer, DrawerInput<TKey>, DrawerOutput<TKey>>(
-                input,
-                closable: drawerSettings.Closable,
-                true,
-                title: localizer["详情"],
-                width: drawerSettings.Width,
-                placement: drawerSettings.Placement.ToString().ToLower());
+            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsSelect(id);
+            await OpenOperationDialogAsync(localizer["详情"], input);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="input"></param>
+        /// <param name="onClose"></param>
+        /// <param name="operationDialogSettings "></param>
+        /// <returns></returns>
+        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task> onClose = null, OperationDialogSettings operationDialogSettings = null)
+        {
+            OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
+            await OpenOperationDialogAsync<TEditDrawer, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
+        }
     }
 }

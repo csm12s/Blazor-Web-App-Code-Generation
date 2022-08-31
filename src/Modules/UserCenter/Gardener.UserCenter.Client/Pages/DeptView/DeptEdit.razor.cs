@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.DeptView
 {
-    public partial class DeptEdit : EditDrawerBase<DeptDto, int>
+    public partial class DeptEdit : OperationDialogBase<DeptDto, int>
     {
         [Inject]
         IDeptService deptService { get; set; }
@@ -49,7 +49,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
             //父级
             deptDatas = await deptService.GetTree();
             await base.OnInitializedAsync();
-            DrawerInput<int> editInput = this.Options;
+            OperationDialogInput<int> editInput = this.Options;
             if (editInput.Type.Equals(DrawerInputType.Add))
             {
                 _editModel.ParentId = editInput.Id==0?null: editInput.Id;

@@ -4,17 +4,21 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign;
-
-namespace Gardener.Client.Base.Model
+namespace Gardener.Client.Base
 {
     /// <summary>
-    /// 抽屉的设置
+    /// 操作会话框类型
     /// </summary>
-    public class DrawerSettings
+    public enum OperationDialogType
     {
-        public bool Closable { get; set; } = true;
-        public int Width { get; set; }
-        public Placement Placement { get; set; } = Placement.Right;
+        /// <summary>
+        /// 抽屉
+        /// </summary>
+        Drawer,
+        /// <summary>
+        /// 弹框
+        /// </summary>
+        Modal
+
     }
 }

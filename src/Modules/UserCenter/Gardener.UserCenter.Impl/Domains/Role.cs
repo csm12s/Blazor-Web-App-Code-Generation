@@ -6,7 +6,6 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
-using Gardener.Base.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

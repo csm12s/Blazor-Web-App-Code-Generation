@@ -10,7 +10,7 @@ namespace Gardener.Client.Base
     /// 参数
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public class DrawerInput<TKey>
+    public class OperationDialogInput<TKey>
     {
         /// <summary>
         /// 选中的节点主键
@@ -26,36 +26,36 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static DrawerInput<TKey> IsAdd()
+        public static OperationDialogInput<TKey> IsAdd()
         {
-            return new DrawerInput<TKey> { Type = DrawerInputType.Add };
+            return new OperationDialogInput<TKey> { Type = DrawerInputType.Add };
         }
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static DrawerInput<TKey> IsAdd(TKey id)
+        public static OperationDialogInput<TKey> IsAdd(TKey id)
         {
-            return new DrawerInput<TKey> { Id = id, Type = DrawerInputType.Add };
+            return new OperationDialogInput<TKey> { Id = id, Type = DrawerInputType.Add };
         }
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static DrawerInput<TKey> IsEdit(TKey id)
+        public static OperationDialogInput<TKey> IsEdit(TKey id)
         {
-            return new DrawerInput<TKey> { Id = id, Type = DrawerInputType.Edit };
+            return new OperationDialogInput<TKey> { Id = id, Type = DrawerInputType.Edit };
         }
         /// <summary>
         /// 编辑
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static DrawerInput<TKey> IsSelect(TKey id)
+        public static OperationDialogInput<TKey> IsSelect(TKey id)
         {
-            return new DrawerInput<TKey> { Id = id, Type = DrawerInputType.Select };
+            return new OperationDialogInput<TKey> { Id = id, Type = DrawerInputType.Select };
         }
 
 

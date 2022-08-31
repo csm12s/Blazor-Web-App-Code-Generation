@@ -4,11 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.TaskScheduler;
-using Gardener.Base.Domains;
 using Gardener.SysTimer.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

@@ -6,7 +6,6 @@
 
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
-using Gardener.Client.Base.Model;
 using Gardener.Email.Dtos;
 using System;
 using System.Threading.Tasks;
@@ -15,9 +14,11 @@ namespace Gardener.Email.Client.Pages
 {
     public partial class EmailTemplate : TableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
     {
-        protected override DrawerSettings GetDrawerSettings()
+        protected override OperationDialogSettings GetOperationDialogSettings()
         {
-            return new DrawerSettings { Width = 1000 };
+            OperationDialogSettings dialogSettings = base.GetOperationDialogSettings();
+            dialogSettings.Width = 1000;
+            return dialogSettings;
         }
 
         /// <summary>
@@ -26,14 +27,8 @@ namespace Gardener.Email.Client.Pages
         /// <param name="roleDto"></param>
         protected async Task OnClickSend(Guid id)
         {
-            DrawerSettings drawerSettings = GetDrawerSettings();
-            DrawerInput<Guid> input = DrawerInput<Guid>.IsSelect(id);
-            var result = await drawerService.CreateDialogAsync<EmailTemplateTest, DrawerInput<Guid>, DrawerOutput<Guid>>(
-                input,
-                closable: drawerSettings.Closable,
-                title: localizer["发送"],
-                width: drawerSettings.Width,
-                placement: drawerSettings.Placement.ToString().ToLower());
+            OperationDialogInput<Guid> input = OperationDialogInput<Guid>.IsSelect(id);
+            await OpenOperationDialogAsync(localizer["发送"], input);
         }
     }
 }

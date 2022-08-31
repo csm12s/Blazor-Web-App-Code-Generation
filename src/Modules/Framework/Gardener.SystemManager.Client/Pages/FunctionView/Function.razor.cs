@@ -30,16 +30,21 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
                 messageService.Error((enableAudit ? "启用" : "禁用") + "失败");
             }
         }
-        
+
         /// <summary>
         /// 点击导入按钮
         /// </summary>
         /// <returns></returns>
         private async Task OnImportClick()
         {
-            var result = await drawerService.CreateDialogAsync<FunctionImport, int, bool>(0, true, title: localizer["导入"], width: 1000);
-            await ReLoadTable();
+            var setting = base.GetOperationDialogSettings();
+            setting.Width = 1000;
+            await OpenOperationDialogAsync<FunctionImport, int, bool>(localizer["导入"], 0, async r =>
+            {
+                await ReLoadTable();
+
+            }, setting);
         }
-       
+
     }
 }

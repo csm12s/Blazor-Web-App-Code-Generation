@@ -12,19 +12,18 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class Role : TableBase<RoleDto,int, RoleEdit>
+    public partial class Role : TableBase<RoleDto, int, RoleEdit>
     {
-       
+
         /// <summary>
         /// 点击分配资源
         /// </summary>
         /// <returns></returns>
         private async Task OnEditRoleResourceClick(int id)
         {
-            var result = await drawerService.CreateDialogAsync<RoleResourceEdit, DrawerInput<int>, bool>(DrawerInput<int>.IsEdit(id), true, title: localizer["绑定资源"], width: 600);
-            Console.WriteLine(result);
+            await OpenOperationDialogAsync<RoleResourceEdit, OperationDialogInput<int>, bool>(localizer["绑定资源"], OperationDialogInput<int>.IsEdit(id), width: 600);
         }
-       
+
 
         /// <summary>
         /// 导出
@@ -32,12 +31,10 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnDownloadClick()
         {
-            var result = await drawerService.CreateDialogAsync<RoleResourceDownload, string, bool>(
+            await OpenOperationDialogAsync<RoleResourceDownload, string, bool>(
+                localizer["种子数据"],
                       string.Empty,
-                       true,
-                       title: localizer["种子数据"],
-                       width: 1300,
-                       placement: "right");
+                       width: 1300);
         }
 
     }

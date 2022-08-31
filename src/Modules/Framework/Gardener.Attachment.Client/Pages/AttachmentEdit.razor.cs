@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Attachment.Client.Pages
 {
-    public partial class AttachmentEdit : EditDrawerBase<AttachmentDto, Guid>
+    public partial class AttachmentEdit : OperationDialogBase<AttachmentDto, Guid>
     {
 
         [Required(ErrorMessage = "业务类型不能为空")]

@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailTemplateTest : FeedbackComponent<DrawerInput<Guid>, DrawerOutput<Guid>>
+    public partial class EmailTemplateTest : FeedbackComponent<OperationDialogInput<Guid>, OperationDialogOutput<Guid>>
     {
         private bool _isLoading = false;
         private SendEmailInputDto _sendEmailInput = new SendEmailInputDto();
@@ -51,7 +51,7 @@ namespace Gardener.Email.Client.Pages
         /// </summary>
         protected virtual async Task OnFormCancel()
         {
-            await base.FeedbackRef.CloseAsync(DrawerOutput<Guid>.Cancel());
+            await base.FeedbackRef.CloseAsync(OperationDialogOutput<Guid>.Cancel());
         }
 
         /// <summary>

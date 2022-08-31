@@ -20,12 +20,16 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         /// <returns></returns>
         private async Task OnShowFunctionClick(ClientDto model)
         {
-            var result = await drawerService.CreateDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-                      new ClientFunctionEditOption { Id = model.Id, Type = 0, Name = model.Name },
-                      true,
-                      title: $"{localizer["绑定接口"]}-[{model.Name}]",
-                      width: 1200,
-                      placement: "right");
+            await OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
+            $"{localizer["绑定接口"]}-[{model.Name}]",
+            new ClientFunctionEditOption
+            {
+                Id = model.Id,
+                Type = 0,
+                Name = model.Name
+            },
+            width: 1200
+            );
         }
     }
 }

@@ -14,6 +14,8 @@ using Gardener.UserCenter.Services;
 using Gardener.Client.Base.Components;
 using Gardener.Base;
 using Microsoft.AspNetCore.Components.Web;
+using AntDesign.Charts;
+using Gardener.Client.Base;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
@@ -54,7 +56,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             {
                 _currentDeptId = 0;
             }
-            else 
+            else
             {
                 int newId = int.Parse(key);
                 _currentDeptId = newId;
@@ -68,7 +70,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override void ConfigurationPageRequest(PageRequest pageRequest)
         {
-            if (_currentDeptId>0)
+            if (_currentDeptId > 0)
             {
                 var node = TreeTools.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
                 List<int> ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
@@ -85,12 +87,11 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="userId"></param>
         private async Task OnEditUserRoleClick(int userId)
         {
-            var result = await drawerService.CreateDialogAsync<UserRoleEdit, int, bool>(userId, true, title: localizer["设置角色"], width: 500);
-
-            if (result)
+            OperationDialogSettings settings = base.GetOperationDialogSettings();
+            await OpenOperationDialogAsync<UserRoleEdit, int, bool>(localizer["设置角色"], userId, async r =>
             {
                 await ReLoadTable();
-            }
+            }, settings);
         }
         /// <summary>
         /// 点击头像
@@ -99,8 +100,20 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         private async Task OnAvatarClick(UserDto user)
         {
-            int avatarDrawerWidth = 300;
-            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User = user, SaveDb = true }, true, title: "上传头像", width: avatarDrawerWidth, placement: "left");
+            OperationDialogSettings settings = base.GetOperationDialogSettings();
+            settings.Width = 300;
+            settings.DrawerPlacement = Placement.Left;
+            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(localizer["上传头像"],
+                new UserUploadAvatarParams
+                {
+                    User = user,
+                    SaveDb = true
+                },
+                async r =>
+                {
+                    await ReLoadTable();
+                }
+            , settings);
         }
 
     }

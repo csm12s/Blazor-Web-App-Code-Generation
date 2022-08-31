@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
 {
-    public class EditDrawerBase<TDto, TKey> : FeedbackComponent<DrawerInput<TKey>, DrawerOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    public class OperationDialogBase<TDto, TKey> : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
         [Inject]
         protected IServiceBase<TDto, TKey> _service { get; set; }
@@ -67,7 +67,7 @@ namespace Gardener.Client.Base
         /// </summary>
         protected virtual async Task OnFormCancel()
         {
-            await base.FeedbackRef.CloseAsync(DrawerOutput<TKey>.Cancel());
+            await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Cancel());
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Gardener.Client.Base
                 if (result != null)
                 {
                     messageService.Success(localizer.Combination("添加", "成功"));
-                    await base.FeedbackRef.CloseAsync(DrawerOutput<TKey>.Succeed(result.Id));
+                    await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Succeed(result.Id));
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace Gardener.Client.Base
                 if (result)
                 {
                     messageService.Success(localizer.Combination("编辑", "成功"));
-                    await base.FeedbackRef.CloseAsync(DrawerOutput<TKey>.Succeed(_editModel.Id));
+                    await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Succeed(_editModel.Id));
                 }
                 else
                 {
