@@ -72,7 +72,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// </summary>
         private async Task OnCancelClick()
         {
-            await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
+            await base.FeedbackRef.CloseAsync(false);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             if (result)
             {
                 messageService.Success(localizer.Combination("保存", "成功"));
-                await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+                await base.FeedbackRef.CloseAsync(true);
             }
             else
             {

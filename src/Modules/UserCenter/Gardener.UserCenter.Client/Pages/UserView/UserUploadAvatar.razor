@@ -1,5 +1,6 @@
 ﻿@inherits FeedbackComponent<UserUploadAvatarParams, string>
 <Row>
+    <Col Span="24">
     <Upload Action="@UploadUrl"
             Name="file"
             Class="avatar-uploader"
@@ -8,30 +9,39 @@
             BeforeUpload="BeforeUpload"
             OnChange="HandleChange"
             Data="uploadAttachmentInput"
-            Headers="headers"
-            >
-        @if (!string.IsNullOrWhiteSpace(imageUrl))
-        {
+            Headers="headers">
+            @if (!string.IsNullOrWhiteSpace(imageUrl))
+            {
             <img src="@imageUrl" alt="avatar" class="avatar-uploader-img" />
-        }
-        else
-        {
+            }
+            else
+            {
             <div>
                 <Icon Spin="loading" Type="@(loading?"Loading":"plus")"></Icon>
                 <div className="ant-upload-text">上传</div>
             </div>
-        }
+            }
     </Upload>
+    </Col>
+</Row>
+<Row>
+    <Col Span="24" Style="text-align:center;">
+    <Button Type="@ButtonType.Primary" OnClick="OnOkClick">
+            @localizer["确定"]
+    </Button>
+    </Col>
 </Row>
 
 <style>
     .avatar-uploader {
-        text-align:center;
+        text-align: center;
     }
+
     .avatar-uploader > .ant-upload {
         width: 128px;
         height: 128px;
     }
+
     .avatar-uploader-img {
         width: 126px;
         height: 126px;

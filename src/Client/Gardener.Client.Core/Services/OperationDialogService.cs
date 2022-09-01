@@ -41,9 +41,9 @@ namespace Gardener.Client.Core.Services
         /// 可以是抽屉，可以是弹框
         /// </remarks>
         /// <returns></returns>
-        public async Task OpenAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings dialogSettings=null) where TComponent : FeedbackComponent<TComponentOptions, TResult>
+        public async Task OpenAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings dialogSettings = null) where TComponent : FeedbackComponent<TComponentOptions, TResult>
         {
-            dialogSettings= dialogSettings?? ClientConstant.DefaultOperationDialogSettings;
+            dialogSettings = dialogSettings ?? ClientConstant.DefaultOperationDialogSettings;
 
             if (dialogSettings.DialogType.Equals(OperationDialogType.Modal))
             {
@@ -54,11 +54,11 @@ namespace Gardener.Client.Core.Services
                     MaskClosable = dialogSettings.MaskClosable,
                     Width = dialogSettings.Width,
                     Footer = null,
-                    DestroyOnClose=true,
+                    DestroyOnClose = true,
                 }, input);
                 if (onClose != null)
                 {
-                    result.OnOk = onClose;  
+                    result.OnOk = onClose;
                 }
 
             }
@@ -67,14 +67,12 @@ namespace Gardener.Client.Core.Services
                 var result = await drawerService.CreateDialogAsync<TComponent, TComponentOptions, TResult>(
                     input,
                     closable: dialogSettings.Closable,
-                    maskClosable:dialogSettings.MaskClosable,
+                    maskClosable: dialogSettings.MaskClosable,
                     title: title,
                     width: dialogSettings.Width,
                     placement: dialogSettings.DrawerPlacement.ToString().ToLower());
-                if (onClose != null)
-                {
-                    await onClose(result);
-                }
+                await onClose(result);
+
             }
         }
     }

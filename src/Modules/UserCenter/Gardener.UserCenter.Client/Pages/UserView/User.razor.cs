@@ -27,6 +27,16 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         [Inject]
         IDeptService deptService { get; set; }
         int _currentDeptId = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dialogSettings"></param>
+        protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
+        {
+            dialogSettings.Width = 1000;
+        }
+
         /// <summary>
         /// 页面初始化完成
         /// </summary>

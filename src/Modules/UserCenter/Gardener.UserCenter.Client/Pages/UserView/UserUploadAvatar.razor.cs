@@ -30,6 +30,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         IUserService userService { get; set; }
         [Inject]
         IAuthenticationStateManager authenticationStateManager { get; set; }
+        
+        [Inject]
+        protected IClientLocalizer localizer { get; set; }
         /// <summary>
         /// 上传地址
         /// </summary>
@@ -89,7 +92,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             }
             return typeOk && sizeOk;
         }
-
+        /// <summary>
+        /// 新的头像上传成功
+        /// </summary>
+        private bool uploadSucceed = false;
         async Task HandleChange(UploadInfo fileinfo)
         {
             loading = fileinfo.File.State == UploadState.Uploading;
@@ -99,25 +105,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 ApiResult<UploadAttachmentOutput> apiResult= fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive=true });
                 if (apiResult.Succeeded)
                 {
-                    //把用户头像改掉
-                    userDto.Avatar = apiResult.Data.Url;
-                    //不需要保存，直接返回
-                    if (!saveDb) 
-                    {
-                        imageUrl = userDto.Avatar;
-                        return;
-                    }
-                    //更新到数据库
-                    var state=await userService.UpdateAvatar(new UserUpdateAvatarInput { Id=userDto.Id,Avatar= userDto.Avatar });
-                    if (state)
-                    {
-                        imageUrl = userDto.Avatar;
-                        messagerService.Success("头像修改成功");
-                    }
-                    else 
-                    {
-                        messagerService.Success("头像修改失败");
-                    }
+                    uploadSucceed = true;
+                    imageUrl=apiResult.Data.Url;
+                    
                 }
                 else 
                 {
@@ -129,7 +119,40 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             {
                 messagerService.Error("上传失败");
             }
-        }        
+        }
+        /// <summary>
+        /// 保存或返回
+        /// </summary>
+        /// <returns></returns>
+        async Task OnOkClick() 
+        {
+            //失败，直接返回
+            if (!uploadSucceed)
+            {
+                await this.FeedbackRef.CloseAsync();
+                return;
+            }
+
+            //不需要保存，直接返回
+            if (!saveDb)
+            {
+                userDto.Avatar= imageUrl;
+                await this.FeedbackRef.CloseAsync();
+                return;
+            }
+            //更新到数据库
+            var state = await userService.UpdateAvatar(new UserUpdateAvatarInput { Id = userDto.Id, Avatar = imageUrl });
+            if (state)
+            {
+                messagerService.Success("头像修改成功");
+                await this.FeedbackRef.CloseAsync(string.Empty);
+            }
+            else
+            {
+                messagerService.Success("头像修改失败");
+            }
+
+        }
     }
 
     public class UserUploadAvatarParams

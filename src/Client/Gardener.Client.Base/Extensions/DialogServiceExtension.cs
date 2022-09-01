@@ -31,13 +31,10 @@ namespace Gardener.Client.Base
             {
                 var mRef = (modalRef as ModalRef<TResult>);
                 //确定后的操作，放到关闭后执行
-                if (result != null)
+                mRef.OnClose = async () =>
                 {
-                    mRef.OnClose = async () =>
-                    {
-                        await mRef.OnOk?.Invoke(result);
-                    };
-                }
+                    await mRef.OnOk?.Invoke(result);
+                };
                 await mRef.CloseAsync();
             }
             else if (feedback is DrawerRef drawerRef)

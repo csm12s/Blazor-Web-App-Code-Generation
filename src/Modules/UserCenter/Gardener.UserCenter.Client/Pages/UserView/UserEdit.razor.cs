@@ -67,9 +67,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private async Task OnAvatarClick(UserDto user)
         {
             int avatarDrawerWidth = 300;
-            //this.DrawerRef.Options.Width += avatarDrawerWidth;
-            await drawerService.CreateDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(new UserUploadAvatarParams { User =user }, true, title: "上传头像", width: avatarDrawerWidth, placement: "right");
-            //this.DrawerRef.Options.Width -= avatarDrawerWidth;
+            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
+                localizer["上传头像"],
+                new UserUploadAvatarParams { User =user,SaveDb=false },
+                width: avatarDrawerWidth);
         }
         /// <summary>
         /// 
