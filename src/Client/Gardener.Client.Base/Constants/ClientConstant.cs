@@ -59,7 +59,7 @@ namespace Gardener.Client.Base.Constants
             Closable = true,
             ModalCentered=true,
             DrawerPlacement= Placement.Right,
-            DialogType= OperationDialogType.DrawerM,
+            DialogType= OperationDialogType.Drawer,
         };
 
     }
