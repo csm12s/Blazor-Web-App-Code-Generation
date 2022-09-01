@@ -97,11 +97,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="userId"></param>
         private async Task OnEditUserRoleClick(int userId)
         {
-            OperationDialogSettings settings = base.GetOperationDialogSettings();
             await OpenOperationDialogAsync<UserRoleEdit, int, bool>(localizer["设置角色"], userId, async r =>
             {
                 await ReLoadTable();
-            }, settings);
+            },width:500);
         }
         /// <summary>
         /// 点击头像

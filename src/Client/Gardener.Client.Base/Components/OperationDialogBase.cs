@@ -6,6 +6,7 @@
 
 using AntDesign;
 using Gardener.Base;
+using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Constants;
 using Gardener.Client.Base.Services;
 using Mapster;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
 {
-    public class OperationDialogBase<TDto, TKey> : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    public class OperationDialogBase<TDto, TKey> : FeedbackComponentExtend<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
         [Inject]
         protected IServiceBase<TDto, TKey> _service { get; set; }
@@ -28,12 +29,6 @@ namespace Gardener.Client.Base
         protected DrawerService drawerService { get; set; }
         [Inject]
         protected IClientLocalizer localizer { get; set; }
-
-        /// <summary>
-        /// 操作对话框
-        /// </summary>
-        [Inject]
-        protected IOperationDialogService operationDialogService { get; set; }
         /// <summary>
         /// 编辑区域的加载中标识
         /// </summary>
@@ -121,46 +116,7 @@ namespace Gardener.Client.Base
         }
 
 
-        /// <summary>
-        /// 获取操作会话配置
-        /// </summary>
-        /// <returns></returns>
-        protected virtual OperationDialogSettings GetOperationDialogSettings()
-        {
-            OperationDialogSettings dialogSettings = new OperationDialogSettings();
-            ClientConstant.DefaultOperationDialogSettings.Adapt(dialogSettings);
-            SetOperationDialogSettings(dialogSettings);
-            return dialogSettings;
-        }
-
-        /// <summary>
-        /// 设置操作会话配置
-        /// </summary>
-        /// <param name="dialogSettings"></param>
-        protected virtual void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
-        {
-            //set OperationDialogSettings
-        }
-
-
-        /// <summary>
-        /// 打开操作对话框
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="input"></param>
-        /// <param name="onClose"></param>
-        /// <param name="operationDialogSettings "></param>
-        /// <param name="width "></param>
-        /// <returns></returns>
-        protected async Task OpenOperationDialogAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings operationDialogSettings = null, int? width = null) where TComponent : FeedbackComponent<TComponentOptions, TResult>
-        {
-            OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
-            if (width.HasValue)
-            {
-                settings.Width = width.Value;
-            }
-            await operationDialogService.OpenAsync<TComponent, TComponentOptions, TResult>(title, input, onClose, settings);
-        }
+       
 
     }
 }

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -68,7 +69,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             if (result)
             {
                 messageService.Success("设置成功");
-                await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+                await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
@@ -81,7 +82,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// </summary>
         private async Task OnFormCancel()
         {
-            await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(false);
+            await base.FeedbackRef.CloseAsync(false);
         }
         #region 全选
         private bool _indeterminateRole => _roleOptions.Count(o => o.Checked) > 0 && _roleOptions.Count(o => o.Checked) < _roleOptions.Count();

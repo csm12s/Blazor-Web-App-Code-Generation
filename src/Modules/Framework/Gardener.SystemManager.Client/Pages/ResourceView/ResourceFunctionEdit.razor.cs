@@ -11,9 +11,13 @@ using Gardener.Common;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
+using OneOf.Types;
 
 namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ResourceFunctionEditOption
     {
         /// <summary>
@@ -30,7 +34,11 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// </summary>
         public int Type { get; set; }
     }
-    public partial class ResourceFunctionEdit : FeedbackComponent<ResourceFunctionEditOption, bool>
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public partial class ResourceFunctionEdit : FeedbackComponentExtend<ResourceFunctionEditOption, bool>
     {
         [Inject]
         IFunctionService functionService { get; set; }
@@ -40,13 +48,8 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         IResourceService resourceService { get; set; }
         [Inject]
         MessageService messageService { get; set; }
-
-        [Inject]
-        DrawerService drawerService { get; set; }
         [Inject]
         ConfirmService confirmService { get; set; }
-        [Inject]
-        NotificationService noticeService { get; set; }
         [Inject]
         IClientLocalizer localizer { get; set; }
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
@@ -81,7 +84,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 {
                     _functionDtos = tempFunctionDtos;
                 }
-                
+
             }
             //groupFilters = new List<TableFilter<string>>();
             //serviceFilters = new List<TableFilter<string>>();
@@ -105,8 +108,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// <returns></returns>
         private async Task OnCancleClick()
         {
-            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-            await drawerRef!.CloseAsync(false);
+            await base.CloseAsync(false);
         }
         /// <summary>
         /// 
@@ -143,17 +145,25 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// </summary>
         private async Task OnShowFunctionAddPageClick(ResourceDto resource)
         {
-            var result = await drawerService.CreateDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
+            await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
+                $"{localizer["绑定接口"]}-[{this.Options.Name}]",
                      new ResourceFunctionEditOption { Resource = resource, Type = 1 },
-                     true,
-                     title: $"{localizer["绑定接口"]}-[{this.Options.Name}]",
-                     width: 1200,
-                     placement: "right");
-            if (result)
+                     width: 1300,
+            onClose: async result =>
             {
-                await OnInitializedAsync();
-            }
+                if (result)
+                {
+                    await OnInitializedAsync();
+
+                    await RefreshPage();
+                }
+            });
+
         }
+        /// <summary>
+        /// 绑定加载中
+        /// </summary>
+        private bool _bindLoading = false;
         /// <summary>
         /// 点击关联选中按钮
         /// </summary>
@@ -164,6 +174,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 messageService.Warn(localizer["未选中任何行"]);
                 return;
             }
+            _bindLoading = true;
 
             bool result = await resourceFunctionService.Add(_selectedFunctionDtos.Select(x =>
             {
@@ -176,13 +187,14 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             }).ToList());
             if (result)
             {
-                messageService.Success(localizer.Combination("绑定","成功"));
-                await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+                messageService.Success(localizer.Combination("绑定", "成功"));
+                await base.CloseAsync(true);
             }
             else
             {
                 messageService.Error(localizer.Combination("绑定", "失败"));
             }
+            _bindLoading=false;
         }
 
 
@@ -202,12 +214,10 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
             string data = await resourceFunctionService.GetSeedData(resourceIds);
 
-            var result = await drawerService.CreateDialogAsync<ShowSeedDataCode, string, bool>(
-                        data,
-                       true,
-                       title: localizer["种子数据"],
-                       width: 1300,
-                       placement: "right");
+            await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+                       localizer["种子数据"],
+                       data,
+                       width: 1300);
         }
     }
 }
