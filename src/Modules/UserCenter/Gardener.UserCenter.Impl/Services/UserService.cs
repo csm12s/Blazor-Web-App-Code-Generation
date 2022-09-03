@@ -141,7 +141,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public override async Task<bool> Update(UserDto input)
         {
-            if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.Id!=input.Id, false))
+            if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.Id!=input.Id && x.IsDeleted==false, false))
             {
                 throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
             }
@@ -198,7 +198,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public override async Task<UserDto> Insert(UserDto input)
         {
-            if (_userRepository.Any(x => x.UserName.Equals(input.UserName), false))
+            if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.IsDeleted==false, false))
             {
                 throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
             }
