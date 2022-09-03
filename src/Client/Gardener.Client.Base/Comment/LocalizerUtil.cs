@@ -11,8 +11,16 @@ namespace Gardener.Client.Base
     /// </summary>
     public class LocalizerUtil
     {
+        /// <summary>
+        /// 本地化器
+        /// </summary>
         public static IClientLocalizer Localizer;
 
+        /// <summary>
+        /// 合并多个
+        /// </summary>
+        /// <param name="names"></param>
+        /// <returns></returns>
         public static string Combination(params string[] names)
         {
             if (Localizer != null)
@@ -22,9 +30,15 @@ namespace Gardener.Client.Base
             return string.Empty;
         }
 
+        /// <summary>
+        /// 获取本地化结果
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="toLower"></param>
+        /// <returns></returns>
         public static string GetValue(string name,bool toLower=false)
         {
-            if (Localizer != null)
+            if (Localizer != null && !string.IsNullOrEmpty(name))
             {
                 if (toLower)
                 {

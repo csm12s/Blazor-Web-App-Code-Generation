@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using System.ComponentModel;
 
 namespace Gardener.Enums
@@ -17,12 +18,14 @@ namespace Gardener.Enums
         /// 男
         /// </summary>
         [Description("男")]
+        [TagColor(ClientAntPresetColor.Blue)]
         Male,
 
         /// <summary>
         /// 女
         /// </summary>
         [Description("女")]
+        [TagColor(ClientAntPresetColor.Magenta)]
         Female
     }
 }

@@ -113,6 +113,23 @@ namespace Gardener.Common
             }
             return dic;
         }
+
+        /// <summary>
+        /// 获取枚举特性
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static TAttribute GetEnumAttribute<TAttribute>(Enum item) where TAttribute: Attribute
+        {
+            var attrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(TAttribute), true);
+            if (attrs != null && attrs.Length > 0)
+            {
+                TAttribute descAttr = attrs[0] as TAttribute;
+                return descAttr;
+            }
+            return null;
+        }
+
         /// <summary>
         /// 获取枚举描述
         /// </summary>
@@ -120,13 +137,7 @@ namespace Gardener.Common
         /// <returns></returns>
         public static string GetEnumDescription(Enum item)
         {
-            var attrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true);
-            if (attrs != null && attrs.Length > 0)
-            {
-                DescriptionAttribute descAttr = attrs[0] as DescriptionAttribute;
-                return descAttr.Description;
-            }
-            return null;
+            return GetEnumAttribute<DescriptionAttribute>(item)?.Description;
         }
 
         /// <summary>

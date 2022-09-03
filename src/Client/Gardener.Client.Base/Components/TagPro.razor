@@ -1,0 +1,21 @@
+﻿@inherits AntDomComponentBase
+<Tag Color="@(this.Color)"
+     Checkable="this.Checkable"
+     Checked="this.Checked"
+     CheckedChanged="this.CheckedChanged"
+     OnClick="this.OnClick"
+     OnClose="this.OnClose"
+     OnClosing="this.OnClosing"
+     Icon="@this.Icon"
+     Visible="this.Visible"
+     Closable="this.Closable">
+    @if (this.ChildContent != null)
+    {
+        @this.ChildContent
+    }
+    else
+    {
+        @this.value
+
+    }
+</Tag>

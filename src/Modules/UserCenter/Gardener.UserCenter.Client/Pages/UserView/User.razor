@@ -135,7 +135,7 @@
                         @model.Dept?.Name
                     </Column>
                     <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters">
-                        <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Gender)"></TagRandomColor>
+                        <TagPro Text="@model.Gender"></TagPro>
                     </Column>
                     @*<Column @bind-Field="@model.PhoneNumber" />
                     <Column @bind-Field="@model.Email" />*@

@@ -10,6 +10,10 @@ using System;
 
 namespace Gardener.Client.Base.Components
 {
+    /// <summary>
+    /// 可以随机颜色
+    /// </summary>
+    [Obsolete("请用TagPro代替")]
     public partial class TagRandomColor : AntDomComponentBase
     {
 
