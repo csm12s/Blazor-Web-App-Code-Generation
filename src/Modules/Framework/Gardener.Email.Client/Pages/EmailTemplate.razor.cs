@@ -14,13 +14,10 @@ namespace Gardener.Email.Client.Pages
 {
     public partial class EmailTemplate : ListTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
     {
-        protected override OperationDialogSettings GetOperationDialogSettings()
+        protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
         {
-            OperationDialogSettings dialogSettings = base.GetOperationDialogSettings();
-            dialogSettings.Width = 1000;
-            return dialogSettings;
+            dialogSettings.Width = 600;
         }
-
         /// <summary>
         /// 点击发送按钮
         /// </summary>
@@ -28,7 +25,7 @@ namespace Gardener.Email.Client.Pages
         protected async Task OnClickSend(Guid id)
         {
             OperationDialogInput<Guid> input = OperationDialogInput<Guid>.IsSelect(id);
-            await OpenOperationDialogAsync(localizer["发送"], input);
+            await OpenOperationDialogAsync<EmailTemplateTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(localizer["发送"], input);
         }
     }
 }

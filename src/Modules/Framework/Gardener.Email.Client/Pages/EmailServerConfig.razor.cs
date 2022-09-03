@@ -22,7 +22,7 @@ namespace Gardener.Email.Client.Pages
         {
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             OperationDialogInput<Guid> input = OperationDialogInput<Guid>.IsSelect(id);
-            await OpenOperationDialogAsync(localizer["发送"],input);
+            await OpenOperationDialogAsync<EmailServerConfigTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(localizer["发送"], input);
         }
     }
 }

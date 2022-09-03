@@ -6,6 +6,7 @@
 
 using AntDesign;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Components;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Gardener.UserCenter.Dtos;
@@ -34,7 +35,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         /// </summary>
         public int Type { get; set; }
     }
-    public partial class ClientFunctionEdit : FeedbackComponent<ClientFunctionEditOption, bool>
+    public partial class ClientFunctionEdit : FeedbackComponentExtend<ClientFunctionEditOption, bool>
     {
         [Inject]
         IFunctionService functionService { get; set; }
@@ -85,7 +86,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
                 {
                     _functionDtos = tempFunctionDtos;
                 }
-                
+
             }
             //groupFilters = new List<TableFilter<string>>();
             //serviceFilters = new List<TableFilter<string>>();
@@ -109,8 +110,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         /// <returns></returns>
         private async Task OnCancleClick()
         {
-            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-            await drawerRef!.CloseAsync(false);
+            await this.CloseAsync(false);
         }
         /// <summary>
         /// 
@@ -147,16 +147,19 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         /// </summary>
         private async Task OnShowFunctionAddPageClick(Guid id)
         {
-            var result = await drawerService.CreateDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
+            await this.OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
+                $"{localizer["绑定接口"]}-[{this.Options.Name}]",
                      new ClientFunctionEditOption { Id = id, Type = 1 },
-                     true,
-                     title: $"{localizer["绑定接口"]}-[{this.Options.Name}]",
                      width: 1200,
-                     placement: "right");
-            if (result)
-            {
-                await OnInitializedAsync();
-            }
+                     onClose: async result =>
+                     {
+                         if (result)
+                         {
+                             await OnInitializedAsync();
+                             await base.RefreshPage();
+                         }
+                     });
+
         }
         /// <summary>
         /// 点击关联选中按钮
@@ -180,8 +183,8 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             }).ToList());
             if (result)
             {
-                messageService.Success(localizer.Combination("绑定","成功"));
-                await (base.FeedbackRef as DrawerRef<bool>).CloseAsync(true);
+                messageService.Success(localizer.Combination("绑定", "成功"));
+                await this.CloseAsync(true);
             }
             else
             {

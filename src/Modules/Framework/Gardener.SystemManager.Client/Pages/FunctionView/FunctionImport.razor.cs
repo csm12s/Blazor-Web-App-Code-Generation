@@ -100,8 +100,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         /// <returns></returns>
         private async Task OnCancleClick()
         {
-            DrawerRef<bool> drawerRef = base.FeedbackRef as DrawerRef<bool>;
-            await drawerRef!.CloseAsync(false);
+            await base.FeedbackRef!.CloseAsync(false);
         }
         /// <summary>
         /// 取消
