@@ -11,7 +11,7 @@
             <GridCol Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">基本信息</Divider>
                 <FormItem Label="头像">
-                    @if (DrawerInputType.Edit.Equals(this.Options.Type))
+                    @if (DrawerInputType.Edit.Equals(this.Options.Type) || DrawerInputType.Add.Equals(this.Options.Type))
                     {
 
                         <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
