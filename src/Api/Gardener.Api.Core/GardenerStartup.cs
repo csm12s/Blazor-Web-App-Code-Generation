@@ -53,7 +53,7 @@ namespace Gardener.Admin
             //注册swagger
             services.AddSpecificationDocuments(x =>
             {
-                x.SwaggerGenConfigure = config => config.EnableAnnotations();
+                x.SwaggerGen= config => config.EnableAnnotations();
             });
             //注册控制器和视图
             services.AddControllersWithViews().AddJsonOptions(options =>

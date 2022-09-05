@@ -9,7 +9,10 @@
                     DefaultActiveFirstOption
                     Style="width: 100%;"
                     Size="@InputSize.Large"
-                    OnSelectedItemChanged="OnSelectedItemChangedHandler">
+                    OnSelectedItemChanged="OnSelectedItemChangedHandler"
+                    TItem="SwaggerSpecificationOpenApiInfoDto"
+                    TItemValue="string"
+            >
                 <ItemTemplate>
                     <span>@((context as SwaggerSpecificationOpenApiInfoDto).Title)</span>
                 </ItemTemplate>

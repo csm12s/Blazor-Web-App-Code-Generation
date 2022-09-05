@@ -43,10 +43,10 @@ namespace Gardener.Swagger.Services
         {
             url = HttpUtility.UrlDecode(url);
 
-            var swaggerInfo = await url.OnException((res, errors) =>
+            var swaggerInfo = await url.OnException((httpClient, response,msg) =>
             {
 
-                if (!res.StatusCode.Equals(HttpStatusCode.OK))
+                if (!response.StatusCode.Equals(HttpStatusCode.OK))
                 {
                     throw Oops.Bah(ExceptionCode.REQUEST_URL_IS_INVALID);
                 }
