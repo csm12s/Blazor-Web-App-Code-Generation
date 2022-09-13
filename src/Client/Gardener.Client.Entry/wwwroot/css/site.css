@@ -53,7 +53,3 @@ ol {
 .hide {
   display: none;
 }
-.ant-tabs-content {
-    display: block !important;
-    width: 100%;
-}
