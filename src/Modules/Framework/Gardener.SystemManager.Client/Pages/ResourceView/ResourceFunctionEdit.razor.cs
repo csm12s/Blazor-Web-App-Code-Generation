@@ -155,7 +155,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 {
                     await OnInitializedAsync();
 
-                    await RefreshPage();
+                    await RefreshPageDom();
                 }
             });
 

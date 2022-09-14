@@ -156,7 +156,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
                          if (result)
                          {
                              await OnInitializedAsync();
-                             await base.RefreshPage();
+                             await base.RefreshPageDom();
                          }
                      });
 

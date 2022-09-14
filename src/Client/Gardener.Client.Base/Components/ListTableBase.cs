@@ -322,8 +322,8 @@ namespace Gardener.Client.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TComponent"></typeparam>
-    public abstract class ListTableBase<TDto, TKey, TComponent> : ListTableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TComponent : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
+    /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
+    public abstract class ListTableBase<TDto, TKey, TOperationDialog> : ListTableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
     {
         /// <summary>
         /// 点击添加按钮
@@ -385,7 +385,7 @@ namespace Gardener.Client.Base.Components
         protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task> onClose = null, OperationDialogSettings operationDialogSettings = null)
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
-            await OpenOperationDialogAsync<TComponent, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
+            await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
         }
     }
 }

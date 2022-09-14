@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.ProLayout;
 using Gardener.Common;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
 {
@@ -43,6 +44,15 @@ namespace Gardener.Client.Base
                 title = menu?.Name;
             }
             return title;
+        }
+
+        /// <summary>
+        /// 强制dom渲染
+        /// </summary>
+        /// <returns></returns>
+        public async Task RefreshPageDom()
+        {
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

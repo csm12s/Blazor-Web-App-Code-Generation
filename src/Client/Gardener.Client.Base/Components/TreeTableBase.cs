@@ -11,6 +11,7 @@ using Gardener.Client.Base.Constants;
 using Gardener.Client.Base.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using OneOf.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,10 @@ namespace Gardener.Client.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TComponent"></typeparam>
-    /// <typeparam name="TComponentOptions"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TComponent, TComponentOptions, TResult> : TableBase<TDto, TKey> where TComponent : FeedbackComponent<TComponentOptions, TResult> where TResult : OperationDialogOutput<TKey> where TDto : BaseDto<TKey>, new()
+    /// <typeparam name="TOperationDialog"></typeparam>
+    /// <typeparam name="TDialogInput"></typeparam>
+    /// <typeparam name="TDialogOutput"></typeparam>
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TableBase<TDto, TKey> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new()
     {
         /// <summary>
         /// 确认提示服务
@@ -61,31 +62,49 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected abstract TComponentOptions GetSelectOption(TDto dto);
+        protected abstract TDialogInput GetSelectOption(TDto dto);
         /// <summary>
         /// 根据<TDto>获取编辑时传入抽屉的数据项<TEditOption>
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected abstract TComponentOptions GetEditOption(TDto dto);
+        protected abstract TDialogInput GetEditOption(TDto dto);
         /// <summary>
         /// 根据<TDto>获取添加时传入抽屉的数据项<TEditOption>
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected abstract TComponentOptions GetAddOption(TDto dto);
+        protected abstract TDialogInput GetAddOption(TDto dto);
         // <summary>
         /// 获取添加时传入抽屉的数据项<TEditOption>
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected abstract TComponentOptions GetAddOption();
+        protected abstract TDialogInput GetAddOption();
         /// <summary>
         /// 排序
         /// </summary>
         /// <param name="children"></param>
         /// <returns></returns>
         protected abstract ICollection<TDto> SortChildren(ICollection<TDto> children);
+        /// <summary>
+        /// 当编辑结束
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="dialogOutput"></param>
+        protected abstract Task OnEditFinish(TDto dto, TDialogOutput dialogOutput);
+        /// <summary>
+        /// 当添加结束
+        /// </summary>
+        /// <param name="dialogOutput"></param>
+        protected abstract Task OnAddFinish(TDialogOutput dialogOutput);
+        /// <summary>
+        /// 当添加子节点结束
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="dialogOutput"></param>
+        protected abstract Task OnAddChildrenFinish(TDto dto, TDialogOutput dialogOutput);
+
         #endregion
 
         /// <summary>
@@ -97,7 +116,7 @@ namespace Gardener.Client.Base.Components
         {
             return dto.Id;
         }
-       
+
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -111,7 +130,7 @@ namespace Gardener.Client.Base.Components
                 messageService.Error("加载失败");
             }
             _tableIsLoading = false;
-            await InvokeAsync(StateHasChanged);
+            await RefreshPageDom();
         }
 
         /// <summary>
@@ -171,43 +190,12 @@ namespace Gardener.Client.Base.Components
         /// <param name="roleDto"></param>
         protected async Task OnClickEdit(TDto dto)
         {
-            TComponentOptions option = GetEditOption(dto);
+            TDialogInput option = GetEditOption(dto);
             await OpenOperationDialogAsync(localizer["编辑"],
                 option,
-                async result =>
+                 result =>
                 {
-                    if (result.Succeeded)
-                    {
-                        //最新的数据
-                        var newEntity = await _service.Get(GetKey(dto));
-                        //父级变化重新加载列表
-                        if (!GetParentKey(newEntity).Equals(GetParentKey(dto)))
-                        {
-                            //最新的数据
-                            await ReLoadTable();
-                            return;
-                        }
-                        //父级未变化直接变化本地对象
-                        ICollection<TDto> children = GetChildren(dto);
-                        //重新赋值给界面对象
-                        newEntity.Adapt(dto);
-                        //子集也重新赋值给他
-                        SetChildren(dto, children);
-                        //给子集重新排队
-                        _datas.ForEach(x =>
-                        {
-                            var p = GetNodeFromTree(GetParentKey(x), x);
-                            if (p != null)
-                            {
-                                ICollection<TDto> children = GetChildren(x);
-                                if (children != null)
-                                {
-                                    SetChildren(p, SortChildren(children));
-                                }
-                            }
-                        });
-                        await InvokeAsync(StateHasChanged);
-                    }
+                    return OnEditFinish(dto, result);
                 });
         }
 
@@ -218,13 +206,9 @@ namespace Gardener.Client.Base.Components
         {
             await OpenOperationDialogAsync(localizer["添加"],
                 GetAddOption(),
-                async result =>
+                result =>
                 {
-                    if (result.Succeeded)
-                    {
-                        //最新的数据
-                        await ReLoadTable();
-                    }
+                    return OnAddFinish(result);
                 });
         }
 
@@ -237,17 +221,9 @@ namespace Gardener.Client.Base.Components
         {
             await OpenOperationDialogAsync(localizer["添加"],
                 GetAddOption(dto),
-                async result =>
+                 result =>
                 {
-                    if (result.Succeeded)
-                    {
-                        //最新的数据
-                        var newEntity = await _service.Get(result.Id);
-                        ICollection<TDto> children = GetChildren(dto) ?? new List<TDto>();
-
-                        children.Add(newEntity);
-                        SetChildren(dto, SortChildren(children));
-                    }
+                    return OnAddChildrenFinish(dto, result);
                 });
         }
 
@@ -287,16 +263,8 @@ namespace Gardener.Client.Base.Components
         /// <param name="roleDto"></param>
         protected async Task OnClickDetail(TDto dto)
         {
-            TComponentOptions option = GetSelectOption(dto);
-            await OpenOperationDialogAsync(localizer["详情"],
-                option,
-                async result =>
-                {
-                    if (result.Succeeded)
-                    {
-                        await ReLoadTable();
-                    }
-                });
+            TDialogInput option = GetSelectOption(dto);
+            await OpenOperationDialogAsync(localizer["详情"],option);
         }
 
         /// <summary>
@@ -307,9 +275,9 @@ namespace Gardener.Client.Base.Components
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        private async Task OpenOperationDialogAsync(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings operationDialogSettings = null)
+        private async Task OpenOperationDialogAsync(string title, TDialogInput input, Func<TDialogOutput, Task> onClose = null, OperationDialogSettings operationDialogSettings = null)
         {
-            await OpenOperationDialogAsync<TComponent, TComponentOptions, TResult>(title, input, onClose, operationDialogSettings);
+            await OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, operationDialogSettings);
         }
 
         #region tree tool
@@ -318,7 +286,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="resource"></param>
         /// <param name="ids"></param>
-        private void GetTreeAllChildrenNodes(TDto dto, List<TKey> ids)
+        protected void GetTreeAllChildrenNodes(TDto dto, List<TKey> ids)
         {
             var children = GetChildren(dto);
             if (children != null)
@@ -338,7 +306,7 @@ namespace Gardener.Client.Base.Components
         /// <param name="pId"></param>
         /// <param name="id"></param>
         /// <param name="resourceDtos"></param>
-        private bool DeleteTreeNode(TKey pId, TKey id, IEnumerable<TDto> items)
+        protected bool DeleteTreeNode(TKey pId, TKey id, IEnumerable<TDto> items)
         {
             foreach (TDto dto in items)
             {
@@ -365,7 +333,7 @@ namespace Gardener.Client.Base.Components
         /// <param name="id"></param>
         /// <param name="resource"></param>
         /// <returns></returns>
-        private TDto GetNodeFromTree(TKey id, TDto dto)
+        protected TDto GetNodeFromTree(TKey id, TDto dto)
         {
             if (GetKey(dto).Equals(id))
             {
@@ -396,8 +364,8 @@ namespace Gardener.Client.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TComponent"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TComponent> : TreeTableBase<TDto, TKey, TComponent, OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TComponent : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    /// <typeparam name="TOperationDialog"></typeparam>
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
@@ -434,6 +402,84 @@ namespace Gardener.Client.Base.Components
         protected override OperationDialogInput<TKey> GetAddOption()
         {
             return OperationDialogInput<TKey>.IsAdd();
+        }
+        /// <summary>
+        /// 当编辑结束
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="dialogOutput"></param>
+        /// <returns></returns>
+        protected override async Task OnEditFinish(TDto dto, OperationDialogOutput<TKey> dialogOutput)
+        {
+            if (dialogOutput.Succeeded)
+            {
+                //最新的数据
+                var newEntity = await _service.Get(GetKey(dto));
+                //父级变化重新加载列表
+                if (!GetParentKey(newEntity).Equals(GetParentKey(dto)))
+                {
+                    //最新的数据
+                    await ReLoadTable();
+                    return;
+                }
+                //父级未变化直接变化本地对象
+                ICollection<TDto> children = GetChildren(dto);
+                //重新赋值给界面对象
+                newEntity.Adapt(dto);
+                //子集也重新赋值给他
+                SetChildren(dto, children);
+                //给子集重新排队
+                _datas.ForEach(x =>
+                {
+                    var p = GetNodeFromTree(GetParentKey(x), x);
+                    if (p != null)
+                    {
+                        ICollection<TDto> children = GetChildren(x);
+                        if (children != null)
+                        {
+                            SetChildren(p, SortChildren(children));
+                        }
+                    }
+                });
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+
+        /// <summary>
+        /// 当添加结束
+        /// </summary>
+        /// <param name="dialogOutput"></param>
+        /// <returns></returns>
+        protected override Task OnAddFinish(OperationDialogOutput<TKey> dialogOutput)
+        {
+            if (dialogOutput.Succeeded)
+            {
+                //最新的数据
+                return ReLoadTable();
+            }
+
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 当添加子节点结束 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="dialogOutput"></param>
+        /// <returns></returns>
+        protected override async Task OnAddChildrenFinish(TDto dto, OperationDialogOutput<TKey> dialogOutput)
+        {
+            if (dialogOutput.Succeeded)
+            {
+                //最新的数据
+                var newEntity = await _service.Get(dialogOutput.Id);
+                ICollection<TDto> children = GetChildren(dto) ?? new List<TDto>();
+
+                children.Add(newEntity);
+                SetChildren(dto, SortChildren(children));
+
+                await RefreshPageDom();
+            }
         }
     }
 

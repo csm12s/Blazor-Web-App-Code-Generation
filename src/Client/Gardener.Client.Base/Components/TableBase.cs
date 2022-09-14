@@ -103,20 +103,23 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 打开操作对话框
         /// </summary>
+        /// <typeparam name="TOperationDialog"></typeparam>
+        /// <typeparam name="TDialogInput"></typeparam>
+        /// <typeparam name="TDialogOutput"></typeparam>
         /// <param name="title"></param>
         /// <param name="input"></param>
         /// <param name="onClose"></param>
-        /// <param name="operationDialogSettings "></param>
-        /// <param name="width "></param>
+        /// <param name="operationDialogSettings"></param>
+        /// <param name="width"></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings operationDialogSettings = null, int? width = null) where TComponent : FeedbackComponent<TComponentOptions, TResult>
+        protected async Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task> onClose = null, OperationDialogSettings operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             if (width.HasValue)
             {
                 settings.Width = width.Value;
             }
-            await operationDialogService.OpenAsync<TComponent, TComponentOptions, TResult>(title, input, onClose, settings);
+            await operationDialogService.OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, settings);
         }
 
 

@@ -17,9 +17,9 @@ namespace Gardener.Client.Base.Components
     /// <summary>
     /// 弹出框基类
     /// </summary>
-    /// <typeparam name="TComponentOptions"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    public abstract class OperationDialogBase<TComponentOptions, TResult> : FeedbackComponent<TComponentOptions, TResult> 
+    /// <typeparam name="TDialogInput">输入参数的类型</typeparam>
+    /// <typeparam name="TDialogOutput">输出参数的类型</typeparam>
+    public abstract class OperationDialogBase<TDialogInput, TDialogOutput> : FeedbackComponent<TDialogInput, TDialogOutput> 
     {
         /// <summary>
         /// 操作对话框
@@ -52,39 +52,100 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 打开操作对话框
         /// </summary>
+        /// <remarks>
+        /// 基于<see cref="IOperationDialogService"/>的快捷操作
+        /// </remarks>
+        /// <typeparam name="TOperationDialog"></typeparam>
+        /// <typeparam name="TInput"></typeparam>
+        /// <typeparam name="TOutput"></typeparam>
         /// <param name="title"></param>
         /// <param name="input"></param>
         /// <param name="onClose"></param>
-        /// <param name="operationDialogSettings "></param>
-        /// <param name="width "></param>
+        /// <param name="operationDialogSettings"></param>
+        /// <param name="width"></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings operationDialogSettings = null, int? width = null) where TComponent : FeedbackComponent<TComponentOptions, TResult>
+        protected async Task OpenOperationDialogAsync<TOperationDialog, TInput, TOutput>(string title, 
+            TInput input, 
+            Func<TOutput, Task> onClose = null,
+            OperationDialogSettings operationDialogSettings = null, 
+            int? width = null) where TOperationDialog : FeedbackComponent<TInput, TOutput>
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             if (width.HasValue)
             {
                 settings.Width = width.Value;
             }
-            await operationDialogService.OpenAsync<TComponent, TComponentOptions, TResult>(title, input, onClose, settings);
+            await operationDialogService.OpenAsync<TOperationDialog, TInput, TOutput>(title, input, onClose, settings);
+        }
+
+
+        /// <summary>
+        /// 打开操作对话框
+        /// </summary>
+        /// <remarks>
+        /// 基于<see cref="IOperationDialogService"/>的快捷操作
+        /// </remarks>
+        /// <typeparam name="TOperationDialog"></typeparam>
+        /// <typeparam name="TInput"></typeparam>
+        /// <param name="title"></param>
+        /// <param name="input"></param>
+        /// <param name="onClose"></param>
+        /// <param name="operationDialogSettings"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        protected async Task OpenOperationDialogAsync<TOperationDialog, TInput>(string title,
+            TInput input,
+            Func<Task> onClose = null,
+            OperationDialogSettings operationDialogSettings = null,
+            int? width = null) where TOperationDialog : FeedbackComponent<TInput, bool>
+        {
+            Func<bool, Task> close = r => {
+
+                return onClose();
+            };
+
+            await OpenOperationDialogAsync<TOperationDialog, TInput,bool>(title, input, close, operationDialogSettings,width);
         }
 
         /// <summary>
         /// 关闭自己
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected async Task CloseAsync<T>(T result)
+        protected async Task CloseAsync(TDialogOutput result)
         {
             await base.FeedbackRef.CloseAsync(result);
         }
+
         /// <summary>
-        /// 强制刷新
+        /// 关闭自己
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        protected async Task CloseAsync()
+        {
+            await base.FeedbackRef.CloseAsync(default(TDialogOutput));
+        }
+        /// <summary>
+        /// 强制dom渲染
         /// </summary>
         /// <returns></returns>
-        protected async Task RefreshPage()
+        protected async Task RefreshPageDom()
         {
             await InvokeAsync(StateHasChanged);
         }
     }
+
+    /// <summary>
+    /// 弹出框基类
+    /// </summary>
+    /// <remarks>
+    /// 看似没有返回参数，其实是默认认为是 <see cref="bool"/> 类型
+    /// </remarks>
+    /// <typeparam name="TDialogInput">输入参数的类型</typeparam>
+    public abstract class OperationDialogBase<TDialogInput> : OperationDialogBase<TDialogInput, bool>
+    {
+        
+    }
+
 }

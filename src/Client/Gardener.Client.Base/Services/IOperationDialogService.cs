@@ -18,19 +18,37 @@ namespace Gardener.Client.Base.Services
         /// <summary>
         /// 打开
         /// </summary>
-        /// <typeparam name="TComponent"></typeparam>
-        /// <typeparam name="TComponentOptions"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="TOperationDialog"></typeparam>
+        /// <typeparam name="TDialogInput"></typeparam>
+        /// <typeparam name="TDialogOutput"></typeparam>
         /// <param name="drawerService"></param>
         /// <param name="modalService"></param>
         /// <param name="title"></param>
         /// <param name="input"></param>
         /// <param name="onClose"></param>
-        /// <param name="drawerSettings"></param>
+        /// <param name="dialogSettings"></param>
         /// <remarks>
         /// 可以是抽屉，可以是弹框
         /// </remarks>
         /// <returns></returns>
-        public Task OpenAsync<TComponent, TComponentOptions, TResult>(string title, TComponentOptions input, Func<TResult, Task> onClose = null, OperationDialogSettings drawerSettings = null) where TComponent : FeedbackComponent<TComponentOptions, TResult>;
+        public Task OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>;
+
+        /// <summary>
+        /// 打开
+        /// </summary>
+        /// <typeparam name="TOperationDialog"></typeparam>
+        /// <typeparam name="TDialogInput"></typeparam>
+        /// <param name="drawerService"></param>
+        /// <param name="modalService"></param>
+        /// <param name="title"></param>
+        /// <param name="input"></param>
+        /// <param name="onClose"></param>
+        /// <param name="dialogSettings"></param>
+        /// <remarks>
+        /// 可以是抽屉，可以是弹框
+        /// </remarks>
+        /// <returns></returns>
+        public Task OpenAsync<TOperationDialog, TDialogInput>(string title, TDialogInput input, Func<Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput,bool>;
+
     }
 }
