@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class UserEdit: OperationDialogBase<UserDto, int>
+    public partial class UserEdit: EditOperationDialogBase<UserDto, int>
     {
         private List<PositionDto> positions = new List<PositionDto>();
         [Inject]

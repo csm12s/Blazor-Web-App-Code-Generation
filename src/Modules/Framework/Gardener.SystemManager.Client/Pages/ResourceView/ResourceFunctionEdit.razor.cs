@@ -38,7 +38,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
     /// <summary>
     /// 
     /// </summary>
-    public partial class ResourceFunctionEdit : FeedbackComponentExtend<ResourceFunctionEditOption, bool>
+    public partial class ResourceFunctionEdit : OperationDialogBase<ResourceFunctionEditOption, bool>
     {
         [Inject]
         IFunctionService functionService { get; set; }

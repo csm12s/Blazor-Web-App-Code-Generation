@@ -35,7 +35,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         /// </summary>
         public int Type { get; set; }
     }
-    public partial class ClientFunctionEdit : FeedbackComponentExtend<ClientFunctionEditOption, bool>
+    public partial class ClientFunctionEdit : OperationDialogBase<ClientFunctionEditOption, bool>
     {
         [Inject]
         IFunctionService functionService { get; set; }

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailServerConfigEdit : OperationDialogBase<EmailServerConfigDto, Guid>
+    public partial class EmailServerConfigEdit : EditOperationDialogBase<EmailServerConfigDto, Guid>
     {
         private IEnumerable<string> _tags
         {

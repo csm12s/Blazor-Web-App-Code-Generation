@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.DeptView
 {
-    public partial class DeptEdit : OperationDialogBase<DeptDto, int>
+    public partial class DeptEdit : EditOperationDialogBase<DeptDto, int>
     {
         [Inject]
         IDeptService deptService { get; set; }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ClientView
 {
-    public partial class ClientEdit : OperationDialogBase<ClientDto, Guid>
+    public partial class ClientEdit : EditOperationDialogBase<ClientDto, Guid>
     {
 
         /// <summary>

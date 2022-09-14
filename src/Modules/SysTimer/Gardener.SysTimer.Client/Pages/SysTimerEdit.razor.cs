@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Pages
 {
-    public partial class SysTimerEdit :OperationDialogBase<SysTimerDto, int>
+    public partial class SysTimerEdit :EditOperationDialogBase<SysTimerDto, int>
     {
 
         [Inject]

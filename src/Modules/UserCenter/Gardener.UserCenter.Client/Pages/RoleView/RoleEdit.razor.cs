@@ -9,7 +9,7 @@ using Gardener.UserCenter.Dtos;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class RoleEdit : OperationDialogBase<RoleDto, int>
+    public partial class RoleEdit : EditOperationDialogBase<RoleDto, int>
     {
     }
 }

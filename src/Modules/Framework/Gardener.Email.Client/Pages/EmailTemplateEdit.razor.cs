@@ -10,7 +10,7 @@ using System;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailTemplateEdit : OperationDialogBase<EmailTemplateDto, Guid>
+    public partial class EmailTemplateEdit : EditOperationDialogBase<EmailTemplateDto, Guid>
     {
     }
 }

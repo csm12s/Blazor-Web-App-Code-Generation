@@ -9,7 +9,7 @@ using Gardener.UserCenter.Dtos;
 
 namespace Gardener.UserCenter.Client.Pages.PositionView
 {
-    public partial class PositionEdit : OperationDialogBase<PositionDto,int>
+    public partial class PositionEdit : EditOperationDialogBase<PositionDto,int>
     {
       
     }

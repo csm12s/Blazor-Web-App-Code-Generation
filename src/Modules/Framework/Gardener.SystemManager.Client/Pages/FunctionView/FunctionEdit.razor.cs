@@ -11,7 +11,7 @@ using HttpMethod = Gardener.Enums.HttpMethod;
 
 namespace Gardener.SystemManager.Client.Pages.FunctionView
 {
-    public partial class FunctionEdit: OperationDialogBase<FunctionDto,Guid>
+    public partial class FunctionEdit: EditOperationDialogBase<FunctionDto,Guid>
     {
         [Required(ErrorMessage ="不能为空")]
         private string _currentEditModelHttpMethodType
