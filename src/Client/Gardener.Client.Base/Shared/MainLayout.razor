@@ -6,7 +6,14 @@
                 <RightContent />
             </RightContentRender>
             <ChildContent>
-                <ReuseTabs @ref="reuseTabs" Class="top-row px-4" TabPaneClass="content px-4" Draggable />
+                @if (ClientConstant.EnabledTabs)
+                {
+                    <ReuseTabs @ref="reuseTabs" Class="top-row px-4" TabPaneClass="content px-4" Draggable />
+
+                }else
+                {
+                    @Body
+                }
             </ChildContent>
             <FooterRender>
                 <FooterView Copyright="@systemConfig?.Copyright" Links="ClientConstant.FooterLinks"></FooterView>

@@ -62,5 +62,10 @@ namespace Gardener.Client.Base.Constants
             DialogType= OperationDialogType.Modal,
         };
 
+        /// <summary>
+        /// 启用多标签
+        /// </summary>
+        public readonly static bool EnabledTabs=false;
+
     }
 }
