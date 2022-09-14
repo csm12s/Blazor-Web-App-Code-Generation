@@ -28,9 +28,10 @@ namespace Gardener.Client.Core
             var culture = new CultureInfo(string.IsNullOrEmpty(result) ? "zh-CN" : result);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
             //
             LocalizerUtil.Localizer = host.Services.GetRequiredService<IClientLocalizer>();
-
             return host;
         }
         /// <summary>

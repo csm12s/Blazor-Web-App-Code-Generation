@@ -75,7 +75,6 @@ namespace Gardener.Client.Base.Components
             string name = item.Key;
             if (CultureInfo.CurrentCulture.Name != name)
             {
-                CultureInfo.CurrentCulture = new CultureInfo(name);
                 await JsTool.SessionStorage.SetAsync(ClientConstant.BlazorCultureKey, name);
                 NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }

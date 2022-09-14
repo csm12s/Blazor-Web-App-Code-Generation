@@ -6,7 +6,6 @@
 
 using AntDesign;
 using AntDesign.ProLayout;
-using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
@@ -16,7 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Entry.Shared
+
+namespace Gardener.Client.Base.Shared
 {
     public partial class MainLayout
     {
@@ -35,13 +35,13 @@ namespace Gardener.Client.Entry.Shared
         [Inject]
         private IJsTool JsTool { get; set; }
         [Inject]
-        private IStringLocalizer<App> Loc { get; set; }
+        private IClientLocalizer Loc { get; set; }
         [Inject]
         private IAuthenticationStateManager authenticationStateManager { get; set; }
 
         private SystemConfig systemConfig;
 
-        private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();
+        private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();            
         private ReuseTabs reuseTabs;
         /// <summary>
         /// 初始化菜单
