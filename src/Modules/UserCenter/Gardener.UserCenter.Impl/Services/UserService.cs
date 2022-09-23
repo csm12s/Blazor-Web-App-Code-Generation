@@ -141,7 +141,8 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public override async Task<bool> Update(UserDto input)
         {
-            if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.Id!=input.Id && x.IsDeleted==false, false))
+            var userExists = await _userRepository.AnyAsync(x => x.UserName.Equals(input.UserName) && x.Id != input.Id && x.IsDeleted == false, false);
+            if (userExists)
             {
                 throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
             }
