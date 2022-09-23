@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Http;
 using Gardener.NotificationSystem;
 using Gardener.Common.JsonConverters;
 using System;
+using Microsoft.AspNetCore.HttpOverrides;
+using AspNetCoreRateLimit;
 
 namespace Gardener.Admin
 {
@@ -81,6 +83,23 @@ namespace Gardener.Admin
             //全局启用 LoggingMonitor
             services.AddMvcFilter<LoggingMonitorAttribute>();
 
+            // 配置Nginx转发获取客户端真实IP
+            // 1：如果负载均衡不是在本机通过 Loopback 地址转发请求的，
+            // 一定要加上options.KnownNetworks.Clear()和options.KnownProxies.Clear()
+            // 2：如果设置环境变量 ASPNETCORE_FORWARDEDHEADERS_ENABLED 为 True，
+            // 则不需要下面的配置代码
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.All;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
+
+            // 限流服务
+            // 只提供最基础限流服务，更多配置请查看
+            // https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/IpRateLimitMiddleware#defining-rate-limit-rules
+            services.AddInMemoryRateLimiting();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
         }
         /// <summary>
         /// 
@@ -105,10 +124,13 @@ namespace Gardener.Admin
 
             app.UseStaticFiles();
 
-
             app.UseRouting();
 
             app.UseCorsAccessor();
+
+            // 限流组件(需注册在跨域之后)
+            app.UseIpRateLimiting();
+            app.UseClientRateLimiting();
 
             app.UseAuthentication();
 
