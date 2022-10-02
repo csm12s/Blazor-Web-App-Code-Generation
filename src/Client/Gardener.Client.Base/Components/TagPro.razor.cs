@@ -48,8 +48,8 @@ namespace Gardener.Client.Base.Components
         /// 自定义颜色
         /// </summary>
         [Parameter]
-        public string Color { get; set; }
-
+        public string Color { get => _color?.ToLower(); set => _color = value?.ToLower(); }
+        private string _color;
         /// <summary>
         /// 禁用随机颜色
         /// </summary>
@@ -125,7 +125,7 @@ namespace Gardener.Client.Base.Components
             //如果color没有值，PresetColor 有值，使用PresetColor
             if (string.IsNullOrEmpty(this.Color) && this.PresetColor.HasValue)
             {
-                this.Color = this.PresetColor.Value.ToString().ToLower();
+                this.Color = this.PresetColor.Value.ToString();
             }
             //Text为null时什么也推断不出来
             if (Text == null)
@@ -148,7 +148,7 @@ namespace Gardener.Client.Base.Components
                         }
                         else if(tagColorAttribute.PresetColor.HasValue)
                         {
-                            this.Color = tagColorAttribute.PresetColor.Value.ToString().ToLower();
+                            this.Color = tagColorAttribute.PresetColor.Value.ToString();
                         }
                         
                     }
@@ -168,13 +168,12 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 
+        /// 获取随机颜色
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
         private string GetRandomColor(string text)
         {
-
             int code = Math.Abs(text.GetHashCode());
             int colorIndex = (code % 1000) % colors.Length;
             return colors[colorIndex].ToString();
