@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="4.4.2" />
-    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.8" />
+    <PackageReference Include="Furion" Version="4.7.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.10" />
   </ItemGroup>
 
   <ItemGroup>

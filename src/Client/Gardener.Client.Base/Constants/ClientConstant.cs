@@ -65,7 +65,7 @@ namespace Gardener.Client.Base.Constants
         /// <summary>
         /// 启用多标签
         /// </summary>
-        public readonly static bool EnabledTabs=false;
+        public readonly static bool EnabledTabs=true;
 
     }
 }
