@@ -22,7 +22,7 @@
 
         @@*Search Field*@@
         <TitleTemplate>
-            <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.View))>
+            <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.Search))>
                 <TableSearch TDto="@(Model.ClassName)SearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
             </ResourceAuthorize>
             <Row>
@@ -42,7 +42,7 @@
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
-                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.View)>
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Search)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                     @@localizer["Refresh"]
@@ -91,7 +91,7 @@
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
-                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.View)>
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Search)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickDetail(model.Id)" Type="@@ButtonType.Link">
                                 @@localizer["Detail"]

@@ -13,16 +13,12 @@ using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MiniExcelLibs;
 using RazorEngine;
 using RazorEngine.Templating;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -414,7 +410,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         });
 
         // Menu Buttons / Actions
-        menus.Add(NewAction(AuthKeys.View, menus.First(), genTable));
+        menus.Add(NewAction(AuthKeys.Search, menus.First(), genTable));
         menus.Add(NewAction(AuthKeys.Add, menus.First(), genTable));
         menus.Add(NewAction(AuthKeys.Edit, menus.First(), genTable));
         menus.Add(NewAction(AuthKeys.Delete, menus.First(), genTable));

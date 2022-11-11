@@ -10,6 +10,10 @@ namespace Gardener.Base;
 
 public class IdUtil
 {
+    /// <summary>
+    /// 雪花ID
+    /// </summary>
+    /// <returns></returns>
     public static long GetNextId()
     {
         var generator = new IdGenerator(0);
@@ -17,6 +21,10 @@ public class IdUtil
         return id;
     }
 
+    /// <summary>
+    /// 雪花ID String
+    /// </summary>
+    /// <returns></returns>
     public static string GetNextIdStr()
     {
         return GetNextId().ToString();

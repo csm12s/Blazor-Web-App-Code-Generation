@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Gardener.Common;
 
-// TODO: 其他项目应该统一从这里引用MiniExcel
+// TODO: 其他项目应该统一从这里引用MiniExcel, 避免包的版本不同报错
+// TODO2：这个库应该是全局基础库，几乎所有的包都应该在这里引用
+// 或者Gardener作为全局基础库
+// TODO3: Common库里面要不要输出log
 //https://gitee.com/dotnetchina/MiniExcel?_from=gitee_search#https://gitee.com/link?target=https%3A%2F%2Fdotnetfiddle.net%2Fw5WD1J
 
 
