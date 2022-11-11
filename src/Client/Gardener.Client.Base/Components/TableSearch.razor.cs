@@ -275,6 +275,10 @@ namespace Gardener.Client.Base.Components
                 {
                     FilterGroup filterGroup = new FilterGroup();
                     var field = _currentFields.FirstOrDefault(f => f.Name.Equals(value));
+                    if (field == null)
+                    {
+                        continue; // null when clear _selectedValues
+                    }
 
                     if (IsDateTimeType(field.Type))
                     {
@@ -356,7 +360,7 @@ namespace Gardener.Client.Base.Components
         {
             ResetSearchFieldValue();
             var filterGroups = GetFilterGroups();
-            await OnSearchFieldChanged.InvokeAsync(GetFilterGroups());
+            await OnSearchFieldChanged.InvokeAsync(filterGroups);
             await OnSearch.InvokeAsync();
         }
         /// <summary>

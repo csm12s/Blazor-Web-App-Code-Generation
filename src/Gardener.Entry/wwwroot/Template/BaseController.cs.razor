@@ -1,0 +1,20 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Base;
+using Furion.DynamicApiController;
+using Microsoft.AspNetCore.Mvc;
+
+namespace @(Model.AppName).@(Model.Module).Server;
+
+[ApiDescriptionSettings(Module = "@(Model.Module)", Groups = new string[] { "@(Model.Module)" }, ForceWithRoutePrefix = true, KeepName = true, KeepVerb = true, LowercaseRoute = false, SplitCamelCase = false)]
+public class @(Model.Module)BaseController<T, TDto>
+    : BaseController<T, TDto, string>,
+    IDynamicApiController
+    where T : class, new()
+    where TDto : class, new()
+{
+    public @(Model.Module)BaseController(IBaseService<T> service) : base(service)
+    {
+    }
+}
+

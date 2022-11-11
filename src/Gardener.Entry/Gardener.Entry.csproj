@@ -21,11 +21,95 @@
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
+    <Content Remove="wwwroot\Template\Base.csproj.razor" />
+    <Content Remove="wwwroot\Template\BaseClientController.cs.razor" />
+    <Content Remove="wwwroot\Template\BaseController.cs.razor" />
+    <Content Remove="wwwroot\Template\BaseTable.cs.razor" />
+    <Content Remove="wwwroot\Template\Client.csproj.razor" />
+    <Content Remove="wwwroot\Template\ClientController.cs.razor" />
+    <Content Remove="wwwroot\Template\ClientEdit.razor" />
+    <Content Remove="wwwroot\Template\ClientEdit.razor.cs.razor" />
+    <Content Remove="wwwroot\Template\ClientView.razor" />
+    <Content Remove="wwwroot\Template\ClientView.razor.cs.razor" />
+    <Content Remove="wwwroot\Template\Controller.cs.razor" />
+    <Content Remove="wwwroot\Template\DBLocale.CH.razor" />
+    <Content Remove="wwwroot\Template\DBLocale.EN.razor" />
+    <Content Remove="wwwroot\Template\IBaseController.cs.razor" />
+    <Content Remove="wwwroot\Template\IController.cs.razor" />
+    <Content Remove="wwwroot\Template\Model.cs.razor" />
+    <Content Remove="wwwroot\Template\ModelDto.cs.razor" />
+    <Content Remove="wwwroot\Template\ModelSearchDto.cs.razor" />
+    <Content Remove="wwwroot\Template\Server.csproj.razor" />
+    <Content Remove="wwwroot\Template\Service.cs.razor" />
+    <Content Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\DBLocale.CH.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\DBLocale.EN.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\Server.csproj.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\Client.csproj.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\BaseController.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\BaseClientController.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\ClientController.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\ClientView.razor.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\ClientEdit.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\ClientView.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\Base.csproj.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\Controller.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\ClientEdit.razor.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\BaseTable.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\IBaseController.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\IController.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\Model.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\ModelSearchDto.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\ModelDto.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\Service.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\SqlServer - Insert Menu.sql.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
@@ -48,7 +132,26 @@
   </ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Watch Remove="wwwroot\Template\Base.csproj.razor" />
+	  <Watch Remove="wwwroot\Template\BaseClientController.cs.razor" />
+	  <Watch Remove="wwwroot\Template\BaseController.cs.razor" />
+	  <Watch Remove="wwwroot\Template\BaseTable.cs.razor" />
+	  <Watch Remove="wwwroot\Template\Client.csproj.razor" />
+	  <Watch Remove="wwwroot\Template\ClientEdit.razor.cs.razor" />
+	  <Watch Remove="wwwroot\Template\ClientView.razor.cs.razor" />
+	  <Watch Remove="wwwroot\Template\DBLocale.CH.razor" />
+	  <Watch Remove="wwwroot\Template\DBLocale.EN.razor" />
+	  <Watch Remove="wwwroot\Template\IBaseController.cs.razor" />
+	  <Watch Remove="wwwroot\Template\Model.cs.razor" />
+	  <Watch Remove="wwwroot\Template\ModelSearchDto.cs.razor" />
+	  <Watch Remove="wwwroot\Template\Server.csproj.razor" />
+	  <Watch Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Folder Include="wwwroot\upload\" />
 	</ItemGroup>
 

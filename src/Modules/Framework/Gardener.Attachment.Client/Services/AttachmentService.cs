@@ -23,7 +23,7 @@ namespace Gardener.Attachment.Client.Services
         {
         }
 
-        public async Task<Base.PagedList<AttachmentDto>> Search(int? businessType, int? fileType, string businessId, string order = "desc", int pageIndex = 1, int pageSize = 10)
+        public async Task<Base.PageList<AttachmentDto>> Search(int? businessType, int? fileType, string businessId, string order = "desc", int pageIndex = 1, int pageSize = 10)
         {
             IDictionary<string, object> pramas = new Dictionary<string, object>()
             {
@@ -31,7 +31,7 @@ namespace Gardener.Attachment.Client.Services
                 {"fileType",fileType },
                 {"order",order }
             };
-            return await apiCaller.GetAsync<PagedList<AttachmentDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
+            return await apiCaller.GetAsync<PageList<AttachmentDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
         }
 
         public Task<UploadAttachmentOutput> Upload(UploadAttachmentInput input, IFormFile file)

@@ -18,10 +18,12 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Base.Components
 {
+    //TODO: 这里原来继承ReuseTabsPageBase，修改后的页面可以被当作Modal打开,
+    //请确保这里不会出错，如果出错，请修改CodeGenConfigView，不再使用ReuseTabsPageAndFormBase
     /// <summary>
     /// table基类
     /// </summary>
-    public abstract class TableBase<TDto, TKey> : ReuseTabsPageBase where TDto : BaseDto<TKey>, new()
+    public abstract class TableBase<TDto, TKey> : ReuseTabsPageAndFormBase<TKey, bool> where TDto : BaseDto<TKey>, new()
     {
         /// <summary>
         /// table引用

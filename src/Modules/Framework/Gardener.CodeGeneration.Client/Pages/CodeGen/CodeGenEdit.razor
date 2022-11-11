@@ -1,0 +1,91 @@
+﻿@using Gardener.Base
+@using Gardener.SystemManager.Dtos
+@inherits EditOperationDialogBase<CodeGenDto, int>
+
+<Form Loading="@_isLoading"
+      Model="@_editModel"
+      LabelCol="new ColLayoutParam { Span = 8 }"
+      WrapperCol="new ColLayoutParam { Span = 16 }"
+      OnFinish="OnFormFinish"
+      Context="model">
+    <FormItem Label="@(localizer["TableName"])">
+        <Select DataSource="_allTables"
+            OnSelectedItemChanged="OnTableSelectChanged"
+                @bind-Value="@model.TableName"
+                ValueName="@nameof(SelectItem.ValueName)"
+                LabelName="@nameof(SelectItem.LabelName)"
+                TItem="SelectItem"
+                TItemValue="string"
+                EnableSearch
+                AllowClear>
+        </Select>
+    </FormItem>
+
+    <FormItem Label="@(localizer["Class Name"])" >
+        <Input @bind-Value="@model.ClassName" Placeholder=@localizer["Class Name"] />
+    </FormItem>
+
+    <FormItem Label="@(localizer["Module"])">
+        <Input @bind-Value="@model.Module" Placeholder=@localizer["Module"] />
+    </FormItem>
+
+    <FormItem Label="@(localizer["ParentMenu"])">
+        <Input @bind-Value="@model.MenuParentId" Type="hidden" />
+        @if (_menus != null && _menus.Count > 0)
+        {
+            <TreeSelect TItem="ResourceDto"
+                    Style="width:100%;"
+                    DataSource="_menus"
+                    @bind-Value="@_menuParentId"
+                    Placeholder="@localizer["PleaseSelect"]"
+                    AllowClear="false"
+                    TitleExpression="node=>node.DataItem.Name"
+                    KeyExpression="node =>node.DataItem.Id.ToString()"
+                    ChildrenExpression="node =>node.DataItem.Children?.ToList()"
+                    IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
+                    TreeDefaultExpandAll="true"
+                    ShowExpand="true"
+                    DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
+            </TreeSelect>
+        }
+    </FormItem>
+
+    <FormItem Label="@(localizer["Menu Name"])">
+        <Input @bind-Value="@model.MenuName" Placeholder=@localizer["Menu Name"]/>
+    </FormItem>
+
+    <FormItem Label=@localizer["Locked"]>
+        <Switch @bind-Value="@model.IsLocked"></Switch>
+    </FormItem>
+
+    <FormItem Label=@localizer["UseCustomTemplate"]>
+        <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
+    </FormItem>
+
+    @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+    {
+        <FormItem Label="创建时间">
+            <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+        <FormItem Label="更新时间">
+            <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+    }
+    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Space>
+            @if (!DrawerInputType.Select.Equals(this.Options.Type))
+            {
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        @localizer["保存"]
+                    </Button>
+                </SpaceItem>
+            }
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    @localizer["取消"]
+                </Button>
+            </SpaceItem>
+        </Space>
+    </FormItem>
+</Form>

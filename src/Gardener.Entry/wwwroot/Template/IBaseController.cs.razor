@@ -1,0 +1,12 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Base;
+
+namespace @(Model.AppName).@(Model.Module);
+
+public interface I@(Model.Module)BaseController<TDto>
+    : IBaseController<TDto, string>
+    where TDto : class, new()
+{
+}
+

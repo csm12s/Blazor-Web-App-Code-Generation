@@ -55,7 +55,7 @@ namespace Gardener.SysTimer.Services
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public override async Task<Base.PagedList<SysTimerDto>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public override async Task<Base.PageList<SysTimerDto>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
             var workers = SpareTime.GetWorkers().ToList();
 
@@ -108,7 +108,7 @@ namespace Gardener.SysTimer.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public override async Task<Base.PagedList<SysTimerDto>> Search(Base.PageRequest request)
+        public override async Task<Base.PageList<SysTimerDto>> Search(Base.PageRequest request)
         {
             var workers = SpareTime.GetWorkers().ToList();
             var timers = await base.Search(request);

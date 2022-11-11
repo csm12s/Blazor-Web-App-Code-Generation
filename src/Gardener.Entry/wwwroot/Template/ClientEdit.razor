@@ -1,0 +1,48 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+@@inherits EditOperationDialogBase<@(Model.ClassName)Dto, string>
+
+<Form Context="model"
+      Loading="@@_isLoading"
+      Model="@@_editModel"
+      LabelCol="new ColLayoutParam { Span = 8 }"
+      WrapperCol="new ColLayoutParam { Span = 16 }"
+      OnFinish="OnFormFinish">
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+    <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+        <Input @@bind-Value="@@model.@item.ColumnName" />
+    </FormItem>
+    }
+
+    <FormItem Label=@@localizer["Locked"]>
+        <Switch @@bind-Value="@@model.IsLocked"></Switch>
+    </FormItem>
+
+    @@if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+    {
+        <FormItem Label=@@localizer["CreatedTime"]>
+            <span>@@model.CreateTime.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+        <FormItem Label=@@localizer["UpdatedTime"]>
+            <span>@@model.UpdateTime?.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+    }
+    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Space>
+            @@if (!DrawerInputType.Select.Equals(this.Options.Type))
+            {
+                <SpaceItem>
+                    <Button Type="@@ButtonType.Primary" HtmlType="submit">
+                        @@localizer["Save"]
+                    </Button>
+                </SpaceItem>
+            }
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    @@localizer["Cancel"]
+                </Button>
+            </SpaceItem>
+        </Space>
+    </FormItem>
+</Form>

@@ -1,0 +1,30 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+
+using AntDesign;
+using @(Model.AppName).Client.Base;
+using @(Model.AppName).Client.Base.Components;
+
+namespace @(Model.AppName).@(Model.Module).Client;
+
+public abstract class @(Model.Module)BaseTable<TDto, TOperationDialog>
+    : ListTableBase<TDto, string, TOperationDialog> 
+    where TDto : @(Model.Module)BaseDto, new() 
+    where TOperationDialog : FeedbackComponent<OperationDialogInput<string>, OperationDialogOutput<string>>
+{
+   
+    public readonly string _ControllerName;
+    public string _Module = "@(Model.Module)";
+
+    protected @(Model.Module)BaseTable(string controllerName)
+    {
+        this._ControllerName = controllerName;
+    }
+
+    public string GetAuthKey(string key)
+    {
+        return _Module + "_" + _ControllerName + "_" + key;
+    }
+
+}
+

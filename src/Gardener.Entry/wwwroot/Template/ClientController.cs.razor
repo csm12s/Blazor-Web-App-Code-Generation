@@ -1,0 +1,20 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Base;
+using @(Model.AppName).Client.Base;
+using @(Model.AppName).@(Model.Module).Dto;
+using @(Model.AppName).@(Model.Module).IController;
+
+namespace @(Model.AppName).@(Model.Module).Client.Controller;
+
+[ScopedService]
+public class @(Model.ClassName)ClientController 
+    : @(Model.Module)BaseClientController<@(Model.ClassName)Dto>, 
+    I@(Model.ClassName)Controller
+{
+    public @(Model.ClassName)ClientController(IApiCaller apiCaller)
+        :base(apiCaller, "@(Model.ClassName)")
+    {
+    }
+
+}

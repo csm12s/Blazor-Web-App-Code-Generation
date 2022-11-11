@@ -43,7 +43,7 @@ namespace Gardener.Audit.Services
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public override async Task<PagedList<AuditEntityDto>> Search(PageRequest request)
+        public override async Task<PageList<AuditEntityDto>> Search(PageRequest request)
         {
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
 

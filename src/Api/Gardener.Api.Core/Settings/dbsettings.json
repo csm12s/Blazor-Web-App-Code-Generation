@@ -1,10 +1,21 @@
 ﻿{
   "ConnectionStrings": {
     "Default": "Data Source=./gardener.db"
+
+    //"DefaultDbNumber": "1",
     //MySql示例
     //"Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
     //SqlServer示例
     //"Server=192.168.1.234;Database=gardener;User=sa;Password=admin.123456;MultipleActiveResultSets=True;",
+
+    // SqlSugar多库设置
+    //"DbConfigs": [
+    //  {
+    //    "DbNumber": "1",
+    //    "DbType": "SqlServer",
+    //    "DbString": "Server=(local)\\Lantek2019;User=sa;Password=;Database=TestGarden;"
+    //  }
+    //]
   },
   "DefaultDbSettings": {
     "DbProvider": "Microsoft.EntityFrameworkCore.Sqlite",

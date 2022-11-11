@@ -136,6 +136,14 @@ namespace Gardener.Client.Core
            });
 
         }
+
+        public Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        {
+            return ResponseHandle<TResponse>(() =>
+            {
+                return httpClient.PostAsJsonAsync(url, queryString);
+            });
+        }
         #endregion
         #region get
         public Task<TResponse> GetAsync<TResponse>(string url)

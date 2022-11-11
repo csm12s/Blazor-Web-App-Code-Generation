@@ -70,9 +70,9 @@ namespace Gardener.Client.Base
             return apiCaller.GetAsync<List<T>>($"{controller}/all");
         }
 
-        public virtual Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public virtual Task<PageList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
-            return apiCaller.GetAsync<PagedList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
+            return apiCaller.GetAsync<PageList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
         }
 
         public virtual Task<T> Insert(T input)
@@ -94,9 +94,9 @@ namespace Gardener.Client.Base
             return apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
         }
 
-        public virtual Task<PagedList<T>> Search(PageRequest request)
+        public virtual Task<PageList<T>> Search(PageRequest request)
         {
-            return apiCaller.PostAsync<PageRequest, PagedList<T>>($"{controller}/search",request);
+            return apiCaller.PostAsync<PageRequest, PageList<T>>($"{controller}/search",request);
         }
 
         public virtual Task<string> GenerateSeedData(PageRequest request)

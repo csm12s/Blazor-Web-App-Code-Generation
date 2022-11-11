@@ -6,9 +6,10 @@
 
 using AntDesign;
 using AntDesign.TableModels;
+using Gardener.Attributes;
 using Gardener.Base;
 using Gardener.Client.Base.Constants;
-using Gardener.Client.Base.Services;
+using Gardener.Common;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Base.Components
@@ -46,7 +48,8 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 预设搜索过滤
         /// </summary>
-        protected List<FilterGroup> _presetSearchFilterGroups;
+        protected List<FilterGroup> _presetSearchFilterGroups = new ();
+        protected List<FilterGroup> _customSearchFilterGroups = new ();
         /// <summary>
         /// 确认提示服务
         /// </summary>
@@ -62,6 +65,8 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         [Inject]
         protected IJsTool jsTool { get; set; }
+
+        protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
 
         #region override mothed
         /// <summary>
@@ -137,17 +142,39 @@ namespace Gardener.Client.Base.Components
             {
                 pageRequest.FilterGroups.AddRange(_presetSearchFilterGroups);
             }
+            if (_customSearchFilterGroups != null && _customSearchFilterGroups.Any())
+            {
+                pageRequest.FilterGroups.AddRange(_customSearchFilterGroups);
+            }
             ConfigurationPageRequest(pageRequest);
             return pageRequest;
         }
 
         /// <summary>
-        /// 重新加载table
+        /// 重新加载table 
+        /// Todo: 是不是可以叫 ReloadTable
         /// </summary>
         /// <returns></returns>
         protected virtual async Task ReLoadTable()
         {
             await ReLoadTable(false);
+        }
+
+        /// <summary>
+        /// 重新加载table, 删除整页，且是最后一页
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async Task ReLoadTableAfterDeleteLastPage()
+        {
+            //删除整页，且是最后一页
+            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+            {
+                await ReLoadTable(true);
+            }
+            else
+            {
+                await ReLoadTable(false);
+            }
         }
 
         /// <summary>
@@ -183,7 +210,7 @@ namespace Gardener.Client.Base.Components
             }
             else
             {
-                messageService.Error(localizer.Combination("加载", "失败"));
+                await messageService.Error(localizer.Combination("加载", "失败"));
             }
             _tableIsLoading = false;
             await InvokeAsync(StateHasChanged);
@@ -203,7 +230,7 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 点击删除按钮
+        /// 点击删除按钮(FakeDelete)
         /// </summary>
         /// <param name="id"></param>
         protected virtual async Task OnClickDelete(TKey id)
@@ -220,11 +247,40 @@ namespace Gardener.Client.Base.Components
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    messageService.Success(localizer.Combination("删除", "成功"));
+                    await messageService.Success(localizer.Combination("删除", "成功"));
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination("删除", "失败"));
+                    await messageService.Error(localizer.Combination("删除", "失败"));
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 点击删除按钮(TrueDelete)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected virtual async Task OnClickTrueDelete(TKey id)
+        {
+            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
+            {
+                var result = await _service.Delete(id);
+                if (result)
+                {
+                    PageRequest pageRequest = GetPageRequest();
+                    //当前页被删完了
+                    if (_pageIndex > 1 && _datas.Count() == 0)
+                    {
+                        _pageIndex = _pageIndex - 1;
+                    }
+                    await ReLoadTable();
+                    await messageService.Success(localizer.Combination("删除", "成功"));
+                }
+                else
+                {
+                    await messageService.Error(localizer.Combination("删除", "失败"));
                 }
             }
 
@@ -315,6 +371,82 @@ namespace Gardener.Client.Base.Components
             await jsTool.Document.DownloadFile(url);
             _exportDataLoading = false;
         }
+
+        protected List<FilterGroup> GetCustomSearchFilterGroups<TSearchDto>(TSearchDto searchDto)
+        {
+            List<FilterGroup> filterGroups = new List<FilterGroup>();
+
+            Type type = typeof(TSearchDto);
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                Type fieldType = property.PropertyType.GetNonNullableType();
+                if (property.GetCustomAttribute<CustomSearchFieldAttribute>() != null
+                    && (fieldType.IsPrimitive
+                        || fieldType.IsEnum
+                        || fieldType.Equals(typeof(string)) // input, select
+                        || fieldType.IsEnumerable() // select multiple
+                        || fieldType.Equals(typeof(Guid))
+                        || fieldType.Equals(typeof(DateTime))
+                        || fieldType.Equals(typeof(DateTimeOffset))))
+                {
+                    string fieldName = property.Name;
+
+                    // string
+                    if (fieldType.Equals(typeof(string)))
+                    {
+                        // Get value
+                        var value = searchDto.GetPropertyValue<TSearchDto, string>(property.Name);
+                        // Set filter
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            // Filter group by field
+                            // 每一个字段一个 Filter Group
+                            FilterGroup filterGroup = new FilterGroup();
+
+                            FilterRule rule = new FilterRule()
+                            {
+                                Field = fieldName,
+                                Value = value.CastTo(fieldType),
+                                Operate = FilterOperate.Contains
+                            };
+
+                            filterGroup.AddRule(rule);
+
+                            filterGroups.Add(filterGroup);
+                        }
+                    }
+                    else if (fieldType.IsEnumerable())
+                    {
+                        // Get values
+                        var values = searchDto.GetPropertyValue<TSearchDto, IEnumerable<string>>(property.Name);
+                        // Set filters
+                        if (values != null && values.Any())
+                        {
+                            // Filter group by field
+                            // 每一个字段一个 Filter Group
+                            FilterGroup filterGroup = new FilterGroup();
+
+                            foreach (string valueTemp in values)
+                            {
+                                FilterRule rule = new FilterRule()
+                                {
+                                    Field = fieldName,
+                                    Value = valueTemp.CastTo(typeof(string)), // IEnumerable<string>
+                                    Condition = FilterCondition.Or,
+                                    Operate = FilterOperate.Contains
+                                };
+                                filterGroup.AddRule(rule);
+                            }
+
+                            filterGroups.Add(filterGroup);
+                        }
+                    }
+                }
+            }
+
+            return filterGroups;
+        }
     }
 
     /// <summary>
@@ -343,7 +475,7 @@ namespace Gardener.Client.Base.Components
                 return;
             };
 
-            await OpenOperationDialogAsync(localizer["编辑"], input, onClose);
+            await OpenOperationDialogAsync(localizer["Add"], input, onClose);
         }
         /// <summary>
         /// 点击编辑按钮
@@ -361,7 +493,7 @@ namespace Gardener.Client.Base.Components
                 }
                 return;
             };
-            await OpenOperationDialogAsync(localizer["添加"], input, onClose);
+            await OpenOperationDialogAsync(localizer["Edit"], input, onClose);
         }
 
         /// <summary>
@@ -387,5 +519,13 @@ namespace Gardener.Client.Base.Components
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
         }
+
+        protected virtual async Task DoClearSearch()
+        {
+            // TODO: clear search field
+            await ReLoadTable(true);
+        }
+
+
     }
 }

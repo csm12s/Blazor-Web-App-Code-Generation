@@ -18,6 +18,7 @@ namespace Gardener.Client.Base
         Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString);
         Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request = default);
         Task PostAsync<TRequest>(string url, TRequest request = default);
+        Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object> queryString = null);
         Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request = default);
         Task PutAsync<TRequest>(string url, TRequest request = default);
     }

@@ -26,7 +26,11 @@
       [ "TIMESPAN_IS_EXPIRED", "时间戳已过期" ],
       [ "EMAIL_SERVER_NO_FIND", "邮件服务器未找到" ],
       [ "TASK_NOT_EXIST", "任务调度不存在" ],
-      [ "TASK_ALLREADY_EXIST", "已存在同名任务调度" ]
+      [ "TASK_ALLREADY_EXIST", "已存在同名任务调度" ],
+      [ "Controller_Need_Comment", "接口方法需要备注" ],
+      [ "Sugar_Repository_Init_Fail", "SugarRepository 初始化错误" ],
+      [ "Table_Name_Exist", "表名已存在" ],
+      [ "Code_Gen_Template_Compile_Error", "代码生成模板编译错误" ]
     ]
   },
   "FriendlyExceptionSettings": {

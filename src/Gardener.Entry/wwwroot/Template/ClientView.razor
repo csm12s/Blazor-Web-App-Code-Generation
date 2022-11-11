@@ -1,0 +1,113 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+@@page "/@Model.Module/@Model.ClassName"
+@@using Gardener.Base
+@@inherits @(Model.Module)BaseTable<@(Model.ClassName)Dto, @(Model.ClassName)Edit>
+
+
+<div>
+    <Table @@ref="_table"
+           Context="model"
+           TItem="@(Model.ClassName)Dto"
+           DataSource="@@_datas"
+           Total="_total"
+           OnChange="@@OnChange"
+           ScrollX="1500"
+           @@bind-PageIndex="_pageIndex"
+           @@bind-PageSize="_pageSize"
+           @@bind-SelectedRows="_selectedRows"
+           Loading="@@_tableIsLoading"
+           ScrollX="1500"
+           RemoteDataSource>
+
+        @@*Search Field*@@
+        <TitleTemplate>
+            <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.View))>
+                <TableSearch TDto="@(Model.ClassName)SearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+            </ResourceAuthorize>
+            <Row>
+                <AntDesign.Col Span="8">
+                    <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.Delete))>
+                        <Button Type="@@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                            @@localizer["DeleteSelected"]
+                        </Button>
+                    </ResourceAuthorize>
+                </AntDesign.Col>
+                <AntDesign.Col Span="16" Style="text-align:right">
+                    <Space>
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Add)>
+                            <SpaceItem>
+                                <Button Type="@@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                    @@localizer["Add"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.View)>
+                            <SpaceItem>
+                                <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                    @@localizer["Refresh"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+        </TitleTemplate>
+
+        @@*Main Table*@@
+        <RowTemplate>
+            <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
+                <Selection Key="@@(model.Id)" />
+            </ResourceAuthorize>
+            
+            @foreach (var item in Model.CodeGenConfigs)
+            {
+                 <Column @@bind-Field="@@model.@item.ColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />      
+            }
+            
+            <Column @@bind-Field="@@model.ReadState" Filterable Align=ColumnAlign.Right>
+                <TagYesNo Yes="model.ReadState"></TagYesNo>
+            </Column>
+            <Column @@bind-Field="@@model.SendState" Filterable Align=ColumnAlign.Right>
+                <TagYesNo Yes="model.SendState"></TagYesNo>
+            </Column>
+            <Column @@bind-Field="@@model.IsLocked" Filterable Align=ColumnAlign.Right>
+                <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
+                    <Authorized>
+                        <Switch @@bind-Value="@@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                    </Authorized>
+                    <NotAuthorized>
+                        <TagYesNo Yes="model.IsLocked"></TagYesNo>
+                    </NotAuthorized>
+                </ResourceAuthorize>
+            </Column>
+            @@*Action Column*@@
+            <ActionColumn Title=@@localizer["Action"] Fixed="right">
+                <Space>
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickEdit(model.Id)" Type="@@ButtonType.Link">
+                                @@localizer["Edit"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.View)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickDetail(model.Id)" Type="@@ButtonType.Link">
+                                @@localizer["Detail"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Delete)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickDelete(model.Id)"  Danger Type="@@ButtonType.Link">
+                                @@localizer["Delete"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                </Space>
+            </ActionColumn>
+        </RowTemplate>
+    </Table>
+</div>
+

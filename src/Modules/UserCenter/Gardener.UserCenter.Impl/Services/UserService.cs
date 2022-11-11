@@ -112,7 +112,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public override async Task<Base.PagedList<UserDto>> Search(PageRequest request)
+        public override async Task<Base.PageList<UserDto>> Search(PageRequest request)
         {
             Expression<Func<User, bool>> expression = _filterService.GetExpression<User>(request.FilterGroups);
             var users = _userRepository
