@@ -37,6 +37,16 @@ public class ExcelHelper
     }
     #endregion
 
+    #region Write Excel
+    // Save excel, overwriteFile = true
+    public static async Task SaveAsReplaceAsync(string path, object value, bool printHeader = true, string sheetName = "Sheet1", ExcelType excelType = ExcelType.UNKNOWN, IConfiguration configuration = null, bool overwriteFile = false, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        overwriteFile = true;
+
+        await MiniExcel.SaveAsAsync(path, value, printHeader, sheetName, excelType, configuration, overwriteFile
+            , cancellationToken);
+    }
+    #endregion
 
     #region Help Function
     public static DataTable ChangeValueToString(DataTable table)

@@ -8,12 +8,12 @@
     //SqlServer示例
     //"Server=192.168.1.234;Database=gardener;User=sa;Password=admin.123456;MultipleActiveResultSets=True;",
 
-    // SqlSugar多库设置
+    // 多库设置示例，暂未实现
     //"DbConfigs": [
     //  {
     //    "DbNumber": "1",
     //    "DbType": "SqlServer",
-    //    "DbString": "Server=(local)\\Lantek2019;User=sa;Password=;Database=TestGarden;"
+    //    "DbString": ""
     //  }
     //]
   },

@@ -17,7 +17,22 @@ public partial class @(Model.ClassName)SearchDto
             @: /// @item.ColumnComment
             @: /// </summary>
             @: [DisplayName("@item.ColumnLocaleKey")]
-            @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+            @if (item.IsCustomSearch)
+            {
+                @: [CustomSearchField]
+                @: [DisabledSearchField]
+                @if (item.CustomSearchType == Gardener.Enums.ClientComponentType.MultiSelect)
+                { 
+                    @: public IEnumerable<@Raw(item.NetType)> @item.NetColumnName { get; set; }
+                }
+                else
+                {
+                    @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+                }
+            }
+            else{
+                @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+            }
         }
     }
 }

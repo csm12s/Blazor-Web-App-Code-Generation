@@ -277,8 +277,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             .ToListAsync();
         var codeGenConfigDtos = codeGenConfigs.MapTo<CodeGenConfigDto>();
 
-        #region Locale
-        // get from file
+        #region Get Locale from file
         var readLocaleItems = new List<CodeGenLocaleItem>();
         var tableLocale = new CodeGenLocaleItem();
         var columnLocales = new List<CodeGenLocaleItem>();
@@ -297,48 +296,63 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             }
             tableLocale = readLocaleItems.FirstOrDefault();
             columnLocales = readLocaleItems.Skip(1).ToList();
-
-            #region Generate a new locale excel
-            var newLocaleItems = new List<CodeGenLocaleItem>();
-            newLocaleItems.Add(tableLocale);
-
-            foreach (var configDto in codeGenConfigDtos)
+        }
+        else
+        {
+            tableLocale = new CodeGenLocaleItem()
             {
-                var matchLocale = columnLocales
-                    .Where(it => it.Name == configDto.ColumnName)
-                    .FirstOrDefault();
-                if (matchLocale != null)
-                {
-                    newLocaleItems.Add(matchLocale);
-                }
-                else
-                { 
-                    newLocaleItems.Add(new CodeGenLocaleItem()
-                    {
-                        Name = configDto.ColumnName,
-                        Key = configDto.ColumnDescription.ToUpCamel(),
-                        ValueEN = configDto.ColumnDescription,
-                        ValueCN = configDto.ColumnDescription,
-                    });
-                }
+                Name = genTable.TableName,
+                Key = genTable.ClassName,
+                ValueEN = genTable.TableDescriptionEN,
+                ValueCN = genTable.TableDescriptionCH,
+            };
+        }
+        #region Generate a new locale excel
+        var newLocaleItems = new List<CodeGenLocaleItem>();
+        newLocaleItems.Add(tableLocale);
+
+        foreach (var configDto in codeGenConfigDtos)
+        {
+            var matchLocale = columnLocales
+                .Where(it => it.Name == configDto.ColumnName)
+                .FirstOrDefault();
+            if (matchLocale != null)
+            {
+                newLocaleItems.Add(matchLocale);
             }
-
-            var filePath = Path.Combine(modulePath,
-                genTable.TableName + ExcelHelper.Extension);
-            await MiniExcel.SaveAsAsync(filePath, newLocaleItems);
-
-            // no order by
-            //var matchLocales = columnLocales
-            //    .Where(it => codeGenConfigDtos.Select(it => it.ColumnName).ToList()
-            //        .Contains(it.Name))
-            //        .ToList();
-
-            //newLocaleItems.AddRange(matchLocales);
-            #endregion
+            else
+            {
+                newLocaleItems.Add(new CodeGenLocaleItem()
+                {
+                    Name = configDto.ColumnName,
+                    Key = configDto.ColumnDescription.ToUpCamel(),
+                    ValueEN = configDto.ColumnDescription,
+                    ValueCN = configDto.ColumnDescription,
+                });
+            }
         }
 
-        // set key
-        // _Module._Model.ColumnName
+        var filePath = Path.Combine(modulePath,
+            genTable.TableName + ExcelHelper.Extension);
+        try
+        {
+            await ExcelHelper.SaveAsReplaceAsync(filePath, newLocaleItems);
+        }
+        catch (Exception ex)
+        {
+        }
+
+        // no order by
+        //var matchLocales = columnLocales
+        //    .Where(it => codeGenConfigDtos.Select(it => it.ColumnName).ToList()
+        //        .Contains(it.Name))
+        //        .ToList();
+
+        //newLocaleItems.AddRange(matchLocales);
+        #endregion
+
+        #region set locale key for code gen columns
+        // change key to: _Module._Model.ColumnName
         if (readLocaleItems.Count > 0)
         {
             // set key
@@ -351,23 +365,25 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                 item.Key = tableLocale.Key +
                     "." + item.Key;
             }
+        }
 
-            // set key for client view
-            foreach (var configDto in codeGenConfigDtos)
+        // set key for client view
+        foreach (var configDto in codeGenConfigDtos)
+        {
+            var matchLocale = columnLocales
+                .Where(it => it.Name == configDto.ColumnName)
+                .FirstOrDefault();
+            if (matchLocale != null)
             {
-                var matchLocale = columnLocales
-                    .Where(it => it.Name == configDto.ColumnName)
-                    .FirstOrDefault();
-                if (matchLocale != null)
-                {
-                    configDto.ColumnLocaleKey = matchLocale.Key;
-                }
-                else
-                {
-                    configDto.ColumnLocaleKey = configDto.ColumnDescription;
-                }
+                configDto.ColumnLocaleKey = matchLocale.Key;
+            }
+            else
+            {
+                configDto.ColumnLocaleKey = configDto.ColumnDescription;
             }
         }
+        #endregion
+
         #endregion
 
         // New Name model
@@ -391,6 +407,12 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         nameModel.TableLocaleKey = tableLocale.Key;
         nameModel.LocaleItems.Add(tableLocale);
         nameModel.LocaleItems.AddRange(columnLocales);
+        // Custom search
+        if (codeGenConfigDtos
+            .Where(it => it.IsCustomSearch).ToList().Count > 0)
+        {
+            nameModel.HasCustomSearch = true;
+        }
 
         // Menu
         List<ResourceDto> menus = new();

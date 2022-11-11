@@ -25,6 +25,14 @@
         <Input @bind-Value="@model.ClassName" Placeholder=@localizer["Class Name"] />
     </FormItem>
 
+    <FormItem Label="@(localizer["TableDescriptionEN"])">
+        <Input @bind-Value="@model.TableDescriptionEN" />
+    </FormItem>
+
+    <FormItem Label="@(localizer["TableDescriptionCH"])" >
+        <Input @bind-Value="@model.TableDescriptionCH" />
+    </FormItem>
+
     <FormItem Label="@(localizer["Module"])">
         <Input @bind-Value="@model.Module" Placeholder=@localizer["Module"] />
     </FormItem>

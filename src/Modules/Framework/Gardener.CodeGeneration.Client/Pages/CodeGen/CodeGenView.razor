@@ -76,10 +76,12 @@
         <RowTemplate>
             <Selection Key="@(model.Id.ToString())" />
             @*<Column @bind-Field="@model.Id" Sortable />*@
-            <Column @bind-Field="@model.ClassName" Filterable />
-            <Column @bind-Field="@model.TableName" Filterable />
-            <Column @bind-Field="@model.Module" Filterable />
-            <Column @bind-Field="@model.MenuName" Filterable />
+            <Column @bind-Field="@model.TableName" Title="@(localizer["_Sys._CodeGen.TableName"])" Sortable Filterable />
+            <Column @bind-Field="@model.ClassName" Title="@(localizer["_Sys._CodeGen.ClassName"])" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer["_Sys._CodeGen.TableDescriptionEN"])" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer["_Sys._CodeGen.TableDescriptionCH"])" Sortable Filterable />
+            <Column @bind-Field="@model.Module" Title="@(localizer["_Sys._CodeGen.Module"])" Sortable Filterable />
+            <Column @bind-Field="@model.MenuName" Title="@(localizer["_Sys._CodeGen.MenuName"])" Sortable Filterable />
             @*<Column @bind-Field="@model.MenuParentId" Filterable />*@
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
             <ActionColumn>

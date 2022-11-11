@@ -56,8 +56,12 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     // todo
     // DefaultValue 
 
+    // edit
     public ClientComponentType ClientComponentType { get; set; }
     public int ClientComponentLength { get; set; }
+    // search
+    public ClientComponentType CustomSearchType { get; set; }
+    public int CustomSearchLength { get; set; }
 
     /// <summary>
     /// 作用类型（字典）
@@ -103,6 +107,7 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// 是否是查询条件
     /// </summary>
     public bool IsSearch { get; set; } = false;
+    public bool IsCustomSearch { get; set; } = false;
 
     /// <summary>
     /// 查询方式

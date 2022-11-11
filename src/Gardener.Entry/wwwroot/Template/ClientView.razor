@@ -1,5 +1,7 @@
 ﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
 
+@using Gardener.Enums
+
 @@page "/@Model.Module/@Model.ClassName"
 @@using Gardener.Base
 @@inherits @(Model.Module)BaseTable<@(Model.ClassName)Dto, @(Model.ClassName)Edit>
@@ -24,6 +26,64 @@
         <TitleTemplate>
             <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.Search))>
                 <TableSearch TDto="@(Model.ClassName)SearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                @@*Custom Search*@@
+                @if(Model.HasCustomSearch)
+                {
+                <Row>
+                    <AntDesign.Col Span="18">
+                        <Space Direction="@@DirectionVHType.Vertical" Style="width: 100%">
+                            <Space Size=@@(("8", "16")) Wrap>
+                    @foreach (var item in Model.CodeGenConfigs)
+                    {
+                        @if (!item.IsCustomSearch) continue;
+
+                        @switch (item.CustomSearchType)
+                        {
+                            case ClientComponentType.Select:
+                            <SpaceItem>
+                                <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                <Select Mode="single"
+                                        DataSource="@@_select_@item.ColumnName"
+                                        @@bind-Value="@@_searchDto.@item.ColumnName"
+                                        ValueName="@@nameof(SelectItem.ValueName)"
+                                        LabelName="@@nameof(SelectItem.LabelName)"
+                                        TItem="SelectItem"
+                                        TItemValue="string"
+                                        EnableSearch
+                                        AllowClear>
+                                </Select>
+                            </SpaceItem>
+                            break;
+                            case ClientComponentType.MultiSelect:
+                            <SpaceItem>
+                                <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                <Select Mode="multiple"
+                                        DataSource="@@_select_@item.ColumnName"
+                                        @@bind-Values="@@_searchDto.@item.ColumnName"
+                                        ValueName="@@nameof(SelectItem.ValueName)"
+                                        LabelName="@@nameof(SelectItem.LabelName)"
+                                        TItem="SelectItem"
+                                        TItemValue="string"
+                                        EnableSearch
+                                        AllowClear>
+                                </Select>
+                            </SpaceItem>
+                            break;
+                            default: @*Input*@
+                            <SpaceItem>
+                                <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                <Input Style="@@searchInputStyle" Type="text" TValue="string"
+                                       @@bind-Value="@@_searchDto.@item.ColumnName"></Input>
+                            </SpaceItem>
+                            break;
+                        }
+                    }
+                            
+                            </Space>
+                        </Space>
+                    </AntDesign.Col>
+                </Row>
+                }
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -62,7 +122,32 @@
             
             @foreach (var item in Model.CodeGenConfigs)
             {
-                 <Column @@bind-Field="@@model.@item.ColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />      
+                @if (!item.IsView) continue;
+
+                @switch (item.ClientComponentType)
+                {
+                    case ClientComponentType.DateTime:
+                    <Column @@bind-Field="@@model.@item.ColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
+                    break;
+                    case ClientComponentType.Switch:
+                    <Column @@bind-Field="@@model.@item.ColumnName" Filterable>
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
+                            <Authorized>
+                                <Switch @@bind-Value="@@model.@item.ColumnName" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <TagYesNo Yes="@@model.@item.ColumnName"></TagYesNo>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
+                    </Column>
+                    break;
+                    case ClientComponentType.Image:
+                    <Avatar Src="@@model.@item.ColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" />
+                    break;
+                    default:
+                    <Column @@bind-Field="@@model.@item.ColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />
+                    break;
+                }
             }
             
             <Column @@bind-Field="@@model.ReadState" Filterable Align=ColumnAlign.Right>

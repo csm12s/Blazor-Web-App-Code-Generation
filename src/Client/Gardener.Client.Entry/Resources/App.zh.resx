@@ -132,4 +132,35 @@
   <data name="Generate" xml:space="preserve">
     <value>生成</value>
   </data>
+
+  <data name="_Sys._CodeGen" xml:space="preserve">
+        <value>代码生成</value>
+    </data>
+    <data name="_Sys._CodeGen.Id" xml:space="preserve">
+        <value>Id</value>
+    </data>
+    <data name="_Sys._CodeGen.TableName" xml:space="preserve">
+        <value>表名</value>
+    </data>
+    <data name="_Sys._CodeGen.ClassName" xml:space="preserve">
+        <value>类名</value>
+    </data>
+    <data name="_Sys._CodeGen.Module" xml:space="preserve">
+        <value>模块</value>
+    </data>
+    <data name="_Sys._CodeGen.TableDescriptionEN" xml:space="preserve">
+        <value>描述EN</value>
+    </data>
+    <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
+        <value>描述CH</value>
+    </data>
+    <data name="_Sys._CodeGen.MenuName" xml:space="preserve">
+        <value>菜单名称</value>
+    </data>
+    <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
+        <value>父级菜单</value>
+    </data>
+    <data name="_Sys._CodeGen.TablePrefix" xml:space="preserve">
+        <value>表前缀</value>
+    </data>
 </root>

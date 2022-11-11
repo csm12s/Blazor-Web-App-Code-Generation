@@ -59,8 +59,15 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         List<int> codeGenIds = new List<int>();
         codeGenIds.Add(codeGenId);
 
-        await codeGenClientService.GenerateCode(codeGenIds.ToArray());
-        await messageService.Success("Generate Success");
+        var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
+        if (success)
+        { 
+            await messageService.Success("Generate Success");
+        }
+        else
+        {
+            await messageService.Error("Generate Error");
+        }
     }
 
     private async Task DoSearch()

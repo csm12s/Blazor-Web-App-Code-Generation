@@ -1,5 +1,8 @@
 ﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
 
+@using Gardener.Enums
+@using Gardener.Client.Base.Constants
+
 @@inherits EditOperationDialogBase<@(Model.ClassName)Dto, string>
 
 <Form Context="model"
@@ -10,24 +13,29 @@
       OnFinish="OnFormFinish">
     @foreach (var item in Model.CodeGenConfigs)
     {
-    <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
-        <Input @@bind-Value="@@model.@item.ColumnName" />
-    </FormItem>
+        @if (!item.IsEdit) continue;
+
+        @switch (item.ClientComponentType)
+        {
+            case ClientComponentType.DateTime:
+            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+                <span>@@model.@item.ColumnName</span>
+                        @*.ToString(ClientConstant.DateTimeFormat)*@
+            </FormItem>
+            break;
+            case ClientComponentType.Switch:
+            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+                <Switch @@bind-Value="@@model.@item.ColumnName"></Switch>
+            </FormItem>
+            break;
+            default:
+            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+                <Input @@bind-Value="@@model.@item.ColumnName" />
+            </FormItem>
+            break;
+        }
     }
 
-    <FormItem Label=@@localizer["Locked"]>
-        <Switch @@bind-Value="@@model.IsLocked"></Switch>
-    </FormItem>
-
-    @@if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
-    {
-        <FormItem Label=@@localizer["CreatedTime"]>
-            <span>@@model.CreateTime.ToString(ClientConstant.DateTimeFormat)</span>
-        </FormItem>
-        <FormItem Label=@@localizer["UpdatedTime"]>
-            <span>@@model.UpdateTime?.ToString(ClientConstant.DateTimeFormat)</span>
-        </FormItem>
-    }
     <FormItem WrapperColOffset="8" WrapperColSpan="16">
         <Space>
             @@if (!DrawerInputType.Select.Equals(this.Options.Type))

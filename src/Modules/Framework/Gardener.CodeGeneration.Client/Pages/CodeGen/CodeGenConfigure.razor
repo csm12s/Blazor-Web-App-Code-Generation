@@ -35,6 +35,24 @@
                 <Switch @bind-Checked="context.IsSearch"></Switch>
             </ChildContent>
         </PropertyColumn>
+
+        <PropertyColumn Property="c=>c.IsCustomSearch" Width="10%">
+            <TitleTemplate>
+                <span>IsCustomSearch</span>
+                <Button OnClick="()=>_list.ForEach(it=>it.IsCustomSearch = true)">
+                    SelectAll
+                </Button>
+                <Button OnClick="()=>_list.ForEach(it=>it.IsCustomSearch = false)">
+                    Clear
+                </Button>
+                <Button OnClick="()=>_list.ForEach(it=>it.IsCustomSearch = !it.IsCustomSearch)">
+                    Toggle
+                </Button>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="context.IsCustomSearch"></Switch>
+            </ChildContent>
+        </PropertyColumn>
         
         <PropertyColumn Property="c=>c.IsView" Width="10%">
             <TitleTemplate>
@@ -108,7 +126,7 @@
             </ChildContent>
         </PropertyColumn>
 
-        <PropertyColumn Property="c=>c.ClientComponentType" Width="10%">
+        <PropertyColumn Property="c=>c.ClientComponentType" Title="EditType" Width="10%">
             <Select Mode="single"
                     @bind-Value="@context.ClientComponentType"
                     TItem="ClientComponentType"
@@ -119,6 +137,22 @@
                     @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
                     {
                         <SelectOption Value="@item.Key" Label="@item.Value"  TItemValue="ClientComponentType" TItem="ClientComponentType"/>
+                    }
+                </SelectOptions>
+            </Select>
+        </PropertyColumn>
+
+        <PropertyColumn Property="c=>c.CustomSearchType" Title="CustomSearchType" Width="10%">
+            <Select Mode="single"
+                    @bind-Value="@context.CustomSearchType"
+                    TItem="ClientComponentType"
+                    TItemValue="ClientComponentType"
+                    EnableSearch
+                    AllowClear>
+                <SelectOptions>
+                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
+                    {
+                        <SelectOption Value="@item.Key" Label="@item.Value" TItemValue="ClientComponentType" TItem="ClientComponentType" />
                     }
                 </SelectOptions>
             </Select>

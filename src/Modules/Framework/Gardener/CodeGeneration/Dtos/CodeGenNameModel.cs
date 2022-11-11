@@ -19,6 +19,7 @@ public class CodeGenNameModel
     public string ModuleToUrl { get; set; } = "";
 
     public List<CodeGenConfigDto> CodeGenConfigs { get; set; }
+    public bool HasCustomSearch { get; set; } = false;
     public List<ResourceDto> Menus { get; set; }
     public List<CodeGenLocaleItem> LocaleItems { get; set; } = new List<CodeGenLocaleItem>();
 }
