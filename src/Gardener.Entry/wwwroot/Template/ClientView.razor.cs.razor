@@ -1,5 +1,7 @@
 ﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
 
+@using Gardener.Common
+@using Gardener.Enums
 using @(Model.AppName).Common;
 using @(Model.AppName).@(Model.Module).Dto;
 using @(Model.AppName).@(Model.Module).IController;
@@ -10,6 +12,13 @@ public partial class @(Model.ClassName)View : @(Model.Module)BaseTable<@(Model.C
 {
     #region Init
     protected @(Model.ClassName)SearchDto _searchDto = new();
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        if (!item.IsCustomSearch) continue;
+        if (item.CustomSearchType != ClientComponentType.Select && item.CustomSearchType != ClientComponentType.MultiSelect)
+            continue;
+        @: private List<SelectItem> _select_@item.ColumnName = new();
+    }
     private I@(Model.ClassName)Controller @(Model.ClassNameLower)ClientController { get; set; }
     
     public @(Model.ClassName)View() : base("@(Model.ClassName)")

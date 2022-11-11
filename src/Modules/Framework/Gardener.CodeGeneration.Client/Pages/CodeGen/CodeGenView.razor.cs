@@ -15,7 +15,7 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
 {
     // Custom search
     protected CodeGenSearchDto _searchDto = new();
-    private List<SelectItem> _allTables = new();
+    private List<SelectItem> _select_TableName = new();
     [Inject]
     private ICodeGenService codeGenClientService { get; set; }
 
@@ -23,7 +23,7 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
     {
         // table select
         var tableInfos = await codeGenClientService.GetTableListAsync();
-        _allTables = tableInfos.ToSelectItems(it => it.TableName, it => it.TableName);
+        _select_TableName = tableInfos.ToSelectItems(it => it.TableName, it => it.TableName);
 
         await base.OnInitializedAsync();
     }

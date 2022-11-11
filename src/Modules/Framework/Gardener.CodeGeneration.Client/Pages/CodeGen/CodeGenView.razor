@@ -23,7 +23,7 @@
                             <SpaceItem>
                                 <span>TableName: </span>
                                 <Select Mode="multiple"
-                                        DataSource="@_allTables"
+                                        DataSource="@_select_TableName"
                                         @bind-Values="@_searchDto.TableName"
                                         ValueName="@nameof(SelectItem.ValueName)"
                                         LabelName="@nameof(SelectItem.LabelName)"
