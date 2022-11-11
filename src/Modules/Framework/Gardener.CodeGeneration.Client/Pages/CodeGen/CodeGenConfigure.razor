@@ -108,6 +108,22 @@
             </ChildContent>
         </PropertyColumn>
 
+        <PropertyColumn Property="c=>c.ClientComponentType" Width="10%">
+            <Select Mode="single"
+                    @bind-Value="@context.ClientComponentType"
+                    TItem="ClientComponentType"
+                    TItemValue="ClientComponentType"
+                    EnableSearch
+                    AllowClear>
+                <SelectOptions>
+                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
+                    {
+                        <SelectOption Value="@item.Key" Label="@item.Value"  TItemValue="ClientComponentType" TItem="ClientComponentType"/>
+                    }
+                </SelectOptions>
+            </Select>
+        </PropertyColumn>
+
         <PropertyColumn Property="c=>c.ColumnDescription" Width="10%"></PropertyColumn>
         <PropertyColumn Property="c=>c.DbDataType" Width="10%"></PropertyColumn>
         <PropertyColumn Property="c=>c.DataType" Width="10%"></PropertyColumn>

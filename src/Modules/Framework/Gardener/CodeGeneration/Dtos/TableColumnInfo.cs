@@ -19,7 +19,7 @@ public class TableColumnInfo
     public string DbDataType { get; set; } = "";
 
     /// <summary>
-    /// nvarchar(100)
+    /// nvarchar(100), for example in SqlServer
     /// </summary>
     public string DbDataTypeText { get; set; }
 

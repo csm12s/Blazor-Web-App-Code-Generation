@@ -1,5 +1,6 @@
 ﻿using Furion.DatabaseAccessor;
 using Gardener.Base;
+using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SqlSugar;
@@ -50,14 +51,22 @@ public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenC
     [MaxLength(50)]
     public string NetType { get; set; }
 
+    [MaxLength(50)]
+    public string DataType { get; set; }
+
     /// <summary>
     /// 数据库中类型（物理类型）
     /// </summary>
     [MaxLength(50)]
-    public string DataType { get; set; }
-
-    [MaxLength(50)]
     public string DbDataType { get; set; }
+
+    public int DataLength { get; set; }
+    public int DataDecimal { get; set; }
+    // todo
+    // DefaultValue 
+
+    public ClientComponentType ClientComponentType { get; set; }
+    public int ClientComponentLength { get; set; }
 
     /// <summary>
     /// 作用类型（字典）

@@ -92,12 +92,15 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
         // Delete old:
         // sugar
-        codeGenConfigSugarRep.Context.Deleteable<CodeGenConfig>()
-            .Where(x => x.CodeGenId == codeGen.Id)
-            .ExecuteCommand();
+        //codeGenConfigSugarRep.Context.Deleteable<CodeGenConfig>()
+        //    .Where(x => x.CodeGenId == codeGen.Id)
+        //    .ExecuteCommand();
         // ef - Zack.EFCore.Batch_NET6
         // repository.Context
         // .DeleteRange<CodeGenConfig>(x => x.CodeGenId == codeGenId);
+
+        var oldList = repository.Where(it => it.CodeGenId == codeGen.Id).ToList();
+        await repository.DeleteNowAsync(oldList);
            
         // Insert new:
         await repository.InsertAsync(list);

@@ -70,11 +70,4 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         await ReLoadTable(true);
     }
 
-    private async Task DoClearSearch()
-    {
-        //todo 
-        //_searchDto = new();
-
-        await DoSearch();
-    }
 }
