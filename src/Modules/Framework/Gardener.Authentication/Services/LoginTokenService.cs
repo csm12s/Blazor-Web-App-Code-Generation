@@ -43,7 +43,7 @@ namespace Gardener.Authentication.Services
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public override async Task<PageList<LoginTokenDto>> Search(PageRequest request)
+        public override async Task<PagedList<LoginTokenDto>> Search(PageRequest request)
         {
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             Expression<Func<LoginToken, bool>> expression = filterService.GetExpression<LoginToken>(request.FilterGroups);

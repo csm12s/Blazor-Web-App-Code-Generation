@@ -33,11 +33,11 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/{userId}/roles");
         }
        
-        public async Task<PageList<UserDto>> Search(int[] deptIds, int pageIndex = 1, int pageSize = 10)
+        public async Task<PagedList<UserDto>> Search(int[] deptIds, int pageIndex = 1, int pageSize = 10)
         {
             List<KeyValuePair<string, object>> pramas = deptIds.ConvertToQueryParameters("deptIds");
 
-            return await apiCaller.GetAsync<PageList<UserDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
+            return await apiCaller.GetAsync<PagedList<UserDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
         }
 
         public async Task<bool> Role(int userId, int[] roleIds)

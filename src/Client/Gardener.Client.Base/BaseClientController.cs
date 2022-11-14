@@ -72,9 +72,9 @@ public abstract class BaseClientController<T, TKey>
         return apiCaller.GetAsync<List<T>>($"{controller}/AllUsable");
     }
 
-    public virtual Task<PageList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
+    public virtual Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
     {
-        return apiCaller.GetAsync<PageList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
+        return apiCaller.GetAsync<PagedList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
     }
 
     public virtual Task<T> Insert(T input)
@@ -97,10 +97,10 @@ public abstract class BaseClientController<T, TKey>
         return apiCaller.PostWithoutBodyAsync<bool>(url);
     }
 
-    public virtual Task<PageList<T>> Search(PageRequest request)
+    public virtual Task<PagedList<T>> Search(PageRequest request)
     {
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
-        return apiCaller.PostAsync<PageRequest, PageList<T>>(url, request);
+        return apiCaller.PostAsync<PageRequest, PagedList<T>>(url, request);
     }
 
     //todo check

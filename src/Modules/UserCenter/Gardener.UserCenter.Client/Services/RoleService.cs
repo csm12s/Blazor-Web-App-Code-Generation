@@ -41,13 +41,13 @@ namespace Gardener.UserCenter.Client.Services
         {
             return await apiCaller.PostAsync<Guid[], bool>($"{controller}/{roleId}/resource", resourceIds);
         }
-        public async Task<PageList<RoleDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
+        public async Task<PagedList<RoleDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
         {
             IDictionary<string, object> pramas = new Dictionary<string, object>() 
             {
                 {"name",name }
             };
-            return  await apiCaller.GetAsync<PageList<RoleDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
+            return  await apiCaller.GetAsync<PagedList<RoleDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
         }
 
     }

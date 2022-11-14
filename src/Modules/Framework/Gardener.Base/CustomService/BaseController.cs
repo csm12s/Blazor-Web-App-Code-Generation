@@ -222,7 +222,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     /// <param name="pageSize"></param>
     /// <returns></returns>
     [HttpGet]
-    public virtual async Task<Base.PageList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
+    public virtual async Task<Base.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
     {
         var request = new PageRequest() { PageIndex = pageIndex, PageSize = pageSize };
         return await this.Search(request);
@@ -260,7 +260,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public virtual async Task<Base.PageList<TEntityDto>> Search(PageRequest request)
+    public virtual async Task<Base.PagedList<TEntityDto>> Search(PageRequest request)
     {
         var list = await _baseService.GetListAsync(request);
         var listDto = list.MapTo<TEntityDto>();

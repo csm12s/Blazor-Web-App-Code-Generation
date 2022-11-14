@@ -13,7 +13,7 @@ public static class LinqExtension
     /// <param name="entities"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    public static PageList<TEntity> ToPageList<TEntity>(this IEnumerable<TEntity> entities, PageRequest request)
+    public static PagedList<TEntity> ToPageList<TEntity>(this IEnumerable<TEntity> entities, PageRequest request)
         where TEntity : class, new()
     {
         int pageIndex = request.PageIndex;
@@ -23,7 +23,7 @@ public static class LinqExtension
         var items = entities.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
-        return new PageList<TEntity>
+        return new PagedList<TEntity>
         {
             PageIndex = pageIndex,
             PageSize = pageSize,

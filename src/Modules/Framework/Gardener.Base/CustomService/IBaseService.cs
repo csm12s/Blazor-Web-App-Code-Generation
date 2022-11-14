@@ -25,8 +25,8 @@ public interface IBaseService<TEntity> where TEntity : class, new()
     bool Any(Expression<Func<TEntity, bool>> expression);
     Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression);
 
-    PageList<TEntity> GetPage(PageRequest req);
-    Task<PageList<TEntity>> GetPageAsync(PageRequest req);
+    PagedList<TEntity> GetPage(PageRequest req);
+    Task<PagedList<TEntity>> GetPageAsync(PageRequest req);
     List<TEntity> GetList(PageRequest request);
     Task<List<TEntity>> GetListAsync(PageRequest request);
     List<TEntity> GetList(Expression<Func<TEntity, bool>> whereExpression);

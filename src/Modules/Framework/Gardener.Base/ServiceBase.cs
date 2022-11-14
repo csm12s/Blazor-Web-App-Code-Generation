@@ -249,13 +249,13 @@ namespace Gardener
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public virtual async Task<Base.PageList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public virtual async Task<Base.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
         {
             var queryable = GetReadableRepository().AsQueryable();
 
             var result = await queryable.ToPageAsync(pageIndex, pageSize);
 
-            return result.Adapt<Base.PageList<TEntityDto>>();
+            return result.Adapt<Base.PagedList<TEntityDto>>();
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace Gardener
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual async Task<Base.PageList<TEntityDto>> Search(PageRequest request)
+        public virtual async Task<Base.PagedList<TEntityDto>> Search(PageRequest request)
         {
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))

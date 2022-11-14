@@ -66,7 +66,7 @@ namespace Gardener.Base
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<PageList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10);
+        Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10);
         /// <summary>
         /// 新增
         /// </summary>
@@ -95,7 +95,7 @@ namespace Gardener.Base
         /// </remarks>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<PageList<TEntityDto>> Search(PageRequest request);
+        Task<PagedList<TEntityDto>> Search(PageRequest request);
 
         /// <summary>
         /// 生成种子数据

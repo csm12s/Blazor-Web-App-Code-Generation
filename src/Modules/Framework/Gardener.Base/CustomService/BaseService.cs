@@ -180,7 +180,7 @@ public abstract class BaseService
         }
     }
 
-    public virtual Base.PageList<TEntity> GetPage(PageRequest request)
+    public virtual Base.PagedList<TEntity> GetPage(PageRequest request)
     {
         // Where - IsDeleted
         if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
@@ -201,7 +201,7 @@ public abstract class BaseService
             .ToPage(request.PageIndex, request.PageSize);
     }
 
-    public virtual async Task<Base.PageList<TEntity>> GetPageAsync(PageRequest request)
+    public virtual async Task<Base.PagedList<TEntity>> GetPageAsync(PageRequest request)
     {
         // Where - IsDeleted
         if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))

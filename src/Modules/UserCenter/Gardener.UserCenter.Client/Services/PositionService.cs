@@ -20,13 +20,13 @@ namespace Gardener.UserCenter.Client.Services
         {
         }
         
-        public async Task<PageList<PositionDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
+        public async Task<PagedList<PositionDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
         {
             IDictionary<string, object> pramas = new Dictionary<string, object>()
             {
                 {"name",name }
             };
-            return await apiCaller.GetAsync<PageList<PositionDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
+            return await apiCaller.GetAsync<PagedList<PositionDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
         }
     }
 }
