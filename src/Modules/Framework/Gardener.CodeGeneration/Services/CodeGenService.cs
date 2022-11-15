@@ -13,6 +13,8 @@ using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using MiniExcelLibs;
 using RazorEngine;
 using RazorEngine.Templating;
@@ -31,7 +33,6 @@ namespace Gardener.CodeGeneration.Services;
 [ApiDescriptionSettings(Groups = new[] { "SystemBaseServices" })] //, ForceWithRoutePrefix = true, KeepName = true, KeepVerb = true, LowercaseRoute = false, SplitCamelCase = false
 public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>, 
     ICodeGenService, ITransient
-//ICodeGenService, IDynamicApiController
 {
     #region Init
     private readonly IRepository<CodeGen> codeGenRepository;
@@ -128,7 +129,10 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         // Update
         var entityEntry = await _repository
             .UpdateExcludeAsync(input.Adapt<CodeGen>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreatorId), nameof(GardenerEntityBase.CreatorIdentityType) });
-        await codeGenConfigService.DeleteAndAddList(GetDBColumnInfos(input), input);
+        if (input.UpdateCodeGenConfig)
+        {
+            await codeGenConfigService.DeleteAndAddList(GetDBColumnInfos(input), input);
+        }
 
         //发送通知
         await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
@@ -151,7 +155,8 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     [NonAction]
     private List<TableColumnInfo> GetDBColumnInfos([FromQuery] CodeGenDto input)
     {
-        #region EF
+        #region EF，TODO: 这里只能获取到本项目的Model
+        //// 可以参考OpenAuth.Core：_dbExtension.GetDbTableStructure(obj.TableName)
         //var dbContext = Db.GetDbContext();
 
         //// Entity type
@@ -265,9 +270,9 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         //\Modules\Mes\Gardener.Mes
         var baseModulePath = Path.Combine(modulePath, appName + "." + genTable.Module);
         //\Modules\Mes\Gardener.Mes.Client
-        var clientPath = Path.Combine(modulePath, appName + "." + genTable.Module + ".Client");
+        var clientModulePath = Path.Combine(modulePath, appName + "." + genTable.Module + ".Client");
         //\Modules\Mes\Gardener.Mes.Server
-        var serverPath = Path.Combine(modulePath, appName + "." + genTable.Module + ".Server");
+        var serverModulePath = Path.Combine(modulePath, appName + "." + genTable.Module + ".Server");
 
         #region Name model
 
@@ -297,7 +302,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             tableLocale = readLocaleItems.FirstOrDefault();
             columnLocales = readLocaleItems.Skip(1).ToList();
         }
-        else
+        else // no locale file
         {
             tableLocale = new CodeGenLocaleItem()
             {
@@ -307,6 +312,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                 ValueCN = genTable.TableDescriptionCH,
             };
         }
+
         #region Generate a new locale excel
         var newLocaleItems = new List<CodeGenLocaleItem>();
         newLocaleItems.Add(tableLocale);
@@ -353,18 +359,14 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         #region set locale key for code gen columns
         // change key to: _Module._Model.ColumnName
-        if (readLocaleItems.Count > 0)
+        // Table: _Module._Model
+        tableLocale.Key = "_" + genTable.Module +
+            "._" + tableLocale.Key;
+        foreach (var item in columnLocales)
         {
-            // set key
-            // _Module._Model
-            tableLocale.Key = "_" + genTable.Module +
-                "._" + tableLocale.Key;
-            foreach (var item in columnLocales)
-            {
-                // _Module._Model.ColumnName
-                item.Key = tableLocale.Key +
-                    "." + item.Key;
-            }
+            // Column: _Module._Model.ColumnName
+            item.Key = tableLocale.Key +
+                "." + item.Key;
         }
 
         // set key for client view
@@ -383,14 +385,27 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             }
         }
         #endregion
-
         #endregion
 
-        // New Name model
+        #region New name model
         var codeGenDto = genTable.Adapt<CodeGenDto>();
         codeGenDto.ClassNameLower = codeGenDto.ClassName.ToLowerCamel();
         // url path: sys.tool -> sys/tool 
         codeGenDto.ModuleToUrl = codeGenDto.Module.Replace(".", "/").Replace("_", "");
+        // Primary key
+        codeGenDto.PrimaryKeyType = await GetPrimaryKeyType(codeGenDto);
+        if (codeGenDto.PrimaryKeyName != "Id")
+        {
+            codeGenDto.EditFormInherits = "BaseEdit";
+            codeGenDto.MainTableInherits = "BaseMainTable";
+        }
+
+        // TableDesc
+        var tableDesc = codeGenDto.ClassName;
+        if (!string.IsNullOrEmpty(codeGenDto.TableDescriptionEN))
+        {
+            tableDesc = codeGenDto.TableDescriptionEN;
+        }
 
         CodeGenNameModel nameModel = new CodeGenNameModel()
         {
@@ -399,7 +414,9 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             ClassNameLower = codeGenDto.ClassNameLower,
             Module = codeGenDto.Module,
             ModuleToUrl = codeGenDto.ModuleToUrl,
-            TableDesc = codeGenDto.TableDescriptionEN,
+            TableDesc = tableDesc,
+
+            CodeGen = codeGenDto,
             CodeGenConfigs = codeGenConfigDtos
         };
         nameModel.AppName = appName;
@@ -407,9 +424,9 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         nameModel.TableLocaleKey = tableLocale.Key;
         nameModel.LocaleItems.Add(tableLocale);
         nameModel.LocaleItems.AddRange(columnLocales);
+        #endregion
         // Custom search
-        if (codeGenConfigDtos
-            .Where(it => it.IsCustomSearch).ToList().Count > 0)
+        if (codeGenConfigDtos.Where(it => it.IsCustomSearch).ToList().Count > 0)
         {
             nameModel.HasCustomSearch = true;
         }
@@ -480,12 +497,12 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         #endregion
 
-        #region Client
+        #region Client module
         // csproj.razor
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "Client.csproj.razor"),
-            GenPath = Path.Combine(clientPath,
+            GenPath = Path.Combine(clientModulePath,
                 appName + "." + genTable.Module + ".Client.csproj")
         });
 
@@ -493,45 +510,53 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "BaseClientController.cs.razor"),
-            GenPath = Path.Combine(clientPath, genTable.Module + "BaseClientController.cs")
+            GenPath = Path.Combine(clientModulePath, genTable.Module + "BaseClientController.cs")
         });
 
         // controller
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "ClientController.cs.razor"),
-            GenPath = Path.Combine(clientPath, "Controller", genTable.ClassName + "ClientController.cs")
+            GenPath = Path.Combine(clientModulePath, "Controller", genTable.ClassName + "ClientController.cs")
         });
 
         // module base table
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "BaseTable.cs.razor"),
-            GenPath = Path.Combine(clientPath, genTable.Module + "BaseTable.cs")
+            GenPath = Path.Combine(clientModulePath, genTable.Module + "BaseTable.cs")
+        });
+
+        // views/imports
+        itemList.Add(new CodeGenTemplateItem(nameModel)
+        {
+            TemplatePath = Path.Combine(templatePath, "ClientImports.razor"),
+            GenPath = Path.Combine(clientModulePath, "Views",
+                "_Imports.razor")
         });
 
         // main view
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "ClientView.razor"),
-            GenPath = Path.Combine(clientPath, "Views", genTable.ClassName, genTable.ClassName + "View.razor")
+            GenPath = Path.Combine(clientModulePath, "Views", genTable.ClassName, genTable.ClassName + "View.razor")
         });
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "ClientView.razor.cs.razor"),
-            GenPath = Path.Combine(clientPath, "Views", genTable.ClassName, genTable.ClassName + "View.razor.cs")
+            GenPath = Path.Combine(clientModulePath, "Views", genTable.ClassName, genTable.ClassName + "View.razor.cs")
         });
 
         // edit view
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "ClientEdit.razor"),
-            GenPath = Path.Combine(clientPath, "Views", genTable.ClassName, genTable.ClassName + "Edit.razor")
+            GenPath = Path.Combine(clientModulePath, "Views", genTable.ClassName, genTable.ClassName + "Edit.razor")
         });
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "ClientEdit.razor.cs.razor"),
-            GenPath = Path.Combine(clientPath, "Views", genTable.ClassName, genTable.ClassName + "Edit.razor.cs")
+            GenPath = Path.Combine(clientModulePath, "Views", genTable.ClassName, genTable.ClassName + "Edit.razor.cs")
         });
 
         // sql server
@@ -541,43 +566,52 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             GenPath = Path.Combine(modulePath, genTable.ClassName + " - SqlServer Insert Menu.sql")
         });
 
+        // Swagger settings
+        itemList.Add(new CodeGenTemplateItem(nameModel)
+        {
+            TemplatePath = Path.Combine(templatePath, "SwaggerSetting.razor"),
+            GenPath = Path.Combine(modulePath, genTable.Module + " - SwaggerSetting.Add.json")
+        });
+
         #endregion
 
-        #region Server
+        #region Server module
         // csproj.razor
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "Server.csproj.razor"),
-            GenPath = Path.Combine(serverPath,
+            GenPath = Path.Combine(serverModulePath,
                 appName + "." + genTable.Module + ".Server.csproj")
         });
 
         // Model
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
-            TemplatePath = Path.Combine(templatePath, "Model.cs.razor"),
-            GenPath = Path.Combine(serverPath, "Model", genTable.ClassName + ".cs")
+            TemplatePath = Path.Combine(templatePath, "Entity.cs.razor"),
+            //sugar:
+            //TemplatePath = Path.Combine(templatePath, "Model.cs.razor"),
+            GenPath = Path.Combine(serverModulePath, "Model", genTable.ClassName + ".cs")
         });
 
         //Service
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "Service.cs.razor"),
-            GenPath = Path.Combine(serverPath, "Service", genTable.ClassName + "Service.cs")
+            GenPath = Path.Combine(serverModulePath, "Service", genTable.ClassName + "Service.cs")
         });
 
         // base controller
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "BaseController.cs.razor"),
-            GenPath = Path.Combine(serverPath, genTable.Module + "BaseController.cs")
+            GenPath = Path.Combine(serverModulePath, genTable.Module + "BaseController.cs")
         });
 
         //Controller
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "Controller.cs.razor"),
-            GenPath = Path.Combine(serverPath, "Controller", genTable.ClassName + "Controller.cs")
+            GenPath = Path.Combine(serverModulePath, "Controller", genTable.ClassName + "Controller.cs")
         });
         #endregion
 
@@ -597,6 +631,26 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         #endregion
 
         GenerateCodeByTemplate(itemList);
+    }
+
+    private async Task<string> GetPrimaryKeyType(CodeGenDto codeGenDto)
+    {
+        var pkType = "int";
+
+        var codeGenConfigs = await codeGenConfigRepository
+            .Where(it => it.CodeGenId == codeGenDto.Id)
+            .ToListAsync();
+
+        var codeGenConfig = codeGenConfigs
+            .Where(it => it.NetColumnName == codeGenDto.PrimaryKeyName)
+            .FirstOrDefault();
+
+        if (codeGenConfig != null)
+        {
+            pkType = codeGenConfig.NetType.Replace("?", "");
+        }
+
+        return pkType;
     }
 
     private ResourceDto NewAction(string authKey, ResourceDto parentMenu, CodeGenDto genTable)

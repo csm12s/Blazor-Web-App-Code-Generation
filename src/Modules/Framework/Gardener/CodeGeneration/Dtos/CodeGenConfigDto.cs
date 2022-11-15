@@ -51,6 +51,11 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     [MaxLength(50)]
     public string DbDataType { get; set; }
 
+    /// <summary>
+    /// DB data type with length: nvarchar(20)
+    /// </summary>
+    public string DBDataTypeText { get; set; }
+
     public int DataLength { get; set; }
     public int DataDecimal { get; set; }
     // todo
@@ -172,9 +177,5 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// </summary>
     public bool IsSpecialType { get; set; }
 
-    /// <summary>
-    /// DB data type with length: nvarchar(20)
-    /// </summary>
-    public string DBDataTypeText { get; set; }
     #endregion
 }

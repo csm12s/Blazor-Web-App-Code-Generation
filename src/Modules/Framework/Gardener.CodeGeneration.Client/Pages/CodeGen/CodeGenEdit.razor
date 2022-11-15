@@ -62,12 +62,20 @@
         <Input @bind-Value="@model.MenuName" Placeholder=@localizer["Menu Name"]/>
     </FormItem>
 
+    <FormItem Label="@(localizer["PrimaryKeyName"])">
+        <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["PrimaryKeyName"]/>
+    </FormItem>
+
     <FormItem Label=@localizer["Locked"]>
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
     <FormItem Label=@localizer["UseCustomTemplate"]>
         <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
+    </FormItem>
+
+     <FormItem Label=@localizer["HasBatchDelete"]>
+        <Switch @bind-Value="@model.HasBatchDelete"></Switch>
     </FormItem>
 
     @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
@@ -84,8 +92,13 @@
             @if (!DrawerInputType.Select.Equals(this.Options.Type))
             {
                 <SpaceItem>
-                    <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @localizer["保存"], 将重置CodeGenConfig
+                    <Button Type="@ButtonType.Primary" OnClick="OnlySaveCodeGen">
+                        @localizer["仅保存"]
+                    </Button>
+                </SpaceItem>
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" Danger HtmlType="submit">
+                        @localizer["保存并重置Config"]
                     </Button>
                 </SpaceItem>
             }

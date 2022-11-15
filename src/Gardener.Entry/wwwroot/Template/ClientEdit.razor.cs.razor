@@ -5,7 +5,7 @@ using @(Model.AppName).@(Model.Module).Dto;
 
 namespace @(Model.AppName).@(Model.Module).Client.Views.@(Model.ClassName);
 
-public partial class @(Model.ClassName)Edit: EditOperationDialogBase<@(Model.ClassName)Dto, string>
+public partial class @(Model.ClassName)Edit: @(Model.CodeGen.EditFormInherits)<@(Model.ClassName)Dto, @(Model.CodeGen.PrimaryKeyType)>
 {
 }
 

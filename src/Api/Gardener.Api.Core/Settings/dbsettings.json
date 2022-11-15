@@ -1,7 +1,7 @@
 ﻿{
   "ConnectionStrings": {
-    "Default": "Data Source=./gardener.db"
-
+    //    "Default": "Data Source=./gardener.db"
+    "Default": "Server=(local)\\Lantek2019;User=sa;Password=;Database=TestGardenChangeLantek;"
     //"DefaultDbNumber": "1",
     //MySql示例
     //"Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
@@ -17,8 +17,9 @@
     //  }
     //]
   },
+  //TODO:建议把比较常用的引入到项目，我自己引用了SqlServer最新版结果报错，退回到6.10就没问题
   "DefaultDbSettings": {
-    "DbProvider": "Microsoft.EntityFrameworkCore.Sqlite",
+    "DbProvider": "Microsoft.EntityFrameworkCore.SqlServer",
     //可提供使用的DbProvider,需在Gardener.Api.Core程序集添加引用
     //"Microsoft.EntityFrameworkCore.Sqlite",
     //"Microsoft.EntityFrameworkCore.SqlServer", 
@@ -27,7 +28,7 @@
     //"Microsoft.EntityFrameworkCore.InMemory"
     //"Npgsql.EntityFrameworkCore.PostgreSQL"
     //"FirebirdSql.EntityFrameworkCore.Firebird"
-    "InitDb": false, //打开数据库自动初始化
+    "InitDb": true, //打开数据库自动初始化
     "AutoMigration": false, //打开数据库自动迁移
     "MigrationAssemblyName": "Gardener.Api.Core" //迁移主程序集
   }

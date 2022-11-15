@@ -7,6 +7,7 @@ using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Humanizer.Localisation;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,10 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
 
     [Inject]
     IResourceService resourceService { get; set; }
+
+    [Inject]
+    ICodeGenService codeGenService { get; set; }
+
     private List<ResourceDto> _menus = new List<ResourceDto>();
 
     public string _menuParentId
@@ -72,5 +77,23 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
             .FirstOrDefault();
         // Menu
         _editModel.MenuName = _editModel.ClassName;
+    }
+
+    protected virtual async Task OnlySaveCodeGen()
+    {
+        _isLoading = true;
+        //修改
+        _editModel.UpdateCodeGenConfig = false;
+        var result = await _service.Update(_editModel);
+        if (result)
+        {
+            messageService.Success(localizer.Combination("编辑", "成功"));
+            await base.FeedbackRef.CloseAsync(OperationDialogOutput<int>.Succeed(_editModel.Id));
+        }
+        else
+        {
+            messageService.Error(localizer.Combination("编辑", "失败"));
+        }
+        _isLoading = false;
     }
 }

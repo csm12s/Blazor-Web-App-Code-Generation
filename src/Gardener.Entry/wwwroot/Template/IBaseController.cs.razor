@@ -5,7 +5,7 @@ using @(Model.AppName).Base;
 namespace @(Model.AppName).@(Model.Module);
 
 public interface I@(Model.Module)BaseController<TDto>
-    : IBaseController<TDto, string>
+    : IBaseController<TDto, @(Model.CodeGen.PrimaryKeyType)>
     where TDto : class, new()
 {
 }

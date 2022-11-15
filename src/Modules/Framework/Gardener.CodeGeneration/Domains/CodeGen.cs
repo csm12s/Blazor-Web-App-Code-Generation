@@ -36,6 +36,19 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
 
     public ICollection<CodeGenConfig> CodeGenConfigs { get; set; }
 
+    #region Views
+    public string PrimaryKeyName { get; set; } = "Id";
+
+    public bool HasAdd { get; set; }
+    public bool HasEdit { get; set; }
+    public bool HasBatchEdit { get; set; }
+    public bool HasDelete { get; set; }
+    public bool HasBatchDelete { get; set; }
+    public bool HasLock { get; set; }
+    public bool HasImport { get; set; }
+    public bool HasExport { get; set; }
+    #endregion
+
     public void Configure(EntityTypeBuilder<CodeGen> entityBuilder, DbContext dbContext, Type dbContextLocator)
     {
     }

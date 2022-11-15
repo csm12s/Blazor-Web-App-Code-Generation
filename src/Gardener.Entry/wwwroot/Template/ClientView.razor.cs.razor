@@ -17,7 +17,7 @@ public partial class @(Model.ClassName)View : @(Model.Module)BaseTable<@(Model.C
         if (!item.IsCustomSearch) continue;
         if (item.CustomSearchType != ClientComponentType.Select && item.CustomSearchType != ClientComponentType.MultiSelect)
             continue;
-        @: private List<SelectItem> _select_@item.ColumnName = new();
+        @: private List<SelectItem> _select_@item.NetColumnName = new();
     }
     private I@(Model.ClassName)Controller @(Model.ClassNameLower)ClientController { get; set; }
     

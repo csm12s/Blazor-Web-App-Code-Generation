@@ -18,6 +18,7 @@ public class CodeGenNameModel
     // module / package name to url path
     public string ModuleToUrl { get; set; } = "";
 
+    public CodeGenDto CodeGen { get; set; }
     public List<CodeGenConfigDto> CodeGenConfigs { get; set; }
     public bool HasCustomSearch { get; set; } = false;
     public List<ResourceDto> Menus { get; set; }

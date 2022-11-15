@@ -67,7 +67,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
             // Data type
             codeGenConfig.DataType = column.DataType;
-            //EF
+            //EF, TODO: 如果EF可以获取所有数据库表，这里可以使用EF
             //codeGenConfig.NetType = CodeGenUtil.GetNetTypeBySystemType(column.SysDataType);
             //Sugar
             codeGenConfig.NetType = GetNetType(column);
@@ -86,6 +86,10 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             codeGenConfig.IsCreate = true;
             codeGenConfig.IsEdit = true;
             codeGenConfig.IsBatchEdit = false;
+
+            // client component type
+            codeGenConfig.ClientComponentType = GetClientComponentType(codeGenConfig.NetType);
+            codeGenConfig.CustomSearchType = GetCustomSearchType(codeGenConfig.NetType);
 
             list.Add(codeGenConfig);
         }
@@ -106,18 +110,64 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         await repository.InsertAsync(list);
     }
 
+    private ClientComponentType GetCustomSearchType(string netType)
+    {
+        var type = netType.Replace("?", "");
+
+        switch (type)
+        {
+            case "string":
+                return ClientComponentType.Select;
+
+            default:
+                return ClientComponentType.Input;
+        }
+    }
+
+    /// <summary>
+    /// edit
+    /// </summary>
+    /// <param name="netType"></param>
+    /// <returns></returns>
+    private ClientComponentType GetClientComponentType(string netType)
+    {
+        var type = netType.Replace("?", "");
+
+        switch (type)
+        {
+            case "int":
+            case "double":
+                return ClientComponentType.InputNumber;
+            case "bool":
+                return ClientComponentType.Switch;
+            case "datetime":
+                return ClientComponentType.DateTime;
+
+
+            default:
+                return ClientComponentType.Input;
+        }
+    }
+
     private string GetNetColumnName(TableColumnInfo column, CodeGenDto codeGen)
     {
         var newColumnName = column.DbColumnName
+            //todo comment
+            .Replace("GLS_", "Gls")
+            .Replace("DIS_", "Dis")
+            .Replace("CNC", "Cnc")
+            .Replace("SMS", "Sms")
             .ToUpperCamel();
 
-        //处理属性名开头为数字情况
+        // number
+        // 处理属性名开头为数字情况
         if (System.Text.RegularExpressions.Regex.IsMatch(newColumnName.Substring(0, 1), "[0-9]"))
         {
             newColumnName = "_" + newColumnName;
         }
 
-        //处理属性名不能等于类名
+        // column name is class name
+        // 处理属性名不能等于类名
         if (newColumnName == codeGen.ClassName)
         {
             newColumnName = "_" + newColumnName;

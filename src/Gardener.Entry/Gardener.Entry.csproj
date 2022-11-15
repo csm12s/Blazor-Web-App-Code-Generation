@@ -29,11 +29,13 @@
     <Content Remove="wwwroot\Template\ClientController.cs.razor" />
     <Content Remove="wwwroot\Template\ClientEdit.razor" />
     <Content Remove="wwwroot\Template\ClientEdit.razor.cs.razor" />
+    <Content Remove="wwwroot\Template\ClientImports.razor" />
     <Content Remove="wwwroot\Template\ClientView.razor" />
     <Content Remove="wwwroot\Template\ClientView.razor.cs.razor" />
     <Content Remove="wwwroot\Template\Controller.cs.razor" />
     <Content Remove="wwwroot\Template\DBLocale.CH.razor" />
     <Content Remove="wwwroot\Template\DBLocale.EN.razor" />
+    <Content Remove="wwwroot\Template\Entity.cs.razor" />
     <Content Remove="wwwroot\Template\IBaseController.cs.razor" />
     <Content Remove="wwwroot\Template\IController.cs.razor" />
     <Content Remove="wwwroot\Template\Model.cs.razor" />
@@ -42,16 +44,26 @@
     <Content Remove="wwwroot\Template\Server.csproj.razor" />
     <Content Remove="wwwroot\Template\Service.cs.razor" />
     <Content Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
+    <Content Remove="wwwroot\Template\SwaggerSetting.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\Template\ClientImports.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Include="wwwroot\Template\DBLocale.CH.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\DBLocale.EN.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\Entity.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\SwaggerSetting.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\Server.csproj.razor">
@@ -141,14 +153,17 @@
 	  <Watch Remove="wwwroot\Template\BaseTable.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Client.csproj.razor" />
 	  <Watch Remove="wwwroot\Template\ClientEdit.razor.cs.razor" />
+	  <Watch Remove="wwwroot\Template\ClientImports.razor" />
 	  <Watch Remove="wwwroot\Template\ClientView.razor.cs.razor" />
 	  <Watch Remove="wwwroot\Template\DBLocale.CH.razor" />
 	  <Watch Remove="wwwroot\Template\DBLocale.EN.razor" />
+	  <Watch Remove="wwwroot\Template\Entity.cs.razor" />
 	  <Watch Remove="wwwroot\Template\IBaseController.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Model.cs.razor" />
 	  <Watch Remove="wwwroot\Template\ModelSearchDto.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Server.csproj.razor" />
 	  <Watch Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
+	  <Watch Remove="wwwroot\Template\SwaggerSetting.razor" />
 	</ItemGroup>
 
 	<ItemGroup>

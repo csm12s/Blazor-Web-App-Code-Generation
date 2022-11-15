@@ -4,8 +4,11 @@ namespace Gardener.Enums;
 
 public enum ClientComponentType
 {
-    [Description("输入")]
+    [Description("文本输入")]
     Input,
+
+    [Description("数字输入")]
+    InputNumber,
 
     [Description("单选框")]
     Select,

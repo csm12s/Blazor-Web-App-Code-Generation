@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections;
-using System.Data;
-using System.Reflection;
-using System.Dynamic;
 using Mapster;
 using System.Linq.Expressions;
 
@@ -108,7 +103,7 @@ public static partial class Extension
             return default(List<SelectItem>);
         }
 
-        //// Mapper config
+        // Mapper config
         var config = new TypeAdapterConfig();
         config.ForType<TSource, SelectItem>()
             .Map(dest => dest.ValueName, keyValueField)

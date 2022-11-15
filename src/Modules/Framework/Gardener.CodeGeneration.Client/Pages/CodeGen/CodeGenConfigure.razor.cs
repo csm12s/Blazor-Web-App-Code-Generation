@@ -1,5 +1,6 @@
 ﻿using AntDesign;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Constants;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Microsoft.AspNetCore.Components;
@@ -20,7 +21,9 @@ public partial class CodeGenConfigure: FeedbackComponent<int, bool>
     List<CodeGenConfigDto> _list = new();
     protected int _total = 0;
     protected int _pageIndex = 1;
-    protected int _pageSize = 100;//ClientConstant.pageSize;
+
+    // 这里少一点速度快一点
+    protected int _pageSize = 10;//ClientConstant.pageSize;
     protected IEnumerable<CodeGenConfigDto> _selectedRows;
 
     protected override async Task OnInitializedAsync()
@@ -30,6 +33,7 @@ public partial class CodeGenConfigure: FeedbackComponent<int, bool>
         _codeGenId = this.Options;
         _list = await codeGenConfigClientService.GetCodeGenConfigsByCodeGenId(_codeGenId);
 
+        // TODO: 这里不打个断点，页面呈现就会很慢
         await base.OnInitializedAsync();
         _tableIsLoading = false;
     }

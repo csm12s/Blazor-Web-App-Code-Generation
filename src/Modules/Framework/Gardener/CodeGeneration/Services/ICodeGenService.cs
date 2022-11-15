@@ -14,7 +14,7 @@ namespace Gardener.CodeGeneration.Services
     /// <summary>
     /// 代码生成服务, DB First
     /// </summary>
-    public interface ICodeGenService
+    public interface ICodeGenService: IServiceBase<CodeGenDto, int>
     {
         Task<bool> GenerateCode(int[] codeGenIds);
         Task<List<TableOutput>> GetTableListAsync();//string dbContextLocatorName = ""

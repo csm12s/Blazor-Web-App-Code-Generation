@@ -3,7 +3,7 @@
 @using Gardener.Enums
 @using Gardener.Client.Base.Constants
 
-@@inherits EditOperationDialogBase<@(Model.ClassName)Dto, string>
+@@inherits @(Model.CodeGen.EditFormInherits)<@(Model.ClassName)Dto, @(Model.CodeGen.PrimaryKeyType)>
 
 <Form Context="model"
       Loading="@@_isLoading"
@@ -19,18 +19,18 @@
         {
             case ClientComponentType.DateTime:
             <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
-                <span>@@model.@item.ColumnName</span>
+                <span>@@model.@item.NetColumnName</span>
                         @*.ToString(ClientConstant.DateTimeFormat)*@
             </FormItem>
             break;
             case ClientComponentType.Switch:
             <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
-                <Switch @@bind-Value="@@model.@item.ColumnName"></Switch>
+                <Switch @@bind-Value="@@model.@item.NetColumnName"></Switch>
             </FormItem>
             break;
             default:
             <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
-                <Input @@bind-Value="@@model.@item.ColumnName" />
+                <Input @@bind-Value="@@model.@item.NetColumnName" />
             </FormItem>
             break;
         }

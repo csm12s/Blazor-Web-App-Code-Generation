@@ -1,5 +1,6 @@
 ﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
 
+@using Gardener.Base
 @using Gardener.Enums
 
 @@page "/@Model.Module/@Model.ClassName"
@@ -19,7 +20,6 @@
            @@bind-PageSize="_pageSize"
            @@bind-SelectedRows="_selectedRows"
            Loading="@@_tableIsLoading"
-           ScrollX="1500"
            RemoteDataSource>
 
         @@*Search Field*@@
@@ -43,8 +43,8 @@
                             <SpaceItem>
                                 <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
                                 <Select Mode="single"
-                                        DataSource="@@_select_@item.ColumnName"
-                                        @@bind-Value="@@_searchDto.@item.ColumnName"
+                                        DataSource="@@_select_@(item.NetColumnName)"
+                                        @@bind-Value="@@_searchDto.@item.NetColumnName"
                                         ValueName="@@nameof(SelectItem.ValueName)"
                                         LabelName="@@nameof(SelectItem.LabelName)"
                                         TItem="SelectItem"
@@ -58,8 +58,8 @@
                             <SpaceItem>
                                 <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
                                 <Select Mode="multiple"
-                                        DataSource="@@_select_@item.ColumnName"
-                                        @@bind-Values="@@_searchDto.@item.ColumnName"
+                                        DataSource="@@_select_@(item.NetColumnName)"
+                                        @@bind-Values="@@_searchDto.@item.NetColumnName"
                                         ValueName="@@nameof(SelectItem.ValueName)"
                                         LabelName="@@nameof(SelectItem.LabelName)"
                                         TItem="SelectItem"
@@ -73,7 +73,7 @@
                             <SpaceItem>
                                 <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
                                 <Input Style="@@searchInputStyle" Type="text" TValue="string"
-                                       @@bind-Value="@@_searchDto.@item.ColumnName"></Input>
+                                       @@bind-Value="@@_searchDto.@item.NetColumnName"></Input>
                             </SpaceItem>
                             break;
                         }
@@ -87,11 +87,14 @@
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
+                    @if(Model.CodeGen.HasBatchDelete)
+                    {
                     <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.Delete))>
                         <Button Type="@@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                             @@localizer["DeleteSelected"]
                         </Button>
                     </ResourceAuthorize>
+                    }
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
@@ -117,7 +120,14 @@
         @@*Main Table*@@
         <RowTemplate>
             <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
-                <Selection Key="@@(model.Id)" />
+                @if(Model.CodeGen.PrimaryKeyType == "string")
+                {
+                    <Selection Key="@@(model.@(Model.CodeGen.PrimaryKeyName))" />
+                }
+                else
+                {
+                    <Selection Key="@@(model.@(Model.CodeGen.PrimaryKeyName).ToString())" />
+                }
             </ResourceAuthorize>
             
             @foreach (var item in Model.CodeGenConfigs)
@@ -127,65 +137,49 @@
                 @switch (item.ClientComponentType)
                 {
                     case ClientComponentType.DateTime:
-                    <Column @@bind-Field="@@model.@item.ColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
                     break;
                     case ClientComponentType.Switch:
-                    <Column @@bind-Field="@@model.@item.ColumnName" Filterable>
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Filterable>
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
                             <Authorized>
-                                <Switch @@bind-Value="@@model.@item.ColumnName" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                                <Switch @@bind-Value="@@model.@item.NetColumnName"></Switch>
                             </Authorized>
                             <NotAuthorized>
-                                <TagYesNo Yes="@@model.@item.ColumnName"></TagYesNo>
+                                <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
                     break;
                     case ClientComponentType.Image:
-                    <Avatar Src="@@model.@item.ColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" />
+                    <Avatar Src="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" />
                     break;
                     default:
-                    <Column @@bind-Field="@@model.@item.ColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />
                     break;
                 }
             }
             
-            <Column @@bind-Field="@@model.ReadState" Filterable Align=ColumnAlign.Right>
-                <TagYesNo Yes="model.ReadState"></TagYesNo>
-            </Column>
-            <Column @@bind-Field="@@model.SendState" Filterable Align=ColumnAlign.Right>
-                <TagYesNo Yes="model.SendState"></TagYesNo>
-            </Column>
-            <Column @@bind-Field="@@model.IsLocked" Filterable Align=ColumnAlign.Right>
-                <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
-                    <Authorized>
-                        <Switch @@bind-Value="@@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
-                    </Authorized>
-                    <NotAuthorized>
-                        <TagYesNo Yes="model.IsLocked"></TagYesNo>
-                    </NotAuthorized>
-                </ResourceAuthorize>
-            </Column>
             @@*Action Column*@@
             <ActionColumn Title=@@localizer["Action"] Fixed="right">
                 <Space>
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
                         <SpaceItem>
-                            <Button OnClick="()=>OnClickEdit(model.Id)" Type="@@ButtonType.Link">
+                            <Button OnClick="()=>OnClickEdit(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
                                 @@localizer["Edit"]
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Search)>
                         <SpaceItem>
-                            <Button OnClick="()=>OnClickDetail(model.Id)" Type="@@ButtonType.Link">
+                            <Button OnClick="()=>OnClickDetail(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
                                 @@localizer["Detail"]
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Delete)>
                         <SpaceItem>
-                            <Button OnClick="()=>OnClickDelete(model.Id)"  Danger Type="@@ButtonType.Link">
+                            <Button OnClick="()=>OnClickDelete(model.@(Model.CodeGen.PrimaryKeyName))"  Danger Type="@@ButtonType.Link">
                                 @@localizer["Delete"]
                             </Button>
                         </SpaceItem>

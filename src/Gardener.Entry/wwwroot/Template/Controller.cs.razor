@@ -10,7 +10,8 @@ namespace @(Model.AppName).@(Model.Module).Server.Controller;
 /// <summary>
 /// @Model.TableDesc
 /// </summary>
-public class @(Model.ClassName)Controller : MesBaseController<@(Model.ClassName), @(Model.ClassName)Dto>, I@(Model.ClassName)Controller
+public class @(Model.ClassName)Controller : @(Model.Module)BaseController<@(Model.ClassName), @(Model.ClassName)Dto>
+    , I@(Model.ClassName)Controller
 {
     #region Init
     private readonly @(Model.ClassName)Service @(Model.ClassNameLower)Service;
