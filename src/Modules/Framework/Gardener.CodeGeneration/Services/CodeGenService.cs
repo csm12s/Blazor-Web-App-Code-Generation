@@ -325,7 +325,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                 newLocaleItems.Add(new CodeGenLocaleItem()
                 {
                     Name = configDto.ColumnName,
-                    Key = configDto.ColumnDescription.ToUpCamel(),
+                    Key = configDto.ColumnDescription.ToUpperCamel(),
                     ValueEN = configDto.ColumnDescription,
                     ValueCN = configDto.ColumnDescription,
                 });
@@ -388,7 +388,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         // New Name model
         var codeGenDto = genTable.Adapt<CodeGenDto>();
-        codeGenDto.ClassNameLower = codeGenDto.ClassName.ToCamel();
+        codeGenDto.ClassNameLower = codeGenDto.ClassName.ToLowerCamel();
         // url path: sys.tool -> sys/tool 
         codeGenDto.ModuleToUrl = codeGenDto.Module.Replace(".", "/").Replace("_", "");
 

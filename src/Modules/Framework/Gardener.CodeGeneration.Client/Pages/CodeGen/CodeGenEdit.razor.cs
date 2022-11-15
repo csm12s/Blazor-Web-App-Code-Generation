@@ -57,12 +57,20 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
 
     protected async Task OnTableSelectChanged()
     {
-        _editModel.ClassName = _editModel.TableName
+        // Class name
+        var nameList = _editModel.TableName
             .Replace("Sys_", "")
-            .Replace("_", "");
+            .Split("_")
+            .ToList();
+        var newList = new List<string>();
+        nameList.ForEach(it => newList.Add(it = it.ToLower().FirstToUpper()));
+        _editModel.ClassName = string.Join("", newList);
+
+        // Module
         _editModel.Module = _editModel.TableName
             .Split("_")
             .FirstOrDefault();
+        // Menu
         _editModel.MenuName = _editModel.ClassName;
     }
 }

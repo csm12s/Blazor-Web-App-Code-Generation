@@ -12,12 +12,12 @@ public static partial class Extension
     #region Camel - Humanizer
     // https://github.com/Humanizr/Humanizer
     //"some_title for" => "someTitleFor", 小驼峰
-    public static string ToCamel(this string input)
+    public static string ToLowerCamel(this string input)
     {
         return input.Camelize();
     }
     //"some_title for" => "SomeTitleFor", 大驼峰
-    public static string ToUpCamel(this string input)
+    public static string ToUpperCamel(this string input)
     {
         return input.Pascalize();
     }
@@ -86,7 +86,12 @@ public static partial class Extension
         }
     }
 
-    public static List<string> ToStringList(this string input)
+    /// <summary>
+    /// string -> List<string>
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public static List<string> StringToList(this string input)
     {
         List<string> list = new List<string>();
         list.Add(input);

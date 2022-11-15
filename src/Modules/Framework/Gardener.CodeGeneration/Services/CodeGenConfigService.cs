@@ -109,7 +109,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     private string GetNetColumnName(TableColumnInfo column, CodeGenDto codeGen)
     {
         var newColumnName = column.DbColumnName
-            .ToUpCamel();
+            .ToUpperCamel();
 
         //处理属性名开头为数字情况
         if (System.Text.RegularExpressions.Regex.IsMatch(newColumnName.Substring(0, 1), "[0-9]"))
