@@ -19,6 +19,8 @@ public partial class LantekPartView : LantekBaseTable<LantekPartDto, LantekPartE
     protected override async Task OnInitializedAsync()
     {
         // Init
+        _select_DisMatRef.Add(new SelectItem() { LabelName = "test", ValueName = "test" });
+        _select_DisMatRef.Add(new SelectItem() { LabelName = "test1", ValueName = "test1" });
 
         await base.OnInitializedAsync();
     }

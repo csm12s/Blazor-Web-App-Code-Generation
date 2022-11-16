@@ -167,6 +167,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="wwwroot\Template\新文件夹\" />
 	  <Folder Include="wwwroot\upload\" />
 	</ItemGroup>
 

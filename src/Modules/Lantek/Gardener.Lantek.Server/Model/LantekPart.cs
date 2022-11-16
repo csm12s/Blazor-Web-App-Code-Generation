@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Gardener.Lantek.Server.Model;
 
@@ -11,7 +12,7 @@ namespace Gardener.Lantek.Server.Model;
 /// </summary>
 [Table("PPRR_PPRR_00000100")]
 [Comment("BasePart")]
-public partial class LantekPart : LantekBaseModel
+public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart>
 {
     public LantekPart() { }
 
@@ -51,25 +52,25 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("IsActive")]
         [Comment("IsActive")][Required]
-        public bool IsActive { get; set; }
+        public byte IsActive { get; set; }
         /// <summary>
         /// RealPrd
         /// </summary>
         [Column("RealPrd")]
         [Comment("RealPrd")][Required]
-        public bool RealPrd { get; set; }
+        public byte RealPrd { get; set; }
         /// <summary>
         /// Assembly
         /// </summary>
         [Column("Assembly")]
         [Comment("Assembly")][Required]
-        public bool Assembly { get; set; }
+        public byte Assembly { get; set; }
         /// <summary>
         /// ForSale
         /// </summary>
         [Column("ForSale")]
         [Comment("ForSale")][Required]
-        public bool ForSale { get; set; }
+        public byte ForSale { get; set; }
         /// <summary>
         /// PType
         /// </summary>
@@ -81,13 +82,13 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("CstRanges")]
         [Comment("CstRanges")][Required]
-        public bool CstRanges { get; set; }
+        public byte CstRanges { get; set; }
         /// <summary>
         /// FixPrice
         /// </summary>
         [Column("FixPrice")]
         [Comment("FixPrice")][Required]
-        public bool FixPrice { get; set; }
+        public byte FixPrice { get; set; }
         /// <summary>
         /// StdCost
         /// </summary>
@@ -109,7 +110,7 @@ public partial class LantekPart : LantekBaseModel
         /// <summary>
         /// CstMethod
         /// </summary>
-        [Column("CstMethod")]
+        [Column("CstMethod", TypeName = "smallint")]
         [Comment("CstMethod")][Required]
         public int CstMethod { get; set; }
         /// <summary>
@@ -351,7 +352,7 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_IsCanal")]
         [Comment("DisIsCanal")][Required]
-        public bool DisIsCanal { get; set; }
+        public byte DisIsCanal { get; set; }
         /// <summary>
         /// DisShtRef
         /// </summary>
@@ -375,7 +376,7 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_CanQuote")]
         [Comment("DisCanQuote")][Required]
-        public bool DisCanQuote { get; set; }
+        public byte DisCanQuote { get; set; }
         /// <summary>
         /// DisSide
         /// </summary>
@@ -429,7 +430,7 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_IsDuctPart")]
         [Comment("DisIsDuctPart")][Required]
-        public bool DisIsDuctPart { get; set; }
+        public byte DisIsDuctPart { get; set; }
         /// <summary>
         /// DisUData1Prt
         /// </summary>
@@ -483,7 +484,7 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_IsDraft")]
         [Comment("DisIsDraft")][Required]
-        public bool DisIsDraft { get; set; }
+        public byte DisIsDraft { get; set; }
         /// <summary>
         /// DisDuctDINCode
         /// </summary>
@@ -549,19 +550,19 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_IsRemnant")]
         [Comment("DisIsRemnant")][Required]
-        public bool DisIsRemnant { get; set; }
+        public byte DisIsRemnant { get; set; }
         /// <summary>
         /// DisPrcRmntPrice
         /// </summary>
         [Column("DIS_PrcRmntPrice")]
         [Comment("DisPrcRmntPrice")][Required]
-        public float DisPrcRmntPrice { get; set; }
+        public string DisPrcRmntPrice { get; set; }
         /// <summary>
         /// DisPrcScrpPrice
         /// </summary>
         [Column("DIS_PrcScrpPrice")]
         [Comment("DisPrcScrpPrice")][Required]
-        public float DisPrcScrpPrice { get; set; }
+        public string DisPrcScrpPrice { get; set; }
         /// <summary>
         /// DisRPriority
         /// </summary>
@@ -573,7 +574,7 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_IsLocked")]
         [Comment("DisIsLocked")][Required]
-        public bool DisIsLocked { get; set; }
+        public byte DisIsLocked { get; set; }
         /// <summary>
         /// DisCamQuan
         /// </summary>
@@ -711,7 +712,7 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_IsQuote")]
         [Comment("DisIsQuote")][Required]
-        public bool DisIsQuote { get; set; }
+        public byte DisIsQuote { get; set; }
         /// <summary>
         /// DisVolume
         /// </summary>
@@ -723,25 +724,25 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_CommonPartIni")]
         [Comment("DisCommonPartIni")][Required]
-        public bool DisCommonPartIni { get; set; }
+        public byte DisCommonPartIni { get; set; }
         /// <summary>
         /// DisCommonPartEnd
         /// </summary>
         [Column("DIS_CommonPartEnd")]
         [Comment("DisCommonPartEnd")][Required]
-        public bool DisCommonPartEnd { get; set; }
+        public byte DisCommonPartEnd { get; set; }
         /// <summary>
         /// DisCommonProfileIni
         /// </summary>
         [Column("DIS_CommonProfileIni")]
         [Comment("DisCommonProfileIni")][Required]
-        public bool DisCommonProfileIni { get; set; }
+        public byte DisCommonProfileIni { get; set; }
         /// <summary>
         /// DisCommonProfileEnd
         /// </summary>
         [Column("DIS_CommonProfileEnd")]
         [Comment("DisCommonProfileEnd")][Required]
-        public bool DisCommonProfileEnd { get; set; }
+        public byte DisCommonProfileEnd { get; set; }
         /// <summary>
         /// DisJobRef
         /// </summary>
@@ -759,7 +760,7 @@ public partial class LantekPart : LantekBaseModel
         /// </summary>
         [Column("DIS_CanSplit")]
         [Comment("DisCanSplit")][Required]
-        public bool DisCanSplit { get; set; }
+        public byte DisCanSplit { get; set; }
         /// <summary>
         /// DisPriceDate
         /// </summary>
@@ -898,5 +899,10 @@ public partial class LantekPart : LantekBaseModel
         [Column("RecID")]
         [Comment("RecID")][Required]
         public int RecID { get; set; }
-	#endregion
+
+    public void Configure(EntityTypeBuilder<LantekPart> entityBuilder, DbContext dbContext, Type dbContextLocator)
+    {
+        entityBuilder.HasKey(c => c.RecID);
+    }
+    #endregion
 }

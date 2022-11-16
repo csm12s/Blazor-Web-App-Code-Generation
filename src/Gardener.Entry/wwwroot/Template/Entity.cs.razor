@@ -12,7 +12,7 @@ namespace @(Model.AppName).@(Model.Module).Server.Model;
 /// </summary>
 [Table("@Model.TableName")]
 [Comment("@Model.TableDesc")]
-public partial class @Model.ClassName : @(Model.Module)BaseModel
+public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBuilder<@(Model.ClassName)>
 {
     public @(Model.ClassName)() { }
 
@@ -30,4 +30,13 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel
         @:public @column.NetType @column.NetColumnName { get; set; }
     }
 	#endregion
+
+    @*No primary key*@
+    @:public void Configure(EntityTypeBuilder<@(Model.ClassName)> entityBuilder, DbContext dbContext, Type dbContextLocator)
+    @:{
+    @if (Model.CodeGen.PrimaryKeyName != "Id")
+    { 
+    @:    entityBuilder.HasKey(c => c.@(Model.CodeGen.PrimaryKeyName));
+    }
+    @:}
 }

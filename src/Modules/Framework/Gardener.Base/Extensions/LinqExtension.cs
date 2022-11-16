@@ -7,7 +7,8 @@ namespace Gardener.Base;
 public static class LinqExtension
 {
     /// <summary>
-    /// Only use PageIndex and PageSize to get a paged list
+    /// In: PageIndex + PageSize
+    /// Out: PagedList
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="entities"></param>

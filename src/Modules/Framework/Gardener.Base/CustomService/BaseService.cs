@@ -4,6 +4,7 @@ using Furion.DynamicApiController;
 using Furion.FriendlyException;
 using Gardener.Common;
 using Gardener.Enums;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using SqlSugar;
 using System;
@@ -71,22 +72,26 @@ public abstract class BaseService
     #region Get
     public virtual bool Any(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).Any();
+        return _repository.Any(whereExpression);
+        //return _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).Any();
     }
 
     public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return await _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).AnyAsync();
+        return await _repository.AnyAsync(whereExpression);
+        //return await _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).AnyAsync();
     }
 
     public virtual TEntity GetById(object id)
     {
-        return _sugarRepository.Context.Queryable<TEntity>().InSingle(id);
+        return _repository.Find(id);
+        //return _sugarRepository.Context.Queryable<TEntity>().InSingle(id);
     }
 
     public virtual async Task<TEntity> GetByIdAsync(object id)
     {
-        return await _sugarRepository.Context.Queryable<TEntity>().InSingleAsync(id);
+        return await _repository.FindAsync(id);
+        //return await _sugarRepository.Context.Queryable<TEntity>().InSingleAsync(id);
     }
 
     public virtual TEntity GetFirst(Expression<Func<TEntity, bool>> whereExpression)
@@ -101,29 +106,42 @@ public abstract class BaseService
 
     public virtual async Task<List<TEntity>> GetListAsync()
     {
-        return await _sugarRepository.Context.Queryable<TEntity>().ToListAsync();
+        return await _repository.AsQueryable().ToListAsync();
+        //return await _sugarRepository.Context.Queryable<TEntity>().ToListAsync();
     }
 
     public virtual List<TEntity> GetList(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).ToList();
+        return _repository.AsQueryable().Where(whereExpression).ToList();
+        //return _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).ToList();
     }
 
     public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return await _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).ToListAsync();
+        return await _repository.AsQueryable().Where(whereExpression).ToListAsync();
+        //return await _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).ToListAsync();
     }
 
     public List<TEntity> GetAll()
     {
-        return _sugarRepository.Context.Queryable<TEntity>().ToList();
+        return _repository.AsQueryable().ToList();
+        //return _sugarRepository.Context.Queryable<TEntity>().ToList();
     }
 
     public async Task<List<TEntity>> GetAllAsync()
     {
-        return await _sugarRepository.Context.Queryable<TEntity>().ToListAsync();
+        return await _repository.AsQueryable().ToListAsync();
+        //return await _sugarRepository.Context.Queryable<TEntity>().ToListAsync();
     }
 
+    #region Get Page
+
+    /// <summary>
+    /// In: Where + Order By
+    /// Out: list
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     public List<TEntity> GetList(PageRequest request)
     {
         // Where - IsDeleted
@@ -138,13 +156,27 @@ public abstract class BaseService
         IDynamicFilterService filterService = Furion.App.GetService<IDynamicFilterService>();
         Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
-        IQueryable<TEntity> queryable = (IQueryable<TEntity>)_sugarRepository.Context.Queryable<TEntity>();
+        // EF:
+        IQueryable<TEntity> queryable = _repository.AsQueryable(false);
         return queryable
-            .Where(expression) // Where
-            .OrderConditions(request.OrderConditions.ToArray()) // Order by
+            .Where(expression)
+            .OrderConditions(request.OrderConditions.ToArray())
             .ToList();
+
+        // Sugar:
+        //IQueryable<TEntity> queryable = (IQueryable<TEntity>)_sugarRepository.Context.Queryable<TEntity>();
+        //return queryable
+        //    .Where(expression) // Where
+        //    .OrderConditions(request.OrderConditions.ToArray()) // Order by
+        //    .ToList();
     }
 
+    /// <summary>
+    /// In: Where + Order By
+    /// Out: list
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     public async Task<List<TEntity>> GetListAsync(PageRequest request)
     {
         // Where - IsDeleted
@@ -159,79 +191,60 @@ public abstract class BaseService
         IDynamicFilterService filterService = Furion.App.GetService<IDynamicFilterService>();
         Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
-        var listAll = await GetAllAsync();
-        IQueryable<TEntity> queryable = listAll.AsQueryable();
+        // EF:
+        IQueryable<TEntity> queryable = _repository.AsQueryable(false);
+        return await queryable
+            .Where(expression)
+            .OrderConditions(request.OrderConditions.ToArray())
+            .ToListAsync();
 
-        // TODO: If null in DB, skip where expression?
-        // 数据库字段为null这里会报错
-        try
-        {
-            var list = queryable
-                .Where(expression) // Where
-                .OrderConditions(request.OrderConditions.ToArray()) // Order by
-                .ToList();
+        // Sugar:
+        //var listAll = await GetAllAsync();
+        //IQueryable<TEntity> queryable = listAll.AsQueryable();
+        //// TODO: If null in DB, skip where expression?
+        //// 数据库字段为null这里会报错
+        //try
+        //{
+        //    var list = queryable
+        //        .Where(expression) // Where
+        //        .OrderConditions(request.OrderConditions.ToArray()) // Order by
+        //        .ToList();
 
-            return list;
-        }
-        catch (Exception ex)
-        {
-            // TODO: 这里不能抛出异常
-            throw Oops.Oh(ExceptionCode.Search_Error_DB_Field_Is_Null);
-        }
+        //    return list;
+        //}
+        //catch (Exception ex)
+        //{
+        //    // TODO: 这里不能抛出异常
+        //    throw Oops.Oh(ExceptionCode.Search_Error_DB_Field_Is_Null);
+        //}
     }
+    #endregion
 
     public virtual Base.PagedList<TEntity> GetPage(PageRequest request)
     {
-        // Where - IsDeleted
-        if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
-        {
-            FilterGroup defaultFilterGroup = new FilterGroup();
-            defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
-            request.FilterGroups.Add(defaultFilterGroup);
-        }
-
-        // Where
-        IDynamicFilterService filterService = Furion.App.GetService<IDynamicFilterService>();
-        Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
-
-        IQueryable<TEntity> queryable = (IQueryable<TEntity>)_sugarRepository.Context.Queryable<TEntity>();
-        return queryable
-            .Where(expression) // Where
-            .OrderConditions(request.OrderConditions.ToArray()) // Order by
-            .ToPage(request.PageIndex, request.PageSize);
+        var list = GetList(request);
+        return list.ToPageList(request);
     }
 
     public virtual async Task<Base.PagedList<TEntity>> GetPageAsync(PageRequest request)
     {
-        // Where - IsDeleted
-        if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
-        {
-            FilterGroup defaultFilterGroup = new FilterGroup();
-            defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
-            request.FilterGroups.Add(defaultFilterGroup);
-        }
-
-        // Where
-        IDynamicFilterService filterService = Furion.App.GetService<IDynamicFilterService>();
-        Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
-
-        IQueryable<TEntity> queryable = (IQueryable<TEntity>)_sugarRepository.Context.Queryable<TEntity>();
-        return await queryable
-            .Where(expression) // Where
-            .OrderConditions(request.OrderConditions.ToArray()) // Order by
-            .ToPageAsync(request.PageIndex, request.PageSize);
+        var list = await GetListAsync(request);
+        return list.ToPageList(request);
     }
     #endregion
 
+    //TODO:
     #region Delete
     public virtual bool Delete(TEntity item)
     {
-        return _sugarRepository.Context.Deleteable(item).ExecuteCommand() > 0;
+        throw new NotImplementedException();
+        //return _sugarRepository.Context.Deleteable(item).ExecuteCommand() > 0;
     }
 
     public virtual async Task<bool> DeleteAsync(TEntity item)
     {
-        return await _sugarRepository.Context.Deleteable<TEntity>().Where(item).ExecuteCommandAsync() > 0;
+        throw new NotImplementedException();
+        //return await _sugarRepository.Context.Deleteable<TEntity>().Where(item).ExecuteCommandAsync() > 0;
     }
 
     public virtual bool Delete(List<TEntity> list)

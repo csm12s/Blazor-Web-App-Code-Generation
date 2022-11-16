@@ -1,6 +1,7 @@
 ﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace @(Model.AppName).@(Model.Module).Dto;
 
@@ -12,6 +13,10 @@ public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
         @: /// <summary>
         @: /// @item.ColumnComment
         @: /// </summary>
+        @if(item.IsCreateRequired)
+        {
+        @:[Required]
+        }
         @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
     }
 	#endregion
