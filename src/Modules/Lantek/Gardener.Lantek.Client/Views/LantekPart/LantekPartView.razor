@@ -1,0 +1,113 @@
+﻿@page "/Lantek/LantekPart"
+@using Gardener.Base
+@inherits LantekBaseTable<LantekPartDto, LantekPartEdit>
+
+
+<div>
+    <Table @ref="_table"
+           Context="model"
+           TItem="LantekPartDto"
+           DataSource="@_datas"
+           Total="_total"
+           OnChange="@OnChange"
+           ScrollX="1500"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
+           @bind-SelectedRows="_selectedRows"
+           Loading="@_tableIsLoading"
+           RemoteDataSource>
+
+        @*Search Field*@
+        <TitleTemplate>
+            <ResourceAuthorize ResourceKey=@(GetAuthKey(AuthKeys.Search))>
+                <TableSearch TDto="LantekPartSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                @*Custom Search*@
+                <Row>
+                    <AntDesign.Col Span="18">
+                        <Space Direction="@DirectionVHType.Vertical" Style="width: 100%">
+                            <Space Size=@(("8", "16")) Wrap>
+                                <SpaceItem>
+                                    <span>@(localizer["DisMatRef"]): </span>
+                                    <Select Mode="single"
+                                            DataSource="@_select_DisMatRef"
+                                            @bind-Value="@_searchDto.DisMatRef"
+                                            ValueName="@nameof(SelectItem.ValueName)"
+                                            LabelName="@nameof(SelectItem.LabelName)"
+                                            TItem="SelectItem"
+                                            TItemValue="string"
+                                            EnableSearch
+                                            AllowClear>
+                                    </Select>
+                                </SpaceItem>
+
+                            </Space>
+                        </Space>
+                    </AntDesign.Col>
+                </Row>
+            </ResourceAuthorize>
+            <Row>
+                <AntDesign.Col Span="8">
+                </AntDesign.Col>
+                <AntDesign.Col Span="16" Style="text-align:right">
+                    <Space>
+                        <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Add)>
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                    @localizer["Add"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                        <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Search)>
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                    @localizer["Refresh"]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+        </TitleTemplate>
+
+        @*Main Table*@
+        <RowTemplate>
+            <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Edit)>
+                <Selection Key="@(model.RecID.ToString())" />
+            </ResourceAuthorize>
+
+            <Column @bind-Field="@model.PrdRef" Title="@(localizer["PrdRef"])" Sortable Filterable />
+            <Column @bind-Field="@model.PrdName" Title="@(localizer["PrdName"])" Sortable Filterable />
+            <Column @bind-Field="@model.CDate" Title="@(localizer["CDate"])" Sortable Filterable />
+            <Column @bind-Field="@model.Image" Title="@(localizer["Image"])" Sortable Filterable />
+            <Column @bind-Field="@model.DisMatRef" Title="@(localizer["DisMatRef"])" Sortable Filterable />
+
+            @*Action Column*@
+            <ActionColumn Title=@localizer["Action"] Fixed="right">
+                <Space>
+                    <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Edit)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickEdit(model.RecID)" Type="@ButtonType.Link">
+                                @localizer["Edit"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Search)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickDetail(model.RecID)" Type="@ButtonType.Link">
+                                @localizer["Detail"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Delete)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickDelete(model.RecID)" Danger Type="@ButtonType.Link">
+                                @localizer["Delete"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                </Space>
+            </ActionColumn>
+        </RowTemplate>
+    </Table>
+</div>
+

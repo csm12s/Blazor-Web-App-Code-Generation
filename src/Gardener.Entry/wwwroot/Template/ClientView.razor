@@ -33,52 +33,51 @@
                     <AntDesign.Col Span="18">
                         <Space Direction="@@DirectionVHType.Vertical" Style="width: 100%">
                             <Space Size=@@(("8", "16")) Wrap>
-                    @foreach (var item in Model.CodeGenConfigs)
-                    {
-                        @if (!item.IsCustomSearch) continue;
-
-                        @switch (item.CustomSearchType)
+                        @foreach (var item in Model.CodeGenConfigs)
                         {
-                            case ClientComponentType.Select:
-                            <SpaceItem>
-                                <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
-                                <Select Mode="single"
-                                        DataSource="@@_select_@(item.NetColumnName)"
-                                        @@bind-Value="@@_searchDto.@item.NetColumnName"
-                                        ValueName="@@nameof(SelectItem.ValueName)"
-                                        LabelName="@@nameof(SelectItem.LabelName)"
-                                        TItem="SelectItem"
-                                        TItemValue="string"
-                                        EnableSearch
-                                        AllowClear>
-                                </Select>
-                            </SpaceItem>
-                            break;
-                            case ClientComponentType.MultiSelect:
-                            <SpaceItem>
-                                <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
-                                <Select Mode="multiple"
-                                        DataSource="@@_select_@(item.NetColumnName)"
-                                        @@bind-Values="@@_searchDto.@item.NetColumnName"
-                                        ValueName="@@nameof(SelectItem.ValueName)"
-                                        LabelName="@@nameof(SelectItem.LabelName)"
-                                        TItem="SelectItem"
-                                        TItemValue="string"
-                                        EnableSearch
-                                        AllowClear>
-                                </Select>
-                            </SpaceItem>
-                            break;
-                            default: @*Input*@
-                            <SpaceItem>
-                                <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
-                                <Input Style="@@searchInputStyle" Type="text" TValue="string"
-                                       @@bind-Value="@@_searchDto.@item.NetColumnName"></Input>
-                            </SpaceItem>
-                            break;
+                            @if (!item.IsCustomSearch) continue;
+
+                            @switch (item.CustomSearchType)
+                            {
+                                case ClientComponentType.Select:
+                                <SpaceItem>
+                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                    <Select Mode="single"
+                                            DataSource="@@_select_@(item.NetColumnName)"
+                                            @@bind-Value="@@_searchDto.@item.NetColumnName"
+                                            ValueName="@@nameof(SelectItem.ValueName)"
+                                            LabelName="@@nameof(SelectItem.LabelName)"
+                                            TItem="SelectItem"
+                                            TItemValue="string"
+                                            EnableSearch
+                                            AllowClear>
+                                    </Select>
+                                </SpaceItem>
+                                break;
+                                case ClientComponentType.MultiSelect:
+                                <SpaceItem>
+                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                    <Select Mode="multiple"
+                                            DataSource="@@_select_@(item.NetColumnName)"
+                                            @@bind-Values="@@_searchDto.@item.NetColumnName"
+                                            ValueName="@@nameof(SelectItem.ValueName)"
+                                            LabelName="@@nameof(SelectItem.LabelName)"
+                                            TItem="SelectItem"
+                                            TItemValue="string"
+                                            EnableSearch
+                                            AllowClear>
+                                    </Select>
+                                </SpaceItem>
+                                break;
+                                default: @*Input*@
+                                <SpaceItem>
+                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                    <Input Style="@@searchInputStyle" Type="text" TValue="string"
+                                           @@bind-Value="@@_searchDto.@item.NetColumnName"></Input>
+                                </SpaceItem>
+                                break;
+                            }
                         }
-                    }
-                            
                             </Space>
                         </Space>
                     </AntDesign.Col>

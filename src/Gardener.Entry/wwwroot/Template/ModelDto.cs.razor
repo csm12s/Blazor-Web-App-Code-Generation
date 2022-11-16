@@ -9,13 +9,10 @@ public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
     #region Base
     @foreach (var item in Model.CodeGenConfigs)
     {
-        @if (item.IsEdit)
-        { 
-            @: /// <summary>
-            @: /// @item.ColumnComment
-            @: /// </summary>
-            @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
-        }
+        @: /// <summary>
+        @: /// @item.ColumnComment
+        @: /// </summary>
+        @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
     }
 	#endregion
 }
