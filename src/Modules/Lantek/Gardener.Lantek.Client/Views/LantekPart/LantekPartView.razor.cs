@@ -1,7 +1,9 @@
 ﻿
+using Gardener.Attachment.Services;
 using Gardener.Common;
 using Gardener.Lantek.Dto;
 using Gardener.Lantek.IController;
+using Microsoft.AspNetCore.Components;
 
 namespace Gardener.Lantek.Client.Views.LantekPart;
 
@@ -10,7 +12,11 @@ public partial class LantekPartView : LantekBaseTable<LantekPartDto, LantekPartE
     #region Init
     protected LantekPartSearchDto _searchDto = new();
          private List<SelectItem> _select_DisMatRef = new();
+    
+    [Inject]
     private ILantekPartController lantekPartClientController { get; set; }
+    [Inject]
+    private IAttachmentService attachmentService { get; set; }
     
     public LantekPartView() : base("LantekPart")
     {

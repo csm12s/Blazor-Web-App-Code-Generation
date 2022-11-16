@@ -2,6 +2,7 @@
 
 @using Gardener.Common
 @using Gardener.Enums
+using Microsoft.AspNetCore.Components;
 using @(Model.AppName).Common;
 using @(Model.AppName).@(Model.Module).Dto;
 using @(Model.AppName).@(Model.Module).IController;
@@ -19,6 +20,7 @@ public partial class @(Model.ClassName)View : @(Model.Module)BaseTable<@(Model.C
             continue;
         @: private List<SelectItem> _select_@item.NetColumnName = new();
     }
+    [Inject]
     private I@(Model.ClassName)Controller @(Model.ClassNameLower)ClientController { get; set; }
     
     public @(Model.ClassName)View() : base("@(Model.ClassName)")

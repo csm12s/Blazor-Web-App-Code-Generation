@@ -28,4 +28,11 @@ public enum ClientComponentType
     [Description("图片")]
     Image,
 
+    /// <summary>
+    /// wwwroot 之外的图片
+    /// TODO：目前采用图片转Base64，
+    /// 在Dto里面新建一个字段存储Base64，前端用base64呈现，获取方法：ImageHelper.ImageToBase64(imageRemotePath)
+    /// </summary>
+    [Description("远程图片")]
+    RemoteImage,
 }

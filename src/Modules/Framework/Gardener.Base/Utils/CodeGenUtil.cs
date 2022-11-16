@@ -53,16 +53,20 @@ public class CodeGenUtil
         dbDataType = dbDataType.ToLower();
 
         //TODO: 其他数据库 可以参考OpenAuth.Core：_dbExtension.GetDbTableStructure(obj.TableName)
-        if (true)// Sql Server
+
+        if (true)// Sql Server, 文档：https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16
         {
             switch (dbDataType)
             {
                 case "uniqueidentifier":
                     return "guid";
-                case "smallint":
+                case "tinyint"://1字节，从0 到255 之间的所有正整数
+                    return "byte";
+                case "smallint"://-2的15次方（ -32， 768） 到2的15次方-1（ 32 ，767 ）之间的所有正负整数
+                    return "Int16";
                 case "int":
-                    return "int";
-                case "bigint":
+                    return "int"; // Int32
+                case "bigint":// 8字节，-2^63 （-9 ，223， 372， 036， 854， 775， 807） 到2^63-1（ 9， 223， 372， 036 ，854 ，775， 807） 之间的所有正负整数
                     return "long";
                 case "char":
                 case "varchar":
@@ -72,8 +76,6 @@ public class CodeGenUtil
                 case "varbinary":
                 case "image":
                     return "string";
-                case "tinyint":
-                    return "byte";
                 case "bit":
                     return "bool";
                 case "time":
@@ -86,14 +88,16 @@ public class CodeGenUtil
                 case "numeric":
                 case "money":
                     return "decimal";
-                case "float":
-                    return "double";
+                case "float":// 8bit, 可精确到第15 位小数，其范围为从-1.79e -308 到1.79e +308
+                    return NetType._double;
+                case "real":// 4字节，可精确到第7 位小数，其范围为从-3.40e -38 到3.40e +38
+                    return NetType._float; //这里参考https://www.cnblogs.com/kunlunmountain/p/5663357.html
 
-                default:
+                    default:
                     return "string";
             }
 
-            // 这里是参考的OpenAuth.Core, 里面大小写不一
+            // 这里是参考的OpenAuth.Core, 里面大小写不一，项目稳定后可以删除
             //switch (dbDataType)
             //{
             //    case "uniqueidentifier":
@@ -133,4 +137,21 @@ public class CodeGenUtil
             //}
         }
     }
+}
+
+/// <summary>
+/// C# Net data type, TODO
+/// </summary>
+public static class NetType
+{
+    public static string _string = "string";
+
+    // 4字节，单精度，可精确到第7 位小数，其范围为从-3.40e -38 到3.40e +38
+    public static string _float = "float";
+
+    // 8bit, 双精度类型, 可精确到第15 位小数，其范围为从-1.79e -308 到1.79e +308
+    public static string _double = "double";
+
+    // decimal
+    
 }

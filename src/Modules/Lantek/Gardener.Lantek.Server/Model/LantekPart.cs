@@ -76,7 +76,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("PType")]
         [Comment("PType")][Required]
-        public int PType { get; set; }
+        public Int16 PType { get; set; }
         /// <summary>
         /// CstRanges
         /// </summary>
@@ -106,13 +106,13 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("PrcMethod")]
         [Comment("PrcMethod")][Required]
-        public int PrcMethod { get; set; }
+        public Int16 PrcMethod { get; set; }
         /// <summary>
         /// CstMethod
         /// </summary>
-        [Column("CstMethod", TypeName = "smallint")]
+        [Column("CstMethod")]
         [Comment("CstMethod")][Required]
-        public int CstMethod { get; set; }
+        public Int16 CstMethod { get; set; }
         /// <summary>
         /// UCtName
         /// </summary>
@@ -184,7 +184,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("LeadUpdateMethod")]
         [Comment("LeadUpdateMethod")][Required]
-        public int LeadUpdateMethod { get; set; }
+        public Int16 LeadUpdateMethod { get; set; }
         /// <summary>
         /// CommCode
         /// </summary>
@@ -370,7 +370,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_FillerPart")]
         [Comment("DisFillerPart")][Required]
-        public int DisFillerPart { get; set; }
+        public Int16 DisFillerPart { get; set; }
         /// <summary>
         /// DisCanQuote
         /// </summary>
@@ -412,7 +412,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_TypeArea")]
         [Comment("DisTypeArea")][Required]
-        public int DisTypeArea { get; set; }
+        public Int16 DisTypeArea { get; set; }
         /// <summary>
         /// DisExtWeight
         /// </summary>
@@ -490,7 +490,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_DuctDINCode")]
         [Comment("DisDuctDINCode")][Required]
-        public int DisDuctDINCode { get; set; }
+        public Int16 DisDuctDINCode { get; set; }
         /// <summary>
         /// DisDuctDINRef
         /// </summary>
@@ -544,7 +544,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_PrssIndex")]
         [Comment("DisPrssIndex")][Required]
-        public int DisPrssIndex { get; set; }
+        public Int16 DisPrssIndex { get; set; }
         /// <summary>
         /// DisIsRemnant
         /// </summary>
@@ -556,19 +556,19 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_PrcRmntPrice")]
         [Comment("DisPrcRmntPrice")][Required]
-        public string DisPrcRmntPrice { get; set; }
+        public float DisPrcRmntPrice { get; set; }
         /// <summary>
         /// DisPrcScrpPrice
         /// </summary>
         [Column("DIS_PrcScrpPrice")]
         [Comment("DisPrcScrpPrice")][Required]
-        public string DisPrcScrpPrice { get; set; }
+        public float DisPrcScrpPrice { get; set; }
         /// <summary>
         /// DisRPriority
         /// </summary>
         [Column("DIS_RPriority")]
         [Comment("DisRPriority")][Required]
-        public int DisRPriority { get; set; }
+        public Int16 DisRPriority { get; set; }
         /// <summary>
         /// DisIsLocked
         /// </summary>
@@ -706,7 +706,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_PClass")]
         [Comment("DisPClass")][Required]
-        public int DisPClass { get; set; }
+        public Int16 DisPClass { get; set; }
         /// <summary>
         /// DisIsQuote
         /// </summary>
@@ -754,7 +754,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_Checked")]
         [Comment("DisChecked")][Required]
-        public int DisChecked { get; set; }
+        public Int16 DisChecked { get; set; }
         /// <summary>
         /// DisCanSplit
         /// </summary>
@@ -784,7 +784,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_ModelingBy")]
         [Comment("DisModelingBy")][Required]
-        public int DisModelingBy { get; set; }
+        public Int16 DisModelingBy { get; set; }
         /// <summary>
         /// DisModelingByID
         /// </summary>
@@ -802,25 +802,25 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("DIS_SimpleBends")]
         [Comment("DisSimpleBends")][Required]
-        public int DisSimpleBends { get; set; }
+        public Int16 DisSimpleBends { get; set; }
         /// <summary>
         /// DisSpecialBends
         /// </summary>
         [Column("DIS_SpecialBends")]
         [Comment("DisSpecialBends")][Required]
-        public int DisSpecialBends { get; set; }
+        public Int16 DisSpecialBends { get; set; }
         /// <summary>
         /// DisBendingToolChanges
         /// </summary>
         [Column("DIS_BendingToolChanges")]
         [Comment("DisBendingToolChanges")][Required]
-        public int DisBendingToolChanges { get; set; }
+        public Int16 DisBendingToolChanges { get; set; }
         /// <summary>
         /// DisBendingRotations
         /// </summary>
         [Column("DIS_BendingRotations")]
         [Comment("DisBendingRotations")][Required]
-        public int DisBendingRotations { get; set; }
+        public Int16 DisBendingRotations { get; set; }
         /// <summary>
         /// DisRouteAbbreviation
         /// </summary>
@@ -838,7 +838,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
         /// </summary>
         [Column("RecState")]
         [Comment("RecState")][Required]
-        public int RecState { get; set; }
+        public Int16 RecState { get; set; }
         /// <summary>
         /// CrtDate
         /// </summary>
@@ -902,7 +902,9 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
 
     public void Configure(EntityTypeBuilder<LantekPart> entityBuilder, DbContext dbContext, Type dbContextLocator)
     {
+        //entityBuilder.HasNoKey();
         entityBuilder.HasKey(c => c.RecID);
     }
     #endregion
+
 }

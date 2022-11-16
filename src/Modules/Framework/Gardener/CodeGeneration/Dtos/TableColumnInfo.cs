@@ -9,9 +9,13 @@ public class TableColumnInfo
 {
     #region EF
     /// <summary>
-    /// nvarchar: System.String
+    /// System.String
     /// </summary>
     public string SysDataType { get; set; } = "";
+    /// <summary>
+    /// C# type
+    /// </summary>
+    public string NetType { get; set; }
 
     /// <summary>
     /// DB raw data type: nvarchar

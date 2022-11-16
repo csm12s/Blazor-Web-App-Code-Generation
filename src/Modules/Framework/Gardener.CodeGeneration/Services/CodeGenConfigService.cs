@@ -67,12 +67,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
             // Data type
             codeGenConfig.DataType = column.DataType;
-            //EF, TODO: 如果EF可以获取所有数据库表，这里可以使用EF, column.SysDataType已经是EF通过Model获取到的NetType
-            //codeGenConfig.NetType = CodeGenUtil.GetNetTypeBySystemType(column.SysDataType);
-            codeGenConfig.NetType = CodeGenUtil.GetNetTypeByDBType(column.DbDataType);
-            
-            //Sugar
-            //codeGenConfig.NetType = GetNetType(column);
+            codeGenConfig.NetType = column.NetType;
             codeGenConfig.ColumnKey = column.ColumnKey;
             codeGenConfig.DbDataTypeText = column.DbDataTypeText;
             

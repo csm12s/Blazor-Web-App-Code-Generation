@@ -12,11 +12,9 @@ public partial class CodeGenSearchDto
     /// api select
     /// </summary>
     [CustomSearchField]
-    [DisabledSearchField]
     public IEnumerable<string> TableName { get; set; }
 
     [CustomSearchField]
-    [DisabledSearchField]
     public string ClassName { get; set; }
     #endregion
 

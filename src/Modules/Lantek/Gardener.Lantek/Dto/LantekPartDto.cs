@@ -56,7 +56,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// PType
          /// </summary>
         [Required]
-         public int PType { get; set; }
+         public Int16 PType { get; set; }
          /// <summary>
          /// CstRanges
          /// </summary>
@@ -81,12 +81,12 @@ public partial class LantekPartDto : LantekBaseDto
          /// PrcMethod
          /// </summary>
         [Required]
-         public int PrcMethod { get; set; }
+         public Int16 PrcMethod { get; set; }
          /// <summary>
          /// CstMethod
          /// </summary>
         [Required]
-         public int CstMethod { get; set; }
+         public Int16 CstMethod { get; set; }
          /// <summary>
          /// UCtName
          /// </summary>
@@ -122,10 +122,12 @@ public partial class LantekPartDto : LantekBaseDto
          /// </summary>
         [Required]
          public string Image { get; set; }
-         /// <summary>
-         /// Weight
-         /// </summary>
-        [Required]
+
+    public string Image_Data { get; set; }
+    /// <summary>
+    /// Weight
+    /// </summary>
+    [Required]
          public double Weight { get; set; }
          /// <summary>
          /// LeadTime
@@ -146,7 +148,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// LeadUpdateMethod
          /// </summary>
         [Required]
-         public int LeadUpdateMethod { get; set; }
+         public Int16 LeadUpdateMethod { get; set; }
          /// <summary>
          /// CommCode
          /// </summary>
@@ -301,7 +303,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisFillerPart
          /// </summary>
         [Required]
-         public int DisFillerPart { get; set; }
+         public Int16 DisFillerPart { get; set; }
          /// <summary>
          /// DisCanQuote
          /// </summary>
@@ -336,7 +338,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisTypeArea
          /// </summary>
         [Required]
-         public int DisTypeArea { get; set; }
+         public Int16 DisTypeArea { get; set; }
          /// <summary>
          /// DisExtWeight
          /// </summary>
@@ -401,7 +403,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisDuctDINCode
          /// </summary>
         [Required]
-         public int DisDuctDINCode { get; set; }
+         public Int16 DisDuctDINCode { get; set; }
          /// <summary>
          /// DisDuctDINRef
          /// </summary>
@@ -446,7 +448,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisPrssIndex
          /// </summary>
         [Required]
-         public int DisPrssIndex { get; set; }
+         public Int16 DisPrssIndex { get; set; }
          /// <summary>
          /// DisIsRemnant
          /// </summary>
@@ -456,17 +458,17 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisPrcRmntPrice
          /// </summary>
         [Required]
-         public string DisPrcRmntPrice { get; set; }
+         public float DisPrcRmntPrice { get; set; }
          /// <summary>
          /// DisPrcScrpPrice
          /// </summary>
         [Required]
-         public string DisPrcScrpPrice { get; set; }
+         public float DisPrcScrpPrice { get; set; }
          /// <summary>
          /// DisRPriority
          /// </summary>
         [Required]
-         public int DisRPriority { get; set; }
+         public Int16 DisRPriority { get; set; }
          /// <summary>
          /// DisIsLocked
          /// </summary>
@@ -581,7 +583,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisPClass
          /// </summary>
         [Required]
-         public int DisPClass { get; set; }
+         public Int16 DisPClass { get; set; }
          /// <summary>
          /// DisIsQuote
          /// </summary>
@@ -621,7 +623,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisChecked
          /// </summary>
         [Required]
-         public int DisChecked { get; set; }
+         public Int16 DisChecked { get; set; }
          /// <summary>
          /// DisCanSplit
          /// </summary>
@@ -646,7 +648,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisModelingBy
          /// </summary>
         [Required]
-         public int DisModelingBy { get; set; }
+         public Int16 DisModelingBy { get; set; }
          /// <summary>
          /// DisModelingByID
          /// </summary>
@@ -661,22 +663,22 @@ public partial class LantekPartDto : LantekBaseDto
          /// DisSimpleBends
          /// </summary>
         [Required]
-         public int DisSimpleBends { get; set; }
+         public Int16 DisSimpleBends { get; set; }
          /// <summary>
          /// DisSpecialBends
          /// </summary>
         [Required]
-         public int DisSpecialBends { get; set; }
+         public Int16 DisSpecialBends { get; set; }
          /// <summary>
          /// DisBendingToolChanges
          /// </summary>
         [Required]
-         public int DisBendingToolChanges { get; set; }
+         public Int16 DisBendingToolChanges { get; set; }
          /// <summary>
          /// DisBendingRotations
          /// </summary>
         [Required]
-         public int DisBendingRotations { get; set; }
+         public Int16 DisBendingRotations { get; set; }
          /// <summary>
          /// DisRouteAbbreviation
          /// </summary>
@@ -691,7 +693,7 @@ public partial class LantekPartDto : LantekBaseDto
          /// RecState
          /// </summary>
         [Required]
-         public int RecState { get; set; }
+         public Int16 RecState { get; set; }
          /// <summary>
          /// CrtDate
          /// </summary>

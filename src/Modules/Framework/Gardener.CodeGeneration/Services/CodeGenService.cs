@@ -201,6 +201,13 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             column.SysDataType = column.PropertyType?.ToString();
             column.DbDataType = column.DataType;
 
+            // Net type
+            //EF, TODO: 如果EF可以获取所有数据库表，这里可以使用EF, column.SysDataType已经是EF通过Model获取到的NetType
+            //codeGenConfig.NetType = CodeGenUtil.GetNetTypeBySystemType(column.SysDataType);
+            column.NetType = CodeGenUtil.GetNetTypeByDBType(column.DbDataType);
+            //Sugar
+            //codeGenConfig.NetType = GetNetType(column);
+
             // DbDataTypeText
             if (column.DbDataType.Contains("varchar"))
             {

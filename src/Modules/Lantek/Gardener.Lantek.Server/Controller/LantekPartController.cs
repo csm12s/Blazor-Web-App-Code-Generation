@@ -1,8 +1,11 @@
 ﻿
+using Gardener.Base;
+using Gardener.Common;
 using Gardener.Lantek.Dto;
 using Gardener.Lantek.IController;
 using Gardener.Lantek.Server.Model;
 using Gardener.Lantek.Server.Service;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Gardener.Lantek.Server.Controller;
 
@@ -20,4 +23,19 @@ public class LantekPartController : LantekBaseController<LantekPart, LantekPartD
     }
     #endregion
 
+    #region Search
+    [HttpPost]
+    public override async Task<Base.PagedList<LantekPartDto>> Search(PageRequest request)
+    {
+        var list = await _baseService.GetListAsync(request);
+        var listDto = list.MapTo<LantekPartDto>();
+
+        foreach (var item in listDto)
+        {
+            item.Image_Data = ImageHelper.ImageToBase64(item.Image);
+        }
+
+        return listDto.ToPageList(request);
+    }
+    #endregion
 }

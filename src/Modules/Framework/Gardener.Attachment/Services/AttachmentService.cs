@@ -16,6 +16,7 @@ using Gardener.Enums;
 using Gardener.Attachment.Dtos;
 using Gardener.FileStore;
 using Gardener.Attachment.Core;
+using Gardener.Common;
 
 namespace Gardener.Attachment.Services
 {
@@ -124,6 +125,13 @@ namespace Gardener.Attachment.Services
                 if (!await Delete(id)) { return false; }
             }
             return true;
+        }
+
+        [HttpPost]
+        public Task<string> GetRemoteImage([FromBody] string remoteFilePath)
+        {
+            var image64 = ImageHelper.ImageToBase64(remoteFilePath);
+            return Task.FromResult(image64);
         }
     }
 }

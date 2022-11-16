@@ -31,12 +31,4 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBui
     }
 	#endregion
 
-    @*No primary key*@
-    @:public void Configure(EntityTypeBuilder<@(Model.ClassName)> entityBuilder, DbContext dbContext, Type dbContextLocator)
-    @:{
-    @if (Model.CodeGen.PrimaryKeyName != "Id")
-    { 
-    @:    entityBuilder.HasKey(c => c.@(Model.CodeGen.PrimaryKeyName));
-    }
-    @:}
 }

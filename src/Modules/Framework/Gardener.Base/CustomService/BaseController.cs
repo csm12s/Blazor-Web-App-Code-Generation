@@ -32,7 +32,9 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     }
     #endregion
 
-    #region Base Controllers
+    #region CRUD
+
+    #region Insert
     /// <summary>
     /// 添加
     /// </summary>
@@ -62,6 +64,9 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         return newEntity.Adapt<TEntityDto>();
     }
 
+    #endregion
+
+    #region Update
     /// <summary>
     /// 更新
     /// </summary>
@@ -80,6 +85,10 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         await EntityEventNotityUtil.NotifyUpdateAsync(input.Adapt<TEntity>());
         return true;
     }
+
+    #endregion
+
+    #region Delete
 
     /// <summary>
     /// 删除
@@ -154,15 +163,20 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         await EntityEventNotityUtil.NotifyFakeDeletesAsync<TEntity, TKey>(ids);
         return true;
     }
+    #endregion
 
-    /// <summary>
-    /// 根据主键获取
-    /// </summary>
-    /// <remarks>
-    /// 根据主键查找一条数据
-    /// </remarks>
-    /// <param name="id"></param>
-    /// <returns></returns>
+    #region Search
+    [HttpPost]
+    public virtual async Task<Base.PagedList<TEntityDto>> Search(PageRequest request)
+    {
+        var list = await _baseService.GetListAsync(request);
+        var listDto = list.MapTo<TEntityDto>();
+
+        return listDto.ToPageList(request);
+    }
+    #endregion
+
+    #region Get
     [HttpGet]
     public virtual async Task<TEntityDto> Get(TKey id)
     {
@@ -170,13 +184,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         return person.Adapt<TEntityDto>();
     }
 
-    /// <summary>
-    /// 查询所有
-    /// </summary>
-    /// <remarks>
-    /// 查找到所有数据
-    /// </remarks>
-    /// <returns></returns>
+
     [HttpGet]
     public virtual async Task<List<TEntityDto>> GetAll()
     {
@@ -184,13 +192,6 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         return list.MapTo<TEntityDto>();
     }
 
-    /// <summary>
-    /// 查询所有可以用的
-    /// </summary>
-    /// <remarks>
-    /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
-    /// </remarks>
-    /// <returns></returns>
     [HttpGet]
     public virtual async Task<List<TEntityDto>> GetAllUsable()
     {
@@ -212,31 +213,15 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         return await persons.ToListAsync();
     }
 
-    /// <summary>
-    /// 分页查询
-    /// </summary>
-    /// <remarks>
-    /// 根据分页参数，分页获取数据
-    /// </remarks>
-    /// <param name="pageIndex"></param>
-    /// <param name="pageSize"></param>
-    /// <returns></returns>
     [HttpGet]
     public virtual async Task<Base.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
     {
         var request = new PageRequest() { PageIndex = pageIndex, PageSize = pageSize };
         return await this.Search(request);
     }
+    #endregion
 
-    /// <summary>
-    /// 锁定
-    /// </summary>
-    /// <remarks>
-    /// 根据主键锁定或解锁数据（必须有IsLock才能生效）
-    /// </remarks>
-    /// <param name="id"></param>
-    /// <param name="isLocked"></param>
-    /// <returns></returns>
+    #region Lock
     [HttpPost]
     public virtual async Task<bool> Lock(TKey id, bool isLocked = true)
     {
@@ -250,32 +235,10 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         }
         return false;
     }
+    #endregion
 
-    /// <summary>
-    /// 搜索
-    /// </summary>
-    /// <remarks>
-    /// 搜索数据
-    /// </remarks>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [HttpPost]
-    public virtual async Task<Base.PagedList<TEntityDto>> Search(PageRequest request)
-    {
-        var list = await _baseService.GetListAsync(request);
-        var listDto = list.MapTo<TEntityDto>();
 
-        return listDto.ToPageList(request);
-    }
-
-    /// <summary>
-    /// 生成种子数据
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    /// <remarks>
-    /// 根据搜索条叫生成种子数据
-    /// </remarks>
+    #region Seed
     [HttpPost]
     public virtual async Task<string> GenerateSeedData(PageRequest request)
     {
@@ -284,16 +247,9 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
 
         return SeedDataGenerateTool.Generate(pagedList.Items, typeof(TEntity).Name);
     }
+    #endregion
 
-
-    /// <summary>
-    /// 导出
-    /// </summary>
-    /// <remarks>
-    /// 导出数据
-    /// </remarks>
-    /// <param name="request"></param>
-    /// <returns></returns>
+    #region TODO: Import, Export Data
     [HttpPost]
     public virtual async Task<string> Export(PageRequest request)
     {
@@ -308,5 +264,6 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
 
         return await fileService.Save(memoryStream, "export/" + fileName);
     }
+    #endregion
     #endregion
 }

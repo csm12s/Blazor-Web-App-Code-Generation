@@ -97,7 +97,7 @@ namespace Gardener.Client.Base.Components
                 { 
                     continue ;
                 }
-                if (fieldType.IsArray || fieldType.IsEnumerable() || property.HasAttribute<DisabledSearchFieldAttribute>())
+                if (fieldType.IsArray || fieldType.IsEnumerable() || property.HasAttribute<DisabledSearchFieldAttribute>() || property.HasAttribute<CustomSearchFieldAttribute>())
                 {
                     continue;
                 }

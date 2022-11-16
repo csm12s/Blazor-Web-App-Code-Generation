@@ -20,7 +20,6 @@ public partial class @(Model.ClassName)SearchDto
             @if (item.IsCustomSearch)
             {
                 @: [CustomSearchField]
-                @: [DisabledSearchField]
                 @if (item.CustomSearchType == Gardener.Enums.ClientComponentType.MultiSelect)
                 { 
                     @: public IEnumerable<@Raw(item.NetType)> @item.NetColumnName { get; set; }
