@@ -33,9 +33,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Settings\exceptionmessagesettings.json" />
-    <Resource Include="Settings\imageverifycodesettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Settings\jwtsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
