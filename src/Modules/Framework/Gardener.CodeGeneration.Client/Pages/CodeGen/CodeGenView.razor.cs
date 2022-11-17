@@ -31,21 +31,8 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
 
     private async Task OnClickConfigure(int id)
     {
-        //await OpenOperationDialogAsync
-        //    <CodeGenConfigure, int, bool>
-        //    (localizer["Configure"], id, async result =>
-        //{
-        //    await ReLoadTable();
-        //}, new OperationDialogSettings()
-        //{
-        //    DialogType = OperationDialogType.Drawer,
-        //    Width = ClientConstant.PageOperationDialogWidth
-        //});
-
-
-        // TODO1: 原来的 CodeGenConfigView 加了很多列之后布局有问题
-        // TODO2: 在View页面（User、Role等）设置列宽，列固定到左右端，Table水平、垂直滚动条之后布局出错，
-        // 真正做项目的时候这几项还是要用的
+        // TODO: 在View页面（User、Role等）设置列宽，列固定到左右端，Table水平、垂直滚动条之后布局出错
+        // ，有可能是我不熟悉设置有误，建议丰富一下前端组件
 
         await OpenOperationDialogAsync
             <CodeGenConfigView, int, bool>

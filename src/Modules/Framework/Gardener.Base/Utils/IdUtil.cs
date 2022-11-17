@@ -13,21 +13,13 @@ public class IdUtil
     /// <summary>
     /// 雪花ID
     /// </summary>
+    /// <param name="generatorId"></param>
     /// <returns></returns>
-    public static long GetNextId()
+    public static long GetNextId(int generatorId = 0)
     {
         var generator = new IdGenerator(0);
         var id = generator.CreateId();
         return id;
-    }
-
-    /// <summary>
-    /// 雪花ID String
-    /// </summary>
-    /// <returns></returns>
-    public static string GetNextIdStr()
-    {
-        return GetNextId().ToString();
     }
 
 }
