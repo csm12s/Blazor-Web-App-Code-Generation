@@ -477,14 +477,14 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         // Dto
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
-            TemplatePath = Path.Combine(templatePath, "ModelDto.cs.razor"),
+            TemplatePath = Path.Combine(templatePath, "EntityDto.cs.razor"),
             GenPath = Path.Combine(baseModulePath, "Dto", genTable.ClassName + "Dto.cs")
         });
 
         // SearchDto
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
-            TemplatePath = Path.Combine(templatePath, "ModelSearchDto.cs.razor"),
+            TemplatePath = Path.Combine(templatePath, "EntitySearchDto.cs.razor"),
             GenPath = Path.Combine(baseModulePath, "Dto", genTable.ClassName + "SearchDto.cs")
         });
 
