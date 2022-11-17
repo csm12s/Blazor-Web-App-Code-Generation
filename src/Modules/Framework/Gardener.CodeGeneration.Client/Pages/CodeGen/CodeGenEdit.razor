@@ -74,6 +74,15 @@
         <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
     </FormItem>
 
+    <FormItem Label=@localizer["HasAdd"]>
+        <Switch @bind-Value="@model.HasAdd"></Switch>
+    </FormItem>
+    <FormItem Label=@localizer["HasEdit"]>
+        <Switch @bind-Value="@model.HasEdit"></Switch>
+    </FormItem>
+    <FormItem Label=@localizer["HasDelete"]>
+        <Switch @bind-Value="@model.HasDelete"></Switch>
+    </FormItem>
      <FormItem Label=@localizer["HasBatchDelete"]>
         <Switch @bind-Value="@model.HasBatchDelete"></Switch>
     </FormItem>

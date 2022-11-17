@@ -135,6 +135,7 @@ public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenC
 
     public bool IsCreate { get; set; } = true;
 
+    //TODO: IsRequired
     public bool IsCreateRequired { get; set; } = false;
     /// <summary>
     /// 改

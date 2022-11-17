@@ -1,4 +1,4 @@
-﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+﻿@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>
 
 using @(Model.AppName).@(Model.Module).Dto;
 using @(Model.AppName).@(Model.Module).IController;
@@ -21,4 +21,23 @@ public class @(Model.ClassName)Controller : @(Model.Module)BaseController<@(Mode
     }
     #endregion
 
+    @if (Model.CodeGenConfigs
+        .Where(c => c.CustomSearchType == Gardener.Enums.ClientComponentType.RemoteImage)
+        .ToList().Any())
+    { 
+    #region Search
+    [HttpPost]
+    public override async Task<Base.PagedList<@(Model.ClassName)Dto>> Search(PageRequest request)
+    {
+        var list = await _baseService.GetListAsync(request);
+        var listDto = list.MapTo<@(Model.ClassName)Dto>();
+
+        foreach (var item in listDto)
+        {
+        }
+
+        return listDto.ToPageList(request);
+    }
+    #endregion
+    }
 }

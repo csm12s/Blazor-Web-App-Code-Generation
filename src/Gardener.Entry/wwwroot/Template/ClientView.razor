@@ -97,6 +97,8 @@
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
+                        @if(Model.CodeGen.HasAdd)
+                        {
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Add)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
@@ -104,6 +106,7 @@
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
+                        }
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Search)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
@@ -140,6 +143,8 @@
                     break;
                     case ClientComponentType.Switch:
                     <Column @@bind-Field="@@model.@item.NetColumnName" Filterable>
+                        @if(Model.CodeGen.HasEdit)
+                        {
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
                             <Authorized>
                                 <Switch @@bind-Value="@@model.@item.NetColumnName"></Switch>
@@ -148,6 +153,10 @@
                                 <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
                             </NotAuthorized>
                         </ResourceAuthorize>
+                        }else
+                        {
+                        <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
+                        }
                     </Column>
                     break;
                     case ClientComponentType.Image:
@@ -169,6 +178,8 @@
             @@*Action Column*@@
             <ActionColumn Title=@@localizer["Action"] Fixed="right">
                 <Space>
+                    @if(Model.CodeGen.HasEdit)
+                    {
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickEdit(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
@@ -176,6 +187,7 @@
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
+                    }
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Search)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickDetail(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
@@ -183,6 +195,8 @@
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
+                    @if(Model.CodeGen.HasDelete)
+                    {
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Delete)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickDelete(model.@(Model.CodeGen.PrimaryKeyName))"  Danger Type="@@ButtonType.Link">
@@ -190,6 +204,7 @@
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>
+                    }
                 </Space>
             </ActionColumn>
         </RowTemplate>
