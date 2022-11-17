@@ -438,6 +438,14 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             nameModel.HasCustomSearch = true;
         }
 
+        // HasRemoteImage
+        if (codeGenConfigDtos
+            .Where(c => c.ClientComponentType == ClientComponentType.RemoteImage)
+            .ToList().Any())
+        {
+            nameModel.HasRemoteImage = true;
+        }
+
         // Menu
         List<ResourceDto> menus = new();
         menus.Add(new ResourceDto()

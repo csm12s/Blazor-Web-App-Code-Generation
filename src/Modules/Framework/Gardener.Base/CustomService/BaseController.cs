@@ -15,12 +15,14 @@ using Furion.DatabaseAccessor;
 using Furion;
 using MiniExcelLibs;
 using Furion.DependencyInjection;
+using System.Linq.Dynamic.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gardener;
 
 public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     IBaseController<TEntityDto, TKey>, ITransient
-    where TEntity : class, new()
+    where TEntity : class, IPrivateEntity, new()
     where TEntityDto : class, new()
 {
     #region Init
@@ -80,7 +82,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     {
         input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
         var res = await _baseService
-            .UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreatorId), nameof(GardenerEntityBase.CreatorIdentityType) });
+            .UpdateExcludeAsync(input.Adapt<TEntity>());
         //发送通知
         await EntityEventNotityUtil.NotifyUpdateAsync(input.Adapt<TEntity>());
         return true;
@@ -207,10 +209,14 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
             where.Append($"and {nameof(GardenerEntityBase.IsLocked)}==false ");
         }
 
-        var persons = _baseService.GetSugarContext()
-           .Queryable<TEntity>()
-           .Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
+        var persons = _baseService.GetReadableRepository()
+            .AsQueryable().Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
         return await persons.ToListAsync();
+
+        //var persons = _baseService.GetSugarContext()
+        //   .Queryable<TEntity>()
+        //   .Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
+        //return await persons.ToListAsync();
     }
 
     [HttpGet]

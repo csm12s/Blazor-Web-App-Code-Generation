@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace Gardener.Base;
 
-public interface IBaseService<TEntity> where TEntity : class, new()
+public interface IBaseService<TEntity>
+    where TEntity : class, IPrivateEntity, new()
 {
     #region ORM
     SqlSugarScope GetSugarContext();
     DbContext GetEFContext();
+    IPrivateReadableRepository<TEntity> GetReadableRepository();
     #endregion
 
     #region CRUD
@@ -62,7 +64,7 @@ public interface IBaseService<TEntity> where TEntity : class, new()
     Task<bool> UpdateAsync(List<TEntity> list, bool ignoreNullColumn = true);
 
     bool UpdateExclude(TEntity item, string[] ignoreColumns, bool ignoreNullColumn = true);
-    Task<bool> UpdateExcludeAsync(TEntity item, string[] ignoreColumns, bool ignoreNullColumn = true);
+    Task<bool> UpdateExcludeAsync(TEntity item, string[] ignoreColumns = null, bool ignoreNullColumn = true);
     bool UpdateInclude(TEntity item, string[] updateColumns, bool ignoreNullColumn = true);
     Task<bool> UpdateIncludeAsync(TEntity item, string[] updateColumns, bool ignoreNullColumn = true);
 

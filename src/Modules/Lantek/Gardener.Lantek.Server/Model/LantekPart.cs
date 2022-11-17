@@ -902,8 +902,7 @@ public partial class LantekPart : LantekBaseModel, IEntityTypeBuilder<LantekPart
 
     public void Configure(EntityTypeBuilder<LantekPart> entityBuilder, DbContext dbContext, Type dbContextLocator)
     {
-        //entityBuilder.HasNoKey();
-        entityBuilder.HasKey(c => c.RecID);
+        entityBuilder.HasKey("RecID");
     }
     #endregion
 

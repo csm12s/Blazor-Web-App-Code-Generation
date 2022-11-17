@@ -47,7 +47,16 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int>
     {
         _saveAllBtnLoading = true;
 
-        await codeGenConfigClientService.SaveAll(_datas.ToList());
+        // TODO: 这里_datas是单页的数据，有没有选项设成所有数据
+        var success = await codeGenConfigClientService.SaveAll(_datas.ToList());
+        if (success)
+        {
+            await messageService.Success("保存成功");
+        }
+        else
+        { 
+            await messageService.Error("保存失败");
+        }
 
         _saveAllBtnLoading = false;
     }
@@ -56,8 +65,17 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int>
     {
         _saveAllBtnLoading = true;
 
-        await codeGenConfigClientService.SaveAll(_datas.ToList());
-        await base.FeedbackRef.CloseAsync(true);
+        var success = await codeGenConfigClientService.SaveAll(_datas.ToList());
+        if (success)
+        {
+            await messageService.Success("保存成功");
+            await base.FeedbackRef.CloseAsync(true);
+        }
+        else
+        { 
+            await messageService.Error("保存失败");
+        }
+
 
         _saveAllBtnLoading = false;
     }

@@ -79,9 +79,9 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             
             codeGenConfig.IsSearch = false;
             //codeGenConfig.SearchType = "==";
-            codeGenConfig.IsView = true;
-            codeGenConfig.IsCreate = true;
-            codeGenConfig.IsEdit = true;
+            codeGenConfig.IsView = false;
+            codeGenConfig.IsCreate = false;
+            codeGenConfig.IsEdit = false;
             codeGenConfig.IsBatchEdit = false;
 
             // client component type

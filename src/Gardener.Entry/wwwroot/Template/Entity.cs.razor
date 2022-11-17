@@ -31,4 +31,9 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBui
     }
 	#endregion
 
+    @*TODO: 这里生成报错*@
+    @*@: public void Configure(EntityTypeBuilder<@(Model.ClassName)> entityBuilder, DbContext dbContext, Type dbContextLocator)
+    @: {
+    @:     entityBuilder.HasKey("@(Model.CodeGen.PrimaryKeyName)");
+    @: }*@
 }

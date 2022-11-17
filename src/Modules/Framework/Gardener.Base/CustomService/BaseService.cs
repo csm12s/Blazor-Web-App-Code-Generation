@@ -29,6 +29,7 @@ public abstract class BaseService
     {
         nameof(GardenerEntityBase.CreatedTime),
         nameof(GardenerEntityBase.CreatorId),
+        nameof(GardenerEntityBase.CreatorIdentityType),
     };
 
     /// <summary>
@@ -62,6 +63,12 @@ public abstract class BaseService
     {
         return _repository.Context;
     }
+    public IPrivateReadableRepository<TEntity> GetReadableRepository()
+    {
+        return _repository;
+    }
+
+
     public SqlSugarScope GetSugarContext()
     {
         return _sugarRepository.Context;
@@ -259,11 +266,13 @@ public abstract class BaseService
 
     public virtual bool DeleteById(dynamic id)
     {
-        return _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommand() > 0;
+        return _repository.Delete(id);
+        //return _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommand() > 0;
     }
     public virtual async Task<bool> DeleteByIdAsync(dynamic id)
     {
-        return await _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommandAsync() > 0;
+        return await _repository.DeleteAsync(id);
+        //return await _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommandAsync() > 0;
     }
 
     public virtual bool DeleteByIds(dynamic[] ids)
@@ -323,9 +332,12 @@ public abstract class BaseService
 
     public virtual async Task<TEntity> InsertReturnEntityAsync(TEntity entity)
     {
-        return await _sugarRepository.Context.Insertable(entity)
-            .IgnoreColumns(ignoreNullColumn: true)
-            .ExecuteReturnEntityAsync();
+        var entry = await _repository.InsertAsync(entity);
+        return entry.Entity;
+
+        //return await _sugarRepository.Context.Insertable(entity)
+        //    .IgnoreColumns(ignoreNullColumn: true)
+        //    .ExecuteReturnEntityAsync();
     }
 
     public async Task<bool> InsertAsync(TEntity insertObj, bool ignoreNullColumn = true)
@@ -472,11 +484,19 @@ public abstract class BaseService
 
     public async Task<bool> UpdateExcludeAsync(TEntity item, string[] ignoreColumns, bool ignoreNullColumn = true)
     {
-        return await _sugarRepository.Context.Updateable(item)
-            .IgnoreColumns(ignoreColumns)
-            .IgnoreColumns(UpdateIgnoreColumns)
-            .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
-            .ExecuteCommandHasChangeAsync();
+        if (ignoreColumns == null || ignoreColumns.Length == 0)
+        {
+            ignoreColumns = UpdateIgnoreColumns;
+        }
+
+        var entry = await _repository.UpdateExcludeAsync(item, ignoreColumns, ignoreNullColumn);
+        return true;
+
+        //return await _sugarRepository.Context.Updateable(item)
+        //    .IgnoreColumns(ignoreColumns)
+        //    .IgnoreColumns(UpdateIgnoreColumns)
+        //    .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
+        //    .ExecuteCommandHasChangeAsync();
     }
 
     public bool UpdateInclude(TEntity item, string[] updateColumns, bool ignoreNullColumn = true)
@@ -490,13 +510,17 @@ public abstract class BaseService
 
     public async Task<bool> UpdateIncludeAsync(TEntity item, string[] updateColumns, bool ignoreNullColumn = true)
     {
-        var res = await _sugarRepository.Context.Updateable(item)
-            .UpdateColumns(updateColumns)
-            .IgnoreColumns(UpdateIgnoreColumns)
-            .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
-            .ExecuteCommandHasChangeAsync();
+        var entry = await _repository
+            .UpdateIncludeAsync(item, updateColumns, ignoreNullColumn);
+        return true;
 
-        return res;
+        //var res = await _sugarRepository.Context.Updateable(item)
+        //    .UpdateColumns(updateColumns)
+        //    .IgnoreColumns(UpdateIgnoreColumns)
+        //    .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
+        //    .ExecuteCommandHasChangeAsync();
+
+        //return res;
     }
 
 

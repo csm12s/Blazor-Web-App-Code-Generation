@@ -21,6 +21,7 @@ public class CodeGenNameModel
     public CodeGenDto CodeGen { get; set; }
     public List<CodeGenConfigDto> CodeGenConfigs { get; set; }
     public bool HasCustomSearch { get; set; } = false;
+    public bool HasRemoteImage { get; set; } = false;
     public List<ResourceDto> Menus { get; set; }
     public List<CodeGenLocaleItem> LocaleItems { get; set; } = new List<CodeGenLocaleItem>();
 }

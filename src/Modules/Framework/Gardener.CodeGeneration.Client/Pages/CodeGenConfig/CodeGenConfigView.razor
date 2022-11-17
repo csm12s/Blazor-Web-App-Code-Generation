@@ -10,17 +10,16 @@
        @bind-PageSize="_pageSize"
        @bind-SelectedRows="_selectedRows"
        Loading="@_tableIsLoading"
-       Context="model"
-       RemoteDataSource>
+       Context="model">
     <TitleTemplate>
         <TableSearch TDto="CodeGenConfigSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
         <Row>
             <AntDesign.Col Span="8">
-                <Button Type="@ButtonType.Primary" OnClick="OnClickSaveAll" Loading="_saveAllBtnLoading">
-                    @localizer["OnlySave"]
-                </Button>
                 <Button Type="@ButtonType.Primary" Danger OnClick="OnClickSaveAllAndClose" Loading="_saveAllBtnLoading">
                     @localizer["SaveAndClose"]
+                </Button>
+                <Button Type="@ButtonType.Primary" OnClick="OnClickSaveAll" Loading="_saveAllBtnLoading">
+                    @localizer["OnlySave"]
                 </Button>
             </AntDesign.Col>
             <AntDesign.Col Span="16" Style="text-align:right">
@@ -44,39 +43,6 @@
         <Column @bind-Field="@model.NetType" Width="100" Filterable />
         <Column @bind-Field="@model.DbDataType" Width="100" Filterable />
 
-        <Column @bind-Field="@model.ClientComponentType" Width="100" >
-            <Select Mode="single"
-                    @bind-Value="@model.ClientComponentType"
-                    TItem="ClientComponentType"
-                    TItemValue="ClientComponentType"
-                    EnableSearch
-                    AllowClear>
-                <SelectOptions>
-                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
-                    {
-                        <SelectOption Value="@item.Key" Label="@item.Value"  TItemValue="ClientComponentType" TItem="ClientComponentType"/>
-                    }
-                </SelectOptions>
-            </Select>
-        </Column>
-
-        <Column @bind-Field="@model.CustomSearchType" Width="100" >
-            <Select Mode="single"
-                    @bind-Value="@model.CustomSearchType"
-                    TItem="ClientComponentType"
-                    TItemValue="ClientComponentType"
-                    EnableSearch
-                    AllowClear>
-                <SelectOptions>
-                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
-                    {
-                        <SelectOption Value="@item.Key" Label="@item.Value" TItemValue="ClientComponentType" TItem="ClientComponentType" />
-                    }
-                </SelectOptions>
-            </Select>
-        </Column>
-
-        @*Switch*@
         <Column @bind-Field="@model.IsView" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
@@ -120,6 +86,21 @@
                 <Switch @bind-Checked="model.IsEdit"></Switch>
             </ChildContent>
         </Column>
+        <Column @bind-Field="@model.ClientComponentType" Width="100" >
+            <Select Mode="single"
+                    @bind-Value="@model.ClientComponentType"
+                    TItem="ClientComponentType"
+                    TItemValue="ClientComponentType"
+                    EnableSearch
+                    AllowClear>
+                <SelectOptions>
+                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
+                    {
+                        <SelectOption Value="@item.Key" Label="@item.Value"  TItemValue="ClientComponentType" TItem="ClientComponentType"/>
+                    }
+                </SelectOptions>
+            </Select>
+        </Column>
         @*TODO: IsBatchEdit*@
         <Column @bind-Field="@model.IsSearch" Width="100" Filterable>
             <TitleTemplate>
@@ -162,6 +143,21 @@
             <ChildContent>
                 <Switch @bind-Checked="model.IsCustomSearch"></Switch>
             </ChildContent>
+        </Column>
+        <Column @bind-Field="@model.CustomSearchType" Width="100" >
+            <Select Mode="single"
+                    @bind-Value="@model.CustomSearchType"
+                    TItem="ClientComponentType"
+                    TItemValue="ClientComponentType"
+                    EnableSearch
+                    AllowClear>
+                <SelectOptions>
+                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
+                    {
+                        <SelectOption Value="@item.Key" Label="@item.Value" TItemValue="ClientComponentType" TItem="ClientComponentType" />
+                    }
+                </SelectOptions>
+            </Select>
         </Column>
 
         <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable>

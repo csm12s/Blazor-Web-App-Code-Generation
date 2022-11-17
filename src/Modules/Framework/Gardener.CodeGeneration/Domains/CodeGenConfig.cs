@@ -127,20 +127,20 @@ public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenC
     /// <summary>
     /// 列表显示
     /// </summary>
-    public bool IsView { get; set; } = true;
+    public bool IsView { get; set; } = false;
 
     /// <summary>
     /// Create
     /// </summary>
 
-    public bool IsCreate { get; set; } = true;
+    public bool IsCreate { get; set; } = false;
 
     //TODO: IsRequired
     public bool IsCreateRequired { get; set; } = false;
     /// <summary>
     /// 改
     /// </summary>
-    public bool IsEdit { get; set; } = true;
+    public bool IsEdit { get; set; } = false;
 
     public bool IsBatchEdit { get; set; } = false;
 

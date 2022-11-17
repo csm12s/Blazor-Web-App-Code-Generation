@@ -1,6 +1,9 @@
-﻿@page "/Lantek/LantekPart"
+﻿
+
+@page "/Lantek/LantekPart"
 @using Gardener.Base
 @inherits LantekBaseTable<LantekPartDto, LantekPartEdit>
+
 
 <div>
     <Table @ref="_table"
@@ -27,9 +30,9 @@
                             <Space Size=@(("8", "16")) Wrap>
                                 <SpaceItem>
                                     <span>@(localizer["DisMatRef"]): </span>
-                                    <Select Mode="single"
+                                    <Select Mode="multiple"
                                             DataSource="@_select_DisMatRef"
-                                            @bind-Value="@_searchDto.DisMatRef"
+                                            @bind-Values="@_searchDto.DisMatRef"
                                             ValueName="@nameof(SelectItem.ValueName)"
                                             LabelName="@nameof(SelectItem.LabelName)"
                                             TItem="SelectItem"
@@ -44,8 +47,6 @@
                 </Row>
             </ResourceAuthorize>
             <Row>
-                <AntDesign.Col Span="8">
-                </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
                         <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Add)>
@@ -70,17 +71,16 @@
         @*Main Table*@
         <RowTemplate>
             <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Edit)>
-                <Selection Key="@(model.RecID.ToString())" />
+                    <Selection Key="@(model.RecID.ToString())" />
             </ResourceAuthorize>
-
-            <Column @bind-Field="@model.PrdRef" Title="@(localizer["PrdRef"])" Sortable Filterable />
-            <Column @bind-Field="@model.PrdName" Title="@(localizer["PrdName"])" Sortable Filterable />
-            <Column @bind-Field="@model.CDate" Title="@(localizer["CDate"])" Sortable Filterable />
-            <Column @bind-Field="@model.Image" Title="@(localizer["Image"])">
-                <Image Src="@model.Image_Data"></Image>
-            </Column>
-            <Column @bind-Field="@model.DisMatRef" Title="@(localizer["DisMatRef"])" Sortable Filterable />
-
+            
+                    <Column @bind-Field="@model.PrdRef" Title="@(localizer["PrdRef"])" Sortable Filterable />
+                    <Column @bind-Field="@model.PrdName" Title="@(localizer["PrdName"])" Sortable Filterable />
+                    <Column @bind-Field="@model.Image">
+                        <Image Src="@model.Image_Data"/>
+                    </Column>
+                    <Column @bind-Field="@model.DisMatRef" Title="@(localizer["DisMatRef"])" Sortable Filterable />
+            
             @*Action Column*@
             <ActionColumn Title=@localizer["Action"] Fixed="right">
                 <Space>
@@ -100,7 +100,7 @@
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey=@GetAuthKey(AuthKeys.Delete)>
                         <SpaceItem>
-                            <Button OnClick="()=>OnClickDelete(model.RecID)" Danger Type="@ButtonType.Link">
+                            <Button OnClick="()=>OnClickDelete(model.RecID)"  Danger Type="@ButtonType.Link">
                                 @localizer["Delete"]
                             </Button>
                         </SpaceItem>

@@ -19,7 +19,7 @@ public class LantekPartController : LantekBaseController<LantekPart, LantekPartD
     private readonly LantekPartService lantekPartService;
     public LantekPartController(LantekPartService _baseService) : base(_baseService)
     {
-    lantekPartService = _baseService;
+        lantekPartService = _baseService;
     }
     #endregion
 
