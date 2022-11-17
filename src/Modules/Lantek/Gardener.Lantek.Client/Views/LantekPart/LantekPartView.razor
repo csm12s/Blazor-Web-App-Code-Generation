@@ -2,7 +2,6 @@
 @using Gardener.Base
 @inherits LantekBaseTable<LantekPartDto, LantekPartEdit>
 
-
 <div>
     <Table @ref="_table"
            Context="model"
@@ -77,7 +76,7 @@
             <Column @bind-Field="@model.PrdRef" Title="@(localizer["PrdRef"])" Sortable Filterable />
             <Column @bind-Field="@model.PrdName" Title="@(localizer["PrdName"])" Sortable Filterable />
             <Column @bind-Field="@model.CDate" Title="@(localizer["CDate"])" Sortable Filterable />
-            <Column @bind-Field="@model.Image" Title="@(localizer["Image"])" Sortable Filterable>
+            <Column @bind-Field="@model.Image" Title="@(localizer["Image"])">
                 <Image Src="@model.Image_Data"></Image>
             </Column>
             <Column @bind-Field="@model.DisMatRef" Title="@(localizer["DisMatRef"])" Sortable Filterable />

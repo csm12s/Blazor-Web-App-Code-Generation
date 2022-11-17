@@ -151,10 +151,14 @@
                     </Column>
                     break;
                     case ClientComponentType.Image:
-                    <Image Src="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" />
+                    <Column @@bind-Field="@@model.@item.NetColumnName">
+                        <Image Src="@@model.@item.NetColumnName"/>
+                    </Column>
                     break;
                     case ClientComponentType.RemoteImage:
-                    <Image Src="@@model.@(item.NetColumnName)_Data" Title="@@(localizer["@item.ColumnLocaleKey"])" />
+                    <Column @@bind-Field="@@model.@item.NetColumnName">
+                        <Image Src="@@model.@(item.NetColumnName)_Data"/>
+                    </Column>
                     break;
                     default:
                     <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />

@@ -40,10 +40,10 @@
     <Content Remove="wwwroot\Template\EntitySearchDto.cs.razor" />
     <Content Remove="wwwroot\Template\IBaseController.cs.razor" />
     <Content Remove="wwwroot\Template\IController.cs.razor" />
-    <Content Remove="wwwroot\Template\Model.cs.razor" />
     <Content Remove="wwwroot\Template\Server.csproj.razor" />
     <Content Remove="wwwroot\Template\Service.cs.razor" />
     <Content Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
+    <Content Remove="wwwroot\Template\SqlSugar\Model.cs.razor" />
     <Content Remove="wwwroot\Template\SwaggerSetting.razor" />
   </ItemGroup>
 
@@ -67,6 +67,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\EntitySearchDto.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\SqlSugar\Model.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\SwaggerSetting.razor">
@@ -114,9 +117,6 @@
     <None Include="wwwroot\Template\IController.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\Template\Model.cs.razor">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <None Include="wwwroot\Template\Service.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -159,9 +159,9 @@
 	  <Watch Remove="wwwroot\Template\EntityDto.cs.razor" />
 	  <Watch Remove="wwwroot\Template\EntitySearchDto.cs.razor" />
 	  <Watch Remove="wwwroot\Template\IBaseController.cs.razor" />
-	  <Watch Remove="wwwroot\Template\Model.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Server.csproj.razor" />
 	  <Watch Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
+	  <Watch Remove="wwwroot\Template\SqlSugar\Model.cs.razor" />
 	  <Watch Remove="wwwroot\Template\SwaggerSetting.razor" />
 	</ItemGroup>
 
