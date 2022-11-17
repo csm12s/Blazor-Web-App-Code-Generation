@@ -117,4 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Configure" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="_Sys._CodeGen" xml:space="preserve">
+    <value>代码生成</value>
+  </data>
+  <data name="_Sys._CodeGen.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="_Sys._CodeGen.TableName" xml:space="preserve">
+    <value>表名</value>
+  </data>
+  <data name="_Sys._CodeGen.ClassName" xml:space="preserve">
+    <value>类名</value>
+  </data>
+  <data name="_Sys._CodeGen.Module" xml:space="preserve">
+    <value>模块</value>
+  </data>
+  <data name="_Sys._CodeGen.TableDescriptionEN" xml:space="preserve">
+    <value>描述EN</value>
+  </data>
+  <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
+    <value>描述CH</value>
+  </data>
+  <data name="_Sys._CodeGen.MenuName" xml:space="preserve">
+    <value>菜单名称</value>
+  </data>
+  <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
+    <value>父级菜单</value>
+  </data>
+  <data name="_Sys._CodeGen.TablePrefix" xml:space="preserve">
+    <value>表前缀</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>详情</value>
+  </data>
 </root>

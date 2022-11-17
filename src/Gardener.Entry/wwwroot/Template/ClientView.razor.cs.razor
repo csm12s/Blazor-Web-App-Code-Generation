@@ -1,0 +1,49 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+@using Gardener.Common
+@using Gardener.Enums
+using Microsoft.AspNetCore.Components;
+using @(Model.AppName).Common;
+using @(Model.AppName).@(Model.Module).Dto;
+using @(Model.AppName).@(Model.Module).IController;
+
+namespace @(Model.AppName).@(Model.Module).Client.Views.@(Model.ClassName);
+
+public partial class @(Model.ClassName)View : @(Model.Module)BaseTable<@(Model.ClassName)Dto, @(Model.ClassName)Edit>
+{
+    #region Init
+    protected @(Model.ClassName)SearchDto _searchDto = new();
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        if (!item.IsCustomSearch) continue;
+        if (item.CustomSearchType != ClientComponentType.Select && item.CustomSearchType != ClientComponentType.MultiSelect)
+            continue;
+        @: private List<SelectItem> _select_@item.NetColumnName = new();
+    }
+    [Inject]
+    private I@(Model.ClassName)Controller @(Model.ClassNameLower)ClientController { get; set; }
+    
+    public @(Model.ClassName)View() : base("@(Model.ClassName)")
+    {
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Init
+
+        await base.OnInitializedAsync();
+    }
+    #endregion
+
+    #region Custom search
+    private async Task DoSearch()
+    {
+        _customSearchFilterGroups = GetCustomSearchFilterGroups(_searchDto);
+
+        await ReLoadTable(true);
+    }
+    #endregion
+
+}
+
+

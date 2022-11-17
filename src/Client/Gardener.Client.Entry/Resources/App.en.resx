@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Configure" xml:space="preserve">
+    <value>Configure</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
   <data name="个人中心" xml:space="preserve">
     <value>Account center</value>
   </data>
@@ -333,5 +348,38 @@
   <data name="首页" xml:space="preserve">
     <value>Home</value>
     <comment>菜单</comment>
+  </data>
+  <data name="_Sys._CodeGen" xml:space="preserve">
+    <value>CodeGen</value>
+  </data>
+  <data name="_Sys._CodeGen.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="_Sys._CodeGen.TableName" xml:space="preserve">
+    <value>TableName</value>
+  </data>
+  <data name="_Sys._CodeGen.ClassName" xml:space="preserve">
+    <value>ClassName</value>
+  </data>
+  <data name="_Sys._CodeGen.Module" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="_Sys._CodeGen.TableDescriptionEN" xml:space="preserve">
+    <value>TableDescriptionEN</value>
+  </data>
+  <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
+    <value>TableDescriptionCH</value>
+  </data>
+  <data name="_Sys._CodeGen.MenuName" xml:space="preserve">
+    <value>MenuName</value>
+  </data>
+  <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
+    <value>MenuParentId</value>
+  </data>
+  <data name="_Sys._CodeGen.TablePrefix" xml:space="preserve">
+    <value>TablePrefix</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
   </data>
 </root>

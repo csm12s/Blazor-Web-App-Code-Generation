@@ -1,0 +1,42 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Common;
+using @(Model.AppName).@(Model.Module).Dto;
+using @(Model.AppName).@(Model.Module).IController;
+using @(Model.AppName).@(Model.Module).Server.Model;
+using @(Model.AppName).@(Model.Module).Server.Service;
+
+namespace @(Model.AppName).@(Model.Module).Server.Controller;
+
+/// <summary>
+/// @Model.TableDesc
+/// </summary>
+public class @(Model.ClassName)Controller : @(Model.Module)BaseController<@(Model.ClassName), @(Model.ClassName)Dto>
+    , I@(Model.ClassName)Controller
+{
+    #region Init
+    private readonly @(Model.ClassName)Service @(Model.ClassNameLower)Service;
+    public @(Model.ClassName)Controller(@(Model.ClassName)Service _baseService) : base(_baseService)
+    {
+    @(Model.ClassNameLower)Service = _baseService;
+    }
+    #endregion
+
+    @if (Model.HasRemoteImage)
+    {
+    @:#region Search
+    @:[HttpPost]
+    @:public override async Task<Base.PagedList<@(Model.ClassName)Dto>> Search(PageRequest request)
+    @:{
+    @:    var list = await _baseService.GetListAsync(request);
+    @:    var listDto = list.MapTo<@(Model.ClassName)Dto>();
+    @:
+    @:    foreach (var item in listDto)
+    @:    {
+    @:    }
+    @:
+    @:    return listDto.ToPageList(request);
+    @:}
+    @:#endregion
+    }
+}

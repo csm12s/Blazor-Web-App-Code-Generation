@@ -1,0 +1,20 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\@(Model.AppName).Base\@(Model.AppName).Base.csproj" />
+    <ProjectReference Include="..\@(Model.AppName).@(Model.Module)\@(Model.AppName).@(Model.Module).csproj" />
+  </ItemGroup>
+
+</Project>
+
+
+

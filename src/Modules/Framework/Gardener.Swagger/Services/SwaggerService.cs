@@ -43,7 +43,7 @@ namespace Gardener.Swagger.Services
         {
             url = HttpUtility.UrlDecode(url);
 
-            var swaggerInfo = await url.OnException((httpClient, response,msg) =>
+            var swaggerInfo = await url.OnException((httpClient, response, msg) =>
             {
 
                 if (!response.StatusCode.Equals(HttpStatusCode.OK))
@@ -80,6 +80,10 @@ namespace Gardener.Swagger.Services
             SwaggerModel swaggerModel = await Analysis(url);
             if (swaggerModel != null && swaggerModel.paths != null)
             {
+                if (swaggerModel.tags == null)
+                {
+                    throw Oops.Bah(ExceptionCode.Controller_Need_Comment);
+                }
                 Dictionary<string, SwaggerTagInfo> tagMap = swaggerModel.tags.ToDictionary<SwaggerTagInfo, string>(x => x.name);
                 foreach (var item in swaggerModel.paths)
                 {
@@ -97,6 +101,18 @@ namespace Gardener.Swagger.Services
                             Service = tags,
                             EnableAudit = true
                         };
+
+                        // Get function name if not set in comment
+                        var functionName = function.Path.Split("/").LastOrDefault();
+                        if (function.Summary == null)
+                        {
+                            function.Summary = functionName;
+                        }
+                        if (function.Description == null)
+                        {
+                            function.Description = functionName;
+                        }
+
                         if (HttpMethod.GET.Equals(function.Method))
                         {
                             function.EnableAudit = false;

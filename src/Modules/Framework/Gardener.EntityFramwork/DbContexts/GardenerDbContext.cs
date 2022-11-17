@@ -6,7 +6,9 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
+using Gardener.Authentication.Dtos;
 using Gardener.EntityFramwork.Audit.Core;
+using Gardener.EntityFramwork.Audit.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -68,8 +70,50 @@ namespace Gardener.EntityFramwork.DbContexts
         {
             IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
             ormAuditService.SavingChangesEvent(eventData.Context.ChangeTracker.Entries());
+
+            #region CRUD Filter
+            var dbContext = eventData.Context;
+            // 获取所有更改，删除，新增的实体，但排除审计实体（避免死循环）
+            var entities = dbContext.ChangeTracker.Entries()
+                  .Where(u => u.Entity.GetType() != typeof(AuditEntity) 
+                  && u.Entity.GetType() != typeof(AuditOperation) 
+                  && u.Entity.GetType() != typeof(AuditProperty) 
+                  && (u.State == EntityState.Added || u.State == EntityState.Modified || u.State == EntityState.Deleted)).ToList();
+            if (entities == null || entities.Count < 1)
+            { 
+                return;
+            } 
+
+            // User
+            var userId = App.User?.FindFirst(nameof(Identity.Id))?.Value;
+            var userName = App.User?.FindFirst(nameof(Identity.Name))?.Value;
+            foreach (var entity in entities)
+            {
+                // TODO 1: UpdatedTime 之类字段的修改应该放在这里，不然每次重写Update方法都要修改UpdatedTime；
+                // 或者可以写一个基础Service/Repository类，在基础Service/Repository类里处理Entity的时候修改UpdatedTime
+                // （现在的Service其实是controller）
+
+                // TODO 2: 这里获取不到 GardenerEntityBase
+
+                // 参考 Admin.Net\backend\Admin.NET.EntityFramework.Core\DbContexts\DefaultDbContext.cs
+                // Tenant
+                //if (entity.Entity.GetType().IsSubclassOf(typeof(GardenerTenantEntityBase)))
+                //{
+                //}
+                //// Normal entity
+                //else if (entity.Entity.GetType().IsSubclassOf(typeof(GardenerEntityBase)))
+                //{
+                //    if (entity.State == EntityState.Added)
+                //    {
+                //    }
+                //    else if (entity.State == EntityState.Modified)
+                //    {
+                //    }
+                //}
+            }
+            #endregion
         }
-       
+
         /// <summary>
         /// 数据保存后
         /// </summary>

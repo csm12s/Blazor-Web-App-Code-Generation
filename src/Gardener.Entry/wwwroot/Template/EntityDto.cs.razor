@@ -1,0 +1,31 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+@using Gardener.Base
+@using Gardener.Enums
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace @(Model.AppName).@(Model.Module).Dto;
+
+public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
+{
+    #region Base
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        @: /// <summary>
+        @: /// @item.ColumnComment
+        @: /// </summary>
+        @if(item.IsRequired)
+        {
+        @:[Required]
+        }
+        @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+        
+        @if(item.ClientComponentType == ClientComponentType.RemoteImage)
+        {
+        @: public @Raw(item.NetType) @(item.NetColumnName)_Data { get; set; }
+        }
+    }
+	#endregion
+}
+

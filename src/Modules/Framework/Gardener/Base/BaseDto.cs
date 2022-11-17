@@ -50,5 +50,8 @@ namespace Gardener.Base
         /// </summary>
         [DisplayName("更新时间")]
         public DateTimeOffset? UpdatedTime { get; set; }
+
+        [DisplayName("备注")]
+        public string Remark { get; set; }
     }
 }

@@ -1,0 +1,12 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+
+@foreach (var item in Model.Menus)
+{
+    <text>
+    INSERT [dbo].[Resource] ([Id], [Name], [Key], [Remark], [Path], [Icon], [Order], [ParentId], [Type], [CreatedTime], [UpdatedTime], [IsLocked], [IsDeleted], [CreatorId], [CreatorIdentityType]) 
+    VALUES (N'@item.Id', N'@item.Name', N'@item.Key', NULL, N'@item.Path', N'@item.Icon', 0, N'@item.ParentId', @item.Type.GetHashCode(), CAST(N'2022-09-26T11:19:27.6127269+08:00' AS DateTimeOffset), NULL, 0, 0, N'1', 1)
+    </text>
+}
+
+

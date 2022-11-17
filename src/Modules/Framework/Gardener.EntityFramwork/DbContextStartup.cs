@@ -25,6 +25,7 @@ namespace Gardener.EntityFramwork
     public class DbContextStartup : AppStartup
     {
         private static readonly string migrationAssemblyName = App.Configuration["DefaultDbSettings:MigrationAssemblyName"];
+        // TODO: dbsettings.json里使用db type, 根据db type 自动设置dbProvider
         private static readonly string dbProvider = App.Configuration["DefaultDbSettings:DbProvider"];
         /// <summary>
         /// 初始化默认数据库

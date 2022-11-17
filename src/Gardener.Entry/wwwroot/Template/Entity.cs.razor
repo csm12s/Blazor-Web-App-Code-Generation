@@ -1,0 +1,39 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Furion.DatabaseAccessor;
+using Microsoft.EntityFrameworkCore;
+
+namespace @(Model.AppName).@(Model.Module).Server.Model;
+
+/// <summary>
+/// @Model.TableDesc
+/// </summary>
+[Table("@Model.TableName")]
+[Comment("@Model.TableDesc")]
+public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBuilder<@(Model.ClassName)>
+{
+    public @(Model.ClassName)() { }
+
+    #region Base
+    @foreach (var column in Model.CodeGenConfigs){
+
+        var isRequiredStr = column.IsRequired == true ? "[Required]" : "";
+        var dbDataTypeText = !string.IsNullOrEmpty(column.DBDataTypeText) ? "[Column(TypeName = \"" + column.DBDataTypeText + "\")]" : "";
+
+        @:/// <summary>
+        @:/// @column.ColumnComment
+        @:/// </summary>
+        @:[Column("@column.ColumnName")]
+        @:[Comment("@column.ColumnComment")]@(isRequiredStr)@(dbDataTypeText)
+        @:public @column.NetType @column.NetColumnName { get; set; }
+    }
+	#endregion
+
+    @*TODO: 这里生成报错*@
+    @*@: public void Configure(EntityTypeBuilder<@(Model.ClassName)> entityBuilder, DbContext dbContext, Type dbContextLocator)
+    @: {
+    @:     entityBuilder.HasKey("@(Model.CodeGen.PrimaryKeyName)");
+    @: }*@
+}

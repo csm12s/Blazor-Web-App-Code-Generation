@@ -1,0 +1,38 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Attributes;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+
+namespace @(Model.AppName).@(Model.Module).Dto;
+
+public partial class @(Model.ClassName)SearchDto
+{
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        @if (item.IsSearch || item.IsCustomSearch)
+        { 
+            @: /// <summary>
+            @: /// @item.ColumnComment
+            @: /// </summary>
+            @: [DisplayName("@item.ColumnLocaleKey")]
+            @if (item.IsCustomSearch)
+            {
+                @: [CustomSearchField]
+                @if (item.CustomSearchType == Gardener.Enums.ClientComponentType.MultiSelect)
+                { 
+                    @: public IEnumerable<@Raw(item.NetType)> @item.NetColumnName { get; set; }
+                }
+                else
+                {
+                    @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+                }
+            }
+            else{
+                @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+            }
+        }
+    }
+}
+

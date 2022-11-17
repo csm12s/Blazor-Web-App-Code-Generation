@@ -1,0 +1,11 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Client.Base;
+using @(Model.AppName).@(Model.Module).Dto;
+
+namespace @(Model.AppName).@(Model.Module).Client.Views.@(Model.ClassName);
+
+public partial class @(Model.ClassName)Edit: @(Model.CodeGen.EditFormInherits)<@(Model.ClassName)Dto, @(Model.CodeGen.PrimaryKeyType)>
+{
+}
+

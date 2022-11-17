@@ -1,0 +1,17 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
+using @(Model.AppName).Base;
+using @(Model.AppName).@(Model.Module).Server.Model;
+
+namespace @(Model.AppName).@(Model.Module).Server.Service;
+
+public class @(Model.ClassName)Service : BaseService<@(Model.ClassName)>, ITransient
+{
+    public @(Model.ClassName)Service(IRepository<@(Model.ClassName),
+        MasterDbContextLocator> repository, SqlSugarRepository<@(Model.ClassName)> sugarRepository) 
+        : base(repository, sugarRepository)
+    {
+    }
+}

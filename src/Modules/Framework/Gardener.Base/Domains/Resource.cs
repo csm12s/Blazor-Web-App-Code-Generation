@@ -4,7 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Gardener.Authentication.Enums;
 using Gardener.Base.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +19,7 @@ namespace Gardener.Base.Domains
     /// 资源表
     /// </summary>
     [Description("资源信息")]
-    public class Resource : GardenerEntityBase<Guid>
+    public class Resource : GardenerEntityBase<Guid>, IEntitySeedData<Resource>
     {
         /// <summary>
         /// 资源名称
@@ -87,5 +90,12 @@ namespace Gardener.Base.Domains
         /// 多对多中间表
         /// </summary>
         public List<ResourceFunction> ResourceFunctions { get; set; }
+
+        public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[]{
+                new Resource() {Name="DB First",Key="system_tool_code_gen",Path="/system_tool/code_gen",Icon="code-sandbox",Order=41,ParentId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreatorId="1",CreatorIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-11-01 14:32:13"),UpdatedTime=DateTimeOffset.Parse("2022-11-01 14:33:10"),Id=Guid.Parse("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"),},
+            };
+        }
     }
 }

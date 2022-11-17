@@ -66,6 +66,7 @@ namespace Gardener.Client.Entry
                 option.ResourcesPath = "Resources";
             });
             builder.Services.AddCulture<App>();
+            // TODO: 支持多个资源文件，比如DBLocale.en.resx
             #endregion
 
             #region module
