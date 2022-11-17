@@ -11,7 +11,7 @@ public partial class @(Model.ClassName)SearchDto
 {
     @foreach (var item in Model.CodeGenConfigs)
     {
-        @if (item.IsSearch)
+        @if (item.IsSearch || item.IsCustomSearch)
         { 
             @: /// <summary>
             @: /// @item.ColumnComment
