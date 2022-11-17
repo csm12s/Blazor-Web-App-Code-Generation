@@ -92,7 +92,6 @@ public abstract class BaseClientController<T, TKey>
     
     public virtual Task<bool> Lock(TKey id, bool islocked = true)
     {
-        //todo check
         var url = $"{controller}/Lock/{id}/{islocked}";
         return apiCaller.PostWithoutBodyAsync<bool>(url);
     }
@@ -103,7 +102,6 @@ public abstract class BaseClientController<T, TKey>
         return apiCaller.PostAsync<PageRequest, PagedList<T>>(url, request);
     }
 
-    //todo check
     public virtual Task<string> GenerateSeedData(PageRequest request)
     {
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";

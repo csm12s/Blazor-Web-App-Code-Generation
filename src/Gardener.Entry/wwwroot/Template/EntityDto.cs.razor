@@ -15,7 +15,7 @@ public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
         @: /// <summary>
         @: /// @item.ColumnComment
         @: /// </summary>
-        @if(item.IsCreateRequired)
+        @if(item.IsRequired)
         {
         @:[Required]
         }

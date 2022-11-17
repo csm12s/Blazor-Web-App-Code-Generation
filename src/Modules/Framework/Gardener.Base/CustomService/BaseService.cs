@@ -198,6 +198,9 @@ public abstract class BaseService
         IDynamicFilterService filterService = Furion.App.GetService<IDynamicFilterService>();
         Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
+        //// TODO: If null in DB, skip where expression?
+        //// 如果查询的字段在数据库中字段为null这里会不会报错
+
         // EF:
         IQueryable<TEntity> queryable = _repository.AsQueryable(false);
         return await queryable
@@ -208,8 +211,6 @@ public abstract class BaseService
         // Sugar:
         //var listAll = await GetAllAsync();
         //IQueryable<TEntity> queryable = listAll.AsQueryable();
-        //// TODO: If null in DB, skip where expression?
-        //// 数据库字段为null这里会报错
         //try
         //{
         //    var list = queryable
@@ -240,7 +241,6 @@ public abstract class BaseService
     }
     #endregion
 
-    //TODO:
     #region Delete
     public virtual bool Delete(TEntity item)
     {

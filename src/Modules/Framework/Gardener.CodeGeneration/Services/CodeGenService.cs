@@ -693,7 +693,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         {
             if (!File.Exists(genItem.TemplatePath))
             {
-                // TODO: 未报错
+                // TODO: 未显示报错信息： "文件不存在："
                 throw Oops.Oh(ExceptionCode.NO_INCLUD_FILE, "文件不存在：" + genItem.TemplatePath);
                 //throw Oops.Oh("文件不存在：" + genItem.TemplatePath);
             }

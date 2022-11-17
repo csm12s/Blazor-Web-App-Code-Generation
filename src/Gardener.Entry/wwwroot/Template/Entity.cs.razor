@@ -19,7 +19,7 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBui
     #region Base
     @foreach (var column in Model.CodeGenConfigs){
 
-        var isRequiredStr = column.IsCreateRequired == true ? "[Required]" : "";
+        var isRequiredStr = column.IsRequired == true ? "[Required]" : "";
         var dbDataTypeText = !string.IsNullOrEmpty(column.DBDataTypeText) ? "[Column(TypeName = \"" + column.DBDataTypeText + "\")]" : "";
 
         @:/// <summary>

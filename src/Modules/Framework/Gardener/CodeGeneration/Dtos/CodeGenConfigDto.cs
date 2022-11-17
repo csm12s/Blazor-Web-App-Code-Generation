@@ -131,7 +131,7 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
 
     public bool IsCreate { get; set; } = true;
 
-    public bool IsCreateRequired { get; set; } = false;
+    public bool IsRequired { get; set; } = false;
     /// <summary>
     /// 改
     /// </summary>

@@ -75,7 +75,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             codeGenConfig.IsPrimaryKey = column.IsPrimarykey;
             codeGenConfig.IsIdentity = column.IsIdentity;
             codeGenConfig.IsNullable = column.IsNullable;
-            codeGenConfig.IsCreateRequired = column.IsPrimarykey || !column.IsNullable;
+            codeGenConfig.IsRequired = column.IsPrimarykey || !column.IsNullable;
             
             codeGenConfig.IsSearch = false;
             //codeGenConfig.SearchType = "==";
@@ -149,11 +149,6 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     private string GetNetColumnName(TableColumnInfo column, CodeGenDto codeGen)
     {
         var newColumnName = column.DbColumnName
-            //todo comment
-            .Replace("GLS_", "Gls")
-            .Replace("DIS_", "Dis")
-            .Replace("CNC", "Cnc")
-            .Replace("SMS", "Sms")
             .ToUpperCamel();
 
         // number
@@ -173,6 +168,11 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         return newColumnName;
     }
 
+    /// <summary>
+    /// Get net type via sugar
+    /// </summary>
+    /// <param name="column"></param>
+    /// <returns></returns>
     private string GetNetType(TableColumnInfo column)
     {
         // Special type
