@@ -13,11 +13,14 @@
        Context="model"
        RemoteDataSource>
     <TitleTemplate>
-        <TableSearch TDto="CodeGenConfigDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+        <TableSearch TDto="CodeGenConfigSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
         <Row>
             <AntDesign.Col Span="8">
-                <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickSaveAll" Loading="_saveAllBtnLoading">
-                    @localizer["SaveAll"]
+                <Button Type="@ButtonType.Primary" OnClick="OnClickSaveAll" Loading="_saveAllBtnLoading">
+                    @localizer["OnlySave"]
+                </Button>
+                <Button Type="@ButtonType.Primary" Danger OnClick="OnClickSaveAllAndClose" Loading="_saveAllBtnLoading">
+                    @localizer["SaveAndClose"]
                 </Button>
             </AntDesign.Col>
             <AntDesign.Col Span="16" Style="text-align:right">
@@ -33,19 +36,143 @@
     </TitleTemplate>
     <RowTemplate>
         <Selection Key="@(model.Id.ToString())" />
-        @*<Column @bind-Field="@model.Id" Sortable />*@
-        <Column @bind-Field="@model.ColumnName" Width="100" Filterable />
-        <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable />
-        <Column @bind-Field="@model.DbDataType" Width="100" Filterable />
-        <Column @bind-Field="@model.DataType" Width="100" Filterable />
+        <Column @bind-Field="@model.ColumnName" Width="100" Filterable>
+        </Column>
+        <Column @bind-Field="@model.NetColumnName" Width="100" Filterable>
+            <Input Type="text" @bind-Value="@model.NetColumnName" />
+        </Column>
         <Column @bind-Field="@model.NetType" Width="100" Filterable />
-        <Checkbox @bind-Checked="@model.IsSearch" Width="30" />
-        <Checkbox @bind-Checked="@model.IsView" Width="30" />
-        <Checkbox @bind-Checked="@model.IsCreate" Width="30" />
-        <Checkbox @bind-Checked="@model.IsEdit" Width="30" />
-        <Checkbox @bind-Checked="@model.IsBatchEdit" Width="30" />
-        <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="100" />
-        <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="100" />
+        <Column @bind-Field="@model.DbDataType" Width="100" Filterable />
+
+        <Column @bind-Field="@model.ClientComponentType" Width="100" >
+            <Select Mode="single"
+                    @bind-Value="@model.ClientComponentType"
+                    TItem="ClientComponentType"
+                    TItemValue="ClientComponentType"
+                    EnableSearch
+                    AllowClear>
+                <SelectOptions>
+                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
+                    {
+                        <SelectOption Value="@item.Key" Label="@item.Value"  TItemValue="ClientComponentType" TItem="ClientComponentType"/>
+                    }
+                </SelectOptions>
+            </Select>
+        </Column>
+
+        <Column @bind-Field="@model.CustomSearchType" Width="100" >
+            <Select Mode="single"
+                    @bind-Value="@model.CustomSearchType"
+                    TItem="ClientComponentType"
+                    TItemValue="ClientComponentType"
+                    EnableSearch
+                    AllowClear>
+                <SelectOptions>
+                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
+                    {
+                        <SelectOption Value="@item.Key" Label="@item.Value" TItemValue="ClientComponentType" TItem="ClientComponentType" />
+                    }
+                </SelectOptions>
+            </Select>
+        </Column>
+
+        @*Switch*@
+        <Column @bind-Field="@model.IsView" Width="100" Filterable>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>IsView</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsView = true)">
+                        SelectAll
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsView = false)">
+                        Clear
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsView = !it.IsView)">
+                        Toggle
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsView"></Switch>
+            </ChildContent>
+        </Column>
+        @*TODO: IsCreate*@
+        <Column @bind-Field="@model.IsEdit" Width="100" Filterable>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>IsEdit</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = true)">
+                        SelectAll
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = false)">
+                        Clear
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = !it.IsEdit)">
+                        Toggle
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsEdit"></Switch>
+            </ChildContent>
+        </Column>
+        @*TODO: IsBatchEdit*@
+        <Column @bind-Field="@model.IsSearch" Width="100" Filterable>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>IsSearch</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = true)">
+                        SelectAll
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = false)">
+                        Clear
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = !it.IsSearch)">
+                        Toggle
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsSearch"></Switch>
+            </ChildContent>
+        </Column>
+        <Column @bind-Field="@model.IsCustomSearch" Width="100" Filterable>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>IsCustomSearch</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = true)">
+                        SelectAll
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = false)">
+                        Clear
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = !it.IsCustomSearch)">
+                        Toggle
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsCustomSearch"></Switch>
+            </ChildContent>
+        </Column>
+
+        <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable>
+            <Input Type="text" @bind-Value="@model.ColumnDescription" />
+        </Column>
+        <Column @bind-Field="@model.ColumnComment" Width="100" Filterable>
+            <Input Type="text" @bind-Value="@model.ColumnComment" />
+        </Column>
+
+        @*<Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="100" />
+        <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="100" />*@
         @*<ActionColumn>
         <Space>
         <SpaceItem>
