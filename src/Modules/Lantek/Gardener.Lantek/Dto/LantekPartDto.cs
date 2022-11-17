@@ -123,6 +123,9 @@ public partial class LantekPartDto : LantekBaseDto
         [Required]
          public string Image { get; set; }
 
+    /// <summary>
+    /// Image base64 data
+    /// </summary>
     public string Image_Data { get; set; }
     /// <summary>
     /// Weight
