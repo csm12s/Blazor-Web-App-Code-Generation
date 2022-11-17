@@ -22,11 +22,14 @@ public class ExcelHelper
     public static async Task<DataTable> GetDataTableAsync(string path, bool hasHeader = true)
     {
         var table = await MiniExcel.QueryAsDataTableAsync(path, hasHeader);
+        return table;
 
-        //Change value to string for SqlSugar to get Model list, double to int could cause error
-        var newTable = ChangeValueToString(table);
-
-        return newTable;
+        // 如果导入数据时用的是GetDataTable方法，dataTable转Class如果碰到数字转换的问题，可以用这个方法
+        // 将数值统一换成string
+        //Change value to string for SqlSugar or other tools to get a Entity list from DataTable
+        //, since double to int could cause error
+        //var newTable = ChangeValueToString(table);
+        //return newTable;
     }
 
     public static async Task<List<T>> GetListAsync<T>(string path, string sheetName = null, ExcelType excelType = ExcelType.UNKNOWN, string startCell = "A1", IConfiguration configuration = null, CancellationToken cancellationToken = default(CancellationToken)) where T : class, new()
