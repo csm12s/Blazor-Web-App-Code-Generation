@@ -54,19 +54,21 @@ public class CodeGenUtil
 
         //TODO: 其他数据库 可以参考OpenAuth.Core：_dbExtension.GetDbTableStructure(obj.TableName)
 
-        if (true)// Sql Server, 文档：https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16
+        // Sql Server, 文档：https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16
+        // 仅供参考：https://www.cnblogs.com/kunlunmountain/p/5663357.html
+        if (true)
         {
             switch (dbDataType)
             {
                 case "uniqueidentifier":
                     return "guid";
-                case "tinyint"://1字节，从0 到255 之间的所有正整数
+                case "tinyint"://1 Byte, 0 to 255
                     return "byte";
-                case "smallint"://-2的15次方（ -32， 768） 到2的15次方-1（ 32 ，767 ）之间的所有正负整数
+                case "smallint"://2 Bytes, -2^15 (-32,768) to 2^15-1 (32,767)
                     return "Int16";
-                case "int":
+                case "int": // 4 Bytes, 
                     return "int"; // Int32
-                case "bigint":// 8字节，-2^63 （-9 ，223， 372， 036， 854， 775， 807） 到2^63-1（ 9， 223， 372， 036 ，854 ，775， 807） 之间的所有正负整数
+                case "bigint":// 8 Bytes, -2^63 (-9,223,372,036,854,775,808) to 2^63-1 (9,223,372,036,854,775,807)
                     return "long";
                 case "char":
                 case "varchar":
@@ -91,10 +93,10 @@ public class CodeGenUtil
                 case "float":// 8bit, 可精确到第15 位小数，其范围为从-1.79e -308 到1.79e +308
                     return NetType._double;
                 case "real":// 4字节，可精确到第7 位小数，其范围为从-3.40e -38 到3.40e +38
-                    return NetType._float; //这里参考https://www.cnblogs.com/kunlunmountain/p/5663357.html
+                    return NetType._float;
 
                     default:
-                    return "string";
+                    return "string"; // TODO: 这里应该提示或报错
             }
 
             // 这里是参考的OpenAuth.Core, 里面大小写不一，项目稳定后可以删除
@@ -140,7 +142,7 @@ public class CodeGenUtil
 }
 
 /// <summary>
-/// C# Net data type, TODO
+/// C# Net data type, TODO：这里可以在前端选择
 /// </summary>
 public static class NetType
 {
