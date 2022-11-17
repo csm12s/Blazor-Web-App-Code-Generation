@@ -28,7 +28,6 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger.Client\Gardener.Swagger.Client.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.SystemManager.Client\Gardener.SystemManager.Client.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.VerifyCode.Client\Gardener.VerifyCode.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Lantek\Gardener.Lantek.Client\Gardener.Lantek.Client.csproj" />
     <ProjectReference Include="..\..\Modules\SysTimer\Gardener.SysTimer.Client\Gardener.SysTimer.Client.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Client\Gardener.UserCenter.Client.csproj" />
     <ProjectReference Include="..\Gardener.Client.Base\Gardener.Client.Base.csproj" />

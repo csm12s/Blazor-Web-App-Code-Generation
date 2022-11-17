@@ -266,12 +266,20 @@ public abstract class BaseService
 
     public virtual bool DeleteById(dynamic id)
     {
-        return _repository.Delete(id);
+        var entry = _repository.Delete(id);
+        return true;
         //return _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommand() > 0;
     }
     public virtual async Task<bool> DeleteByIdAsync(dynamic id)
     {
-        return await _repository.DeleteAsync(id);
+        var item = await GetByIdAsync(id);
+        await _repository.DeleteAsync(item);
+        return true;
+        // TODO: 无主键表，指定某个key作为主键，报错：
+        //var entry = await _repository.DeleteAsync(id);
+        //return true;
+        
+        // sugar
         //return await _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommandAsync() > 0;
     }
 
