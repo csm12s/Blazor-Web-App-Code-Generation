@@ -57,8 +57,8 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         TEntity entity = input.Adapt<TEntity>();
         if (entity is GardenerEntityBase<TKey> ge1)
         {
-            ge1.CreatorId = IdentityUtil.GetIdentityId();
-            ge1.CreatorIdentityType = IdentityUtil.GetIdentityType();
+            ge1.CreateBy = IdentityUtil.GetIdentityId();
+            ge1.CreateIdentityType = IdentityUtil.GetIdentityType();
         }
         var newEntity = await _baseService.InsertReturnEntityAsync(entity);
         //发送通知

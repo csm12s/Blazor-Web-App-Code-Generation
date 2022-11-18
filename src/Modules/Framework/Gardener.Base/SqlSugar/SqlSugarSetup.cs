@@ -227,7 +227,7 @@ public static class SqlSugarSetup
                                         entityInfo.SetValue(App.User.FindFirst("TenantId")?.Value);//nameof(AuthKeyConstants.TenantId)
                                 }
                                 // CreateBy
-                                if (entityInfo.PropertyName == nameof(GardenerEntityBase.CreatorId))
+                                if (entityInfo.PropertyName == nameof(GardenerEntityBase.CreateBy))
                                 {
                                     var createUserId = ((dynamic)entityInfo.EntityValue).CreatorId; // "CreatorId" here
                                     if (string.IsNullOrEmpty(createUserId))
@@ -242,7 +242,7 @@ public static class SqlSugarSetup
                             if (entityInfo.PropertyName == nameof(GardenerEntityBase.UpdatedTime))
                                 entityInfo.SetValue(DateTimeOffset.Now);
 
-                            if (entityInfo.PropertyName == nameof(GardenerEntityBase.UpdateUserId))
+                            if (entityInfo.PropertyName == nameof(GardenerEntityBase.UpdateBy))
                                 entityInfo.SetValue(App.User?.FindFirst("UserId")?.Value); //nameof(Identity.UserId)
                         }
                     };

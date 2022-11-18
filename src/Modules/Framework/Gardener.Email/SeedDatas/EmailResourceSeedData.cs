@@ -30,7 +30,7 @@ namespace Gardener.Email.SeedDatas
         {
             return new[]
             {
-                new Resource() {Name="邮件工具",Key="system_manager_email_tool",Remark="邮件工具",Path="",Icon="mail",Order=80,ParentId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreatorIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2021-11-09 07:41:45"),Id=Guid.Parse("6dc2b297-7110-462a-b402-9e9736abf292"),},
+                new Resource() {Name="邮件工具",Key="system_manager_email_tool",Remark="邮件工具",Path="",Icon="mail",Order=80,ParentId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2021-11-09 07:41:45"),Id=Guid.Parse("6dc2b297-7110-462a-b402-9e9736abf292"),},
            };
         }
     }

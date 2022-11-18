@@ -94,7 +94,7 @@ namespace Gardener.Base.Domains
         public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[]{
-                new Resource() {Name="DB First",Key="system_tool_code_gen",Path="/system_tool/code_gen",Icon="code-sandbox",Order=41,ParentId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreatorId="1",CreatorIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-11-01 14:32:13"),UpdatedTime=DateTimeOffset.Parse("2022-11-01 14:33:10"),Id=Guid.Parse("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"),},
+                new Resource() {Name="DB First",Key="system_tool_code_gen",Path="/system_tool/code_gen",Icon="code-sandbox",Order=41,ParentId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreateBy="1",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-11-01 14:32:13"),UpdatedTime=DateTimeOffset.Parse("2022-11-01 14:33:10"),Id=Guid.Parse("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"),},
             };
         }
     }

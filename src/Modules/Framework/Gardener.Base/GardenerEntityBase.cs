@@ -6,7 +6,6 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +15,12 @@ using Furion.DependencyInjection;
 namespace Gardener.Base
 {
     #region Base Entity Refactor
+    /// <summary>
+    /// Base Entity Refactor
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TDbContextLocator1"></typeparam>
+    /// <typeparam name="TDbContextLocator2"></typeparam>
     [SuppressSniffer]
     public abstract class DBEntity<TKey, TDbContextLocator1, TDbContextLocator2> :
         PrivateDBEntityBase<TKey>
@@ -23,15 +28,18 @@ namespace Gardener.Base
     where TDbContextLocator2 : class, IDbContextLocator
     {
     }
+    /// <summary>
+    /// Base Entity Refactor
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
     public abstract class PrivateDBEntityBase<TKey> : IPrivateEntity
     {
-        //
-        // 摘要:
-        //     主键Id
+        /// <summary>
+        /// 主键Id
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual TKey Id { get; set; }
-
 
         /// <summary>
         /// 创建时间
@@ -69,20 +77,30 @@ namespace Gardener.Base
         /// 创建者编号
         /// </summary>
         [DisplayName("创建者编号")]
-        public string CreatorId { get; set; } // CreateBy / CreateUserId
+        public string CreateBy { get; set; } // CreateBy / CreateUserId
 
         /// <summary>
         /// 修改者编号
         /// </summary>
         [DisplayName("修改者编号")]
-        public string? UpdateUserId { get; set; } // UpdateBy
+        public string? UpdateBy { get; set; }
 
         /// <summary>
         /// 创建者身份类型
         /// </summary>
         [DisplayName("创建者身份类型")]
-        public IdentityType CreatorIdentityType { get; set; }
+        public IdentityType CreateIdentityType { get; set; }
 
+
+        /// <summary>
+        /// 修改者身份类型
+        /// </summary>
+        [DisplayName("修改者身份类型")]
+        public IdentityType UpdateIdentityType { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
         [DisplayName("备注")]
         public string? Remark { get; set; }
     }
@@ -111,10 +129,14 @@ namespace Gardener.Base
     public abstract class GardenerTenantEntityBase<TKey, TKey_TenantId> :
         GardenerEntityBase<TKey>
     {
-        //[Newtonsoft.Json.JsonIgnore]
-        //[System.Text.Json.Serialization.JsonIgnore]
+        /// <summary>
+        /// 租户编号
+        /// </summary>
         public virtual TKey_TenantId TenantId { get; set; }
     }
+    /// <summary>
+    /// Tenant base entity
+    /// </summary>
     public abstract class GardenerTenantEntityBase :
         GardenerTenantEntityBase<int, Guid>
     {

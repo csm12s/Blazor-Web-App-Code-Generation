@@ -29,7 +29,7 @@ namespace Gardener.Audit.SeedDatas
         {
             return new[]
             {
-                new Resource() {Name="审计管理",Key="system_manager_audit",Remark="审计管理",Path="",Icon="audit",Order=60,ParentId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreatorIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:15:50"),Id=Guid.Parse("2dd1a78c-f725-461b-8bc6-66112a7e156c"),},
+                new Resource() {Name="审计管理",Key="system_manager_audit",Remark="审计管理",Path="",Icon="audit",Order=60,ParentId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:15:50"),Id=Guid.Parse("2dd1a78c-f725-461b-8bc6-66112a7e156c"),},
             };
         }
     }

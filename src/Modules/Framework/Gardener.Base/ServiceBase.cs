@@ -89,8 +89,8 @@ namespace Gardener
             TEntity entity = input.Adapt<TEntity>();
             if (entity is GardenerEntityBase<TKey> ge1)
             {
-                ge1.CreatorId = IdentityUtil.GetIdentityId();
-                ge1.CreatorIdentityType = IdentityUtil.GetIdentityType();
+                ge1.CreateBy = IdentityUtil.GetIdentityId();
+                ge1.CreateIdentityType = IdentityUtil.GetIdentityType();
             }
             var newEntity = await _repository.InsertNowAsync(entity);
             //发送通知
@@ -109,7 +109,7 @@ namespace Gardener
         public virtual async Task<bool> Update(TEntityDto input)
         {
             input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-            EntityEntry<TEntity> entityEntry = await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreatorId), nameof(GardenerEntityBase.CreatorIdentityType) });
+            EntityEntry<TEntity> entityEntry = await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreateBy), nameof(GardenerEntityBase.CreateIdentityType) });
             //发送通知
             await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
             return true;

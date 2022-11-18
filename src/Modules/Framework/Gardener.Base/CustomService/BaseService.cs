@@ -28,8 +28,8 @@ public abstract class BaseService
     private readonly string[] UpdateIgnoreColumns = new string[]
     {
         nameof(GardenerEntityBase.CreatedTime),
-        nameof(GardenerEntityBase.CreatorId),
-        nameof(GardenerEntityBase.CreatorIdentityType),
+        nameof(GardenerEntityBase.CreateBy),
+        nameof(GardenerEntityBase.CreateIdentityType),
     };
 
     /// <summary>

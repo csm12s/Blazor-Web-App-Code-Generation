@@ -128,7 +128,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         // Update
         var entityEntry = await _repository
-            .UpdateExcludeAsync(input.Adapt<CodeGen>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreatorId), nameof(GardenerEntityBase.CreatorIdentityType) });
+            .UpdateExcludeAsync(input.Adapt<CodeGen>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreateBy), nameof(GardenerEntityBase.CreateIdentityType) });
         if (input.UpdateCodeGenConfig)
         {
             await codeGenConfigService.DeleteAndAddList(GetDBColumnInfos(input), input);
