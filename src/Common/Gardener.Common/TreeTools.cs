@@ -6,11 +6,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace Gardener.Common
 {
     /// <summary>
-    /// 树操作工具
+    /// 树操作工具 TODO: 这里改成TreeHelper，建议Common里的都叫Helper，其他地方的叫Util、Tool总之统一就行啦
     /// </summary>
     public static class TreeTools
     {
@@ -82,5 +84,127 @@ namespace Gardener.Common
             }
             return default(TDto);
         }
+
+        #region ITree with nullable parent id: Guid
+        public static void TreeToList<T>(this IList<T> treeList, IList<T> list)
+            where T : class, ITreeGuid<T>
+        {
+            foreach (var item in treeList)
+            {
+                list.Add(item);
+                if (item.Children != null && item.Children.Count > 0)
+                {
+                    TreeToList<T>((IList<T>)item.Children, list);
+                }
+            }
+        }
+
+        /// <summary>
+        /// List 转 Tree
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="nodeList"></param>
+        /// <param name="parentId">get all children of parentId</param>
+        /// <returns></returns>
+        public static List<T> ListToTree<T>(List<T> nodeList
+            , Guid? parentId = null)
+            where T : class, ITreeGuid<T>
+        {
+            List<T> childTreeList = new List<T>();
+
+            // Get child tree
+            foreach (var childTree in nodeList.Where(it => it.ParentId == parentId))
+            {
+                // Get grand child Tree
+                var grandChildTreeList = ListToTree(nodeList, childTree.Id);
+                childTree.Children = grandChildTreeList.Count == 0 ? 
+                    null 
+                    : grandChildTreeList;
+
+                childTreeList.Add(childTree);
+            }
+
+            return childTreeList;
+
+
+            // 这里返回了重复的子节点，参考的Caviar
+
+            //public static List<T> ListToTree<T>(this List<T> nodeList)
+            //where T : class, ITreeGuid<T>
+
+            //List<T> treeList = new List<T>();
+            //if (list == null) return treeList;
+            //foreach (var item in list)
+            //{
+            //    // root, Guid
+            //    if (!item.ParentId.HasValue)
+            //    {
+            //        treeList.Add(item);
+            //    }
+            //    else
+            //    {
+            //        var parentNode = list.SingleOrDefault(u => u.Id.Equals(item.ParentId));
+            //        if (parentNode == null)
+            //        {
+            //            treeList.Add(item);//没有找到父节点，所以直接加入最上层节点
+            //        }
+            //        else
+            //        {
+            //            parentNode.Children.Add(item);//加入父节点
+            //        }
+            //    }
+            //}
+            //return treeList;
+        }
+
+        #endregion
+
+        #region ITree with not null parent id: int, string
+        public static void TreeToList<T, TKey>(this IList<T> treeList, IList<T> list)
+            where T : class, ITree<T, TKey>
+        {
+            foreach (var item in treeList)
+            {
+                list.Add(item);
+                if (item.Children != null && item.Children.Count > 0)
+                {
+                    TreeToList<T, TKey>((IList<T>)item.Children, list);
+                }
+            }
+        }
+
+        // TODO: 这里或参考上面的ListToTree方法，使用递归
+        public static List<T> ListToTree<T, TKey>(this List<T> list) 
+            where T : class, ITree<T, TKey>
+        {
+            List<T> treeList = new List<T>();
+            if (list == null) return treeList;
+            foreach (var item in list)
+            {
+                // root, int, string
+                if (item.ParentId is int && item.ParentId.Equals(0)
+                    || item.ParentId is string && item.ParentId.Equals(""))
+                {
+                    treeList.Add(item);
+                }
+                else
+                {
+                    var parentNode = list.SingleOrDefault(u => u.Id.Equals(item.ParentId));
+                    if (parentNode == null)
+                    {
+                        treeList.Add(item);//没有找到父节点，所以直接加入最上层节点
+                    }
+                    else
+                    {
+                        parentNode.Children.Add(item);//加入父节点
+                    }
+                }
+            }
+            return treeList;
+        }
+        #endregion
+
+
+        // End
     }
 }

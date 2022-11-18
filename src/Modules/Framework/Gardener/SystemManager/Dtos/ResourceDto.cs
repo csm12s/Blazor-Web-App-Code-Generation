@@ -6,6 +6,7 @@
 
 using Gardener.Base;
 using Gardener.Base.Enums;
+using Gardener.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace Gardener.SystemManager.Dtos
     /// 资源
     /// </summary>
     [Description("资源信息")]
-    public class ResourceDto: BaseDto<Guid>
+    public class ResourceDto: BaseDto<Guid>, ITreeGuid<ResourceDto>
     {
         /// <summary>
         /// 名称
