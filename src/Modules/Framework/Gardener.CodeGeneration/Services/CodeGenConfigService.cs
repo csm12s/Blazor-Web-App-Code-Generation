@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Gardener.Base;
@@ -14,10 +15,12 @@ using Gardener.Enums;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -49,28 +52,40 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
         var list = new List<CodeGenConfig>();
 
+        // common field / BaseModelField
+        PropertyInfo[] baseModelFields = new PropertyInfo[0];
+        var baseModelType = App.EffectiveTypes
+            .Where(a => !a.IsAbstract
+                && a.IsClass
+                && a.Name.Equals(codeGen.Module + "BaseModel"))
+            .FirstOrDefault();
+        if (baseModelType != null)
+        { 
+            baseModelFields = baseModelType.GetProperties();
+        }
+
         foreach (var column in dbColumnInfos)
         {
             var codeGenConfig = new CodeGenConfig();
 
             codeGenConfig.CodeGenId = codeGen.Id;
-            
+
             codeGenConfig.ColumnName = column.DbColumnName;
             codeGenConfig.NetColumnName = GetNetColumnName(column, codeGen);
-            
+
+            // Data type
+            codeGenConfig.DbDataType = column.DbDataType;
+            codeGenConfig.NetType = column.NetType;
+            codeGenConfig.ColumnKey = column.ColumnKey;
+            codeGenConfig.DbDataTypeText = column.DbDataTypeText;
+
             // Comment
-            var desc = !string.IsNullOrEmpty(column.ColumnDescription) ? 
-                    column.ColumnDescription 
+            var desc = !string.IsNullOrEmpty(column.ColumnDescription) ?
+                    column.ColumnDescription
                     : codeGenConfig.NetColumnName;
             codeGenConfig.ColumnDescription = desc.Replace("\r", "").Replace("\n", "");
             codeGenConfig.ColumnComment = desc.Replace("\r", "").Replace("\n", "");
 
-            // Data type
-            codeGenConfig.DataType = column.DataType;
-            codeGenConfig.NetType = column.NetType;
-            codeGenConfig.ColumnKey = column.ColumnKey;
-            codeGenConfig.DbDataTypeText = column.DbDataTypeText;
-            
             // bools
             codeGenConfig.IsPrimaryKey = column.IsPrimarykey;
             codeGenConfig.IsIdentity = column.IsIdentity;
@@ -88,6 +103,11 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             codeGenConfig.ClientComponentType = GetClientComponentType(codeGenConfig.NetType);
             codeGenConfig.CustomSearchType = GetCustomSearchType(codeGenConfig.NetType);
 
+            // isBaseModelField
+            codeGenConfig.IsCommon = baseModelFields
+                .Where(it=>it.Name == codeGenConfig.NetColumnName)
+                .Any();
+
             list.Add(codeGenConfig);
         }
 
@@ -100,6 +120,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         // repository.Context
         // .DeleteRange<CodeGenConfig>(x => x.CodeGenId == codeGenId);
 
+        // TODO: EF7 增加了批量删除和修改
         var oldList = repository.Where(it => it.CodeGenId == codeGen.Id).ToList();
         await repository.DeleteNowAsync(oldList);
            
@@ -114,7 +135,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         switch (type)
         {
             case "string":
-                return ClientComponentType.Select;
+                return ClientComponentType.MultiSelect;
 
             default:
                 return ClientComponentType.Input;

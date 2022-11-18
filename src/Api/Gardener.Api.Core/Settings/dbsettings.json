@@ -1,6 +1,6 @@
 ﻿{
   "ConnectionStrings": {
-    "Default": "Data Source=./gardener.db"
+      "Default": "Data Source=./gardener.db",
     //MySql示例
     //"Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
     //SqlServer示例
@@ -17,7 +17,7 @@
     //"Microsoft.EntityFrameworkCore.InMemory"
     //"Npgsql.EntityFrameworkCore.PostgreSQL"
     //"FirebirdSql.EntityFrameworkCore.Firebird"
-    "InitDb": false, //打开数据库自动初始化
+    "InitDb": true, //打开数据库自动初始化
     "AutoMigration": false, //打开数据库自动迁移
     "MigrationAssemblyName": "Gardener.Api.Core" //迁移主程序集
   }

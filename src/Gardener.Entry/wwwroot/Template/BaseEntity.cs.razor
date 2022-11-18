@@ -1,0 +1,13 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Base;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Furion.DatabaseAccessor;
+using Microsoft.EntityFrameworkCore;
+
+namespace @(Model.AppName).@(Model.Module).Server;
+
+public class @(Model.Module)BaseModel : BaseModel
+{
+}
