@@ -210,7 +210,7 @@ public static class SqlSugarSetup
                                 {
                                     var id = ((dynamic)entityInfo.EntityValue).Id;
                                     if (id == null || id == "")
-                                        entityInfo.SetValue(IdUtil.GetNextIdStr());
+                                        entityInfo.SetValue(IdUtil.GetNextId().ToString());
                                 }
                             }
 

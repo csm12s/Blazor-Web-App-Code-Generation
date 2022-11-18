@@ -26,7 +26,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
     [Inject]
     ICodeGenService codeGenService { get; set; }
 
-    private List<ResourceDto> _menus = new List<ResourceDto>();
+    private List<ResourceDto> _menuTree = new List<ResourceDto>();
 
     public string _menuParentId
     {
@@ -52,8 +52,16 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
         // table select
         var tableInfos = await service.GetTableListAsync();
         _allTables = tableInfos.ToSelectItems(it=>it.TableName, it=>it.TableName);
+        
         // menus
-        _menus = await resourceService.GetTree();
+        _menuTree = await resourceService.GetTree();
+
+        // remove button
+        var list = new List<ResourceDto>();
+        _menuTree.TreeToList(list);
+        list.RemoveAll(it => it.Type != Base.Enums.ResourceType.Root
+            && it.Type != Base.Enums.ResourceType.Menu);
+        _menuTree = TreeTools.ListToTree(list);
 
         await base.OnInitializedAsync();
 
