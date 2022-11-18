@@ -39,11 +39,11 @@
 
     <FormItem Label="@(localizer["ParentMenu"])">
         <Input @bind-Value="@model.MenuParentId" Type="hidden" />
-        @if (_menus != null && _menus.Count > 0)
+        @if (_menuTree != null && _menuTree.Count > 0)
         {
             <TreeSelect TItem="ResourceDto"
                     Style="width:100%;"
-                    DataSource="_menus"
+                    DataSource="_menuTree"
                     @bind-Value="@_menuParentId"
                     Placeholder="@localizer["PleaseSelect"]"
                     AllowClear="false"
