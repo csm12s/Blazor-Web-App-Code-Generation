@@ -18,10 +18,7 @@ public partial class CodeGenSearchDto
     public string ClassName { get; set; }
     #endregion
 
-    // default select: 
     public string Module { get; set; }
-
-    public string NameSpace { get; set; }
 
     [DisplayName("创建时间")]
     public DateTimeOffset CreatedTime { get; set; }

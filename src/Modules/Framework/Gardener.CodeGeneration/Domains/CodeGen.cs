@@ -22,8 +22,9 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
     public string TableDescriptionEN { get; set; }
     public string TableDescriptionCH { get; set; }
 
-    public string MenuName { get; set; }
-    public string MenuParentId { get; set; }
+    public string MenuNameEN { get; set; }
+    public string MenuNameCH { get; set; }
+    public Guid? MenuParentId { get; set; }
 
 
     [MaxLength(5)]
@@ -33,6 +34,7 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
     public string? NameSpace { get; set; }
 
     public bool UseCustomTemplate { get; set; } = false;
+    public bool GenerateProjectFile { get; set; } = true;
 
     public ICollection<CodeGenConfig> CodeGenConfigs { get; set; }
 
@@ -47,6 +49,15 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
     public bool HasLock { get; set; }
     public bool HasImport { get; set; }
     public bool HasExport { get; set; }
+    #endregion
+
+    #region 表建表，根据某一表生成另一表
+    /// <summary>
+    /// 1，正常生成Entity不需要修改
+    /// 2，根据某一表生成新表, 设为true将在初始化CodeGenConfig时将IsNullable设置为true
+    /// 然后自己在CodeGenConfig中手动设置
+    /// </summary>
+    public bool AllowNull { get; set; } = false;
     #endregion
 
     public void Configure(EntityTypeBuilder<CodeGen> entityBuilder, DbContext dbContext, Type dbContextLocator)

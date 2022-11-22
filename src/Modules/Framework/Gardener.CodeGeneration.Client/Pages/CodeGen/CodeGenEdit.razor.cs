@@ -81,7 +81,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
             .Split("_")
             .FirstOrDefault();
         // Menu
-        _editModel.MenuName = _editModel.ClassName;
+        //_editModel.MenuNameEN = _editModel.ClassName;
     }
 
     protected virtual async Task OnlySaveCodeGen()

@@ -10,7 +10,7 @@
       Context="model">
     <FormItem Label="@(localizer["TableName"])">
         <Select DataSource="_allTables"
-            OnSelectedItemChanged="OnTableSelectChanged"
+                OnSelectedItemChanged="OnTableSelectChanged"
                 @bind-Value="@model.TableName"
                 ValueName="@nameof(SelectItem.ValueName)"
                 LabelName="@nameof(SelectItem.LabelName)"
@@ -21,20 +21,24 @@
         </Select>
     </FormItem>
 
-    <FormItem Label="@(localizer["Class Name"])" >
+    <FormItem Label="@(localizer["Class Name"])">
         <Input @bind-Value="@model.ClassName" Placeholder=@localizer["Class Name"] />
+    </FormItem>
+
+    <FormItem Label="@(localizer["Module"])">
+        <Input @bind-Value="@model.Module" Placeholder=@localizer["Module"] />
+    </FormItem>
+
+     <FormItem Label="@(localizer["Remark"])">
+        <Input @bind-Value="@model.Remark" />
     </FormItem>
 
     <FormItem Label="@(localizer["TableDescriptionEN"])">
         <Input @bind-Value="@model.TableDescriptionEN" />
     </FormItem>
 
-    <FormItem Label="@(localizer["TableDescriptionCH"])" >
+    <FormItem Label="@(localizer["TableDescriptionCH"])">
         <Input @bind-Value="@model.TableDescriptionCH" />
-    </FormItem>
-
-    <FormItem Label="@(localizer["Module"])">
-        <Input @bind-Value="@model.Module" Placeholder=@localizer["Module"] />
     </FormItem>
 
     <FormItem Label="@(localizer["ParentMenu"])">
@@ -58,18 +62,25 @@
         }
     </FormItem>
 
-    <FormItem Label="@(localizer["Menu Name"])">
-        <Input @bind-Value="@model.MenuName" Placeholder=@localizer["Menu Name"]/>
+    <FormItem Label="@(localizer["MenuNameEN"])">
+        <Input @bind-Value="@model.MenuNameEN" Placeholder=@localizer["MenuNameEN"] />
+    </FormItem>
+
+    <FormItem Label="@(localizer["MenuNameCH"])">
+        <Input @bind-Value="@model.MenuNameCH" Placeholder=@localizer["MenuNameCH"] />
     </FormItem>
 
     <FormItem Label="@(localizer["PrimaryKeyName"])">
-        <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["PrimaryKeyName"]/>
+        <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["PrimaryKeyName"] />
     </FormItem>
 
     <FormItem Label=@localizer["Locked"]>
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
+    <FormItem Label=@localizer["GenerateProjectFile"]>
+        <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
+    </FormItem>
     <FormItem Label=@localizer["UseCustomTemplate"]>
         <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
     </FormItem>
@@ -83,9 +94,16 @@
     <FormItem Label=@localizer["HasDelete"]>
         <Switch @bind-Value="@model.HasDelete"></Switch>
     </FormItem>
-     <FormItem Label=@localizer["HasBatchDelete"]>
+    <FormItem Label=@localizer["HasBatchDelete"]>
         <Switch @bind-Value="@model.HasBatchDelete"></Switch>
     </FormItem>
+
+    <FormItem Label=@localizer["AllowNull"]>
+        <Tooltip Title="@localizer["用于表建表，设为true将在初始化CodeGenConfig时将IsNullable设置为true"]" ArrowPointAtCenter="true">
+            <Switch @bind-Value="@model.AllowNull"></Switch>
+        </Tooltip>
+    </FormItem>
+
 
     @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
     {
@@ -98,7 +116,7 @@
     }
     <FormItem WrapperColOffset="8" WrapperColSpan="16">
         <Space>
-            @if (!DrawerInputType.Select.Equals(this.Options.Type))
+            @if (this.Options.Type == DrawerInputType.Edit)
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" OnClick="OnlySaveCodeGen">
@@ -108,6 +126,14 @@
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" Danger HtmlType="submit">
                         @localizer["保存并重置Config"]
+                    </Button>
+                </SpaceItem>
+            }
+            else if (this.Options.Type == DrawerInputType.Add)
+            {
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        @localizer["保存"]
                     </Button>
                 </SpaceItem>
             }

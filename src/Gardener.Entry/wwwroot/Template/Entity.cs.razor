@@ -20,22 +20,29 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBui
     @foreach (var item in Model.CodeGenConfigs)
     {
         @if(item.IsCommon) continue;
+        @if(!item.IsEntity) continue;
 
-        var isRequiredStr = item.IsRequired == true ? "[Required]" : "";
-        var dbDataTypeText = !string.IsNullOrEmpty(item.DBDataTypeText) ? "[Column(TypeName = \"" + item.DBDataTypeText + "\")]" : "";
+        @*var columnDataTypeStr = (!string.IsNullOrEmpty(item.DbDataTypeText)?
+                ", TypeName = \"" + item.DbDataTypeText + "\""
+                : "");*@
+
+        @*EF创建Entity未识别*@
+        @*var isRequiredStr = item.IsRequired == true ? "[Required]" : "";*@
+        var isRequiredStr = item.IsRequired == true ? "" : "?";
 
         @:/// <summary>
         @:/// @item.ColumnComment
         @:/// </summary>
+        @if (!string.IsNullOrEmpty(item.DbDataTypeText))
+        {
+        @:[Column("@item.ColumnName", TypeName = "@item.DbDataTypeText")]
+        }
+        else
+        {
         @:[Column("@item.ColumnName")]
-        @:[Comment("@item.ColumnComment")]@(isRequiredStr)@(dbDataTypeText)
-        @:public @item.NetType @item.NetColumnName { get; set; }
+        }
+        @:[Comment("@item.ColumnComment")]
+        @:public @item.NetType@(isRequiredStr) @item.NetColumnName { get; set; }
     }
 	#endregion
-
-    @*TODO: 这里生成报错*@
-    @*@: public void Configure(EntityTypeBuilder<@(Model.ClassName)> entityBuilder, DbContext dbContext, Type dbContextLocator)
-    @: {
-    @:     entityBuilder.HasKey("@(Model.CodeGen.PrimaryKeyName)");
-    @: }*@
 }

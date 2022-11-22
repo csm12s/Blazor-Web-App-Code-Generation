@@ -21,7 +21,8 @@ public partial class CodeGenDto: BaseDto<int>
     public string TableDescriptionEN { get; set; }
     public string TableDescriptionCH { get; set; }
 
-    public string MenuName { get; set; }
+    public string MenuNameEN { get; set; }
+    public string MenuNameCH { get; set; }
     public Guid?  MenuParentId { get; set; }
 
     [MaxLength(5)]
@@ -31,6 +32,7 @@ public partial class CodeGenDto: BaseDto<int>
     public string NameSpace { get; set; }
 
     public bool UseCustomTemplate { get; set; } = false;
+    public bool GenerateProjectFile { get; set; } = true;
     #endregion
 
     #region Views
@@ -65,6 +67,20 @@ public partial class CodeGenDto: BaseDto<int>
 
     #endregion
 
+    #region 表建表，根据某一表生成另一表
+    // 如果为了保持项目简洁，可以不要此字段，自己在CodeGenConfigView设置即可，这里暂时保留
+    // 因为页面有点卡
+    /// <summary>
+    /// 1，正常生成Entity不需要修改
+    /// 2，根据某一表生成表建表, 设为true将在初始化CodeGenConfig时将IsNullable设置为true
+    /// 然后自己在CodeGenConfig中手动设置
+    /// </summary>
+    public bool AllowNull { get; set; } = false;
+    #endregion
+
+    #region Dto only fields
     public bool UpdateCodeGenConfig { get; set; } = true;
+    #endregion
+    
 }
 

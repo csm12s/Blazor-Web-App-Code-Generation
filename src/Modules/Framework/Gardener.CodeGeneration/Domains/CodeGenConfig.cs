@@ -3,7 +3,6 @@ using Gardener.Base;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SqlSugar;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +15,7 @@ namespace Gardener.CodeGeneration.Domains;
 /// </summary>
 [Table("Sys_Code_Gen_Config")]
 [Description("代码生成字段配置表")]
-public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenConfig>
+public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGenConfig>
 {
     /// <summary>
     /// 代码生成主表ID
@@ -146,6 +145,11 @@ public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenC
     /// 是否通用字段
     /// </summary>
     public bool IsCommon { get; set; } = false;
+    
+    /// <summary>
+    /// 是否是Entity字段，用于表建表
+    /// </summary>
+    public bool IsEntity { get; set; } = true;
 
     /// <summary>
     /// 主键
@@ -192,17 +196,16 @@ public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenC
     #endregion
 
     #region EF 外键
-    [SugarColumn(IsIgnore = true)]
-    public CodeGen CodeGen { get; set; }
+    //public CodeGen CodeGen { get; set; }
 
-    public void Configure(EntityTypeBuilder<CodeGenConfig> entityBuilder, DbContext dbContext, Type dbContextLocator)
-    {
-        entityBuilder
-               .HasOne(it => it.CodeGen)
-               .WithMany(p => p.CodeGenConfigs)
-               .HasForeignKey(it => it.CodeGenId)
-               .OnDelete(DeleteBehavior.ClientSetNull);
-    }
+    //public void Configure(EntityTypeBuilder<CodeGenConfig> entityBuilder, DbContext dbContext, Type dbContextLocator)
+    //{
+    //    entityBuilder
+    //           .HasOne(it => it.CodeGen)
+    //           .WithMany(p => p.CodeGenConfigs)
+    //           .HasForeignKey(it => it.CodeGenId)
+    //           .OnDelete(DeleteBehavior.ClientSetNull);
+    //}
     #endregion
 
 }

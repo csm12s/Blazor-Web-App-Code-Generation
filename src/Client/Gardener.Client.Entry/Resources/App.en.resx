@@ -370,8 +370,8 @@
   <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
     <value>TableDescriptionCH</value>
   </data>
-  <data name="_Sys._CodeGen.MenuName" xml:space="preserve">
-    <value>MenuName</value>
+  <data name="_Sys._CodeGen.MenuNameEN" xml:space="preserve">
+    <value>MenuNameEN</value>
   </data>
   <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
     <value>MenuParentId</value>
@@ -381,5 +381,11 @@
   </data>
   <data name="Detail" xml:space="preserve">
     <value>Detail</value>
+  </data>
+  <data name="_Sys._CodeGen.MenuNameCH" xml:space="preserve">
+    <value>MenuNameCH</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
   </data>
 </root>

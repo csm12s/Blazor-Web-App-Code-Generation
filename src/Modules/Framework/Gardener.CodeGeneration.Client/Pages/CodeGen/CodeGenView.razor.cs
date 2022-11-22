@@ -1,4 +1,5 @@
-﻿using Gardener.Client.Base;
+﻿using AntDesign;
+using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Constants;
 using Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
@@ -13,6 +14,8 @@ namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
 
 public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
 {
+    protected bool _generatesBtnLoading = false;
+
     // Custom search
     protected CodeGenSearchDto _searchDto = new();
     private List<SelectItem> _select_TableName = new();
@@ -69,4 +72,28 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         await ReLoadTable(true);
     }
 
+    protected virtual async Task OnClickGenerates()
+    {
+        if (_selectedRows == null || _selectedRows.Count() == 0)
+        {
+            messageService.Warn(localizer["未选中任何行"]);
+        }
+        else
+        {
+            _generatesBtnLoading = true;
+            if (await confirmService.YesNo("批量生成", "是否继续") == ConfirmResult.Yes)
+            {
+                var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
+                if (success)
+                {
+                    await messageService.Success("Generate Success");
+                }
+                else
+                {
+                    await messageService.Error("Generate Error");
+                }
+            }
+            _generatesBtnLoading = false;
+        }
+    }
 }
