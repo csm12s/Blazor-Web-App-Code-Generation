@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.EntityFramwork;
 using Gardener.NotificationSystem.Domains;
 using Gardener.NotificationSystem.Dtos;
 using Microsoft.AspNetCore.Mvc;

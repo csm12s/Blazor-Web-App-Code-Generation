@@ -4,13 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using HttpMethod = Gardener.Enums.HttpMethod;
 
-namespace Gardener.Base.Domains
+namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 功能信息

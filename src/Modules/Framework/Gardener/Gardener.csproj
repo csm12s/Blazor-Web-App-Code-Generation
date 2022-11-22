@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SqlSugar\" />
+  </ItemGroup>
+
 </Project>

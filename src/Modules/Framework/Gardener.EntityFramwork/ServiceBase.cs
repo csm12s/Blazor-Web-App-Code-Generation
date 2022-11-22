@@ -25,7 +25,7 @@ using System.IO;
 using MiniExcelLibs;
 using Gardener.FileStore;
 
-namespace Gardener
+namespace Gardener.EntityFramwork
 {
     /// <summary>
     /// 继承此类即可实现基础方法

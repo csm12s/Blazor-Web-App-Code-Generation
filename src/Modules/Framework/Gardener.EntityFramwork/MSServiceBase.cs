@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 
-namespace Gardener
+namespace Gardener.EntityFramwork
 {
     /// <summary>
     /// 主从数据库操作基类

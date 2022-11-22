@@ -29,8 +29,8 @@ using Gardener.UserCenter.Services;
 using Gardener.UserCenter.Impl.Core;
 using Gardener.VerifyCode.Core;
 using Gardener.SystemManager.Dtos;
-using Gardener.Base.Domains;
 using Gardener.Base.Enums;
+using Gardener.Base.Entity;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -100,7 +100,7 @@ namespace Gardener.UserCenter.Impl.Services
                 LoginClientType=input.LoginClientType,
                 IdentityType=IdentityType.User,
                 Name=user.UserName,
-                GivenName=user.NickName
+                NickName=user.NickName
             };
 
             var token = await _jwtBearerService.CreateToken(identity);

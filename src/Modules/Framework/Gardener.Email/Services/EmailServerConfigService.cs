@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Email.Domains;
 using Gardener.Email.Dtos;
+using Gardener.EntityFramwork;
 using Microsoft.AspNetCore.Mvc;
 using System;
 

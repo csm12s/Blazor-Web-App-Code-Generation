@@ -6,8 +6,11 @@
 
 using IdGen;
 
-namespace Gardener.Base;
+namespace Gardener.Common;
 
+/// <summary>
+/// Id生成工具
+/// </summary>
 public class IdUtil
 {
     /// <summary>

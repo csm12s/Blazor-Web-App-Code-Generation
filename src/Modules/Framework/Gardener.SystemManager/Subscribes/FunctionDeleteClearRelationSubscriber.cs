@@ -8,7 +8,7 @@ using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.EventBus;
 using Gardener.Base;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
 using Gardener.EventBus;
 
 namespace Gardener.SystemManager.Subscribes

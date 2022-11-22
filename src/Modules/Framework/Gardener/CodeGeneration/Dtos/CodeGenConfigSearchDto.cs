@@ -1,5 +1,4 @@
-﻿using Gardener.Base;
-using Gardener.Enums;
+﻿using Gardener.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.CodeGeneration.Dtos;

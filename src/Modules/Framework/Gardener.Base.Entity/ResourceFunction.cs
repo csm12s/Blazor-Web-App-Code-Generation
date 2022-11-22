@@ -5,11 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Base.Domains
+namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 资源功能信息

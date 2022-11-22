@@ -9,6 +9,7 @@ using Gardener.UserCenter.Impl.Domains;
 using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Gardener.UserCenter.Services;
+using Gardener.EntityFramwork;
 
 namespace Gardener.UserCenter.Impl.Services
 {

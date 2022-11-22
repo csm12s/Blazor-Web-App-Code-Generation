@@ -92,7 +92,7 @@ namespace Gardener.Audit.Core
                 Parameters= parameters,
                 UserAgent = ua.ToString(),
                 OperaterId = identity != null? identity.Id.ToString():null,
-                OperaterName = identity != null ? (identity.GivenName ?? identity.Name):null,
+                OperaterName = identity != null ? (identity.NickName ?? identity.Name):null,
                 OperaterType = identity != null ? identity.IdentityType : IdentityType.Unknown,
             ResourceId = api!=null? api.Id:Guid.Empty,
                 ResourceName = api!=null? api.Service+":"+api.Summary:null

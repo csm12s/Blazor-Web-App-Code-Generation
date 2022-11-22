@@ -122,7 +122,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     auditEntity.TypeName = entityType.FullName;
                     auditEntity.Name = entityType.GetDescription();
                     auditEntity.OperaterId = user != null ? user.Id.ToString() : null;
-                    auditEntity.OperaterName = user != null ? (user.GivenName ?? user.GivenName) : null;
+                    auditEntity.OperaterName = user != null ? (user.NickName ?? user.NickName) : null;
                     auditEntity.OperaterType = user != null ? user.IdentityType : IdentityType.Unknown;
                     auditEntity.OperationId = Guid.NewGuid();
                     auditEntity.CurrentValues = currentValues;

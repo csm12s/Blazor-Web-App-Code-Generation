@@ -17,6 +17,7 @@ using Gardener.Attachment.Dtos;
 using Gardener.FileStore;
 using Gardener.Attachment.Core;
 using Gardener.Common;
+using Gardener.EntityFramwork;
 
 namespace Gardener.Attachment.Services
 {

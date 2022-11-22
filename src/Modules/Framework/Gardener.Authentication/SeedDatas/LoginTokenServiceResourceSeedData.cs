@@ -8,9 +8,9 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
-using Gardener.Base.Domains;
 using Gardener.Authentication.Enums;
 using Gardener.Base.Enums;
+using Gardener.Base.Entity;
 
 namespace Gardener.Authentication.SeedDatas
 {

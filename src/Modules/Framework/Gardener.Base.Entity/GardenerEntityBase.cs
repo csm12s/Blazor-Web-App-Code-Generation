@@ -6,7 +6,6 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -77,7 +76,7 @@ namespace Gardener.Base
         /// 创建者编号
         /// </summary>
         [DisplayName("创建者编号")]
-        public string CreateBy { get; set; } // CreateBy / CreateUserId
+        public string? CreateBy { get; set; } // CreateBy / CreateUserId
 
         /// <summary>
         /// 修改者编号
@@ -89,20 +88,14 @@ namespace Gardener.Base
         /// 创建者身份类型
         /// </summary>
         [DisplayName("创建者身份类型")]
-        public IdentityType CreateIdentityType { get; set; }
+        public IdentityType? CreateIdentityType { get; set; }
 
 
         /// <summary>
         /// 修改者身份类型
         /// </summary>
         [DisplayName("修改者身份类型")]
-        public IdentityType UpdateIdentityType { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        [DisplayName("备注")]
-        public string? Remark { get; set; }
+        public IdentityType? UpdateIdentityType { get; set; }
     }
     /// <summary>
     /// 基类

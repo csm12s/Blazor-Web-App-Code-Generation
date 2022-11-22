@@ -179,11 +179,11 @@ namespace Gardener.Client.Entry.Pages
             chatData.NickName = "系统";
             if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Online))
             {
-                chatData.Message = $"{notificationData.Identity.GivenName} 刚刚上线了。IP:[{notificationData.Ip}]";
+                chatData.Message = $"{notificationData.Identity.NickName} 刚刚上线了。IP:[{notificationData.Ip}]";
             }
             else if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Offline))
             {
-                chatData.Message = $"{notificationData.Identity.GivenName} 刚刚离线了。IP:[{notificationData.Ip}]";
+                chatData.Message = $"{notificationData.Identity.NickName} 刚刚离线了。IP:[{notificationData.Ip}]";
             }
             await ShowMessage(chatData);
         }

@@ -4,8 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.FriendlyException;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
+using Gardener.Authentication.Enums;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -70,16 +72,17 @@ namespace Gardener.Authorization.Core
         public async Task<bool> ChecktContenxtApiEndpoint()
         {
             Identity identity = this._identityService.GetIdentity();
-            if (identity == null) {
+            if (identity == null)
+            {
                 return false;
             }
             //clientId 已不可用
-            if (!await _identityPermissionService.CheckLoginIdUsable(identity.LoginId)) 
+            if (!await _identityPermissionService.CheckLoginIdUsable(identity.LoginId))
             {
                 return false;
             }
 
-            ApiEndpoint api =await GetApiEndpointFromContext();
+            ApiEndpoint api = await GetApiEndpointFromContext();
 
             return await _identityPermissionService.Check(identity, api);
         }
@@ -104,7 +107,7 @@ namespace Gardener.Authorization.Core
         private (HttpMethod, string) GetContextEndpoint()
         {
             //没有特性的可以通过路由+请求方法查找
-            HttpMethod method =Enum.Parse< HttpMethod>(_httpContextAccessor.HttpContext.Request.Method.ToUpper());
+            HttpMethod method = Enum.Parse<HttpMethod>(_httpContextAccessor.HttpContext.Request.Method.ToUpper());
             string path = ((Microsoft.AspNetCore.Routing.RouteEndpoint)_httpContextAccessor.HttpContext.GetEndpoint()).RoutePattern.RawText;
             if (!path.StartsWith("/"))
             {
@@ -141,6 +144,22 @@ namespace Gardener.Authorization.Core
         public object GetIdentityId()
         {
             return _identityPermissionService.GetIdentityId(GetIdentity());
+        }
+
+        /// <summary>
+        /// 判断是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task<bool> IsSuperAdministrator()
+        {
+            Identity identity = GetIdentity();
+            if (identity.IdentityType.Equals(IdentityType.User))
+            {
+                return _identityPermissionService.IsSuperAdministrator(int.Parse(identity.Id));
+            }
+            //其他身份无法判断是否是超级管理
+            throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
         }
 
         #endregion

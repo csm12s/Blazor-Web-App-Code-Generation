@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Enums;
-using Gardener.Enums;
 using System.ComponentModel;
 
 namespace Gardener.Authentication.Dtos
@@ -19,15 +18,15 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 身份唯一编号
         /// </summary>
-        public string Id { get; set; } // UserId
+        public string Id { get; set; }
         /// <summary>
         /// 身份唯一名称
         /// </summary>
-        public string Name { get; set; } // Username
+        public string Name { get; set; }
         /// <summary>
         /// 身份昵称
         /// </summary>
-        public string GivenName { get; set; } // NickName / RealName
+        public string NickName { get; set; }
         /// <summary>
         /// 身份类型
         /// </summary>
@@ -40,9 +39,9 @@ namespace Gardener.Authentication.Dtos
         /// 获取或设置 登录Id(每次登录该Id自动生成)
         /// </summary>
         public string LoginId { get; set; }
-
-        // Tenant:
+        /// <summary>
+        /// 租户编号
+        /// </summary>
         public int TenantId { get; set; } = 0;
-        public AdminType AdminType { get; set; } = AdminType.None;
     }
 }

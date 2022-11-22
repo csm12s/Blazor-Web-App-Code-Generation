@@ -8,12 +8,10 @@ using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
 using Gardener.Base.Enums;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Base.Domains
+namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 资源表

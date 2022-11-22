@@ -50,7 +50,7 @@
             </ResourceAuthorize>
             <Column @bind-Field="@model.IdentityId" Filterable />
             <Column @bind-Field="@model.IdentityName" Filterable />
-            <Column @bind-Field="@model.IdentityGivenName" Filterable />
+            <Column @bind-Field="@model.IdentityNickName" Filterable />
             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters">
                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.IdentityType)"></TagRandomColor>
             </Column>

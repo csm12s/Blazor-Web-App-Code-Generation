@@ -62,7 +62,7 @@ namespace Gardener.Authentication.Core
             {
                 IdentityId=identity.Id,
                 IdentityName=identity.Name,
-                IdentityGivenName=identity.GivenName,
+                IdentityNickName=identity.NickName,
                 IdentityType=identity.IdentityType,
                 LoginId = identity.LoginId,
                 LoginClientType = identity.LoginClientType,
@@ -154,7 +154,7 @@ namespace Gardener.Authentication.Core
             Claim[] claims =
                 {
                 new Claim(ClaimTypes.NameIdentifier, identity.Id),
-                new Claim(ClaimTypes.GivenName, identity.GivenName),
+                new Claim(ClaimTypes.GivenName, identity.NickName),
                 new Claim(ClaimTypes.Name, identity.Name),
                 new Claim(AuthKeyConstants.IdentityType, identity.IdentityType.ToString()),
                 new Claim(AuthKeyConstants.ClientIdKeyName, identity.LoginId),
@@ -250,7 +250,7 @@ namespace Gardener.Authentication.Core
 
             identity.Id= principal.FindFirstValue(ClaimTypes.NameIdentifier);
             identity.Name = principal.FindFirstValue(ClaimTypes.Name);
-            identity.GivenName = principal.FindFirstValue(ClaimTypes.GivenName);
+            identity.NickName = principal.FindFirstValue(ClaimTypes.GivenName);
             string loginClientType =principal.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
             identity.LoginClientType = Enum.Parse<LoginClientType>(loginClientType);
             identity.IdentityType = identityType;

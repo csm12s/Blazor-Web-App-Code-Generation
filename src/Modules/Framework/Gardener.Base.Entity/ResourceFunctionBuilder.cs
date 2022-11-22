@@ -6,10 +6,9 @@
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
 using Furion.DatabaseAccessor;
 
-namespace Gardener.Base.Domains
+namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 资源功能信息配置

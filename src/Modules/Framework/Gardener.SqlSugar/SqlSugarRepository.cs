@@ -1,144 +1,135 @@
-﻿using Furion;
-using Furion.DatabaseAccessor;
-using Furion.DynamicApiController;
+using Furion;
 using Furion.FriendlyException;
+using Gardener.Base;
 using Gardener.Common;
 using Gardener.Enums;
-using Mapster;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
+using System.Reflection;
 
-namespace Gardener.Base;
+namespace Gardener.SqlSugar;
 
-#region BaseService with EF + Sugar Repository
-public abstract class BaseService
-    <TEntity, TDbContextLocator> :
-    IDynamicApiController,
-    IBaseService<TEntity> where TEntity : class, IPrivateEntity, new()
-    where TDbContextLocator : class, IDbContextLocator
+/// <summary>
+/// SqlSugar 仓储实现类
+/// </summary>
+/// <typeparam name="TEntity"></typeparam>
+public partial class SqlSugarRepository<TEntity> : SqlSugarRepository where TEntity : class, new()
 {
-
     #region Init
-
-    private readonly string[] UpdateIgnoreColumns = new string[]
+    /// <summary>
+    /// 
+    /// </summary>
+    private readonly SqlSugarScope db;
+    /// <summary>
+    /// 数据库上下文
+    /// </summary>
+    public virtual SqlSugarScope Context { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <param name="db"></param>
+    public SqlSugarRepository(IServiceProvider serviceProvider, ISqlSugarClient db) : base(serviceProvider)
     {
-        nameof(GardenerEntityBase.CreatedTime),
-        nameof(GardenerEntityBase.CreateBy),
-        nameof(GardenerEntityBase.CreateIdentityType),
-    };
+        try
+        {
+            #region SqlSugarRepository
+            Context = this.db = (SqlSugarScope)db;
+            // 数据库上下文根据实体切换,业务分库(使用环境例如微服务)
+            var entityType = typeof(TEntity);
+            if (entityType.IsDefined(typeof(TenantAttribute), false))
+            {
+                var tenantAttribute = entityType.GetCustomAttribute<TenantAttribute>(false)!;
+                Context.ChangeDatabase(tenantAttribute.configId);
+            }
+            else
+            {
+                var defaultDbNumber = "0";
+                var config = App.GetOptions<ConnectionStringsOptions>();
+                if (config.DefaultDbNumber != null)
+                {
+                    defaultDbNumber = config.DefaultDbNumber;
+                }
+
+                Context.ChangeDatabase(defaultDbNumber);
+            }
+            Ado = this.db.Ado;
+            #endregion
+        }
+        catch (Exception ex)
+        {
+            throw Oops.Bah(ExceptionCode.Sugar_Repository_Init_Fail);
+        }
+    }
 
     /// <summary>
-    /// EF Repository
+    /// 实体集合
     /// </summary>
-    public readonly IRepository<TEntity, TDbContextLocator> _repository;
+    public virtual ISugarQueryable<TEntity> Entities => db.Queryable<TEntity>();
 
     /// <summary>
-    /// Sugar Repository
+    /// 原生 Ado 对象
     /// </summary>
-    public readonly SqlSugarRepository<TEntity> _sugarRepository;
-
-    protected BaseService(IRepository<TEntity, TDbContextLocator> repository,
-        SqlSugarRepository<TEntity> sugarRepository)
-    {
-        _repository = repository;
-        _sugarRepository = sugarRepository;
-    }
-
-    protected BaseService(IRepository<TEntity> repository,
-        SqlSugarRepository<TEntity> sugarRepository)
-    {
-        _repository = (IRepository<TEntity, TDbContextLocator>)repository;
-        _sugarRepository = sugarRepository;
-    }
-
+    public virtual IAdo Ado { get; }
     #endregion
 
-    #region ORM
-    public DbContext GetEFContext()
-    {
-        return _repository.Context;
-    }
-    public IPrivateReadableRepository<TEntity> GetReadableRepository()
-    {
-        return _repository;
-    }
-
-
-    public SqlSugarScope GetSugarContext()
-    {
-        return _sugarRepository.Context;
-    }
-    #endregion
 
     #region CRUD
     #region Get
     public virtual bool Any(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return _repository.Any(whereExpression);
-        //return _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).Any();
+        return Context.Queryable<TEntity>().Where(whereExpression).Any();
     }
 
     public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return await _repository.AnyAsync(whereExpression);
-        //return await _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).AnyAsync();
+        return await Context.Queryable<TEntity>().Where(whereExpression).AnyAsync();
     }
 
     public virtual TEntity GetById(object id)
     {
-        return _repository.Find(id);
-        //return _sugarRepository.Context.Queryable<TEntity>().InSingle(id);
+        return Context.Queryable<TEntity>().InSingle(id);
     }
 
     public virtual async Task<TEntity> GetByIdAsync(object id)
     {
-        return await _repository.FindAsync(id);
-        //return await _sugarRepository.Context.Queryable<TEntity>().InSingleAsync(id);
+        return await Context.Queryable<TEntity>().InSingleAsync(id);
     }
 
     public virtual TEntity GetFirst(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return _sugarRepository.Context.Queryable<TEntity>().First(whereExpression);
+        return Context.Queryable<TEntity>().First(whereExpression);
     }
 
     public virtual async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return await _sugarRepository.Context.Queryable<TEntity>().FirstAsync(whereExpression);
+        return await Context.Queryable<TEntity>().FirstAsync(whereExpression);
     }
 
     public virtual async Task<List<TEntity>> GetListAsync()
     {
-        return await _repository.AsQueryable().ToListAsync();
-        //return await _sugarRepository.Context.Queryable<TEntity>().ToListAsync();
+        return await Context.Queryable<TEntity>().ToListAsync();
     }
 
     public virtual List<TEntity> GetList(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return _repository.AsQueryable().Where(whereExpression).ToList();
-        //return _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).ToList();
+        return Context.Queryable<TEntity>().Where(whereExpression).ToList();
     }
 
     public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> whereExpression)
     {
-        return await _repository.AsQueryable().Where(whereExpression).ToListAsync();
-        //return await _sugarRepository.Context.Queryable<TEntity>().Where(whereExpression).ToListAsync();
+        return await Context.Queryable<TEntity>().Where(whereExpression).ToListAsync();
     }
 
     public List<TEntity> GetAll()
     {
-        return _repository.AsQueryable().ToList();
-        //return _sugarRepository.Context.Queryable<TEntity>().ToList();
+        return Context.Queryable<TEntity>().ToList();
     }
 
     public async Task<List<TEntity>> GetAllAsync()
     {
-        return await _repository.AsQueryable().ToListAsync();
-        //return await _sugarRepository.Context.Queryable<TEntity>().ToListAsync();
+        return await Context.Queryable<TEntity>().ToListAsync();
     }
 
     #region Get Page
@@ -163,19 +154,13 @@ public abstract class BaseService
         IDynamicFilterService filterService = Furion.App.GetService<IDynamicFilterService>();
         Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
-        // EF:
-        IQueryable<TEntity> queryable = _repository.AsQueryable(false);
-        return queryable
-            .Where(expression)
-            .OrderConditions(request.OrderConditions.ToArray())
-            .ToList();
 
         // Sugar:
-        //IQueryable<TEntity> queryable = (IQueryable<TEntity>)_sugarRepository.Context.Queryable<TEntity>();
-        //return queryable
-        //    .Where(expression) // Where
-        //    .OrderConditions(request.OrderConditions.ToArray()) // Order by
-        //    .ToList();
+        IQueryable<TEntity> queryable = (IQueryable<TEntity>)Context.Queryable<TEntity>();
+        return queryable
+            .Where(expression) // Where
+            .OrderConditions(request.OrderConditions.ToArray()) // Order by
+            .ToList();
     }
 
     /// <summary>
@@ -201,30 +186,24 @@ public abstract class BaseService
         //// TODO: If null in DB, skip where expression?
         //// 如果查询的字段在数据库中字段为null这里会不会报错
 
-        // EF:
-        IQueryable<TEntity> queryable = _repository.AsQueryable(false);
-        return await queryable
-            .Where(expression)
-            .OrderConditions(request.OrderConditions.ToArray())
-            .ToListAsync();
 
         // Sugar:
-        //var listAll = await GetAllAsync();
-        //IQueryable<TEntity> queryable = listAll.AsQueryable();
-        //try
-        //{
-        //    var list = queryable
-        //        .Where(expression) // Where
-        //        .OrderConditions(request.OrderConditions.ToArray()) // Order by
-        //        .ToList();
+        var listAll = await GetAllAsync();
+        IQueryable<TEntity> queryable = listAll.AsQueryable();
+        try
+        {
+            var list = queryable
+                .Where(expression) // Where
+                .OrderConditions(request.OrderConditions.ToArray()) // Order by
+                .ToList();
 
-        //    return list;
-        //}
-        //catch (Exception ex)
-        //{
-        //    // TODO: 这里不能抛出异常
-        //    throw Oops.Oh(ExceptionCode.Search_Error_DB_Field_Is_Null);
-        //}
+            return list;
+        }
+        catch (Exception ex)
+        {
+            // TODO: 这里不能抛出异常
+            throw Oops.Oh(ExceptionCode.Search_Error_DB_Field_Is_Null);
+        }
     }
     #endregion
 
@@ -244,53 +223,42 @@ public abstract class BaseService
     #region Delete
     public virtual bool Delete(TEntity item)
     {
-        throw new NotImplementedException();
-        //return _sugarRepository.Context.Deleteable(item).ExecuteCommand() > 0;
+        return Context.Deleteable(item).ExecuteCommand() > 0;
     }
 
     public virtual async Task<bool> DeleteAsync(TEntity item)
     {
-        throw new NotImplementedException();
-        //return await _sugarRepository.Context.Deleteable<TEntity>().Where(item).ExecuteCommandAsync() > 0;
+        return await Context.Deleteable<TEntity>().Where(item).ExecuteCommandAsync() > 0;
     }
 
     public virtual bool Delete(List<TEntity> list)
     {
-        return _sugarRepository.Context.Deleteable<TEntity>().Where(list).ExecuteCommand() > 0;
+        return Context.Deleteable<TEntity>().Where(list).ExecuteCommand() > 0;
     }
 
     public virtual async Task<bool> DeleteAsync(List<TEntity> list)
     {
-        return await _sugarRepository.Context.Deleteable<TEntity>().Where(list).ExecuteCommandAsync() > 0;
+        return await Context.Deleteable<TEntity>().Where(list).ExecuteCommandAsync() > 0;
     }
 
     public virtual bool DeleteById(dynamic id)
     {
-        var entry = _repository.Delete(id);
-        return true;
-        //return _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommand() > 0;
+        return Context.Deleteable<TEntity>().In(id).ExecuteCommand() > 0;
     }
     public virtual async Task<bool> DeleteByIdAsync(dynamic id)
     {
-        var item = await GetByIdAsync(id);
-        await _repository.DeleteAsync(item);
-        return true;
-        // TODO: 无主键表，指定某个key作为主键，报错：
-        //var entry = await _repository.DeleteAsync(id);
-        //return true;
-        
         // sugar
-        //return await _sugarRepository.Context.Deleteable<TEntity>().In(id).ExecuteCommandAsync() > 0;
+        return await Context.Deleteable<TEntity>().In(id).ExecuteCommandAsync() > 0;
     }
 
     public virtual bool DeleteByIds(dynamic[] ids)
     {
-        return _sugarRepository.Context.Deleteable<TEntity>().In(ids).ExecuteCommand() > 0;
+        return Context.Deleteable<TEntity>().In(ids).ExecuteCommand() > 0;
     }
 
     public virtual async Task<bool> DeleteByIdsAsync(dynamic[] ids)
     {
-        return await _sugarRepository.Context.Deleteable<TEntity>().In(ids).ExecuteCommandAsync() > 0;
+        return await Context.Deleteable<TEntity>().In(ids).ExecuteCommandAsync() > 0;
     }
 
     public async Task<bool> FakeDeleteByIdAsync(dynamic id)
@@ -310,47 +278,45 @@ public abstract class BaseService
     #region Insert
     public int InsertReturnId(TEntity insertObj)
     {
-        return _sugarRepository.Context.Insertable(insertObj).ExecuteReturnIdentity();
+        return Context.Insertable(insertObj).ExecuteReturnIdentity();
     }
 
     public long InsertReturnSnowId(TEntity insertObj)
     {
-        return _sugarRepository.Context.Insertable(insertObj).ExecuteReturnSnowflakeId();
+        return Context.Insertable(insertObj).ExecuteReturnSnowflakeId();
     }
 
     public async Task<int> InsertReturnIdAsync(TEntity insertObj)
     {
-        return await _sugarRepository.Context.Insertable(insertObj).ExecuteReturnIdentityAsync();
+        return await Context.Insertable(insertObj).ExecuteReturnIdentityAsync();
     }
 
     public async Task<long> InsertReturnSnowIdAsync(TEntity insertObj)
     {
-        return await _sugarRepository.Context.Insertable(insertObj).ExecuteReturnSnowflakeIdAsync();
+        return await Context.Insertable(insertObj).ExecuteReturnSnowflakeIdAsync();
     }
 
     public async Task<List<long>> InsertReturnSnowIdAsync(List<TEntity> insertObjs)
     {
-        return await _sugarRepository.Context.Insertable(insertObjs).ExecuteReturnSnowflakeIdListAsync();
+        return await Context.Insertable(insertObjs).ExecuteReturnSnowflakeIdListAsync();
     }
 
     public virtual TEntity InsertReturnEntity(TEntity entity)
     {
-        return _sugarRepository.Context.Insertable(entity).ExecuteReturnEntity();
+        return Context.Insertable(entity).ExecuteReturnEntity();
     }
 
     public virtual async Task<TEntity> InsertReturnEntityAsync(TEntity entity)
     {
-        var entry = await _repository.InsertAsync(entity);
-        return entry.Entity;
 
-        //return await _sugarRepository.Context.Insertable(entity)
-        //    .IgnoreColumns(ignoreNullColumn: true)
-        //    .ExecuteReturnEntityAsync();
+        return await Context.Insertable(entity)
+            .IgnoreColumns(ignoreNullColumn: true)
+            .ExecuteReturnEntityAsync();
     }
 
     public async Task<bool> InsertAsync(TEntity insertObj, bool ignoreNullColumn = true)
     {
-        var insertCount = await _sugarRepository.Context.Insertable(insertObj)
+        var insertCount = await Context.Insertable(insertObj)
             .IgnoreColumns(ignoreNullColumn: ignoreNullColumn)
             .ExecuteCommandAsync();
 
@@ -378,11 +344,11 @@ public abstract class BaseService
     public virtual bool SaveOrUpdate(TEntity item, bool ignoreNullColumn = true)
     {
         // Update　
-        var updateCount = _sugarRepository.Context.Updateable(item)
+        var updateCount = Context.Updateable(item)
             .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
             .ExecuteCommand();
         // Insert
-        var insertCount = _sugarRepository.Context.Insertable(item)
+        var insertCount = Context.Insertable(item)
             .IgnoreColumns(ignoreNullColumn: ignoreNullColumn) // Not support list
             .ExecuteCommand();
 
@@ -407,11 +373,11 @@ public abstract class BaseService
     public virtual async Task<bool> SaveOrUpdateAsync(TEntity item, bool ignoreNullColumn = true)
     {
         // Update　
-        var updateCount = await _sugarRepository.Context.Updateable(item)
+        var updateCount = await Context.Updateable(item)
             .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
             .ExecuteCommandAsync();
         // Insert
-        var insertCount = await _sugarRepository.Context.Insertable(item)
+        var insertCount = await Context.Insertable(item)
             .IgnoreColumns(ignoreNullColumn: ignoreNullColumn) // Not support list
             .ExecuteCommandAsync();
 
@@ -437,8 +403,7 @@ public abstract class BaseService
     #region Update
     public virtual bool Update(TEntity item, bool ignoreNullColumn = true)
     {
-        return _sugarRepository.Context.Updateable(item)
-            .IgnoreColumns(UpdateIgnoreColumns)
+        return Context.Updateable(item)
             .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
             .ExecuteCommandHasChange();
     }
@@ -460,8 +425,7 @@ public abstract class BaseService
 
     public virtual async Task<bool> UpdateAsync(TEntity item, bool ignoreNullColumn = true)
     {
-        return await _sugarRepository.Context.Updateable(item)
-            .IgnoreColumns(UpdateIgnoreColumns)
+        return await Context.Updateable(item)
             .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
             .ExecuteCommandHasChangeAsync();
     }
@@ -483,75 +447,73 @@ public abstract class BaseService
 
     public bool UpdateExclude(TEntity item, string[] ignoreColumns, bool ignoreNullColumn = true)
     {
-        return _sugarRepository.Context.Updateable(item)
+        return Context.Updateable(item)
             .IgnoreColumns(ignoreColumns)
-            .IgnoreColumns(UpdateIgnoreColumns)
             .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
             .ExecuteCommandHasChange();
     }
 
     public async Task<bool> UpdateExcludeAsync(TEntity item, string[] ignoreColumns, bool ignoreNullColumn = true)
     {
-        if (ignoreColumns == null || ignoreColumns.Length == 0)
-        {
-            ignoreColumns = UpdateIgnoreColumns;
-        }
 
-        var entry = await _repository.UpdateExcludeAsync(item, ignoreColumns, ignoreNullColumn);
-        return true;
 
-        //return await _sugarRepository.Context.Updateable(item)
-        //    .IgnoreColumns(ignoreColumns)
-        //    .IgnoreColumns(UpdateIgnoreColumns)
-        //    .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
-        //    .ExecuteCommandHasChangeAsync();
+        return await Context.Updateable(item)
+            .IgnoreColumns(ignoreColumns)
+            .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
+            .ExecuteCommandHasChangeAsync();
     }
 
     public bool UpdateInclude(TEntity item, string[] updateColumns, bool ignoreNullColumn = true)
     {
-        return _sugarRepository.Context.Updateable(item)
+        return Context.Updateable(item)
             .UpdateColumns(updateColumns)
-            .IgnoreColumns(UpdateIgnoreColumns)
             .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
             .ExecuteCommandHasChange();
     }
 
     public async Task<bool> UpdateIncludeAsync(TEntity item, string[] updateColumns, bool ignoreNullColumn = true)
     {
-        var entry = await _repository
-            .UpdateIncludeAsync(item, updateColumns, ignoreNullColumn);
-        return true;
+        var res = await Context.Updateable(item)
+            .UpdateColumns(updateColumns)
+            .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
+            .ExecuteCommandHasChangeAsync();
 
-        //var res = await _sugarRepository.Context.Updateable(item)
-        //    .UpdateColumns(updateColumns)
-        //    .IgnoreColumns(UpdateIgnoreColumns)
-        //    .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list
-        //    .ExecuteCommandHasChangeAsync();
-
-        //return res;
+        return res;
     }
 
 
     #endregion
     #endregion
-}
-#endregion
 
-#region Contructor
-public abstract class BaseService<TEntity> :
-    BaseService<TEntity, MasterDbContextLocator>
-    where TEntity : class, IPrivateEntity, new()
+}
+/// <summary>
+/// SqlSugar 仓储实现类
+/// </summary>
+public class SqlSugarRepository
 {
-    protected BaseService(IRepository<TEntity, MasterDbContextLocator> repository,
-        SqlSugarRepository<TEntity> sugarRepository)
-        : base(repository, sugarRepository)
+    /// <summary>
+    /// 服务提供器
+    /// </summary>
+    private readonly IServiceProvider _serviceProvider;
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="serviceProvider">服务提供器</param>
+    public SqlSugarRepository(
+        IServiceProvider serviceProvider)
     {
+        _serviceProvider = serviceProvider;
     }
 
-    protected BaseService(IRepository<TEntity> repository,
-        SqlSugarRepository<TEntity> sugarRepository)
-        : base(repository, sugarRepository)
+    /// <summary>
+    /// 切换仓储
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <returns>仓储</returns>
+    public virtual SqlSugarRepository<TEntity> Change<TEntity>()
+        where TEntity : class, new()
     {
+        return _serviceProvider.GetService<SqlSugarRepository<TEntity>>();
     }
 }
-#endregion

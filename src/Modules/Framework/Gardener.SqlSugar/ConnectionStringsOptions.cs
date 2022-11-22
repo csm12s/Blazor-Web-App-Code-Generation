@@ -1,18 +1,20 @@
 ﻿using Furion.ConfigurableOptions;
-using System.Collections.Generic;
 
-namespace Gardener.Base
+namespace Gardener.SqlSugar
 {
+    /// <summary>
+    /// 连接字符串配置
+    /// </summary>
     public class ConnectionStringsOptions : IConfigurableOptions
     {
-        // Garden
+        /// <summary>
+        /// 默认连接字符串
+        /// </summary>
         public string Default { get; set; }
-
-        // Custom
         /// <summary>
         /// 默认数据库编号
         /// </summary>
-        public string? DefaultDbNumber { get; set; }
+        public string DefaultDbNumber { get; set; }
         /// <summary>
         /// 默认数据库类型
         /// </summary>
@@ -20,7 +22,6 @@ namespace Gardener.Base
         /// <summary>
         /// 默认数据库连接字符串
         /// </summary>
-
         public string DefaultDbString { get; set; }
         /// <summary>
         /// 业务库集合
@@ -28,6 +29,9 @@ namespace Gardener.Base
         public List<DbConfig> DbConfigs { get; set; }
     }
 
+    /// <summary>
+    /// 默认连接配置
+    /// </summary>
     public class DefaultDbSettingsOptions : IConfigurableOptions
     {
         public string DbProvider { get; set; }

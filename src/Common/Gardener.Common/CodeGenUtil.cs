@@ -4,17 +4,13 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.CodeGeneration.Dtos;
-using Gardener.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace Gardener.Base;
+namespace Gardener.Common;
 
+/// <summary>
+/// 代码生成工具
+/// </summary>
 public class CodeGenUtil
 {
     /// <summary>

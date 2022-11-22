@@ -11,7 +11,7 @@ using Furion.EventBus;
 using Gardener.Authorization.Core;
 using Gardener.Authorization.Dtos;
 using Gardener.Base;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
 using Gardener.Cache;
 using Gardener.EventBus;
 using Mapster;

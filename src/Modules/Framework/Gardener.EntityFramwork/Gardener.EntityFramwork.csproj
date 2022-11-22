@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
+    <ProjectReference Include="..\Gardener.Base.Entity\Gardener.Base.Entity.csproj" />
+    <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
     <ProjectReference Include="..\Gardener\Gardener.csproj" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using HttpMethod = Gardener.Enums.HttpMethod;
 

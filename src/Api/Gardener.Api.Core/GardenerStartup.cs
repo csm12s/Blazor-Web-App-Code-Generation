@@ -16,7 +16,7 @@ using Gardener.Common.JsonConverters;
 using System;
 using Microsoft.AspNetCore.HttpOverrides;
 using AspNetCoreRateLimit;
-using Gardener.Base;
+using Gardener.SqlSugar;
 
 namespace Gardener.Admin
 {
@@ -32,10 +32,6 @@ namespace Gardener.Admin
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            // dbSettings.json:
-            services.AddConfigurableOptions<ConnectionStringsOptions>();
-            services.AddConfigurableOptions<DefaultDbSettingsOptions>();
-
             //开启审计
             services.AddAudit();
             //开启身份认证
@@ -106,6 +102,9 @@ namespace Gardener.Admin
             services.AddInMemoryRateLimiting();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
+            //SqlSugar dbSettings.json:
+            services.AddConfigurableOptions<ConnectionStringsOptions>();
+            services.AddConfigurableOptions<DefaultDbSettingsOptions>();
             // SqlSugar
             services.SqlSugarScopeConfigure();
         }

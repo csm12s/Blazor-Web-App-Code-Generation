@@ -11,8 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Gardener.Enums;
 using Furion.FriendlyException;
 using Gardener.SystemManager.Dtos;
-using Gardener.Base.Domains;
 using Gardener.Base.Enums;
+using Gardener.EntityFramwork;
+using Gardener.Base.Entity;
 
 namespace Gardener.SystemManager.Services
 {

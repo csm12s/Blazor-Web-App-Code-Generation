@@ -9,7 +9,6 @@ using AntDesign.ProLayout;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;

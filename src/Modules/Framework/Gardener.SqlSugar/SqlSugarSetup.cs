@@ -1,21 +1,21 @@
 ﻿using Furion;
 using Furion.Logging.Extensions;
 using Gardener.Authentication.Dtos;
+using Gardener.Authorization.Core;
+using Gardener.Base;
 using Gardener.Common;
-using Gardener.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Gardener.Base;
-
+namespace Gardener.SqlSugar;
+/// <summary>
+/// SqlSugar
+/// </summary>
 public static class SqlSugarSetup
 {
     /// <summary>
@@ -123,14 +123,14 @@ public static class SqlSugarSetup
 
         // Get all tables via model
         var entityTypes = App.EffectiveTypes
-            .Where(a => !a.IsAbstract 
+            .Where(a => !a.IsAbstract
                 && a.IsClass
                 && a.GetCustomAttributes(typeof(SugarTable), true)?
             .FirstOrDefault() != null)
             .ToArray();
 
         #region InitDB
-#if DEBUG
+        #if DEBUG
         // TODO: 这个应该在EF初始化建库之后执行
         if (defaultDbSetting.InitDb) //bool.Parse(App.Configuration["DefaultDbSettings:InitSugarDb"]);
         {
@@ -152,7 +152,7 @@ public static class SqlSugarSetup
                     .InitTables(entityTypes);//根据types创建表
             }
         }
-#endif
+        #endif
         #endregion
 
         #region Filters
@@ -185,7 +185,7 @@ public static class SqlSugarSetup
                         }
                         Console.WriteLine("Sql:" + "\r\n\r\n" + UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, sql, pars));
                         App.PrintToMiniProfiler("SqlSugar", "Info", UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, sql, pars));
-                        $"Sql:\r\n\r\n { UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, sql, pars)}".LogInformation();
+                        $"Sql:\r\n\r\n {UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, sql, pars)}".LogInformation();
                     };
 
                     #region Insert & Update
@@ -235,7 +235,7 @@ public static class SqlSugarSetup
                                 }
                             }
                         }
-                        
+
                         // On Update
                         if (entityInfo.OperationType == DataFilterType.UpdateByObject)
                         {
@@ -314,8 +314,8 @@ public static class SqlSugarSetup
     /// <returns></returns>
     private static bool IsSuperAdmin()
     {
-        if (App.User == null) return false;
-        return App.User.FindFirst("AdminType")?.Value == AdminType.SuperAdmin.GetCode();//nameof(AuthKeyConstants.AdminType)
+        IAuthorizationService authorization= App.GetService<IAuthorizationService>();
+        return authorization.IsSuperAdministrator().Result;
     }
     /// <summary>
     /// 添加 SqlSugar 拓展

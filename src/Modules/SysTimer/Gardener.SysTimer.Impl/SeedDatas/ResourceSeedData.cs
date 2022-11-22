@@ -2,9 +2,9 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using Gardener.Base.Domains;
 using Gardener.Base.Enums;
 using Gardener.Authentication.Enums;
+using Gardener.Base.Entity;
 
 namespace Gardener.SysTimer
 {

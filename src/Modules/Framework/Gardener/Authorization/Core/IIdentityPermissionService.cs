@@ -37,5 +37,13 @@ namespace Gardener.Authorization.Core
         /// <param name="loginId"></param>
         /// <returns></returns>
         Task<bool> CheckLoginIdUsable(string loginId);
+
+
+        /// <summary>
+        /// 判断是否是超级管理员
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<bool> IsSuperAdministrator(int userId);
     }
 }

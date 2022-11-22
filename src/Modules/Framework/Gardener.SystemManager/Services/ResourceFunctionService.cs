@@ -10,8 +10,8 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Gardener.SystemManager.Dtos;
-using Gardener.Base.Domains;
 using Gardener.Common;
+using Gardener.Base.Entity;
 
 namespace Gardener.SystemManager.Services
 {

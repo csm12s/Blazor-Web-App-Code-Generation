@@ -11,7 +11,6 @@ using Gardener.Common;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
-using OneOf.Types;
 
 namespace Gardener.SystemManager.Client.Pages.ResourceView
 {

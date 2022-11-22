@@ -7,12 +7,10 @@
 using Gardener.Authentication.Enums;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using Furion.DatabaseAccessor;
 using Gardener.Base.Enums;
 
-namespace Gardener.Base.Domains
+namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 资源表配置

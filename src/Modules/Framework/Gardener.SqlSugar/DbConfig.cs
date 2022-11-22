@@ -1,5 +1,8 @@
-﻿namespace Gardener.Base
+﻿namespace Gardener.SqlSugar
 {
+    /// <summary>
+    /// 数据库配置
+    /// </summary>
     public class DbConfig
     {
         /// <summary>
@@ -13,7 +16,6 @@
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-
         public string DbString { get; set; }
     }
 }

@@ -14,7 +14,6 @@ using Gardener.UserCenter.Services;
 using Gardener.Client.Base.Components;
 using Gardener.Base;
 using Microsoft.AspNetCore.Components.Web;
-using AntDesign.Charts;
 using Gardener.Client.Base;
 
 namespace Gardener.UserCenter.Client.Pages.UserView

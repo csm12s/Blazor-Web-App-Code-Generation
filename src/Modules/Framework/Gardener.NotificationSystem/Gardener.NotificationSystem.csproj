@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Gardener.Base\Gardener.Base.csproj" />
+    <ProjectReference Include="..\Gardener.EntityFramwork\Gardener.EntityFramwork.csproj" />
   </ItemGroup>
 
 </Project>
