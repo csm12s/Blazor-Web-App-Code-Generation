@@ -51,9 +51,6 @@ public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenC
     [MaxLength(50)]
     public string NetType { get; set; }
 
-    [MaxLength(50)]
-    public string DataType { get; set; }
-
     /// <summary>
     /// 数据库中类型（物理类型）
     /// </summary>
@@ -192,6 +189,7 @@ public class CodeGenConfig: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGenC
     /// DB data type with length: nvarchar(20)
     /// </summary>
     public string DbDataTypeText { get; set; }
+
     #endregion
 
     #region EF 外键

@@ -148,10 +148,14 @@ public static class NetType
 {
     public static string _string = "string";
 
-    // 4字节，单精度，可精确到第7 位小数，其范围为从-3.40e -38 到3.40e +38
+    /// <summary>
+    /// 4字节，单精度，可精确到第7 位小数，其范围为从-3.40e -38 到3.40e +38
+    /// </summary>
     public static string _float = "float";
 
-    // 8bit, 双精度类型, 可精确到第15 位小数，其范围为从-1.79e -308 到1.79e +308
+    /// <summary>
+    /// 8bit, 双精度类型, 可精确到第15 位小数，其范围为从-1.79e -308 到1.79e +308
+    /// </summary>
     public static string _double = "double";
 
     // decimal

@@ -16,7 +16,7 @@ namespace Gardener.Base
     /// <summary>
     /// 无主键Model
     /// </summary>
-    public class BaseModel: IPrivateEntity, IDbContextLocator
+    public class BaseModel: IPrivateEntity
     {
     }
 }

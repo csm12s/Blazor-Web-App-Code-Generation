@@ -42,9 +42,6 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     [MaxLength(50)]
     public string NetType { get; set; }
 
-    [MaxLength(50)]
-    public string DataType { get; set; }
-
     /// <summary>
     /// 数据库中类型（物理类型）
     /// </summary>

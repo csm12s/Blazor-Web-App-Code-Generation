@@ -17,6 +17,20 @@
 
         @switch (item.ClientComponentType)
         {
+            case ClientComponentType.Select:
+            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+                <Select Mode="single"
+                        DataSource="@@_select_@(item.NetColumnName)"
+                        @@bind-Value="@@model.@item.NetColumnName"
+                        ValueName="@@nameof(SelectItem.ValueName)"
+                        LabelName="@@nameof(SelectItem.LabelName)"
+                        TItem="SelectItem"
+                        TItemValue="string"
+                        EnableSearch
+                        AllowClear>
+                </Select>
+            </FormItem>
+            break;
             case ClientComponentType.DateTime:
             <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
                 <span>@@model.@item.NetColumnName</span>

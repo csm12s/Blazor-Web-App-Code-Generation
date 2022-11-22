@@ -17,17 +17,19 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBui
     public @(Model.ClassName)() { }
 
     #region Base
-    @foreach (var column in Model.CodeGenConfigs){
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        @if(item.IsCommon) continue;
 
-        var isRequiredStr = column.IsRequired == true ? "[Required]" : "";
-        var dbDataTypeText = !string.IsNullOrEmpty(column.DBDataTypeText) ? "[Column(TypeName = \"" + column.DBDataTypeText + "\")]" : "";
+        var isRequiredStr = item.IsRequired == true ? "[Required]" : "";
+        var dbDataTypeText = !string.IsNullOrEmpty(item.DBDataTypeText) ? "[Column(TypeName = \"" + item.DBDataTypeText + "\")]" : "";
 
         @:/// <summary>
-        @:/// @column.ColumnComment
+        @:/// @item.ColumnComment
         @:/// </summary>
-        @:[Column("@column.ColumnName")]
-        @:[Comment("@column.ColumnComment")]@(isRequiredStr)@(dbDataTypeText)
-        @:public @column.NetType @column.NetColumnName { get; set; }
+        @:[Column("@item.ColumnName")]
+        @:[Comment("@item.ColumnComment")]@(isRequiredStr)@(dbDataTypeText)
+        @:public @item.NetType @item.NetColumnName { get; set; }
     }
 	#endregion
 
