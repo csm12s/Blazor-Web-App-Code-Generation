@@ -1,10 +1,12 @@
 ﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
 
+using @(Model.AppName).Base;
 using @(Model.AppName).Common;
 using @(Model.AppName).@(Model.Module).Dto;
 using @(Model.AppName).@(Model.Module).IController;
 using @(Model.AppName).@(Model.Module).Server.Model;
 using @(Model.AppName).@(Model.Module).Server.Service;
+using Microsoft.AspNetCore.Mvc;
 
 namespace @(Model.AppName).@(Model.Module).Server.Controller;
 

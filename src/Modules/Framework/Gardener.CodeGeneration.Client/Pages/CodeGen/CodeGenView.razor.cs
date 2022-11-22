@@ -37,7 +37,7 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
             <CodeGenConfigView, int, bool>
             (localizer["Configure"], id, async result =>
         {
-            await ReLoadTable();
+            //await ReLoadTable();
         }, new OperationDialogSettings()
         {
             DialogType = OperationDialogType.Drawer,

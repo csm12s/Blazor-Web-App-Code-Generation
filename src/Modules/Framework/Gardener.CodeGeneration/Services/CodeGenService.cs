@@ -598,12 +598,17 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                 appName + "." + genTable.Module + ".Server.csproj")
         });
 
+        // base model
+        //itemList.Add(new CodeGenTemplateItem(nameModel)
+        //{
+        //    TemplatePath = Path.Combine(templatePath, "BaseEntity.cs.razor"),
+        //    GenPath = Path.Combine(serverModulePath, genTable.Module + "BaseModel.cs")
+        //});
+
         // Model
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
             TemplatePath = Path.Combine(templatePath, "Entity.cs.razor"),
-            //sugar:
-            //TemplatePath = Path.Combine(templatePath, "Model.cs.razor"),
             GenPath = Path.Combine(serverModulePath, "Model", genTable.ClassName + ".cs")
         });
 
