@@ -20,6 +20,11 @@ public static class FileHelper
         }
     }
 
+    /// <summary>
+    /// Get full directory of a file
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
     public static string GetDirectory(string filePath)
     {
         FileInfo file = new FileInfo(filePath);
@@ -91,5 +96,23 @@ public static class FileHelper
         catch
         {
         }
+    }
+
+    public static string GetParentDirectory(string path)
+    {
+        var parent = "";
+
+        // File
+        if (File.Exists(path))
+        {
+            parent = new DirectoryInfo(path).Parent.Parent.FullName;
+        }
+        // Folder
+        else if (Directory.Exists(path))
+        {
+            parent = new DirectoryInfo(path).Parent.FullName;
+        }
+
+        return parent;
     }
 }

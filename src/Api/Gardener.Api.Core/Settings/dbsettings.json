@@ -1,12 +1,12 @@
 ﻿{
   "ConnectionStrings": {
-      "Default": "Data Source=./gardener.db",
+    "Default": "Data Source=./gardener.db",
     //MySql示例
     //"Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
     //SqlServer示例
     //"Server=192.168.1.234;Database=gardener;User=sa;Password=admin.123456;MultipleActiveResultSets=True;",
   },
-  //TODO:建议把比较常用的引入到项目，我自己引用了SqlServer最新版结果报错，退回到6.10就没问题
+  //TODO:建议把比较常用的引入到项目，我自己引用了SqlServer最新版结果报错，退回到6.010就没问题
   "DefaultDbSettings": {
     "DbProvider": "Microsoft.EntityFrameworkCore.Sqlite",
     //可提供使用的DbProvider,需在Gardener.Api.Core程序集添加引用

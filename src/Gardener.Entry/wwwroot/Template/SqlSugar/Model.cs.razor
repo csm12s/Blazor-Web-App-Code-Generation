@@ -20,8 +20,8 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel
 	    var isIdentityStr = item.IsIdentity ? ", IsIdentity = true" : "";
 	    var isIgnoreStr = (item.IsIgnore ? ", IsIgnore = true" : "");
         var isJsonStr = "";//(item.CodeType.StartsWith("json") ? ", IsJson= true" : "");
-        var columnDataTypeStr = (!string.IsNullOrEmpty(item.DBDataTypeText)?
-                "ColumnDataType = \"" + item.DBDataTypeText + "\""
+        var columnDataTypeStr = (!string.IsNullOrEmpty(item.DbDataTypeText)?
+                "ColumnDataType = \"" + item.DbDataTypeText + "\""
                 : "");
 
         @: /// <summary>

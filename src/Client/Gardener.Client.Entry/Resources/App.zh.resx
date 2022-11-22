@@ -153,8 +153,8 @@
   <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
     <value>描述CH</value>
   </data>
-  <data name="_Sys._CodeGen.MenuName" xml:space="preserve">
-    <value>菜单名称</value>
+  <data name="_Sys._CodeGen.MenuNameEN" xml:space="preserve">
+    <value>菜单名称EN</value>
   </data>
   <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
     <value>父级菜单</value>
@@ -164,5 +164,17 @@
   </data>
   <data name="Detail" xml:space="preserve">
     <value>详情</value>
+  </data>
+  <data name="_Sys._CodeGen.MenuNameCH" xml:space="preserve">
+    <value>菜单名称CH</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="OnlySave" xml:space="preserve">
+    <value>仅保存</value>
+  </data>
+  <data name="SaveAndClose" xml:space="preserve">
+    <value>保存并关闭</value>
   </data>
 </root>

@@ -54,14 +54,26 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
         // common field / BaseModelField
         PropertyInfo[] baseModelFields = new PropertyInfo[0];
-        var baseModelType = App.EffectiveTypes
-            .Where(a => !a.IsAbstract
-                && a.IsClass
-                && a.Name.Equals(codeGen.Module + "BaseModel"))
-            .FirstOrDefault();
-        if (baseModelType != null)
-        { 
-            baseModelFields = baseModelType.GetProperties();
+        // 这里获取不到这种：[SuppressSniffer]
+        //var baseModelType = App.EffectiveTypes
+        //    .Where(a => !a.IsAbstract
+        //        && a.IsClass
+        //        && a.Name.Equals(codeGen.Module + "BaseModel"))
+        //    .FirstOrDefault();
+
+        try
+        {
+            var dllName = "Gardener." + codeGen.Module + ".Server";
+            Assembly a = Assembly.Load(dllName);//这里找不到dll会报错
+            var baseModelType = a.GetType(dllName + "." + codeGen.Module + "BaseModel");
+
+            if (baseModelType != null)
+            {
+                baseModelFields = baseModelType.GetProperties();
+            }
+        }
+        catch (Exception ex)
+        {
         }
 
         foreach (var column in dbColumnInfos)
@@ -91,7 +103,13 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             codeGenConfig.IsIdentity = column.IsIdentity;
             codeGenConfig.IsNullable = column.IsNullable;
             codeGenConfig.IsRequired = column.IsPrimarykey || !column.IsNullable;
-            
+
+            // 表建表
+            if (codeGen.AllowNull)
+            {
+                codeGenConfig.IsRequired = false;
+            }
+
             codeGenConfig.IsSearch = false;
             //codeGenConfig.SearchType = "==";
             codeGenConfig.IsView = false;
@@ -169,6 +187,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
     private string GetNetColumnName(TableColumnInfo column, CodeGenDto codeGen)
     {
+        // Custom name
         var newColumnName = column.DbColumnName
             .ToUpperCamel();
 

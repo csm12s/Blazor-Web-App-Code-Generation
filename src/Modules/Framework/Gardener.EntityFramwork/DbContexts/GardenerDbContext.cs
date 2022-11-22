@@ -6,6 +6,7 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
+using Furion.FriendlyException;
 using Gardener.Authentication.Dtos;
 using Gardener.EntityFramwork.Audit.Core;
 using Gardener.EntityFramwork.Audit.Domains;
@@ -74,12 +75,12 @@ namespace Gardener.EntityFramwork.DbContexts
             #region CRUD Filter
             var dbContext = eventData.Context;
             // 获取所有更改，删除，新增的实体，但排除审计实体（避免死循环）
-            var entities = dbContext.ChangeTracker.Entries()
+            var entityEntries = dbContext.ChangeTracker.Entries()
                   .Where(u => u.Entity.GetType() != typeof(AuditEntity) 
                   && u.Entity.GetType() != typeof(AuditOperation) 
                   && u.Entity.GetType() != typeof(AuditProperty) 
                   && (u.State == EntityState.Added || u.State == EntityState.Modified || u.State == EntityState.Deleted)).ToList();
-            if (entities == null || entities.Count < 1)
+            if (entityEntries == null || entityEntries.Count < 1)
             { 
                 return;
             } 
@@ -87,14 +88,19 @@ namespace Gardener.EntityFramwork.DbContexts
             // User
             var userId = App.User?.FindFirst(nameof(Identity.Id))?.Value;
             var userName = App.User?.FindFirst(nameof(Identity.Name))?.Value;
-            foreach (var entity in entities)
+            foreach (var entry in entityEntries)
             {
-                // TODO 1: UpdatedTime 之类字段的修改应该放在这里，不然每次重写Update方法都要修改UpdatedTime；
-                // 或者可以写一个基础Service/Repository类，在基础Service/Repository类里处理Entity的时候修改UpdatedTime
-                // （现在的Service其实是controller）
+                if (entry.State == EntityState.Added)
+                {
+                    //Entry(entry.Entity).Property("TenantId").CurrentValue = ;
+                    Entry(entry.Entity).Property("CreatedTime").CurrentValue = DateTimeOffset.Now;
+                }
+                if (entry.State == EntityState.Modified)
+                {
+                    Entry(entry.Entity).Property("UpdatedTime").CurrentValue = DateTimeOffset.Now;
+                }
 
-                // TODO 2: 这里获取不到 GardenerEntityBase
-
+                // TODO: 这里获取不到 GardenerEntityBase
                 // 参考 Admin.Net\backend\Admin.NET.EntityFramework.Core\DbContexts\DefaultDbContext.cs
                 // Tenant
                 //if (entity.Entity.GetType().IsSubclassOf(typeof(GardenerTenantEntityBase)))

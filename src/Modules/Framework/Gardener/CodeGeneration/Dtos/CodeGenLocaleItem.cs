@@ -10,6 +10,6 @@ namespace Gardener.CodeGeneration.Dtos
 
         public string Key { get; set; }
         public string ValueEN { get; set; }
-        public string ValueCN { get; set; }
+        public string ValueCH { get; set; }
     }
 }

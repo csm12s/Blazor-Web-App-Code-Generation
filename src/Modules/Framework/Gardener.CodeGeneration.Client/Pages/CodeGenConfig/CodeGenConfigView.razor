@@ -161,6 +161,50 @@
             </Select>
         </Column>
 
+        <Column @bind-Field="@model.IsRequired" Width="100" Filterable>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>IsRequired</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = true)">
+                        SelectAll
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = false)">
+                        Clear
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = !it.IsRequired)">
+                        Toggle
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsRequired"></Switch>
+            </ChildContent>
+        </Column>
+
+        <Column @bind-Field="@model.IsEntity" Width="100" Filterable>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>IsEntity</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = true)">
+                        SelectAll
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = false)">
+                        Clear
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = !it.IsEntity)">
+                        Toggle
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsEntity"></Switch>
+            </ChildContent>
+        </Column>
+
         <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable>
             <Input Type="text" @bind-Value="@model.ColumnDescription" />
         </Column>

@@ -51,7 +51,7 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// <summary>
     /// DB data type with length: nvarchar(20)
     /// </summary>
-    public string DBDataTypeText { get; set; }
+    public string DbDataTypeText { get; set; }
 
     public int DataLength { get; set; }
     public int DataDecimal { get; set; }
@@ -142,6 +142,11 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// 是否通用字段
     /// </summary>
     public bool IsCommon { get; set; } = false;
+
+    /// <summary>
+    /// 是否是Entity字段，用于表建表
+    /// </summary>
+    public bool IsEntity { get; set; } = true;
 
     #region Entity DB First
     /// <summary>
