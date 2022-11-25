@@ -12,6 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Gardener.SqlSugar;
 
+// TODO1：这里改成和ServiceBase一样的Rest API
 /// <summary>
 /// 继承此类即可实现基础方法
 /// 方法包括：CURD、获取全部、分页获取 

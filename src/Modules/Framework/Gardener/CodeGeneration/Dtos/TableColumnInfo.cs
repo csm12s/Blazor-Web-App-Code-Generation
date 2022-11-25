@@ -7,15 +7,19 @@ namespace Gardener.CodeGeneration.Dtos;
 /// </summary>
 public class TableColumnInfo
 {
-    #region EF
+    #region Db first fields
     /// <summary>
     /// System.String
     /// </summary>
     public string SysDataType { get; set; } = "";
     /// <summary>
-    /// C# type
+    /// C# type: string
     /// </summary>
     public string NetType { get; set; }
+    /// <summary>
+    /// C# type with ?: string?
+    /// </summary>
+    public string NetTypeStr { get; set; }
 
     /// <summary>
     /// DB raw data type: nvarchar
@@ -26,6 +30,11 @@ public class TableColumnInfo
     /// nvarchar(100), for example in SqlServer
     /// </summary>
     public string DbDataTypeText { get; set; }
+
+    /// <summary>
+    /// [MaxLength(20)]
+    /// </summary>
+    public string MaxLengthText { get; set; }
 
     /// <summary>
     /// 主外键
@@ -40,7 +49,7 @@ public class TableColumnInfo
     public string PropertyName { get; set; }
     public string DataType { get; set; }
     public Type PropertyType { get; set; }
-    public int? Length { get; set; }
+    public int? Length { get; set; } // -1: Max
     public string ColumnDescription { get; set; }
     public string DefaultValue { get; set; }
     public bool IsNullable { get; set; }

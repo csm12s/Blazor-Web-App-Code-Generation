@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Gardener.CodeGeneration.Services;
@@ -105,13 +106,12 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         //    throw Oops.Bah(ExceptionCode.Table_Name_Exist);
         //}
 
-        var codeGen = input.Adapt<CodeGen>();
-        var newCodeGen = await codeGen.InsertNowAsync();
+        var newCodeGenDto = await base.Insert(input);
 
         // config
-        await codeGenConfigService.DeleteAndAddList(GetDBColumnInfos(input), newCodeGen.Entity.MapTo<CodeGenDto>());
+        await codeGenConfigService.DeleteAndAddList(GetDBColumnInfos(input), newCodeGenDto);
 
-        return newCodeGen.Entity.Adapt<CodeGenDto>();
+        return newCodeGenDto;
     }
     #endregion
 
@@ -201,36 +201,24 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             // Data type
             column.SysDataType = column.PropertyType?.ToString();
             column.DbDataType = column.DataType;
-
-            // Net type
-            //EF, TODO: 如果EF可以获取所有数据库表，这里可以使用EF, column.SysDataType已经是EF通过Model获取到的NetType
-            //codeGenConfig.NetType = CodeGenUtil.GetNetTypeBySystemType(column.SysDataType);
-            column.NetType = CodeGenUtil.GetNetTypeByDBType(column.DbDataType);
-            //Sugar
-            //codeGenConfig.NetType = GetNetType(column);
-
-            #region DbDataTypeText
-            // TODO: 这里处理string类型和长度，例如SqlServer的varchar，nvarchar,
-            // 反应到生成的Entity，可以比较直观的看到对应数据库的类型
-            // 如果图方便可以这里不做处理，在Entity设置MaxLength
-            if (column.DbDataType.Contains("varchar"))
-            {
-                var length = "Max";
-                if (column.Length > 0)
-                {
-                    length = column.Length.ToString();
-                }
-
-                column.DbDataTypeText = column.DbDataType.FirstToUpper() +
-                    "(" + length + ")";
-            }
-            #endregion
-
             // 同步表设置，用于初始化IsNullable
-            if (codeGenDto.AllowNull)
+            if (codeGenDto.EntityFromTable && codeGenDto.AllowNull)
             {
                 column.IsNullable = true;
             }
+
+            // Net type
+            //EF, TODO: 如果EF可以获取所有数据库表，这里可以使用EF, column.SysDataType已经是EF通过Model获取到的NetType
+            //GetNetTypeByDBType 只有SqlServer 其他数据库 可以参考OpenAuth.Core：_dbExtension.GetDbTableStructure(obj.TableName)
+            // 也可以参考GetNetType(column);
+            //codeGenConfig.NetType = CodeGenUtil.GetNetTypeBySystemType(column.SysDataType);
+
+            // EF SqlServer
+            //column.NetType = CodeGenUtil.GetNetTypeByDBType(column.DbDataType);
+            // 这里面需要根据IsNullable加个？
+
+            // Sugar, 支持多库
+            column.NetType = GetNetType(column);
         }
 
         return columnInfos;
@@ -276,15 +264,22 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     [NonAction]
     private async Task GenerateCustomCodeAsync(CodeGenDto codeGenDto, string baseGenPath)
     {
-        string appName = "Gardener";
+        string appName = ProjectConstants.AppName;
 
         var itemList = new List<CodeGenTemplateItem>();
         var templatePath = Path.Combine(env.WebRootPath, "Template");
-        //Gardener\src\Modules\XXX\Gardener.XXX\DB Locale
+
+        // 表建表时，搜索母表模块下的多语言文件
+        var localeFileModule = codeGenDto.Module;
+        if (codeGenDto.EntityFromTable)
+        {
+            localeFileModule = codeGenDto.OriginModule;
+        }
+        // Locale file path: Gardener\src\Modules\XXX\Gardener.XXX\DB Locale
         var localePath = Path.Combine(FileHelper.GetParentDirectory(env.ContentRootPath), 
-            "Modules", 
-            codeGenDto.Module,
-            appName + "." + codeGenDto.Module,
+            "Modules",
+            localeFileModule,
+            appName + "." + localeFileModule,
             "DB Locale");
         //var localePath = Path.Combine(env.WebRootPath, "DB Locale");
 
@@ -304,6 +299,51 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             .Where(u => u.CodeGenId == codeGenDto.Id)
             .ToListAsync();
         var codeGenConfigDtos = codeGenConfigs.MapTo<CodeGenConfigDto>();
+
+        #region Entity Attributes
+        foreach (var column in codeGenConfigDtos)
+        {
+            #region MaxLengthText
+            var maxLengthStr = (column.NetType.Contains("string")
+                && column.Length != null
+                && column.Length > 0) ?
+                "[MaxLength(" + column.Length.ToString() + ")]"
+                : "";
+            column.MaxLengthText = maxLengthStr;
+            #endregion
+
+            #region DbDataTypeText
+            if (true)// sql server
+            {
+                // TODO: 这里处理string类型和长度，例如SqlServer的varchar，nvarchar,
+                // 反应到生成的Entity，可以比较直观的看到对应数据库的类型
+                // 如果图方便可以这里不做处理，在Entity设置MaxLength
+                // string
+                if (column.DbDataType.Contains("varchar"))
+                {
+                    var length = "Max";
+                    if (column.Length > 0)
+                    {
+                        length = column.Length.ToString();
+                    }
+
+                    column.DbDataTypeText = column.DbDataType.FirstToUpper() +
+                        "(" + length + ")";
+                }
+
+                // datetime
+                // EF CodeFirst会将datetime自动映射成datetime2, 这里需要手动设置一下
+                // https://learn.microsoft.com/zh-cn/ef/core/modeling/entity-properties?tabs=data-annotations%2Cwithout-nrt
+                // 也可以设置[Precision(0)]?
+                if (column.DbDataType.Contains("datetime"))
+                {
+                    column.DbDataTypeText = column.DbDataType.FirstToUpper();
+                }
+            }
+            #endregion
+        }
+
+        #endregion
 
         #region Get Locale from file
         var readLocaleItems = new List<CodeGenLocaleItem>();
@@ -334,13 +374,30 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                 ValueEN = codeGenDto.TableDescriptionEN,
                 ValueCH = codeGenDto.TableDescriptionCH,
             };
+        }
 
-            #region Generate a new locale excel
+        #region Generate a new locale excel
+        if (!File.Exists(localeFilePath)
+            || codeGenDto.EntityFromTable)//表建表模式
+        {
             var newLocaleItems = new List<CodeGenLocaleItem>();
             newLocaleItems.Add(tableLocale);
 
+            // 表建表处理, 修改表名
+            if (codeGenDto.EntityFromTable)
+            {
+                newLocaleItems.FirstOrDefault().Name = codeGenDto.ClassName;
+                newLocaleItems.FirstOrDefault().Key = codeGenDto.ClassName;
+            }
             foreach (var configDto in codeGenConfigDtos)
             {
+                // 表建表处理, 只输出选中的字段
+                if (codeGenDto.EntityFromTable)
+                {
+                    if (!configDto.IsEntity)
+                        continue;
+                }
+
                 var matchLocale = columnLocales
                     .Where(it => it.Name == configDto.ColumnName)
                     .FirstOrDefault();
@@ -361,7 +418,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             }
 
             var filePath = Path.Combine(modulePath,
-                codeGenDto.TableName + ExcelHelper.Extension);
+                newLocaleItems.FirstOrDefault().Name + ExcelHelper.Extension);
             try
             {
                 await ExcelHelper.SaveAsReplaceAsync(filePath, newLocaleItems);
@@ -369,16 +426,8 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             catch (Exception ex)
             {
             }
-
-            // no order by
-            //var matchLocales = columnLocales
-            //    .Where(it => codeGenConfigDtos.Select(it => it.ColumnName).ToList()
-            //        .Contains(it.Name))
-            //        .ToList();
-
-            //newLocaleItems.AddRange(matchLocales);
-            #endregion
         }
+        #endregion
 
 
         #region set locale key for code gen columns
@@ -386,11 +435,26 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         // Table: _Module._Model
         tableLocale.Key = "_" + codeGenDto.Module +
             "._" + tableLocale.Key;
+
+        // 中文Key
+        if (codeGenDto.UseChineseKey)
+        {
+            tableLocale.Key = "_" + codeGenDto.Module +
+            "._" + tableLocale.ValueCH;
+        }
+
         foreach (var item in columnLocales)
         {
             // Column: _Module._Model.ColumnName
             item.Key = tableLocale.Key +
                 "." + item.Key;
+
+            // 中文Key
+            if (codeGenDto.UseChineseKey)
+            {
+                item.Key = tableLocale.Key +
+                "." + item.ValueCH;
+            }
         }
 
         // set key for client view
@@ -656,6 +720,13 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             GenPath = Path.Combine(serverModulePath, "Model", codeGenDto.ClassName + ".cs")
         });
 
+        // Base Service
+        itemList.Add(new CodeGenTemplateItem(nameModel)
+        {
+            TemplatePath = Path.Combine(templatePath, "BaseService.cs.razor"),
+            GenPath = Path.Combine(serverModulePath, codeGenDto.Module + "BaseService.cs")
+        });
+
         //Service
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
@@ -779,6 +850,73 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             var tempPath = genItem.TemplatePath;
             throw Oops.Oh(ExceptionCode.Code_Gen_Template_Compile_Error);
         }
+    }
+
+    public Task<bool> OpenCodeGenFolder()
+    {
+        string baseGenPath = ProjectConstants.CodeGenPath;
+        FileHelper.OpenFolder(baseGenPath);
+
+        return Task.FromResult(true);
+    }
+
+    /// <summary>
+    /// Get net type via sugar
+    /// </summary>
+    /// <param name="column"></param>
+    /// <returns></returns>
+    private string GetNetType(TableColumnInfo column)
+    {
+        // Special type
+        if (!string.IsNullOrEmpty(column.PropertyName)
+            && Regex.IsMatch(column.PropertyName, @"\[.+\]"))
+        {
+            return Regex.Match(column.PropertyName, @"\[(.+)\]").Groups[1].Value;
+        }
+
+        // Normal type
+        string type = column.PropertyType != null ?
+            column.PropertyType.Name 
+            : codeGenSugarRep.Context.Ado.DbBind.GetPropertyTypeName(column.DataType);
+
+        // 返回准确的类型比如byte->byte
+        if (type == "byte")
+        {
+            type = "Byte";//"bool";
+        }
+        else if (type == "short")
+        {
+            type = "Int16";//"int";
+        }
+        else if (type == "Int32")
+        {
+            type = "int";
+        }
+        else if (type == "String")
+        {
+            type = NetType._string;
+        }
+
+        #region Nullable
+        var nullable = column.IsNullable;
+        var isStringNullable = true;
+
+        if (nullable)
+        {
+            if (type != "string"
+                && type != "byte[]"
+                && type != "object") // NameModel.IsSpecialType
+            {
+                type += "?";
+            }
+            if (type == "string" && isStringNullable)
+            {
+                type += "?";
+            }
+        }
+        #endregion
+
+        return type;
     }
 
     // End

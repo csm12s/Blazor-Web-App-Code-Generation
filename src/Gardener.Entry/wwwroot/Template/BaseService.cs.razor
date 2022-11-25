@@ -3,15 +3,15 @@
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using @(Model.AppName).Base;
-using @(Model.AppName).@(Model.Module).Server.Model;
 using @(Model.AppName).SqlSugar;
 
 namespace @(Model.AppName).@(Model.Module).Server.Service;
 
-public class @(Model.ClassName)Service : @(Model.Module)BaseService<@(Model.ClassName)>, ITransient
+public class @(Model.Module)BaseService<T> : BaseService<T>, ITransient
+    where T : @(Model.Module)BaseModel, IPrivateEntity, new()
 {
-    public @(Model.ClassName)Service(IRepository<@(Model.ClassName), MasterDbContextLocator> repository,
-        SqlSugarRepository<@(Model.ClassName)> sugarRepository) 
+    public @(Model.Module)BaseService(IRepository<T, MasterDbContextLocator> repository, 
+        SqlSugarRepository<T> sugarRepository) 
         : base(repository, sugarRepository)
     {
     }

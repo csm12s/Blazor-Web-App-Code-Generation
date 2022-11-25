@@ -4,25 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using IdGen;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Gardener.Common;
-
-/// <summary>
-/// Id生成工具
-/// </summary>
-public class IdUtil
+namespace Gardener.CodeGeneration.Dtos
 {
     /// <summary>
-    /// 19位雪花ID
+    /// 表字段重命名配置
     /// </summary>
-    /// <param name="generatorId"></param>
-    /// <returns></returns>
-    public static long GetNextId(int generatorId = 0)
+    public class CodeGenReplaceItem
     {
-        var generator = new IdGenerator(0);
-        var id = generator.CreateId();
-        return id;
+        public string OriginText { get; set; }//SYS_
+        public string ReplacedText { get; set; }//Sys
     }
-
 }

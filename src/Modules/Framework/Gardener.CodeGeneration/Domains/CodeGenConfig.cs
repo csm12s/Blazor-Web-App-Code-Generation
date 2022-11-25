@@ -55,11 +55,6 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     [MaxLength(50)]
     public string DbDataType { get; set; }
 
-    public int DataLength { get; set; }
-    public int DataDecimal { get; set; }
-    // todo
-    // DefaultValue 
-
     // edit
     public ClientComponentType ClientComponentType { get; set; }
     public int ClientComponentLength { get; set; }
@@ -179,6 +174,8 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     /// </summary>
     public int? Length { get; set; }
 
+    // todo
+    // DefaultValue 
     /// <summary>
     /// 是否忽略
     /// </summary>

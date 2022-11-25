@@ -9,6 +9,6 @@ using Microsoft.EntityFrameworkCore;
 namespace @(Model.AppName).@(Model.Module).Server;
 
 [SuppressSniffer]
-public class @(Model.Module)BaseModel : BaseModel
+public class @(Model.Module)BaseModel : IPrivateEntity
 {
 }

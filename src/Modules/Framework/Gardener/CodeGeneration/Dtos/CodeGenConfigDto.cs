@@ -51,12 +51,7 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// <summary>
     /// DB data type with length: nvarchar(20)
     /// </summary>
-    public string DbDataTypeText { get; set; }
-
-    public int DataLength { get; set; }
-    public int DataDecimal { get; set; }
-    // todo
-    // DefaultValue 
+    public string DbDataTypeText { get; set; } = "";
 
     // edit
     public ClientComponentType ClientComponentType { get; set; }
@@ -169,6 +164,9 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// 长度
     /// </summary>
     public int? Length { get; set; }
+    
+    // todo
+    // DefaultValue 
 
     /// <summary>
     /// 是否忽略
@@ -178,6 +176,11 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// 特殊类型
     /// </summary>
     public bool IsSpecialType { get; set; }
+
+    #endregion
+
+    #region Dto only fields
+    public string MaxLengthText { get; set; } = "";
 
     #endregion
 }

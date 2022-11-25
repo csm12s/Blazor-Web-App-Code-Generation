@@ -455,8 +455,6 @@ public partial class SqlSugarRepository<TEntity> : SqlSugarRepository where TEnt
 
     public async Task<bool> UpdateExcludeAsync(TEntity item, string[] ignoreColumns, bool ignoreNullColumn = true)
     {
-
-
         return await Context.Updateable(item)
             .IgnoreColumns(ignoreColumns)
             .IgnoreColumns(ignoreAllNullColumns: ignoreNullColumn) // Not support list

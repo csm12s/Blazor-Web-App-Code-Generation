@@ -7,10 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="Audit\Core\**" />
+    <Compile Remove="SqlSugar\**" />
     <Compile Remove="System\**" />
     <EmbeddedResource Remove="Audit\Core\**" />
+    <EmbeddedResource Remove="SqlSugar\**" />
     <EmbeddedResource Remove="System\**" />
     <None Remove="Audit\Core\**" />
+    <None Remove="SqlSugar\**" />
     <None Remove="System\**" />
   </ItemGroup>
 
@@ -21,10 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="SqlSugar\" />
   </ItemGroup>
 
 </Project>

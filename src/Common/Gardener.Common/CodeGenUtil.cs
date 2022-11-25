@@ -48,8 +48,6 @@ public class CodeGenUtil
     {
         dbDataType = dbDataType.ToLower();
 
-        //TODO: 其他数据库 可以参考OpenAuth.Core：_dbExtension.GetDbTableStructure(obj.TableName)
-
         // Sql Server, 文档：https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver16
         // 仅供参考：https://www.cnblogs.com/kunlunmountain/p/5663357.html
         if (true)
@@ -79,8 +77,11 @@ public class CodeGenUtil
                 case "time":
                 case "date":
                 case "datetime":
+                case "datetime2": // EF CodeFirst会将datetime自动映射成datetime2
                 case "smalldatetime":
                     return "DateTime";
+                case "datetimeoffset":
+                    return "DateTimeOffset";
                 case "smallmoney":
                 case "decimal":
                 case "numeric":
@@ -92,7 +93,8 @@ public class CodeGenUtil
                     return NetType._float;
 
                     default:
-                    return "string"; // TODO: 这里应该提示或报错
+                    return "UnknownDbType_" + dbDataType;// 这里应该提示或报错
+                    //return "string";
             }
 
             // 这里是参考的OpenAuth.Core, 里面大小写不一，项目稳定后可以删除
@@ -138,7 +140,11 @@ public class CodeGenUtil
 }
 
 /// <summary>
-/// C# Net data type, TODO：这里可以在前端选择
+/// C# Net data type
+/// TODO：如果追加新模式类建表/在页面中建类，这里可以在前端选择
+/// NetType包含？，前端选择不包含？，可以设置一个新字段NetTypeSelected
+/// 结合前端选项IsRequired（必填项）判断IsNullable
+/// 前端其他选项：主键，自增
 /// </summary>
 public static class NetType
 {

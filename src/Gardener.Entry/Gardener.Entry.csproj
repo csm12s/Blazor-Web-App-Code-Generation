@@ -21,10 +21,12 @@
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
+    <Content Remove="wwwroot\DB Naming\ColumnReplaceText.xlsx" />
     <Content Remove="wwwroot\Template\Base.csproj.razor" />
     <Content Remove="wwwroot\Template\BaseClientController.cs.razor" />
     <Content Remove="wwwroot\Template\BaseController.cs.razor" />
     <Content Remove="wwwroot\Template\BaseEntity.cs.razor" />
+    <Content Remove="wwwroot\Template\BaseService.cs.razor" />
     <Content Remove="wwwroot\Template\BaseTable.cs.razor" />
     <Content Remove="wwwroot\Template\Client.csproj.razor" />
     <Content Remove="wwwroot\Template\ClientController.cs.razor" />
@@ -52,6 +54,7 @@
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\DB Naming\ColumnReplaceText.xlsx" />
     <None Include="wwwroot\Template\ClientImports.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -71,6 +74,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\EntitySearchDto.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\BaseService.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\SqlSugar\Model.cs.razor">
@@ -153,6 +159,7 @@
 	  <Watch Remove="wwwroot\Template\BaseClientController.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseController.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseEntity.cs.razor" />
+	  <Watch Remove="wwwroot\Template\BaseService.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseTable.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Client.csproj.razor" />
 	  <Watch Remove="wwwroot\Template\ClientEdit.razor.cs.razor" />

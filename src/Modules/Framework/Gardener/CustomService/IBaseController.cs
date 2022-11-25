@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace Gardener.Base
 {
     /// <summary>
-    /// 定义了基础方法
-    /// 方法包括：CURD、获取全部、分页获取 
+    /// BaseController，用于API转发
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public interface IBaseController<TDto, TKey> 
         where TDto : class, new()
     {
+        #region Gardener API
         /// <summary>
         /// 删除
         /// </summary>
@@ -117,5 +117,6 @@ namespace Gardener.Base
         /// <param name="request"></param>
         /// <returns></returns>
         Task<string> Export(PageRequest request);
+        #endregion
     }
 }

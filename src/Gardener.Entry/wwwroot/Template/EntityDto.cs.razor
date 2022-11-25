@@ -12,6 +12,14 @@ public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
     #region Base
     @foreach (var item in Model.CodeGenConfigs)
     {
+        @if(item.IsCommon) continue;
+
+        var maxLengthStr = (item.NetType.Contains("string") 
+            && item.Length != null
+            && item.Length != -1)?
+            "[MaxLength(" + item.Length.ToString() + ")]" 
+            : "";
+
         @: /// <summary>
         @: /// @item.ColumnComment
         @: /// </summary>
@@ -19,6 +27,7 @@ public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
         {
         @:[Required]
         }
+        @maxLengthStr
         @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
         
         @if(item.ClientComponentType == ClientComponentType.RemoteImage)

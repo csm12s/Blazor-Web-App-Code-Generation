@@ -13,9 +13,12 @@ public partial class @(Model.ClassName)Edit: @(Model.CodeGen.EditFormInherits)<@
     @foreach (var item in Model.CodeGenConfigs)
     {
         if (!item.IsEdit) continue;
-        if (item.CustomSearchType != ClientComponentType.Select && item.CustomSearchType != ClientComponentType.MultiSelect)
-            continue;
+
+        if (item.CustomSearchType == ClientComponentType.Select
+            || item.CustomSearchType == ClientComponentType.MultiSelect)
+        { 
         @: private List<SelectItem> _select_@item.NetColumnName = new();
+        }
     }
 
     #region Init

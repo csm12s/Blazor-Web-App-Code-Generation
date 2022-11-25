@@ -4,6 +4,8 @@ using Gardener.Authentication.Dtos;
 using Gardener.Authorization.Core;
 using Gardener.Base;
 using Gardener.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +32,7 @@ public static class SqlSugarSetup
         var config = App.GetOptions<ConnectionStringsOptions>();
         var defaultDbSetting = App.GetOptions<DefaultDbSettingsOptions>();
 
-        #region DB
+        #region DB List
         //默认数据库
         List<DbConfig> dbList = new List<DbConfig>();
 
@@ -79,44 +81,7 @@ public static class SqlSugarSetup
                     IsAutoRemoveDataCache = true//自动清理缓存
 
                 },
-                ConfigureExternalServices = new ConfigureExternalServices()
-                {
-                    //DataInfoCacheService = new SqlSugarCache(),
-                    EntityNameService = (type, entity) =>
-                    {
-                        var attributes = type.GetCustomAttributes(true);
-                        if (attributes.Any(it => it is TableAttribute))
-                        {
-                            entity.DbTableName = (attributes.First(it => it is TableAttribute) as TableAttribute).Name;
-                        }
-                    },
-                    EntityService = (type, column) =>
-                    {
-                        var attributes = type.GetCustomAttributes(true);
-                        if (attributes.Any(it => it is KeyAttribute))// by attribute set primarykey
-                        {
-                            column.IsPrimarykey = true; //有哪些特性可以看 1.2 特性明细
-                        }
-                        if (attributes.Any(it => it is ColumnAttribute))
-                        {
-                            column.DbColumnName = (attributes.First(it => it is ColumnAttribute) as ColumnAttribute).Name;
-                        }
-
-                        // Nullable ? / [SugarColumn(IsNullable = true)]
-                        // C# x.x or above
-                        if (new NullabilityInfoContext()
-                            .Create(type).WriteState is NullabilityState.Nullable)
-                        {
-                            column.IsNullable = true;
-                        }
-
-                        // Length
-                        if (attributes.Any(it => it is MaxLengthAttribute))
-                        {
-                            column.Length = (attributes.First(it => it is MaxLengthAttribute) as MaxLengthAttribute).Length;
-                        }
-                    }
-                }
+                ConfigureExternalServices = GetConfigureServicesInfo()
             });
         }
         #endregion
@@ -296,6 +261,86 @@ public static class SqlSugarSetup
         // 注册 SqlSugar 仓储
         services.AddScoped(typeof(SqlSugarRepository<>));
         services.AddScoped(typeof(SqlSugarRepository));
+    }
+
+    /// <summary>
+    /// 兼容 EF Core
+    /// 默认配置 https://www.donet5.com/Home/Doc?typeId=1182
+    /// 兼容配置 https://www.donet5.com/Ask/9/11065
+    /// </summary>
+    /// <returns></returns>
+    private static ConfigureExternalServices GetConfigureServicesInfo()
+    {
+        ConfigureExternalServices externalServices = new ConfigureExternalServices();
+
+        // Table:
+        externalServices.EntityNameService = (type, tableInfo) =>
+        {
+            var tableAttr = type.GetCustomAttribute<TableAttribute>(false);
+            if (tableAttr != null)
+            {
+                tableInfo.DbTableName = tableAttr.Name;
+            }
+        };
+
+        // Fields:
+        externalServices.EntityService = (propInfo, columnInfo) =>
+        {
+            // Key
+            var keyAttr = propInfo.GetCustomAttribute<KeyAttribute>();
+            if (keyAttr != null)
+            { 
+                columnInfo.IsPrimarykey = true;
+            }
+
+            // Column: [Column("PrdRef", TypeName = "Nvarchar(20)")]
+            var columnAttr = propInfo.GetCustomAttribute<ColumnAttribute>();
+            if (columnAttr != null)
+            {
+                columnInfo.DbColumnName = columnAttr.Name;
+                if (!string.IsNullOrEmpty(columnAttr.TypeName))
+                { 
+                    columnInfo.DataType = columnAttr.TypeName.Split("(").FirstOrDefault();
+                }
+            }
+
+            // Comment
+            var commentAttr = propInfo.GetCustomAttribute<CommentAttribute>();
+            if (commentAttr != null)
+            { 
+                columnInfo.ColumnDescription = commentAttr.Comment;
+            }
+
+            // Nullable ? / [SugarColumn(IsNullable = true)]
+            if (new NullabilityInfoContext()
+                .Create(propInfo).WriteState is NullabilityState.Nullable)
+            {
+                columnInfo.IsNullable = true;
+            }
+
+            // Length
+            var maxlengthAttr = propInfo.GetCustomAttribute<MaxLengthAttribute>();
+            if (maxlengthAttr != null)
+            { 
+                columnInfo.Length = maxlengthAttr.Length;
+            }
+
+            // StringLength
+            var stringlengthAttr = propInfo.GetCustomAttribute<StringLengthAttribute>();
+            if (stringlengthAttr != null)
+            { 
+                columnInfo.Length = stringlengthAttr.MaximumLength;
+            }
+
+            // NotMapped
+            var notmappedAttr = propInfo.GetCustomAttribute<NotMappedAttribute>();
+            if (notmappedAttr != null)
+            { 
+                columnInfo.IsIgnore = true;
+            }
+        };
+
+        return externalServices;
     }
 
     /// <summary>

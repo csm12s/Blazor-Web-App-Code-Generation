@@ -18,5 +18,6 @@ namespace Gardener.CodeGeneration.Services
     {
         Task<bool> GenerateCode(int[] codeGenIds);
         Task<List<TableOutput>> GetTableListAsync();//string dbContextLocatorName = ""
+        Task<bool> OpenCodeGenFolder();
     }
 }

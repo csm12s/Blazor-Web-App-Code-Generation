@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Gardener.Base
 {
     /// <summary>
-    /// 分页泛型集合
+    /// 分页泛型集合，TODO: 建议这个改成PageList
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public class PagedList<TEntity>

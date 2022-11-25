@@ -74,15 +74,19 @@
         <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["PrimaryKeyName"] />
     </FormItem>
 
-    <FormItem Label=@localizer["Locked"]>
+    @*<FormItem Label=@localizer["Locked"]>
         <Switch @bind-Value="@model.IsLocked"></Switch>
-    </FormItem>
+    </FormItem>*@
 
     <FormItem Label=@localizer["GenerateProjectFile"]>
         <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
     </FormItem>
     <FormItem Label=@localizer["UseCustomTemplate"]>
         <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
+    </FormItem>
+
+    <FormItem Label=@localizer["UseChineseKey"]>
+        <Switch @bind-Value="@model.UseChineseKey"></Switch>
     </FormItem>
 
     <FormItem Label=@localizer["HasAdd"]>
@@ -98,11 +102,28 @@
         <Switch @bind-Value="@model.HasBatchDelete"></Switch>
     </FormItem>
 
-    <FormItem Label=@localizer["AllowNull"]>
-        <Tooltip Title="@localizer["用于表建表，设为true将在初始化CodeGenConfig时将IsNullable设置为true"]" ArrowPointAtCenter="true">
-            <Switch @bind-Value="@model.AllowNull"></Switch>
+    <FormItem Label=@localizer["EntityFromTable"]>
+        <Tooltip Title="@localizer["表建类选项，根据现有的表生成类和多语言文件"]" ArrowPointAtCenter="true">
+            <Switch @bind-Value="@model.EntityFromTable"></Switch>
         </Tooltip>
+        @if(model.EntityFromTable)
+        {
+            <Collapse DefaultActiveKey="@(new[]{"1"})">
+                <Panel Header="表建表选项" Key="1" Active="@model.EntityFromTable">
+                    <FormItem Label="@(localizer["OriginModule"])">
+                        <Input @bind-Value="@model.OriginModule" Placeholder=@localizer["OriginModule"] />
+                    </FormItem>
+
+                    <FormItem Label=@localizer["AllowNull"]>
+                        <Tooltip Title="@localizer["用于表建表，设为true将在初始化CodeGenConfig时将IsNullable设置为true"]" ArrowPointAtCenter="true">
+                            <Switch @bind-Value="@model.AllowNull"></Switch>
+                        </Tooltip>
+                    </FormItem>
+                </Panel>
+            </Collapse>
+        }
     </FormItem>
+
 
 
     @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
