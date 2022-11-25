@@ -1,4 +1,5 @@
 ﻿using AntDesign;
+using Gardener.Base;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Constants;
@@ -6,8 +7,12 @@ using Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Gardener.Common;
+using Gardener.Enums;
+using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
@@ -21,6 +26,8 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
     private List<SelectItem> _select_TableName = new();
     [Inject]
     private ICodeGenService codeGenClientService { get; set; }
+    [Inject]
+    private ICodeGenConfigService codeGenConfigService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -95,5 +102,44 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
             }
             _generatesBtnLoading = false;
         }
+    }
+
+    private async Task OnDownloadConfigSeedDataClick()
+    {
+        var codeGens = await _service.GetAll();
+        var codeGenIds = codeGens.Select(it=>it.Id).ToList();
+
+        string data = await codeGenConfigService.GenerateSeedData(new PageRequest()
+        {
+            PageIndex = 1,
+            PageSize = int.MaxValue,
+            FilterGroups = new List<FilterGroup>()
+                {
+                   new FilterGroup().AddRule(new FilterRule()
+                   {
+                        Field=nameof(CodeGenConfigDto.CodeGenId),
+                        Operate=FilterOperate.In,
+                        Value=codeGenIds
+                   })
+                },
+            OrderConditions = new List<ListSortDirection>()
+                {
+                    new ListSortDirection()
+                    {
+                        FieldName=nameof(CodeGenConfigDto.Id),
+                        SortType=ListSortType.Asc
+                    }
+                }
+        });
+
+        await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+                    localizer["种子数据"],
+                    data,
+                    width: 1300);
+    }
+
+    private async Task OpenCodeGenFolder()
+    {
+        await codeGenClientService.OpenCodeGenFolder();
     }
 }

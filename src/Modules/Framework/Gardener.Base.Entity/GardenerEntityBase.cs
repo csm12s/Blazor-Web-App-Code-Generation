@@ -76,7 +76,7 @@ namespace Gardener.Base
         /// 创建者编号
         /// </summary>
         [DisplayName("创建者编号")]
-        public string? CreateBy { get; set; } // CreateBy / CreateUserId
+        public string? CreateBy { get; set; }
 
         /// <summary>
         /// 修改者编号

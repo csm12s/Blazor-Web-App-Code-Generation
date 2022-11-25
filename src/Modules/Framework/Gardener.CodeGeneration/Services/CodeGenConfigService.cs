@@ -15,11 +15,13 @@ using Gardener.EntityFramwork;
 using Gardener.Enums;
 using Gardener.SqlSugar;
 using Mapster;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -37,13 +39,15 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 {
     private readonly IRepository<CodeGenConfig> repository;
     private readonly SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep;
-
+    private readonly IWebHostEnvironment env;
     public CodeGenConfigService(
         IRepository<CodeGenConfig> repository,
-        SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep) : base(repository)
+        SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep,
+        IWebHostEnvironment env) : base(repository)
     {
         this.repository = repository;
         this.codeGenConfigSugarRep = codeGenConfigSugarRep;
+        this.env = env;
     }
 
     [NonAction]
@@ -85,13 +89,15 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             codeGenConfig.CodeGenId = codeGen.Id;
 
             codeGenConfig.ColumnName = column.DbColumnName;
-            codeGenConfig.NetColumnName = GetNetColumnName(column, codeGen);
+            codeGenConfig.NetColumnName = await GetNetColumnNameAsync(column, codeGen);
 
             // Data type
             codeGenConfig.DbDataType = column.DbDataType;
             codeGenConfig.NetType = column.NetType;
             codeGenConfig.ColumnKey = column.ColumnKey;
             codeGenConfig.DbDataTypeText = column.DbDataTypeText;
+            codeGenConfig.DecimalDigits = column.DecimalDigits;
+            codeGenConfig.Length = column.Length;
 
             // Comment
             var desc = !string.IsNullOrEmpty(column.ColumnDescription) ?
@@ -187,10 +193,48 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         }
     }
 
-    private string GetNetColumnName(TableColumnInfo column, CodeGenDto codeGen)
+    private async Task<string> GetNetColumnNameAsync(TableColumnInfo column, CodeGenDto codeGenDto)
     {
         // Custom name
-        var newColumnName = column.DbColumnName
+
+        var newColumnName = column.DbColumnName;
+        #region Replace db column text, SYS_ -> Sys
+        // 列全局替换文本
+        // Replace text by module: Gardener\src\Modules\XXX\Gardener.XXX\DB Naming
+        // 表建表时，搜索母表模块下的文件
+        var localeFileModule = codeGenDto.Module;
+        if (codeGenDto.EntityFromTable)
+        {
+            localeFileModule = codeGenDto.OriginModule;
+        }
+        
+        var appName = ProjectConstants.AppName;
+        var replaceFolder = Path.Combine(FileHelper.GetParentDirectory(env.ContentRootPath),
+            "Modules",
+            localeFileModule,
+            appName + "." + localeFileModule,
+            "DB Naming");
+        var replaceFilePath = Path.Combine(replaceFolder,
+            "ColumnReplaceText" + ExcelHelper.Extension);
+
+        if (File.Exists(replaceFilePath))
+        {
+            var replaceItems = await ExcelHelper.GetListAsync<CodeGenReplaceItem>(replaceFilePath);
+
+            foreach (var item in replaceItems)
+            {
+                if (string.IsNullOrEmpty(item.OriginText) && string.IsNullOrEmpty(item.ReplacedText))
+                {
+                    continue;
+                }
+
+                newColumnName = newColumnName
+                    .Replace(item.OriginText, item.ReplacedText);
+            }
+        }
+        #endregion
+
+        newColumnName = newColumnName
             .ToUpperCamel();
 
         // number
@@ -202,70 +246,12 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
         // column name is class name
         // 处理属性名不能等于类名
-        if (newColumnName == codeGen.ClassName)
+        if (newColumnName == codeGenDto.ClassName)
         {
             newColumnName = "_" + newColumnName;
         }
 
         return newColumnName;
-    }
-
-    /// <summary>
-    /// Get net type via sugar
-    /// </summary>
-    /// <param name="column"></param>
-    /// <returns></returns>
-    private string GetNetType(TableColumnInfo column)
-    {
-        // Special type
-        if (!string.IsNullOrEmpty(column.PropertyName)
-            && Regex.IsMatch(column.PropertyName, @"\[.+\]"))
-        {
-            return Regex.Match(column.PropertyName, @"\[(.+)\]").Groups[1].Value;
-        }
-
-        // Normal type
-        string type = column.PropertyType != null ?
-            column.PropertyType.Name : codeGenConfigSugarRep.Context.Ado.DbBind.GetPropertyTypeName(column.DataType);
-
-        if (type == "byte") // tinyint
-        {
-            type = "bool";
-        }
-        else if (type == "short")
-        {
-            type = "int";
-        }
-
-        if (type == "String")
-        {
-            type = "string";
-        }
-        if (type == "Int32")
-        {
-            type = "int";
-        }
-
-        #region Nullable
-        var nullable = column.IsNullable;
-        var isStringNullable = true;
-
-        if (nullable)
-        {
-            if (type != "string"
-                && type != "byte[]"
-                && type != "object") // NameModel.IsSpecialType
-            {
-                type += "?";
-            }
-            if (type == "string" && isStringNullable)
-            {
-                type += "?";
-            }
-        }
-        #endregion
-
-        return type;
     }
 
     [NonAction]
@@ -291,7 +277,45 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     public async Task<bool> SaveAll(List<CodeGenConfigDto> listDto)
     {
         var list = listDto.MapTo<CodeGenConfig>();
-        await _repository.UpdateAsync(list);
+#region 处理更新数据
+// TODO: 这里在企图更新的时候用Get(item.Id);，会报错
+//异常: The instance of entity type 'CodeGenConfig' cannot be tracked
+//because another instance with the key value '{Id: 3485}' is already
+//being tracked.When attaching existing entities,
+//ensure that only one entity instance with a given key value is attached.[500]
+
+        // 如果为了项目简洁，可以不在这里处理，直接把各种字段如IsNullable，IsRequired,
+        // NetType在前端呈现，然后在模板里处理字段
+        //foreach (var item in list)
+        //{
+        //    var oldConfig = await Get(item.Id);
+
+        //    // IsRequired is changed
+        //    if (item.IsRequired != oldConfig.IsRequired)
+        //    {
+        //        //必填项不可为Null
+        //        if (item.IsRequired) // 改为必填
+        //        {
+        //            item.IsNullable = false;
+        //            item.NetType = item.NetType.Replace("?", "");
+        //        }
+        //        else // 改为非必填
+        //        {
+        //            if (!item.IsPrimaryKey)
+        //            {
+        //                item.IsNullable = true;
+
+        //                if (!item.NetType.Contains("?"))
+        //                {
+        //                    item.NetType += "?";
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        #endregion
+
+        await _repository.UpdateNowAsync(list);
         return true;
     }
 }

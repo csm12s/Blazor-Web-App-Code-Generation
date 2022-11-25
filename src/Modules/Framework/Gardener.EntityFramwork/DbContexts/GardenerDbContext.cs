@@ -8,11 +8,14 @@ using Furion;
 using Furion.DatabaseAccessor;
 using Furion.FriendlyException;
 using Gardener.Authentication.Dtos;
+using Gardener.Base;
+using Gardener.Common;
 using Gardener.EntityFramwork.Audit.Core;
 using Gardener.EntityFramwork.Audit.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTaste;
 using System;
 using System.Linq;
 
@@ -73,6 +76,9 @@ namespace Gardener.EntityFramwork.DbContexts
             ormAuditService.SavingChangesEvent(eventData.Context.ChangeTracker.Entries());
 
             #region CRUD Filter
+
+            //TODO, 有时候没有进入SavingChangesEvent
+
             var dbContext = eventData.Context;
             // 获取所有更改，删除，新增的实体，但排除审计实体（避免死循环）
             var entityEntries = dbContext.ChangeTracker.Entries()
@@ -85,37 +91,59 @@ namespace Gardener.EntityFramwork.DbContexts
                 return;
             } 
 
-            // User
-            var userId = App.User?.FindFirst(nameof(Identity.Id))?.Value;
-            var userName = App.User?.FindFirst(nameof(Identity.Name))?.Value;
             foreach (var entry in entityEntries)
             {
-                if (entry.State == EntityState.Added)
+                // Entity filter
+                if (entry.Entity.GetType().IsSubclassOf(typeof(GardenerEntityBase)))
                 {
-                    //Entry(entry.Entity).Property("TenantId").CurrentValue = ;
-                    Entry(entry.Entity).Property("CreatedTime").CurrentValue = DateTimeOffset.Now;
-                }
-                if (entry.State == EntityState.Modified)
-                {
-                    Entry(entry.Entity).Property("UpdatedTime").CurrentValue = DateTimeOffset.Now;
-                }
+                    // 参考 Admin.Net\backend\Admin.NET.EntityFramework.Core\DbContexts\DefaultDbContext.cs
+                    // Tenant id
+                    if (entry.Entity.GetType().IsSubclassOf(typeof(GardenerTenantEntityBase)))
+                    {
+                    }
 
-                // TODO: 这里获取不到 GardenerEntityBase
-                // 参考 Admin.Net\backend\Admin.NET.EntityFramework.Core\DbContexts\DefaultDbContext.cs
-                // Tenant
-                //if (entity.Entity.GetType().IsSubclassOf(typeof(GardenerTenantEntityBase)))
-                //{
-                //}
-                //// Normal entity
-                //else if (entity.Entity.GetType().IsSubclassOf(typeof(GardenerEntityBase)))
-                //{
-                //    if (entity.State == EntityState.Added)
-                //    {
-                //    }
-                //    else if (entity.State == EntityState.Modified)
-                //    {
-                //    }
-                //}
+                    #region 雪花ID
+                    //var idProperty = Entry(entry.Entity).Property(nameof(GardenerEntityBase.Id));
+                    //// Long
+                    //var obj = entry.Entity as GardenerEntityBase<long>;
+                    //if (obj != null)
+                    //{ 
+                    //    obj.Id = obj.Id == 0 ? IdUtil.GetNextId() : obj.Id;
+                    //}
+                    //// String 雪花ID
+                    //var obj2 = entry.Entity as GardenerEntityBase<string>;
+                    //if (obj2 != null)
+                    //{ 
+                    //    obj2.Id = string.IsNullOrEmpty(obj2.Id) ? IdUtil.GetNextId().ToString() : obj2.Id;
+                    //}
+                    #endregion
+
+                    // 新增
+                    if (entry.State == EntityState.Added)
+                    {
+                        Entry(entry.Entity).Property(nameof(GardenerEntityBase.CreateBy))
+                            .CurrentValue = IdentityUtil.GetIdentityId();
+                        Entry(entry.Entity).Property(nameof(GardenerEntityBase.CreatedTime))
+                            .CurrentValue = DateTimeOffset.Now;
+                        Entry(entry.Entity).Property(nameof(GardenerEntityBase.CreateIdentityType))
+                            .CurrentValue = IdentityUtil.GetIdentityType();
+                    }
+                    // 修改
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        // 排除创建人
+                        entry.Property(nameof(GardenerEntityBase.CreateBy)).IsModified = false;
+                        entry.Property(nameof(GardenerEntityBase.CreatedTime)).IsModified = false;
+                        entry.Property(nameof(GardenerEntityBase.CreateIdentityType)).IsModified = false;
+
+                        Entry(entry.Entity).Property(nameof(GardenerEntityBase.UpdateBy))
+                            .CurrentValue = IdentityUtil.GetIdentityId();
+                        Entry(entry.Entity).Property(nameof(GardenerEntityBase.UpdatedTime))
+                            .CurrentValue = DateTimeOffset.Now;
+                        Entry(entry.Entity).Property(nameof(GardenerEntityBase.UpdateIdentityType))
+                            .CurrentValue = IdentityUtil.GetIdentityType();
+                    }
+                }
             }
             #endregion
         }

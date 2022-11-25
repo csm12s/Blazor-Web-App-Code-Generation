@@ -12,7 +12,7 @@ namespace @(Model.AppName).@(Model.Module).Server.Model;
 /// </summary>
 [Table("@Model.TableName")]
 [Comment("@Model.TableDesc")]
-public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBuilder<@(Model.ClassName)>
+public partial class @Model.ClassName : @(Model.Module)BaseModel@*, IEntityTypeBuilder<@(Model.ClassName)>*@
 {
     public @(Model.ClassName)() { }
 
@@ -28,7 +28,13 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBui
 
         @*EF创建Entity未识别*@
         @*var isRequiredStr = item.IsRequired == true ? "[Required]" : "";*@
-        var isRequiredStr = item.IsRequired == true ? "" : "?";
+        @*var isRequiredStr = item.IsRequired == true ? "" : "?";*@
+
+        @*var maxLengthStr = (item.NetType.Contains("string") 
+            && item.Length != null
+            && item.Length != -1)?
+            "[MaxLength(" + item.Length.ToString() + ")]" 
+            : "";*@
 
         @:/// <summary>
         @:/// @item.ColumnComment
@@ -41,8 +47,9 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel, IEntityTypeBui
         {
         @:[Column("@item.ColumnName")]
         }
+        @item.MaxLengthText
         @:[Comment("@item.ColumnComment")]
-        @:public @item.NetType@(isRequiredStr) @item.NetColumnName { get; set; }
+        @:public @item.NetType @item.NetColumnName { get; set; }
     }
 	#endregion
 }

@@ -31,5 +31,10 @@ public class CodeGenClientService: ClientServiceBase<CodeGenDto>,
         var url = $"{controller}/table-list";
         return await apiCaller.GetAsync<List<TableOutput>>(url);
     }
- 
+
+    public async Task<bool> OpenCodeGenFolder()
+    {
+        var url = $"{controller}/open-code-gen-folder";
+        return await apiCaller.PostWithoutBodyAsync<bool>(url);
+    }
 }

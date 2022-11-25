@@ -35,6 +35,7 @@ public class @(Model.ClassName)Controller : @(Model.Module)BaseController<@(Mode
     @:
     @:    foreach (var item in listDto)
     @:    {
+    @:          item.Image_Data = ImageHelper.ImageToBase64(item.Image);
     @:    }
     @:
     @:    return listDto.ToPageList(request);

@@ -71,6 +71,23 @@
                                 @localizer["刷新"]
                             </Button>
                         </SpaceItem>
+
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="folder" OnClick="OpenCodeGenFolder">
+                                @localizer["代码文件夹"]
+                            </Button>
+                        </SpaceItem>
+
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnClickShowSeedData">
+                                @localizer["种子数据"]
+                            </Button>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadConfigSeedDataClick">
+                                @localizer["Config种子数据"]
+                            </Button>
+                        </SpaceItem>
                     </Space>
                 </AntDesign.Col>
             </Row>
@@ -87,7 +104,7 @@
             <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer["_Sys._CodeGen.TableDescriptionEN"])" Sortable Filterable />
             <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer["_Sys._CodeGen.TableDescriptionCH"])" Sortable Filterable />
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
-            <ActionColumn>
+            <ActionColumn Title="@localizer["Action"]" Fixed="right">
                 <Space>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickEdit(model.Id)">
@@ -104,6 +121,7 @@
                             @localizer["Generate"]
                         </Button>
                     </SpaceItem>
+
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">
                             @localizer["Delete"]

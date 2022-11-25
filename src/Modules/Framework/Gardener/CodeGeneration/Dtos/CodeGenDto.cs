@@ -15,6 +15,9 @@ public partial class CodeGenDto: BaseDto<int>
     public string ClassNameLower { get; set; }
     [Required(ErrorMessage = "Required")]
     public string Module { get; set; }
+
+    public string Remark { get; set; }
+
     // url path
     public string ModuleToUrl { get; set; }
 
@@ -33,6 +36,7 @@ public partial class CodeGenDto: BaseDto<int>
 
     public bool UseCustomTemplate { get; set; } = false;
     public bool GenerateProjectFile { get; set; } = true;
+    public bool UseChineseKey { get; set; } = false;
     #endregion
 
     #region Views
@@ -68,7 +72,18 @@ public partial class CodeGenDto: BaseDto<int>
     #endregion
 
     #region 表建表，根据某一表生成另一表
-    // 如果为了保持项目简洁，可以不要此字段，自己在CodeGenConfigView设置即可，这里暂时保留
+
+    /// <summary>
+    /// 开启表建表
+    /// </summary>
+    public bool EntityFromTable { get; set; } = false;
+
+    /// <summary>
+    /// 母表所在的模块，用来搜索母表的多语言文件
+    /// </summary>
+    public string? OriginModule { get; set; }
+
+    // 如果为了保持项目简洁，可以不要AllowNull字段，自己在CodeGenConfigView设置即可，这里暂时保留
     // 因为页面有点卡
     /// <summary>
     /// 1，正常生成Entity不需要修改

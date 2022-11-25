@@ -19,6 +19,8 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
     public string ClassName { get; set; }
     public string Module { get; set; }
 
+    public string? Remark { get; set; }
+
     public string TableDescriptionEN { get; set; }
     public string TableDescriptionCH { get; set; }
 
@@ -27,7 +29,7 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
     public Guid? MenuParentId { get; set; }
 
 
-    [MaxLength(5)]
+    [MaxLength(10)]
     public string? TablePrefix { get; set; }
 
     [MaxLength(100)]
@@ -35,6 +37,7 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
 
     public bool UseCustomTemplate { get; set; } = false;
     public bool GenerateProjectFile { get; set; } = true;
+    public bool? UseChineseKey { get; set; } = false;
 
     public ICollection<CodeGenConfig> CodeGenConfigs { get; set; }
 
@@ -52,6 +55,16 @@ public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
     #endregion
 
     #region 表建表，根据某一表生成另一表
+
+    /// <summary>
+    /// 开启表建表
+    /// </summary>
+    public bool? EntityFromTable { get; set; } = false;
+
+    /// <summary>
+    /// 母表所在的模块，用来搜索母表的多语言文件
+    /// </summary>
+    public string? OriginModule { get; set; }
     /// <summary>
     /// 1，正常生成Entity不需要修改
     /// 2，根据某一表生成新表, 设为true将在初始化CodeGenConfig时将IsNullable设置为true

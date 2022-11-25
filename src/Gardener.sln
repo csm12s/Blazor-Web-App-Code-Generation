@@ -103,9 +103,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SystemManager", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SystemManager.Client", "Modules\Framework\Gardener.SystemManager.Client\Gardener.SystemManager.Client.csproj", "{B571F174-790C-4C34-9D37-61AB077049EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.SqlSugar", "Modules\Framework\Gardener.SqlSugar\Gardener.SqlSugar.csproj", "{A50B3DE7-637C-499F-AC13-643D8A533D3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SqlSugar", "Modules\Framework\Gardener.SqlSugar\Gardener.SqlSugar.csproj", "{A50B3DE7-637C-499F-AC13-643D8A533D3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.Base.Entity", "Modules\Framework\Gardener.Base.Entity\Gardener.Base.Entity.csproj", "{DA044D9F-F741-4EA1-ADC3-C82AA51254C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Base.Entity", "Modules\Framework\Gardener.Base.Entity\Gardener.Base.Entity.csproj", "{DA044D9F-F741-4EA1-ADC3-C82AA51254C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
