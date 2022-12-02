@@ -14,6 +14,9 @@ using Gardener.SystemManager.Dtos;
 using Gardener.Base.Enums;
 using Gardener.EntityFramwork;
 using Gardener.Base.Entity;
+using Furion.DependencyInjection;
+using Gardener.Base;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Gardener.SystemManager.Services
 {
@@ -21,7 +24,8 @@ namespace Gardener.SystemManager.Services
     /// 资源服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class ResourceService : ServiceBase<Resource, ResourceDto, Guid>, IResourceService
+    public class ResourceService : ServiceBase<Resource, ResourceDto, Guid>, IResourceService,
+        ITransient
     {
         private readonly IRepository<Resource> _resourceRepository;
         private readonly IRepository<ResourceFunction> _resourceFunctionRespository;
@@ -126,6 +130,17 @@ namespace Gardener.SystemManager.Services
                  .ToListAsync();
         }
 
-       
+        [HttpPost]
+        [SwaggerOperation(Summary = "批量删除", Description = "根据多个主键批量删除")]
+        public override async Task<bool> Deletes([FromBody] Guid[] ids)
+        {
+            foreach (Guid id in ids)
+            {
+                await _repository.DeleteNowAsync(id);
+
+            }
+            await EntityEventNotityUtil.NotifyDeletesAsync<ResourceDto, Guid>(ids);
+            return true;
+        }
     }
 }

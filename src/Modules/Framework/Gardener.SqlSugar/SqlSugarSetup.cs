@@ -112,8 +112,10 @@ public static class SqlSugarSetup
                 }
 
                 // Init DB
+                db.DbMaintenance.CreateDatabase();
+                // Init tables
                 db.CodeFirst
-                    .SetStringDefaultLength(DbConstants.StringDefaultLength)
+                    //.SetStringDefaultLength(DbConstants.StringDefaultLength)
                     .InitTables(entityTypes);//根据types创建表
             }
         }
@@ -298,10 +300,16 @@ public static class SqlSugarSetup
             if (columnAttr != null)
             {
                 columnInfo.DbColumnName = columnAttr.Name;
+
+                #region Custom data type
+                // Sugar暂无columnInfo.ColumnDataType
+                // https://www.donet5.com/Home/Doc?typeId=1206
                 if (!string.IsNullOrEmpty(columnAttr.TypeName))
-                { 
-                    columnInfo.DataType = columnAttr.TypeName.Split("(").FirstOrDefault();
+                {//todo check
+                    columnInfo.DataType = columnAttr.TypeName;
+                    //columnInfo.DataType = columnAttr.TypeName.Split("(").FirstOrDefault();
                 }
+                #endregion
             }
 
             // Comment

@@ -104,7 +104,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
                     column.ColumnDescription
                     : codeGenConfig.NetColumnName;
             codeGenConfig.ColumnDescription = desc.Replace("\r", "").Replace("\n", "");
-            codeGenConfig.ColumnComment = desc.Replace("\r", "").Replace("\n", "");
+            codeGenConfig.ColumnSummary = desc.Replace("\r", "").Replace("\n", "");
 
             // bools
             codeGenConfig.IsPrimaryKey = column.IsPrimarykey;
@@ -160,7 +160,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
         switch (type)
         {
-            case "string":
+            case NetTypeRaw._string:
                 return ClientComponentType.MultiSelect;
 
             default:
@@ -179,14 +179,14 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
 
         switch (type)
         {
-            case "int":
-            case "double":
+            case NetTypeRaw._int:
+            case NetTypeRaw._double:
                 return ClientComponentType.InputNumber;
-            case "bool":
+            case NetTypeRaw._bool:
                 return ClientComponentType.Switch;
-            case "datetime":
+            case NetTypeRaw._DateTime:
+            case NetTypeRaw._DateTimeOffset:
                 return ClientComponentType.DateTime;
-
 
             default:
                 return ClientComponentType.Input;
@@ -209,10 +209,12 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         }
         
         var appName = ProjectConstants.AppName;
+        // Gardener\src\Modules\XXX\Gardener.XXX\DB\DB Naming
         var replaceFolder = Path.Combine(FileHelper.GetParentDirectory(env.ContentRootPath),
             "Modules",
             localeFileModule,
             appName + "." + localeFileModule,
+            "DB",
             "DB Naming");
         var replaceFilePath = Path.Combine(replaceFolder,
             "ColumnReplaceText" + ExcelHelper.Extension);

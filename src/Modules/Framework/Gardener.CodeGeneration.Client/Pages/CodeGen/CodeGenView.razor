@@ -116,11 +116,19 @@
                             @localizer["Configure"]
                         </Button>
                     </SpaceItem>
+
+                    <SpaceItem>
+                        <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerateMenu(model.Id)">
+                            @localizer["GenerateMenu"]
+                        </Button>
+                    </SpaceItem>
+
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerate(model.Id)">
                             @localizer["Generate"]
                         </Button>
                     </SpaceItem>
+
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">

@@ -6,7 +6,7 @@
        DataSource="@_datas"
        Total="_total"
        OnChange="@OnChange"
-       ScrollX="1300"
+       ScrollX="1100"
        ScrollY="300"
        @bind-PageIndex="_pageIndex"
        @bind-PageSize="_pageSize"
@@ -36,6 +36,7 @@
         </Row>
     </TitleTemplate>
     <RowTemplate>
+        @*TODO: Key，ColumnName无法固定左侧*@
         <Selection Key="@(model.Id.ToString())" Fixed="left"/>
         <Column @bind-Field="@model.ColumnName" Width="100" Filterable Fixed="left"></Column>
         <Column @bind-Field="@model.NetColumnName" Width="100" Filterable>
@@ -183,33 +184,34 @@
             </ChildContent>
         </Column>
 
+        @*TODO: 这一列无法根据_hideEntityFromTableFields隐藏*@
         <Column @bind-Field="@model.IsEntity" Width="100" Filterable>
-            <TitleTemplate>
-                <AntDesign.Row>
-                    <span>IsEntity</span>
-                </AntDesign.Row>
-                <AntDesign.Row>
-                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = true)">
-                        SelectAll
-                    </Button>
-                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = false)">
-                        Clear
-                    </Button>
-                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = !it.IsEntity)">
-                        Toggle
-                    </Button>
-                </AntDesign.Row>
-            </TitleTemplate>
-            <ChildContent>
-                <Switch @bind-Checked="model.IsEntity"></Switch>
-            </ChildContent>
-        </Column>
+                <TitleTemplate>
+                    <AntDesign.Row>
+                        <span>IsEntity</span>
+                    </AntDesign.Row>
+                    <AntDesign.Row>
+                        <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = true)">
+                            SelectAll
+                        </Button>
+                        <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = false)">
+                            Clear
+                        </Button>
+                        <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = !it.IsEntity)">
+                            Toggle
+                        </Button>
+                    </AntDesign.Row>
+                </TitleTemplate>
+                <ChildContent>
+                    <Switch @bind-Checked="model.IsEntity"></Switch>
+                </ChildContent>
+            </Column>
 
         <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable>
             <Input Type="text" @bind-Value="@model.ColumnDescription" />
         </Column>
-        <Column @bind-Field="@model.ColumnComment" Width="100" Filterable>
-            <Input Type="text" @bind-Value="@model.ColumnComment" />
+        <Column @bind-Field="@model.ColumnSummary" Width="100" Filterable>
+            <Input Type="text" @bind-Value="@model.ColumnSummary" />
         </Column>
 
         @*<Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="100" />

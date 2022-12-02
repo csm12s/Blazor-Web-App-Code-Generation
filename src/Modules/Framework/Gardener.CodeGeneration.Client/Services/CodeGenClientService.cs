@@ -18,13 +18,18 @@ public class CodeGenClientService: ClientServiceBase<CodeGenDto>,
         : base(apiCaller, "code-gen")
     {
     }
-
+    #endregion
     public async Task<bool> GenerateCode(int[] codeGenIds)
     {
         var url = $"{controller}/generate-code";
         return await apiCaller.PostAsync<int[], bool>(url, codeGenIds);
     }
-    #endregion
+
+    public async Task<bool> GenerateMenu(int codeGenId)
+    {
+        var url = $"{controller}/generate-menu/{codeGenId}";
+        return await apiCaller.PostAsync<int, bool>(url, codeGenId);
+    }
 
     public async Task<List<TableOutput>> GetTableListAsync()//string dbContextLocatorName = ""
     {

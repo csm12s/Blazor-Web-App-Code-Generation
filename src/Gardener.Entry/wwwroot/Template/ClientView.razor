@@ -142,7 +142,7 @@
                     <Column @@bind-Field="@@model.@item.NetColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
                     break;
                     case ClientComponentType.Switch:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Filterable>
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Filterable>
                         @if(Model.CodeGen.HasEdit)
                         {
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
@@ -160,12 +160,12 @@
                     </Column>
                     break;
                     case ClientComponentType.Image:
-                    <Column @@bind-Field="@@model.@item.NetColumnName">
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
                         <Image Src="@@model.@item.NetColumnName"/>
                     </Column>
                     break;
                     case ClientComponentType.RemoteImage:
-                    <Column @@bind-Field="@@model.@item.NetColumnName">
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
                         <Image Src="@@model.@(item.NetColumnName)_Data"/>
                     </Column>
                     break;

@@ -51,7 +51,7 @@
                     @bind-Value="@_menuParentId"
                     Placeholder="@localizer["PleaseSelect"]"
                     AllowClear="false"
-                    TitleExpression="node=>node.DataItem.Name"
+                    TitleExpression="node=>localizer[node.DataItem.Name]"
                     KeyExpression="node =>node.DataItem.Id.ToString()"
                     ChildrenExpression="node =>node.DataItem.Children?.ToList()"
                     IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
@@ -60,6 +60,10 @@
                     DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
             </TreeSelect>
         }
+    </FormItem>
+
+    <FormItem Label="@(localizer["IconName"])">
+        <Input @bind-Value="@model.IconName" Placeholder=@localizer["IconName"] />
     </FormItem>
 
     <FormItem Label="@(localizer["MenuNameEN"])">
@@ -80,6 +84,9 @@
 
     <FormItem Label=@localizer["GenerateProjectFile"]>
         <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
+    </FormItem>
+    <FormItem Label=@localizer["GenerateBaseService"]>
+        <Switch @bind-Value="@model.GenerateBaseClass"></Switch>
     </FormItem>
     <FormItem Label=@localizer["UseCustomTemplate"]>
         <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
@@ -112,6 +119,10 @@
                 <Panel Header="表建表选项" Key="1" Active="@model.EntityFromTable">
                     <FormItem Label="@(localizer["OriginModule"])">
                         <Input @bind-Value="@model.OriginModule" Placeholder=@localizer["OriginModule"] />
+                    </FormItem>
+
+                    <FormItem Label="@(localizer["NewTableName"])">
+                        <Input @bind-Value="@model.NewTableName" Placeholder=@localizer["NewTableName"] />
                     </FormItem>
 
                     <FormItem Label=@localizer["AllowNull"]>

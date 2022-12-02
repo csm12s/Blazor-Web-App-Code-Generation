@@ -21,13 +21,13 @@ public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
             : "";
 
         @: /// <summary>
-        @: /// @item.ColumnComment
+        @: /// @item.ColumnSummary
         @: /// </summary>
         @if(item.IsRequired)
         {
         @:[Required]
         }
-        @maxLengthStr
+        @:@maxLengthStr
         @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
         
         @if(item.ClientComponentType == ClientComponentType.RemoteImage)

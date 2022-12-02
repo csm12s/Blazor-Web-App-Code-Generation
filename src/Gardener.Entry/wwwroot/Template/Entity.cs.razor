@@ -16,6 +16,11 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel@*, IEntityTypeB
 {
     public @(Model.ClassName)() { }
 
+    public static string GetTableName()
+    {
+        return "@Model.TableName";
+    }
+
     #region Base
     @foreach (var item in Model.CodeGenConfigs)
     {
@@ -37,7 +42,7 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel@*, IEntityTypeB
             : "";*@
 
         @:/// <summary>
-        @:/// @item.ColumnComment
+        @:/// @item.ColumnSummary
         @:/// </summary>
         @if (!string.IsNullOrEmpty(item.DbDataTypeText))
         {
@@ -48,7 +53,7 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel@*, IEntityTypeB
         @:[Column("@item.ColumnName")]
         }
         @item.MaxLengthText
-        @:[Comment("@item.ColumnComment")]
+        @:[Comment("@item.ColumnDescription")]
         @:public @item.NetType @item.NetColumnName { get; set; }
     }
 	#endregion

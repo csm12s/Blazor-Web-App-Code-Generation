@@ -7,6 +7,18 @@ namespace Gardener.CodeGeneration.Dtos;
 
 public partial class CodeGenDto: BaseDto<int>
 {
+    #region Custom Dto
+    public bool UpdateCodeGenConfig { get; set; } = true;
+
+    // For tables with no primary key: 
+    public string EditFormInherits { get; set; } = "EditOperationDialogBase";//BaseEdit
+    public string MainTableInherits { get; set; } = "ListTableBase";//BaseMainTable
+
+    // url path: _sys.tool -> sys/tool 
+    public string ModuleToUrl { get; set; }
+
+    #endregion
+
     #region Base
     [MaxLength(100)]
     public string TableName { get; set; }
@@ -15,15 +27,10 @@ public partial class CodeGenDto: BaseDto<int>
     public string ClassNameLower { get; set; }
     [Required(ErrorMessage = "Required")]
     public string Module { get; set; }
-
     public string Remark { get; set; }
-
-    // url path
-    public string ModuleToUrl { get; set; }
-
     public string TableDescriptionEN { get; set; }
     public string TableDescriptionCH { get; set; }
-
+    public string IconName { get; set; }
     public string MenuNameEN { get; set; }
     public string MenuNameCH { get; set; }
     public Guid?  MenuParentId { get; set; }
@@ -35,9 +42,12 @@ public partial class CodeGenDto: BaseDto<int>
     public string NameSpace { get; set; }
 
     public bool UseCustomTemplate { get; set; } = false;
-    public bool GenerateProjectFile { get; set; } = true;
+    public bool GenerateProjectFile { get; set; } = false;
+    /// <summary>
+    /// XxxBaseService, XxxBaseController, _Imports.razor, ...
+    /// </summary>
+    public bool GenerateBaseClass { get; set; } = false;
     public bool UseChineseKey { get; set; } = false;
-    #endregion
 
     #region Views
     /// <summary>
@@ -49,12 +59,6 @@ public partial class CodeGenDto: BaseDto<int>
     /// string or not
     /// </summary>
     public string PrimaryKeyType { get; set; } = "string";
-
-    // Dto fields:
-    // For tables with no primary key: 
-    public string EditFormInherits { get; set; } = "EditOperationDialogBase";//BaseEdit
-    public string MainTableInherits { get; set; } = "ListTableBase";//BaseMainTable
-
 
     // TODO: 有时间的话或许可以用这种方式
     // AuthKeys
@@ -71,7 +75,7 @@ public partial class CodeGenDto: BaseDto<int>
 
     #endregion
 
-    #region 表建表，根据某一表生成另一表
+    #region 表建表，根据某一表生成另一表的Entity和多语言文件
 
     /// <summary>
     /// 开启表建表
@@ -83,19 +87,18 @@ public partial class CodeGenDto: BaseDto<int>
     /// </summary>
     public string? OriginModule { get; set; }
 
+    public string? NewTableName { get; set; }
+
     // 如果为了保持项目简洁，可以不要AllowNull字段，自己在CodeGenConfigView设置即可，这里暂时保留
     // 因为页面有点卡
     /// <summary>
-    /// 1，正常生成Entity不需要修改
-    /// 2，根据某一表生成表建表, 设为true将在初始化CodeGenConfig时将IsNullable设置为true
+    /// 1, false，正常生成Entity
+    /// 2, true，根据某一表生成表建表, 设为true将在初始化CodeGenConfig时将IsNullable设置为true
     /// 然后自己在CodeGenConfig中手动设置
     /// </summary>
     public bool AllowNull { get; set; } = false;
     #endregion
 
-    #region Dto only fields
-    public bool UpdateCodeGenConfig { get; set; } = true;
     #endregion
-    
 }
 

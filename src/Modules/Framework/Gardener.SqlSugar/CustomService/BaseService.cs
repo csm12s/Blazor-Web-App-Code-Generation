@@ -25,8 +25,7 @@ public abstract class BaseService
 {
 
     #region Init
-
-    private readonly string[] UpdateIgnoreColumns = new string[]
+    protected readonly string[] _updateIgnoreColumns = new string[]
     {
         nameof(GardenerEntityBase.CreatedTime),
         nameof(GardenerEntityBase.CreateBy),
@@ -77,6 +76,21 @@ public abstract class BaseService
     #endregion
 
     #region Custom CRUD
+
+    #region Get first
+    public virtual TEntity GetFirst(Expression<Func<TEntity, bool>> whereExpression)
+    {
+        return _repository.FirstOrDefault(whereExpression);
+        //return _sugarRepository.Context.Queryable<TEntity>().First(whereExpression);
+    }
+
+    public virtual async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> whereExpression)
+    {
+        return await _repository.FirstOrDefaultAsync(whereExpression);
+        //return await _sugarRepository.Context.Queryable<TEntity>().FirstAsync(whereExpression);
+    }
+    #endregion
+
     #region Get Page
     public virtual Base.PagedList<TEntity> GetPage(PageRequest request)
     {
@@ -166,7 +180,7 @@ public abstract class BaseService
     #endregion
 
     #region Gardener CRUD
-    public virtual async Task<TEntity> Insert(TEntity input)
+    public virtual async Task<TEntity> InsertAsync(TEntity input)
     {
         DateTimeOffset defaultValue = input.GetPropertyValue<TEntity, DateTimeOffset>(nameof(GardenerEntityBase.CreatedTime));
 
@@ -186,16 +200,17 @@ public abstract class BaseService
         return newEntity.Entity;
     }
 
-    public virtual async Task<bool> Update(TEntity input)
+    public virtual async Task<bool> UpdateAsync(TEntity input)
     {
         input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-        EntityEntry<TEntity> entityEntry = await _repository.UpdateExcludeAsync(input, new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreateBy), nameof(GardenerEntityBase.CreateIdentityType) });
+        EntityEntry<TEntity> entityEntry = await _repository
+            .UpdateExcludeAsync(input, _updateIgnoreColumns);
         //发送通知
         await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
         return true;
     }
 
-    public virtual async Task<bool> Delete(object id)
+    public virtual async Task<bool> DeleteAsync(object id)
     {
         await _repository.DeleteAsync(id);
         //发送删除通知
@@ -203,7 +218,7 @@ public abstract class BaseService
         return true;
     }
 
-    public virtual async Task<bool> Deletes<TKey>(TKey[] ids)
+    public virtual async Task<bool> DeletesAsync<TKey>(TKey[] ids)
     {
         foreach (TKey id in ids)
         {
@@ -214,14 +229,14 @@ public abstract class BaseService
         return true;
     }
 
-    public virtual async Task<bool> FakeDelete(object id)
+    public virtual async Task<bool> FakeDeleteAsync(object id)
     {
         await _repository.FakeDeleteByKeyAsync(id);
         await EntityEventNotityUtil.NotifyFakeDeleteAsync<TEntity, object>(id);
         return true;
     }
 
-    public virtual async Task<bool> FakeDeletes<TKey>(TKey[] ids)
+    public virtual async Task<bool> FakeDeletesAsync<TKey>(TKey[] ids)
     {
         foreach (TKey id in ids)
         {
@@ -231,13 +246,13 @@ public abstract class BaseService
         return true;
     }
 
-    public virtual async Task<TEntity> Get(object id)
+    public virtual async Task<TEntity> GetByIdAsync(object id)
     {
         var person = await GetReadableRepository().FindAsync(id);
         return person;
     }
 
-    public virtual async Task<List<TEntity>> GetAll()
+    public virtual async Task<List<TEntity>> GetAllAsync()
     {
         var persons = GetReadableRepository().AsQueryable().Select(x => x);
         return await persons.ToListAsync();
@@ -247,7 +262,7 @@ public abstract class BaseService
     /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
     /// </summary>
     /// <returns></returns>
-    public virtual async Task<List<TEntity>> GetAllUsable()
+    public virtual async Task<List<TEntity>> GetAllUsableAsync()
     {
         System.Text.StringBuilder where = new StringBuilder();
         where.Append(" 1==1 ");
@@ -264,10 +279,10 @@ public abstract class BaseService
         return await persons.ToListAsync();
     }
 
-    public virtual async Task<Base.PagedList<TEntity>> GetPage(int pageIndex = 1, int pageSize = 10)
+    public virtual async Task<Base.PagedList<TEntity>> GetPageAsync(int pageIndex = 1, int pageSize = 10)
     {
         var request = new PageRequest() { PageIndex = pageIndex, PageSize = pageSize };
-        return await this.Search(request);
+        return await this.SearchAsync(request);
 
 
         //var queryable = GetReadableRepository().AsQueryable();
@@ -275,7 +290,7 @@ public abstract class BaseService
         //return result;
     }
 
-    public virtual async Task<bool> Lock(object id, bool isLocked = true)
+    public virtual async Task<bool> LockAsync(object id, bool isLocked = true)
     {
         var entity = await _repository.FindAsync(id);
         if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsLocked), isLocked))
@@ -288,7 +303,7 @@ public abstract class BaseService
         return false;
     }
 
-    public virtual async Task<Base.PagedList<TEntity>> Search(PageRequest request)
+    public virtual async Task<Base.PagedList<TEntity>> SearchAsync(PageRequest request)
     {
         var list = await this.GetListAsync(request);
         return list.ToPageList(request);
@@ -309,7 +324,7 @@ public abstract class BaseService
         //    .ToPageAsync(request.PageIndex, request.PageSize);
     }
 
-    public virtual async Task<string> GenerateSeedData(PageRequest request)
+    public virtual async Task<string> GenerateSeedDataAsync(PageRequest request)
     {
         var pagedList = await this.GetPageAsync(request);
 
@@ -337,7 +352,7 @@ public abstract class BaseService
 
 #region BaseService Constructor
 public abstract class BaseService<TEntity> :
-    BaseService<TEntity, MasterDbContextLocator>
+    BaseService<TEntity, MasterDbContextLocator>, IBaseService<TEntity>
     where TEntity : class, IPrivateEntity, new()
 {
     protected BaseService(IRepository<TEntity, MasterDbContextLocator> repository,

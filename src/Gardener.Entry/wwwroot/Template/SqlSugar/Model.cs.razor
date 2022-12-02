@@ -25,7 +25,7 @@ public partial class @Model.ClassName : @(Model.Module)BaseModel
                 : "");
 
         @: /// <summary>
-        @: /// @item.ColumnComment
+        @: /// @item.ColumnSummary
         @: /// </summary>
         @: [SugarColumn(ColumnName="@item.ColumnName", ColumnDescription = "@item.ColumnDescription" @(columnDataTypeStr) @(isPrimaryKeyStr) @(isIdentityStr) @(isIgnoreStr) @(isJsonStr))]
         @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
