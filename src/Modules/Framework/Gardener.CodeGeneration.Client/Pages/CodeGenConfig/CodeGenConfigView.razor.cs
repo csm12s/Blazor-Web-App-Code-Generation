@@ -18,12 +18,22 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int>
 
     private int _codeGenId { get; set; }
 
+    private CodeGenDto _codeGenDto { get; set; } = new();
+    private bool _hideEntityFromTableFields = true;
+
     protected bool _saveAllBtnLoading = false;
 
     protected override async Task OnInitializedAsync()
     {
         // CodeGenId 传入 ConfigurationPageRequest
         _codeGenId = this.Options;
+
+        // 试图隐藏某些列，前端会一直刷新
+        //_codeGenDto = await codeGenService.Get(_codeGenId);
+        //if (_codeGenDto.EntityFromTable)
+        //{
+        //    _hideEntityFromTableFields = false;
+        //}
 
         await ReLoadTable(true);
         await base.OnInitializedAsync();

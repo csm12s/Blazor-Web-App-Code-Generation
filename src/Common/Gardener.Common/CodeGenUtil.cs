@@ -88,9 +88,9 @@ public class CodeGenUtil
                 case "money":
                     return "decimal";
                 case "float":// 8bit, 可精确到第15 位小数，其范围为从-1.79e -308 到1.79e +308
-                    return NetType._double;
+                    return NetTypeRaw._double;
                 case "real":// 4字节，可精确到第7 位小数，其范围为从-3.40e -38 到3.40e +38
-                    return NetType._float;
+                    return NetTypeRaw._float;
 
                     default:
                     return "UnknownDbType_" + dbDataType;// 这里应该提示或报错
@@ -140,26 +140,38 @@ public class CodeGenUtil
 }
 
 /// <summary>
-/// C# Net data type
+/// C# Net data type without ?
+/// C# 类型，不带问号
 /// TODO：如果追加新模式类建表/在页面中建类，这里可以在前端选择
-/// NetType包含？，前端选择不包含？，可以设置一个新字段NetTypeSelected
-/// 结合前端选项IsRequired（必填项）判断IsNullable
-/// 前端其他选项：主键，自增
+/// NetType包含？，前端选择不包含？，可以使用字段NetTypeRaw在前端选择
+/// 结合前端选项IsRequired（必填项）判断IsNullable, 前端其他选项：主键，自增
 /// </summary>
-public static class NetType
+public static class NetTypeRaw
 {
-    public static string _string = "string";
+    public const string _Guid = "Guid";
+    public const string _string = "string";
+    // Int16
+    public const string _short = "short";
+    // Int32
+    public const string _int = "int";
+    // Int64
+    public const string _long = "long";
 
     /// <summary>
     /// 4字节，单精度，可精确到第7 位小数，其范围为从-3.40e -38 到3.40e +38
     /// </summary>
-    public static string _float = "float";
+    public const string _float = "float";// Single
 
     /// <summary>
     /// 8bit, 双精度类型, 可精确到第15 位小数，其范围为从-1.79e -308 到1.79e +308
     /// </summary>
-    public static string _double = "double";
+    public const string _double = "double";
+    public const string _decimal = "decimal";
+    public const string _bool = "bool";
+    public const string _DateTime = "DateTime";
+    public const string _DateTimeOffset = "DateTimeOffset";
+    public const string _byte = "byte";
+    public const string _byteArray = "byte[]";
 
-    // decimal
-    
+    public const string _object = "object";
 }

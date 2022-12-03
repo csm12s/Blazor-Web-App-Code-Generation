@@ -64,7 +64,7 @@ namespace Gardener.EntityFramwork
                 {
                     var defaultDbContext = scope.ServiceProvider.GetRequiredService<GardenerDbContext>();
                     var auditDbContext = scope.ServiceProvider.GetRequiredService<GardenerAuditDbContext>();
-                    if (initDb)
+                    if (initDb)//TODO: 如果数据库已存在，这里不会建表
                     {
                         defaultDbContext.Database.EnsureCreated();
                         auditDbContext.Database.EnsureCreated();

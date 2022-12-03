@@ -41,7 +41,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     public virtual async Task<TEntityDto> Insert(TEntityDto input)
     {
         var entity = input.Adapt<TEntity>();
-        var newEntity = await _baseService.Insert(entity);
+        var newEntity = await _baseService.InsertAsync(entity);
         return newEntity.Adapt<TEntityDto>();
     }
     #endregion
@@ -51,7 +51,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     public virtual async Task<bool> Update(TEntityDto input)
     {
         var entity = input.Adapt<TEntity>();
-        return await _baseService.Update(entity);
+        return await _baseService.UpdateAsync(entity);
     }
 
     #endregion
@@ -60,27 +60,27 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     [HttpPost]
     public virtual async Task<bool> Delete(TKey id)
     {
-        return await _baseService.Delete(id);
+        return await _baseService.DeleteAsync(id);
     }
 
     [HttpPost]
     [SwaggerOperation(Summary = "批量删除", Description = "根据多个主键批量删除")]
     public virtual async Task<bool> Deletes([FromBody] TKey[] ids)
     {
-        return await _baseService.Deletes(ids);
+        return await _baseService.DeletesAsync(ids);
     }
 
     [HttpPost]
     public virtual async Task<bool> FakeDelete(TKey id)
     {
-        return await (_baseService.FakeDelete(id));
+        return await (_baseService.FakeDeleteAsync(id));
     }
 
     [HttpPost]
     [SwaggerOperation(Summary = "批量逻辑删除", Description = "根据多个主键批量逻辑删除")]
     public virtual async Task<bool> FakeDeletes([FromBody] TKey[] ids)
     {
-        return await _baseService.FakeDeletes(ids);
+        return await _baseService.FakeDeletesAsync(ids);
     }
     #endregion
 
@@ -101,7 +101,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     [HttpGet]
     public virtual async Task<TEntityDto> Get(TKey id)
     {
-        var entity = await _baseService.Get(id);
+        var entity = await _baseService.GetByIdAsync(id);
         return entity.Adapt<TEntityDto>();
     }
 
@@ -109,21 +109,21 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     [HttpGet]
     public virtual async Task<List<TEntityDto>> GetAll()
     {
-        var list = await _baseService.GetAll();
+        var list = await _baseService.GetAllAsync();
         return list.MapTo<TEntityDto>();
     }
 
     [HttpGet]
     public virtual async Task<List<TEntityDto>> GetAllUsable()
     {
-        var list = await _baseService.GetAllUsable();
+        var list = await _baseService.GetAllUsableAsync();
         return list.MapTo<TEntityDto>();
     }
 
     [HttpGet]
     public virtual async Task<Base.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
     {
-        var list = await _baseService.GetAll();
+        var list = await _baseService.GetAllAsync();
         var listDto = list.MapTo<TEntityDto>();
 
         var request = new PageRequest() { PageIndex = pageIndex, PageSize = pageSize };
@@ -135,7 +135,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     [HttpPost]
     public virtual async Task<bool> Lock(TKey id, bool isLocked = true)
     {
-        return await _baseService.Lock(id, isLocked);
+        return await _baseService.LockAsync(id, isLocked);
     }
     #endregion
 

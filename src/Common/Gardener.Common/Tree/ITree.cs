@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Gardener.Common;
 
 
-public interface ITreeGuid<T>
+public interface ITree_Guid<T>
 {
     /// <summary>
     /// id
@@ -21,7 +21,7 @@ public interface ITreeGuid<T>
     /// </summary>
     public Guid? ParentId { get; }
     /// <summary>
-    /// 孩子节点
+    /// 子节点
     /// </summary>
     public ICollection<T> Children { get; set; }
 }
@@ -37,7 +37,7 @@ public interface ITree<T, TKey>
     /// </summary>
     public TKey ParentId { get; }
     /// <summary>
-    /// 孩子节点
+    /// 子节点
     /// </summary>
     public ICollection<T> Children { get; set; }
 }

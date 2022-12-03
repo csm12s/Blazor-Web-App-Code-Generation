@@ -86,7 +86,7 @@ namespace Gardener.Common
 
         #region ITree with nullable parent id: Guid
         public static void TreeToList<T>(this IList<T> treeList, IList<T> list)
-            where T : class, ITreeGuid<T>
+            where T : class, ITree_Guid<T>
         {
             foreach (var item in treeList)
             {
@@ -107,7 +107,7 @@ namespace Gardener.Common
         /// <returns></returns>
         public static List<T> ListToTree<T>(List<T> nodeList
             , Guid? parentId = null)
-            where T : class, ITreeGuid<T>
+            where T : class, ITree_Guid<T>
         {
             List<T> childTreeList = new List<T>();
 

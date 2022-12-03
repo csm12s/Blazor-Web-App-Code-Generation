@@ -8,9 +8,8 @@ using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Gardener.Common;
 using Gardener.Enums;
-using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +28,9 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
     [Inject]
     private ICodeGenConfigService codeGenConfigService { get; set; }
 
+    [Inject]
+    private IResourceService resourceService { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         // table select
@@ -40,9 +42,6 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
 
     private async Task OnClickConfigure(int id)
     {
-        // TODO: 在View页面（User、Role等）设置列宽，列固定到左右端，Table水平、垂直滚动条之后布局出错
-        // ，有可能是我不熟悉设置有误，建议丰富一下前端组件
-
         await OpenOperationDialogAsync
             <CodeGenConfigView, int, bool>
             (localizer["Configure"], id, async result =>
@@ -70,6 +69,46 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         {
             await messageService.Error("Generate Error");
         }
+    }
+
+    private async Task OnClickGenerateMenu(int codeGenId)
+    {
+        var codeGenDto = await _service.Get(codeGenId);
+        var menuKey = codeGenDto.Module + "_" + codeGenDto.ClassName;
+
+        var allMenus = await resourceService.GetAll();
+        
+        // 这里也可以从后端获取
+        var oldMenus = allMenus.Where(it => it.Key == menuKey).ToList();
+        var oldMenuButtons = allMenus
+            .Where(it => it.Key.StartsWith(menuKey + "_")).ToList();
+        oldMenus.AddRange(oldMenuButtons);
+
+        var title = "确认继续";
+        var menuInfoStr = "将添加以下菜单：" + menuKey + "\r\n";
+        if (oldMenus.Any())
+        {
+            menuInfoStr += "将删除以下菜单: \r\n";
+            foreach (var item in oldMenus)
+            {
+                menuInfoStr += string.Format("名称：{0}，Key：{1}。\r\n", localizer[item.Name], item.Key);
+            }
+        }
+
+        // TODO: 文本不能换行
+        if (await confirmService.YesNo(title, menuInfoStr) == ConfirmResult.Yes)
+        {
+            var success = await codeGenClientService.GenerateMenu(codeGenId);
+            if (success)
+            {
+                await messageService.Success("Generate Success");
+            }
+            else
+            {
+                await messageService.Error("Generate Error");
+            }
+        }
+
     }
 
     private async Task DoSearch()

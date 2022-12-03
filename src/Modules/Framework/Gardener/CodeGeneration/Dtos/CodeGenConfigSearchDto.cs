@@ -18,7 +18,7 @@ public partial class CodeGenConfigSearchDto
     /// <summary>
     /// Comment in code
     /// </summary>
-    public string ColumnComment { get; set; }
+    public string ColumnSummary { get; set; }
 
 
     /// <summary>

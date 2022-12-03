@@ -41,13 +41,18 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     /// <summary>
     /// Comment in code
     /// </summary>
-    public string ColumnComment { get; set; }
+    public string ColumnSummary { get; set; }
 
     /// <summary>
     /// .NET数据类型
     /// </summary>
     [MaxLength(50)]
     public string NetType { get; set; }
+
+    /// <summary>
+    /// .NET数据类型, 不带问号
+    /// </summary>
+    public string NetTypeRaw { get; set; }
 
     /// <summary>
     /// 数据库中类型（物理类型）

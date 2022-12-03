@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
-    <Content Remove="wwwroot\DB Naming\ColumnReplaceText.xlsx" />
+    <Content Remove="wwwroot\DB\DB Naming\ColumnReplaceText.xlsx" />
     <Content Remove="wwwroot\Template\Base.csproj.razor" />
     <Content Remove="wwwroot\Template\BaseClientController.cs.razor" />
     <Content Remove="wwwroot\Template\BaseController.cs.razor" />
@@ -42,7 +42,9 @@
     <Content Remove="wwwroot\Template\EntityDto.cs.razor" />
     <Content Remove="wwwroot\Template\EntitySearchDto.cs.razor" />
     <Content Remove="wwwroot\Template\IBaseController.cs.razor" />
+    <Content Remove="wwwroot\Template\IBaseService.cs.razor" />
     <Content Remove="wwwroot\Template\IController.cs.razor" />
+    <Content Remove="wwwroot\Template\IService.cs.razor" />
     <Content Remove="wwwroot\Template\Server.csproj.razor" />
     <Content Remove="wwwroot\Template\Service.cs.razor" />
     <Content Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
@@ -54,7 +56,10 @@
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\DB Naming\ColumnReplaceText.xlsx" />
+    <None Include="wwwroot\DB\DB Naming\ColumnReplaceText.xlsx" />
+    <None Include="wwwroot\Template\IBaseService.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Include="wwwroot\Template\ClientImports.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -77,6 +82,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\BaseService.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\IService.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\SqlSugar\Model.cs.razor">
@@ -171,6 +179,8 @@
 	  <Watch Remove="wwwroot\Template\EntityDto.cs.razor" />
 	  <Watch Remove="wwwroot\Template\EntitySearchDto.cs.razor" />
 	  <Watch Remove="wwwroot\Template\IBaseController.cs.razor" />
+	  <Watch Remove="wwwroot\Template\IBaseService.cs.razor" />
+	  <Watch Remove="wwwroot\Template\IService.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Server.csproj.razor" />
 	  <Watch Remove="wwwroot\Template\SqlServer - Insert Menu.sql.razor" />
 	  <Watch Remove="wwwroot\Template\SqlSugar\Model.cs.razor" />

@@ -8,11 +8,17 @@ using @(Model.AppName).SqlSugar;
 
 namespace @(Model.AppName).@(Model.Module).Server.Service;
 
-public class @(Model.ClassName)Service : @(Model.Module)BaseService<@(Model.ClassName)>, ITransient
+public class @(Model.ClassName)Service : @(Model.Module)BaseService<@(Model.ClassName)>,
+    ITransient
+    @*I@(Model.ClassName)Service*@
 {
+    private readonly ILogger<@(Model.ClassName)Service> logger;
+
     public @(Model.ClassName)Service(IRepository<@(Model.ClassName), MasterDbContextLocator> repository,
-        SqlSugarRepository<@(Model.ClassName)> sugarRepository) 
+        SqlSugarRepository<@(Model.ClassName)> sugarRepository,
+        ILogger<@(Model.ClassName)Service> logger) 
         : base(repository, sugarRepository)
     {
+        this.logger = logger;
     }
 }

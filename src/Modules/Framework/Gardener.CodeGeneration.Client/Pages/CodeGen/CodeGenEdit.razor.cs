@@ -48,7 +48,8 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
     {
         // table select
         var tableInfos = await service.GetTableListAsync();
-        _allTables = tableInfos.ToSelectItems(it=>it.TableName, it=>it.TableName);
+        _allTables = tableInfos.ToSelectItems(it=>it.TableName,
+            it=>it.TableName + " : " + it.TableComment);
         
         // menus
         _menuTree = await resourceService.GetTree();
@@ -68,20 +69,25 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
     protected async Task OnTableSelectChanged()
     {
         // Class name
-        var nameList = _editModel.TableName
+        _editModel.ClassName = _editModel.TableName
             .Replace("Sys_", "")
-            .Split("_")
-            .ToList();
-        var newList = new List<string>();
-        nameList.ForEach(it => newList.Add(it = it.ToLower().FirstToUpper()));
-        _editModel.ClassName = string.Join("", newList);
+            .ToUpperCamel();
+
+        // 这里处理非常规表名: AAA_BBB_CCC -> AaaBbbCcc
+        //var nameList = _editModel.TableName
+        //    .Replace("Sys_", "")
+        //    .Split("_")
+        //    .ToList();
+        //var newList = new List<string>();
+        //nameList.ForEach(it => newList.Add(it = it.ToLower().FirstToUpper()));
+        //_editModel.ClassName = string.Join("", newList);
 
         // Module
         _editModel.Module = _editModel.TableName
             .Split("_")
             .FirstOrDefault();
         // Menu
-        //_editModel.MenuNameEN = _editModel.ClassName;
+        //_editModel.MenuParentId
     }
 
     protected virtual async Task OnlySaveCodeGen()

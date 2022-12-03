@@ -29,9 +29,9 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     public string ColumnDescription { get; set; }
 
     /// <summary>
-    /// Comment in code
+    /// Summary in code
     /// </summary>
-    public string ColumnComment { get; set; }
+    public string ColumnSummary { get; set; }
 
     // Locale
     public string ColumnLocaleKey { get; set; } = "";
@@ -41,6 +41,11 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// </summary>
     [MaxLength(50)]
     public string NetType { get; set; }
+
+    /// <summary>
+    /// .NET数据类型, 不带问号
+    /// </summary>
+    public string NetTypeRaw { get; set; }
 
     /// <summary>
     /// 数据库中类型（物理类型）

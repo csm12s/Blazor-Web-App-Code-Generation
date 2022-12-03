@@ -14,7 +14,7 @@ public partial class @(Model.ClassName)SearchDto
         @if (item.IsSearch || item.IsCustomSearch)
         { 
             @: /// <summary>
-            @: /// @item.ColumnComment
+            @: /// @item.ColumnSummary
             @: /// </summary>
             @: [DisplayName("@item.ColumnLocaleKey")]
             @if (item.IsCustomSearch)
