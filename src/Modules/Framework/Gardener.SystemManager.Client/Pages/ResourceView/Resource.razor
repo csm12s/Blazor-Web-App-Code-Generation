@@ -46,7 +46,8 @@
                     @if (!string.IsNullOrEmpty(model.Icon))
                     {
                         <Icon Type="@model.Icon"></Icon>
-                    }@model.Name
+                    }
+                    @localizer[model.Name]
                 </span>
             </Column>
 

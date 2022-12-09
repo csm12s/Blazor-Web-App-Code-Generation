@@ -17,6 +17,21 @@ public partial class CodeGenDto: BaseDto<int>
     // url path: _sys.tool -> sys/tool 
     public string ModuleToUrl { get; set; }
 
+
+    /// <summary>
+    /// 生成 TypeName 注解，不支持多库
+    /// 示例：[Column("Username", TypeName = "Nvarchar(20)")]
+    /// </summary>
+    public bool GenerateDbDataTypeText { get; set; } = false;
+
+    /// <summary>
+    /// 字段Summary示例：
+    /// Username 用户名
+    /// </summary>
+    public bool UseChineseSummary { get; set; } = true;
+
+    public bool GenerateDBLocaleFile { get; set; } = true;
+
     #endregion
 
     #region Base
@@ -44,7 +59,7 @@ public partial class CodeGenDto: BaseDto<int>
     public bool UseCustomTemplate { get; set; } = false;
     public bool GenerateProjectFile { get; set; } = false;
     /// <summary>
-    /// XxxBaseService, XxxBaseController, _Imports.razor, ...
+    /// XxxBaseService, XxxBaseController, _Imports.razor, SwaggerSetting.Add.json, ...
     /// </summary>
     public bool GenerateBaseClass { get; set; } = false;
     public bool UseChineseKey { get; set; } = false;

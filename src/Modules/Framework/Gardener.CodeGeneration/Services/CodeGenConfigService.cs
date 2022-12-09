@@ -13,7 +13,7 @@ using Gardener.CodeGeneration.Dtos;
 using Gardener.Common;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
-using Gardener.SqlSugar;
+using Gardener.Sugar;
 using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -181,6 +181,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         {
             case NetTypeRaw._int:
             case NetTypeRaw._double:
+            case NetTypeRaw._byte:
                 return ClientComponentType.InputNumber;
             case NetTypeRaw._bool:
                 return ClientComponentType.Switch;

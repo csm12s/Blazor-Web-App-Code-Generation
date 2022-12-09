@@ -5,7 +5,10 @@ using @(Model.AppName).Client.Base;
 namespace @(Model.AppName).@(Model.Module).Client;
 
 public abstract class @(Model.Module)BaseClientController<TDto>
-    : BaseClientController<TDto, @(Model.CodeGen.PrimaryKeyType)> where TDto : class, new()
+    : BaseClientController<TDto, @(Model.CodeGen.PrimaryKeyType)>,
+    I@(Model.Module)BaseController<TDto>
+    where TDto : class, new()
+
 {
     protected @(Model.Module)BaseClientController(IApiCaller apiCaller, string controller)
         : base(apiCaller, "@(Model.Module)" + "/" + controller)

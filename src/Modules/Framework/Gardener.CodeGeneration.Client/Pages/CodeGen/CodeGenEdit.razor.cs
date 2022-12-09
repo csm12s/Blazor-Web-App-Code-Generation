@@ -83,9 +83,9 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
         //_editModel.ClassName = string.Join("", newList);
 
         // Module
-        _editModel.Module = _editModel.TableName
-            .Split("_")
-            .FirstOrDefault();
+        //_editModel.Module = _editModel.TableName
+        //    .Split("_")
+        //    .FirstOrDefault();
         // Menu
         //_editModel.MenuParentId
     }

@@ -1,4 +1,4 @@
-﻿namespace Gardener.SqlSugar
+﻿namespace Gardener.Sugar
 {
     /// <summary>
     /// 数据库配置

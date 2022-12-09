@@ -5,7 +5,6 @@ using Gardener.Authorization.Core;
 using Gardener.Base;
 using Gardener.Common;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +13,7 @@ using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Gardener.SqlSugar;
+namespace Gardener.Sugar;
 /// <summary>
 /// SqlSugar
 /// </summary>
@@ -69,19 +68,20 @@ public static class SqlSugarSetup
             {
                 continue;
             }
+            var dbType = (DbType)Convert.ToInt32(Enum.Parse(typeof(DbType), item.DbType));
             connectConfigList.Add(new ConnectionConfig()
             {
                 ConnectionString = item.DbString,
-                DbType = (DbType)Convert.ToInt32(Enum.Parse(typeof(DbType), item.DbType)),
+                DbType = dbType,
                 IsAutoCloseConnection = true,
                 ConfigId = item.DbNumber,
                 InitKeyType = InitKeyType.Attribute,
                 MoreSettings = new ConnMoreSettings()
                 {
-                    IsAutoRemoveDataCache = true//自动清理缓存
-
+                    DisableNvarchar = false,
+                    IsAutoRemoveDataCache = true
                 },
-                ConfigureExternalServices = GetConfigureServicesInfo()
+                ConfigureExternalServices = GetConfigureServicesInfo(dbType)
             });
         }
         #endregion
@@ -95,9 +95,12 @@ public static class SqlSugarSetup
             .ToArray();
 
         #region InitDB
-        #if DEBUG
-        // TODO: 这个应该在EF初始化建库之后执行
-        if (defaultDbSetting.InitDb) //bool.Parse(App.Configuration["DefaultDbSettings:InitSugarDb"]);
+#if DEBUG
+        // 不再使用Sugar的CodeFirst，如果要使用，需要完善:
+        // 1: GetConfigureServicesInfo里完善兼容多库
+        // 2: 这个应该在EF初始化建库之后执行
+        var useSqlSugarDbFirst = true;
+        if (useSqlSugarDbFirst && defaultDbSetting.InitDb) //bool.Parse(App.Configuration["DefaultDbSettings:InitSugarDb"]);
         {
             using (var db = new SqlSugarClient(connectConfigList.FirstOrDefault()))
             {
@@ -181,26 +184,23 @@ public static class SqlSugarSetup
                                 }
                             }
 
-                            // "CreatedTime"
-                            if (entityInfo.PropertyName == nameof(GardenerEntityBase.CreatedTime))
-                                entityInfo.SetValue(DateTimeOffset.Now);
-                            if (App.User != null)
+                            // TenantId
+                            if (entityInfo.PropertyName == nameof(GardenerTenantEntityBase.TenantId))
                             {
-                                // TenantId
-                                if (entityInfo.PropertyName == nameof(GardenerTenantEntityBase.TenantId))
-                                {
-                                    var tenantId = ((dynamic)entityInfo.EntityValue).TenantId; // .TenantId
-                                    if (tenantId == null || tenantId == 0)
-                                        entityInfo.SetValue(App.User.FindFirst("TenantId")?.Value);//nameof(AuthKeyConstants.TenantId)
-                                }
-                                // CreateBy
-                                if (entityInfo.PropertyName == nameof(GardenerEntityBase.CreateBy))
-                                {
-                                    var createUserId = ((dynamic)entityInfo.EntityValue).CreatorId; // "CreatorId" here
-                                    if (string.IsNullOrEmpty(createUserId))
-                                        entityInfo.SetValue(App.User.FindFirst("UserId")?.Value);//nameof(AuthKeyConstants.UserId)
-                                }
+                                // 这里需要判断一下非空
+                                var tenantId = ((dynamic)entityInfo.EntityValue).TenantId;
+                                if (tenantId == null || tenantId == 0)
+                                    entityInfo.SetValue(App.User?.FindFirst(nameof(Identity.TenantId))?.Value);
                             }
+                            // "CreatedTime"
+                            else if (entityInfo.PropertyName == nameof(GardenerEntityBase.CreatedTime))
+                                entityInfo.SetValue(DateTimeOffset.Now);
+                            // CreateBy
+                            else if (entityInfo.PropertyName == nameof(GardenerEntityBase.CreateBy))
+                                entityInfo.SetValue(IdentityUtil.GetIdentityId());
+                            // CreateIdentityType
+                            else if (entityInfo.PropertyName == nameof(GardenerEntityBase.CreateIdentityType))
+                                entityInfo.SetValue(IdentityUtil.GetIdentityType());
                         }
 
                         // On Update
@@ -208,9 +208,10 @@ public static class SqlSugarSetup
                         {
                             if (entityInfo.PropertyName == nameof(GardenerEntityBase.UpdatedTime))
                                 entityInfo.SetValue(DateTimeOffset.Now);
-
-                            if (entityInfo.PropertyName == nameof(GardenerEntityBase.UpdateBy))
-                                entityInfo.SetValue(App.User?.FindFirst("UserId")?.Value); //nameof(Identity.UserId)
+                            else if (entityInfo.PropertyName == nameof(GardenerEntityBase.UpdateBy))
+                                entityInfo.SetValue(IdentityUtil.GetIdentityId());
+                            else if (entityInfo.PropertyName == nameof(GardenerEntityBase.UpdateIdentityType))
+                                entityInfo.SetValue(IdentityUtil.GetIdentityType());
                         }
                     };
                     #endregion
@@ -267,11 +268,13 @@ public static class SqlSugarSetup
 
     /// <summary>
     /// 兼容 EF Core
+    /// (CodeFirst待完善，请查看下面的"Unicode (多库兼容)"部分)
+    /// CodeFirst: https://www.donet5.com/Home/Doc?typeId=1206
     /// 默认配置 https://www.donet5.com/Home/Doc?typeId=1182
     /// 兼容配置 https://www.donet5.com/Ask/9/11065
     /// </summary>
     /// <returns></returns>
-    private static ConfigureExternalServices GetConfigureServicesInfo()
+    private static ConfigureExternalServices GetConfigureServicesInfo(DbType dbType)
     {
         ConfigureExternalServices externalServices = new ConfigureExternalServices();
 
@@ -301,14 +304,14 @@ public static class SqlSugarSetup
             {
                 columnInfo.DbColumnName = columnAttr.Name;
 
-                #region Custom data type
-                // Sugar暂无columnInfo.ColumnDataType
-                // https://www.donet5.com/Home/Doc?typeId=1206
-                if (!string.IsNullOrEmpty(columnAttr.TypeName))
-                {//todo check
-                    columnInfo.DataType = columnAttr.TypeName;
-                    //columnInfo.DataType = columnAttr.TypeName.Split("(").FirstOrDefault();
-                }
+                #region TypeName
+                // 这里不再设置TypeName，因为TypeName不支持多库，
+                //if (!string.IsNullOrEmpty(columnAttr.TypeName))
+                //{
+                //    // 和官方确认过，columnInfo.ColumnDataType对应DataType
+                //    columnInfo.DataType = columnAttr.TypeName;
+                //    //columnInfo.DataType = columnAttr.TypeName.Split("(").FirstOrDefault();
+                //}
                 #endregion
             }
 
@@ -345,6 +348,35 @@ public static class SqlSugarSetup
             if (notmappedAttr != null)
             { 
                 columnInfo.IsIgnore = true;
+            }
+
+            // 如果想使用Sugar的CodeFirst
+            // 需要参考https://www.donet5.com/Home/Doc?typeId=1206
+            // "9、自定义类型多库兼容" 进行完善
+            // Unicode (多库兼容)
+            var unicodeAttr = propInfo.GetCustomAttribute<UnicodeAttribute>();
+            if (unicodeAttr != null)
+            {
+                if (dbType == DbType.SqlServer)
+                {
+                    if (maxlengthAttr == null)
+                    {
+                        columnInfo.DataType = "Nvarchar(max)";
+                    }
+                    else
+                    {
+                        columnInfo.DataType = "Nvarchar";//待验证
+                    }
+                }
+                else if (dbType == DbType.MySql)// 待验证
+                {
+                    if (columnInfo.DataType == "varchar(max)")
+                    {
+                        columnInfo.DataType = "longtext";
+                    }
+                    //...
+                }
+                // else if...
             }
         };
 

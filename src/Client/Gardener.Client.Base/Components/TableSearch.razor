@@ -34,33 +34,34 @@
 				<div style="@boStyle">
 				<span>@(placeholder+":")</span>
 				@{
+					//TODO: 建议这里改成switch
 				if (fieldInfo.Type.Equals(typeof(string)))
 				{
-					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+					<Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
 				{
-					<Input Style="@style" Type="text" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+					<Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
 				{
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
 				{
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
 				{
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(decimal)))
 				{
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(double)))
 				{
-					<Input Style="@style" Type="number" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
+					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
 				}
 				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
 				{

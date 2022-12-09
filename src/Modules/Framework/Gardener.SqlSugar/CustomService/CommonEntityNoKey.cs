@@ -4,7 +4,9 @@
 namespace Gardener;
 
 
-//无主键表
+/// <summary>
+/// 无主键表
+/// </summary>
 public abstract class CommonEntityNoKey : IEntity
 {
 }

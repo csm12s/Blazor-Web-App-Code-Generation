@@ -1,7 +1,7 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DynamicApiController;
 using Gardener.Common;
-using Gardener.SqlSugar;
+using Gardener.Sugar;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SqlSugar;
@@ -81,13 +81,11 @@ public abstract class BaseService
     public virtual TEntity GetFirst(Expression<Func<TEntity, bool>> whereExpression)
     {
         return _repository.FirstOrDefault(whereExpression);
-        //return _sugarRepository.Context.Queryable<TEntity>().First(whereExpression);
     }
 
     public virtual async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> whereExpression)
     {
         return await _repository.FirstOrDefaultAsync(whereExpression);
-        //return await _sugarRepository.Context.Queryable<TEntity>().FirstAsync(whereExpression);
     }
     #endregion
 
@@ -182,19 +180,9 @@ public abstract class BaseService
     #region Gardener CRUD
     public virtual async Task<TEntity> InsertAsync(TEntity input)
     {
-        DateTimeOffset defaultValue = input.GetPropertyValue<TEntity, DateTimeOffset>(nameof(GardenerEntityBase.CreatedTime));
-
-        if (defaultValue.Equals(default(DateTimeOffset)))
-        {
-            input.SetPropertyValue(nameof(GardenerEntityBase.CreatedTime), DateTimeOffset.Now);
-        }
         TEntity entity = input;
-        if (entity is GardenerEntityBase ge1)
-        {
-            ge1.CreateBy = IdentityUtil.GetIdentityId();
-            ge1.CreateIdentityType = IdentityUtil.GetIdentityType();
-        }
         var newEntity = await _repository.InsertNowAsync(entity);
+
         //发送通知
         await EntityEventNotityUtil.NotifyInsertAsync(newEntity.Entity);
         return newEntity.Entity;
@@ -202,9 +190,9 @@ public abstract class BaseService
 
     public virtual async Task<bool> UpdateAsync(TEntity input)
     {
-        input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
         EntityEntry<TEntity> entityEntry = await _repository
             .UpdateExcludeAsync(input, _updateIgnoreColumns);
+
         //发送通知
         await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
         return true;
@@ -213,6 +201,7 @@ public abstract class BaseService
     public virtual async Task<bool> DeleteAsync(object id)
     {
         await _repository.DeleteAsync(id);
+
         //发送删除通知
         await EntityEventNotityUtil.NotifyDeleteAsync<TEntity, object>(id);
         return true;
@@ -252,6 +241,11 @@ public abstract class BaseService
         return person;
     }
 
+    public virtual List<TEntity> GetAll()
+    {
+        var persons = GetReadableRepository().AsQueryable().Select(x => x);
+        return persons.ToList();
+    }
     public virtual async Task<List<TEntity>> GetAllAsync()
     {
         var persons = GetReadableRepository().AsQueryable().Select(x => x);
@@ -283,11 +277,6 @@ public abstract class BaseService
     {
         var request = new PageRequest() { PageIndex = pageIndex, PageSize = pageSize };
         return await this.SearchAsync(request);
-
-
-        //var queryable = GetReadableRepository().AsQueryable();
-        //var result = await queryable.ToPageAsync(pageIndex, pageSize);
-        //return result;
     }
 
     public virtual async Task<bool> LockAsync(object id, bool isLocked = true)
@@ -295,8 +284,8 @@ public abstract class BaseService
         var entity = await _repository.FindAsync(id);
         if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsLocked), isLocked))
         {
-            entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-            await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked), nameof(GardenerEntityBase.UpdatedTime) });
+            await _repository.UpdateIncludeAsync
+                (entity, new[] { nameof(GardenerEntityBase.IsLocked)});
             await EntityEventNotityUtil.NotifyLockAsync(entity);
             return true;
         }
@@ -307,21 +296,6 @@ public abstract class BaseService
     {
         var list = await this.GetListAsync(request);
         return list.ToPageList(request);
-
-        //IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
-        //if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
-        //{
-        //    FilterGroup defaultFilterGroup = new FilterGroup();
-        //    defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
-        //    request.FilterGroups.Add(defaultFilterGroup);
-        //}
-        //Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
-
-        //IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
-        //return await queryable
-        //    .OrderConditions(request.OrderConditions.ToArray())
-        //    .Select(x => x)
-        //    .ToPageAsync(request.PageIndex, request.PageSize);
     }
 
     public virtual async Task<string> GenerateSeedDataAsync(PageRequest request)
@@ -329,23 +303,7 @@ public abstract class BaseService
         var pagedList = await this.GetPageAsync(request);
 
         return SeedDataGenerateTool.Generate(pagedList.Items, typeof(TEntity).Name);
-
-        //IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
-        //if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
-        //{
-        //    FilterGroup defaultFilterGroup = new FilterGroup();
-        //    defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
-        //    request.FilterGroups.Add(defaultFilterGroup);
-        //}
-        //Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
-
-        //IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
-        //var result = await queryable
-        //    .OrderConditions(request.OrderConditions.ToArray())
-        //    .ToPageAsync(request.PageIndex, request.PageSize);
-        //return SeedDataGenerateTool.Generate(result.Items, typeof(TEntity).Name);
     }
-
     #endregion
 }
 #endregion

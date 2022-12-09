@@ -74,6 +74,11 @@ public static class FileHelper
         }
     }
 
+    /// <summary>
+    /// Get parent directory
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static string GetParentDirectory(string path)
     {
         var parent = "";

@@ -35,7 +35,7 @@
                             </SpaceItem>
                             <SpaceItem>
                                 <span>ClassName: </span>
-                                <Input Style="@searchInputStyle" Type="text" TValue="string"
+                                <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
                                        @bind-Value="@_searchDto.ClassName"></Input>
                             </SpaceItem>
                         </Space>
@@ -128,7 +128,6 @@
                             @localizer["Generate"]
                         </Button>
                     </SpaceItem>
-
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">

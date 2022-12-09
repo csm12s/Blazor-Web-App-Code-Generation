@@ -1,6 +1,6 @@
 ﻿using Furion.ConfigurableOptions;
 
-namespace Gardener.SqlSugar
+namespace Gardener.Sugar
 {
     /// <summary>
     /// 连接字符串配置

@@ -7,8 +7,18 @@
 @@using Gardener.Base
 @@inherits @(Model.Module)BaseTable<@(Model.ClassName)Dto, @(Model.ClassName)Edit>
 
-
 <div>
+    <h5>
+        @@if (_selectedRows != null && _selectedRows.Count() > 0)
+        {
+            <p>
+                @@localizer["Tatal"]: @@_total, @@localizer["Selected"]: @@_selectedRows.Count()
+                <Button Danger Size="small" OnClick="@@(e => { _table.SetSelection(null); })">
+                    @@localizer["Clear"]
+                </Button>
+            </p>
+        }
+    </h5>
     <Table @@ref="_table"
            Context="model"
            TItem="@(Model.ClassName)Dto"
@@ -24,7 +34,7 @@
 
         @@*Search Field*@@
         <TitleTemplate>
-            <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.Search))>
+            <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthItems.Search))>
                 <TableSearch TDto="@(Model.ClassName)SearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
                 @@*Custom Search*@@
                 @if(Model.HasCustomSearch)
@@ -72,7 +82,7 @@
                                 default: @*Input*@
                                 <SpaceItem>
                                     <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
-                                    <Input Style="@@searchInputStyle" Type="text" TValue="string"
+                                    <Input Style="@@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
                                            @@bind-Value="@@_searchDto.@item.NetColumnName"></Input>
                                 </SpaceItem>
                                 break;
@@ -88,7 +98,7 @@
                 <AntDesign.Col Span="8">
                     @if(Model.CodeGen.HasBatchDelete)
                     {
-                    <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthKeys.Delete))>
+                    <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthItems.Delete))>
                         <Button Type="@@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                             @@localizer["DeleteSelected"]
                         </Button>
@@ -99,7 +109,7 @@
                     <Space>
                         @if(Model.CodeGen.HasAdd)
                         {
-                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Add)>
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Add)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
                                     @@localizer["Add"]
@@ -107,7 +117,7 @@
                             </SpaceItem>
                         </ResourceAuthorize>
                         }
-                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Search)>
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                     @@localizer["Refresh"]
@@ -121,7 +131,7 @@
 
         @@*Main Table*@@
         <RowTemplate>
-            <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
+            <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
                 @if(Model.CodeGen.PrimaryKeyType == "string")
                 {
                     <Selection Key="@@(model.@(Model.CodeGen.PrimaryKeyName))" />
@@ -145,7 +155,7 @@
                     <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Filterable>
                         @if(Model.CodeGen.HasEdit)
                         {
-                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
                             <Authorized>
                                 <Switch @@bind-Value="@@model.@item.NetColumnName"></Switch>
                             </Authorized>
@@ -180,7 +190,7 @@
                 <Space>
                     @if(Model.CodeGen.HasEdit)
                     {
-                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Edit)>
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickEdit(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
                                 @@localizer["Edit"]
@@ -188,7 +198,7 @@
                         </SpaceItem>
                     </ResourceAuthorize>
                     }
-                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Search)>
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickDetail(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
                                 @@localizer["Detail"]
@@ -197,7 +207,7 @@
                     </ResourceAuthorize>
                     @if(Model.CodeGen.HasDelete)
                     {
-                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthKeys.Delete)>
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Delete)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickDelete(model.@(Model.CodeGen.PrimaryKeyName))"  Danger Type="@@ButtonType.Link">
                                 @@localizer["Delete"]

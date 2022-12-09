@@ -12,10 +12,10 @@ public abstract class BaseClientController<T>
     }
 }
 
-public abstract class BaseClientController<T, TKey> 
-    : IBaseController<T, TKey>, 
-    IServiceBase<T, TKey> // Gardener base controller, _service in ListTableBase need this
-    where T : class, new()
+public abstract class BaseClientController<TEntityDto, TKey> 
+    : IBaseController<TEntityDto, TKey>, 
+    IServiceBase<TEntityDto, TKey> // Gardener base controller, _service in ListTableBase need this
+    where TEntityDto : class, new()
 {
     public readonly string controller;
     public readonly IApiCaller apiCaller;
@@ -40,7 +40,9 @@ public abstract class BaseClientController<T, TKey>
 
     public virtual Task<bool> Deletes(TKey[] ids)
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{nameof(Deletes)}";
+        // 不支持异步方法:
+        //var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
         return apiCaller.PostAsync<TKey[], bool>(url, request: ids);
     }
 
@@ -56,37 +58,40 @@ public abstract class BaseClientController<T, TKey>
         return apiCaller.PostAsync<TKey[], bool>(url, request: ids);
     }
 
-    public virtual Task<T> Get(TKey id)
+    public virtual Task<TEntityDto> Get(TKey id)
     {
-        return apiCaller.GetAsync<T>($"{controller}/Get/{id}");
+        var url = $"{controller}/Get/{id}";
+        return apiCaller.GetAsync<TEntityDto>(url);
     }
 
-    public virtual Task<List<T>> GetAll()
+    public virtual Task<List<TEntityDto>> GetAll()
     {
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
-        return apiCaller.GetAsync<List<T>>(url);
+        return apiCaller.GetAsync<List<TEntityDto>>(url);
     }
 
-    public virtual Task<List<T>> GetAllUsable()
-    {
-        return apiCaller.GetAsync<List<T>>($"{controller}/AllUsable");
-    }
-
-    public virtual Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
-    {
-        return apiCaller.GetAsync<PagedList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
-    }
-
-    public virtual Task<T> Insert(T input)
+    public virtual Task<List<TEntityDto>> GetAllUsable()
     {
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
-        return apiCaller.PostAsync<T, T>(url, request: input);
+        return apiCaller.GetAsync<List<TEntityDto>>(url);
     }
 
-    public virtual Task<bool> Update(T item)
+    public virtual Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
+    {
+        var url = $"{controller}/GetPage/{pageIndex}/{pageSize}";
+        return apiCaller.GetAsync<PagedList<TEntityDto>>(url);
+    }
+
+    public virtual Task<TEntityDto> Insert(TEntityDto input)
     {
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
-        return apiCaller.PostAsync<T, bool>(url, request: item);
+        return apiCaller.PostAsync<TEntityDto, TEntityDto>(url, request: input);
+    }
+
+    public virtual Task<bool> Update(TEntityDto item)
+    {
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        return apiCaller.PostAsync<TEntityDto, bool>(url, request: item);
     }
 
     
@@ -96,10 +101,10 @@ public abstract class BaseClientController<T, TKey>
         return apiCaller.PostWithoutBodyAsync<bool>(url);
     }
 
-    public virtual Task<PagedList<T>> Search(PageRequest request)
+    public virtual Task<PagedList<TEntityDto>> Search(PageRequest request)
     {
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
-        return apiCaller.PostAsync<PageRequest, PagedList<T>>(url, request);
+        return apiCaller.PostAsync<PageRequest, PagedList<TEntityDto>>(url, request);
     }
 
     public virtual Task<string> GenerateSeedData(PageRequest request)

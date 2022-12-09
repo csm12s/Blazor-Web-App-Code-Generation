@@ -1,97 +1,97 @@
 ﻿{
-  "SpecificationDocumentSettings": {
-    "DocumentTitle": "Gardener Api 文档",
-    "DocExpansionState": "None",
-    "GroupOpenApiInfos": [
-      {
-        "Order": 100,
-        "Group": "UserCenterServices",
-        "Title": "用户中心服务",
-        "Description": "用户中心服务相关接口",
-        "Version": "1.0.0",
-        "TermsOfService": "https://gitee.com/hgflydream",
-        "Contact": {
-          "Name": "hhf",
-          "Url": "https://gitee.com/hgflydream",
-          "Email": "326794739@qq.com"
-        },
-        "License": {
-          "Name": "Apache-2.0",
-          "Url": "https://gitee.com/hgflydream"
-        }
-      },
-      {
-        "Order": 90,
-        "Group": "SystemBaseServices",
-        "Title": "系统基础服务",
-        "Description": "系统基础服务相关接口",
-        "Version": "1.0.0",
-        "TermsOfService": "https://gitee.com/hgflydream",
-        "Contact": {
-          "Name": "hhf",
-          "Url": "https://gitee.com/hgflydream",
-          "Email": "326794739@qq.com"
-        },
-        "License": {
-          "Name": "Apache-2.0",
-          "Url": "https://gitee.com/hgflydream"
-        }
-      },
-      {
-        "Order": 80,
-        "Group": "NotificationSystem",
-        "Title": "通知系统服务",
-        "Description": "通知系统服务相关接口",
-        "Version": "1.0.0",
-        "TermsOfService": "https://gitee.com/hgflydream",
-        "Contact": {
-          "Name": "hhf",
-          "Url": "https://gitee.com/hgflydream",
-          "Email": "326794739@qq.com"
-        },
-        "License": {
-          "Name": "Apache-2.0",
-          "Url": "https://gitee.com/hgflydream"
-        }
-      },
-      {
-        "Order": 0,
-        "Group": "Demos",
-        "Title": "示例服务",
-        "Description": "各种示例服务",
-        "Version": "1.0.0",
-        "TermsOfService": "https://gitee.com/hgflydream",
-        "Contact": {
-          "Name": "hhf",
-          "Url": "https://gitee.com/hgflydream",
-          "Email": "326794739@qq.com"
-        },
-        "License": {
-          "Name": "Apache-2.0",
-          "Url": "https://gitee.com/hgflydream"
-        }
-      }
-    ],
-    "EnableAuthorized": true,
-    "SecurityDefinitions": [
-      {
-        "Id": "Bearer",
-        "Type": "Http",
-        "Name": "Authorization",
-        "Description": "JWT Authorization header using the Bearer scheme.",
-        "BearerFormat": "JWT",
-        "Scheme": "bearer",
-        "In": "Header",
-        "Requirement": {
-          "Scheme": {
-            "Reference": {
-              "Id": "Bearer",
-              "Type": "SecurityScheme"
-            },
-            "Accesses": []
-          }
-        }
-      }
-    ]
-  }
+	"SpecificationDocumentSettings": {
+		"DocumentTitle": "Gardener Api 文档",
+		"DocExpansionState": "None",
+		"GroupOpenApiInfos": [
+			{
+				"Order": 100,
+				"Group": "UserCenterServices",
+				"Title": "用户中心服务",
+				"Description": "用户中心服务相关接口",
+				"Version": "1.0.0",
+				"TermsOfService": "https://gitee.com/hgflydream",
+				"Contact": {
+					"Name": "hhf",
+					"Url": "https://gitee.com/hgflydream",
+					"Email": "326794739@qq.com"
+				},
+				"License": {
+					"Name": "Apache-2.0",
+					"Url": "https://gitee.com/hgflydream"
+				}
+			},
+			{
+				"Order": 90,
+				"Group": "SystemBaseServices",
+				"Title": "系统基础服务",
+				"Description": "系统基础服务相关接口",
+				"Version": "1.0.0",
+				"TermsOfService": "https://gitee.com/hgflydream",
+				"Contact": {
+					"Name": "hhf",
+					"Url": "https://gitee.com/hgflydream",
+					"Email": "326794739@qq.com"
+				},
+				"License": {
+					"Name": "Apache-2.0",
+					"Url": "https://gitee.com/hgflydream"
+				}
+			},
+			{
+				"Order": 80,
+				"Group": "NotificationSystem",
+				"Title": "通知系统服务",
+				"Description": "通知系统服务相关接口",
+				"Version": "1.0.0",
+				"TermsOfService": "https://gitee.com/hgflydream",
+				"Contact": {
+					"Name": "hhf",
+					"Url": "https://gitee.com/hgflydream",
+					"Email": "326794739@qq.com"
+				},
+				"License": {
+					"Name": "Apache-2.0",
+					"Url": "https://gitee.com/hgflydream"
+				}
+			},
+			{
+				"Order": 0,
+				"Group": "Demos",
+				"Title": "示例服务",
+				"Description": "各种示例服务",
+				"Version": "1.0.0",
+				"TermsOfService": "https://gitee.com/hgflydream",
+				"Contact": {
+					"Name": "hhf",
+					"Url": "https://gitee.com/hgflydream",
+					"Email": "326794739@qq.com"
+				},
+				"License": {
+					"Name": "Apache-2.0",
+					"Url": "https://gitee.com/hgflydream"
+				}
+			}
+		],
+		"EnableAuthorized": true,
+		"SecurityDefinitions": [
+			{
+				"Id": "Bearer",
+				"Type": "Http",
+				"Name": "Authorization",
+				"Description": "JWT Authorization header using the Bearer scheme.",
+				"BearerFormat": "JWT",
+				"Scheme": "bearer",
+				"In": "Header",
+				"Requirement": {
+					"Scheme": {
+						"Reference": {
+							"Id": "Bearer",
+							"Type": "SecurityScheme"
+						},
+						"Accesses": []
+					}
+				}
+			}
+		]
+	}
 }

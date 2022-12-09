@@ -22,6 +22,7 @@ namespace Gardener.SystemManager.Dtos
     {
         /// <summary>
         /// 名称
+        /// Locale Key
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("名称")]

@@ -7,6 +7,16 @@ namespace Gardener.CodeGeneration.Dtos;
 public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: DTO是不是可以继承Entity，
                                                     //请参考Admin.Net，Admin.NET.Application 引用了Admin.NET.Core
 {
+    #region Custom Dto
+
+    /// <summary>
+    /// [MaxLength(20)]
+    /// </summary>
+    public string MaxLengthText { get; set; } = "";
+
+    #endregion
+
+
     /// <summary>
     /// 代码生成主表ID
     /// </summary>
@@ -184,8 +194,4 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
 
     #endregion
 
-    #region Dto only fields
-    public string MaxLengthText { get; set; } = "";
-
-    #endregion
 }

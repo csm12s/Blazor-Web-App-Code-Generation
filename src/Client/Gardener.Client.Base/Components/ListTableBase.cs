@@ -151,7 +151,7 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 重新加载table 
+        /// 从首页重新加载table
         /// Todo: 是不是可以叫 ReloadTable
         /// </summary>
         /// <returns></returns>
@@ -258,35 +258,6 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 点击删除按钮(TrueDelete)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        protected virtual async Task OnClickTrueDelete(TKey id)
-        {
-            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
-            {
-                var result = await _service.Delete(id);
-                if (result)
-                {
-                    PageRequest pageRequest = GetPageRequest();
-                    //当前页被删完了
-                    if (_pageIndex > 1 && _datas.Count() == 0)
-                    {
-                        _pageIndex = _pageIndex - 1;
-                    }
-                    await ReLoadTable();
-                    await messageService.Success(localizer.Combination("删除", "成功"));
-                }
-                else
-                {
-                    await messageService.Error(localizer.Combination("删除", "失败"));
-                }
-            }
-
-        }
-
-        /// <summary>
         /// 点击删除选中按钮
         /// </summary>
         protected virtual async Task OnClickDeletes()
@@ -322,6 +293,66 @@ namespace Gardener.Client.Base.Components
                 _deletesBtnLoading = false;
             }
         }
+
+        #region True Delete
+        protected virtual async Task OnClickTrueDelete(TKey id)
+        {
+            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
+            {
+                var result = await _service.Delete(id);
+                if (result)
+                {
+                    PageRequest pageRequest = GetPageRequest();
+                    //当前页被删完了
+                    if (_pageIndex > 1 && _datas.Count() == 0)
+                    {
+                        _pageIndex = _pageIndex - 1;
+                    }
+                    await ReLoadTable();
+                    await messageService.Success(localizer.Combination("删除", "成功"));
+                }
+                else
+                {
+                    await messageService.Error(localizer.Combination("删除", "失败"));
+                }
+            }
+
+        }
+
+        protected virtual async Task OnClickTrueDeletes()
+        {
+            if (_selectedRows == null || _selectedRows.Count() == 0)
+            {
+                messageService.Warn(localizer["未选中任何行"]);
+            }
+            else
+            {
+                _deletesBtnLoading = true;
+                if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
+                {
+                    var result = await _service.Deletes(_selectedRows.Select(x => x.Id).ToArray());
+                    if (result)
+                    {
+                        //删除整页，且是最后一页
+                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+                        {
+                            await ReLoadTable(true);
+                        }
+                        else
+                        {
+                            await ReLoadTable(false);
+                        }
+                        messageService.Success(localizer.Combination("删除", "成功"));
+                    }
+                    else
+                    {
+                        messageService.Error(localizer.Combination("删除", "失败"));
+                    }
+                }
+                _deletesBtnLoading = false;
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 设置预设过滤信息

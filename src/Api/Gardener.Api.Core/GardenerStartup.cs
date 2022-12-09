@@ -16,7 +16,7 @@ using Gardener.Common.JsonConverters;
 using System;
 using Microsoft.AspNetCore.HttpOverrides;
 using AspNetCoreRateLimit;
-using Gardener.SqlSugar;
+using Gardener.Sugar;
 
 namespace Gardener.Admin
 {

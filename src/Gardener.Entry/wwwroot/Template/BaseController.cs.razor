@@ -10,6 +10,7 @@ namespace @(Model.AppName).@(Model.Module).Server;
 [ApiDescriptionSettings(Module = "@(Model.Module)", Groups = new string[] { "@(Model.Module)" }, ForceWithRoutePrefix = true, KeepName = true, KeepVerb = true, LowercaseRoute = false, SplitCamelCase = false)]
 public class @(Model.Module)BaseController<T, TDto>
     : BaseController<T, TDto, @(Model.CodeGen.PrimaryKeyType)>,
+    I@(Model.Module)BaseController<TDto>,
     IDynamicApiController
     where T : class, IPrivateEntity, new()
     where TDto : class, new()
