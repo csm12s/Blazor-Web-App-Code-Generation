@@ -170,6 +170,10 @@ public static class NetTypeRaw
     public const string _bool = "bool";
     public const string _DateTime = "DateTime";
     public const string _DateTimeOffset = "DateTimeOffset";
+
+    /// <summary>
+    /// 0~255
+    /// </summary>
     public const string _byte = "byte";
     public const string _byteArray = "byte[]";
 

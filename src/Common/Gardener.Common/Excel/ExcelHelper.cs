@@ -46,6 +46,9 @@ public class ExcelHelper
     {
         overwriteFile = true;
 
+        var folderPath = FileHelper.GetDirectory(path);
+        FileHelper.CreateDirectory(folderPath);
+
         await MiniExcel.SaveAsAsync(path, value, printHeader, sheetName, excelType, configuration, overwriteFile
             , cancellationToken);
     }

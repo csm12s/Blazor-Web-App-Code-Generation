@@ -8,7 +8,7 @@ using SqlSugar;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Gardener.SqlSugar;
+namespace Gardener.Sugar;
 
 /// <summary>
 /// SqlSugar 仓储实现类

@@ -17,6 +17,8 @@ namespace Gardener.UserCenter.Services
     /// </summary>
     public interface IUserService:IServiceBase<UserDto, int>
     {
+        Task<string> GetCurrentUserId();
+
         /// <summary>
         /// 
         /// </summary>

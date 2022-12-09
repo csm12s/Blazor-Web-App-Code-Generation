@@ -43,6 +43,7 @@ public interface IBaseService<TEntity>
     Task<bool> FakeDeleteAsync(object id);
     Task<bool> FakeDeletesAsync<TKey>(TKey[] ids);
     Task<TEntity> GetByIdAsync(object id);
+    List<TEntity> GetAll();
     Task<List<TEntity>> GetAllAsync();
     /// <summary>
     /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)

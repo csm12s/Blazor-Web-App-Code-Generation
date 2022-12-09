@@ -10,7 +10,7 @@ using Gardener.Base;
 using Gardener.FileStore;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Gardener.SqlSugar;
+namespace Gardener.Sugar;
 
 // TODO1：这里改成和ServiceBase一样的Rest API
 /// <summary>

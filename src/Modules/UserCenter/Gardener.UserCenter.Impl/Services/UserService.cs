@@ -305,6 +305,10 @@ namespace Gardener.UserCenter.Impl.Services
 
         }
 
-        
+        public Task<string> GetCurrentUserId()
+        {
+            var id = IdentityUtil.GetIdentityId();
+            return Task.FromResult(id);
+        }
     }
 }

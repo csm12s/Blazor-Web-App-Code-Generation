@@ -1,4 +1,5 @@
-﻿using Furion.DatabaseAccessor;
+﻿using Furion;
+using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using Gardener.Base;
@@ -8,7 +9,7 @@ using Gardener.CodeGeneration.Dtos;
 using Gardener.Common;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
-using Gardener.SqlSugar;
+using Gardener.Sugar;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Mapster;
@@ -22,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -445,18 +447,21 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         });
 
         // sql server
-        itemList.Add(new CodeGenTemplateItem(nameModel)
-        {
-            TemplatePath = Path.Combine(templatePath, "SqlServer - Insert Menu.sql.razor"),
-            GenPath = Path.Combine(modulePath, codeGenDto.ClassName + " - SqlServer Insert Menu.sql")
-        });
+        //itemList.Add(new CodeGenTemplateItem(nameModel)
+        //{
+        //    TemplatePath = Path.Combine(templatePath, "SqlServer - Insert Menu.sql.razor"),
+        //    GenPath = Path.Combine(modulePath, codeGenDto.ClassName + " - SqlServer Insert Menu.sql")
+        //});
 
         // Swagger settings
-        itemList.Add(new CodeGenTemplateItem(nameModel)
+        if (codeGenDto.GenerateBaseClass)
         {
-            TemplatePath = Path.Combine(templatePath, "SwaggerSetting.razor"),
-            GenPath = Path.Combine(modulePath, codeGenDto.Module + " - SwaggerSetting.Add.json")
-        });
+            itemList.Add(new CodeGenTemplateItem(nameModel)
+            {
+                TemplatePath = Path.Combine(templatePath, "SwaggerSetting.razor"),
+                GenPath = Path.Combine(modulePath, codeGenDto.Module + " - SwaggerSetting.Add.json")
+            });
+        }
 
         #endregion
 
@@ -544,20 +549,24 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         #endregion
 
         #region Locale
-        // en
-        itemList.Add(new CodeGenTemplateItem(nameModel)
+        if (nameModel.LocaleItems.Count() > 1)
         {
-            TemplatePath = Path.Combine(templatePath, "DBLocale.EN.razor"),
-            GenPath = Path.Combine(modulePath, "Locale", "EN",
-                codeGenDto.ClassName + " - DBLocale.EN.txt")
-        });
-        // ch
-        itemList.Add(new CodeGenTemplateItem(nameModel)
-        {
-            TemplatePath = Path.Combine(templatePath, "DBLocale.CH.razor"),
-            GenPath = Path.Combine(modulePath, "Locale", "ZH", // CH -> ZH, App.zh.resx
-                codeGenDto.ClassName + " - DBLocale.CH.txt")
-        });
+            // en
+            itemList.Add(new CodeGenTemplateItem(nameModel)
+            {
+                TemplatePath = Path.Combine(templatePath, "DBLocale.EN.razor"),
+                GenPath = Path.Combine(modulePath, "Locale", "EN",
+                    codeGenDto.ClassName + " - DBLocale.EN.txt")
+            });
+            // ch
+            itemList.Add(new CodeGenTemplateItem(nameModel)
+            {
+                TemplatePath = Path.Combine(templatePath, "DBLocale.CH.razor"),
+                GenPath = Path.Combine(modulePath, "Locale", "ZH", // CH -> ZH, App.zh.resx
+                    codeGenDto.ClassName + " - DBLocale.CH.txt")
+            });
+        }
+
         #endregion
 
 
@@ -593,6 +602,8 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         //\Modules\XXX
         var modulePath = Path.Combine(baseGenPath, codeGenDto.Module);
+        //\Modules\Sys\Gardener.Sys
+        var baseModulePath = Path.Combine(modulePath, appName + "." + codeGenDto.Module);
 
         #region Name model
         // CodeGenConfig
@@ -602,8 +613,12 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         var codeGenConfigDtos = codeGenConfigs.MapTo<CodeGenConfigDto>();
 
         #region Entity Attributes
+        // EF CodeFirst 官方文档：
+        // https://learn.microsoft.com/zh-cn/ef/core/modeling/entity-properties?tabs=data-annotations%2Cwithout-nrt
         foreach (var column in codeGenConfigDtos)
         {
+            // EF CodeFirst默认string为Unicode，非Unicode设置[Unicode(false)]
+
             #region MaxLengthText
             var maxLengthStr = (column.NetType.Contains("string")
                 && column.Length != null
@@ -613,33 +628,43 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             column.MaxLengthText = maxLengthStr;
             #endregion
 
-            #region DbDataTypeText, 不支持多库
-            if (true)// sql server
+            #region PrecisionText
+            // [Precision(0)]
+            if (column.NetType.Contains(NetTypeRaw._DateTime))
             {
-                // string
-                // 这里处理string类型和长度，例如SqlServer的varchar，nvarchar,
-                // 反应到生成的Entity，可以比较直观的看到对应数据库的类型
-                if (column.DbDataType.Contains("varchar"))
+                // TODO
+            }
+            #endregion
+
+            #region DbDataTypeText, 不支持多库
+            //[Column("Username", TypeName = "Nvarchar(20)")]
+            if (codeGenDto.GenerateDbDataTypeText)
+            {
+                if (true)// sql server
                 {
-                    var length = "Max";
-                    if (column.Length > 0)
+                    // string
+                    // 这里处理string类型和长度，例如SqlServer的varchar，nvarchar,
+                    if (column.DbDataType.Contains("varchar"))
                     {
-                        length = column.Length.ToString();
+                        var length = "Max";
+                        if (column.Length > 0)
+                        {
+                            length = column.Length.ToString();
+                        }
+
+                        column.DbDataTypeText = column.DbDataType.FirstToUpper() +
+                            "(" + length + ")";
                     }
 
-                    column.DbDataTypeText = column.DbDataType.FirstToUpper() +
-                        "(" + length + ")";
-                }
-
-                // datetime
-                // EF CodeFirst会将datetime自动映射成datetime2, 这里需要手动设置一下
-                // https://learn.microsoft.com/zh-cn/ef/core/modeling/entity-properties?tabs=data-annotations%2Cwithout-nrt
-                // TODO：为了兼容多库可以设置[Precision(0)]?, 待验证
-                if (column.DbDataType.Contains("datetime"))
-                {
-                    column.DbDataTypeText = column.DbDataType.FirstToUpper();
+                    // datetime
+                    // EF CodeFirst会将datetime自动映射成datetime2, 这里需要手动设置一下
+                    if (column.DbDataType.Contains("datetime"))
+                    {
+                        column.DbDataTypeText = column.DbDataType.FirstToUpper();
+                    }
                 }
             }
+
             #endregion
         }
 
@@ -684,9 +709,10 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                         // 设置中文，也可以新增一个选项
                         configDto.ColumnDescription = matchLocale.ValueEN;
                     }
-
+                    
                     // 如果未设置备注
-                    if (configDto.ColumnSummary == configDto.NetColumnName)
+                    if (configDto.ColumnSummary == configDto.NetColumnName
+                        || codeGenDto.UseChineseSummary)
                     {
                         if (matchLocale.ValueEN == matchLocale.ValueCH)
                         {
@@ -713,7 +739,8 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         }
 
         #region Generate a new locale file
-        if (!File.Exists(localeFilePath)
+        if (codeGenDto.GenerateDBLocaleFile
+            || !File.Exists(localeFilePath)
             || codeGenDto.EntityFromTable)//表建表模式
         {
             var newLocaleItems = new List<CodeGenLocaleItem>();
@@ -759,7 +786,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             //    newLocaleItems.FirstOrDefault().Name + ExcelHelper.Extension);
 
             // Sys\Gardener.Sys\DB\DB Locale
-            var filePath = Path.Combine(modulePath, "DB", "DB Locale",
+            var filePath = Path.Combine(baseModulePath, "DB", "DB Locale",
                 newLocaleItems.FirstOrDefault().Name + ExcelHelper.Extension);
             try
             {
@@ -913,6 +940,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     {
         CodeGenDto codeGenDto = nameModel.CodeGen;
 
+        #region Menu
         var iconName = "Icon Name";
         if (!string.IsNullOrEmpty(codeGenDto.IconName))
         {
@@ -934,13 +962,35 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             IsLocked = false,
             IsDeleted = false,
         });
+        #endregion
 
+        #region Buttons
         // Menu Buttons / Actions
-        menus.Add(NewAction(AuthKeys.Search, menus.First(), codeGenDto));
-        menus.Add(NewAction(AuthKeys.Add, menus.First(), codeGenDto));
-        menus.Add(NewAction(AuthKeys.Edit, menus.First(), codeGenDto));
-        menus.Add(NewAction(AuthKeys.Delete, menus.First(), codeGenDto));
-        menus.Add(NewAction(AuthKeys.Lock, menus.First(), codeGenDto));
+        menus.Add(NewAction(AuthItems.Search, menus.First(), codeGenDto));
+        menus.Add(NewAction(AuthItems.Add, menus.First(), codeGenDto));
+        menus.Add(NewAction(AuthItems.Edit, menus.First(), codeGenDto));
+        menus.Add(NewAction(AuthItems.Delete, menus.First(), codeGenDto));
+        menus.Add(NewAction(AuthItems.Lock, menus.First(), codeGenDto));
+
+        // 这里根据类批量生成Menu button, XxxAuthItems: AuthItems
+        var baseAuthItem = App.EffectiveTypes
+            .Where(a => !a.IsAbstract
+                && a.IsClass
+                && a.Name.Equals(codeGenDto.Module + nameof(AuthItems)))
+            .FirstOrDefault();
+        if (baseAuthItem != null)
+        {
+            var fieldInfos = baseAuthItem.GetFields
+                (BindingFlags.Public | BindingFlags.Static)
+                .Where(x => x.IsLiteral && !x.IsInitOnly)
+                .ToList();
+
+            foreach (var item in fieldInfos)
+            {
+                menus.Add(NewAction(item.GetValue(null).ToString(), menus.First(), codeGenDto));
+            }
+        }
+        #endregion
 
         return menus;
     }
