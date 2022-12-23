@@ -1,17 +1,26 @@
 ﻿using Gardener.Base;
 using Gardener.Enums;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.CodeGeneration.Dtos;
-
-public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: DTO是不是可以继承Entity，
-                                                    //请参考Admin.Net，Admin.NET.Application 引用了Admin.NET.Core
+/// <summary>
+/// 代码生成配置
+/// </summary>
+public partial class CodeGenConfigDto: BaseDto<int> 
 {
+    //: CodeGenConfig // TODO: DTO是不是可以继承Entity，
+    //请参考Admin.Net，Admin.NET.Application 引用了Admin.NET.Core
+    //因为Entity引用了ORM框架相关依赖，接口是api和client的约束，所以接口中的dto应该保持无任何具体实现的影子
     #region Custom Dto
 
     /// <summary>
-    /// [MaxLength(20)]
+    /// 最大长度
     /// </summary>
+    /// <remarks>
+    /// [MaxLength(20)]
+    /// </remarks>
+    [DisplayName("最大长度")]
     public string MaxLengthText { get; set; } = "";
 
     #endregion
@@ -20,47 +29,58 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// <summary>
     /// 代码生成主表ID
     /// </summary>
+    [DisplayName("生成主键")]
     public int CodeGenId { get; set; }
 
     /// <summary>
     /// 数据库字段名
     /// </summary>
     [Required, MaxLength(100)]
+    [DisplayName("列名")]
     public string ColumnName { get; set; }
 
     /// <summary>
     /// Net Column Name
     /// </summary>
+    [DisplayName("实体字段名")]
     public string NetColumnName { get; set; }
 
     /// <summary>
     /// DB Description
     /// </summary>
+    [DisplayName("实体字段描述")]
     public string ColumnDescription { get; set; }
 
     /// <summary>
     /// Summary in code
     /// </summary>
+    [DisplayName("实体字段概要")]
     public string ColumnSummary { get; set; }
 
-    // Locale
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public string ColumnLocaleKey { get; set; } = "";
 
     /// <summary>
     /// .NET数据类型
     /// </summary>
     [MaxLength(50)]
+    [DisplayName("实体数据类型")]
     public string NetType { get; set; }
 
     /// <summary>
     /// .NET数据类型, 不带问号
     /// </summary>
+    [DisplayName("实体数据类型, 不带问号")]
     public string NetTypeRaw { get; set; }
 
     /// <summary>
     /// 数据库中类型（物理类型）
     /// </summary>
     [MaxLength(50)]
+    [DisplayName("数据库数据类型")]
     public string DbDataType { get; set; }
 
     /// <summary>

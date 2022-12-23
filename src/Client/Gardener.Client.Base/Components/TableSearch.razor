@@ -1,136 +1,129 @@
 ﻿@using AntDesign.Select
 @typeparam TDto
 <Row Style="margin-bottom:10px;">
-	<AntDesign.Col Span="4">
-		<Select Mode="multiple"
-			DefaultActiveFirstOption
-        Placeholder="@localizer["请选择搜索字段"]"
-		@bind-Values="@_selectedValues"
-		TItemValue="string"
-		TItem="string"
-		OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
-		MaxTagCount="@ResponsiveTag.Responsive"
-		AllowClear
-		OnClearSelected="OnClearSearchValue"
-		>
-		<SelectOptions>
-			@foreach(TableSearchField item in _fields)
-			{
-				<SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@item.DisplayName" />
-			}
-		</SelectOptions>
-		</Select>
-	</AntDesign.Col>
-	<AntDesign.Col Span="18">
-		@{
-			string width = Math.Ceiling((decimal)100/_fields.Count())+"%";
-			string style=$"margin-right:8px;margin-bottom:2px;width:100px";
-			string begin=localizer["开始"];
-			string end=localizer["结束"];
-			foreach (TableSearchField fieldInfo in _currentFields)
-			{ 
-				string placeholder=fieldInfo.DisplayName;
-				string boStyle = "float:left;" + (_showFields[fieldInfo.Name] ? "" : "display:none;");
-				<div style="@boStyle">
-				<span>@(placeholder+":")</span>
-				@{
-					//TODO: 建议这里改成switch
-				if (fieldInfo.Type.Equals(typeof(string)))
-				{
-					<Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
-				{
-					<Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
-				{
-					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
-				{
-					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
-				{
-					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(decimal)))
-				{
-					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(double)))
-				{
-					<Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value"/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
-				{
-					DateTime tempBeginTime=DateTime.Parse(fieldInfo.Values.First());
-					DateTime tempEndTime=DateTime.Parse(fieldInfo.Values.Last());
-					<RangePicker Style="margin-left:5px;" 
-					TValue="DateTime?[]" 
-					ShowTime="@ShowTime" 
-					Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}" 
-					OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
-					DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
-					OnClearClick="()=>{fieldInfo.Values=new string[0];}"
-					/>
-				}
-				else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
-				{
-							<Select 
-								Mode="multiple"
-								Placeholder="@placeholder"
-								TItemValue="string"
-								TItem="string"
-								MaxTagCount="@ResponsiveTag.Responsive"
-								Style="@style"
-								AllowClear
-								OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
-								DefaultValues="fieldInfo.Values"
-								Values="fieldInfo.Values"
-							>
-						<SelectOptions>
-							<SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer["是"]" />
-							<SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer["否"]" />
-						</SelectOptions>
-					</Select>
-				}
-				else if (fieldInfo.Type.IsEnum) 
-				{ 
-					<Select Mode="multiple"
-						Placeholder="@placeholder"
-						Style="@style"
-						TItemValue="string"
-						TItem="string"
-						MaxTagCount="@ResponsiveTag.Responsive"
-						AllowClear
-						OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
-						DefaultValues="fieldInfo.Values"
-						Values="fieldInfo.Values"
-						>
-						<SelectOptions>
-							@foreach(var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
-							{
-								<SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@item.Value" />
-							}
-						</SelectOptions>
-					</Select>
-				}
-				}
-				</div>
-			}
-		}
+    <AntDesign.Col Span="4">
+        <Select Mode="multiple"
+                DefaultActiveFirstOption
+                Placeholder="@localizer["请选择搜索字段"]"
+        @bind-Values="@_selectedValues"
+                TItemValue="string"
+                TItem="string"
+                OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+                MaxTagCount="@ResponsiveTag.Responsive"
+                AllowClear
+                OnClearSelected="OnClearSearchValue">
+            <SelectOptions>
+                @foreach (TableSearchField item in _fields)
+                {
+                    <SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@item.DisplayName" />
+                }
+            </SelectOptions>
+        </Select>
     </AntDesign.Col>
-	<AntDesign.Col Span="2" Style="text-align:right">
-		@if (_selectedValues != null && _selectedValues.Count() > 0)
-		{
-			<ResourceAuthorize ResourceKey="user_center_role_refresh">
-				<Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
-					@localizer["搜索"]
-				</Button>
-			</ResourceAuthorize>
-		}
-	</AntDesign.Col>
+    <AntDesign.Col Span="18">
+        @{
+            string width = Math.Ceiling((decimal)100 / _fields.Count()) + "%";
+            string style = $"margin-right:8px;margin-bottom:2px;width:100px";
+            string begin = localizer["开始"];
+            string end = localizer["结束"];
+            foreach (TableSearchField fieldInfo in _currentFields)
+            {
+                string placeholder = fieldInfo.DisplayName;
+                string boStyle = "float:left;" + (_showFields[fieldInfo.Name] ? "" : "display:none;");
+                <div style="@boStyle">
+                    <span>@(placeholder + ":")</span>
+                    @{
+                        //TODO: 建议这里改成switch
+                        if (fieldInfo.Type.Equals(typeof(string)))
+                        {
+                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
+                        {
+                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(decimal)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(double)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
+                        {
+                            DateTime tempBeginTime = DateTime.Parse(fieldInfo.Values.First());
+                            DateTime tempEndTime = DateTime.Parse(fieldInfo.Values.Last());
+                            <RangePicker Style="margin-left:5px;"
+                                 TValue="DateTime?[]"
+                                 ShowTime="@ShowTime"
+                                 Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
+                                 OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
+                                 DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
+                                 OnClearClick="()=>{fieldInfo.Values=new string[0];}" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
+                        {
+                            <Select Mode="multiple"
+                            Placeholder="@placeholder"
+                            TItemValue="string"
+                            TItem="string"
+                            MaxTagCount="@ResponsiveTag.Responsive"
+                            Style="@style"
+                                    AllowClear
+                            OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                            DefaultValues="fieldInfo.Values"
+                            Values="fieldInfo.Values">
+                                <SelectOptions>
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer["是"]" />
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer["否"]" />
+                                </SelectOptions>
+                            </Select>
+                        }
+                        else if (fieldInfo.Type.IsEnum)
+                        {
+                            <Select Mode="multiple"
+                            Placeholder="@placeholder"
+                            Style="@style"
+                            TItemValue="string"
+                            TItem="string"
+                            MaxTagCount="@ResponsiveTag.Responsive"
+                                    AllowClear
+                            OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                            DefaultValues="fieldInfo.Values"
+                            Values="fieldInfo.Values">
+                                <SelectOptions>
+                                    @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
+                                    {
+                                        <SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@item.Value" />
+                                    }
+                                </SelectOptions>
+                            </Select>
+                        }
+                    }
+                </div>
+            }
+        }
+    </AntDesign.Col>
+    <AntDesign.Col Span="2" Style="text-align:right">
+        @if (_selectedValues != null && _selectedValues.Count() > 0)
+        {
+            <Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
+                @localizer["搜索"]
+            </Button>
+        }
+    </AntDesign.Col>
 </Row>
 

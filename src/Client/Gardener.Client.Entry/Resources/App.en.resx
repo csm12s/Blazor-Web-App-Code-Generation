@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="Configure" xml:space="preserve">
-    <value>Configure</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Generate" xml:space="preserve">
-    <value>Generate</value>
-  </data>
   <data name="个人中心" xml:space="preserve">
     <value>Account center</value>
   </data>
@@ -349,43 +334,109 @@
     <value>Home</value>
     <comment>菜单</comment>
   </data>
-  <data name="_Sys._CodeGen" xml:space="preserve">
-    <value>CodeGen</value>
+  <data name="中文" xml:space="preserve">
+    <value>CH</value>
   </data>
-  <data name="_Sys._CodeGen.Id" xml:space="preserve">
-    <value>Id</value>
+  <data name="主键名称" xml:space="preserve">
+    <value>Primary key name</value>
   </data>
-  <data name="_Sys._CodeGen.TableName" xml:space="preserve">
-    <value>TableName</value>
+  <data name="使用中文关键字" xml:space="preserve">
+    <value>Use chinese key</value>
   </data>
-  <data name="_Sys._CodeGen.ClassName" xml:space="preserve">
-    <value>ClassName</value>
+  <data name="使用自定义模板" xml:space="preserve">
+    <value>Use custom template</value>
   </data>
-  <data name="_Sys._CodeGen.Module" xml:space="preserve">
+  <data name="创建时间" xml:space="preserve">
+    <value>Created time</value>
+  </data>
+  <data name="包含删除" xml:space="preserve">
+    <value>Has delete</value>
+  </data>
+  <data name="包含批量删除" xml:space="preserve">
+    <value>Has batch delete</value>
+  </data>
+  <data name="包含添加" xml:space="preserve">
+    <value>Has add</value>
+  </data>
+  <data name="包含编辑" xml:space="preserve">
+    <value>Has edit</value>
+  </data>
+  <data name="图标名称" xml:space="preserve">
+    <value>Icon name</value>
+  </data>
+  <data name="备注" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="开启表建表" xml:space="preserve">
+    <value>Enabled entity from table</value>
+  </data>
+  <data name="打开代码目录" xml:space="preserve">
+    <value>Open the code directory</value>
+  </data>
+  <data name="批量生成" xml:space="preserve">
+    <value>Batch generate</value>
+  </data>
+  <data name="操作" xml:space="preserve">
+    <value>Operations</value>
+  </data>
+  <data name="模块" xml:space="preserve">
     <value>Module</value>
   </data>
-  <data name="_Sys._CodeGen.TableDescriptionEN" xml:space="preserve">
-    <value>TableDescriptionEN</value>
+  <data name="生成" xml:space="preserve">
+    <value>Generate</value>
   </data>
-  <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
-    <value>TableDescriptionCH</value>
+  <data name="生成基础服务" xml:space="preserve">
+    <value>Generate base class</value>
   </data>
-  <data name="_Sys._CodeGen.MenuNameEN" xml:space="preserve">
-    <value>MenuNameEN</value>
+  <data name="生成菜单" xml:space="preserve">
+    <value>Generate menu</value>
   </data>
-  <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
-    <value>MenuParentId</value>
+  <data name="生成项目文件" xml:space="preserve">
+    <value>Generate project file</value>
   </data>
-  <data name="_Sys._CodeGen.TablePrefix" xml:space="preserve">
-    <value>TablePrefix</value>
+  <data name="类名" xml:space="preserve">
+    <value>Class name</value>
   </data>
-  <data name="Detail" xml:space="preserve">
-    <value>Detail</value>
+  <data name="英文" xml:space="preserve">
+    <value>EN</value>
   </data>
-  <data name="_Sys._CodeGen.MenuNameCH" xml:space="preserve">
-    <value>MenuNameCH</value>
+  <data name="菜单名称" xml:space="preserve">
+    <value>Menu name</value>
   </data>
-  <data name="Action" xml:space="preserve">
-    <value>Action</value>
+  <data name="表名" xml:space="preserve">
+    <value>Table name</value>
+  </data>
+  <data name="表描述" xml:space="preserve">
+    <value>Table description</value>
+  </data>
+  <data name="设置" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="配置" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="仅保存" xml:space="preserve">
+    <value>Only save</value>
+  </data>
+  <data name="保存并重置配置" xml:space="preserve">
+    <value>Save and reset settings</value>
+  </data>
+  <data name="允许为Null" xml:space="preserve">
+    <value>Allow null</value>
+  </data>
+  <data name="原始模块" xml:space="preserve">
+    <value>Origin module</value>
+  </data>
+  <data name="新表名" xml:space="preserve">
+    <value>New table name</value>
+  </data>
+  <data name="更新时间" xml:space="preserve">
+    <value>Updated time</value>
+  </data>
+  <data name="父级菜单" xml:space="preserve">
+    <value>Parent menu</value>
+  </data>
+  <data name="表建表选项" xml:space="preserve">
+    <value>Enabled entity from table settings</value>
   </data>
 </root>

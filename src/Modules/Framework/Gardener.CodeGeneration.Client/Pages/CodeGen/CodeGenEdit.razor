@@ -8,172 +8,181 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@(localizer["TableName"])">
-        <Select DataSource="_allTables"
-                OnSelectedItemChanged="OnTableSelectChanged"
+    <Row Gutter="24">
+        <GridCol Span="12">
+            <FormItem Label="@(localizer["表名"])">
+                <Select DataSource="_allTables"
+                        OnSelectedItemChanged="OnTableSelectChanged"
                 @bind-Value="@model.TableName"
-                ValueName="@nameof(SelectItem.ValueName)"
-                LabelName="@nameof(SelectItem.LabelName)"
-                TItem="SelectItem"
-                TItemValue="string"
-                EnableSearch
-                AllowClear>
-        </Select>
-    </FormItem>
+                        ValueName="@nameof(SelectItem.ValueName)"
+                        LabelName="@nameof(SelectItem.LabelName)"
+                        TItem="SelectItem"
+                        TItemValue="string"
+                        EnableSearch
+                        AllowClear>
+                </Select>
+            </FormItem>
 
-    <FormItem Label="@(localizer["Class Name"])">
-        <Input @bind-Value="@model.ClassName" Placeholder=@localizer["Class Name"] />
-    </FormItem>
+            <FormItem Label="@(localizer["类名"])">
+                <Input @bind-Value="@model.ClassName" Placeholder=@localizer["类名"] />
+            </FormItem>
 
-    <FormItem Label="@(localizer["Module"])">
-        <Input @bind-Value="@model.Module" Placeholder=@localizer["Module"] />
-    </FormItem>
+            <FormItem Label="@(localizer["模块"])">
+                <Input @bind-Value="@model.Module" Placeholder=@localizer["模块"] />
+            </FormItem>
 
-     <FormItem Label="@(localizer["Remark"])">
-        <Input @bind-Value="@model.Remark" />
-    </FormItem>
+            <FormItem Label="@(localizer["备注"])">
+                <Input @bind-Value="@model.Remark" />
+            </FormItem>
 
-    <FormItem Label="@(localizer["TableDescriptionEN"])">
-        <Input @bind-Value="@model.TableDescriptionEN" />
-    </FormItem>
+            <FormItem Label="@(localizer.Combination("表描述","(","英文",")"))">
+                <Input @bind-Value="@model.TableDescriptionEN" />
+            </FormItem>
 
-    <FormItem Label="@(localizer["TableDescriptionCH"])">
-        <Input @bind-Value="@model.TableDescriptionCH" />
-    </FormItem>
+            <FormItem Label="@(localizer.Combination("表描述","(","中文",")"))">
+                <Input @bind-Value="@model.TableDescriptionCH" />
+            </FormItem>
 
-    <FormItem Label="@(localizer["ParentMenu"])">
-        <Input @bind-Value="@model.MenuParentId" Type="hidden" />
-        @if (_menuTree != null && _menuTree.Count > 0)
-        {
-            <TreeSelect TItem="ResourceDto"
-                    Style="width:100%;"
-                    DataSource="_menuTree"
+            <FormItem Label="@(localizer["父级菜单"])">
+                <Input @bind-Value="@model.MenuParentId" Type="hidden" />
+                @if (_menuTree != null && _menuTree.Count > 0)
+                {
+                    <TreeSelect TItem="ResourceDto"
+                                Style="width:100%;"
+                                DataSource="_menuTree"
                     @bind-Value="@_menuParentId"
-                    Placeholder="@localizer["PleaseSelect"]"
-                    AllowClear="false"
-                    TitleExpression="node=>localizer[node.DataItem.Name]"
-                    KeyExpression="node =>node.DataItem.Id.ToString()"
-                    ChildrenExpression="node =>node.DataItem.Children?.ToList()"
-                    IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
-                    TreeDefaultExpandAll="true"
-                    ShowExpand="true"
-                    DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
-            </TreeSelect>
-        }
-    </FormItem>
+                                Placeholder="@localizer["请选择"]"
+                                AllowClear="false"
+                                TitleExpression="node=>localizer[node.DataItem.Name]"
+                                KeyExpression="node =>node.DataItem.Id.ToString()"
+                                ChildrenExpression="node =>node.DataItem.Children?.ToList()"
+                                IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
+                                TreeDefaultExpandAll="true"
+                                ShowExpand="true"
+                                DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
+                    </TreeSelect>
+                }
+            </FormItem>
 
-    <FormItem Label="@(localizer["IconName"])">
-        <Input @bind-Value="@model.IconName" Placeholder=@localizer["IconName"] />
-    </FormItem>
+            <FormItem Label="@(localizer["图标名称"])">
+                <Input @bind-Value="@model.IconName" Placeholder=@localizer["图标名称"] />
+            </FormItem>
 
-    <FormItem Label="@(localizer["MenuNameEN"])">
-        <Input @bind-Value="@model.MenuNameEN" Placeholder=@localizer["MenuNameEN"] />
-    </FormItem>
+            <FormItem Label="@(localizer.Combination("菜单名称","(","英文",")"))">
+                <Input @bind-Value="@model.MenuNameEN" Placeholder=@(localizer.Combination("菜单名称","(","英文",")")) />
+            </FormItem>
 
-    <FormItem Label="@(localizer["MenuNameCH"])">
-        <Input @bind-Value="@model.MenuNameCH" Placeholder=@localizer["MenuNameCH"] />
-    </FormItem>
+            <FormItem Label="@(localizer.Combination("菜单名称","(","中文",")"))">
+                <Input @bind-Value="@model.MenuNameCH" Placeholder=@(localizer.Combination("菜单名称","(","中文",")")) />
+            </FormItem>
 
-    <FormItem Label="@(localizer["PrimaryKeyName"])">
-        <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["PrimaryKeyName"] />
-    </FormItem>
+            <FormItem Label="@(localizer["主键名称"])">
+                <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["主键名称"] />
+            </FormItem>
 
-    @*<FormItem Label=@localizer["Locked"]>
-        <Switch @bind-Value="@model.IsLocked"></Switch>
-    </FormItem>*@
+            @*<FormItem Label=@localizer["Locked"]>
+            <Switch @bind-Value="@model.IsLocked"></Switch>
+            </FormItem>*@
+        </GridCol>
+        <GridCol Offset="1" Span="11">
+            <FormItem Label=@localizer["生成项目文件"]>
+                <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
+            </FormItem>
+            <FormItem Label=@localizer["生成基础服务"]>
+                <Switch @bind-Value="@model.GenerateBaseClass"></Switch>
+            </FormItem>
+            <FormItem Label=@localizer["使用自定义模板"]>
+                <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
+            </FormItem>
 
-    <FormItem Label=@localizer["GenerateProjectFile"]>
-        <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["GenerateBaseService"]>
-        <Switch @bind-Value="@model.GenerateBaseClass"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["UseCustomTemplate"]>
-        <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
-    </FormItem>
+            <FormItem Label=@localizer["使用中文关键字"]>
+                <Switch @bind-Value="@model.UseChineseKey"></Switch>
+            </FormItem>
 
-    <FormItem Label=@localizer["UseChineseKey"]>
-        <Switch @bind-Value="@model.UseChineseKey"></Switch>
-    </FormItem>
+            <FormItem Label=@localizer["包含添加"]>
+                <Switch @bind-Value="@model.HasAdd"></Switch>
+            </FormItem>
+            <FormItem Label=@localizer["包含编辑"]>
+                <Switch @bind-Value="@model.HasEdit"></Switch>
+            </FormItem>
+            <FormItem Label=@localizer["包含删除"]>
+                <Switch @bind-Value="@model.HasDelete"></Switch>
+            </FormItem>
+            <FormItem Label=@localizer["包含批量删除"]>
+                <Switch @bind-Value="@model.HasBatchDelete"></Switch>
+            </FormItem>
 
-    <FormItem Label=@localizer["HasAdd"]>
-        <Switch @bind-Value="@model.HasAdd"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["HasEdit"]>
-        <Switch @bind-Value="@model.HasEdit"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["HasDelete"]>
-        <Switch @bind-Value="@model.HasDelete"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["HasBatchDelete"]>
-        <Switch @bind-Value="@model.HasBatchDelete"></Switch>
-    </FormItem>
+            <FormItem Label=@localizer["开启表建表"]>
+                <Tooltip Title="@localizer["表建类选项，根据现有的表生成类和多语言文件"]" ArrowPointAtCenter="true">
+                    <Switch @bind-Value="@model.EntityFromTable"></Switch>
+                </Tooltip>
+                @if (model.EntityFromTable)
+                {
+                    <Collapse DefaultActiveKey="@(new[]{"1"})">
+                        <Panel Header="@(localizer["表建表选项"])" Key="1" Active="@model.EntityFromTable">
+                            <FormItem Label="@(localizer["原始模块"])">
+                                <Input @bind-Value="@model.OriginModule" Placeholder=@localizer["原始模块"] />
+                            </FormItem>
 
-    <FormItem Label=@localizer["EntityFromTable"]>
-        <Tooltip Title="@localizer["表建类选项，根据现有的表生成类和多语言文件"]" ArrowPointAtCenter="true">
-            <Switch @bind-Value="@model.EntityFromTable"></Switch>
-        </Tooltip>
-        @if(model.EntityFromTable)
-        {
-            <Collapse DefaultActiveKey="@(new[]{"1"})">
-                <Panel Header="表建表选项" Key="1" Active="@model.EntityFromTable">
-                    <FormItem Label="@(localizer["OriginModule"])">
-                        <Input @bind-Value="@model.OriginModule" Placeholder=@localizer["OriginModule"] />
-                    </FormItem>
+                            <FormItem Label="@(localizer["新表名"])">
+                                <Input @bind-Value="@model.NewTableName" Placeholder=@localizer["新表名"] />
+                            </FormItem>
 
-                    <FormItem Label="@(localizer["NewTableName"])">
-                        <Input @bind-Value="@model.NewTableName" Placeholder=@localizer["NewTableName"] />
-                    </FormItem>
-
-                    <FormItem Label=@localizer["AllowNull"]>
-                        <Tooltip Title="@localizer["用于表建表，设为true将在初始化CodeGenConfig时将IsNullable设置为true"]" ArrowPointAtCenter="true">
-                            <Switch @bind-Value="@model.AllowNull"></Switch>
-                        </Tooltip>
-                    </FormItem>
-                </Panel>
-            </Collapse>
-        }
-    </FormItem>
+                            <FormItem Label=@localizer["允许为Null"]>
+                                <Tooltip Title="@localizer["用于表建表，设为true将在初始化CodeGenConfig时将IsNullable设置为true"]" ArrowPointAtCenter="true">
+                                    <Switch @bind-Value="@model.AllowNull"></Switch>
+                                </Tooltip>
+                            </FormItem>
+                        </Panel>
+                    </Collapse>
+                }
+            </FormItem>
 
 
 
-    @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
-    {
-        <FormItem Label="创建时间">
-            <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
-        </FormItem>
-        <FormItem Label="更新时间">
-            <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
-        </FormItem>
-    }
-    <FormItem WrapperColOffset="8" WrapperColSpan="16">
-        <Space>
-            @if (this.Options.Type == DrawerInputType.Edit)
+            @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
             {
-                <SpaceItem>
-                    <Button Type="@ButtonType.Primary" OnClick="OnlySaveCodeGen">
-                        @localizer["仅保存"]
-                    </Button>
-                </SpaceItem>
-                <SpaceItem>
-                    <Button Type="@ButtonType.Primary" Danger HtmlType="submit">
-                        @localizer["保存并重置Config"]
-                    </Button>
-                </SpaceItem>
+                <FormItem Label="@localizer["创建时间"]">
+                    <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
+                </FormItem>
+                <FormItem Label="@localizer["更新时间"]">
+                    <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
+                </FormItem>
             }
-            else if (this.Options.Type == DrawerInputType.Add)
-            {
-                <SpaceItem>
-                    <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @localizer["保存"]
-                    </Button>
-                </SpaceItem>
-            }
-            <SpaceItem>
-                <Button OnClick="_=>OnFormCancel()">
-                    @localizer["取消"]
-                </Button>
-            </SpaceItem>
-        </Space>
-    </FormItem>
+        </GridCol>
+    </Row>
+    <Row Gutter="24">
+        <GridCol Offset="6" Span="18">
+            <FormItem WrapperColOffset="8" WrapperColSpan="16">
+                <Space>
+                    @if (this.Options.Type == DrawerInputType.Edit)
+                    {
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" OnClick="OnlySaveCodeGen">
+                                @localizer["仅保存"]
+                            </Button>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Danger HtmlType="submit">
+                                @localizer["保存并重置配置"]
+                            </Button>
+                        </SpaceItem>
+                    }
+                    else if (this.Options.Type == DrawerInputType.Add)
+                    {
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" HtmlType="submit">
+                                @localizer["保存"]
+                            </Button>
+                        </SpaceItem>
+                    }
+                    <SpaceItem>
+                        <Button OnClick="_=>OnFormCancel()">
+                            @localizer["取消"]
+                        </Button>
+                    </SpaceItem>
+                </Space>
+            </FormItem>
+        </GridCol>
+    </Row>
 </Form>

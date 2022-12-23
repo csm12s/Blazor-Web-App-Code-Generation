@@ -17,28 +17,27 @@
             <TableSearch TDto="CodeGenSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
             @*Custom Search*@
             <Row>
-                <AntDesign.Col Span="18">
-                    <Space Direction="@DirectionVHType.Vertical" Style="width: 100%">
-                        <Space Size=@(("8", "16")) Wrap>
-                            <SpaceItem>
-                                <span>TableName: </span>
-                                <Select Mode="multiple"
-                                        DataSource="@_select_TableName"
-                                        @bind-Values="@_searchDto.TableName"
-                                        ValueName="@nameof(SelectItem.ValueName)"
-                                        LabelName="@nameof(SelectItem.LabelName)"
-                                        TItem="SelectItem"
-                                        TItemValue="string"
-                                        EnableSearch
-                                        AllowClear>
-                                </Select>
-                            </SpaceItem>
-                            <SpaceItem>
-                                <span>ClassName: </span>
-                                <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
-                                       @bind-Value="@_searchDto.ClassName"></Input>
-                            </SpaceItem>
-                        </Space>
+                <AntDesign.Col Span="24">
+                    <Space>
+                        <SpaceItem>
+                            <span>@localizer["表名"]: </span>
+                            <Select Mode="multiple"
+                                    DataSource="@_select_TableName"
+                                    @bind-Values="@_searchDto.TableName"
+                                    ValueName="@nameof(SelectItem.ValueName)"
+                                    LabelName="@nameof(SelectItem.LabelName)"
+                                    TItem="SelectItem"
+                                    TItemValue="string"
+                                    EnableSearch
+                                    AllowClear
+                                    Style="width:200px">
+                            </Select>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <span>@localizer["类名"]: </span>
+                            <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
+                            @bind-Value="@_searchDto.ClassName"></Input>
+                        </SpaceItem>
                     </Space>
                 </AntDesign.Col>
                 @*<AntDesign.Col Span="2">
@@ -74,7 +73,7 @@
 
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="folder" OnClick="OpenCodeGenFolder">
-                                @localizer["代码文件夹"]
+                                @localizer["打开代码目录"]
                             </Button>
                         </SpaceItem>
 
@@ -85,7 +84,7 @@
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadConfigSeedDataClick">
-                                @localizer["Config种子数据"]
+                                @(localizer.Combination("配置","种子数据"))
                             </Button>
                         </SpaceItem>
                     </Space>
@@ -95,43 +94,43 @@
         </TitleTemplate>
         <RowTemplate>
             <Selection Key="@(model.Id.ToString())" />
-            <Column @bind-Field="@model.TableName" Title="@(localizer["_Sys._CodeGen.TableName"])" Sortable Filterable />
-            <Column @bind-Field="@model.ClassName" Title="@(localizer["_Sys._CodeGen.ClassName"])" Sortable Filterable />
-            <Column @bind-Field="@model.Module" Title="@(localizer["_Sys._CodeGen.Module"])" Sortable Filterable />
-            <Column @bind-Field="@model.Remark" Sortable Filterable></Column>
-            <Column @bind-Field="@model.MenuNameEN" Title="@(localizer["_Sys._CodeGen.MenuNameEN"])" Sortable Filterable />
-            <Column @bind-Field="@model.MenuNameCH" Title="@(localizer["_Sys._CodeGen.MenuNameCH"])" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer["_Sys._CodeGen.TableDescriptionEN"])" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer["_Sys._CodeGen.TableDescriptionCH"])" Sortable Filterable />
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
-            <ActionColumn Title="@localizer["Action"]" Fixed="right">
+            <Column @bind-Field="@model.TableName" Title="@(localizer["表名"])" Sortable Filterable />
+            <Column @bind-Field="@model.ClassName" Title="@(localizer["类名"])" Sortable Filterable />
+            <Column @bind-Field="@model.Module" Title="@(localizer["模块"])" Sortable Filterable />
+            <Column @bind-Field="@model.Remark" Title="@(localizer["备注"])" Sortable Filterable></Column>
+            <Column @bind-Field="@model.MenuNameEN" Title="@(localizer.Combination("菜单名称","(","英文",")"))" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameCH" Title="@(localizer.Combination("菜单名称","(","中文",")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer.Combination("表描述","(","英文",")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer.Combination("表描述","(","中文",")"))" Sortable Filterable />
+            <Column @bind-Field="@model.CreatedTime" Title="@(localizer["创建时间"])" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <ActionColumn Title="@localizer["操作"]" Fixed="right">
                 <Space>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickEdit(model.Id)">
-                            @localizer["Edit"]
+                            @localizer["编辑"]
                         </Button>
                     </SpaceItem>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickConfigure(model.Id)">
-                            @localizer["Configure"]
+                            @localizer["设置"]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerateMenu(model.Id)">
-                            @localizer["GenerateMenu"]
+                            @localizer["生成菜单"]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerate(model.Id)">
-                            @localizer["Generate"]
+                            @localizer["生成"]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">
-                            @localizer["Delete"]
+                            @localizer["删除"]
                         </Button>
                     </SpaceItem>
                 </Space>

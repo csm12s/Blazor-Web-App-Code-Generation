@@ -10,6 +10,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.CodeGeneration.Domains;
 
+/// <summary>
+/// 代码生成
+/// </summary>
 [Table("Sys_Code_Gen")]
 [Description("Code Generate")]
 public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>

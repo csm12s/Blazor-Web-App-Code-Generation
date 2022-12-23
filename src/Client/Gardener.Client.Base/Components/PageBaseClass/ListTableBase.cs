@@ -506,7 +506,7 @@ namespace Gardener.Client.Base.Components
                 return;
             };
 
-            await OpenOperationDialogAsync(localizer["Add"], input, onClose);
+            await OpenOperationDialogAsync(localizer["添加"], input, onClose);
         }
         /// <summary>
         /// 点击编辑按钮
@@ -524,7 +524,7 @@ namespace Gardener.Client.Base.Components
                 }
                 return;
             };
-            await OpenOperationDialogAsync(localizer["Edit"], input, onClose);
+            await OpenOperationDialogAsync(localizer["编辑"], input, onClose);
         }
 
         /// <summary>

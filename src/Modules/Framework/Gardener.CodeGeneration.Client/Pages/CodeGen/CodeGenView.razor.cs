@@ -30,7 +30,14 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
 
     [Inject]
     private IResourceService resourceService { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dialogSettings"></param>
+    protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
+    {
+        dialogSettings.Width = 1000;
+    }
     protected override async Task OnInitializedAsync()
     {
         // table select
@@ -44,14 +51,10 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
     {
         await OpenOperationDialogAsync
             <CodeGenConfigView, int, bool>
-            (localizer["Configure"], id, async result =>
+            (localizer["设置"], id, async result =>
         {
             //await ReLoadTable();
-        }, new OperationDialogSettings()
-        {
-            DialogType = OperationDialogType.Drawer,
-            Width = ClientConstant.PageOperationDialogWidth
-        });
+        }, width: 1200);
 
     }
 
@@ -63,11 +66,11 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
         if (success)
         { 
-            await messageService.Success("Generate Success");
+            await messageService.Success(localizer.Combination("生成","成功"));
         }
         else
         {
-            await messageService.Error("Generate Error");
+            await messageService.Error(localizer.Combination("生成", "失败"));
         }
     }
 
@@ -101,11 +104,11 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
             var success = await codeGenClientService.GenerateMenu(codeGenId);
             if (success)
             {
-                await messageService.Success("Generate Success");
+                await messageService.Success(localizer.Combination("生成", "成功"));
             }
             else
             {
-                await messageService.Error("Generate Error");
+                await messageService.Error(localizer.Combination("生成", "失败"));
             }
         }
 
@@ -132,11 +135,11 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
                 var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
                 if (success)
                 {
-                    await messageService.Success("Generate Success");
+                    await messageService.Success(localizer.Combination("生成", "成功"));
                 }
                 else
                 {
-                    await messageService.Error("Generate Error");
+                    await messageService.Error(localizer.Combination("生成", "失败"));
                 }
             }
             _generatesBtnLoading = false;
