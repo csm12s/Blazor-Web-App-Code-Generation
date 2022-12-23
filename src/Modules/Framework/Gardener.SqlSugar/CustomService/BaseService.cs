@@ -207,12 +207,22 @@ public abstract class BaseService
         return true;
     }
 
+    public virtual bool Deletes<TKey>(TKey[] ids)
+    {
+        foreach (TKey id in ids)
+        {
+            _repository.Delete(id);
+
+        }
+        EntityEventNotityUtil.NotifyDeletesAsync<TEntity, TKey>(ids);
+        return true;
+    }
+
     public virtual async Task<bool> DeletesAsync<TKey>(TKey[] ids)
     {
         foreach (TKey id in ids)
         {
             await _repository.DeleteAsync(id);
-
         }
         await EntityEventNotityUtil.NotifyDeletesAsync<TEntity, TKey>(ids);
         return true;

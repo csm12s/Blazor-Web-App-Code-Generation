@@ -48,7 +48,7 @@
         @if (model.Type.Equals(ResourceType.Menu))
         {
             <FormItem Label="地址">
-                <Input @bind-Value="@model.Path" />
+                <Input @bind-Value="@model.Path" Placeholder="/module/view" />
             </FormItem>
             <FormItem Label="图标">
                 <Input @bind-Value="@model.Icon" />

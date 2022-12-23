@@ -208,7 +208,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             {
                 dto.Id
             };
-            resourceIds.AddRange(TreeTools.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
+            resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
 
             string data = await resourceFunctionService.GetSeedData(resourceIds);

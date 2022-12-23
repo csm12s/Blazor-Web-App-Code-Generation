@@ -33,4 +33,9 @@ public class TableOutput
     /// 表名称描述（注释）（功能名）
     /// </summary>
     public string TableComment { get; set; }
+
+    /// <summary>
+    /// Client select label
+    /// </summary>
+    public string ClientSelectLabelText { get; set; }
 }

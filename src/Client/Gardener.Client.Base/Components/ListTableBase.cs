@@ -557,6 +557,29 @@ namespace Gardener.Client.Base.Components
             await ReLoadTable(true);
         }
 
+        #region Page loading
+        /// <summary>
+        /// Page start loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StartLoading()
+        {
+            _tableIsLoading = true;
+
+            return _tableIsLoading;
+        }
+
+        /// <summary>
+        /// Page stop loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StopLoading()
+        {
+            _tableIsLoading = false;
+
+            return _tableIsLoading;
+        }
+        #endregion
 
     }
 }

@@ -1,0 +1,28 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using @(Model.AppName).Client.Base;
+using @(Model.AppName).Common;
+using Microsoft.AspNetCore.Components;
+
+namespace @(Model.AppName).@(Model.Module).Client;
+
+public abstract class @(Model.ModuleUpper)BaseEdit<TDto>
+    : @(Model.CodeGen.EditFormInherits)<TDto, @(Model.CodeGen.PrimaryKeyType)>
+    where TDto : @(Model.ModuleUpper)BaseDto, new() 
+{
+    [Inject]
+    protected I@(Model.ModuleUpper)BaseController<TDto> @(Model.ModuleLower)BaseController { get; set; }
+
+    #region Init
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Init
+
+        await base.OnInitializedAsync();
+    }
+    #endregion
+
+    // End
+}
+
