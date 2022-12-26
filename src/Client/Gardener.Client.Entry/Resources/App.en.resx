@@ -349,43 +349,294 @@
     <value>Home</value>
     <comment>菜单</comment>
   </data>
-  <data name="_Sys._CodeGen" xml:space="preserve">
-    <value>CodeGen</value>
-  </data>
-  <data name="_Sys._CodeGen.Id" xml:space="preserve">
-    <value>Id</value>
-  </data>
-  <data name="_Sys._CodeGen.TableName" xml:space="preserve">
-    <value>TableName</value>
-  </data>
-  <data name="_Sys._CodeGen.ClassName" xml:space="preserve">
-    <value>ClassName</value>
-  </data>
-  <data name="_Sys._CodeGen.Module" xml:space="preserve">
-    <value>Module</value>
-  </data>
-  <data name="_Sys._CodeGen.TableDescriptionEN" xml:space="preserve">
-    <value>TableDescriptionEN</value>
-  </data>
-  <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
-    <value>TableDescriptionCH</value>
-  </data>
-  <data name="_Sys._CodeGen.MenuNameEN" xml:space="preserve">
-    <value>MenuNameEN</value>
-  </data>
-  <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
-    <value>MenuParentId</value>
-  </data>
-  <data name="_Sys._CodeGen.TablePrefix" xml:space="preserve">
-    <value>TablePrefix</value>
-  </data>
   <data name="Detail" xml:space="preserve">
     <value>Detail</value>
-  </data>
-  <data name="_Sys._CodeGen.MenuNameCH" xml:space="preserve">
-    <value>MenuNameCH</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="DeleteSelected" xml:space="preserve">
+    <value>Delete Selected</value>
+  </data>
+  <data name="GenerateMenu" xml:space="preserve">
+    <value>Generate Menu</value>
+  </data>
+  <data name="_CodeGen" xml:space="preserve">
+    <value>CodeGen</value>
+  </data>
+  <data name="_CodeGen.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="_CodeGen.TableName" xml:space="preserve">
+    <value>TableName</value>
+  </data>
+  <data name="_CodeGen.ClassName" xml:space="preserve">
+    <value>ClassName</value>
+  </data>
+  <data name="_CodeGen.Module" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="_CodeGen.Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="_CodeGen.TableDescriptionEN" xml:space="preserve">
+    <value>TableDescriptionEN</value>
+  </data>
+  <data name="_CodeGen.TableDescriptionCH" xml:space="preserve">
+    <value>TableDescriptionCH</value>
+  </data>
+  <data name="_CodeGen.MenuNameEN" xml:space="preserve">
+    <value>MenuNameEN</value>
+  </data>
+  <data name="_CodeGen.MenuNameCH" xml:space="preserve">
+    <value>MenuNameCH</value>
+  </data>
+  <data name="_CodeGen.MenuParentId" xml:space="preserve">
+    <value>MenuParentId</value>
+  </data>
+  <data name="_CodeGen.TablePrefix" xml:space="preserve">
+    <value>TablePrefix</value>
+  </data>
+  <data name="_CodeGen.NameSpace" xml:space="preserve">
+    <value>NameSpace</value>
+  </data>
+  <data name="_CodeGen.GenerateSelectFields" xml:space="preserve">
+    <value>GenerateSelectFields</value>
+  </data>
+  <data name="_CodeGen.UseCustomTemplate" xml:space="preserve">
+    <value>UseCustomTemplate</value>
+  </data>
+  <data name="_CodeGen.GenerateProjectFile" xml:space="preserve">
+    <value>GenerateProjectFile</value>
+  </data>
+  <data name="_CodeGen.GenerateService" xml:space="preserve">
+    <value>GenerateService</value>
+  </data>
+  <data name="_CodeGen.GenerateLocaleFile" xml:space="preserve">
+    <value>GenerateDbLocaleFile</value>
+  </data>
+  <data name="_CodeGen.PrimaryKeyName" xml:space="preserve">
+    <value>PrimaryKeyName</value>
+  </data>
+  <data name="_CodeGen.HasAdd" xml:space="preserve">
+    <value>HasAdd</value>
+  </data>
+  <data name="_CodeGen.HasEdit" xml:space="preserve">
+    <value>HasEdit</value>
+  </data>
+  <data name="_CodeGen.HasBatchEdit" xml:space="preserve">
+    <value>HasBatchEdit</value>
+  </data>
+  <data name="_CodeGen.HasDelete" xml:space="preserve">
+    <value>HasDelete</value>
+  </data>
+  <data name="_CodeGen.HasBatchDelete" xml:space="preserve">
+    <value>HasBatchDelete</value>
+  </data>
+  <data name="_CodeGen.HasLock" xml:space="preserve">
+    <value>HasLock</value>
+  </data>
+  <data name="_CodeGen.HasImport" xml:space="preserve">
+    <value>HasImport</value>
+  </data>
+  <data name="_CodeGen.HasExport" xml:space="preserve">
+    <value>HasExport</value>
+  </data>
+  <data name="_CodeGen.AllowNull" xml:space="preserve">
+    <value>AllowNull</value>
+  </data>
+  <data name="_CodeGen.CreatedTime" xml:space="preserve">
+    <value>CreatedTime</value>
+  </data>
+  <data name="_CodeGen.UpdatedTime" xml:space="preserve">
+    <value>UpdatedTime</value>
+  </data>
+  <data name="_CodeGen.IsLocked" xml:space="preserve">
+    <value>IsLocked</value>
+  </data>
+  <data name="_CodeGen.IsDeleted" xml:space="preserve">
+    <value>IsDeleted</value>
+  </data>
+  <data name="_CodeGen.CreateBy" xml:space="preserve">
+    <value>CreateBy</value>
+  </data>
+  <data name="_CodeGen.UpdateBy" xml:space="preserve">
+    <value>UpdateBy</value>
+  </data>
+  <data name="_CodeGen.CreateIdentityType" xml:space="preserve">
+    <value>CreateIdentityType</value>
+  </data>
+  <data name="_CodeGen.UpdateIdentityType" xml:space="preserve">
+    <value>UpdateIdentityType</value>
+  </data>
+  <data name="_CodeGen.OriginModule" xml:space="preserve">
+    <value>OriginModule</value>
+  </data>
+  <data name="_CodeGen.EntityFromTable" xml:space="preserve">
+    <value>EntityFromTable</value>
+  </data>
+  <data name="_CodeGen.UseChineseKey" xml:space="preserve">
+    <value>UseChineseKey</value>
+  </data>
+  <data name="_CodeGen.GenerateBaseClass" xml:space="preserve">
+    <value>GenerateBaseClass</value>
+  </data>
+  <data name="_CodeGen.IconName" xml:space="preserve">
+    <value>IconName</value>
+  </data>
+  <data name="_CodeGen.NewTableName" xml:space="preserve">
+    <value>NewTableName</value>
+  </data>
+  <data name="_CodeGen.UseNetColumnAsKey" xml:space="preserve">
+    <value>UseNetColumnAsKey</value>
+  </data>
+  <data name="_CodeGenConfig" xml:space="preserve">
+    <value>CodeGenConfig</value>
+  </data>
+  <data name="_CodeGenConfig.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="_CodeGenConfig.CodeGenId" xml:space="preserve">
+    <value>CodeGenId</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnName" xml:space="preserve">
+    <value>ColumnName</value>
+  </data>
+  <data name="_CodeGenConfig.NetColumnName" xml:space="preserve">
+    <value>NetColumnName</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnDescription" xml:space="preserve">
+    <value>ColumnDescription</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnSummary" xml:space="preserve">
+    <value>ColumnSummary</value>
+  </data>
+  <data name="_CodeGenConfig.NetType" xml:space="preserve">
+    <value>NetType</value>
+  </data>
+  <data name="_CodeGenConfig.DbDataType" xml:space="preserve">
+    <value>DbDataType</value>
+  </data>
+  <data name="_CodeGenConfig.ViewComponentType" xml:space="preserve">
+    <value>ViewComponentType</value>
+  </data>
+  <data name="_CodeGenConfig.EditComponentType" xml:space="preserve">
+    <value>EditComponentType</value>
+  </data>
+  <data name="_CodeGenConfig.EditComponentLength" xml:space="preserve">
+    <value>EditComponentLength</value>
+  </data>
+  <data name="_CodeGenConfig.CustomSearchType" xml:space="preserve">
+    <value>CustomSearchType</value>
+  </data>
+  <data name="_CodeGenConfig.CustomSearchLength" xml:space="preserve">
+    <value>CustomSearchLength</value>
+  </data>
+  <data name="_CodeGenConfig.EffectType" xml:space="preserve">
+    <value>EffectType</value>
+  </data>
+  <data name="_CodeGenConfig.FkEntityName" xml:space="preserve">
+    <value>FkEntityName</value>
+  </data>
+  <data name="_CodeGenConfig.FkColumnName" xml:space="preserve">
+    <value>FkColumnName</value>
+  </data>
+  <data name="_CodeGenConfig.FkColumnNetType" xml:space="preserve">
+    <value>FkColumnNetType</value>
+  </data>
+  <data name="_CodeGenConfig.DictTypeCode" xml:space="preserve">
+    <value>DictTypeCode</value>
+  </data>
+  <data name="_CodeGenConfig.IsDictRetract" xml:space="preserve">
+    <value>IsDictRetract</value>
+  </data>
+  <data name="_CodeGenConfig.IsDictRequired" xml:space="preserve">
+    <value>IsDictRequired</value>
+  </data>
+  <data name="_CodeGenConfig.IsSearch" xml:space="preserve">
+    <value>IsSearch</value>
+  </data>
+  <data name="_CodeGenConfig.IsCustomSearch" xml:space="preserve">
+    <value>IsCustomSearch</value>
+  </data>
+  <data name="_CodeGenConfig.SearchType" xml:space="preserve">
+    <value>SearchType</value>
+  </data>
+  <data name="_CodeGenConfig.IsView" xml:space="preserve">
+    <value>IsView</value>
+  </data>
+  <data name="_CodeGenConfig.IsCreate" xml:space="preserve">
+    <value>IsCreate</value>
+  </data>
+  <data name="_CodeGenConfig.IsRequired" xml:space="preserve">
+    <value>IsRequired</value>
+  </data>
+  <data name="_CodeGenConfig.IsEdit" xml:space="preserve">
+    <value>IsEdit</value>
+  </data>
+  <data name="_CodeGenConfig.IsBatchEdit" xml:space="preserve">
+    <value>IsBatchEdit</value>
+  </data>
+  <data name="_CodeGenConfig.IsCommon" xml:space="preserve">
+    <value>IsCommon</value>
+  </data>
+  <data name="_CodeGenConfig.IsEntity" xml:space="preserve">
+    <value>IsEntity</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnKey" xml:space="preserve">
+    <value>ColumnKey</value>
+  </data>
+  <data name="_CodeGenConfig.IsPrimaryKey" xml:space="preserve">
+    <value>IsPrimaryKey</value>
+  </data>
+  <data name="_CodeGenConfig.IsIdentity" xml:space="preserve">
+    <value>IsIdentity</value>
+  </data>
+  <data name="_CodeGenConfig.IsNullable" xml:space="preserve">
+    <value>IsNullable</value>
+  </data>
+  <data name="_CodeGenConfig.DecimalDigits" xml:space="preserve">
+    <value>DecimalDigits</value>
+  </data>
+  <data name="_CodeGenConfig.Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="_CodeGenConfig.IsIgnore" xml:space="preserve">
+    <value>IsIgnore</value>
+  </data>
+  <data name="_CodeGenConfig.IsSpecialType" xml:space="preserve">
+    <value>IsSpecialType</value>
+  </data>
+  <data name="_CodeGenConfig.DbDataTypeText" xml:space="preserve">
+    <value>DbDataTypeText</value>
+  </data>
+  <data name="_CodeGenConfig.CreatedTime" xml:space="preserve">
+    <value>CreatedTime</value>
+  </data>
+  <data name="_CodeGenConfig.UpdatedTime" xml:space="preserve">
+    <value>UpdatedTime</value>
+  </data>
+  <data name="_CodeGenConfig.IsLocked" xml:space="preserve">
+    <value>IsLocked</value>
+  </data>
+  <data name="_CodeGenConfig.IsDeleted" xml:space="preserve">
+    <value>IsDeleted</value>
+  </data>
+  <data name="_CodeGenConfig.CreateBy" xml:space="preserve">
+    <value>CreateBy</value>
+  </data>
+  <data name="_CodeGenConfig.UpdateBy" xml:space="preserve">
+    <value>UpdateBy</value>
+  </data>
+  <data name="_CodeGenConfig.CreateIdentityType" xml:space="preserve">
+    <value>CreateIdentityType</value>
+  </data>
+  <data name="_CodeGenConfig.UpdateIdentityType" xml:space="preserve">
+    <value>UpdateIdentityType</value>
+  </data>
+  <data name="_CodeGenConfig.NetTypeRaw" xml:space="preserve">
+    <value>NetTypeRaw</value>
+  </data>
+
+
 </root>

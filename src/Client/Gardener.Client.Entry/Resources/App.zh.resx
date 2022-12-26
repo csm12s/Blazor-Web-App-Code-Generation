@@ -132,41 +132,8 @@
   <data name="Generate" xml:space="preserve">
     <value>生成</value>
   </data>
-  <data name="_Sys._CodeGen" xml:space="preserve">
-    <value>代码生成</value>
-  </data>
-  <data name="_Sys._CodeGen.Id" xml:space="preserve">
-    <value>Id</value>
-  </data>
-  <data name="_Sys._CodeGen.TableName" xml:space="preserve">
-    <value>表名</value>
-  </data>
-  <data name="_Sys._CodeGen.ClassName" xml:space="preserve">
-    <value>类名</value>
-  </data>
-  <data name="_Sys._CodeGen.Module" xml:space="preserve">
-    <value>模块</value>
-  </data>
-  <data name="_Sys._CodeGen.TableDescriptionEN" xml:space="preserve">
-    <value>描述EN</value>
-  </data>
-  <data name="_Sys._CodeGen.TableDescriptionCH" xml:space="preserve">
-    <value>描述CH</value>
-  </data>
-  <data name="_Sys._CodeGen.MenuNameEN" xml:space="preserve">
-    <value>菜单名称EN</value>
-  </data>
-  <data name="_Sys._CodeGen.MenuParentId" xml:space="preserve">
-    <value>父级菜单</value>
-  </data>
-  <data name="_Sys._CodeGen.TablePrefix" xml:space="preserve">
-    <value>表前缀</value>
-  </data>
   <data name="Detail" xml:space="preserve">
     <value>详情</value>
-  </data>
-  <data name="_Sys._CodeGen.MenuNameCH" xml:space="preserve">
-    <value>菜单名称CH</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>操作</value>
@@ -177,4 +144,307 @@
   <data name="SaveAndClose" xml:space="preserve">
     <value>保存并关闭</value>
   </data>
+  <data name="DeleteSelected" xml:space="preserve">
+    <value>删除选中</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清空</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>已选择</value>
+  </data>
+  <data name="Tatal" xml:space="preserve">
+    <value>总数</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="GenerateMenu" xml:space="preserve">
+    <value>生成菜单</value>
+  </data>
+  <data name="_CodeGen" xml:space="preserve">
+    <value>代码生成</value>
+  </data>
+  <data name="_CodeGen.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="_CodeGen.TableName" xml:space="preserve">
+    <value>表名</value>
+  </data>
+  <data name="_CodeGen.ClassName" xml:space="preserve">
+    <value>类名</value>
+  </data>
+  <data name="_CodeGen.Module" xml:space="preserve">
+    <value>模块</value>
+  </data>
+  <data name="_CodeGen.Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="_CodeGen.TableDescriptionEN" xml:space="preserve">
+    <value>表描述EN</value>
+  </data>
+  <data name="_CodeGen.TableDescriptionCH" xml:space="preserve">
+    <value>表描述CH</value>
+  </data>
+  <data name="_CodeGen.MenuNameEN" xml:space="preserve">
+    <value>菜单名EN</value>
+  </data>
+  <data name="_CodeGen.MenuNameCH" xml:space="preserve">
+    <value>菜单名CH</value>
+  </data>
+  <data name="_CodeGen.MenuParentId" xml:space="preserve">
+    <value>父级菜单ID</value>
+  </data>
+  <data name="_CodeGen.TablePrefix" xml:space="preserve">
+    <value>表前缀</value>
+  </data>
+  <data name="_CodeGen.NameSpace" xml:space="preserve">
+    <value>命名空间</value>
+  </data>
+  <data name="_CodeGen.GenerateSelectFields" xml:space="preserve">
+    <value>生成Select字段</value>
+  </data>
+  <data name="_CodeGen.UseCustomTemplate" xml:space="preserve">
+    <value>使用CustomService</value>
+  </data>
+  <data name="_CodeGen.GenerateProjectFile" xml:space="preserve">
+    <value>生成工程文件</value>
+  </data>
+  <data name="_CodeGen.GenerateService" xml:space="preserve">
+    <value>生成Service</value>
+  </data>
+  <data name="_CodeGen.GenerateLocaleFile" xml:space="preserve">
+    <value>生成多语言文件</value>
+  </data>
+  <data name="_CodeGen.PrimaryKeyName" xml:space="preserve">
+    <value>主键名</value>
+  </data>
+  <data name="_CodeGen.HasAdd" xml:space="preserve">
+    <value>添加按钮</value>
+  </data>
+  <data name="_CodeGen.HasEdit" xml:space="preserve">
+    <value>编辑按钮</value>
+  </data>
+  <data name="_CodeGen.HasBatchEdit" xml:space="preserve">
+    <value>HasBatchEdit</value>
+  </data>
+  <data name="_CodeGen.HasDelete" xml:space="preserve">
+    <value>删除按钮</value>
+  </data>
+  <data name="_CodeGen.HasBatchDelete" xml:space="preserve">
+    <value>批量删除按钮</value>
+  </data>
+  <data name="_CodeGen.HasLock" xml:space="preserve">
+    <value>锁定按钮</value>
+  </data>
+  <data name="_CodeGen.HasImport" xml:space="preserve">
+    <value>HasImport</value>
+  </data>
+  <data name="_CodeGen.HasExport" xml:space="preserve">
+    <value>HasExport</value>
+  </data>
+  <data name="_CodeGen.AllowNull" xml:space="preserve">
+    <value>允许Null</value>
+  </data>
+  <data name="_CodeGen.CreatedTime" xml:space="preserve">
+    <value>CreatedTime</value>
+  </data>
+  <data name="_CodeGen.UpdatedTime" xml:space="preserve">
+    <value>UpdatedTime</value>
+  </data>
+  <data name="_CodeGen.IsLocked" xml:space="preserve">
+    <value>IsLocked</value>
+  </data>
+  <data name="_CodeGen.IsDeleted" xml:space="preserve">
+    <value>IsDeleted</value>
+  </data>
+  <data name="_CodeGen.CreateBy" xml:space="preserve">
+    <value>CreateBy</value>
+  </data>
+  <data name="_CodeGen.UpdateBy" xml:space="preserve">
+    <value>UpdateBy</value>
+  </data>
+  <data name="_CodeGen.CreateIdentityType" xml:space="preserve">
+    <value>CreateIdentityType</value>
+  </data>
+  <data name="_CodeGen.UpdateIdentityType" xml:space="preserve">
+    <value>UpdateIdentityType</value>
+  </data>
+  <data name="_CodeGen.OriginModule" xml:space="preserve">
+    <value>原始模块</value>
+  </data>
+  <data name="_CodeGen.EntityFromTable" xml:space="preserve">
+    <value>表建类模式</value>
+  </data>
+  <data name="_CodeGen.UseChineseKey" xml:space="preserve">
+    <value>多语言使用中文Key</value>
+  </data>
+  <data name="_CodeGen.GenerateBaseClass" xml:space="preserve">
+    <value>生成模块基础文件</value>
+  </data>
+  <data name="_CodeGen.IconName" xml:space="preserve">
+    <value>图标名</value>
+  </data>
+  <data name="_CodeGen.NewTableName" xml:space="preserve">
+    <value>新表名</value>
+  </data>
+  <data name="_CodeGen.UseNetColumnAsKey" xml:space="preserve">
+    <value>多语言使用C#列名为Key</value>
+  </data>
+  <data name="_CodeGenConfig" xml:space="preserve">
+    <value>代码生成配置</value>
+  </data>
+  <data name="_CodeGenConfig.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="_CodeGenConfig.CodeGenId" xml:space="preserve">
+    <value>CodeGenId</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnName" xml:space="preserve">
+    <value>列名</value>
+  </data>
+  <data name="_CodeGenConfig.NetColumnName" xml:space="preserve">
+    <value>C#列名</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnDescription" xml:space="preserve">
+    <value>DB列描述</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnSummary" xml:space="preserve">
+    <value>C#列备注</value>
+  </data>
+  <data name="_CodeGenConfig.NetType" xml:space="preserve">
+    <value>C#类型</value>
+  </data>
+  <data name="_CodeGenConfig.DbDataType" xml:space="preserve">
+    <value>DB类型</value>
+  </data>
+  <data name="_CodeGenConfig.ViewComponentType" xml:space="preserve">
+    <value>显示控件</value>
+  </data>
+  <data name="_CodeGenConfig.EditComponentType" xml:space="preserve">
+    <value>编辑控件</value>
+  </data>
+  <data name="_CodeGenConfig.EditComponentLength" xml:space="preserve">
+    <value>EditComponentLength</value>
+  </data>
+  <data name="_CodeGenConfig.CustomSearchType" xml:space="preserve">
+    <value>自定义搜索控件</value>
+  </data>
+  <data name="_CodeGenConfig.CustomSearchLength" xml:space="preserve">
+    <value>自定义搜索长度</value>
+  </data>
+  <data name="_CodeGenConfig.EffectType" xml:space="preserve">
+    <value>EffectType</value>
+  </data>
+  <data name="_CodeGenConfig.FkEntityName" xml:space="preserve">
+    <value>FkEntityName</value>
+  </data>
+  <data name="_CodeGenConfig.FkColumnName" xml:space="preserve">
+    <value>FkColumnName</value>
+  </data>
+  <data name="_CodeGenConfig.FkColumnNetType" xml:space="preserve">
+    <value>FkColumnNetType</value>
+  </data>
+  <data name="_CodeGenConfig.DictTypeCode" xml:space="preserve">
+    <value>DictTypeCode</value>
+  </data>
+  <data name="_CodeGenConfig.IsDictRetract" xml:space="preserve">
+    <value>IsDictRetract</value>
+  </data>
+  <data name="_CodeGenConfig.IsDictRequired" xml:space="preserve">
+    <value>IsDictRequired</value>
+  </data>
+  <data name="_CodeGenConfig.IsSearch" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="_CodeGenConfig.IsCustomSearch" xml:space="preserve">
+    <value>自定义搜索</value>
+  </data>
+  <data name="_CodeGenConfig.SearchType" xml:space="preserve">
+    <value>SearchType</value>
+  </data>
+  <data name="_CodeGenConfig.IsView" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="_CodeGenConfig.IsCreate" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="_CodeGenConfig.IsRequired" xml:space="preserve">
+    <value>必填项</value>
+  </data>
+  <data name="_CodeGenConfig.IsEdit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="_CodeGenConfig.IsBatchEdit" xml:space="preserve">
+    <value>IsBatchEdit</value>
+  </data>
+  <data name="_CodeGenConfig.IsCommon" xml:space="preserve">
+    <value>通用字段</value>
+  </data>
+  <data name="_CodeGenConfig.IsEntity" xml:space="preserve">
+    <value>实体字段</value>
+  </data>
+  <data name="_CodeGenConfig.ColumnKey" xml:space="preserve">
+    <value>ColumnKey</value>
+  </data>
+  <data name="_CodeGenConfig.IsPrimaryKey" xml:space="preserve">
+    <value>主键</value>
+  </data>
+  <data name="_CodeGenConfig.IsIdentity" xml:space="preserve">
+    <value>自增</value>
+  </data>
+  <data name="_CodeGenConfig.IsNullable" xml:space="preserve">
+    <value>IsNullable</value>
+  </data>
+  <data name="_CodeGenConfig.DecimalDigits" xml:space="preserve">
+    <value>DecimalDigits</value>
+  </data>
+  <data name="_CodeGenConfig.Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="_CodeGenConfig.IsIgnore" xml:space="preserve">
+    <value>IsIgnore</value>
+  </data>
+  <data name="_CodeGenConfig.IsSpecialType" xml:space="preserve">
+    <value>IsSpecialType</value>
+  </data>
+  <data name="_CodeGenConfig.DbDataTypeText" xml:space="preserve">
+    <value>DbDataTypeText</value>
+  </data>
+  <data name="_CodeGenConfig.CreatedTime" xml:space="preserve">
+    <value>CreatedTime</value>
+  </data>
+  <data name="_CodeGenConfig.UpdatedTime" xml:space="preserve">
+    <value>UpdatedTime</value>
+  </data>
+  <data name="_CodeGenConfig.IsLocked" xml:space="preserve">
+    <value>IsLocked</value>
+  </data>
+  <data name="_CodeGenConfig.IsDeleted" xml:space="preserve">
+    <value>IsDeleted</value>
+  </data>
+  <data name="_CodeGenConfig.CreateBy" xml:space="preserve">
+    <value>CreateBy</value>
+  </data>
+  <data name="_CodeGenConfig.UpdateBy" xml:space="preserve">
+    <value>UpdateBy</value>
+  </data>
+  <data name="_CodeGenConfig.CreateIdentityType" xml:space="preserve">
+    <value>CreateIdentityType</value>
+  </data>
+  <data name="_CodeGenConfig.UpdateIdentityType" xml:space="preserve">
+    <value>UpdateIdentityType</value>
+  </data>
+  <data name="_CodeGenConfig.NetTypeRaw" xml:space="preserve">
+    <value>C#类型</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="ToggleSelect" xml:space="preserve">
+    <value>反选</value>
+  </data>
+  
+
+
 </root>

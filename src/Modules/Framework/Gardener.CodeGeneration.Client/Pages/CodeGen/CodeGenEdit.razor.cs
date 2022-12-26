@@ -48,8 +48,8 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
     {
         // table select
         var tableInfos = await service.GetTableListAsync();
-        _allTables = tableInfos.ToSelectItems(it=>it.TableName,
-            it=>it.TableName + " : " + it.TableComment);
+        _allTables = tableInfos.ToSelectItems
+            (it=>it.TableName, it=>it.ClientSelectLabelText);
         
         // menus
         _menuTree = await resourceService.GetTree();
@@ -59,7 +59,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
         _menuTree.TreeToList(list);
         list.RemoveAll(it => it.Type != Base.Enums.ResourceType.Root
             && it.Type != Base.Enums.ResourceType.Menu);
-        _menuTree = TreeTools.ListToTree(list);
+        _menuTree = TreeHelper.ListToTree(list);
 
         await base.OnInitializedAsync();
 

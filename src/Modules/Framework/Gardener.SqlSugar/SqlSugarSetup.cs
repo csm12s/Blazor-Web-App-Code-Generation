@@ -78,7 +78,7 @@ public static class SqlSugarSetup
                 InitKeyType = InitKeyType.Attribute,
                 MoreSettings = new ConnMoreSettings()
                 {
-                    DisableNvarchar = false,
+                    SqlServerCodeFirstNvarchar = true,
                     IsAutoRemoveDataCache = true
                 },
                 ConfigureExternalServices = GetConfigureServicesInfo(dbType)
@@ -98,8 +98,10 @@ public static class SqlSugarSetup
 #if DEBUG
         // 不再使用Sugar的CodeFirst，如果要使用，需要完善:
         // 1: GetConfigureServicesInfo里完善兼容多库
+        // （目前状态勉强支持多库，string默认会映射为Nvarchar，
+        // 不支持配置varchar）
         // 2: 这个应该在EF初始化建库之后执行
-        var useSqlSugarDbFirst = true;
+        var useSqlSugarDbFirst = false;
         if (useSqlSugarDbFirst && defaultDbSetting.InitDb) //bool.Parse(App.Configuration["DefaultDbSettings:InitSugarDb"]);
         {
             using (var db = new SqlSugarClient(connectConfigList.FirstOrDefault()))
@@ -117,9 +119,7 @@ public static class SqlSugarSetup
                 // Init DB
                 db.DbMaintenance.CreateDatabase();
                 // Init tables
-                db.CodeFirst
-                    //.SetStringDefaultLength(DbConstants.StringDefaultLength)
-                    .InitTables(entityTypes);//根据types创建表
+                db.CodeFirst.InitTables(entityTypes);
             }
         }
         #endif
@@ -350,34 +350,38 @@ public static class SqlSugarSetup
                 columnInfo.IsIgnore = true;
             }
 
-            // 如果想使用Sugar的CodeFirst
-            // 需要参考https://www.donet5.com/Home/Doc?typeId=1206
-            // "9、自定义类型多库兼容" 进行完善
-            // Unicode (多库兼容)
-            var unicodeAttr = propInfo.GetCustomAttribute<UnicodeAttribute>();
-            if (unicodeAttr != null)
-            {
-                if (dbType == DbType.SqlServer)
-                {
-                    if (maxlengthAttr == null)
-                    {
-                        columnInfo.DataType = "Nvarchar(max)";
-                    }
-                    else
-                    {
-                        columnInfo.DataType = "Nvarchar";//待验证
-                    }
-                }
-                else if (dbType == DbType.MySql)// 待验证
-                {
-                    if (columnInfo.DataType == "varchar(max)")
-                    {
-                        columnInfo.DataType = "longtext";
-                    }
-                    //...
-                }
-                // else if...
-            }
+            //#region Unicode (多库兼容)
+            //// 如果想使用Sugar的CodeFirst
+            //// 需要参考https://www.donet5.com/Home/Doc?typeId=1206
+            //// "9、自定义类型多库兼容" 进行完善,
+
+            //// 这里暂时不设置，通过SqlServerCodeFirstNvarchar = true
+            //// 实现SqlServer默认使用Nvarchar
+            //var unicodeAttr = propInfo.GetCustomAttribute<UnicodeAttribute>();
+            //if (unicodeAttr != null)
+            //{
+            //    if (dbType == DbType.SqlServer)
+            //    {
+            //        if (maxlengthAttr == null)
+            //        {
+            //            columnInfo.DataType = "Nvarchar(max)";
+            //        }
+            //        else
+            //        {
+            //            columnInfo.DataType = "Nvarchar";//待验证
+            //        }
+            //    }
+            //    else if (dbType == DbType.MySql)// 待验证
+            //    {
+            //        if (columnInfo.DataType == "varchar(max)")
+            //        {
+            //            columnInfo.DataType = "longtext";
+            //        }
+            //        //...
+            //    }
+            //    // else if...
+            //}
+            //#endregion
         };
 
         return externalServices;

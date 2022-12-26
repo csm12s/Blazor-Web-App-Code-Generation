@@ -68,12 +68,14 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     /// </summary>
     public string DbDataTypeText { get; set; } = "";
 
+    // view
+    public ClientComponentType ViewComponentType { get; set; }
     // edit
-    public ClientComponentType ClientComponentType { get; set; }
-    public int ClientComponentLength { get; set; }
+    public ClientComponentType EditComponentType { get; set; }
+    public int EditComponentLength { get; set; } = 150;
     // search
     public ClientComponentType CustomSearchType { get; set; }
-    public int CustomSearchLength { get; set; }
+    public int CustomSearchLength { get; set; } = 150;
 
     /// <summary>
     /// 作用类型（字典）
@@ -145,8 +147,6 @@ public partial class CodeGenConfigDto: BaseDto<int> //: CodeGenConfig // TODO: D
     public bool IsEdit { get; set; } = true;
 
     public bool IsBatchEdit { get; set; } = false;
-
-    public bool IsEditRequired { get; set; } = false;
 
     /// <summary>
     /// 是否通用字段

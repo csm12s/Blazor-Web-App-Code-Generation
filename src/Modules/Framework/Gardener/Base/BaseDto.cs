@@ -19,8 +19,6 @@ namespace Gardener.Base
     }
     /// <summary>
     /// dto基础类
-    /// TODO: BaseDto是否应该把GardenerEntityBase里的内容都放过来，
-    /// 这样IsCommon（是否是通用字段）可以作用于Entity和Dto，否则需要再加一个IsCommonDto字段
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     public abstract class BaseDto<TKey>: BaseDto

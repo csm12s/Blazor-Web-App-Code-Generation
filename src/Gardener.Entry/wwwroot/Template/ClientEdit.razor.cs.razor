@@ -8,13 +8,14 @@ using @(Model.AppName).@(Model.Module).Dto;
 
 namespace @(Model.AppName).@(Model.Module).Client.Views.@(Model.ClassName);
 
-public partial class @(Model.ClassName)Edit: @(Model.CodeGen.EditFormInherits)<@(Model.ClassName)Dto, @(Model.CodeGen.PrimaryKeyType)>
+public partial class @(Model.ClassName)Edit: @(Model.ModuleUpper)BaseEdit<@(Model.ClassName)Dto>
 {
     @foreach (var item in Model.CodeGenConfigs)
     {
+        if (!Model.CodeGen.GenerateSelectFields) continue;
         if (!item.IsEdit) continue;
-        if (item.ClientComponentType != ClientComponentType.Select 
-            && item.ClientComponentType != ClientComponentType.MultiSelect)
+        if (item.EditComponentType != ClientComponentType.Select 
+            && item.EditComponentType != ClientComponentType.MultiSelect)
             continue;
 
         @: private List<SelectItem> _select_@item.NetColumnName = new();

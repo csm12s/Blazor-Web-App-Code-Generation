@@ -15,6 +15,7 @@ public partial class @(Model.ClassName)View : @(Model.Module)BaseTable<@(Model.C
     protected @(Model.ClassName)SearchDto _searchDto = new();
     @foreach (var item in Model.CodeGenConfigs)
     {
+        if (!Model.CodeGen.GenerateSelectFields) continue;
         if (!item.IsCustomSearch) continue;
         if (item.CustomSearchType != ClientComponentType.Select && item.CustomSearchType != ClientComponentType.MultiSelect)
             continue;

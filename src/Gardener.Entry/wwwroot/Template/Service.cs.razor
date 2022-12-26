@@ -2,9 +2,8 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
-using @(Model.AppName).Base;
 using @(Model.AppName).@(Model.Module).Server.Model;
-using @(Model.AppName).SqlSugar;
+using @(Model.AppName).Sugar;
 
 namespace @(Model.AppName).@(Model.Module).Server.Service;
 
@@ -12,13 +11,9 @@ public class @(Model.ClassName)Service : @(Model.Module)BaseService<@(Model.Clas
     ITransient
     @*I@(Model.ClassName)Service*@
 {
-    private readonly ILogger<@(Model.ClassName)Service> logger;
-
     public @(Model.ClassName)Service(IRepository<@(Model.ClassName), MasterDbContextLocator> repository,
-        SqlSugarRepository<@(Model.ClassName)> sugarRepository,
-        ILogger<@(Model.ClassName)Service> logger) 
+        SqlSugarRepository<@(Model.ClassName)> sugarRepository) 
         : base(repository, sugarRepository)
     {
-        this.logger = logger;
     }
 }

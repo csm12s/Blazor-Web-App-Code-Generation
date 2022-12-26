@@ -21,8 +21,9 @@
                     <Space Direction="@DirectionVHType.Vertical" Style="width: 100%">
                         <Space Size=@(("8", "16")) Wrap>
                             <SpaceItem>
-                                <span>TableName: </span>
+                                <span>@(localizer["_CodeGen.TableName"]): </span>
                                 <Select Mode="multiple"
+                                    Style="width:220px;"
                                         DataSource="@_select_TableName"
                                         @bind-Values="@_searchDto.TableName"
                                         ValueName="@nameof(SelectItem.ValueName)"
@@ -34,28 +35,20 @@
                                 </Select>
                             </SpaceItem>
                             <SpaceItem>
-                                <span>ClassName: </span>
+                                <span>@(localizer["_CodeGen.ClassName"]): </span>
                                 <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
                                        @bind-Value="@_searchDto.ClassName"></Input>
                             </SpaceItem>
                         </Space>
                     </Space>
                 </AntDesign.Col>
-                @*<AntDesign.Col Span="2">
-                    <Button Icon="search" Shape="@ButtonShape.Round" OnClick="DoSearch">
-                        @localizer["Search"]
-                    </Button>
-                    <Button Icon="sync" Type="@ButtonType.Dashed" OnClick="DoClearSearch">
-                        @localizer["Clear"]
-                    </Button>
-                </AntDesign.Col>*@
             </Row>
             <Row>
                 <AntDesign.Col Span="8">
                     <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                         @localizer["删除选中"]
                     </Button>
-                    <Button Type="@ButtonType.Primary" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
+                    <Button Type="@ButtonType.Primary" Icon="code" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
                         @localizer["批量生成"]
                     </Button>
                 </AntDesign.Col>
@@ -95,14 +88,14 @@
         </TitleTemplate>
         <RowTemplate>
             <Selection Key="@(model.Id.ToString())" />
-            <Column @bind-Field="@model.TableName" Title="@(localizer["_Sys._CodeGen.TableName"])" Sortable Filterable />
-            <Column @bind-Field="@model.ClassName" Title="@(localizer["_Sys._CodeGen.ClassName"])" Sortable Filterable />
-            <Column @bind-Field="@model.Module" Title="@(localizer["_Sys._CodeGen.Module"])" Sortable Filterable />
-            <Column @bind-Field="@model.Remark" Sortable Filterable></Column>
-            <Column @bind-Field="@model.MenuNameEN" Title="@(localizer["_Sys._CodeGen.MenuNameEN"])" Sortable Filterable />
-            <Column @bind-Field="@model.MenuNameCH" Title="@(localizer["_Sys._CodeGen.MenuNameCH"])" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer["_Sys._CodeGen.TableDescriptionEN"])" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer["_Sys._CodeGen.TableDescriptionCH"])" Sortable Filterable />
+            <Column @bind-Field="@model.TableName" Title="@(localizer["_CodeGen.TableName"])" Sortable Filterable />
+            <Column @bind-Field="@model.ClassName" Title="@(localizer["_CodeGen.ClassName"])" Sortable Filterable />
+            <Column @bind-Field="@model.Module" Title="@(localizer["_CodeGen.Module"])" Sortable Filterable />
+            <Column @bind-Field="@model.Remark" Title="@(localizer["_CodeGen.Remark"])" Sortable Filterable></Column>
+            <Column @bind-Field="@model.MenuNameEN" Title="@(localizer["_CodeGen.MenuNameEN"])" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameCH" Title="@(localizer["_CodeGen.MenuNameCH"])" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer["_CodeGen.TableDescriptionEN"])" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer["_CodeGen.TableDescriptionCH"])" Sortable Filterable />
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
             <ActionColumn Title="@localizer["Action"]" Fixed="right">
                 <Space>
@@ -118,13 +111,19 @@
                     </SpaceItem>
 
                     <SpaceItem>
-                        <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerateMenu(model.Id)">
+                        <Button Type="@ButtonType.Link" Icon="menu" OnClick="()=>OnClickGenerateMenu(model.Id)" Loading="_generatesBtnLoading">
                             @localizer["GenerateMenu"]
                         </Button>
                     </SpaceItem>
 
+                    @*<SpaceItem>
+                        <Button Type="@ButtonType.Link" Icon="global" OnClick="()=>OnClickGenerateLocale(model.Id)" Loading="_generatesBtnLoading">
+                            @localizer["GenerateLocale"]
+                        </Button>
+                    </SpaceItem>*@
+
                     <SpaceItem>
-                        <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerate(model.Id)">
+                        <Button Type="@ButtonType.Link" Icon="code" OnClick="()=>OnClickGenerate(model.Id)" Loading="_generatesBtnLoading">
                             @localizer["Generate"]
                         </Button>
                     </SpaceItem>

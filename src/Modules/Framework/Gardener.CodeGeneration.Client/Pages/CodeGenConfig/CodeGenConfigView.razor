@@ -38,27 +38,28 @@
     <RowTemplate>
         @*TODO: Key，ColumnName无法固定左侧*@
         <Selection Key="@(model.Id.ToString())" Fixed="left"/>
-        <Column @bind-Field="@model.ColumnName" Width="100" Filterable Fixed="left"></Column>
-        <Column @bind-Field="@model.NetColumnName" Width="100" Filterable>
+        <Column @bind-Field="@model.ColumnName" Title="@(localizer["_CodeGenConfig.ColumnName"])"  Width="100" Filterable Fixed="left"></Column>
+        <Column @bind-Field="@model.NetColumnName" Title="@(localizer["_CodeGenConfig.NetColumnName"])" Width="100" Filterable>
             <Input Type="text" @bind-Value="@model.NetColumnName" />
         </Column>
-        <Column @bind-Field="@model.NetType" Width="100" Filterable />
-        <Column @bind-Field="@model.DbDataType" Width="100" Filterable />
+        <Column @bind-Field="@model.NetType" Width="100" Filterable Title="@(localizer["_CodeGenConfig.NetType"])"/>
+        <Column @bind-Field="@model.DbDataType" Width="100" Filterable Title="@(localizer["_CodeGenConfig.DbDataType"])"/>
 
+        @*View*@
         <Column @bind-Field="@model.IsView" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>IsView</span>
+                    <span>@(localizer["_CodeGenConfig.IsView"])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsView = true)">
-                        SelectAll
+                        @(localizer["SelectAll"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsView = false)">
-                        Clear
+                        @(localizer["Clear"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsView = !it.IsView)">
-                        Toggle
+                        @(localizer["ToggleSelect"])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -66,31 +67,9 @@
                 <Switch @bind-Checked="model.IsView"></Switch>
             </ChildContent>
         </Column>
-        @*TODO: IsCreate*@
-        <Column @bind-Field="@model.IsEdit" Width="100" Filterable>
-            <TitleTemplate>
-                <AntDesign.Row>
-                    <span>IsEdit</span>
-                </AntDesign.Row>
-                <AntDesign.Row>
-                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = true)">
-                        SelectAll
-                    </Button>
-                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = false)">
-                        Clear
-                    </Button>
-                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = !it.IsEdit)">
-                        Toggle
-                    </Button>
-                </AntDesign.Row>
-            </TitleTemplate>
-            <ChildContent>
-                <Switch @bind-Checked="model.IsEdit"></Switch>
-            </ChildContent>
-        </Column>
-        <Column @bind-Field="@model.ClientComponentType" Width="150" >
+        <Column @bind-Field="@model.ViewComponentType" Width="150" Title="@(localizer["_CodeGenConfig.ViewComponentType"])">
             <Select Mode="single"
-                    @bind-Value="@model.ClientComponentType"
+                    @bind-Value="@model.ViewComponentType"
                     TItem="ClientComponentType"
                     TItemValue="ClientComponentType"
                     EnableSearch
@@ -103,21 +82,60 @@
                 </SelectOptions>
             </Select>
         </Column>
-        @*TODO: IsBatchEdit*@
+        
+        @*Edit*@
+        <Column @bind-Field="@model.IsEdit" Width="100" Filterable>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>@(localizer["_CodeGenConfig.IsEdit"])</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = true)">
+                        @(localizer["SelectAll"])
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = false)">
+                        @(localizer["Clear"])
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEdit = !it.IsEdit)">
+                        @(localizer["ToggleSelect"])
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsEdit"></Switch>
+            </ChildContent>
+        </Column>
+        <Column @bind-Field="@model.EditComponentType" Width="150" Title="@(localizer["_CodeGenConfig.EditComponentType"])">
+            <Select Mode="single"
+                    @bind-Value="@model.EditComponentType"
+                    TItem="ClientComponentType"
+                    TItemValue="ClientComponentType"
+                    EnableSearch
+                    AllowClear>
+                <SelectOptions>
+                    @foreach (var item in EnumHelper.EnumToDictionary<ClientComponentType>())
+                    {
+                        <SelectOption Value="@item.Key" Label="@item.Value"  TItemValue="ClientComponentType" TItem="ClientComponentType"/>
+                    }
+                </SelectOptions>
+            </Select>
+        </Column>
+        
+        @*Search*@
         <Column @bind-Field="@model.IsSearch" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>IsSearch</span>
+                    <span>@(localizer["_CodeGenConfig.IsSearch"])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = true)">
-                        SelectAll
+                        @(localizer["SelectAll"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = false)">
-                        Clear
+                        @(localizer["Clear"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsSearch = !it.IsSearch)">
-                        Toggle
+                        @(localizer["ToggleSelect"])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -128,17 +146,17 @@
         <Column @bind-Field="@model.IsCustomSearch" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>IsCustomSearch</span>
+                    <span>@(localizer["_CodeGenConfig.IsCustomSearch"])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = true)">
-                        SelectAll
+                        @(localizer["SelectAll"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = false)">
-                        Clear
+                        @(localizer["Clear"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsCustomSearch = !it.IsCustomSearch)">
-                        Toggle
+                        @(localizer["ToggleSelect"])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -146,7 +164,7 @@
                 <Switch @bind-Checked="model.IsCustomSearch"></Switch>
             </ChildContent>
         </Column>
-        <Column @bind-Field="@model.CustomSearchType" Width="150" >
+        <Column @bind-Field="@model.CustomSearchType" Width="150" Title="@(localizer["_CodeGenConfig.CustomSearchType"])">
             <Select Mode="single"
                     @bind-Value="@model.CustomSearchType"
                     TItem="ClientComponentType"
@@ -161,21 +179,25 @@
                 </SelectOptions>
             </Select>
         </Column>
+        <Column @bind-Field="@model.CustomSearchLength" Width="100" Filterable Title="@(localizer["_CodeGenConfig.CustomSearchLength"])">
+            <Input Type="number" @bind-Value="@model.CustomSearchLength" />
+        </Column>
 
+        @*IsRequired*@
         <Column @bind-Field="@model.IsRequired" Width="100" Filterable>
             <TitleTemplate>
                 <AntDesign.Row>
-                    <span>IsRequired</span>
+                    <span>@(localizer["_CodeGenConfig.IsRequired"])</span>
                 </AntDesign.Row>
                 <AntDesign.Row>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = true)">
-                        SelectAll
+                        @(localizer["SelectAll"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = false)">
-                        Clear
+                        @(localizer["Clear"])
                     </Button>
                     <Button OnClick="()=>_datas.ForEach(it=>it.IsRequired = !it.IsRequired)">
-                        Toggle
+                        @(localizer["ToggleSelect"])
                     </Button>
                 </AntDesign.Row>
             </TitleTemplate>
@@ -184,46 +206,35 @@
             </ChildContent>
         </Column>
 
+        @*IsEntity*@
         @*TODO: 这一列无法根据_hideEntityFromTableFields隐藏*@
         <Column @bind-Field="@model.IsEntity" Width="100" Filterable>
-                <TitleTemplate>
-                    <AntDesign.Row>
-                        <span>IsEntity</span>
-                    </AntDesign.Row>
-                    <AntDesign.Row>
-                        <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = true)">
-                            SelectAll
-                        </Button>
-                        <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = false)">
-                            Clear
-                        </Button>
-                        <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = !it.IsEntity)">
-                            Toggle
-                        </Button>
-                    </AntDesign.Row>
-                </TitleTemplate>
-                <ChildContent>
-                    <Switch @bind-Checked="model.IsEntity"></Switch>
-                </ChildContent>
-            </Column>
+            <TitleTemplate>
+                <AntDesign.Row>
+                    <span>@(localizer["_CodeGenConfig.IsEntity"])</span>
+                </AntDesign.Row>
+                <AntDesign.Row>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = true)">
+                        @(localizer["SelectAll"])
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = false)">
+                        @(localizer["Clear"])
+                    </Button>
+                    <Button OnClick="()=>_datas.ForEach(it=>it.IsEntity = !it.IsEntity)">
+                        @(localizer["ToggleSelect"])
+                    </Button>
+                </AntDesign.Row>
+            </TitleTemplate>
+            <ChildContent>
+                <Switch @bind-Checked="model.IsEntity"></Switch>
+            </ChildContent>
+        </Column>
 
-        <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable>
+        <Column @bind-Field="@model.ColumnDescription" Width="100" Filterable Title="@(localizer["_CodeGenConfig.ColumnDescription"])">
             <Input Type="text" @bind-Value="@model.ColumnDescription" />
         </Column>
-        <Column @bind-Field="@model.ColumnSummary" Width="100" Filterable>
+        <Column @bind-Field="@model.ColumnSummary" Width="100" Filterable Title="@(localizer["_CodeGenConfig.ColumnSummary"])">
             <Input Type="text" @bind-Value="@model.ColumnSummary" />
         </Column>
-
-        @*<Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="100" />
-        <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Width="100" />*@
-        @*<ActionColumn>
-        <Space>
-        <SpaceItem>
-        <Button Type="@ButtonType.Link">
-        @localizer["Edit"]
-        </Button>
-        </SpaceItem>
-        </Space>
-        </ActionColumn>*@
     </RowTemplate>
 </Table>

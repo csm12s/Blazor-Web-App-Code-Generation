@@ -21,10 +21,10 @@
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
-    <Content Remove="wwwroot\DB\DB Naming\ColumnReplaceText.xlsx" />
     <Content Remove="wwwroot\Template\Base.csproj.razor" />
     <Content Remove="wwwroot\Template\BaseClientController.cs.razor" />
     <Content Remove="wwwroot\Template\BaseController.cs.razor" />
+    <Content Remove="wwwroot\Template\BaseEdit.cs.razor" />
     <Content Remove="wwwroot\Template\BaseEntity.cs.razor" />
     <Content Remove="wwwroot\Template\BaseService.cs.razor" />
     <Content Remove="wwwroot\Template\BaseTable.cs.razor" />
@@ -56,7 +56,9 @@
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\DB\DB Naming\ColumnReplaceText.xlsx" />
+    <None Include="wwwroot\Template\BaseEdit.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Include="wwwroot\Template\IBaseService.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -166,6 +168,7 @@
 	  <Watch Remove="wwwroot\Template\Base.csproj.razor" />
 	  <Watch Remove="wwwroot\Template\BaseClientController.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseController.cs.razor" />
+	  <Watch Remove="wwwroot\Template\BaseEdit.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseEntity.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseService.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseTable.cs.razor" />

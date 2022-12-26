@@ -8,8 +8,9 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@(localizer["TableName"])">
+    <FormItem Label="@(localizer["_CodeGen.TableName"])">
         <Select DataSource="_allTables"
+            Style="width:300px;"
                 OnSelectedItemChanged="OnTableSelectChanged"
                 @bind-Value="@model.TableName"
                 ValueName="@nameof(SelectItem.ValueName)"
@@ -21,27 +22,20 @@
         </Select>
     </FormItem>
 
-    <FormItem Label="@(localizer["Class Name"])">
+    <FormItem Label="@(localizer["_CodeGen.ClassName"])">
         <Input @bind-Value="@model.ClassName" Placeholder=@localizer["Class Name"] />
     </FormItem>
 
-    <FormItem Label="@(localizer["Module"])">
+    <FormItem Label="@(localizer["_CodeGen.Module"])">
         <Input @bind-Value="@model.Module" Placeholder=@localizer["Module"] />
     </FormItem>
 
-     <FormItem Label="@(localizer["Remark"])">
+     <FormItem Label="@(localizer["_CodeGen.Remark"])">
         <Input @bind-Value="@model.Remark" />
     </FormItem>
 
-    <FormItem Label="@(localizer["TableDescriptionEN"])">
-        <Input @bind-Value="@model.TableDescriptionEN" />
-    </FormItem>
 
-    <FormItem Label="@(localizer["TableDescriptionCH"])">
-        <Input @bind-Value="@model.TableDescriptionCH" />
-    </FormItem>
-
-    <FormItem Label="@(localizer["ParentMenu"])">
+    <FormItem Label="@(localizer["_CodeGen.MenuParentId"])">
         <Input @bind-Value="@model.MenuParentId" Type="hidden" />
         @if (_menuTree != null && _menuTree.Count > 0)
         {
@@ -62,54 +56,121 @@
         }
     </FormItem>
 
-    <FormItem Label="@(localizer["IconName"])">
+    <FormItem Label="@(localizer["_CodeGen.IconName"])">
         <Input @bind-Value="@model.IconName" Placeholder=@localizer["IconName"] />
     </FormItem>
 
-    <FormItem Label="@(localizer["MenuNameEN"])">
-        <Input @bind-Value="@model.MenuNameEN" Placeholder=@localizer["MenuNameEN"] />
-    </FormItem>
-
-    <FormItem Label="@(localizer["MenuNameCH"])">
-        <Input @bind-Value="@model.MenuNameCH" Placeholder=@localizer["MenuNameCH"] />
-    </FormItem>
-
-    <FormItem Label="@(localizer["PrimaryKeyName"])">
+    <FormItem Label="@(localizer["_CodeGen.PrimaryKeyName"])">
         <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["PrimaryKeyName"] />
     </FormItem>
 
-    @*<FormItem Label=@localizer["Locked"]>
-        <Switch @bind-Value="@model.IsLocked"></Switch>
-    </FormItem>*@
+    <FormItem Label="@localizer["Generate"]">
+        <CheckboxGroup Style="width:100%">
+            <Row>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.GenerateProjectFile">
+                        @(localizer["_CodeGen.GenerateProjectFile"])
+                </Checkbox>
+                </Col>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.GenerateBaseClass">
+                        @(localizer["_CodeGen.GenerateBaseClass"])
+                </Checkbox>
+                </Col>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.GenerateService">
+                        @(localizer["_CodeGen.GenerateService"])
+                </Checkbox>
+                </Col>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.GenerateLocaleFile">
+                        @(localizer["_CodeGen.GenerateLocaleFile"])
+                </Checkbox>
+                </Col>
+            </Row>
+        </CheckboxGroup>
+    </FormItem>
 
-    <FormItem Label=@localizer["GenerateProjectFile"]>
+    @*<FormItem Label=@localizer["_CodeGen.GenerateProjectFile"]>
         <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
     </FormItem>
-    <FormItem Label=@localizer["GenerateBaseService"]>
+    <FormItem Label=@localizer["_CodeGen.GenerateBaseClass"]>
         <Switch @bind-Value="@model.GenerateBaseClass"></Switch>
+    </FormItem>*@
+
+    <FormItem Label=@localizer["_CodeGen.GenerateSelectFields"]>
+        <Switch @bind-Value="@model.GenerateSelectFields"></Switch>
     </FormItem>
-    <FormItem Label=@localizer["UseCustomTemplate"]>
+
+    <FormItem Label=@localizer["_CodeGen.UseCustomTemplate"]>
         <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
     </FormItem>
 
-    <FormItem Label=@localizer["UseChineseKey"]>
+    <FormItem Label=@localizer["_CodeGen.UseChineseKey"]>
         <Switch @bind-Value="@model.UseChineseKey"></Switch>
     </FormItem>
 
-    <FormItem Label=@localizer["HasAdd"]>
-        <Switch @bind-Value="@model.HasAdd"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["HasEdit"]>
-        <Switch @bind-Value="@model.HasEdit"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["HasDelete"]>
-        <Switch @bind-Value="@model.HasDelete"></Switch>
-    </FormItem>
-    <FormItem Label=@localizer["HasBatchDelete"]>
-        <Switch @bind-Value="@model.HasBatchDelete"></Switch>
+    <FormItem Label=@localizer["_CodeGen.UseNetColumnAsKey"]>
+        <Switch @bind-Value="@model.UseNetColumnAsKey"></Switch>
     </FormItem>
 
-    <FormItem Label=@localizer["EntityFromTable"]>
+    <FormItem Label="@localizer["Button"]">
+        <CheckboxGroup Style="width:100%">
+            <Row>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.HasAdd">
+                        @(localizer["_CodeGen.HasAdd"])
+                </Checkbox>
+                </Col>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.HasEdit">
+                        @(localizer["_CodeGen.HasEdit"])
+                </Checkbox>
+                </Col>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.HasDelete">
+                        @(localizer["_CodeGen.HasDelete"])
+                </Checkbox>
+                </Col>
+                <Col Span="8">
+                <Checkbox @bind-Value="@model.HasBatchDelete">
+                        @(localizer["_CodeGen.HasBatchDelete"])
+                </Checkbox>
+                </Col>
+            </Row>
+        </CheckboxGroup>
+    </FormItem>
+
+    @*<FormItem Label=@localizer["_CodeGen.HasAdd"]>
+        <Switch @bind-Value="@model.HasAdd"></Switch>
+    </FormItem>
+    <FormItem Label=@localizer["_CodeGen.HasEdit"]>
+        <Switch @bind-Value="@model.HasEdit"></Switch>
+    </FormItem>
+    <FormItem Label=@localizer["_CodeGen.HasDelete"]>
+        <Switch @bind-Value="@model.HasDelete"></Switch>
+    </FormItem>
+    <FormItem Label=@localizer["_CodeGen.HasBatchDelete"]>
+        <Switch @bind-Value="@model.HasBatchDelete"></Switch>
+    </FormItem>*@
+
+    <FormItem Label="@(localizer["_CodeGen.TableDescriptionEN"])">
+        <Input @bind-Value="@model.TableDescriptionEN" />
+    </FormItem>
+
+    <FormItem Label="@(localizer["_CodeGen.TableDescriptionCH"])">
+        <Input @bind-Value="@model.TableDescriptionCH" />
+    </FormItem>
+
+    <FormItem Label="@(localizer["_CodeGen.MenuNameEN"])">
+        <Input @bind-Value="@model.MenuNameEN" Placeholder=@localizer["MenuNameEN"] />
+    </FormItem>
+
+    <FormItem Label="@(localizer["_CodeGen.MenuNameCH"])">
+        <Input @bind-Value="@model.MenuNameCH" Placeholder=@localizer["MenuNameCH"] />
+    </FormItem>
+
+    <FormItem Label=@localizer["_CodeGen.EntityFromTable"]>
         <Tooltip Title="@localizer["表建类选项，根据现有的表生成类和多语言文件"]" ArrowPointAtCenter="true">
             <Switch @bind-Value="@model.EntityFromTable"></Switch>
         </Tooltip>
@@ -117,15 +178,15 @@
         {
             <Collapse DefaultActiveKey="@(new[]{"1"})">
                 <Panel Header="表建表选项" Key="1" Active="@model.EntityFromTable">
-                    <FormItem Label="@(localizer["OriginModule"])">
+                    <FormItem Label="@(localizer["_CodeGen.OriginModule"])">
                         <Input @bind-Value="@model.OriginModule" Placeholder=@localizer["OriginModule"] />
                     </FormItem>
 
-                    <FormItem Label="@(localizer["NewTableName"])">
+                    <FormItem Label="@(localizer["_CodeGen.NewTableName"])">
                         <Input @bind-Value="@model.NewTableName" Placeholder=@localizer["NewTableName"] />
                     </FormItem>
 
-                    <FormItem Label=@localizer["AllowNull"]>
+                    <FormItem Label=@localizer["_CodeGen.AllowNull"]>
                         <Tooltip Title="@localizer["用于表建表，设为true将在初始化CodeGenConfig时将IsNullable设置为true"]" ArrowPointAtCenter="true">
                             <Switch @bind-Value="@model.AllowNull"></Switch>
                         </Tooltip>

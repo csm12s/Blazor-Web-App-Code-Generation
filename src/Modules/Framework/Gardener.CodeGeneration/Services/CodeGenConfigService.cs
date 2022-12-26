@@ -126,8 +126,11 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             codeGenConfig.IsBatchEdit = false;
 
             // client component type
-            codeGenConfig.ClientComponentType = GetClientComponentType(codeGenConfig.NetType);
+            codeGenConfig.ViewComponentType = GetViewComponentType(codeGenConfig.NetType);
+            codeGenConfig.EditComponentType = GetEditComponentType(codeGenConfig.NetType);
+            codeGenConfig.EditComponentLength = 150;
             codeGenConfig.CustomSearchType = GetCustomSearchType(codeGenConfig.NetType);
+            codeGenConfig.CustomSearchLength = 150;
 
             // isBaseModelField
             codeGenConfig.IsCommon = baseModelFields
@@ -169,19 +172,48 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     }
 
     /// <summary>
-    /// edit
+    /// view
     /// </summary>
     /// <param name="netType"></param>
     /// <returns></returns>
-    private ClientComponentType GetClientComponentType(string netType)
+    private ClientComponentType GetViewComponentType(string netType)
     {
         var type = netType.Replace("?", "");
 
         switch (type)
         {
+            case NetTypeRaw._byte:
+            case NetTypeRaw._short:
             case NetTypeRaw._int:
             case NetTypeRaw._double:
+                return ClientComponentType.InputNumber;
+            case NetTypeRaw._bool:
+                return ClientComponentType.TagYesNo;
+            case NetTypeRaw._DateTime:
+            case NetTypeRaw._DateTimeOffset:
+                return ClientComponentType.DateTime;
+
+            default:
+                return ClientComponentType.Input;
+        }
+    }
+
+
+    /// <summary>
+    /// edit
+    /// </summary>
+    /// <param name="netType"></param>
+    /// <returns></returns>
+    private ClientComponentType GetEditComponentType(string netType)
+    {
+        var type = netType.Replace("?", "");
+
+        switch (type)
+        {
             case NetTypeRaw._byte:
+            case NetTypeRaw._short:
+            case NetTypeRaw._int:
+            case NetTypeRaw._double:
                 return ClientComponentType.InputNumber;
             case NetTypeRaw._bool:
                 return ClientComponentType.Switch;

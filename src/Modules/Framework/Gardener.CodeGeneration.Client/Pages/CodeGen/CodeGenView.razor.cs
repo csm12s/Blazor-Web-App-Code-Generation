@@ -35,7 +35,8 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
     {
         // table select
         var tableInfos = await codeGenClientService.GetTableListAsync();
-        _select_TableName = tableInfos.ToSelectItems(it => it.TableName, it => it.TableName);
+        _select_TableName = tableInfos.ToSelectItems
+            (it => it.TableName, it => it.ClientSelectLabelText);
 
         await base.OnInitializedAsync();
     }
@@ -57,22 +58,27 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
 
     private async Task OnClickGenerate(int codeGenId)
     {
+        StartLoading();
         List<int> codeGenIds = new List<int>();
         codeGenIds.Add(codeGenId);
 
         var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
+        StopLoading();
+
         if (success)
         { 
-            await messageService.Success("Generate Success");
+            await messageService.Success(localizer.Combination("Generate", "Success"));
         }
         else
         {
-            await messageService.Error("Generate Error");
+            await messageService.Error(localizer.Combination("Generate", "Fail"));
         }
     }
 
     private async Task OnClickGenerateMenu(int codeGenId)
     {
+        StartLoading();
+
         var codeGenDto = await _service.Get(codeGenId);
         var menuKey = codeGenDto.Module + "_" + codeGenDto.ClassName;
 
@@ -99,18 +105,44 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         if (await confirmService.YesNo(title, menuInfoStr) == ConfirmResult.Yes)
         {
             var success = await codeGenClientService.GenerateMenu(codeGenId);
+            
             if (success)
             {
-                await messageService.Success("Generate Success");
+                await messageService.Success(localizer.Combination("Generate", "Success"));
             }
             else
             {
-                await messageService.Error("Generate Error");
+                await messageService.Error(localizer.Combination("Generate", "Fail"));
             }
         }
 
+        StopLoading();
     }
 
+    private async Task OnClickGenerateLocale(int codeGenId)
+    {
+        StartLoading();
+
+        var codeGenDto = await _service.Get(codeGenId);
+
+        var title = "确认继续";
+        var message = "将导入多语言";
+
+        if (await confirmService.YesNo(title, message) == ConfirmResult.Yes)
+        {
+            var success = await codeGenClientService.GenerateLocale(codeGenId);
+            if (success)
+            {
+                await messageService.Success(localizer.Combination("Generate", "Success"));
+            }
+            else
+            {
+                await messageService.Error(localizer.Combination("Generate", "Fail"));
+            }
+        }
+
+        StopLoading();
+    }
     private async Task DoSearch()
     {
         _customSearchFilterGroups = GetCustomSearchFilterGroups(_searchDto);
@@ -132,11 +164,11 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
                 var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
                 if (success)
                 {
-                    await messageService.Success("Generate Success");
+                    await messageService.Success(localizer.Combination("Generate", "Success"));
                 }
                 else
                 {
-                    await messageService.Error("Generate Error");
+                    await messageService.Error(localizer.Combination("Generate", "Fail"));
                 }
             }
             _generatesBtnLoading = false;
