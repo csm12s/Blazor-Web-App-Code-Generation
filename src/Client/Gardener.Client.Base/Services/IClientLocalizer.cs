@@ -6,6 +6,9 @@
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// 本地化器
+    /// </summary>
     public interface IClientLocalizer
     {
         string this[string name]
@@ -13,5 +16,27 @@ namespace Gardener.Client.Base
             get;
         }
         public string Combination(params string[] names);
+
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string GetValue(string name);
+
+        /// <summary>
+        /// 获取本地化器名称
+        /// </summary>
+        /// <returns></returns>
+        public string GetLocalizerName();
+
+    }
+    /// <summary>
+    /// 本地化器
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IClientLocalizer<T> : IClientLocalizer
+    {
+
     }
 }

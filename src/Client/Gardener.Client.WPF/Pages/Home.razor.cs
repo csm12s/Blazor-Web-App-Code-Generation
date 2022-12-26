@@ -256,12 +256,12 @@ namespace Gardener.Client.WPF.Pages
                 else
                 {
                     messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messageService.Error(localizer["上传失败"]);
+                    messageService.Error(localizer[SharedLocalResource.UploadFail]);
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-                messageService.Error(localizer["上传失败"]);
+                messageService.Error(localizer[SharedLocalResource.UploadFail]);
             }
         }
     }

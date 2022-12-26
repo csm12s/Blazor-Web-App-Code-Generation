@@ -21,7 +21,7 @@
                         <AntDesign.Col Span="8">
                             <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
                                 <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnFunctionDeletesClick">
-                                    @localizer["删除选中"]
+                                    @localizer[SharedLocalResource.DeleteSelected]
                                 </Button>
                             </ResourceAuthorize>
                         </AntDesign.Col>
@@ -30,14 +30,14 @@
                                 <ResourceAuthorize ResourceKey="system_manager_resource_function_add_page_show">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="plus" OnClick="x => OnShowFunctionAddPageClick(this.Options.Resource)">
-                                            @localizer["选择"]
+                                            @localizer[SharedLocalResource.Select]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
                                 <ResourceAuthorize ResourceKey="system_manager_resource_function_download_seed_data">
                                     <SpaceItem>
                                         <Button Icon="download" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnDownloadSeedDataClick(this.Options.Resource)">
-                                            @localizer["种子数据"]
+                                            @localizer[SharedLocalResource.SeedData]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>
@@ -54,7 +54,7 @@
                                 <ResourceAuthorize ResourceKey="system_manager_resource_function_binding">
                                     <SpaceItem>
                                         <Button Type="@ButtonType.Primary" Icon="check" OnClick="x => OnFunctionAddClick()" Loading="_bindLoading">
-                                            @localizer["绑定"]
+                                            @localizer["Binding"]
                                         </Button>
                                     </SpaceItem>
                                 </ResourceAuthorize>

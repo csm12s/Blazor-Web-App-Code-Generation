@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.UserCenter.Dtos;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class Role : ListTableBase<RoleDto, int, RoleEdit>
+    public partial class Role : ListOperateTableBase<RoleDto, int, RoleEdit>
     {
 
         /// <summary>
@@ -20,7 +22,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnEditRoleResourceClick(int id)
         {
-            await OpenOperationDialogAsync<RoleResourceEdit, OperationDialogInput<int>, bool>(localizer["绑定资源"], OperationDialogInput<int>.IsEdit(id), width: 600);
+            await OpenOperationDialogAsync<RoleResourceEdit, OperationDialogInput<int>, bool>(localizer["BindingResource"], OperationDialogInput<int>.IsEdit(id), width: 600);
         }
 
 
@@ -31,7 +33,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         private async Task OnDownloadClick()
         {
             await OpenOperationDialogAsync<RoleResourceDownload, string, bool>(
-                localizer["种子数据"],
+                localizer[SharedLocalResource.SeedData],
                       string.Empty,
                        width: 1300);
         }

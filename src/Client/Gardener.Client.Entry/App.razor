@@ -15,10 +15,10 @@
             <LayoutView Layout="@typeof(Gardener.Client.Base.Shared.OtherPageLayout)">
                 <Result Status="404"
                         Title="404"
-                        SubTitle="@(LocalizerUtil.GetValue("对不起，页面不存在"))">
+                        SubTitle="@(LocalizerUtil.GetValue("Page404Message"))">
                 </Result>
                 <div style="width:100%;text-align:center;">
-                    <Button OnClick="e=>GoHome()">@LocalizerUtil.GetValue("返回首页")</Button>
+                    <Button OnClick="e=>GoHome()">@LocalizerUtil.GetValue("GoHome")</Button>
                 </div>
             </LayoutView>
         </CascadingAuthenticationState>

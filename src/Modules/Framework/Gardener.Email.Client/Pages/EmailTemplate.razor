@@ -1,4 +1,4 @@
-﻿@inherits ListTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
+﻿@inherits ListOperateTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
 @page "/system_manager/email_temaplate"
 <div>
     <Table @ref="_table"
@@ -19,7 +19,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_email_template_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer["删除选中"]
+                            @localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -28,14 +28,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_email_template_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @localizer["添加"]
+                                    @localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_email_template_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer["刷新"]
+                                    @localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -64,14 +64,14 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_email_template_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_template_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
@@ -79,14 +79,14 @@
 
                     <ResourceAuthorize ResourceKey="system_manager_email_template_send">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["发送"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Send])" ArrowPointAtCenter="true">
                                 <Button Icon="send" Type="@ButtonType.Primary" OnClick="()=>OnClickSend(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_email_template_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

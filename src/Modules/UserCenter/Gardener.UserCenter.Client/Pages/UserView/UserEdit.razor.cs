@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
@@ -68,7 +69,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
-                localizer["上传头像"],
+                localizer[SharedLocalResource.UplaodAvatar],
                 new UserUploadAvatarParams { User =user,SaveDb=false },
                 width: avatarDrawerWidth);
         }

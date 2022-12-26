@@ -6,6 +6,7 @@
 
 using AntDesign;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Constants;
 using Gardener.Client.Base.Services;
 using Mapster;
@@ -21,7 +22,7 @@ namespace Gardener.Client.Base.Components
     /// <summary>
     /// table基类
     /// </summary>
-    public abstract class TableBase<TDto, TKey> : ReuseTabsPageAndFormBase<TKey, bool> where TDto : BaseDto<TKey>, new()
+    public abstract class TableBase<TDto, TKey, TLocalResource> : ReuseTabsPageAndFormBase<TKey, bool> where TDto : BaseDto<TKey>, new() where TLocalResource: ILocalResource
     {
         /// <summary>
         /// table引用
@@ -63,7 +64,7 @@ namespace Gardener.Client.Base.Components
         /// 本地化
         /// </summary>
         [Inject]
-        protected IClientLocalizer localizer { get; set; }
+        protected IClientLocalizer<TLocalResource> localizer { get; set; }
 
         /// <summary>
         /// 操作对话框
@@ -134,9 +135,9 @@ namespace Gardener.Client.Base.Components
             if (!result)
             {
                 model.IsLocked = !isLocked;
-                string msg = isLocked ? localizer["锁定"] : localizer["解锁"];
+                string msg = isLocked ? localizer[SharedLocalResource.Lock] : localizer[SharedLocalResource.Unlock];
 
-                messageService.Error($"{msg} {localizer["失败"]}");
+                messageService.Error($"{msg} {localizer[SharedLocalResource.Fail]}");
             }
         }
     }

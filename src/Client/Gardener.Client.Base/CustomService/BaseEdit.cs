@@ -6,6 +6,7 @@
 
 using AntDesign;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Components;
 using Mapster;
 using Microsoft.AspNetCore.Components;
@@ -63,7 +64,7 @@ namespace Gardener.Client.Base
                 }
                 else
                 {
-                    messageService.Error(localizer["数据未找到"]);
+                    messageService.Error(localizer[SharedLocalResource.DataNotFound]);
                 }
             }
             _isLoading = false;
@@ -95,12 +96,12 @@ namespace Gardener.Client.Base
 
                 if (result != null)
                 {
-                    messageService.Success(localizer.Combination("添加", "成功"));
+                    messageService.Success(localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
                     await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TKey>.Succeed(result.Id)
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination("添加", "失败"));
+                    messageService.Error(localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Fail));
                 }
             }
             else
@@ -109,12 +110,12 @@ namespace Gardener.Client.Base
                 var result = await _service.Update(_editModel);
                 if (result)
                 {
-                    messageService.Success(localizer.Combination("编辑", "成功"));
+                    messageService.Success(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
                     await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TKey>.Succeed(_editModel.Id)
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination("编辑", "失败"));
+                    messageService.Error(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
                 }
             }
             _isLoading = false;

@@ -112,7 +112,7 @@
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Add)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @@localizer["Add"]
+                                    @@localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -120,7 +120,7 @@
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
                             <SpaceItem>
                                 <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @@localizer["Refresh"]
+                                    @@localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -193,7 +193,7 @@
                     <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
                         <SpaceItem>
                             <Button OnClick="()=>OnClickEdit(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
-                                @@localizer["Edit"]
+                                @@localizer[SharedLocalResource.Edit]
                             </Button>
                         </SpaceItem>
                     </ResourceAuthorize>

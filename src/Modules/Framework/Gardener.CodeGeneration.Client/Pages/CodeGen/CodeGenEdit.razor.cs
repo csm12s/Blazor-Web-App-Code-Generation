@@ -1,4 +1,6 @@
-﻿using Gardener.Client.Base;
+﻿using Gardener.Base.Resources;
+using Gardener.Client.Base;
+using Gardener.CodeGeneration.Client.Resources;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Gardener.Common;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
 
-public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
+public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int, CodeGenLocalResource>
 {
     #region Init
     private List<SelectItem> _allTables = new List<SelectItem>();
@@ -98,12 +100,12 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int>
         var result = await _service.Update(_editModel);
         if (result)
         {
-            messageService.Success(localizer.Combination("编辑", "成功"));
+            messageService.Success(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
             await base.FeedbackRef.CloseAsync(OperationDialogOutput<int>.Succeed(_editModel.Id));
         }
         else
         {
-            messageService.Error(localizer.Combination("编辑", "失败"));
+            messageService.Error(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
         }
         _isLoading = false;
     }

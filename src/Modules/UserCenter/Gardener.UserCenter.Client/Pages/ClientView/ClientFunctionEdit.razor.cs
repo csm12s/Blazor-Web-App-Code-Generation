@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.SystemManager.Dtos;
@@ -129,7 +130,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer["未选中任何行"]);
+                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
                 return;
             }
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -138,7 +139,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
                 {
                     await clientFunctionService.Delete(this.Options.Id, item.Id);
                 }
-                messageService.Success(localizer.Combination("删除", "成功"));
+                messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 await OnInitializedAsync();
             }
         }
@@ -148,7 +149,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private async Task OnShowFunctionAddPageClick(Guid id)
         {
             await this.OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-                $"{localizer["绑定接口"]}-[{this.Options.Name}]",
+                $"{localizer["BindingApi"]}-[{this.Options.Name}]",
                      new ClientFunctionEditOption { Id = id, Type = 1 },
                      width: 1200,
                      onClose: async result =>
@@ -168,7 +169,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer["未选中任何行"]);
+                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
                 return;
             }
 
@@ -183,12 +184,12 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             }).ToList());
             if (result)
             {
-                messageService.Success(localizer.Combination("绑定", "成功"));
+                messageService.Success(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Success));
                 await this.CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination("绑定", "失败"));
+                messageService.Error(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Fail));
             }
         }
     }

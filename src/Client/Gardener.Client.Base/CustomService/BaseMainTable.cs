@@ -3,6 +3,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Attributes;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Constants;
 using Gardener.Common;
 using Mapster;
@@ -208,7 +209,7 @@ namespace Gardener.Client.Base.Components
             }
             else
             {
-                await messageService.Error(localizer.Combination("加载", "失败"));
+                await messageService.Error(localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
             _tableIsLoading = false;
             await InvokeAsync(StateHasChanged);
@@ -245,11 +246,11 @@ namespace Gardener.Client.Base.Components
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination("删除", "成功"));
+                    await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
                 else
                 {
-                    await messageService.Error(localizer.Combination("删除", "失败"));
+                    await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
 
@@ -274,11 +275,11 @@ namespace Gardener.Client.Base.Components
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination("删除", "成功"));
+                    await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
                 else
                 {
-                    await messageService.Error(localizer.Combination("删除", "失败"));
+                    await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
 
@@ -308,7 +309,7 @@ namespace Gardener.Client.Base.Components
             string seedData = await _service.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, string, bool>(localizer["种子数据"], seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, string, bool>(localizer[SharedLocalResource.SeedData], seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -439,7 +440,7 @@ namespace Gardener.Client.Base.Components
                 return;
             };
 
-            await OpenOperationDialogAsync(localizer["Add"], input, onClose);
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Add], input, onClose);
         }
         /// <summary>
         /// 点击编辑按钮
@@ -457,7 +458,7 @@ namespace Gardener.Client.Base.Components
                 }
                 return;
             };
-            await OpenOperationDialogAsync(localizer["Edit"], input, onClose);
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Edit], input, onClose);
         }
 
         /// <summary>
@@ -467,7 +468,7 @@ namespace Gardener.Client.Base.Components
         protected virtual async Task OnClickDetail(TKey id)
         {
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsSelect(id);
-            await OpenOperationDialogAsync(localizer["详情"], input);
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Detail], input);
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ClientView
 {
-    public partial class Client : ListTableBase<ClientDto, Guid, ClientEdit>
+    public partial class Client : ListOperateTableBase<ClientDto, Guid, ClientEdit>
     {
         /// <summary>
         /// 点击展示关联接口
@@ -21,7 +21,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private async Task OnShowFunctionClick(ClientDto model)
         {
             await OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-            $"{localizer["绑定接口"]}-[{model.Name}]",
+            $"{localizer["BindingApi"]}-[{model.Name}]",
             new ClientFunctionEditOption
             {
                 Id = model.Id,

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
+using Gardener.Enums;
 using Gardener.EventBus;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -1,10 +1,11 @@
 ﻿@using AntDesign.Select
+@using Gardener.Base
 @typeparam TDto
 <Row Style="margin-bottom:10px;">
     <AntDesign.Col Span="4">
         <Select Mode="multiple"
                 DefaultActiveFirstOption
-                Placeholder="@localizer["请选择搜索字段"]"
+                Placeholder="@localizer[SharedLocalResource.PleaseSelectSearchField]"
         @bind-Values="@_selectedValues"
                 TItemValue="string"
                 TItem="string"
@@ -24,8 +25,8 @@
         @{
             string width = Math.Ceiling((decimal)100 / _fields.Count()) + "%";
             string style = $"margin-right:8px;margin-bottom:2px;width:100px";
-            string begin = localizer["开始"];
-            string end = localizer["结束"];
+            string begin = localizer[SharedLocalResource.Begin];
+            string end = localizer[SharedLocalResource.End];
             foreach (TableSearchField fieldInfo in _currentFields)
             {
                 string placeholder = fieldInfo.DisplayName;
@@ -87,8 +88,8 @@
                             DefaultValues="fieldInfo.Values"
                             Values="fieldInfo.Values">
                                 <SelectOptions>
-                                    <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer["是"]" />
-                                    <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer["否"]" />
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResource.Yes]" />
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResource.No]" />
                                 </SelectOptions>
                             </Select>
                         }
@@ -121,7 +122,7 @@
         @if (_selectedValues != null && _selectedValues.Count() > 0)
         {
             <Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
-                @localizer["搜索"]
+                @localizer[SharedLocalResource.Search]
             </Button>
         }
     </AntDesign.Col>

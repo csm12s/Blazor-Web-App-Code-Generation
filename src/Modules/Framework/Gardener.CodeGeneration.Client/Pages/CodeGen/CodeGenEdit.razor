@@ -1,6 +1,7 @@
 ﻿@using Gardener.Base
+@using Gardener.CodeGeneration.Client.Resources;
 @using Gardener.SystemManager.Dtos
-@inherits EditOperationDialogBase<CodeGenDto, int>
+@inherits EditOperationDialogBase<CodeGenDto, int,CodeGenLocalResource>
 
 <Form Loading="@_isLoading"
       Model="@_editModel"
@@ -10,7 +11,7 @@
       Context="model">
     <Row Gutter="24">
         <GridCol Span="12">
-            <FormItem Label="@(localizer["表名"])">
+            <FormItem Label="@(localizer[CodeGenLocalResource.TableName])">
                 <Select DataSource="_allTables"
                         OnSelectedItemChanged="OnTableSelectChanged"
                 @bind-Value="@model.TableName"
@@ -23,27 +24,27 @@
                 </Select>
             </FormItem>
 
-            <FormItem Label="@(localizer["类名"])">
-                <Input @bind-Value="@model.ClassName" Placeholder=@localizer["类名"] />
+            <FormItem Label="@(localizer[CodeGenLocalResource.ClassName])">
+                <Input @bind-Value="@model.ClassName" Placeholder=@localizer[CodeGenLocalResource.ClassName] />
             </FormItem>
 
-            <FormItem Label="@(localizer["模块"])">
-                <Input @bind-Value="@model.Module" Placeholder=@localizer["模块"] />
+            <FormItem Label="@(localizer[CodeGenLocalResource.Module])">
+                <Input @bind-Value="@model.Module" Placeholder=@localizer[CodeGenLocalResource.Module] />
             </FormItem>
 
-            <FormItem Label="@(localizer["备注"])">
+            <FormItem Label="@(localizer[CodeGenLocalResource.Remark])">
                 <Input @bind-Value="@model.Remark" />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination("表描述","(","英文",")"))">
+            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.EN,")"))">
                 <Input @bind-Value="@model.TableDescriptionEN" />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination("表描述","(","中文",")"))">
+            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.CH,")"))">
                 <Input @bind-Value="@model.TableDescriptionCH" />
             </FormItem>
 
-            <FormItem Label="@(localizer["父级菜单"])">
+            <FormItem Label="@(localizer[CodeGenLocalResource.ParentMenu])">
                 <Input @bind-Value="@model.MenuParentId" Type="hidden" />
                 @if (_menuTree != null && _menuTree.Count > 0)
                 {
@@ -51,7 +52,7 @@
                                 Style="width:100%;"
                                 DataSource="_menuTree"
                     @bind-Value="@_menuParentId"
-                                Placeholder="@localizer["请选择"]"
+                                Placeholder="@localizer[CodeGenLocalResource.PleaseSelect]"
                                 AllowClear="false"
                                 TitleExpression="node=>localizer[node.DataItem.Name]"
                                 KeyExpression="node =>node.DataItem.Id.ToString()"
@@ -64,20 +65,20 @@
                 }
             </FormItem>
 
-            <FormItem Label="@(localizer["图标名称"])">
-                <Input @bind-Value="@model.IconName" Placeholder=@localizer["图标名称"] />
+            <FormItem Label="@(localizer[CodeGenLocalResource.IconName])">
+                <Input @bind-Value="@model.IconName" Placeholder=@localizer[CodeGenLocalResource.IconName] />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination("菜单名称","(","英文",")"))">
-                <Input @bind-Value="@model.MenuNameEN" Placeholder=@(localizer.Combination("菜单名称","(","英文",")")) />
+            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")"))">
+                <Input @bind-Value="@model.MenuNameEN" Placeholder=@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")")) />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination("菜单名称","(","中文",")"))">
-                <Input @bind-Value="@model.MenuNameCH" Placeholder=@(localizer.Combination("菜单名称","(","中文",")")) />
+            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")"))">
+                <Input @bind-Value="@model.MenuNameCH" Placeholder=@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")")) />
             </FormItem>
 
-            <FormItem Label="@(localizer["主键名称"])">
-                <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer["主键名称"] />
+            <FormItem Label="@(localizer[CodeGenLocalResource.PrimaryKeyName])">
+                <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer[CodeGenLocalResource.PrimaryKeyName] />
             </FormItem>
 
             @*<FormItem Label=@localizer["Locked"]>
@@ -85,51 +86,51 @@
             </FormItem>*@
         </GridCol>
         <GridCol Offset="1" Span="11">
-            <FormItem Label=@localizer["生成项目文件"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.GenerateProjectFile]>
                 <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
             </FormItem>
-            <FormItem Label=@localizer["生成基础服务"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.GenerateBaseClass]>
                 <Switch @bind-Value="@model.GenerateBaseClass"></Switch>
             </FormItem>
-            <FormItem Label=@localizer["使用自定义模板"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.UseCustomTemplate]>
                 <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
             </FormItem>
 
-            <FormItem Label=@localizer["使用中文关键字"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.UseChineseKey]>
                 <Switch @bind-Value="@model.UseChineseKey"></Switch>
             </FormItem>
 
-            <FormItem Label=@localizer["包含添加"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.HasAdd]>
                 <Switch @bind-Value="@model.HasAdd"></Switch>
             </FormItem>
-            <FormItem Label=@localizer["包含编辑"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.HasEdit]>
                 <Switch @bind-Value="@model.HasEdit"></Switch>
             </FormItem>
-            <FormItem Label=@localizer["包含删除"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.HasDelete]>
                 <Switch @bind-Value="@model.HasDelete"></Switch>
             </FormItem>
-            <FormItem Label=@localizer["包含批量删除"]>
+            <FormItem Label=@localizer[CodeGenLocalResource.HasBatchDelete]>
                 <Switch @bind-Value="@model.HasBatchDelete"></Switch>
             </FormItem>
 
-            <FormItem Label=@localizer["开启表建表"]>
-                <Tooltip Title="@localizer["表建类选项，根据现有的表生成类和多语言文件"]" ArrowPointAtCenter="true">
+            <FormItem Label=@localizer[CodeGenLocalResource.EntityFromTable]>
+                <Tooltip Title="@localizer[CodeGenLocalResource.ExplainEntityFromTable]" ArrowPointAtCenter="true">
                     <Switch @bind-Value="@model.EntityFromTable"></Switch>
                 </Tooltip>
                 @if (model.EntityFromTable)
                 {
                     <Collapse DefaultActiveKey="@(new[]{"1"})">
-                        <Panel Header="@(localizer["表建表选项"])" Key="1" Active="@model.EntityFromTable">
-                            <FormItem Label="@(localizer["原始模块"])">
-                                <Input @bind-Value="@model.OriginModule" Placeholder=@localizer["原始模块"] />
+                        <Panel Header="@(localizer[CodeGenLocalResource.EntityFromTableSettings])" Key="1" Active="@model.EntityFromTable">
+                            <FormItem Label="@(localizer[CodeGenLocalResource.OriginalModule])">
+                                <Input @bind-Value="@model.OriginModule" Placeholder=@localizer[CodeGenLocalResource.OriginalModule] />
                             </FormItem>
 
-                            <FormItem Label="@(localizer["新表名"])">
-                                <Input @bind-Value="@model.NewTableName" Placeholder=@localizer["新表名"] />
+                            <FormItem Label="@(localizer[CodeGenLocalResource.NewTableName])">
+                                <Input @bind-Value="@model.NewTableName" Placeholder=@localizer[CodeGenLocalResource.NewTableName] />
                             </FormItem>
 
-                            <FormItem Label=@localizer["允许为Null"]>
-                                <Tooltip Title="@localizer["用于表建表，设为true将在初始化CodeGenConfig时将IsNullable设置为true"]" ArrowPointAtCenter="true">
+                            <FormItem Label=@localizer[CodeGenLocalResource.AllowNull]>
+                                <Tooltip Title="@localizer[CodeGenLocalResource.ExplainAllowNull]" ArrowPointAtCenter="true">
                                     <Switch @bind-Value="@model.AllowNull"></Switch>
                                 </Tooltip>
                             </FormItem>
@@ -142,10 +143,10 @@
 
             @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
             {
-                <FormItem Label="@localizer["创建时间"]">
+                <FormItem Label="@localizer[CodeGenLocalResource.CreatedTime]">
                     <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
                 </FormItem>
-                <FormItem Label="@localizer["更新时间"]">
+                <FormItem Label="@localizer[CodeGenLocalResource.UpdatedTime]">
                     <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
                 </FormItem>
             }
@@ -159,12 +160,12 @@
                     {
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" OnClick="OnlySaveCodeGen">
-                                @localizer["仅保存"]
+                                @localizer[CodeGenLocalResource.OnlySave]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Danger HtmlType="submit">
-                                @localizer["保存并重置配置"]
+                                @localizer[CodeGenLocalResource.SaveAndResetSettings]
                             </Button>
                         </SpaceItem>
                     }
@@ -172,13 +173,13 @@
                     {
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" HtmlType="submit">
-                                @localizer["保存"]
+                                @localizer[CodeGenLocalResource.Save]
                             </Button>
                         </SpaceItem>
                     }
                     <SpaceItem>
                         <Button OnClick="_=>OnFormCancel()">
-                            @localizer["取消"]
+                            @localizer[CodeGenLocalResource.Cancel]
                         </Button>
                     </SpaceItem>
                 </Space>

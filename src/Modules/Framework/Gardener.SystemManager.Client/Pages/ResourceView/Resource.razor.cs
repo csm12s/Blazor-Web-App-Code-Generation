@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Common;
@@ -40,7 +41,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private async Task OnShowFunctionClick(ResourceDto model)
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                      $"{localizer["绑定接口"]}-[{model.Name}]",
+                      $"{localizer["BindingApi"]}-[{model.Name}]",
                       new ResourceFunctionEditOption { Resource = model, Type = 0, Name = model.Name },
                       width: 1200);
         }
@@ -84,7 +85,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             });
 
             await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
-                        localizer["种子数据"],
+                        localizer[SharedLocalResource.SeedData],
                         data,
                         width: 1300);
         }

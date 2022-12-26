@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;
@@ -256,12 +257,12 @@ namespace Gardener.Client.Entry.Pages
                 else
                 {
                     messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messageService.Error(localizer["上传失败"]);
+                    messageService.Error(localizer[SharedLocalResource.UploadFail]);
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-                messageService.Error(localizer["上传失败"]);
+                messageService.Error(localizer[SharedLocalResource.UploadFail]);
             }
         }
     }

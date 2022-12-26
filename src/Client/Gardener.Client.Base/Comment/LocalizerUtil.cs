@@ -4,17 +4,23 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
 namespace Gardener.Client.Base
 {
     /// <summary>
     /// 静态本地化器
     /// </summary>
+    /// <remarks>
+    /// <see cref="Gardener.Client.Core.CultureExtension"/>
+    /// </remarks>
     public class LocalizerUtil
     {
         /// <summary>
-        /// 本地化器
+        /// 服务
         /// </summary>
-        public static IClientLocalizer Localizer;
+        public static IServiceProvider Services;
 
         /// <summary>
         /// 合并多个
@@ -23,9 +29,56 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         public static string Combination(params string[] names)
         {
-            if (Localizer != null)
+            IClientLocalizer l = Services.GetRequiredService<IClientLocalizer>();
+            return LocalizerUtil.Combination(l, names);
+        }
+
+        /// <summary>
+        /// 获取本地化结果
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="toLower"></param>
+        /// <returns></returns>
+        public static string GetValue(string name, bool toLower = false)
+        {
+            IClientLocalizer l = Services.GetRequiredService<IClientLocalizer>();
+            return LocalizerUtil.GetValue(l, name, toLower);
+        }
+
+
+        /// <summary>
+        /// 合并多个
+        /// </summary>
+        /// <param name="names"></param>
+        /// <returns></returns>
+        public static string Combination<T>(params string[] names)
+        {
+            IClientLocalizer<T> l = Services.GetRequiredService<IClientLocalizer<T>>();
+            return LocalizerUtil.Combination(l, names);
+        }
+
+        /// <summary>
+        /// 获取本地化结果
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="toLower"></param>
+        /// <returns></returns>
+        public static string GetValue<T>(string name, bool toLower = false)
+        {
+            IClientLocalizer<T> l = Services.GetRequiredService<IClientLocalizer<T>>();
+            return LocalizerUtil.GetValue(l, name, toLower);
+        }
+
+        /// <summary>
+        /// 合并多个
+        /// </summary>
+        /// <param name="names"></param>
+        /// <returns></returns>
+        public static string Combination(IClientLocalizer localizer, params string[] names)
+        {
+            if (localizer != null)
             {
-               return Localizer.Combination(names);
+                return localizer.Combination(names);
             }
             return string.Empty;
         }
@@ -36,15 +89,15 @@ namespace Gardener.Client.Base
         /// <param name="name"></param>
         /// <param name="toLower"></param>
         /// <returns></returns>
-        public static string GetValue(string name,bool toLower=false)
+        public static string GetValue(IClientLocalizer localizer, string name, bool toLower = false)
         {
-            if (Localizer != null && !string.IsNullOrEmpty(name))
+            if (localizer != null && !string.IsNullOrEmpty(name))
             {
                 if (toLower)
                 {
-                    return Localizer[name].ToLower();
+                    return localizer[name].ToLower();
                 }
-                return Localizer[name];
+                return localizer[name];
             }
             return string.Empty;
         }

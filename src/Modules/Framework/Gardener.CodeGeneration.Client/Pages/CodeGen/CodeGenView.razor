@@ -1,5 +1,6 @@
 ﻿@page "/system_tool/code_gen"
-@inherits ListTableBase<CodeGenDto, int, CodeGenEdit>
+@using Gardener.CodeGeneration.Client.Resources;
+@inherits ListOperateTableBase<CodeGenDto, int, CodeGenEdit,CodeGenLocalResource>
 
 <div>
     <Table @ref="_table"
@@ -20,7 +21,7 @@
                 <AntDesign.Col Span="24">
                     <Space>
                         <SpaceItem>
-                            <span>@localizer["表名"]: </span>
+                            <span>@localizer[CodeGenLocalResource.TableName]: </span>
                             <Select Mode="multiple"
                                     DataSource="@_select_TableName"
                                     @bind-Values="@_searchDto.TableName"
@@ -34,7 +35,7 @@
                             </Select>
                         </SpaceItem>
                         <SpaceItem>
-                            <span>@localizer["类名"]: </span>
+                            <span>@localizer[CodeGenLocalResource.ClassName]: </span>
                             <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
                             @bind-Value="@_searchDto.ClassName"></Input>
                         </SpaceItem>
@@ -52,39 +53,39 @@
             <Row>
                 <AntDesign.Col Span="8">
                     <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                        @localizer["删除选中"]
+                        @localizer[SharedLocalResource.DeleteSelected]
                     </Button>
                     <Button Type="@ButtonType.Primary" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
-                        @localizer["批量生成"]
+                        @localizer[CodeGenLocalResource.BatchGenerate]
                     </Button>
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                @localizer["添加"]
+                                @localizer[SharedLocalResource.Add]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                @localizer["刷新"]
+                                @localizer[SharedLocalResource.Refresh]
                             </Button>
                         </SpaceItem>
 
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="folder" OnClick="OpenCodeGenFolder">
-                                @localizer["打开代码目录"]
+                                @localizer[CodeGenLocalResource.OpenCodeGenFolder]
                             </Button>
                         </SpaceItem>
 
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnClickShowSeedData">
-                                @localizer["种子数据"]
+                                @localizer[SharedLocalResource.SeedData]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadConfigSeedDataClick">
-                                @(localizer.Combination("配置","种子数据"))
+                                @(localizer.Combination(SharedLocalResource.Settings, SharedLocalResource.SeedData))
                             </Button>
                         </SpaceItem>
                     </Space>
@@ -94,43 +95,43 @@
         </TitleTemplate>
         <RowTemplate>
             <Selection Key="@(model.Id.ToString())" />
-            <Column @bind-Field="@model.TableName" Title="@(localizer["表名"])" Sortable Filterable />
-            <Column @bind-Field="@model.ClassName" Title="@(localizer["类名"])" Sortable Filterable />
-            <Column @bind-Field="@model.Module" Title="@(localizer["模块"])" Sortable Filterable />
-            <Column @bind-Field="@model.Remark" Title="@(localizer["备注"])" Sortable Filterable></Column>
-            <Column @bind-Field="@model.MenuNameEN" Title="@(localizer.Combination("菜单名称","(","英文",")"))" Sortable Filterable />
-            <Column @bind-Field="@model.MenuNameCH" Title="@(localizer.Combination("菜单名称","(","中文",")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer.Combination("表描述","(","英文",")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer.Combination("表描述","(","中文",")"))" Sortable Filterable />
-            <Column @bind-Field="@model.CreatedTime" Title="@(localizer["创建时间"])" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
-            <ActionColumn Title="@localizer["操作"]" Fixed="right">
+            <Column @bind-Field="@model.TableName" Title="@(localizer[CodeGenLocalResource.TableName])" Sortable Filterable />
+            <Column @bind-Field="@model.ClassName" Title="@(localizer[CodeGenLocalResource.ClassName])" Sortable Filterable />
+            <Column @bind-Field="@model.Module" Title="@(localizer[CodeGenLocalResource.Module])" Sortable Filterable />
+            <Column @bind-Field="@model.Remark" Title="@(localizer[CodeGenLocalResource.Remark])" Sortable Filterable></Column>
+            <Column @bind-Field="@model.MenuNameEN" Title="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameCH" Title="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.CreatedTime" Title="@(localizer[CodeGenLocalResource.CreatedTime])" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <ActionColumn Title="@localizer[SharedLocalResource.Action]" Fixed="right">
                 <Space>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickEdit(model.Id)">
-                            @localizer["编辑"]
+                            @localizer[SharedLocalResource.Edit]
                         </Button>
                     </SpaceItem>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickConfigure(model.Id)">
-                            @localizer["设置"]
+                            @localizer[SharedLocalResource.Setting]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerateMenu(model.Id)">
-                            @localizer["生成菜单"]
+                            @localizer[CodeGenLocalResource.GenerateMenu]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerate(model.Id)">
-                            @localizer["生成"]
+                            @localizer[SharedLocalResource.Generate]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">
-                            @localizer["删除"]
+                            @localizer[SharedLocalResource.Delete]
                         </Button>
                     </SpaceItem>
                 </Space>

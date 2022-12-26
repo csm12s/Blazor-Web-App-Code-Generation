@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Email.Dtos;
 using Gardener.Email.Services;
@@ -64,7 +65,7 @@ namespace Gardener.Email.Client.Pages
             EmailTemplateDto templateDto = await emailTemplateService.Get(this.Options.Id);
             if (templateDto == null)
             {
-                messageService.Error(localizer["数据未找到"]);
+                messageService.Error(localizer[SharedLocalResource.DataNotFound]);
             }
             else
             {
@@ -91,11 +92,11 @@ namespace Gardener.Email.Client.Pages
             bool result=await emailService.Send(_sendEmailInput);
             if (result)
             {
-                messageService.Success(localizer.Combination("发送", "成功"));
+                messageService.Success(localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Success));
             }
             else 
             {
-                messageService.Error(localizer.Combination("发送", "失败"));
+                messageService.Error(localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Fail));
             }
             _isLoading = false;
         }

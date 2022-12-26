@@ -8,6 +8,7 @@ using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Attributes;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Constants;
 using Gardener.Common;
 using Mapster;
@@ -27,7 +28,11 @@ namespace Gardener.Client.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class ListTableBase<TDto, TKey> : TableBase<TDto, TKey> where TDto : BaseDto<TKey>, new()
+    /// <typeparam name="TLocalResource">本地化资源</typeparam>
+    /// <remarks>
+    /// 包含列表加载、删除、导出、种子数据
+    /// </remarks>
+    public abstract class ListTableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TLocalResource : ILocalResource
     {
         /// <summary>
         /// 显示总数
@@ -48,8 +53,8 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 预设搜索过滤
         /// </summary>
-        protected List<FilterGroup> _presetSearchFilterGroups = new ();
-        protected List<FilterGroup> _customSearchFilterGroups = new ();
+        protected List<FilterGroup> _presetSearchFilterGroups = new();
+        protected List<FilterGroup> _customSearchFilterGroups = new();
         /// <summary>
         /// 确认提示服务
         /// </summary>
@@ -210,7 +215,7 @@ namespace Gardener.Client.Base.Components
             }
             else
             {
-                await messageService.Error(localizer.Combination("加载", "失败"));
+                await messageService.Error(localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
             _tableIsLoading = false;
             await InvokeAsync(StateHasChanged);
@@ -247,11 +252,11 @@ namespace Gardener.Client.Base.Components
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination("删除", "成功"));
+                    await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
                 else
                 {
-                    await messageService.Error(localizer.Combination("删除", "失败"));
+                    await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
 
@@ -264,7 +269,7 @@ namespace Gardener.Client.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                messageService.Warn(localizer["未选中任何行"]);
+                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
             }
             else
             {
@@ -283,11 +288,11 @@ namespace Gardener.Client.Base.Components
                         {
                             await ReLoadTable(false);
                         }
-                        messageService.Success(localizer.Combination("删除", "成功"));
+                        messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                     }
                     else
                     {
-                        messageService.Error(localizer.Combination("删除", "失败"));
+                        messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                     }
                 }
                 _deletesBtnLoading = false;
@@ -309,11 +314,11 @@ namespace Gardener.Client.Base.Components
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination("删除", "成功"));
+                    await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
                 else
                 {
-                    await messageService.Error(localizer.Combination("删除", "失败"));
+                    await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
 
@@ -323,7 +328,7 @@ namespace Gardener.Client.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                messageService.Warn(localizer["未选中任何行"]);
+                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
             }
             else
             {
@@ -342,11 +347,11 @@ namespace Gardener.Client.Base.Components
                         {
                             await ReLoadTable(false);
                         }
-                        messageService.Success(localizer.Combination("删除", "成功"));
+                        messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                     }
                     else
                     {
-                        messageService.Error(localizer.Combination("删除", "失败"));
+                        messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                     }
                 }
                 _deletesBtnLoading = false;
@@ -378,7 +383,7 @@ namespace Gardener.Client.Base.Components
             string seedData = await _service.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, string, bool>(localizer["种子数据"], seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, string, bool>(localizer[SharedLocalResource.SeedData], seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -478,6 +483,25 @@ namespace Gardener.Client.Base.Components
 
             return filterGroups;
         }
+
+        protected virtual async Task DoClearSearch()
+        {
+            // TODO: clear search field
+            await ReLoadTable(true);
+        }
+    }
+
+    /// <summary>
+    /// 列表table基类
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <remarks>
+    /// 包含列表加载、删除、导出、种子数据
+    /// </remarks>
+    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> where TDto : BaseDto<TKey>, new()
+    {
+
     }
 
     /// <summary>
@@ -486,7 +510,11 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
-    public abstract class ListTableBase<TDto, TKey, TOperationDialog> : ListTableBase<TDto, TKey> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
+    /// <typeparam name="TLocalResource">本地化资源</typeparam>
+    /// <remarks>
+    /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
+    /// </remarks>
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TLocalResource : ILocalResource
     {
         /// <summary>
         /// 点击添加按钮
@@ -506,7 +534,7 @@ namespace Gardener.Client.Base.Components
                 return;
             };
 
-            await OpenOperationDialogAsync(localizer["添加"], input, onClose);
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Add], input, onClose);
         }
         /// <summary>
         /// 点击编辑按钮
@@ -524,7 +552,7 @@ namespace Gardener.Client.Base.Components
                 }
                 return;
             };
-            await OpenOperationDialogAsync(localizer["编辑"], input, onClose);
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Edit], input, onClose);
         }
 
         /// <summary>
@@ -534,7 +562,7 @@ namespace Gardener.Client.Base.Components
         protected virtual async Task OnClickDetail(TKey id)
         {
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsSelect(id);
-            await OpenOperationDialogAsync(localizer["详情"], input);
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Detail], input);
         }
 
         /// <summary>
@@ -551,12 +579,20 @@ namespace Gardener.Client.Base.Components
             await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
         }
 
-        protected virtual async Task DoClearSearch()
-        {
-            // TODO: clear search field
-            await ReLoadTable(true);
-        }
+       
+    }
 
+    /// <summary>
+    /// 列表table基类
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
+    /// <remarks>
+    /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
+    /// </remarks>
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
+    {
 
     }
 }

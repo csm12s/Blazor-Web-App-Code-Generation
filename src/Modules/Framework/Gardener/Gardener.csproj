@@ -26,4 +26,15 @@
     <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Base\Resources\SharedLocalResource.en.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Base\Resources\SharedLocalResource.zh.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

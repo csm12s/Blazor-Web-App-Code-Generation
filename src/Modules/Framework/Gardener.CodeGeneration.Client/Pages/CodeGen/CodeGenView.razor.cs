@@ -1,9 +1,11 @@
 ﻿using AntDesign;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Constants;
 using Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
+using Gardener.CodeGeneration.Client.Resources;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Gardener.Common;
@@ -16,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
 
-public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
+public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGenEdit, CodeGenLocalResource>
 {
     protected bool _generatesBtnLoading = false;
 
@@ -51,7 +53,7 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
     {
         await OpenOperationDialogAsync
             <CodeGenConfigView, int, bool>
-            (localizer["设置"], id, async result =>
+            (localizer[SharedLocalResource.Setting], id, async result =>
         {
             //await ReLoadTable();
         }, width: 1200);
@@ -66,11 +68,11 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
         if (success)
         { 
-            await messageService.Success(localizer.Combination("生成","成功"));
+            await messageService.Success(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
         }
         else
         {
-            await messageService.Error(localizer.Combination("生成", "失败"));
+            await messageService.Error(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
         }
     }
 
@@ -104,11 +106,11 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
             var success = await codeGenClientService.GenerateMenu(codeGenId);
             if (success)
             {
-                await messageService.Success(localizer.Combination("生成", "成功"));
+                await messageService.Success(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
             }
             else
             {
-                await messageService.Error(localizer.Combination("生成", "失败"));
+                await messageService.Error(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
             }
         }
 
@@ -125,7 +127,7 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
     {
         if (_selectedRows == null || _selectedRows.Count() == 0)
         {
-            messageService.Warn(localizer["未选中任何行"]);
+            messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
         }
         else
         {
@@ -135,11 +137,11 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
                 var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
                 if (success)
                 {
-                    await messageService.Success(localizer.Combination("生成", "成功"));
+                    await messageService.Success(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
                 }
                 else
                 {
-                    await messageService.Error(localizer.Combination("生成", "失败"));
+                    await messageService.Error(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
                 }
             }
             _generatesBtnLoading = false;
@@ -175,7 +177,7 @@ public partial class CodeGenView : ListTableBase<CodeGenDto, int, CodeGenEdit>
         });
 
         await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
-                    localizer["种子数据"],
+                    localizer[SharedLocalResource.SeedData],
                     data,
                     width: 1300);
     }

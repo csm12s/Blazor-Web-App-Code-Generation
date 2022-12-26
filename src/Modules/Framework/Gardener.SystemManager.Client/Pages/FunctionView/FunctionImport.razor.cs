@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Swagger.Dtos;
 using Gardener.Swagger.Services;
@@ -111,7 +112,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             _importLoading = true;
             if (_selectedFunctionDtos == null || !_selectedFunctionDtos.Any())
             {
-                messageService.Warn(localizer["未选中任何行"]);
+                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
                 _importLoading = false;
                 return;
             }

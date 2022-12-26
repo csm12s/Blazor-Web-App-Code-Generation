@@ -27,7 +27,7 @@
         <AntDesign.Col>
             <Space>
                 <SpaceItem>
-                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?localizer["关闭"]:localizer["展开"])">
+                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?localizer[SharedLocalResource.Close]:localizer[SharedLocalResource.Expand])">
                         <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
                     </Tooltip>
                 </SpaceItem>
@@ -36,12 +36,12 @@
                         <Space>
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">
-                                    @localizer["保存"]
+                                    @localizer[SharedLocalResource.Save]
                                 </Button>
                             </SpaceItem>
                             <SpaceItem>
                                 <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">
-                                    @localizer["取消"]
+                                    @localizer[SharedLocalResource.Cancel]
                                 </Button>
                             </SpaceItem>
                         </Space>

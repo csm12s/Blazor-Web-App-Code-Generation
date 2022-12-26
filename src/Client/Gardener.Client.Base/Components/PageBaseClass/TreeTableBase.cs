@@ -7,6 +7,7 @@
 using AntDesign;
 using AntDesign.TableModels;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -24,7 +25,8 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TOperationDialog"></typeparam>
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TableBase<TDto, TKey> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new()
+    /// <typeparam name="TLocalResource"></typeparam>
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new() where TLocalResource : ILocalResource
     {
         /// <summary>
         /// 确认提示服务
@@ -188,7 +190,7 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickEdit(TDto dto)
         {
             TDialogInput option = GetEditOption(dto);
-            await OpenOperationDialogAsync(localizer["编辑"],
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Edit],
                 option,
                  result =>
                 {
@@ -201,7 +203,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         protected async Task OnClickAdd()
         {
-            await OpenOperationDialogAsync(localizer["添加"],
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Add],
                 GetAddOption(),
                 result =>
                 {
@@ -216,7 +218,7 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected async Task OnClickAddChildren(TDto dto)
         {
-            await OpenOperationDialogAsync(localizer["添加"],
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Add],
                 GetAddOption(dto),
                  result =>
                 {
@@ -261,7 +263,7 @@ namespace Gardener.Client.Base.Components
         protected async Task OnClickDetail(TDto dto)
         {
             TDialogInput option = GetSelectOption(dto);
-            await OpenOperationDialogAsync(localizer["详情"],option);
+            await OpenOperationDialogAsync(localizer[SharedLocalResource.Detail], option);
         }
 
         /// <summary>
@@ -362,7 +364,20 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    /// <typeparam name="TDialogInput"></typeparam>
+    /// <typeparam name="TDialogOutput"></typeparam>
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, SharedLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new()
+    {
+
+    }
+    /// <summary>
+    /// 树形table基类
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TOperationDialog"></typeparam>
+    /// <typeparam name="TLocalResource"></typeparam>
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new() where TLocalResource : ILocalResource
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
@@ -479,6 +494,14 @@ namespace Gardener.Client.Base.Components
             }
         }
     }
+    /// <summary>
+    /// 树形table基类
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TOperationDialog"></typeparam>
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    {
 
-
+    }
 }

@@ -19,7 +19,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer["删除选中"]
+                            @localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -29,14 +29,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_login_token_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer["刷新"]
+                                    @localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_login_token_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport" Loading="_exportDataLoading">
-                                    @localizer["导出"]
+                                    @localizer[SharedLocalResource.Export]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -71,7 +71,7 @@
             </Column>
             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable />
-            <Column TData="string" Title="@(localizer["在线时长"])">
+            <Column TData="string" Title="@(localizer["OnlineTime"])">
                 @if(model.UpdatedTime.HasValue)
                 {
                     <span>@(DateTimeHelper.FormatDateTimeDiff(model.CreatedTime,model.UpdatedTime.Value))</span>
@@ -86,7 +86,7 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

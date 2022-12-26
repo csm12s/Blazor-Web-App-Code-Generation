@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Common;
@@ -18,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Pages
 {
-    public partial class SysTimerConfig : ListTableBase<SysTimerDto, int, SysTimerEdit>
+    public partial class SysTimerConfig : ListOperateTableBase<SysTimerDto, int, SysTimerEdit>
     {
         [Inject]
         private ISysTimerService _systimerService { get; set; }
@@ -30,8 +32,8 @@ namespace Gardener.SysTimer.Client.Pages
         /// <returns></returns>
         protected async Task OnStartExecute(SysTimerDto model)
         {
-            string title = TimerStatus.Running.Equals(model.TimerStatus) ? "关闭" : "开启";
-            var resultStop = await confirmService.YesNo(localizer[title], localizer["确认要执行该操作吗？"]);
+            string title = TimerStatus.Running.Equals(model.TimerStatus) ? localizer[SharedLocalResource.Close] : localizer[SharedLocalResource.Open];
+            var resultStop = await confirmService.YesNo(localizer[title], localizer[SharedLocalResource.OperateConfirmMessage]);
             if (resultStop == ConfirmResult.Yes)
             {
                 switch (model.TimerStatus)

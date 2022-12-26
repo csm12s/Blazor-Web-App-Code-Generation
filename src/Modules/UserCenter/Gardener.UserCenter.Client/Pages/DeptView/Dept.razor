@@ -18,7 +18,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="user_center_dept_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes">
-                            @localizer["删除选中"]
+                            @localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -27,14 +27,14 @@
                         <ResourceAuthorize ResourceKey="user_center_dept_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @localizer["添加"]
+                                    @localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="user_center_dept_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
-                                    @localizer["刷新"]
+                                    @localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -65,21 +65,21 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="user_center_dept_add_children">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["添加子项"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer["AddChildren"])" ArrowPointAtCenter="true">
                                 <Button Icon="subnode" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickAddChildren(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="user_center_dept_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="user_center_dept_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
@@ -93,7 +93,7 @@
                     </ResourceAuthorize>*@
                     <ResourceAuthorize ResourceKey="user_center_dept_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["删除(包含子项)"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer["DeleteAndIncludChildren"])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model)"></Button>
                             </Tooltip>
                         </SpaceItem>

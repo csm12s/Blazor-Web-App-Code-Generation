@@ -13,6 +13,7 @@ using Gardener.Authorization.Dtos;
 using Gardener.Base;
 using Gardener.Base.Entity;
 using Gardener.Cache;
+using Gardener.Enums;
 using Gardener.EventBus;
 using Mapster;
 using System;
