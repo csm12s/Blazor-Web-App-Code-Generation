@@ -25,6 +25,12 @@ public class CodeGenClientService: ClientServiceBase<CodeGenDto>,
         return await apiCaller.PostAsync<int[], bool>(url, codeGenIds);
     }
 
+    public Task<bool> GenerateLocale(int codeGenId)
+    {
+        var url = $"{controller}/generate-locale/{codeGenId}";
+        return apiCaller.PostAsync<int, bool>(url, codeGenId);
+    }
+
     public async Task<bool> GenerateMenu(int codeGenId)
     {
         var url = $"{controller}/generate-menu/{codeGenId}";

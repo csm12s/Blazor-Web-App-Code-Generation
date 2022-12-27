@@ -152,6 +152,9 @@
   <data name="BindingResource" xml:space="preserve">
     <value>Binding resource</value>
   </data>
+  <data name="Button" xml:space="preserve">
+    <value>Button</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
     <comment>LocalKeys</comment>
@@ -242,6 +245,9 @@
   <data name="Import" xml:space="preserve">
     <value>Import</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="IsContinue" xml:space="preserve">
+    <value>Do you want to continue ?</value>
   </data>
   <data name="Load" xml:space="preserve">
     <value>Load</value>

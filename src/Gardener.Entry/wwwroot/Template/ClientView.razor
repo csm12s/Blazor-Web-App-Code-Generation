@@ -53,6 +53,7 @@
                                 <SpaceItem>
                                     <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
                                     <Select Mode="single"
+                                        Style="width:@(item.CustomSearchLength)px;"
                                             DataSource="@@_select_@(item.NetColumnName)"
                                             @@bind-Value="@@_searchDto.@item.NetColumnName"
                                             ValueName="@@nameof(SelectItem.ValueName)"
@@ -68,6 +69,7 @@
                                 <SpaceItem>
                                     <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
                                     <Select Mode="multiple"
+                                        Style="width:@(item.CustomSearchLength)px;"
                                             DataSource="@@_select_@(item.NetColumnName)"
                                             @@bind-Values="@@_searchDto.@item.NetColumnName"
                                             ValueName="@@nameof(SelectItem.ValueName)"
@@ -146,10 +148,20 @@
             {
                 @if (!item.IsView) continue;
 
-                @switch (item.ClientComponentType)
+                @switch (item.ViewComponentType)
                 {
                     case ClientComponentType.DateTime:
                     <Column @@bind-Field="@@model.@item.NetColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
+                    break;
+                    case ClientComponentType.TagEnum:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Filters="TableFiltersConstants.(@item.NetColumnName)Filters" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                        <TagPro Text="@@model.@item.NetColumnName"></TagPro>
+                    </Column>
+                    break;
+                    case ClientComponentType.TagYesNo:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                        <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
+                    </Column>
                     break;
                     case ClientComponentType.Switch:
                     <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Filterable>

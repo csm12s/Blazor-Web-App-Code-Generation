@@ -15,24 +15,24 @@ public partial class CodeGenSearchDto
     /// 表名
     /// </summary>
     [CustomSearchField]
-    [DisplayName("表名")]
+    [DisplayName("TableName")]
     public IEnumerable<string> TableName { get; set; }
     /// <summary>
     /// 类名
     /// </summary>
-    [DisplayName("类名")]
+    [DisplayName("ClassName")]
     [CustomSearchField]
     public string ClassName { get; set; }
     #endregion
     /// <summary>
     /// 模块
     /// </summary>
-    [DisplayName("模块")]
+    [DisplayName("Module")]
     public string Module { get; set; }
     /// <summary>
     /// 创建时间
     /// </summary>
-    [DisplayName("创建时间")]
+    [DisplayName("CreatedTime")]
     public DateTimeOffset CreatedTime { get; set; }
 }
 

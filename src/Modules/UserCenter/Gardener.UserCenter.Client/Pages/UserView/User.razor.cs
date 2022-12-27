@@ -82,8 +82,8 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             if (_currentDeptId > 0)
             {
-                var node = TreeTools.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
-                List<int> ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                var node = TreeHelper.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
+                List<int> ids = TreeHelper.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
                 if (ids != null)
                 {
                     pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));

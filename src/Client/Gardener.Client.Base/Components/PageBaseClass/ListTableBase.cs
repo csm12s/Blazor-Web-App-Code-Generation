@@ -489,6 +489,29 @@ namespace Gardener.Client.Base.Components
             // TODO: clear search field
             await ReLoadTable(true);
         }
+        #region Page loading
+        /// <summary>
+        /// Page start loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StartLoading()
+        {
+            _tableIsLoading = true;
+
+            return _tableIsLoading;
+        }
+
+        /// <summary>
+        /// Page stop loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StopLoading()
+        {
+            _tableIsLoading = false;
+
+            return _tableIsLoading;
+        }
+        #endregion
     }
 
     /// <summary>
@@ -578,9 +601,8 @@ namespace Gardener.Client.Base.Components
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
         }
-
-       
     }
+
 
     /// <summary>
     /// 列表table基类

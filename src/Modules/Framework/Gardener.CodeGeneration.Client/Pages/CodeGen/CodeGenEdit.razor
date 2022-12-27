@@ -99,20 +99,32 @@
             <FormItem Label=@localizer[CodeGenLocalResource.UseChineseKey]>
                 <Switch @bind-Value="@model.UseChineseKey"></Switch>
             </FormItem>
-
-            <FormItem Label=@localizer[CodeGenLocalResource.HasAdd]>
-                <Switch @bind-Value="@model.HasAdd"></Switch>
+            <FormItem Label="@localizer[CodeGenLocalResource.Button]">
+                <CheckboxGroup Style="width:100%">
+                    <Row>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.HasAdd">
+                                @(localizer[CodeGenLocalResource.HasAdd])
+                        </Checkbox>
+                        </Col>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.HasEdit">
+                                @(localizer[CodeGenLocalResource.HasEdit])
+                        </Checkbox>
+                        </Col>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.HasDelete">
+                                @(localizer[CodeGenLocalResource.HasDelete])
+                        </Checkbox>
+                        </Col>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.HasBatchDelete">
+                                @(localizer[CodeGenLocalResource.HasBatchDelete])
+                        </Checkbox>
+                        </Col>
+                    </Row>
+                </CheckboxGroup>
             </FormItem>
-            <FormItem Label=@localizer[CodeGenLocalResource.HasEdit]>
-                <Switch @bind-Value="@model.HasEdit"></Switch>
-            </FormItem>
-            <FormItem Label=@localizer[CodeGenLocalResource.HasDelete]>
-                <Switch @bind-Value="@model.HasDelete"></Switch>
-            </FormItem>
-            <FormItem Label=@localizer[CodeGenLocalResource.HasBatchDelete]>
-                <Switch @bind-Value="@model.HasBatchDelete"></Switch>
-            </FormItem>
-
             <FormItem Label=@localizer[CodeGenLocalResource.EntityFromTable]>
                 <Tooltip Title="@localizer[CodeGenLocalResource.ExplainEntityFromTable]" ArrowPointAtCenter="true">
                     <Switch @bind-Value="@model.EntityFromTable"></Switch>

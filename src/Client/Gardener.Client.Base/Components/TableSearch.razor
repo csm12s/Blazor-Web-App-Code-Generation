@@ -16,7 +16,7 @@
             <SelectOptions>
                 @foreach (TableSearchField item in _fields)
                 {
-                    <SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@item.DisplayName" />
+                    <SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@localizer[item.DisplayName ?? item.Name]" />
                 }
             </SelectOptions>
         </Select>
@@ -29,7 +29,8 @@
             string end = localizer[SharedLocalResource.End];
             foreach (TableSearchField fieldInfo in _currentFields)
             {
-                string placeholder = fieldInfo.DisplayName;
+                string placeholder = fieldInfo.DisplayName ?? fieldInfo.Name;
+                placeholder = localizer[placeholder];
                 string boStyle = "float:left;" + (_showFields[fieldInfo.Name] ? "" : "display:none;");
                 <div style="@boStyle">
                     <span>@(placeholder + ":")</span>

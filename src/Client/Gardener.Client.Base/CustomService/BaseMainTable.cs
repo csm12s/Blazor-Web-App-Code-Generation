@@ -194,7 +194,6 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 重新加载table
         /// </summary>
-        /// <param name="firstPage">是否从首页加载</param>
         /// <returns></returns>
         protected virtual async Task ReLoadTable(PageRequest pageRequest)
         {
@@ -412,7 +411,7 @@ namespace Gardener.Client.Base.Components
     }
 
     /// <summary>
-    /// 列表table基类
+    /// 列表table基类（无主键表，TDto不继承BaseDto）
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>

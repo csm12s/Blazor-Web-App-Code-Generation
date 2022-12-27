@@ -126,6 +126,30 @@
   <data name="ClassName" xml:space="preserve">
     <value>类名</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清理</value>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>列描述</value>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>列名</value>
+  </data>
+  <data name="ColumnSummary" xml:space="preserve">
+    <value>列概述</value>
+  </data>
+  <data name="CustomSearchLength" xml:space="preserve">
+    <value>自定义搜索长度</value>
+  </data>
+  <data name="CustomSearchType" xml:space="preserve">
+    <value>自定义搜索类型</value>
+  </data>
+  <data name="DbDataType" xml:space="preserve">
+    <value>数据库类型</value>
+  </data>
+  <data name="EditComponentType" xml:space="preserve">
+    <value>编辑组件类型</value>
+  </data>
   <data name="EntityFromTable" xml:space="preserve">
     <value>开启表建表</value>
   </data>
@@ -162,11 +186,41 @@
   <data name="IconName" xml:space="preserve">
     <value>图标名称</value>
   </data>
+  <data name="IsCommon" xml:space="preserve">
+    <value>是否公共</value>
+  </data>
+  <data name="IsCustomSearch" xml:space="preserve">
+    <value>是否自定义搜索</value>
+  </data>
+  <data name="IsEdit" xml:space="preserve">
+    <value>是否编辑</value>
+  </data>
+  <data name="IsEntity" xml:space="preserve">
+    <value>生成实体</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>是否必填</value>
+  </data>
+  <data name="IsSearch" xml:space="preserve">
+    <value>是否搜索</value>
+  </data>
+  <data name="IsView" xml:space="preserve">
+    <value>是否显示</value>
+  </data>
   <data name="MenuName" xml:space="preserve">
     <value>菜单名称</value>
   </data>
+  <data name="MlLgWBeImp" xml:space="preserve">
+    <value>将导入多语言</value>
+  </data>
   <data name="Module" xml:space="preserve">
     <value>模块</value>
+  </data>
+  <data name="NetColumnName" xml:space="preserve">
+    <value>程序列名</value>
+  </data>
+  <data name="NetType" xml:space="preserve">
+    <value>程序类型</value>
   </data>
   <data name="NewTableName" xml:space="preserve">
     <value>新表名</value>
@@ -192,8 +246,14 @@
   <data name="Remark" xml:space="preserve">
     <value>备注</value>
   </data>
+  <data name="SaveAndClose" xml:space="preserve">
+    <value>保存并关闭</value>
+  </data>
   <data name="SaveAndResetSettings" xml:space="preserve">
     <value>保存并重置配置</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
   </data>
   <data name="TableDescription" xml:space="preserve">
     <value>表描述</value>
@@ -201,10 +261,16 @@
   <data name="TableName" xml:space="preserve">
     <value>表名</value>
   </data>
+  <data name="ToggleSelect" xml:space="preserve">
+    <value>反选</value>
+  </data>
   <data name="UseChineseKey" xml:space="preserve">
     <value>使用中文关键字</value>
   </data>
   <data name="UseCustomTemplate" xml:space="preserve">
     <value>使用自定义模板</value>
+  </data>
+  <data name="ViewComponentType" xml:space="preserve">
+    <value>显示组件类型</value>
   </data>
 </root>

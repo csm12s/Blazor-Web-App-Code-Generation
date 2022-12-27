@@ -126,6 +126,30 @@
   <data name="ClassName" xml:space="preserve">
     <value>Class name</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ColumnDescription" xml:space="preserve">
+    <value>Column description</value>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Column name</value>
+  </data>
+  <data name="ColumnSummary" xml:space="preserve">
+    <value>Column summary</value>
+  </data>
+  <data name="CustomSearchLength" xml:space="preserve">
+    <value>Custom search length</value>
+  </data>
+  <data name="CustomSearchType" xml:space="preserve">
+    <value>Custom search type</value>
+  </data>
+  <data name="DbDataType" xml:space="preserve">
+    <value>Db data type</value>
+  </data>
+  <data name="EditComponentType" xml:space="preserve">
+    <value>Edit component type</value>
+  </data>
   <data name="EntityFromTable" xml:space="preserve">
     <value>Entity from table</value>
   </data>
@@ -162,11 +186,41 @@
   <data name="IconName" xml:space="preserve">
     <value>Icon name</value>
   </data>
+  <data name="IsCommon" xml:space="preserve">
+    <value>Is common</value>
+  </data>
+  <data name="IsCustomSearch" xml:space="preserve">
+    <value>Is custom search</value>
+  </data>
+  <data name="IsEdit" xml:space="preserve">
+    <value>Is edit</value>
+  </data>
+  <data name="IsEntity" xml:space="preserve">
+    <value>Is entity</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>Is required</value>
+  </data>
+  <data name="IsSearch" xml:space="preserve">
+    <value>Is search</value>
+  </data>
+  <data name="IsView" xml:space="preserve">
+    <value>Is view</value>
+  </data>
   <data name="MenuName" xml:space="preserve">
     <value>Menu name</value>
   </data>
+  <data name="MlLgWBeImp" xml:space="preserve">
+    <value>Multiple languages will be imported</value>
+  </data>
   <data name="Module" xml:space="preserve">
     <value>Module</value>
+  </data>
+  <data name="NetColumnName" xml:space="preserve">
+    <value>Net column name</value>
+  </data>
+  <data name="NetType" xml:space="preserve">
+    <value>Net type</value>
   </data>
   <data name="NewTableName" xml:space="preserve">
     <value>New table name</value>
@@ -192,8 +246,14 @@
   <data name="Remark" xml:space="preserve">
     <value>Remark</value>
   </data>
+  <data name="SaveAndClose" xml:space="preserve">
+    <value>Save and close</value>
+  </data>
   <data name="SaveAndResetSettings" xml:space="preserve">
     <value>Save and reset settings</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
   </data>
   <data name="TableDescription" xml:space="preserve">
     <value>Table description </value>
@@ -201,10 +261,16 @@
   <data name="TableName" xml:space="preserve">
     <value>Table name</value>
   </data>
+  <data name="ToggleSelect" xml:space="preserve">
+    <value>Toggle select</value>
+  </data>
   <data name="UseChineseKey" xml:space="preserve">
     <value>Use chinese key</value>
   </data>
   <data name="UseCustomTemplate" xml:space="preserve">
     <value>Use custom template</value>
+  </data>
+  <data name="ViewComponentType" xml:space="preserve">
+    <value>View component type</value>
   </data>
 </root>

@@ -230,6 +230,26 @@ namespace Gardener.Base.Resources
         /// 编号
         /// </summary>
         public const string Id = nameof(Id);
+        /// <summary>
+        /// 按钮
+        /// </summary>
+        public const string Button = nameof(Button);
+        /// <summary>
+        /// 全选
+        /// </summary>
+        public const string SelectAll = nameof(SelectAll);
+        /// <summary>
+        /// 清除
+        /// </summary>
+        public const string Clear = nameof(Clear);
+        /// <summary>
+        /// 反向选择
+        /// </summary>
+        public const string ToggleSelect = nameof(ToggleSelect);
+        /// <summary>
+        /// 是否继续
+        /// </summary>
+        public const string IsContinue = nameof(IsContinue);
 
     }
 }

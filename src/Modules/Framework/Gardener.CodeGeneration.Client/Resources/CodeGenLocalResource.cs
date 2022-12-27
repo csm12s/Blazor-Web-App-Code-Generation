@@ -6,14 +6,12 @@
 
 using Gardener.Base;
 using Gardener.Base.Resources;
+using System.Drawing.Drawing2D;
 
 namespace Gardener.CodeGeneration.Client.Resources
 {
     public class CodeGenLocalResource : SharedLocalResource
     {
-        /// <summary>
-        /// 搜索
-        /// </summary>
         public const string TableName = nameof(TableName);
         public const string ClassName = nameof(ClassName);
         public const string Module = nameof(Module);
@@ -42,7 +40,23 @@ namespace Gardener.CodeGeneration.Client.Resources
         public const string SaveAndResetSettings = nameof(SaveAndResetSettings);
         public const string BatchGenerate = nameof(BatchGenerate);
         public const string OpenCodeGenFolder = nameof(OpenCodeGenFolder);
-        public const string OperateConfirmMessage = nameof(OperateConfirmMessage);
         public const string GenerateMenu = nameof(GenerateMenu);
+        public const string SaveAndClose = nameof(SaveAndClose);
+        public const string ColumnName = nameof(ColumnName);
+        public const string NetColumnName = nameof(NetColumnName);
+        public const string NetType = nameof(NetType);
+        public const string DbDataType = nameof(DbDataType);
+        public const string IsView = nameof(IsView);
+        public const string ViewComponentType = nameof(ViewComponentType);
+        public const string IsEdit = nameof(IsEdit);
+        public const string EditComponentType = nameof(EditComponentType);
+        public const string IsSearch = nameof(IsSearch);
+        public const string IsCustomSearch = nameof(IsCustomSearch);
+        public const string CustomSearchType = nameof(CustomSearchType);
+        public const string CustomSearchLength = nameof(CustomSearchLength);
+        public const string IsRequired = nameof(IsRequired);
+        public const string IsEntity = nameof(IsEntity);
+        public const string ColumnDescription = nameof(ColumnDescription);
+        public const string ColumnSummary = nameof(ColumnSummary);
     }
 }

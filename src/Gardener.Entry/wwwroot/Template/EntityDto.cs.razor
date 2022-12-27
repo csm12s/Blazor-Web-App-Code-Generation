@@ -7,6 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace @(Model.AppName).@(Model.Module).Dto;
 
+/// <summary>
+/// @Model.TableSummary
+/// </summary>
 public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
 {
     #region Base
@@ -30,7 +33,7 @@ public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
         @:@maxLengthStr
         @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
         
-        @if(item.ClientComponentType == ClientComponentType.RemoteImage)
+        @if(item.ViewComponentType == ClientComponentType.RemoteImage)
         {
         @: public @Raw(item.NetType) @(item.NetColumnName)_Data { get; set; }
         }

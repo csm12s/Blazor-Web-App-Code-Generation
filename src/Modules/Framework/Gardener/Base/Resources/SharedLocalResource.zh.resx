@@ -152,6 +152,9 @@
   <data name="BindingResource" xml:space="preserve">
     <value>绑定资源</value>
   </data>
+  <data name="Button" xml:space="preserve">
+    <value>按钮</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
     <comment>LocalKeys</comment>
@@ -241,6 +244,9 @@
   <data name="Import" xml:space="preserve">
     <value>导入</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="IsContinue" xml:space="preserve">
+    <value>是否继续？</value>
   </data>
   <data name="Load" xml:space="preserve">
     <value>加载</value>

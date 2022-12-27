@@ -1,9 +1,5 @@
-﻿using Furion.DatabaseAccessor;
-using Gardener.Base;
+﻿using Gardener.Base;
 using Gardener.Enums;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +9,7 @@ namespace Gardener.CodeGeneration.Domains;
 /// <summary>
 /// 代码生成字段配置表
 /// </summary>
-[Table("Sys_Code_Gen_Config")]
+[Table("Sys_CodeGenConfig")]
 [Description("代码生成字段配置表")]
 public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGenConfig>
 {
@@ -36,12 +32,12 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     /// <summary>
     /// DB Description
     /// </summary>
-    public string ColumnDescription { get; set; }
+    public string? ColumnDescription { get; set; }
 
     /// <summary>
     /// Comment in code
     /// </summary>
-    public string ColumnSummary { get; set; }
+    public string? ColumnSummary { get; set; }
 
     /// <summary>
     /// .NET数据类型
@@ -52,7 +48,7 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     /// <summary>
     /// .NET数据类型, 不带问号
     /// </summary>
-    public string NetTypeRaw { get; set; }
+    public string? NetTypeRaw { get; set; }
 
     /// <summary>
     /// 数据库中类型（物理类型）
@@ -60,18 +56,20 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     [MaxLength(50)]
     public string DbDataType { get; set; }
 
+    // view
+    public ClientComponentType? ViewComponentType { get; set; }
     // edit
-    public ClientComponentType ClientComponentType { get; set; }
-    public int ClientComponentLength { get; set; }
+    public ClientComponentType? EditComponentType { get; set; }
+    public int? EditComponentLength { get; set; }
     // search
-    public ClientComponentType CustomSearchType { get; set; }
-    public int CustomSearchLength { get; set; }
+    public ClientComponentType? CustomSearchType { get; set; }
+    public int? CustomSearchLength { get; set; }
 
     /// <summary>
     /// 作用类型（字典）
     /// </summary>
     [MaxLength(50)]
-    public string EffectType { get; set; }
+    public string? EffectType { get; set; }
 
     /// <summary>
     /// 外键实体名称
@@ -100,18 +98,18 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     /// <summary>
     /// 列表是否缩进（字典）
     /// </summary>
-    public bool IsDictRetract { get; set; } = false;
+    public bool? IsDictRetract { get; set; } = false;
 
     /// <summary>
     /// 是否必填（字典）
     /// </summary>
-    public bool IsDictRequired { get; set; } = false;
+    public bool? IsDictRequired { get; set; } = false;
 
     /// <summary>
     /// 是否是查询条件
     /// </summary>
-    public bool IsSearch { get; set; } = false;
-    public bool IsCustomSearch { get; set; } = false;
+    public bool? IsSearch { get; set; } = false;
+    public bool? IsCustomSearch { get; set; } = false;
 
     /// <summary>
     /// 查询方式
@@ -122,54 +120,52 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     /// <summary>
     /// 列表显示
     /// </summary>
-    public bool IsView { get; set; } = false;
+    public bool? IsView { get; set; } = false;
 
     /// <summary>
     /// Create
     /// </summary>
 
-    public bool IsCreate { get; set; } = false;
+    public bool? IsCreate { get; set; } = false;
 
     //TODO: IsRequired
-    public bool IsRequired { get; set; } = false;
+    public bool? IsRequired { get; set; } = false;
     /// <summary>
     /// 改
     /// </summary>
-    public bool IsEdit { get; set; } = false;
+    public bool? IsEdit { get; set; } = false;
 
-    public bool IsBatchEdit { get; set; } = false;
-
-    public bool IsEditRequired { get; set; } = false;
+    public bool? IsBatchEdit { get; set; } = false;
 
     /// <summary>
     /// 是否通用字段
     /// </summary>
-    public bool IsCommon { get; set; } = false;
+    public bool? IsCommon { get; set; } = false;
     
     /// <summary>
     /// 是否是Entity字段，用于表建表
     /// </summary>
-    public bool IsEntity { get; set; } = true;
+    public bool? IsEntity { get; set; } = true;
 
     /// <summary>
     /// 主键
     /// </summary>
     [MaxLength(5)]
-    public string ColumnKey { get; set; }
+    public string? ColumnKey { get; set; }
 
     #region Entity DB First
     /// <summary>
     /// 主键
     /// </summary>
-    public bool IsPrimaryKey { get; set; }
+    public bool? IsPrimaryKey { get; set; }
     /// <summary>
     /// 自增列 
     /// </summary>
-    public bool IsIdentity { get; set; }
+    public bool? IsIdentity { get; set; }
     /// <summary>
     /// 是否是为NULL
     /// </summary>
-    public bool IsNullable { get; set; }
+    public bool? IsNullable { get; set; }
     /// <summary>
     /// 精度
     /// </summary>
@@ -184,16 +180,16 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
     /// <summary>
     /// 是否忽略
     /// </summary>
-    public bool IsIgnore { get; set; }
+    public bool? IsIgnore { get; set; }
     /// <summary>
     /// 特殊类型
     /// </summary>
-    public bool IsSpecialType { get; set; }
+    public bool? IsSpecialType { get; set; }
 
     /// <summary>
     /// DB data type with length: nvarchar(20)
     /// </summary>
-    public string DbDataTypeText { get; set; }
+    public string? DbDataTypeText { get; set; }
 
     #endregion
 

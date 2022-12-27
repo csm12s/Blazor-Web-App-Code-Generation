@@ -18,7 +18,7 @@ namespace Gardener.SystemManager.Dtos
     /// 资源
     /// </summary>
     [Description("资源信息")]
-    public class ResourceDto: BaseDto<Guid>, ITree_Guid<ResourceDto>
+    public class ResourceDto: BaseDto<Guid>, ITreeNode<ResourceDto>
     {
         /// <summary>
         /// 名称

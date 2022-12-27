@@ -8,14 +8,14 @@
            DataSource="@_datas"
            Total="_total"
            OnChange="@OnChange"
-           @bind-PageIndex="_pageIndex"
-           @bind-PageSize="_pageSize"
-           @bind-SelectedRows="_selectedRows"
+    @bind-PageIndex="_pageIndex"
+    @bind-PageSize="_pageSize"
+    @bind-SelectedRows="_selectedRows"
            Loading="@_tableIsLoading"
            Context="model"
            RemoteDataSource>
         <TitleTemplate>
-            <TableSearch TDto="CodeGenSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+            <TableSearch TDto="CodeGenSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="localizer"></TableSearch>
             @*Custom Search*@
             <Row>
                 <AntDesign.Col Span="24">
@@ -24,7 +24,7 @@
                             <span>@localizer[CodeGenLocalResource.TableName]: </span>
                             <Select Mode="multiple"
                                     DataSource="@_select_TableName"
-                                    @bind-Values="@_searchDto.TableName"
+                            @bind-Values="@_searchDto.TableName"
                                     ValueName="@nameof(SelectItem.ValueName)"
                                     LabelName="@nameof(SelectItem.LabelName)"
                                     TItem="SelectItem"
@@ -41,21 +41,13 @@
                         </SpaceItem>
                     </Space>
                 </AntDesign.Col>
-                @*<AntDesign.Col Span="2">
-                    <Button Icon="search" Shape="@ButtonShape.Round" OnClick="DoSearch">
-                        @localizer["Search"]
-                    </Button>
-                    <Button Icon="sync" Type="@ButtonType.Dashed" OnClick="DoClearSearch">
-                        @localizer["Clear"]
-                    </Button>
-                </AntDesign.Col>*@
             </Row>
             <Row>
                 <AntDesign.Col Span="8">
                     <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                         @localizer[SharedLocalResource.DeleteSelected]
                     </Button>
-                    <Button Type="@ButtonType.Primary" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
+                    <Button Type="@ButtonType.Primary" Icon="code" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
                         @localizer[CodeGenLocalResource.BatchGenerate]
                     </Button>
                 </AntDesign.Col>
@@ -118,13 +110,19 @@
                     </SpaceItem>
 
                     <SpaceItem>
-                        <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerateMenu(model.Id)">
+                        <Button Type="@ButtonType.Link" Icon="menu" OnClick="()=>OnClickGenerateMenu(model.Id)">
                             @localizer[CodeGenLocalResource.GenerateMenu]
                         </Button>
                     </SpaceItem>
 
+                    @*<SpaceItem>
+                    <Button Type="@ButtonType.Link" Icon="global" OnClick="()=>OnClickGenerateLocale(model.Id)" Loading="_generatesBtnLoading">
+                    @localizer["GenerateLocale"]
+                    </Button>
+                    </SpaceItem>*@
+
                     <SpaceItem>
-                        <Button Type="@ButtonType.Link" OnClick="()=>OnClickGenerate(model.Id)">
+                        <Button Type="@ButtonType.Link" Icon="code" OnClick="()=>OnClickGenerate(model.Id)">
                             @localizer[SharedLocalResource.Generate]
                         </Button>
                     </SpaceItem>

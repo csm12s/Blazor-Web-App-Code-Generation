@@ -3,7 +3,7 @@
 @using Gardener.Enums
 @using Gardener.Client.Base.Constants
 
-@@inherits @(Model.CodeGen.EditFormInherits)<@(Model.ClassName)Dto, @(Model.CodeGen.PrimaryKeyType)>
+@@inherits @(Model.ModuleUpper)BaseEdit<@(Model.ClassName)Dto>
 
 <Form Context="model"
       Loading="@@_isLoading"
@@ -15,7 +15,7 @@
     {
         @if (!item.IsEdit) continue;
 
-        @switch (item.ClientComponentType)
+        @switch (item.EditComponentType)
         {
             case ClientComponentType.Select:
             <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">

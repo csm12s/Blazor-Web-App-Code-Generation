@@ -1,6 +1,7 @@
 ﻿using Gardener.Base;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
+using Gardener.CodeGeneration.Client.Resources;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Microsoft.AspNetCore.Components;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
 
-public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int>
+public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int, CodeGenLocalResource>
 {
     [Inject]
     private ICodeGenService codeGenService { get; set; }
@@ -92,7 +93,7 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int>
             await messageService.Success("保存成功");
         }
         else
-        { 
+        {
             await messageService.Error("保存失败");
         }
 
@@ -110,7 +111,7 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int>
             await base.FeedbackRef.CloseAsync(true);
         }
         else
-        { 
+        {
             await messageService.Error("保存失败");
         }
 

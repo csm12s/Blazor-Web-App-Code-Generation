@@ -17,6 +17,7 @@ namespace Gardener.CodeGeneration.Services
     public interface ICodeGenService: IServiceBase<CodeGenDto, int>
     {
         Task<bool> GenerateCode(int[] codeGenIds);
+        Task <bool> GenerateLocale(int codeGenId);
         Task<bool> GenerateMenu(int codeGenId);
         Task<List<TableOutput>> GetTableListAsync();//string dbContextLocatorName = ""
         Task<bool> OpenCodeGenFolder();

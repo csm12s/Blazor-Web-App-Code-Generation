@@ -100,20 +100,21 @@ namespace Gardener.EntityFramwork.DbContexts
                     {
                     }
 
+                    // 没ID track走不进来
                     #region 雪花ID
-                    var idProperty = Entry(entity.Entity).Property(nameof(GardenerEntityBase.Id));
-                    // Long
-                    var obj = entity.Entity as GardenerEntityBase<long>;
-                    if (obj != null)
-                    {
-                        obj.Id = obj.Id == 0 ? IdUtil.GetNextId() : obj.Id;
-                    }
-                    // String 雪花ID
-                    var obj2 = entity.Entity as GardenerEntityBase<string>;
-                    if (obj2 != null)
-                    {
-                        obj2.Id = string.IsNullOrEmpty(obj2.Id) ? IdUtil.GetNextId().ToString() : obj2.Id;
-                    }
+                    //var idProperty = Entry(entity.Entity).Property(nameof(GardenerEntityBase.Id));
+                    //// Long
+                    //var obj = entity.Entity as GardenerEntityBase<long>;
+                    //if (obj != null)
+                    //{
+                    //    obj.Id = obj.Id == 0 ? IdUtil.GetNextId() : obj.Id;
+                    //}
+                    //// String 雪花ID
+                    //var obj2 = entity.Entity as GardenerEntityBase<string>;
+                    //if (obj2 != null)
+                    //{
+                    //    obj2.Id = string.IsNullOrEmpty(obj2.Id) ? IdUtil.GetNextId().ToString() : obj2.Id;
+                    //}
                     #endregion
 
                     // 新增
