@@ -13,15 +13,5 @@
     <ProjectReference Include="..\..\..\Client\Gardener.Client.Base\Gardener.Client.Base.csproj" />
     <ProjectReference Include="..\Gardener\Gardener.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\CodeGenLocalResource.en.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\CodeGenLocalResource.zh.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
-    </EmbeddedResource>
-  </ItemGroup>
 
 </Project>

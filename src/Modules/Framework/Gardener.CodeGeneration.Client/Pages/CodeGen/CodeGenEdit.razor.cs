@@ -1,6 +1,6 @@
 ﻿using Gardener.Base.Resources;
 using Gardener.Client.Base;
-using Gardener.CodeGeneration.Client.Resources;
+using Gardener.CodeGeneration.Resources;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Gardener.Common;

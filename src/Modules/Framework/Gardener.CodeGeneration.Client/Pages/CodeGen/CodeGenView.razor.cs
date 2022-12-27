@@ -4,7 +4,7 @@ using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
-using Gardener.CodeGeneration.Client.Resources;
+using Gardener.CodeGeneration.Resources;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Gardener.Common;

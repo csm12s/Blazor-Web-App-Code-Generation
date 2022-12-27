@@ -12,7 +12,7 @@ using AntDesign.ProLayout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
-using Gardener.CodeGeneration.Client.Resources;
+using Gardener.CodeGeneration.Resources;
 using Gardener.Base.Resources;
 
 namespace Gardener.Client.Entry

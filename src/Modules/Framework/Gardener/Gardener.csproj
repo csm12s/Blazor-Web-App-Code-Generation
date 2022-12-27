@@ -35,6 +35,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.en.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.zh.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

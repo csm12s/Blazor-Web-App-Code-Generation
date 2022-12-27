@@ -4,12 +4,13 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Gardener.Base.Resources;
-using System.Drawing.Drawing2D;
 
-namespace Gardener.CodeGeneration.Client.Resources
+namespace Gardener.CodeGeneration.Resources
 {
+    /// <summary>
+    /// 代码生成资源Key
+    /// </summary>
     public class CodeGenLocalResource : SharedLocalResource
     {
         public const string TableName = nameof(TableName);
