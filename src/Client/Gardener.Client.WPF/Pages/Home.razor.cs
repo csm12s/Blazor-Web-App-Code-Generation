@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;

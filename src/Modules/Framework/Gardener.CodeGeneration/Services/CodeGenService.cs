@@ -62,7 +62,10 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         this.resourceService = resourceService;
     }
     #endregion
-
+    /// <summary>
+    /// 获取表列表
+    /// </summary>
+    /// <returns></returns>
     public async Task<List<TableOutput>> GetTableListAsync()//string dbContextLocatorName = ""
     {
         // Sugar, 这里可以取到数据库中所有的表
@@ -113,6 +116,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     }
 
     #region Insert
+    /// <summary>
+    /// 添加配置
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public override async Task<CodeGenDto> Insert(CodeGenDto input)
     {
         // 这里不检查重复表名，因为有时候需要根据一个表生成另一个表，例如同步表
@@ -140,6 +148,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     #endregion
 
     #region Update
+    /// <summary>
+    /// 更新
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public override async Task<bool> Update(CodeGenDto input)
     {
         // 这里不检查重复表名，因为有时候需要根据一个表生成另一个表，例如同步表
@@ -166,6 +179,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     #endregion
 
     #region Delete
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public override async Task<bool> Delete(int id)
     {
         await _repository.DeleteAsync(id);
@@ -176,7 +194,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         return true;
     }
     #endregion
-
+    /// <summary>
+    /// 获取数据库字段信息
+    /// </summary>
+    /// <param name="codeGenDto"></param>
+    /// <returns></returns>
     [NonAction]
     private List<TableColumnInfo> GetDBColumnInfos([FromQuery] CodeGenDto codeGenDto)
     {
@@ -247,7 +269,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         return columnInfos;
     }
-
+    /// <summary>
+    /// 生成代码
+    /// </summary>
+    /// <param name="codeGenIds"></param>
+    /// <returns></returns>
     public async Task<bool> GenerateCode([FromBody] int[] codeGenIds)
     {
         var allCodeGens = await GetAll();
@@ -261,7 +287,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         return true;
     }
-
+    /// <summary>
+    /// 生成代码
+    /// </summary>
+    /// <param name="genTable"></param>
+    /// <returns></returns>
     [NonAction]
     private async Task GenerateCodeAsync(CodeGenDto genTable)
     {
@@ -1157,7 +1187,10 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             throw Oops.Oh(ExceptionCode.Code_Gen_Template_Compile_Error);
         }
     }
-
+    /// <summary>
+    /// 打开代码目录
+    /// </summary>
+    /// <returns></returns>
     public Task<bool> OpenCodeGenFolder()
     {
         string baseGenPath = ProjectConstants.CodeGenPath;
@@ -1224,7 +1257,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         return type;
     }
-
+    /// <summary>
+    /// 生成菜单数据
+    /// </summary>
+    /// <param name="codeGenId"></param>
+    /// <returns></returns>
     public async Task<bool> GenerateMenu(int codeGenId)
     {
         var codeGenDto = await Get(codeGenId);
@@ -1250,7 +1287,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
 
         return true;
     }
-
+   
     /// <summary>
     /// 导入多语言
     /// </summary>

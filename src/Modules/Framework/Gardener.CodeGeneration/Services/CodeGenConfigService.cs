@@ -297,7 +297,11 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
             .ToListAsync();
         await _repository.DeleteAsync(codeGenConfigList);
     }
-
+    /// <summary>
+    /// 获取代码生成配置
+    /// </summary>
+    /// <param name="codeGenId"></param>
+    /// <returns></returns>
     public async Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(int codeGenId)
     {
         var list = await GetAllUsable();
@@ -308,7 +312,11 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
         //    .GetListAsync(it => it.CodeGenId == codeGenId);
         //return list.MapTo<CodeGenConfigDto>();
     }
-
+    /// <summary>
+    /// 保存
+    /// </summary>
+    /// <param name="listDto"></param>
+    /// <returns></returns>
     public async Task<bool> SaveAll(List<CodeGenConfigDto> listDto)
     {
         var list = listDto.MapTo<CodeGenConfig>();

@@ -1108,63 +1108,598 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a0decf1b-ed7a-4cd4-ac2f-ee85f52e6c95"),
-                            CreatedTime = 1306532718346240480L,
+                            Id = new Guid("deb0a631-d0fb-4b6f-8b0d-bfeee5c759c8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482718720480L,
+                            Description = "导出数据",
                             EnableAudit = true,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "6AAF93FCBAC80E0FD4329B6852E1741D",
-                            Method = 2,
-                            Path = "/api/code-generation/entity-code-generation-setting",
-                            Service = "代码生成服务",
-                            Summary = "更新实体的代码生成配置",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("becfbc6e-e75f-4c17-a0f8-d366cc0c0ecb"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FAC62F9BF65D4DD69EE5EDE973F67030",
+                            Key = "B544D64F87CECA7C98BD6D944E214805",
                             Method = 1,
-                            Path = "/api/code-generation/entity-code-generation-setting",
-                            Service = "代码生成服务",
-                            Summary = "添加实体的代码生成配置",
-                            UpdatedTime = 1306532718346240480L
+                            Path = "/api/code-gen/export",
+                            Service = "代码生成 - DB First",
+                            Summary = "导出"
                         },
                         new
                         {
-                            Id = new Guid("bfbcb606-6adb-460f-9730-20dbe3b32949"),
-                            CreatedTime = 1306532718346240480L,
+                            Id = new Guid("9c6702ef-176c-4bff-90d3-5e6883d65399"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482698240480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3AC3E3B3217897587A05BE31D478A39D",
+                            Method = 1,
+                            Path = "/api/code-gen/generate-seed-data",
+                            Service = "代码生成 - DB First",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("875de992-3eb6-478d-82a9-6994e6cabf44"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482698240480L,
+                            Description = "搜索数据",
                             EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "EC62EF7FF22A3D75FF0452966175ED6D",
-                            Method = 0,
-                            Path = "/api/code-generation/entity-definitions",
-                            Service = "代码生成服务",
-                            Summary = "获取所有实体定义",
-                            UpdatedTime = 1306532718346240480L
+                            Key = "D0BD4286146CB2D2B1A7B2950E509F72",
+                            Method = 1,
+                            Path = "/api/code-gen/search",
+                            Service = "代码生成 - DB First",
+                            Summary = "搜索"
                         },
                         new
                         {
-                            Id = new Guid("f9feca89-9856-4c20-aa82-b2260df498a9"),
-                            CreatedTime = 1306532718346240480L,
+                            Id = new Guid("d0a4b504-f401-4c1b-a43e-08cca27bd170"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482698240480L,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "684524DB0FA81872CF18DBB1C7557421",
+                            Method = 2,
+                            Path = "/api/code-gen/{id}/lock/{islocked}",
+                            Service = "代码生成 - DB First",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("c81ba6ae-ab11-4e2f-b3a7-cf6cf22284f0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482677760480L,
+                            Description = "根据分页参数，分页获取数据",
                             EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "51CDF306434E8148436781B9BFB4D520",
+                            Key = "8160D0CFFF66846429B61257A1508536",
                             Method = 0,
-                            Path = "/api/code-generation/entity-code-generation-setting/{entityfullname}",
-                            Service = "代码生成服务",
-                            Summary = "获取实体的代码生成配置",
-                            UpdatedTime = 1306532718346240480L
+                            Path = "/api/code-gen/page/{pageindex}/{pagesize}",
+                            Service = "代码生成 - DB First",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("ab562cb0-7919-4b26-836a-f5865c1ddf63"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482677760480L,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0034E714497B05DB3FA37E8D28D730A1",
+                            Method = 0,
+                            Path = "/api/code-gen/all-usable",
+                            Service = "代码生成 - DB First",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("0a0cfc96-79d4-473e-aaef-91ae86c640d3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482677760480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F73EC4D6186B170DD30D0084F7CB1D04",
+                            Method = 0,
+                            Path = "/api/code-gen/all",
+                            Service = "代码生成 - DB First",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("9ba644e7-fdba-4be3-9ab7-b9c8f344652c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482657280480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D5F8E4AACAFC9C5D3FDB3287E106CE2D",
+                            Method = 1,
+                            Path = "/api/code-gen/fake-deletes",
+                            Service = "代码生成 - DB First",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("f41a15c0-62cc-4e17-a126-15d4873fca33"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482657280480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F6565C4790EECA32489B71CF74208BDB",
+                            Method = 3,
+                            Path = "/api/code-gen/fake-delete/{id}",
+                            Service = "代码生成 - DB First",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("383f8a77-378d-415a-a11d-1e10cc09bd6b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482657280480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A657348B3DA465884F1DB1275C763DA7",
+                            Method = 1,
+                            Path = "/api/code-gen/deletes",
+                            Service = "代码生成 - DB First",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("c01f4723-8efa-4268-b793-901c75934f6c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482636800480L,
+                            Description = "{codegenid}",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6EB0EC8EE348241D62D68C48E6C85BED",
+                            Method = 1,
+                            Path = "/api/code-gen/generate-locale/{codegenid}",
+                            Service = "代码生成 - DB First",
+                            Summary = "导入多语言"
+                        },
+                        new
+                        {
+                            Id = new Guid("c831e1fc-a428-41bc-876a-f158d0159a01"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482636800480L,
+                            Description = "{codegenid}",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0436D43457349178B130D1C651AFCD6D",
+                            Method = 1,
+                            Path = "/api/code-gen/generate-menu/{codegenid}",
+                            Service = "代码生成 - DB First",
+                            Summary = "生成菜单数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("438d1c2f-f0fa-4975-bac5-13c5f3a2645b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482636800480L,
+                            Description = "open-code-gen-folder",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B3D81BD31F37628B71C6B6FFDF3D719E",
+                            Method = 1,
+                            Path = "/api/code-gen/open-code-gen-folder",
+                            Service = "代码生成 - DB First",
+                            Summary = "打开代码目录"
+                        },
+                        new
+                        {
+                            Id = new Guid("8267679d-0482-4b2d-81ca-67a555f28b79"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482616320480L,
+                            Description = "generate-code",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "58F507AB025E3DD861EFE9AF5FAED7D3",
+                            Method = 1,
+                            Path = "/api/code-gen/generate-code",
+                            Service = "代码生成 - DB First",
+                            Summary = "生成代码"
+                        },
+                        new
+                        {
+                            Id = new Guid("db38be6f-754f-493a-ad9a-70e32ec80dca"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482616320480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3DDEDB9584240DB31E6D343A2013BC49",
+                            Method = 0,
+                            Path = "/api/code-gen/{id}",
+                            Service = "代码生成 - DB First",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("91ebe8d4-2b04-4277-b743-4f3a66bd487d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482616320480L,
+                            Description = "{id}",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1CFFA0F2216B185E282E88F7AE873F43",
+                            Method = 3,
+                            Path = "/api/code-gen/{id}",
+                            Service = "代码生成 - DB First",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("3a679983-7a4e-4c1c-b3e0-8b374f6ebc91"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482595840480L,
+                            Description = "code-gen",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FDD5BB4E7994DBDDAC2764230F31BC75",
+                            Method = 2,
+                            Path = "/api/code-gen",
+                            Service = "代码生成 - DB First",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("aa7a6284-4351-4853-b066-4ea925fe36cc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482595840480L,
+                            Description = "code-gen",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2D20CFA2D1B0C847C2F9AA33215EA872",
+                            Method = 1,
+                            Path = "/api/code-gen",
+                            Service = "代码生成 - DB First",
+                            Summary = "添加配置"
+                        },
+                        new
+                        {
+                            Id = new Guid("a7f5ae02-cff0-4281-a153-145e612fb1ca"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482595840480L,
+                            Description = "table-list",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DDC76CDC58280006E86B2F5354E71058",
+                            Method = 0,
+                            Path = "/api/code-gen/table-list",
+                            Service = "代码生成 - DB First",
+                            Summary = "获取表列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("1df3723c-f435-4fba-a751-7a63e5b98cfe"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482575360480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9428EC584D39E7558884C1BE60B6325C",
+                            Method = 1,
+                            Path = "/api/code-gen-config/export",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("9b34d89d-af78-4c4e-9326-d9d909c7ef19"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482575360480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "366BAD01449B2FD91948CE215296D4DE",
+                            Method = 1,
+                            Path = "/api/code-gen-config/generate-seed-data",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("513f19e0-c96f-49e6-b763-734527548dc3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482554880480L,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2498E3052239D4287BEA0D8B3F21F50A",
+                            Method = 1,
+                            Path = "/api/code-gen-config/search",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "搜索"
+                        },
+                        new
+                        {
+                            Id = new Guid("1f60193e-30ed-412b-8afd-f8f1f8d45703"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482554880480L,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E6AA2D3457A2946923C9B1BBF4092E42",
+                            Method = 2,
+                            Path = "/api/code-gen-config/{id}/lock/{islocked}",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("d0f31c64-db5d-4d25-a7fb-f82b0caf6760"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482554880480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "53F1180444D85BF8C79EFB89DFCF2A11",
+                            Method = 0,
+                            Path = "/api/code-gen-config/page/{pageindex}/{pagesize}",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("023f5b95-d07b-4118-a601-dcbd0cc191af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482534400480L,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "56F09861128F3AE3FC2496CAB12749D6",
+                            Method = 0,
+                            Path = "/api/code-gen-config/all-usable",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("ec1a6751-d862-4808-8032-033463fdb65e"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482513920480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C9B949B9979521AB3FAB741C8177CA7C",
+                            Method = 0,
+                            Path = "/api/code-gen-config/all",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("8d97bc08-7505-4b87-a99d-dc555a28265e"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482493440480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "518FA5CE716696F2F9AEC8D3C85D46AE",
+                            Method = 1,
+                            Path = "/api/code-gen-config/fake-deletes",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("17e7dc0d-b36a-48e6-9e5f-645baf674299"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482493440480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "60BB1B471DADBD43F1A6E69E7233BE6A",
+                            Method = 3,
+                            Path = "/api/code-gen-config/fake-delete/{id}",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("e22446f3-1a8c-4500-ab7b-8922f70a811a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482472960480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "90302348A7CC0816FA57893583185966",
+                            Method = 1,
+                            Path = "/api/code-gen-config/deletes",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("4c4b9d0c-6137-437c-8b04-833c73e8a70d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482472960480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "324BB8D9B949D3E0BF9A1A1B4A346CC1",
+                            Method = 0,
+                            Path = "/api/code-gen-config/{id}",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("fc78f4d2-2c96-40f3-9178-83c1be5c00e4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482472960480L,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "545EECBD21B11E9C77FAA49044CB4C09",
+                            Method = 3,
+                            Path = "/api/code-gen-config/{id}",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("c9cf322b-5228-4ea9-b40d-64534db5d292"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482472960480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "99C5D9DAADE9FF4039861475A7C4E7D8",
+                            Method = 2,
+                            Path = "/api/code-gen-config",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("984eedd6-ff5e-46fc-a51c-4650af8f9171"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482452480480L,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3BA59B7F7AB75F87CFC9B46593496FBB",
+                            Method = 1,
+                            Path = "/api/code-gen-config",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "添加"
+                        },
+                        new
+                        {
+                            Id = new Guid("18f4fc9a-8670-4fcb-a13b-03aec85c673a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482452480480L,
+                            Description = "save-all",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E557654AE20986A0E2E7297D32D66170",
+                            Method = 1,
+                            Path = "/api/code-gen-config/save-all",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "保存"
+                        },
+                        new
+                        {
+                            Id = new Guid("0f43ba88-09f0-4b8d-83ef-e7747a3c9ed2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306782482452480480L,
+                            Description = "{codegenid}",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "DD83F39265552523A9C35427C3E90DCF",
+                            Method = 0,
+                            Path = "/api/code-gen-config/code-gen-configs-by-code-gen-id/{codegenid}",
+                            Service = "代码生成配置 - DB First",
+                            Summary = "获取代码生成配置"
                         },
                         new
                         {
@@ -4709,23 +5244,6 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306683595427840480L,
-                            Icon = "code-sandbox",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_tool_code_gen",
-                            Name = "DB First",
-                            Order = 41,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_tool/code_gen",
-                            Type = 1000,
-                            UpdatedTime = 1306683596595200480L
-                        },
-                        new
-                        {
                             Id = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306546807398400480L,
@@ -4753,6 +5271,23 @@ namespace Gardener.Api.Core.Migrations
                             Path = "",
                             Remark = "根根节点不能删除，不能改变类型！！。",
                             Type = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306683595427840480L,
+                            Icon = "code-sandbox",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_tool_code_gen",
+                            Name = "代码生成",
+                            Order = 41,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "/system_tool/code_gen",
+                            Type = 1000,
+                            UpdatedTime = 1306683596595200480L
                         },
                         new
                         {
@@ -7448,6 +7983,9 @@ namespace Gardener.Api.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool?>("AllowNull")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ClassName")
                         .HasColumnType("TEXT");
 
@@ -7460,29 +7998,50 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long>("CreatedTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasAdd")
+                    b.Property<bool?>("EntityFromTable")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasBatchDelete")
+                    b.Property<bool?>("GenerateBaseClass")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasBatchEdit")
+                    b.Property<bool?>("GenerateLocaleFile")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasDelete")
+                    b.Property<bool?>("GenerateProjectFile")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasEdit")
+                    b.Property<bool?>("GenerateSelectFields")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasExport")
+                    b.Property<bool?>("GenerateService")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasImport")
+                    b.Property<bool?>("HasAdd")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("HasLock")
+                    b.Property<bool?>("HasBatchDelete")
                         .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasBatchEdit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasDelete")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasEdit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasExport")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasImport")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("HasLock")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IconName")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -7490,10 +8049,13 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("MenuName")
+                    b.Property<string>("MenuNameCH")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MenuParentId")
+                    b.Property<string>("MenuNameEN")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("MenuParentId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Module")
@@ -7503,7 +8065,16 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("NewTableName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginModule")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PrimaryKeyName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TableDescriptionCH")
@@ -7517,7 +8088,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TablePrefix")
-                        .HasMaxLength(5)
+                        .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -7529,12 +8100,18 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long?>("UpdatedTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("UseCustomTemplate")
+                    b.Property<bool?>("UseChineseKey")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("UseCustomTemplate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool?>("UseNetColumnAsKey")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sys_Code_Gen");
+                    b.ToTable("Sys_CodeGen");
                 });
 
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGenConfig", b =>
@@ -7543,17 +8120,8 @@ namespace Gardener.Api.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientComponentLength")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ClientComponentType")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("CodeGenId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("ColumnComment")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("ColumnDescription")
                         .HasColumnType("TEXT");
@@ -7567,6 +8135,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ColumnSummary")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("CreateBy")
                         .HasColumnType("TEXT");
 
@@ -7576,21 +8147,11 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long>("CreatedTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CustomSearchLength")
+                    b.Property<int?>("CustomSearchLength")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CustomSearchType")
+                    b.Property<int?>("CustomSearchType")
                         .HasColumnType("INTEGER");
-
-                    b.Property<int>("DataDecimal")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DataLength")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DataType")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("DbDataType")
                         .HasMaxLength(50)
@@ -7605,6 +8166,12 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<string>("DictTypeCode")
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("EditComponentLength")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EditComponentType")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("EffectType")
                         .HasMaxLength(50)
@@ -7622,58 +8189,58 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsBatchEdit")
+                    b.Property<bool?>("IsBatchEdit")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsCommon")
+                    b.Property<bool?>("IsCommon")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsCreate")
+                    b.Property<bool?>("IsCreate")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsCustomSearch")
+                    b.Property<bool?>("IsCustomSearch")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsDictRequired")
+                    b.Property<bool?>("IsDictRequired")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsDictRetract")
+                    b.Property<bool?>("IsDictRetract")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsEdit")
+                    b.Property<bool?>("IsEdit")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsEditRequired")
+                    b.Property<bool?>("IsEntity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsIdentity")
+                    b.Property<bool?>("IsIdentity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsIgnore")
+                    b.Property<bool?>("IsIgnore")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsNullable")
+                    b.Property<bool?>("IsNullable")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsPrimaryKey")
+                    b.Property<bool?>("IsPrimaryKey")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsRequired")
+                    b.Property<bool?>("IsRequired")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsSearch")
+                    b.Property<bool?>("IsSearch")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsSpecialType")
+                    b.Property<bool?>("IsSpecialType")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsView")
+                    b.Property<bool?>("IsView")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Length")
@@ -7684,6 +8251,9 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("NetType")
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NetTypeRaw")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SearchType")
@@ -7699,11 +8269,14 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long?>("UpdatedTime")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ViewComponentType")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CodeGenId");
 
-                    b.ToTable("Sys_Code_Gen_Config");
+                    b.ToTable("Sys_CodeGenConfig");
                 });
 
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.EntityCodeGenerationSetting", b =>
@@ -9379,12 +9952,11 @@ namespace Gardener.Api.Core.Migrations
 
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGenConfig", b =>
                 {
-                    b.HasOne("Gardener.CodeGeneration.Domains.CodeGen", "CodeGen")
+                    b.HasOne("Gardener.CodeGeneration.Domains.CodeGen", null)
                         .WithMany("CodeGenConfigs")
                         .HasForeignKey("CodeGenId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CodeGen");
                 });
 
             modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
