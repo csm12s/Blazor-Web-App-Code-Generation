@@ -4,7 +4,7 @@
 
 ## 项目介绍
 
-园丁是基于 .net 6开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，喜欢的请点点star :kissing_heart: 。
+园丁是基于 .net 7开发的后台管理系统，系统前后台分离，api 是基于Furion 框架开发，前端是基于ant-design-blazor开发，系统使用技术或框架较新，喜欢的请点点star :kissing_heart: 。
 ## 演示地址
 用户名：admin、admin1、admin2、admin3、admin4、admin5、admin6
 
@@ -19,7 +19,7 @@ docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
 ```
 
 ## 项目特点
-- 新：.Net6 、Blazor WebAssembly 、Furion ；全部新鲜。
+- 新：.Net7 、Blazor WebAssembly 、Furion ；全部新鲜。
 - 简：功能简单实用
 
 ## 项目文档
