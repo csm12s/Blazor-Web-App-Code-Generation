@@ -5,13 +5,14 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Common;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
-using OneOf.Types;
 
 namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
@@ -127,7 +128,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer["未选中任何行"]);
+                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
                 return;
             }
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -136,7 +137,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 {
                     await resourceFunctionService.Delete(this.Options.Resource.Id, item.Id);
                 }
-                messageService.Success(localizer.Combination("删除", "成功"));
+                messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 await OnInitializedAsync();
             }
         }
@@ -146,7 +147,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private async Task OnShowFunctionAddPageClick(ResourceDto resource)
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                $"{localizer["绑定接口"]}-[{this.Options.Name}]",
+                $"{localizer["BindingApi"]}-[{this.Options.Name}]",
                      new ResourceFunctionEditOption { Resource = resource, Type = 1 },
                      width: 1300,
             onClose: async result =>
@@ -171,7 +172,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer["未选中任何行"]);
+                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
                 return;
             }
             _bindLoading = true;
@@ -187,12 +188,12 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             }).ToList());
             if (result)
             {
-                messageService.Success(localizer.Combination("绑定", "成功"));
+                messageService.Success(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Success));
                 await base.CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination("绑定", "失败"));
+                messageService.Error(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Fail));
             }
             _bindLoading=false;
         }
@@ -209,13 +210,13 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             {
                 dto.Id
             };
-            resourceIds.AddRange(TreeTools.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
+            resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
 
             string data = await resourceFunctionService.GetSeedData(resourceIds);
 
             await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
-                       localizer["种子数据"],
+                       localizer[SharedLocalResource.SeedData],
                        data,
                        width: 1300);
         }

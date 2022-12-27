@@ -116,9 +116,26 @@ namespace Gardener.Common
         /// <param name="memberInfo">要检查的类型成员</param>
         /// <param name="inherit">是否从继承中查找</param>
         /// <returns>是否存在</returns>
-        public static bool HasAttribute<T>(this MemberInfo memberInfo, bool inherit = true) where T : Attribute
+        public static bool HasAttribute<T>(this MemberInfo type, bool inherit = true) where T : Attribute
         {
-            return memberInfo.IsDefined(typeof(T), inherit);
+            object[] attributes = type.GetCustomAttributes(false);
+
+            foreach (Attribute attr in attributes)
+            {
+
+                //判断Attribute 中是否 为 UniqueColumnAttribute
+
+                if (attr is T)
+                {
+                    return true;
+
+                }
+
+            }
+            return false;
+
+
+            //return memberInfo.IsDefined(typeof(T), inherit);
         }
 
         /// <summary>

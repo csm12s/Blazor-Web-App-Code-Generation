@@ -1,4 +1,4 @@
-﻿@inherits ListTableBase<ClientDto, Guid, ClientEdit>
+﻿@inherits ListOperateTableBase<ClientDto, Guid, ClientEdit>
 @page "/system_manager/client"
 <div>
     <Table @ref="_table"
@@ -19,7 +19,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_client_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer["删除选中"]
+                            @localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -28,14 +28,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_client_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @localizer["添加"]
+                                    @localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_client_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer["刷新"]
+                                    @localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -66,28 +66,28 @@
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_client_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["编辑"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_client_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["详情"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_client_show_function">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["绑定接口"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer["BindingApi"])" ArrowPointAtCenter="true">
                                 <Button Icon="api" Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_client_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["删除"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

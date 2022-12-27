@@ -1,0 +1,15 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\@(Model.AppName)\@(Model.AppName).csproj" />
+  </ItemGroup>
+
+</Project>
+

@@ -259,6 +259,33 @@ namespace Gardener.Common
             return null;
         }
 
+        /// <summary>
+        /// 检查 Object 是否为 NULL
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this object value)
+        {
+            return value == null || string.IsNullOrEmpty(value.ParseToString());
+        }
 
+        /// <summary>
+        /// Object to string
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ParseToString(this object obj)
+        {
+            try
+            {
+                return obj == null ? string.Empty : obj.ToString();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        // End
     }
 }

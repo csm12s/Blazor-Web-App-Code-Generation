@@ -25,6 +25,7 @@ namespace Gardener.SysTimer.Impl
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // 开启自启动定时任务
+//TODO: 这里在项目最初打开的时候有时会报错
             App.GetService<ISysTimerService>().StartTimerJob();
         }
     }

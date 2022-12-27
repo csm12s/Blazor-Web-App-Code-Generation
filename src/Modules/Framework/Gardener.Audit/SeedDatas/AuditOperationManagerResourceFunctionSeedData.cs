@@ -8,7 +8,7 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
 
 namespace Gardener.Audit.SeedDatas
 {

@@ -71,7 +71,7 @@ namespace Gardener.Authentication.Core
             Identity identity = new Identity();
             identity.Id = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             identity.Name = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
-            identity.GivenName = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.GivenName);
+            identity.NickName = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.GivenName);
             string identityType = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.IdentityType);
             identity.IdentityType = Enum.Parse<IdentityType>(identityType, true);
             identity.LoginId = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.ClientIdKeyName);

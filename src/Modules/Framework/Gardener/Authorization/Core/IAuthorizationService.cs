@@ -35,5 +35,11 @@ namespace Gardener.Authorization.Core
         /// </summary>
         /// <returns></returns>
         object GetIdentityId();
+
+        /// <summary>
+        /// 判断是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> IsSuperAdministrator();
     }
 }

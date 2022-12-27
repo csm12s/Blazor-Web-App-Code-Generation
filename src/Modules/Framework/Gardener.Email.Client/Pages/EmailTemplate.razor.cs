@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Email.Dtos;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailTemplate : ListTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
+    public partial class EmailTemplate : ListOperateTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
     {
         protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
         {
@@ -25,7 +27,7 @@ namespace Gardener.Email.Client.Pages
         protected async Task OnClickSend(Guid id)
         {
             OperationDialogInput<Guid> input = OperationDialogInput<Guid>.IsSelect(id);
-            await OpenOperationDialogAsync<EmailTemplateTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(localizer["发送"], input);
+            await OpenOperationDialogAsync<EmailTemplateTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(localizer[SharedLocalResource.Send], input);
         }
     }
 }

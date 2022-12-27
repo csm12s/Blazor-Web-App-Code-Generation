@@ -14,12 +14,12 @@ using Gardener.UserCenter.Services;
 using Gardener.Client.Base.Components;
 using Gardener.Base;
 using Microsoft.AspNetCore.Components.Web;
-using AntDesign.Charts;
 using Gardener.Client.Base;
+using Gardener.Base.Resources;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class User : ListTableBase<UserDto, int, UserEdit>
+    public partial class User : ListOperateTableBase<UserDto, int, UserEdit>
     {
         private Tree<DeptDto> _deptTree;
         private List<DeptDto> depts;
@@ -82,8 +82,8 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             if (_currentDeptId > 0)
             {
-                var node = TreeTools.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
-                List<int> ids = TreeTools.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                var node = TreeHelper.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
+                List<int> ids = TreeHelper.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
                 if (ids != null)
                 {
                     pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
@@ -97,7 +97,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="userId"></param>
         private async Task OnEditUserRoleClick(int userId)
         {
-            await OpenOperationDialogAsync<UserRoleEdit, int, bool>(localizer["设置角色"], userId, async r =>
+            await OpenOperationDialogAsync<UserRoleEdit, int, bool>(localizer["SettingRoles"], userId, async r =>
             {
                 await ReLoadTable();
             },width:500);
@@ -112,7 +112,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             OperationDialogSettings settings = base.GetOperationDialogSettings();
             settings.Width = 300;
             settings.DrawerPlacement = Placement.Left;
-            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(localizer["上传头像"],
+            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(localizer[SharedLocalResource.UplaodAvatar],
                 new UserUploadAvatarParams
                 {
                     User = user,

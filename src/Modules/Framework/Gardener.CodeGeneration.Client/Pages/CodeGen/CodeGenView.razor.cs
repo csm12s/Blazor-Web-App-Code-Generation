@@ -1,0 +1,222 @@
+﻿using AntDesign;
+using Gardener.Base;
+using Gardener.Base.Resources;
+using Gardener.Client.Base;
+using Gardener.Client.Base.Components;
+using Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
+using Gardener.CodeGeneration.Resources;
+using Gardener.CodeGeneration.Dtos;
+using Gardener.CodeGeneration.Services;
+using Gardener.Common;
+using Gardener.Enums;
+using Gardener.SystemManager.Services;
+using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
+
+public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGenEdit, CodeGenLocalResource>
+{
+    protected bool _generatesBtnLoading = false;
+
+    // Custom search
+    protected CodeGenSearchDto _searchDto = new();
+    private List<SelectItem> _select_TableName = new();
+    [Inject]
+    private ICodeGenService codeGenClientService { get; set; }
+    [Inject]
+    private ICodeGenConfigService codeGenConfigService { get; set; }
+
+    [Inject]
+    private IResourceService resourceService { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dialogSettings"></param>
+    protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
+    {
+        dialogSettings.Width = 1000;
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        // table select
+        var tableInfos = await codeGenClientService.GetTableListAsync();
+        _select_TableName = tableInfos.ToSelectItems
+            (it => it.TableName, it => it.ClientSelectLabelText);
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task OnClickConfigure(int id)
+    {
+        await OpenOperationDialogAsync
+            <CodeGenConfigView, int, bool>
+            (localizer[SharedLocalResource.Setting], id, async result =>
+        {
+            //await ReLoadTable();
+        }, width: 1800);
+
+    }
+
+    private async Task OnClickGenerate(int codeGenId)
+    {
+        StartLoading();
+        List<int> codeGenIds = new List<int>();
+        codeGenIds.Add(codeGenId);
+
+        var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
+        StopLoading();
+
+        if (success)
+        { 
+            await messageService.Success(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+        }
+        else
+        {
+            await messageService.Error(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+        }
+        
+    }
+
+    private async Task OnClickGenerateMenu(int codeGenId)
+    {
+        StartLoading();
+
+        var codeGenDto = await _service.Get(codeGenId);
+        var menuKey = codeGenDto.Module + "_" + codeGenDto.ClassName;
+
+        var allMenus = await resourceService.GetAll();
+        
+        // 这里也可以从后端获取
+        var oldMenus = allMenus.Where(it => it.Key == menuKey).ToList();
+        var oldMenuButtons = allMenus
+            .Where(it => it.Key.StartsWith(menuKey + "_")).ToList();
+        oldMenus.AddRange(oldMenuButtons);
+
+        var title = localizer[CodeGenLocalResource.IsContinue];
+        var menuInfoStr = "将添加以下菜单：" + menuKey + "\r\n";
+        if (oldMenus.Any())
+        {
+            menuInfoStr += "将删除以下菜单: \r\n";
+            foreach (var item in oldMenus)
+            {
+                menuInfoStr += string.Format("名称：{0}，Key：{1}。\r\n", localizer[item.Name], item.Key);
+            }
+        }
+
+        // TODO: 文本不能换行
+        if (await confirmService.YesNo(title, menuInfoStr) == ConfirmResult.Yes)
+        {
+            var success = await codeGenClientService.GenerateMenu(codeGenId);
+            
+            if (success)
+            {
+                await messageService.Success(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+            }
+            else
+            {
+                await messageService.Error(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+            }
+           
+        }
+
+        StopLoading();
+    }
+
+    private async Task OnClickGenerateLocale(int codeGenId)
+    {
+        StartLoading();
+
+        var codeGenDto = await _service.Get(codeGenId);
+
+        var title = localizer[CodeGenLocalResource.IsContinue];
+        var message = localizer["MlLgWBeImp"];
+        if (await confirmService.YesNo(title, message) == ConfirmResult.Yes)
+        {
+            var success = await codeGenClientService.GenerateLocale(codeGenId);
+            if (success)
+            {
+                await messageService.Success(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+            }
+            else
+            {
+                await messageService.Error(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+            }
+        }
+
+        StopLoading();
+    }
+    private async Task DoSearch()
+    {
+        _customSearchFilterGroups = GetCustomSearchFilterGroups(_searchDto);
+
+        await ReLoadTable(true);
+    }
+
+    protected virtual async Task OnClickGenerates()
+    {
+        if (_selectedRows == null || _selectedRows.Count() == 0)
+        {
+            messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+        }
+        else
+        {
+            _generatesBtnLoading = true;
+            if (await confirmService.YesNo(localizer[CodeGenLocalResource.BatchGenerate], CodeGenLocalResource.IsContinue) == ConfirmResult.Yes)
+            {
+                var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
+                if (success)
+                {
+                    await messageService.Success(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+                }
+                else
+                {
+                    await messageService.Error(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+                }
+               
+            }
+            _generatesBtnLoading = false;
+        }
+    }
+
+    private async Task OnDownloadConfigSeedDataClick()
+    {
+        var codeGens = await _service.GetAll();
+        var codeGenIds = codeGens.Select(it=>it.Id).ToList();
+
+        string data = await codeGenConfigService.GenerateSeedData(new PageRequest()
+        {
+            PageIndex = 1,
+            PageSize = int.MaxValue,
+            FilterGroups = new List<FilterGroup>()
+                {
+                   new FilterGroup().AddRule(new FilterRule()
+                   {
+                        Field=nameof(CodeGenConfigDto.CodeGenId),
+                        Operate=FilterOperate.In,
+                        Value=codeGenIds
+                   })
+                },
+            OrderConditions = new List<ListSortDirection>()
+                {
+                    new ListSortDirection()
+                    {
+                        FieldName=nameof(CodeGenConfigDto.Id),
+                        SortType=ListSortType.Asc
+                    }
+                }
+        });
+
+        await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+                    localizer[SharedLocalResource.SeedData],
+                    data,
+                    width: 1500);
+    }
+
+    private async Task OpenCodeGenFolder()
+    {
+        await codeGenClientService.OpenCodeGenFolder();
+    }
+}

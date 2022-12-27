@@ -60,7 +60,7 @@ namespace Gardener.Authorization.Core
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        private async Task<bool> IsSuperAdministrator(int userId) 
+        public async Task<bool> IsSuperAdministrator(int userId) 
         {
             IRepository<User> _userRepository = Db.GetRepository<User>();
             //超管

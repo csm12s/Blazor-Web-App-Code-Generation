@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
@@ -13,7 +14,7 @@ namespace Gardener.Client.Base
     {
         public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title, string content, ConfirmIcon confirmIcon = ConfirmIcon.Info, string btn1Text = "确定", string btn2Text = "取消", string btn3Text = "")
         {
-          return  await confirmService.Show(content, title, ConfirmButtons.YesNo, confirmIcon, new ConfirmButtonOptions()
+            return await confirmService.Show(content, title, ConfirmButtons.YesNo, confirmIcon, new ConfirmButtonOptions()
             {
                 Button1Props = new ButtonProps
                 {
@@ -28,12 +29,12 @@ namespace Gardener.Client.Base
 
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService, string title, string content)
         {
-            return await confirmService.YesNo(title, content, ConfirmIcon.Question, LocalizerUtil.GetValue("确定"), LocalizerUtil.GetValue("取消"));
+            return await confirmService.YesNo(title, content, ConfirmIcon.Question, LocalizerUtil.GetValue(SharedLocalResource.Yes), LocalizerUtil.GetValue(SharedLocalResource.Cancel));
         }
 
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService)
         {
-            return await confirmService.YesNoDelete(LocalizerUtil.GetValue("删除"), string.Format(LocalizerUtil.GetValue("确定要执行{0}吗?"), LocalizerUtil.GetValue("删除", true)));
+            return await confirmService.YesNoDelete(LocalizerUtil.GetValue(SharedLocalResource.Delete), LocalizerUtil.GetValue(SharedLocalResource.OperateConfirmMessage));
         }
     }
 }

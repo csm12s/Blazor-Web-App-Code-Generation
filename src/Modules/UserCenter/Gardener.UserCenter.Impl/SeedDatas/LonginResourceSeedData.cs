@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
 using Gardener.Base.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,7 +28,7 @@ namespace Gardener.UserCenter.Impl.SeedDatas
         public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[]{
-                new Resource() {Name="登录",Key="system_login",Remark="登录系统",Path="",Icon="",Order=0,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Action"),IsLocked=false,IsDeleted=false,CreatorIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2021-11-09 07:41:45"),Id=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),},
+                new Resource() {Name="登录",Key="system_login",Remark="登录系统",Path="",Icon="",Order=0,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Action"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2021-11-09 07:41:45"),Id=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),},
          };
         }
     }

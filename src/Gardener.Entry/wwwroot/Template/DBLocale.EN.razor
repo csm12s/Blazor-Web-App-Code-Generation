@@ -1,0 +1,11 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+
+@foreach (var item in Model.LocaleItems)
+{
+    <data name="@(item.Key)" xml:space="preserve">
+        <value>@(item.ValueEN)</value>
+    </data>
+}
+
+

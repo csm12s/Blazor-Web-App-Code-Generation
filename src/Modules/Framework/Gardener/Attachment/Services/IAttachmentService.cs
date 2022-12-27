@@ -17,6 +17,8 @@ namespace Gardener.Attachment.Services
     /// </summary>
     public interface IAttachmentService : IServiceBase<AttachmentDto, Guid>
     {
+        Task<string> GetRemoteImage(string remoteFilePath);
+
         /// <summary>
         /// 
         /// </summary>

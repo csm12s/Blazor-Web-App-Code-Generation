@@ -1,0 +1,34 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using System.ComponentModel;
+using SqlSugar;
+
+namespace @(Model.AppName).@(Model.Module).Server.Model;
+
+/// <summary>
+/// @Model.TableDesc
+/// </summary>
+[SugarTable("@Model.TableName", IsCreateTableFiledSort = true)]
+public partial class @Model.ClassName : @(Model.Module)BaseModel
+{
+    public @(Model.ClassName)() { }
+
+    #region Base
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+	    var isPrimaryKeyStr = item.IsPrimaryKey ? ", IsPrimaryKey = true" : "";
+	    var isIdentityStr = item.IsIdentity ? ", IsIdentity = true" : "";
+	    var isIgnoreStr = (item.IsIgnore ? ", IsIgnore = true" : "");
+        var isJsonStr = "";//(item.CodeType.StartsWith("json") ? ", IsJson= true" : "");
+        var columnDataTypeStr = (!string.IsNullOrEmpty(item.DbDataTypeText)?
+                "ColumnDataType = \"" + item.DbDataTypeText + "\""
+                : "");
+
+        @: /// <summary>
+        @: /// @item.ColumnSummary
+        @: /// </summary>
+        @: [SugarColumn(ColumnName="@item.ColumnName", ColumnDescription = "@item.ColumnDescription" @(columnDataTypeStr) @(isPrimaryKeyStr) @(isIdentityStr) @(isIgnoreStr) @(isJsonStr))]
+        @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+    }
+	#endregion
+}

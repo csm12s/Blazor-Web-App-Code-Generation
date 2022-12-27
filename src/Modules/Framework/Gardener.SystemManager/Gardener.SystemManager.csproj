@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
     <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
+    <ProjectReference Include="..\Gardener.EntityFramwork\Gardener.EntityFramwork.csproj" />
   </ItemGroup>
 
 </Project>

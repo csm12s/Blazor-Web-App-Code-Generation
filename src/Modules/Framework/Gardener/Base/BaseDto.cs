@@ -10,6 +10,13 @@ using System.ComponentModel;
 
 namespace Gardener.Base
 {
+    public abstract class TenantBaseDto<TKey, TKey_TenantId> : BaseDto<TKey>
+    {
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public virtual TKey_TenantId TenantId { get; set; }
+    }
     /// <summary>
     /// dto基础类
     /// </summary>

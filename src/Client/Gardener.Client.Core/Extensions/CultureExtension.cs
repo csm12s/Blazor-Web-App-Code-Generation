@@ -9,6 +9,7 @@ using Gardener.Client.Base.Constants;
 using Gardener.Client.Core.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Gardener.Client.Core
 {
     public static class CultureExtension
     {
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -30,17 +31,22 @@ namespace Gardener.Client.Core
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;
             CultureInfo.CurrentUICulture = culture;
-            //
-            LocalizerUtil.Localizer = host.Services.GetRequiredService<IClientLocalizer>();
+            LocalizerUtil.Services = host.Services;
             return host;
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="host"></param>
-        public static IServiceCollection AddCulture<T>(this IServiceCollection services)
+        /// <param name="services"></param>
+        /// <param name="isDefault">是否是默认的资源</param>
+        public static IServiceCollection AddCulture<T>(this IServiceCollection services, bool isDefault = false)
         {
-            services.AddScoped<IClientLocalizer, ClientLocalizer<T>>();
+            //默认的
+            if (isDefault)
+            {
+                services.TryAddScoped<IClientLocalizer, ClientSharedLocalizer<T>>();
+            }
+            services.AddScoped<IClientLocalizer<T>, ClientLocalizer<T>>();
             return services;
         }
     }

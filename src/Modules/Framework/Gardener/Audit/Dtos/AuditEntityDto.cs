@@ -38,7 +38,7 @@ namespace Gardener.Audit.Dtos
         /// 操作类型
         /// </summary>
         [DisplayName("操作类型")]
-        public EntityOperationType OperationType { get; set; }
+        public EntityOperateType OperationType { get; set; }
         /// <summary>
         /// 操作者编号
         /// </summary>

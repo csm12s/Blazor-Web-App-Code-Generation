@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;
@@ -179,11 +180,11 @@ namespace Gardener.Client.WPF.Pages
             chatData.NickName = "系统";
             if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Online))
             {
-                chatData.Message = $"{notificationData.Identity.GivenName} 刚刚上线了。IP:[{notificationData.Ip}]";
+                chatData.Message = $"{notificationData.Identity.NickName} 刚刚上线了。IP:[{notificationData.Ip}]";
             }
             else if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Offline))
             {
-                chatData.Message = $"{notificationData.Identity.GivenName} 刚刚离线了。IP:[{notificationData.Ip}]";
+                chatData.Message = $"{notificationData.Identity.NickName} 刚刚离线了。IP:[{notificationData.Ip}]";
             }
             await ShowMessage(chatData);
         }
@@ -256,12 +257,12 @@ namespace Gardener.Client.WPF.Pages
                 else
                 {
                     messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messageService.Error(localizer["上传失败"]);
+                    messageService.Error(localizer[SharedLocalResource.UploadFail]);
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-                messageService.Error(localizer["上传失败"]);
+                messageService.Error(localizer[SharedLocalResource.UploadFail]);
             }
         }
     }

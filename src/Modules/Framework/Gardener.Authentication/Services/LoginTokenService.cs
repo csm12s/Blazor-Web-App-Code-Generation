@@ -9,6 +9,7 @@ using Furion.DatabaseAccessor;
 using Gardener.Authentication.Domains;
 using Gardener.Authentication.Dtos;
 using Gardener.Base;
+using Gardener.EntityFramwork;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System;

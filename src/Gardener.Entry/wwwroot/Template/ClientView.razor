@@ -1,0 +1,235 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+@using Gardener.Base
+@using Gardener.Enums
+
+@@page "/@Model.Module/@Model.ClassName"
+@@using Gardener.Base
+@@inherits @(Model.Module)BaseTable<@(Model.ClassName)Dto, @(Model.ClassName)Edit>
+
+<div>
+    <h5>
+        @@if (_selectedRows != null && _selectedRows.Count() > 0)
+        {
+            <p>
+                @@localizer["Tatal"]: @@_total, @@localizer["Selected"]: @@_selectedRows.Count()
+                <Button Danger Size="small" OnClick="@@(e => { _table.SetSelection(null); })">
+                    @@localizer["Clear"]
+                </Button>
+            </p>
+        }
+    </h5>
+    <Table @@ref="_table"
+           Context="model"
+           TItem="@(Model.ClassName)Dto"
+           DataSource="@@_datas"
+           Total="_total"
+           OnChange="@@OnChange"
+           ScrollX="1500"
+           @@bind-PageIndex="_pageIndex"
+           @@bind-PageSize="_pageSize"
+           @@bind-SelectedRows="_selectedRows"
+           Loading="@@_tableIsLoading"
+           RemoteDataSource>
+
+        @@*Search Field*@@
+        <TitleTemplate>
+            <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthItems.Search))>
+                <TableSearch TDto="@(Model.ClassName)SearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                @@*Custom Search*@@
+                @if(Model.HasCustomSearch)
+                {
+                <Row>
+                    <AntDesign.Col Span="18">
+                        <Space Direction="@@DirectionVHType.Vertical" Style="width: 100%">
+                            <Space Size=@@(("8", "16")) Wrap>
+                        @foreach (var item in Model.CodeGenConfigs)
+                        {
+                            @if (!item.IsCustomSearch) continue;
+
+                            @switch (item.CustomSearchType)
+                            {
+                                case ClientComponentType.Select:
+                                <SpaceItem>
+                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                    <Select Mode="single"
+                                        Style="width:@(item.CustomSearchLength)px;"
+                                            DataSource="@@_select_@(item.NetColumnName)"
+                                            @@bind-Value="@@_searchDto.@item.NetColumnName"
+                                            ValueName="@@nameof(SelectItem.ValueName)"
+                                            LabelName="@@nameof(SelectItem.LabelName)"
+                                            TItem="SelectItem"
+                                            TItemValue="string"
+                                            EnableSearch
+                                            AllowClear>
+                                    </Select>
+                                </SpaceItem>
+                                break;
+                                case ClientComponentType.MultiSelect:
+                                <SpaceItem>
+                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                    <Select Mode="multiple"
+                                        Style="width:@(item.CustomSearchLength)px;"
+                                            DataSource="@@_select_@(item.NetColumnName)"
+                                            @@bind-Values="@@_searchDto.@item.NetColumnName"
+                                            ValueName="@@nameof(SelectItem.ValueName)"
+                                            LabelName="@@nameof(SelectItem.LabelName)"
+                                            TItem="SelectItem"
+                                            TItemValue="string"
+                                            EnableSearch
+                                            AllowClear>
+                                    </Select>
+                                </SpaceItem>
+                                break;
+                                default: @*Input*@
+                                <SpaceItem>
+                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
+                                    <Input Style="@@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
+                                           @@bind-Value="@@_searchDto.@item.NetColumnName"></Input>
+                                </SpaceItem>
+                                break;
+                            }
+                        }
+                            </Space>
+                        </Space>
+                    </AntDesign.Col>
+                </Row>
+                }
+            </ResourceAuthorize>
+            <Row>
+                <AntDesign.Col Span="8">
+                    @if(Model.CodeGen.HasBatchDelete)
+                    {
+                    <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthItems.Delete))>
+                        <Button Type="@@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                            @@localizer["DeleteSelected"]
+                        </Button>
+                    </ResourceAuthorize>
+                    }
+                </AntDesign.Col>
+                <AntDesign.Col Span="16" Style="text-align:right">
+                    <Space>
+                        @if(Model.CodeGen.HasAdd)
+                        {
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Add)>
+                            <SpaceItem>
+                                <Button Type="@@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                    @@localizer[SharedLocalResource.Add]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                        }
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
+                            <SpaceItem>
+                                <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                    @@localizer[SharedLocalResource.Refresh]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+        </TitleTemplate>
+
+        @@*Main Table*@@
+        <RowTemplate>
+            <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
+                @if(Model.CodeGen.PrimaryKeyType == "string")
+                {
+                    <Selection Key="@@(model.@(Model.CodeGen.PrimaryKeyName))" />
+                }
+                else
+                {
+                    <Selection Key="@@(model.@(Model.CodeGen.PrimaryKeyName).ToString())" />
+                }
+            </ResourceAuthorize>
+            
+            @foreach (var item in Model.CodeGenConfigs)
+            {
+                @if (!item.IsView) continue;
+
+                @switch (item.ViewComponentType)
+                {
+                    case ClientComponentType.DateTime:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
+                    break;
+                    case ClientComponentType.TagEnum:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Filters="TableFiltersConstants.(@item.NetColumnName)Filters" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                        <TagPro Text="@@model.@item.NetColumnName"></TagPro>
+                    </Column>
+                    break;
+                    case ClientComponentType.TagYesNo:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                        <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
+                    </Column>
+                    break;
+                    case ClientComponentType.Switch:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Filterable>
+                        @if(Model.CodeGen.HasEdit)
+                        {
+                        <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
+                            <Authorized>
+                                <Switch @@bind-Value="@@model.@item.NetColumnName"></Switch>
+                            </Authorized>
+                            <NotAuthorized>
+                                <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
+                            </NotAuthorized>
+                        </ResourceAuthorize>
+                        }else
+                        {
+                        <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
+                        }
+                    </Column>
+                    break;
+                    case ClientComponentType.Image:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                        <Image Src="@@model.@item.NetColumnName"/>
+                    </Column>
+                    break;
+                    case ClientComponentType.RemoteImage:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                        <Image Src="@@model.@(item.NetColumnName)_Data"/>
+                    </Column>
+                    break;
+                    default:
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />
+                    break;
+                }
+            }
+            
+            @@*Action Column*@@
+            <ActionColumn Title=@@localizer["Action"] Fixed="right">
+                <Space>
+                    @if(Model.CodeGen.HasEdit)
+                    {
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickEdit(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
+                                @@localizer[SharedLocalResource.Edit]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    }
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickDetail(model.@(Model.CodeGen.PrimaryKeyName))" Type="@@ButtonType.Link">
+                                @@localizer["Detail"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    @if(Model.CodeGen.HasDelete)
+                    {
+                    <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Delete)>
+                        <SpaceItem>
+                            <Button OnClick="()=>OnClickDelete(model.@(Model.CodeGen.PrimaryKeyName))"  Danger Type="@@ButtonType.Link">
+                                @@localizer["Delete"]
+                            </Button>
+                        </SpaceItem>
+                    </ResourceAuthorize>
+                    }
+                </Space>
+            </ActionColumn>
+        </RowTemplate>
+    </Table>
+</div>
+

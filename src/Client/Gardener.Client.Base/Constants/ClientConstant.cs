@@ -62,6 +62,7 @@ namespace Gardener.Client.Base.Constants
             DialogType= OperationDialogType.Modal,
         };
 
+        public readonly static int PageOperationDialogWidth = 1200;//1080;//960;
         /// <summary>
         /// 启用多标签
         /// </summary>

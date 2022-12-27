@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Email.Dtos;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailServerConfig : ListTableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit>
+    public partial class EmailServerConfig : ListOperateTableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit>
     {
         /// <summary>
         /// 点击发送按钮
@@ -22,7 +24,7 @@ namespace Gardener.Email.Client.Pages
         {
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             OperationDialogInput<Guid> input = OperationDialogInput<Guid>.IsSelect(id);
-            await OpenOperationDialogAsync<EmailServerConfigTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(localizer["发送"], input);
+            await OpenOperationDialogAsync<EmailServerConfigTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(localizer[SharedLocalResource.Send], input);
         }
     }
 }

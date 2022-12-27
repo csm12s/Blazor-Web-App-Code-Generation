@@ -28,9 +28,9 @@ namespace Gardener.Client.WPF
 
             // 设置全屏
             this.WindowState = WindowState.Normal;
-            this.WindowStyle = WindowStyle.None;
-            this.ResizeMode = ResizeMode.NoResize;
-            this.Topmost = true;
+            //this.ResizeMode = ResizeMode.NoResize;
+            //this.WindowStyle = WindowStyle.None;
+            //this.Topmost = true;
 
             this.Left = 0.0;
             this.Top = 0.0;

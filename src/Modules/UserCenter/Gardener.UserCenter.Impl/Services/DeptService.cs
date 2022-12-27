@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Gardener.UserCenter.Services;
+using Gardener.EntityFramwork;
 
 namespace Gardener.UserCenter.Impl.Services
 {

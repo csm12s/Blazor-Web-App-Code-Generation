@@ -33,7 +33,7 @@ namespace Gardener.Authentication.Dtos
         /// 身份昵称
         /// </summary>
         [DisplayName("身份昵称")]
-        public string IdentityGivenName { get; set; }
+        public string IdentityNickName { get; set; }
 
         /// <summary>
         /// 身份类型

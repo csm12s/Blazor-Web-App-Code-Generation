@@ -22,7 +22,7 @@ namespace Gardener.Audit.Client.Pages
         /// <returns></returns>
         private async Task OnDetailClick(AuditEntityDto auditEntity)
         {
-          await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(localizer["字段变更详情"], new[] { auditEntity }, width: 960);
+          await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(localizer["FieldChangeDetails"], new[] { auditEntity }, width: 960);
         }
     }
 }

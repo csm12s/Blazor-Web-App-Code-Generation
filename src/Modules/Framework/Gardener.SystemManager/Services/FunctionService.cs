@@ -6,7 +6,8 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
+using Gardener.EntityFramwork;
 using Gardener.SystemManager.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;

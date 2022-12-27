@@ -8,9 +8,9 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
-using Gardener.Base.Domains;
 using Gardener.Enums;
 using Gardener.Authentication.Enums;
+using Gardener.Base.Entity;
 
 namespace Gardener.Audit.SeedDatas
 {
@@ -42,7 +42,7 @@ namespace Gardener.Audit.SeedDatas
                 new Function() {Group="系统基础服务",Service="审计操作服务",Summary="搜索",Key="704D356B44E6DEA692BA099781A321DD",Description="搜索数据",Path="/api/audit-operation/search",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=false,Id=Guid.Parse("db76ae46-851b-47bc-94be-b2e869043636"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="审计操作服务",Summary="锁定",Key="6999F8BBB5F9BA97658BB99113A381F5",Description="根据主键锁定或解锁数据（必须有IsLock才能生效）",Path="/api/audit-operation/{id}/lock/{islocked}",Method=Enum.Parse<HttpMethod>("PUT"),EnableAudit=true,Id=Guid.Parse("eefdb20f-b508-415a-b798-1aa9420a5b62"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="审计操作服务",Summary="删除",Key="AD48018AF04E0A4573815675E555E98D",Description="根据主键删除一条数据",Path="/api/audit-operation/{id}",Method=Enum.Parse<HttpMethod>("DELETE"),EnableAudit=true,Id=Guid.Parse("ffbd98b8-8945-4068-b70c-ea58b487bd25"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
-                new Function() {Group="系统基础服务",Service="审计操作服务",Summary="导出",Key="0F54F5EA3FD76F2067A9C26F6A1D139B",Description="导出数据",Path="/api/audit-operation/export",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,IsLocked=false,IsDeleted=false,CreatorId="1",CreatorIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:25:20"),Id=Guid.Parse("5df6ccb0-8985-4767-9ff2-b306d791194e"),},
+                new Function() {Group="系统基础服务",Service="审计操作服务",Summary="导出",Key="0F54F5EA3FD76F2067A9C26F6A1D139B",Description="导出数据",Path="/api/audit-operation/export",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,IsLocked=false,IsDeleted=false,CreateBy="1",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-08-19 18:25:20"),Id=Guid.Parse("5df6ccb0-8985-4767-9ff2-b306d791194e"),},
          };
         }
     }

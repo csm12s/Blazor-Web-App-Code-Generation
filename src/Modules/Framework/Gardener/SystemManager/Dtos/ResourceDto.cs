@@ -6,6 +6,7 @@
 
 using Gardener.Base;
 using Gardener.Base.Enums;
+using Gardener.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,10 +18,11 @@ namespace Gardener.SystemManager.Dtos
     /// 资源
     /// </summary>
     [Description("资源信息")]
-    public class ResourceDto: BaseDto<Guid>
+    public class ResourceDto: BaseDto<Guid>, ITreeNode<ResourceDto>
     {
         /// <summary>
         /// 名称
+        /// Locale Key
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("名称")]

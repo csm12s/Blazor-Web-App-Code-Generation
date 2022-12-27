@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="SqlSugarCore" Version="5.1.3.41" />
+		<PackageReference Include="Furion" Version="4.8.3.10" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.24" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
+	  <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
+	  <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
+	  <ProjectReference Include="..\Gardener\Gardener.csproj" />
+	</ItemGroup>
+
+</Project>

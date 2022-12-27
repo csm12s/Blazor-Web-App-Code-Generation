@@ -1,0 +1,13 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using Furion.DependencyInjection;
+using Gardener.@(Model.Module).Server.Model;
+
+namespace Gardener.@(Model.Module)
+{
+    public interface I@(Model.Module)@(Model.ClassName)Service: I@(Model.Module)BaseService<@(Model.Module)@(Model.ClassName)>,
+        ITransient
+    {
+    }
+}
+

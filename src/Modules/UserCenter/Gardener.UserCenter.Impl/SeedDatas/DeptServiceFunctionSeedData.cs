@@ -8,9 +8,9 @@ using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
-using Gardener.Base.Domains;
 using Gardener.Enums;
 using Gardener.Authentication.Enums;
+using Gardener.Base.Entity;
 
 namespace Gardener.UserCenter.SeedDatas
 {
@@ -43,7 +43,7 @@ namespace Gardener.UserCenter.SeedDatas
                 new Function() {Group="用户中心服务",Service="部门服务",Summary="添加",Key="3AB1D0424907EC010DC69F029B4FBD06",Description="添加一条数据",Path="/api/dept",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,Id=Guid.Parse("f5c318f6-9230-475a-830e-a404e17506b5"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="用户中心服务",Service="部门服务",Summary="批量删除",Key="951D030BDA5FAE619E5A7BB9EFB43F33",Description="根据多个主键批量删除",Path="/api/dept/deletes",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,Id=Guid.Parse("fcebd316-c2f3-4f8e-97fc-498dd3a33d4e"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="用户中心服务",Service="部门服务",Summary="获取种子数据",Key="EFFE9D726D7792B023DF91E15AA48C89",Path="/api/dept/seed-data",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("ff8621c9-1b88-4e6d-be00-34615c48c69f"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
-                new Function() {Group="用户中心服务",Service="部门服务",Summary="获取所有部门数据，以树形结构返回",Key="98B6A43EC42A6B9F1D8257EE1D05E9BB",Path="/api/dept/tree/{includelocked}",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,IsLocked=false,IsDeleted=false,CreatorId="1",CreatorIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-09-05 17:42:02"),Id=Guid.Parse("6e2ff941-1e79-4e2a-bbe9-ec68318e5d3a"),},
+                new Function() {Group="用户中心服务",Service="部门服务",Summary="获取所有部门数据，以树形结构返回",Key="98B6A43EC42A6B9F1D8257EE1D05E9BB",Path="/api/dept/tree/{includelocked}",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,IsLocked=false,IsDeleted=false,CreateBy="1",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2022-09-05 17:42:02"),Id=Guid.Parse("6e2ff941-1e79-4e2a-bbe9-ec68318e5d3a"),},
 
          };
         }

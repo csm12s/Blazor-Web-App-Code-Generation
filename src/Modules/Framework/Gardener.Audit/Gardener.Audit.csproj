@@ -1,13 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>annotations</Nullable>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Gardener.Base\Gardener.Base.csproj" />
+    <ProjectReference Include="..\Gardener.EntityFramwork\Gardener.EntityFramwork.csproj" />
+    <ProjectReference Include="..\Gardener.SystemManager\Gardener.SystemManager.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,6 +16,7 @@ using Gardener.Common.JsonConverters;
 using System;
 using Microsoft.AspNetCore.HttpOverrides;
 using AspNetCoreRateLimit;
+using Gardener.Sugar;
 
 namespace Gardener.Admin
 {
@@ -100,6 +101,12 @@ namespace Gardener.Admin
             // https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/IpRateLimitMiddleware#defining-rate-limit-rules
             services.AddInMemoryRateLimiting();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+            //SqlSugar dbSettings.json:
+            services.AddConfigurableOptions<ConnectionStringsOptions>();
+            services.AddConfigurableOptions<DefaultDbSettingsOptions>();
+            // SqlSugar
+            services.SqlSugarScopeConfigure();
         }
         /// <summary>
         /// 

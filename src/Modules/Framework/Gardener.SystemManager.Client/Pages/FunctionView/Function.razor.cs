@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Components;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
@@ -11,7 +13,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Gardener.SystemManager.Client.Pages.FunctionView
 {
-    public partial class Function : ListTableBase<FunctionDto, Guid, FunctionEdit>
+    public partial class Function : ListOperateTableBase<FunctionDto, Guid, FunctionEdit>
     {
         [Inject]
         public IFunctionService functionService { get; set; }
@@ -27,7 +29,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             if (!result)
             {
                 model.EnableAudit = !enableAudit;
-                messageService.Error((enableAudit ? "启用" : "禁用") + "失败");
+                messageService.Error((enableAudit ? "启用" : "禁用") + SharedLocalResource.Fail);
             }
         }
 
@@ -39,7 +41,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             var setting = base.GetOperationDialogSettings();
             setting.Width = 1000;
-            await OpenOperationDialogAsync<FunctionImport, int, bool>(localizer["导入"], 0, async r =>
+            await OpenOperationDialogAsync<FunctionImport, int, bool>(localizer[SharedLocalResource.Import], 0, async r =>
             {
                 await ReLoadTable();
 

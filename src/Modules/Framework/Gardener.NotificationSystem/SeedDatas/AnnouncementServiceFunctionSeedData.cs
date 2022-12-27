@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
-using Gardener.Base.Domains;
 using HttpMethod = Gardener.Enums.HttpMethod;
 
 namespace Gardener.NotificationSystem.SeedDatas

@@ -6,6 +6,8 @@
 
 using Gardener.Audit.Dtos;
 using Gardener.Audit.Services;
+using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Components;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -27,7 +29,7 @@ namespace Gardener.Audit.Client.Pages
         {
             List<AuditEntityDto>  auditEntityDtos= await auditOperationService.GetAuditEntity(id);
 
-            await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(localizer["详情"],auditEntityDtos, width: 960);
+            await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(localizer[SharedLocalResource.Detail],auditEntityDtos, width: 960);
         }
     }
 }

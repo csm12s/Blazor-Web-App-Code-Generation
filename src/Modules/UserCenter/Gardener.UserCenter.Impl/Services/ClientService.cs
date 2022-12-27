@@ -12,6 +12,7 @@ using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Dtos;
+using Gardener.EntityFramwork;
 using Gardener.Enums;
 using Gardener.SystemManager.Dtos;
 using Gardener.UserCenter.Dtos;
@@ -104,7 +105,7 @@ namespace Gardener.UserCenter.Impl.Services
                 LoginClientType = LoginClientType.Server,
                 IdentityType = IdentityType.Client,
                 Name = client.Name,
-                GivenName = client.Name
+                NickName = client.Name
             };
 
             var token = await _jwtBearerService.CreateToken(identity);

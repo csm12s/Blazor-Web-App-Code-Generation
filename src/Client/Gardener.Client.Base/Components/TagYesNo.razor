@@ -1,5 +1,7 @@
-﻿<Tag Color="@(Yes?"blue":"red")">
-    @(Yes ? localizer["是"]: localizer["否"])
+﻿@using Gardener.Base;
+@using Gardener.Base.Resources;
+<Tag Color="@(Yes?"blue":"red")">
+    @(Yes ? localizer[SharedLocalResource.Yes] : localizer[SharedLocalResource.No])
 </Tag>
 @code {
     [Inject]

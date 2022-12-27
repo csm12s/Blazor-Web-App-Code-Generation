@@ -26,7 +26,7 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 身份昵称
         /// </summary>
-        public string GivenName { get; set; }
+        public string NickName { get; set; }
         /// <summary>
         /// 身份类型
         /// </summary>
@@ -39,5 +39,9 @@ namespace Gardener.Authentication.Dtos
         /// 获取或设置 登录Id(每次登录该Id自动生成)
         /// </summary>
         public string LoginId { get; set; }
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public int TenantId { get; set; } = 0;
     }
 }

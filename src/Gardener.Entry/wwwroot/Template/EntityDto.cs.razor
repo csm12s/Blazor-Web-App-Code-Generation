@@ -1,0 +1,43 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+@using Gardener.Base
+@using Gardener.Enums
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace @(Model.AppName).@(Model.Module).Dto;
+
+/// <summary>
+/// @Model.TableSummary
+/// </summary>
+public partial class @(Model.ClassName)Dto : @(Model.Module)BaseDto
+{
+    #region Base
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        @if(item.IsCommon) continue;
+
+        var maxLengthStr = (item.NetType.Contains("string") 
+            && item.Length != null
+            && item.Length != -1)?
+            "[MaxLength(" + item.Length.ToString() + ")]" 
+            : "";
+
+        @: /// <summary>
+        @: /// @item.ColumnSummary
+        @: /// </summary>
+        @if(item.IsRequired)
+        {
+        @:[Required]
+        }
+        @:@maxLengthStr
+        @: public @Raw(item.NetType) @item.NetColumnName { get; set; }
+        
+        @if(item.ViewComponentType == ClientComponentType.RemoteImage)
+        {
+        @: public @Raw(item.NetType) @(item.NetColumnName)_Data { get; set; }
+        }
+    }
+	#endregion
+}
+

@@ -1,0 +1,139 @@
+﻿@page "/system_tool/code_gen"
+@using Gardener.CodeGeneration.Resources;
+@inherits ListOperateTableBase<CodeGenDto, int, CodeGenEdit,CodeGenLocalResource>
+
+<div>
+    <Table @ref="_table"
+           TItem="CodeGenDto"
+           DataSource="@_datas"
+           Total="_total"
+           OnChange="@OnChange"
+    @bind-PageIndex="_pageIndex"
+    @bind-PageSize="_pageSize"
+    @bind-SelectedRows="_selectedRows"
+           Loading="@_tableIsLoading"
+           Context="model"
+           RemoteDataSource>
+        <TitleTemplate>
+            <TableSearch TDto="CodeGenSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="localizer"></TableSearch>
+            @*Custom Search*@
+            <Row>
+                <AntDesign.Col Span="24">
+                    <Space>
+                        <SpaceItem>
+                            <span>@localizer[CodeGenLocalResource.TableName]: </span>
+                            <Select Mode="multiple"
+                                    DataSource="@_select_TableName"
+                            @bind-Values="@_searchDto.TableName"
+                                    ValueName="@nameof(SelectItem.ValueName)"
+                                    LabelName="@nameof(SelectItem.LabelName)"
+                                    TItem="SelectItem"
+                                    TItemValue="string"
+                                    EnableSearch
+                                    AllowClear
+                                    Style="width:200px">
+                            </Select>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <span>@localizer[CodeGenLocalResource.ClassName]: </span>
+                            <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
+                            @bind-Value="@_searchDto.ClassName"></Input>
+                        </SpaceItem>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+            <Row>
+                <AntDesign.Col Span="8">
+                    <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                        @localizer[SharedLocalResource.DeleteSelected]
+                    </Button>
+                    <Button Type="@ButtonType.Primary" Icon="code" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
+                        @localizer[CodeGenLocalResource.BatchGenerate]
+                    </Button>
+                </AntDesign.Col>
+                <AntDesign.Col Span="16" Style="text-align:right">
+                    <Space>
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                @localizer[SharedLocalResource.Add]
+                            </Button>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                @localizer[SharedLocalResource.Refresh]
+                            </Button>
+                        </SpaceItem>
+
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="folder" OnClick="OpenCodeGenFolder">
+                                @localizer[CodeGenLocalResource.OpenCodeGenFolder]
+                            </Button>
+                        </SpaceItem>
+
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnClickShowSeedData">
+                                @localizer[SharedLocalResource.SeedData]
+                            </Button>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadConfigSeedDataClick">
+                                @(localizer.Combination(SharedLocalResource.Settings, SharedLocalResource.SeedData))
+                            </Button>
+                        </SpaceItem>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+
+        </TitleTemplate>
+        <RowTemplate>
+            <Selection Key="@(model.Id.ToString())" />
+            <Column @bind-Field="@model.TableName" Title="@(localizer[CodeGenLocalResource.TableName])" Sortable Filterable />
+            <Column @bind-Field="@model.ClassName" Title="@(localizer[CodeGenLocalResource.ClassName])" Sortable Filterable />
+            <Column @bind-Field="@model.Module" Title="@(localizer[CodeGenLocalResource.Module])" Sortable Filterable />
+            <Column @bind-Field="@model.Remark" Title="@(localizer[CodeGenLocalResource.Remark])" Sortable Filterable></Column>
+            <Column @bind-Field="@model.MenuNameEN" Title="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameCH" Title="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.CreatedTime" Title="@(localizer[CodeGenLocalResource.CreatedTime])" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <ActionColumn Title="@localizer[SharedLocalResource.Action]" Fixed="right">
+                <Space>
+                    <SpaceItem>
+                        <Button Type="@ButtonType.Link" OnClick="()=>OnClickEdit(model.Id)">
+                            @localizer[SharedLocalResource.Edit]
+                        </Button>
+                    </SpaceItem>
+                    <SpaceItem>
+                        <Button Type="@ButtonType.Link" OnClick="()=>OnClickConfigure(model.Id)">
+                            @localizer[SharedLocalResource.Setting]
+                        </Button>
+                    </SpaceItem>
+
+                    <SpaceItem>
+                        <Button Type="@ButtonType.Link" Icon="menu" OnClick="()=>OnClickGenerateMenu(model.Id)">
+                            @localizer[CodeGenLocalResource.GenerateMenu]
+                        </Button>
+                    </SpaceItem>
+
+                    @*<SpaceItem>
+                    <Button Type="@ButtonType.Link" Icon="global" OnClick="()=>OnClickGenerateLocale(model.Id)" Loading="_generatesBtnLoading">
+                    @localizer["GenerateLocale"]
+                    </Button>
+                    </SpaceItem>*@
+
+                    <SpaceItem>
+                        <Button Type="@ButtonType.Link" Icon="code" OnClick="()=>OnClickGenerate(model.Id)">
+                            @localizer[SharedLocalResource.Generate]
+                        </Button>
+                    </SpaceItem>
+
+                    <SpaceItem>
+                        <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">
+                            @localizer[SharedLocalResource.Delete]
+                        </Button>
+                    </SpaceItem>
+                </Space>
+            </ActionColumn>
+        </RowTemplate>
+    </Table>
+</div>

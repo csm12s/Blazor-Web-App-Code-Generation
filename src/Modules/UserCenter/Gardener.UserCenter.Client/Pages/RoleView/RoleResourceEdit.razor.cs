@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
@@ -56,7 +57,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 var resourceResult = await resourceService.GetTree();
                 if (resourceResult == null)
                 {
-                    messageService.Error(localizer.Combination("资源","加载", "失败"));
+                    messageService.Error(localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
                     _isLoading = false;
                     return;
                 }
@@ -106,12 +107,12 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             var result = await roleService.Resource(_roleId, resourceIds.Distinct().ToArray());
             if (result)
             {
-                messageService.Success(localizer.Combination("保存", "成功"));
+                messageService.Success(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Success));
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination("保存", "失败"));
+                messageService.Error(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Fail));
             }
             _isLoading = false;
         }

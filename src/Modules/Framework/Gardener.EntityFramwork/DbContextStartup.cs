@@ -25,6 +25,7 @@ namespace Gardener.EntityFramwork
     public class DbContextStartup : AppStartup
     {
         private static readonly string migrationAssemblyName = App.Configuration["DefaultDbSettings:MigrationAssemblyName"];
+        // TODO: dbsettings.json里使用db type, 根据db type 自动设置dbProvider
         private static readonly string dbProvider = App.Configuration["DefaultDbSettings:DbProvider"];
         /// <summary>
         /// 初始化默认数据库
@@ -63,7 +64,7 @@ namespace Gardener.EntityFramwork
                 {
                     var defaultDbContext = scope.ServiceProvider.GetRequiredService<GardenerDbContext>();
                     var auditDbContext = scope.ServiceProvider.GetRequiredService<GardenerAuditDbContext>();
-                    if (initDb)
+                    if (initDb)//TODO: 如果数据库已存在，这里不会建表
                     {
                         defaultDbContext.Database.EnsureCreated();
                         auditDbContext.Database.EnsureCreated();

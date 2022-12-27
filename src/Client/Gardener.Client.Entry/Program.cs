@@ -12,6 +12,8 @@ using AntDesign.ProLayout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
+using Gardener.CodeGeneration.Resources;
+using Gardener.Base.Resources;
 
 namespace Gardener.Client.Entry
 {
@@ -61,11 +63,12 @@ namespace Gardener.Client.Entry
             #endregion
 
             #region 本地化
-            builder.Services.AddLocalization(option =>
-            {
-                option.ResourcesPath = "Resources";
-            });
-            builder.Services.AddCulture<App>();
+            builder.Services.AddLocalization();
+            //默认资源
+            builder.Services.AddCulture<SharedLocalResource>(true);
+            //代码生成资源
+            builder.Services.AddCulture<CodeGenLocalResource>();
+            // TODO: 可以改造成自动扫描各模块资源
             #endregion
 
             #region module

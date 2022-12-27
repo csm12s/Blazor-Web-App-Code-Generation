@@ -1,0 +1,66 @@
+﻿@page "/account/center"
+<h3>@userDto.UserName</h3>
+
+<Space Size=@(("8", "8")) Wrap Align="start">
+    <SpaceItem>
+        <GridCol>
+            <Card Title=@("个人信息") Style="width: 350px" Bordered Hoverable>
+                <ChildContent>
+                    <body>
+                        <p style="margin-top:10px">
+                            <Avatar Src="@userDto.Avatar" /><Text>@userDto.UserName</Text>
+                        </p>
+                        <p>
+                            <Text>用户名：</Text><Text>@userDto.UserName</Text>
+                        </p>
+                        <p>
+                            <Text>昵称： </Text><Text>@userDto.NickName</Text>
+                        </p>
+                        <p>
+                            <Text>手机号：</Text><Text>@userDto.PhoneNumber</Text>
+                        </p>
+                        <p>
+                            <Text>性别： </Text><Text>@userDto.Gender</Text>
+                        </p>
+                        
+                    </body>
+                </ChildContent>
+            </Card>
+        </GridCol>
+    </SpaceItem>
+    <SpaceItem>
+        <GridCol>
+            <Card Title=@("修改资料") Bordered Hoverable>
+                <ChildContent>
+                    <Form Model="@userDto"
+                          LabelColSpan="8"
+                          WrapperColSpan="16">
+                        <FormItem Label="用户名">
+                            <Input @bind-Value="@context.UserName" />
+                        </FormItem>
+                        <FormItem Label="密码">
+                            <InputPassword @bind-Value="@context.Password" />
+                        </FormItem>
+                        <FormItem Label="昵称">
+                            <Input @bind-Value="@context.NickName" />
+                        </FormItem>
+                        <FormItem Label="性别">
+                            <RadioGroup @bind-Value="@(context.Gender)">
+                                @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
+                                {
+                                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                                }
+                            </RadioGroup>
+                        </FormItem>
+
+                        <FormItem WrapperColOffset="8" WrapperColSpan="16">
+                            <Button Type="@ButtonType.Primary" OnClick="SaveUserInfo">
+                                保存
+                            </Button>
+                        </FormItem>
+                    </Form>
+                </ChildContent>
+            </Card>
+        </GridCol>
+    </SpaceItem>
+</Space>

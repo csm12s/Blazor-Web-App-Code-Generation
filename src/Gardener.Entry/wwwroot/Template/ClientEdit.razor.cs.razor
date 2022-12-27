@@ -1,0 +1,34 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+@using Gardener.Common
+@using Gardener.Enums
+using @(Model.AppName).Common;
+using @(Model.AppName).Client.Base;
+using @(Model.AppName).@(Model.Module).Dto;
+
+namespace @(Model.AppName).@(Model.Module).Client.Views.@(Model.ClassName);
+
+public partial class @(Model.ClassName)Edit: @(Model.ModuleUpper)BaseEdit<@(Model.ClassName)Dto>
+{
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        if (!Model.CodeGen.GenerateSelectFields) continue;
+        if (!item.IsEdit) continue;
+        if (item.EditComponentType != ClientComponentType.Select 
+            && item.EditComponentType != ClientComponentType.MultiSelect)
+            continue;
+
+        @: private List<SelectItem> _select_@item.NetColumnName = new();
+    }
+
+    #region Init
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Init
+
+        await base.OnInitializedAsync();
+    }
+    #endregion
+}
+

@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="4.7.5" />
+    <PackageReference Include="Furion" Version="4.8.3.10" />
+    <PackageReference Include="IdGen" Version="3.0.2" />
     <PackageReference Include="Mapster" Version="7.3.0" />
-    <PackageReference Include="MiniExcel" Version="1.28.5" />
+    <PackageReference Include="MiniExcel" Version="1.29.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gardener.EntityFramwork\Gardener.EntityFramwork.csproj" />
+    <ProjectReference Include="..\Gardener.Base.Entity\Gardener.Base.Entity.csproj" />
     <ProjectReference Include="..\Gardener\Gardener.csproj" />
   </ItemGroup>
 

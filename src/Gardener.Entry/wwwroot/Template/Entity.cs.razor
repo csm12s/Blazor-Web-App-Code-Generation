@@ -1,0 +1,59 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace @(Model.AppName).@(Model.Module).Server.Model;
+
+/// <summary>
+/// @Model.TableSummary
+/// </summary>
+[Table("@Model.TableName")]
+[Comment("@Model.TableDesc")]
+public partial class @Model.ClassName : @(Model.Module)BaseModel@*, IEntityTypeBuilder<@(Model.ClassName)>*@
+{
+    public @(Model.ClassName)() { }
+
+    public static string GetTableName()
+    {
+        return "@Model.TableName";
+    }
+
+    #region Base
+    @foreach (var item in Model.CodeGenConfigs)
+    {
+        @if(item.IsCommon) continue;
+        @if(!item.IsEntity) continue;
+
+        @*var columnDataTypeStr = (!string.IsNullOrEmpty(item.DbDataTypeText)?
+                ", TypeName = \"" + item.DbDataTypeText + "\""
+                : "");*@
+
+        @*EF创建Entity未识别*@
+        @*var isRequiredStr = item.IsRequired == true ? "[Required]" : "";*@
+        @*var isRequiredStr = item.IsRequired == true ? "" : "?";*@
+
+        @*var maxLengthStr = (item.NetType.Contains("string") 
+            && item.Length != null
+            && item.Length != -1)?
+            "[MaxLength(" + item.Length.ToString() + ")]" 
+            : "";*@
+
+        @:/// <summary>
+        @:/// @item.ColumnSummary
+        @:/// </summary>
+        @if (!string.IsNullOrEmpty(item.DbDataTypeText))
+        {
+        @:[Column("@item.ColumnName", TypeName = "@item.DbDataTypeText")]
+        }
+        else
+        {
+        @:[Column("@item.ColumnName")]
+        }
+        @item.MaxLengthText
+        @:[Comment("@item.ColumnDescription")]
+        @:public @item.NetType @item.NetColumnName { get; set; }
+    }
+	#endregion
+}

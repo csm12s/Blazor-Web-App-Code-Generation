@@ -1,16 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Audit\Core\**" />
+    <Compile Remove="SqlSugar\**" />
     <Compile Remove="System\**" />
     <EmbeddedResource Remove="Audit\Core\**" />
+    <EmbeddedResource Remove="SqlSugar\**" />
     <EmbeddedResource Remove="System\**" />
     <None Remove="Audit\Core\**" />
+    <None Remove="SqlSugar\**" />
     <None Remove="System\**" />
   </ItemGroup>
 
@@ -19,7 +22,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
     <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Base\Resources\SharedLocalResource.en.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Base\Resources\SharedLocalResource.zh.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.en.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.zh.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

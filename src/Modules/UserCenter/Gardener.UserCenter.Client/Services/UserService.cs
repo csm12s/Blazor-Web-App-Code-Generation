@@ -49,5 +49,10 @@ namespace Gardener.UserCenter.Client.Services
         {
             return await apiCaller.PutAsync<UserUpdateAvatarInput, bool>($"{controller}/avatar", input);
         }
+
+        public async Task<string> GetCurrentUserId()
+        {
+            return await apiCaller.GetAsync<string>($"{controller}/Current-User-Id");
+        }
     }
 }

@@ -1,0 +1,36 @@
+﻿ {
+  "ConnectionStrings": {
+    "Default": "Data Source=./gardener.db"
+    //"DefaultDbNumber": "1",
+    //MySql示例
+    //"Server=192.168.1.254;UserId=admin;Password=admin.123;Database=gardener;charset='utf8';Allow User Variables=True",
+    //SqlServer示例
+    //"Server=192.168.1.234;Database=gardener;User=sa;Password=admin.123456;MultipleActiveResultSets=True;",
+       
+      // 多库设置示例，EF暂未实现
+    //"DbConfigs": [
+    //  {
+    //    "DbNumber": "1",
+    //    "DbType": "SqlServer",
+    //    "DbString": ""
+    //  }
+    //]
+  },
+    "DefaultDbSettings": {
+        "DbProvider": "Microsoft.EntityFrameworkCore.Sqlite",
+        //可提供使用的DbProvider,需在Gardener.Api.Core程序集添加引用
+        //"Microsoft.EntityFrameworkCore.Sqlite",
+        //"Microsoft.EntityFrameworkCore.SqlServer", 
+        //"Pomelo.EntityFrameworkCore.MySql",
+        //"Microsoft.EntityFrameworkCore.Cosmos",
+        //"Microsoft.EntityFrameworkCore.InMemory"
+        //"Npgsql.EntityFrameworkCore.PostgreSQL"
+        //"FirebirdSql.EntityFrameworkCore.Firebird"
+        "InitDb": false, //打开数据库自动初始化
+        "AutoMigration": false, //打开数据库自动迁移
+        "MigrationAssemblyName": "Gardener.Api.Core" //迁移主程序集
+    }
+}
+
+
+

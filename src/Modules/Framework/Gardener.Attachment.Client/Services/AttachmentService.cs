@@ -23,6 +23,12 @@ namespace Gardener.Attachment.Client.Services
         {
         }
 
+        public async Task<string> GetRemoteImage(string remoteFilePath)
+        {
+            return await apiCaller.PostAsync<string, string>
+                ($"{controller}/remote-image", request: remoteFilePath);
+        }
+
         public async Task<Base.PagedList<AttachmentDto>> Search(int? businessType, int? fileType, string businessId, string order = "desc", int pageIndex = 1, int pageSize = 10)
         {
             IDictionary<string, object> pramas = new Dictionary<string, object>()

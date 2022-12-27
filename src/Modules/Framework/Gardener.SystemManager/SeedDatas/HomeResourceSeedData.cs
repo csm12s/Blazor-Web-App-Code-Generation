@@ -6,7 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Enums;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
 using Gardener.Base.Enums;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +26,7 @@ namespace Gardener.SystemManager.SeedDatas
         public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[]{
-                new Resource() {Name="首页",Key="admin_home",Remark="",Path="/",Icon="home",Order=10,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreatorIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2021-11-09 07:41:45"),Id=Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"),},
+                new Resource() {Name="首页",Key="admin_home",Remark="",Path="/",Icon="home",Order=10,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2021-11-09 07:41:45"),Id=Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"),},
          };
         }
 

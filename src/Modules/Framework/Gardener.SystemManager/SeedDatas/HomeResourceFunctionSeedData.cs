@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Base.Domains;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gardener.SystemManager.SeedDatas

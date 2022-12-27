@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Attributes;
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Constants;
 using Gardener.Common;
 using Microsoft.AspNetCore.Components;
@@ -32,17 +33,26 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 所有搜索字段的信息
         /// </summary>
-        List<TableSearchField> _currentFields=new List<TableSearchField>();
+        List<TableSearchField> _currentFields = new List<TableSearchField>();
         /// <summary>
         /// 选中的搜索字段
         /// </summary>
-        IEnumerable<string> _selectedValues=new List<string>();
+        IEnumerable<string> _selectedValues = new List<string>();
         /// <summary>
         /// 搜索字段是否展示
         /// </summary>
-        Dictionary<string, bool> _showFields=new Dictionary<string, bool>();
+        Dictionary<string, bool> _showFields = new Dictionary<string, bool>();
+        /// <summary>
+        /// 默认本地化器
+        /// </summary>
         [Inject]
         protected IClientLocalizer localizer { get; set; }
+
+        /// <summary>
+        /// 自定义本地化器
+        /// </summary>
+        [Parameter]
+        public IClientLocalizer CustomLocalizer { get; set; }
 
         /// <summary>
         /// 日期选择框是否选择时分秒
@@ -54,7 +64,7 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         [Parameter]
         public DateTime BeginTime { get; set; } = DateTime.Now.Date.AddDays(1).AddMonths(-1);
-         /// <summary>
+        /// <summary>
         /// 日期结束时间
         /// </summary>
         [Parameter]
@@ -77,7 +87,7 @@ namespace Gardener.Client.Base.Components
         /// key：字段名称，value：单值、多值（逗号隔开字符串）
         /// </summary>
         [Parameter]
-        public Dictionary<string,object> DefaultValue { get; set; }
+        public Dictionary<string, object> DefaultValue { get; set; }
 
         /// <summary>
         /// 初始化
@@ -85,32 +95,36 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            if (CustomLocalizer != null)
+            {
+                localizer = CustomLocalizer;
+            }
             Type type = typeof(TDto);
             //从dto找到需要查询的字段
-            _fields =new List<TableSearchField>();
+            _fields = new List<TableSearchField>();
             PropertyInfo[] properties = type.GetProperties();
             foreach (PropertyInfo property in properties)
             {
-                
+
                 Type fieldType = property.PropertyType.GetNonNullableType();
-                 if (!fieldType.IsPrimitive && !fieldType.IsEnum  && !fieldType.Equals(typeof(string)) && !fieldType.Equals(typeof(Guid)) && !fieldType.Equals(typeof(DateTime))&& !fieldType.Equals(typeof(DateTimeOffset)))
-                { 
-                    continue ;
-                }
-                if (fieldType.IsArray || fieldType.IsEnumerable() || property.HasAttribute<DisabledSearchFieldAttribute>())
+                if (!fieldType.IsPrimitive && !fieldType.IsEnum && !fieldType.Equals(typeof(string)) && !fieldType.Equals(typeof(Guid)) && !fieldType.Equals(typeof(DateTime)) && !fieldType.Equals(typeof(DateTimeOffset)))
                 {
                     continue;
                 }
-                string name=property.Name;
+                if (fieldType.IsArray || fieldType.IsEnumerable() || property.HasAttribute<DisabledSearchFieldAttribute>() || property.HasAttribute<CustomSearchFieldAttribute>())
+                {
+                    continue;
+                }
+                string name = property.Name;
                 string displayName = property.GetDescription();
                 TableSearchField searchField = new TableSearchField
                 {
                     Name = name,
-                    DisplayName = localizer[displayName],
+                    DisplayName = displayName,
                     Type = fieldType
                 };
 
-                Action<TableSearchField, object> action = (fieid,value) => 
+                Action<TableSearchField, object> action = (fieid, value) =>
                 {
                     fieid.Value = value.ToString();
                 };
@@ -118,9 +132,9 @@ namespace Gardener.Client.Base.Components
                 if (searchField.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || searchField.Type.GetNonNullableType().Equals(typeof(DateTime)))
                 {
                     searchField.Multiple = true;
-                    action = (fieid, value) => 
+                    action = (fieid, value) =>
                     {
-                        fieid.Values= value.ToString().Split(",");
+                        fieid.Values = value.ToString().Split(",");
                     };
                 }
                 else if (searchField.Type.IsEnum)
@@ -135,13 +149,13 @@ namespace Gardener.Client.Base.Components
                             {
                                 values.Add(item);
                             }
-                            else 
+                            else
                             {
                                 object enumValue = Enum.Parse(searchField.Type, item);
                                 object numValue = Convert.ChangeType(enumValue, searchField.Type.GetEnumUnderlyingType());
                                 values.Add(numValue.ToString());
                             }
-                            
+
                         }
                         fieid.Values = values;
                     };
@@ -160,13 +174,13 @@ namespace Gardener.Client.Base.Components
                     object value = DefaultValue.GetValueOrDefault(name);
                     if (value != null)
                     {
-                        action(searchField,value);
+                        action(searchField, value);
                         fieldShow = true;
                     }
                 }
                 _fields.Add(searchField);
                 _showFields.Add(name, fieldShow);
-                if (fieldShow) 
+                if (fieldShow)
                 {
                     ((List<string>)_selectedValues).Add(name);
                 }
@@ -176,7 +190,7 @@ namespace Gardener.Client.Base.Components
             await OnSearchFieldChanged.InvokeAsync(GetFilterGroups());
             await base.OnInitializedAsync();
         }
-        
+
         /// <summary>
         /// 重置搜索字段值
         /// </summary>
@@ -198,14 +212,14 @@ namespace Gardener.Client.Base.Components
                     {
                         field.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
                     }
-                    else 
+                    else
                     {
-                        field.Values=new string[0];
+                        field.Values = new string[0];
                     }
                 }
-            
+
             }
-        
+
         }
         /// <summary>
         /// 是否是日期类型
@@ -230,7 +244,7 @@ namespace Gardener.Client.Base.Components
         /// <param name="values"></param>
         private async void OnSelectedItemsChangedHandler(IEnumerable<string> values)
         {
-            values= values==null?new String[0]:values;
+            values = values == null ? new String[0] : values;
             bool reduce = values.Count() < lastFieldCount;
             foreach (var item in _showFields)
             {
@@ -238,7 +252,7 @@ namespace Gardener.Client.Base.Components
                 {
                     _showFields[item.Key] = true;
                 }
-                else 
+                else
                 {
                     _showFields[item.Key] = false;
                 }
@@ -247,7 +261,7 @@ namespace Gardener.Client.Base.Components
             //刷新存在的搜索条件
             RefershCurrentFiled();
             //如果减少就刷新一下列表
-            if (reduce) 
+            if (reduce)
             {
                 await OnSearchClick();
             }
@@ -266,7 +280,7 @@ namespace Gardener.Client.Base.Components
         /// 获取搜索信息
         /// </summary>
         /// <returns></returns>
-        private List<FilterGroup> GetFilterGroups() 
+        private List<FilterGroup> GetFilterGroups()
         {
             List<FilterGroup> filterGroups = new List<FilterGroup>();
             if (_selectedValues != null)
@@ -275,6 +289,10 @@ namespace Gardener.Client.Base.Components
                 {
                     FilterGroup filterGroup = new FilterGroup();
                     var field = _currentFields.FirstOrDefault(f => f.Name.Equals(value));
+                    if (field == null)
+                    {
+                        continue; // null when clear _selectedValues
+                    }
 
                     if (IsDateTimeType(field.Type))
                     {
@@ -356,7 +374,7 @@ namespace Gardener.Client.Base.Components
         {
             ResetSearchFieldValue();
             var filterGroups = GetFilterGroups();
-            await OnSearchFieldChanged.InvokeAsync(GetFilterGroups());
+            await OnSearchFieldChanged.InvokeAsync(filterGroups);
             await OnSearch.InvokeAsync();
         }
         /// <summary>
@@ -364,13 +382,13 @@ namespace Gardener.Client.Base.Components
         /// </summary>
         /// <param name="eventArgs"></param>
         /// <param name="values"></param>
-        private IEnumerable<string>  DateTimeFormat(DateRangeChangedEventArgs eventArgs)
+        private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs eventArgs)
         {
             if (eventArgs.Dates != null && eventArgs.Dates.Length > 0)
             {
                 return eventArgs.Dates.Select(x => x.HasValue ? x.Value.ToString(ClientConstant.InputDateTimeFormat) : null).ToArray();
             }
-            else 
+            else
             {
                 return new string[0];
             }
@@ -379,19 +397,21 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 刷新当前搜索字段
         /// </summary>
-        private void RefershCurrentFiled() 
+        private void RefershCurrentFiled()
         {
             _showFields.ForEach(x =>
             {
-                if (x.Value && !_currentFields.Any(c=>c.Name.Equals(x.Key)))
+                if (x.Value && !_currentFields.Any(c => c.Name.Equals(x.Key)))
                 {
-                    _currentFields.Add(_fields.First(f=>f.Name.Equals(x.Key)));
-                }else if (!x.Value && _currentFields.Any(c => c.Name.Equals(x.Key))) 
+                    _currentFields.Add(_fields.First(f => f.Name.Equals(x.Key)));
+                }
+                else if (!x.Value && _currentFields.Any(c => c.Name.Equals(x.Key)))
                 {
                     _currentFields.Remove(_fields.First(f => f.Name.Equals(x.Key)));
                 }
             });
-        
+
         }
     }
+
 }

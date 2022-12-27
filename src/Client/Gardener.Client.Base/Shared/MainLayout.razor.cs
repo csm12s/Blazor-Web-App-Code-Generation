@@ -9,7 +9,6 @@ using AntDesign.ProLayout;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,8 +49,13 @@ namespace Gardener.Client.Base.Shared
         /// <param name="parent"></param>
         private void InitEnum(ResourceDto resourceDto, MenuDataItem parent = null)
         {
-
-            string nameLocalizer = Loc[resourceDto.Name];
+            string key = "menu:" + resourceDto.Key;
+            string localName = Loc[key];
+            if (localName.Equals(key))
+            {
+                //未配置菜单本地化使用名称
+                localName = resourceDto.Name;
+            }
 
             string path = resourceDto.Path;
             //path为空，还没有子级的会报错，设置个key
@@ -62,7 +66,7 @@ namespace Gardener.Client.Base.Shared
             var current = new MenuDataItem
             {
                 Path = path,
-                Name = nameLocalizer,
+                Name = localName,
                 Key = resourceDto.Key,
                 Icon = resourceDto.Icon ?? "",
             };

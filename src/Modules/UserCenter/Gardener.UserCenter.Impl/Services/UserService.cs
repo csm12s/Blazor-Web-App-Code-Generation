@@ -22,6 +22,7 @@ using Gardener.Base;
 using Gardener.UserCenter.Impl.Core;
 using Gardener.UserCenter.Services;
 using Gardener.SystemManager.Dtos;
+using Gardener.EntityFramwork;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -304,6 +305,10 @@ namespace Gardener.UserCenter.Impl.Services
 
         }
 
-        
+        public Task<string> GetCurrentUserId()
+        {
+            var id = IdentityUtil.GetIdentityId();
+            return Task.FromResult(id);
+        }
     }
 }

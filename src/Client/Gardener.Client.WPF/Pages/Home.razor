@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Gardener.Base.Resources;
 @inherits ReuseTabsPageBase
 @{
     RenderFragment<ChatDemoNotificationData> content = chatData =>
@@ -50,7 +51,7 @@
                                 <Space>
                                     <SpaceItem>
                                         <Button Loading="@_submitting" OnClick="OnSubmit " type="primary">
-                                                    @localizer["发送"]
+                                                    @localizer[SharedLocalResource.Send]
                                         </Button>
                                     </SpaceItem>
                                     <SpaceItem>
@@ -63,7 +64,7 @@
                                                     Headers="headers"
                                                     ShowUploadList="false">
                                                 <Button Icon="upload">
-                                                    <span>@localizer["发送图片"]</span>
+                                                    <span>@localizer["SendImage"]</span>
                                                 </Button>
                                             </Upload>
                                         </Spin>
