@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Gardener is a back-end management system developed based on .net 6, the front and back of the system are separated, the api is developed based on the Furion framework, and the front-end is developed based on ant-design-blazor. The system uses a newer technology or framework. Please click star if you like :kissing_heart: 
+Gardener is a back-end management system developed based on .net 7, the front and back of the system are separated, the api is developed based on the Furion framework, and the front-end is developed based on ant-design-blazor. The system uses a newer technology or framework. Please click star if you like :kissing_heart: 
 
 ## Demo address
 UserName：admin、admin1、admin2、admin3、admin4、admin5、admin6
@@ -21,7 +21,7 @@ docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
 ```
 
 ## feature
-- NEW：.Net6 、Blazor WebAssembly 、Furion : all new technologies。
+- NEW：.Net7 、Blazor WebAssembly 、Furion : all new technologies。
 - EASY：Simple and practical function
 
 ## Documentation
