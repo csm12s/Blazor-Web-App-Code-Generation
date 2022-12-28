@@ -63,24 +63,17 @@ namespace Gardener.Client.Entry
             builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
             #endregion
 
-            #region 本地化
-            builder.Services.AddLocalization();
-            //默认资源
-            builder.Services.AddCulture<SharedLocalResource>(true);
-            //代码生成资源
-            builder.Services.AddCulture<CodeGenLocalResource>();
-            //用户中心资源
-            builder.Services.AddCulture<UserCenterResource>();
-            builder.Services.AddCulture<MenuNameLocalResource>();
-            // TODO: 可以改造成自动扫描各模块资源
-            #endregion
-
             #region module
             builder.AddModuleLoader();
             #endregion
 
+            #region 本地化
+            builder.Services.AddLocalization();
+            builder.Services.AddCulture<SharedLocalResource>();
+            #endregion
+
             #region services
-            
+
             builder.Services.AddServicesWithAttributeOfTypeFromModuleContext(new [] { typeof(Program).Assembly });
             #endregion
 

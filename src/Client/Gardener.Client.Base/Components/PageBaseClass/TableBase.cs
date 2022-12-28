@@ -22,7 +22,7 @@ namespace Gardener.Client.Base.Components
     /// <summary>
     /// table基类
     /// </summary>
-    public abstract class TableBase<TDto, TKey, TLocalResource> : ReuseTabsPageAndFormBase<TKey, bool> where TDto : BaseDto<TKey>, new() where TLocalResource: ILocalResource
+    public abstract class TableBase<TDto, TKey, TLocalResource> : ReuseTabsPageAndFormBase<TKey, bool> where TDto : BaseDto<TKey>, new()
     {
         /// <summary>
         /// table引用

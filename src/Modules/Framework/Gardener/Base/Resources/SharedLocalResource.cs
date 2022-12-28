@@ -12,8 +12,9 @@ namespace Gardener.Base.Resources
     /// <remarks>
     /// 建议仅放置公共内容，特殊化的可以在页面配置
     /// </remarks>
-    public class SharedLocalResource : ILocalResource
+    public class SharedLocalResource
     {
+
         /// <summary>
         /// 搜索
         /// </summary>

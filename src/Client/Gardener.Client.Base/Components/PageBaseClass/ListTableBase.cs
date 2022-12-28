@@ -32,7 +32,7 @@ namespace Gardener.Client.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TLocalResource : ILocalResource
+    public abstract class ListTableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new()
     {
         /// <summary>
         /// 显示总数
@@ -537,7 +537,7 @@ namespace Gardener.Client.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
     /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TLocalResource : ILocalResource
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
     {
         /// <summary>
         /// 点击添加按钮

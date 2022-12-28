@@ -31,13 +31,13 @@ namespace Gardener.Client.Core
             all.AddRange(assemblys);
             serviceCollection.AddServicesWithAttributeOfType(all.ToArray());
         }
-            /// <summary>
-            /// 通过扫描特性注册服务
-            /// </summary>
-            /// <typeparam name="T"></typeparam>
-            /// <param name="serviceCollection"></param>
-            /// <param name="assemblys"></param>
-            public static void AddServicesWithAttributeOfType(this IServiceCollection serviceCollection, params Assembly[] assemblys)
+        /// <summary>
+        /// 通过扫描特性注册服务
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="serviceCollection"></param>
+        /// <param name="assemblys"></param>
+        public static void AddServicesWithAttributeOfType(this IServiceCollection serviceCollection, params Assembly[] assemblys)
         {
             if (serviceCollection == null)
             {
@@ -160,7 +160,7 @@ namespace Gardener.Client.Core
                         {
                             foreach (Type type in implementation.GetInterfaces())
                             {
-                                Console.WriteLine("注入服务："+type.Name + "," + implementation.Name);
+                                Console.WriteLine("注入服务：" + type.Name + "," + implementation.Name);
                                 serviceCollection.TryAdd(type, implementation, lifetime);
                             }
                         }

@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -49,6 +50,7 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 合并多个
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="names"></param>
         /// <returns></returns>
         public static string Combination<T>(params string[] names)

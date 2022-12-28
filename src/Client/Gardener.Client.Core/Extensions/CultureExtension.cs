@@ -4,13 +4,18 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Constants;
 using Gardener.Client.Core.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core
@@ -34,19 +39,18 @@ namespace Gardener.Client.Core
             LocalizerUtil.Services = host.Services;
             return host;
         }
+
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="TDefaultResource"></typeparam>
         /// <param name="services"></param>
-        /// <param name="isDefault">是否是默认的资源</param>
-        public static IServiceCollection AddCulture<T>(this IServiceCollection services, bool isDefault = false)
+        /// <returns></returns>
+        public static IServiceCollection AddCulture<TDefaultResource>(this IServiceCollection services)
         {
             //默认的
-            if (isDefault)
-            {
-                services.TryAddScoped<IClientLocalizer, ClientSharedLocalizer<T>>();
-            }
-            services.AddScoped<IClientLocalizer<T>, ClientLocalizer<T>>();
+            services.TryAddScoped<IClientLocalizer, ClientSharedLocalizer<TDefaultResource>>();
+            services.TryAddScoped(typeof(IClientLocalizer<>),typeof(ClientLocalizer<>));
             return services;
         }
     }
