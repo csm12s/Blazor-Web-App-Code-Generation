@@ -165,11 +165,20 @@
   <data name="GenerateBaseClass" xml:space="preserve">
     <value>Generate base class</value>
   </data>
+  <data name="GenerateLocaleFile" xml:space="preserve">
+    <value>Generate multiple languages file</value>
+  </data>
   <data name="GenerateMenu" xml:space="preserve">
     <value>Generate menu</value>
   </data>
   <data name="GenerateProjectFile" xml:space="preserve">
     <value>Generate project file</value>
+  </data>
+  <data name="GenerateSelectFields" xml:space="preserve">
+    <value>Generate select fields</value>
+  </data>
+  <data name="GenerateService" xml:space="preserve">
+    <value>Generate service</value>
   </data>
   <data name="HasAdd" xml:space="preserve">
     <value>Has add</value>
@@ -269,6 +278,9 @@
   </data>
   <data name="UseCustomTemplate" xml:space="preserve">
     <value>Use custom template</value>
+  </data>
+  <data name="UseNetColumnAsKey" xml:space="preserve">
+    <value>Multiple languages use net column as key</value>
   </data>
   <data name="ViewComponentType" xml:space="preserve">
     <value>View component type</value>

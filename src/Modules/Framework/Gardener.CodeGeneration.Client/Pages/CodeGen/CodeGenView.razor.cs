@@ -37,7 +37,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGen
     /// <param name="dialogSettings"></param>
     protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
     {
-        dialogSettings.Width = 1000;
+        dialogSettings.Width = 1200;
     }
     protected override async Task OnInitializedAsync()
     {

@@ -13,6 +13,7 @@
         <GridCol Span="12">
             <FormItem Label="@(localizer[CodeGenLocalResource.TableName])">
                 <Select DataSource="_allTables"
+                        Style="width:300px;"
                         OnSelectedItemChanged="OnTableSelectChanged"
                 @bind-Value="@model.TableName"
                         ValueName="@nameof(SelectItem.ValueName)"
@@ -36,13 +37,7 @@
                 <Input @bind-Value="@model.Remark" />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.EN,")"))">
-                <Input @bind-Value="@model.TableDescriptionEN" />
-            </FormItem>
 
-            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.CH,")"))">
-                <Input @bind-Value="@model.TableDescriptionCH" />
-            </FormItem>
 
             <FormItem Label="@(localizer[CodeGenLocalResource.ParentMenu])">
                 <Input @bind-Value="@model.MenuParentId" Type="hidden" />
@@ -69,6 +64,19 @@
                 <Input @bind-Value="@model.IconName" Placeholder=@localizer[CodeGenLocalResource.IconName] />
             </FormItem>
 
+
+
+            <FormItem Label="@(localizer[CodeGenLocalResource.PrimaryKeyName])">
+                <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer[CodeGenLocalResource.PrimaryKeyName] />
+            </FormItem>
+
+            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.EN,")"))">
+                <Input @bind-Value="@model.TableDescriptionEN" />
+            </FormItem>
+
+            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.CH,")"))">
+                <Input @bind-Value="@model.TableDescriptionCH" />
+            </FormItem>
             <FormItem Label="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")"))">
                 <Input @bind-Value="@model.MenuNameEN" Placeholder=@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")")) />
             </FormItem>
@@ -76,28 +84,34 @@
             <FormItem Label="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")"))">
                 <Input @bind-Value="@model.MenuNameCH" Placeholder=@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")")) />
             </FormItem>
-
-            <FormItem Label="@(localizer[CodeGenLocalResource.PrimaryKeyName])">
-                <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer[CodeGenLocalResource.PrimaryKeyName] />
-            </FormItem>
-
-            @*<FormItem Label=@localizer["Locked"]>
-            <Switch @bind-Value="@model.IsLocked"></Switch>
-            </FormItem>*@
         </GridCol>
         <GridCol Offset="1" Span="11">
-            <FormItem Label=@localizer[CodeGenLocalResource.GenerateProjectFile]>
-                <Switch @bind-Value="@model.GenerateProjectFile"></Switch>
-            </FormItem>
-            <FormItem Label=@localizer[CodeGenLocalResource.GenerateBaseClass]>
-                <Switch @bind-Value="@model.GenerateBaseClass"></Switch>
-            </FormItem>
-            <FormItem Label=@localizer[CodeGenLocalResource.UseCustomTemplate]>
-                <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
-            </FormItem>
 
-            <FormItem Label=@localizer[CodeGenLocalResource.UseChineseKey]>
-                <Switch @bind-Value="@model.UseChineseKey"></Switch>
+            <FormItem Label="@localizer[CodeGenLocalResource.Generate]">
+                <CheckboxGroup Style="width:100%">
+                    <Row>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.GenerateProjectFile">
+                                @(localizer[CodeGenLocalResource.GenerateProjectFile])
+                        </Checkbox>
+                        </Col>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.GenerateBaseClass">
+                                @(localizer[CodeGenLocalResource.GenerateBaseClass])
+                        </Checkbox>
+                        </Col>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.GenerateService">
+                                @(localizer["GenerateService"])
+                        </Checkbox>
+                        </Col>
+                        <Col Span="8">
+                        <Checkbox @bind-Value="@model.GenerateLocaleFile">
+                                @(localizer["GenerateLocaleFile"])
+                        </Checkbox>
+                        </Col>
+                    </Row>
+                </CheckboxGroup>
             </FormItem>
             <FormItem Label="@localizer[CodeGenLocalResource.Button]">
                 <CheckboxGroup Style="width:100%">
@@ -125,6 +139,21 @@
                     </Row>
                 </CheckboxGroup>
             </FormItem>
+            <FormItem Label=@localizer["GenerateSelectFields"]>
+                <Switch @bind-Value="@model.GenerateSelectFields"></Switch>
+            </FormItem>
+            <FormItem Label=@localizer[CodeGenLocalResource.UseCustomTemplate]>
+                <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
+            </FormItem>
+
+            <FormItem Label=@localizer[CodeGenLocalResource.UseChineseKey]>
+                <Switch @bind-Value="@model.UseChineseKey"></Switch>
+            </FormItem>
+            <FormItem Label=@localizer["UseNetColumnAsKey"]>
+                <Switch @bind-Value="@model.UseNetColumnAsKey"></Switch>
+            </FormItem>
+
+
             <FormItem Label=@localizer[CodeGenLocalResource.EntityFromTable]>
                 <Tooltip Title="@localizer[CodeGenLocalResource.ExplainEntityFromTable]" ArrowPointAtCenter="true">
                     <Switch @bind-Value="@model.EntityFromTable"></Switch>

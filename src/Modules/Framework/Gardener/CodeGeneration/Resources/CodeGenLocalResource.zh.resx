@@ -165,11 +165,20 @@
   <data name="GenerateBaseClass" xml:space="preserve">
     <value>生成基础类</value>
   </data>
+  <data name="GenerateLocaleFile" xml:space="preserve">
+    <value>生成多语言文件</value>
+  </data>
   <data name="GenerateMenu" xml:space="preserve">
     <value>生成菜单</value>
   </data>
   <data name="GenerateProjectFile" xml:space="preserve">
     <value>生成项目文件</value>
+  </data>
+  <data name="GenerateSelectFields" xml:space="preserve">
+    <value>生成Select字段</value>
+  </data>
+  <data name="GenerateService" xml:space="preserve">
+    <value>生成Service</value>
   </data>
   <data name="HasAdd" xml:space="preserve">
     <value>包含添加</value>
@@ -269,6 +278,9 @@
   </data>
   <data name="UseCustomTemplate" xml:space="preserve">
     <value>使用自定义模板</value>
+  </data>
+  <data name="UseNetColumnAsKey" xml:space="preserve">
+    <value>多语言使用C#列名为Key</value>
   </data>
   <data name="ViewComponentType" xml:space="preserve">
     <value>显示组件类型</value>
