@@ -29,60 +29,60 @@ namespace Gardener.UserCenter.Dtos
         /// 用户名
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"),MinLength(5,ErrorMessage = "最小长度不能小于{1}")]
-        [DisplayName("用户名")]
+        [DisplayName("UserName")]
         public string UserName { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
         [MaxLength(32, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("昵称")]
+        [DisplayName("NickName")]
         public string NickName { get; set; }
         /// <summary>
         /// 密码加密后的
         /// </summary>
         //[Required(ErrorMessage = "不能为空")]
         [MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
-        [DisplayName("密码")]
+        [DisplayName("Password")]
         public string Password { get; set; }
         
         /// <summary>
         /// 头像
         /// </summary>
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("头像")]
+        [DisplayName("Avatar")]
         public string Avatar { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
         [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("邮箱")]
+        [DisplayName("Email")]
         public string Email { get; set; }
         /// <summary>
         /// 邮箱是否确认
         /// </summary>
-        [DisplayName("邮箱是否确认")]
+        [DisplayName("EmailConfirmed")]
         public bool EmailConfirmed { get; set; }
         /// <summary>
         /// 手机
         /// </summary>
         [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("手机")]
+        [DisplayName("PhoneNumber")]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// 手机是否确认
         /// </summary>
-        [DisplayName("手机是否确认")]
+        [DisplayName("PhoneNumberConfirmed")]
         public bool PhoneNumberConfirmed { get; set; }
         /// <summary>
         /// 性别
         /// </summary>
         [Required(ErrorMessage = "不能为空"), DefaultValue(Gender.Male)]
-        [DisplayName("性别")]
+        [DisplayName("Gender")]
         public Gender Gender { get; set; }
         /// <summary>
         /// 多对多
         /// </summary>
-        [DisplayName("角色")]
+        [DisplayName("Roles")]
         public ICollection<RoleDto> Roles { get; set; }
         /// <summary>
         /// 用户扩展信息
@@ -91,7 +91,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 部门编号
         /// </summary>
-        [DisplayName("部门编号")]
+        [DisplayName("DeptId")]
         public int? DeptId { get; set; }
         /// <summary>
         /// 部门
@@ -100,7 +100,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 岗位编号
         /// </summary>
-        [DisplayName("岗位编号")]
+        [DisplayName("PositionId")]
         public int? PositionId { get; set; }
         /// <summary>
         /// 岗位

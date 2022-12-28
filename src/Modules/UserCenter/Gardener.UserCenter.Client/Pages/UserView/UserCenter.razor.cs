@@ -4,19 +4,34 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
+using Gardener.Base;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class UserCenter
+    public partial class UserCenter : IReuseTabsPage
     {
+        /// <summary>
+        /// 本地化
+        /// </summary>
+        [Inject]
+        public IClientLocalizer<UserCenterResource> localizer { get; set; }
+
         [Inject]
         IUserService userService { get; set; }
         UserDto userDto { get; set; }
+
+        public RenderFragment GetPageTitle()
+        {
+            return localizer["UserCenter"].ToRenderFragment();
+        }
+
         /// <summary>
         /// 页面初始化完成
         /// </summary>

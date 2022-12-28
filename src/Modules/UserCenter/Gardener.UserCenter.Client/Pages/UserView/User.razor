@@ -1,5 +1,5 @@
 ﻿@page "/user_center/user"
-@inherits ListOperateTableBase<UserDto, int, UserEdit>
+@inherits ListOperateTableBase<UserDto, int, UserEdit,UserCenterResource>
 <div>
     <Row>
         <AntDesign.Col Span="4">
@@ -8,7 +8,7 @@
                     <Col Span="24">
                         <Space>
                             <SpaceItem>
-                                <Tooltip Placement="@Placement.Top" Title="@localizer[SharedLocalResource.Refresh]">
+                            <Tooltip Placement="@Placement.Top" Title="@localizer[SharedLocalResource.Refresh]">
                                  <Button 
                                     Type="@ButtonType.Default"
                                     Size="small"
@@ -73,7 +73,7 @@
                    Size=@TableSize.Small>
                 <TitleTemplate>
                     <ResourceAuthorize ResourceKey="user_center_user_refresh">
-                        <TableSearch TDto="UserDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+                        <TableSearch TDto="UserDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue" CustomLocalizer="localizer"></TableSearch>
                     </ResourceAuthorize>
                     <Row>
                         <AntDesign.Col Span="8">
@@ -114,11 +114,11 @@
                     <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
-                    <Column @bind-Field="@model.Id" Sortable />
-                    <Column @bind-Field="@model.Avatar">
+                    <Column @bind-Field="@model.Id" Title="@localizer[UserCenterResource.Id]" Sortable />
+                    <Column @bind-Field="@model.Avatar" Title="@localizer[UserCenterResource.Avatar]">
                         <ResourceAuthorize ResourceKey="user_center_user_list_edit_avatar">
                             <Authorized>
-                                <Tooltip Placement="Placement.LeftTop" Title="@("点击修改头像")">
+                                <Tooltip Placement="Placement.LeftTop" Title="@localizer[UserCenterResource.ClickUpdateAvatar]">
                                     <a @onclick="_=>OnAvatarClick(model)">
                                         <Avatar Src="@model.Avatar" />
                                     </a>
@@ -129,13 +129,13 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.UserName" Filterable />
-                    <Column @bind-Field="@model.NickName" Filterable />
-                    <Column Title="部门" TData="string">
+                    <Column @bind-Field="@model.UserName" Filterable Title="@localizer["UserName"]" />
+                    <Column @bind-Field="@model.NickName" Filterable Title="@localizer["NickName"]" />
+                    <Column TData="string" Title="@localizer["Dept"]">
                         @model.Dept?.Name
                     </Column>
-                    <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters">
-                        <TagPro Text="@model.Gender"></TagPro>
+                    <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters" Title="@localizer["Gender"]">
+                        <TagPro Text="@localizer[model.Gender.ToString()]"></TagPro>
                     </Column>
                     @*<Column @bind-Field="@model.PhoneNumber" />
                     <Column @bind-Field="@model.Email" />*@
@@ -147,7 +147,7 @@
                             </Tooltip>
                         }
                     </Column>*@
-                    <Column @bind-Field="@model.IsLocked" Filterable>
+                    <Column @bind-Field="@model.IsLocked" Filterable Title="@localizer[UserCenterResource.IsLocked]">
                         <ResourceAuthorize ResourceKey="user_center_user_lock">
                             <Authorized>
                                 <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -157,7 +157,7 @@
                             </NotAuthorized>
                         </ResourceAuthorize>
                     </Column>
-                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+                    <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@localizer[UserCenterResource.CreatedTime]" />
                     <ActionColumn>
                         <Space>
                             <ResourceAuthorize ResourceKey="user_center_user_edit">

@@ -26,7 +26,7 @@ namespace Gardener.Base
         /// <summary>
         /// 编号
         /// </summary>
-        [DisplayName("编号")]
+        [DisplayName("Id")]
         public TKey Id { get; set; }
        
     }
@@ -39,23 +39,23 @@ namespace Gardener.Base
         /// <summary>
         /// 是否锁定
         /// </summary>
-        [DisplayName("是否锁定")]
+        [DisplayName("IsLocked")]
         public bool IsLocked { get; set; }
         /// <summary>
         /// 是否逻辑删除
         /// </summary>
-        [DisplayName("是否删除")]
+        [DisplayName("IsDeleted")]
         [DisabledSearchField]
         public bool IsDeleted { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary>
-        [DisplayName("创建时间")]
+        [DisplayName("CreatedTime")]
         public DateTimeOffset CreatedTime { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary>
-        [DisplayName("更新时间")]
+        [DisplayName("UpdatedTime")]
         public DateTimeOffset? UpdatedTime { get; set; }
     }
 }

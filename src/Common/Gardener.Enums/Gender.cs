@@ -17,15 +17,22 @@ namespace Gardener.Enums
         /// <summary>
         /// 男
         /// </summary>
-        [Description("男")]
+        [Description("Male")]
         [TagColor(ClientAntPresetColor.Blue)]
         Male,
 
         /// <summary>
         /// 女
         /// </summary>
-        [Description("女")]
+        [Description("Female")]
         [TagColor(ClientAntPresetColor.Magenta)]
-        Female
+        Female,
+
+        /// <summary>
+        /// 其他
+        /// </summary>
+        [Description("Other")]
+        [TagColor(ClientAntPresetColor.Volcano)]
+        Other
     }
 }

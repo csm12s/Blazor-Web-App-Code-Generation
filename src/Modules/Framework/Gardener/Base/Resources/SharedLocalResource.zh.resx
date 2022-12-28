@@ -131,6 +131,9 @@
   <data name="Authorizing" xml:space="preserve">
     <value>验证中</value>
   </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>头像</value>
+  </data>
   <data name="BatchDelete" xml:space="preserve">
     <value>批量删除</value>
     <comment>LocalKeys</comment>
@@ -228,6 +231,9 @@
     <value>失败</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>女</value>
+  </data>
   <data name="FieldChangeDetails" xml:space="preserve">
     <value>字段变更详情</value>
   </data>
@@ -248,6 +254,12 @@
   <data name="IsContinue" xml:space="preserve">
     <value>是否继续？</value>
   </data>
+  <data name="IsDeleted" xml:space="preserve">
+    <value>是否删除</value>
+  </data>
+  <data name="IsLocked" xml:space="preserve">
+    <value>是否锁定</value>
+  </data>
   <data name="Load" xml:space="preserve">
     <value>加载</value>
     <comment>LocalKeys</comment>
@@ -262,6 +274,9 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>退出登录</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>男</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>否</value>
@@ -283,6 +298,9 @@
   </data>
   <data name="OperateConfirmMessage" xml:space="preserve">
     <value>确认要执行吗？</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>其他</value>
   </data>
   <data name="Page404Message" xml:space="preserve">
     <value>对不起，页面不存在</value>

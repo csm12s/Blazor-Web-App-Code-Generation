@@ -4,23 +4,23 @@
 <Space Size=@(("8", "8")) Wrap Align="start">
     <SpaceItem>
         <GridCol>
-            <Card Title=@("个人信息") Style="width: 350px" Bordered Hoverable>
+            <Card Title=@localizer["PersonalInformation"] Style="width: 350px" Bordered Hoverable>
                 <ChildContent>
                     <body>
                         <p style="margin-top:10px">
                             <Avatar Src="@userDto.Avatar" /><Text>@userDto.UserName</Text>
                         </p>
                         <p>
-                            <Text>用户名：</Text><Text>@userDto.UserName</Text>
+                            <Text>@localizer["UserName"]：</Text><Text>@userDto.UserName</Text>
                         </p>
                         <p>
-                            <Text>昵称： </Text><Text>@userDto.NickName</Text>
+                            <Text>@localizer["NickName"]： </Text><Text>@userDto.NickName</Text>
                         </p>
                         <p>
-                            <Text>手机号：</Text><Text>@userDto.PhoneNumber</Text>
+                            <Text>@localizer["PhoneNumber"]：</Text><Text>@userDto.PhoneNumber</Text>
                         </p>
                         <p>
-                            <Text>性别： </Text><Text>@userDto.Gender</Text>
+                            <Text>@localizer["Gender"]： </Text><Text>@userDto.Gender</Text>
                         </p>
                         
                     </body>
@@ -30,21 +30,21 @@
     </SpaceItem>
     <SpaceItem>
         <GridCol>
-            <Card Title=@("修改资料") Bordered Hoverable>
+            <Card Title=@localizer["ModifyPersonalInformation"] Bordered Hoverable>
                 <ChildContent>
                     <Form Model="@userDto"
                           LabelColSpan="8"
                           WrapperColSpan="16">
-                        <FormItem Label="用户名">
+                        <FormItem Label="@localizer["UserName"]">
                             <Input @bind-Value="@context.UserName" />
                         </FormItem>
-                        <FormItem Label="密码">
+                        <FormItem Label="@localizer["Password"]">
                             <InputPassword @bind-Value="@context.Password" />
                         </FormItem>
-                        <FormItem Label="昵称">
+                        <FormItem Label="@localizer["NickName"]">
                             <Input @bind-Value="@context.NickName" />
                         </FormItem>
-                        <FormItem Label="性别">
+                        <FormItem Label="@localizer["Gender"]">
                             <RadioGroup @bind-Value="@(context.Gender)">
                                 @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                                 {
@@ -55,7 +55,7 @@
 
                         <FormItem WrapperColOffset="8" WrapperColSpan="16">
                             <Button Type="@ButtonType.Primary" OnClick="SaveUserInfo">
-                                保存
+                                @localizer[UserCenterResource.Save]
                             </Button>
                         </FormItem>
                     </Form>

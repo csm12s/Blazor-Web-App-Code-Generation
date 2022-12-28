@@ -7,6 +7,7 @@
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class UserEdit: EditOperationDialogBase<UserDto, int>
+    public partial class UserEdit : EditOperationDialogBase<UserDto, int, UserCenterResource>
     {
         private List<PositionDto> positions = new List<PositionDto>();
         [Inject]
@@ -22,22 +23,23 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         [Inject]
         IPositionService positionService { get; set; }
         //部门树
-        List<DeptDto> deptDatas=new List<DeptDto>();
+        List<DeptDto> deptDatas = new List<DeptDto>();
         /// <summary>
         /// 部门编号
         /// </summary>
-        protected string deptId 
+        protected string deptId
         {
-            get {
+            get
+            {
                 return _editModel.DeptId?.ToString();
             }
-            set 
+            set
             {
                 if (!string.IsNullOrEmpty(value))
                 {
                     _editModel.DeptId = int.Parse(value);
                 }
-                else 
+                else
                 {
                     _editModel.DeptId = null;
                 }
@@ -57,9 +59,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             _isLoading = false;
             await base.OnInitializedAsync();
             _editModel.Password = null;
-            _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId=_editModel.Id};
+            _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId = _editModel.Id };
         }
-       
+
         /// <summary>
         /// 点击头像
         /// </summary>
@@ -70,7 +72,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
                 localizer[SharedLocalResource.UplaodAvatar],
-                new UserUploadAvatarParams { User =user,SaveDb=false },
+                new UserUploadAvatarParams { User = user, SaveDb = false },
                 width: avatarDrawerWidth);
         }
         /// <summary>
@@ -79,7 +81,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="value"></param>
         private void OnSelectedItemChangedHandler(PositionDto value)
         {
-            
+
         }
     }
 }

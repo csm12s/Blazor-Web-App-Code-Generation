@@ -6,6 +6,7 @@
 
 using AntDesign;
 using AntDesign.ProLayout;
+using Gardener.Base.Resources;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
@@ -34,7 +35,7 @@ namespace Gardener.Client.Base.Shared
         [Inject]
         private IJsTool JsTool { get; set; }
         [Inject]
-        private IClientLocalizer Loc { get; set; }
+        private IClientLocalizer<MenuNameLocalResource> Loc { get; set; }
         [Inject]
         private IAuthenticationStateManager authenticationStateManager { get; set; }
 

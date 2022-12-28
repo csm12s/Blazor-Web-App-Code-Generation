@@ -131,6 +131,9 @@
   <data name="Authorizing" xml:space="preserve">
     <value>Authorizing</value>
   </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
   <data name="BatchDelete" xml:space="preserve">
     <value>Batch delete</value>
     <comment>LocalKeys</comment>
@@ -163,6 +166,9 @@
     <value>CH</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="ClickUpdateAvatar" xml:space="preserve">
+    <value>Modify avatar</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
     <comment>LocalKeys</comment>
@@ -187,6 +193,9 @@
   <data name="DeleteSelected" xml:space="preserve">
     <value>Delete selected</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Dept" xml:space="preserve">
+    <value>Dept</value>
   </data>
   <data name="Detail" xml:space="preserve">
     <value>Detail</value>
@@ -228,9 +237,15 @@
     <value>Fail</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
   <data name="FieldChangeDetails" xml:space="preserve">
     <value>Field change details</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
   </data>
   <data name="Generate" xml:space="preserve">
     <value>Generate</value>
@@ -249,6 +264,12 @@
   <data name="IsContinue" xml:space="preserve">
     <value>Do you want to continue ?</value>
   </data>
+  <data name="IsDeleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="IsLocked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
   <data name="Load" xml:space="preserve">
     <value>Load</value>
     <comment>LocalKeys</comment>
@@ -264,89 +285,11 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="menu:admin_home" xml:space="preserve">
-    <value>Home</value>
-    <comment>menu</comment>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
   </data>
-  <data name="menu:system_login" xml:space="preserve">
-    <value>Login</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager" xml:space="preserve">
-    <value>System manager</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_attachment" xml:space="preserve">
-    <value>Attachment</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_audit" xml:space="preserve">
-    <value>Audit</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_audit_entity" xml:space="preserve">
-    <value>Audit entity</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_audit_operation" xml:space="preserve">
-    <value>Audit operation</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_client" xml:space="preserve">
-    <value>Client</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_email_server_config" xml:space="preserve">
-    <value>Email config</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_email_temaplate" xml:space="preserve">
-    <value>Email template</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_email_tool" xml:space="preserve">
-    <value>Email util</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_function" xml:space="preserve">
-    <value>Api</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_login_token" xml:space="preserve">
-    <value>Login token</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_resource" xml:space="preserve">
-    <value>Resource</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_timer" xml:space="preserve">
-    <value>Task scheduling</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_tool_code_gen" xml:space="preserve">
-    <value>Code generate</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center" xml:space="preserve">
-    <value>User center</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_dept" xml:space="preserve">
-    <value>Dept</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_position" xml:space="preserve">
-    <value>Position</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_role" xml:space="preserve">
-    <value>Role</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_user" xml:space="preserve">
-    <value>User</value>
-    <comment>menu</comment>
+  <data name="NickName" xml:space="preserve">
+    <value>Nick name</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -368,6 +311,9 @@
   </data>
   <data name="OperateConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to do this ?</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
   </data>
   <data name="Page404Message" xml:space="preserve">
     <value>Sorry, page does not exist !</value>
@@ -446,6 +392,12 @@
   </data>
   <data name="UserCenter" xml:space="preserve">
     <value>User center</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>User id</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User name</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

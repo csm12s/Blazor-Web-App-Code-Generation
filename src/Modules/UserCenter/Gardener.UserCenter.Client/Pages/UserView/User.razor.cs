@@ -16,10 +16,11 @@ using Gardener.Base;
 using Microsoft.AspNetCore.Components.Web;
 using Gardener.Client.Base;
 using Gardener.Base.Resources;
+using Gardener.UserCenter.Resources;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class User : ListOperateTableBase<UserDto, int, UserEdit>
+    public partial class User : ListOperateTableBase<UserDto, int, UserEdit, UserCenterResource>
     {
         private Tree<DeptDto> _deptTree;
         private List<DeptDto> depts;
@@ -100,7 +101,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             await OpenOperationDialogAsync<UserRoleEdit, int, bool>(localizer["SettingRoles"], userId, async r =>
             {
                 await ReLoadTable();
-            },width:500);
+            }, width: 500);
         }
         /// <summary>
         /// 点击头像

@@ -109,7 +109,7 @@
                                 <SelectOptions>
                                     @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
                                     {
-                                        <SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@item.Value" />
+                                        <SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@localizer[item.Value]" />
                                     }
                                 </SelectOptions>
                             </Select>

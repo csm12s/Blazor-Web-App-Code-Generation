@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
 using Gardener.CodeGeneration.Resources;
 using Gardener.Base.Resources;
+using Gardener.UserCenter.Resources;
 
 namespace Gardener.Client.Entry
 {
@@ -68,6 +69,9 @@ namespace Gardener.Client.Entry
             builder.Services.AddCulture<SharedLocalResource>(true);
             //代码生成资源
             builder.Services.AddCulture<CodeGenLocalResource>();
+            //用户中心资源
+            builder.Services.AddCulture<UserCenterResource>();
+            builder.Services.AddCulture<MenuNameLocalResource>();
             // TODO: 可以改造成自动扫描各模块资源
             #endregion
 

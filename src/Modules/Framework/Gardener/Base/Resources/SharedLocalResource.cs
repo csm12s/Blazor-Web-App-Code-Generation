@@ -250,6 +250,14 @@ namespace Gardener.Base.Resources
         /// 是否继续
         /// </summary>
         public const string IsContinue = nameof(IsContinue);
+        /// <summary>
+        /// 头像
+        /// </summary>
+        public const string Avatar = nameof(Avatar);
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public const string IsLocked = nameof(IsLocked);
 
     }
 }

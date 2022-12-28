@@ -11,4 +11,15 @@
     <ProjectReference Include="..\..\Framework\Gardener\Gardener.csproj" />
   </ItemGroup>
 
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\UserCenterResource.en.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UserCenterResource.zh.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
