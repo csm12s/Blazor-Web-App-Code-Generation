@@ -79,14 +79,14 @@ namespace Gardener.EntityFramwork.DbContexts
             var dbContext = eventData.Context;
             // 获取所有更改，删除，新增的实体，但排除审计实体（避免死循环）
             var entityEntries = dbContext.ChangeTracker.Entries()
-                  .Where(u => u.Entity.GetType() != typeof(AuditEntity) 
-                  && u.Entity.GetType() != typeof(AuditOperation) 
-                  && u.Entity.GetType() != typeof(AuditProperty) 
+                  .Where(u => u.Entity.GetType() != typeof(AuditEntity)
+                  && u.Entity.GetType() != typeof(AuditOperation)
+                  && u.Entity.GetType() != typeof(AuditProperty)
                   && (u.State == EntityState.Added || u.State == EntityState.Modified || u.State == EntityState.Deleted)).ToList();
             if (entityEntries == null || entityEntries.Count < 1)
-            { 
+            {
                 return;
-            } 
+            }
 
             foreach (var entity in entityEntries)
             {
@@ -120,27 +120,56 @@ namespace Gardener.EntityFramwork.DbContexts
                     // 新增
                     if (entity.State == EntityState.Added)
                     {
-                        Entry(entity.Entity).Property(nameof(GardenerEntityBase.CreateBy))
+
+                        var fields = entity.Properties.Select(x => x.Metadata.Name).ToList();
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.CreateBy))))
+                        {
+                            Entry(entity.Entity).Property(nameof(GardenerEntityBase.CreateBy))
                             .CurrentValue = IdentityUtil.GetIdentityId();
-                        Entry(entity.Entity).Property(nameof(GardenerEntityBase.CreatedTime))
+                        }
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.CreatedTime))))
+                        {
+                            Entry(entity.Entity).Property(nameof(GardenerEntityBase.CreatedTime))
                             .CurrentValue = DateTimeOffset.Now;
-                        Entry(entity.Entity).Property(nameof(GardenerEntityBase.CreateIdentityType))
+                        }
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.CreateIdentityType))))
+                        {
+                            Entry(entity.Entity).Property(nameof(GardenerEntityBase.CreateIdentityType))
                             .CurrentValue = IdentityUtil.GetIdentityType();
+                        }
                     }
                     // 修改
                     else if (entity.State == EntityState.Modified)
                     {
-                        // 排除创建人
-                        entity.Property(nameof(GardenerEntityBase.CreateBy)).IsModified = false;
-                        entity.Property(nameof(GardenerEntityBase.CreatedTime)).IsModified = false;
-                        entity.Property(nameof(GardenerEntityBase.CreateIdentityType)).IsModified = false;
-
-                        Entry(entity.Entity).Property(nameof(GardenerEntityBase.UpdateBy))
+                        var fields = entity.Properties.Select(x => x.Metadata.Name).ToList();
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.CreateBy))))
+                        {
+                            // 排除创建人
+                            entity.Property(nameof(GardenerEntityBase.CreateBy)).IsModified = false;
+                        }
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.CreatedTime))))
+                        {
+                            entity.Property(nameof(GardenerEntityBase.CreatedTime)).IsModified = false;
+                        }
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.CreateIdentityType))))
+                        {
+                            entity.Property(nameof(GardenerEntityBase.CreateIdentityType)).IsModified = false;
+                        }
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.UpdateBy))))
+                        {
+                            Entry(entity.Entity).Property(nameof(GardenerEntityBase.UpdateBy))
                             .CurrentValue = IdentityUtil.GetIdentityId();
-                        Entry(entity.Entity).Property(nameof(GardenerEntityBase.UpdatedTime))
+                        }
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.UpdatedTime))))
+                        {
+                            Entry(entity.Entity).Property(nameof(GardenerEntityBase.UpdatedTime))
                             .CurrentValue = DateTimeOffset.Now;
-                        Entry(entity.Entity).Property(nameof(GardenerEntityBase.UpdateIdentityType))
+                        }
+                        if (fields.Any(x => x.Equals(nameof(GardenerEntityBase.UpdateIdentityType))))
+                        {
+                            Entry(entity.Entity).Property(nameof(GardenerEntityBase.UpdateIdentityType))
                             .CurrentValue = IdentityUtil.GetIdentityType();
+                        }
                     }
                 }
                 #endregion
