@@ -23,8 +23,8 @@ namespace Gardener.Client.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseMainTable<TDto, TKey> 
-        : BaseTable<TDto, TKey> 
+    public abstract class BaseMainTable<TDto, TKey, TLocalResource> 
+        : BaseTable<TDto, TKey, TLocalResource> 
         where TDto : class, new()
     {
         /// <summary>
@@ -150,8 +150,7 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 重新加载table 
-        /// Todo: 是不是可以叫 ReloadTable
+        /// 从首页重新加载table 
         /// </summary>
         /// <returns></returns>
         protected virtual async Task ReLoadTable()
@@ -408,6 +407,30 @@ namespace Gardener.Client.Base.Components
 
             return filterGroups;
         }
+
+        #region Page loading
+        /// <summary>
+        /// Page start loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StartLoading()
+        {
+            _tableIsLoading = true;
+
+            return _tableIsLoading;
+        }
+
+        /// <summary>
+        /// Page stop loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StopLoading()
+        {
+            _tableIsLoading = false;
+
+            return _tableIsLoading;
+        }
+        #endregion
     }
 
     /// <summary>
@@ -416,8 +439,8 @@ namespace Gardener.Client.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
-    public abstract class BaseMainTable<TDto, TKey, TOperationDialog> 
-        : BaseMainTable<TDto, TKey> 
+    public abstract class BaseMainTable<TDto, TKey, TOperationDialog, TLocalResource> 
+        : BaseMainTable<TDto, TKey, TLocalResource> 
         where TDto : class, new() 
         where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
     {
@@ -490,6 +513,6 @@ namespace Gardener.Client.Base.Components
             await ReLoadTable(true);
         }
 
-
     }
+
 }

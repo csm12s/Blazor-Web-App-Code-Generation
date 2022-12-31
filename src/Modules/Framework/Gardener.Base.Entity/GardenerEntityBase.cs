@@ -119,19 +119,19 @@ namespace Gardener.Base
     /// <summary>
     /// Tenant base entity
     /// </summary>
-    public abstract class GardenerTenantEntityBase<TKey, TKey_TenantId> :
+    public abstract class GardenerTenantEntityBase<TKey> :
         GardenerEntityBase<TKey>
     {
         /// <summary>
         /// 租户编号
         /// </summary>
-        public virtual TKey_TenantId TenantId { get; set; }
+        public virtual Guid? TenantId { get; set; }
     }
     /// <summary>
     /// Tenant base entity
     /// </summary>
     public abstract class GardenerTenantEntityBase :
-        GardenerTenantEntityBase<int, Guid>
+        GardenerTenantEntityBase<int>
     {
     }
 }

@@ -54,7 +54,7 @@ namespace Gardener.FileStore.Core.LocalStore
         /// 获取文件存储目录地址
         /// </summary>
         /// <returns></returns>
-        private string GetBaseDirectorPath()
+        public string GetBaseDirectoryPath()
         {
             string baseDirectory = Path.Combine(_hostingEnvironment.WebRootPath, GetBaseDirectory());
             return baseDirectory;
@@ -63,9 +63,8 @@ namespace Gardener.FileStore.Core.LocalStore
         /// 获取服务器的访问地址
         /// </summary>
         /// <returns></returns>
-        private string GetBaseUrl() 
+        public string GetBaseUrl() 
         {
-
             Uri url = new Uri(_httpContextAccessor.HttpContext.Request.GetRequestUrlAddress());
             return url.Scheme+"://"+url.Authority +"/"+ GetBaseDirectory()+"/";
         }
@@ -76,7 +75,7 @@ namespace Gardener.FileStore.Core.LocalStore
         /// <param name="path"></param>
         public async Task<string> Save(Stream file, string path)
         {
-            string filePath = Path.Combine(GetBaseDirectorPath(), path);
+            string filePath = Path.Combine(GetBaseDirectoryPath(), path);
             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -93,7 +92,7 @@ namespace Gardener.FileStore.Core.LocalStore
         /// <param name="path"></param>
         public void Delete(string path)
         {
-            string filePath = Path.Combine(GetBaseDirectorPath(), path);
+            string filePath = Path.Combine(GetBaseDirectoryPath(), path);
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
@@ -106,7 +105,7 @@ namespace Gardener.FileStore.Core.LocalStore
         /// <returns></returns>
         public Stream Get(string path)
         {
-            string filePath = Path.Combine(GetBaseDirectorPath(), path);
+            string filePath = Path.Combine(GetBaseDirectoryPath(), path);
             if (File.Exists(filePath))
             {
                 // 打开文件 
