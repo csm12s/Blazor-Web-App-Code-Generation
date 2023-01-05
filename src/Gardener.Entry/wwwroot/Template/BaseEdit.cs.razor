@@ -3,11 +3,12 @@
 using @(Model.AppName).Client.Base;
 using @(Model.AppName).Common;
 using Microsoft.AspNetCore.Components;
+using @(Model.AppName).@(Model.Module).Resources;
 
 namespace @(Model.AppName).@(Model.Module).Client;
 
 public abstract class @(Model.ModuleUpper)BaseEdit<TDto>
-    : @(Model.CodeGen.EditFormInherits)<TDto, @(Model.CodeGen.PrimaryKeyType)>
+    : @(Model.CodeGen.EditFormInherits)<TDto, @(Model.CodeGen.PrimaryKeyType), @(Model.Module)Resource>
     where TDto : @(Model.ModuleUpper)BaseDto, new() 
 {
     [Inject]
