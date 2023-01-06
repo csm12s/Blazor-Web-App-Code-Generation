@@ -59,9 +59,14 @@ public partial class CodeGenConfigDto: BaseDto<int>
 
     
     /// <summary>
-    /// 
+    /// Key String value
     /// </summary>
     public string ColumnLocaleKey { get; set; } = "";
+
+    /// <summary>
+    /// XxxResource.KeyRef
+    /// </summary>
+    public string ColumnLocaleKeyRef { get; set; } = "";
 
     /// <summary>
     /// .NET数据类型

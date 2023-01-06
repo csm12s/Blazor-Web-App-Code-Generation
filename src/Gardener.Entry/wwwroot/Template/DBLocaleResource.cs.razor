@@ -1,0 +1,20 @@
+﻿@*@inherits RazorEngine.Templating.TemplateBase<Gardener.CodeGeneration.Dtos.CodeGenNameModel>*@
+
+
+using Gardener.Base.Resources;
+
+namespace Gardener.@(Model.ModuleUpper).Resources
+{
+    public class @(Model.ClassName)Resource: @(Model.ModuleUpper)Resource
+    {
+        #region @Model.ClassName
+        @foreach (var item in Model.LocaleItems)
+        {
+        @:public const string @(item.KeyInResource) = "@(item.Key)";
+        }
+        #endregion
+    }
+}
+
+
+

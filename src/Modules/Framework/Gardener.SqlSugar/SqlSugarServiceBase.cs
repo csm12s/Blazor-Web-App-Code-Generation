@@ -12,10 +12,10 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Gardener.Sugar;
 
-// TODO1：这里改成和ServiceBase一样的Rest API
 /// <summary>
 /// 继承此类即可实现基础方法
 /// 方法包括：CURD、获取全部、分页获取 
+/// 采用与 ServiceBase 一致的 Rest API
 /// </summary>
 /// <typeparam name="TEntity">数据实体类型</typeparam>
 /// <typeparam name="TEntityDto">数据实体对应DTO类型</typeparam>
@@ -48,7 +48,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     /// </remarks>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
+    //[HttpPost]
     public virtual async Task<TEntityDto> Insert(TEntityDto input)
     {
         DateTimeOffset defaultValue = input.GetPropertyValue<TEntityDto, DateTimeOffset>(nameof(GardenerEntityBase.CreatedTime));
@@ -80,7 +80,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     /// </remarks>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
+    //[HttpPost]
     public virtual async Task<bool> Update(TEntityDto input)
     {
         input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
@@ -94,7 +94,6 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     #endregion
 
     #region Delete
-
     /// <summary>
     /// 删除
     /// </summary>
@@ -103,7 +102,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     /// </remarks>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpPost]
+    //[HttpPost]
     public virtual async Task<bool> Delete(TKey id)
     {
         await _sugarRepository.DeleteByIdAsync(id);
@@ -141,7 +140,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     /// </remarks>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpPost]
+    [HttpDelete]
     public virtual async Task<bool> FakeDelete(TKey id)
     {
         await _sugarRepository.FakeDeleteByIdAsync(id);
@@ -182,7 +181,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     #endregion
 
     #region Get
-    [HttpGet]
+    //[HttpGet]
     public virtual async Task<TEntityDto> Get(TKey id)
     {
         var person = await _sugarRepository.GetByIdAsync(id);
@@ -190,14 +189,14 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     }
 
 
-    [HttpGet]
+    //[HttpGet]
     public virtual async Task<List<TEntityDto>> GetAll()
     {
         var list = await _sugarRepository.GetAllAsync();
         return list.MapTo<TEntityDto>();
     }
 
-    [HttpGet]
+    //[HttpGet]
     public virtual async Task<List<TEntityDto>> GetAllUsable()
     {
         System.Text.StringBuilder where = new StringBuilder();
@@ -218,7 +217,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
         return await persons.ToListAsync();
     }
 
-    [HttpGet]
+    //[HttpGet]
     public virtual async Task<Base.PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)
     {
         var request = new PageRequest() { PageIndex = pageIndex, PageSize = pageSize };
@@ -227,8 +226,8 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     #endregion
 
     #region Lock
-    [HttpPost]
-    public virtual async Task<bool> Lock(TKey id, bool isLocked = true)
+    [HttpPut]
+    public virtual async Task<bool> Lock([ApiSeat(ApiSeats.ActionStart)] TKey id, bool isLocked = true)
     {
         var entity = await _sugarRepository.GetByIdAsync(id);
         if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsLocked), isLocked))
@@ -243,7 +242,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     #endregion
 
     #region Seed
-    [HttpPost]
+    //[HttpPost]
     public virtual async Task<string> GenerateSeedData(PageRequest request)
     {
         var pagedList = await _sugarRepository.GetPageAsync(request);

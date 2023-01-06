@@ -4,6 +4,7 @@ using @(Model.AppName).Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Gardener.@(Model.Module).Resources;
 
 namespace @(Model.AppName).@(Model.Module).Dto;
 
@@ -16,7 +17,7 @@ public partial class @(Model.ClassName)SearchDto
             @: /// <summary>
             @: /// @item.ColumnSummary
             @: /// </summary>
-            @: [DisplayName("@item.ColumnLocaleKey")]
+            @: [DisplayName(@item.ColumnLocaleKeyRef)]
             @if (item.IsCustomSearch)
             {
                 @: [CustomSearchField]

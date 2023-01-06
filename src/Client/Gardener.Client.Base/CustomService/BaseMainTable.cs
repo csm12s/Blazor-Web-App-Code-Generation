@@ -196,7 +196,6 @@ namespace Gardener.Client.Base.Components
         /// <returns></returns>
         protected virtual async Task ReLoadTable(PageRequest pageRequest)
         {
-
             _tableIsLoading = true;
             var pagedListResult = await _service.Search(pageRequest);
             if (pagedListResult != null)

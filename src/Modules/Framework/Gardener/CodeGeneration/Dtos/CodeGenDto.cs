@@ -41,6 +41,15 @@ public partial class CodeGenDto: BaseDto<int>
     /// </summary>
     public bool UseChineseSummary { get; set; } = true;
 
+    /// <summary>
+    /// "menu:ResourceDto.Key"
+    /// </summary>
+    public string MenuLocaleKey { get; set; }
+    /// <summary>
+    /// ResourceDto.Key: Module_ClassName
+    /// </summary>
+    public string MenuKey { get; set; }
+
     #endregion
 
     #region Base

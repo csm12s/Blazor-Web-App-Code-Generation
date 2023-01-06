@@ -99,6 +99,13 @@ namespace Gardener.Base
         Task<PagedList<TDto>> Search(PageRequest request);
 
         /// <summary>
+        /// 此方法用来补充 PagedList 不包含的 TotalItems
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<List<TDto>> GetList(PageRequest request);
+
+        /// <summary>
         /// 生成种子数据
         /// </summary>
         /// <param name="request"></param>
