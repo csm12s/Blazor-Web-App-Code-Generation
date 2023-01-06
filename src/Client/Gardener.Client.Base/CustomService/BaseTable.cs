@@ -29,7 +29,7 @@ namespace Gardener.Client.Base.Components
         protected ITable _table;
 
         /// <summary>
-        /// 数据集合
+        /// 当前页数据集合
         /// </summary>
         protected IEnumerable<TDto> _datas;
 
