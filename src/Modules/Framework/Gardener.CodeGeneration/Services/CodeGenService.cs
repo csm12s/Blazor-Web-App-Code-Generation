@@ -26,7 +26,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace Gardener.CodeGeneration.Services;
 
@@ -618,15 +617,33 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             {
                 TemplatePath = Path.Combine(templatePath, "DBLocale.EN.razor"),
                 GenPath = Path.Combine(modulePath, "Locale", "EN",
-                    codeGenDto.ClassName + " - DBLocale.EN.txt")
+                    codeGenDto.ClassName + " - " + codeGenDto.Module + "Resource.en.Add.txt")
             });
             // ch
             itemList.Add(new CodeGenTemplateItem(nameModel)
             {
                 TemplatePath = Path.Combine(templatePath, "DBLocale.CH.razor"),
-                GenPath = Path.Combine(modulePath, "Locale", "ZH", // CH -> ZH, App.zh.resx
-                    codeGenDto.ClassName + " - DBLocale.CH.txt")
+                GenPath = Path.Combine(modulePath, "Locale", "ZH",
+                    codeGenDto.ClassName + " - " + codeGenDto.Module + "Resource.zh.Add.txt")
             });
+
+            // menu locale
+            // public const string　@(Model.MenuLocaleItem.KeyInResource) = "@(Model.MenuLocaleItem.Key)";
+            itemList.Add(new CodeGenTemplateItem(nameModel)
+            {
+                TemplatePath = Path.Combine(templatePath, "DBLocaleMenu.razor"),
+                GenPath = Path.Combine(modulePath, "Locale",
+                    codeGenDto.ClassName + " - " + "Menu - MenuNameLocaleResource.Add.txt")
+            });
+
+            // ModelResource file
+            itemList.Add(new CodeGenTemplateItem(nameModel)
+            {
+                TemplatePath = Path.Combine(templatePath, "DBLocaleResource.cs.razor"),
+                GenPath = Path.Combine(baseModulePath, "Resources",
+                    codeGenDto.ClassName + "Resource.cs")
+            });
+
         }
         #endregion
 
@@ -644,6 +661,48 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     {
         string appName = ProjectConstants.AppName;
         string baseGenPath = ProjectConstants.CodeGenPath;
+
+        #region Prepare CodeGenDto
+        codeGenDto.ClassNameLower = codeGenDto.ClassName.ToLowerCamel();
+
+        // url path: _sys.tool -> sys/tool 
+        codeGenDto.ModuleToUrl = ToUrlPath(codeGenDto.Module);
+        codeGenDto.ModuleUpper = codeGenDto.Module.ToUpperCamel();
+        codeGenDto.ModuleLower = codeGenDto.Module.ToLowerCamel();
+        
+        // Primary key
+        //codeGenDto.HasPrimarykey = codeGenConfigs
+        //    .Where(it => it.IsPrimaryKey == true)
+        //    .ToList().Any();
+        codeGenDto.PrimaryKeyType = await GetPrimaryKeyType(codeGenDto);
+        if (codeGenDto.PrimaryKeyName != "Id")
+        {
+            codeGenDto.EditFormInherits = "BaseEdit";
+            codeGenDto.MainTableInherits = "BaseMainTable";
+        }
+
+        // TableName
+        var tableName = codeGenDto.TableName;
+        // 表建表处理, 修改表名
+        if (codeGenDto.EntityFromTable)
+        {
+            tableName = codeGenDto.NewTableName ?? codeGenDto.ClassName;
+        }
+
+        // TableDesc
+        var tableDesc = codeGenDto.ClassName;
+        if (!string.IsNullOrEmpty(codeGenDto.TableDescriptionEN))
+        {
+            tableDesc = codeGenDto.TableDescriptionEN;
+        }
+
+        // TableSummary
+        var tableSummary = tableDesc;
+        if (codeGenDto.TableName != codeGenDto.ClassName)
+        {
+            tableSummary += "\r\n/// Table: " + tableName;
+        }
+        #endregion
 
         // 表建表时，搜索母表模块下的多语言文件
         var localeFileModule = codeGenDto.Module;
@@ -881,6 +940,9 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             "._" + tableLocale.ValueCH;
         }
 
+        // XxxResource file
+        tableLocale.KeyInResource = GetKeyInResource(tableLocale.Key, codeGenDto);
+
         foreach (var item in columnLocales)
         {
             // Column: _Module._Model.ColumnName
@@ -893,6 +955,9 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                 item.Key = tableLocale.Key +
                 "." + item.ValueCH;
             }
+
+            // XxxResource file
+            item.KeyInResource = GetKeyInResource(item.Key, codeGenDto);
         }
 
         // set key for client view
@@ -904,55 +969,24 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             if (matchLocale != null)
             {
                 configDto.ColumnLocaleKey = matchLocale.Key;
+
+                // ModelResource.ColumnName
+                configDto.ColumnLocaleKeyRef = codeGenDto.ClassName
+                    + "Resource." + matchLocale.KeyInResource;
+                // ModuleResource.Model_ColumnName
+                //configDto.ColumnLocaleKeyRef = codeGenDto.ModuleUpper
+                //    + "Resource." + matchLocale.KeyInResource;
             }
             else
             {
                 configDto.ColumnLocaleKey = configDto.ColumnDescription;
+                configDto.ColumnLocaleKeyRef = "\"" + configDto.ColumnLocaleKey + "\"";
             }
         }
         #endregion
         #endregion
 
         #region Prepare new name model
-        codeGenDto.ClassNameLower = codeGenDto.ClassName.ToLowerCamel();
-
-        // url path: _sys.tool -> sys/tool 
-        codeGenDto.ModuleToUrl = ToUrlPath(codeGenDto.Module);
-        codeGenDto.ModuleUpper = codeGenDto.Module.ToUpperCamel();
-        codeGenDto.ModuleLower = codeGenDto.Module.ToLowerCamel();
-        // Primary key
-        //codeGenDto.HasPrimarykey = codeGenConfigs
-        //    .Where(it => it.IsPrimaryKey == true)
-        //    .ToList().Any();
-        codeGenDto.PrimaryKeyType = await GetPrimaryKeyType(codeGenDto);
-        if (codeGenDto.PrimaryKeyName != "Id")
-        {
-            codeGenDto.EditFormInherits = "BaseEdit";
-            codeGenDto.MainTableInherits = "BaseMainTable";
-        }
-
-        // TableName
-        var tableName = codeGenDto.TableName;
-        // 表建表处理, 修改表名
-        if (codeGenDto.EntityFromTable)
-        {
-            tableName = codeGenDto.NewTableName ?? codeGenDto.ClassName;
-        }
-
-        // TableDesc
-        var tableDesc = codeGenDto.ClassName;
-        if (!string.IsNullOrEmpty(codeGenDto.TableDescriptionEN))
-        {
-            tableDesc = codeGenDto.TableDescriptionEN;
-        }
-
-        // TableSummary
-        var tableSummary = tableDesc;
-        if (codeGenDto.TableName != codeGenDto.ClassName)
-        {
-            tableSummary += "\r\n/// Table: " + tableName;
-        }
-
         CodeGenNameModel nameModel = new CodeGenNameModel()
         {
             TableName = tableName,
@@ -973,24 +1007,34 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         // Locale
         nameModel.TableLocaleKey = tableLocale.Key;
         // Menu name
-        // menu name set, add a new locale key
+        var menuLocale = new CodeGenLocaleItem()
+        {
+            Name = tableLocale.Name,
+            Key = tableLocale.Key,
+            ValueEN = tableLocale.ValueEN,
+            ValueCH = tableLocale.ValueCH
+        };
+
+        codeGenDto.MenuKey = codeGenDto.Module + "_" + codeGenDto.ClassName;
+        codeGenDto.MenuLocaleKey = "menu:" + codeGenDto.MenuKey;
+        menuLocale.Key = codeGenDto.MenuLocaleKey;
+
+        // MenuName set
         if (!string.IsNullOrEmpty(codeGenDto.MenuNameEN))
         {
-            nameModel.LocaleItems.Add(new CodeGenLocaleItem()
-            {
-                Name = codeGenDto.MenuNameEN,
-                Key = codeGenDto.MenuNameEN,//ToUpperCamel(), 现在Menu直接用的Resource.Name作为Key, 也可以设置MenuLocaleKey字段
-                ValueEN = codeGenDto.MenuNameEN,
-                ValueCH = codeGenDto.MenuNameCH,
-            });
+            menuLocale.Name = codeGenDto.MenuNameEN;
+            menuLocale.ValueEN = codeGenDto.MenuNameEN;
+            menuLocale.ValueCH = codeGenDto.MenuNameCH;
         }
-        else // menu name not set, use locale key as menu name
+        else // MenuName not set
         {
-            codeGenDto.MenuNameEN = tableLocale.Key;
+            codeGenDto.MenuNameEN = tableLocale.ValueEN;
+            codeGenDto.MenuNameCH = tableLocale.ValueCH;
         }
 
         nameModel.LocaleItems.Add(tableLocale);
         nameModel.LocaleItems.AddRange(columnLocales);
+        nameModel.MenuLocaleItem = menuLocale;
 
         #endregion
         // Custom search
@@ -1012,6 +1056,25 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         #endregion
 
         return nameModel;
+    }
+
+    /// <summary>
+    /// _Module._Model            -> Model
+    /// _Module._Model.ColumnName -> ColumnName
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="codeGenDto"></param>
+    /// <returns></returns>
+    private string GetKeyInResource(string key, CodeGenDto codeGenDto)
+    {
+        return key.Replace("_" + codeGenDto.Module + ".", "")
+            .Replace("_" + codeGenDto.ClassName + ".", "")
+            .Replace("_", "");
+
+        // Model_ColumnName
+        //return key.Replace("_" + codeGenDto.Module + ".", "")
+        //    .Replace("_", "")
+        //    .Replace(".", "_");
     }
 
     /// <summary>
@@ -1060,7 +1123,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
             Id = Guid.NewGuid(),
             ParentId = codeGenDto.MenuParentId,
             Name = codeGenDto.MenuNameEN,
-            Key = codeGenDto.Module + "_" + codeGenDto.ClassName,
+            Key = codeGenDto.MenuKey,
             Path = string.Format("/{0}/{1}", ToUrlPath(codeGenDto.Module), codeGenDto.ClassName),
             Icon = iconName,
             Order = 0,

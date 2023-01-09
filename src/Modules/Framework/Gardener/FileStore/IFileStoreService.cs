@@ -26,6 +26,17 @@ namespace Gardener.FileStore
         /// <returns></returns>
         Stream Get(string path);
         /// <summary>
+        /// 文件上传基础目录
+        /// </summary>
+        /// <returns></returns>
+        string GetBaseDirectoryPath();
+        /// <summary>
+        /// 文件上传基础Url
+        /// </summary>
+        /// <returns></returns>
+        string GetBaseUrl();
+
+        /// <summary>
         /// 保存文件
         /// </summary>
         /// <param name="file"></param>

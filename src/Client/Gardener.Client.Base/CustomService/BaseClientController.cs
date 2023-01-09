@@ -103,8 +103,14 @@ public abstract class BaseClientController<TEntityDto, TKey>
 
     public virtual Task<PagedList<TEntityDto>> Search(PageRequest request)
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/Search";
         return apiCaller.PostAsync<PageRequest, PagedList<TEntityDto>>(url, request);
+    }
+
+    public virtual Task<List<TEntityDto>> GetList(PageRequest request)
+    {
+        var url = $"{controller}/GetList";
+        return apiCaller.PostAsync<PageRequest, List<TEntityDto>>(url, request);
     }
 
     public virtual Task<string> GenerateSeedData(PageRequest request)

@@ -38,6 +38,8 @@
     <Content Remove="wwwroot\Template\Controller.cs.razor" />
     <Content Remove="wwwroot\Template\DBLocale.CH.razor" />
     <Content Remove="wwwroot\Template\DBLocale.EN.razor" />
+    <Content Remove="wwwroot\Template\DBLocaleMenu.razor" />
+    <Content Remove="wwwroot\Template\DBLocaleResource.cs.razor" />
     <Content Remove="wwwroot\Template\Entity.cs.razor" />
     <Content Remove="wwwroot\Template\EntityDto.cs.razor" />
     <Content Remove="wwwroot\Template\EntitySearchDto.cs.razor" />
@@ -57,6 +59,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\BaseEdit.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\DBLocaleMenu.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\DBLocaleResource.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\IBaseService.cs.razor">
@@ -178,6 +186,8 @@
 	  <Watch Remove="wwwroot\Template\ClientView.razor.cs.razor" />
 	  <Watch Remove="wwwroot\Template\DBLocale.CH.razor" />
 	  <Watch Remove="wwwroot\Template\DBLocale.EN.razor" />
+	  <Watch Remove="wwwroot\Template\DBLocaleMenu.razor" />
+	  <Watch Remove="wwwroot\Template\DBLocaleResource.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Entity.cs.razor" />
 	  <Watch Remove="wwwroot\Template\EntityDto.cs.razor" />
 	  <Watch Remove="wwwroot\Template\EntitySearchDto.cs.razor" />
