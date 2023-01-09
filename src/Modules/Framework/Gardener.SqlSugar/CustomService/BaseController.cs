@@ -91,9 +91,18 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
         var list = await _baseService.GetListAsync(request);
         var listDto = list.MapTo<TEntityDto>();
 
-        // 这里进行数据操作
-
         return listDto.ToPageList(request);
+    }
+    #endregion
+
+    #region GetList
+    [HttpPost]
+    public virtual async Task<List<TEntityDto>> GetList(PageRequest request)
+    {
+        var list = await _baseService.GetListAsync(request);
+        var listDto = list.MapTo<TEntityDto>();
+
+        return listDto;
     }
     #endregion
 

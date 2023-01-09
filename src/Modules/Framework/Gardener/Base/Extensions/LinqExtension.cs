@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Gardener.Base;
 
+// 当前端需要将 Tree 转化为 PagedList 提升显示性能，会用到这个方法，
+// 暂时从Gardener.Base转移到这里
+
 public static class LinqExtension
 {
     /// <summary>

@@ -5,6 +5,8 @@
 
 @@page "/@Model.Module/@Model.ClassName"
 @@using Gardener.Base
+@@using Gardener.Base.Resources;
+@@using Gardener.@(Model.ModuleUpper).Resources;
 @@inherits @(Model.Module)BaseTable<@(Model.ClassName)Dto, @(Model.ClassName)Edit>
 
 <div>
@@ -35,67 +37,68 @@
         @@*Search Field*@@
         <TitleTemplate>
             <ResourceAuthorize ResourceKey=@@(GetAuthKey(AuthItems.Search))>
-                <TableSearch TDto="@(Model.ClassName)SearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="@(Model.ClassName)SearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="@@localizer"></TableSearch>
                 @@*Custom Search*@@
                 @if(Model.HasCustomSearch)
                 {
-                <Row>
-                    <AntDesign.Col Span="18">
-                        <Space Direction="@@DirectionVHType.Vertical" Style="width: 100%">
-                            <Space Size=@@(("8", "16")) Wrap>
-                        @foreach (var item in Model.CodeGenConfigs)
-                        {
-                            @if (!item.IsCustomSearch) continue;
+                    <Row>
+                         <AntDesign.Col Span="18">
+                                <Space Direction="@@DirectionVHType.Vertical" Style="width: 100%">
+                                    <Space Size=@@(("8", "16")) Wrap>
+                                @foreach (var item in Model.CodeGenConfigs)
+                                {
+                                    @if (!item.IsCustomSearch) continue;
 
-                            @switch (item.CustomSearchType)
-                            {
-                                case ClientComponentType.Select:
-                                <SpaceItem>
-                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
-                                    <Select Mode="single"
-                                        Style="width:@(item.CustomSearchLength)px;"
-                                            DataSource="@@_select_@(item.NetColumnName)"
-                                            @@bind-Value="@@_searchDto.@item.NetColumnName"
-                                            ValueName="@@nameof(SelectItem.ValueName)"
-                                            LabelName="@@nameof(SelectItem.LabelName)"
-                                            TItem="SelectItem"
-                                            TItemValue="string"
-                                            EnableSearch
-                                            AllowClear>
-                                    </Select>
-                                </SpaceItem>
-                                break;
-                                case ClientComponentType.MultiSelect:
-                                <SpaceItem>
-                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
-                                    <Select Mode="multiple"
-                                        Style="width:@(item.CustomSearchLength)px;"
-                                            DataSource="@@_select_@(item.NetColumnName)"
-                                            @@bind-Values="@@_searchDto.@item.NetColumnName"
-                                            ValueName="@@nameof(SelectItem.ValueName)"
-                                            LabelName="@@nameof(SelectItem.LabelName)"
-                                            TItem="SelectItem"
-                                            TItemValue="string"
-                                            EnableSearch
-                                            AllowClear>
-                                    </Select>
-                                </SpaceItem>
-                                break;
-                                default: @*Input*@
-                                <SpaceItem>
-                                    <span>@@(localizer["@item.ColumnLocaleKey"]): </span>
-                                    <Input Style="@@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
-                                           @@bind-Value="@@_searchDto.@item.NetColumnName"></Input>
-                                </SpaceItem>
-                                break;
-                            }
-                        }
-                            </Space>
-                        </Space>
-                    </AntDesign.Col>
-                </Row>
+                                    @switch (item.CustomSearchType)
+                                    {
+                                        case ClientComponentType.Select:
+                                        <SpaceItem>
+                                            <span>@@(localizer[@item.ColumnLocaleKeyRef]): </span>
+                                            <Select Mode="single"
+                                                Style="width:@(item.CustomSearchLength)px;"
+                                                    DataSource="@@_select_@(item.NetColumnName)"
+                                                    @@bind-Value="@@_searchDto.@item.NetColumnName"
+                                                    ValueName="@@nameof(SelectItem.ValueName)"
+                                                    LabelName="@@nameof(SelectItem.LabelName)"
+                                                    TItem="SelectItem"
+                                                    TItemValue="string"
+                                                    EnableSearch
+                                                    AllowClear>
+                                            </Select>
+                                        </SpaceItem>
+                                        break;
+                                        case ClientComponentType.MultiSelect:
+                                        <SpaceItem>
+                                            <span>@@(localizer[@item.ColumnLocaleKeyRef]): </span>
+                                            <Select Mode="multiple"
+                                                Style="width:@(item.CustomSearchLength)px;"
+                                                    DataSource="@@_select_@(item.NetColumnName)"
+                                                    @@bind-Values="@@_searchDto.@item.NetColumnName"
+                                                    ValueName="@@nameof(SelectItem.ValueName)"
+                                                    LabelName="@@nameof(SelectItem.LabelName)"
+                                                    TItem="SelectItem"
+                                                    TItemValue="string"
+                                                    EnableSearch
+                                                    AllowClear>
+                                            </Select>
+                                        </SpaceItem>
+                                        break;
+                                        default: @*Input*@
+                                        <SpaceItem>
+                                            <span>@@(localizer[@item.ColumnLocaleKeyRef]): </span>
+                                            <Input Style="@@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
+                                                    @@bind-Value="@@_searchDto.@item.NetColumnName"></Input>
+                                        </SpaceItem>
+                                        break;
+                                    }
+                                }
+                                    </Space>
+                                </Space>
+                            </AntDesign.Col>
+                    </Row>
                 }
             </ResourceAuthorize>
+            @*Buttons*@
             <Row>
                 <AntDesign.Col Span="8">
                     @if(Model.CodeGen.HasBatchDelete)
@@ -151,20 +154,20 @@
                 @switch (item.ViewComponentType)
                 {
                     case ClientComponentType.DateTime:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Format="@@ClientConstant.DateTimeFormat" Title="@@(localizer[@item.ColumnLocaleKeyRef])" Sortable DefaultSortOrder="@@SortDirection.Descending" />
                     break;
                     case ClientComponentType.TagEnum:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Filters="TableFiltersConstants.(@item.NetColumnName)Filters" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Filters="TableFiltersConstants.(@item.NetColumnName)Filters" Title="@@(localizer[@item.ColumnLocaleKeyRef])">
                         <TagPro Text="@@model.@item.NetColumnName"></TagPro>
                     </Column>
                     break;
                     case ClientComponentType.TagYesNo:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer[@item.ColumnLocaleKeyRef])">
                         <TagYesNo Yes="@@model.@item.NetColumnName"></TagYesNo>
                     </Column>
                     break;
                     case ClientComponentType.Switch:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Filterable>
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer[@item.ColumnLocaleKeyRef])" Filterable>
                         @if(Model.CodeGen.HasEdit)
                         {
                         <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Edit)>
@@ -182,17 +185,17 @@
                     </Column>
                     break;
                     case ClientComponentType.Image:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer[@item.ColumnLocaleKeyRef])">
                         <Image Src="@@model.@item.NetColumnName"/>
                     </Column>
                     break;
                     case ClientComponentType.RemoteImage:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])">
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer[@item.ColumnLocaleKeyRef])">
                         <Image Src="@@model.@(item.NetColumnName)_Data"/>
                     </Column>
                     break;
                     default:
-                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer["@item.ColumnLocaleKey"])" Sortable Filterable />
+                    <Column @@bind-Field="@@model.@item.NetColumnName" Title="@@(localizer[@item.ColumnLocaleKeyRef])" Sortable Filterable />
                     break;
                 }
             }

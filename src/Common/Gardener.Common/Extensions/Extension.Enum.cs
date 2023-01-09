@@ -13,7 +13,7 @@ public static partial class Extension
     /// <returns></returns>
     public static string GetCode(this Enum input)
     {
-        return input.GetHashCode().ToString();
+        return input.ToString();
     }
 
     /// <summary>

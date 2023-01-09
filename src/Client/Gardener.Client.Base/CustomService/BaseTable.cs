@@ -19,7 +19,7 @@ namespace Gardener.Client.Base.Components
     /// <summary>
     /// table基类（无主键表，TDto不继承BaseDto）
     /// </summary>
-    public abstract class BaseTable<TDto, TKey> 
+    public abstract class BaseTable<TDto, TKey, TLocalResource> 
         : ReuseTabsPageAndFormBase<TKey, bool> 
         where TDto : class, new()
     {
@@ -29,7 +29,7 @@ namespace Gardener.Client.Base.Components
         protected ITable _table;
 
         /// <summary>
-        /// 数据集合
+        /// 当前页数据集合
         /// </summary>
         protected IEnumerable<TDto> _datas;
 
@@ -63,7 +63,7 @@ namespace Gardener.Client.Base.Components
         /// 本地化
         /// </summary>
         [Inject]
-        protected IClientLocalizer localizer { get; set; }
+        protected IClientLocalizer<TLocalResource> localizer { get; set; }
 
         /// <summary>
         /// 操作对话框

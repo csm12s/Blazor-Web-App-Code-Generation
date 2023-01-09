@@ -44,4 +44,5 @@ public class CodeGenNameModel
     public bool HasRemoteImage { get; set; } = false;
     public List<ResourceDto> Menus { get; set; }
     public List<CodeGenLocaleItem> LocaleItems { get; set; } = new List<CodeGenLocaleItem>();
+    public CodeGenLocaleItem MenuLocaleItem { get; set; }
 }

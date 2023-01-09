@@ -3,7 +3,7 @@ namespace Gardener.CodeGeneration.Dtos
 {
     /// <summary>
     /// 数据库表多语言配置
-    /// Excel中第一行表信息
+    /// Excel中第一行是表信息
     /// 其他为列信息
     /// </summary>
     public class CodeGenLocaleItem
@@ -16,5 +16,10 @@ namespace Gardener.CodeGeneration.Dtos
         public string Key { get; set; }
         public string ValueEN { get; set; }
         public string ValueCH { get; set; }
+
+        /// <summary>
+        /// Key in XxxResource.cs
+        /// </summary>
+        public string KeyInResource { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 @using Gardener.Enums
 @using Gardener.Client.Base.Constants
+@@using Gardener.@(Model.ModuleUpper).Resources;
 
 @@inherits @(Model.ModuleUpper)BaseEdit<@(Model.ClassName)Dto>
 
@@ -18,7 +19,7 @@
         @switch (item.EditComponentType)
         {
             case ClientComponentType.Select:
-            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+            <FormItem Label="@@(localizer[@item.ColumnLocaleKeyRef])">
                 <Select Mode="single"
                         DataSource="@@_select_@(item.NetColumnName)"
                         @@bind-Value="@@model.@item.NetColumnName"
@@ -32,18 +33,18 @@
             </FormItem>
             break;
             case ClientComponentType.DateTime:
-            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+            <FormItem Label="@@(localizer[@item.ColumnLocaleKeyRef])">
                 <span>@@model.@item.NetColumnName</span>
                         @*.ToString(ClientConstant.DateTimeFormat)*@
             </FormItem>
             break;
             case ClientComponentType.Switch:
-            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+            <FormItem Label="@@(localizer[@item.ColumnLocaleKeyRef])">
                 <Switch @@bind-Value="@@model.@item.NetColumnName"></Switch>
             </FormItem>
             break;
             default:
-            <FormItem Label="@@(localizer["@item.ColumnLocaleKey"])">
+            <FormItem Label="@@(localizer[@item.ColumnLocaleKeyRef])">
                 <Input @@bind-Value="@@model.@item.NetColumnName" />
             </FormItem>
             break;

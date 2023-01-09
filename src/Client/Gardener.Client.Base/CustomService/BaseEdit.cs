@@ -20,7 +20,7 @@ namespace Gardener.Client.Base
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public class BaseEdit<TDto, TKey> 
+    public class BaseEdit<TDto, TKey, TLocalResource> 
         : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> 
         where TDto : class, new()
     {
@@ -33,7 +33,7 @@ namespace Gardener.Client.Base
         [Inject]
         protected DrawerService drawerService { get; set; }
         [Inject]
-        protected IClientLocalizer localizer { get; set; }
+        protected IClientLocalizer<TLocalResource> localizer { get; set; }
         /// <summary>
         /// 编辑区域的加载中标识
         /// </summary>

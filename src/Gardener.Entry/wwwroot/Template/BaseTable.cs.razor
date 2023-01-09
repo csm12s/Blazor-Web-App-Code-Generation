@@ -4,11 +4,12 @@
 using AntDesign;
 using @(Model.AppName).Client.Base;
 using @(Model.AppName).Client.Base.Components;
+using @(Model.AppName).@(Model.Module).Resources;
 
 namespace @(Model.AppName).@(Model.Module).Client;
 
 public abstract class @(Model.Module)BaseTable<TDto, TOperationDialog>
-    : @(Model.CodeGen.MainTableInherits)<TDto, @(Model.CodeGen.PrimaryKeyType), TOperationDialog> 
+    : @(Model.CodeGen.MainTableInherits)<TDto, @(Model.CodeGen.PrimaryKeyType), TOperationDialog, @(Model.Module)Resource> 
     where TDto : @(Model.Module)BaseDto, new() 
     where TOperationDialog : FeedbackComponent<OperationDialogInput<@(Model.CodeGen.PrimaryKeyType)>, OperationDialogOutput<@(Model.CodeGen.PrimaryKeyType)>>
 {

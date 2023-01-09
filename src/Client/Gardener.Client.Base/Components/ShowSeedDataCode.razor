@@ -1,5 +1,13 @@
-﻿@inherits FeedbackComponent<string, bool>
-<TextArea Style="height: 85vh; overflow: scroll;" Value="@seedData"/>
+﻿@using BlazorMonaco;
+@inherits FeedbackComponent<string, bool>
+<style>
+    .my-editor-class {
+        height: 85Vh
+    }
+</style>
+@*<TextArea Style="height: 85vh; overflow: scroll;" Value="@seedData" />*@
+<MonacoEditor Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="x=>OnInit((MonacoEditor)x)" />
+
 @code {
     private string seedData = string.Empty;
     /// <summary>
@@ -10,5 +18,26 @@
     {
         seedData = this.Options;
         await base.OnInitializedAsync();
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="editor"></param>
+    private void OnInit(MonacoEditor editor)
+    {
+        editor.SetValue(seedData);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="editor"></param>
+    /// <returns></returns>
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
+    {
+        return new StandaloneEditorConstructionOptions
+            {
+                AutomaticLayout = true,
+                Language = "csharp"
+            };
     }
 }
