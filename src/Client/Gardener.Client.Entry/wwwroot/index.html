@@ -193,17 +193,10 @@
             </div>
         </div>
     </app>
-    <script src="js-tool.js"></script>
-    <!--<script src="_content/AntDesign.Charts/g2plot.js"></script>-->
-    <script src="_content/AntDesign/js/ant-design-blazor.js?v=0.1.15"></script>
-    <script src="_content/AntDesign.Charts/ant-design-charts-blazor.js?v=0.1.15"></script>
+
     <script src="_framework/blazor.webassembly.js?v=0.1.15" autostart="false"></script>
-    <script src="_content/BlazorMonaco/lib/monaco-editor/min/vs/loader.js"></script>
-    <script>require.config({ paths: { 'vs': '_content/BlazorMonaco/lib/monaco-editor/min/vs' } });</script>
-    <script src="_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.js"></script>
-    <script src="_content/BlazorMonaco/jsInterop.js"></script>
     <script type="module">
-        import { BrotliDecode } from './decode.min.js';
+        import { BrotliDecode } from './js/decode.min.js';
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity) {
                 if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
@@ -224,6 +217,16 @@
             }
         });
     </script>
+    <!--<script src="_content/AntDesign.Charts/g2plot.js"></script>-->
+    <script src="_content/AntDesign/js/ant-design-blazor.js?v=0.1.15"></script>
+    <script src="_content/AntDesign.Charts/ant-design-charts-blazor.js?v=0.1.15"></script>
+    <script src="_content/BlazorMonaco/lib/monaco-editor/min/vs/loader.js"></script>
+    <script type="text/javascript">
+        require.config({ paths: { 'vs': '_content/BlazorMonaco/lib/monaco-editor/min/vs' } });
+    </script>
+    <script src="_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.js"></script>
+    <script src="_content/BlazorMonaco/jsInterop.js"></script>
+
     <script type="text/javascript">
         navigator.serviceWorker.register('service-worker.js');
     </script>

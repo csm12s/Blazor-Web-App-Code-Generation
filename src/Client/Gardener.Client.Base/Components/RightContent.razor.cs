@@ -18,9 +18,9 @@ namespace Gardener.Client.Base.Components
     {
         private UserDto _currentUser;
         public string[] Locales { get; set; } = { "zh-CN", "en-US" };
-        [Inject] 
+        [Inject]
         protected NavigationManager NavigationManager { get; set; }
-        [Inject] 
+        [Inject]
         protected MessageService MessageService { get; set; }
         [Inject]
         protected IAuthenticationStateManager authenticationStateManager { get; set; }
@@ -28,13 +28,13 @@ namespace Gardener.Client.Base.Components
         [Inject]
         private IJsTool JsTool { get; set; }
         [Inject]
-        private IClientLocalizer localizer{ get; set; }
+        private IClientLocalizer localizer { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
             SetClassMap();
-            _currentUser =await authenticationStateManager.GetCurrentUser();
+            _currentUser = await authenticationStateManager.GetCurrentUser();
         }
 
         protected void SetClassMap()
@@ -76,9 +76,10 @@ namespace Gardener.Client.Base.Components
             if (CultureInfo.CurrentCulture.Name != name)
             {
                 await JsTool.SessionStorage.SetAsync(ClientConstant.BlazorCultureKey, name);
+                await JsTool.Cookie.Set(".AspNetCore.Culture", $"c={name}|uic={name}");
                 NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }
-            
+
         }
     }
 }
