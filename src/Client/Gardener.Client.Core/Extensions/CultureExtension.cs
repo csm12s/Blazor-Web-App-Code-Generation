@@ -7,6 +7,7 @@
 using Gardener.Base;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Constants;
+using Gardener.Client.Base.Services;
 using Gardener.Client.Core.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,7 @@ namespace Gardener.Client.Core
         {
             var jsTool = host.Services.GetRequiredService<IJsTool>();
             var result = await jsTool.SessionStorage.GetAsync<string>(ClientConstant.BlazorCultureKey);
-            var culture = new CultureInfo(string.IsNullOrEmpty(result) ? "zh-CN" : result);
+            var culture = new CultureInfo(string.IsNullOrEmpty(result) ? ClientConstant.DefaultCulture : result);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;
@@ -50,7 +51,8 @@ namespace Gardener.Client.Core
         {
             //默认的
             services.TryAddScoped<IClientLocalizer, ClientSharedLocalizer<TDefaultResource>>();
-            services.TryAddScoped(typeof(IClientLocalizer<>),typeof(ClientLocalizer<>));
+            services.TryAddScoped(typeof(IClientLocalizer<>), typeof(ClientLocalizer<>));
+            services.TryAddScoped<IClientCultureService, ClientCultureService>();
             return services;
         }
     }

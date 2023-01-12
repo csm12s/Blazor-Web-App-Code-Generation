@@ -117,85 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountPasswordLogin" xml:space="preserve">
-    <value>账号密码登录</value>
+  <data name="Client login fail" xml:space="preserve">
+    <value>客户端登录失败</value>
   </data>
-  <data name="AutoLogin" xml:space="preserve">
-    <value>自动登录</value>
+  <data name="Client no find" xml:space="preserve">
+    <value>客户端未找到</value>
   </data>
-  <data name="BasicInformation" xml:space="preserve">
-    <value>基本信息</value>
+  <data name="Code generation template compilation error" xml:space="preserve">
+    <value>代码生成模板编译错误</value>
   </data>
-  <data name="ClickUpdateAvatar" xml:space="preserve">
-    <value>点击修改头像</value>
+  <data name="Controller need comment" xml:space="preserve">
+    <value>接口方法需要备注</value>
   </data>
-  <data name="ContactInformation" xml:space="preserve">
-    <value>联系信息</value>
+  <data name="Email server no find" xml:space="preserve">
+    <value>邮件服务器未找到</value>
   </data>
-  <data name="Dept" xml:space="preserve">
-    <value>部门</value>
+  <data name="Filter group operate error" xml:space="preserve">
+    <value>条件组中的操作类型错误</value>
   </data>
-  <data name="DeptId" xml:space="preserve">
-    <value>部门编号</value>
+  <data name="Forbidden" xml:space="preserve">
+    <value>拒绝访问资源</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>邮箱</value>
+  <data name="No includ file" xml:space="preserve">
+    <value>未包含文件</value>
   </data>
-  <data name="EmailConfirmed" xml:space="preserve">
-    <value>邮箱是否确认</value>
+  <data name="Refresh The token does not exist or has expired" xml:space="preserve">
+    <value>刷新token不存在或已过期</value>
   </data>
-  <data name="Gender" xml:space="preserve">
-    <value>性别</value>
+  <data name="RefreshToken cannot used in authentication" xml:space="preserve">
+    <value>刷新token不能用于鉴权</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>登录</value>
+  <data name="Request url is invalid" xml:space="preserve">
+    <value>请求的地址无效</value>
   </data>
-  <data name="LoginPassword" xml:space="preserve">
-    <value>密　码</value>
+  <data name="Resource key repeat" xml:space="preserve">
+    <value>资源键值重复</value>
   </data>
-  <data name="ModifyPersonalInformation" xml:space="preserve">
-    <value>修改资料</value>
+  <data name="SugarRepository initialize error" xml:space="preserve">
+    <value>SugarRepository 初始化错误</value>
   </data>
-  <data name="NickName" xml:space="preserve">
-    <value>用户昵称</value>
+  <data name="System error,Please contact the administrator" xml:space="preserve">
+    <value>系统异常，请联系管理员</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>密码</value>
+  <data name="Table name exist" xml:space="preserve">
+    <value>表名已存在</value>
   </data>
-  <data name="PersonalInformation" xml:space="preserve">
-    <value>个人信息</value>
+  <data name="Task allready exist" xml:space="preserve">
+    <value>已存在同名任务调度</value>
   </data>
-  <data name="PhoneNumber" xml:space="preserve">
-    <value>手机号</value>
+  <data name="Task not exist" xml:space="preserve">
+    <value>任务调度不存在</value>
   </data>
-  <data name="PhoneNumberConfirmed" xml:space="preserve">
-    <value>手机号是否确认</value>
+  <data name="The value cannot be empty or null" xml:space="preserve">
+    <value>值不能为空或Null</value>
   </data>
-  <data name="Position" xml:space="preserve">
-    <value>岗位</value>
+  <data name="The “{0}” value converter cannot be found" xml:space="preserve">
+    <value>查询的值类型“{0}”未找到转换器</value>
   </data>
-  <data name="PositionId" xml:space="preserve">
-    <value>岗位编号</value>
+  <data name="Timespan is expired" xml:space="preserve">
+    <value>时间戳已过期</value>
   </data>
-  <data name="QQ" xml:space="preserve">
-    <value>QQ</value>
+  <data name="Token invalid" xml:space="preserve">
+    <value>TOKEN无效</value>
   </data>
-  <data name="Roles" xml:space="preserve">
-    <value>角色</value>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>身份验证失败</value>
   </data>
-  <data name="UserCenter" xml:space="preserve">
-    <value>个人中心</value>
+  <data name="User locked" xml:space="preserve">
+    <value>用户已锁定</value>
   </data>
-  <data name="UserId" xml:space="preserve">
-    <value>用户编号</value>
+  <data name="User name or password error" xml:space="preserve">
+    <value>用户名或密码错误</value>
   </data>
-  <data name="UserName" xml:space="preserve">
-    <value>用户名</value>
+  <data name="User name repeat" xml:space="preserve">
+    <value>用户名重复</value>
   </data>
-  <data name="VerifyCode" xml:space="preserve">
-    <value>验证码</value>
+  <data name="Verify code verification failed" xml:space="preserve">
+    <value>验证码验证失败</value>
   </data>
-  <data name="WeChat" xml:space="preserve">
-    <value>微信</value>
+  <data name="“{0}” attribute not found in “{1}” type" xml:space="preserve">
+    <value>指定的属性“{0}”在类型“{1}”中不存在</value>
   </data>
 </root>

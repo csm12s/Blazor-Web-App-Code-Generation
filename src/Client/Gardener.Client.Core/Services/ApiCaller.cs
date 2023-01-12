@@ -24,11 +24,13 @@ namespace Gardener.Client.Core
         private readonly HttpClient httpClient;
         private readonly IClientLogger log;
         private readonly IEventBus eventBus;
-        public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus)
+        private readonly IClientLocalizer localizer;
+        public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus, IClientLocalizer localizer)
         {
             this.httpClient = httpClient;
             this.log = log;
             this.eventBus = eventBus;
+            this.localizer = localizer;
         }
         async Task<TResponse> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func)
         {
@@ -42,7 +44,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
-                        if (result.StatusCode == 500 && ((int)ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE).ToString().Equals(result.ErrorCode?.ToString()))
+                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
@@ -89,7 +91,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result.Errors?.ToString(), result.StatusCode);
                         //时间戳过期
-                        if (result.StatusCode == 500 && ((int)ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE).ToString().Equals(result.ErrorCode?.ToString()))
+                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }

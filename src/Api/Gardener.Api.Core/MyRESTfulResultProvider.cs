@@ -108,29 +108,30 @@ namespace Gardener.Admin
         /// <returns></returns>
         private static object RESTfulResult(int statusCode, bool succeeded = default, object data = default, object errors = default, object errorCode = default)
         {
-             dynamic result= new
-            {
-                StatusCode = statusCode,
-                Succeeded = succeeded,
-                ErrorCode = errorCode,
-                Errors = errors,
-                Extras = UnifyContext.Take(),
-                Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
-            };
+
             if (succeeded)
             {
-                result = new
+                return new
                 {
                     Data = data,
                     StatusCode = statusCode,
                     Succeeded = succeeded,
-                    ErrorCode = errorCode,
+                    ErrorCode = errorCode?.ToString(),
                     Errors = errors,
                     Extras = UnifyContext.Take(),
                     Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
                 };
             }
-            return result;
+
+            return new
+            {
+                StatusCode = statusCode,
+                Succeeded = succeeded,
+                ErrorCode = errorCode?.ToString(),
+                Errors = errors,
+                Extras = UnifyContext.Take(),
+                Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds()
+            };
         }
     }
 }
