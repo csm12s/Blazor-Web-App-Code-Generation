@@ -1,5 +1,6 @@
 ﻿using Gardener.Base;
 using Gardener.Enums;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,12 +12,12 @@ namespace Gardener.CodeGeneration.Domains;
 /// </summary>
 [Table("Sys_CodeGenConfig")]
 [Description("代码生成字段配置表")]
-public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGenConfig>
+public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeGenConfig>
 {
     /// <summary>
     /// 代码生成主表ID
     /// </summary>
-    public int CodeGenId { get; set; }
+    public Guid CodeGenId { get; set; }
 
     /// <summary>
     /// 数据库字段名
@@ -128,7 +129,6 @@ public class CodeGenConfig: GardenerEntityBase<int>//, IEntityTypeBuilder<CodeGe
 
     public bool? IsCreate { get; set; } = false;
 
-    //TODO: IsRequired
     public bool? IsRequired { get; set; } = false;
     /// <summary>
     /// 改

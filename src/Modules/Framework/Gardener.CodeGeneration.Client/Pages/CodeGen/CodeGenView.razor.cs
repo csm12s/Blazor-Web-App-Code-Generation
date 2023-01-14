@@ -14,10 +14,11 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
 
-public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGenEdit, CodeGenLocalResource>
+public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGenEdit, CodeGenLocalResource>
 {
     protected bool _generatesBtnLoading = false;
 
@@ -49,10 +50,10 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGen
         await base.OnInitializedAsync();
     }
 
-    private async Task OnClickConfigure(int id)
+    private async Task OnClickConfigure(Guid id)
     {
         await OpenOperationDialogAsync
-            <CodeGenConfigView, int, bool>
+            <CodeGenConfigView, Guid, bool>
             (localizer[SharedLocalResource.Setting], id, async result =>
         {
             //await ReLoadTable();
@@ -60,10 +61,10 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGen
 
     }
 
-    private async Task OnClickGenerate(int codeGenId)
+    private async Task OnClickGenerate(Guid codeGenId)
     {
         StartLoading();
-        List<int> codeGenIds = new List<int>();
+        List<Guid> codeGenIds = new List<Guid>();
         codeGenIds.Add(codeGenId);
 
         var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
@@ -80,7 +81,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGen
         
     }
 
-    private async Task OnClickGenerateMenu(int codeGenId)
+    private async Task OnClickGenerateMenu(Guid codeGenId)
     {
         StartLoading();
 
@@ -125,7 +126,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, int, CodeGen
         StopLoading();
     }
 
-    private async Task OnClickGenerateLocale(int codeGenId)
+    private async Task OnClickGenerateLocale(Guid codeGenId)
     {
         StartLoading();
 

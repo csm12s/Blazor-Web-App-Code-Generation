@@ -34,7 +34,7 @@ namespace Gardener.CodeGeneration.Services;
 /// 代码生成配置 - DB First
 /// </summary>
 [ApiDescriptionSettings(Groups = new[] { "SystemBaseServices" })] //, ForceWithRoutePrefix = true, KeepName = true, KeepVerb = true, LowercaseRoute = false, SplitCamelCase = false
-public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
+public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto, Guid>
     , ICodeGenConfigService, ITransient
 {
     private readonly IRepository<CodeGenConfig> repository;
@@ -290,7 +290,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     }
 
     [NonAction]
-    public async Task DeleteByCodeGenId(int codeGenId)
+    public async Task DeleteByCodeGenId(Guid codeGenId)
     {
         var codeGenConfigList = await _repository
             .Where(u => u.CodeGenId == codeGenId)
@@ -302,7 +302,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     /// </summary>
     /// <param name="codeGenId"></param>
     /// <returns></returns>
-    public async Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(int codeGenId)
+    public async Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(Guid codeGenId)
     {
         var list = await GetAllUsable();
         return list.Where(it => it.CodeGenId == codeGenId).ToList();

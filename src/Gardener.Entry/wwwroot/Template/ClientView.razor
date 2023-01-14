@@ -21,6 +21,24 @@
             </p>
         }
     </h5>
+
+    @*PageButtons*@
+    <Row>
+        <AntDesign.Col Span="8">
+        </AntDesign.Col>
+        <AntDesign.Col Span="16" Style="text-align:right">
+            <Space>
+                <ResourceAuthorize ResourceKey=@@GetAuthKey(AuthItems.Search)>
+                    <SpaceItem>
+                        <Button Type="@@ButtonType.Primary" Icon="reload" OnClick="ReloadPage">
+                            @@localizer[SharedLocalResource.Refresh]
+                        </Button>
+                    </SpaceItem>
+                </ResourceAuthorize>
+            </Space>
+        </AntDesign.Col>
+    </Row>
+
     <Table @@ref="_table"
            Context="model"
            TItem="@(Model.ClassName)Dto"
