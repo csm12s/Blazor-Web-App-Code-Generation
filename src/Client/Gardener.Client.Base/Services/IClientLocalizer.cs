@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
-
 namespace Gardener.Client.Base
 {
     /// <summary>

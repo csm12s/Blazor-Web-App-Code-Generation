@@ -11,10 +11,13 @@ using System.Linq;
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// 公共辅助类
+    /// </summary>
     public static class ComponentUtils
     {
         /// <summary>
-        /// 
+        /// 级联节点生成
         /// </summary>
         /// <typeparam name="TDto"></typeparam>
         /// <param name="dtos"></param>

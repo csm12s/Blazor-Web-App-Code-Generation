@@ -1,4 +1,5 @@
 ﻿@using BlazorMonaco;
+@using Microsoft.AspNetCore.Components.Web
 @inherits FeedbackComponent<string, bool>
 <style>
     .my-editor-class {
@@ -7,7 +8,9 @@
 </style>
 @*<TextArea Style="height: 85vh; overflow: scroll;" Value="@seedData" />*@
 <MonacoEditor Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="x=>OnInit((MonacoEditor)x)" />
-
+<HeadContent>
+    <link href="_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.css" rel="stylesheet" />
+</HeadContent>
 @code {
     private string seedData = string.Empty;
     /// <summary>

@@ -78,6 +78,10 @@ namespace Gardener.Client.Base.Constants
         /// 启用多标签
         /// </summary>
         public readonly static bool EnabledTabs=true;
+        /// <summary>
+        /// 通知消息使用MessageBox最大长度超出时，使用通知框
+        /// </summary>
+        public readonly static int ClientNotifierUseMessageMaxLength = 20;
 
     }
 }

@@ -5,7 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Constants;
 using System;
 using System.Threading.Tasks;
 
@@ -14,14 +16,17 @@ namespace Gardener.Client.Core
     [ScopedService]
     public class ClientNotifier : IClientNotifier
     {
-        private MessageService msgSvr;
-        private NotificationService notificationService;
         private double duration = 3;
-        private int msgMaxLength = 20;
-        public ClientNotifier(MessageService msgSvr, NotificationService notificationService)
+        private int msgMaxLength = ClientConstant.ClientNotifierUseMessageMaxLength;
+
+        private readonly MessageService msgSvr;
+        private readonly NotificationService notificationService;
+        private readonly IClientLocalizer localizer;
+        public ClientNotifier(MessageService msgSvr, NotificationService notificationService, IClientLocalizer localizer)
         {
             this.msgSvr = msgSvr;
             this.notificationService = notificationService;
+            this.localizer = localizer;
         }
 
         private async Task Notify(string msg, string description, NotificationType type)
@@ -57,7 +62,7 @@ namespace Gardener.Client.Core
         }
         public async Task Error(string description, Exception ex = null)
         {
-            await Error("异常通知", description, ex);
+            await Error(localizer[SharedLocalResource.Error], description, ex);
         }
         public async Task Error(string msg, string description, Exception ex = null)
         {
@@ -65,7 +70,7 @@ namespace Gardener.Client.Core
         }
         public async Task Info(string description)
         {
-            await Info("通知", description);
+            await Info(localizer[SharedLocalResource.Info], description);
         }
         public async Task Info(string msg, string description)
         {
@@ -73,7 +78,7 @@ namespace Gardener.Client.Core
         }
         public async Task Success(string description)
         {
-            await Success("成功通知", description);
+            await Success(localizer[SharedLocalResource.Success], description);
         }
         public async Task Success(string msg, string description)
         {
@@ -81,7 +86,7 @@ namespace Gardener.Client.Core
         }
         public async Task Warn(string description, Exception ex = null)
         {
-            await Warn("警告通知", description, ex);
+            await Warn(localizer[SharedLocalResource.Warn], description, ex);
         }
         public async Task Warn(string msg, string description, Exception ex = null)
         {

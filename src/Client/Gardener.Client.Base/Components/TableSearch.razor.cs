@@ -7,7 +7,6 @@
 using AntDesign;
 using Gardener.Attributes;
 using Gardener.Base;
-using Gardener.Base.Resources;
 using Gardener.Client.Base.Constants;
 using Gardener.Common;
 using Microsoft.AspNetCore.Components;

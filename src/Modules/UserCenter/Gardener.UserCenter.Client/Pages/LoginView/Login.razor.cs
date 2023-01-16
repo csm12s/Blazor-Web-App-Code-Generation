@@ -7,7 +7,6 @@
 using AntDesign;
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
-using Gardener.Client.Base.Services;
 using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -24,7 +23,6 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         private LoginInput loginInput = new LoginInput();
         private Gardener.Client.Base.Components.ImageVerifyCode _imageVerifyCode;
         private string returnUrl;
-        private string[] _locales;
 
         [Inject]
         public MessageService MsgSvr { get; set; }
@@ -37,18 +35,12 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         [Inject]
         public IClientLocalizer<UserCenterResource> localizer { get; set; }
 
-        [Inject]
-        private IClientCultureService clientCultureService { get; set; }
-
-        
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         protected override  async Task OnInitializedAsync()
         {
-            _locales = clientCultureService.GetSupportedCultures();
-
             var url = new Uri(Navigation.Uri);
             var query = url.Query;
 
@@ -89,19 +81,6 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
                 //await InvokeAsync(StateHasChanged);
             }
             
-        }
-        /// <summary>
-        /// HandleSelectLang
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public async Task HandleSelectLang(MenuItem item)
-        {
-            string name = item.Key;
-            if (await clientCultureService.SetCulture(name))
-            {
-                Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
-            }
         }
     }
     

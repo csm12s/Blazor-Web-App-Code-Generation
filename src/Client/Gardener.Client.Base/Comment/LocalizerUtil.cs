@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -19,9 +18,18 @@ namespace Gardener.Client.Base
     public class LocalizerUtil
     {
         /// <summary>
-        /// 服务
+        /// 服务仓库
         /// </summary>
-        public static IServiceProvider Services;
+        private static IServiceProvider Services;
+
+        /// <summary>
+        /// 设置服务仓库
+        /// </summary>
+        /// <param name="services"></param>
+        public static void SetServices(IServiceProvider services) 
+        {
+            Services = services;
+        }
 
         /// <summary>
         /// 合并多个

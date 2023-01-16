@@ -1,4 +1,4 @@
-//支持多语言，语言文件位置在Gardener.Api.Core/Resources下
+//支持多语言，语言文件位置在Gardener/Base/Resources/SharedLocalResource下
 {
   "ValidationTypeMessageSettings": {
     "Definitions": [

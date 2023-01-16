@@ -10,7 +10,6 @@ using Furion.DependencyInjection;
 using Furion.EventBus;
 using Gardener.Authorization.Core;
 using Gardener.Authorization.Dtos;
-using Gardener.Base;
 using Gardener.Base.Entity;
 using Gardener.Cache;
 using Gardener.Enums;

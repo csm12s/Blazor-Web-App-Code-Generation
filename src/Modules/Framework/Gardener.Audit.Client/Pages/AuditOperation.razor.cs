@@ -6,7 +6,6 @@
 
 using Gardener.Audit.Dtos;
 using Gardener.Audit.Services;
-using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.Base.Components;
 using Microsoft.AspNetCore.Components;

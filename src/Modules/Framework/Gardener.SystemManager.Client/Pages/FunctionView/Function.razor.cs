@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.Base.Components;
 using Gardener.SystemManager.Dtos;

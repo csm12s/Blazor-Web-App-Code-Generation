@@ -7,7 +7,6 @@
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.EventBus;
-using Gardener.Base;
 using Gardener.Base.Entity;
 using Gardener.Enums;
 using Gardener.EventBus;

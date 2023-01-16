@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Enums;
 using Gardener.EventBus;
@@ -18,6 +19,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Core
 {
+    /// <summary>
+    /// api 调用器
+    /// </summary>
     [ScopedService]
     public class ApiCaller : IApiCaller
     {
@@ -25,6 +29,13 @@ namespace Gardener.Client.Core
         private readonly IClientLogger log;
         private readonly IEventBus eventBus;
         private readonly IClientLocalizer localizer;
+        /// <summary>
+        /// api 调用器
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="log"></param>
+        /// <param name="eventBus"></param>
+        /// <param name="localizer"></param>
         public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus, IClientLocalizer localizer)
         {
             this.httpClient = httpClient;
@@ -32,6 +43,12 @@ namespace Gardener.Client.Core
             this.eventBus = eventBus;
             this.localizer = localizer;
         }
+        /// <summary>
+        /// 调用包装
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="func"></param>
+        /// <returns></returns>
         async Task<TResponse> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func)
         {
             try
@@ -54,7 +71,7 @@ namespace Gardener.Client.Core
                     return result.Data;
                 }
                 //请求失败 
-                log.Error("请求失败", (int)httpResponse.StatusCode);
+                log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
                 //身份验证失败
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                 {
@@ -65,10 +82,15 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                log.Error($"接口请求异常[{ex.Message}]", -999, ex);
+                log.Error($"{localizer[SharedLocalResource.ResuqesException]}[{ex.Message}]", -999, ex);
                 return default(TResponse);
             }
         }
+        /// <summary>
+        /// 调用包装
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
         async Task ResponseHandle(Func<Task<HttpResponseMessage>> func)
         {
             try
@@ -77,7 +99,7 @@ namespace Gardener.Client.Core
                 if (!HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
                     //请求失败
-                    log.Error("请求失败", (int)httpResponse.StatusCode);
+                    log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
                     //身份验证失败
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                     {
@@ -100,9 +122,15 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                log.Error($"接口请求异常[{ex.Message}]", -999, ex);
+                log.Error($"{localizer[SharedLocalResource.ResuqesException]}[{ex.Message}]", -999, ex);
             }
         }
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         private string GetUrl(string url, IDictionary<string, object> queryString = null)
         {
             if (queryString != null && queryString.Count > 0)
@@ -111,6 +139,12 @@ namespace Gardener.Client.Core
             }
             return url;
         }
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         private string GetUrl(string url, List<KeyValuePair<string, object>> queryString)
         {
             if (queryString != null && queryString.Count() > 0)
@@ -123,6 +157,13 @@ namespace Gardener.Client.Core
             return url;
         }
         #region post
+        /// <summary>
+        /// post
+        /// </summary>
+        /// <typeparam name="TRequest"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task PostAsync<TRequest>(string url, TRequest request = default(TRequest))
         {
             return ResponseHandle(() =>
@@ -130,6 +171,14 @@ namespace Gardener.Client.Core
                 return httpClient.PostAsJsonAsync<TRequest>(url, request);
             });
         }
+        /// <summary>
+        /// post
+        /// </summary>
+        /// <typeparam name="TRequest"></typeparam>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request = default(TRequest))
         {
             return ResponseHandle<TResponse>(() =>
@@ -138,7 +187,13 @@ namespace Gardener.Client.Core
            });
 
         }
-
+        /// <summary>
+        /// post
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         public Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
@@ -148,6 +203,12 @@ namespace Gardener.Client.Core
         }
         #endregion
         #region get
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public Task<TResponse> GetAsync<TResponse>(string url)
         {
             return ResponseHandle<TResponse>(() =>
@@ -156,6 +217,13 @@ namespace Gardener.Client.Core
             });
 
         }
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         public Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
         {
             return ResponseHandle<TResponse>(() =>
@@ -165,6 +233,13 @@ namespace Gardener.Client.Core
              });
 
         }
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         public Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString)
         {
             return ResponseHandle<TResponse>(() =>
@@ -176,6 +251,12 @@ namespace Gardener.Client.Core
         }
         #endregion
         #region delete
+        /// <summary>
+        /// delete
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         public Task DeleteAsync(string url, IDictionary<string, object> queryString = null)
         {
            return ResponseHandle(() =>
@@ -183,6 +264,13 @@ namespace Gardener.Client.Core
                 return httpClient.DeleteAsync(GetUrl(url, queryString));
             });
         }
+        /// <summary>
+        /// delete
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         public Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
@@ -192,6 +280,13 @@ namespace Gardener.Client.Core
         }
         #endregion
         #region put
+        /// <summary>
+        /// put
+        /// </summary>
+        /// <typeparam name="TRequest"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task PutAsync<TRequest>(string url, TRequest request = default)
         {
             return ResponseHandle(() =>
@@ -199,6 +294,14 @@ namespace Gardener.Client.Core
                 return httpClient.PutAsJsonAsync(url, request);
             });
         }
+        /// <summary>
+        /// put
+        /// </summary>
+        /// <typeparam name="TRequest"></typeparam>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request = default)
         {
             return ResponseHandle<TResponse>(() =>
@@ -206,7 +309,6 @@ namespace Gardener.Client.Core
                return httpClient.PutAsJsonAsync(url, request);
            });
         }
-
 
         #endregion
     }
