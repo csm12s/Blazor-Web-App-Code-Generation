@@ -51,6 +51,8 @@ namespace Gardener.Common
             string desc = string.Empty;
             foreach (var item in Enum.GetValues(typeof(T)))
             {
+                desc = item.ToString();//未设置Description取英文名
+
                 //需要忽略的
                 var igAttrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
                 if (igAttrs != null && igAttrs.Length > 0) continue;

@@ -33,7 +33,7 @@ namespace Gardener.CodeGeneration.Services;
 /// 代码生成 - DB First
 /// </summary>
 [ApiDescriptionSettings(Groups = new[] { "SystemBaseServices" })] //, ForceWithRoutePrefix = true, KeepName = true, KeepVerb = true, LowercaseRoute = false, SplitCamelCase = false
-public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>, 
+public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>, 
     ICodeGenService, ITransient
 {
     #region Init
@@ -183,13 +183,13 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public override async Task<bool> Delete(int id)
+    public override async Task<bool> Delete(Guid id)
     {
         await _repository.DeleteAsync(id);
         await codeGenConfigService.DeleteByCodeGenId(id);
         
         //发送删除通知
-        await EntityEventNotityUtil.NotifyDeleteAsync<CodeGen, int>(id);
+        await EntityEventNotityUtil.NotifyDeleteAsync<CodeGen, Guid>(id);
         return true;
     }
     #endregion
@@ -273,7 +273,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     /// </summary>
     /// <param name="codeGenIds"></param>
     /// <returns></returns>
-    public async Task<bool> GenerateCode([FromBody] int[] codeGenIds)
+    public async Task<bool> GenerateCode([FromBody] Guid[] codeGenIds)
     {
         var allCodeGens = await GetAll();
         var codeGens = allCodeGens.Where(it => codeGenIds.Contains(it.Id)).ToList();
@@ -695,6 +695,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
         {
             tableDesc = codeGenDto.TableDescriptionEN;
         }
+        else
+        {
+            codeGenDto.TableDescriptionEN = tableDesc;
+            codeGenDto.TableDescriptionCH= tableDesc;
+        }
 
         // TableSummary
         var tableSummary = tableDesc;
@@ -819,8 +824,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
                     // 如果未设置描述
                     if (configDto.ColumnDescription == configDto.NetColumnName)
                     {
-                        // TODO: 这里直接把数据库的列备注设置成了EN，或许可以响应codeGenDto.UseChineseKey
-                        // 设置中文，也可以新增一个选项
+                        // 这里直接把数据库的列备注设置成了EN
                         configDto.ColumnDescription = matchLocale.ValueEN;
                     }
                     
@@ -1325,7 +1329,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     /// </summary>
     /// <param name="codeGenId"></param>
     /// <returns></returns>
-    public async Task<bool> GenerateMenu(int codeGenId)
+    public async Task<bool> GenerateMenu(Guid codeGenId)
     {
         var codeGenDto = await Get(codeGenId);
         if (!codeGenDto.MenuParentId.HasValue)
@@ -1356,9 +1360,9 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto>,
     /// </summary>
     /// <param name="codeGenId"></param>
     /// <returns></returns>
-    public async Task<bool> GenerateLocale(int codeGenId)
+    public async Task<bool> GenerateLocale(Guid codeGenId)
     {
-        var codeGenDto = await Get(codeGenId);
+        var codeGenDto = await this.Get(codeGenId);
 
         var nameModel = await GetNameModelAsync(codeGenDto);
         if (nameModel.LocaleItems.Count() <= 1)

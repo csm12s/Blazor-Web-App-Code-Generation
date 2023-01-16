@@ -1,4 +1,6 @@
 ﻿
+using MiniExcelLibs.Attributes;
+
 namespace Gardener.CodeGeneration.Dtos
 {
     /// <summary>
@@ -20,6 +22,7 @@ namespace Gardener.CodeGeneration.Dtos
         /// <summary>
         /// Key in XxxResource.cs
         /// </summary>
+        [ExcelIgnore]
         public string KeyInResource { get; set; }
     }
 }

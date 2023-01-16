@@ -1,6 +1,7 @@
 ﻿using Gardener.Client.Base;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Gardener.CodeGeneration.Client.Services;
 /// 代码生成
 /// </summary>
 [ScopedService]
-public class CodeGenClientService: ClientServiceBase<CodeGenDto>, 
+public class CodeGenClientService: ClientServiceBase<CodeGenDto, Guid>, 
     ICodeGenService
 {
     #region Init
@@ -19,22 +20,22 @@ public class CodeGenClientService: ClientServiceBase<CodeGenDto>,
     {
     }
     #endregion
-    public async Task<bool> GenerateCode(int[] codeGenIds)
+    public async Task<bool> GenerateCode(Guid[] codeGenIds)
     {
         var url = $"{controller}/generate-code";
-        return await apiCaller.PostAsync<int[], bool>(url, codeGenIds);
+        return await apiCaller.PostAsync<Guid[], bool>(url, codeGenIds);
     }
 
-    public Task<bool> GenerateLocale(int codeGenId)
+    public Task<bool> GenerateLocale(Guid codeGenId)
     {
         var url = $"{controller}/generate-locale/{codeGenId}";
-        return apiCaller.PostAsync<int, bool>(url, codeGenId);
+        return apiCaller.PostAsync<Guid, bool>(url, codeGenId);
     }
 
-    public async Task<bool> GenerateMenu(int codeGenId)
+    public async Task<bool> GenerateMenu(Guid codeGenId)
     {
         var url = $"{controller}/generate-menu/{codeGenId}";
-        return await apiCaller.PostAsync<int, bool>(url, codeGenId);
+        return await apiCaller.PostAsync<Guid, bool>(url, codeGenId);
     }
 
     public async Task<List<TableOutput>> GetTableListAsync()//string dbContextLocatorName = ""

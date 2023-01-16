@@ -26,6 +26,7 @@ using Gardener.SysTimer.Domains;
 using Gardener.Enums;
 using ExceptionCode = Gardener.SysTimer.Enums.ExceptionCode;
 using Gardener.EntityFramwork;
+using Furion.Logging;
 
 namespace Gardener.SysTimer.Services
 {
@@ -383,8 +384,16 @@ namespace Gardener.SysTimer.Services
         [NonAction]
         public async void StartTimerJob()
         {
-            var sysTimerList = await _repository.DetachedEntities.Where(t => t.Started).ProjectToType<SysTimerDto>().ToListAsync();
-            sysTimerList.ForEach(AddTimerJob);
+            try
+            {
+                var sysTimerList = await _repository.DetachedEntities.Where(t => t.Started).ProjectToType<SysTimerDto>().ToListAsync();
+                sysTimerList.ForEach(AddTimerJob);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("启动定时任务出错，SysTimer表可能未创建，" + ex.Message);
+                //throw Oops.Oh(ex.Message);//因为项目还没启动，这里的友好异常不会被处理
+            }
         }
 
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.CodeGeneration.Dtos;
 
-public partial class CodeGenDto: BaseDto<int>
+public partial class CodeGenDto: BaseDto<Guid>
 {
     #region Custom Dto
 

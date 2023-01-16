@@ -13,7 +13,7 @@ public abstract class @(Model.Module)BaseTable<TDto, TOperationDialog>
     where TDto : @(Model.Module)BaseDto, new() 
     where TOperationDialog : FeedbackComponent<OperationDialogInput<@(Model.CodeGen.PrimaryKeyType)>, OperationDialogOutput<@(Model.CodeGen.PrimaryKeyType)>>
 {
-   
+#region Init
     public readonly string _ControllerName;
     public string _Module = "@(Model.Module)";
 
@@ -26,6 +26,16 @@ public abstract class @(Model.Module)BaseTable<TDto, TOperationDialog>
     {
         return _Module + "_" + _ControllerName + "_" + key;
     }
+
+    protected virtual async Task ReloadPage()
+    {
+        // Reload Main Table
+        await ReLoadTable();
+
+        // Reload Page
+
+    }
+#endregion
 
 }
 

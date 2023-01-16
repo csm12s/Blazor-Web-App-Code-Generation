@@ -1,7 +1,7 @@
 ﻿@using Gardener.Base
 @using Gardener.CodeGeneration.Resources;
 @using Gardener.SystemManager.Dtos
-@inherits EditOperationDialogBase<CodeGenDto, int,CodeGenLocalResource>
+@inherits EditOperationDialogBase<CodeGenDto, Guid, CodeGenLocalResource>
 
 <Form Loading="@_isLoading"
       Model="@_editModel"
