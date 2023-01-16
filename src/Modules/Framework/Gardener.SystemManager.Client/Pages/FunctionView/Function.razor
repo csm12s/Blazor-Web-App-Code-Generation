@@ -88,7 +88,7 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.IsLocked" Width="8%" Filterable>
+            <Column @bind-Field="@model.IsLocked" Width="8%" Filterable Title="@localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_function_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -98,7 +98,7 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" DefaultSortOrder="@SortDirection.Descending" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn Width="10%">
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_function_edit">
