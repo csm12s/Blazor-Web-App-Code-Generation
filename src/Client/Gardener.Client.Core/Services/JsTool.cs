@@ -6,31 +6,73 @@
 
 using Gardener.Client.Base;
 using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Core
+namespace Gardener.Client.Core.Services
 {
-    [ScopedService]
-    public class JsTool : IJsTool
+    /// <summary>
+    /// 
+    /// </summary>
+    public abstract class JsToolBase
     {
-        public JsTool(IJSRuntime js)
+        private readonly Lazy<Task<IJSObjectReference>> moduleTask;
+        private IJSObjectReference jSObjectReference;
+        public JsToolBase(IJSRuntime js)
+        {
+            moduleTask = new(() => js.InvokeAsync<IJSObjectReference>("import", $"./js/js-tool/js-tool.js?_={DateTime.Now.ToString("yyyyMMddHHmmss")}").AsTask());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IJSObjectReference> GetJsToolModule()
+        {
+            if (jSObjectReference == null) 
+            { 
+                jSObjectReference = await moduleTask.Value;
+            }
+            return jSObjectReference;
+        }
+
+    }
+
+    /// <summary>
+    /// js操作工具
+    /// </summary>
+    [ScopedService]
+    public class JsTool : JsToolBase, IJsTool
+    {
+        /// <summary>
+        /// js操作工具
+        /// </summary>
+        /// <param name="js"></param>
+        public JsTool(IJSRuntime js) : base(js)
         {
             SessionStorage = new SessionStorage(js);
             Document = new Document(js);
             LocalStorage = new LocalStorage(js);
+            Cookie = new Cookie(js);
         }
         /// <summary>
         /// session storage
         /// </summary>
         public IWebStorage SessionStorage { get; init; }
         /// <summary>
-        /// 
+        /// LocalStorage
         /// </summary>
         public IWebStorage LocalStorage { get; init; }
         /// <summary>
-        /// 
+        /// Document
         /// </summary>
-        public IDocument Document { get; set; }
+        public IDocument Document { get; init; }
+        /// <summary>
+        /// Cookie
+        /// </summary>
+        public ICookie Cookie { get; init; }
+
     }
 
     /// <summary>
@@ -56,7 +98,10 @@ namespace Gardener.Client.Core
             await js.InvokeVoidAsync("sessionStorage.removeItem", key);
         }
     }
-    public class LocalStorage: IWebStorage
+    /// <summary>
+    /// LocalStorage
+    /// </summary>
+    public class LocalStorage : IWebStorage
     {
         private readonly IJSRuntime js;
         public LocalStorage(IJSRuntime js)
@@ -76,22 +121,58 @@ namespace Gardener.Client.Core
             await js.InvokeVoidAsync("localStorage.removeItem", key);
         }
     }
-    public class Document : IDocument
+    /// <summary>
+    /// Document
+    /// </summary>
+    public class Document : JsToolBase, IDocument
     {
-        private readonly IJSRuntime js;
-        public Document(IJSRuntime js)
+        public Document(IJSRuntime js) : base(js)
         {
-            this.js = js;
         }
 
         public async Task SetTitle(string title)
         {
-            await js.InvokeVoidAsync("document.setTitle", title);
+            var module = await GetJsToolModule();
+            await module.InvokeVoidAsync("setDocumentTitle", title);
         }
 
         public async Task DownloadFile(string url)
         {
-            await js.InvokeVoidAsync("document.downloadFile", url);
+            var module = await GetJsToolModule();
+            await module.InvokeVoidAsync("downloadFile", url);
+        }
+    }
+    /// <summary>
+    /// Cookie
+    /// </summary>
+    public class Cookie : JsToolBase, ICookie
+    {
+        public Cookie(IJSRuntime js) : base(js)
+        {
+        }
+
+        public async Task<Dictionary<string, string>> Get()
+        {
+            var module = await GetJsToolModule();
+            return await module.InvokeAsync<Dictionary<string, string>>("getAllCookies");
+        }
+
+        public async Task<string> Get(string key, string domain = null)
+        {
+            var module = await GetJsToolModule();
+            return await module.InvokeAsync<string>("getCookies", key, new { domain });
+        }
+
+        public async Task Remove(string key, string path = null, string domain = null)
+        {
+            var module = await GetJsToolModule();
+            await module.InvokeVoidAsync("removeCookies", key, new { domain, path });
+        }
+
+        public async Task Set(string key, string value, int? expires = null, string path = null)
+        {
+            var module = await GetJsToolModule();
+            await module.InvokeVoidAsync("setCookies", key, value, new { expires, path });
         }
     }
 }

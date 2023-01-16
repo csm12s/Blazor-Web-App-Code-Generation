@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Gardener.Base;
@@ -14,7 +13,6 @@ using Gardener.Common;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
 using Gardener.Sugar;
-using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,9 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Gardener.CodeGeneration.Services;
@@ -34,7 +30,7 @@ namespace Gardener.CodeGeneration.Services;
 /// 代码生成配置 - DB First
 /// </summary>
 [ApiDescriptionSettings(Groups = new[] { "SystemBaseServices" })] //, ForceWithRoutePrefix = true, KeepName = true, KeepVerb = true, LowercaseRoute = false, SplitCamelCase = false
-public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
+public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto, Guid>
     , ICodeGenConfigService, ITransient
 {
     private readonly IRepository<CodeGenConfig> repository;
@@ -290,7 +286,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     }
 
     [NonAction]
-    public async Task DeleteByCodeGenId(int codeGenId)
+    public async Task DeleteByCodeGenId(Guid codeGenId)
     {
         var codeGenConfigList = await _repository
             .Where(u => u.CodeGenId == codeGenId)
@@ -302,7 +298,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto>
     /// </summary>
     /// <param name="codeGenId"></param>
     /// <returns></returns>
-    public async Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(int codeGenId)
+    public async Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(Guid codeGenId)
     {
         var list = await GetAllUsable();
         return list.Where(it => it.CodeGenId == codeGenId).ToList();

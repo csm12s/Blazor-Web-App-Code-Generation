@@ -31,6 +31,7 @@ using Gardener.VerifyCode.Core;
 using Gardener.SystemManager.Dtos;
 using Gardener.Base.Enums;
 using Gardener.Base.Entity;
+using Furion.Localization;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -106,6 +107,7 @@ namespace Gardener.UserCenter.Impl.Services
             var token = await _jwtBearerService.CreateToken(identity);
             // 设置 Swagger 刷新自动授权
             _httpContextAccessor.HttpContext.SigninToSwagger(token.AccessToken);
+            L.SetCulture("zh-CN");
             return token.Adapt<TokenOutput>();
         }
         /// <summary>

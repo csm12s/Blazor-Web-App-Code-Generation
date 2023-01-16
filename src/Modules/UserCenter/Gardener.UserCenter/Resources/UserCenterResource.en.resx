@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountPasswordLogin" xml:space="preserve">
+    <value>Use account and password login</value>
+  </data>
+  <data name="AutoLogin" xml:space="preserve">
+    <value>Auto login</value>
+  </data>
   <data name="BaseInfo" xml:space="preserve">
     <value>Basic information</value>
   </data>
@@ -143,6 +149,12 @@
   </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>Password</value>
   </data>
   <data name="ModifyPersonalInformation" xml:space="preserve">
     <value>Modify personal information</value>
@@ -182,6 +194,9 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>User name</value>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>Verify code</value>
   </data>
   <data name="WeChat" xml:space="preserve">
     <value>WeChat</value>

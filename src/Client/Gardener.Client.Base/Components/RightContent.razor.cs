@@ -7,34 +7,33 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using AntDesign;
-using System.Globalization;
 using Gardener.UserCenter.Dtos;
 using AntDesign.ProLayout;
-using Gardener.Client.Base.Constants;
+using Gardener.Client.Base.Services;
 
 namespace Gardener.Client.Base.Components
 {
     public partial class RightContent
     {
         private UserDto _currentUser;
-        public string[] Locales { get; set; } = { "zh-CN", "en-US" };
-        [Inject] 
+        private string[] _locales;
+        [Inject]
         protected NavigationManager NavigationManager { get; set; }
-        [Inject] 
+        [Inject]
         protected MessageService MessageService { get; set; }
         [Inject]
         protected IAuthenticationStateManager authenticationStateManager { get; set; }
-
         [Inject]
-        private IJsTool JsTool { get; set; }
+        private IClientLocalizer localizer { get; set; }
         [Inject]
-        private IClientLocalizer localizer{ get; set; }
+        private IClientCultureService clientCultureService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            await base.OnInitializedAsync();
             SetClassMap();
-            _currentUser =await authenticationStateManager.GetCurrentUser();
+            _currentUser = await authenticationStateManager.GetCurrentUser();
+            _locales= clientCultureService.GetSupportedCultures();
+            await base.OnInitializedAsync();
         }
 
         protected void SetClassMap()
@@ -69,16 +68,18 @@ namespace Gardener.Client.Base.Components
                     break;
             }
         }
-
+        /// <summary>
+        /// HandleSelectLang
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public async Task HandleSelectLang(MenuItem item)
         {
             string name = item.Key;
-            if (CultureInfo.CurrentCulture.Name != name)
+            if (await clientCultureService.SetCulture(name))
             {
-                await JsTool.SessionStorage.SetAsync(ClientConstant.BlazorCultureKey, name);
                 NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }
-            
         }
     }
 }

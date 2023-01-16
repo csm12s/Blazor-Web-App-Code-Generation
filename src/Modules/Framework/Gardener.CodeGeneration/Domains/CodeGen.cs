@@ -12,7 +12,7 @@ namespace Gardener.CodeGeneration.Domains;
 
 [Table("Sys_CodeGen")]
 [Description("Code Gen - DB First")]
-public class CodeGen: GardenerEntityBase<int>, IEntityTypeBuilder<CodeGen>
+public class CodeGen: GardenerEntityBase<Guid>, IEntityTypeBuilder<CodeGen>
 {
     [MaxLength(100)]
     public string TableName { get; set; }

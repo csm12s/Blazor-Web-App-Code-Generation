@@ -29,15 +29,15 @@
     <FormItem>
         <Switch @bind-Value="@model.IsHtml"></Switch>
     </FormItem>
-    <FormItem>
+        <FormItem Label="@localizer[SharedLocalResource.IsLocked]">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
     @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
     {
-        <FormItem Label="创建时间">
+        <FormItem Label="@localizer[SharedLocalResource.CreatedTime]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem Label="更新时间">
+        <FormItem  Label="@localizer[SharedLocalResource.UpdatedTime]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }

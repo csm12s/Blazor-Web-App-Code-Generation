@@ -1,6 +1,7 @@
 ﻿using Gardener.Client.Base;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Gardener.CodeGeneration.Client.Services;
 /// 代码生成Config
 /// </summary>
 [ScopedService]
-public class CodeGenConfigClientService: ClientServiceBase<CodeGenConfigDto>, 
+public class CodeGenConfigClientService: ClientServiceBase<CodeGenConfigDto, Guid>, 
     ICodeGenConfigService
 {
     #region Init
@@ -21,7 +22,7 @@ public class CodeGenConfigClientService: ClientServiceBase<CodeGenConfigDto>,
 
     #endregion
 
-    public Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(int codeGenId)
+    public Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(Guid codeGenId)
     {
         var url = $"{controller}/code-gen-configs-by-code-gen-id/{codeGenId}";
         return apiCaller.GetAsync<List<CodeGenConfigDto>>(url);
@@ -35,15 +36,12 @@ public class CodeGenConfigClientService: ClientServiceBase<CodeGenConfigDto>,
 
 
     #region NoAction
-    // TODO: 建议是否可以考虑使用原来的Controller模式，即现在的ServiceBase改成Controller，
-    // 增加新的BaseService用于业务逻辑，这样这里就不用有NoAction的方法了
-    // 特别是对于业务复杂的场景
     public Task DeleteAndAddList(List<TableColumnInfo> tableColumnOuputs, CodeGenDto codeGen)
     {
         throw new System.NotImplementedException();
     }
 
-    public Task DeleteByCodeGenId(int id)
+    public Task DeleteByCodeGenId(Guid id)
     {
         throw new System.NotImplementedException();
     }

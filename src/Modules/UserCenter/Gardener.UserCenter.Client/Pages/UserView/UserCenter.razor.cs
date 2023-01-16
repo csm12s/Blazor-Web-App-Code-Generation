@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Base;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Resources;

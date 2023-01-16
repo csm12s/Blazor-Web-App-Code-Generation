@@ -1,5 +1,6 @@
 ﻿using Gardener.Base;
 using Gardener.Enums;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,13 +8,10 @@ namespace Gardener.CodeGeneration.Dtos;
 /// <summary>
 /// 代码生成配置
 /// </summary>
-public partial class CodeGenConfigDto: BaseDto<int> 
+public partial class CodeGenConfigDto: BaseDto<Guid> 
 {
-    //: CodeGenConfig // TODO: DTO是不是可以继承Entity，
-    //请参考Admin.Net，Admin.NET.Application 引用了Admin.NET.Core
-    //因为Entity引用了ORM框架相关依赖，接口是api和client的约束，所以接口中的dto应该保持无任何具体实现的影子
+    //Entity引用了ORM框架相关依赖，接口是api和client的约束，所以接口中的dto应该保持无任何具体实现的影子
     #region Custom Dto
-
     /// <summary>
     /// 最大长度
     /// </summary>
@@ -30,7 +28,7 @@ public partial class CodeGenConfigDto: BaseDto<int>
     /// 代码生成主表ID
     /// </summary>
     [DisplayName("生成主键")]
-    public int CodeGenId { get; set; }
+    public Guid CodeGenId { get; set; }
 
     /// <summary>
     /// 数据库字段名

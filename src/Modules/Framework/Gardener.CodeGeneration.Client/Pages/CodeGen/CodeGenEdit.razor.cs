@@ -9,12 +9,11 @@ using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
 
-public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int, CodeGenLocalResource>
+public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, CodeGenLocalResource>
 {
     #region Init
     private List<SelectItem> _allTables = new List<SelectItem>();
@@ -101,7 +100,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, int, Code
         if (result)
         {
             messageService.Success(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
-            await base.FeedbackRef.CloseAsync(OperationDialogOutput<int>.Succeed(_editModel.Id));
+            await base.FeedbackRef.CloseAsync(OperationDialogOutput<Guid>.Succeed(_editModel.Id));
         }
         else
         {

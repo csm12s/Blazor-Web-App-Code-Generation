@@ -7,17 +7,18 @@ using Gardener.CodeGeneration.Services;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
 
-public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, int, CodeGenLocalResource>
+public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, CodeGenLocalResource>
 {
     [Inject]
     private ICodeGenService codeGenService { get; set; }
     [Inject]
     private ICodeGenConfigService codeGenConfigClientService { get; set; }
 
-    private int _codeGenId { get; set; }
+    private Guid _codeGenId { get; set; }
 
     private CodeGenDto _codeGenDto { get; set; } = new();
     private bool _hideEntityFromTableFields = true;

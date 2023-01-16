@@ -6,6 +6,7 @@
 
 using Gardener.Base;
 using Gardener.CodeGeneration.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,11 +15,11 @@ namespace Gardener.CodeGeneration.Services
     /// <summary>
     /// 代码生成服务, DB First
     /// </summary>
-    public interface ICodeGenService: IServiceBase<CodeGenDto, int>
+    public interface ICodeGenService: IServiceBase<CodeGenDto, Guid>
     {
-        Task<bool> GenerateCode(int[] codeGenIds);
-        Task <bool> GenerateLocale(int codeGenId);
-        Task<bool> GenerateMenu(int codeGenId);
+        Task<bool> GenerateCode(Guid[] codeGenIds);
+        Task <bool> GenerateLocale(Guid codeGenId);
+        Task<bool> GenerateMenu(Guid codeGenId);
         Task<List<TableOutput>> GetTableListAsync();//string dbContextLocatorName = ""
         Task<bool> OpenCodeGenFolder();
     }

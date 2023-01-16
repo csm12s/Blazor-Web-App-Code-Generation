@@ -19,14 +19,14 @@ namespace Gardener.Client.Core
 
         private static ClientModuleContext moduleContext;
 
-        public static ClientModuleContext GetModuleContext() 
+        public static ClientModuleContext GetModuleContext()
         {
             return moduleContext;
         }
 
         public static void AddModuleLoader(this WebAssemblyHostBuilder builder)
         {
-            IEnumerable<IConfigurationSection> sections= builder.Configuration.GetSection("ModuleSettings:Dlls").GetChildren();
+            IEnumerable<IConfigurationSection> sections = builder.Configuration.GetSection("ModuleSettings:Dlls").GetChildren();
             List<string> dlls = new List<string> {
             "Gardener.Client.Base.dll",
             "Gardener.Client.Core.dll"
@@ -40,7 +40,7 @@ namespace Gardener.Client.Core
             foreach (string dll in dlls)
             {
                 assemblies.Add(Assembly.LoadFrom(dll));
-                System.Console.WriteLine("加载DLL："+dll);
+                System.Console.WriteLine("加载DLL：" + dll);
             }
             moduleContext = new ClientModuleContext
             {

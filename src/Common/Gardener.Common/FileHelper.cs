@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace Gardener.Common;
 
-public static class FileHelper
+public class FileHelper
 {
-    #region File IO
     public static void CreateFileReplace(string fileFullPath, string contentStr)
     {
         try
@@ -39,7 +37,6 @@ public static class FileHelper
             Directory.CreateDirectory(directoryPath);
         }
     }
-    #endregion
 
     /// <summary>
     /// 

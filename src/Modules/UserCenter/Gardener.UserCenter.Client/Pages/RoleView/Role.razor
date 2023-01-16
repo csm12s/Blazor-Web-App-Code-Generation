@@ -65,7 +65,7 @@
             <Column @bind-Field="@model.IsDefault" Filterable>
                 <TagYesNo Yes="model.IsDefault"></TagYesNo>
             </Column>
-            <Column @bind-Field="@model.IsLocked" Filterable>
+            <Column @bind-Field="@model.IsLocked" Filterable Title="@localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="user_center_role_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>

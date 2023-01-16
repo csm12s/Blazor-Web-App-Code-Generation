@@ -64,6 +64,8 @@ namespace Gardener.Admin
                 options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
                 options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetJsonConverter());
             })
+            //配置多语言
+            .AddAppLocalization()
             //注册动态api
             .AddDynamicApiControllers()
             //注册数据验证
@@ -127,7 +129,10 @@ namespace Gardener.Admin
             {
                 context.Request.EnableBuffering();
                 return next(context);
-            }); ;
+            });
+
+            // 配置多语言，必须在 路由注册之前
+            app.UseAppLocalization();
 
             app.UseStaticFiles();
 

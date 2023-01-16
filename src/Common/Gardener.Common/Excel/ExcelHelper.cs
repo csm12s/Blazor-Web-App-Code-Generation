@@ -45,6 +45,7 @@ public class ExcelHelper
     public static async Task SaveAsReplaceAsync(string path, object value, bool printHeader = true, string sheetName = "Sheet1", ExcelType excelType = ExcelType.UNKNOWN, IConfiguration configuration = null, bool overwriteFile = false, CancellationToken cancellationToken = default(CancellationToken))
     {
         overwriteFile = true;
+        excelType = ExcelType.XLSX;//dataTable 提示不支持，请指定excel type
 
         var folderPath = FileHelper.GetDirectory(path);
         FileHelper.CreateDirectory(folderPath);

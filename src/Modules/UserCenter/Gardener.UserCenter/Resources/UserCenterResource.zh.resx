@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountPasswordLogin" xml:space="preserve">
+    <value>账号密码登录</value>
+  </data>
+  <data name="AutoLogin" xml:space="preserve">
+    <value>自动登录</value>
+  </data>
   <data name="BasicInformation" xml:space="preserve">
     <value>基本信息</value>
   </data>
@@ -140,6 +146,12 @@
   </data>
   <data name="Gender" xml:space="preserve">
     <value>性别</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="LoginPassword" xml:space="preserve">
+    <value>密　码</value>
   </data>
   <data name="ModifyPersonalInformation" xml:space="preserve">
     <value>修改资料</value>
@@ -179,6 +191,9 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>用户名</value>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>验证码</value>
   </data>
   <data name="WeChat" xml:space="preserve">
     <value>微信</value>

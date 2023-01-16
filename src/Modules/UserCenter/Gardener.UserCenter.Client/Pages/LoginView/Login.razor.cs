@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
@@ -20,6 +21,9 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         bool loading = false;
         bool autoLogin = true;
         private LoginInput loginInput = new LoginInput();
+        private Gardener.Client.Base.Components.ImageVerifyCode _imageVerifyCode;
+        private string returnUrl;
+
         [Inject]
         public MessageService MsgSvr { get; set; }
         [Inject]
@@ -28,11 +32,13 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         public NavigationManager Navigation { get; set; }
         [Inject]
         public IAuthenticationStateManager authenticationStateManager { get; set; }
+        [Inject]
+        public IClientLocalizer<UserCenterResource> localizer { get; set; }
 
-        private Gardener.Client.Base.Components.ImageVerifyCode _imageVerifyCode;
-
-        private string returnUrl;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected override  async Task OnInitializedAsync()
         {
             var url = new Uri(Navigation.Uri);
@@ -53,14 +59,17 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             }
            
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private async Task OnLogin()
         {
             loading = true;
             var loginOutResult= await accountService.Login(loginInput);
             if (loginOutResult!=null)
             {
-                await MsgSvr.Success($"登录成功",0.8);
+                await MsgSvr.Success(localizer.Combination(UserCenterResource.Login,UserCenterResource.Success),0.8);
                 await authenticationStateManager.Login(loginOutResult, autoLogin);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
@@ -68,7 +77,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             else {
                 await _imageVerifyCode.ReLoadVerifyCode();
                 loading = false;
-                MsgSvr.Error($"登录失败");
+                MsgSvr.Error(localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
                 //await InvokeAsync(StateHasChanged);
             }
             
