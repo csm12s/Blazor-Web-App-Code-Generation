@@ -69,7 +69,7 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+            <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@localizer[SharedLocalResource.UpdatedTime]" />
             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable />
             <Column TData="string" Title="@(localizer["OnlineTime"])">
                 @if(model.UpdatedTime.HasValue)
