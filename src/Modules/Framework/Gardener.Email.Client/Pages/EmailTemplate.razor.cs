@@ -6,7 +6,6 @@
 
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
 using Gardener.Email.Dtos;
 using System;
 using System.Threading.Tasks;

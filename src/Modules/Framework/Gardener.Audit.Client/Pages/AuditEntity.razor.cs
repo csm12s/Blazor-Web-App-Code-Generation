@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Audit.Dtos;
-using Gardener.Client.Base.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

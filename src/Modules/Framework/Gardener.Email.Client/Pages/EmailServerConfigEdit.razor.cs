@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
 using Gardener.Email.Dtos;
 using System;
 using System.Collections.Generic;

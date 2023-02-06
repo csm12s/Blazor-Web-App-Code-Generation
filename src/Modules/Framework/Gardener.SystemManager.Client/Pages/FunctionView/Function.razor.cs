@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
-using Gardener.Client.Base.Components;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;

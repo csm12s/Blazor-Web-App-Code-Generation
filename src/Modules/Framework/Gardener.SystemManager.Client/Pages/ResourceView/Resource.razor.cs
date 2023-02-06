@@ -6,8 +6,6 @@
 
 using Gardener.Base;
 using Gardener.Base.Resources;
-using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
 using Gardener.Common;
 using Gardener.Enums;
 using Gardener.SystemManager.Dtos;

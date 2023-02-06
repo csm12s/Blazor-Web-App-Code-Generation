@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Client\Gardener.Client.Core\Gardener.Client.Core.csproj" />
+		<ProjectReference Include="..\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
+	</ItemGroup>
+
+</Project>

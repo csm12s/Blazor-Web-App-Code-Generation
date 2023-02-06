@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Gardener.Client.Base.Constants;
 using Gardener.Client.Base.Services;
 using Gardener.Client.Core.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -23,11 +22,13 @@ namespace Gardener.Client.Core
         /// 
         /// </summary>
         /// <param name="host"></param>
-        public async static Task<WebAssemblyHost> UseCulture(this WebAssemblyHost host)
+        /// <param name="cultureStorageKey"></param>
+        /// <param name="defaultCulture"></param>
+        public async static Task<WebAssemblyHost> UseCulture(this WebAssemblyHost host, string cultureStorageKey, string defaultCulture)
         {
             var jsTool = host.Services.GetRequiredService<IJsTool>();
-            var result = await jsTool.SessionStorage.GetAsync<string>(ClientConstant.BlazorCultureKey);
-            var culture = new CultureInfo(string.IsNullOrEmpty(result) ? ClientConstant.DefaultCulture : result);
+            var result = await jsTool.SessionStorage.GetAsync<string>(cultureStorageKey);
+            var culture = new CultureInfo(string.IsNullOrEmpty(result) ? defaultCulture : result);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;

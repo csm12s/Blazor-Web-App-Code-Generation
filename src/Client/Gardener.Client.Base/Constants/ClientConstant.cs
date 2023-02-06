@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign;
-using AntDesign.ProLayout;
 
 namespace Gardener.Client.Base.Constants
 {
@@ -35,20 +33,6 @@ namespace Gardener.Client.Base.Constants
         /// </summary>
         public readonly static string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
-        /// <summary>
-        /// 操作按钮大小
-        /// </summary>
-        public readonly static string OperationButtonSize = "default";
-        
-        /// <summary>
-        /// 底部友链
-        /// </summary>
-        public readonly static LinkItem[] FooterLinks =
-        {
-                new LinkItem{ Key = "Furion", BlankTarget = true, Title = "Furion" ,Href="https://gitee.com/monksoul/Furion"},
-                new LinkItem{ Key = "Ant Design Blazor", BlankTarget = true, Title = "Ant Design",Href="https://github.com/ant-design-blazor/ant-design-blazor"},
-                new LinkItem{ Key = "Gardener", BlankTarget = true, Title = "Gardener",Href="https://gitee.com/hgflydream/Gardener"}
-        };
 
         /// <summary>
         /// 时间显示格式化
@@ -60,24 +44,6 @@ namespace Gardener.Client.Base.Constants
         /// </summary>
         public readonly static int pageSize = 15;
 
-        /// <summary>
-        /// 默认的操作框配置
-        /// </summary>
-        public readonly static OperationDialogSettings DefaultOperationDialogSettings = new OperationDialogSettings
-        {
-            Width = 500,
-            MaskClosable = true,
-            Closable = true,
-            ModalCentered=true,
-            DrawerPlacement= Placement.Right,
-            DialogType= OperationDialogType.Modal,
-        };
-
-        public readonly static int PageOperationDialogWidth = 1200;//1080;//960;
-        /// <summary>
-        /// 启用多标签
-        /// </summary>
-        public readonly static bool EnabledTabs=true;
         /// <summary>
         /// 通知消息使用MessageBox最大长度超出时，使用通知框
         /// </summary>
