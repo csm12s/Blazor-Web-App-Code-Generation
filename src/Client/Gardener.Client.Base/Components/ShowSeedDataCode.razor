@@ -1,4 +1,5 @@
 ﻿@using BlazorMonaco;
+@using BlazorMonaco.Editor
 @using Microsoft.AspNetCore.Components.Web
 @inherits FeedbackComponent<string, bool>
 <style>
@@ -7,11 +8,12 @@
     }
 </style>
 @*<TextArea Style="height: 85vh; overflow: scroll;" Value="@seedData" />*@
-<MonacoEditor Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="x=>OnInit((MonacoEditor)x)" />
-<HeadContent>
+<StandaloneCodeEditor @ref="_editor" Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="EditorOnDidInit" />
+@*<HeadContent>
     <link href="_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.css" rel="stylesheet" />
-</HeadContent>
+</HeadContent>*@
 @code {
+    private StandaloneCodeEditor _editor = null!;
     private string seedData = string.Empty;
     /// <summary>
     /// 页面初始化
@@ -25,17 +27,17 @@
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="editor"></param>
-    private void OnInit(MonacoEditor editor)
+    /// <returns></returns>
+    private async Task EditorOnDidInit()
     {
-        editor.SetValue(seedData);
+       await _editor.SetValue(seedData);
     }
     /// <summary>
     /// 
     /// </summary>
     /// <param name="editor"></param>
     /// <returns></returns>
-    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(Editor editor)
     {
         return new StandaloneEditorConstructionOptions
             {

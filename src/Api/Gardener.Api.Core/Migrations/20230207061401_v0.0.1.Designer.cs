@@ -11,13 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20221227043223_v0.0.1")]
+    [Migration("20230207061401_v0.0.1")]
     partial class v001
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -2982,284 +2983,6 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3a8c73cf-89a2-4606-90c3-51dec0d80e1d"),
-                            CreatedTime = 1306532718346240480L,
-                            Description = "根据搜索条叫生成种子数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "8323C7FD5DA09F6C5D7E6DD6BCBEAA3B",
-                            Method = 1,
-                            Path = "/api/sys-timer/generate-seed-data",
-                            Service = "任务调度服务",
-                            Summary = "生成种子数据",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("300ef305-2c03-44ad-bd4b-7ffa246530a9"),
-                            CreatedTime = 1306532718346240480L,
-                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7696121FE473CFEED7A7CD1CB4A6B647",
-                            Method = 2,
-                            Path = "/api/sys-timer/{id}/lock/{islocked}",
-                            Service = "任务调度服务",
-                            Summary = "锁定",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("7c10e9a1-d0c0-4930-b49a-8a71190ab42a"),
-                            CreatedTime = 1306532718346240480L,
-                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "96C246A2C223E0CE16088CC1FD0D0E0A",
-                            Method = 0,
-                            Path = "/api/sys-timer/all-usable",
-                            Service = "任务调度服务",
-                            Summary = "查询所有可以用的",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("fee31eb9-c106-4e42-9464-0d2433fd4829"),
-                            CreatedTime = 1306532718346240480L,
-                            Description = "查找到所有数据",
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "AFF0461EE391D477DE158E15F62B6D79",
-                            Method = 0,
-                            Path = "/api/sys-timer/all",
-                            Service = "任务调度服务",
-                            Summary = "查询所有",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("99c24403-1417-4c04-b1ef-0c17243215e0"),
-                            CreatedTime = 1306532718346240480L,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "66DDF878D5F5ABFEF1EF618447F45A5B",
-                            Method = 1,
-                            Path = "/api/sys-timer/fake-deletes",
-                            Service = "任务调度服务",
-                            Summary = "批量逻辑删除",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("b2ffcf41-7c74-4815-a367-d55c9a536b22"),
-                            CreatedTime = 1306532718346240480L,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "AFD3A8A201452DB60D39E89FC7015C7D",
-                            Method = 1,
-                            Path = "/api/sys-timer/deletes",
-                            Service = "任务调度服务",
-                            Summary = "批量删除",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("588829d2-fae6-40cd-bdfa-c0758e7f89fb"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "BB1ECD48F7FF479DC85870F66A467A38",
-                            Method = 1,
-                            Path = "/api/sys-timer/start",
-                            Service = "任务调度服务",
-                            Summary = "启动任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("c96a611f-555b-4b96-8ee5-83a87ee03a6e"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "918B9A40A48CA6481E5C039AB9DF8F28",
-                            Method = 1,
-                            Path = "/api/sys-timer/stop",
-                            Service = "任务调度服务",
-                            Summary = "停止任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("94a19350-777d-4d29-8d84-2a9c6e1ae46d"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2D7A312F51B40D39E3E8616B057A74A1",
-                            Method = 0,
-                            Path = "/api/sys-timer/detail",
-                            Service = "任务调度服务",
-                            Summary = "查看任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("b83c620b-e964-43bb-8590-d8d32277aa00"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2A47C77D4A33FEF2778D9729707BA5B1",
-                            Method = 3,
-                            Path = "/api/sys-timer/fake-delete/{id}",
-                            Service = "任务调度服务",
-                            Summary = "假删除任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("433d4ad9-7ae0-48ea-851e-c4e594c8e19a"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4AADC5D969F182119B00D77F9AB4D088",
-                            Method = 2,
-                            Path = "/api/sys-timer",
-                            Service = "任务调度服务",
-                            Summary = "修改任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("4d664ef2-a462-494d-9c5c-453880f44017"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "97761592D436CFF8E47FA6FD3C9DA300",
-                            Method = 1,
-                            Path = "/api/sys-timer",
-                            Service = "任务调度服务",
-                            Summary = "增加任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("c7aa66f0-6ceb-4cc7-b1cc-8d62163aa957"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "842AFBBE14BB5C745BD820EF3C4A052B",
-                            Method = 0,
-                            Path = "/api/sys-timer/local-jobs",
-                            Service = "任务调度服务",
-                            Summary = "获取所有本地任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("a2504e15-4b43-4a6a-bc1a-9c06effa672c"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "B45DAF70F5971948EF52E6726269814D",
-                            Method = 1,
-                            Path = "/api/sys-timer/search",
-                            Service = "任务调度服务",
-                            Summary = "搜索",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("31e5a68d-916b-4b74-8e59-da733724b322"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "FDC1D135BD7B531A8B5DB65A2462450E",
-                            Method = 3,
-                            Path = "/api/sys-timer/{id}",
-                            Service = "任务调度服务",
-                            Summary = "删除任务",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("81b4bb91-1f42-4043-9acb-dac756ce729b"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "7CD8C319088D7195B2E9C236613DE833",
-                            Method = 0,
-                            Path = "/api/sys-timer/{id}",
-                            Service = "任务调度服务",
-                            Summary = "获取任务信息",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("3fb4ab7d-dcab-482d-af48-3080e2b89d10"),
-                            CreatedTime = 1306532718346240480L,
-                            EnableAudit = false,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "5F37C08165A82CACCDDE27447DE2D079",
-                            Method = 0,
-                            Path = "/api/sys-timer/page/{pageindex}/{pagesize}",
-                            Service = "任务调度服务",
-                            Summary = "分页获取任务列表",
-                            UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("ee8b1345-e0c0-47a7-9e85-cb0bd7ede472"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552940953600480L,
-                            Description = "导出数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A1BCA09FC8FF82506B93BFD5FCD6FCF5",
-                            Method = 1,
-                            Path = "/api/sys-timer/export",
-                            Service = "任务调度服务",
-                            Summary = "导出"
-                        },
-                        new
-                        {
                             Id = new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"),
                             CreatedTime = 1306532718346240480L,
                             Description = "通过刷新token获取新的token",
@@ -6042,152 +5765,6 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            CreateIdentityType = 0,
-                            CreatedTime = 1306051389542400480L,
-                            Icon = "robot",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer",
-                            Name = "任务调度",
-                            Order = 80,
-                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            Path = "/system_manager/systimer",
-                            Remark = "配置任务调度模式",
-                            Type = 1000,
-                            UpdatedTime = 1306547305287680480L
-                        },
-                        new
-                        {
-                            Id = new Guid("3f7f572f-1df2-4d20-b323-489e44196ad0"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547314913280480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_add",
-                            Name = "添加任务调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("7c711d3c-c755-419b-827a-e8e7087984b8"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547307335680480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_delete",
-                            Name = "删除调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("a8a4b47a-7bdc-4b03-8c46-d3cd240ae8c9"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547306577920480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_delete_selected",
-                            Name = "删除选中调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Remark = "删除选中调度",
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("df132f66-027e-4791-af7a-26e496dc8e5a"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547315814400480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_detail",
-                            Name = "查看任务调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("f884f2f9-f884-4440-8a2c-7a883ac54660"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547314319360480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_edit",
-                            Name = "编辑任务调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("d0d6f112-73a4-44ba-82a4-a3ad8bdb6978"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547311431680480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_refresh",
-                            Name = "刷新调度列表",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("2b0d5eb7-4626-4273-b124-8816259a2902"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547308748800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_start",
-                            Name = "开启调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Remark = "开启调度",
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("51991266-0a62-4f8b-ab7a-3bdc48595ea0"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306547310182400480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_stop",
-                            Name = "停止调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Type = 2000
-                        },
-                        new
-                        {
-                            Id = new Guid("32809cde-b1bb-4076-a37b-6c9375e84aac"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306552964710400480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "system_manager_timer_export",
-                            Name = "导出任务调度",
-                            Order = 0,
-                            ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            Remark = "导出任务调度",
-                            Type = 2000
-                        },
-                        new
-                        {
                             Id = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -7523,78 +7100,6 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            ResourceId = new Guid("2b0d5eb7-4626-4273-b124-8816259a2902"),
-                            FunctionId = new Guid("588829d2-fae6-40cd-bdfa-c0758e7f89fb"),
-                            CreatedTime = 1306547370045440480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            FunctionId = new Guid("a2504e15-4b43-4a6a-bc1a-9c06effa672c"),
-                            CreatedTime = 1306547366481920480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("3f7f572f-1df2-4d20-b323-489e44196ad0"),
-                            FunctionId = new Guid("4d664ef2-a462-494d-9c5c-453880f44017"),
-                            CreatedTime = 1306547372216320480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("51991266-0a62-4f8b-ab7a-3bdc48595ea0"),
-                            FunctionId = new Guid("c96a611f-555b-4b96-8ee5-83a87ee03a6e"),
-                            CreatedTime = 1306547370557440480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("7c711d3c-c755-419b-827a-e8e7087984b8"),
-                            FunctionId = new Guid("31e5a68d-916b-4b74-8e59-da733724b322"),
-                            CreatedTime = 1306547368816640480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("7c711d3c-c755-419b-827a-e8e7087984b8"),
-                            FunctionId = new Guid("b83c620b-e964-43bb-8590-d8d32277aa00"),
-                            CreatedTime = 1306547368161280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a8a4b47a-7bdc-4b03-8c46-d3cd240ae8c9"),
-                            FunctionId = new Guid("99c24403-1417-4c04-b1ef-0c17243215e0"),
-                            CreatedTime = 1306547367157760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a8a4b47a-7bdc-4b03-8c46-d3cd240ae8c9"),
-                            FunctionId = new Guid("b2ffcf41-7c74-4815-a367-d55c9a536b22"),
-                            CreatedTime = 1306547369553920480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("d0d6f112-73a4-44ba-82a4-a3ad8bdb6978"),
-                            FunctionId = new Guid("a2504e15-4b43-4a6a-bc1a-9c06effa672c"),
-                            CreatedTime = 1306547370987520480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("df132f66-027e-4791-af7a-26e496dc8e5a"),
-                            FunctionId = new Guid("81b4bb91-1f42-4043-9acb-dac756ce729b"),
-                            CreatedTime = 1306547372769280480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("f884f2f9-f884-4440-8a2c-7a883ac54660"),
-                            FunctionId = new Guid("433d4ad9-7ae0-48ea-851e-c4e594c8e19a"),
-                            CreatedTime = 1306547371642880480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("32809cde-b1bb-4076-a37b-6c9375e84aac"),
-                            FunctionId = new Guid("ee8b1345-e0c0-47a7-9e85-cb0bd7ede472"),
-                            CreatedTime = 1306552965263360480L
-                        },
-                        new
-                        {
                             ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
                             FunctionId = new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"),
                             CreatedTime = 1306069130997760480L
@@ -7981,9 +7486,9 @@ namespace Gardener.Api.Core.Migrations
 
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool?>("AllowNull")
                         .HasColumnType("INTEGER");
@@ -8118,12 +7623,12 @@ namespace Gardener.Api.Core.Migrations
 
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGenConfig", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("CodeGenId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("CodeGenId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ColumnDescription")
                         .HasColumnType("TEXT");
@@ -8690,155 +8195,6 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("Announcement");
                 });
 
-            modelBuilder.Entity("Gardener.SysTimer.Domains.SysTimerEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Cron")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT")
-                        .HasComment("Cron表达式");
-
-                    b.Property<bool>("DoOnce")
-                        .HasColumnType("INTEGER")
-                        .HasComment("只执行一次");
-
-                    b.Property<int>("ExecutMode")
-                        .HasColumnType("INTEGER")
-                        .HasComment("执行模式");
-
-                    b.Property<int>("ExecuteType")
-                        .HasColumnType("INTEGER")
-                        .HasComment("执行类型");
-
-                    b.Property<string>("Headers")
-                        .HasColumnType("TEXT")
-                        .HasComment("Headers");
-
-                    b.Property<int>("HttpMethod")
-                        .HasColumnType("INTEGER")
-                        .HasComment("HTTP请求方式");
-
-                    b.Property<int?>("Interval")
-                        .HasColumnType("INTEGER")
-                        .HasComment("间隔时间");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("JobName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT")
-                        .HasComment("任务名称");
-
-                    b.Property<string>("LocalMethod")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT")
-                        .HasComment("本地方法");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT")
-                        .HasComment("备注");
-
-                    b.Property<string>("RequestParameters")
-                        .HasColumnType("TEXT")
-                        .HasComment("请求参数");
-
-                    b.Property<string>("RequestUrl")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT")
-                        .HasComment("请求url");
-
-                    b.Property<long?>("RunErrorNumber")
-                        .HasColumnType("INTEGER")
-                        .HasComment("任务运行异常次数");
-
-                    b.Property<long?>("RunNumber")
-                        .HasColumnType("INTEGER")
-                        .HasComment("任务运行次数");
-
-                    b.Property<bool>("StartNow")
-                        .HasColumnType("INTEGER")
-                        .HasComment("立即执行");
-
-                    b.Property<bool>("Started")
-                        .HasColumnType("INTEGER")
-                        .HasComment("是否启动");
-
-                    b.Property<int>("TimerType")
-                        .HasColumnType("INTEGER")
-                        .HasComment("定时器类型");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SysTimer");
-
-                    b.HasComment("定时任务表");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedTime = 0L,
-                            DoOnce = false,
-                            ExecutMode = 1,
-                            ExecuteType = 1,
-                            HttpMethod = 0,
-                            Interval = 5,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            JobName = "百度api",
-                            Remark = "接口API",
-                            RequestUrl = "https://www.baidu.com",
-                            StartNow = false,
-                            Started = true,
-                            TimerType = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedTime = 0L,
-                            DoOnce = false,
-                            ExecutMode = 1,
-                            ExecuteType = 0,
-                            HttpMethod = 0,
-                            Interval = 5,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            JobName = "测试本地定时任务DEMO",
-                            LocalMethod = "Gardener.SysTimer.Impl.Demo.DomeWorker|DoSomething",
-                            Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",
-                            StartNow = true,
-                            Started = true,
-                            TimerType = 0
-                        });
-                });
-
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
                 {
                     b.Property<Guid>("Id")
@@ -9315,18 +8671,6 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             RoleId = 2,
-                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreatedTime = 1306546785505280000L
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
-                            CreatedTime = 1306546785505280000L
-                        },
-                        new
-                        {
-                            RoleId = 2,
                             ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
                             CreatedTime = 1306546785505280000L
                         },
@@ -9489,12 +8833,6 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             RoleId = 2,
-                            ResourceId = new Guid("d0d6f112-73a4-44ba-82a4-a3ad8bdb6978"),
-                            CreatedTime = 1306546785505280000L
-                        },
-                        new
-                        {
-                            RoleId = 2,
                             ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             CreatedTime = 1306546785505280000L
                         },
@@ -9508,12 +8846,6 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            CreatedTime = 1306546785505280000L
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            ResourceId = new Guid("df132f66-027e-4791-af7a-26e496dc8e5a"),
                             CreatedTime = 1306546785505280000L
                         },
                         new
