@@ -72,10 +72,10 @@ namespace Gardener.FileStore.Core.LocalStore
         ///  保存文件
         /// </summary>
         /// <param name="file"></param>
-        /// <param name="path"></param>
-        public async Task<string> Save(Stream file, string path)
+        /// <param name="partialPath"></param>
+        public async Task<string> Save(Stream file, string partialPath)
         {
-            string filePath = Path.Combine(GetBaseDirectoryPath(), path);
+            string filePath = Path.Combine(GetBaseDirectoryPath(), partialPath);
             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -84,15 +84,37 @@ namespace Gardener.FileStore.Core.LocalStore
             {
                 await file.CopyToAsync(filestream);
             }
-            return GetBaseUrl() + path;
+            return GetBaseUrl() + partialPath;
         }
+
+        /// <summary>
+        /// Save file to server
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public async Task<bool> SaveToLocal(Stream file, string filePath)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
+
+            using (FileStream filestream = File.Create(filePath))
+            {
+                await file.CopyToAsync(filestream);
+            }
+
+            return true;
+        }
+
         /// <summary>
         ///  删除文件
         /// </summary>
-        /// <param name="path"></param>
-        public void Delete(string path)
+        /// <param name="partialPath"></param>
+        public void Delete(string partialPath)
         {
-            string filePath = Path.Combine(GetBaseDirectoryPath(), path);
+            string filePath = Path.Combine(GetBaseDirectoryPath(), partialPath);
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
@@ -101,11 +123,11 @@ namespace Gardener.FileStore.Core.LocalStore
         /// <summary>
         /// 获取文件
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="partialPath"></param>
         /// <returns></returns>
-        public Stream Get(string path)
+        public Stream Get(string partialPath)
         {
-            string filePath = Path.Combine(GetBaseDirectoryPath(), path);
+            string filePath = Path.Combine(GetBaseDirectoryPath(), partialPath);
             if (File.Exists(filePath))
             {
                 // 打开文件 
@@ -118,7 +140,8 @@ namespace Gardener.FileStore.Core.LocalStore
                 Stream stream = new MemoryStream(bytes);
                 return stream;
             }
-            throw new FileNotFoundException("文件未找到,path=" + path);
+            throw new FileNotFoundException("文件未找到,path=" + partialPath);
         }
+
     }
 }

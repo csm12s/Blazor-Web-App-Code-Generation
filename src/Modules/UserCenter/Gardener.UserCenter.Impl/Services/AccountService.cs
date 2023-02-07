@@ -158,9 +158,13 @@ namespace Gardener.UserCenter.Impl.Services
         {
             var userId = _authorizationManager.GetIdentityId();
             var user = await _userRepository.FindAsync(userId);
+            var userDto = user.Adapt<UserDto>();
 
-            return user.Adapt<UserDto>();
+            // set roles for resource auth
+            var roles = await GetCurrentUserRoles();
+            userDto.Roles = roles;
 
+            return userDto;
         }
         /// <summary>
         /// 获取用户资源

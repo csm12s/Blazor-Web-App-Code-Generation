@@ -376,6 +376,13 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
             });
         }
 
+        // base dto
+        itemList.Add(new CodeGenTemplateItem(nameModel)
+        {
+            TemplatePath = Path.Combine(templatePath, "BaseEntityDto.cs.razor"),
+            GenPath = Path.Combine(baseModulePath, codeGenDto.ModuleUpper + "BaseDto.cs")
+        });
+
         // Dto
         itemList.Add(new CodeGenTemplateItem(nameModel)
         {
@@ -534,11 +541,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         }
 
         // base model
-        //itemList.Add(new CodeGenTemplateItem(nameModel)
-        //{
-        //    TemplatePath = Path.Combine(templatePath, "BaseEntity.cs.razor"),
-        //    GenPath = Path.Combine(serverModulePath, genTable.Module + "BaseModel.cs")
-        //});
+        itemList.Add(new CodeGenTemplateItem(nameModel)
+        {
+            TemplatePath = Path.Combine(templatePath, "BaseEntity.cs.razor"),
+            GenPath = Path.Combine(serverModulePath, codeGenDto.Module + "BaseModel.cs")
+        });
 
         // Model
         itemList.Add(new CodeGenTemplateItem(nameModel)
@@ -1243,7 +1250,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         try
         {
             return Engine.Razor.RunCompile(template,
-                IdUtil.GetGuid32() + model.ClassName,
+                IdHelper.GetGuid32() + model.ClassName,
                 model.GetType(),
                 model);
         }

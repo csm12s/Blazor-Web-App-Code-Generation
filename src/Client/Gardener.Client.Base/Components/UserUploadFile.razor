@@ -1,0 +1,37 @@
+﻿@inherits FeedbackComponent<UserUploadFileParams, string>
+
+<Row>
+    <Col Span="24">
+    <Upload Action="@UploadUrl"
+        Multiple = "false"
+            Name="file"
+            Class="file-uploader"
+            ShowUploadList="true"
+            BeforeUpload="BeforeUpload"
+            OnChange="HandleChange"
+            Data="uploadAttachmentInput"
+            Headers="headers">
+            <Button Icon="upload" Loading="loading">
+                <span>@localizer[SharedLocalResource.Upload]</span>
+            </Button>
+    </Upload>
+    </Col>
+</Row>
+<Row>
+    <Col Span="24" Style="text-align:center;">
+    <Button Type="@ButtonType.Primary" OnClick="OnOkClick">
+            @localizer[SharedLocalResource.Confirm]
+    </Button>
+    </Col>
+</Row>
+
+<style>
+    .file-uploader {
+        text-align: center;
+    }
+
+    .file-uploader > .ant-upload {
+        width: 128px;
+        height: 128px;
+    }
+</style>

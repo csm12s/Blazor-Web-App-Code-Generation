@@ -24,5 +24,15 @@ namespace Gardener.Attachment.Dtos
         /// </summary>
         [Required(ErrorMessage = "附件业务类型不能为空")]
         public AttachmentBusinessType BusinessType { get; set; }
+
+        /// <summary>
+        /// File save path in server
+        /// </summary>
+        public string FileSavePath { get; set; } = string.Empty;
+
+        /// <summary>
+        /// File save folder in server
+        /// </summary>
+        public string FileSaveFolder { get; set; } = string.Empty;
     }
 }

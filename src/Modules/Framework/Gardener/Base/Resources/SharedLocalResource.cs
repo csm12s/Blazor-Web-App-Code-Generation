@@ -151,6 +151,11 @@ namespace Gardener.Base.Resources
         /// 请选择搜索字段
         /// </summary>
         public const string PleaseSelectSearchField = nameof(PleaseSelectSearchField);
+        
+        /// <summary>
+        /// 确定
+        /// </summary>
+        public const string Confirm = nameof(Confirm);
         /// <summary>
         /// 取消
         /// </summary>
