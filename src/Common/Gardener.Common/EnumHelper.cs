@@ -15,7 +15,7 @@ namespace Gardener.Common
     /// <summary>
     /// 枚举操作类
     /// </summary>
-    public static class EnumHelper
+    public class EnumHelper
     {
         /// <summary>
         /// 枚举转list
@@ -144,6 +144,7 @@ namespace Gardener.Common
 
         /// <summary>
         /// 获取枚举描述
+        /// Get Enum CodeAttribute Value
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>

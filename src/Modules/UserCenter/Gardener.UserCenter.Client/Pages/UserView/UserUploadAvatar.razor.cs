@@ -8,6 +8,7 @@ using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
 using Gardener.Client.Base;
+using Gardener.Common;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -107,7 +108,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 {
                     uploadSucceed = true;
                     imageUrl=apiResult.Data.Url;
-                    
                 }
                 else 
                 {

@@ -156,7 +156,7 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 从首页重新加载table
+        /// 重新加载table
         /// Todo: 是不是可以叫 ReloadTable
         /// </summary>
         /// <returns></returns>
