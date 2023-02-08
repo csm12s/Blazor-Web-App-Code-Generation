@@ -37,7 +37,7 @@
             </Row>
 
         </TitleTemplate>
-        <RowTemplate>
+        <ColumnDefinitions>
             <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
@@ -97,6 +97,6 @@
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

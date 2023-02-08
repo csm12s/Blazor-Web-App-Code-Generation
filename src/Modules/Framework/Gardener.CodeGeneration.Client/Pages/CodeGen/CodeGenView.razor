@@ -85,7 +85,7 @@
             </Row>
 
         </TitleTemplate>
-        <RowTemplate>
+        <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" />
             <Column @bind-Field="@model.TableName" Title="@(localizer[CodeGenLocalResource.TableName])" Sortable Filterable />
             <Column @bind-Field="@model.ClassName" Title="@(localizer[CodeGenLocalResource.ClassName])" Sortable Filterable />
@@ -134,6 +134,6 @@
                     </SpaceItem>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

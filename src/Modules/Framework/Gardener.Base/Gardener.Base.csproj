@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="4.8.5.8" />
+    <PackageReference Include="Furion" Version="4.8.5.9" />
     <PackageReference Include="IdGen" Version="3.0.3" />
     <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="MiniExcel" Version="1.30.0" />
