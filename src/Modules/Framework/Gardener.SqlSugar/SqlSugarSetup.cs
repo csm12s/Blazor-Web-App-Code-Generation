@@ -173,14 +173,14 @@ public static class SqlSugarSetup
                                 {
                                     var id = ((dynamic)entityInfo.EntityValue).Id;
                                     if (id == null || id == 0)
-                                        entityInfo.SetValue(IdUtil.GetNextId());
+                                        entityInfo.SetValue(IdHelper.GetNextId());
                                 }
                                 // String SnowFlake Id
                                 else if (type == typeof(string))
                                 {
                                     var id = ((dynamic)entityInfo.EntityValue).Id;
                                     if (id == null || id == "")
-                                        entityInfo.SetValue(IdUtil.GetNextId().ToString());
+                                        entityInfo.SetValue(IdHelper.GetNextId().ToString());
                                 }
                             }
 

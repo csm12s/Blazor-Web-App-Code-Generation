@@ -37,7 +37,7 @@ namespace Gardener.Attachment.Domains
         /// <summary>
         /// 原始类型
         /// </summary>
-        [Required, MaxLength(20)]
+        [Required, MaxLength(100)] // excel 66: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         [DisplayName("原始类型")]
         public string ContentType { get; set; }
         /// <summary>

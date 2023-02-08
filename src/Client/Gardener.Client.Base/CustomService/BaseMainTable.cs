@@ -150,12 +150,12 @@ namespace Gardener.Client.Base.Components
         }
 
         /// <summary>
-        /// 从首页重新加载table 
+        /// 重新加载table 
         /// </summary>
         /// <returns></returns>
         protected virtual async Task ReLoadTable()
         {
-            await ReLoadTable(false);
+            await ReLoadTable(firstPage: false);
         }
 
         /// <summary>

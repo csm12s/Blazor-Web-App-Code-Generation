@@ -116,7 +116,7 @@ public partial class CodeGenDto: BaseDto<Guid>
     /// </summary>
     public string PrimaryKeyType { get; set; } = "string";
 
-    // TODO: 有时间的话或许可以用这种方式
+    // 也可以用这种方式
     // AuthKeys
     // public List<string> Buttons { get; set; }
     // 在模板里：@if(Model.CodeGen.Buttons.Contains(AuthKeys.BatchDelete))

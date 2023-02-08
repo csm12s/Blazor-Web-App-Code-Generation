@@ -54,7 +54,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
 
         var list = new List<CodeGenConfig>();
 
-        // common field / BaseModelField
+        #region common field / BaseModelField
         PropertyInfo[] baseModelFields = new PropertyInfo[0];
         // 这里获取不到这种：[SuppressSniffer]
         //var baseModelType = App.EffectiveTypes
@@ -77,6 +77,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         catch (Exception ex)
         {
         }
+        #endregion
 
         foreach (var column in dbColumnInfos)
         {
@@ -137,17 +138,9 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         }
 
         // Delete old:
-        // sugar
-        //codeGenConfigSugarRep.Context.Deleteable<CodeGenConfig>()
-        //    .Where(x => x.CodeGenId == codeGen.Id)
-        //    .ExecuteCommand();
-        // ef - Zack.EFCore.Batch_NET6
-        // repository.Context
-        // .DeleteRange<CodeGenConfig>(x => x.CodeGenId == codeGenId);
-
-        // TODO: EF7 增加了批量删除和修改
-        var oldList = repository.Where(it => it.CodeGenId == codeGen.Id).ToList();
-        await repository.DeleteNowAsync(oldList);
+        var res = await repository.Entities
+            .Where(it => it.CodeGenId == codeGen.Id)
+            .ExecuteDeleteAsync();
            
         // Insert new:
         await repository.InsertAsync(list);

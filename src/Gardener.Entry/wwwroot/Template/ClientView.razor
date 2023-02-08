@@ -10,18 +10,6 @@
 @@inherits @(Model.Module)BaseTable<@(Model.ClassName)Dto, @(Model.ClassName)Edit>
 
 <div>
-    <h5>
-        @@if (_selectedRows != null && _selectedRows.Count() > 0)
-        {
-            <p>
-                @@localizer["Tatal"]: @@_total, @@localizer["Selected"]: @@_selectedRows.Count()
-                <Button Danger Size="small" OnClick="@@(e => { _table.SetSelection(null); })">
-                    @@localizer["Clear"]
-                </Button>
-            </p>
-        }
-    </h5>
-
     @*PageButtons*@
     <Row>
         <AntDesign.Col Span="8">
@@ -38,6 +26,19 @@
             </Space>
         </AntDesign.Col>
     </Row>
+
+    @*Checked Items*@
+    <h5>
+        @@if (_selectedRows != null && _selectedRows.Count() > 0)
+        {
+            <p>
+                @@localizer["Tatal"]: @@_total, @@localizer["Selected"]: @@_selectedRows.Count()
+                <Button Danger Size="small" OnClick="@@(e => { _table.SetSelection(null); })">
+                    @@localizer["Clear"]
+                </Button>
+            </p>
+        }
+    </h5>
 
     <Table @@ref="_table"
            Context="model"
