@@ -169,19 +169,34 @@
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>Modify avatar</value>
   </data>
+  <data name="Client login fail" xml:space="preserve">
+    <value>Client login fail</value>
+  </data>
+  <data name="Client no find" xml:space="preserve">
+    <value>Client no find</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Code generation template compilation error" xml:space="preserve">
+    <value>Code generation template compilation error</value>
+  </data>
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Controller need comment" xml:space="preserve">
+    <value>Controller need comment</value>
   </data>
   <data name="CreatedTime" xml:space="preserve">
     <value>Created time</value>
   </data>
   <data name="DataNotFound" xml:space="preserve">
     <value>Data not found</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>Debug</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -213,6 +228,9 @@
     <value>Edit</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Email server no find" xml:space="preserve">
+    <value>Email server no find</value>
+  </data>
   <data name="EN" xml:space="preserve">
     <value>EN</value>
     <comment>LocalKeys</comment>
@@ -237,12 +255,21 @@
     <value>Fail</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="FatalException" xml:space="preserve">
+    <value>Fatal exception</value>
+  </data>
   <data name="Female" xml:space="preserve">
     <value>Female</value>
   </data>
   <data name="FieldChangeDetails" xml:space="preserve">
     <value>Field change details</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Filter group operate error" xml:space="preserve">
+    <value>Filter group operate error</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>Forbidden</value>
   </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
@@ -260,6 +287,9 @@
   <data name="Import" xml:space="preserve">
     <value>Import</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="IsContinue" xml:space="preserve">
     <value>Do you want to continue ?</value>
@@ -294,6 +324,9 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="No includ file" xml:space="preserve">
+    <value>No includ file</value>
   </data>
   <data name="NoRowsAreSelected" xml:space="preserve">
     <value>No rows are selected</value>
@@ -333,8 +366,26 @@
     <value>Refresh</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Refresh The token does not exist or has expired" xml:space="preserve">
+    <value>Refresh The token does not exist or has expired</value>
+  </data>
+  <data name="RefreshToken cannot used in authentication" xml:space="preserve">
+    <value>RefreshToken cannot used in authentication</value>
+  </data>
+  <data name="Request url is invalid" xml:space="preserve">
+    <value>Request url is invalid</value>
+  </data>
   <data name="Resource" xml:space="preserve">
     <value>Resource</value>
+  </data>
+  <data name="Resource key repeat" xml:space="preserve">
+    <value>Resource key repeat</value>
+  </data>
+  <data name="ResuqesException" xml:space="preserve">
+    <value>Resuqes exception</value>
+  </data>
+  <data name="ResuqesFail" xml:space="preserve">
+    <value>Resuqes fail</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -373,6 +424,36 @@
     <value>Success</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="SugarRepository initialize error" xml:space="preserve">
+    <value>SugarRepository initialize error</value>
+  </data>
+  <data name="System error,Please contact the administrator" xml:space="preserve">
+    <value>System error,Please contact the administrator</value>
+  </data>
+  <data name="Table name exist" xml:space="preserve">
+    <value>Table name exist</value>
+  </data>
+  <data name="Task allready exist" xml:space="preserve">
+    <value>Task allready exist</value>
+  </data>
+  <data name="Task not exist" xml:space="preserve">
+    <value>Task not exist</value>
+  </data>
+  <data name="The value cannot be empty or null" xml:space="preserve">
+    <value>The value cannot be empty or null</value>
+  </data>
+  <data name="The “{0}” value converter cannot be found" xml:space="preserve">
+    <value>The “{0}” value converter cannot be found</value>
+  </data>
+  <data name="Timespan is expired" xml:space="preserve">
+    <value>Timespan is expired</value>
+  </data>
+  <data name="Token invalid" xml:space="preserve">
+    <value>Token invalid</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Unauthorized</value>
+  </data>
   <data name="Unlock" xml:space="preserve">
     <value>Unlock</value>
     <comment>LocalKeys</comment>
@@ -390,6 +471,15 @@
   <data name="UploadFail" xml:space="preserve">
     <value>Upload fail</value>
   </data>
+  <data name="User locked" xml:space="preserve">
+    <value>User locked</value>
+  </data>
+  <data name="User name or password error" xml:space="preserve">
+    <value>User name or password error</value>
+  </data>
+  <data name="User name repeat" xml:space="preserve">
+    <value>User name repeat</value>
+  </data>
   <data name="UserCenter" xml:space="preserve">
     <value>User center</value>
   </data>
@@ -399,8 +489,20 @@
   <data name="UserName" xml:space="preserve">
     <value>User name</value>
   </data>
+  <data name="Verify code verification failed" xml:space="preserve">
+    <value>Verify code verification failed</value>
+  </data>
+  <data name="Verify code verification failed1" xml:space="preserve">
+    <value>Verify code verification failed</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>Warn</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="“{0}” attribute not found in “{1}” type" xml:space="preserve">
+    <value>“{0}” attribute not found in “{1}” type</value>
   </data>
 </root>

@@ -1,8 +1,11 @@
-﻿//设置title
-window.document.setTitle = function (title) {
+﻿import Cookies from './js.cookie.min.mjs'
+
+//设置title
+export function setDocumentTitle(title) {
     document.title = title;
 };
-window.document.downloadFile = function (url) {
+//下载文件
+export function downloadFile(url) {
     var iframe;
     try {
         iframe = document.createElement('<iframe name="temp_iframe">');
@@ -20,3 +23,16 @@ window.document.downloadFile = function (url) {
     var elem = document.getElementsByTagName("body")[0];
     elem.appendChild(iframe);
 };
+
+export function setCookies(key, value,params) {
+    return Cookies.set(key, value,params);
+};
+export function getCookies(key, params) {
+    return Cookies.get(key,params);
+};
+export function removeCookies(key, params) {
+    return Cookies.remove(key,params);
+};
+export function getAllCookies() {
+    return Cookies.get();
+}

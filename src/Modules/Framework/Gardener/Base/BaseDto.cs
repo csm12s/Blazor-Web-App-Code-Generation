@@ -21,14 +21,14 @@ namespace Gardener.Base
     /// dto基础类
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseDto<TKey>: BaseDto
+    public abstract class BaseDto<TKey> : BaseDto
     {
         /// <summary>
         /// 编号
         /// </summary>
         [DisplayName("Id")]
         public TKey Id { get; set; }
-       
+
     }
 
     /// <summary>

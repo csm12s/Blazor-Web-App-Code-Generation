@@ -76,9 +76,25 @@ namespace Gardener.Base.Resources
         /// </summary>
         public const string Fail = nameof(Fail);
         /// <summary>
+        /// 致命异常
+        /// </summary>
+        public const string FatalException = nameof(FatalException);
+        /// <summary>
         /// 错误
         /// </summary>
         public const string Error = nameof(Error);
+        /// <summary>
+        /// 调试
+        /// </summary>
+        public const string Debug = nameof(Debug);
+        /// <summary>
+        /// 信息
+        /// </summary>
+        public const string Info = nameof(Info);
+        /// <summary>
+        /// 警告
+        /// </summary>
+        public const string Warn = nameof(Warn);
         /// <summary>
         /// 展开
         /// </summary>
@@ -264,6 +280,22 @@ namespace Gardener.Base.Resources
         /// 是否锁定
         /// </summary>
         public const string IsLocked = nameof(IsLocked);
+        /// <summary>
+        /// 请求失败
+        /// </summary>
+        public const string ResuqesFail = nameof(ResuqesFail);
+        /// <summary>
+        /// 请求异常
+        /// </summary>
+        public const string ResuqesException = nameof(ResuqesException);
+        /// <summary>
+        /// 身份验证失败
+        /// </summary>
+        public const string Unauthorized = nameof(Unauthorized);
+        /// <summary>
+        /// 没有权限
+        /// </summary>
+        public const string Forbidden = nameof(Forbidden);
 
     }
 }

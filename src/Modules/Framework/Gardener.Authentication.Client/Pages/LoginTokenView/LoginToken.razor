@@ -59,7 +59,7 @@
                 <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagRandomColor>
             </Column>
             <Column @bind-Field="@model.Ip" Filterable />
-            <Column @bind-Field="@model.IsLocked" Filterable>
+            <Column @bind-Field="@model.IsLocked" Filterable Title="@localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_login_token_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -69,7 +69,7 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable />
+            <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@localizer[SharedLocalResource.UpdatedTime]" />
             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable />
             <Column TData="string" Title="@(localizer["OnlineTime"])">
                 @if(model.UpdatedTime.HasValue)
@@ -81,7 +81,7 @@
                     <span>--</span>
                 }
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete">

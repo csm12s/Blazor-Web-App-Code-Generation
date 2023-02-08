@@ -65,7 +65,7 @@
             <Column @bind-Field="@model.IsDefault" Filterable>
                 <TagYesNo Yes="model.IsDefault"></TagYesNo>
             </Column>
-            <Column @bind-Field="@model.IsLocked" Filterable>
+            <Column @bind-Field="@model.IsLocked" Filterable Title="@localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="user_center_role_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -75,7 +75,7 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="user_center_role_edit">

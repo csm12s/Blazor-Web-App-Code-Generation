@@ -18,6 +18,7 @@ using Gardener.Client.Core;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Gardener.NotificationSystem.Client.Core;
+using Gardener.Client.Core.Services;
 
 namespace Gardener.Client.WPF
 {

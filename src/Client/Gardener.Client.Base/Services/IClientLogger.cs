@@ -5,15 +5,53 @@
 // -----------------------------------------------------------------------------
 
 using System;
+using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// 客户端日志记录
+    /// </summary>
     public interface IClientLogger
     {
-        void Debug(string msg, int? code = null, Exception ex = null);
-        void Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
-        void Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
-        void Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false);
-        void Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        /// <summary>
+        /// Debug
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        Task Debug(string msg, int? code = null, Exception ex = null);
+        /// <summary>
+        /// fatal
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        /// <summary>
+        /// Error
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        /// <summary>
+        /// Info
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false);
+        /// <summary>
+        /// Warn
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
     }
 }

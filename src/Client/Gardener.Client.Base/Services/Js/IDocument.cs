@@ -13,5 +13,6 @@ namespace Gardener.Client.Base
         Task SetTitle(string title);
 
         Task DownloadFile(string url);
+
     }
 }

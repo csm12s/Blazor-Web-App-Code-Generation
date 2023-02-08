@@ -166,13 +166,25 @@
     <value>中文</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Client login fail" xml:space="preserve">
+    <value>客户端登录失败</value>
+  </data>
+  <data name="Client no find" xml:space="preserve">
+    <value>客户端未找到</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>关闭</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Code generation template compilation error" xml:space="preserve">
+    <value>代码生成模板编译错误</value>
+  </data>
   <data name="Collapse" xml:space="preserve">
     <value>收起</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Controller need comment" xml:space="preserve">
+    <value>接口方法需要备注</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>确定</value>
@@ -182,6 +194,9 @@
   </data>
   <data name="DataNotFound" xml:space="preserve">
     <value>数据未找到</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>调试</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
@@ -210,6 +225,9 @@
     <value>编辑</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Email server no find" xml:space="preserve">
+    <value>邮件服务器未找到</value>
+  </data>
   <data name="EN" xml:space="preserve">
     <value>英文</value>
     <comment>LocalKeys</comment>
@@ -234,11 +252,20 @@
     <value>失败</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="FatalException" xml:space="preserve">
+    <value>致命异常</value>
+  </data>
   <data name="Female" xml:space="preserve">
     <value>女</value>
   </data>
   <data name="FieldChangeDetails" xml:space="preserve">
     <value>字段变更详情</value>
+  </data>
+  <data name="Filter group operate error" xml:space="preserve">
+    <value>条件组中的操作类型错误</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>拒绝访问资源</value>
   </data>
   <data name="Generate" xml:space="preserve">
     <value>生成</value>
@@ -253,6 +280,9 @@
   <data name="Import" xml:space="preserve">
     <value>导入</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>信息</value>
   </data>
   <data name="IsContinue" xml:space="preserve">
     <value>是否继续？</value>
@@ -284,6 +314,9 @@
   <data name="No" xml:space="preserve">
     <value>否</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="No includ file" xml:space="preserve">
+    <value>未包含文件</value>
   </data>
   <data name="NoRowsAreSelected" xml:space="preserve">
     <value>未选中任何行</value>
@@ -323,8 +356,26 @@
     <value>刷新</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Refresh The token does not exist or has expired" xml:space="preserve">
+    <value>刷新token不存在或已过期</value>
+  </data>
+  <data name="RefreshToken cannot used in authentication" xml:space="preserve">
+    <value>刷新token不能用于鉴权</value>
+  </data>
+  <data name="Request url is invalid" xml:space="preserve">
+    <value>请求的地址无效</value>
+  </data>
   <data name="Resource" xml:space="preserve">
     <value>资源</value>
+  </data>
+  <data name="Resource key repeat" xml:space="preserve">
+    <value>资源键值重复</value>
+  </data>
+  <data name="ResuqesException" xml:space="preserve">
+    <value>请求异常</value>
+  </data>
+  <data name="ResuqesFail" xml:space="preserve">
+    <value>请求失败</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
@@ -367,6 +418,36 @@
     <value>成功</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="SugarRepository initialize error" xml:space="preserve">
+    <value>SugarRepository 初始化错误</value>
+  </data>
+  <data name="System error,Please contact the administrator" xml:space="preserve">
+    <value>系统异常，请联系管理员</value>
+  </data>
+  <data name="Table name exist" xml:space="preserve">
+    <value>表名已存在</value>
+  </data>
+  <data name="Task allready exist" xml:space="preserve">
+    <value>已存在同名任务调度</value>
+  </data>
+  <data name="Task not exist" xml:space="preserve">
+    <value>任务调度不存在</value>
+  </data>
+  <data name="The value cannot be empty or null" xml:space="preserve">
+    <value>值不能为空或Null</value>
+  </data>
+  <data name="The “{0}” value converter cannot be found" xml:space="preserve">
+    <value>查询的值类型“{0}”未找到转换器</value>
+  </data>
+  <data name="Timespan is expired" xml:space="preserve">
+    <value>时间戳已过期</value>
+  </data>
+  <data name="Token invalid" xml:space="preserve">
+    <value>TOKEN无效</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>身份验证失败</value>
+  </data>
   <data name="Unlock" xml:space="preserve">
     <value>解锁</value>
     <comment>LocalKeys</comment>
@@ -384,11 +465,29 @@
   <data name="UploadFail" xml:space="preserve">
     <value>上传失败</value>
   </data>
+  <data name="User locked" xml:space="preserve">
+    <value>用户已锁定</value>
+  </data>
+  <data name="User name or password error" xml:space="preserve">
+    <value>用户名或密码错误</value>
+  </data>
+  <data name="User name repeat" xml:space="preserve">
+    <value>用户名重复</value>
+  </data>
   <data name="UserCenter" xml:space="preserve">
     <value>个人中心</value>
+  </data>
+  <data name="Verify code verification failed" xml:space="preserve">
+    <value>验证码验证失败</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>警告</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="“{0}” attribute not found in “{1}” type" xml:space="preserve">
+    <value>指定的属性“{0}”在类型“{1}”中不存在</value>
   </data>
 </root>

@@ -18,16 +18,16 @@
     <FormItem Label="是否是默认角色">
         <Switch @bind-Value="@model.IsDefault"></Switch>
     </FormItem>
-    <FormItem Label="是否锁定">
+    <FormItem Label="@localizer[SharedLocalResource.IsLocked]">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
     @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
     {
-        <FormItem Label="创建时间">
+        <FormItem Label="@localizer[SharedLocalResource.CreatedTime]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem Label="更新时间">
+        <FormItem  Label="@localizer[SharedLocalResource.UpdatedTime]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }

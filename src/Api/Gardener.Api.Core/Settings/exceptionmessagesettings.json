@@ -1,40 +1,41 @@
+//支持多语言，语言文件位置在Gardener/Base/Resources/SharedLocalResource下
 {
   "ValidationTypeMessageSettings": {
     "Definitions": [
-      [ "Required", "值不能为空或Null" ]
+      [ "Required", "The value cannot be empty or null" ]
     ]
   },
   "ErrorCodeMessageSettings": {
     "Definitions": [
-      [ "UNAUTHORIZED", "身份验证失败" ],
-      [ "FORBIDDEN", "拒绝访问资源" ],
-      [ "USER_LOCKED", "用户已锁定" ],
-      [ "USER_NAME_OR_PASSWORD_ERROR", "用户名或密码错误" ],
-      [ "VERIFY_CODE_VERIFICATION_FAILED", "验证码验证失败" ],
-      [ "USER_NAME_REPEAT", "用户名重复" ],
-      [ "RESOURCE_KEY_REPEAT", "资源键值重复" ],
-      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "刷新token不存在或已过期" ],
-      [ "NO_INCLUD_FILE", "未包含文件" ],
-      [ "FILTER_GROUP_OPERATE_ERROR", "条件组中的操作类型错误" ],
-      [ "FIELD_IN_TYPE_NOT_FOUND", "指定的属性“{0}”在类型“{1}”中不存在" ],
-      [ "QUERY_VALUE_TYPE_NO_FIND_CONVERTER", "查询的值类型“{0}”未找到转换器" ],
-      [ "REQUEST_URL_IS_INVALID", "请求的地址无效,请检查" ],
-      [ "REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION", "刷新token不能用于鉴权" ],
-      [ "TOKEN_INVALID", "TOKEN无效" ],
-      [ "CLIENT_LOGIN_FAIL", "客户端登录失败" ],
-      [ "CLIENT_NO_FIND", "客户端未找到" ],
-      [ "TIMESPAN_IS_EXPIRED", "时间戳已过期" ],
-      [ "EMAIL_SERVER_NO_FIND", "邮件服务器未找到" ],
-      [ "TASK_NOT_EXIST", "任务调度不存在" ],
-      [ "TASK_ALLREADY_EXIST", "已存在同名任务调度" ],
-      [ "Controller_Need_Comment", "接口方法需要备注" ],
-      [ "Sugar_Repository_Init_Fail", "SugarRepository 初始化错误" ],
-      [ "Table_Name_Exist", "表名已存在" ],
-      [ "Code_Gen_Template_Compile_Error", "代码生成模板编译错误" ]
+      [ "UNAUTHORIZED", "Unauthorized" ],
+      [ "FORBIDDEN", "Forbidden" ],
+      [ "USER_LOCKED", "User locked" ],
+      [ "USER_NAME_OR_PASSWORD_ERROR", "User name or password error" ],
+      [ "VERIFY_CODE_VERIFICATION_FAILED", "Verify code verification failed" ],
+      [ "USER_NAME_REPEAT", "User name repeat" ],
+      [ "RESOURCE_KEY_REPEAT", "Resource key repeat" ],
+      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "Refresh The token does not exist or has expired" ],
+      [ "NO_INCLUD_FILE", "No includ file" ],
+      [ "FILTER_GROUP_OPERATE_ERROR", "Filter group operate error" ],
+      [ "FIELD_IN_TYPE_NOT_FOUND", "“{0}” attribute not found in “{1}” type" ],
+      [ "QUERY_VALUE_TYPE_NO_FIND_CONVERTER", "The “{0}” value converter cannot be found" ],
+      [ "REQUEST_URL_IS_INVALID", "Request url is invalid" ],
+      [ "REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION", "RefreshToken cannot used in authentication" ],
+      [ "TOKEN_INVALID", "Token invalid" ],
+      [ "CLIENT_LOGIN_FAIL", "Client login fail" ],
+      [ "CLIENT_NO_FIND", "Client no find" ],
+      [ "TIMESPAN_IS_EXPIRED", "Timespan is expired" ],
+      [ "EMAIL_SERVER_NO_FIND", "Email server no find" ],
+      [ "TASK_NOT_EXIST", "Task not exist" ],
+      [ "TASK_ALLREADY_EXIST", "Task allready exist" ],
+      [ "Controller_Need_Comment", "Controller need comment" ],
+      [ "Sugar_Repository_Init_Fail", "SugarRepository initialize error " ],
+      [ "Table_Name_Exist", "Table name exist" ],
+      [ "Code_Gen_Template_Compile_Error", "Code generation template compilation error" ]
     ]
   },
   "FriendlyExceptionSettings": {
-    "DefaultErrorMessage": "系统异常，请联系管理员",
+    "DefaultErrorMessage": "System error,Please contact the administrator",
     "HideErrorCode": true
   }
 }
