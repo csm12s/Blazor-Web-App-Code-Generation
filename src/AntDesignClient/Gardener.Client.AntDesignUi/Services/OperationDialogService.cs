@@ -5,7 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Client.AntDesignUi.Constants;
+using Gardener.Client.AntDesignUi.Base;
+using Gardener.Client.AntDesignUi.Base.Constants;
+using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.Base;
 
 namespace Gardener.Client.AntDesignUi.Services

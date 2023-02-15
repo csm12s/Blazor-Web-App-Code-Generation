@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Resources;
@@ -20,7 +21,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         bool loading = false;
         bool autoLogin = true;
         private LoginInput loginInput = new LoginInput();
-        private Gardener.Client.Base.Components.ImageVerifyCode _imageVerifyCode;
+        private Gardener.Client.AntDesignUi.Base.Components.ImageVerifyCode _imageVerifyCode;
         private string returnUrl;
 
         [Inject]

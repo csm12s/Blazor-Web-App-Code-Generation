@@ -4,10 +4,13 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
+using Gardener.Client.Base.NotificationSystem;
 using Gardener.Common;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;
@@ -18,12 +21,9 @@ using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 
-namespace Gardener.Client.Entry.Pages
+namespace Gardener.Client.AntDesignUi.Pages
 {
     public partial class Home : ReuseTabsPageBase
     {
@@ -41,7 +41,7 @@ namespace Gardener.Client.Entry.Pages
         private IClientLocalizer localizer { get; set; }
 
         [Inject]
-        private SystemNotificationSender systemNotificationSender { get; set; }
+        private ISystemNotificationSender systemNotificationSender { get; set; }
         [Inject]
         private MessageService messageService { get; set; }
         [Inject]
@@ -83,20 +83,23 @@ namespace Gardener.Client.Entry.Pages
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            jsRef = await js.InvokeAsync<IJSObjectReference>("import", "./Pages/Home.razor.js");
+            jsRef = await js.InvokeAsync<IJSObjectReference>("import", "./_content/Gardener.Client.AntDesignUi/Pages/Home.razor.js");
 
-            var user= await authenticationStateManager.GetCurrentUser();
+            var user = await authenticationStateManager.GetCurrentUser();
             if (user != null)
             {
-                _currentUserAvatar=user.Avatar;
+                _currentUserAvatar = user.Avatar;
             }
-            
-            IEnumerable<ChatDemoNotificationData > history= await chatDemoService.GetHistory();
-            datas.AddRange(history);
+
+            IEnumerable<ChatDemoNotificationData> history = await chatDemoService.GetHistory();
+            if(history != null)
+            {
+                datas.AddRange(history);
+            }
             //进行订阅
             eventBus.Subscribe<ChatDemoNotificationData>(ChatDemoNotificationEventCallBack);
             eventBus.Subscribe<UserOnlineChangeNotificationData>(UserOnlineChangeNotificationEventCallBack);
-           
+
             //上传附件附带身份信息
             headers = await authenticationStateManager.GetCurrentTokenHeaders();
 

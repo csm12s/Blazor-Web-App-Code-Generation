@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
 using Gardener.Base.Resources;
+using AntDesign.ProLayout;
+using Gardener.Client.AntDesignUi.Base.Extensions;
+using Gardener.Client.AntDesignUi.Base.Constants;
 
 namespace Gardener.Client.Entry
 {
@@ -82,7 +85,7 @@ namespace Gardener.Client.Entry
             #endregion
 
             var host =builder.Build();
-            await host.UseCulture();
+            await host.UseCulture(ClientConstant.BlazorCultureKey,ClientConstant.DefaultCulture);
             await host.RunAsync();
         }
     }

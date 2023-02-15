@@ -6,10 +6,10 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
-using Gardener.Client.AntDesignUi.Constants;
+using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
 
-namespace Gardener.Client.Core
+namespace Gardener.Client.AntDesignUi.Services
 {
     [ScopedService]
     public class ClientNotifier : IClientNotifier

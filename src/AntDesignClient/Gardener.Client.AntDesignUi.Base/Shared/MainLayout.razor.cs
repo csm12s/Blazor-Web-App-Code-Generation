@@ -7,14 +7,14 @@
 using AntDesign;
 using AntDesign.ProLayout;
 using Gardener.Base.Resources;
-using Gardener.Client.AntDesignUi.Components;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
 
 
-namespace Gardener.Client.AntDesignUi.Shared
+namespace Gardener.Client.AntDesignUi.Base.Shared
 {
     public partial class MainLayout
     {

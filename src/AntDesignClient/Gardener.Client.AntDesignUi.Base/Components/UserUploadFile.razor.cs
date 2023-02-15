@@ -1,6 +1,7 @@
 ﻿using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
+using Gardener.Client.Base;
 using Gardener.Common;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Base.Components
+namespace Gardener.Client.AntDesignUi.Base.Components
 {
     public partial class UserUploadFile : FeedbackComponent<UserUploadFileParams, string>
     {

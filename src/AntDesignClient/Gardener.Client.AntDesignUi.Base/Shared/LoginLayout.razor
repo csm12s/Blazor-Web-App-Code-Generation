@@ -1,7 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using AntDesign.ProLayout
+@inherits LayoutComponentBase
 <div class="container__b__0">
-    <div class="lang">
-        <!--todo: selectLang-->
+    <div class="lang" style="padding-right:20px;">
+        <SelectLang Locales="_locales" OnItemSelected="HandleSelectLang" />
     </div>
     <div class="content">
         <div class="top">

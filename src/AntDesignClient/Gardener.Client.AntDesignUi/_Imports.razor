@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Components.Web
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Web
 @using AntDesign
 @using Gardener.Client.Base
-@using Gardener.Client.AntDesignUi.Constants
+@using Gardener.Client.AntDesignUi.Base.Constants
+@attribute [Authorize]

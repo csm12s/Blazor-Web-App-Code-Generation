@@ -4,13 +4,13 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Email.Dtos;
-using System;
+using Gardener.NotificationSystem.Dtos;
+using System.Threading.Tasks;
 
-namespace Gardener.Email.Client.Pages
+namespace Gardener.Client.Base.NotificationSystem
 {
-    public partial class EmailTemplateEdit : EditOperationDialogBase<EmailTemplateDto, Guid>
+    public interface ISystemNotificationSender
     {
+        Task Send(NotificationData notificationData);
     }
 }

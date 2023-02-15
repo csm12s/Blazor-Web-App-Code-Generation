@@ -1,6 +1,8 @@
 ﻿@page "/"
 @inherits ReuseTabsPageBase
 @using Gardener.Base
+@using Gardener.Client.AntDesignUi.Base.Components;
+@using Gardener.NotificationSystem.Dtos.Notification
 @{
     RenderFragment<ChatDemoNotificationData > content = chatData =>
     @<div>
@@ -51,7 +53,7 @@
                                 <Space>
                                     <SpaceItem>
                                         <Button Loading="@_submitting" OnClick="OnSubmit " type="primary">
-                                                    @localizer[SharedLocalResource.Send]
+                                                    @localizer[Gardener.Base.Resources.SharedLocalResource.Send]
                                         </Button>
                                     </SpaceItem>
                                     <SpaceItem>

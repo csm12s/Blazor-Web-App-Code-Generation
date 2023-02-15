@@ -4,10 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace Gardener.Client.AntDesignUi.Shared
+namespace Gardener.Client.AntDesignUi.Base.Shared
 {
     public partial class OtherPageLayout
     {

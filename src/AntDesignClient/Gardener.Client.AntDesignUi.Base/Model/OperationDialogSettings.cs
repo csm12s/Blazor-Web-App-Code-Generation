@@ -7,7 +7,7 @@
 using AntDesign;
 using Gardener.Client.Base;
 
-namespace Gardener.Client.AntDesignUi
+namespace Gardener.Client.AntDesignUi.Base
 {
     /// <summary>
     /// 操作会话框设置

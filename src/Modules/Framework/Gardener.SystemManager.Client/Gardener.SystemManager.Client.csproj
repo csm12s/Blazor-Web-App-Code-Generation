@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
@@ -13,11 +13,8 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Client\Gardener.Client.Base\Gardener.Client.Base.csproj" />
-		<ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
-		<ProjectReference Include="..\Gardener\Gardener.csproj" />
+	  <ProjectReference Include="..\..\..\AntDesignClient\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
 	</ItemGroup>
 
 </Project>
