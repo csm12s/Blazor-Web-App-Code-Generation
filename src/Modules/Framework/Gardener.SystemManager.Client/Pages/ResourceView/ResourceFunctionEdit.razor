@@ -63,7 +63,7 @@
                     </Row>
                 }
             </TitleTemplate>
-            <RowTemplate>
+            <ColumnDefinitions>
                 <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
                     <Selection Key="@(model.Path+"_"+model.Method)" Width="50" />
                 </ResourceAuthorize>
@@ -78,7 +78,7 @@
                 <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable>
                     <TagYesNo Yes="@model.EnableAudit"></TagYesNo>
                 </Column>
-            </RowTemplate>
+            </ColumnDefinitions>
         </Table>
     </AntDesign.Col>
 </Row>

@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="4.8.3.10" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.24" />
+    <PackageReference Include="Furion" Version="4.8.6.2" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.25" />
   </ItemGroup>
 
   <ItemGroup>

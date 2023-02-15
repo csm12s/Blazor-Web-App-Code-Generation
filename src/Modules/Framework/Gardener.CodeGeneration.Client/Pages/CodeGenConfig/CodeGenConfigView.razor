@@ -35,7 +35,7 @@
             </AntDesign.Col>
         </Row>
     </TitleTemplate>
-    <RowTemplate>
+    <ColumnDefinitions>
         @*TODO: Key，ColumnName无法固定左侧*@
         <Selection Key="@(model.Id.ToString())" Fixed="left" />
         <Column @bind-Field="@model.ColumnName" Title="@(localizer["ColumnName"])" Width="150" Filterable Fixed="left"></Column>
@@ -236,5 +236,5 @@
         <Column @bind-Field="@model.ColumnSummary" Width="100" Filterable Title="@(localizer["ColumnSummary"])">
             <Input Type="text" @bind-Value="@model.ColumnSummary" />
         </Column>
-    </RowTemplate>
+    </ColumnDefinitions>
 </Table>

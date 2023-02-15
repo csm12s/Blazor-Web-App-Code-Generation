@@ -213,6 +213,32 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
                     width: 1500);
     }
 
+    private async Task ShowHelp()
+    {
+        await confirmService.YesNo("使用说明",
+            """
+            模板位置：
+                Gardener.Entry\wwwroot\Template
+
+            多语言文件存放位置：
+                放在Gardener.XXX项目下
+                参考Gardener.UserCenter
+
+            生成后操作：
+            1, 在Gardener.Api.Core项目中添加Gardener.Xxx.Server项目的引用
+               在/Setting/ SwaggerSettings.json 添加setting
+            2, 在Gardener.Client.Core项目中添加Gardener.Xxx.Client项目的引用
+            3, 在Gardener.Client.Entry/wwwroot/appsettings.json中添加配置 ModuleSettings.Dlls
+            （前端View代码中报错部分将@@替换为@）
+
+            其他说明：
+            XxxBaseModel, XxxBaseDto 请自行修改
+            模块命名暂不支持带点：例如Custom1，不支持这种Custom._1
+            生成的工程文件可能存在包降级，手动更新一下
+            """
+            );
+    }
+
     private async Task OpenCodeGenFolder()
     {
         await codeGenClientService.OpenCodeGenFolder();

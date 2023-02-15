@@ -27,6 +27,12 @@ namespace Gardener.Attachment.Enums
         /// 聊天
         /// </summary>
         [Description("聊天")]
-        Chat
+        Chat,
+
+        /// <summary>
+        /// 报表
+        /// </summary>
+        [Description("报表")]
+        Report
     }
 }

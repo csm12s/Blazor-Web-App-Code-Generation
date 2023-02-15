@@ -80,12 +80,17 @@
                                 @(localizer.Combination(SharedLocalResource.Settings, SharedLocalResource.SeedData))
                             </Button>
                         </SpaceItem>
+                        <SpaceItem>
+                            <Button  Icon="info-circle" OnClick="ShowHelp">
+                                说明
+                            </Button>
+                        </SpaceItem>
                     </Space>
                 </AntDesign.Col>
             </Row>
 
         </TitleTemplate>
-        <RowTemplate>
+        <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" />
             <Column @bind-Field="@model.TableName" Title="@(localizer[CodeGenLocalResource.TableName])" Sortable Filterable />
             <Column @bind-Field="@model.ClassName" Title="@(localizer[CodeGenLocalResource.ClassName])" Sortable Filterable />
@@ -134,6 +139,6 @@
                     </SpaceItem>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

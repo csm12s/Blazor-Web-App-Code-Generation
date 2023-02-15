@@ -5,11 +5,12 @@
     <NoWin32Manifest>true</NoWin32Manifest>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
+    <NoWarn>1701;1702;1591;CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
     <Content Remove="wwwroot\Template\BaseController.cs.razor" />
     <Content Remove="wwwroot\Template\BaseEdit.cs.razor" />
     <Content Remove="wwwroot\Template\BaseEntity.cs.razor" />
+    <Content Remove="wwwroot\Template\BaseEntityDto.cs.razor" />
     <Content Remove="wwwroot\Template\BaseService.cs.razor" />
     <Content Remove="wwwroot\Template\BaseTable.cs.razor" />
     <Content Remove="wwwroot\Template\Client.csproj.razor" />
@@ -59,6 +61,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\BaseEdit.cs.razor">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Template\BaseEntityDto.cs.razor">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\DBLocaleMenu.razor">
@@ -154,8 +159,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1">
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -178,6 +183,7 @@
 	  <Watch Remove="wwwroot\Template\BaseController.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseEdit.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseEntity.cs.razor" />
+	  <Watch Remove="wwwroot\Template\BaseEntityDto.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseService.cs.razor" />
 	  <Watch Remove="wwwroot\Template\BaseTable.cs.razor" />
 	  <Watch Remove="wwwroot\Template\Client.csproj.razor" />

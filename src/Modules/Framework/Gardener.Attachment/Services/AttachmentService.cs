@@ -18,6 +18,7 @@ using Gardener.FileStore;
 using Gardener.Attachment.Core;
 using Gardener.Common;
 using Gardener.EntityFramwork;
+using Gardener.Base;
 
 namespace Gardener.Attachment.Services
 {
@@ -63,9 +64,28 @@ namespace Gardener.Attachment.Services
             attachment.Suffix = Path.GetExtension(file.FileName).ToLower();
             string fileName = (Guid.NewGuid().ToString() + Path.GetExtension(file.FileName)).ToLower();
             attachment.Name = fileName;
-            string path = $"{input.BusinessType}/{DateTime.Now.ToString("yyyMMdd")}/".ToLower();
-            attachment.Path = path;
-            string url = await fileStoreService.Save(file.OpenReadStream(), path + fileName);
+            string savePartialPath = $"{input.BusinessType}/{DateTime.Now.ToString("yyyMMdd")}/".ToLower();
+            attachment.Path = savePartialPath;
+            
+            // save file
+            string url = await fileStoreService.Save(file.OpenReadStream(), savePartialPath + fileName);
+            if (!string.IsNullOrEmpty(input.FileSavePath))
+            {
+                await fileStoreService.SaveToLocal(file.OpenReadStream(), input.FileSavePath);
+            } 
+            else if (!string.IsNullOrEmpty(input.FileSaveFolder))
+            {
+                var fileExt = Path.GetExtension(file.FileName);
+                var originName = file.FileName.Replace(fileExt, "");
+                var newName = originName 
+                    + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")
+                    + "_" + IdHelper.GetGuid32()
+                    + fileExt;
+
+                await fileStoreService.Save(file.OpenReadStream(),
+                    Path.Combine(input.FileSaveFolder, newName));
+            }
+            
             attachment.Url = url;
             attachment.CreatedTime = DateTime.Now;
             var entity = await base.Insert(attachment);

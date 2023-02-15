@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Client.Base
+namespace Gardener.Common
 {
     /// <summary>
     /// RESTful 风格结果集

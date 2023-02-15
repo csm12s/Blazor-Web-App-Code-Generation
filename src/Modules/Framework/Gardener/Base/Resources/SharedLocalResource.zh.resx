@@ -186,6 +186,9 @@
   <data name="Controller need comment" xml:space="preserve">
     <value>接口方法需要备注</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>确定</value>
+  </data>
   <data name="CreatedTime" xml:space="preserve">
     <value>创建时间</value>
   </data>

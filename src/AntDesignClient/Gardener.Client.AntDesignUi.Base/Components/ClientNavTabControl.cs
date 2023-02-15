@@ -28,7 +28,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_reuseTabs != null)
             {
-                _reuseTabs.RouteView.RemovePageWithRegex(pattern);
+                _reuseTabs.RemovePageWithRegex(pattern);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_reuseTabs != null)
             {
-                _reuseTabs.RouteView.RemovePageWithRegex(".*");
+                _reuseTabs.RemovePageWithRegex(".*");
             }
         }
     }

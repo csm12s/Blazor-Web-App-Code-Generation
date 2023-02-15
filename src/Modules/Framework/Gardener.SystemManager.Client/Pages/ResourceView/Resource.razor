@@ -39,7 +39,7 @@
                 </AntDesign.Col>
             </Row>
         </TitleTemplate>
-        <RowTemplate>
+        <ColumnDefinitions>
             <Selection CheckStrictly Width="5%" />
             <Column @bind-Field="@model.Name" Width="20%">
                 <span>
@@ -129,7 +129,7 @@
                     }
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>
 
