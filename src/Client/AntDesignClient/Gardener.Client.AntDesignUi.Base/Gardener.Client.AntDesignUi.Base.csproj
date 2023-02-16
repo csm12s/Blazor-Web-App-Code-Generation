@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.3" />
+	  <PackageReference Include="AntDesign" Version="0.14.2" />
+	  <PackageReference Include="AntDesign.Charts" Version="0.3.0" />
+	  <PackageReference Include="AntDesign.ProLayout" Version="0.13.1" />
+	  <PackageReference Include="BlazorMonaco" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Gardener.Client.Base\Gardener.Client.Base.csproj" />
+  </ItemGroup>
+
+</Project>

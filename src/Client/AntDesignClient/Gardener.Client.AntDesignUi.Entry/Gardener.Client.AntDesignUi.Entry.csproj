@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <UseBlazorWebAssembly>true</UseBlazorWebAssembly>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+	<BlazorEnableCompression>true</BlazorEnableCompression>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.3" PrivateAssets="all" />
+    <PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.3" />
+    <PackageReference Include="Microsoft.JSInterop" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SolutionDir)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <!--<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SolutionDir)" Command="npm install" />-->
+  </Target>
+
+  <Target Name="DebugRunGulp" BeforeTargets="DebugEnsureNodeEnv" Condition=" '$(Configuration)' == 'Debug' And Exists('$(SolutionDir)node_modules') ">
+    <!--<Exec WorkingDirectory="$(SolutionDir)" Command="npm run gulp:pro" />-->
+  </Target>
+
+  <!--<Target Name="PublishRunGulp" AfterTargets="ComputeFilesToPublish">
+    <Exec WorkingDirectory="$(SolutionDir)" Command="npm install" />
+    <Exec WorkingDirectory="$(SolutionDir)" Command="npm run gulp:pro" />
+  </Target>-->
+
+  <ItemGroup>
+    <Watch Include="**\*.razor" />
+    <Watch Include="**\*.less" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AntDesignClient\Gardener.Client.AntDesignUi\Gardener.Client.AntDesignUi.csproj" />
+    <ProjectReference Include="..\..\..\Client\Gardener.Client.Core\Gardener.Client.Core.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.Attachment.Client\Gardener.Attachment.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.Audit.Client\Gardener.Audit.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.Authentication.Client\Gardener.Authentication.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.CodeGeneration.Client\Gardener.CodeGeneration.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.Email.Client\Gardener.Email.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.NotificationSystem.Client\Gardener.NotificationSystem.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.Swagger.Client\Gardener.Swagger.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.SystemManager.Client\Gardener.SystemManager.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\Framework\Gardener.VerifyCode.Client\Gardener.VerifyCode.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\UserCenter\Gardener.UserCenter.Client\Gardener.UserCenter.Client.csproj" />
+  </ItemGroup>
+
+</Project>
