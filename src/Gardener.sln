@@ -95,8 +95,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SysTimer.Impl", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SysTimer.Client", "Modules\SysTimer\Gardener.SysTimer.Client\Gardener.SysTimer.Client.csproj", "{D9A3901F-838E-4643-87C6-4DCE455320E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Client.WPF", "Client\Gardener.Client.WPF\Gardener.Client.WPF.csproj", "{E83B1C40-2019-4EA9-8252-E11AB468BEFE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SystemManager", "Modules\Framework\Gardener.SystemManager\Gardener.SystemManager.csproj", "{42BE6866-A8F8-4258-8618-CA80676E6681}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.SystemManager.Client", "Modules\Framework\Gardener.SystemManager.Client\Gardener.SystemManager.Client.csproj", "{B571F174-790C-4C34-9D37-61AB077049EC}"
@@ -121,9 +119,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Client.BootstrapUi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Client.BootstrapUi.Base", "Client\BootstrapClient\Gardener.Client.BootstrapUi.Base\Gardener.Client.BootstrapUi.Base.csproj", "{5F718DB3-3D7C-4D95-8CD8-FD64A71A8AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.UserCenter.Client.Services", "Modules\UserCenter\Gardener.UserCenter.Client.Services\Gardener.UserCenter.Client.Services.csproj", "{E058F0D5-93B5-42D7-BF3D-0F0FFA5A5D36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.UserCenter.Client.Services", "Modules\UserCenter\Gardener.UserCenter.Client.Services\Gardener.UserCenter.Client.Services.csproj", "{E058F0D5-93B5-42D7-BF3D-0F0FFA5A5D36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.UserCenter.Client.BootstrapUi", "Modules\UserCenter\Gardener.UserCenter.Client.BootstrapUi\Gardener.UserCenter.Client.BootstrapUi.csproj", "{CE5ACDED-C491-4461-AF26-885A51DD77CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.UserCenter.Client.BootstrapUi", "Modules\UserCenter\Gardener.UserCenter.Client.BootstrapUi\Gardener.UserCenter.Client.BootstrapUi.csproj", "{CE5ACDED-C491-4461-AF26-885A51DD77CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -287,10 +285,6 @@ Global
 		{D9A3901F-838E-4643-87C6-4DCE455320E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9A3901F-838E-4643-87C6-4DCE455320E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9A3901F-838E-4643-87C6-4DCE455320E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E83B1C40-2019-4EA9-8252-E11AB468BEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E83B1C40-2019-4EA9-8252-E11AB468BEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E83B1C40-2019-4EA9-8252-E11AB468BEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E83B1C40-2019-4EA9-8252-E11AB468BEFE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{42BE6866-A8F8-4258-8618-CA80676E6681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42BE6866-A8F8-4258-8618-CA80676E6681}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42BE6866-A8F8-4258-8618-CA80676E6681}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -385,7 +379,6 @@ Global
 		{DD3FB3B0-B65D-4AC7-8CC4-AE4EDF600877} = {57BF47DA-3EAF-43CD-9BDD-23677707E9FD}
 		{04142B49-2F7A-4E05-8A00-93092BE23A8A} = {57BF47DA-3EAF-43CD-9BDD-23677707E9FD}
 		{D9A3901F-838E-4643-87C6-4DCE455320E9} = {57BF47DA-3EAF-43CD-9BDD-23677707E9FD}
-		{E83B1C40-2019-4EA9-8252-E11AB468BEFE} = {4FBB8EA4-A1F9-48AA-A693-382664D2C1E3}
 		{42BE6866-A8F8-4258-8618-CA80676E6681} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
 		{B571F174-790C-4C34-9D37-61AB077049EC} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
 		{A50B3DE7-637C-499F-AC13-643D8A533D3D} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}

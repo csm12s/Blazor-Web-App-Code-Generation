@@ -1,15 +1,15 @@
-﻿@using Gardener.Client.BootstrapUi.Base.Shared;
-<BootstrapBlazorRoot>
-    <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@moduleContext.ModeuleAssemblies">
-        <Found Context="routeData">
-            <PageTitle>Bootstrap Blazor Project Template</PageTitle>
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        </Found>
-        <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(OtherPageLayout)">
-                <p>惆怅长岑长错错错错</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
+﻿<BootstrapBlazorRoot>
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@moduleContext.ModeuleAssemblies" PreferExactMatches="@true">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                </AuthorizeRouteView>
+            </Found>
+            <NotFound>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <p>Sorry, there's nothing at this address.</p>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </CascadingAuthenticationState>
 </BootstrapBlazorRoot>

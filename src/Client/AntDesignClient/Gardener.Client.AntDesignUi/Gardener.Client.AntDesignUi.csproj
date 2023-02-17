@@ -6,6 +6,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Content Include="Pages\Home.razor.js" />
+	</ItemGroup>
+
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
@@ -16,13 +20,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="wwwroot\Home.razor.js">
+		<ProjectReference Include="..\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Pages\Home.razor.js">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
+	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 
 </Project>
