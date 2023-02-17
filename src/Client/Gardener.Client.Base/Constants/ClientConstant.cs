@@ -49,5 +49,10 @@ namespace Gardener.Client.Base.Constants
         /// </summary>
         public readonly static int ClientNotifierUseMessageMaxLength = 20;
 
+        /// <summary>
+        /// 通知消息弹出时长
+        /// </summary>
+        public readonly static int ClientNotifierMessageDuration = 3;
+
     }
 }

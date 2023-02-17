@@ -10,6 +10,10 @@
 		<PackageReference Include="BootstrapBlazor" Version="7.*" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Gardener.Client.Base\Gardener.Client.Base.csproj" />
+	</ItemGroup>
+
 
 
 </Project>

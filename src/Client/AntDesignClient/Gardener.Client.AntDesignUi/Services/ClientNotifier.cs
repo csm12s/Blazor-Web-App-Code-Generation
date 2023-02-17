@@ -14,7 +14,7 @@ namespace Gardener.Client.AntDesignUi.Services
     [ScopedService]
     public class ClientNotifier : IClientNotifier
     {
-        private double duration = 3;
+        private double duration = ClientConstant.ClientNotifierMessageDuration;
         private int msgMaxLength = ClientConstant.ClientNotifierUseMessageMaxLength;
 
         private readonly MessageService msgSvr;

@@ -1,10 +1,16 @@
 ﻿using BootstrapBlazor.Components;
+using Gardener.Client.Base;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Gardener.Client.BootstrapUi.Base.Shared
 {
     public partial class MainLayout
     {
+        [Inject]
+        [NotNull]
+        private ClientModuleContext moduleContext { get; set; }
         private bool UseTabSet { get; set; } = true;
 
         private string Theme { get; set; } = "";
@@ -35,12 +41,9 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
         {
             var menus = new List<MenuItem>
         {
-            new MenuItem() { Text = "返回组件库", Icon = "fa-solid fa-fw fa-home", Url = "https://www.blazor.zone/components" },
             new MenuItem() { Text = "Index", Icon = "fa-solid fa-fw fa-flag", Url = "/" , Match = NavLinkMatch.All},
-            new MenuItem() { Text = "Counter", Icon = "fa-solid fa-fw fa-check-square", Url = "/counter" },
-            new MenuItem() { Text = "FetchData", Icon = "fa-solid fa-fw fa-database", Url = "fetchdata" },
-            new MenuItem() { Text = "Table", Icon = "fa-solid fa-fw fa-table", Url = "table" },
-            new MenuItem() { Text = "花名册", Icon = "fa-solid fa-fw fa-users", Url = "users" }
+            new MenuItem() { Text = "测试", Icon = "fa-solid fa-fw fa-users", Url = "/test" },
+            new MenuItem() { Text = "登录", Icon = "fa-solid fa-fw fa-users", Url = "/login" }
         };
 
             return menus;

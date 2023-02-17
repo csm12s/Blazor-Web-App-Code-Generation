@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Client\AntDesignClient\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
+    <ProjectReference Include="..\Gardener.UserCenter.Client.Services\Gardener.UserCenter.Client.Services.csproj" />
     <ProjectReference Include="..\Gardener.UserCenter\Gardener.UserCenter.csproj" />
   </ItemGroup>
 

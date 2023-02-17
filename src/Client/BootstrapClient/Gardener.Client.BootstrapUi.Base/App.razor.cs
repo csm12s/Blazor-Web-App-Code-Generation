@@ -1,14 +1,20 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Gardener.Client.Base;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
-namespace Gardener.Client.BootstrapUi
+namespace Gardener.Client.BootstrapUi.Base
 {
     /// <summary>
     /// 
     /// </summary>
     public sealed partial class App
     {
+        [Inject]
+        [NotNull]
+        private ClientModuleContext moduleContext { get; set; }
         /// <summary>
         /// 
         /// </summary>
