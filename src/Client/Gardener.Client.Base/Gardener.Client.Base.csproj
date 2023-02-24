@@ -22,4 +22,8 @@
 		<ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter\Gardener.UserCenter.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Shared\" />
+	</ItemGroup>
+
 </Project>

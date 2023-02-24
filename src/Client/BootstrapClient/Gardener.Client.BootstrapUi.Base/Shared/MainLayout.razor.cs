@@ -1,17 +1,22 @@
 ﻿using BootstrapBlazor.Components;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
+using Gardener.SystemManager.Dtos;
+using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Gardener.Client.BootstrapUi.Base.Shared
 {
     public partial class MainLayout
     {
-        [Inject]
-        [NotNull]
-        private ClientModuleContext moduleContext { get; set; }
+        
         private bool UseTabSet { get; set; } = true;
 
         private string Theme { get; set; } = "";
@@ -27,27 +32,60 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
         private bool ShowFooter { get; set; } = true;
 
         private List<MenuItem>? Menus { get; set; }
+        private List<MenuItem> menuDataItems = new List<MenuItem>();
+        [Inject]
+        [NotNull]
+        private ClientModuleContext moduleContext { get; set; }
 
         /// <summary>
-        /// OnInitialized 方法
+        /// 系统配置服务
         /// </summary>
-        protected override void OnInitialized()
+        [Inject]
+        private ISystemConfigService systemConfigService { get; set; }
+        [Inject]
+        private IJsTool JsTool { get; set; }
+        [Inject]
+        private IClientLocalizer<MenuNameLocalResource> Loc { get; set; }
+        [Inject]
+        private IAuthenticationStateManager authenticationStateManager { get; set; }
+
+        private SystemConfig systemConfig;
+
+        private UserDto? user { get; set; }
+
+        /// <summary>
+        /// OnInitializedAsync 方法
+        /// </summary>
+        protected async override Task OnInitializedAsync()
         {
+            Action<List<ResourceDto>> onEmnusLoaded = menus =>
+            {
+                if (menus == null) return;
+                
+            };
+            //拿取已加载的数据
+            var emnus = authenticationStateManager.GetCurrentUserEmnus();
+            if (emnus.Count > 0)
+            {
+                //已加载到菜单数据
+                onEmnusLoaded(emnus);
+            }
+            else
+            {
+                //可能尚未加载完成，设置个回调
+                authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onEmnusLoaded);
+            }
+
+            user = await authenticationStateManager.GetCurrentUser();
+
+
+            systemConfig = systemConfigService.GetSystemConfig();
+            await JsTool.Document.SetTitle(systemConfig.SystemName);
+
+
             base.OnInitialized();
 
-            Menus = GetIconSideMenuItems();
-        }
-
-        private static List<MenuItem> GetIconSideMenuItems()
-        {
-            var menus = new List<MenuItem>
-        {
-            new MenuItem() { Text = "Index", Icon = "fa-solid fa-fw fa-flag", Url = "/" , Match = NavLinkMatch.All},
-            new MenuItem() { Text = "测试", Icon = "fa-solid fa-fw fa-users", Url = "/test" },
-            new MenuItem() { Text = "登录", Icon = "fa-solid fa-fw fa-users", Url = "/login" }
-        };
-
-            return menus;
+            
         }
     }
 }

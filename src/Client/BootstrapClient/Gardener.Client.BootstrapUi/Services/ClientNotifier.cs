@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using BootstrapBlazor.Components;
 using Gardener.Client.Base;
 using Gardener.Client.BootstrapUi.Base.Constants;
 using System;
@@ -20,50 +21,51 @@ namespace Gardener.Client.BootstrapUi.Services
         private double duration = ClientConstant.ClientNotifierMessageDuration;
         private int msgMaxLength = ClientConstant.ClientNotifierUseMessageMaxLength;
         private readonly IClientLocalizer localizer;
-
-        public ClientNotifier(IClientLocalizer localizer)
+        private readonly ToastService? toastService;
+        public ClientNotifier(IClientLocalizer localizer, ToastService? toastService)
         {
             this.localizer = localizer;
+            this.toastService = toastService;
         }
 
-        public Task Error(string description, Exception ex = null)
+        public async Task Error(string description, Exception ex = null)
         {
-            throw new NotImplementedException();
+            await toastService.Error("通知", description);
         }
 
-        public Task Error(string msg, string description, Exception ex = null)
+        public async Task Error(string msg, string description, Exception ex = null)
         {
-            throw new NotImplementedException();
+            await toastService.Error(msg, description);
         }
 
-        public Task Info(string description)
+        public async Task Info(string description)
         {
-            throw new NotImplementedException();
+            await toastService.Information("通知", description);
         }
 
-        public Task Info(string msg, string description)
+        public async Task Info(string msg, string description)
         {
-            throw new NotImplementedException();
+            await toastService.Information(msg, description);
         }
 
-        public Task Success(string description)
+        public async Task Success(string description)
         {
-            throw new NotImplementedException();
+            await toastService.Success("通知", description);
         }
 
-        public Task Success(string msg, string description)
+        public async Task Success(string msg, string description)
         {
-            throw new NotImplementedException();
+            await toastService.Success(msg, description);
         }
 
-        public Task Warn(string description, Exception ex = null)
+        public async Task Warn(string description, Exception ex = null)
         {
-            throw new NotImplementedException();
+            await toastService.Warning("通知", description);
         }
 
-        public Task Warn(string msg, string description, Exception ex = null)
+        public async Task Warn(string msg, string description, Exception ex = null)
         {
-            throw new NotImplementedException();
+            await toastService.Warning(msg, description);
         }
     }
 }

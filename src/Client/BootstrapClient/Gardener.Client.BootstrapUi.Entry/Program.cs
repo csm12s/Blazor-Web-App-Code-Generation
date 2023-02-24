@@ -74,7 +74,7 @@ builder.AddSignalRClientManager();
 #endregion
 
 var host = builder.Build();
-await host.UseCulture(ClientConstant.BlazorCultureKey, ClientConstant.DefaultCulture);
+host=await host.UseCulture(ClientConstant.BlazorCultureKey, ClientConstant.DefaultCulture);
 await host.RunAsync();
 
 await builder.Build().RunAsync();

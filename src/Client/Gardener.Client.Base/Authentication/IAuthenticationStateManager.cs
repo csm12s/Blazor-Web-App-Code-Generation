@@ -20,7 +20,7 @@ namespace Gardener.Client.Base
     {
         Task<bool> CheckCurrentUserHaveBtnResourceKey(object key);
         Task<UserDto> GetCurrentUser();
-        void SetOnMenusLoaded(Action<List<ResourceDto>> action);
+        void SetOnAuthenticationRefreshSuccessed(Action<UserDto, bool, List<ResourceDto>, List<string>> action);
         List<ResourceDto> GetCurrentUserEmnus();
         Task ReloadCurrentUserInfos();
         Task Login(TokenOutput token, bool isAutoLogin = true);

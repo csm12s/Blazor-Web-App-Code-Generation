@@ -177,25 +177,34 @@ namespace Gardener.Client.Core
             var token = await ReloadToken();
             if (token != null)
             {
-                await eventBus.Publish(new ReloadCurrentUserEvent() { Token=token});
+                await eventBus.Publish(new ReloadCurrentUserEvent() { Token = token });
                 //重新请求user信息
                 var userResult = await accountService.GetCurrentUser();
                 if (userResult != null)
                 {
                     //超级管理员
-                    currentUserIsSuperAdmin = userResult.Roles!=null && userResult.Roles.Any(x => x.IsSuperAdministrator);
-                    this.uiResourceKeys = await accountService.GetCurrentUserResourceKeys(ResourceType.View,ResourceType.Menu,ResourceType.Action);
+                    currentUserIsSuperAdmin = userResult.Roles != null && userResult.Roles.Any(x => x.IsSuperAdministrator);
+                    this.uiResourceKeys = await accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
                     this.uiHashtableResources = null;
                     this.menuResources = await accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
                     this.currentUser = userResult;
-                    onMenusLoaded.Invoke(this.menuResources);
+                    onAuthenticationRefreshSuccessed.Invoke(this.currentUser, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                 }
             }
         }
-        private Action<List<ResourceDto>> onMenusLoaded = (menus) => { };
-        public void SetOnMenusLoaded(Action<List<ResourceDto>> action)
+
+        /// <summary>
+        /// 身份刷新成功后
+        /// </summary>
+        private Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) => { };
+
+        /// <summary>
+        /// 身份刷新成功后
+        /// </summary>
+        /// <param name="action"></param>
+        public void SetOnAuthenticationRefreshSuccessed(Action<UserDto, bool, List<ResourceDto>, List<string>> action)
         {
-            this.onMenusLoaded = action;
+            this.onAuthenticationRefreshSuccessed = action;
         }
         private List<string> GetCurrentUserUiResourceKeys()
         {
@@ -216,7 +225,7 @@ namespace Gardener.Client.Core
         }
         public List<ResourceDto> GetCurrentUserEmnus()
         {
-            return this.menuResources ?? new List<ResourceDto>() ;
+            return this.menuResources ?? new List<ResourceDto>();
         }
         #endregion
 
@@ -253,7 +262,7 @@ namespace Gardener.Client.Core
                 RefreshTokenExpires = long.Parse(refreshTokenExpiresLocal)
             };
             return token;
-;
+            ;
         }
 
         /// <summary>
@@ -264,7 +273,7 @@ namespace Gardener.Client.Core
         {
             TokenOutput token = await GetCurrentToken();
             //无效
-            if (token==null) return null;
+            if (token == null) return null;
             //accessToken可用
             if (!string.IsNullOrEmpty(token.AccessToken) && token.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold)
             {
@@ -318,7 +327,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public async Task<Dictionary<string, string>> GetCurrentTokenHeaders()
         {
-            TokenOutput currentToken =await GetCurrentToken();
+            TokenOutput currentToken = await GetCurrentToken();
             if (currentToken == null) return null;
 
             return new Dictionary<string, string>

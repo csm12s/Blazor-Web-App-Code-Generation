@@ -21,7 +21,7 @@ namespace Gardener.Client.Core.Services
         private IJSObjectReference jSObjectReference;
         public JsToolBase(IJSRuntime js)
         {
-            moduleTask = new(() => js.InvokeAsync<IJSObjectReference>("import", $"./js/js-tool/js-tool.js?_={DateTime.Now.ToString("yyyyMMddHHmmss")}").AsTask());
+            moduleTask = new(() => js.InvokeAsync<IJSObjectReference>("import", $"./_content/Gardener.Client.Core/js-tool.js?_={DateTime.Now.ToString("yyyyMMddHHmmss")}").AsTask());
         }
 
         /// <summary>

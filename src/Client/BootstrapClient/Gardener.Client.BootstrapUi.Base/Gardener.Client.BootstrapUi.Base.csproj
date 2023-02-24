@@ -14,10 +14,6 @@
 	  <ProjectReference Include="..\..\Gardener.Client.Base\Gardener.Client.Base.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="wwwroot\" />
-	</ItemGroup>
-
 
 
 </Project>
