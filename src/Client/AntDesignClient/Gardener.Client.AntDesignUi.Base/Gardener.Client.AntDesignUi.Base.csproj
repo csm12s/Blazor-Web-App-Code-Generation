@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.3" />
-	  <PackageReference Include="AntDesign" Version="0.14.2" />
+	  <PackageReference Include="AntDesign" Version="0.14.3" />
 	  <PackageReference Include="AntDesign.Charts" Version="0.3.0" />
 	  <PackageReference Include="AntDesign.ProLayout" Version="0.13.1" />
 	  <PackageReference Include="BlazorMonaco" Version="3.0.0" />
