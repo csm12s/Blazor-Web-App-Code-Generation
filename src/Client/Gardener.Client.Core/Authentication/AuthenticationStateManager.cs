@@ -223,7 +223,7 @@ namespace Gardener.Client.Core
             }
             return uiHashtableResources.ContainsKey(key);
         }
-        public List<ResourceDto> GetCurrentUserEmnus()
+        public List<ResourceDto> GetCurrentUserMenus()
         {
             return this.menuResources ?? new List<ResourceDto>();
         }
