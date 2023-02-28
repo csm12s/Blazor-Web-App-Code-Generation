@@ -11,6 +11,7 @@ using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
+using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components;
 
 
@@ -92,30 +93,25 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            Action<List<ResourceDto>> onEmnusLoaded = menus =>
-            {
-                if (menus == null) return;
-                menuDataItems = new List<MenuDataItem>();
-                menus.ForEach(x => InitEnum(x));
-                _menuData = menuDataItems.ToArray();
-            };
-            //拿取已加载的数据
-            var emnus = authenticationStateManager.GetCurrentUserEmnus();
-            if (emnus.Count > 0)
-            {
-                //已加载到菜单数据
-                onEmnusLoaded(emnus);
-            }
-            else {
-                //可能尚未加载完成，设置个回调
-                authenticationStateManager.SetOnMenusLoaded(onEmnusLoaded);
-            }
-            
             systemConfig = systemConfigService.GetSystemConfig();
+
+            Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
+            {
+                if (menus != null)
+                {
+                    menuDataItems = new List<MenuDataItem>();
+                    menus.ForEach(x => InitEnum(x));
+                    _menuData = menuDataItems.ToArray();
+                }
+
+            };
+            //设置个回调
+            authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
+           
             await JsTool.Document.SetTitle(systemConfig.SystemName);
-            await base.OnInitializedAsync();
             //导航控制
             ClientNavTabControl.SetReuseTabs(reuseTabs);
+            await base.OnInitializedAsync();
         }
 
         void toggle()
