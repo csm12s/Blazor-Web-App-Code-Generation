@@ -16,7 +16,7 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
 {
     public partial class MainLayout
     {
-        
+
         private bool UseTabSet { get; set; } = true;
 
         private string Theme { get; set; } = "";
@@ -58,34 +58,45 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
         /// </summary>
         protected async override Task OnInitializedAsync()
         {
-            Action<List<ResourceDto>> onEmnusLoaded = menus =>
+            Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
             {
-                if (menus == null) return;
-                
+                if (menus != null)
+                {
+                    //已加载到菜单数据
+                    this.Menus = InitMenus(menus);
+                }
+                if (user != null)
+                {
+                    this.user = user;
+                }
+
             };
-            //拿取已加载的数据
-            var emnus = authenticationStateManager.GetCurrentUserEmnus();
-            if (emnus.Count > 0)
-            {
-                //已加载到菜单数据
-                onEmnusLoaded(emnus);
-            }
-            else
-            {
-                //可能尚未加载完成，设置个回调
-                authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onEmnusLoaded);
-            }
-
-            user = await authenticationStateManager.GetCurrentUser();
-
-
-            systemConfig = systemConfigService.GetSystemConfig();
-            await JsTool.Document.SetTitle(systemConfig.SystemName);
-
-
+            //设置个回调
+            authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
             base.OnInitialized();
-
-            
         }
+        /// <summary>
+        /// 初始化菜单
+        /// </summary>
+        /// <param name="resources"></param>
+        /// <param name="menus"></param>
+        private List<MenuItem> InitMenus(ICollection<ResourceDto> resources)
+        {
+            List<MenuItem> menuItems = new List<MenuItem>();
+            if (resources != null && resources.Count > 0)
+            {
+                foreach (var resource in resources)
+                {
+                    var menu = new MenuItem();
+                    menu.Text = resource.Name;
+                    menu.Url = resource.Path;
+                    menu.Items = InitMenus(resource.Children);
+                    menuItems.Add(menu);
+                }
+
+            }
+            return menuItems;
+        }
+
     }
 }
