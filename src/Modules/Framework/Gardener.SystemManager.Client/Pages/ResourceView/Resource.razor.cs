@@ -26,10 +26,6 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             return settings;
         }
 
-        // 改为引用继承中的声明，如果发生bug，取消此处注释
-        //[Inject]
-        //DrawerService drawerService { get; set; }
-
         [Inject]
         IResourceService resourceService { get; set; }
 

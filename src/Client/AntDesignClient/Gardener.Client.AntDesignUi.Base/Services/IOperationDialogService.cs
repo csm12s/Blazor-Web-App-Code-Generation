@@ -29,7 +29,7 @@ namespace Gardener.Client.AntDesignUi.Base.Services
         /// 可以是抽屉，可以是弹框
         /// </remarks>
         /// <returns></returns>
-        public Task OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>;
+        public Task OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>;
 
         /// <summary>
         /// 打开
@@ -46,7 +46,7 @@ namespace Gardener.Client.AntDesignUi.Base.Services
         /// 可以是抽屉，可以是弹框
         /// </remarks>
         /// <returns></returns>
-        public Task OpenAsync<TOperationDialog, TDialogInput>(string title, TDialogInput input, Func<Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput,bool>;
+        public Task OpenAsync<TOperationDialog, TDialogInput>(string title, TDialogInput input, Func<Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, bool>;
 
     }
 }

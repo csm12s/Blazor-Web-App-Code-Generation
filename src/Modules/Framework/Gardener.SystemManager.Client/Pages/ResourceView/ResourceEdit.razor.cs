@@ -16,6 +16,8 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
     public partial class ResourceEdit : EditOperationDialogBase<ResourceDto,Guid>
     {
+        private ResourceType currentResourceTypeCopy = ResourceType.Root;
+
         [Inject]
         IResourceService resourceService { get; set; }
         /// <summary>
@@ -40,10 +42,6 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// </summary>
         private List<ResourceDto> resources=new List<ResourceDto>();
         /// <summary>
-        /// 
-        /// </summary>
-        private Dictionary<ResourceType, string> resourceTypes = new Dictionary<ResourceType, string>();
-        /// <summary>
         /// 页面初始化
         /// </summary>
         /// <returns></returns>
@@ -51,10 +49,9 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             await base.OnInitializedAsync();
 
-
             _isLoading = true;
             resources = await resourceService.GetTree();
-
+            
             if (this.Options.Type.Equals(DrawerInputType.Add))
             {
                 _editModel.Id = Guid.NewGuid();
@@ -69,21 +66,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
                 }
             }
-
-            if (this.Options.Type.Equals(DrawerInputType.Select))
-            {
-                resourceTypes.Add(_editModel.Type, _editModel.Type.GetEnumDescription());
-            }
-            else
-            {
-                foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
-                {
-                    if ((int)gitem.Key >= (int)_editModel.Type)
-                    {
-                        resourceTypes.Add(gitem.Key, gitem.Value);
-                    }
-                }
-            }
+            currentResourceTypeCopy = _editModel.Type;
             _isLoading = false;
         }
     }

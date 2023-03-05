@@ -11,9 +11,9 @@ using Gardener.SystemManager.Services;
 namespace Gardener.SystemManager.Client.Services
 {
     [ScopedService]
-    public class ResourceService : ClientServiceBase<ResourceDto,Guid>,IResourceService
+    public class ResourceService : ClientServiceBase<ResourceDto, Guid>, IResourceService
     {
-        public ResourceService(IApiCaller apiCaller):base(apiCaller, "resource")
+        public ResourceService(IApiCaller apiCaller) : base(apiCaller, "resource")
         {
         }
 
@@ -37,9 +37,9 @@ namespace Gardener.SystemManager.Client.Services
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/root");
         }
 
-        public async Task<List<ResourceDto>> GetTree(bool includLocked = true, string rootKey=null)
+        public async Task<List<ResourceDto>> GetTree(bool includLocked = true, string rootKey = null)
         {
-            IDictionary<string, object> queryString=new Dictionary<string, object>();
+            IDictionary<string, object> queryString = new Dictionary<string, object>();
             queryString.Add(nameof(rootKey), rootKey);
             queryString.Add(nameof(includLocked), includLocked);
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/tree", queryString);

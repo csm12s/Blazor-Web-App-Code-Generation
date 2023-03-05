@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Gardener.Client.Entry": {
+    "Gardener.Client.AntDesignUi.Entry": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

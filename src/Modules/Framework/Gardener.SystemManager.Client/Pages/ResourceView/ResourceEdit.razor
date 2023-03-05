@@ -39,10 +39,13 @@
         </FormItem>
         <FormItem Label="类型">
             <RadioGroup @bind-Value="@(model.Type)">
-                @foreach (var gitem in resourceTypes)
+            @foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
+            {
+                if ((int)gitem.Key >= (int)currentResourceTypeCopy)
                 {
-                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                    <Radio Value="gitem.Key" >@gitem.Value</Radio>
                 }
+            }
             </RadioGroup>
         </FormItem>
         @if (model.Type.Equals(ResourceType.Menu))
@@ -53,7 +56,6 @@
             <FormItem Label="图标">
                 <Input @bind-Value="@model.Icon" />
             </FormItem>
-
         }
         <FormItem Label="排序">
             <AntDesign.InputNumber @bind-Value="@model.Order" />

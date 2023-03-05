@@ -41,7 +41,7 @@ namespace Gardener.Client.AntDesignUi.Services
         /// <param name="onClose"></param>
         /// <param name="dialogSettings"></param>
         /// <returns></returns>
-        public async Task OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
+        public async Task OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
         {
             dialogSettings = dialogSettings ?? ClientConstant.DefaultOperationDialogSettings;
 
@@ -71,8 +71,10 @@ namespace Gardener.Client.AntDesignUi.Services
                     title: title,
                     width: dialogSettings.Width,
                     placement: dialogSettings.DrawerPlacement.ToString().ToLower());
-                await onClose(result);
-
+                if (onClose != null)
+                {
+                    await onClose.Invoke(result);
+                }
             }
         }
 
@@ -91,7 +93,8 @@ namespace Gardener.Client.AntDesignUi.Services
         /// <returns></returns>
         public async Task OpenAsync<TOperationDialog, TDialogInput>(string title, TDialogInput input, Func<Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, bool>
         {
-            Func<bool, Task> close = r => {
+            Func<bool, Task> close = r =>
+            {
 
                 return onClose();
             };
