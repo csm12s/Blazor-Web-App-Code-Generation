@@ -8,14 +8,14 @@
            DataSource="@_datas"
            Total="_total"
            OnChange="@OnChange"
-    @bind-PageIndex="_pageIndex"
-    @bind-PageSize="_pageSize"
-    @bind-SelectedRows="_selectedRows"
+           @bind-PageIndex="_pageIndex"
+           @bind-PageSize="_pageSize"
+           @bind-SelectedRows="_selectedRows"
            Loading="@_tableIsLoading"
            Context="model"
            RemoteDataSource>
         <TitleTemplate>
-            <TableSearch TDto="CodeGenSearchDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="DoSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="localizer"></TableSearch>
+            <TableSearch TDto="CodeGenSearchDto" OnSearch="DoSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="localizer" AlwaysShowSearchButton="true"></TableSearch>
             @*Custom Search*@
             <Row>
                 <AntDesign.Col Span="24">
@@ -24,34 +24,34 @@
                             <span>@localizer[CodeGenLocalResource.TableName]: </span>
                             <Select Mode="multiple"
                                     DataSource="@_select_TableName"
-                            @bind-Values="@_searchDto.TableName"
+                                    @bind-Values="@_searchDto.TableName"
                                     ValueName="@nameof(SelectItem.ValueName)"
                                     LabelName="@nameof(SelectItem.LabelName)"
                                     TItem="SelectItem"
                                     TItemValue="string"
-                                    EnableSearch
-                                    AllowClear
+                                        EnableSearch
+                                        AllowClear
                                     Style="width:200px">
                             </Select>
-                        </SpaceItem>
-                        <SpaceItem>
+                            </SpaceItem>
+                            <SpaceItem>
                             <span>@localizer[CodeGenLocalResource.ClassName]: </span>
                             <Input Style="@searchInputStyle" Type="text" TValue="string" OnPressEnter="DoSearch"
-                            @bind-Value="@_searchDto.ClassName"></Input>
-                        </SpaceItem>
-                    </Space>
-                </AntDesign.Col>
-            </Row>
-            <Row>
-                <AntDesign.Col Span="8">
-                    <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                                   @bind-Value="@_searchDto.ClassName"></Input>
+                            </SpaceItem>
+                            </Space>
+                            </AntDesign.Col>
+                            </Row>
+                            <Row>
+                            <AntDesign.Col Span="8">
+                            <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                         @localizer[SharedLocalResource.DeleteSelected]
                     </Button>
                     <Button Type="@ButtonType.Primary" Icon="code" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
                         @localizer[CodeGenLocalResource.BatchGenerate]
                     </Button>
-                </AntDesign.Col>
-                <AntDesign.Col Span="16" Style="text-align:right">
+                    </AntDesign.Col>
+                    <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
@@ -81,7 +81,7 @@
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
-                            <Button  Icon="info-circle" OnClick="ShowHelp">
+                            <Button Icon="info-circle" OnClick="ShowHelp">
                                 说明
                             </Button>
                         </SpaceItem>
@@ -136,9 +136,9 @@
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">
                             @localizer[SharedLocalResource.Delete]
                         </Button>
-                    </SpaceItem>
-                </Space>
-            </ActionColumn>
-        </ColumnDefinitions>
-    </Table>
-</div>
+                        </SpaceItem>
+                        </Space>
+                        </ActionColumn>
+                    </ColumnDefinitions>
+                    </Table>
+                </div>

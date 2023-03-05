@@ -14,7 +14,7 @@
        Loading="@_tableIsLoading"
        Context="model">
     <TitleTemplate>
-        <TableSearch TDto="CodeGenConfigSearchDto" CustomLocalizer="localizer" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+        <TableSearch TDto="CodeGenConfigSearchDto" CustomLocalizer="localizer" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.codeGenConfigSearchDtoTableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
         <Row>
             <AntDesign.Col Span="8">
                 <Button Type="@ButtonType.Primary" Danger OnClick="OnClickSaveAllAndClose" Loading="_saveAllBtnLoading">

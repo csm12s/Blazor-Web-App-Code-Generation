@@ -25,6 +25,8 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
 
     protected bool _saveAllBtnLoading = false;
 
+    private TableSearch<CodeGenConfigSearchDto>? codeGenConfigSearchDtoTableSearch;
+
     protected override async Task OnInitializedAsync()
     {
         // CodeGenId 传入 ConfigurationPageRequest
@@ -36,7 +38,7 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         //{
         //    _hideEntityFromTableFields = false;
         //}
-
+        this._filterGroupProviders.Add(() => { return codeGenConfigSearchDtoTableSearch?.GetFilterGroups(); });
         await ReLoadTable(true);
         await base.OnInitializedAsync();
     }

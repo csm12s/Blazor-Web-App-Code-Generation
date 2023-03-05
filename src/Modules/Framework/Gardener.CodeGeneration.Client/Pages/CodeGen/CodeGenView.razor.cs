@@ -47,7 +47,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
         var tableInfos = await codeGenClientService.GetTableListAsync();
         _select_TableName = tableInfos.ToSelectItems
             (it => it.TableName, it => it.ClientSelectLabelText);
-
+        this._filterGroupProviders.Add(() => { return GetCustomSearchFilterGroups(_searchDto); });
         await base.OnInitializedAsync();
     }
 
@@ -152,8 +152,6 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     }
     private async Task DoSearch()
     {
-        _customSearchFilterGroups = GetCustomSearchFilterGroups(_searchDto);
-
         await ReLoadTable(true);
     }
 

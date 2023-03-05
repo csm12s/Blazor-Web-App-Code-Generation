@@ -18,8 +18,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using System.Reflection;
 
-namespace Gardener.Client.AntDesignUi.Base.Components
-{
+namespace Gardener.Client.AntDesignUi.Base.Components {
     /// <summary>
     /// 列表table基类
     /// </summary>
@@ -29,8 +28,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new()
-    {
+    public abstract class ListTableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() {
         /// <summary>
         /// 显示总数
         /// </summary>
@@ -48,10 +46,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected Dictionary<string, object> _defaultSearchValue = new Dictionary<string, object>();
         /// <summary>
-        /// 预设搜索过滤
+        /// 搜索条件提供器
         /// </summary>
-        protected List<FilterGroup> _presetSearchFilterGroups = new();
-        protected List<FilterGroup> _customSearchFilterGroups = new();
+        protected List<Func<List<FilterGroup>>> _filterGroupProviders = new();
         /// <summary>
         /// 确认提示服务
         /// </summary>
@@ -75,9 +72,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 初始化
         /// </summary>
         /// <returns></returns>
-        protected override Task OnInitializedAsync()
-        {
+        protected override Task OnInitializedAsync() {
             _tableIsLoading = true;
+            //table search 组件提供搜索条件
+            _filterGroupProviders.Add(GetTableSearchFilterGroups);
             return base.OnInitializedAsync();
         }
 
@@ -91,10 +89,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
+        protected override async Task OnAfterRenderAsync(bool firstRender) {
+            if (firstRender) {
                 this.firstRenderAfter = true;
                 await ReLoadTable();
                 await InvokeAsync(StateHasChanged);
@@ -105,15 +101,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnParametersSetAsync()
-        {
+        protected override async Task OnParametersSetAsync() {
             var url = new Uri(navigation.Uri);
             var query = url.Query;
             Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
-            if (urlParams != null && urlParams.Count() > 0)
-            {
-                urlParams.ForEach(x =>
-                {
+            if (urlParams != null && urlParams.Count() > 0) {
+                urlParams.ForEach(x => {
                     _defaultSearchValue.Add(x.Key, x.Value.ToString());
                 });
             }
@@ -127,8 +120,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="pageRequest"></param>
         /// <returns></returns>
-        protected virtual void ConfigurationPageRequest(PageRequest pageRequest)
-        {
+        protected virtual void ConfigurationPageRequest(PageRequest pageRequest) {
             //set pageRequest
         }
 
@@ -136,20 +128,33 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 重置请求参数
         /// </summary>
         /// <returns></returns>
-        protected virtual PageRequest GetPageRequest()
-        {
+        protected virtual PageRequest GetPageRequest() {
             PageRequest pageRequest = _table?.GetPageRequest() ?? new PageRequest();
             //如果有搜索条件 就拼接上
-            if (_presetSearchFilterGroups != null && _presetSearchFilterGroups.Any())
-            {
-                pageRequest.FilterGroups.AddRange(_presetSearchFilterGroups);
-            }
-            if (_customSearchFilterGroups != null && _customSearchFilterGroups.Any())
-            {
-                pageRequest.FilterGroups.AddRange(_customSearchFilterGroups);
+            if (_filterGroupProviders != null && _filterGroupProviders.Any()) {
+                _filterGroupProviders.ForEach(p => {
+                    var items = p.Invoke();
+                    if (items != null) {
+                        pageRequest.FilterGroups.AddRange(items);
+                    }
+                });
             }
             ConfigurationPageRequest(pageRequest);
             return pageRequest;
+        }
+
+        /// <summary>
+        /// 重新加载table, 删除整页，且是最后一页
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async Task ReLoadTableAfterDeleteLastPage() {
+            //删除整页，且是最后一页
+            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total) {
+                await ReLoadTable(true);
+            }
+            else {
+                await ReLoadTable(false);
+            }
         }
 
         /// <summary>
@@ -157,41 +162,24 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// Todo: 是不是可以叫 ReloadTable
         /// </summary>
         /// <returns></returns>
-        protected virtual async Task ReLoadTable()
-        {
+        protected virtual async Task ReLoadTable() {
             await ReLoadTable(false);
         }
 
         /// <summary>
-        /// 重新加载table, 删除整页，且是最后一页
-        /// </summary>
-        /// <returns></returns>
-        protected virtual async Task ReLoadTableAfterDeleteLastPage()
-        {
-            //删除整页，且是最后一页
-            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
-            {
-                await ReLoadTable(true);
-            }
-            else
-            {
-                await ReLoadTable(false);
-            }
-        }
-
-        /// <summary>
         /// 重新加载table
         /// </summary>
         /// <param name="firstPage">是否从首页加载</param>
         /// <returns></returns>
-        protected virtual async Task ReLoadTable(bool firstPage)
-        {
-            if (firstPage)
-            {
+        protected virtual async Task ReLoadTable(bool firstPage) {
+            if (firstPage && _pageIndex > 1) {
                 _pageIndex = 1;
             }
-            PageRequest pageRequest = GetPageRequest();
-            await ReLoadTable(pageRequest);
+            else {
+                PageRequest pageRequest = GetPageRequest();
+                await ReLoadTable(pageRequest);
+            }
+
         }
 
         /// <summary>
@@ -199,19 +187,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="firstPage">是否从首页加载</param>
         /// <returns></returns>
-        protected virtual async Task ReLoadTable(PageRequest pageRequest)
-        {
-
+        protected virtual async Task ReLoadTable(PageRequest pageRequest) {
             _tableIsLoading = true;
             var pagedListResult = await _service.Search(pageRequest);
-            if (pagedListResult != null)
-            {
+            if (pagedListResult != null) {
                 var pagedList = pagedListResult;
                 _datas = pagedList.Items;
                 _total = pagedList.TotalCount;
             }
-            else
-            {
+            else {
                 await messageService.Error(localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
             _tableIsLoading = false;
@@ -223,10 +207,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        protected virtual async Task OnChange(QueryModel<TDto> queryModel)
-        {
-            if (firstRenderAfter)
-            {
+        protected virtual async Task OnChange(QueryModel<TDto> queryModel) {
+            if (firstRenderAfter) {
                 await ReLoadTable();
             }
         }
@@ -235,24 +217,19 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 点击删除按钮(FakeDelete)
         /// </summary>
         /// <param name="id"></param>
-        protected virtual async Task OnClickDelete(TKey id)
-        {
-            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
-            {
+        protected virtual async Task OnClickDelete(TKey id) {
+            if (await confirmService.YesNoDelete() == ConfirmResult.Yes) {
                 var result = await _service.FakeDelete(id);
-                if (result)
-                {
+                if (result) {
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
-                    if (_pageIndex > 1 && _datas.Count() == 0)
-                    {
+                    if (_pageIndex > 1 && _datas.Count() == 0) {
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
                     await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
-                else
-                {
+                else {
                     await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
@@ -262,33 +239,25 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 点击删除选中按钮
         /// </summary>
-        protected virtual async Task OnClickDeletes()
-        {
-            if (_selectedRows == null || _selectedRows.Count() == 0)
-            {
+        protected virtual async Task OnClickDeletes() {
+            if (_selectedRows == null || _selectedRows.Count() == 0) {
                 messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
             }
-            else
-            {
+            else {
                 _deletesBtnLoading = true;
-                if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
-                {
+                if (await confirmService.YesNoDelete() == ConfirmResult.Yes) {
                     var result = await _service.FakeDeletes(_selectedRows.Select(x => x.Id).ToArray());
-                    if (result)
-                    {
+                    if (result) {
                         //删除整页，且是最后一页
-                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
-                        {
+                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total) {
                             await ReLoadTable(true);
                         }
-                        else
-                        {
+                        else {
                             await ReLoadTable(false);
                         }
                         messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                     }
-                    else
-                    {
+                    else {
                         messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                     }
                 }
@@ -297,57 +266,44 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         #region True Delete
-        protected virtual async Task OnClickTrueDelete(TKey id)
-        {
-            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
-            {
+        protected virtual async Task OnClickTrueDelete(TKey id) {
+            if (await confirmService.YesNoDelete() == ConfirmResult.Yes) {
                 var result = await _service.Delete(id);
-                if (result)
-                {
+                if (result) {
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
-                    if (_pageIndex > 1 && _datas.Count() == 0)
-                    {
+                    if (_pageIndex > 1 && _datas.Count() == 0) {
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
                     await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
-                else
-                {
+                else {
                     await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
 
         }
 
-        protected virtual async Task OnClickTrueDeletes()
-        {
-            if (_selectedRows == null || _selectedRows.Count() == 0)
-            {
+        protected virtual async Task OnClickTrueDeletes() {
+            if (_selectedRows == null || _selectedRows.Count() == 0) {
                 messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
             }
-            else
-            {
+            else {
                 _deletesBtnLoading = true;
-                if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
-                {
+                if (await confirmService.YesNoDelete() == ConfirmResult.Yes) {
                     var result = await _service.Deletes(_selectedRows.Select(x => x.Id).ToArray());
-                    if (result)
-                    {
+                    if (result) {
                         //删除整页，且是最后一页
-                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
-                        {
+                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total) {
                             await ReLoadTable(true);
                         }
-                        else
-                        {
+                        else {
                             await ReLoadTable(false);
                         }
                         messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                     }
-                    else
-                    {
+                    else {
                         messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                     }
                 }
@@ -357,23 +313,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         #endregion
 
         /// <summary>
-        /// 设置预设过滤信息
-        /// </summary>
-        /// <param name="filterGroups"></param>
-        /// <returns></returns>
-        protected virtual Task SetPresetFilterGroups(List<FilterGroup> filterGroups)
-        {
-            _presetSearchFilterGroups = filterGroups;
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
         /// 种子数据
         /// </summary>
         /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
         /// <returns></returns>
-        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<string, bool>
-        {
+        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<string, bool> {
             PageRequest pageRequest = GetPageRequest();
             pageRequest.PageSize = int.MaxValue;
             pageRequest.PageIndex = 1;
@@ -388,16 +332,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
         /// <returns></returns>
-        protected virtual async Task OnClickShowSeedData()
-        {
+        protected virtual async Task OnClickShowSeedData() {
             await OnClickShowSeedData<ShowSeedDataCode>();
         }
 
         /// <summary>
         /// 导出数据
         /// </summary>
-        protected virtual async Task OnClickExport()
-        {
+        protected virtual async Task OnClickExport() {
             _exportDataLoading = true;
             PageRequest pageRequest = GetPageRequest();
             string url = await _service.Export(pageRequest);
@@ -405,14 +347,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             _exportDataLoading = false;
         }
 
-        protected List<FilterGroup> GetCustomSearchFilterGroups<TSearchDto>(TSearchDto searchDto)
-        {
+        protected List<FilterGroup> GetCustomSearchFilterGroups<TSearchDto>(TSearchDto searchDto) {
             List<FilterGroup> filterGroups = new List<FilterGroup>();
 
             Type type = typeof(TSearchDto);
             PropertyInfo[] properties = type.GetProperties();
-            foreach (var property in properties)
-            {
+            foreach (var property in properties) {
                 Type fieldType = property.PropertyType.GetNonNullableType();
                 if (property.GetCustomAttribute<CustomSearchFieldAttribute>() != null
                     && (fieldType.IsPrimitive
@@ -421,24 +361,20 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         || fieldType.IsEnumerable() // select multiple
                         || fieldType.Equals(typeof(Guid))
                         || fieldType.Equals(typeof(DateTime))
-                        || fieldType.Equals(typeof(DateTimeOffset))))
-                {
+                        || fieldType.Equals(typeof(DateTimeOffset)))) {
                     string fieldName = property.Name;
 
                     // string
-                    if (fieldType.Equals(typeof(string)))
-                    {
+                    if (fieldType.Equals(typeof(string))) {
                         // Get value
                         var value = searchDto.GetPropertyValue<TSearchDto, string>(property.Name);
                         // Set filter
-                        if (!string.IsNullOrEmpty(value))
-                        {
+                        if (!string.IsNullOrEmpty(value)) {
                             // Filter group by field
                             // 每一个字段一个 Filter Group
                             FilterGroup filterGroup = new FilterGroup();
 
-                            FilterRule rule = new FilterRule()
-                            {
+                            FilterRule rule = new FilterRule() {
                                 Field = fieldName,
                                 Value = value.CastTo(fieldType),
                                 Operate = FilterOperate.Contains
@@ -449,21 +385,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                             filterGroups.Add(filterGroup);
                         }
                     }
-                    else if (fieldType.IsEnumerable())
-                    {
+                    else if (fieldType.IsEnumerable()) {
                         // Get values
                         var values = searchDto.GetPropertyValue<TSearchDto, IEnumerable<string>>(property.Name);
                         // Set filters
-                        if (values != null && values.Any())
-                        {
+                        if (values != null && values.Any()) {
                             // Filter group by field
                             // 每一个字段一个 Filter Group
                             FilterGroup filterGroup = new FilterGroup();
 
-                            foreach (string valueTemp in values)
-                            {
-                                FilterRule rule = new FilterRule()
-                                {
+                            foreach (string valueTemp in values) {
+                                FilterRule rule = new FilterRule() {
                                     Field = fieldName,
                                     Value = valueTemp.CastTo(typeof(string)), // IEnumerable<string>
                                     Condition = FilterCondition.Or,
@@ -481,8 +413,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             return filterGroups;
         }
 
-        protected virtual async Task DoClearSearch()
-        {
+        protected virtual async Task DoClearSearch() {
             // TODO: clear search field
             await ReLoadTable(true);
         }
@@ -491,8 +422,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// Page start loading
         /// </summary>
         /// <returns></returns>
-        protected bool StartLoading()
-        {
+        protected bool StartLoading() {
             _tableIsLoading = true;
 
             return _tableIsLoading;
@@ -502,8 +432,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// Page stop loading
         /// </summary>
         /// <returns></returns>
-        protected bool StopLoading()
-        {
+        protected bool StopLoading() {
             _tableIsLoading = false;
 
             return _tableIsLoading;
@@ -519,8 +448,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> where TDto : BaseDto<TKey>, new()
-    {
+    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> where TDto : BaseDto<TKey>, new() {
 
     }
 
@@ -534,20 +462,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
     /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
-    {
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> {
         /// <summary>
         /// 点击添加按钮
         /// </summary>
-        protected virtual async Task OnClickAdd()
-        {
+        protected virtual async Task OnClickAdd() {
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsAdd();
 
-            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
-            {
-                if (result.Succeeded)
-                {
+            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) => {
+                if (result.Succeeded) {
                     //刷新列表
                     await ReLoadTable(true);
                 }
@@ -560,13 +484,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 点击编辑按钮
         /// </summary>
         /// <param name="model"></param>
-        protected virtual async Task OnClickEdit(TKey id)
-        {
+        protected virtual async Task OnClickEdit(TKey id) {
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsEdit(id);
-            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
-            {
-                if (result.Succeeded)
-                {
+            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) => {
+                if (result.Succeeded) {
                     //刷新列表
                     await ReLoadTable(true);
                 }
@@ -579,8 +500,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        protected virtual async Task OnClickDetail(TKey id)
-        {
+        protected virtual async Task OnClickDetail(TKey id) {
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsSelect(id);
             await OpenOperationDialogAsync(localizer[SharedLocalResource.Detail], input);
         }
@@ -593,8 +513,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task> onClose = null, OperationDialogSettings operationDialogSettings = null)
-        {
+        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task> onClose = null, OperationDialogSettings operationDialogSettings = null) {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
         }
@@ -610,8 +529,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
     /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
-    {
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> {
 
     }
 }

@@ -5,7 +5,7 @@
         <Select Mode="multiple"
                 DefaultActiveFirstOption
                 Placeholder="@localizer[SharedLocalResource.PleaseSelectSearchField]"
-        @bind-Values="@_selectedValues"
+                @bind-Values="@_selectedValues"
                 TItemValue="string"
                 TItem="string"
                 OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
@@ -26,11 +26,11 @@
             string style = $"margin-right:8px;margin-bottom:2px;width:100px";
             string begin = localizer[SharedLocalResource.Begin];
             string end = localizer[SharedLocalResource.End];
-            foreach (TableSearchField fieldInfo in _currentFields)
+            foreach (TableSearchField fieldInfo in _fields) 
             {
                 string placeholder = fieldInfo.DisplayName ?? fieldInfo.Name;
                 placeholder = localizer[placeholder];
-                string boStyle = "float:left;" + (_showFields[fieldInfo.Name] ? "" : "display:none;");
+                string boStyle = "float:left;" + (_selectedValues!=null &&_selectedValues.Any(x => x.Equals(fieldInfo.Name)) ? "" : "display:none;");
                 <div style="@boStyle">
                     <span>@(placeholder + ":")</span>
                     @{
@@ -68,45 +68,45 @@
                             DateTime tempBeginTime = DateTime.Parse(fieldInfo.Values.First());
                             DateTime tempEndTime = DateTime.Parse(fieldInfo.Values.Last());
                             <RangePicker Style="margin-left:5px;"
-                                 TValue="DateTime?[]"
-                                 ShowTime="@ShowTime"
-                                 Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
-                                 OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
-                                 DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
-                                 OnClearClick="()=>{fieldInfo.Values=new string[0];}" />
+                         TValue="DateTime?[]"
+                         ShowTime="@ShowTime"
+                         Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
+                         OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
+                         DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
+                         OnClearClick="()=>{fieldInfo.Values=new string[0];}" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
                         {
                             <Select Mode="multiple"
-                            Placeholder="@placeholder"
-                            TItemValue="string"
-                            TItem="string"
-                            MaxTagCount="@ResponsiveTag.Responsive"
-                            Style="@style"
-                                    AllowClear
-                            OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
-                            DefaultValues="fieldInfo.Values"
-                            Values="fieldInfo.Values">
-                                <SelectOptions>
-                                    <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResource.Yes]" />
-                                    <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResource.No]" />
-                                </SelectOptions>
+                    Placeholder="@placeholder"
+                    TItemValue="string"
+                    TItem="string"
+                    MaxTagCount="@ResponsiveTag.Responsive"
+                    Style="@style"
+                                            AllowClear
+                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                    DefaultValues="fieldInfo.Values"
+                    Values="fieldInfo.Values">
+                            <SelectOptions>
+                                <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResource.Yes]" />
+                                <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResource.No]" />
+                            </SelectOptions>
                             </Select>
                         }
                         else if (fieldInfo.Type.IsEnum)
                         {
                             <Select Mode="multiple"
-                            Placeholder="@placeholder"
-                            Style="@style"
-                            TItemValue="string"
-                            TItem="string"
-                            MaxTagCount="@ResponsiveTag.Responsive"
-                                    AllowClear
-                            OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
-                            DefaultValues="fieldInfo.Values"
-                            Values="fieldInfo.Values">
-                                <SelectOptions>
-                                    @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
+                    Placeholder="@placeholder"
+                    Style="@style"
+                    TItemValue="string"
+                    TItem="string"
+                    MaxTagCount="@ResponsiveTag.Responsive"
+                                            AllowClear
+                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                    DefaultValues="fieldInfo.Values"
+                    Values="fieldInfo.Values">
+                            <SelectOptions>
+                                @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
                                     {
                                         <SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@localizer[item.Value]" />
                                     }
@@ -119,7 +119,7 @@
         }
     </AntDesign.Col>
     <AntDesign.Col Span="2" Style="text-align:right">
-        @if (_selectedValues != null && _selectedValues.Count() > 0)
+        @if (AlwaysShowSearchButton || (_selectedValues != null && _selectedValues.Count() > 0))
         {
             <Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
                 @localizer[SharedLocalResource.Search]

@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
-                <TableSearch TDto="AttachmentDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="AttachmentDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

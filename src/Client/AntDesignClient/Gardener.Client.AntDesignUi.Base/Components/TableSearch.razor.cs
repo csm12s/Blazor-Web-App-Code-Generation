@@ -13,36 +13,30 @@ using Gardener.Common;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Text.Json;
+using System.Xml.Linq;
 
-namespace Gardener.Client.AntDesignUi.Base.Components
-{
+namespace Gardener.Client.AntDesignUi.Base.Components {
     /// <summary>
     /// 表格搜索
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
-    public partial class TableSearch<TDto>
-    {
+    public partial class TableSearch<TDto> {
         /// <summary>
         /// 所有搜索字段的信息
         /// </summary>
         List<TableSearchField> _fields;
         /// <summary>
-        /// 所有搜索字段的信息
-        /// </summary>
-        List<TableSearchField> _currentFields = new List<TableSearchField>();
-        /// <summary>
         /// 选中的搜索字段
         /// </summary>
         IEnumerable<string> _selectedValues = new List<string>();
-        /// <summary>
-        /// 搜索字段是否展示
-        /// </summary>
-        Dictionary<string, bool> _showFields = new Dictionary<string, bool>();
+
+        #region Parameters
         /// <summary>
         /// 默认本地化器
         /// </summary>
         [Inject]
-        protected IClientLocalizer localizer { get; set; }
+        public IClientLocalizer localizer { get; set; }
 
         /// <summary>
         /// 自定义本地化器
@@ -70,14 +64,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         [Parameter]
         [Required]
-        public EventCallback OnSearch { get; set; }
+        public EventCallback<List<FilterGroup>> OnSearch { get; set; }
 
-        /// <summary>
-        /// 当搜索字段变化回调
-        /// </summary>
-        [Parameter]
-        [Required]
-        public EventCallback<List<FilterGroup>> OnSearchFieldChanged { get; set; }
         /// <summary>
         /// 默认搜索值
         /// key：字段名称，value：单值、多值（逗号隔开字符串）
@@ -86,146 +74,65 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public Dictionary<string, object> DefaultValue { get; set; }
 
         /// <summary>
+        /// 是否总是显示搜索按钮
+        /// </summary>
+        [Parameter]
+        public bool AlwaysShowSearchButton { get; set; } = false;
+
+        #endregion
+
+        /// <summary>
         /// 初始化
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
-        {
-            if (CustomLocalizer != null)
-            {
+        protected override async Task OnInitializedAsync() {
+            if (CustomLocalizer != null) {
                 localizer = CustomLocalizer;
             }
-            Type type = typeof(TDto);
-            //从dto找到需要查询的字段
-            _fields = new List<TableSearchField>();
-            PropertyInfo[] properties = type.GetProperties();
-            foreach (PropertyInfo property in properties)
-            {
-
-                Type fieldType = property.PropertyType.GetNonNullableType();
-                if (!fieldType.IsPrimitive && !fieldType.IsEnum && !fieldType.Equals(typeof(string)) && !fieldType.Equals(typeof(Guid)) && !fieldType.Equals(typeof(DateTime)) && !fieldType.Equals(typeof(DateTimeOffset)))
-                {
-                    continue;
-                }
-                if (fieldType.IsArray || fieldType.IsEnumerable() || property.HasAttribute<DisabledSearchFieldAttribute>() || property.HasAttribute<CustomSearchFieldAttribute>())
-                {
-                    continue;
-                }
-                string name = property.Name;
-                string displayName = property.GetDescription();
-                TableSearchField searchField = new TableSearchField
-                {
-                    Name = name,
-                    DisplayName = displayName,
-                    Type = fieldType
-                };
-
-                Action<TableSearchField, object> action = (fieid, value) =>
-                {
-                    fieid.Value = value.ToString();
-                };
-
-                if (searchField.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || searchField.Type.GetNonNullableType().Equals(typeof(DateTime)))
-                {
-                    searchField.Multiple = true;
-                    action = (fieid, value) =>
-                    {
-                        fieid.Values = value.ToString().Split(",");
-                    };
-                }
-                else if (searchField.Type.IsEnum)
-                {
-                    searchField.Multiple = true;
-                    action = (fieid, value) =>
-                    {
-                        List<string> values = new List<string>();
-                        foreach (string item in value.ToString().Split(","))
-                        {
-                            if (item.IsNumber())
-                            {
-                                values.Add(item);
-                            }
-                            else
-                            {
-                                object enumValue = Enum.Parse(searchField.Type, item);
-                                object numValue = Convert.ChangeType(enumValue, searchField.Type.GetEnumUnderlyingType());
-                                values.Add(numValue.ToString());
-                            }
-
-                        }
-                        fieid.Values = values;
-                    };
-                }
-                else if (searchField.Type.GetNonNullableType().Equals(typeof(bool)))
-                {
-                    searchField.Multiple = true;
-                    action = (fieid, value) =>
-                    {
-                        fieid.Values = value.ToString().ToLower().Split(",");
-                    };
-                }
-                bool fieldShow = false;
-                if (DefaultValue != null && DefaultValue.ContainsKey(name))
-                {
-                    object value = DefaultValue.GetValueOrDefault(name);
-                    if (value != null)
-                    {
-                        action(searchField, value);
-                        fieldShow = true;
-                    }
-                }
-                _fields.Add(searchField);
-                _showFields.Add(name, fieldShow);
-                if (fieldShow)
-                {
-                    ((List<string>)_selectedValues).Add(name);
-                }
-            }
+            InitSearchFields();
             ResetSearchFieldValue();
-            RefershCurrentFiled();
-            await OnSearchFieldChanged.InvokeAsync(GetFilterGroups());
             await base.OnInitializedAsync();
         }
 
         /// <summary>
-        /// 重置搜索字段值
+        /// 初始化搜索字段
         /// </summary>
-        /// <param name="fields"></param>
-        private void ResetSearchFieldValue()
-        {
-            if (_fields != null)
-            {
-                foreach (TableSearchField field in _fields)
-                {
-                    //已展示的不重置
-                    if (_showFields.GetValueOrDefault(field.Name, true))
-                    {
-                        continue;
-                    }
-                    field.Value = "";
-                    //日期类型默认值
-                    if (IsDateTimeType(field.Type))
-                    {
-                        field.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
-                    }
-                    else
-                    {
-                        field.Values = new string[0];
-                    }
+        private void InitSearchFields() {
+            Type type = typeof(TDto);
+            //从dto找到需要查询的字段
+            _fields = new List<TableSearchField>();
+            PropertyInfo[] properties = type.GetProperties();
+            foreach (PropertyInfo property in properties) {
+
+                Type fieldType = property.PropertyType.GetNonNullableType();
+                if (!fieldType.IsPrimitive && !fieldType.IsEnum && !fieldType.Equals(typeof(string)) && !fieldType.Equals(typeof(Guid)) && !fieldType.Equals(typeof(DateTime)) && !fieldType.Equals(typeof(DateTimeOffset))) {
+                    continue;
                 }
-
+                if (fieldType.IsArray || fieldType.IsEnumerable() || property.HasAttribute<DisabledSearchFieldAttribute>() || property.HasAttribute<CustomSearchFieldAttribute>()) {
+                    continue;
+                }
+                string name = property.Name;
+                string displayName = property.GetDescription();
+                TableSearchField searchField = new TableSearchField {
+                    Name = name,
+                    DisplayName = displayName,
+                    Type = fieldType
+                };
+                _fields.Add(searchField);
+                bool fieldShow = DefaultValue != null && DefaultValue.ContainsKey(name) && DefaultValue.GetValueOrDefault(name) != null;
+                if (fieldShow) {
+                    ((List<string>)_selectedValues).Add(name);
+                }
             }
-
         }
+
         /// <summary>
         /// 是否是日期类型
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        private bool IsDateTimeType(Type type)
-        {
-            if (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)) || (type.IsNullableType() && (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)))))
-            {
+        private bool IsDateTimeType(Type type) {
+            if (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)) || (type.IsNullableType() && (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset))))) {
                 return true;
             }
             return false;
@@ -238,27 +145,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 筛选字段下拉选择
         /// </summary>
         /// <param name="values"></param>
-        private async void OnSelectedItemsChangedHandler(IEnumerable<string> values)
-        {
-            values = values == null ? new String[0] : values;
-            bool reduce = values.Count() < lastFieldCount;
-            foreach (var item in _showFields)
-            {
-                if (values != null && values.Any(x => x.Equals(item.Key)))
-                {
-                    _showFields[item.Key] = true;
-                }
-                else
-                {
-                    _showFields[item.Key] = false;
-                }
-            }
-            lastFieldCount = values.Count();
-            //刷新存在的搜索条件
-            RefershCurrentFiled();
+        private async void OnSelectedItemsChangedHandler(IEnumerable<string> values) {
+            _selectedValues = values == null ? new List<string>() : values;
+            System.Console.WriteLine(JsonSerializer.Serialize(_selectedValues));
+            ResetSearchFieldValue();
+
+            bool reduce = _selectedValues.Count() < lastFieldCount;
+            lastFieldCount = _selectedValues.Count();
             //如果减少就刷新一下列表
-            if (reduce)
-            {
+            if (reduce) {
                 await OnSearchClick();
             }
         }
@@ -266,35 +161,88 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 清理搜索值
         /// </summary>
         /// <returns></returns>
-        private async void OnClearSearchValue()
-        {
-            RefershCurrentFiled();
-            await OnSearchClick();
+        private void OnClearSearchValue() {
+            _selectedValues =new List<string>();
         }
-
         /// <summary>
-        /// 获取搜索信息
+        /// 重置搜索字段值
+        /// </summary>
+        /// <param name="fields"></param>
+        private void ResetSearchFieldValue() {
+            if (_fields != null) {
+                foreach (TableSearchField searchField in _fields) {
+                    //已展示的不重置
+                    if (_selectedValues.Any(x => x.Equals(searchField.Name))) {
+                        continue;
+                    }
+                    //填充默认值
+                    Action<TableSearchField, object> fullValue = (field, value) => {
+                        field.Value = value.ToString();
+                    };
+                    searchField.Values = new string[0];
+                    searchField.Value = string.Empty;
+                    if (IsDateTimeType(searchField.Type)) {
+                        searchField.Multiple = true;
+                        //默认值初始化
+                        fullValue = (field, value) => {
+                            field.Values = value.ToString().Split(",");
+                        };
+                        //初始化值
+                        searchField.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
+                    }
+                    else if (searchField.Type.IsEnum) {
+                        searchField.Multiple = true;
+                        fullValue = (field, value) => {
+                            List<string> values = new List<string>();
+                            foreach (string item in value.ToString().Split(",")) {
+                                if (item.IsNumber()) {
+                                    values.Add(item);
+                                }
+                                else {
+                                    object enumValue = Enum.Parse(searchField.Type, item);
+                                    object numValue = Convert.ChangeType(enumValue, searchField.Type.GetEnumUnderlyingType());
+                                    values.Add(numValue.ToString());
+                                }
+
+                            }
+                            field.Values = values;
+                        };
+                    }
+                    else if (searchField.Type.GetNonNullableType().Equals(typeof(bool))) {
+                        searchField.Multiple = true;
+                        fullValue = (field, value) => {
+                            field.Values = value.ToString().ToLower().Split(",");
+                        };
+                    }
+
+                    if (DefaultValue != null && DefaultValue.ContainsKey(searchField.Name)) {
+                        object value = DefaultValue.GetValueOrDefault(searchField.Name);
+                        if (value != null) {
+                            fullValue(searchField, value);
+                        }
+                    }
+                }
+
+            }
+
+        }
+        /// <summary>
+        /// 获取搜索条件
         /// </summary>
         /// <returns></returns>
-        private List<FilterGroup> GetFilterGroups()
-        {
+        public List<FilterGroup> GetFilterGroups() {
             List<FilterGroup> filterGroups = new List<FilterGroup>();
-            if (_selectedValues != null)
-            {
-                foreach (string value in _selectedValues)
-                {
+            if (_selectedValues != null) {
+                foreach (string value in _selectedValues) {
                     FilterGroup filterGroup = new FilterGroup();
-                    var field = _currentFields.FirstOrDefault(f => f.Name.Equals(value));
-                    if (field == null)
-                    {
+                    var field = _fields.FirstOrDefault(f => f.Name.Equals(value));
+                    if (field == null) {
                         continue; // null when clear _selectedValues
                     }
 
-                    if (IsDateTimeType(field.Type))
-                    {
+                    if (IsDateTimeType(field.Type)) {
                         //日期
-                        if (field.Values.Count() > 1 && !string.IsNullOrEmpty(field.Values.First()))
-                        {
+                        if (field.Values.Count() > 1 && !string.IsNullOrEmpty(field.Values.First())) {
                             FilterRule ruleBegin = new FilterRule();
                             ruleBegin.Field = field.Name;
                             ruleBegin.Value = DateTime.Parse(field.Values.First());
@@ -302,8 +250,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                             filterGroup.AddRule(ruleBegin);
                         }
 
-                        if (field.Values.Count() > 2 && !string.IsNullOrEmpty(field.Values.Last()))
-                        {
+                        if (field.Values.Count() > 2 && !string.IsNullOrEmpty(field.Values.Last())) {
                             FilterRule ruleEnd = new FilterRule();
                             ruleEnd.Field = field.Name;
                             ruleEnd.Value = DateTime.Parse(field.Values.Last());
@@ -312,18 +259,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         }
 
                     }
-                    else if (field.Multiple)
-                    {
+                    else if (field.Multiple) {
                         //多值
-                        if (!field.Values.Any())
-                        {
+                        if (!field.Values.Any()) {
                             continue;
                         }
 
-                        if (field.Type.IsEnum || field.Type.Equals(typeof(bool)))
-                        {
-                            foreach (string valueTemp in field.Values)
-                            {
+                        if (field.Type.IsEnum || field.Type.Equals(typeof(bool))) {
+                            foreach (string valueTemp in field.Values) {
                                 FilterRule rule = new FilterRule();
                                 rule.Field = field.Name;
                                 rule.Value = valueTemp.CastTo(field.Type);
@@ -335,22 +278,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         }
 
                     }
-                    else
-                    {
+                    else {
                         //单值
                         FilterRule rule = new FilterRule();
                         rule.Field = field.Name;
-                        if (string.IsNullOrEmpty(field.Value))
-                        {
+                        if (string.IsNullOrEmpty(field.Value)) {
                             continue;
                         }
                         rule.Value = field.Value.CastTo(field.Type);
-                        if (field.Type.Equals(typeof(string)))
-                        {
+                        if (field.Type.Equals(typeof(string))) {
                             rule.Operate = FilterOperate.Contains;
                         }
-                        else
-                        {
+                        else {
                             rule.Operate = FilterOperate.Equal;
                         }
                         filterGroup.AddRule(rule);
@@ -366,47 +305,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 搜索
         /// </summary>
-        private async Task OnSearchClick()
-        {
-            ResetSearchFieldValue();
-            var filterGroups = GetFilterGroups();
-            await OnSearchFieldChanged.InvokeAsync(filterGroups);
-            await OnSearch.InvokeAsync();
+        private async Task OnSearchClick() {
+            await OnSearch.InvokeAsync(GetFilterGroups());
         }
+
         /// <summary>
-        /// 
+        /// 日期格式化
         /// </summary>
         /// <param name="eventArgs"></param>
         /// <param name="values"></param>
-        private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs eventArgs)
-        {
-            if (eventArgs.Dates != null && eventArgs.Dates.Length > 0)
-            {
+        private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs eventArgs) {
+            if (eventArgs.Dates != null && eventArgs.Dates.Length > 0) {
                 return eventArgs.Dates.Select(x => x.HasValue ? x.Value.ToString(ClientConstant.InputDateTimeFormat) : null).ToArray();
             }
-            else
-            {
+            else {
                 return new string[0];
             }
-        }
-
-        /// <summary>
-        /// 刷新当前搜索字段
-        /// </summary>
-        private void RefershCurrentFiled()
-        {
-            _showFields.ForEach(x =>
-            {
-                if (x.Value && !_currentFields.Any(c => c.Name.Equals(x.Key)))
-                {
-                    _currentFields.Add(_fields.First(f => f.Name.Equals(x.Key)));
-                }
-                else if (!x.Value && _currentFields.Any(c => c.Name.Equals(x.Key)))
-                {
-                    _currentFields.Remove(_fields.First(f => f.Name.Equals(x.Key)));
-                }
-            });
-
         }
     }
 
