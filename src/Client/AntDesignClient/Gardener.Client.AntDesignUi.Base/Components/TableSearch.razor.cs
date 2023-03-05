@@ -25,7 +25,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// <summary>
         /// 所有搜索字段的信息
         /// </summary>
-        List<TableSearchField> _fields;
+        List<TableSearchField> _fields = new List<TableSearchField>();
         /// <summary>
         /// 选中的搜索字段
         /// </summary>
@@ -90,7 +90,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                 localizer = CustomLocalizer;
             }
             InitSearchFields();
-            ResetSearchFieldValue();
+            System.Console.WriteLine("1");
             await base.OnInitializedAsync();
         }
 
@@ -100,7 +100,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         private void InitSearchFields() {
             Type type = typeof(TDto);
             //从dto找到需要查询的字段
-            _fields = new List<TableSearchField>();
             PropertyInfo[] properties = type.GetProperties();
             foreach (PropertyInfo property in properties) {
 
@@ -118,6 +117,54 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                     DisplayName = displayName,
                     Type = fieldType
                 };
+
+                //填充默认值
+                Action<TableSearchField, object> fullValue = (field, value) => {
+                    field.Value = value.ToString();
+                };
+                searchField.Values = new string[0];
+                searchField.Value = string.Empty;
+                if (IsDateTimeType(searchField.Type)) {
+                    searchField.Multiple = true;
+                    //默认值初始化
+                    fullValue = (field, value) => {
+                        field.Values = value.ToString().Split(",");
+                    };
+                    //初始化值
+                    searchField.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
+                }
+                else if (searchField.Type.IsEnum) {
+                    searchField.Multiple = true;
+                    fullValue = (field, value) => {
+                        List<string> values = new List<string>();
+                        foreach (string item in value.ToString().Split(",")) {
+                            if (item.IsNumber()) {
+                                values.Add(item);
+                            }
+                            else {
+                                object enumValue = Enum.Parse(searchField.Type, item);
+                                object numValue = Convert.ChangeType(enumValue, searchField.Type.GetEnumUnderlyingType());
+                                values.Add(numValue.ToString());
+                            }
+
+                        }
+                        field.Values = values;
+                    };
+                }
+                else if (searchField.Type.GetNonNullableType().Equals(typeof(bool))) {
+                    searchField.Multiple = true;
+                    fullValue = (field, value) => {
+                        field.Values = value.ToString().ToLower().Split(",");
+                    };
+                }
+
+                if (DefaultValue != null && DefaultValue.ContainsKey(searchField.Name)) {
+                    object value = DefaultValue.GetValueOrDefault(searchField.Name);
+                    if (value != null) {
+                        fullValue(searchField, value);
+                    }
+                }
+
                 _fields.Add(searchField);
                 bool fieldShow = DefaultValue != null && DefaultValue.ContainsKey(name) && DefaultValue.GetValueOrDefault(name) != null;
                 if (fieldShow) {
@@ -146,10 +193,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// </summary>
         /// <param name="values"></param>
         private async void OnSelectedItemsChangedHandler(IEnumerable<string> values) {
+            System.Console.WriteLine("2");
             _selectedValues = values == null ? new List<string>() : values;
             System.Console.WriteLine(JsonSerializer.Serialize(_selectedValues));
             ResetSearchFieldValue();
-
             bool reduce = _selectedValues.Count() < lastFieldCount;
             lastFieldCount = _selectedValues.Count();
             //如果减少就刷新一下列表
@@ -162,7 +209,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// </summary>
         /// <returns></returns>
         private void OnClearSearchValue() {
-            _selectedValues =new List<string>();
+            _selectedValues = new List<string>();
         }
         /// <summary>
         /// 重置搜索字段值
@@ -172,55 +219,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
             if (_fields != null) {
                 foreach (TableSearchField searchField in _fields) {
                     //已展示的不重置
-                    if (_selectedValues.Any(x => x.Equals(searchField.Name))) {
-                        continue;
-                    }
-                    //填充默认值
-                    Action<TableSearchField, object> fullValue = (field, value) => {
-                        field.Value = value.ToString();
-                    };
-                    searchField.Values = new string[0];
-                    searchField.Value = string.Empty;
-                    if (IsDateTimeType(searchField.Type)) {
-                        searchField.Multiple = true;
-                        //默认值初始化
-                        fullValue = (field, value) => {
-                            field.Values = value.ToString().Split(",");
-                        };
-                        //初始化值
-                        searchField.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
-                    }
-                    else if (searchField.Type.IsEnum) {
-                        searchField.Multiple = true;
-                        fullValue = (field, value) => {
-                            List<string> values = new List<string>();
-                            foreach (string item in value.ToString().Split(",")) {
-                                if (item.IsNumber()) {
-                                    values.Add(item);
-                                }
-                                else {
-                                    object enumValue = Enum.Parse(searchField.Type, item);
-                                    object numValue = Convert.ChangeType(enumValue, searchField.Type.GetEnumUnderlyingType());
-                                    values.Add(numValue.ToString());
-                                }
-
-                            }
-                            field.Values = values;
-                        };
-                    }
-                    else if (searchField.Type.GetNonNullableType().Equals(typeof(bool))) {
-                        searchField.Multiple = true;
-                        fullValue = (field, value) => {
-                            field.Values = value.ToString().ToLower().Split(",");
-                        };
-                    }
-
-                    if (DefaultValue != null && DefaultValue.ContainsKey(searchField.Name)) {
-                        object value = DefaultValue.GetValueOrDefault(searchField.Name);
-                        if (value != null) {
-                            fullValue(searchField, value);
+                    if (!_selectedValues.Any(x => x.Equals(searchField.Name))) {
+                        searchField.Value = string.Empty;
+                        if (IsDateTimeType(searchField.Type)) {
+                            //初始化值
+                            searchField.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
+                        }
+                        else {
+                            searchField.Values = new string[0];
                         }
                     }
+
                 }
 
             }
