@@ -14,9 +14,9 @@ namespace Gardener.Client.Core
 {
     public class SignalRClientBuilder : ISignalRClientBuilder
     {
-        private string _clientName;
-        private string _url;
-        private Func<Task<string>> _accessTokenProvider;
+        private string _clientName=null!;
+        private string _url = null!;
+        private Func<Task<string>> _accessTokenProvider = null!;
         private bool _enableAutomaticReconnect = true;
         private IClientLogger _clientLogger;
 
@@ -47,8 +47,12 @@ namespace Gardener.Client.Core
             {
                 _accessTokenProvider = async () =>
                  {
-                     TokenOutput token = await _authenticationStateManager.GetCurrentToken();
-                     return token.AccessToken;
+                     TokenOutput? token = await _authenticationStateManager.GetCurrentToken();
+                     if (token != null) 
+                     {
+                         return token.AccessToken;
+                     }
+                     throw new Exception("not get token");
                  };
             }
             if (_url.IndexOf(":") == -1)
@@ -59,7 +63,11 @@ namespace Gardener.Client.Core
             signalRClient.AutomaticReconnect(_enableAutomaticReconnect);
             return signalRClient;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accessTokenProvider"></param>
+        /// <returns></returns>
         public ISignalRClientBuilder SetAccessTokenProvider(Func<Task<string>> accessTokenProvider)
         {
             this._accessTokenProvider = accessTokenProvider;

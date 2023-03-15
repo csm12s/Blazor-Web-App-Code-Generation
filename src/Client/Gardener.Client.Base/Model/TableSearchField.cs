@@ -9,18 +9,34 @@ using System.Collections.Generic;
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// TableSearchField
+    /// </summary>
     public class TableSearchField
     {
-        public string Name { get; set; }
-
-        public string DisplayName { get; set; }
-
-        public Type Type { get; set; }
-
-        public string Value { get; set; }
-
-        public IEnumerable<string> Values { get; set; }
-
-        public bool Multiple { get; set; }
+        /// <summary>
+        /// 字段名
+        /// </summary>
+        public string Name { get; set; } = null!;
+        /// <summary>
+        /// 展示的名字
+        /// </summary>
+        public string? DisplayName { get; set; }
+        /// <summary>
+        /// 字段类型
+        /// </summary>
+        public Type Type { get; set; } = null!;
+        /// <summary>
+        /// 单值使用
+        /// </summary>
+        public string? Value { get; set; }
+        /// <summary>
+        /// 多值时使用
+        /// </summary>
+        public IEnumerable<string>? Values { get; set; }
+        /// <summary>
+        /// 是否有多值
+        /// </summary>
+        public bool Multiple { get; set; } = false;
     }
 }

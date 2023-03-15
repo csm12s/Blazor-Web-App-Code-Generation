@@ -69,7 +69,7 @@ namespace Gardener.Client.Core
         /// <param name="msg"></param>
         /// <param name="code"></param>
         /// <param name="ex"></param>
-        public Task Debug(string msg, int? code = null, Exception ex = null)
+        public Task Debug(string msg, int? code = null, Exception? ex = null)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Debug]}:{msg}", code);
             if (ex == null)
@@ -89,7 +89,7 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
+        public Task Error(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Error]}:{msg}", code);
             logger.LogError(ex, msg);
@@ -106,7 +106,7 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
+        public Task Fatal(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.FatalException]}:{msg}", code);
             logger.LogCritical(ex, msg);
@@ -124,7 +124,7 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false)
+        public Task Info(string msg, int? code = null, Exception? ex = null, bool sendNotify = false)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Info]}:{msg}", code);
             if (ex == null)
@@ -148,7 +148,7 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true)
+        public Task Warn(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Warn]}:{msg}", code);
             if (ex == null)

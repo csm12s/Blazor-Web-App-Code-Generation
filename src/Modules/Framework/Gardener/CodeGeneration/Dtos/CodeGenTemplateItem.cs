@@ -6,15 +6,30 @@
 
 namespace Gardener.CodeGeneration.Dtos
 {
+    /// <summary>
+    /// CodeGenTemplateItem
+    /// </summary>
     public class CodeGenTemplateItem
     {
+        /// <summary>
+        /// CodeGenTemplateItem
+        /// </summary>
+        /// <param name="model"></param>
         public CodeGenTemplateItem(CodeGenNameModel model)
         {
             Model = model;
         }
-
-        public string TemplatePath { get; set; }
-        public string GenPath { get; set; }
+        /// <summary>
+        /// TemplatePath
+        /// </summary>
+        public string? TemplatePath { get; set; }
+        /// <summary>
+        /// GenPath
+        /// </summary>
+        public string? GenPath { get; set; }
+        /// <summary>
+        /// Model
+        /// </summary>
         public CodeGenNameModel Model { get; }
     }
 }

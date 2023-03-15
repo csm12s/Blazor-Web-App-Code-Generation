@@ -20,7 +20,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 
         /// </summary>
         [Parameter]
-        public object Text { get; set; }
+        public object Text { get; set; } = null!;
 
         private string color = "";
 
@@ -28,7 +28,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
         protected override void OnInitialized()
         {
-            int code = Math.Abs(Text.ToString().GetHashCode());
+            int code = Math.Abs((Text.ToString() ?? "").GetHashCode());
             int colorIndex = (code % 1000) % colors.Length;
             color = colors[colorIndex];
         }

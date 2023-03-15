@@ -32,10 +32,10 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private static void ConfigureApiSettings(WebAssemblyHostBuilder builder, ApiSettings apiSettings)
         {
-            string host = apiSettings.Host;
-            string port = apiSettings.Port;
-            string uploadUrl = apiSettings.UploadPath;
-            string basePath = apiSettings.BasePath;
+            string? host = apiSettings.Host;
+            string? port = apiSettings.Port;
+            string? uploadUrl = apiSettings.UploadPath;
+            string? basePath = apiSettings.BasePath;
             Uri baseUri = new Uri(builder.HostEnvironment.BaseAddress);
             if (string.IsNullOrEmpty(host))
             {

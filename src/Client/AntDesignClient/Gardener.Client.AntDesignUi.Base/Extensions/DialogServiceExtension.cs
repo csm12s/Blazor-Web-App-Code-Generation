@@ -29,12 +29,16 @@ namespace AntDesign
             if (feedback is ModalRef modalRef)
             {
                 var mRef = (modalRef as ModalRef<TResult>);
-                //确定后的操作，放到关闭后执行
-                mRef.OnClose = async () =>
+                if (mRef != null) 
                 {
-                    await mRef.OnOk?.Invoke(result);
-                };
-                await mRef.CloseAsync();
+                    //确定后的操作，放到关闭后执行
+                    mRef.OnClose = async () =>
+                    {
+                        await mRef.OnOk.Invoke(result);
+                    };
+                    await mRef.CloseAsync();
+                }
+               
             }
             else if (feedback is DrawerRef drawerRef)
             {

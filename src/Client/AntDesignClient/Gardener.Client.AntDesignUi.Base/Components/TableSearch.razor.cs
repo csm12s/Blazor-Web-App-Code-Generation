@@ -36,13 +36,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// 默认本地化器
         /// </summary>
         [Inject]
-        public IClientLocalizer localizer { get; set; }
+        public IClientLocalizer localizer { get; set; } = null!;
 
         /// <summary>
         /// 自定义本地化器
         /// </summary>
         [Parameter]
-        public IClientLocalizer CustomLocalizer { get; set; }
+        public IClientLocalizer CustomLocalizer { get; set; } = null!;
 
         /// <summary>
         /// 日期选择框是否选择时分秒
@@ -71,7 +71,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// key：字段名称，value：单值、多值（逗号隔开字符串）
         /// </summary>
         [Parameter]
-        public Dictionary<string, object> DefaultValue { get; set; }
+        public Dictionary<string, object> DefaultValue { get; set; } = null!;
 
         /// <summary>
         /// 是否总是显示搜索按钮
@@ -111,7 +111,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                     continue;
                 }
                 string name = property.Name;
-                string displayName = property.GetDescription();
+                string? displayName = property.GetDescription();
                 TableSearchField searchField = new TableSearchField {
                     Name = name,
                     DisplayName = displayName,
@@ -120,7 +120,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
 
                 //填充默认值
                 Action<TableSearchField, object> fullValue = (field, value) => {
-                    field.Value = value.ToString();
+                    field.Value = value.ToString()??"";
                 };
                 searchField.Values = new string[0];
                 searchField.Value = string.Empty;
@@ -128,7 +128,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                     searchField.Multiple = true;
                     //默认值初始化
                     fullValue = (field, value) => {
-                        field.Values = value.ToString().Split(",");
+                        field.Values = (value.ToString() ?? "").Split(",");
                     };
                     //初始化值
                     searchField.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
@@ -137,14 +137,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                     searchField.Multiple = true;
                     fullValue = (field, value) => {
                         List<string> values = new List<string>();
-                        foreach (string item in value.ToString().Split(",")) {
+                        foreach (string item in (value.ToString() ?? "").Split(",")) {
                             if (item.IsNumber()) {
                                 values.Add(item);
                             }
                             else {
                                 object enumValue = Enum.Parse(searchField.Type, item);
                                 object numValue = Convert.ChangeType(enumValue, searchField.Type.GetEnumUnderlyingType());
-                                values.Add(numValue.ToString());
+                                values.Add(numValue.ToString() ?? "");
                             }
 
                         }
@@ -154,12 +154,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                 else if (searchField.Type.GetNonNullableType().Equals(typeof(bool))) {
                     searchField.Multiple = true;
                     fullValue = (field, value) => {
-                        field.Values = value.ToString().ToLower().Split(",");
+                        field.Values = (value.ToString() ?? "").ToLower().Split(",");
                     };
                 }
 
                 if (DefaultValue != null && DefaultValue.ContainsKey(searchField.Name)) {
-                    object value = DefaultValue.GetValueOrDefault(searchField.Name);
+                    object? value = DefaultValue.GetValueOrDefault(searchField.Name);
                     if (value != null) {
                         fullValue(searchField, value);
                     }
@@ -251,7 +251,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
 
                     if (IsDateTimeType(field.Type)) {
                         //日期
-                        if (field.Values.Count() > 1 && !string.IsNullOrEmpty(field.Values.First())) {
+                        if (field.Values!=null && field.Values.Count() > 1 && !string.IsNullOrEmpty(field.Values.First())) {
                             FilterRule ruleBegin = new FilterRule();
                             ruleBegin.Field = field.Name;
                             ruleBegin.Value = DateTime.Parse(field.Values.First());
@@ -259,7 +259,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                             filterGroup.AddRule(ruleBegin);
                         }
 
-                        if (field.Values.Count() > 2 && !string.IsNullOrEmpty(field.Values.Last())) {
+                        if (field.Values != null && field.Values.Count() > 2 && !string.IsNullOrEmpty(field.Values.Last())) {
                             FilterRule ruleEnd = new FilterRule();
                             ruleEnd.Field = field.Name;
                             ruleEnd.Value = DateTime.Parse(field.Values.Last());
@@ -270,7 +270,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                     }
                     else if (field.Multiple) {
                         //多值
-                        if (!field.Values.Any()) {
+                        if (field.Values == null || !field.Values.Any()) {
                             continue;
                         }
 
@@ -325,7 +325,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// <param name="values"></param>
         private IEnumerable<string> DateTimeFormat(DateRangeChangedEventArgs eventArgs) {
             if (eventArgs.Dates != null && eventArgs.Dates.Length > 0) {
-                return eventArgs.Dates.Select(x => x.HasValue ? x.Value.ToString(ClientConstant.InputDateTimeFormat) : null).ToArray();
+                List<string> times = new List<string>();
+                foreach (var item in eventArgs.Dates)
+                { 
+                    if(item==null) continue;
+                    times.Add(item.Value.ToString(Client.Base.Constants.ClientConstant.InputDateTimeFormat));
+                }
+                return times;
             }
             else {
                 return new string[0];

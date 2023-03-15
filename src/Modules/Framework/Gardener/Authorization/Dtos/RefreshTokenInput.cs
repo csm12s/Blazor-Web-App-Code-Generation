@@ -14,7 +14,7 @@ namespace Gardener.Authorization.Dtos
         /// <summary>
         /// 刷新token
         /// </summary>
-        public string RefreshToken { get; set; }
+        public string RefreshToken { get; set; } = null!;
 
     }
 }

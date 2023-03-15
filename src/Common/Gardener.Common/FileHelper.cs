@@ -6,16 +6,10 @@ public class FileHelper
 {
     public static void CreateFileReplace(string fileFullPath, string contentStr)
     {
-        try
-        {
-            string directoryPath = GetDirectory(fileFullPath);
-            CreateDirectory(directoryPath);
-
-            File.WriteAllText(fileFullPath, contentStr, System.Text.Encoding.UTF8);
-        }
-        catch
-        {
-        }
+        string? directoryPath = GetDirectory(fileFullPath);
+        if (directoryPath == null) { return; }
+        CreateDirectory(directoryPath);
+        File.WriteAllText(fileFullPath, contentStr, System.Text.Encoding.UTF8);
     }
 
     /// <summary>
@@ -23,11 +17,11 @@ public class FileHelper
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    public static string GetDirectory(string filePath)
+    public static string? GetDirectory(string filePath)
     {
         FileInfo file = new FileInfo(filePath);
-        DirectoryInfo directory = file.Directory;
-        return directory.FullName;
+        DirectoryInfo? directory = file.Directory;
+        return directory?.FullName;
     }
 
     public static void CreateDirectory(string directoryPath)
@@ -50,8 +44,12 @@ public class FileHelper
             // File
             if (File.Exists(path))
             {
-                System.Diagnostics.Process.Start("explorer.exe", 
-                    new DirectoryInfo(path).Parent.FullName);
+                var pPath= new DirectoryInfo(path).Parent?.FullName;
+                if(pPath!=null)
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", pPath);
+                }
+                
             }
             // Folder
             else if (Directory.Exists(path))
@@ -60,10 +58,12 @@ public class FileHelper
                 var openDir = dir.FullName;
                 if (openParent)
                 {
-                    openDir = dir.Parent.FullName;
+                    openDir = dir.Parent?.FullName;
                 }
-
-                System.Diagnostics.Process.Start("explorer.exe", openDir);
+                if (openDir != null)
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", openDir);
+                }
             }
         }
         catch
@@ -76,19 +76,19 @@ public class FileHelper
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public static string GetParentDirectory(string path)
+    public static string? GetParentDirectory(string path)
     {
-        var parent = "";
+        string? parent =null;
 
         // File
         if (File.Exists(path))
         {
-            parent = new DirectoryInfo(path).Parent.Parent.FullName;
+            parent = new DirectoryInfo(path).Parent?.Parent?.FullName;
         }
         // Folder
         else if (Directory.Exists(path))
         {
-            parent = new DirectoryInfo(path).Parent.FullName;
+            parent = new DirectoryInfo(path).Parent?.FullName;
         }
 
         return parent;

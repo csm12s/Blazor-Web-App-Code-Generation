@@ -38,7 +38,7 @@ namespace Gardener.Base
         /// <summary>
         /// 当前页集合
         /// </summary>
-        public IEnumerable<TEntity> Items { get; set; }
+        public IEnumerable<TEntity>? Items { get; set; }
 
         /// <summary>
         /// 是否有上一页

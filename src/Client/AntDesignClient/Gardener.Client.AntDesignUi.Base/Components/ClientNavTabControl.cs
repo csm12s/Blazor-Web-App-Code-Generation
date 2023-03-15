@@ -13,7 +13,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </summary>
     public class ClientNavTabControl
     {
-        private static ReuseTabs _reuseTabs;
+        private static ReuseTabs? _reuseTabs;
 
         public static void SetReuseTabs(ReuseTabs reuseTabs) 
         {

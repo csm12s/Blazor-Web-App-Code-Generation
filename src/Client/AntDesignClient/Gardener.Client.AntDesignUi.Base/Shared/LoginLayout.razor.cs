@@ -13,21 +13,24 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
 {
     public partial class LoginLayout
     {
-        private string[] _locales;
+        private string[] _locales=null!;
 
-        private SystemConfig systemConfig;
+        private SystemConfig systemConfig = null!;
         /// <summary>
         /// 系统配置服务
         /// </summary>
         [Inject]
-        private ISystemConfigService SystemConfigService { get; set; }
+        private ISystemConfigService SystemConfigService { get; set; } = null!;
         [Inject]
-        private IJsTool JsTool { get; set; }
+        private IJsTool JsTool { get; set; } = null!;
         [Inject]
-        private IClientCultureService clientCultureService { get; set; }
+        private IClientCultureService clientCultureService { get; set; } = null!;
         [Inject]
-        public NavigationManager Navigation { get; set; }
-
+        public NavigationManager Navigation { get; set; } = null!;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected async override Task OnInitializedAsync()
         {
             _locales = clientCultureService.GetSupportedCultures();

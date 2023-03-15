@@ -19,12 +19,12 @@ namespace Gardener.VerifyCode.Dtos
         /// </summary>
         [Required(ErrorMessage = "验证码Key不能为空。")]
         [DisplayName("验证码Key")]
-        public string VerifyCodeKey { get; set; }
+        public string VerifyCodeKey { get; set; } = null!;
         /// <summary>
         /// 验证码
         /// </summary>
         [Required(ErrorMessage = "验证码不能为空。")]
         [DisplayName("验证码")]
-        public string VerifyCode { get; set; }
+        public string VerifyCode { get; set; } = null!;
     }
 }

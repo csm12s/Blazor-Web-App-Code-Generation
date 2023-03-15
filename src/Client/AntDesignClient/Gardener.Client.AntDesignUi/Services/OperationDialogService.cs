@@ -91,12 +91,12 @@ namespace Gardener.Client.AntDesignUi.Services
         /// <param name="onClose"></param>
         /// <param name="dialogSettings"></param>
         /// <returns></returns>
-        public async Task OpenAsync<TOperationDialog, TDialogInput>(string title, TDialogInput input, Func<Task> onClose = null, OperationDialogSettings dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, bool>
+        public async Task OpenAsync<TOperationDialog, TDialogInput>(string title, TDialogInput input, Func<Task>? onClose = null, OperationDialogSettings? dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, bool>
         {
             Func<bool, Task> close = r =>
             {
 
-                return onClose();
+                return onClose?.Invoke() ?? Task.CompletedTask;
             };
             await OpenAsync<TOperationDialog, TDialogInput, bool>(title, input, close, dialogSettings);
         }

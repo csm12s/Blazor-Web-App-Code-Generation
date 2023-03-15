@@ -13,8 +13,8 @@ namespace Gardener.VerifyCode.Dtos
     {
         /// <summary>
         /// 创建code参数
-        /// 不穿时使用配置
+        /// 不传时，使用配置文件中配置
         /// </summary>
-        public CharacterCodeCreateParam CreateCodeParam { get; set; }
+        public CharacterCodeCreateParam? CreateCodeParam { get; set; }
     }
 }

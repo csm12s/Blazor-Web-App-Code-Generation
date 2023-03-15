@@ -48,22 +48,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// <summary>
         /// 搜索条件提供器
         /// </summary>
-        protected List<Func<List<FilterGroup>>> _filterGroupProviders = new();
+        protected List<Func<List<FilterGroup>?>> _filterGroupProviders = new();
         /// <summary>
         /// 确认提示服务
         /// </summary>
         [Inject]
-        protected ConfirmService confirmService { get; set; }
+        protected ConfirmService confirmService { get; set; } = null!;
         /// <summary>
         /// 路由导航服务
         /// </summary>
         [Inject]
-        protected NavigationManager navigation { get; set; }
+        protected NavigationManager navigation { get; set; } = null!;
         /// <summary>
         /// javascript 工具
         /// </summary>
         [Inject]
-        protected IJsTool jsTool { get; set; }
+        protected IJsTool jsTool { get; set; } = null!;
 
         protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
 
@@ -149,7 +149,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// <returns></returns>
         protected virtual async Task ReLoadTableAfterDeleteLastPage() {
             //删除整页，且是最后一页
-            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total) {
+            if (_selectedRows?.Count() == _pageSize && _pageIndex * _pageSize >= _total) {
                 await ReLoadTable(true);
             }
             else {
@@ -192,7 +192,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
             var pagedListResult = await _service.Search(pageRequest);
             if (pagedListResult != null) {
                 var pagedList = pagedListResult;
-                _datas = pagedList.Items;
+                _datas = pagedList.Items ?? new List<TDto>(0);
                 _total = pagedList.TotalCount;
             }
             else {
@@ -223,7 +223,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                 if (result) {
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
-                    if (_pageIndex > 1 && _datas.Count() == 0) {
+                    if (_pageIndex > 1 && _datas?.Count() == 0) {
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
@@ -241,7 +241,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// </summary>
         protected virtual async Task OnClickDeletes() {
             if (_selectedRows == null || _selectedRows.Count() == 0) {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
             else {
                 _deletesBtnLoading = true;
@@ -255,10 +257,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                         else {
                             await ReLoadTable(false);
                         }
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     }
                     else {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     }
                 }
                 _deletesBtnLoading = false;
@@ -272,7 +278,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                 if (result) {
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
-                    if (_pageIndex > 1 && _datas.Count() == 0) {
+                    if (_pageIndex > 1 && _datas?.Count() == 0) {
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
@@ -287,7 +293,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
 
         protected virtual async Task OnClickTrueDeletes() {
             if (_selectedRows == null || _selectedRows.Count() == 0) {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
             else {
                 _deletesBtnLoading = true;
@@ -301,10 +309,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                         else {
                             await ReLoadTable(false);
                         }
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     }
                     else {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     }
                 }
                 _deletesBtnLoading = false;
@@ -513,7 +525,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task> onClose = null, OperationDialogSettings operationDialogSettings = null) {
+        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null) {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
         }

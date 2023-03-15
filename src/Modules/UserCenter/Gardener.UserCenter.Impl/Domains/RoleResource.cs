@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base;
 using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -19,7 +20,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户和角色关系表
     /// </summary>
     [Description("角色资源信息")]
-    public class RoleResource : IEntity, IEntitySeedData<RoleResource>, IEntityTypeBuilder<RoleResource>
+    public class RoleResource : GardenerEntityBaseNoKey, IEntitySeedData<RoleResource>, IEntityTypeBuilder<RoleResource>
     {
         /// <summary>
         /// 角色Id

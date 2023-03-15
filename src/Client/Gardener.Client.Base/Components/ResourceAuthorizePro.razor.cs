@@ -13,10 +13,10 @@ namespace Gardener.Client.Base.Components
     /// <summary>
     /// 页面有任何渲染变化，都会重新触发验证
     /// </summary>
-    public partial  class ResourceAuthorizePro
+    public partial class ResourceAuthorizePro
     {
         [Parameter]
-        public RenderFragment<AuthenticationState> ChildContent
+        public RenderFragment<AuthenticationState>? ChildContent
         {
             get;
             set;
@@ -25,7 +25,7 @@ namespace Gardener.Client.Base.Components
         /// 未通过验证时展示
         /// </summary>
         [Parameter]
-        public RenderFragment<AuthenticationState> NotAuthorized
+        public RenderFragment<AuthenticationState>? NotAuthorized
         {
             get;
             set;
@@ -34,7 +34,7 @@ namespace Gardener.Client.Base.Components
         /// 通过验证时展示
         /// </summary>
         [Parameter]
-        public RenderFragment<AuthenticationState> Authorized
+        public RenderFragment<AuthenticationState>? Authorized
         {
             get;
             set;
@@ -43,7 +43,7 @@ namespace Gardener.Client.Base.Components
         /// 验证中展示
         /// </summary>
         [Parameter]
-        public RenderFragment Authorizing
+        public RenderFragment? Authorizing
         {
             get;
             set;
@@ -54,7 +54,7 @@ namespace Gardener.Client.Base.Components
         /// 多个以逗号隔开 eg:key1,key2
         /// </summary>
         [Parameter]
-        public string ResourceKey { get; set; }
+        public string? ResourceKey { get; set; }
         /// <summary>
         /// 并且关系
         /// 默认 true 是 and关系
@@ -65,12 +65,16 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 资源
         /// </summary>
-        public ClientResource Resource {
-            get {
-                return new ClientResource() {
-                    Keys= ResourceKey.Split(","),
-                    AndCondition= AndCondition
+        public ClientResource Resource
+        {
+            get
+            {
+                return new ClientResource()
+                {
+                    Keys = ResourceKey?.Split(",") ?? new string[0],
+                    AndCondition = AndCondition
                 };
-            } }
+            }
+        }
     }
 }

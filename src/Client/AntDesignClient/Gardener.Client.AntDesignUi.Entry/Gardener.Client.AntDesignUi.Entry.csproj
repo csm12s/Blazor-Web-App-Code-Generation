@@ -6,6 +6,7 @@
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 	<BlazorEnableCompression>true</BlazorEnableCompression>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
 

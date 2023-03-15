@@ -20,7 +20,7 @@ namespace Gardener.Cache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        T Get<T>(string key);
+        T? Get<T>(string key);
         /// <summary>
         /// 获取缓存
         /// </summary>
@@ -44,7 +44,7 @@ namespace Gardener.Cache
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<T> GetAsync<T>(string key);
+        Task<T?> GetAsync<T>(string key);
         /// <summary>
         /// 获取缓存
         /// </summary>
@@ -67,13 +67,13 @@ namespace Gardener.Cache
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        string GetString(string key);
+        string? GetString(string key);
         /// <summary>
         /// 获取缓存
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<string> GetStringAsync(string key);
+        Task<string?> GetStringAsync(string key);
         /// <summary>
         /// 根据项的键刷新缓存中的项，重置其滑动过期超时（如果有）
         /// </summary>

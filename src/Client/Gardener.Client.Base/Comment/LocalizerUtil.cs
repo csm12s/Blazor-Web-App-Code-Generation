@@ -20,7 +20,7 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 服务仓库
         /// </summary>
-        private static IServiceProvider Services;
+        private static IServiceProvider? Services;
 
         /// <summary>
         /// 设置服务仓库
@@ -38,7 +38,7 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         public static string Combination(params string[] names)
         {
-            IClientLocalizer l = Services.GetRequiredService<IClientLocalizer>();
+            IClientLocalizer? l = Services?.GetRequiredService<IClientLocalizer>();
             return LocalizerUtil.Combination(l, names);
         }
 
@@ -50,7 +50,7 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         public static string GetValue(string name, bool toLower = false)
         {
-            IClientLocalizer l = Services.GetRequiredService<IClientLocalizer>();
+            IClientLocalizer? l = Services?.GetRequiredService<IClientLocalizer>();
             return LocalizerUtil.GetValue(l, name, toLower);
         }
 
@@ -63,7 +63,7 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         public static string Combination<T>(params string[] names)
         {
-            IClientLocalizer<T> l = Services.GetRequiredService<IClientLocalizer<T>>();
+            IClientLocalizer<T>? l = Services?.GetRequiredService<IClientLocalizer<T>>();
             return LocalizerUtil.Combination(l, names);
         }
 
@@ -75,7 +75,7 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         public static string GetValue<T>(string name, bool toLower = false)
         {
-            IClientLocalizer<T> l = Services.GetRequiredService<IClientLocalizer<T>>();
+            IClientLocalizer<T>? l = Services?.GetRequiredService<IClientLocalizer<T>>();
             return LocalizerUtil.GetValue(l, name, toLower);
         }
 
@@ -84,7 +84,7 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <param name="names"></param>
         /// <returns></returns>
-        public static string Combination(IClientLocalizer localizer, params string[] names)
+        public static string Combination(IClientLocalizer? localizer, params string[] names)
         {
             if (localizer != null)
             {
@@ -99,7 +99,7 @@ namespace Gardener.Client.Base
         /// <param name="name"></param>
         /// <param name="toLower"></param>
         /// <returns></returns>
-        public static string GetValue(IClientLocalizer localizer, string name, bool toLower = false)
+        public static string GetValue(IClientLocalizer? localizer, string name, bool toLower = false)
         {
             if (localizer != null && !string.IsNullOrEmpty(name))
             {

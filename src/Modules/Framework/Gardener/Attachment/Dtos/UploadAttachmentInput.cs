@@ -17,8 +17,8 @@ namespace Gardener.Attachment.Dtos
         /// <summary>
         /// 业务ID
         /// </summary>
-        [MaxLength(64,ErrorMessage = "最大长度不能大于{1}")]
-        public string BusinessId { get; set; }
+        [MaxLength(64, ErrorMessage = "最大长度不能大于{1}")]
+        public string BusinessId { get; set; } = null!;
         /// <summary>
         /// 附件业务类型
         /// </summary>

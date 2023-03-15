@@ -22,24 +22,24 @@ namespace Gardener.Attachment.Dtos
         /// </summary>
         [Required(ErrorMessage = "业务编号不能为空")]
         [DisplayName("业务编号")]
-        public string BusinessId { get; set; }
+        public string BusinessId { get; set; } = null!;
         /// <summary>
         /// 附件业务类型
         /// </summary>
         [Required(ErrorMessage = "附件业务类型不能为空")]
         [DisplayName("业务类型")]
-        public AttachmentBusinessType? BusinessType { get; set; }
+        public AttachmentBusinessType BusinessType { get; set; }
         /// <summary>
         /// 上传的文件类型
         /// </summary>
         [Required(ErrorMessage = "文件类型不能为空")]
         [DisplayName("类型")]
-        public AttachmentFileType? FileType { get; set; }
+        public AttachmentFileType FileType { get; set; }
         /// <summary>
         /// 原始类型
         /// </summary>
         [DisplayName("原始类型")]
-        public string ContentType { get; set; }
+        public string ContentType { get; set; } = null!;
         /// <summary>
         /// 文件大小 byte
         /// </summary>
@@ -50,32 +50,32 @@ namespace Gardener.Attachment.Dtos
         /// </summary>
         [Required, MaxLength(200)]
         [DisplayName("路径")]
-        public string Path { get; set; }
-        
+        public string Path { get; set; } = null!;
+
         /// <summary>
         /// 文件名称 随机生成
         /// </summary>
         [Required, MaxLength(100)]
         [DisplayName("名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         /// <summary>
         /// 原始文件名
         /// </summary>
         [MaxLength(100)]
         [DisplayName("原始名称")]
-        public string OriginalName { get; set; }
+        public string OriginalName { get; set; } = null!;
         /// <summary>
         /// 访问地址
         /// </summary>
         [Required, MaxLength(200)]
         [DisplayName("访问地址")]
-        public string Url { get; set; }
+        public string Url { get; set; } = null!;
         /// <summary>
         /// 后缀
         /// .jpg
         /// </summary>
         [Required, MaxLength(20)]
         [DisplayName("后缀")]
-        public string Suffix { get; set; }
+        public string Suffix { get; set; } = null!;
     }
 }

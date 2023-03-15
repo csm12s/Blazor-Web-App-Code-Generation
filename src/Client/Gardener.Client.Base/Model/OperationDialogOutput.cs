@@ -6,12 +6,23 @@
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// 操作框输出
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
     public class OperationDialogOutput<TKey>
     {
+        /// <summary>
+        /// 是否成功
+        /// </summary>
         public bool Succeeded { get; set; }
-
-        public TKey Id { get; set; }
-
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public TKey? Id { get; set; }
+        /// <summary>
+        /// 操作框结束类型
+        /// </summary>
         public DrawerOutputType Type { get; set; }
         /// <summary>
         /// 成功

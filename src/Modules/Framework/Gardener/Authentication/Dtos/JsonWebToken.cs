@@ -16,7 +16,7 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 获取或设置 用于业务身份认证的AccessToken
         /// </summary>
-        public string AccessToken { get; set; }
+        public string AccessToken { get; set; } = null!;
         /// <summary>
         /// 获取或设置 AccessToken有效期，UTC标准
         /// </summary>
@@ -24,7 +24,7 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 获取或设置 用于刷新AccessToken的RefreshToken
         /// </summary>
-        public string RefreshToken { get; set; }
+        public string RefreshToken { get; set; } = null!;
 
         /// <summary>
         /// 获取或设置 RefreshToken有效期，UTC标准

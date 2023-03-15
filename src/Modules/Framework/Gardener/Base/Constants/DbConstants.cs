@@ -1,6 +1,9 @@
 ﻿
 namespace Gardener.Base
 {
+    /// <summary>
+    /// DbConstants
+    /// </summary>
     public class DbConstants
     {
         /// <summary>

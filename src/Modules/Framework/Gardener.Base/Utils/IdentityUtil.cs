@@ -30,7 +30,7 @@ namespace Gardener.Base
         /// 
         /// </summary>
         /// <returns></returns>
-        public static string GetIdentityId()
+        public static string? GetIdentityId()
         {
             return GetIdentity()?.Id;
         }

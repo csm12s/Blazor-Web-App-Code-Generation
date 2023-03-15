@@ -1,4 +1,5 @@
-﻿@inject NavigationManager Navigation
+﻿@using Microsoft.Extensions.Primitives;
+@inject NavigationManager Navigation
 
 @code {
     /// <summary>
@@ -16,9 +17,9 @@
 
         if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
         {
-            returnUrl = value;
+            returnUrl = value.ToString();
         }
         returnUrl = Uri.EscapeDataString(returnUrl);
-        Navigation.NavigateTo($"/auth/login{(string.IsNullOrEmpty(returnUrl)?"": "?returnUrl="+ returnUrl)}");
+        Navigation.NavigateTo($"/auth/login{(string.IsNullOrEmpty(returnUrl) ? "" : "?returnUrl=" + returnUrl)}");
     }
 }

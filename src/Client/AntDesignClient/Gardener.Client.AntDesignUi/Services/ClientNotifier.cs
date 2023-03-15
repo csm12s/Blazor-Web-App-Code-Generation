@@ -27,11 +27,11 @@ namespace Gardener.Client.AntDesignUi.Services
             this.localizer = localizer;
         }
 
-        private async Task Notify(string msg, string description, NotificationType type)
+        private Task Notify(string msg, string description, NotificationType type)
         {
             if (description?.Length > msgMaxLength)
             {
-                await notificationService.Open(new NotificationConfig()
+                return notificationService.Open(new NotificationConfig()
                 {
                     Message = msg,
                     Description = description,
@@ -49,7 +49,7 @@ namespace Gardener.Client.AntDesignUi.Services
                     case NotificationType.Success: messageType = MessageType.Success; break;
                     default: messageType = MessageType.Info; break;
                 }
-                await msgSvr.Open(new MessageConfig()
+                return msgSvr.Open(new MessageConfig()
                 {
                     Content = description,
                     Duration = duration,
@@ -58,37 +58,37 @@ namespace Gardener.Client.AntDesignUi.Services
 
             }
         }
-        public async Task Error(string description, Exception ex = null)
+        public Task Error(string description, Exception? ex = null)
         {
-            await Error(localizer[SharedLocalResource.Error], description, ex);
+            return Error(localizer[SharedLocalResource.Error], description, ex);
         }
-        public async Task Error(string msg, string description, Exception ex = null)
+        public Task Error(string msg, string description, Exception? ex = null)
         {
-            await Notify(msg, description, NotificationType.Error);
+            return Notify(msg, description, NotificationType.Error);
         }
-        public async Task Info(string description)
+        public Task Info(string description)
         {
-            await Info(localizer[SharedLocalResource.Info], description);
+            return Info(localizer[SharedLocalResource.Info], description);
         }
-        public async Task Info(string msg, string description)
+        public Task Info(string msg, string description)
         {
-            await Notify(msg, description, NotificationType.Info);
+            return Notify(msg, description, NotificationType.Info);
         }
-        public async Task Success(string description)
+        public Task Success(string description)
         {
-            await Success(localizer[SharedLocalResource.Success], description);
+            return Success(localizer[SharedLocalResource.Success], description);
         }
-        public async Task Success(string msg, string description)
+        public Task Success(string msg, string description)
         {
-            await Notify(msg, description, NotificationType.Success);
+            return Notify(msg, description, NotificationType.Success);
         }
-        public async Task Warn(string description, Exception ex = null)
+        public Task Warn(string description, Exception? ex = null)
         {
-            await Warn(localizer[SharedLocalResource.Warn], description, ex);
+            return Warn(localizer[SharedLocalResource.Warn], description, ex);
         }
-        public async Task Warn(string msg, string description, Exception ex = null)
+        public Task Warn(string msg, string description, Exception? ex = null)
         {
-            await Notify(msg, description, NotificationType.Warning);
+            return Notify(msg, description, NotificationType.Warning);
         }
     }
 }

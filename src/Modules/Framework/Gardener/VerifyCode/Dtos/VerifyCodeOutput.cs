@@ -22,6 +22,6 @@ namespace Gardener.VerifyCode.Dtos
         /// 验证码唯一键
         /// </summary>
         [DisplayName("验证码唯一键")]
-        public string Key { get; set; }
+        public string Key { get; set; } = null!;
     }
 }

@@ -26,7 +26,7 @@ public static partial class Extension
         if (input == null)
             return "";
 
-        FieldInfo fieldInfo = input.GetType().GetField(input.ToString());
+        FieldInfo? fieldInfo = input.GetType().GetField(input.ToString());
         if (fieldInfo == null)
             return string.Empty;
 

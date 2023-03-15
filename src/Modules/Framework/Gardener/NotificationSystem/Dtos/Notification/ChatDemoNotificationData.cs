@@ -23,18 +23,18 @@ namespace Gardener.NotificationSystem.Dtos.Notification
         /// <summary>
         /// 昵称
         /// </summary>
-        public string NickName { get; set; }
+        public string? NickName { get; set; }
         /// <summary>
         /// 头像
         /// </summary>
-        public string Avatar { get; set; }
+        public string? Avatar { get; set; }
         /// <summary>
         /// 消息
         /// </summary>
-        public string Message { get; set; }
+        public string? Message { get; set; }
         /// <summary>
         /// 图片列表
         /// </summary>
-        public string[] Images { get; set; }
+        public string[]? Images { get; set; }
     }
 }

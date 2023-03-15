@@ -19,7 +19,7 @@ namespace Gardener.VerifyCode.Dtos
         /// Base64图片
         /// </summary>
         [DisplayName("Base64图片")]
-        public string Base64Image { get; set; }
+        public string? Base64Image { get; set; }
         /// <summary>
         /// 
         /// </summary>

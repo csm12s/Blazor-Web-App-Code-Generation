@@ -57,13 +57,25 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     [MaxLength(50)]
     public string DbDataType { get; set; }
 
-    // view
+    /// <summary>
+    /// view
+    /// </summary>
     public ClientComponentType? ViewComponentType { get; set; }
-    // edit
+    /// <summary>
+    /// edit
+    /// </summary>
     public ClientComponentType? EditComponentType { get; set; }
+    /// <summary>
+    /// EditComponentLength
+    /// </summary>
     public int? EditComponentLength { get; set; }
-    // search
+    /// <summary>
+    /// search
+    /// </summary>
     public ClientComponentType? CustomSearchType { get; set; }
+    /// <summary>
+    /// CustomSearchLength
+    /// </summary>
     public int? CustomSearchLength { get; set; }
 
     /// <summary>

@@ -30,24 +30,40 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// 系统配置服务
         /// </summary>
         [Inject]
-        private ISystemConfigService systemConfigService { get; set; }
+        private ISystemConfigService systemConfigService { get; set; } = null!;
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
-        private IJsTool JsTool { get; set; }
+        private IJsTool JsTool { get; set; } = null!;
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
-        private IClientLocalizer<MenuNameLocalResource> Loc { get; set; }
+        private IClientLocalizer<MenuNameLocalResource> Loc { get; set; } = null!;
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
-        private IAuthenticationStateManager authenticationStateManager { get; set; }
-
-        private SystemConfig systemConfig;
-
-        private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();            
-        private ReuseTabs reuseTabs;
+        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
+        /// <summary>
+        /// 
+        /// </summary>
+        private SystemConfig systemConfig = null!;
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();   
+        /// <summary>
+        /// 
+        /// </summary>
+        private ReuseTabs reuseTabs = null!;
         /// <summary>
         /// 初始化菜单
         /// </summary>
         /// <param name="resourceDto"></param>
         /// <param name="parent"></param>
-        private void InitEnum(ResourceDto resourceDto, MenuDataItem parent = null)
+        private void InitEnum(ResourceDto resourceDto, MenuDataItem? parent = null)
         {
             string key = "menu:" + resourceDto.Key;
             string localName = Loc[key];
@@ -57,7 +73,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
                 localName = resourceDto.Name;
             }
 
-            string path = resourceDto.Path;
+            string? path = resourceDto.Path;
             //path为空，还没有子级的会报错，设置个key
             if (string.IsNullOrEmpty(path) && ( resourceDto.Children == null || !resourceDto.Children.Any()))
             {

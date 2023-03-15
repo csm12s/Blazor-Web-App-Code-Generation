@@ -28,7 +28,7 @@ namespace Gardener.Client.Base
         /// 获取当前用户
         /// </summary>
         /// <returns></returns>
-        Task<UserDto> GetCurrentUser();
+        Task<UserDto?> GetCurrentUser();
         /// <summary>
         /// 设置一个身份验证刷新成功的回调
         /// </summary>
@@ -70,7 +70,7 @@ namespace Gardener.Client.Base
         /// 获取当前身份的token头，可以添加于自定义的httpclient中验证使用
         /// </summary>
         /// <returns></returns>
-        Task<Dictionary<string, string>> GetCurrentTokenHeaders();
+        Task<Dictionary<string, string>?> GetCurrentTokenHeaders();
         /// <summary>
         /// 刷新token
         /// </summary>
@@ -80,6 +80,6 @@ namespace Gardener.Client.Base
         /// 获取当前token
         /// </summary>
         /// <returns></returns>
-        Task<TokenOutput> GetCurrentToken();
+        Task<TokenOutput?> GetCurrentToken();
     }
 }

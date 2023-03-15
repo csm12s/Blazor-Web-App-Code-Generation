@@ -11,4 +11,9 @@
     <ProjectReference Include="..\Gardener.EasyJob\Gardener.EasyJob.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="SeedDatas\" />
+  </ItemGroup>
+
 </Project>

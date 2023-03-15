@@ -60,22 +60,22 @@ namespace Gardener.Client.Base
             return apiCaller.PostAsync<Tkey[], bool>($"{controller}/fake-deletes", ids);
         }
 
-        public virtual Task<T> Get(Tkey id)
+        public virtual Task<T?> Get(Tkey id)
         {
             return apiCaller.GetAsync<T>($"{controller}/{id}");
         }
 
-        public virtual Task<List<T>> GetAll()
+        public virtual Task<List<T>?> GetAll()
         {
             return apiCaller.GetAsync<List<T>>($"{controller}/all");
         }
 
-        public virtual Task<PagedList<T>> GetPage(int pageIndex = 1, int pageSize = 10)
+        public virtual Task<PagedList<T>?> GetPage(int pageIndex = 1, int pageSize = 10)
         {
             return apiCaller.GetAsync<PagedList<T>>($"{controller}/page/{pageIndex}/{pageSize}");
         }
 
-        public virtual Task<T> Insert(T input)
+        public virtual Task<T?> Insert(T input)
         {
             return apiCaller.PostAsync<T, T>(controller, request: input);
         }
@@ -89,22 +89,22 @@ namespace Gardener.Client.Base
             return apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
         }
 
-        public virtual Task<List<T>> GetAllUsable()
+        public virtual Task<List<T>?> GetAllUsable()
         {
             return apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
         }
 
-        public virtual Task<PagedList<T>> Search(PageRequest request)
+        public virtual Task<PagedList<T>?> Search(PageRequest request)
         {
             return apiCaller.PostAsync<PageRequest, PagedList<T>>($"{controller}/search",request);
         }
 
-        public virtual Task<string> GenerateSeedData(PageRequest request)
+        public virtual Task<string?> GenerateSeedData(PageRequest request)
         {
             return apiCaller.PostAsync<PageRequest, string>($"{controller}/generate-seed-data", request);
         }
 
-        public virtual async Task<string> Export(PageRequest request)
+        public virtual async Task<string?> Export(PageRequest request)
         {
             return await apiCaller.PostAsync<PageRequest, string>($"{controller}/export", request);
         }

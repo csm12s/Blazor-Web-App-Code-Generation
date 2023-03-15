@@ -36,7 +36,7 @@ namespace Gardener.SystemManager.Services
         /// <param name="includLocked">是否包含锁定的资源</param>
         /// <param name="rootKey"></param>
         /// <returns></returns>
-        Task<List<ResourceDto>> GetTree(bool includLocked = true,string rootKey = null);
+        Task<List<ResourceDto>> GetTree(bool includLocked = true,string? rootKey = null);
         
 
         /// <summary>

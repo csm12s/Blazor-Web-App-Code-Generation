@@ -80,40 +80,43 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        private async Task ConnectionClosed(Exception? arg)
+        private Task ConnectionClosed(Exception? arg)
         {
             clientLogger.Warn($"{ClientName}连接{(arg == null ? "关闭" : "中断")}", ex: arg, sendNotify: arg != null);
             if (Closed != null)
             {
                 //回调
-                await Closed.Invoke(arg);
+                return Closed.Invoke(arg);
             }
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 连接重连中
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        private async Task ConnectionReconnecting(Exception? arg)
+        private Task ConnectionReconnecting(Exception? arg)
         {
             clientLogger.Warn($"{ClientName}重连中", ex: arg);
             if (Reconnecting != null)
             {
-                await Reconnecting.Invoke(arg);
+                return Reconnecting.Invoke(arg);
             }
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 连接重连完成
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        private async Task ConnectionReconnected(string? arg)
+        private Task ConnectionReconnected(string? arg)
         {
             clientLogger.Warn($"{ClientName}重连完成![{(arg == null ? "" : arg)}]");
             if (Reconnected != null)
             {
-                await Reconnected.Invoke(arg);
+                return Reconnected.Invoke(arg);
             }
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -294,13 +297,13 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut>(string methodName, Action<TResut> resutHandler)
+        public ISignalRClient On<TResut>(string methodName, Action<TResut?> resutHandler)
         {
             if (connection == null)
             {
-                Action<object> callBack = data =>
+                Action<object?> callBack = data =>
                 {
-                    resutHandler((TResut)data);
+                    resutHandler(data == null ? default(TResut) : (TResut)data);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, typeof(TResut), callBack));
@@ -318,13 +321,13 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut>(string methodName, Func<TResut, Task> resutHandler)
+        public ISignalRClient On<TResut>(string methodName, Func<TResut?, Task> resutHandler)
         {
             if (connection == null)
             {
-                Func<object, Task> callBack = data =>
+                Func<object?, Task> callBack = data =>
                 {
-                    return resutHandler((TResut)data);
+                    return resutHandler(data == null ? default(TResut) : (TResut)data);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, typeof(TResut), callBack));
@@ -343,13 +346,16 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut2"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut1, TResut2>(string methodName, Action<TResut1, TResut2> resutHandler)
+        public ISignalRClient On<TResut1, TResut2>(string methodName, Action<TResut1?, TResut2?> resutHandler)
         {
             if (connection == null)
             {
-                Action<object[]> callBack = datas =>
+                Action<object?[]> callBack = datas =>
                 {
-                    resutHandler((TResut1)datas[0], (TResut2)datas[1]);
+                    object? resut1 = datas[0];
+                    object? resut2 = datas[1];
+
+                    resutHandler(resut1 == null ? default : (TResut1)resut1, resut2 == null ? default : (TResut2)resut2);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2) }, callBack));
@@ -368,13 +374,17 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut2"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut1, TResut2>(string methodName, Func<TResut1, TResut2, Task> resutHandler)
+        public ISignalRClient On<TResut1, TResut2>(string methodName, Func<TResut1?, TResut2?, Task> resutHandler)
         {
             if (connection == null)
             {
-                Func<object[], Task> callBack = datas =>
+                Func<object?[], Task> callBack = datas =>
                 {
-                    return resutHandler((TResut1)datas[0], (TResut2)datas[1]);
+                    object? resut1 = datas[0];
+                    object? resut2 = datas[1];
+                    TResut1? t1 = resut1 == null ? default : (TResut1)resut1;
+                    TResut2? t2 = resut2 == null ? default : (TResut2)resut2;
+                    return resutHandler(t1, t2);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2) }, callBack));
@@ -394,13 +404,19 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut3"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1, TResut2, TResut3> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1?, TResut2?, TResut3?> resutHandler)
         {
             if (connection == null)
             {
-                Action<object[]> callBack = datas =>
+                Action<object?[]> callBack = datas =>
                 {
-                    resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2]);
+                    object? resut1 = datas[0];
+                    object? resut2 = datas[1];
+                    object? resut3 = datas[2];
+                    TResut1? t1 = resut1 == null ? default : (TResut1)resut1;
+                    TResut2? t2 = resut2 == null ? default : (TResut2)resut2;
+                    TResut3? t3 = resut3 == null ? default : (TResut3)resut3;
+                    resutHandler(t1, t2, t3);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2), typeof(TResut3) }, callBack));
@@ -420,13 +436,19 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut3"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1, TResut2, TResut3, Task> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1?, TResut2?, TResut3?, Task> resutHandler)
         {
             if (connection == null)
             {
-                Func<object[], Task> callBack = datas =>
+                Func<object?[], Task> callBack = datas =>
                 {
-                    return resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2]);
+                    object? resut1 = datas[0];
+                    object? resut2 = datas[1];
+                    object? resut3 = datas[2];
+                    TResut1? t1 = resut1 == null ? default : (TResut1)resut1;
+                    TResut2? t2 = resut2 == null ? default : (TResut2)resut2;
+                    TResut3? t3 = resut3 == null ? default : (TResut3)resut3;
+                    return resutHandler(t1, t2, t3);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2), typeof(TResut3) }, callBack));
@@ -447,13 +469,21 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut4"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1, TResut2, TResut3, TResut4> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1?, TResut2?, TResut3?, TResut4?> resutHandler)
         {
             if (connection == null)
             {
-                Action<object[]> callBack = datas =>
+                Action<object?[]> callBack = datas =>
                 {
-                    resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2], (TResut4)datas[3]);
+                    object? resut1 = datas[0];
+                    object? resut2 = datas[1];
+                    object? resut3 = datas[2];
+                    object? resut4 = datas[3];
+                    TResut1? t1 = resut1 == null ? default : (TResut1)resut1;
+                    TResut2? t2 = resut2 == null ? default : (TResut2)resut2;
+                    TResut3? t3 = resut3 == null ? default : (TResut3)resut3;
+                    TResut4? t4 = resut4 == null ? default : (TResut4)resut4;
+                    resutHandler(t1, t2, t3, t4);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2), typeof(TResut3), typeof(TResut4) }, callBack));
@@ -475,13 +505,21 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResut4"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        public ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1, TResut2, TResut3, TResut4, Task> resutHandler)
+        public ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1?, TResut2?, TResut3?, TResut4?, Task> resutHandler)
         {
             if (connection == null)
             {
-                Func<object[], Task> callBack = datas =>
+                Func<object?[], Task> callBack = datas =>
                 {
-                    return resutHandler((TResut1)datas[0], (TResut2)datas[1], (TResut3)datas[2], (TResut4)datas[3]);
+                    object? resut1 = datas[0];
+                    object? resut2 = datas[1];
+                    object? resut3 = datas[2];
+                    object? resut4 = datas[3];
+                    TResut1? t1 = resut1 == null ? default : (TResut1)resut1;
+                    TResut2? t2 = resut2 == null ? default : (TResut2)resut2;
+                    TResut3? t3 = resut3 == null ? default : (TResut3)resut3;
+                    TResut4? t4 = resut4 == null ? default : (TResut4)resut4;
+                    return resutHandler(t1, t2, t3, t4);
                 };
                 //暂存
                 messageCallBacks.Add(new MessageCallBackInfo(methodName, new Type[] { typeof(TResut1), typeof(TResut2), typeof(TResut3), typeof(TResut4) }, callBack));

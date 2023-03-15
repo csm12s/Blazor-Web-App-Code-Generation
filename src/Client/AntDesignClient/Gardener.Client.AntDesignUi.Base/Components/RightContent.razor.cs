@@ -15,18 +15,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 {
     public partial class RightContent
     {
-        private UserDto _currentUser;
-        private string[] _locales;
+        private UserDto? _currentUser;
+        private string[] _locales=null!;
         [Inject]
-        protected NavigationManager NavigationManager { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = null!;
         [Inject]
-        protected MessageService MessageService { get; set; }
+        protected MessageService MessageService { get; set; } = null!;
         [Inject]
-        protected IAuthenticationStateManager authenticationStateManager { get; set; }
+        protected IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
         [Inject]
-        private IClientLocalizer localizer { get; set; }
+        private IClientLocalizer localizer { get; set; } = null!;
         [Inject]
-        private IClientCultureService clientCultureService { get; set; }
+        private IClientCultureService clientCultureService { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {

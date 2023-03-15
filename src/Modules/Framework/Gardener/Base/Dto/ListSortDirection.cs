@@ -16,7 +16,7 @@ namespace Gardener.Base
         /// <summary>
         /// 字段名
         /// </summary>
-        public string FieldName { get; set; }
+        public string FieldName { get; set; } = null!;
         /// <summary>
         /// 0 asc 
         /// 1 desc

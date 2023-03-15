@@ -17,8 +17,8 @@ public static partial class Extension
     /// <typeparam name="TDestination"></typeparam>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static TDestination MapTo<TDestination>(this object source,
-        TypeAdapterConfig config = null)
+    public static TDestination? MapTo<TDestination>(this object source,
+        TypeAdapterConfig? config = null)
     {
         if (source == null)
         {
@@ -56,8 +56,8 @@ public static partial class Extension
     /// <typeparam name="TDestination"></typeparam>
     /// <param name="sourceList"></param>
     /// <returns></returns>
-    public static List<TDestination> MapTo<TDestination>(this IEnumerable sourceList,
-    TypeAdapterConfig config = null)
+    public static List<TDestination>? MapTo<TDestination>(this IEnumerable sourceList,
+    TypeAdapterConfig? config = null)
     {
         if (sourceList == null)
         {
@@ -93,7 +93,7 @@ public static partial class Extension
     /// <param name="keyValueField"></param>
     /// <param name="labelNameField"></param>
     /// <returns></returns>
-    public static List<SelectItem> ToSelectItems<TSource>(
+    public static List<SelectItem>? ToSelectItems<TSource>(
         this IEnumerable<TSource> sourceList,
         Expression<Func<TSource, string>> keyValueField,
         Expression<Func<TSource, string>> labelNameField)

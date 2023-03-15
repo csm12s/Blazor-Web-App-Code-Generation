@@ -16,7 +16,7 @@ namespace Gardener.Attachment.Dtos
         /// <summary>
         /// 文件地址
         /// </summary>
-        public string Url { get; set; }
+        public string Url { get; set; } = null!;
         /// <summary>
         /// 唯一键
         /// </summary>

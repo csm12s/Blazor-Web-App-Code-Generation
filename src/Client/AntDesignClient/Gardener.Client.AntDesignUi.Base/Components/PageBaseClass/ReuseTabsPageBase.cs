@@ -36,12 +36,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public virtual string GetPageTitleValue()
         {
             string title = "";
-            RouteAttribute routeAttribute = this.GetType().GetAttribute<RouteAttribute>(true);
+            RouteAttribute? routeAttribute = this.GetType().GetAttribute<RouteAttribute>(true);
             if (routeAttribute != null)
             {
                 //根据路由去匹配菜单的名称
-                MenuDataItem menu = ClientMenuCache.Get(routeAttribute.Template);
-                title = menu?.Name;
+                MenuDataItem? menu = ClientMenuCache.Get(routeAttribute.Template);
+                title = menu?.Name ?? "";
             }
             return title;
         }
@@ -80,12 +80,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public virtual string GetPageTitleValue()
         {
             string title = "";
-            RouteAttribute routeAttribute = this.GetType().GetAttribute<RouteAttribute>(true);
+            RouteAttribute? routeAttribute = this.GetType().GetAttribute<RouteAttribute>(true);
             if (routeAttribute != null)
             {
                 //根据路由去匹配菜单的名称
-                MenuDataItem menu = ClientMenuCache.Get(routeAttribute.Template);
-                title = menu?.Name;
+                MenuDataItem? menu = ClientMenuCache.Get(routeAttribute.Template);
+                title = menu?.Name ?? "";
             }
             return title;
         }

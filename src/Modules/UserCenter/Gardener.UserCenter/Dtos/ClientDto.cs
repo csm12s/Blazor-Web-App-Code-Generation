@@ -20,42 +20,42 @@ namespace Gardener.UserCenter.Dtos
         /// 名称
         /// </summary>
         [DisplayName("名称")]
-        [Required(ErrorMessage = "不能为空"), MaxLength(30,ErrorMessage = "最大长度不能大于{1}")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "不能为空"), MaxLength(30, ErrorMessage = "最大长度不能大于{1}")]
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 描述
         /// </summary>
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         [DisplayName("备注")]
-        public string Remark { get; set; }
+        public string Remark { get; set; } = null!;
 
         /// <summary>
         /// 联系人
         /// </summary>
         [DisplayName("联系人")]
         [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
-        public string Contacts { get; set; }
+        public string? Contacts { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
         [DisplayName("电话")]
         [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
-        public string Tel { get; set; }
+        public string? Tel { get; set; }
 
         /// <summary>
         /// 私钥
         /// </summary>
         [Required(ErrorMessage = "不能为空"), StringLength(64, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("私钥")]
-        public string SecretKey { get; set; }
+        public string? SecretKey { get; set; }
         
         /// <summary>
         /// 邮箱
         /// </summary>
         [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("邮箱")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace Gardener.UserCenter.Client.Services
        
         public async Task<PagedList<UserDto>> Search(int[] deptIds, int pageIndex = 1, int pageSize = 10)
         {
-            List<KeyValuePair<string, object>> pramas = deptIds.ConvertToQueryParameters("deptIds");
+            List<KeyValuePair<string, object?>> pramas = deptIds.ConvertToQueryParameters("deptIds");
 
             return await apiCaller.GetAsync<PagedList<UserDto>>($"{controller}/search/{pageIndex}/{pageSize}", pramas);
         }

@@ -14,16 +14,31 @@ using System.Reflection;
 
 namespace Gardener.Client.Core
 {
+    /// <summary>
+    /// 模块扩展
+    /// </summary>
+    /// <remarks>
+    /// 解决Client无法扫描到所有引用包的问题
+    /// </remarks>
     public static class ModuleExtension
     {
+        /// <summary>
+        /// client 所有模块Assembly
+        /// </summary>
+        private static ClientModuleContext? moduleContext;
 
-        private static ClientModuleContext moduleContext;
-
-        public static ClientModuleContext GetModuleContext()
+        /// <summary>
+        /// 获取 client 所有模块Assembly
+        /// </summary>
+        /// <returns></returns>
+        public static ClientModuleContext? GetModuleContext()
         {
             return moduleContext;
         }
-
+        /// <summary>
+        /// 启用
+        /// </summary>
+        /// <param name="builder"></param>
         public static void AddModuleLoader(this WebAssemblyHostBuilder builder)
         {
             IEnumerable<IConfigurationSection> sections = builder.Configuration.GetSection("ModuleSettings:Dlls").GetChildren();
@@ -33,6 +48,10 @@ namespace Gardener.Client.Core
             };
             foreach (IConfigurationSection configuration in sections)
             {
+                if (string.IsNullOrEmpty(configuration.Value)) 
+                {
+                    continue;
+                }
                 dlls.Add(configuration.Value);
             }
             dlls = dlls.Distinct().ToList();

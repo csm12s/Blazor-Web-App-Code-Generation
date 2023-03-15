@@ -50,18 +50,18 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// 确认提示服务
         /// </summary>
         [Inject]
-        protected ConfirmService confirmService { get; set; }
+        protected ConfirmService confirmService { get; set; } = null!;
 
         /// <summary>
         /// 路由导航服务
         /// </summary>
         [Inject]
-        protected NavigationManager navigation { get; set; }
+        protected NavigationManager navigation { get; set; } = null!;
         /// <summary>
         /// javascript 工具
         /// </summary>
         [Inject]
-        protected IJsTool jsTool { get; set; }
+        protected IJsTool jsTool { get; set; } = null!;
 
         protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
 
@@ -163,7 +163,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         protected virtual async Task ReLoadTableAfterDeleteLastPage()
         {
             //删除整页，且是最后一页
-            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+            if (_selectedRows!=null && _selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
             {
                 await ReLoadTable(true);
             }
@@ -236,7 +236,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 {
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
-                    if (_pageIndex > 1 && _datas.Count() == 0)
+                    if (_pageIndex > 1 && _datas?.Count() == 0)
                     {
                         _pageIndex = _pageIndex - 1;
                     }
@@ -265,7 +265,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 {
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
-                    if (_pageIndex > 1 && _datas.Count() == 0)
+                    if (_pageIndex > 1 && _datas?.Count() == 0)
                     {
                         _pageIndex = _pageIndex - 1;
                     }
@@ -498,7 +498,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task> onClose = null, OperationDialogSettings operationDialogSettings = null)
+        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);

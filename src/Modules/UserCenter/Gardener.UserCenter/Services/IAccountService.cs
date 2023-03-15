@@ -56,7 +56,7 @@ namespace Gardener.UserCenter.Services
         /// </summary>
         /// <param name="rootKey"></param>
         /// <returns></returns>
-        Task<List<ResourceDto>> GetCurrentUserMenus(string rootKey = null);
+        Task<List<ResourceDto>> GetCurrentUserMenus(string? rootKey = null);
         /// <summary>
         /// 移除当前用户token
         /// </summary>

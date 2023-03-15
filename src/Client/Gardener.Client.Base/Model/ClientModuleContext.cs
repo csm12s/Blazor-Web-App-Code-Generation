@@ -9,10 +9,18 @@ using System.Reflection;
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// 客户端模块对象
+    /// </summary>
     public class ClientModuleContext
     {
-        public List<string> ModeuleDlls { get; set; }
-
-        public Assembly[] ModeuleAssemblies { get; set; }
+        /// <summary>
+        /// 模块dll
+        /// </summary>
+        public List<string>? ModeuleDlls { get; set; }
+        /// <summary>
+        /// 模块Assembly集合
+        /// </summary>
+        public Assembly[]? ModeuleAssemblies { get; set; }
     }
 }

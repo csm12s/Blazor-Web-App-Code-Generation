@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,7 +19,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户扩展信息表
     /// </summary>
     [Description("用户扩展信息")]
-    public class UserExtension : IEntity<MasterDbContextLocator>, IEntityTypeBuilder<UserExtension, MasterDbContextLocator>
+    public class UserExtension : GardenerEntityBaseNoKey<MasterDbContextLocator>, IEntityTypeBuilder<UserExtension, MasterDbContextLocator>
     {
         /// <summary>
         /// 用户ID

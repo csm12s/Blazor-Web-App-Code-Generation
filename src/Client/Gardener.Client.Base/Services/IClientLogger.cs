@@ -20,7 +20,7 @@ namespace Gardener.Client.Base
         /// <param name="msg"></param>
         /// <param name="code"></param>
         /// <param name="ex"></param>
-        Task Debug(string msg, int? code = null, Exception ex = null);
+        Task Debug(string msg, int? code = null, Exception? ex = null);
         /// <summary>
         /// fatal
         /// </summary>
@@ -28,7 +28,7 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Fatal(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        Task Fatal(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
         /// <summary>
         /// Error
         /// </summary>
@@ -36,7 +36,7 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Error(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        Task Error(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
         /// <summary>
         /// Info
         /// </summary>
@@ -44,7 +44,7 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Info(string msg, int? code = null, Exception ex = null, bool sendNotify = false);
+        Task Info(string msg, int? code = null, Exception? ex = null, bool sendNotify = false);
         /// <summary>
         /// Warn
         /// </summary>
@@ -52,6 +52,6 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Warn(string msg, int? code = null, Exception ex = null, bool sendNotify = true);
+        Task Warn(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
     }
 }

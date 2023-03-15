@@ -13,20 +13,11 @@ public class ImageHelper
     /// <returns></returns>
     public static string ImageToBase64(string filePath)
     {
-        try
-        {
-            string extension = Path.GetExtension(filePath);
-            string mimeType = GetImageMimeTypeFromExtension(extension);
-
-            byte[] inArray = System.IO.File.ReadAllBytes(filePath);
-            var base64Data = Convert.ToBase64String(inArray);
-
-            return "data:" + mimeType + ";base64," + base64Data;
-        }
-        catch (Exception ex)
-        {
-            return "";
-        }
+        string extension = Path.GetExtension(filePath);
+        string mimeType = GetImageMimeTypeFromExtension(extension);
+        byte[] inArray = File.ReadAllBytes(filePath);
+        var base64Data = Convert.ToBase64String(inArray);
+        return "data:" + mimeType + ";base64," + base64Data;
     }
 
     private static string GetImageMimeTypeFromExtension(string extension)

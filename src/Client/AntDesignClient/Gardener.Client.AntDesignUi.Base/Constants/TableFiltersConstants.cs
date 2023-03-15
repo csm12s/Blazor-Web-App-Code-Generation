@@ -30,11 +30,11 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
         /// <summary>
         /// 
         /// </summary>
-        public readonly static TableFilter<AttachmentBusinessType?>[] AttachmentBusinessTypeFilters = EnumHelper.EnumToList<AttachmentBusinessType>().Select(x => { return new TableFilter<AttachmentBusinessType?>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
+        public readonly static TableFilter<AttachmentBusinessType>[] AttachmentBusinessTypeFilters = EnumHelper.EnumToList<AttachmentBusinessType>().Select(x => { return new TableFilter<AttachmentBusinessType>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
         /// <summary>
         /// 
         /// </summary>
-        public readonly static TableFilter<AttachmentFileType?>[] AttachmentFileTypeFilters = EnumHelper.EnumToList<AttachmentFileType>().Select(x => { return new TableFilter<AttachmentFileType?>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
+        public readonly static TableFilter<AttachmentFileType>[] AttachmentFileTypeFilters = EnumHelper.EnumToList<AttachmentFileType>().Select(x => { return new TableFilter<AttachmentFileType>() { Text = EnumHelper.GetEnumDescription(x), Value = x }; }).ToArray();
         /// <summary>
         /// 
         /// </summary>

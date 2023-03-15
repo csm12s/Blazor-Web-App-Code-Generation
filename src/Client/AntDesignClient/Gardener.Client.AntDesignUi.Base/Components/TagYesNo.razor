@@ -5,7 +5,7 @@
 </Tag>
 @code {
     [Inject]
-    protected IClientLocalizer localizer { get; set; }
+    protected IClientLocalizer localizer { get; set; } = null!;
     [Parameter]
     public bool Yes { get; set; }
 }

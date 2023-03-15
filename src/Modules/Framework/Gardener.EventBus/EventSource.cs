@@ -32,7 +32,7 @@ namespace Gardener.EventBus
         /// <summary>
         /// 内容
         /// </summary>
-        public TBody Body { get; set; }
+        public TBody? Body { get; set; }
 
         public DateTime CreatedTime { get; } = DateTime.UtcNow;
 
@@ -40,7 +40,7 @@ namespace Gardener.EventBus
 
         public string EventId { get { return eventId; } }
 
-        public object Payload { get { return Body; } }
+        public object? Payload { get { return Body; } }
 
     }
 }

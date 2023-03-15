@@ -30,31 +30,31 @@ namespace Gardener.Client.AntDesignUi.Pages
         public List<ChatDemoNotificationData > datas = new List<ChatDemoNotificationData >();
 
         private bool _submitting = false;
-        private string _message;
-        private string _currentUserAvatar;
+        private string? _message;
+        private string? _currentUserAvatar;
         private IJSObjectReference? jsRef;
 
         [Inject]
-        private IAuthenticationStateManager authenticationStateManager { get; set; }
+        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
 
         [Inject]
-        private IClientLocalizer localizer { get; set; }
+        private IClientLocalizer localizer { get; set; } = null!;
 
         [Inject]
-        private ISystemNotificationSender systemNotificationSender { get; set; }
+        private ISystemNotificationSender systemNotificationSender { get; set; } = null!;
         [Inject]
-        private MessageService messageService { get; set; }
+        private MessageService messageService { get; set; } = null!;
         [Inject]
-        private IJSRuntime js { get; set; }
+        private IJSRuntime js { get; set; } = null!;
         [Inject]
-        private IChatDemoService chatDemoService { get; set; }
+        private IChatDemoService chatDemoService { get; set; } = null!;
         [Inject]
-        private IEventBus eventBus { get; set; }
-        
+        private IEventBus eventBus { get; set; } = null!;
+
         bool _uploadLoading = false;
 
         [Inject]
-        private IOptions<ApiSettings> apiSettings { get; set; }
+        private IOptions<ApiSettings> apiSettings { get; set; } = null!;
 
         /// <summary>
         /// 上传地址
@@ -75,7 +75,7 @@ namespace Gardener.Client.AntDesignUi.Pages
             { "BusinessType", AttachmentBusinessType.Chat}
         };
 
-        private Dictionary<string, string> headers;
+        private Dictionary<string, string> headers = null!;
 
         /// <summary>
         /// 
@@ -134,7 +134,9 @@ namespace Gardener.Client.AntDesignUi.Pages
             }
             if (_message.Length > 100)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Warn("内容长度不能超过100");
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 return;
             }
             var user = await authenticationStateManager.GetCurrentUser();
@@ -171,8 +173,8 @@ namespace Gardener.Client.AntDesignUi.Pages
         private async Task UserOnlineChangeNotificationEventCallBack(UserOnlineChangeNotificationData e)
         {
             UserOnlineChangeNotificationData notificationData = e;
-            UserDto user = await authenticationStateManager.GetCurrentUser();
-            if (user.Id.ToString().Equals(notificationData.Identity.Id))
+            UserDto? user = await authenticationStateManager.GetCurrentUser();
+            if (user==null || user.Id.ToString().Equals(notificationData.Identity.Id))
             {
                 return;
             }
@@ -258,13 +260,17 @@ namespace Gardener.Client.AntDesignUi.Pages
                 }
                 else
                 {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
                     messageService.Error(localizer[SharedLocalResource.UploadFail]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Error(localizer[SharedLocalResource.UploadFail]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
         }
     }

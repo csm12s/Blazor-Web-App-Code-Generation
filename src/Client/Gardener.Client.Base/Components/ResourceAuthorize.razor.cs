@@ -15,7 +15,7 @@ namespace Gardener.Client.Base.Components
     public partial class ResourceAuthorize
     {
         [Parameter]
-        public RenderFragment ChildContent
+        public RenderFragment? ChildContent
         {
             get;
             set;
@@ -24,7 +24,7 @@ namespace Gardener.Client.Base.Components
         /// 未通过验证时展示
         /// </summary>
         [Parameter]
-        public RenderFragment NotAuthorized
+        public RenderFragment? NotAuthorized
         {
             get;
             set;
@@ -33,7 +33,7 @@ namespace Gardener.Client.Base.Components
         /// 通过验证时展示
         /// </summary>
         [Parameter]
-        public RenderFragment Authorized
+        public RenderFragment? Authorized
         {
             get;
             set;
@@ -42,7 +42,7 @@ namespace Gardener.Client.Base.Components
         /// 验证中展示
         /// </summary>
         [Parameter]
-        public RenderFragment Authorizing
+        public RenderFragment? Authorizing
         {
             get;
             set;
@@ -52,7 +52,7 @@ namespace Gardener.Client.Base.Components
         /// 多个以逗号隔开 eg:key1,key2
         /// </summary>
         [Parameter]
-        public string ResourceKey { get; set; }
+        public string? ResourceKey { get; set; }
 
         /// <summary>
         /// 并且关系
@@ -62,8 +62,11 @@ namespace Gardener.Client.Base.Components
         [Parameter]
         public bool AndCondition { get; set; } = true;
 
+        /// <summary>
+        /// 身份状态管理
+        /// </summary>
         [Inject]
-        private IAuthenticationStateManager authenticationStateManager { get; set; }
+        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
         /// <summary>
         /// 0 ing
         /// -1 false

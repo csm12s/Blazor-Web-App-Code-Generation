@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DatabaseAccessor;
+using Gardener.Base;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +14,7 @@ namespace Gardener.CodeGeneration.Domains
     /// 代码生成设置信息
     /// </summary>
     [Description("代码生成设置")]
-    public class EntityCodeGenerationSetting : Entity
+    public class EntityCodeGenerationSetting : GardenerEntityBase
     {
         /// <summary>
         /// 实体全称

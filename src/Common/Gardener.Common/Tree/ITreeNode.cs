@@ -23,7 +23,7 @@ public interface ITreeNode<T>
     /// <summary>
     /// Node Children
     /// </summary>
-    public ICollection<T> Children { get; set; }
+    public ICollection<T>? Children { get; set; }
 }
 
 

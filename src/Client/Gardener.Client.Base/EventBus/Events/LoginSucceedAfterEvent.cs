@@ -18,5 +18,13 @@ namespace Gardener.Client.Base.EventBus.Events
         /// 登录token
         /// </summary>
         public TokenOutput Token { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="token"></param>
+        public LoginSucceedAfterEvent(TokenOutput token)
+        {
+            Token = token;
+        }
     }
 }

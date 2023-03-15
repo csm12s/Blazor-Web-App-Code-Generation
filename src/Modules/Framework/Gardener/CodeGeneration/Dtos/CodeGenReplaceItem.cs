@@ -11,7 +11,13 @@ namespace Gardener.CodeGeneration.Dtos
     /// </summary>
     public class CodeGenReplaceItem
     {
-        public string OriginText { get; set; }//SYS_
-        public string ReplacedText { get; set; }//Sys
+        /// <summary>
+        /// OriginText
+        /// </summary>
+        public string? OriginText { get; set; }
+        /// <summary>
+        /// ReplacedText
+        /// </summary>
+        public string? ReplacedText { get; set; }
     }
 }

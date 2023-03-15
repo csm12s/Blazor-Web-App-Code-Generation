@@ -38,8 +38,8 @@
             </NoticeIcon>
         </SpaceItem>*@
     <SpaceItem>
-        <AvatarDropdown Name="@(_currentUser.NickName ?? _currentUser.UserName)"
-                        Avatar="@_currentUser.Avatar"
+        <AvatarDropdown Name="@(_currentUser?.NickName ?? _currentUser?.UserName)"
+                        Avatar="@_currentUser?.Avatar"
                         MenuItems="@AvatarMenuItems"
                         OnItemSelected="HandleSelectUser" />
     </SpaceItem>

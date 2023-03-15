@@ -25,17 +25,17 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <summary>
         /// table引用
         /// </summary>
-        protected ITable _table;
+        protected ITable? _table;
 
         /// <summary>
         /// 当前页数据集合
         /// </summary>
-        protected IEnumerable<TDto> _datas;
+        protected IEnumerable<TDto>? _datas;
 
         /// <summary>
         /// 选择的行
         /// </summary>
-        protected IEnumerable<TDto> _selectedRows;
+        protected IEnumerable<TDto>? _selectedRows;
 
         /// <summary>
         /// table加载中控制
@@ -56,25 +56,25 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// 服务
         /// </summary>
         [Inject]
-        protected IServiceBase<TDto, TKey> _service { get; set; }
+        protected IServiceBase<TDto, TKey> _service { get; set; } = null!;
 
         /// <summary>
         /// 本地化
         /// </summary>
         [Inject]
-        protected IClientLocalizer<TLocalResource> localizer { get; set; }
+        protected IClientLocalizer<TLocalResource> localizer { get; set; } = null!;
 
         /// <summary>
         /// 操作对话框
         /// </summary>
         [Inject]
-        protected IOperationDialogService operationDialogService { get; set; }
+        protected IOperationDialogService operationDialogService { get; set; } = null!;
 
         /// <summary>
         /// 消息提示服务
         /// </summary>
         [Inject]
-        protected MessageService messageService { get; set; }
+        protected MessageService messageService { get; set; } = null!;
 
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <param name="operationDialogSettings"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task> onClose = null, OperationDialogSettings operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
+        protected async Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             if (width.HasValue)

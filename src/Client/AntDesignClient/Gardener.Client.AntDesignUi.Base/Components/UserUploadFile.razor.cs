@@ -7,8 +7,6 @@ using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -17,16 +15,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         bool loading = false;
 
         [Inject]
-        MessageService messagerService { get; set; }
+        MessageService messagerService { get; set; } = null!;
         [Inject]
-        IOptions<ApiSettings> apiSettings { get; set; }
+        IOptions<ApiSettings> apiSettings { get; set; } = null!;
         [Inject]
-        IUserService userService { get; set; }
+        IUserService userService { get; set; } = null!;
         [Inject]
-        IAuthenticationStateManager authenticationStateManager { get; set; }
+        IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
 
         [Inject]
-        protected IClientLocalizer localizer { get; set; }
+        protected IClientLocalizer localizer { get; set; } = null!;
         /// <summary>
         /// 上传地址
         /// </summary>
@@ -40,15 +38,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 上传附件附带参数
         /// </summary>
-        private Dictionary<string, object> uploadAttachmentInput = 
+        private Dictionary<string, object> uploadAttachmentInput =
             new Dictionary<string, object>()
-        {
-        };
+            {
+            };
 
-        private Dictionary<string, string> headers;
+        private Dictionary<string, string> headers = null!;
 
-        private UserUploadFileParams uploadParams;
-        private UserDto userDto;
+        private UserUploadFileParams uploadParams = null!;
+        private UserDto userDto = null!;
         //private bool saveDb = false;
 
         /// <summary>
@@ -64,7 +62,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
                 //上传附件附带参数
                 uploadAttachmentInput.Add(nameof(UploadAttachmentInput.BusinessId),
-                    userDto != null ? userDto.Id.ToString() : null);
+                    userDto.Id.ToString());
                 uploadAttachmentInput.Add(nameof(UploadAttachmentInput.BusinessType),
                     uploadParams.AttachmentBusinessType);
                 uploadAttachmentInput.Add(nameof(UploadAttachmentInput.FileSavePath),
@@ -77,13 +75,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             await base.OnInitializedAsync();
         }
-
-        bool BeforeUpload(UploadFileItem file)
+        /// <summary>
+        /// 上传前
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        private bool BeforeUpload(UploadFileItem file)
         {
             var typeOk = false;
             foreach (var fileType in uploadParams.UploadFileType)
             {
-                if(file.Ext.ToLower() == fileType.ToLower())
+                if (file.Ext.ToLower() == fileType.ToLower())
                 {
                     typeOk = true;
                 }
@@ -106,32 +108,42 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 上传成功
         /// </summary>
         private bool uploadSucceed = false;
+        /// <summary>
+        /// 文件地址
+        /// </summary>
         private string fileUrl = "";
-        async Task HandleChange(UploadInfo fileinfo)
+        /// <summary>
+        /// 处理变化
+        /// </summary>
+        /// <param name="fileinfo"></param>
+        private void HandleChange(UploadInfo fileinfo)
         {
             loading = fileinfo.File.State == UploadState.Uploading;
 
             if (fileinfo.File.State == UploadState.Success)
             {
-                ApiResult<UploadAttachmentOutput> apiResult = 
+                ApiResult<UploadAttachmentOutput> apiResult =
                     fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                if (apiResult.Succeeded)
+                if (apiResult.Succeeded && apiResult.Data!=null)
                 {
                     uploadSucceed = true;
                     fileUrl = apiResult.Data.Url;
                 }
                 else
                 {
-                    await messagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    await messagerService.Error("上传失败");
+                    messagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
+                    messagerService.Error("上传失败");
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-                await messagerService.Error("上传失败");
+                messagerService.Error("上传失败");
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         async Task OnOkClick()
         {
             //失败，直接返回
@@ -145,17 +157,23 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             await messagerService.Success("上传成功");
         }
     }
-
+    /// <summary>
+    /// 用户上传文件参数
+    /// </summary>
     public class UserUploadFileParams
     {
         /// <summary>
         /// 用户
         /// </summary>
-        public UserDto User { get; set; }
-        
+        public UserDto User { get; set; } = null!;
+        /// <summary>
+        /// 附件业务类型
+        /// </summary>
         public AttachmentBusinessType AttachmentBusinessType { get; set; }
-        
-        public List<string> UploadFileType { get; set; }
+        /// <summary>
+        /// 文件类型
+        /// </summary>
+        public List<string> UploadFileType { get; set; } = null!;
 
         /// <summary>
         /// 文件保存路径
@@ -181,7 +199,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     public class UploadFileType
     {
         public static List<string> Excel = new List<string>() { _xlsx };
-        public static List<string> Avatar = new List<string> { _jpeg, _png, _gif  };
+        public static List<string> Avatar = new List<string> { _jpeg, _png, _gif };
 
         public const string _jpeg = ".jpeg"; // "image/jpeg";
         public const string _png = ".png";

@@ -28,14 +28,14 @@ namespace Gardener.Email.Dtos
         /// </summary>
         [DisplayName("数据")]
         [Required(ErrorMessage = "不能为空")]
-        public object Data { get; set; }
+        public object Data { get; set; } = null!;
         /// <summary>
         /// 接收方邮箱地址
         /// </summary>
         [DisplayName("接收方邮箱地址")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
-        [RegularExpression("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",ErrorMessage ="请输入正确的邮件地址")]
-        public string ToEmail { get; set; }
+        [RegularExpression("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", ErrorMessage = "请输入正确的邮件地址")]
+        public string ToEmail { get; set; } = null!;
         /// <summary>
         /// 邮件服务器标签
         /// </summary>

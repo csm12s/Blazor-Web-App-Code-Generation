@@ -34,29 +34,29 @@ namespace Gardener.UserCenter.Client.Services
             return await apiCaller.GetAsync<UserDto>($"{controller}/current-user");
         }
 
-        public async Task<List<ResourceDto>> GetCurrentUserMenus(string rootKey = null)
+        public async Task<List<ResourceDto>> GetCurrentUserMenus(string? rootKey = null)
         {
             IDictionary<string, object> queryString = new Dictionary<string, object>();
-            queryString.Add(nameof(rootKey), rootKey);
+            queryString.Add(nameof(rootKey), rootKey??string.Empty);
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-menus", queryString);
         }
 
         public async Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes)
         {
-            List<KeyValuePair<string, object>> paras = new List<KeyValuePair<string, object>>();
+            List<KeyValuePair<string, object?>> paras = new List<KeyValuePair<string, object?>>();
             for (int i = 0; i < resourceTypes.Length; i++)
             {
-                paras.Add(new KeyValuePair<string, object>("resourceTypes", resourceTypes[i]));
+                paras.Add(new KeyValuePair<string, object?>("resourceTypes", resourceTypes[i]));
             }
             return await apiCaller.GetAsync<List<string>>($"{controller}/current-user-resource-keys", paras);
         }
 
         public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes)
         {
-            List<KeyValuePair<string, object>> paras = new List<KeyValuePair<string, object>>();
+            List<KeyValuePair<string, object?>> paras = new List<KeyValuePair<string, object?>>();
             for (int i = 0; i < resourceTypes.Length; i++)
             {
-                paras.Add(new KeyValuePair<string, object> ("resourceTypes" ,resourceTypes[i]));
+                paras.Add(new KeyValuePair<string, object?> ("resourceTypes" ,resourceTypes[i]));
             }
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-resources", paras);
         }

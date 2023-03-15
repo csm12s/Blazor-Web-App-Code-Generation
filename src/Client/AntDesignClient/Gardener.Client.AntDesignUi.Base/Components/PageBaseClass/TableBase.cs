@@ -25,17 +25,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// table引用
         /// </summary>
-        protected ITable _table;
+        protected ITable? _table;
 
         /// <summary>
         /// 数据集合
         /// </summary>
-        protected IEnumerable<TDto> _datas;
+        protected IEnumerable<TDto>? _datas;
 
         /// <summary>
         /// 选择的行
         /// </summary>
-        protected IEnumerable<TDto> _selectedRows;
+        protected IEnumerable<TDto>? _selectedRows;
 
         /// <summary>
         /// table加载中控制
@@ -60,25 +60,25 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 服务
         /// </summary>
         [Inject]
-        protected IServiceBase<TDto, TKey> _service { get; set; }
+        protected IServiceBase<TDto, TKey> _service { get; set; } = null!;
 
         /// <summary>
         /// 本地化
         /// </summary>
         [Inject]
-        protected IClientLocalizer<TLocalResource> localizer { get; set; }
+        protected IClientLocalizer<TLocalResource> localizer { get; set; } = null!;
 
         /// <summary>
         /// 操作对话框
         /// </summary>
         [Inject]
-        protected IOperationDialogService operationDialogService { get; set; }
+        protected IOperationDialogService operationDialogService { get; set; } = null!;
 
         /// <summary>
         /// 消息提示服务
         /// </summary>
         [Inject]
-        protected MessageService messageService { get; set; }
+        protected MessageService messageService { get; set; } = null!;
 
 
         /// <summary>
@@ -139,7 +139,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 model.IsLocked = !isLocked;
                 string msg = isLocked ? localizer[SharedLocalResource.Lock] : localizer[SharedLocalResource.Unlock];
 
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Error($"{msg} {localizer[SharedLocalResource.Fail]}");
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
         }
 
@@ -147,7 +149,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 获取当前搜索组件的搜索条件
         /// </summary>
         /// <returns></returns>
-        protected virtual List<FilterGroup> GetTableSearchFilterGroups()
+        protected virtual List<FilterGroup>? GetTableSearchFilterGroups()
         {
             return tableSearch?.GetFilterGroups();
         }

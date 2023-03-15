@@ -24,30 +24,25 @@
                     </ResourceAuthorize>
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
-                    <Space>
                         <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
-                            <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                     @localizer[SharedLocalResource.Refresh]
                                 </Button>
-                            </SpaceItem>
                         </ResourceAuthorize>
-                    </Space>
                 </AntDesign.Col>
             </Row>
-
         </TitleTemplate>
         <ColumnDefinitions>
             <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
             @*<Column @bind-Field="@model.Id" />*@
-            <Column @bind-Field="@model.BusinessType" TData="AttachmentBusinessType?" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagRandomColor>
+            <Column @bind-Field="@model.BusinessType" TData="AttachmentBusinessType" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagPro>
             </Column>
             <Column @bind-Field="@model.BusinessId" Filterable />
-            <Column @bind-Field="@model.FileType" TData="AttachmentFileType?" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
+            <Column @bind-Field="@model.FileType" TData="AttachmentFileType" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagPro> @model.ContentType
             </Column>
             <Column @bind-Field="@model.Size" Filterable>
                 @model.Size B

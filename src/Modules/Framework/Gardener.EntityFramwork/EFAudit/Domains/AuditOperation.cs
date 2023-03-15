@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
+using Gardener.Base;
 using Gardener.EntityFramwork.DbContexts;
 using Gardener.Enums;
 using System;
@@ -20,7 +21,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
     /// </summary>
     [Description("操作审计信息")]
     [IgnoreAudit]
-    public class AuditOperation : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditOperation : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计操作

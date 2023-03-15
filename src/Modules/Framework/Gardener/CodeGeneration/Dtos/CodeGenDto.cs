@@ -4,30 +4,48 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.CodeGeneration.Dtos;
-
-public partial class CodeGenDto: BaseDto<Guid>
+/// <summary>
+/// CodeGenDto
+/// </summary>
+public partial class CodeGenDto : BaseDto<Guid>
 {
     #region Custom Dto
-
+    /// <summary>
+    /// UpdateCodeGenConfig
+    /// </summary>
     public bool UpdateCodeGenConfig { get; set; } = true;
 
-    // public bool HasPrimarykey { get; set; }
-    // For tables with no primary key: 
-    public string EditFormInherits { get; set; } = "EditOperationDialogBase";//BaseEdit    
-    public string MainTableInherits { get; set; } = "ListTableBase";//BaseMainTable
+    //public bool HasPrimarykey { get; set; }
 
-    // url path: _sys.tool -> sys/tool 
-    public string ModuleToUrl { get; set; }
+    /// <summary>
+    /// For tables with no primary key:
+    /// </summary>
+    /// <remarks>
+    /// BaseEdit
+    /// </remarks>
+    public string EditFormInherits { get; set; } = "EditOperationDialogBase";
+    /// <summary>
+    /// MainTableInherits
+    /// </summary>
+    /// <remarks>
+    /// BaseMainTable
+    /// </remarks>
+    public string MainTableInherits { get; set; } = "ListTableBase";
+
+    /// <summary>
+    ///  url path: _sys.tool -> sys/tool 
+    /// </summary>
+    public string? ModuleToUrl { get; set; }
 
     /// <summary>
     /// upper name: _sys.tool -> SysTool 
     /// </summary>
-    public string ModuleUpper { get; set; }
+    public string? ModuleUpper { get; set; }
 
     /// <summary>
     /// lower name: _sys.tool -> sysTool 
     /// </summary>
-    public string ModuleLower { get; set; }
+    public string? ModuleLower { get; set; }
 
     /// <summary>
     /// 生成 TypeName 注解，不支持多库
@@ -44,44 +62,84 @@ public partial class CodeGenDto: BaseDto<Guid>
     /// <summary>
     /// "menu:ResourceDto.Key"
     /// </summary>
-    public string MenuLocaleKey { get; set; }
+    public string? MenuLocaleKey { get; set; }
     /// <summary>
     /// ResourceDto.Key: Module_ClassName
     /// </summary>
-    public string MenuKey { get; set; }
+    public string? MenuKey { get; set; }
 
     #endregion
 
     #region Base
+    /// <summary>
+    /// TableName
+    /// </summary>
     [Required(ErrorMessage = "Required")]
-    public string TableName { get; set; }
-
+    public string TableName { get; set; } = null!;
+    /// <summary>
+    /// ClassName
+    /// </summary>
     [Required(ErrorMessage = "Required")]
-    public string ClassName { get; set; }
-
-    public string ClassNameLower { get; set; }
-
+    public string ClassName { get; set; } = null!;
+    /// <summary>
+    /// ClassNameLower
+    /// </summary>
+    public string ClassNameLower { get; set; } = null!;
+    /// <summary>
+    /// Module
+    /// </summary>
     [Required(ErrorMessage = "Required")]
-    public string Module { get; set; }
-    public string Remark { get; set; }
-    public string TableDescriptionEN { get; set; }
-    public string TableDescriptionCH { get; set; }
-    public string IconName { get; set; }
-    public string MenuNameEN { get; set; }
-    public string MenuNameCH { get; set; }
-    public Guid?  MenuParentId { get; set; }
-
+    public string? Module { get; set; } = null!;
+    /// <summary>
+    /// Remark
+    /// </summary>
+    public string? Remark { get; set; }
+    /// <summary>
+    /// TableDescriptionEN
+    /// </summary>
+    public string? TableDescriptionEN { get; set; }
+    /// <summary>
+    /// TableDescriptionCH
+    /// </summary>
+    public string? TableDescriptionCH { get; set; }
+    /// <summary>
+    /// IconName
+    /// </summary>
+    public string? IconName { get; set; }
+    /// <summary>
+    /// MenuNameEN
+    /// </summary>
+    public string? MenuNameEN { get; set; }
+    /// <summary>
+    /// MenuNameCH
+    /// </summary>
+    public string? MenuNameCH { get; set; }
+    /// <summary>
+    /// MenuParentId
+    /// </summary>
+    public Guid? MenuParentId { get; set; }
+    /// <summary>
+    /// TablePrefix
+    /// </summary>
     [MaxLength(5)]
-    public string TablePrefix { get; set; }
-
+    public string? TablePrefix { get; set; }
+    /// <summary>
+    /// NameSpace
+    /// </summary>
     [MaxLength(100)]
-    public string NameSpace { get; set; }
+    public string? NameSpace { get; set; }
 
     /// <summary>
     /// 为View或Edit下的Select生成对应字段
     /// </summary>
     public bool GenerateSelectFields { get; set; } = true;
+    /// <summary>
+    /// UseCustomTemplate
+    /// </summary>
     public bool UseCustomTemplate { get; set; } = false;
+    /// <summary>
+    /// GenerateProjectFile
+    /// </summary>
     public bool GenerateProjectFile { get; set; } = false;
     /// <summary>
     /// XxxBaseService, XxxBaseController, _Imports.razor, SwaggerSetting.Add.json, ...
@@ -97,7 +155,9 @@ public partial class CodeGenDto: BaseDto<Guid>
     /// DB多语言Excel文件和多语言添加文件
     /// </summary>
     public bool GenerateLocaleFile { get; set; } = false;
-
+    /// <summary>
+    /// UseChineseKey
+    /// </summary>
     public bool UseChineseKey { get; set; } = false;
 
     /// <summary>
@@ -120,14 +180,39 @@ public partial class CodeGenDto: BaseDto<Guid>
     // AuthKeys
     // public List<string> Buttons { get; set; }
     // 在模板里：@if(Model.CodeGen.Buttons.Contains(AuthKeys.BatchDelete))
+
+    /// <summary>
+    /// HasAdd
+    /// </summary>
     public bool HasAdd { get; set; } = true;
-    public bool HasEdit         {get; set;}   = true;
-    public bool HasBatchEdit    {get; set;}   = true;
-    public bool HasDelete       {get; set;}   = true;
-    public bool HasBatchDelete  {get; set;}   = true;
-    public bool HasLock         {get; set;}   = true;
-    public bool HasImport       {get; set;}   = true;
-    public bool HasExport       { get; set; } = true;
+    /// <summary>
+    /// HasEdit
+    /// </summary>
+    public bool HasEdit { get; set; } = true;
+    /// <summary>
+    /// HasBatchEdit
+    /// </summary>
+    public bool HasBatchEdit { get; set; } = true;
+    /// <summary>
+    /// HasDelete
+    /// </summary>
+    public bool HasDelete { get; set; } = true;
+    /// <summary>
+    /// HasBatchDelete
+    /// </summary>
+    public bool HasBatchDelete { get; set; } = true;
+    /// <summary>
+    /// HasLock
+    /// </summary>
+    public bool HasLock { get; set; } = true;
+    /// <summary>
+    /// HasImport
+    /// </summary>
+    public bool HasImport { get; set; } = true;
+    /// <summary>
+    /// HasExport
+    /// </summary>
+    public bool HasExport { get; set; } = true;
 
     #endregion
 
@@ -143,15 +228,21 @@ public partial class CodeGenDto: BaseDto<Guid>
     /// </summary>
     public string? OriginModule { get; set; }
 
+    /// <summary>
+    /// NewTableName
+    /// </summary>
     public string? NewTableName { get; set; }
 
-    // 如果为了保持项目简洁，可以不要AllowNull字段，自己在CodeGenConfigView设置即可，这里暂时保留
-    // 因为页面有点卡
     /// <summary>
+    /// AllowNull
+    /// </summary>
+    /// <remarks>
+    /// 如果为了保持项目简洁，可以不要AllowNull字段，自己在CodeGenConfigView设置即可，这里暂时保留
+    /// 因为页面有点卡
     /// 1, false，正常生成Entity
     /// 2, true，根据某一表生成表建表, 设为true将在初始化CodeGenConfig时将IsNullable设置为true
     /// 然后自己在CodeGenConfig中手动设置
-    /// </summary>
+    /// </remarks>
     public bool AllowNull { get; set; } = false;
     #endregion
 

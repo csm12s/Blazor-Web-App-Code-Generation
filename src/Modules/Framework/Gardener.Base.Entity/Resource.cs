@@ -21,7 +21,7 @@ namespace Gardener.Base.Entity
         /// </summary>
         [Required, MaxLength(100)]
         [DisplayName("名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 资源名称简写-唯一
@@ -29,28 +29,28 @@ namespace Gardener.Base.Entity
         /// </summary>
         [Required, MaxLength(100)]
         [DisplayName("唯一标示")]
-        public string Key { get; set; }
+        public string Key { get; set; } = null!;
 
         /// <summary>
         /// 备注
         /// </summary>
         [MaxLength(500)]
         [DisplayName("备注")]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
         /// <summary>
         /// 资源地址 菜单：页面路由地址
         /// </summary>
         [MaxLength(200)]
         [DisplayName("路径")]
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
         /// <summary>
         /// 资源图标
         /// </summary>
         [MaxLength(50)]
         [DisplayName("图标")]
-        public string Icon { get; set; }
+        public string? Icon { get; set; }
 
         /// <summary>
         /// 资源排序
@@ -68,12 +68,12 @@ namespace Gardener.Base.Entity
         /// <summary>
         /// 父级
         /// </summary>
-        public Resource Parent { get; set; }
+        public Resource? Parent { get; set; }
 
         /// <summary>
         /// 子集
         /// </summary>
-        public ICollection<Resource> Children { get; set; }
+        public ICollection<Resource>? Children { get; set; }
 
         /// <summary>
         /// 权限类型
@@ -84,7 +84,7 @@ namespace Gardener.Base.Entity
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<ResourceFunction> ResourceFunctions { get; set; }
+        public List<ResourceFunction>? ResourceFunctions { get; set; }
 
     }
 }

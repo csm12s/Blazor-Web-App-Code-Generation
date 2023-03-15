@@ -43,10 +43,10 @@ namespace Gardener.Common
         /// </summary>
         /// <param name="resource"></param>
         /// <param name="ids"></param>
-        public static List<TKey> GetAllChildrenNodes<TKey, TDto>(TDto dto, Func<TDto, TKey> getId, Func<TDto, ICollection<TDto>> getChildren)
+        public static List<TKey>? GetAllChildrenNodes<TKey, TDto>(TDto dto, Func<TDto, TKey> getId, Func<TDto, ICollection<TDto>> getChildren)
         {
             if (dto == null) return null;
-            List<TKey> ids = GetAllChildrenNodes(getChildren(dto),getId,getChildren);
+            List<TKey> ids = GetAllChildrenNodes(getChildren(dto), getId, getChildren);
             ids.Add(getId(dto));
             return ids;
         }
@@ -58,7 +58,7 @@ namespace Gardener.Common
         /// <param name="query"></param>
         /// <param name="getChildren"></param>
         /// <returns></returns>
-        public static TDto QueryNode<TDto>(ICollection<TDto> dtos, Func<TDto, bool> query, Func<TDto, ICollection<TDto>> getChildren)
+        public static TDto? QueryNode<TDto>(ICollection<TDto> dtos, Func<TDto, bool> query, Func<TDto, ICollection<TDto>> getChildren)
         {
             Console.WriteLine("begin");
             if (dtos == null)
@@ -74,7 +74,7 @@ namespace Gardener.Common
                 var children = getChildren(dto);
                 if (children != null)
                 {
-                    var node= QueryNode(children, query, getChildren);
+                    var node = QueryNode(children, query, getChildren);
                     if (node != null)
                     {
                         return node;
@@ -116,10 +116,7 @@ namespace Gardener.Common
             {
                 // Get grand child Tree
                 var grandChildTreeList = ListToTree(nodeList, childTree.Id);
-                childTree.Children = grandChildTreeList.Count == 0 ? 
-                    null 
-                    : grandChildTreeList;
-
+                childTree.Children = grandChildTreeList;
                 childTreeList.Add(childTree);
             }
 

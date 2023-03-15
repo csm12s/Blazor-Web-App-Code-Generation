@@ -29,7 +29,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 确认提示服务
         /// </summary>
         [Inject]
-        protected ConfirmService confirmService { get; set; }
+        protected ConfirmService confirmService { get; set; } = null!;
 
         #region abstract mothed
         /// <summary>
@@ -52,7 +52,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        protected abstract TKey GetParentKey(TDto dto);
+        protected abstract TKey? GetParentKey(TDto dto);
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
         /// </summary>
@@ -123,7 +123,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             _datas = await GetTree();
             if (_datas == null)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Error("加载失败");
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
             _tableIsLoading = false;
             await RefreshPageDom();
@@ -162,11 +164,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 var result = await _service.FakeDeletes(ids.ToArray());
                 if (result)
                 {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     messageService.Success("删除成功");
-                    if (DeleteTreeNode(GetParentKey(dto), GetKey(dto), _datas))
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    var pKey=GetParentKey(dto);
+                    if (_datas != null && pKey!=null && DeleteTreeNode(pKey, GetKey(dto), _datas))
                     {
                         await InvokeAsync(StateHasChanged);
-
                     }
                     else
                     {
@@ -175,7 +179,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
                 else
                 {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     messageService.Error("删除失败");
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 }
             }
         }
@@ -230,7 +236,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Warn("未选中任何行");
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
             else
             {
@@ -242,12 +250,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     var result = await _service.FakeDeletes(ids.Distinct().ToArray());
                     if (result)
                     {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         messageService.Success("删除成功");
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         await ReLoadTable();
                     }
                     else
                     {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         messageService.Error($"删除失败");
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     }
                 }
             }
@@ -307,9 +319,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             foreach (TDto dto in items)
             {
                 var children = GetChildren(dto);
-                if (GetKey(dto).Equals(pId))
+                var key=GetKey(dto);
+                if (key!=null && key.Equals(pId))
                 {
-                    children = children.Where(x => !GetKey(x).Equals(id)).ToList();
+                    children = children.Where(x => !key.Equals(id)).ToList();
                     SetChildren(dto, children);
                     return true;
                 }
@@ -324,14 +337,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             return false;
         }
         /// <summary>
-        /// 从树种找到节点
+        /// 从树中找到节点
         /// </summary>
         /// <param name="id"></param>
         /// <param name="resource"></param>
         /// <returns></returns>
-        protected TDto GetNodeFromTree(TKey id, TDto dto)
+        protected TDto? GetNodeFromTree(TKey id, TDto dto)
         {
-            if (GetKey(dto).Equals(id))
+            var key = GetKey(dto);
+            if (key!=null && key.Equals(id))
             {
                 return dto;
             }
@@ -425,11 +439,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 //最新的数据
                 var newEntity = await _service.Get(GetKey(dto));
                 //父级变化重新加载列表
-                if (!GetParentKey(newEntity).Equals(GetParentKey(dto)))
+                if (newEntity != null)
                 {
-                    //最新的数据
-                    await ReLoadTable();
-                    return;
+                    var pKey = GetParentKey(newEntity);
+                    if (pKey != null && !pKey.Equals(GetParentKey(dto)))
+                    {
+                        //最新的数据
+                        await ReLoadTable();
+                        return;
+                    }
                 }
                 //父级未变化直接变化本地对象
                 ICollection<TDto> children = GetChildren(dto);
@@ -440,15 +458,20 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 //给子集重新排队
                 _datas.ForEach(x =>
                 {
-                    var p = GetNodeFromTree(GetParentKey(x), x);
-                    if (p != null)
+                    var pKey = GetParentKey(x);
+                    if (pKey != null)
                     {
-                        ICollection<TDto> children = GetChildren(x);
-                        if (children != null)
+                        var p = GetNodeFromTree(pKey, x);
+                        if (p != null)
                         {
-                            SetChildren(p, SortChildren(children));
+                            ICollection<TDto> children = GetChildren(x);
+                            if (children != null)
+                            {
+                                SetChildren(p, SortChildren(children));
+                            }
                         }
                     }
+
                 });
                 await InvokeAsync(StateHasChanged);
             }
@@ -478,7 +501,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnAddChildrenFinish(TDto dto, OperationDialogOutput<TKey> dialogOutput)
         {
-            if (dialogOutput.Succeeded)
+            if (dialogOutput.Succeeded && dialogOutput.Id!=null)
             {
                 //最新的数据
                 var newEntity = await _service.Get(dialogOutput.Id);

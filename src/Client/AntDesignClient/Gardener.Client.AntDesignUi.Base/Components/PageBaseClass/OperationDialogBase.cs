@@ -17,13 +17,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </summary>
     /// <typeparam name="TDialogInput">输入参数的类型</typeparam>
     /// <typeparam name="TDialogOutput">输出参数的类型</typeparam>
-    public abstract class OperationDialogBase<TDialogInput, TDialogOutput> : FeedbackComponent<TDialogInput, TDialogOutput> 
+    public abstract class OperationDialogBase<TDialogInput, TDialogOutput> : FeedbackComponent<TDialogInput, TDialogOutput>
     {
         /// <summary>
         /// 操作对话框
         /// </summary>
         [Inject]
-        protected IOperationDialogService operationDialogService { get; set; }
+        protected IOperationDialogService operationDialogService { get; set; } = null!;
 
         /// <summary>
         /// 获取操作会话配置
@@ -62,10 +62,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="operationDialogSettings"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync<TOperationDialog, TInput, TOutput>(string title, 
-            TInput input, 
-            Func<TOutput, Task> onClose = null,
-            OperationDialogSettings operationDialogSettings = null, 
+        protected async Task OpenOperationDialogAsync<TOperationDialog, TInput, TOutput>(string title,
+            TInput input,
+            Func<TOutput, Task>? onClose = null,
+            OperationDialogSettings? operationDialogSettings = null,
             int? width = null) where TOperationDialog : FeedbackComponent<TInput, TOutput>
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
@@ -93,16 +93,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected async Task OpenOperationDialogAsync<TOperationDialog, TInput>(string title,
             TInput input,
-            Func<Task> onClose = null,
-            OperationDialogSettings operationDialogSettings = null,
+            Func<Task>? onClose = null,
+            OperationDialogSettings? operationDialogSettings = null,
             int? width = null) where TOperationDialog : FeedbackComponent<TInput, bool>
         {
-            Func<bool, Task> close = r => {
-
-                return onClose();
+            Func<bool, Task> close = r =>
+            {
+                return onClose == null ? Task.CompletedTask : onClose.Invoke();
             };
 
-            await OpenOperationDialogAsync<TOperationDialog, TInput,bool>(title, input, close, operationDialogSettings,width);
+            await OpenOperationDialogAsync<TOperationDialog, TInput, bool>(title, input, close, operationDialogSettings, width);
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput">输入参数的类型</typeparam>
     public abstract class OperationDialogBase<TDialogInput> : OperationDialogBase<TDialogInput, bool>
     {
-        
+
     }
 
 }

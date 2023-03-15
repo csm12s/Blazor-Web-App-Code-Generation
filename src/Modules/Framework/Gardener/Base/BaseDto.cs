@@ -10,6 +10,10 @@ using System.ComponentModel;
 
 namespace Gardener.Base
 {
+    /// <summary>
+    /// 多租户Dto基类
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
     public abstract class TenantBaseDto<TKey> : BaseDto<TKey>
     {
         /// <summary>
@@ -27,7 +31,7 @@ namespace Gardener.Base
         /// 编号
         /// </summary>
         [DisplayName("Id")]
-        public TKey Id { get; set; }
+        public TKey Id { get; set; } = default!;
 
     }
 

@@ -40,7 +40,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static MenuDataItem Get(string path)
+        public static MenuDataItem? Get(string path)
         {
             if (string.IsNullOrEmpty(path))
             {

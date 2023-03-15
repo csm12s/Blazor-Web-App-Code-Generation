@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base;
 using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -18,7 +19,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 客户端功能信息
     /// </summary>
     [Description("客户端功能信息")]
-    public class ClientFunction : IEntity, IEntityTypeBuilder<ClientFunction>
+    public class ClientFunction : GardenerEntityBaseNoKey, IEntityTypeBuilder<ClientFunction>
     {
         /// <summary>
         /// 客户端编号

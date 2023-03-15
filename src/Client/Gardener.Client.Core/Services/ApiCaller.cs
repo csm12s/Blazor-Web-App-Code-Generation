@@ -50,7 +50,7 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="func"></param>
         /// <returns></returns>
-        async Task<TResponse> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func)
+        async Task<TResponse?> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func)
         {
             try
             {
@@ -58,11 +58,13 @@ namespace Gardener.Client.Core
                 if (HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<TResponse>>();
-                    if (!result.Succeeded)
+                    if (result==null || !result.Succeeded)
                     {
-                        log.Error(result.Errors?.ToString(), result.StatusCode);
-                        //时间戳过期
-                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        log.Error(result?.Errors?.ToString()??string.Empty, result?.StatusCode);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                              //时间戳过期
+                        if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
@@ -72,8 +74,10 @@ namespace Gardener.Client.Core
                     return result.Data;
                 }
                 //请求失败 
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
-                //身份验证失败
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                              //身份验证失败
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                 {
                     await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
@@ -83,7 +87,9 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 log.Error($"{localizer[SharedLocalResource.ResuqesException]}[{ex.Message}]", -999, ex);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 return default(TResponse);
             }
         }
@@ -100,8 +106,10 @@ namespace Gardener.Client.Core
                 if (!HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
                     //请求失败
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
-                    //身份验证失败
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                              //身份验证失败
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                     {
                         await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode=httpResponse.StatusCode});
@@ -110,11 +118,13 @@ namespace Gardener.Client.Core
                 else 
                 {
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<Object>>();
-                    if (!result.Succeeded)
+                    if (result==null ||!result.Succeeded)
                     {
-                        log.Error(result.Errors?.ToString(), result.StatusCode);
-                        //时间戳过期
-                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        log.Error(result?.Errors?.ToString()??string.Empty, result.StatusCode);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                              //时间戳过期
+                        if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
@@ -123,7 +133,9 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 log.Error($"{localizer[SharedLocalResource.ResuqesException]}[{ex.Message}]", -999, ex);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
         }
         /// <summary>
@@ -132,7 +144,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        private string GetUrl(string url, IDictionary<string, object> queryString = null)
+        private string GetUrl(string url, IDictionary<string, object>? queryString = null)
         {
             if (queryString != null && queryString.Count > 0)
             {
@@ -146,11 +158,11 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        private string GetUrl(string url, List<KeyValuePair<string, object>> queryString)
+        private string GetUrl(string url, List<KeyValuePair<string, object?>> queryString)
         {
             if (queryString != null && queryString.Count() > 0)
             {
-                foreach (KeyValuePair<string, object> item in queryString)
+                foreach (KeyValuePair<string, object?> item in queryString)
                 {
                     url = QueryHelpers.AddQueryString(url, item.Key, item.Value == null ? "" : item.Value.ToString());
                 }
@@ -165,11 +177,16 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task PostAsync<TRequest>(string url, TRequest request = default(TRequest))
+        public Task PostAsync<TRequest>(string url, TRequest? request = default(TRequest))
         {
             return ResponseHandle(() =>
             {
-                return httpClient.PostAsJsonAsync<TRequest>(url, request);
+                if (request == null)
+                {
+                    //todo:request 等于null时 给空 是否会有问题
+                    return httpClient.PostAsJsonAsync(url,string.Empty);
+                }
+                return httpClient.PostAsJsonAsync(url, request);
             });
         }
         /// <summary>
@@ -180,7 +197,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request = default(TRequest))
+        public Task<TResponse?> PostAsync<TRequest, TResponse>(string url, TRequest? request = default(TRequest))
         {
             return ResponseHandle<TResponse>(() =>
            {
@@ -195,7 +212,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        public Task<TResponse?> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object>? queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -210,7 +227,7 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="url"></param>
         /// <returns></returns>
-        public Task<TResponse> GetAsync<TResponse>(string url)
+        public Task<TResponse?> GetAsync<TResponse>(string url)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -225,7 +242,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
+        public Task<TResponse?> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
         {
             return ResponseHandle<TResponse>(() =>
              {
@@ -241,7 +258,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString)
+        public Task<TResponse?> GetAsync<TResponse>(string url, List<KeyValuePair<string, object?>> queryString)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -258,7 +275,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task DeleteAsync(string url, IDictionary<string, object> queryString = null)
+        public Task DeleteAsync(string url, IDictionary<string, object>? queryString = null)
         {
            return ResponseHandle(() =>
             {
@@ -272,7 +289,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        public Task<TResponse?> DeleteAsync<TResponse>(string url, IDictionary<string, object>? queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -288,7 +305,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task PutAsync<TRequest>(string url, TRequest request = default)
+        public Task PutAsync<TRequest>(string url, TRequest? request = default)
         {
             return ResponseHandle(() =>
             {
@@ -303,7 +320,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request = default)
+        public Task<TResponse?> PutAsync<TRequest, TResponse>(string url, TRequest? request = default)
         {
             return ResponseHandle<TResponse>(() =>
            {

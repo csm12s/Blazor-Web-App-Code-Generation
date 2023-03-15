@@ -23,7 +23,7 @@ namespace Gardener.Audit.Dtos
         /// 资源名
         /// </summary>
         [DisplayName("资源名")]
-        public string ResourceName { get; set; }
+        public string ResourceName { get; set; } = null!;
         /// <summary>
         /// 资源编号
         /// </summary>
@@ -33,12 +33,12 @@ namespace Gardener.Audit.Dtos
         /// 操作者编号
         /// </summary>
         [DisplayName("操作者编号")]
-        public string OperaterId { get; set; }
+        public string OperaterId { get; set; } = null!;
         /// <summary>
         /// 操作者名称
         /// </summary>
         [DisplayName("操作者名称")]
-        public string OperaterName { get; set; }
+        public string OperaterName { get; set; } = null!;
         /// <summary>
         /// 操作者类型
         /// </summary>
@@ -48,17 +48,17 @@ namespace Gardener.Audit.Dtos
         /// 访问IP
         /// </summary>
         [DisplayName("IP")]
-        public string Ip { get; set; }
+        public string? Ip { get; set; }
         /// <summary>
         /// UserAgent
         /// </summary>
         [DisplayName("UserAgent")]
-        public string UserAgent { get; set; }
+        public string? UserAgent { get; set; }
         /// <summary>
         /// 请求地址
         /// </summary>
         [DisplayName("请求地址")]
-        public string Path { get; set; }
+        public string? Path { get; set; }
         /// <summary>
         /// 请求方法
         /// </summary>
@@ -68,10 +68,10 @@ namespace Gardener.Audit.Dtos
         /// 请求参数
         /// </summary>
         [DisplayName("请求参数")]
-        public string Parameters { get; set; }
+        public string? Parameters { get; set; }
         /// <summary>
         /// 关联数据审计
         /// </summary>
-        public List<AuditEntityDto> AuditEntitys { get; set; }
+        public List<AuditEntityDto>? AuditEntitys { get; set; }
     }
 }

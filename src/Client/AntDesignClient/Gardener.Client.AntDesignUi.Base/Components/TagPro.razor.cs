@@ -29,7 +29,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// Tag content
         /// </summary>
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
         /// tag 显示的文本
@@ -42,14 +42,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 如果没有可用颜色，将自动随机从 <see cref="PresetColor"/> 中获取一个
         /// </remarks>
         [Parameter]
-        public object Text { get; set; }
+        public object? Text { get; set; }
 
         /// <summary>
         /// 自定义颜色
         /// </summary>
         [Parameter]
-        public string Color { get => _color?.ToLower(); set => _color = value?.ToLower(); }
-        private string _color;
+        public string? Color { get; set; }
+        
         /// <summary>
         /// 禁用随机颜色
         /// </summary>
@@ -91,7 +91,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// Set the tag's icon 
         /// </summary>
         [Parameter]
-        public string Icon { get; set; }
+        public string? Icon { get; set; }
 
         /// <summary>
         /// Callback executed when tag is closed
@@ -118,7 +118,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         [Parameter]
         public bool Visible { get; set; } = true;
 
-        private string value = string.Empty;
+        private string? value = string.Empty;
 
         protected override void OnInitialized()
         {
@@ -139,7 +139,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 value = Common.EnumHelper.GetEnumDescription((Enum)Text);
                 if (string.IsNullOrEmpty(this.Color))
                 {
-                    TagColorAttribute tagColorAttribute = Common.EnumHelper.GetEnumAttribute<TagColorAttribute>((Enum)Text);
+                    TagColorAttribute? tagColorAttribute = Common.EnumHelper.GetEnumAttribute<TagColorAttribute>((Enum)Text);
                     if (tagColorAttribute != null)
                     {
                         if (!string.IsNullOrEmpty(tagColorAttribute.Color))
@@ -157,11 +157,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             
             if (string.IsNullOrEmpty(this.Color) && !DisabledRandomColor)
             {
-                this.Color = GetRandomColor(Text.ToString());
+                this.Color = GetRandomColor(Text.ToString() ?? "");
             }
             if (string.IsNullOrEmpty(value))
             {
-                value = Text.ToString();
+                value = Text.ToString()??"";
             }
             //本地化
             value = LocalizerUtil.GetValue(value);

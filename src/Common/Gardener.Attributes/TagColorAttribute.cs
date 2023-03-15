@@ -43,6 +43,6 @@ namespace Gardener.Attributes
         /// <remarks>
         /// 优先级高于PresetColor
         /// </remarks>
-        public string Color { get; private set; }
+        public string? Color { get; private set; }
     }
 }

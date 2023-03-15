@@ -16,12 +16,14 @@ namespace Gardener.Common
         /// 状态码
         /// </summary>
         public int? StatusCode { get; set; }
-
-        private T data;
         /// <summary>
         /// 数据
         /// </summary>
-        public T Data
+        private T? data;
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public T? Data
         {
             get
             {
@@ -41,17 +43,17 @@ namespace Gardener.Common
         /// <summary>
         /// 错误信息
         /// </summary>
-        public object Errors { get; set; }
+        public object? Errors { get; set; }
 
         /// <summary>
         /// 错误码
         /// </summary>
-        public object ErrorCode { get; set; }
+        public object? ErrorCode { get; set; }
 
         /// <summary>
         /// 附加数据
         /// </summary>
-        public object Extras { get; set; }
+        public object? Extras { get; set; }
         /// <summary>
         /// 时间戳
         /// </summary>

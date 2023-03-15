@@ -17,7 +17,7 @@ namespace Gardener.Base
     /// </summary>
     public static class EntityEventNotityUtil
     {
-        private static IEventBus _eventBus = null;
+        private static IEventBus? _eventBus = null;
         private static readonly object _senderLock = new object();
 
         /// <summary>

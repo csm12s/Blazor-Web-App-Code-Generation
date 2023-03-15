@@ -16,12 +16,20 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// 系统配置服务
         /// </summary>
         [Inject]
-        private ISystemConfigService SystemConfigService { get; set; }
+        private ISystemConfigService SystemConfigService { get; set; } = null!;
+        /// <summary>
+        /// js工具
+        /// </summary>
         [Inject]
-        private IJsTool JsTool { get; set; }
-
-        private SystemConfig systemConfig;
-
+        private IJsTool JsTool { get; set; } = null!;
+        /// <summary>
+        /// 系统配置
+        /// </summary>
+        private SystemConfig systemConfig = null!;
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <returns></returns>
         protected async override Task OnInitializedAsync()
         {
             systemConfig = SystemConfigService.GetSystemConfig();

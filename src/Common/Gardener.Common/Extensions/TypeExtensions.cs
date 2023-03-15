@@ -77,9 +77,9 @@ namespace Gardener.Common
         /// <param name="type">类型对象</param>
         /// <param name="inherit">是否搜索类型的继承链以查找描述特性</param>
         /// <returns>返回Description特性描述信息，如不存在则返回类型的全名</returns>
-        public static string GetDescription(this Type type, bool inherit = true)
+        public static string? GetDescription(this Type type, bool inherit = true)
         {
-            DescriptionAttribute desc = type.GetAttribute<DescriptionAttribute>(inherit);
+            DescriptionAttribute? desc = type.GetAttribute<DescriptionAttribute>(inherit);
             return desc == null ? type.FullName : desc.Description;
         }
 
@@ -89,19 +89,19 @@ namespace Gardener.Common
         /// <param name="member">成员元数据对象</param>
         /// <param name="inherit">是否搜索成员的继承链以查找描述特性</param>
         /// <returns>返回Description特性描述信息，如不存在则返回成员的名称</returns>
-        public static string GetDescription(this MemberInfo member, bool inherit = true)
+        public static string? GetDescription(this MemberInfo member, bool inherit = true)
         {
-            DescriptionAttribute desc = member.GetAttribute<DescriptionAttribute>(inherit);
+            DescriptionAttribute? desc = member.GetAttribute<DescriptionAttribute>(inherit);
             if (desc != null)
             {
                 return desc.Description;
             }
-            DisplayNameAttribute displayName = member.GetAttribute<DisplayNameAttribute>(inherit);
+            DisplayNameAttribute? displayName = member.GetAttribute<DisplayNameAttribute>(inherit);
             if (displayName != null)
             {
                 return displayName.DisplayName;
             }
-            DisplayAttribute display = member.GetAttribute<DisplayAttribute>(inherit);
+            DisplayAttribute? display = member.GetAttribute<DisplayAttribute>(inherit);
             if (display != null)
             {
                 return display.Name;
@@ -145,10 +145,12 @@ namespace Gardener.Common
         /// <param name="memberInfo">类型类型成员</param>
         /// <param name="inherit">是否从继承中查找</param>
         /// <returns>存在返回第一个，不存在返回null</returns>
-        public static T GetAttribute<T>(this MemberInfo memberInfo, bool inherit = true) where T : Attribute
+        public static T? GetAttribute<T>(this MemberInfo memberInfo, bool inherit = true) where T : Attribute
         {
             var attributes = memberInfo.GetCustomAttributes(typeof(T), inherit);
-            return attributes.FirstOrDefault() as T;
+            var first= attributes.FirstOrDefault();
+            if (first == null) return default(T);
+            return first as T;
         }
 
         /// <summary>
@@ -198,7 +200,7 @@ namespace Gardener.Common
 
             foreach (var other in allOthers)
             {
-                Type cur = other;
+                Type? cur = other;
                 while (cur != null)
                 {
                     if (cur.IsGenericType)
@@ -331,8 +333,9 @@ namespace Gardener.Common
             { typeof(void), "void" }
         };
 
-        private static void ProcessType(StringBuilder builder, Type type, bool fullName)
+        private static void ProcessType(StringBuilder builder, Type? type, bool fullName)
         {
+            if (type == null) { return; }
             if (type.IsGenericType)
             {
                 var genericArguments = type.GetGenericArguments();
@@ -352,17 +355,18 @@ namespace Gardener.Common
             }
         }
 
-        private static void ProcessArrayType(StringBuilder builder, Type type, bool fullName)
+        private static void ProcessArrayType(StringBuilder builder, Type? type, bool fullName)
         {
+            if (type == null) {return;}
             var innerType = type;
-            while (innerType.IsArray)
+            while (innerType!=null && innerType.IsArray)
             {
                 innerType = innerType.GetElementType();
             }
 
             ProcessType(builder, innerType, fullName);
 
-            while (type.IsArray)
+            while (type != null && type.IsArray)
             {
                 builder.Append('[');
                 builder.Append(',', type.GetArrayRank() - 1);
@@ -371,9 +375,11 @@ namespace Gardener.Common
             }
         }
 
-        private static void ProcessGenericType(StringBuilder builder, Type type, Type[] genericArguments, int length, bool fullName)
+        private static void ProcessGenericType(StringBuilder builder, Type? type, Type[] genericArguments, int length, bool fullName)
         {
-            var offset = type.IsNested ? type.DeclaringType.GetGenericArguments().Length : 0;
+            if(type == null) { return;}
+
+            var offset = (type.IsNested && type.DeclaringType != null) ? type.DeclaringType.GetGenericArguments().Length : 0;
 
             if (fullName)
             {

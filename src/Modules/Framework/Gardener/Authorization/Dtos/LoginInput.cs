@@ -24,7 +24,7 @@ namespace Gardener.Authorization.Dtos
         [MinLength(5, ErrorMessage = "长度不能小于5位。")]
         [MaxLength(32, ErrorMessage = "长度不能大于32位。")]
         [DisplayName("用户名")]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = null!;
 
         /// <summary>
         /// 密码
@@ -33,7 +33,7 @@ namespace Gardener.Authorization.Dtos
         [MinLength(5, ErrorMessage = "长度不能小于5位。")]
         [MaxLength(32, ErrorMessage = "长度不能大于32位。")]
         [DisplayName("密码")]
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
 
         /// <summary>
         /// 登录类型

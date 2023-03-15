@@ -42,7 +42,7 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <param name="accessTokenProvider"></param>
         /// <returns></returns>
-        ISignalRClientBuilder SetAccessTokenProvider(Func<Task<string?>> accessTokenProvider);
+        ISignalRClientBuilder SetAccessTokenProvider(Func<Task<string>> accessTokenProvider);
         /// <summary>
         /// 设置是否重连
         /// </summary>
