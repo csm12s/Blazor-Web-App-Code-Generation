@@ -110,18 +110,33 @@ namespace Gardener.Enums
         [Description("邮件服务器未找到")]
         EMAIL_SERVER_NO_FIND,
 
+        /// <summary>
+        /// 接口方法需要备注
+        /// </summary>
         [Description("接口方法需要备注")]
         Controller_Need_Comment,
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Description("SugarRepository 初始化错误")]
         Sugar_Repository_Init_Fail,
 
+        /// <summary>
+        /// 表名已存在
+        /// </summary>
         [Description("表名已存在")]
         Table_Name_Exist,
 
+        /// <summary>
+        /// 代码生成模板编译错误
+        /// </summary>
         [Description("代码生成模板编译错误")]
         Code_Gen_Template_Compile_Error,
 
+        /// <summary>
+        /// 查询出错，检索字段在数据库中可能为null
+        /// </summary>
         [Description("查询出错，检索字段在数据库中可能为null")]
         Search_Error_DB_Field_Is_Null,
     }

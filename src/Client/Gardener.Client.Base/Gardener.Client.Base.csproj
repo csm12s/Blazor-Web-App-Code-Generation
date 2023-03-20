@@ -4,18 +4,26 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>annotations</Nullable>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <NoWarn>1701;1702;8618;4014</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <NoWarn>1701;1702;8618;4014</NoWarn>
+	</PropertyGroup>
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AntDesign" Version="0.13.3" />
-		<PackageReference Include="AntDesign.Charts" Version="0.2.3" />
+		<PackageReference Include="AntDesign.Charts" Version="0.3.1" />
 		<PackageReference Include="AntDesign.ProLayout" Version="0.13.1" />
 		<PackageReference Include="BlazorMonaco" Version="2.1.0" />
 		<PackageReference Include="Mapster" Version="7.3.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
 	</ItemGroup>
 

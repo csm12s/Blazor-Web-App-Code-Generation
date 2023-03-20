@@ -46,6 +46,15 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
 
     private readonly IWebHostEnvironment env;
 
+    /// <summary>
+    /// 代码生成服务
+    /// </summary>
+    /// <param name="repository"></param>
+    /// <param name="configRepository"></param>
+    /// <param name="codeGenConfigService"></param>
+    /// <param name="env"></param>
+    /// <param name="sugarRepository"></param>
+    /// <param name="resourceService"></param>
     public CodeGenService(IRepository<CodeGen> repository,
         IRepository<CodeGenConfig> configRepository,
         ICodeGenConfigService codeGenConfigService,

@@ -130,6 +130,11 @@ namespace Gardener.SystemManager.Services
                  .ToListAsync();
         }
 
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         [HttpPost]
         [SwaggerOperation(Summary = "批量删除", Description = "根据多个主键批量删除")]
         public override async Task<bool> Deletes([FromBody] Guid[] ids)

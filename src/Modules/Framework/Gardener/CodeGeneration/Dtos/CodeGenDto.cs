@@ -1,22 +1,38 @@
-﻿
+﻿#nullable enable
+
 using Gardener.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.CodeGeneration.Dtos;
 
+/// <summary>
+/// 代码生成 Dto
+/// </summary>
 public partial class CodeGenDto: BaseDto<Guid>
 {
     #region Custom Dto
 
+    /// <summary>
+    /// 是否更新代码生成配置
+    /// </summary>
     public bool UpdateCodeGenConfig { get; set; } = true;
 
     // public bool HasPrimarykey { get; set; }
     // For tables with no primary key: 
-    public string EditFormInherits { get; set; } = "EditOperationDialogBase";//BaseEdit    
-    public string MainTableInherits { get; set; } = "ListTableBase";//BaseMainTable
+    /// <summary>
+    /// BaseEdit
+    /// </summary>
+    public string EditFormInherits { get; set; } = "EditOperationDialogBase";
+    /// <summary>
+    /// BaseMainTable
+    /// </summary>
+    public string MainTableInherits { get; set; } = "ListTableBase";
 
-    // url path: _sys.tool -> sys/tool 
+    /// <summary>
+    /// 模块URL
+    /// url path: _sys.tool -> sys/tool 
+    /// </summary>
     public string ModuleToUrl { get; set; }
 
     /// <summary>
@@ -53,27 +69,67 @@ public partial class CodeGenDto: BaseDto<Guid>
     #endregion
 
     #region Base
+    /// <summary>
+    /// 表名
+    /// </summary>
     [Required(ErrorMessage = "Required")]
     public string TableName { get; set; }
 
+    /// <summary>
+    /// 类名
+    /// </summary>
     [Required(ErrorMessage = "Required")]
     public string ClassName { get; set; }
 
+    /// <summary>
+    /// 小写类名
+    /// </summary>
     public string ClassNameLower { get; set; }
 
+    /// <summary>
+    /// 模块
+    /// </summary>
     [Required(ErrorMessage = "Required")]
     public string Module { get; set; }
+    /// <summary>
+    /// 备注
+    /// </summary>
     public string Remark { get; set; }
+
+    /// <summary>
+    /// 表英文描述
+    /// </summary>
     public string TableDescriptionEN { get; set; }
+    /// <summary>
+    /// 表中文描述
+    /// </summary>
     public string TableDescriptionCH { get; set; }
+    /// <summary>
+    /// 图标
+    /// </summary>
     public string IconName { get; set; }
+    /// <summary>
+    /// 菜单英文名
+    /// </summary>
     public string MenuNameEN { get; set; }
+    /// <summary>
+    /// 菜单中文名
+    /// </summary>
     public string MenuNameCH { get; set; }
+    /// <summary>
+    /// 上级菜单Id
+    /// </summary>
     public Guid?  MenuParentId { get; set; }
 
+    /// <summary>
+    /// 表头
+    /// </summary>
     [MaxLength(5)]
     public string TablePrefix { get; set; }
 
+    /// <summary>
+    /// 命名空间
+    /// </summary>
     [MaxLength(100)]
     public string NameSpace { get; set; }
 
@@ -81,7 +137,13 @@ public partial class CodeGenDto: BaseDto<Guid>
     /// 为View或Edit下的Select生成对应字段
     /// </summary>
     public bool GenerateSelectFields { get; set; } = true;
+    /// <summary>
+    /// 使用自定义模板
+    /// </summary>
     public bool UseCustomTemplate { get; set; } = false;
+    /// <summary>
+    /// 生成项目文件
+    /// </summary>
     public bool GenerateProjectFile { get; set; } = false;
     /// <summary>
     /// XxxBaseService, XxxBaseController, _Imports.razor, SwaggerSetting.Add.json, ...
@@ -98,6 +160,9 @@ public partial class CodeGenDto: BaseDto<Guid>
     /// </summary>
     public bool GenerateLocaleFile { get; set; } = false;
 
+    /// <summary>
+    /// 是否使用中文key
+    /// </summary>
     public bool UseChineseKey { get; set; } = false;
 
     /// <summary>
@@ -120,13 +185,37 @@ public partial class CodeGenDto: BaseDto<Guid>
     // AuthKeys
     // public List<string> Buttons { get; set; }
     // 在模板里：@if(Model.CodeGen.Buttons.Contains(AuthKeys.BatchDelete))
+    /// <summary>
+    /// 是否有添加
+    /// </summary>
     public bool HasAdd { get; set; } = true;
+    /// <summary>
+    /// 是否有编辑
+    /// </summary>
     public bool HasEdit         {get; set;}   = true;
+    /// <summary>
+    /// 是否有批量编辑
+    /// </summary>
     public bool HasBatchEdit    {get; set;}   = true;
+    /// <summary>
+    /// 是否有删除
+    /// </summary>
     public bool HasDelete       {get; set;}   = true;
+    /// <summary>
+    /// 是否有批量删除
+    /// </summary>
     public bool HasBatchDelete  {get; set;}   = true;
+    /// <summary>
+    /// 是否有锁定
+    /// </summary>
     public bool HasLock         {get; set;}   = true;
+    /// <summary>
+    /// 是否有导入
+    /// </summary>
     public bool HasImport       {get; set;}   = true;
+    /// <summary>
+    /// 是否有导出
+    /// </summary>
     public bool HasExport       { get; set; } = true;
 
     #endregion
@@ -143,6 +232,9 @@ public partial class CodeGenDto: BaseDto<Guid>
     /// </summary>
     public string? OriginModule { get; set; }
 
+    /// <summary>
+    /// 新表名
+    /// </summary>
     public string? NewTableName { get; set; }
 
     // 如果为了保持项目简洁，可以不要AllowNull字段，自己在CodeGenConfigView设置即可，这里暂时保留

@@ -47,8 +47,19 @@ namespace Gardener.Client.Base.Components
         /// <summary>
         /// 自定义颜色
         /// </summary>
-        [Parameter]
-        public string Color { get => _color?.ToLower(); set => _color = value?.ToLower(); }
+        public string GetColor()
+        {
+            return _color?.ToLower();
+        }
+
+        /// <summary>
+        /// 自定义颜色
+        /// </summary>
+        public void SetColor(string value)
+        {
+            _color = value?.ToLower();
+        }
+
         private string _color;
         /// <summary>
         /// 禁用随机颜色
@@ -123,9 +134,9 @@ namespace Gardener.Client.Base.Components
         protected override void OnInitialized()
         {
             //如果color没有值，PresetColor 有值，使用PresetColor
-            if (string.IsNullOrEmpty(this.Color) && this.PresetColor.HasValue)
+            if (string.IsNullOrEmpty(this.GetColor()) && this.PresetColor.HasValue)
             {
-                this.Color = this.PresetColor.Value.ToString();
+                this.SetColor(this.PresetColor.Value.ToString());
             }
             //Text为null时什么也推断不出来
             if (Text == null)
@@ -137,27 +148,27 @@ namespace Gardener.Client.Base.Components
             if (Text.GetType().IsEnum)
             {
                 value = Common.EnumHelper.GetEnumDescription((Enum)Text);
-                if (string.IsNullOrEmpty(this.Color))
+                if (string.IsNullOrEmpty(this.GetColor()))
                 {
                     TagColorAttribute tagColorAttribute = Common.EnumHelper.GetEnumAttribute<TagColorAttribute>((Enum)Text);
                     if (tagColorAttribute != null)
                     {
                         if (!string.IsNullOrEmpty(tagColorAttribute.Color))
                         {
-                            this.Color = tagColorAttribute.Color;
+                            this.SetColor(tagColorAttribute.Color);
                         }
                         else if(tagColorAttribute.PresetColor.HasValue)
                         {
-                            this.Color = tagColorAttribute.PresetColor.Value.ToString();
+                            this.SetColor(tagColorAttribute.PresetColor.Value.ToString());
                         }
                         
                     }
                 }
             }
             
-            if (string.IsNullOrEmpty(this.Color) && !DisabledRandomColor)
+            if (string.IsNullOrEmpty(this.GetColor()) && !DisabledRandomColor)
             {
-                this.Color = GetRandomColor(Text.ToString());
+                this.SetColor(GetRandomColor(Text.ToString()));
             }
             if (string.IsNullOrEmpty(value))
             {
