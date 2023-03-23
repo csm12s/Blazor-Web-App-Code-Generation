@@ -6,7 +6,13 @@ namespace Gardener.CodeGeneration.Dtos;
 /// </summary>
 public class TableOutput
 {
+    /// <summary>
+    /// 数据库名
+    /// </summary>
     public string DatabaseName { get; set; }
+    /// <summary>
+    /// 数据库注解
+    /// </summary>
     public string DatabaseComment { get; set; }
 
     /// <summary>

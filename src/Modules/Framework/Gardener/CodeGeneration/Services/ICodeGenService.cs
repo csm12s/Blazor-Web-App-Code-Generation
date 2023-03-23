@@ -17,10 +17,34 @@ namespace Gardener.CodeGeneration.Services
     /// </summary>
     public interface ICodeGenService: IServiceBase<CodeGenDto, Guid>
     {
+        /// <summary>
+        /// 生成代码
+        /// </summary>
+        /// <param name="codeGenIds"></param>
+        /// <returns></returns>
         Task<bool> GenerateCode(Guid[] codeGenIds);
-        Task <bool> GenerateLocale(Guid codeGenId);
+        /// <summary>
+        /// 生成语言环境
+        /// </summary>
+        /// <param name="codeGenId"></param>
+        /// <returns></returns>
+        Task<bool> GenerateLocale(Guid codeGenId);
+        /// <summary>
+        /// 生成目录
+        /// </summary>
+        /// <param name="codeGenId"></param>
+        /// <returns></returns>
         Task<bool> GenerateMenu(Guid codeGenId);
-        Task<List<TableOutput>> GetTableListAsync();//string dbContextLocatorName = ""
+        /// <summary>
+        /// 异步获取表格列表
+        /// string dbContextLocatorName = ""
+        /// </summary>
+        /// <returns></returns>
+        Task<List<TableOutput>> GetTableListAsync();
+        /// <summary>
+        /// 打开代码生成文件夹
+        /// </summary>
+        /// <returns></returns>
         Task<bool> OpenCodeGenFolder();
     }
 }

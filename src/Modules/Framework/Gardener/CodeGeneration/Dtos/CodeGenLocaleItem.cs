@@ -15,8 +15,17 @@ namespace Gardener.CodeGeneration.Dtos
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// 键
+        /// </summary>
         public string Key { get; set; }
+        /// <summary>
+        /// 英文值
+        /// </summary>
         public string ValueEN { get; set; }
+        /// <summary>
+        /// 中文值
+        /// </summary>
         public string ValueCH { get; set; }
 
         /// <summary>

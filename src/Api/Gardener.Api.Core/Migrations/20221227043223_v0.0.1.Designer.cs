@@ -14,6 +14,10 @@ namespace Gardener.Api.Core.Migrations
     [Migration("20221227043223_v0.0.1")]
     partial class v001
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

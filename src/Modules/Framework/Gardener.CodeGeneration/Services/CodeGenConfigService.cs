@@ -36,6 +36,9 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
     private readonly IRepository<CodeGenConfig> repository;
     private readonly SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep;
     private readonly IWebHostEnvironment env;
+    /// <summary>
+    /// 代码生成配置
+    /// </summary>
     public CodeGenConfigService(
         IRepository<CodeGenConfig> repository,
         SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep,
@@ -46,6 +49,9 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         this.env = env;
     }
 
+    /// <summary>
+    /// 删除和添加列表
+    /// </summary>
     [NonAction]
     public async Task DeleteAndAddList(List<TableColumnInfo> dbColumnInfos, CodeGenDto codeGen)
     {
@@ -285,6 +291,9 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         return newColumnName;
     }
 
+    /// <summary>
+    /// 通过codegenid删除
+    /// </summary>
     [NonAction]
     public async Task DeleteByCodeGenId(Guid codeGenId)
     {

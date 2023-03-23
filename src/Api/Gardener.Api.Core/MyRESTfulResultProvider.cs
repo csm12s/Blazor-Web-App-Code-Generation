@@ -30,6 +30,10 @@ namespace Gardener.Admin
         // 日志对象
         private readonly ILogger<MyRESTfulResultProvider> _logger;
 
+        /// <summary>
+        /// RESTful 风格返回值
+        /// </summary>
+        /// <param name="logger"></param>
         public MyRESTfulResultProvider(ILogger<MyRESTfulResultProvider> logger)
         {
             _logger = logger;

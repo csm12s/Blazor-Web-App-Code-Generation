@@ -1,4 +1,6 @@
-﻿using Gardener.Base;
+﻿#nullable enable
+
+using Gardener.Base;
 using Gardener.Enums;
 using System;
 using System.ComponentModel;
@@ -91,13 +93,25 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     /// </summary>
     public string DbDataTypeText { get; set; } = "";
 
-    // view
+    /// <summary>
+    /// 视图组件类型
+    /// </summary>
     public ClientComponentType ViewComponentType { get; set; }
-    // edit
+    /// <summary>
+    /// 编辑组件类型
+    /// </summary>
     public ClientComponentType EditComponentType { get; set; }
+    /// <summary>
+    /// 编辑组件长度
+    /// </summary>
     public int EditComponentLength { get; set; } = 150;
-    // search
+    /// <summary>
+    /// 自定义查询类型
+    /// </summary>
     public ClientComponentType CustomSearchType { get; set; }
+    /// <summary>
+    /// 自定义查询长度
+    /// </summary>
     public int CustomSearchLength { get; set; } = 150;
 
     /// <summary>
@@ -144,6 +158,9 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     /// 是否是查询条件
     /// </summary>
     public bool IsSearch { get; set; } = false;
+    /// <summary>
+    /// 是否自定义查询
+    /// </summary>
     public bool IsCustomSearch { get; set; } = false;
 
     /// <summary>
@@ -163,12 +180,18 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
 
     public bool IsCreate { get; set; } = true;
 
+    /// <summary>
+    /// 必填
+    /// </summary>
     public bool IsRequired { get; set; } = false;
     /// <summary>
     /// 改
     /// </summary>
     public bool IsEdit { get; set; } = true;
 
+    /// <summary>
+    /// 批量修改
+    /// </summary>
     public bool IsBatchEdit { get; set; } = false;
 
     /// <summary>

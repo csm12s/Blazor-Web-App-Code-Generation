@@ -92,21 +92,47 @@ namespace Gardener.SysTimer.Impl.Demo
         }
     }
 
+    /// <summary>
+    /// 新闻结果
+    /// </summary>
     public class NewsResult
     { 
-    
+        /// <summary>
+        /// live列表
+        /// </summary>
         public List<NewsInfo> LivesList { get; set; }
 
 
     }
 
+    /// <summary>
+    /// 新闻信息
+    /// </summary>
     public class NewsInfo
     {
+        /// <summary>
+        /// 新闻id
+        /// </summary>
         public string newsid { get; set; }
+        /// <summary>
+        /// 新闻id列表
+        /// </summary>
         public long newsidL { get { return long.Parse(newsid); } }
+        /// <summary>
+        /// url
+        /// </summary>
         public string url_w { get; set; }
+        /// <summary>
+        /// 标题
+        /// </summary>
         public string title { get; set; }
+        /// <summary>
+        /// 摘要
+        /// </summary>
         public string digest { get; set; }
+        /// <summary>
+        /// 展示时间
+        /// </summary>
         public string showtime { get; set; }
 
     }
