@@ -21,19 +21,19 @@ namespace Gardener.Swagger.Services
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        Task<SwaggerModel> Analysis(string url);
+        Task<SwaggerModel?> Analysis(string url);
 
         /// <summary>
         /// 获取 swagger 配置
         /// </summary>
         /// <returns></returns>
-        Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup();
+        Task<List<SwaggerSpecificationOpenApiInfoDto>?> GetApiGroup();
 
         /// <summary>
         /// 从json中获取function
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        Task<List<ApiEndpoint>> GetFunctionsFromJson(string url);
+        Task<List<ApiEndpoint>?> GetFunctionsFromJson(string url);
     }
 }

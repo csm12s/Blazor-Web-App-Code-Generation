@@ -49,8 +49,9 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="func"></param>
+        /// <param name="retry">重试次数</param>
         /// <returns></returns>
-        async Task<TResponse?> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func)
+        async Task<TResponse?> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func,int retry=0)
         {
             try
             {
@@ -60,9 +61,9 @@ namespace Gardener.Client.Core
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<TResponse>>();
                     if (result==null || !result.Succeeded)
                     {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                         log.Error(result?.Errors?.ToString()??string.Empty, result?.StatusCode);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                               //时间戳过期
                         if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
@@ -73,23 +74,26 @@ namespace Gardener.Client.Core
                     }
                     return result.Data;
                 }
-                //请求失败 
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                              //身份验证失败
+                //身份验证失败
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                 {
                     await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
                 }
-
+                if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry==0)
+                {
+                  return await ResponseHandle<TResponse>(func, ++retry);
+                }
+                //请求失败 
+                #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
+                #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 return default(TResponse);
             }
             catch (Exception ex)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 log.Error($"{localizer[SharedLocalResource.ResuqesException]}[{ex.Message}]", -999, ex);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 return default(TResponse);
             }
         }
@@ -97,33 +101,39 @@ namespace Gardener.Client.Core
         /// 调用包装
         /// </summary>
         /// <param name="func"></param>
+        /// <param name="retry"></param>
         /// <returns></returns>
-        async Task ResponseHandle(Func<Task<HttpResponseMessage>> func)
+        async Task ResponseHandle(Func<Task<HttpResponseMessage>> func,int retry=0)
         {
             try
             {
                 HttpResponseMessage httpResponse = await func.Invoke();
                 if (!HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
-                    //请求失败
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                              //身份验证失败
+                    //身份验证失败
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                     {
                         await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode=httpResponse.StatusCode});
                     }
+                    if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry == 0)
+                    {
+                        await ResponseHandle(func, ++retry);
+                        return;
+                    }
+                    //请求失败 
+                    #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
+                    #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 }
                 else 
                 {
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<Object>>();
                     if (result==null ||!result.Succeeded)
                     {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                        log.Error(result?.Errors?.ToString()??string.Empty, result.StatusCode);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                              //时间戳过期
+                        #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        log.Error(result?.Errors?.ToString()??string.Empty, result?.StatusCode);
+                        #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        //时间戳过期
                         if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
@@ -133,9 +143,9 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 log.Error($"{localizer[SharedLocalResource.ResuqesException]}[{ex.Message}]", -999, ex);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
         }
         /// <summary>

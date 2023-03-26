@@ -31,8 +31,8 @@ namespace Gardener.EntityFramwork.Audit.Core
         private readonly ILogger<EntityFramworkAuditService<TDbContextLocator>> _logger;
         private readonly IRepository<AuditOperation, TDbContextLocator> _auditOperationRepository;
         private readonly IRepository<AuditEntity, TDbContextLocator> _auditEntityRepository;
-        private AuditOperation _auditOperation;
-        private List<AuditEntity> _auditEntitys;
+        private AuditOperation? _auditOperation;
+        private List<AuditEntity>? _auditEntitys;
         
         /// <summary>
         /// 
@@ -114,15 +114,16 @@ namespace Gardener.EntityFramwork.Audit.Core
                 {
                     // 获取实体的类型
                     var entityType = entity.Entity.GetType();
+                    if (entityType == null) { continue; }
                     //跳过
                     if (entityType.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) { continue; }
                     // 获取实体当前的值
                     var currentValues = entity.CurrentValues;
                     AuditEntity auditEntity = new AuditEntity();
-                    auditEntity.TypeName = entityType.FullName;
-                    auditEntity.Name = entityType.GetDescription();
-                    auditEntity.OperaterId = user != null ? user.Id.ToString() : null;
-                    auditEntity.OperaterName = user != null ? (user.NickName ?? user.NickName) : null;
+                    auditEntity.TypeName = entityType.FullName ?? string.Empty;
+                    auditEntity.Name = entityType.GetDescription() ?? string.Empty;
+                    auditEntity.OperaterId = user != null ? user.Id.ToString() : string.Empty;
+                    auditEntity.OperaterName = user != null ? (user.NickName ?? user.Name) : string.Empty;
                     auditEntity.OperaterType = user != null ? user.IdentityType : IdentityType.Unknown;
                     auditEntity.OperationId = Guid.NewGuid();
                     auditEntity.CurrentValues = currentValues;
@@ -152,16 +153,15 @@ namespace Gardener.EntityFramwork.Audit.Core
         {
             try
             {
-                List<AuditEntity> auditEntitys = _auditEntitys;
-                if (auditEntitys == null) return Task.CompletedTask;
+                if (_auditEntitys == null) return Task.CompletedTask;
 
-                foreach (var entity in auditEntitys)
+                foreach (var entity in _auditEntitys)
                 {
                     var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
                     entity.DataId = string.Join(',', pkValues);
                     entity.AuditProperties = auditProperties;
                 }
-                SaveAuditEntitys(auditEntitys);
+                SaveAuditEntitys(_auditEntitys);
             }
             catch (Exception ex)
             {
@@ -177,7 +177,7 @@ namespace Gardener.EntityFramwork.Audit.Core
         /// <param name="currentValues"></param>
         /// <param name="originalValues"></param>
         /// <returns></returns>
-        private (List<object>, ICollection<AuditProperty>) GetAuditProperties(EntityOperateType operationType, PropertyValues currentValues, PropertyValues originalValues)
+        private (List<object>, ICollection<AuditProperty>) GetAuditProperties(EntityOperateType operationType, PropertyValues currentValues, PropertyValues? originalValues)
         {
             ICollection<AuditProperty> auditProperties = new List<AuditProperty>();
             List<object> pkValues = new List<object>();
@@ -188,24 +188,32 @@ namespace Gardener.EntityFramwork.Audit.Core
             foreach (var prop in props)
             {
                 //不需要审计
-                if (prop.PropertyInfo.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) continue;
+                if (prop.PropertyInfo==null || prop.PropertyInfo.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) continue;
                 // 获取属性值
-                var propName = prop.Name;
+                string propName = prop.Name;
                 // 获取属性当前的值
                 var newValue = currentValues[propName];
 
                 //添加的时候，空值字段就不记录了
                 if (EntityOperateType.Insert.Equals(operationType) && string.IsNullOrEmpty(ValueToString(newValue))) continue;
-                object oldValue = null;
+                object? oldValue = null;
                 if (originalValues != null)
                 {
                     oldValue = originalValues[propName];
                 }
                 //是主键
-                IKey pk = prop.FindContainingPrimaryKey();
+                IKey? pk = prop.FindContainingPrimaryKey();
                 if (pk != null && (newValue != null || oldValue != null))
                 {
-                    pkValues.Add(newValue ?? oldValue);
+                    if (newValue != null)
+                    {
+                        pkValues.Add(newValue);
+                    }
+                    else if(oldValue != null)
+                    {
+                        pkValues.Add(oldValue);
+                    }
+
                 }
                 //更新的话需对比到底有没有变化
                 if (operationType.Equals(EntityOperateType.Update) &&
@@ -217,7 +225,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     ) continue;
                 var property = new AuditProperty()
                 {
-                    DisplayName = prop.PropertyInfo.GetDescription(),
+                    DisplayName = prop.PropertyInfo.GetDescription() ?? string.Empty,
                     FieldName = propName,
                     OriginalValue = ValueToString(oldValue),
                     CreatedTime = DateTimeOffset.Now
@@ -245,7 +253,7 @@ namespace Gardener.EntityFramwork.Audit.Core
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private string ValueToString(Object value)
+        private string? ValueToString(Object? value)
         {
             if (value == null) return null;
             if (value is DateTime)

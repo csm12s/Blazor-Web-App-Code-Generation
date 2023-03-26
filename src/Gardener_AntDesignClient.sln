@@ -103,13 +103,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.Entry", "Gardener.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyJob", "EasyJob", "{3AD4B994-E4F3-4C79-8C09-EC0B05E51DA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.EasyJob", "Modules\EasyJob\Gardener.EasyJob\Gardener.EasyJob.csproj", "{2EAA0A5F-AEDB-4DAC-9525-92D0360894FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.EasyJob", "Modules\EasyJob\Gardener.EasyJob\Gardener.EasyJob.csproj", "{2EAA0A5F-AEDB-4DAC-9525-92D0360894FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.EasyJob.Client", "Modules\EasyJob\Gardener.EasyJob.Client\Gardener.EasyJob.Client.csproj", "{71491EBB-6E3A-48C6-81BA-CDC54BFCCCF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.EasyJob.Client", "Modules\EasyJob\Gardener.EasyJob.Client\Gardener.EasyJob.Client.csproj", "{71491EBB-6E3A-48C6-81BA-CDC54BFCCCF5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.EasyJob.Impl", "Modules\EasyJob\Gardener.EasyJob.Impl\Gardener.EasyJob.Impl.csproj", "{B0CCF138-4E9A-4123-BBA4-EC9DD5950F6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.EasyJob.Client.Services", "Modules\EasyJob\Gardener.EasyJob.Client.Services\Gardener.EasyJob.Client.Services.csproj", "{54BE0A9C-6603-4B64-BB2F-5AD027F7A4D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.EasyJob.Client.Services", "Modules\EasyJob\Gardener.EasyJob.Client.Services\Gardener.EasyJob.Client.Services.csproj", "{54BE0A9C-6603-4B64-BB2F-5AD027F7A4D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -28,22 +28,14 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        Task<TResponse?> DeleteAsync<TResponse>(string url, IDictionary<string, object>? queryString = null);
+        Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object>? queryString = null);
         /// <summary>
         /// get
         /// </summary>
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="url"></param>
         /// <returns></returns>
-        Task<TResponse?> GetAsync<TResponse>(string url);
-        /// <summary>
-        /// get
-        /// </summary>
-        /// <typeparam name="TResponse"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="queryString"></param>
-        /// <returns></returns>
-        Task<TResponse?> GetAsync<TResponse>(string url, IDictionary<string, object> queryString);
+        Task<TResponse> GetAsync<TResponse>(string url);
         /// <summary>
         /// get
         /// </summary>
@@ -51,7 +43,15 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        Task<TResponse?> GetAsync<TResponse>(string url, List<KeyValuePair<string, object?>> queryString);
+        Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString);
+        /// <summary>
+        /// get
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
+        Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object?>> queryString);
         /// <summary>
         /// post
         /// </summary>
@@ -60,7 +60,7 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<TResponse?> PostAsync<TRequest, TResponse>(string url, TRequest? request = default);
+        Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest? request = default);
         /// <summary>
         /// post
         /// </summary>
@@ -76,7 +76,7 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        Task<TResponse?> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object>? queryString = null);
+        Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object>? queryString = null);
         /// <summary>
         /// put
         /// </summary>
@@ -85,7 +85,7 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<TResponse?> PutAsync<TRequest, TResponse>(string url, TRequest? request = default);
+        Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest? request = default);
         /// <summary>
         /// put
         /// </summary>

@@ -17,8 +17,8 @@ namespace Gardener.Client.Core.Services
     /// </summary>
     public abstract class JsToolBase
     {
-        private readonly Lazy<Task<IJSObjectReference>> moduleTask;
-        private IJSObjectReference jSObjectReference;
+        private readonly Lazy<Task<IJSObjectReference>> moduleTask=null!;
+        private IJSObjectReference? jSObjectReference;
         public JsToolBase(IJSRuntime js)
         {
             moduleTask = new(() => js.InvokeAsync<IJSObjectReference>("import", $"./_content/Gardener.Client.Core/js-tool.js?_={DateTime.Now.ToString("yyyyMMddHHmmss")}").AsTask());

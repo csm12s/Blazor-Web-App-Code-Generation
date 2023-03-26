@@ -63,7 +63,10 @@ namespace Gardener.Client.Core
             this.httpClientManager = httpClientManager;
             this.accountService = accountService;
             this.logger = logger;
-            timer = new Timer(TimerCallback, true, 10000, authSettings.RefreshTokenCheckInterval * 1000);
+            if(authSettings.EnableAutoRefresh)
+            {
+                timer = new Timer(TimerCallback, true, 10000, authSettings.RefreshTokenCheckInterval * 1000);
+            }
             this.navigationManager = navigationManager;
             this.eventBus = eventBus;
         }
@@ -72,7 +75,7 @@ namespace Gardener.Client.Core
         /// <summary>
         /// 定时器 用来刷新token
         /// </summary>
-        private Timer timer;
+        private Timer? timer;
         /// <summary>
         /// 定时执行方法 检查已拿到的token是否需要刷新
         /// </summary>
@@ -89,19 +92,22 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <param name="refreshToken"></param>
         /// <returns></returns>
-        public async Task RefreshToken()
+        public async Task<bool> RefreshToken(bool force = false)
         {
             if (navigationManager.Uri.IndexOf("/auth/login") > 0)
             {
-                return;
+                return false;
             }
             TokenOutput? currentToken = await GetCurrentToken();
             //未登录
-            if (currentToken == null) { await CleanUserInfo(); return; }
-            //RefreshToken已经过期了
-            if (currentToken.RefreshTokenExpires < DateTimeOffset.Now.ToUnixTimeSeconds()) { await CleanUserInfo(); return; }
-            //AccessToken时间还很充裕
-            if (currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold) { return; }
+            if (currentToken == null) { await CleanUserInfo(); return false; }
+            if (!force)
+            {
+                //RefreshToken已经过期了
+                if (currentToken.RefreshTokenExpires < DateTimeOffset.Now.ToUnixTimeSeconds()) { await CleanUserInfo(); return false; }
+                //AccessToken时间还很充裕
+                if (currentToken.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold) { return false; }
+            }
             //拿到新的token
             var tokenResult = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
@@ -110,10 +116,12 @@ namespace Gardener.Client.Core
                 //token 设置
                 await SetToken(tokenResult);
                 await logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
+                return true;
             }
             else
             {
                 await CleanUserInfo();
+                return false;
             }
         }
 

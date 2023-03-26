@@ -47,12 +47,12 @@ namespace Gardener.Base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<TDto?> Get(TKey id);
+        Task<TDto> Get(TKey id);
         /// <summary>
         /// 查询所有
         /// </summary>
         /// <returns></returns>
-        Task<List<TDto>?> GetAll();
+        Task<List<TDto>> GetAll();
         /// <summary>
         /// 查询所有可以用的
         /// </summary>
@@ -60,20 +60,20 @@ namespace Gardener.Base
         /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
         /// </remarks>
         /// <returns></returns>
-        Task<List<TDto>?> GetAllUsable();
+        Task<List<TDto>> GetAllUsable();
         /// <summary>
         /// 分页查询
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<PagedList<TDto>?> GetPage(int pageIndex = 1, int pageSize = 10);
+        Task<PagedList<TDto>> GetPage(int pageIndex = 1, int pageSize = 10);
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TDto?> Insert(TDto input);
+        Task<TDto> Insert(TDto input);
         /// <summary>
         /// 更新
         /// </summary>
@@ -96,14 +96,14 @@ namespace Gardener.Base
         /// </remarks>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<PagedList<TDto>?> Search(PageRequest request);
+        Task<PagedList<TDto>> Search(PageRequest request);
 
         /// <summary>
         /// 此方法用来补充 PagedList 不包含的 TotalItems
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<List<TDto>?> GetList(PageRequest request);
+        Task<List<TDto>> GetList(PageRequest request);
 
         /// <summary>
         /// 生成种子数据
@@ -113,7 +113,7 @@ namespace Gardener.Base
         /// <remarks>
         /// 根据搜索条叫生成种子数据
         /// </remarks>
-        Task<string?> GenerateSeedData(PageRequest request);
+        Task<string> GenerateSeedData(PageRequest request);
 
         /// <summary>
         /// 导出
@@ -123,7 +123,7 @@ namespace Gardener.Base
         /// </remarks>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<string?> Export(PageRequest request);
+        Task<string> Export(PageRequest request);
         #endregion
     }
 }

@@ -5,6 +5,13 @@
 		<Nullable>annotations</Nullable>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Shared\**" />
+	  <Content Remove="Shared\**" />
+	  <EmbeddedResource Remove="Shared\**" />
+	  <None Remove="Shared\**" />
+	</ItemGroup>
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
@@ -12,6 +19,7 @@
 	<ItemGroup>
 		<PackageReference Include="Mapster" Version="7.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
 		<PackageReference Include="Microsoft.JSInterop" Version="7.0.3" />
@@ -21,10 +29,6 @@
 		<ProjectReference Include="..\..\Common\Gardener.Common\Gardener.Common.csproj" />
 		<ProjectReference Include="..\..\Modules\Framework\Gardener\Gardener.csproj" />
 		<ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter\Gardener.UserCenter.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Shared\" />
 	</ItemGroup>
 
 </Project>

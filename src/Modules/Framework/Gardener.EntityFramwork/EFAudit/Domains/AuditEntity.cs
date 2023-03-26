@@ -73,17 +73,6 @@ namespace Gardener.EntityFramwork.Audit.Domains
         [DisplayName("操作审计编号")]
         public Guid OperationId { get; set; }
         /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
-
-        /// <summary>
-        /// 是否删除
-        /// </summary>
-        [DisplayName("是否删除")]
-        public bool IsDeleted { get; set; }
-        /// <summary>
         /// 操作实体属性集合
         /// </summary>
         public ICollection<AuditProperty> AuditProperties { get; set; }
@@ -96,6 +85,6 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 老值
         /// </summary>
         [NotMapped]
-        public PropertyValues OldValues { get; set; }
+        public PropertyValues? OldValues { get; set; }
     }
 }

@@ -74,8 +74,9 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 刷新token
         /// </summary>
+        /// <param name="force">强制刷新</param>
         /// <returns></returns>
-        Task RefreshToken();
+        Task<bool> RefreshToken(bool force=false);
         /// <summary>
         /// 获取当前token
         /// </summary>

@@ -16,7 +16,7 @@ namespace Gardener.Client.Core
     {
         private string _clientName=null!;
         private string _url = null!;
-        private Func<Task<string>> _accessTokenProvider = null!;
+        private Func<Task<string?>> _accessTokenProvider = null!;
         private bool _enableAutomaticReconnect = true;
         private IClientLogger _clientLogger;
 
@@ -68,7 +68,7 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <param name="accessTokenProvider"></param>
         /// <returns></returns>
-        public ISignalRClientBuilder SetAccessTokenProvider(Func<Task<string>> accessTokenProvider)
+        public ISignalRClientBuilder SetAccessTokenProvider(Func<Task<string?>> accessTokenProvider)
         {
             this._accessTokenProvider = accessTokenProvider;
             return this;

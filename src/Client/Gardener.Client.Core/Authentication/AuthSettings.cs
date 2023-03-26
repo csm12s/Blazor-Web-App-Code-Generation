@@ -12,6 +12,11 @@ namespace Gardener.Client.Core
     public class AuthSettings
     {
         /// <summary>
+        /// 启用自动刷新
+        /// </summary>
+        public bool EnableAutoRefresh { get; set; }=true;
+
+        /// <summary>
         /// token刷新间隔（单位：秒）
         /// token 过期时间是API 配置 JWTSettings.ExpiredTime
         /// </summary>
