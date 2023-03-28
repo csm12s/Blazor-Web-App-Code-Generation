@@ -22,7 +22,7 @@ namespace Gardener.UserCenter.Client.Services
         
         public async Task<PagedList<PositionDto>> Search(string name, int pageIndex = 1, int pageSize = 10)
         {
-            IDictionary<string, object> pramas = new Dictionary<string, object>()
+            IDictionary<string, object?> pramas = new Dictionary<string, object?>()
             {
                 {"name",name }
             };

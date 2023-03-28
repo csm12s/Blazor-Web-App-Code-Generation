@@ -17,7 +17,7 @@ namespace Gardener.Email.Client.Pages
         {
             get
             {
-                return _editModel.Tags?.Split(",");
+                return _editModel.Tags?.Split(",")??new string[0];
             }
             set
             {

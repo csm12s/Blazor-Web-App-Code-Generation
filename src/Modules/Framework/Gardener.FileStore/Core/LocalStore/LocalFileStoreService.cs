@@ -65,7 +65,12 @@ namespace Gardener.FileStore.Core.LocalStore
         /// <returns></returns>
         public string GetBaseUrl() 
         {
-            Uri url = new Uri(_httpContextAccessor.HttpContext.Request.GetRequestUrlAddress());
+            var context = _httpContextAccessor.HttpContext;
+            if(context == null) 
+            {
+                throw new InvalidOperationException("HttpContext is null");
+            }
+            Uri url = new Uri(context.Request.GetRequestUrlAddress());
             return url.Scheme+"://"+url.Authority +"/"+ GetBaseDirectory()+"/";
         }
         /// <summary>
@@ -78,7 +83,12 @@ namespace Gardener.FileStore.Core.LocalStore
             string filePath = Path.Combine(GetBaseDirectoryPath(), partialPath);
             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                var directory = Path.GetDirectoryName(filePath);
+                if (directory == null) 
+                {
+                    throw new ArgumentException($"the {filePath} not find directory", "filePath");
+                }
+                Directory.CreateDirectory(directory);
             }
             using (FileStream filestream = File.Create(filePath))
             {
@@ -97,7 +107,12 @@ namespace Gardener.FileStore.Core.LocalStore
         {
             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                var directory = Path.GetDirectoryName(filePath);
+                if (directory == null)
+                {
+                    throw new ArgumentException($"the {filePath} not find directory", "filePath");
+                }
+                Directory.CreateDirectory(directory);
             }
 
             using (FileStream filestream = File.Create(filePath))

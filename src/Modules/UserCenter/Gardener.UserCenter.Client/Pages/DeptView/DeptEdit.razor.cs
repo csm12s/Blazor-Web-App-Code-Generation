@@ -17,7 +17,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
     public partial class DeptEdit : EditOperationDialogBase<DeptDto, int>
     {
         [Inject]
-        IDeptService deptService { get; set; }
+        IDeptService deptService { get; set; } = null!;
 
         //部门树
         List<DeptDto> deptDatas = new List<DeptDto>();
@@ -26,7 +26,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         /// </summary>
         private string ParentDeptId
         {
-            get { return _editModel.ParentId?.ToString(); }
+            get { return _editModel.ParentId?.ToString() ?? string.Empty; }
             set
             {
                 if (!string.IsNullOrEmpty(value))

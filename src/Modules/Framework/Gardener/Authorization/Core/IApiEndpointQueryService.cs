@@ -28,13 +28,13 @@ namespace Gardener.Authorization.Core
         /// <param name="method"></param>
         /// <param name="enableCache"></param>
         /// <returns></returns>
-        Task<ApiEndpoint> Query(string path, HttpMethod method,bool enableCache=true);
+        Task<ApiEndpoint?> Query(string path, HttpMethod method,bool enableCache=true);
         /// <summary>
         /// 根据key获取功能点
         /// </summary>
         /// <param name="key"></param>
         /// <param name="enableCache"></param>
         /// <returns></returns>
-        Task<ApiEndpoint> Query(string key, bool enableCache = true);
+        Task<ApiEndpoint?> Query(string key, bool enableCache = true);
     }
 }

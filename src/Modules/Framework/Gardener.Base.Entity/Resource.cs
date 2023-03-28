@@ -17,6 +17,14 @@ namespace Gardener.Base.Entity
     public class Resource : GardenerEntityBase<Guid>
     {
         /// <summary>
+        /// 资源信息
+        /// </summary>
+        public Resource()
+        {
+            ResourceFunctions = new List<ResourceFunction>();
+        }
+
+        /// <summary>
         /// 资源名称
         /// </summary>
         [Required, MaxLength(100)]
@@ -84,7 +92,7 @@ namespace Gardener.Base.Entity
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<ResourceFunction>? ResourceFunctions { get; set; }
+        public List<ResourceFunction> ResourceFunctions { get; set; }
 
     }
 }

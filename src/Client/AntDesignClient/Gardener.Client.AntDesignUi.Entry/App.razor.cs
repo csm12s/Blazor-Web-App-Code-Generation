@@ -12,9 +12,9 @@ namespace Gardener.Client.AntDesignUi.Entry
     public partial class App
     {
         [Inject]
-        private ClientModuleContext moduleContext { get; set; }
+        private ClientModuleContext moduleContext { get; set; } = null!;
         [Inject]
-        public NavigationManager Navigation { get; set; }
+        public NavigationManager Navigation { get; set; } = null!;
 
         private void GoHome() 
         {

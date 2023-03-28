@@ -5,7 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.Email.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -73,5 +75,22 @@ namespace Gardener.Email.Dtos
         /// </summary>
         [DisplayName("是否启用SSL")]
         public bool EnableSsl { get; set; }
+
+        /// <summary>
+        /// 获取标签集合
+        /// </summary>
+        /// <returns></returns>
+        public List<EmailServerTag> GetEmailServerTagEnums() 
+        {
+            List<EmailServerTag> tags=new List<EmailServerTag>();
+            if (!string.IsNullOrEmpty(this.Tags))
+            {
+                foreach (string tag in this.Tags.Split(","))
+                {
+                    tags.Add(Enum.Parse<EmailServerTag>(tag));
+                }
+            }
+            return tags;
+        }
     }
 }

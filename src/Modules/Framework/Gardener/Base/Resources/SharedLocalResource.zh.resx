@@ -490,4 +490,13 @@
   <data name="“{0}” attribute not found in “{1}” type" xml:space="preserve">
     <value>指定的属性“{0}”在类型“{1}”中不存在</value>
   </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Data not find" xml:space="preserve">
+    <value>数据未找到</value>
+  </data>
 </root>

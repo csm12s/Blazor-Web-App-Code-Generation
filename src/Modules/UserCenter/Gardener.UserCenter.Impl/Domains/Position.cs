@@ -24,43 +24,43 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 角色名称
         /// </summary>
-        [Required,MaxLength(100)]
+        [Required, MaxLength(100)]
         [DisplayName("名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         /// <summary>
         /// 设置该岗位的目标
         /// </summary>
         [MaxLength(500)]
         [DisplayName("目标")]
-        public string Target { get; set; }
+        public string? Target { get; set; }
 
         /// <summary>
         /// 职责
         /// </summary>
         [DisplayName("职责")]
         [MaxLength(500)]
-        public string Duty { get; set; }
+        public string? Duty { get; set; }
 
         /// <summary>
         /// 权利
         /// </summary>
         [DisplayName("权利")]
         [MaxLength(500)]
-        public string Right { get; set; }
+        public string? Right { get; set; }
 
         /// <summary>
         /// 岗位等级
         /// </summary>
         [DisplayName("岗位等级")]
         [MaxLength(500)]
-        public string Grade { get; set; }
+        public string? Grade { get; set; }
 
         /// <summary>
         /// 岗位薪资
         /// </summary>
         [DisplayName("岗位薪资")]
         [MaxLength(500)]
-        public string Salary { get; set; }
+        public string? Salary { get; set; }
 
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace Gardener.UserCenter.Impl.Domains
         /// </summary>
         [DisplayName("任职资格")]
         [MaxLength(500)]
-        public string Qualifications { get; set; }
+        public string? Qualifications { get; set; }
 
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<User> Users { get; set; }
+        public ICollection<User> Users { get; set; }=new List<User>();
         /// <summary>
         /// 
         /// </summary>

@@ -33,7 +33,7 @@ namespace Gardener.SystemManager.Client.Services
             return await apiCaller.GetAsync<bool>($"{controller}/exists/{method}/{path}");
         }
 
-        public async Task<FunctionDto> GetByKey(string key)
+        public async Task<FunctionDto?> GetByKey(string key)
         {
             return await apiCaller.GetAsync<FunctionDto>($"{controller}/by-key/{key}");
         }

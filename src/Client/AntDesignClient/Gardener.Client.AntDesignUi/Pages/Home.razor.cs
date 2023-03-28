@@ -27,7 +27,7 @@ namespace Gardener.Client.AntDesignUi.Pages
 {
     public partial class Home : ReuseTabsPageBase
     {
-        public List<ChatDemoNotificationData > datas = new List<ChatDemoNotificationData >();
+        public List<ChatDemoNotificationData> datas = new List<ChatDemoNotificationData>();
 
         private bool _submitting = false;
         private string? _message;
@@ -92,7 +92,7 @@ namespace Gardener.Client.AntDesignUi.Pages
             }
 
             IEnumerable<ChatDemoNotificationData> history = await chatDemoService.GetHistory();
-            if(history != null)
+            if (history != null)
             {
                 datas.AddRange(history);
             }
@@ -101,7 +101,7 @@ namespace Gardener.Client.AntDesignUi.Pages
             eventBus.Subscribe<UserOnlineChangeNotificationData>(UserOnlineChangeNotificationEventCallBack);
 
             //上传附件附带身份信息
-            headers = await authenticationStateManager.GetCurrentTokenHeaders();
+            headers = await authenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
 
             await base.OnInitializedAsync();
         }
@@ -122,7 +122,7 @@ namespace Gardener.Client.AntDesignUi.Pages
                 await jsRef.InvokeVoidAsync("chatMessageBoxToBottom");
             }
         }
-        
+
         /// <summary>
         /// 提交消息
         /// </summary>
@@ -145,7 +145,7 @@ namespace Gardener.Client.AntDesignUi.Pages
             {
                 return;
             }
-            ChatDemoNotificationData notificationData = new ChatDemoNotificationData ();
+            ChatDemoNotificationData notificationData = new ChatDemoNotificationData();
             notificationData.Avatar = user.Avatar;
             notificationData.Message = _message;
             notificationData.NickName = user.NickName;
@@ -163,7 +163,7 @@ namespace Gardener.Client.AntDesignUi.Pages
         {
             await ShowMessage(e);
 
-        } 
+        }
         /// <summary>
         /// 事件回调
         /// </summary>
@@ -174,7 +174,7 @@ namespace Gardener.Client.AntDesignUi.Pages
         {
             UserOnlineChangeNotificationData notificationData = e;
             UserDto? user = await authenticationStateManager.GetCurrentUser();
-            if (user==null || user.Id.ToString().Equals(notificationData.Identity.Id))
+            if (user == null || user.Id.ToString().Equals(notificationData.Identity.Id))
             {
                 return;
             }
@@ -198,7 +198,7 @@ namespace Gardener.Client.AntDesignUi.Pages
         /// </summary>
         /// <param name="chatData"></param>
         /// <returns></returns>
-        private async Task ShowMessage(ChatDemoNotificationData  chatData) 
+        private async Task ShowMessage(ChatDemoNotificationData chatData)
         {
             datas.Add(chatData);
             await InvokeAsync(StateHasChanged);
@@ -221,7 +221,7 @@ namespace Gardener.Client.AntDesignUi.Pages
             {
                 messageService.Error("必须小于500KB！");
             }
-            if (uploadAttachmentInput.ContainsKey("BusinessId")) 
+            if (uploadAttachmentInput.ContainsKey("BusinessId"))
             {
                 uploadAttachmentInput.Remove("BusinessId");
             }
@@ -242,7 +242,7 @@ namespace Gardener.Client.AntDesignUi.Pages
             if (fileinfo.File.State == UploadState.Success)
             {
                 ApiResult<UploadAttachmentOutput> apiResult = fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                if (apiResult.Succeeded)
+                if (apiResult.Succeeded && apiResult.Data!=null)
                 {
                     //发送
                     string imageUrl = apiResult.Data.Url;
@@ -252,9 +252,9 @@ namespace Gardener.Client.AntDesignUi.Pages
                     {
                         return;
                     }
-                    ChatDemoNotificationData notificationData = new ChatDemoNotificationData ();
+                    ChatDemoNotificationData notificationData = new ChatDemoNotificationData();
                     notificationData.Avatar = user.Avatar;
-                    notificationData.Images = new string [] { imageUrl };
+                    notificationData.Images = new string[] { imageUrl };
                     notificationData.NickName = user.NickName;
                     await systemNotificationSender.Send(notificationData);
                 }

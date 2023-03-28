@@ -68,7 +68,7 @@ namespace Gardener.SystemManager.Services
         {
             path = HttpUtility.UrlDecode(path);
 
-            return await _repository.Where(x => x.Method.Equals(method) && x.Path.Equals(path),tracking:false).AnyAsync();
+            return await _repository.Where(x => x.Method.Equals(method) && path.Equals(x.Path),tracking:false).AnyAsync();
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace Gardener.SystemManager.Services
         /// </remarks>
         /// <param name="key">key</param>
         /// <returns></returns>
-        public async Task<FunctionDto> GetByKey(string key)
+        public async Task<FunctionDto?> GetByKey(string key)
         {
-            Function function= await _repository.Where(x => x.Key.Equals(key), tracking: false).FirstOrDefaultAsync();
+            Function? function= await _repository.Where(x => x.Key.Equals(key), tracking: false).FirstOrDefaultAsync();
             return function?.Adapt<FunctionDto>();
         }
     }

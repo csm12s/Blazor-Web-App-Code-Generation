@@ -134,5 +134,10 @@ namespace Gardener.Enums
         /// </summary>
         [Description("查询出错，检索字段在数据库中可能为null")]
         Search_Error_DB_Field_Is_Null,
+        /// <summary>
+        /// 未找到数据
+        /// </summary>
+        [Description("未找到数据")]
+        Data_Not_Find,
     }
 }

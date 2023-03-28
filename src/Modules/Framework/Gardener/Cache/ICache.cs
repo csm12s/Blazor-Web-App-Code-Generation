@@ -52,7 +52,7 @@ namespace Gardener.Cache
         /// <param name="key"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        Task<T> GetAsync<T>(string key, Func<Task<T>> func);
+        Task<T?> GetAsync<T>(string key, Func<Task<T?>> func);
         /// <summary>
         /// 获取缓存
         /// </summary>
@@ -61,7 +61,7 @@ namespace Gardener.Cache
         /// <param name="func"></param>
         /// <param name="absoluteExpiration"></param>
         /// <returns></returns>
-        Task<T> GetAsync<T>(string key, Func<Task<T>> func, TimeSpan absoluteExpiration);
+        Task<T?> GetAsync<T>(string key, Func<Task<T?>> func, TimeSpan absoluteExpiration);
         /// <summary>
         /// 获取缓存
         /// </summary>

@@ -87,7 +87,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 用户扩展信息
         /// </summary>
-        public UserExtensionDto? UserExtension { get; set; }
+        public UserExtensionDto UserExtension { get; set; }
         /// <summary>
         /// 部门编号
         /// </summary>

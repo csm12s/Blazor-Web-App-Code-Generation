@@ -43,7 +43,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
             };
 
-        private Dictionary<string, string> headers = null!;
+        private Dictionary<string, string> headers =new Dictionary<string, string>();
 
         private UserUploadFileParams uploadParams = null!;
         private UserDto userDto = null!;
@@ -69,9 +69,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     uploadParams.FileSavePath);
                 uploadAttachmentInput.Add(nameof(UploadAttachmentInput.FileSaveFolder),
                     uploadParams.FileSaveFolder);
-
                 //上传附件附带身份信息
-                headers = await authenticationStateManager.GetCurrentTokenHeaders();
+                var authDic = await authenticationStateManager.GetCurrentTokenHeaders();
+                if(authDic != null)
+                {
+                    foreach(var auth in authDic)
+                    {
+                        headers.Add(auth.Key, auth.Value);
+                    }
+                }
             }
             await base.OnInitializedAsync();
         }

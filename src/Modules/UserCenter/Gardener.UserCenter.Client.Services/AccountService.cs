@@ -36,8 +36,8 @@ namespace Gardener.UserCenter.Client.Services
 
         public async Task<List<ResourceDto>> GetCurrentUserMenus(string? rootKey = null)
         {
-            IDictionary<string, object> queryString = new Dictionary<string, object>();
-            queryString.Add(nameof(rootKey), rootKey??string.Empty);
+            IDictionary<string, object?> queryString = new Dictionary<string, object?>();
+            queryString.Add(nameof(rootKey), rootKey);
             return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-menus", queryString);
         }
 

@@ -168,25 +168,20 @@ namespace Gardener.UserCenter.Impl.Services
                 exclude.Add(x => x.Password);
                 exclude.Add(x => x.PasswordEncryptKey);
             }
-            //扩展移除
-            user.UserExtension = null;
-
+            
             //更新
             await _userRepository.UpdateExcludeAsync(user,exclude);
 
-            if (input.UserExtension != null)
+            var userExt = input.UserExtension.Adapt<UserExtension>();
+            if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
             {
-                var userExt = input.UserExtension.Adapt<UserExtension>();
-                if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
-                {
-                    userExt.UpdatedTime = DateTimeOffset.Now;
-                    await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { nameof(UserExtension.CreatedTime) });
-                }
-                else
-                {
-                    userExt.CreatedTime = DateTimeOffset.Now;
-                    await _userExtensionRepository.InsertAsync(userExt);
-                }
+                userExt.UpdatedTime = DateTimeOffset.Now;
+                await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { nameof(UserExtension.CreatedTime) });
+            }
+            else
+            {
+                userExt.CreatedTime = DateTimeOffset.Now;
+                await _userExtensionRepository.InsertAsync(userExt);
             }
             return true;
         }
@@ -245,6 +240,10 @@ namespace Gardener.UserCenter.Impl.Services
                 .Include(x => x.Roles.Where(r => r.IsDeleted == false))
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
+            if(person== null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
             return person.Adapt<UserDto>();
         }
 

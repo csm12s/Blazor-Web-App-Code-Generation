@@ -56,14 +56,10 @@ public static partial class Extension
     /// <typeparam name="TDestination"></typeparam>
     /// <param name="sourceList"></param>
     /// <returns></returns>
-    public static List<TDestination>? MapTo<TDestination>(this IEnumerable sourceList,
+    public static List<TDestination> MapTo<TDestination>(this IEnumerable sourceList,
     TypeAdapterConfig? config = null)
     {
-        if (sourceList == null)
-        {
-            return default(List<TDestination>);
-        }
-
+        
         if (config == null)
         {
             return sourceList.Adapt<List<TDestination>>();

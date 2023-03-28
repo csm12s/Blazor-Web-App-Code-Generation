@@ -64,15 +64,15 @@
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
                         {
-                            DateTime tempBeginTime = DateTime.Parse(fieldInfo.Values.First());
-                            DateTime tempEndTime = DateTime.Parse(fieldInfo.Values.Last());
+                            DateTime? tempBeginTime = fieldInfo.Values==null?null:DateTime.Parse(fieldInfo.Values.First());
+                            DateTime? tempEndTime = fieldInfo.Values == null ? null : DateTime.Parse(fieldInfo.Values.Last());
                             <RangePicker Style="margin-left:5px;"
                          TValue="DateTime?[]"
                          ShowTime="@ShowTime"
                          Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
                          OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
                          DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
-                         OnClearClick="()=>{fieldInfo.Values=new string[0];}" />
+                                         OnClear="()=>{fieldInfo.Values=new string[0];}" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
                         {
@@ -107,7 +107,10 @@
                             <SelectOptions>
                                 @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
                                     {
-                                        <SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@localizer[item.Value]" />
+                                        if (item.Value != null)
+                                        {
+                                            <SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@localizer[item.Value]" />
+                                        }
                                     }
                                 </SelectOptions>
                             </Select>

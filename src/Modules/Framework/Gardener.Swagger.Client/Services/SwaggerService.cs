@@ -31,12 +31,12 @@ namespace Gardener.Swagger.Client.Services
             return await apiCaller.GetAsync<SwaggerModel>($"{controller}/analysis/{url}");
         }
 
-        public async Task<List<SwaggerSpecificationOpenApiInfoDto>?> GetApiGroup()
+        public async Task<List<SwaggerSpecificationOpenApiInfoDto>> GetApiGroup()
         {
             return await apiCaller.GetAsync<List<SwaggerSpecificationOpenApiInfoDto>>($"{controller}/api-group");
         }
 
-        public async Task<List<ApiEndpoint>?> GetFunctionsFromJson(string url)
+        public async Task<List<ApiEndpoint>> GetFunctionsFromJson(string url)
         {
             url = HttpUtility.UrlEncode(url);
             return await apiCaller.GetAsync<List<ApiEndpoint>>($"{controller}/functions-from-json/{url}");

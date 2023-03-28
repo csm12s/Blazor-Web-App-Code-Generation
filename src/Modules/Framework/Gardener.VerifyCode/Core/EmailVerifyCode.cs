@@ -42,7 +42,7 @@ namespace Gardener.VerifyCode.Core
         /// <returns></returns>
         public async Task<VerifyCodeOutput> Create(VerifyCodeInput input)
         {
-            EmailVerifyCodeInput emailInput = input as EmailVerifyCodeInput;
+            EmailVerifyCodeInput emailInput = (EmailVerifyCodeInput)input;
             return await Send(emailInput.ToEmail, emailInput.CreateCodeParam);
 
         }
@@ -64,7 +64,7 @@ namespace Gardener.VerifyCode.Core
         /// <param name="toEmail"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        private async Task<VerifyCodeOutput> Send(string toEmail, CharacterCodeCreateParam param = null)
+        private async Task<VerifyCodeOutput> Send(string toEmail, CharacterCodeCreateParam? param = null)
         {
             param = param ?? new CharacterCodeCreateParam();
             if (!param.CharacterCount.HasValue)
@@ -75,7 +75,7 @@ namespace Gardener.VerifyCode.Core
             {
                 param.Type = settings.CodeType;
             }
-            string code = CreateCode(param);
+            string code = RandomCodeCreator.Create(param.Type.Value,param.CharacterCount.Value);
             string key = Guid.NewGuid().ToString();
 
             await emailService.Send(new Email.Dtos.SendEmailInputDto {
@@ -98,24 +98,13 @@ namespace Gardener.VerifyCode.Core
         {
             //code为空，直接返回错误
             if (string.IsNullOrEmpty(code)) return false;
-            string dbCode = await this.store.GetCode(VerifyCodeTypeEnum.Email, key);
+            string? dbCode = await this.store.GetCode(VerifyCodeTypeEnum.Email, key);
             bool success = string.Compare(dbCode, code, settings.IgnoreCase) == 0;
             if (success && settings.UseOnce)
             {
                 await this.store.Remove(VerifyCodeTypeEnum.Email, key);
             }
             return success;
-        }
-
-        /// <summary>
-        /// 创建一个验证码code
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        private string CreateCode(CharacterCodeCreateParam param)
-        {
-            if (param == null) return null;
-            return RandomCodeCreator.Create(param.Type.Value, param.CharacterCount.Value);
         }
     }
 }

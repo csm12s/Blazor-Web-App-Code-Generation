@@ -20,23 +20,23 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
 {
     public partial class RoleResourceEdit : FeedbackComponent<OperationDialogInput<int>, bool>
     {
-        private Tree<ResourceDto> _tree;
+        private Tree<ResourceDto>? _tree;
         private bool _isExpanded;
         private bool _isLoading;
         private int _roleId = 0;
         private List<ResourceDto> _resources = new List<ResourceDto>();
         [Inject]
-        IResourceService resourceService { get; set; }
+        IResourceService resourceService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
+        MessageService messageService { get; set; } = null!;
         [Inject]
-        IRoleService roleService { get; set; } 
+        IRoleService roleService { get; set; } = null!;
         [Inject]
-        IClientLocalizer localizer { get; set; }
+        IClientLocalizer localizer { get; set; } = null!;
         /// <summary>
         /// 默认选择
         /// </summary>
-        private string[] _defaultCheckedKeys { get; set; }
+        private string[] _defaultCheckedKeys { get; set; } = null!;
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -57,7 +57,9 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 var resourceResult = await resourceService.GetTree();
                 if (resourceResult == null)
                 {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     messageService.Error(localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     _isLoading = false;
                     return;
                 }
@@ -87,7 +89,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
 
             List<Guid> resourceIds = new List<Guid>();
 
-            if (_tree.CheckedKeys.Length > 0)
+            if (_tree!=null && _tree.CheckedKeys.Length > 0)
             {
                 _tree.CheckedKeys.ForEach(x =>
                 {
@@ -107,12 +109,16 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             var result = await roleService.Resource(_roleId, resourceIds.Distinct().ToArray());
             if (result)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Success(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Success));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Error(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Fail));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
             _isLoading = false;
         }
@@ -123,8 +129,9 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private void OnExpandClick()
         {
+            if(_tree==null) return;
+            _isLoading = true;
             _isExpanded = !_isExpanded;
-
             //操作所有的节点
             if (_isExpanded) 
             { 

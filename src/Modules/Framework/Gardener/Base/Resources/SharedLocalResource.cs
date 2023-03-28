@@ -296,6 +296,14 @@ namespace Gardener.Base.Resources
         /// 没有权限
         /// </summary>
         public const string Forbidden = nameof(Forbidden);
+        /// <summary>
+        /// 启用
+        /// </summary>
+        public const string Enable = nameof(Enable);
+        /// <summary>
+        /// 禁用
+        /// </summary>
+        public const string Disabled = nameof(Disabled);
 
     }
 }

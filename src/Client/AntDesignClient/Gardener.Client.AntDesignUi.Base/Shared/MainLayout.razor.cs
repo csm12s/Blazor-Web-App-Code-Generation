@@ -53,7 +53,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// <summary>
         /// 
         /// </summary>
-        private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();   
+        private List<MenuDataItem> menuDataItems = new List<MenuDataItem>();
         /// <summary>
         /// 
         /// </summary>
@@ -75,7 +75,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
 
             string? path = resourceDto.Path;
             //path为空，还没有子级的会报错，设置个key
-            if (string.IsNullOrEmpty(path) && ( resourceDto.Children == null || !resourceDto.Children.Any()))
+            if (string.IsNullOrEmpty(path) && (resourceDto.Children == null || !resourceDto.Children.Any()))
             {
                 path = resourceDto.Key;
             }
@@ -110,20 +110,31 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         protected override async Task OnInitializedAsync()
         {
             systemConfig = systemConfigService.GetSystemConfig();
-
-            Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
+            
+            var currentMenus = authenticationStateManager.GetCurrentUserMenus();
+            if (currentMenus != null)
             {
-                if (menus != null)
+                //已有数据
+                menuDataItems = new List<MenuDataItem>();
+                currentMenus.ForEach(x => InitEnum(x));
+                _menuData = menuDataItems.ToArray();
+            }
+            else
+            {
+                //暂未加载
+                Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
                 {
-                    menuDataItems = new List<MenuDataItem>();
-                    menus.ForEach(x => InitEnum(x));
-                    _menuData = menuDataItems.ToArray();
-                }
+                    if (menus != null)
+                    {
+                        menuDataItems = new List<MenuDataItem>();
+                        menus.ForEach(x => InitEnum(x));
+                        _menuData = menuDataItems.ToArray();
+                    }
 
-            };
-            //设置个回调
-            authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
-           
+                };
+                //设置个回调
+                authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
+            }
             await JsTool.Document.SetTitle(systemConfig.SystemName);
             //导航控制
             ClientNavTabControl.SetReuseTabs(reuseTabs);

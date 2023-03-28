@@ -123,7 +123,7 @@ namespace Gardener.Cache
         /// <param name="func"></param>
         /// <param name="absoluteExpirationSeconds"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync<T>(string key, Func<Task<T>> func)
+        public async Task<T?> GetAsync<T>(string key, Func<Task<T?>> func)
         {
             return await GetAsync<T>(key, func, new DistributedCacheEntryOptions()
                     .SetAbsoluteExpiration(DateTimeOffset.MaxValue));
@@ -136,7 +136,7 @@ namespace Gardener.Cache
         /// <param name="func"></param>
         /// <param name="absoluteExpiration"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync<T>(string key, Func<Task<T>> func, TimeSpan absoluteExpiration)
+        public async Task<T?> GetAsync<T>(string key, Func<Task<T?>> func, TimeSpan absoluteExpiration)
         {
             return await GetAsync<T>(key, func, new DistributedCacheEntryOptions()
                     .SetAbsoluteExpiration(absoluteExpiration));
@@ -149,12 +149,12 @@ namespace Gardener.Cache
         /// <param name="func"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync<T>(string key, Func<Task<T>> func, DistributedCacheEntryOptions options)
+        public async Task<T?> GetAsync<T>(string key, Func<Task<T?>> func, DistributedCacheEntryOptions options)
         {
             T? value = await GetAsync<T>(key);
             if (value == null)
             {
-                T newValue =await func();
+                T? newValue =await func();
                 if (newValue != null)
                 {
                     await SetAsync(key, newValue, options);

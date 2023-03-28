@@ -57,7 +57,7 @@ public partial class SqlSugarRepository<TEntity> : SqlSugarRepository where TEnt
             Ado = this.db.Ado;
             #endregion
         }
-        catch (Exception ex)
+        catch
         {
             throw Oops.Bah(ExceptionCode.Sugar_Repository_Init_Fail);
         }
@@ -190,20 +190,14 @@ public partial class SqlSugarRepository<TEntity> : SqlSugarRepository where TEnt
         // Sugar:
         var listAll = await GetAllAsync();
         IQueryable<TEntity> queryable = listAll.AsQueryable();
-        try
-        {
-            var list = queryable
-                .Where(expression) // Where
-                .OrderConditions(request.OrderConditions.ToArray()) // Order by
-                .ToList();
+        
+        var list = queryable
+            .Where(expression) // Where
+            .OrderConditions(request.OrderConditions.ToArray()) // Order by
+            .ToList();
 
-            return list;
-        }
-        catch (Exception ex)
-        {
-            // TODO: 这里不能抛出异常
-            throw Oops.Oh(ExceptionCode.Search_Error_DB_Field_Is_Null);
-        }
+        return list;
+       
     }
     #endregion
 
@@ -512,6 +506,6 @@ public class SqlSugarRepository
     public virtual SqlSugarRepository<TEntity> Change<TEntity>()
         where TEntity : class, new()
     {
-        return _serviceProvider.GetService<SqlSugarRepository<TEntity>>();
+        return _serviceProvider.GetRequiredService<SqlSugarRepository<TEntity>>();
     }
 }

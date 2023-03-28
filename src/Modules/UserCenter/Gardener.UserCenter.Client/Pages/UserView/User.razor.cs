@@ -22,12 +22,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class User : ListOperateTableBase<UserDto, int, UserEdit, UserCenterResource>
     {
-        private Tree<DeptDto> _deptTree;
-        private List<DeptDto> depts;
+        private Tree<DeptDto>? _deptTree;
+        private List<DeptDto>? depts;
         private bool _deptTreeIsLoading = false;
+        private int _currentDeptId = 0;
         [Inject]
-        IDeptService deptService { get; set; }
-        int _currentDeptId = 0;
+        private IDeptService deptService { get; set; } = null!;
 
         /// <summary>
         /// 
@@ -51,12 +51,13 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 重载部门信息
         /// </summary>
         /// <returns></returns>
-        private async Task ReLoadDepts(MouseEventArgs eventArgs)
+        private async Task ReLoadDepts(MouseEventArgs? eventArgs)
         {
             _deptTreeIsLoading = true;
             depts = await deptService.GetTree();
             _deptTreeIsLoading = false;
         }
+       
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -81,13 +82,16 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override void ConfigurationPageRequest(PageRequest pageRequest)
         {
-            if (_currentDeptId > 0)
+            if (_currentDeptId > 0 && depts!=null)
             {
                 var node = TreeHelper.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
-                List<int> ids = TreeHelper.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
-                if (ids != null)
+                if(null!= node) 
                 {
-                    pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
+                    List<int> ids = TreeHelper.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                    if (ids != null)
+                    {
+                        pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
+                    }
                 }
             }
         }
@@ -114,11 +118,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             settings.Width = 300;
             settings.DrawerPlacement = Placement.Left;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(localizer[SharedLocalResource.UplaodAvatar],
-                new UserUploadAvatarParams
-                {
-                    User = user,
-                    SaveDb = true
-                },
+                new UserUploadAvatarParams(user,true),
                 async r =>
                 {
                     await ReLoadTable();

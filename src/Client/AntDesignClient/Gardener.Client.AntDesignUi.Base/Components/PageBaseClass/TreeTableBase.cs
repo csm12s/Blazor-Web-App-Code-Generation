@@ -23,7 +23,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new() where TKey : notnull
     {
         /// <summary>
         /// 确认提示服务
@@ -41,7 +41,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 
         /// </summary>
         /// <returns></returns>
-        protected abstract ICollection<TDto> GetChildren(TDto dto);
+        protected abstract ICollection<TDto>? GetChildren(TDto dto);
         /// <summary>
         /// 
         /// </summary>
@@ -167,8 +167,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     messageService.Success("删除成功");
 #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    var pKey=GetParentKey(dto);
-                    if (_datas != null && pKey!=null && DeleteTreeNode(pKey, GetKey(dto), _datas))
+                    var pKey = GetParentKey(dto);
+                    if (_datas != null && pKey != null && DeleteTreeNode(pKey, GetKey(dto), _datas))
                     {
                         await InvokeAsync(StateHasChanged);
                     }
@@ -319,8 +319,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             foreach (TDto dto in items)
             {
                 var children = GetChildren(dto);
-                var key=GetKey(dto);
-                if (key!=null && key.Equals(pId))
+                children = children ?? new List<TDto>();
+                TKey key = GetKey(dto);
+                if (key.Equals(pId))
                 {
                     children = children.Where(x => !key.Equals(id)).ToList();
                     SetChildren(dto, children);
@@ -345,15 +346,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected TDto? GetNodeFromTree(TKey id, TDto dto)
         {
             var key = GetKey(dto);
-            if (key!=null && key.Equals(id))
+            if (key != null && key.Equals(id))
             {
                 return dto;
             }
             else
             {
-                if (GetChildren(dto) != null)
+                var children = GetChildren(dto);
+                if (children != null)
                 {
-                    foreach (TDto item in GetChildren(dto))
+                    foreach (TDto item in children)
                     {
                         var node = GetNodeFromTree(id, item);
                         if (node != null)
@@ -377,7 +379,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TOperationDialog"></typeparam>
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, SharedLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, SharedLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new() where TKey : notnull
     {
 
     }
@@ -388,7 +390,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new() where TKey : notnull
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
@@ -450,11 +452,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                 }
                 //父级未变化直接变化本地对象
-                ICollection<TDto> children = GetChildren(dto);
+                ICollection<TDto>? children = GetChildren(dto);
                 //重新赋值给界面对象
                 newEntity.Adapt(dto);
-                //子集也重新赋值给他
-                SetChildren(dto, children);
+                if (children != null)
+                {
+                    //子集也重新赋值给他
+                    SetChildren(dto, children);
+                }
                 //给子集重新排队
                 _datas.ForEach(x =>
                 {
@@ -464,7 +469,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         var p = GetNodeFromTree(pKey, x);
                         if (p != null)
                         {
-                            ICollection<TDto> children = GetChildren(x);
+                            ICollection<TDto>? children = GetChildren(x);
                             if (children != null)
                             {
                                 SetChildren(p, SortChildren(children));
@@ -501,7 +506,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnAddChildrenFinish(TDto dto, OperationDialogOutput<TKey> dialogOutput)
         {
-            if (dialogOutput.Succeeded && dialogOutput.Id!=null)
+            if (dialogOutput.Succeeded && dialogOutput.Id != null)
             {
                 //最新的数据
                 var newEntity = await _service.Get(dialogOutput.Id);
@@ -520,7 +525,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new() where TKey : notnull
     {
 
     }

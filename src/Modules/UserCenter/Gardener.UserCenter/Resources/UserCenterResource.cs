@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
+using System.Data;
 
 namespace Gardener.UserCenter.Resources
 {
@@ -49,5 +50,9 @@ namespace Gardener.UserCenter.Resources
         /// 账号密码登录
         /// </summary>
         public const string AccountPasswordLogin = nameof(AccountPasswordLogin);
+        /// <summary>
+        /// 没有可用角色，请先添加角色
+        /// </summary>
+        public const string NoRoleNeedAdd = nameof(NoRoleNeedAdd);
     }
 }

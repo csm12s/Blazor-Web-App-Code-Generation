@@ -44,7 +44,7 @@ namespace Gardener.SystemManager.Services
         /// </remarks>
         /// <param name="key">key</param>
         /// <returns></returns>
-        Task<FunctionDto> GetByKey(string key);
+        Task<FunctionDto?> GetByKey(string key);
 
     }
 }

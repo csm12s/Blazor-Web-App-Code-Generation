@@ -17,13 +17,13 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserEdit : EditOperationDialogBase<UserDto, int, UserCenterResource>
     {
-        private List<PositionDto> positions = new List<PositionDto>();
-        [Inject]
-        IDeptService deptService { get; set; }
-        [Inject]
-        IPositionService positionService { get; set; }
-        //部门树
         List<DeptDto> deptDatas = new List<DeptDto>();
+        List<PositionDto> positions = new List<PositionDto>();
+        [Inject]
+        IDeptService deptService { get; set; } = null!;
+        [Inject]
+        IPositionService positionService { get; set; } = null!;
+        //部门树
         /// <summary>
         /// 部门编号
         /// </summary>
@@ -31,7 +31,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             get
             {
-                return _editModel.DeptId?.ToString();
+                return _editModel.DeptId?.ToString() ?? string.Empty;
             }
             set
             {
@@ -72,7 +72,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
                 localizer[SharedLocalResource.UplaodAvatar],
-                new UserUploadAvatarParams { User = user, SaveDb = false },
+                new UserUploadAvatarParams(user, false),
                 width: avatarDrawerWidth);
         }
         /// <summary>

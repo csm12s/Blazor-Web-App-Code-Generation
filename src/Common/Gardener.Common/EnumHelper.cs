@@ -154,6 +154,16 @@ namespace Gardener.Common
         }
 
         /// <summary>
+        /// 获取枚举描述,如果没有描述返回名字
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static string GetEnumDescriptionOrName(Enum item)
+        {
+            return GetEnumAttribute<DescriptionAttribute>(item)?.Description ?? item.ToString();
+        }
+
+        /// <summary>
         /// 获取枚举描述
         /// Get Enum CodeAttribute Value
         /// </summary>

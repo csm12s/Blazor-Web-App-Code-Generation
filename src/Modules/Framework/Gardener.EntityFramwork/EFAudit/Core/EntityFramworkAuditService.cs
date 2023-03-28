@@ -118,7 +118,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     //跳过
                     if (entityType.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) { continue; }
                     // 获取实体当前的值
-                    var currentValues = entity.CurrentValues;
+                    PropertyValues currentValues = entity.CurrentValues;
                     AuditEntity auditEntity = new AuditEntity();
                     auditEntity.TypeName = entityType.FullName ?? string.Empty;
                     auditEntity.Name = entityType.GetDescription() ?? string.Empty;
@@ -153,15 +153,17 @@ namespace Gardener.EntityFramwork.Audit.Core
         {
             try
             {
-                if (_auditEntitys == null) return Task.CompletedTask;
-
-                foreach (var entity in _auditEntitys)
+                if (_auditEntitys != null)
                 {
-                    var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
-                    entity.DataId = string.Join(',', pkValues);
-                    entity.AuditProperties = auditProperties;
+                    foreach (AuditEntity entity in _auditEntitys)
+                    {
+                        var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
+                        entity.DataId = string.Join(',', pkValues);
+                        entity.AuditProperties = auditProperties;
+                    }
+                    SaveAuditEntitys(_auditEntitys);
                 }
-                SaveAuditEntitys(_auditEntitys);
+
             }
             catch (Exception ex)
             {

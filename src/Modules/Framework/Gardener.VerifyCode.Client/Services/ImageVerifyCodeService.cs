@@ -21,7 +21,7 @@ namespace Gardener.VerifyCode.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public async Task<ImageVerifyCodeOutput?> Create(ImageVerifyCodeInput input)
+        public async Task<ImageVerifyCodeOutput> Create(ImageVerifyCodeInput input)
         {
             return await apiCaller.PostAsync<VerifyCodeInput, ImageVerifyCodeOutput>($"{controller}", input);
         }

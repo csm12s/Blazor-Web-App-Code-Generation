@@ -52,9 +52,9 @@
             <Column @bind-Field="@model.Port" Filterable />
             <Column @bind-Field="@model.AccountName" Filterable />
             <Column @bind-Field="@model.Tags">
-                @foreach (string tag in model.Tags?.Split(",")) 
-                { 
-                    <TagRandomColor Text="@EnumHelper.GetEnumDescription(Enum.Parse<EmailServerTag>(tag))"></TagRandomColor>
+                @foreach (EmailServerTag tag in model.GetEmailServerTagEnums())
+                {
+                    <TagPro Text="@EnumHelper.GetEnumDescriptionOrName(tag)"></TagPro>
                 }
             </Column>
             <Column @bind-Field="@model.IsLocked" Filterable Title="@localizer[SharedLocalResource.IsLocked]">

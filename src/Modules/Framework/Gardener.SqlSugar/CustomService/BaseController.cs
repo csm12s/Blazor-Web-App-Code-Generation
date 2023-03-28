@@ -21,6 +21,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     IBaseController<TEntityDto, TKey>, ITransient
     where TEntity : class, IPrivateEntity, new()
     where TEntityDto : class, new()
+    where TKey : notnull
 {
     #region Init
     public readonly IBaseService<TEntity> _baseService;

@@ -93,7 +93,7 @@ namespace Gardener.Authorization.Core
         /// 获取功能Key
         /// </summary>
         /// <returns></returns>
-        private string GetApiEndpointKeyFromContext()
+        private string? GetApiEndpointKeyFromContext()
         {
             // 获取权限特性
             var securityDefineAttribute = _httpContextAccessor.HttpContext.GetMetadata<SecurityDefineAttribute>();
@@ -106,9 +106,23 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         private (HttpMethod, string) GetContextEndpoint()
         {
+            var context = _httpContextAccessor.HttpContext;
+            if (context == null)
+            {
+                throw new InvalidOperationException("HttpContext is null");
+            }
             //没有特性的可以通过路由+请求方法查找
-            HttpMethod method = Enum.Parse<HttpMethod>(_httpContextAccessor.HttpContext.Request.Method.ToUpper());
-            string path = ((Microsoft.AspNetCore.Routing.RouteEndpoint)_httpContextAccessor.HttpContext.GetEndpoint()).RoutePattern.RawText;
+            HttpMethod method = Enum.Parse<HttpMethod>(context.Request.Method.ToUpper());
+            var point = context.GetEndpoint();
+            if (point == null)
+            {
+                throw new InvalidOperationException("Endpoint is null");
+            }
+            string? path = ((Microsoft.AspNetCore.Routing.RouteEndpoint)point).RoutePattern.RawText;
+            if (path == null)
+            {
+                throw new InvalidOperationException("RoutePattern.RawText is null");
+            }
             if (!path.StartsWith("/"))
             {
                 path = "/" + path;
@@ -122,8 +136,11 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         private async Task<ApiEndpoint> GetApiEndpointFromContext()
         {
-            string functionKey = GetApiEndpointKeyFromContext();
-            if (!string.IsNullOrEmpty(functionKey)) return await _apiEndpointStoreService.Query(functionKey);
+            string? functionKey = GetApiEndpointKeyFromContext();
+            if (!string.IsNullOrEmpty(functionKey))
+            {
+                return await _apiEndpointStoreService.Query(functionKey);
+            }
             var (method, path) = GetContextEndpoint();
             return await _apiEndpointStoreService.Query(path, method);
         }

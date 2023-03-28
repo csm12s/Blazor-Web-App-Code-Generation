@@ -19,14 +19,15 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private ResourceType currentResourceTypeCopy = ResourceType.Root;
 
         [Inject]
-        IResourceService resourceService { get; set; }
+        IResourceService resourceService { get; set; } = null!;
         /// <summary>
         /// 资源父级
         /// </summary>
         public string ParentId 
         {
-            get {
-                return _editModel.ParentId?.ToString();
+            get 
+            {
+                return _editModel.ParentId?.ToString() ?? string.Empty;
             }
             set 
             {

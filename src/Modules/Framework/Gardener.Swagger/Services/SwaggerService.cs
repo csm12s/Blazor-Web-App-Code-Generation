@@ -39,7 +39,7 @@ namespace Gardener.Swagger.Services
         /// <param name="url"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<SwaggerModel> Analysis(string url)
+        public async Task<SwaggerModel?> Analysis(string url)
         {
             url = HttpUtility.UrlDecode(url);
 
@@ -77,7 +77,7 @@ namespace Gardener.Swagger.Services
         public async Task<List<ApiEndpoint>> GetFunctionsFromJson(string url)
         {
             List<ApiEndpoint> _functionDtos = new List<ApiEndpoint>();
-            SwaggerModel swaggerModel = await Analysis(url);
+            SwaggerModel? swaggerModel = await Analysis(url);
             if (swaggerModel != null && swaggerModel.paths != null)
             {
                 if (swaggerModel.tags == null)

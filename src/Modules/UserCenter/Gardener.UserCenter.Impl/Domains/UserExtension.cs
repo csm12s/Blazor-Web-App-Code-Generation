@@ -42,16 +42,6 @@ namespace Gardener.UserCenter.Impl.Domains
         [DisplayName("城市编号")]
         public int? CityId { get; set; }
         /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayName("创建时间")]
-        public DateTimeOffset CreatedTime { get; set; }
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [DisplayName("更新时间")]
-        public DateTimeOffset? UpdatedTime { get; set; }
-        /// <summary>
         /// 用户信息
         /// </summary>
         public User User { get; set; }

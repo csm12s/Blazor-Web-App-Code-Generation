@@ -26,9 +26,9 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         }
 
         [Inject]
-        public IDeptService deptService { get; set; }
+        public IDeptService deptService { get; set; } = null!;
 
-        protected override ICollection<DeptDto> GetChildren(DeptDto dto)
+        protected override ICollection<DeptDto>? GetChildren(DeptDto dto)
         {
             return dto.Children;
         }

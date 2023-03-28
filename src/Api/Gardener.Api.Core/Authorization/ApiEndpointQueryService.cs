@@ -48,8 +48,8 @@ namespace Gardener.Authorization.Core
         /// <param name="key"></param>
         /// <returns></returns>
         private string GetApiEndpointCacheKey(string key)
-        { 
-            return cacheKeyPre + key; 
+        {
+            return cacheKeyPre + key;
         }
         /// <summary>
         /// 获取缓存key
@@ -58,7 +58,7 @@ namespace Gardener.Authorization.Core
         /// <param name="method"></param>
         /// <returns></returns>
         private string GetApiEndpointCacheKey(string path, HttpMethod method)
-        { 
+        {
             return cacheKeyPre + path + "_" + method;
         }
         /// <summary>
@@ -67,11 +67,11 @@ namespace Gardener.Authorization.Core
         /// <param name="key"></param>
         /// <param name="enableCache"></param>
         /// <returns></returns>
-        public async Task<ApiEndpoint> Query(string key, bool enableCache = true)
+        public async Task<ApiEndpoint?> Query(string key, bool enableCache = true)
         {
-            Func<Task<ApiEndpoint>> func = async () => {
-
-                Function function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Key.Equals(key) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
+            Func<Task<ApiEndpoint?>> func = async () =>
+            {
+                Function? function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Key.Equals(key) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
                 return function?.Adapt<ApiEndpoint>();
             };
             if (!enableCache)
@@ -89,10 +89,11 @@ namespace Gardener.Authorization.Core
         /// <param name="method"></param>
         /// <param name="enableCache"></param>
         /// <returns></returns>
-        public async Task<ApiEndpoint> Query(string path, HttpMethod method, bool enableCache = true)
+        public async Task<ApiEndpoint?> Query(string path, HttpMethod method, bool enableCache = true)
         {
-            Func<Task<ApiEndpoint>> func = async () => {
-                Function function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Method.Equals(method) && x.Path.Equals(path) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
+            Func<Task<ApiEndpoint?>> func = async () =>
+            {
+                Function? function = await Db.GetRepository<Function>().AsQueryable(false).Where(x => x.Method.Equals(method) && path.Equals(x.Path) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefaultAsync();
                 return function?.Adapt<ApiEndpoint>();
             };
             if (!enableCache)

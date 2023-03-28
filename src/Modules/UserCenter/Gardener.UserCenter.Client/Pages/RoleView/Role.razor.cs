@@ -17,7 +17,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
     public partial class Role : ListOperateTableBase<RoleDto, int, RoleEdit>
     {
         [Inject]
-        public IRoleService roleService { get; set; }
+        public IRoleService roleService { get; set; } = null!;
         /// <summary>
         /// 点击分配资源
         /// </summary>

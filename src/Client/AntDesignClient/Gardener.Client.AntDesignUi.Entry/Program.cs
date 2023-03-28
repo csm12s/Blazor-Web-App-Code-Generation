@@ -32,7 +32,7 @@ namespace Gardener.Client.AntDesignUi.Entry
 
             #region httpclient
             builder.Services.AddScoped(sp => {
-                IOptions<ApiSettings> settings = sp.GetService<IOptions<ApiSettings>>();
+                IOptions<ApiSettings> settings = sp.GetRequiredService<IOptions<ApiSettings>>();
                 return new HttpClient { BaseAddress = new Uri(settings.Value.BaseAddres) };
             });
             #endregion
@@ -56,7 +56,11 @@ namespace Gardener.Client.AntDesignUi.Entry
             {
                 option.AddPolicy(AuthConstant.DefaultAuthenticatedPolicy, a => a.RequireAuthenticatedUser());
                 option.AddPolicy(AuthConstant.ClientUIResourcePolicy, a => a.Requirements.Add(new ClientUIAuthorizationRequirement()));
-                option.DefaultPolicy = option.GetPolicy(AuthConstant.DefaultAuthenticatedPolicy);
+                var defaultPolicy = option.GetPolicy(AuthConstant.DefaultAuthenticatedPolicy);
+                if (defaultPolicy != null)
+                {
+                    option.DefaultPolicy = defaultPolicy;
+                }
             });
             builder.Services.AddScoped<IAuthorizationHandler, ClientUIResourceAuthorizationHandler>();
             builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));

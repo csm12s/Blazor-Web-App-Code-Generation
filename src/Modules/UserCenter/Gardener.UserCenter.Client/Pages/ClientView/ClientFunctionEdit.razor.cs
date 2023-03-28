@@ -20,6 +20,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ClientView
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ClientFunctionEditOption
     {
         /// <summary>
@@ -29,32 +32,34 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 0 展示
         /// 1 添加
         /// </summary>
         public int Type { get; set; }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class ClientFunctionEdit : OperationDialogBase<ClientFunctionEditOption, bool>
     {
         [Inject]
-        IFunctionService functionService { get; set; }
+        IFunctionService functionService { get; set; } = null!;
         [Inject]
-        IClientFunctionService clientFunctionService { get; set; }
+        IClientFunctionService clientFunctionService { get; set; } = null!;
         [Inject]
-        IClientService clientService { get; set; }
+        IClientService clientService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
-
+        MessageService messageService { get; set; } = null!;
         [Inject]
-        DrawerService drawerService { get; set; }
+        DrawerService drawerService { get; set; } = null!;
         [Inject]
-        ConfirmService confirmService { get; set; }
+        ConfirmService confirmService { get; set; } = null!;
         [Inject]
-        NotificationService noticeService { get; set; }
+        NotificationService noticeService { get; set; } = null!;
         [Inject]
-        IClientLocalizer localizer { get; set; }
+        IClientLocalizer localizer { get; set; } = null!;
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
         //List<TableFilter<string>> groupFilters = null;
@@ -130,7 +135,9 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 return;
             }
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -139,7 +146,9 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
                 {
                     await clientFunctionService.Delete(this.Options.Id, item.Id);
                 }
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 await OnInitializedAsync();
             }
         }
@@ -169,7 +178,9 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 return;
             }
 
@@ -184,12 +195,16 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             }).ToList());
             if (result)
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Success(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Success));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 await this.CloseAsync(true);
             }
             else
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Error(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Fail));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
         }
     }

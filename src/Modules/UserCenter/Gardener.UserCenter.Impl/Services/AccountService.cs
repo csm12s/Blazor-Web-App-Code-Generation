@@ -201,14 +201,14 @@ namespace Gardener.UserCenter.Impl.Services
         /// </remarks>
         /// <param name="rootKey"></param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetCurrentUserMenus([FromQuery] string rootKey = null)
+        public async Task<List<ResourceDto>> GetCurrentUserMenus([FromQuery] string? rootKey = null)
         {
             // 获取用户Id
             List<ResourceDto> resources = await GetCurrentUserResources(ResourceType.Root, ResourceType.Menu);
 
-            if (resources == null) return new List<ResourceDto>();
+            var result= resources?.Where(x => x.Type.Equals(ResourceType.Root) && (string.IsNullOrEmpty(rootKey) || x.Key.Equals(rootKey))).FirstOrDefault()?.Children?.ToList();
 
-            return resources.Where(x => x.Type.Equals(ResourceType.Root) && !string.IsNullOrEmpty(rootKey) && x.Key.Equals(rootKey)).FirstOrDefault()?.Children?.ToList();
+            return resources ?? new List<ResourceDto>();
         }
 
         #region 私有

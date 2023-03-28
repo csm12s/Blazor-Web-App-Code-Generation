@@ -32,7 +32,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 角色
         /// </summary>
         [DisplayName("角色")]
-        public Role Role { get; set; }
+        public Role? Role { get; set; }
         /// <summary>
         /// 权限Id
         /// </summary>
@@ -43,13 +43,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 权限
         /// </summary>
         [DisplayName("资源")]
-        public Resource Resource { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayName("创建时间")]
-        public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
-
+        public Resource? Resource { get; set; }
 
         /// <summary>
         /// 配置多对多关系

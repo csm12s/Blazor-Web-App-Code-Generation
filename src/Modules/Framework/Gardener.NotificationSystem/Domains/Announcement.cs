@@ -13,9 +13,9 @@ namespace Gardener.NotificationSystem.Domains
         /// <summary>
         /// 标题
         /// </summary>
-        [MaxLength(100),Required]
+        [MaxLength(100), Required]
         [DisplayName("标题")]
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         /// <summary>
         /// 概述

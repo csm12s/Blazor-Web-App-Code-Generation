@@ -20,7 +20,7 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        Task DeleteAsync(string url, IDictionary<string, object>? queryString = null);
+        Task DeleteAsync(string url, IDictionary<string, object?>? queryString = null);
         /// <summary>
         /// delete
         /// </summary>
@@ -28,7 +28,7 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object>? queryString = null);
+        Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object?>? queryString = null);
         /// <summary>
         /// get
         /// </summary>
@@ -43,7 +43,7 @@ namespace Gardener.Client.Base
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString);
+        Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object?> queryString);
         /// <summary>
         /// get
         /// </summary>

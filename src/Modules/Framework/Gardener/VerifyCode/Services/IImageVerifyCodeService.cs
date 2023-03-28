@@ -19,7 +19,7 @@ namespace Gardener.VerifyCode.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public Task<ImageVerifyCodeOutput?> Create(ImageVerifyCodeInput input);
+        public Task<ImageVerifyCodeOutput> Create(ImageVerifyCodeInput input);
 
         /// <summary>
         /// 移除验证码

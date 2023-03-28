@@ -38,7 +38,7 @@ namespace Gardener.Client.Base
         /// 获取当前用户的菜单
         /// </summary>
         /// <returns></returns>
-        List<ResourceDto> GetCurrentUserMenus();
+        List<ResourceDto>? GetCurrentUserMenus();
         /// <summary>
         /// 刷新当前用户信息
         /// </summary>

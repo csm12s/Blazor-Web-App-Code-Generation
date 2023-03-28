@@ -21,7 +21,7 @@ namespace Gardener.VerifyCode.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public async Task<EmailVerifyCodeOutput?> Create(EmailVerifyCodeInput input)
+        public async Task<EmailVerifyCodeOutput> Create(EmailVerifyCodeInput input)
         {
             return await apiCaller.PostAsync<VerifyCodeInput, EmailVerifyCodeOutput>($"{controller}", input);
         }

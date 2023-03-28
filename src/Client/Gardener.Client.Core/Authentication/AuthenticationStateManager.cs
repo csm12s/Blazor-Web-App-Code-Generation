@@ -247,9 +247,9 @@ namespace Gardener.Client.Core
             }
             return Task.FromResult(uiHashtableResources.ContainsKey(key));
         }
-        public List<ResourceDto> GetCurrentUserMenus()
+        public List<ResourceDto>? GetCurrentUserMenus()
         {
-            return this.menuResources ?? new List<ResourceDto>();
+            return this.menuResources;
         }
         #endregion
 

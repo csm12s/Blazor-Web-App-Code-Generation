@@ -15,7 +15,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
     public partial class Function : ListOperateTableBase<FunctionDto, Guid, FunctionEdit>
     {
         [Inject]
-        public IFunctionService functionService { get; set; }
+        public IFunctionService functionService { get; set; } = null!;
 
         // <summary>
         /// 点击启用审计按钮
@@ -28,7 +28,9 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             if (!result)
             {
                 model.EnableAudit = !enableAudit;
-                messageService.Error((enableAudit ? "启用" : "禁用") + SharedLocalResource.Fail);
+                #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                messageService.Error((enableAudit ? SharedLocalResource.Enable : SharedLocalResource.Disabled) + SharedLocalResource.Fail);
+                #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
         }
 

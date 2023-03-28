@@ -39,7 +39,7 @@ namespace Gardener.ImageVerifyCode.Services
         /// <param name="input">类型</param>
         /// <returns></returns>
         [AllowAnonymous, IgnoreAudit]
-        public async Task<ImageVerifyCodeOutput?> Create(ImageVerifyCodeInput input)
+        public async Task<ImageVerifyCodeOutput> Create(ImageVerifyCodeInput input)
         {
             ImageVerifyCodeOutput imageVerifyCode =(ImageVerifyCodeOutput) await verifyCodeService.Create(input);
             return imageVerifyCode;

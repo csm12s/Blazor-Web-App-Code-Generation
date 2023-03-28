@@ -13,30 +13,30 @@ namespace Gardener.EasyJob.Impl.Domains
         /// <summary>
         /// 作业 Id
         /// </summary>
-        public string JobId { get; set; }
+        public string JobId { get; set; } = null!;
 
         /// <summary>
         /// 作业组名称
         /// </summary>
-        public string GroupName { get; set; }
+        public string GroupName { get; set; } = null!;
         /// <summary>
         /// 作业处理程序类型
         /// </summary>
         /// <remarks>
         /// 作业处理程序类型，存储的是类型的 FullName
         /// </remarks>
-        public string JobType { get; set; }
+        public string JobType { get; set; } = null!;
         /// <summary>
         /// 作业处理程序类型所在程序集
         /// </summary>
         /// <remarks>
         /// 作业处理程序类型所在程序集，存储的是程序集 Name
         /// </remarks>
-        public string AssemblyName { get; set; }
+        public string AssemblyName { get; set; } = null!;
         /// <summary>
         /// 描述信息
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = null!;
         /// <summary>
         /// 作业执行方式
         /// </summary>
@@ -57,6 +57,6 @@ namespace Gardener.EasyJob.Impl.Domains
         /// <remarks>
         /// 作业信息额外数据，由 Dictionary<string, object> 序列化成字符串存储 
         /// </remarks>
-        public string Properties { get; set; }
+        public string? Properties { get; set; }
     }
 }

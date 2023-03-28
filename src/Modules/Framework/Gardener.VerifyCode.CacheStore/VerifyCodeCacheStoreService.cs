@@ -43,9 +43,9 @@ namespace Gardener.VerifyCode.CacheStore
         /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<string> GetCode(VerifyCodeTypeEnum verifyCodeType, string key)
+        public Task<string?> GetCode(VerifyCodeTypeEnum verifyCodeType, string key)
         {
-            return await _cache.GetStringAsync(keyPre + verifyCodeType + key);
+            return _cache.GetStringAsync(keyPre + verifyCodeType + key);
         }
         /// <summary>
         /// 

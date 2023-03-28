@@ -29,7 +29,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 用户信息
         /// </summary>
         [DisplayName("用户")]
-        public User User { get; set; }
+        public User? User { get; set; }
         /// <summary>
         /// 角色Id
         /// </summary>
@@ -39,12 +39,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 角色信息
         /// </summary>
         [DisplayName("角色")]
-        public Role Role { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayName("创建时间")]
-        public DateTimeOffset CreatedTime { get; set; }
+        public Role? Role { get; set; }
         /// <summary>
         /// 配置
         /// </summary>

@@ -18,7 +18,7 @@ namespace Gardener.Audit.Client.Pages
     public partial class AuditOperation : ListTableBase<AuditOperationDto, Guid>
     {
         [Inject]
-        public IAuditOperationService auditOperationService { get; set; }
+        public IAuditOperationService auditOperationService { get; set; } = null!;
         /// <summary>
         /// 
         /// </summary>

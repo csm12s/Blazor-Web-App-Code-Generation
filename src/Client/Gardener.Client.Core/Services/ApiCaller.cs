@@ -51,7 +51,7 @@ namespace Gardener.Client.Core
         /// <param name="func"></param>
         /// <param name="retry">重试次数</param>
         /// <returns></returns>
-        async Task<TResponse?> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func,int retry=0)
+        async Task<TResponse> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func,int retry=0)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        private string GetUrl(string url, IDictionary<string, object>? queryString = null)
+        private string GetUrl(string url, IDictionary<string, object?>? queryString = null)
         {
             if (queryString != null && queryString.Count > 0)
             {
@@ -207,7 +207,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<TResponse?> PostAsync<TRequest, TResponse>(string url, TRequest? request = default(TRequest))
+        public Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest? request = default(TRequest))
         {
             return ResponseHandle<TResponse>(() =>
            {
@@ -222,7 +222,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse?> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object>? queryString = null)
+        public Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object>? queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -237,7 +237,7 @@ namespace Gardener.Client.Core
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="url"></param>
         /// <returns></returns>
-        public Task<TResponse?> GetAsync<TResponse>(string url)
+        public Task<TResponse> GetAsync<TResponse>(string url)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -252,7 +252,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse?> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
+        public Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object?> queryString)
         {
             return ResponseHandle<TResponse>(() =>
              {
@@ -268,7 +268,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse?> GetAsync<TResponse>(string url, List<KeyValuePair<string, object?>> queryString)
+        public Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object?>> queryString)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -285,7 +285,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task DeleteAsync(string url, IDictionary<string, object>? queryString = null)
+        public Task DeleteAsync(string url, IDictionary<string, object?>? queryString = null)
         {
            return ResponseHandle(() =>
             {
@@ -299,7 +299,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse?> DeleteAsync<TResponse>(string url, IDictionary<string, object>? queryString = null)
+        public Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object?>? queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -330,7 +330,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<TResponse?> PutAsync<TRequest, TResponse>(string url, TRequest? request = default)
+        public Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest? request = default)
         {
             return ResponseHandle<TResponse>(() =>
            {

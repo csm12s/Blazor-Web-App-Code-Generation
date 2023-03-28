@@ -11,6 +11,7 @@ using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Threading.Tasks;
 
@@ -21,19 +22,19 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         bool loading = false;
         bool autoLogin = true;
         private LoginInput loginInput = new LoginInput();
-        private Gardener.Client.AntDesignUi.Base.Components.ImageVerifyCode _imageVerifyCode;
-        private string returnUrl;
+        private Gardener.Client.AntDesignUi.Base.Components.ImageVerifyCode? _imageVerifyCode;
+        private string? returnUrl;
 
         [Inject]
-        public MessageService MsgSvr { get; set; }
+        public MessageService MsgSvr { get; set; } = null!;
         [Inject]
-        public IAccountService accountService { get; set; }
+        public IAccountService accountService { get; set; } = null!;
         [Inject]
-        public NavigationManager Navigation { get; set; }
+        public NavigationManager Navigation { get; set; } = null!;
         [Inject]
-        public IAuthenticationStateManager authenticationStateManager { get; set; }
+        public IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
         [Inject]
-        public IClientLocalizer<UserCenterResource> localizer { get; set; }
+        public IClientLocalizer<UserCenterResource> localizer { get; set; } = null!;
 
         /// <summary>
         /// 
@@ -44,7 +45,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             var url = new Uri(Navigation.Uri);
             var query = url.Query;
 
-            if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
+            if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out StringValues value))
             {
                 if (!value.Equals(Navigation.Uri))
                 {
@@ -74,11 +75,14 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
-            else {
+            else if(_imageVerifyCode!=null)
+            {
                 await _imageVerifyCode.ReLoadVerifyCode();
                 loading = false;
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 MsgSvr.Error(localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
-                //await InvokeAsync(StateHasChanged);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                              //await InvokeAsync(StateHasChanged);
             }
             
         }

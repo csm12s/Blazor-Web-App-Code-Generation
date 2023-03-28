@@ -21,23 +21,23 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
     {
         List<SwaggerSpecificationOpenApiInfoDto> apiInfos = new List<SwaggerSpecificationOpenApiInfoDto>();
         [Inject]
-        ISwaggerService swaggerService { get; set; }
+        ISwaggerService swaggerService { get; set; } = null!;
         [Inject]
-        IFunctionService functionService { get; set; }
+        IFunctionService functionService { get; set; } = null!;
         [Inject]
-        IOptions<ApiSettings> apiSettings { get; set; }
+        IOptions<ApiSettings> apiSettings { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
+        MessageService messageService { get; set; } = null!;
         [Inject]
-        NotificationService noticeService { get; set; }
+        NotificationService noticeService { get; set; } = null!;
         [Inject]
-        IClientLocalizer localizer { get; set; }
+        IClientLocalizer localizer { get; set; } = null!;
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
 
         private string _apiJsonUrl = string.Empty;
         private string _selectedGroupValue = string.Empty;
-        private SwaggerSpecificationOpenApiInfoDto _selectedGroup ;
+        private SwaggerSpecificationOpenApiInfoDto? _selectedGroup ;
         private bool _loading = false;
         private bool _importLoading = false;
         private bool _importIsBegin = false;
@@ -62,9 +62,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             _functionDtos = new List<FunctionDto>();
             _selectedGroup = value;
-            Console.WriteLine(apiSettings);
             Uri uri = new Uri(apiSettings.Value.BaseAddres);
-            
             _apiJsonUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}/swagger/{value.Group}/swagger.json";
         }
         /// <summary>
@@ -79,7 +77,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             if (result != null)
             {
                 result.ForEach(x => { 
-                    x.Group = _selectedGroup.Title;
+                    x.Group = _selectedGroup?.Title??string.Empty;
                     _functionDtos.Add(x.Adapt<FunctionDto>());
                 });
             }
@@ -91,9 +89,10 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         /// </summary>
         /// <param name="model"></param>
         /// <param name="isLocked"></param>
-        private async Task OnChangeEnableAudit(FunctionDto model, bool enableAudit)
+        private Task OnChangeEnableAudit(FunctionDto model, bool enableAudit)
         {
             //todo: Add operation logic here
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 取消
@@ -112,7 +111,9 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             _importLoading = true;
             if (_selectedFunctionDtos == null || !_selectedFunctionDtos.Any())
             {
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 _importLoading = false;
                 return;
             }

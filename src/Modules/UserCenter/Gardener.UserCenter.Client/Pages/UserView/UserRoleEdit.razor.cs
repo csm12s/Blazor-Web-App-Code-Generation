@@ -5,7 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -20,11 +22,13 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private CheckboxOption[] _roleOptions = new CheckboxOption[] { };
         private int _userId = 0;
         [Inject]
-        IUserService userService { get; set; }
+        IUserService userService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
+        MessageService messageService { get; set; } = null!;
         [Inject]
-        IRoleService roleService { get; set; }
+        IRoleService roleService { get; set; } = null!;
+        [Inject]
+        IClientLocalizer<UserCenterResource> localizer { get; set; } = null!;
         protected override async Task OnInitializedAsync()
         {
             _isLoading = true;
@@ -34,7 +38,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 var rolesResult = await roleService.GetAllUsable();
                 if (rolesResult == null || !rolesResult.Any()) 
                 {
-                    messageService.Error("没有可用角色，请先添加角色");
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    messageService.Error(localizer[UserCenterResource.NoRoleNeedAdd]);
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                     return;
                 }
                 var userRoles = await userService.GetRoles(_userId);
@@ -53,9 +59,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 当角色选择有变化时
         /// </summary>
         /// <param name="values"></param>
-        private async Task OnEditUserRoleChange(string[] values)
+        private Task OnEditUserRoleChange(string[] values)
         {
             //todo: Add operation logic here
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 
@@ -64,15 +71,20 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             _isLoading = true;
             string[] selectRoles = _roleOptions.Where(x => x.Checked).Select(x => x.Value).ToArray();
-            var result = await userService.Role(_userId, selectRoles?.Select(x => int.Parse(x)).ToArray());
+
+            var result = await userService.Role(_userId, selectRoles.Select(x => int.Parse(x)).ToArray());
             if (result)
             {
-                messageService.Success("设置成功");
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                messageService.Success(localizer.Combination(UserCenterResource.Setting,UserCenterResource.Success));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-                messageService.Error("设置失败");
+#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                messageService.Error(localizer.Combination(UserCenterResource.Setting, UserCenterResource.Fail));
+#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
             _isLoading = false;
         }

@@ -27,7 +27,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         }
 
         [Inject]
-        IResourceService resourceService { get; set; }
+        IResourceService resourceService { get; set; } = null!;
 
         /// <summary>
         /// 点击展示关联接口
@@ -38,7 +38,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
                       $"{localizer["BindingApi"]}-[{model.Name}]",
-                      new ResourceFunctionEditOption { Resource = model, Type = 0, Name = model.Name },
+                      new ResourceFunctionEditOption(model, model.Name, 0),
                       width: 1200);
         }
 
@@ -93,7 +93,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         }
 
 
-        protected override ICollection<ResourceDto> GetChildren(ResourceDto dto)
+        protected override ICollection<ResourceDto>? GetChildren(ResourceDto dto)
         {
             return dto.Children;
         }

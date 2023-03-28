@@ -328,9 +328,7 @@ namespace Gardener.EntityFramwork
             Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
             IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
-            var result = await queryable
-                .OrderConditions(request.OrderConditions.ToArray())
-                .ToPageAsync(request.PageIndex, request.PageSize);
+            Base.PagedList<TEntity> result = await queryable.OrderConditions(request.OrderConditions.ToArray()).ToPageAsync(request.PageIndex, request.PageSize);
             return SeedDataGenerateTool.Generate(result.Items, typeof(TEntity).Name);
         }
 
