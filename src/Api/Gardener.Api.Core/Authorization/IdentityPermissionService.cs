@@ -31,7 +31,7 @@ namespace Gardener.Authorization.Core
         /// <param name="identity"></param>
         /// <param name="api"></param>
         /// <returns></returns>
-        public async Task<bool> Check(Identity identity, ApiEndpoint api)
+        public async Task<bool> Check(Identity? identity, ApiEndpoint? api)
         {
             if (api == null)
             {

@@ -36,6 +36,12 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
     private readonly IRepository<CodeGenConfig> repository;
     private readonly SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep;
     private readonly IWebHostEnvironment env;
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="repository"></param>
+    /// <param name="codeGenConfigSugarRep"></param>
+    /// <param name="env"></param>
     public CodeGenConfigService(
         IRepository<CodeGenConfig> repository,
         SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep,
@@ -46,6 +52,12 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         this.env = env;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dbColumnInfos"></param>
+    /// <param name="codeGen"></param>
+    /// <returns></returns>
     [NonAction]
     public async Task DeleteAndAddList(List<TableColumnInfo> dbColumnInfos, CodeGenDto codeGen)
     {
@@ -63,20 +75,16 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         //        && a.Name.Equals(codeGen.Module + "BaseModel"))
         //    .FirstOrDefault();
 
-        try
-        {
-            var dllName = "Gardener." + codeGen.Module + ".Server";
-            Assembly a = Assembly.Load(dllName);//这里找不到dll会报错
-            var baseModelType = a.GetType(dllName + "." + codeGen.Module + "BaseModel");
+        
+        var dllName = "Gardener." + codeGen.Module + ".Server";
+        Assembly a = Assembly.Load(dllName);//这里找不到dll会报错
+        var baseModelType = a.GetType(dllName + "." + codeGen.Module + "BaseModel");
 
-            if (baseModelType != null)
-            {
-                baseModelFields = baseModelType.GetProperties();
-            }
-        }
-        catch (Exception ex)
+        if (baseModelType != null)
         {
+            baseModelFields = baseModelType.GetProperties();
         }
+       
         #endregion
 
         foreach (var column in dbColumnInfos)
@@ -86,7 +94,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
             codeGenConfig.CodeGenId = codeGen.Id;
 
             codeGenConfig.ColumnName = column.DbColumnName;
-            codeGenConfig.NetColumnName = await GetNetColumnNameAsync(column, codeGen);
+            codeGenConfig.NetColumnName = await GetNetColumnNameAsync(column, codeGen) ?? string.Empty;
 
             // Data type
             codeGenConfig.DbDataType = column.DbDataType;
@@ -215,7 +223,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         }
     }
 
-    private async Task<string> GetNetColumnNameAsync(TableColumnInfo column, CodeGenDto codeGenDto)
+    private async Task<string?> GetNetColumnNameAsync(TableColumnInfo column, CodeGenDto codeGenDto)
     {
         // Custom name
 
@@ -232,7 +240,12 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         
         var appName = ProjectConstants.AppName;
         // Gardener\src\Modules\XXX\Gardener.XXX\DB\DB Naming
-        var replaceFolder = Path.Combine(FileHelper.GetParentDirectory(env.ContentRootPath),
+        var dir= FileHelper.GetParentDirectory(env.ContentRootPath);
+        if(dir== null)
+        {
+            return null;
+        }
+        var replaceFolder = Path.Combine(dir,
             "Modules",
             localeFileModule,
             appName + "." + localeFileModule,
@@ -247,13 +260,12 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
 
             foreach (var item in replaceItems)
             {
-                if (string.IsNullOrEmpty(item.OriginText) && string.IsNullOrEmpty(item.ReplacedText))
+                if (!string.IsNullOrEmpty(item.OriginText) && !string.IsNullOrEmpty(item.ReplacedText))
                 {
-                    continue;
+                    newColumnName = newColumnName.Replace(item.OriginText, item.ReplacedText);
                 }
 
-                newColumnName = newColumnName
-                    .Replace(item.OriginText, item.ReplacedText);
+                
             }
         }
         #endregion
@@ -277,7 +289,11 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
 
         return newColumnName;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="codeGenId"></param>
+    /// <returns></returns>
     [NonAction]
     public async Task DeleteByCodeGenId(Guid codeGenId)
     {

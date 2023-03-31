@@ -17,6 +17,6 @@ namespace Gardener.Authentication.Core
         /// 获取身份
         /// </summary>
         /// <returns></returns>
-        Identity GetIdentity();
+        Identity? GetIdentity();
     }
 }

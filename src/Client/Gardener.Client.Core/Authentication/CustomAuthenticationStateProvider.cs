@@ -40,7 +40,7 @@ namespace Gardener.Client.Core
                 var user =await authenticationStateManager.GetCurrentUser();
                 if (user == null)
                 {
-                    await logger.Error("用户信息获取失败,请重新登陆。");
+                    logger.Error("用户信息获取失败,请重新登陆。");
                     return authenticationState;
                 }
                 authenticationState = CreateAuthenticationState(user);
@@ -48,7 +48,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                await logger.Error("用户信息获取失败,请重新登陆。",ex:ex);
+                logger.Error("用户信息获取失败,请重新登陆。",ex:ex);
                 return authenticationState;
             }
         }

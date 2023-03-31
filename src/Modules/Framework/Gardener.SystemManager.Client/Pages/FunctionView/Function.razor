@@ -76,7 +76,7 @@
             <Column @bind-Field="@model.Summary" Width="10%" Filterable />
             <Column @bind-Field="@model.Path" Width="60" Filterable />
             <Column @bind-Field="@model.Method" Width="10%" Filters="TableFiltersConstants.FunctionMethodFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Method)"></TagRandomColor>
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
             </Column>
             <Column @bind-Field="@model.EnableAudit" Width="8%" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_function_enable_audit">

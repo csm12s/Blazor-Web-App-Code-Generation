@@ -14,42 +14,42 @@ namespace Gardener.Authentication.Options
         /// <summary>
         /// 验证签发方密钥
         /// </summary>
-        public bool? ValidateIssuerSigningKey { get; set; }
+        public bool ValidateIssuerSigningKey { get; set; } = true;
 
         /// <summary>
         /// 签发方密钥
         /// </summary>
-        public string IssuerSigningKey { get; set; }
+        public string IssuerSigningKey { get; set; } = null!;
 
         /// <summary>
         /// 验证签发方
         /// </summary>
-        public bool? ValidateIssuer { get; set; }
+        public bool ValidateIssuer { get; set; } = false;
 
         /// <summary>
         /// 签发方
         /// </summary>
-        public string ValidIssuer { get; set; }
+        public string ValidIssuer { get; set; } = null!;
 
         /// <summary>
         /// 验证签收方
         /// </summary>
-        public bool? ValidateAudience { get; set; }
+        public bool ValidateAudience { get; set; }=false;
 
         /// <summary>
         /// 签收方
         /// </summary>
-        public string ValidAudience { get; set; }
+        public string ValidAudience { get; set; } = null!;
 
         /// <summary>
         /// 验证生存期
         /// </summary>
-        public bool? ValidateLifetime { get; set; }
+        public bool  ValidateLifetime { get; set; }=true;
 
         /// <summary>
         /// 过期时间容错值，解决服务器端时间不同步问题（秒）
         /// </summary>
-        public long? ClockSkew { get; set; }
+        public long ClockSkew { get; set; } = 5;
 
         /// <summary>
         /// 过期时间（分钟）
@@ -59,7 +59,7 @@ namespace Gardener.Authentication.Options
         /// <summary>
         /// 加密算法
         /// </summary>
-        public string Algorithm { get; set; }
+        public string Algorithm { get; set; } = null!;
 
         /// <summary>
         /// 获取或设置 RefreshToken有效期分钟数

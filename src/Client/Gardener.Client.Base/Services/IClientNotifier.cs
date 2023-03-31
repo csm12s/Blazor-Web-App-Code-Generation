@@ -11,13 +11,21 @@ namespace Gardener.Client.Base
 {
     public interface IClientNotifier
     {
-        Task Error(string description, Exception? ex = null);
-        Task Error(string msg,string description, Exception? ex = null);
-        Task Info(string description);
-        Task Info(string msg, string description);
-        Task Success(string description);
-        Task Success(string msg, string description);
-        Task Warn(string description, Exception? ex = null);
-        Task Warn(string msg, string description, Exception? ex = null);
+        void Error(string description, Exception? ex = null);
+        void Error(string msg,string description, Exception? ex = null);
+        void Info(string description);
+        void Info(string msg, string description);
+        void Success(string description);
+        void Success(string msg, string description);
+        void Warn(string description, Exception? ex = null);
+        void Warn(string msg, string description, Exception? ex = null);
+        Task ErrorAsync(string description, Exception? ex = null);
+        Task ErrorAsync(string msg,string description, Exception? ex = null);
+        Task InfoAsync(string description);
+        Task InfoAsync(string msg, string description);
+        Task SuccessAsync(string description);
+        Task SuccessAsync(string msg, string description);
+        Task WarnAsync(string description, Exception? ex = null);
+        Task WarnAsync(string msg, string description, Exception? ex = null);
     }
 }

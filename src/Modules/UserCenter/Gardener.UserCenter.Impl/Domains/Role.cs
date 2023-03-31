@@ -62,17 +62,17 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<User> Users { get; set; }
+        public ICollection<User> Users { get; set; }= new List<User>();
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<UserRole> UserRoles { get; set; }
+        public List<UserRole> UserRoles { get; set; } = new List<UserRole>();
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<RoleResource> RoleResources { get; set; }
+        public List<RoleResource> RoleResources { get; set; }=new List<RoleResource>();
 
 
         /// <summary>

@@ -23,12 +23,12 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// 数据库字段名
     /// </summary>
     [Required, MaxLength(100)]
-    public string ColumnName { get; set; }
+    public string ColumnName { get; set; } = null!;
 
     /// <summary>
     /// Net Column Name
     /// </summary>
-    public string NetColumnName { get; set; }
+    public string NetColumnName { get; set; } = null!;
 
     /// <summary>
     /// DB Description
@@ -44,7 +44,7 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// .NET数据类型
     /// </summary>
     [MaxLength(50)]
-    public string NetType { get; set; }
+    public string NetType { get; set; } = null!;
 
     /// <summary>
     /// .NET数据类型, 不带问号
@@ -55,7 +55,7 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// 数据库中类型（物理类型）
     /// </summary>
     [MaxLength(50)]
-    public string DbDataType { get; set; }
+    public string DbDataType { get; set; } = null!;
 
     /// <summary>
     /// view
@@ -122,6 +122,9 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// 是否是查询条件
     /// </summary>
     public bool? IsSearch { get; set; } = false;
+    /// <summary>
+    /// 启用自定义搜索
+    /// </summary>
     public bool? IsCustomSearch { get; set; } = false;
 
     /// <summary>
@@ -140,13 +143,17 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// </summary>
 
     public bool? IsCreate { get; set; } = false;
-
+    /// <summary>
+    /// 是否可空
+    /// </summary>
     public bool? IsRequired { get; set; } = false;
     /// <summary>
     /// 改
     /// </summary>
     public bool? IsEdit { get; set; } = false;
-
+    /// <summary>
+    /// 开启批量编辑
+    /// </summary>
     public bool? IsBatchEdit { get; set; } = false;
 
     /// <summary>

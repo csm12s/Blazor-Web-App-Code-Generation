@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.FriendlyException;
 using Gardener.Base;
 using Gardener.Base.Entity;
 using Gardener.EntityFramwork;

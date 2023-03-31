@@ -196,7 +196,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                 _total = pagedList.TotalCount;
             }
             else {
-                await messageService.Error(localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
+                messageService.Error(localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
             _tableIsLoading = false;
             await InvokeAsync(StateHasChanged);
@@ -227,10 +227,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                    messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
                 else {
-                    await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                    messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
 
@@ -282,10 +282,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                    messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 }
                 else {
-                    await messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                    messageService.Error(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
 

@@ -26,14 +26,14 @@ namespace Gardener.Api.Core.Migrations
                     OpposeCount = table.Column<int>(type: "INTEGER", nullable: false),
                     FavourCount = table.Column<int>(type: "INTEGER", nullable: false),
                     ReplyCount = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,21 +48,21 @@ namespace Gardener.Api.Core.Migrations
                     BusinessId = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
                     BusinessType = table.Column<int>(type: "INTEGER", nullable: false),
                     FileType = table.Column<int>(type: "INTEGER", nullable: false),
-                    ContentType = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    ContentType = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Size = table.Column<long>(type: "INTEGER", nullable: false),
                     Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     OriginalName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     Url = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Suffix = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,6 +86,10 @@ namespace Gardener.Api.Core.Migrations
                     Parameters = table.Column<string>(type: "TEXT", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
@@ -105,14 +109,14 @@ namespace Gardener.Api.Core.Migrations
                     Tel = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
                     SecretKey = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
                     Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,14 +135,14 @@ namespace Gardener.Api.Core.Migrations
                     Order = table.Column<int>(type: "INTEGER", nullable: false),
                     Remark = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     ParentId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -164,14 +168,14 @@ namespace Gardener.Api.Core.Migrations
                     AccountPassword = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Tags = table.Column<string>(type: "TEXT", nullable: true),
                     EnableSsl = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -190,14 +194,14 @@ namespace Gardener.Api.Core.Migrations
                     ContentTemplate = table.Column<string>(type: "TEXT", maxLength: 5000, nullable: true),
                     Example = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: true),
                     IsHtml = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,6 +218,12 @@ namespace Gardener.Api.Core.Migrations
                     ControllerRoute = table.Column<string>(type: "TEXT", nullable: true),
                     ControllerGroup = table.Column<string>(type: "TEXT", nullable: true),
                     ModuleName = table.Column<string>(type: "TEXT", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
@@ -227,22 +237,22 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Group = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Service = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Summary = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    Group = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Service = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Summary = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Key = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     Path = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Method = table.Column<int>(type: "INTEGER", nullable: false),
                     EnableAudit = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -250,27 +260,54 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LoginToken",
+                name: "JobDetail",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IdentityId = table.Column<string>(type: "TEXT", nullable: true),
-                    IdentityName = table.Column<string>(type: "TEXT", nullable: true),
-                    IdentityNickName = table.Column<string>(type: "TEXT", nullable: true),
-                    IdentityType = table.Column<int>(type: "INTEGER", nullable: false),
-                    LoginId = table.Column<string>(type: "TEXT", nullable: true),
-                    LoginClientType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Value = table.Column<string>(type: "TEXT", nullable: true),
-                    EndTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    Ip = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    JobId = table.Column<string>(type: "TEXT", nullable: false),
+                    GroupName = table.Column<string>(type: "TEXT", nullable: false),
+                    JobType = table.Column<string>(type: "TEXT", nullable: false),
+                    AssemblyName = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Concurrent = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IncludeAnnotations = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Properties = table.Column<string>(type: "TEXT", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobDetail", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LoginToken",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IdentityId = table.Column<string>(type: "TEXT", nullable: false),
+                    IdentityName = table.Column<string>(type: "TEXT", nullable: false),
+                    IdentityNickName = table.Column<string>(type: "TEXT", nullable: true),
+                    IdentityType = table.Column<int>(type: "INTEGER", nullable: false),
+                    LoginId = table.Column<string>(type: "TEXT", nullable: false),
+                    LoginClientType = table.Column<int>(type: "INTEGER", nullable: false),
+                    Value = table.Column<string>(type: "TEXT", nullable: true),
+                    EndTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    Ip = table.Column<string>(type: "TEXT", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -290,14 +327,14 @@ namespace Gardener.Api.Core.Migrations
                     Grade = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     Salary = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     Qualifications = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -317,14 +354,14 @@ namespace Gardener.Api.Core.Migrations
                     Order = table.Column<int>(type: "INTEGER", nullable: false),
                     ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -346,14 +383,14 @@ namespace Gardener.Api.Core.Migrations
                     Remark = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     IsSuperAdministrator = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDefault = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -365,8 +402,8 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    TableName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    ClassName = table.Column<string>(type: "TEXT", nullable: true),
+                    TableName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ClassName = table.Column<string>(type: "TEXT", nullable: false),
                     Module = table.Column<string>(type: "TEXT", nullable: true),
                     Remark = table.Column<string>(type: "TEXT", nullable: true),
                     TableDescriptionEN = table.Column<string>(type: "TEXT", nullable: true),
@@ -385,7 +422,7 @@ namespace Gardener.Api.Core.Migrations
                     GenerateLocaleFile = table.Column<bool>(type: "INTEGER", nullable: true),
                     UseChineseKey = table.Column<bool>(type: "INTEGER", nullable: true),
                     UseNetColumnAsKey = table.Column<bool>(type: "INTEGER", nullable: true),
-                    PrimaryKeyName = table.Column<string>(type: "TEXT", nullable: true),
+                    PrimaryKeyName = table.Column<string>(type: "TEXT", nullable: false),
                     HasAdd = table.Column<bool>(type: "INTEGER", nullable: true),
                     HasEdit = table.Column<bool>(type: "INTEGER", nullable: true),
                     HasBatchEdit = table.Column<bool>(type: "INTEGER", nullable: true),
@@ -398,14 +435,14 @@ namespace Gardener.Api.Core.Migrations
                     OriginModule = table.Column<string>(type: "TEXT", nullable: true),
                     NewTableName = table.Column<string>(type: "TEXT", nullable: true),
                     AllowNull = table.Column<bool>(type: "INTEGER", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -421,14 +458,14 @@ namespace Gardener.Api.Core.Migrations
                     Key = table.Column<string>(type: "TEXT", nullable: true),
                     Code = table.Column<string>(type: "TEXT", nullable: true),
                     EndTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -440,17 +477,21 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DataId = table.Column<string>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    TypeName = table.Column<string>(type: "TEXT", nullable: true),
+                    DataId = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    TypeName = table.Column<string>(type: "TEXT", nullable: false),
                     OperationType = table.Column<int>(type: "INTEGER", nullable: false),
-                    OperaterId = table.Column<string>(type: "TEXT", nullable: true),
-                    OperaterName = table.Column<string>(type: "TEXT", nullable: true),
+                    OperaterId = table.Column<string>(type: "TEXT", nullable: false),
+                    OperaterName = table.Column<string>(type: "TEXT", nullable: false),
                     OperaterType = table.Column<int>(type: "INTEGER", nullable: false),
                     OperationId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AuditOperationId = table.Column<Guid>(type: "TEXT", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AuditOperationId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
@@ -470,7 +511,14 @@ namespace Gardener.Api.Core.Migrations
                 {
                     ClientId = table.Column<Guid>(type: "TEXT", nullable: false),
                     FunctionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -507,14 +555,14 @@ namespace Gardener.Api.Core.Migrations
                     Gender = table.Column<int>(type: "INTEGER", nullable: false),
                     DeptId = table.Column<int>(type: "INTEGER", nullable: true),
                     PositionId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -562,7 +610,14 @@ namespace Gardener.Api.Core.Migrations
                 {
                     RoleId = table.Column<int>(type: "INTEGER", nullable: false),
                     ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -588,12 +643,12 @@ namespace Gardener.Api.Core.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     CodeGenId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ColumnName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    NetColumnName = table.Column<string>(type: "TEXT", nullable: true),
+                    NetColumnName = table.Column<string>(type: "TEXT", nullable: false),
                     ColumnDescription = table.Column<string>(type: "TEXT", nullable: true),
                     ColumnSummary = table.Column<string>(type: "TEXT", nullable: true),
-                    NetType = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    NetType = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     NetTypeRaw = table.Column<string>(type: "TEXT", nullable: true),
-                    DbDataType = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    DbDataType = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     ViewComponentType = table.Column<int>(type: "INTEGER", nullable: true),
                     EditComponentType = table.Column<int>(type: "INTEGER", nullable: true),
                     EditComponentLength = table.Column<int>(type: "INTEGER", nullable: true),
@@ -625,14 +680,14 @@ namespace Gardener.Api.Core.Migrations
                     IsIgnore = table.Column<bool>(type: "INTEGER", nullable: true),
                     IsSpecialType = table.Column<bool>(type: "INTEGER", nullable: true),
                     DbDataTypeText = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -650,14 +705,18 @@ namespace Gardener.Api.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DisplayName = table.Column<string>(type: "TEXT", nullable: true),
-                    FieldName = table.Column<string>(type: "TEXT", nullable: true),
+                    DisplayName = table.Column<string>(type: "TEXT", nullable: false),
+                    FieldName = table.Column<string>(type: "TEXT", nullable: false),
                     OriginalValue = table.Column<string>(type: "TEXT", nullable: true),
                     NewValue = table.Column<string>(type: "TEXT", nullable: true),
                     DataType = table.Column<string>(type: "TEXT", nullable: true),
                     AuditEntityid = table.Column<Guid>(type: "TEXT", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
@@ -680,12 +739,18 @@ namespace Gardener.Api.Core.Migrations
                     QQ = table.Column<string>(type: "TEXT", nullable: true),
                     WeChat = table.Column<string>(type: "TEXT", nullable: true),
                     CityId = table.Column<int>(type: "INTEGER", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PRIMARY", x => x.UserId);
+                    table.PrimaryKey("PK_UserExtension", x => x.UserId);
                     table.ForeignKey(
                         name: "FK_UserExtension_User_UserId",
                         column: x => x.UserId,
@@ -700,7 +765,14 @@ namespace Gardener.Api.Core.Migrations
                 {
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     RoleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false)
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1096,13 +1168,13 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "RoleResource",
-                columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
+                columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), 2, 1306546785505280000L },
-                    { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), 2, 1306546785505280000L },
-                    { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), 2, 1306546785505280000L },
-                    { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 2, 1306546785505280000L }
+                    { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 2, null, null, 1306546785505280000L, false, false, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1217,35 +1289,40 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "RoleResource",
-                columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
+                columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 2, 1306546785505280000L },
-                    { new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), 2, 1306546785505280000L },
-                    { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 2, 1306546785505280000L },
-                    { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), 2, 1306546785505280000L },
-                    { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), 2, 1306546785505280000L },
-                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 2, 1306546785505280000L },
-                    { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), 2, 1306546785505280000L },
-                    { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), 2, 1306546785505280000L },
-                    { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), 2, 1306546785505280000L },
-                    { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 2, 1306546785505280000L },
-                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 2, 1306546785505280000L }
+                    { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 2, null, null, 1306546785505280000L, false, false, null, null, null }
                 });
 
             migrationBuilder.InsertData(
+                table: "UserExtension",
+                columns: new[] { "UserId", "CityId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "QQ", "UpdateBy", "UpdateIdentityType", "UpdatedTime", "WeChat" },
+                values: new object[] { 8, null, null, null, 0L, false, false, "123456", null, null, null, null });
+
+            migrationBuilder.InsertData(
                 table: "UserRole",
-                columns: new[] { "RoleId", "UserId", "CreatedTime" },
+                columns: new[] { "RoleId", "UserId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { 1, 1, 1305892579553280000L },
-                    { 1, 2, 1305892579553280000L },
-                    { 1, 3, 1305892579553280000L },
-                    { 1, 4, 1305892579553280000L },
-                    { 1, 5, 1305892579553280000L },
-                    { 1, 6, 1305892579553280000L },
-                    { 1, 7, 1305892579553280000L },
-                    { 2, 8, 1305892579553280000L }
+                    { 1, 1, null, null, 1305892579553280000L, false, false, null, null, null },
+                    { 1, 2, null, null, 1305892579553280000L, false, false, null, null, null },
+                    { 1, 3, null, null, 1305892579553280000L, false, false, null, null, null },
+                    { 1, 4, null, null, 1305892579553280000L, false, false, null, null, null },
+                    { 1, 5, null, null, 1305892579553280000L, false, false, null, null, null },
+                    { 1, 6, null, null, 1305892579553280000L, false, false, null, null, null },
+                    { 1, 7, null, null, 1305892579553280000L, false, false, null, null, null },
+                    { 2, 8, null, null, 1305892579553280000L, false, false, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1390,33 +1467,33 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "RoleResource",
-                columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
+                columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), 2, 1306546785505280000L },
-                    { new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"), 2, 1306546785505280000L },
-                    { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), 2, 1306546785505280000L },
-                    { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), 2, 1306546785505280000L },
-                    { new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"), 2, 1306546785505280000L },
-                    { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), 2, 1306546785505280000L },
-                    { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), 2, 1306546785505280000L },
-                    { new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"), 2, 1306546785505280000L },
-                    { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), 2, 1306546785505280000L },
-                    { new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), 2, 1306546785505280000L },
-                    { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), 2, 1306546785505280000L },
-                    { new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), 2, 1306546785505280000L },
-                    { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), 2, 1306546785505280000L },
-                    { new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), 2, 1306546785505280000L },
-                    { new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), 2, 1306546785505280000L },
-                    { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), 2, 1306546785505280000L },
-                    { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), 2, 1306546785505280000L },
-                    { new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"), 2, 1306546785505280000L },
-                    { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), 2, 1306546785505280000L },
-                    { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 2, 1306546785505280000L },
-                    { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), 2, 1306546785505280000L },
-                    { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), 2, 1306546785505280000L },
-                    { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), 2, 1306546785505280000L },
-                    { new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"), 2, 1306546785505280000L }
+                    { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"), 2, null, null, 1306546785505280000L, false, false, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1463,20 +1540,20 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.InsertData(
                 table: "RoleResource",
-                columns: new[] { "ResourceId", "RoleId", "CreatedTime" },
+                columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"), 2, 1306546785505280000L },
-                    { new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"), 2, 1306546785505280000L },
-                    { new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"), 2, 1306546785505280000L },
-                    { new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"), 2, 1306546785505280000L },
-                    { new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"), 2, 1306546785505280000L },
-                    { new Guid("86a086a1-0770-4df4-ade3-433ff7226399"), 2, 1306546785505280000L },
-                    { new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"), 2, 1306546785505280000L },
-                    { new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"), 2, 1306546785505280000L },
-                    { new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"), 2, 1306546785505280000L },
-                    { new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"), 2, 1306546785505280000L },
-                    { new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"), 2, 1306546785505280000L }
+                    { new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("86a086a1-0770-4df4-ade3-433ff7226399"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"), 2, null, null, 1306546785505280000L, false, false, null, null, null },
+                    { new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"), 2, null, null, 1306546785505280000L, false, false, null, null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1558,6 +1635,9 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "EntityCodeGenerationSetting");
+
+            migrationBuilder.DropTable(
+                name: "JobDetail");
 
             migrationBuilder.DropTable(
                 name: "LoginToken");

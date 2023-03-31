@@ -92,7 +92,7 @@ namespace Gardener.Base.Entity
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<ResourceFunction> ResourceFunctions { get; set; }
+        public List<ResourceFunction> ResourceFunctions { get; set; } = new List<ResourceFunction>();
 
     }
 }

@@ -32,9 +32,11 @@ namespace Microsoft.AspNetCore.Components.Web
         /// </summary>
         /// <param name="exception"></param>
         /// <returns></returns>
-        protected override async Task OnErrorAsync(Exception exception)
+        protected override Task OnErrorAsync(Exception exception)
         {
-            await _clientLogger.Error("全局异常捕获：" + exception.Message, ex: exception);
+            _clientLogger.Error("全局异常捕获：" + exception.Message, ex: exception);
+
+            return Task.CompletedTask;
         }
     }
 }

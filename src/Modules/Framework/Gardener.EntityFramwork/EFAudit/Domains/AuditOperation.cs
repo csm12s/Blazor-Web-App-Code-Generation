@@ -34,7 +34,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 资源名
         /// </summary>
         [DisplayName("资源名")]
-        public string ResourceName { get; set; } = null!;
+        public string? ResourceName { get; set; }
         /// <summary>
         /// 资源编号
         /// </summary>
@@ -44,7 +44,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 操作者编号
         /// </summary>
         [DisplayName("操作者编号")]
-        public string OperaterId { get; set; } = null!;
+        public string? OperaterId { get; set; }
         /// <summary>
         /// 操作者名称
         /// </summary>

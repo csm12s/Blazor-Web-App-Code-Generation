@@ -9,9 +9,9 @@ using Gardener.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-
-#nullable disable
+using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Impl.Domains
 {
@@ -19,23 +19,24 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户扩展信息表
     /// </summary>
     [Description("用户扩展信息")]
-    public class UserExtension : GardenerEntityBaseNoKey<MasterDbContextLocator>, IEntityTypeBuilder<UserExtension, MasterDbContextLocator>
+    public class UserExtension : GardenerEntityBaseNoKey, IEntityTypeBuilder<UserExtension>, IEntitySeedData<UserExtension>
     {
         /// <summary>
         /// 用户ID
         /// </summary>
         [DisplayName("用户编号")]
+        [Key]
         public int UserId { get; set; }
         /// <summary>
         /// QQ
         /// </summary>
         [DisplayName("QQ")]
-        public string QQ { get; set; }
+        public string? QQ { get; set; }
         /// <summary>
         /// 微信号
         /// </summary>
         [DisplayName("微信")]
-        public string WeChat { get; set; }
+        public string? WeChat { get; set; }
         /// <summary>
         /// 城市ID
         /// </summary>
@@ -44,7 +45,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 用户信息
         /// </summary>
-        public User User { get; set; }
+        public User User { get; set; } = null!;
 
         /// <summary>
         /// 配置
@@ -54,9 +55,29 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <param name="dbContextLocator"></param>
         public void Configure(EntityTypeBuilder<UserExtension> entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-            entityBuilder.HasKey(e => e.UserId).HasName("PRIMARY");
+            //entityBuilder.HasKey(e => e.UserId).HasName("PRIMARY");
+            entityBuilder
+                .HasOne(x => x.User)
+                .WithOne(x => x.UserExtension)
+                .HasForeignKey<UserExtension>(x => x.UserId);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public IEnumerable<UserExtension> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[]{
+                new UserExtension()
+                    {
+                        UserId=8,
+                        QQ="123456"
+                    }
+            };
+        }
     }
 }
 

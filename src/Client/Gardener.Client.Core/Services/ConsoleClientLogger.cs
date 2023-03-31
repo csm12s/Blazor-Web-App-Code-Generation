@@ -69,7 +69,7 @@ namespace Gardener.Client.Core
         /// <param name="msg"></param>
         /// <param name="code"></param>
         /// <param name="ex"></param>
-        public Task Debug(string msg, int? code = null, Exception? ex = null)
+        public void Debug(string msg, int? code = null, Exception? ex = null)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Debug]}:{msg}", code);
             if (ex == null)
@@ -80,7 +80,6 @@ namespace Gardener.Client.Core
             {
                 logger.LogDebug(ex, msg);
             }
-            return Task.CompletedTask;
         }
         /// <summary>
         /// Error
@@ -89,15 +88,14 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Error(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
+        public void Error(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Error]}:{msg}", code);
             logger.LogError(ex, msg);
             if (sendNotify)
             {
-                return clientErrorNotifier.Error(msg);
+                clientErrorNotifier.Error(msg);
             }
-            return Task.CompletedTask;
         }
         /// <summary>
         /// Fatal
@@ -106,16 +104,14 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Fatal(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
+        public void Fatal(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.FatalException]}:{msg}", code);
             logger.LogCritical(ex, msg);
             if (sendNotify)
             {
-                return clientErrorNotifier.Error(msg);
+                clientErrorNotifier.Error(msg);
             }
-            return Task.CompletedTask;
-
         }
         /// <summary>
         /// Info
@@ -124,7 +120,7 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Info(string msg, int? code = null, Exception? ex = null, bool sendNotify = false)
+        public void Info(string msg, int? code = null, Exception? ex = null, bool sendNotify = false)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Info]}:{msg}", code);
             if (ex == null)
@@ -137,9 +133,8 @@ namespace Gardener.Client.Core
             }
             if (sendNotify)
             {
-                return clientErrorNotifier.Info(msg);
+                clientErrorNotifier.Info(msg);
             }
-            return Task.CompletedTask;
         }
         /// <summary>
         /// Warn
@@ -148,7 +143,7 @@ namespace Gardener.Client.Core
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        public Task Warn(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
+        public void Warn(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Warn]}:{msg}", code);
             if (ex == null)
@@ -161,9 +156,33 @@ namespace Gardener.Client.Core
             }
             if (sendNotify)
             {
-                return clientErrorNotifier.Warn(msg);
+                clientErrorNotifier.Warn(msg);
             }
-            return Task.CompletedTask;
+        }
+
+        public Task DebugAsync(string msg, int? code = null, Exception? ex = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task FatalAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ErrorAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task InfoAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task WarnAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
+        {
+            throw new NotImplementedException();
         }
     }
 }

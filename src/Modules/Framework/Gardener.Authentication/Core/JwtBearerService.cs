@@ -25,6 +25,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Furion;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 
 namespace Gardener.Authentication.Core
 {
@@ -91,7 +92,7 @@ namespace Gardener.Authentication.Core
             Identity identity = ReadToken(oldRefreshToken);
             IRepository<LoginToken> repository= Db.GetRepository<LoginToken>();
 
-            LoginToken loginToken = repository.AsQueryable(false).Where(x =>
+            LoginToken? loginToken = repository.AsQueryable(false).Where(x =>
             x.IsDeleted == false
             && x.IsLocked == false 
             && x.IdentityId.Equals(identity.Id) 
@@ -154,7 +155,7 @@ namespace Gardener.Authentication.Core
             Claim[] claims =
                 {
                 new Claim(ClaimTypes.NameIdentifier, identity.Id),
-                new Claim(ClaimTypes.GivenName, identity.NickName),
+                new Claim(ClaimTypes.GivenName, identity.NickName ?? identity.Name),
                 new Claim(ClaimTypes.Name, identity.Name),
                 new Claim(AuthKeyConstants.IdentityType, identity.IdentityType.ToString()),
                 new Claim(AuthKeyConstants.ClientIdKeyName, identity.LoginId),
@@ -172,12 +173,12 @@ namespace Gardener.Authentication.Core
         {
             if (jWTOptions.Settings != null && jWTOptions.Settings.ContainsKey(identityType))
             {
-                JWTSettingsOptions jWTSettings = jWTOptions.Settings.GetValueOrDefault(identityType);
+                JWTSettingsOptions jWTSettings = jWTOptions.Settings[identityType];
                 return jWTSettings;
             }
             else
             {
-                throw Oops.Oh(identityType+" JWTSettings is no find");
+                throw Oops.Oh(identityType + " JWTSettings is no find");
             }
         }
         /// <summary>
@@ -229,7 +230,7 @@ namespace Gardener.Authentication.Core
         {
             
             JwtSecurityToken jwtSecurityToken = _tokenHandler.ReadJwtToken(tokenStr);
-            Claim identityTypeCla=jwtSecurityToken.Claims.FirstOrDefault(x => x.Type.Equals(AuthKeyConstants.IdentityType));
+            Claim? identityTypeCla=jwtSecurityToken.Claims.FirstOrDefault(x => x.Type.Equals(AuthKeyConstants.IdentityType));
             if (identityTypeCla == null)
             {
                 throw Oops.Oh(ExceptionCode.TOKEN_INVALID);
@@ -239,23 +240,51 @@ namespace Gardener.Authentication.Core
 
             TokenValidationParameters parameters = new TokenValidationParameters()
             {
-                ValidateLifetime = true,
+                ValidateLifetime = jWTSettingsOptions.ValidateLifetime,
                 ValidIssuer = jWTSettingsOptions.ValidIssuer,
                 ValidAudience = jWTSettingsOptions.ValidAudience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jWTSettingsOptions.IssuerSigningKey))
             };
             ClaimsPrincipal principal = _tokenHandler.ValidateToken(tokenStr, parameters, out _);
 
-            Identity identity = new Identity();
-
-            identity.Id= principal.FindFirstValue(ClaimTypes.NameIdentifier);
-            identity.Name = principal.FindFirstValue(ClaimTypes.Name);
-            identity.NickName = principal.FindFirstValue(ClaimTypes.GivenName);
-            string loginClientType =principal.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
-            identity.LoginClientType = Enum.Parse<LoginClientType>(loginClientType);
+            Identity? identity = ClaimsPrincipalToIdentity(principal);
+            if (identity == null)
+            {
+                throw Oops.Oh(ExceptionCode.TOKEN_INVALID);
+            }
             identity.IdentityType = identityType;
-            identity.LoginId =principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
-            
+            return identity;
+        }
+
+        /// <summary>
+        /// 从请求主体信息解析出身份信息
+        /// </summary>
+        /// <param name="principal"></param>
+        /// <returns></returns>
+        public Identity? ClaimsPrincipalToIdentity(ClaimsPrincipal principal)
+        {
+            Identity identity = new Identity();
+            string? id = principal.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? loginId = principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
+            string? name = principal.FindFirstValue(ClaimTypes.Name);
+            //无法解析
+            if (id == null || loginId == null || name == null)
+            {
+                return null;
+            }
+            identity.Id = id;
+            identity.LoginId = loginId;
+            identity.Name = name;
+
+            string? nickName = principal.FindFirstValue(ClaimTypes.GivenName);
+            identity.NickName = principal.FindFirstValue(ClaimTypes.GivenName);
+
+            string? loginClientType = principal.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
+            string? identityType = principal.FindFirstValue(AuthKeyConstants.IdentityType);
+
+            identity.IdentityType = identityType == null ? IdentityType.Unknown : Enum.Parse<IdentityType>(identityType, true);
+            identity.LoginClientType = loginClientType == null ? LoginClientType.Unknown : Enum.Parse<LoginClientType>(loginClientType, true);
+
             return identity;
         }
 

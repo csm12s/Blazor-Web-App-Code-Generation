@@ -21,11 +21,11 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
     private Guid _codeGenId { get; set; }
 
     private CodeGenDto _codeGenDto { get; set; } = new();
-    private bool _hideEntityFromTableFields = true;
+    //private bool _hideEntityFromTableFields = true;
 
     protected bool _saveAllBtnLoading = false;
 
-    private TableSearch<CodeGenConfigSearchDto>? codeGenConfigSearchDtoTableSearch;
+    private TableSearch<CodeGenConfigSearchDto> codeGenConfigSearchDtoTableSearch;
 
     protected override async Task OnInitializedAsync()
     {
@@ -93,11 +93,11 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         var success = await codeGenConfigClientService.SaveAll(listDto);
         if (success)
         {
-            await messageService.Success("保存成功");
+            messageService.Success(localizer.Combination(CodeGenLocalResource.Save,CodeGenLocalResource.Success));
         }
         else
         {
-            await messageService.Error("保存失败");
+            messageService.Error(localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
         }
 
         _saveAllBtnLoading = false;
@@ -110,14 +110,13 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         var success = await codeGenConfigClientService.SaveAll(_datas.ToList());
         if (success)
         {
-            await messageService.Success("保存成功");
+            messageService.Success(localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Success));
             await base.FeedbackRef.CloseAsync(true);
         }
         else
         {
-            await messageService.Error("保存失败");
+            messageService.Error(localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
         }
-
 
         _saveAllBtnLoading = false;
     }

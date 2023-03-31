@@ -39,7 +39,7 @@ namespace Gardener.Email.Core
             int port=25,
             bool isHtml=false,
             bool enableSsl=true,
-            string fromName=null)
+            string? fromName=null)
         {
             var MailMessage_Mai = new MailMessage();
 

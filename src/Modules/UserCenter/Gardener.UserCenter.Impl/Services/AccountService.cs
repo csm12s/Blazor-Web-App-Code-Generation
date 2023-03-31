@@ -133,6 +133,7 @@ namespace Gardener.UserCenter.Impl.Services
         public async Task<bool> RemoveCurrentUserRefreshToken()
         {
             var identity = _authorizationManager.GetIdentity();
+            if (identity == null) return false;
             return await _jwtBearerService.RemoveRefreshToken(identity);
         }
         /// <summary>

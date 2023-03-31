@@ -61,7 +61,7 @@ namespace Gardener.Authorization.Core
         /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
-        public async Task<ApiEndpoint> GetApiEndpoint()
+        public async Task<ApiEndpoint?> GetApiEndpoint()
         {
             return await GetApiEndpointFromContext();
         }
@@ -71,7 +71,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public async Task<bool> ChecktContenxtApiEndpoint()
         {
-            Identity identity = this._identityService.GetIdentity();
+            Identity? identity = this._identityService.GetIdentity();
             if (identity == null)
             {
                 return false;
@@ -82,7 +82,7 @@ namespace Gardener.Authorization.Core
                 return false;
             }
 
-            ApiEndpoint api = await GetApiEndpointFromContext();
+            ApiEndpoint? api = await GetApiEndpointFromContext();
 
             return await _identityPermissionService.Check(identity, api);
         }
@@ -134,7 +134,7 @@ namespace Gardener.Authorization.Core
         /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
-        private async Task<ApiEndpoint> GetApiEndpointFromContext()
+        private async Task<ApiEndpoint?> GetApiEndpointFromContext()
         {
             string? functionKey = GetApiEndpointKeyFromContext();
             if (!string.IsNullOrEmpty(functionKey))
@@ -149,7 +149,7 @@ namespace Gardener.Authorization.Core
         /// 获取身份
         /// </summary>
         /// <returns></returns>
-        public Identity GetIdentity()
+        public Identity? GetIdentity()
         {
             return _identityService.GetIdentity();
         }
@@ -158,9 +158,14 @@ namespace Gardener.Authorization.Core
         /// 获取身份的编号
         /// </summary>
         /// <returns></returns>
-        public object GetIdentityId()
+        public object? GetIdentityId()
         {
-            return _identityPermissionService.GetIdentityId(GetIdentity());
+            var identity= GetIdentity();
+            if (identity == null)
+            {
+                return null;
+            }
+            return _identityPermissionService.GetIdentityId(identity);
         }
 
         /// <summary>
@@ -170,13 +175,22 @@ namespace Gardener.Authorization.Core
         /// <exception cref="NotImplementedException"></exception>
         public Task<bool> IsSuperAdministrator()
         {
-            Identity identity = GetIdentity();
-            if (identity.IdentityType.Equals(IdentityType.User))
+            Identity? identity = GetIdentity();
+            if(identity == null)
+            {
+                //身份信息缺失
+                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+            }
+            if (IdentityType.User.Equals(identity.IdentityType))
             {
                 return _identityPermissionService.IsSuperAdministrator(int.Parse(identity.Id));
             }
-            //其他身份无法判断是否是超级管理
-            throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+            else
+            {
+                //其他身份无法判断是否是超级管理
+                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+            }
+            
         }
 
         #endregion

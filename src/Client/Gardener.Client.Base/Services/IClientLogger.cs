@@ -20,7 +20,7 @@ namespace Gardener.Client.Base
         /// <param name="msg"></param>
         /// <param name="code"></param>
         /// <param name="ex"></param>
-        Task Debug(string msg, int? code = null, Exception? ex = null);
+        void Debug(string msg, int? code = null, Exception? ex = null);
         /// <summary>
         /// fatal
         /// </summary>
@@ -28,7 +28,7 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Fatal(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
+        void Fatal(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
         /// <summary>
         /// Error
         /// </summary>
@@ -36,7 +36,7 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Error(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
+        void Error(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
         /// <summary>
         /// Info
         /// </summary>
@@ -44,7 +44,7 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Info(string msg, int? code = null, Exception? ex = null, bool sendNotify = false);
+        void Info(string msg, int? code = null, Exception? ex = null, bool sendNotify = false);
         /// <summary>
         /// Warn
         /// </summary>
@@ -52,6 +52,45 @@ namespace Gardener.Client.Base
         /// <param name="code"></param>
         /// <param name="ex"></param>
         /// <param name="sendNotify"></param>
-        Task Warn(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
+        void Warn(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
+        /// <summary>
+        /// Debug
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        Task DebugAsync(string msg, int? code = null, Exception? ex = null);
+        /// <summary>
+        /// fatal
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task FatalAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
+        /// <summary>
+        /// Error
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task ErrorAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
+        /// <summary>
+        /// Info
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task InfoAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = false);
+        /// <summary>
+        /// Warn
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        Task WarnAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true);
     }
 }

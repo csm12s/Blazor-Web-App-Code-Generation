@@ -10,6 +10,7 @@ using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 
@@ -78,7 +79,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 消息提示服务
         /// </summary>
         [Inject]
-        protected MessageService messageService { get; set; } = null!;
+        protected IClientMessageService messageService { get; set; } = null!;
 
 
         /// <summary>
@@ -139,9 +140,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 model.IsLocked = !isLocked;
                 string msg = isLocked ? localizer[SharedLocalResource.Lock] : localizer[SharedLocalResource.Unlock];
 
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
                 messageService.Error($"{msg} {localizer[SharedLocalResource.Fail]}");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             }
         }
 

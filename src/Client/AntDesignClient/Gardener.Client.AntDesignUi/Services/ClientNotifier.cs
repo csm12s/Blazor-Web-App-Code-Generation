@@ -11,6 +11,9 @@ using Gardener.Client.Base;
 
 namespace Gardener.Client.AntDesignUi.Services
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ScopedService]
     public class ClientNotifier : IClientNotifier
     {
@@ -20,13 +23,25 @@ namespace Gardener.Client.AntDesignUi.Services
         private readonly MessageService msgSvr;
         private readonly NotificationService notificationService;
         private readonly IClientLocalizer localizer;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msgSvr"></param>
+        /// <param name="notificationService"></param>
+        /// <param name="localizer"></param>
         public ClientNotifier(MessageService msgSvr, NotificationService notificationService, IClientLocalizer localizer)
         {
             this.msgSvr = msgSvr;
             this.notificationService = notificationService;
             this.localizer = localizer;
         }
-
+        /// <summary>
+        /// 发送通知
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="description"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private Task Notify(string msg, string description, NotificationType type)
         {
             if (description?.Length > msgMaxLength)
@@ -58,37 +73,77 @@ namespace Gardener.Client.AntDesignUi.Services
 
             }
         }
-        public Task Error(string description, Exception? ex = null)
+        public void Error(string description, Exception? ex = null)
         {
-            return Error(localizer[SharedLocalResource.Error], description, ex);
+            Error(localizer[SharedLocalResource.Error], description, ex);
         }
-        public Task Error(string msg, string description, Exception? ex = null)
+        public void Error(string msg, string description, Exception? ex = null)
         {
-            return Notify(msg, description, NotificationType.Error);
+            Notify(msg, description, NotificationType.Error);
         }
-        public Task Info(string description)
+        public void Info(string description)
         {
-            return Info(localizer[SharedLocalResource.Info], description);
+            Info(localizer[SharedLocalResource.Info], description);
         }
-        public Task Info(string msg, string description)
+        public void Info(string msg, string description)
         {
-            return Notify(msg, description, NotificationType.Info);
+            Notify(msg, description, NotificationType.Info);
         }
-        public Task Success(string description)
+        public void Success(string description)
         {
-            return Success(localizer[SharedLocalResource.Success], description);
+            Success(localizer[SharedLocalResource.Success], description);
         }
-        public Task Success(string msg, string description)
+        public void Success(string msg, string description)
         {
-            return Notify(msg, description, NotificationType.Success);
+            Notify(msg, description, NotificationType.Success);
         }
-        public Task Warn(string description, Exception? ex = null)
+        public void Warn(string description, Exception? ex = null)
         {
-            return Warn(localizer[SharedLocalResource.Warn], description, ex);
+            Warn(localizer[SharedLocalResource.Warn], description, ex);
         }
-        public Task Warn(string msg, string description, Exception? ex = null)
+        public void Warn(string msg, string description, Exception? ex = null)
         {
-            return Notify(msg, description, NotificationType.Warning);
+            Notify(msg, description, NotificationType.Warning);
+        }
+
+        public async Task ErrorAsync(string description, Exception? ex = null)
+        {
+           await ErrorAsync(localizer[SharedLocalResource.Error], description, ex);
+        }
+
+        public async Task ErrorAsync(string msg, string description, Exception? ex = null)
+        {
+            await Notify(msg, description, NotificationType.Error);
+        }
+
+        public async Task InfoAsync(string description)
+        {
+           await InfoAsync(localizer[SharedLocalResource.Info], description);
+        }
+
+        public async Task InfoAsync(string msg, string description)
+        {
+           await Notify(msg, description, NotificationType.Info);
+        }
+
+        public async Task SuccessAsync(string description)
+        {
+           await SuccessAsync(localizer[SharedLocalResource.Success], description);
+        }
+
+        public async Task SuccessAsync(string msg, string description)
+        {
+           await Notify(msg, description, NotificationType.Success);
+        }
+
+        public async Task WarnAsync(string description, Exception? ex = null)
+        {
+           await WarnAsync(localizer[SharedLocalResource.Warn], description, ex);
+        }
+
+        public async Task WarnAsync(string msg, string description, Exception? ex = null)
+        {
+           await Notify(msg, description, NotificationType.Warning);
         }
     }
 }

@@ -147,7 +147,11 @@ namespace Gardener.Attachment.Services
             }
             return true;
         }
-
+        /// <summary>
+        /// 获取远程图片
+        /// </summary>
+        /// <param name="remoteFilePath"></param>
+        /// <returns></returns>
         [HttpPost]
         public Task<string> GetRemoteImage([FromBody] string remoteFilePath)
         {

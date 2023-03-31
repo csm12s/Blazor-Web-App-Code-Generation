@@ -68,7 +68,7 @@
                 <Column @bind-Field="@model.Description" Width="200" Sortable="false" />
                 <Column @bind-Field="@model.Path" Width="150" Sortable="false" />
                 <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
-                    <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Method)"></TagRandomColor>
+                    <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
                 </Column>
                 <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable>
                     <TagYesNo Yes="@model.EnableAudit"></TagYesNo>

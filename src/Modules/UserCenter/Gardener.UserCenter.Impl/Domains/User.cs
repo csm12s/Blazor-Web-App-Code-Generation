@@ -28,7 +28,6 @@ namespace Gardener.UserCenter.Impl.Domains
         /// </summary>
         public User()
         {
-            UserExtension = new UserExtension() { UserId = Id };
             Roles=new List<Role>();
             UserRoles = new List<UserRole>();
         }
@@ -104,7 +103,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 用户扩展信息
         /// </summary>
-        public UserExtension UserExtension { get; set; }
+        public UserExtension? UserExtension { get; set; }
 
         /// <summary>
         /// 部门编号
@@ -152,6 +151,10 @@ namespace Gardener.UserCenter.Impl.Domains
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.PositionId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entityBuilder
+                .HasOne(x => x.UserExtension)
+                .WithOne(x => x.User).HasForeignKey<User>(x => x.Id);
         }
 
         /// <summary>

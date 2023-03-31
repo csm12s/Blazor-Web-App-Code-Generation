@@ -21,15 +21,15 @@ public class CodeGen: GardenerEntityBase<Guid>, IEntityTypeBuilder<CodeGen>
     /// 表名
     /// </summary>
     [MaxLength(100)]
-    public string TableName { get; set; }
+    public string TableName { get; set; } = null!;
     /// <summary>
     /// 类名
     /// </summary>
-    public string ClassName { get; set; }
+    public string ClassName { get; set; } = null!;
     /// <summary>
     /// 模块
     /// </summary>
-    public string Module { get; set; }
+    public string? Module { get; set; }
     /// <summary>
     /// 备注
     /// </summary>
@@ -103,7 +103,7 @@ public class CodeGen: GardenerEntityBase<Guid>, IEntityTypeBuilder<CodeGen>
     /// <summary>
     /// 代码生成配置列表
     /// </summary>
-    public ICollection<CodeGenConfig> CodeGenConfigs { get; set; }
+    public ICollection<CodeGenConfig> CodeGenConfigs { get; set; }=new List<CodeGenConfig>();
 
     #region Views
     /// <summary>
@@ -169,6 +169,12 @@ public class CodeGen: GardenerEntityBase<Guid>, IEntityTypeBuilder<CodeGen>
     public bool? AllowNull { get; set; } = false;
     #endregion
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entityBuilder"></param>
+    /// <param name="dbContext"></param>
+    /// <param name="dbContextLocator"></param>
     public void Configure(EntityTypeBuilder<CodeGen> entityBuilder, DbContext dbContext, Type dbContextLocator)
     {
     }

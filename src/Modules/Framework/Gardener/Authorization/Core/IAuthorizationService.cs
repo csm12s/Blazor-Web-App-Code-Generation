@@ -19,12 +19,12 @@ namespace Gardener.Authorization.Core
         /// 获取身份
         /// </summary>
         /// <returns></returns>
-        Identity GetIdentity();
+        Identity? GetIdentity();
         /// <summary>
         /// 获取当前请求的功能点
         /// </summary>
         /// <returns></returns>
-        Task<ApiEndpoint> GetApiEndpoint();
+        Task<ApiEndpoint?> GetApiEndpoint();
         /// <summary>
         /// 检查权限
         /// </summary>
@@ -34,7 +34,7 @@ namespace Gardener.Authorization.Core
         /// 
         /// </summary>
         /// <returns></returns>
-        object GetIdentityId();
+        object? GetIdentityId();
 
         /// <summary>
         /// 判断是否是超级管理员

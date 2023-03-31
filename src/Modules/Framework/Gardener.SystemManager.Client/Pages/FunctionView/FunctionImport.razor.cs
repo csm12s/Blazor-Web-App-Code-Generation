@@ -124,7 +124,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             foreach (var item in _selectedFunctionDtos)
             {
                 count++;
-                FunctionDto dto =await functionService.GetByKey(item.Key);
+                FunctionDto? dto =await functionService.GetByKey(item.Key);
                 if (dto==null)
                 {
                     FunctionDto function = await functionService.Insert(item);

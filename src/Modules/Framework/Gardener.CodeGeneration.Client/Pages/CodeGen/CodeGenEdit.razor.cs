@@ -69,7 +69,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
     }
     #endregion
 
-    protected async Task OnTableSelectChanged()
+    protected Task OnTableSelectChanged()
     {
         // Class name
         _editModel.ClassName = _editModel.TableName
@@ -91,6 +91,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
         //    .FirstOrDefault();
         // Menu
         //_editModel.MenuParentId
+        return Task.CompletedTask;
     }
 
     protected virtual async Task OnlySaveCodeGen()

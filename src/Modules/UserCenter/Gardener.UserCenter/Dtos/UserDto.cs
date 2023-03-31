@@ -19,13 +19,6 @@ namespace Gardener.UserCenter.Dtos
     public class UserDto: BaseDto<int>
     {
         /// <summary>
-        /// 
-        /// </summary>
-        public UserDto()
-        {
-            UserExtension = new UserExtensionDto();
-        }
-        /// <summary>
         /// 用户名
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"),MinLength(5,ErrorMessage = "最小长度不能小于{1}")]
@@ -87,7 +80,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 用户扩展信息
         /// </summary>
-        public UserExtensionDto UserExtension { get; set; }
+        public UserExtensionDto? UserExtension { get; set; }
         /// <summary>
         /// 部门编号
         /// </summary>

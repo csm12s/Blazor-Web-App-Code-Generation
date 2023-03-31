@@ -89,7 +89,7 @@ public partial class CodeGenDto : BaseDto<Guid>
     /// Module
     /// </summary>
     [Required(ErrorMessage = "Required")]
-    public string? Module { get; set; } = null!;
+    public string Module { get; set; } = null!;
     /// <summary>
     /// Remark
     /// </summary>
@@ -226,7 +226,7 @@ public partial class CodeGenDto : BaseDto<Guid>
     /// <summary>
     /// 母表所在的模块，用来搜索母表的多语言文件
     /// </summary>
-    public string? OriginModule { get; set; }
+    public string OriginModule { get; set; } = null!;
 
     /// <summary>
     /// NewTableName

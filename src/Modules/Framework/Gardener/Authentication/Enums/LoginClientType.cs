@@ -14,6 +14,11 @@ namespace Gardener.Authentication.Enums
     public enum LoginClientType
     {
         /// <summary>
+        /// 未知
+        /// </summary>
+        [Description("未知")]
+        Unknown,
+        /// <summary>
         /// 浏览器类型
         /// </summary>
         [Description("浏览器")]

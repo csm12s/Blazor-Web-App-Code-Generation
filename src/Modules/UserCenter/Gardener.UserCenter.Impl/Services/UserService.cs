@@ -172,17 +172,21 @@ namespace Gardener.UserCenter.Impl.Services
             //更新
             await _userRepository.UpdateExcludeAsync(user,exclude);
 
-            var userExt = input.UserExtension.Adapt<UserExtension>();
-            if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
+            var userExt = input.UserExtension?.Adapt<UserExtension>();
+            if (userExt != null)
             {
-                userExt.UpdatedTime = DateTimeOffset.Now;
-                await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { nameof(UserExtension.CreatedTime) });
+                if (await _userExtensionRepository.AnyAsync(x => x.UserId == userExt.UserId, false))
+                {
+                    userExt.UpdatedTime = DateTimeOffset.Now;
+                    await _userExtensionRepository.UpdateExcludeAsync(userExt, new[] { nameof(UserExtension.CreatedTime) });
+                }
+                else
+                {
+                    userExt.CreatedTime = DateTimeOffset.Now;
+                    await _userExtensionRepository.InsertAsync(userExt);
+                }
             }
-            else
-            {
-                userExt.CreatedTime = DateTimeOffset.Now;
-                await _userExtensionRepository.InsertAsync(userExt);
-            }
+            
             return true;
         }
         /// <summary>
@@ -303,10 +307,17 @@ namespace Gardener.UserCenter.Impl.Services
             return true;
 
         }
-
+        /// <summary>
+        /// 获取当前用户编号
+        /// </summary>
+        /// <returns></returns>
         public Task<string> GetCurrentUserId()
         {
             var id = IdentityUtil.GetIdentityId();
+            if (id == null)
+            { 
+                throw new ArgumentNullException("CurrentUserId");
+            }
             return Task.FromResult(id);
         }
     }

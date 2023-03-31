@@ -32,7 +32,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 客户端
         /// </summary>
         [DisplayName("客户端")]
-        public Client? Client { get; set; }
+        public Client Client { get; set; } = null!;
 
         /// <summary>
         /// 功能Id
@@ -45,7 +45,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 功能
         /// </summary>
         [DisplayName("功能")]
-        public Function? Function { get; set; }
+        public Function Function { get; set; } = null!;
 
 
         /// <summary>

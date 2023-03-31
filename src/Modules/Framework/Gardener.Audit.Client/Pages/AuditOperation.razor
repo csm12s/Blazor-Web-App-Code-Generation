@@ -52,7 +52,7 @@
             <Column @bind-Field="@model.OperaterId" Filterable />
             <Column @bind-Field="@model.OperaterName" Filterable />
             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.OperaterType)"></TagRandomColor>
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.OperaterType)"></TagPro>
             </Column>
             <Column @bind-Field="@model.ResourceName" Filterable />
             <Column @bind-Field="@model.Ip" />

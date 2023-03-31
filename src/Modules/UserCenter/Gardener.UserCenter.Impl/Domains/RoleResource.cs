@@ -32,7 +32,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 角色
         /// </summary>
         [DisplayName("角色")]
-        public Role? Role { get; set; }
+        public Role Role { get; set; } = null!;
         /// <summary>
         /// 权限Id
         /// </summary>
@@ -43,7 +43,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 权限
         /// </summary>
         [DisplayName("资源")]
-        public Resource? Resource { get; set; }
+        public Resource Resource { get; set; } =null!;
 
         /// <summary>
         /// 配置多对多关系
