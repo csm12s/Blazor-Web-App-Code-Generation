@@ -55,7 +55,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         await OpenOperationDialogAsync
             <CodeGenConfigView, Guid, bool>
-            (localizer[SharedLocalResource.Setting], id,  result =>
+            (Localizer[SharedLocalResource.Setting], id,  result =>
         {
             //await ReLoadTable();
             return Task.CompletedTask;
@@ -74,11 +74,11 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
         if (success)
         { 
-            await messageService.SuccessAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+            await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
         }
         else
         {
-            await messageService.ErrorAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+            await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
         }
         
     }
@@ -87,7 +87,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         StartLoading();
 
-        var codeGenDto = await _service.Get(codeGenId);
+        var codeGenDto = await BaseService.Get(codeGenId);
         var menuKey = codeGenDto.Module + "_" + codeGenDto.ClassName;
 
         var allMenus = await resourceService.GetAll();
@@ -98,29 +98,29 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
             .Where(it => it.Key.StartsWith(menuKey + "_")).ToList();
         oldMenus.AddRange(oldMenuButtons);
 
-        var title = localizer[CodeGenLocalResource.IsContinue];
+        var title = Localizer[CodeGenLocalResource.IsContinue];
         var menuInfoStr = "将添加以下菜单：" + menuKey + "\r\n";
         if (oldMenus.Any())
         {
             menuInfoStr += "将删除以下菜单: \r\n";
             foreach (var item in oldMenus)
             {
-                menuInfoStr += string.Format("名称：{0}，Key：{1}。\r\n", localizer[item.Name], item.Key);
+                menuInfoStr += string.Format("名称：{0}，Key：{1}。\r\n", Localizer[item.Name], item.Key);
             }
         }
 
         // TODO: 文本不能换行
-        if (await confirmService.YesNo(title, menuInfoStr) == ConfirmResult.Yes)
+        if (await ConfirmService.YesNo(title, menuInfoStr) == ConfirmResult.Yes)
         {
             var success = await codeGenClientService.GenerateMenu(codeGenId);
             
             if (success)
             {
-                await messageService.SuccessAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+                await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
             }
             else
             {
-                await messageService.ErrorAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+                await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
             }
            
         }
@@ -132,20 +132,20 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         StartLoading();
 
-        var codeGenDto = await _service.Get(codeGenId);
+        var codeGenDto = await BaseService.Get(codeGenId);
 
-        var title = localizer[CodeGenLocalResource.IsContinue];
-        var message = localizer["MlLgWBeImp"];
-        if (await confirmService.YesNo(title, message) == ConfirmResult.Yes)
+        var title = Localizer[CodeGenLocalResource.IsContinue];
+        var message = Localizer["MlLgWBeImp"];
+        if (await ConfirmService.YesNo(title, message) == ConfirmResult.Yes)
         {
             var success = await codeGenClientService.GenerateLocale(codeGenId);
             if (success)
             {
-                await messageService.SuccessAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+                await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
             }
             else
             {
-                await messageService.ErrorAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+                await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
             }
         }
 
@@ -160,21 +160,21 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         if (_selectedRows == null || _selectedRows.Count() == 0)
         {
-            messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+            MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
         }
         else
         {
             _generatesBtnLoading = true;
-            if (await confirmService.YesNo(localizer[CodeGenLocalResource.BatchGenerate], CodeGenLocalResource.IsContinue) == ConfirmResult.Yes)
+            if (await ConfirmService.YesNo(Localizer[CodeGenLocalResource.BatchGenerate], CodeGenLocalResource.IsContinue) == ConfirmResult.Yes)
             {
                 var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
                 if (success)
                 {
-                    await messageService.SuccessAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+                    await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
                 }
                 else
                 {
-                    await messageService.ErrorAsync(localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+                    await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
                 }
                
             }
@@ -184,7 +184,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
     private async Task OnDownloadConfigSeedDataClick()
     {
-        var codeGens = await _service.GetAll();
+        var codeGens = await BaseService.GetAll();
         var codeGenIds = codeGens.Select(it=>it.Id).ToList();
 
         string data = await codeGenConfigService.GenerateSeedData(new PageRequest()
@@ -211,14 +211,14 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
         });
 
         await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
-                    localizer[SharedLocalResource.SeedData],
+                    Localizer[SharedLocalResource.SeedData],
                     data,
                     width: 1500);
     }
 
     private async Task ShowHelp()
     {
-        await confirmService.YesNo("使用说明",
+        await ConfirmService.YesNo("使用说明",
             """
             模板位置：
                 Gardener.Entry\wwwroot\Template

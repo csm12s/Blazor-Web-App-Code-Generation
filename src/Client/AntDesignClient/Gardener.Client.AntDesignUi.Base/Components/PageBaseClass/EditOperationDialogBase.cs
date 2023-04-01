@@ -24,15 +24,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     public class EditOperationDialogBase<TDto, TKey, TLocalResource> : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
     {
         [Inject]
-        protected IServiceBase<TDto, TKey> _service { get; set; } = null!;
+        protected IServiceBase<TDto, TKey> BaseService { get; set; } = null!;
         [Inject]
-        protected IClientMessageService messageService { get; set; } = null!;
+        protected IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        protected ConfirmService confirmService { get; set; } = null!;
+        protected ConfirmService ConfirmService { get; set; } = null!;
         [Inject]
-        protected DrawerService drawerService { get; set; } = null!;
+        protected DrawerService DrawerService { get; set; } = null!;
         [Inject]
-        protected IClientLocalizer<TLocalResource> localizer { get; set; } = null!;
+        protected IClientLocalizer<TLocalResource> Localizer { get; set; } = null!;
         /// <summary>
         /// 编辑区域的加载中标识
         /// </summary>
@@ -40,7 +40,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 当前正在编辑的对象
         /// </summary>
-        protected TDto _editModel = new TDto();
+        protected TDto _editModel = new();
 
         /// <summary>
         /// 页面初始化
@@ -56,7 +56,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (id != null) 
                 { 
                     //更新 回填数据
-                    var model = await _service.Get(id);
+                    var model = await BaseService.Get(id);
                     if (model != null)
                     {
                         //赋值给编辑对象
@@ -64,7 +64,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                     else
                     {
-                        messageService.Error(localizer[SharedLocalResource.DataNotFound]);
+                        MessageService.Error(Localizer[SharedLocalResource.DataNotFound]);
                     }
                 }
 
@@ -93,30 +93,30 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             if (this.Options.Type.Equals(DrawerInputType.Add))
             {
                 //添加
-                var result = await _service.Insert(_editModel);
+                var result = await BaseService.Insert(_editModel);
 
                 if (result != null)
                 {
-                    messageService.Success(localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
                     await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Succeed(result.Id));
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Fail));
                 }
             }
             else
             {
                 //修改
-                var result = await _service.Update(_editModel);
+                var result = await BaseService.Update(_editModel);
                 if (result)
                 {
-                    messageService.Success(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
                     await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Succeed(_editModel.Id));
                 }
                 else
                 {
-                    messageService.Error(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
                 }
             }
             _isLoading = false;

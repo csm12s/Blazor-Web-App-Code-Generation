@@ -17,17 +17,17 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserEdit : EditOperationDialogBase<UserDto, int, UserCenterResource>
     {
-        List<DeptDto> deptDatas = new List<DeptDto>();
-        List<PositionDto> positions = new List<PositionDto>();
+        private List<DeptDto> deptDatas = new();
+        private List<PositionDto> positions = new();
         [Inject]
-        IDeptService deptService { get; set; } = null!;
+        private IDeptService DeptService { get; set; } = null!;
         [Inject]
-        IPositionService positionService { get; set; } = null!;
+        private IPositionService PositionService { get; set; } = null!;
         //部门树
         /// <summary>
         /// 部门编号
         /// </summary>
-        protected string deptId
+        protected string DeptId
         {
             get
             {
@@ -53,13 +53,13 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         protected override async Task OnInitializedAsync()
         {
             _isLoading = true;
-            positions = await positionService.GetAllUsable();
+            positions = await PositionService.GetAllUsable();
             //部门
-            deptDatas = await deptService.GetTree();
+            deptDatas = await DeptService.GetTree();
             _isLoading = false;
             await base.OnInitializedAsync();
             _editModel.Password = null;
-            _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId = _editModel.Id };
+            
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
-                localizer[SharedLocalResource.UplaodAvatar],
+                Localizer[SharedLocalResource.UplaodAvatar],
                 new UserUploadAvatarParams(user, false),
                 width: avatarDrawerWidth);
         }
@@ -79,7 +79,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 
         /// </summary>
         /// <param name="value"></param>
-        private void OnSelectedItemChangedHandler(PositionDto value)
+        static private void OnSelectedItemChangedHandler(PositionDto value)
         {
 
         }

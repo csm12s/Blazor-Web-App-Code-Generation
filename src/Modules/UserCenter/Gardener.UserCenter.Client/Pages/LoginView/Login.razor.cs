@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -19,22 +20,22 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
 {
     public partial class Login
     {
-        bool loading = false;
-        bool autoLogin = true;
+        private bool loading = false;
+        private bool autoLogin = true;
         private LoginInput loginInput = new LoginInput();
         private Gardener.Client.AntDesignUi.Base.Components.ImageVerifyCode? _imageVerifyCode;
         private string? returnUrl;
 
         [Inject]
-        public MessageService MsgSvr { get; set; } = null!;
+        private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        public IAccountService accountService { get; set; } = null!;
+        private IAccountService AccountService { get; set; } = null!;
         [Inject]
-        public NavigationManager Navigation { get; set; } = null!;
+        private NavigationManager Navigation { get; set; } = null!;
         [Inject]
-        public IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
+        private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         [Inject]
-        public IClientLocalizer<UserCenterResource> localizer { get; set; } = null!;
+        private IClientLocalizer<UserCenterResource> Localizer { get; set; } = null!;
 
         /// <summary>
         /// 
@@ -53,7 +54,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
                 }
             }
             //已登录
-            var user =  await authenticationStateManager.GetCurrentUser();
+            var user =  await AuthenticationStateManager.GetCurrentUser();
             if (user != null)
             {
                 Navigation.NavigateTo(returnUrl ?? "/");
@@ -67,22 +68,23 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         private async Task OnLogin()
         {
             loading = true;
-            var loginOutResult= await accountService.Login(loginInput);
-            if (loginOutResult!=null)
+            var loginResult= await AccountService.Login(loginInput);
+            if (loginResult!=null)
             {
-                await MsgSvr.Success(localizer.Combination(UserCenterResource.Login,UserCenterResource.Success),0.8);
-                await authenticationStateManager.Login(loginOutResult, autoLogin);
+                await MessageService.SuccessAsync(Localizer.Combination(UserCenterResource.Login,UserCenterResource.Success),0.8);
+                await AuthenticationStateManager.Login(loginResult, autoLogin);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
-            else if(_imageVerifyCode!=null)
+            else 
             {
-                await _imageVerifyCode.ReLoadVerifyCode();
                 loading = false;
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                MsgSvr.Error(localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                              //await InvokeAsync(StateHasChanged);
+                MessageService.Error(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
+                if (_imageVerifyCode != null)
+                {
+                    await _imageVerifyCode.ReLoadVerifyCode();
+                }
+                //await InvokeAsync(StateHasChanged);
             }
             
         }

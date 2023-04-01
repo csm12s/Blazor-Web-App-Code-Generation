@@ -28,9 +28,10 @@ namespace Gardener.UserCenter.Impl.Domains
         /// </summary>
         public User()
         {
-            Roles=new List<Role>();
+            Roles = new List<Role>();
             UserRoles = new List<UserRole>();
         }
+
         /// <summary>
         /// 用户名
         /// </summary>

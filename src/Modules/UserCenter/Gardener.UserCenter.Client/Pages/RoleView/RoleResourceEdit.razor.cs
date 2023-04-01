@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Gardener.UserCenter.Services;
@@ -26,13 +27,13 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         private int _roleId = 0;
         private List<ResourceDto> _resources = new List<ResourceDto>();
         [Inject]
-        IResourceService resourceService { get; set; } = null!;
+        private IResourceService ResourceService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; } = null!;
+        private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        IRoleService roleService { get; set; } = null!;
+        private IRoleService RoleService { get; set; } = null!;
         [Inject]
-        IClientLocalizer localizer { get; set; } = null!;
+        private IClientLocalizer Localizer { get; set; } = null!;
         /// <summary>
         /// 默认选择
         /// </summary>
@@ -48,18 +49,16 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             if (_roleId > 0)
             {
                 //已有资源
-                var roleResourceResult = await roleService.GetResource(_roleId);
+                var roleResourceResult = await RoleService.GetResource(_roleId);
                 if (roleResourceResult != null && roleResourceResult.Any())
                 {
                     _defaultCheckedKeys = roleResourceResult.Where(dto => dto.Children == null || !dto.Children.Any()).Select(dto => dto.Id.ToString()).ToArray();
                 }
                 //资源树
-                var resourceResult = await resourceService.GetTree();
+                var resourceResult = await ResourceService.GetTree();
                 if (resourceResult == null)
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Error(localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
                     _isLoading = false;
                     return;
                 }
@@ -106,19 +105,15 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 });
             }
             //删除所有资源
-            var result = await roleService.Resource(_roleId, resourceIds.Distinct().ToArray());
+            var result = await RoleService.Resource(_roleId, resourceIds.Distinct().ToArray());
             if (result)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Success(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Success));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Success(Localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Success));
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Error(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Error(Localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Fail));
             }
             _isLoading = false;
         }

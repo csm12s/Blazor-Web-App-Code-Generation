@@ -9,6 +9,7 @@ using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -24,16 +25,26 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> 
         where TDto : class, new()
     {
+        /// <summary>
+        /// 当前对象的基础服务
+        /// </summary>
         [Inject]
-        protected IServiceBase<TDto, TKey> _service { get; set; } = null!;
+        protected IServiceBase<TDto, TKey> BaseService { get; set; } = null!;
+        /// <summary>
+        /// 消息提示服务
+        /// </summary>
         [Inject]
-        protected MessageService messageService { get; set; } = null!;
+        protected IClientMessageService MessageService { get; set; } = null!;
+        /// <summary>
+        /// 确认提示服务
+        /// </summary>
         [Inject]
-        protected ConfirmService confirmService { get; set; } = null!;
+        protected ConfirmService ConfirmService { get; set; } = null!;
+        /// <summary>
+        /// 本地化服务
+        /// </summary>
         [Inject]
-        protected DrawerService drawerService { get; set; } = null!;
-        [Inject]
-        protected IClientLocalizer<TLocalResource> localizer { get; set; } = null!;
+        protected IClientLocalizer<TLocalResource> Localizer { get; set; } = null!;
         /// <summary>
         /// 编辑区域的加载中标识
         /// </summary>
@@ -57,7 +68,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 if (id != null) 
                 {
                     //更新 回填数据
-                    var model = await _service.Get(id);
+                    var model = await BaseService.Get(id);
                     if (model != null)
                     {
                         //赋值给编辑对象
@@ -65,9 +76,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                     }
                     else
                     {
-    #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                        messageService.Error(localizer[SharedLocalResource.DataNotFound]);
-    #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        MessageService.Error(Localizer[SharedLocalResource.DataNotFound]);
                     }
 
                 }
@@ -97,38 +106,30 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             if (this.Options.Type.Equals(DrawerInputType.Add))
             {
                 //添加
-                var result = await _service.Insert(_editModel);
+                var result = await BaseService.Insert(_editModel);
 
                 if (result != null)
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Success(localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Success(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
                     await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TKey>.Succeed(result.Id)
                 }
                 else
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Error(localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Error(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Fail));
                 }
             }
             else
             {
                 //修改
-                var result = await _service.Update(_editModel);
+                var result = await BaseService.Update(_editModel);
                 if (result)
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Success(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
                     await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TKey>.Succeed(_editModel.Id)
                 }
                 else
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Error(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
                 }
             }
             _isLoading = false;

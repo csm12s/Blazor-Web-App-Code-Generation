@@ -93,11 +93,11 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         var success = await codeGenConfigClientService.SaveAll(listDto);
         if (success)
         {
-            messageService.Success(localizer.Combination(CodeGenLocalResource.Save,CodeGenLocalResource.Success));
+            MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save,CodeGenLocalResource.Success));
         }
         else
         {
-            messageService.Error(localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
+            MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
         }
 
         _saveAllBtnLoading = false;
@@ -110,12 +110,12 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         var success = await codeGenConfigClientService.SaveAll(_datas.ToList());
         if (success)
         {
-            messageService.Success(localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Success));
+            MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Success));
             await base.FeedbackRef.CloseAsync(true);
         }
         else
         {
-            messageService.Error(localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
+            MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
         }
 
         _saveAllBtnLoading = false;

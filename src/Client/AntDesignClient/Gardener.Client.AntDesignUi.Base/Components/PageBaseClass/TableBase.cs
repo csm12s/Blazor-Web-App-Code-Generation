@@ -61,25 +61,25 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 服务
         /// </summary>
         [Inject]
-        protected IServiceBase<TDto, TKey> _service { get; set; } = null!;
+        protected IServiceBase<TDto, TKey> BaseService { get; set; } = null!;
 
         /// <summary>
         /// 本地化
         /// </summary>
         [Inject]
-        protected IClientLocalizer<TLocalResource> localizer { get; set; } = null!;
+        protected IClientLocalizer<TLocalResource> Localizer { get; set; } = null!;
 
         /// <summary>
         /// 操作对话框
         /// </summary>
         [Inject]
-        protected IOperationDialogService operationDialogService { get; set; } = null!;
+        protected IOperationDialogService OperationDialogService { get; set; } = null!;
 
         /// <summary>
         /// 消息提示服务
         /// </summary>
         [Inject]
-        protected IClientMessageService messageService { get; set; } = null!;
+        protected IClientMessageService MessageService { get; set; } = null!;
 
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 settings.Width = width.Value;
             }
-            await operationDialogService.OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, settings);
+            await OperationDialogService.OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, settings);
         }
 
 
@@ -134,13 +134,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="isLocked"></param>
         protected virtual async Task OnChangeIsLocked(TDto model, bool isLocked)
         {
-            var result = await _service.Lock(model.Id, isLocked);
+            var result = await BaseService.Lock(model.Id, isLocked);
             if (!result)
             {
                 model.IsLocked = !isLocked;
-                string msg = isLocked ? localizer[SharedLocalResource.Lock] : localizer[SharedLocalResource.Unlock];
+                string msg = isLocked ? Localizer[SharedLocalResource.Lock] : Localizer[SharedLocalResource.Unlock];
 
-                messageService.Error($"{msg} {localizer[SharedLocalResource.Fail]}");
+                MessageService.Error($"{msg} {Localizer[SharedLocalResource.Fail]}");
             }
         }
 

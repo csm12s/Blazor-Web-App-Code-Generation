@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.Email.Dtos;
 using Gardener.Email.Services;
 using Microsoft.AspNetCore.Components;
@@ -24,15 +25,15 @@ namespace Gardener.Email.Client.Pages
         private SendEmailInputDto _sendEmailInput = new SendEmailInputDto();
         private List<EmailServerConfigDto>? emailServerConfigs;
         [Inject]
-        protected IClientLocalizer localizer { get; set; } = null!;
+        protected IClientLocalizer Localizer { get; set; } = null!;
         [Inject]
-        protected IEmailTemplateService emailTemplateService { get; set; }=null!;
+        protected IEmailTemplateService EmailTemplateService { get; set; } = null!;
         [Inject]
-        protected IEmailService emailService { get; set; } = null!;
+        protected IEmailService EmailService { get; set; } = null!;
         [Inject]
-        protected IEmailServerConfigService emailServerConfigService { get; set; } = null!;
+        protected IEmailServerConfigService EmailServerConfigService { get; set; } = null!;
         [Inject]
-        protected MessageService messageService { get; set; } = null!;
+        protected IClientMessageService MessageService { get; set; } = null!;
         private string _emailData
         {
             get
@@ -62,12 +63,12 @@ namespace Gardener.Email.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             _sendEmailInput.TemplateId = this.Options.Id;
-            EmailTemplateDto templateDto = await emailTemplateService.Get(this.Options.Id);
+            EmailTemplateDto templateDto = await EmailTemplateService.Get(this.Options.Id);
             if (templateDto.Example != null)
             {
                 _emailData = templateDto.Example;
             }
-            emailServerConfigs = await emailServerConfigService.GetAllUsable();
+            emailServerConfigs = await EmailServerConfigService.GetAllUsable();
             if (emailServerConfigs != null && emailServerConfigs.Any())
             {
                 _sendEmailInput.EmailServerConfigId = emailServerConfigs.First().Id;
@@ -82,18 +83,14 @@ namespace Gardener.Email.Client.Pages
         protected async Task OnFormFinish(EditContext editContext)
         {
             _isLoading = true;
-            bool result=await emailService.Send(_sendEmailInput);
+            bool result=await EmailService.Send(_sendEmailInput);
             if (result)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Success(localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Success));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Success(Localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Success));
             }
             else 
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Error(localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Error(Localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Fail));
             }
             _isLoading = false;
         }

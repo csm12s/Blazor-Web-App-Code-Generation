@@ -29,7 +29,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 确认提示服务
         /// </summary>
         [Inject]
-        protected ConfirmService confirmService { get; set; } = null!;
+        protected ConfirmService ConfirmService { get; set; } = null!;
 
         #region abstract mothed
         /// <summary>
@@ -123,9 +123,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             _datas = await GetTree();
             if (_datas == null)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Error("加载失败");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Error(this.Localizer.Combination(SharedLocalResource.Load,SharedLocalResource.Fail));
             }
             _tableIsLoading = false;
             await RefreshPageDom();
@@ -156,17 +154,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="id"></param>
         protected async Task OnClickDelete(TDto dto)
         {
-            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
+            if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
             {
                 //找到所有子集
                 List<TKey> ids = new List<TKey>() { GetKey(dto) };
                 GetTreeAllChildrenNodes(dto, ids);
-                var result = await _service.FakeDeletes(ids.ToArray());
+                var result = await BaseService.FakeDeletes(ids.ToArray());
                 if (result)
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Success("删除成功");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete,SharedLocalResource.Success));
                     var pKey = GetParentKey(dto);
                     if (_datas != null && pKey != null && DeleteTreeNode(pKey, GetKey(dto), _datas))
                     {
@@ -179,9 +175,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
                 else
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Error("删除失败");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Error(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                 }
             }
         }
@@ -193,7 +187,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected async Task OnClickEdit(TDto dto)
         {
             TDialogInput option = GetEditOption(dto);
-            await OpenOperationDialogAsync(localizer[SharedLocalResource.Edit],
+            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Edit],
                 option,
                  result =>
                 {
@@ -206,7 +200,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected async Task OnClickAdd()
         {
-            await OpenOperationDialogAsync(localizer[SharedLocalResource.Add],
+            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
                 GetAddOption(),
                 result =>
                 {
@@ -221,7 +215,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected async Task OnClickAddChildren(TDto dto)
         {
-            await OpenOperationDialogAsync(localizer[SharedLocalResource.Add],
+            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
                 GetAddOption(dto),
                  result =>
                 {
@@ -236,30 +230,24 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Warn("未选中任何行");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Warn(this.Localizer[SharedLocalResource.NoRowsAreSelected]);
             }
             else
             {
-                if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
+                if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
                     List<TKey> ids = new List<TKey>();
                     ids.AddRange(_selectedRows.Select(x => GetKey(x)).ToArray());
                     _selectedRows.ForEach(x => { GetTreeAllChildrenNodes(x, ids); });
-                    var result = await _service.FakeDeletes(ids.Distinct().ToArray());
+                    var result = await BaseService.FakeDeletes(ids.Distinct().ToArray());
                     if (result)
                     {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                        messageService.Success("删除成功");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete,SharedLocalResource.Success));
                         await ReLoadTable();
                     }
                     else
                     {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                        messageService.Error($"删除失败");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                        MessageService.Error(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                     }
                 }
             }
@@ -272,7 +260,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected async Task OnClickDetail(TDto dto)
         {
             TDialogInput option = GetSelectOption(dto);
-            await OpenOperationDialogAsync(localizer[SharedLocalResource.Detail], option);
+            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Detail], option);
         }
 
         /// <summary>
@@ -439,7 +427,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             if (dialogOutput.Succeeded)
             {
                 //最新的数据
-                var newEntity = await _service.Get(GetKey(dto));
+                var newEntity = await BaseService.Get(GetKey(dto));
                 //父级变化重新加载列表
                 if (newEntity != null)
                 {
@@ -509,7 +497,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             if (dialogOutput.Succeeded && dialogOutput.Id != null)
             {
                 //最新的数据
-                var newEntity = await _service.Get(dialogOutput.Id);
+                var newEntity = await BaseService.Get(dialogOutput.Id);
                 ICollection<TDto> children = GetChildren(dto) ?? new List<TDto>();
 
                 children.Add(newEntity);

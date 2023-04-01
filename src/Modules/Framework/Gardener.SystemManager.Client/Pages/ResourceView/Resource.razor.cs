@@ -37,7 +37,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private async Task OnShowFunctionClick(ResourceDto model)
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                      $"{localizer["BindingApi"]}-[{model.Name}]",
+                      $"{Localizer["BindingApi"]}-[{model.Name}]",
                       new ResourceFunctionEditOption(model, model.Name, 0),
                       width: 1200);
         }
@@ -56,7 +56,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             };
             resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
-            string data = await _service.GenerateSeedData(new PageRequest()
+            string data = await BaseService.GenerateSeedData(new PageRequest()
             {
                 PageIndex = 1,
                 PageSize = int.MaxValue,
@@ -81,7 +81,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             });
 
             await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
-                        localizer[SharedLocalResource.SeedData],
+                        Localizer[SharedLocalResource.SeedData],
                         data,
                         width: 1300);
         }

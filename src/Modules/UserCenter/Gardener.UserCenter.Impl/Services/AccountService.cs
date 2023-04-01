@@ -207,9 +207,9 @@ namespace Gardener.UserCenter.Impl.Services
             // 获取用户Id
             List<ResourceDto> resources = await GetCurrentUserResources(ResourceType.Root, ResourceType.Menu);
 
-            var result= resources?.Where(x => x.Type.Equals(ResourceType.Root) && (string.IsNullOrEmpty(rootKey) || x.Key.Equals(rootKey))).FirstOrDefault()?.Children?.ToList();
+            var result= resources.Where(x => x.Type.Equals(ResourceType.Root) && (string.IsNullOrEmpty(rootKey) || x.Key.Equals(rootKey))).FirstOrDefault()?.Children?.ToList();
 
-            return resources ?? new List<ResourceDto>();
+            return result ?? new List<ResourceDto>();
         }
 
         #region 私有

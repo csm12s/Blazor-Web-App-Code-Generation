@@ -102,7 +102,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="userId"></param>
         private async Task OnEditUserRoleClick(int userId)
         {
-            await OpenOperationDialogAsync<UserRoleEdit, int, bool>(localizer["SettingRoles"], userId, async r =>
+            await OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, async r =>
             {
                 await ReLoadTable();
             }, width: 500);
@@ -117,7 +117,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             OperationDialogSettings settings = base.GetOperationDialogSettings();
             settings.Width = 300;
             settings.DrawerPlacement = Placement.Left;
-            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(localizer[SharedLocalResource.UplaodAvatar],
+            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(Localizer[SharedLocalResource.UplaodAvatar],
                 new UserUploadAvatarParams(user,true),
                 async r =>
                 {

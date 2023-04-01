@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.Swagger.Dtos;
 using Gardener.Swagger.Services;
 using Gardener.SystemManager.Dtos;
@@ -19,22 +20,22 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
 {
     public partial class FunctionImport : FeedbackComponent<int, bool>
     {
+        [Inject]
+        private ISwaggerService SwaggerService { get; set; } = null!;
+        [Inject]
+        private IFunctionService FunctionService { get; set; } = null!;
+        [Inject]
+        private IOptions<ApiSettings> ApiSettings { get; set; } = null!;
+        [Inject]
+        private IClientMessageService MessageService { get; set; } = null!;
+        [Inject]
+        private NotificationService NoticeService { get; set; } = null!;
+        [Inject]
+        private IClientLocalizer Localizer { get; set; } = null!;
+
         List<SwaggerSpecificationOpenApiInfoDto> apiInfos = new List<SwaggerSpecificationOpenApiInfoDto>();
-        [Inject]
-        ISwaggerService swaggerService { get; set; } = null!;
-        [Inject]
-        IFunctionService functionService { get; set; } = null!;
-        [Inject]
-        IOptions<ApiSettings> apiSettings { get; set; } = null!;
-        [Inject]
-        MessageService messageService { get; set; } = null!;
-        [Inject]
-        NotificationService noticeService { get; set; } = null!;
-        [Inject]
-        IClientLocalizer localizer { get; set; } = null!;
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
-
         private string _apiJsonUrl = string.Empty;
         private string _selectedGroupValue = string.Empty;
         private SwaggerSpecificationOpenApiInfoDto? _selectedGroup ;
@@ -48,7 +49,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            apiInfos=await swaggerService.GetApiGroup();
+            apiInfos=await SwaggerService.GetApiGroup();
             if (apiInfos != null && apiInfos.Any()) 
             {
                 OnSelectedItemChangedHandler(apiInfos.First());
@@ -62,7 +63,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             _functionDtos = new List<FunctionDto>();
             _selectedGroup = value;
-            Uri uri = new Uri(apiSettings.Value.BaseAddres);
+            Uri uri = new Uri(ApiSettings.Value.BaseAddres);
             _apiJsonUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}/swagger/{value.Group}/swagger.json";
         }
         /// <summary>
@@ -73,7 +74,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             _loading = true;
             _functionDtos = new List<FunctionDto>();
-            var result = await swaggerService.GetFunctionsFromJson(_apiJsonUrl);
+            var result = await SwaggerService.GetFunctionsFromJson(_apiJsonUrl);
             if (result != null)
             {
                 result.ForEach(x => { 
@@ -111,9 +112,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             _importLoading = true;
             if (_selectedFunctionDtos == null || !_selectedFunctionDtos.Any())
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
                 _importLoading = false;
                 return;
             }
@@ -124,10 +123,10 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             foreach (var item in _selectedFunctionDtos)
             {
                 count++;
-                FunctionDto? dto =await functionService.GetByKey(item.Key);
+                FunctionDto? dto =await FunctionService.GetByKey(item.Key);
                 if (dto==null)
                 {
-                    FunctionDto function = await functionService.Insert(item);
+                    FunctionDto function = await FunctionService.Insert(item);
                     if (function == null)
                     {
                         errorCount++;
@@ -140,7 +139,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
                 else 
                 {
                     item.Id = dto.Id;
-                    bool result= await functionService.Update(item);
+                    bool result= await FunctionService.Update(item);
                     if (result)
                     {
                          repetitionCount++;
@@ -155,7 +154,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
                 await InvokeAsync(StateHasChanged);
                 
             }
-            await noticeService.Open(new NotificationConfig()
+            await NoticeService.Open(new NotificationConfig()
             {
                 Message = "导入结果通知",
                 Description = $"共选择{count}条,更新已存在{repetitionCount}条,导入{insertCount}条,失败{errorCount}条",

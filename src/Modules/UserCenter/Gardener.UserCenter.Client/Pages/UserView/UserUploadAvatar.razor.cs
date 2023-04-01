@@ -9,6 +9,7 @@ using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.Common;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
@@ -20,30 +21,8 @@ using System.Threading.Tasks;
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserUploadAvatar : FeedbackComponent<UserUploadAvatarParams, string>
-    {
-        bool loading = false;
-
-        string? imageUrl;
-        [Inject]
-        MessageService messagerService { get; set; } = null!;
-        [Inject]
-        IOptions<ApiSettings> apiSettings { get; set; } = null!;
-        [Inject]
-        IUserService userService { get; set; } = null!;
-        [Inject]
-        IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
-        [Inject]
-        protected IClientLocalizer localizer { get; set; } = null!;
-        /// <summary>
-        /// 上传地址
-        /// </summary>
-        public string UploadUrl
-        {
-            get
-            {
-                return apiSettings.Value.BaseAddres + apiSettings.Value.UploadPath;
-            }
-        }
+    { 
+        
         /// <summary>
         /// 上传附件附带参数
         /// </summary>
@@ -55,6 +34,30 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private Dictionary<string, string> headers = new Dictionary<string, string>();
         private UserDto userDto = null!;
         private bool saveDb = false;
+        private bool loading = false;
+        private string? imageUrl;
+        /// <summary>
+        /// 上传地址
+        /// </summary>
+        private string UploadUrl
+        {
+            get
+            {
+                return ApiSettings.Value.BaseAddres + ApiSettings.Value.UploadPath;
+            }
+        }
+
+        [Inject]
+        private IClientMessageService MessagerService { get; set; } = null!;
+        [Inject]
+        private IOptions<ApiSettings> ApiSettings { get; set; } = null!;
+        [Inject]
+        private IUserService UserService { get; set; } = null!;
+        [Inject]
+        private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
+        [Inject]
+        private IClientLocalizer Localizer { get; set; } = null!;
+        
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -67,7 +70,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             //上传附件附带参数
             uploadAttachmentInput.Add("BusinessId", userDto != null ? userDto.Id.ToString() : string.Empty);
             //上传附件附带身份信息
-            headers = await authenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
+            headers = await AuthenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
             await base.OnInitializedAsync();
         }
 
@@ -76,12 +79,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             var typeOk = file.Type == "image/jpeg" || file.Type == "image/png" || file.Type == "image/gif";
             if (!typeOk)
             {
-                messagerService.Error("头像只能选择JPG/PNG/GIF文件！");
+                MessagerService.Error("头像只能选择JPG/PNG/GIF文件！");
             }
             var sizeOk = file.Size / 1024 < 500;
             if (!sizeOk)
             {
-                messagerService.Error("头像必须小于500KB！");
+                MessagerService.Error("头像必须小于500KB！");
             }
             return typeOk && sizeOk;
         }
@@ -108,17 +111,13 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 }
                 else
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messagerService.Error(localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Success));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
+                    MessagerService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Success));
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messagerService.Error(localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessagerService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Fail));
             }
             return Task.CompletedTask;
         }
@@ -143,19 +142,15 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 return;
             }
             //更新到数据库
-            var state = await userService.UpdateAvatar(new UserUpdateAvatarInput { Id = userDto.Id, Avatar = imageUrl });
+            var state = await UserService.UpdateAvatar(new UserUpdateAvatarInput { Id = userDto.Id, Avatar = imageUrl });
             if (state)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messagerService.Success(localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Success));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessagerService.Success(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Success));
                 await this.FeedbackRef.CloseAsync(string.Empty);
             }
             else
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messagerService.Success(localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Fail));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessagerService.Success(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Fail));
             }
 
         }

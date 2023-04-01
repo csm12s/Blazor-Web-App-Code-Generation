@@ -1,15 +1,26 @@
-﻿@using Microsoft.Extensions.Primitives;
+﻿@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Primitives;
 @inject NavigationManager Navigation
 
 @code {
+    //重定向到登录页
+
+
     /// <summary>
-    /// 重定向到登录页
+    /// 权限相关配置
+    /// </summary>
+    [Inject]
+    private IOptions<AuthSettings> AuthSettingsOpt { get; set; } = null!;
+
+    /// <summary>
+    /// 初始化
     /// </summary>
     protected override void OnInitialized()
     {
+        AuthSettings authSettings = AuthSettingsOpt.Value;
         string returnUrl = "";
         var uri = new Uri(Navigation.Uri);
-        if (!uri.AbsolutePath.Equals("/auth/login"))
+        if (!uri.AbsolutePath.Equals(authSettings.LoginPagePath))
         {
             returnUrl = Navigation.Uri;
         }
@@ -20,6 +31,6 @@
             returnUrl = value.ToString();
         }
         returnUrl = Uri.EscapeDataString(returnUrl);
-        Navigation.NavigateTo($"/auth/login{(string.IsNullOrEmpty(returnUrl) ? "" : "?returnUrl=" + returnUrl)}");
+        Navigation.NavigateTo($"{authSettings.LoginPagePath}{(string.IsNullOrEmpty(returnUrl) ? "" : "?returnUrl=" + returnUrl)}");
     }
 }

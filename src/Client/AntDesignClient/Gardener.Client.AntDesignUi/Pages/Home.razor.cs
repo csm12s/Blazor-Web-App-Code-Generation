@@ -11,6 +11,7 @@ using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.NotificationSystem;
+using Gardener.Client.Base.Services;
 using Gardener.Common;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;
@@ -33,28 +34,26 @@ namespace Gardener.Client.AntDesignUi.Pages
         private string? _message;
         private string? _currentUserAvatar;
         private IJSObjectReference? jsRef;
+        private bool _uploadLoading = false;
 
         [Inject]
-        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
+        private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
 
         [Inject]
-        private IClientLocalizer localizer { get; set; } = null!;
+        private IClientLocalizer Localizer { get; set; } = null!;
 
         [Inject]
-        private ISystemNotificationSender systemNotificationSender { get; set; } = null!;
+        private ISystemNotificationSender SystemNotificationSender { get; set; } = null!;
         [Inject]
-        private MessageService messageService { get; set; } = null!;
+        private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        private IJSRuntime js { get; set; } = null!;
+        private IJSRuntime Js { get; set; } = null!;
         [Inject]
-        private IChatDemoService chatDemoService { get; set; } = null!;
+        private IChatDemoService ChatDemoService { get; set; } = null!;
         [Inject]
-        private IEventBus eventBus { get; set; } = null!;
-
-        bool _uploadLoading = false;
-
+        private IEventBus EventBus { get; set; } = null!;
         [Inject]
-        private IOptions<ApiSettings> apiSettings { get; set; } = null!;
+        private IOptions<ApiSettings> ApiSettings { get; set; } = null!;
 
         /// <summary>
         /// 上传地址
@@ -63,7 +62,7 @@ namespace Gardener.Client.AntDesignUi.Pages
         {
             get
             {
-                return apiSettings.Value.BaseAddres + apiSettings.Value.UploadPath;
+                return ApiSettings.Value.BaseAddres + ApiSettings.Value.UploadPath;
             }
         }
 
@@ -83,25 +82,25 @@ namespace Gardener.Client.AntDesignUi.Pages
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            jsRef = await js.InvokeAsync<IJSObjectReference>("import", "./_content/Gardener.Client.AntDesignUi/Pages/Home.razor.js");
+            jsRef = await Js.InvokeAsync<IJSObjectReference>("import", "./_content/Gardener.Client.AntDesignUi/Pages/Home.razor.js");
 
-            var user = await authenticationStateManager.GetCurrentUser();
+            var user = await AuthenticationStateManager.GetCurrentUser();
             if (user != null)
             {
                 _currentUserAvatar = user.Avatar;
             }
 
-            IEnumerable<ChatDemoNotificationData> history = await chatDemoService.GetHistory();
+            IEnumerable<ChatDemoNotificationData> history = await ChatDemoService.GetHistory();
             if (history != null)
             {
                 datas.AddRange(history);
             }
             //进行订阅
-            eventBus.Subscribe<ChatDemoNotificationData>(ChatDemoNotificationEventCallBack);
-            eventBus.Subscribe<UserOnlineChangeNotificationData>(UserOnlineChangeNotificationEventCallBack);
+            EventBus.Subscribe<ChatDemoNotificationData>(ChatDemoNotificationEventCallBack);
+            EventBus.Subscribe<UserOnlineChangeNotificationData>(UserOnlineChangeNotificationEventCallBack);
 
             //上传附件附带身份信息
-            headers = await authenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
+            headers = await AuthenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
 
             await base.OnInitializedAsync();
         }
@@ -134,12 +133,10 @@ namespace Gardener.Client.AntDesignUi.Pages
             }
             if (_message.Length > 100)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Warn("内容长度不能超过100");
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Warn("内容长度不能超过100");
                 return;
             }
-            var user = await authenticationStateManager.GetCurrentUser();
+            var user = await AuthenticationStateManager.GetCurrentUser();
 
             if (user == null)
             {
@@ -149,7 +146,7 @@ namespace Gardener.Client.AntDesignUi.Pages
             notificationData.Avatar = user.Avatar;
             notificationData.Message = _message;
             notificationData.NickName = user.NickName;
-            await systemNotificationSender.Send(notificationData);
+            await SystemNotificationSender.Send(notificationData);
             _message = "";
         }
 
@@ -173,7 +170,7 @@ namespace Gardener.Client.AntDesignUi.Pages
         private async Task UserOnlineChangeNotificationEventCallBack(UserOnlineChangeNotificationData e)
         {
             UserOnlineChangeNotificationData notificationData = e;
-            UserDto? user = await authenticationStateManager.GetCurrentUser();
+            UserDto? user = await AuthenticationStateManager.GetCurrentUser();
             if (user == null || user.Id.ToString().Equals(notificationData.Identity.Id))
             {
                 return;
@@ -214,12 +211,12 @@ namespace Gardener.Client.AntDesignUi.Pages
             var typeOk = file.Type == "image/jpeg" || file.Type == "image/png" || file.Type == "image/gif";
             if (!typeOk)
             {
-                messageService.Error("只能选择JPG/PNG/GIF文件！");
+                MessageService.Error("只能选择JPG/PNG/GIF文件！");
             }
             var sizeOk = file.Size / 1024 < 500;
             if (!sizeOk)
             {
-                messageService.Error("必须小于500KB！");
+                MessageService.Error("必须小于500KB！");
             }
             if (uploadAttachmentInput.ContainsKey("BusinessId"))
             {
@@ -246,7 +243,7 @@ namespace Gardener.Client.AntDesignUi.Pages
                 {
                     //发送
                     string imageUrl = apiResult.Data.Url;
-                    var user = await authenticationStateManager.GetCurrentUser();
+                    var user = await AuthenticationStateManager.GetCurrentUser();
 
                     if (user == null)
                     {
@@ -256,21 +253,17 @@ namespace Gardener.Client.AntDesignUi.Pages
                     notificationData.Avatar = user.Avatar;
                     notificationData.Images = new string[] { imageUrl };
                     notificationData.NickName = user.NickName;
-                    await systemNotificationSender.Send(notificationData);
+                    await SystemNotificationSender.Send(notificationData);
                 }
                 else
                 {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                    messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messageService.Error(localizer[SharedLocalResource.UploadFail]);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                    MessageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
+                    MessageService.Error(Localizer[SharedLocalResource.UploadFail]);
                 }
             }
             else if (fileinfo.File.State == UploadState.Fail)
             {
-#pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Error(localizer[SharedLocalResource.UploadFail]);
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Error(Localizer[SharedLocalResource.UploadFail]);
             }
         }
     }

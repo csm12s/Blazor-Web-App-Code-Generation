@@ -16,12 +16,12 @@ namespace Gardener.UserCenter.Dtos
     /// 用户数据转换实体
     /// </summary>
     [Description("用户信息")]
-    public class UserDto: BaseDto<int>
+    public class UserDto : BaseDto<int>
     {
         /// <summary>
         /// 用户名
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"),MinLength(5,ErrorMessage = "最小长度不能小于{1}")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
         [DisplayName("UserName")]
         public string UserName { get; set; } = null!;
         /// <summary>
@@ -37,7 +37,7 @@ namespace Gardener.UserCenter.Dtos
         [MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
         [DisplayName("Password")]
         public string? Password { get; set; }
-        
+
         /// <summary>
         /// 头像
         /// </summary>

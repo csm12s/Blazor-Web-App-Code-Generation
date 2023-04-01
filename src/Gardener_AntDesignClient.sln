@@ -111,6 +111,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.EasyJob.Impl", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.EasyJob.Client.Services", "Modules\EasyJob\Gardener.EasyJob.Client.Services\Gardener.EasyJob.Client.Services.csproj", "{54BE0A9C-6603-4B64-BB2F-5AD027F7A4D7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.VerifyCode.DbStore", "Modules\Framework\Gardener.VerifyCode.DbStore\Gardener.VerifyCode.DbStore.csproj", "{55E68088-F27C-4E0E-A7E0-7D3133F1F8D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -305,6 +307,10 @@ Global
 		{54BE0A9C-6603-4B64-BB2F-5AD027F7A4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54BE0A9C-6603-4B64-BB2F-5AD027F7A4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54BE0A9C-6603-4B64-BB2F-5AD027F7A4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E68088-F27C-4E0E-A7E0-7D3133F1F8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E68088-F27C-4E0E-A7E0-7D3133F1F8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E68088-F27C-4E0E-A7E0-7D3133F1F8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E68088-F27C-4E0E-A7E0-7D3133F1F8D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -359,6 +365,7 @@ Global
 		{71491EBB-6E3A-48C6-81BA-CDC54BFCCCF5} = {3AD4B994-E4F3-4C79-8C09-EC0B05E51DA1}
 		{B0CCF138-4E9A-4123-BBA4-EC9DD5950F6D} = {3AD4B994-E4F3-4C79-8C09-EC0B05E51DA1}
 		{54BE0A9C-6603-4B64-BB2F-5AD027F7A4D7} = {3AD4B994-E4F3-4C79-8C09-EC0B05E51DA1}
+		{55E68088-F27C-4E0E-A7E0-7D3133F1F8D6} = {08D32FE5-4548-4C51-9D6E-68BDB2CE112E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0782AFAE-11B9-4CBE-8DC6-169EB1CBA894}

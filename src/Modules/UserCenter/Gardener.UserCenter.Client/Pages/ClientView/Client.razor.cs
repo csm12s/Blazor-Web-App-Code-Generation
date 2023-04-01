@@ -21,7 +21,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private async Task OnShowFunctionClick(ClientDto model)
         {
             await OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-            $"{localizer["BindingApi"]}-[{model.Name}]",
+            $"{Localizer["BindingApi"]}-[{model.Name}]",
             new ClientFunctionEditOption
             {
                 Id = model.Id,

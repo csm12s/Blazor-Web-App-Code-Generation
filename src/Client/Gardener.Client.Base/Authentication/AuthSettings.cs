@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-namespace Gardener.Client.Core
+namespace Gardener.Client.Base
 {
     /// <summary>
     /// 
@@ -14,6 +14,9 @@ namespace Gardener.Client.Core
         /// <summary>
         /// 启用自动刷新
         /// </summary>
+        /// <remarks>
+        /// 目前必须开启，后续可以在api调用时如果401时刷新token，就可以不开启
+        /// </remarks>
         public bool EnableAutoRefresh { get; set; }=true;
 
         /// <summary>
@@ -26,5 +29,9 @@ namespace Gardener.Client.Core
         /// token刷新过期时间阈值（单位：秒）
         /// </summary>
         public int RefreshTokenTimeThreshold { get; set; } = 70;
+        /// <summary>
+        /// 登陆页面地址
+        /// </summary>
+        public string LoginPagePath { get; set; } = "/auth/login";
     }
 }

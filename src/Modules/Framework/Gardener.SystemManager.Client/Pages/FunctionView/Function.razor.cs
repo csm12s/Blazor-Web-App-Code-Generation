@@ -28,9 +28,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             if (!result)
             {
                 model.EnableAudit = !enableAudit;
-                #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
-                messageService.Error((enableAudit ? SharedLocalResource.Enable : SharedLocalResource.Disabled) + SharedLocalResource.Fail);
-                #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+                MessageService.Error((enableAudit ? SharedLocalResource.Enable : SharedLocalResource.Disabled) + SharedLocalResource.Fail);
             }
         }
 
@@ -42,7 +40,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             var setting = base.GetOperationDialogSettings();
             setting.Width = 1000;
-            await OpenOperationDialogAsync<FunctionImport, int, bool>(localizer[SharedLocalResource.Import], 0, async r =>
+            await OpenOperationDialogAsync<FunctionImport, int, bool>(Localizer[SharedLocalResource.Import], 0, async r =>
             {
                 await ReLoadTable();
 

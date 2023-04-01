@@ -11,7 +11,7 @@
       Context="model">
     <Row Gutter="24">
         <GridCol Span="12">
-            <FormItem Label="@(localizer[CodeGenLocalResource.TableName])">
+            <FormItem Label="@(Localizer[CodeGenLocalResource.TableName])">
                 <Select DataSource="_allTables"
                         Style="width:300px;"
                         OnSelectedItemChanged="OnTableSelectChanged"
@@ -25,21 +25,21 @@
                 </Select>
             </FormItem>
 
-            <FormItem Label="@(localizer[CodeGenLocalResource.ClassName])">
-                <Input @bind-Value="@model.ClassName" Placeholder=@localizer[CodeGenLocalResource.ClassName] />
+            <FormItem Label="@(Localizer[CodeGenLocalResource.ClassName])">
+                <Input @bind-Value="@model.ClassName" Placeholder=@Localizer[CodeGenLocalResource.ClassName] />
             </FormItem>
 
-            <FormItem Label="@(localizer[CodeGenLocalResource.Module])">
-                <Input @bind-Value="@model.Module" Placeholder=@localizer[CodeGenLocalResource.Module] />
+            <FormItem Label="@(Localizer[CodeGenLocalResource.Module])">
+                <Input @bind-Value="@model.Module" Placeholder=@Localizer[CodeGenLocalResource.Module] />
             </FormItem>
 
-            <FormItem Label="@(localizer[CodeGenLocalResource.Remark])">
+            <FormItem Label="@(Localizer[CodeGenLocalResource.Remark])">
                 <Input @bind-Value="@model.Remark" />
             </FormItem>
 
 
 
-            <FormItem Label="@(localizer[CodeGenLocalResource.ParentMenu])">
+            <FormItem Label="@(Localizer[CodeGenLocalResource.ParentMenu])">
                 <Input @bind-Value="@model.MenuParentId" Type="hidden" />
                 @if (_menuTree != null && _menuTree.Count > 0)
                 {
@@ -47,9 +47,9 @@
                                 Style="width:100%;"
                                 DataSource="_menuTree"
                     @bind-Value="@_menuParentId"
-                                Placeholder="@localizer[CodeGenLocalResource.PleaseSelect]"
+                                Placeholder="@Localizer[CodeGenLocalResource.PleaseSelect]"
                                 AllowClear="false"
-                                TitleExpression="node=>localizer[node.DataItem.Name]"
+                                TitleExpression="node=>Localizer[node.DataItem.Name]"
                                 KeyExpression="node =>node.DataItem.Id.ToString()"
                                 ChildrenExpression="node =>node.DataItem.Children?.ToList()"
                                 IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
@@ -60,118 +60,118 @@
                 }
             </FormItem>
 
-            <FormItem Label="@(localizer[CodeGenLocalResource.IconName])">
-                <Input @bind-Value="@model.IconName" Placeholder=@localizer[CodeGenLocalResource.IconName] />
+            <FormItem Label="@(Localizer[CodeGenLocalResource.IconName])">
+                <Input @bind-Value="@model.IconName" Placeholder=@Localizer[CodeGenLocalResource.IconName] />
             </FormItem>
 
 
 
-            <FormItem Label="@(localizer[CodeGenLocalResource.PrimaryKeyName])">
-                <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@localizer[CodeGenLocalResource.PrimaryKeyName] />
+            <FormItem Label="@(Localizer[CodeGenLocalResource.PrimaryKeyName])">
+                <Input @bind-Value="@model.PrimaryKeyName" Placeholder=@Localizer[CodeGenLocalResource.PrimaryKeyName] />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.EN,")"))">
+            <FormItem Label="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.EN,")"))">
                 <Input @bind-Value="@model.TableDescriptionEN" />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.CH,")"))">
+            <FormItem Label="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",CodeGenLocalResource.CH,")"))">
                 <Input @bind-Value="@model.TableDescriptionCH" />
             </FormItem>
-            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")"))">
-                <Input @bind-Value="@model.MenuNameEN" Placeholder=@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")")) />
+            <FormItem Label="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")"))">
+                <Input @bind-Value="@model.MenuNameEN" Placeholder=@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.EN,")")) />
             </FormItem>
 
-            <FormItem Label="@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")"))">
-                <Input @bind-Value="@model.MenuNameCH" Placeholder=@(localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")")) />
+            <FormItem Label="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")"))">
+                <Input @bind-Value="@model.MenuNameCH" Placeholder=@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",CodeGenLocalResource.CH,")")) />
             </FormItem>
         </GridCol>
         <GridCol Offset="1" Span="11">
 
-            <FormItem Label="@localizer[CodeGenLocalResource.Generate]">
+            <FormItem Label="@Localizer[CodeGenLocalResource.Generate]">
                 <CheckboxGroup Style="width:100%">
                     <Row>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.GenerateProjectFile">
-                                @(localizer[CodeGenLocalResource.GenerateProjectFile])
+                                @(Localizer[CodeGenLocalResource.GenerateProjectFile])
                         </Checkbox>
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.GenerateBaseClass">
-                                @(localizer[CodeGenLocalResource.GenerateBaseClass])
+                                @(Localizer[CodeGenLocalResource.GenerateBaseClass])
                         </Checkbox>
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.GenerateService">
-                                @(localizer["GenerateService"])
+                                @(Localizer["GenerateService"])
                         </Checkbox>
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.GenerateLocaleFile">
-                                @(localizer["GenerateLocaleFile"])
+                                @(Localizer["GenerateLocaleFile"])
                         </Checkbox>
                         </Col>
                     </Row>
                 </CheckboxGroup>
             </FormItem>
-            <FormItem Label="@localizer[CodeGenLocalResource.Button]">
+            <FormItem Label="@Localizer[CodeGenLocalResource.Button]">
                 <CheckboxGroup Style="width:100%">
                     <Row>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.HasAdd">
-                                @(localizer[CodeGenLocalResource.HasAdd])
+                                @(Localizer[CodeGenLocalResource.HasAdd])
                         </Checkbox>
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.HasEdit">
-                                @(localizer[CodeGenLocalResource.HasEdit])
+                                @(Localizer[CodeGenLocalResource.HasEdit])
                         </Checkbox>
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.HasDelete">
-                                @(localizer[CodeGenLocalResource.HasDelete])
+                                @(Localizer[CodeGenLocalResource.HasDelete])
                         </Checkbox>
                         </Col>
                         <Col Span="8">
                         <Checkbox @bind-Value="@model.HasBatchDelete">
-                                @(localizer[CodeGenLocalResource.HasBatchDelete])
+                                @(Localizer[CodeGenLocalResource.HasBatchDelete])
                         </Checkbox>
                         </Col>
                     </Row>
                 </CheckboxGroup>
             </FormItem>
-            <FormItem Label=@localizer["GenerateSelectFields"]>
+            <FormItem Label=@Localizer["GenerateSelectFields"]>
                 <Switch @bind-Value="@model.GenerateSelectFields"></Switch>
             </FormItem>
-            <FormItem Label=@localizer[CodeGenLocalResource.UseCustomTemplate]>
+            <FormItem Label=@Localizer[CodeGenLocalResource.UseCustomTemplate]>
                 <Switch @bind-Value="@model.UseCustomTemplate"></Switch>
             </FormItem>
 
-            <FormItem Label=@localizer[CodeGenLocalResource.UseChineseKey]>
+            <FormItem Label=@Localizer[CodeGenLocalResource.UseChineseKey]>
                 <Switch @bind-Value="@model.UseChineseKey"></Switch>
             </FormItem>
-            <FormItem Label=@localizer["UseNetColumnAsKey"]>
+            <FormItem Label=@Localizer["UseNetColumnAsKey"]>
                 <Switch @bind-Value="@model.UseNetColumnAsKey"></Switch>
             </FormItem>
 
 
-            <FormItem Label=@localizer[CodeGenLocalResource.EntityFromTable]>
-                <Tooltip Title="@localizer[CodeGenLocalResource.ExplainEntityFromTable]" ArrowPointAtCenter="true">
+            <FormItem Label=@Localizer[CodeGenLocalResource.EntityFromTable]>
+                <Tooltip Title="@Localizer[CodeGenLocalResource.ExplainEntityFromTable]" ArrowPointAtCenter="true">
                     <Switch @bind-Value="@model.EntityFromTable"></Switch>
                 </Tooltip>
                 @if (model.EntityFromTable)
                 {
                     <Collapse DefaultActiveKey="@(new[]{"1"})">
-                        <Panel Header="@(localizer[CodeGenLocalResource.EntityFromTableSettings])" Key="1" Active="@model.EntityFromTable">
-                            <FormItem Label="@(localizer[CodeGenLocalResource.OriginalModule])">
-                                <Input @bind-Value="@model.OriginModule" Placeholder=@localizer[CodeGenLocalResource.OriginalModule] />
+                        <Panel Header="@(Localizer[CodeGenLocalResource.EntityFromTableSettings])" Key="1" Active="@model.EntityFromTable">
+                            <FormItem Label="@(Localizer[CodeGenLocalResource.OriginalModule])">
+                                <Input @bind-Value="@model.OriginModule" Placeholder=@Localizer[CodeGenLocalResource.OriginalModule] />
                             </FormItem>
 
-                            <FormItem Label="@(localizer[CodeGenLocalResource.NewTableName])">
-                                <Input @bind-Value="@model.NewTableName" Placeholder=@localizer[CodeGenLocalResource.NewTableName] />
+                            <FormItem Label="@(Localizer[CodeGenLocalResource.NewTableName])">
+                                <Input @bind-Value="@model.NewTableName" Placeholder=@Localizer[CodeGenLocalResource.NewTableName] />
                             </FormItem>
 
-                            <FormItem Label=@localizer[CodeGenLocalResource.AllowNull]>
-                                <Tooltip Title="@localizer[CodeGenLocalResource.ExplainAllowNull]" ArrowPointAtCenter="true">
+                            <FormItem Label=@Localizer[CodeGenLocalResource.AllowNull]>
+                                <Tooltip Title="@Localizer[CodeGenLocalResource.ExplainAllowNull]" ArrowPointAtCenter="true">
                                     <Switch @bind-Value="@model.AllowNull"></Switch>
                                 </Tooltip>
                             </FormItem>
@@ -184,10 +184,10 @@
 
             @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
             {
-                <FormItem Label="@localizer[CodeGenLocalResource.CreatedTime]">
+                <FormItem Label="@Localizer[CodeGenLocalResource.CreatedTime]">
                     <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
                 </FormItem>
-                <FormItem Label="@localizer[CodeGenLocalResource.UpdatedTime]">
+                <FormItem Label="@Localizer[CodeGenLocalResource.UpdatedTime]">
                     <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
                 </FormItem>
             }
@@ -201,12 +201,12 @@
                     {
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" OnClick="OnlySaveCodeGen">
-                                @localizer[CodeGenLocalResource.OnlySave]
+                                @Localizer[CodeGenLocalResource.OnlySave]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Danger HtmlType="submit">
-                                @localizer[CodeGenLocalResource.SaveAndResetSettings]
+                                @Localizer[CodeGenLocalResource.SaveAndResetSettings]
                             </Button>
                         </SpaceItem>
                     }
@@ -214,13 +214,13 @@
                     {
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" HtmlType="submit">
-                                @localizer[CodeGenLocalResource.Save]
+                                @Localizer[CodeGenLocalResource.Save]
                             </Button>
                         </SpaceItem>
                     }
                     <SpaceItem>
                         <Button OnClick="_=>OnFormCancel()">
-                            @localizer[CodeGenLocalResource.Cancel]
+                            @Localizer[CodeGenLocalResource.Cancel]
                         </Button>
                     </SpaceItem>
                 </Space>

@@ -94,7 +94,8 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public async Task<bool> RefreshToken(bool force = false)
         {
-            if (navigationManager.Uri.IndexOf("/auth/login") > 0)
+            //如果在登录页，无法刷新
+            if (navigationManager.Uri.IndexOf(authSettings.LoginPagePath) > 0)
             {
                 return false;
             }
@@ -163,6 +164,12 @@ namespace Gardener.Client.Core
 
         }
         #region 状态通知
+        /// <summary>
+        /// 用户身份变化需要调用此通知
+        /// </summary>
+        /// <remarks>
+        /// <see cref="CustomAuthenticationStateProvider"/>
+        /// </remarks>
         Action notifyAuthenticationStateChangedAction = () => { };
         /// <summary>
         /// 设置状态通知回调
@@ -191,7 +198,7 @@ namespace Gardener.Client.Core
         public async Task ReloadCurrentUserInfos()
         {
             //刷新了，或者首次登录
-            var token = await ReloadToken();
+            var token = await TryGetToken();
             if (token != null)
             {
                 await eventBus.Publish(new ReloadCurrentUserEvent(token));
@@ -267,7 +274,11 @@ namespace Gardener.Client.Core
         }
         #endregion
 
-        #region local token  
+        #region local token
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<TokenOutput?> GetCurrentToken()
         {
             var isAutoLoginStr = await jsTool.LocalStorage.GetAsync<string>(nameof(isAutoLogin));
@@ -276,8 +287,8 @@ namespace Gardener.Client.Core
             var accessTokenLocal = await GetWebStorageFromAutoLogin(isAutoLogin).GetAsync<string>(nameof(TokenOutput.AccessToken));
             var refreshTokenLocal = await GetWebStorageFromAutoLogin(this.isAutoLogin).GetAsync<string>(nameof(TokenOutput.RefreshToken));
             var refreshTokenExpiresLocal = await GetWebStorageFromAutoLogin(this.isAutoLogin).GetAsync<string>(nameof(TokenOutput.RefreshTokenExpires));
-            //refretoken无效
-            if (string.IsNullOrEmpty(refreshTokenLocal) || string.IsNullOrEmpty(refreshTokenExpiresLocal)) return null;
+            //accessToken || refretoken 不存在，可能被破坏了
+            if (string.IsNullOrEmpty(accessTokenLocal) || string.IsNullOrEmpty(accessTokenExpiresLocal) || string.IsNullOrEmpty(refreshTokenLocal) || string.IsNullOrEmpty(refreshTokenExpiresLocal)) return null;
             var token = new TokenOutput
             {
                 AccessToken = accessTokenLocal,
@@ -289,10 +300,13 @@ namespace Gardener.Client.Core
         }
 
         /// <summary>
-        /// get token
+        /// 尝试获取token
         /// </summary>
+        /// <remarks>
+        /// 先从本地获取，本地没有或不可用，尝试刷新一下再获取
+        /// </remarks>
         /// <returns></returns>
-        private async Task<TokenOutput?> ReloadToken()
+        private async Task<TokenOutput?> TryGetToken()
         {
             TokenOutput? token = await GetCurrentToken();
             //无效
@@ -300,14 +314,15 @@ namespace Gardener.Client.Core
             //accessToken可用
             if (!string.IsNullOrEmpty(token.AccessToken) && token.AccessTokenExpires - DateTimeOffset.Now.ToUnixTimeSeconds() > authSettings.RefreshTokenTimeThreshold)
             {
-                await SetToken(token);
                 return token;
             }
-            ///accessToken不可用，使用refreshToken拿到新的token
-            var newToken = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = token.RefreshToken });
-            if (newToken == null) return null;
-            await SetToken(newToken);
-            return newToken;
+            else
+            {
+                ///accessToken不可用，强制刷新后拿到
+                await RefreshToken(true);
+                return await GetCurrentToken();
+            }
+            
         }
         /// <summary>
         /// token 设置到浏览器缓存

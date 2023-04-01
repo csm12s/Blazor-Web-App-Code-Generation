@@ -39,16 +39,16 @@
     <FormItem Label="启用审计">
         <Switch @bind-Value="@model.EnableAudit"></Switch>
     </FormItem>
-    <FormItem Label="@localizer[SharedLocalResource.IsLocked]">
+    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
     @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
     {
-        <FormItem Label="@localizer[SharedLocalResource.CreatedTime]">
+        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem  Label="@localizer[SharedLocalResource.UpdatedTime]">
+        <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -58,13 +58,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @localizer[SharedLocalResource.Save]
+                        @Localizer[SharedLocalResource.Save]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @localizer[SharedLocalResource.Cancel]
+                    @Localizer[SharedLocalResource.Cancel]
                 </Button>
             </SpaceItem>
         </Space>
