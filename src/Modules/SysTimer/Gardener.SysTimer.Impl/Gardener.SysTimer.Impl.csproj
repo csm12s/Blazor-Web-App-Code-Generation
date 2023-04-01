@@ -6,6 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Framework\Furion.TaskScheduler\Furion.TaskScheduler.csproj" />
 	  <ProjectReference Include="..\..\Framework\Gardener.Base\Gardener.Base.csproj" />
 	  <ProjectReference Include="..\..\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />
 	  <ProjectReference Include="..\Gardener.SysTimer\Gardener.SysTimer.csproj" />
