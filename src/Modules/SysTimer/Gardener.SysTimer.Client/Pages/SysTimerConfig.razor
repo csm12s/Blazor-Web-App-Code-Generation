@@ -51,7 +51,7 @@
                 </AntDesign.Col>
             </Row>
         </TitleTemplate>
-        <RowTemplate>
+        <ColumnDefinitions>
             <ResourceAuthorize ResourceKey="system_manager_timer_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
@@ -90,7 +90,7 @@
                 }
             </Column>
             <Column @bind-Field="@model.TimerStatus" Width="10%">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.TimerStatus)"></TagRandomColor>
+                <TagPro Text="@model.TimerStatus"></TagPro>
                 <Tooltip Title="@($"已运行{(model.RunNumber.HasValue ? model.RunNumber.Value : 0)}次")">
                     <Badge Count="(int)(model.RunNumber.HasValue ? model.RunNumber.Value : 0)"
                            Style="background-color: #52c41a; " />
@@ -148,6 +148,6 @@
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>
