@@ -123,6 +123,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.UserCenter.Client.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.UserCenter.Client.BootstrapUi", "Modules\UserCenter\Gardener.UserCenter.Client.BootstrapUi\Gardener.UserCenter.Client.BootstrapUi.csproj", "{CE5ACDED-C491-4461-AF26-885A51DD77CA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Furion.TaskScheduler", "Modules\Framework\Furion.TaskScheduler\Furion.TaskScheduler.csproj", "{0FF49368-4803-470F-81FB-F022031BA01E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -333,6 +335,10 @@ Global
 		{CE5ACDED-C491-4461-AF26-885A51DD77CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE5ACDED-C491-4461-AF26-885A51DD77CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE5ACDED-C491-4461-AF26-885A51DD77CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF49368-4803-470F-81FB-F022031BA01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF49368-4803-470F-81FB-F022031BA01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF49368-4803-470F-81FB-F022031BA01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF49368-4803-470F-81FB-F022031BA01E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,6 +399,7 @@ Global
 		{5F718DB3-3D7C-4D95-8CD8-FD64A71A8AA7} = {06269773-99C1-41C0-A913-415C515F7346}
 		{E058F0D5-93B5-42D7-BF3D-0F0FFA5A5D36} = {C6D7D663-25AF-4100-89B2-EF744CC9D74F}
 		{CE5ACDED-C491-4461-AF26-885A51DD77CA} = {C6D7D663-25AF-4100-89B2-EF744CC9D74F}
+		{0FF49368-4803-470F-81FB-F022031BA01E} = {2170BD93-2350-414A-BA0F-BE1E71ABFF68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C032A5FB-7757-4E89-86BE-9C6CE6CAD014}
