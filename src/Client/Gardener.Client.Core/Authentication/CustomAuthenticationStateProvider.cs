@@ -19,13 +19,15 @@ namespace Gardener.Client.Core
     /// </summary>
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private IAuthenticationStateManager authenticationStateManager;
-        private IClientLogger logger;
-        public CustomAuthenticationStateProvider(IAuthenticationStateManager authenticationStateManager, IClientLogger logger)
+        private readonly IAuthenticationStateManager authenticationStateManager;
+        private readonly IClientLogger logger;
+        private readonly IClientLocalizer localizer;
+        public CustomAuthenticationStateProvider(IAuthenticationStateManager authenticationStateManager, IClientLogger logger, IClientLocalizer localizer)
         {
             this.authenticationStateManager = authenticationStateManager;
             authenticationStateManager.SetNotifyAuthenticationStateChangedAction(Refresh);
             this.logger = logger;
+            this.localizer = localizer;
         }
         /// <summary>
         /// 刷新页面后会执行
@@ -40,14 +42,15 @@ namespace Gardener.Client.Core
                 var user =await authenticationStateManager.GetCurrentUser();
                 if (user == null)
                 {
-                    throw new Exception("用户信息获取失败,请重新登陆。");
+                    await logger.ErrorAsync(localizer["User_Info_Get_Error_Retry_Login"]);
+                    return authenticationState;
                 }
                 authenticationState = CreateAuthenticationState(user);
                 return authenticationState;
             }
             catch (Exception ex)
             {
-                await logger.ErrorAsync("用户信息获取失败,请重新登陆。",ex:ex);
+                await logger.ErrorAsync(localizer["User_Info_Get_Error_Retry_Login"], ex:ex);
                 return authenticationState;
             }
         }

@@ -499,4 +499,7 @@
   <data name="Data not find" xml:space="preserve">
     <value>数据未找到</value>
   </data>
+  <data name="User_Info_Get_Error_Retry_Login" xml:space="preserve">
+    <value>用户信息获取失败,请重新登陆。</value>
+  </data>
 </root>

@@ -17,8 +17,8 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserEdit : EditOperationDialogBase<UserDto, int, UserCenterResource>
     {
-        private List<DeptDto> deptDatas = new();
-        private List<PositionDto> positions = new();
+        private List<DeptDto>? deptDatas;
+        private List<PositionDto>? positions;
         [Inject]
         private IDeptService DeptService { get; set; } = null!;
         [Inject]
@@ -27,11 +27,11 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <summary>
         /// 部门编号
         /// </summary>
-        protected string DeptId
+        protected string? DeptId
         {
             get
             {
-                return _editModel.DeptId?.ToString() ?? string.Empty;
+                return _editModel.DeptId?.ToString();
             }
             set
             {
@@ -52,16 +52,23 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+            if(_editModel!=null)
+            {
+                _editModel.Password = null;
+            }
+        }
+        protected override async Task OnParametersSetAsync()
+        {
             _isLoading = true;
+            //岗位
             positions = await PositionService.GetAllUsable();
             //部门
             deptDatas = await DeptService.GetTree();
+            await base.OnParametersSetAsync();
             _isLoading = false;
-            await base.OnInitializedAsync();
-            _editModel.Password = null;
-            
         }
-
+       
         /// <summary>
         /// 点击头像
         /// </summary>

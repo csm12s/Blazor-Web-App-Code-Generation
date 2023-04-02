@@ -31,11 +31,14 @@ namespace AntDesign
                 var mRef = (modalRef as ModalRef<TResult>);
                 if (mRef != null) 
                 {
-                    //确定后的操作，放到关闭后执行
-                    mRef.OnClose = async () =>
+                    if (mRef.OnOk != null)
                     {
-                        await mRef.OnOk.Invoke(result);
-                    };
+                        //确定后的操作，放到关闭后执行
+                        mRef.OnClose = async () =>
+                        {
+                            await mRef.OnOk.Invoke(result);
+                        };
+                    }
                     await mRef.CloseAsync();
                 }
                
