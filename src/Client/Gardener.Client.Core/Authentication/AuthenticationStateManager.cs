@@ -201,6 +201,7 @@ namespace Gardener.Client.Core
             var token = await TryGetToken();
             if (token != null)
             {
+                SetHttpClientAuthorization(token.AccessToken);
                 await eventBus.Publish(new ReloadCurrentUserEvent(token));
                 //重新请求user信息
                 var userResult = await accountService.GetCurrentUser();
