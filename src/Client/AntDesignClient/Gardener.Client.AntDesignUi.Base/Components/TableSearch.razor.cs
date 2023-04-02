@@ -90,7 +90,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                 localizer = CustomLocalizer;
             }
             InitSearchFields();
-            System.Console.WriteLine("1");
             await base.OnInitializedAsync();
         }
 
@@ -193,9 +192,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
         /// </summary>
         /// <param name="values"></param>
         private async void OnSelectedItemsChangedHandler(IEnumerable<string> values) {
-            System.Console.WriteLine("2");
             _selectedValues = values == null ? new List<string>() : values;
-            System.Console.WriteLine(JsonSerializer.Serialize(_selectedValues));
             ResetSearchFieldValue();
             bool reduce = _selectedValues.Count() < lastFieldCount;
             lastFieldCount = _selectedValues.Count();
