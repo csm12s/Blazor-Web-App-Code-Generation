@@ -21,7 +21,7 @@ namespace Gardener.SysTimer.Domains
         /// <example>dilon</example>
         [Comment("任务名称")]
         [Required, MaxLength(20)]
-        public string JobName { get; set; }
+        public string JobName { get; set; } = null!;
 
         /// <summary>
         /// 只执行一次
@@ -54,7 +54,7 @@ namespace Gardener.SysTimer.Domains
         /// <example></example>
         [Comment("Cron表达式")]
         [MaxLength(20)]
-        public string Cron { get; set; }
+        public string? Cron { get; set; }
 
         /// <summary>
         /// 定时器类型
@@ -67,27 +67,27 @@ namespace Gardener.SysTimer.Domains
         /// </summary>
         [Comment("请求url")]
         [MaxLength(200)]
-        public string RequestUrl { get; set; }
+        public string? RequestUrl { get; set; }
 
         /// <summary>
         /// 本地方法
         /// </summary>
         [Comment("本地方法")]
         [MaxLength(200)]
-        public string LocalMethod { get; set; }
+        public string? LocalMethod { get; set; }
 
         /// <summary>
         /// 请求参数（Post，Put请求用）
         /// </summary>
         [Comment("请求参数")]
-        public string RequestParameters { get; set; }
+        public string? RequestParameters { get; set; }
 
         /// <summary>
         /// Headers(可以包含如：Authorization授权认证)
         /// 格式：{"Authorization":"userpassword.."}
         /// </summary>
         [Comment("Headers")]
-        public string Headers { get; set; }
+        public string? Headers { get; set; }
 
         /// <summary>
         /// 执行类型
@@ -108,7 +108,7 @@ namespace Gardener.SysTimer.Domains
         /// </summary>
         [Comment("备注")]
         [MaxLength(100)]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
         /// <summary>
         /// 配置Entity

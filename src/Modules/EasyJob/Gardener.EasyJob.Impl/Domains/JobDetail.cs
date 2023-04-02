@@ -8,7 +8,7 @@ using Gardener.Base;
 
 namespace Gardener.EasyJob.Impl.Domains
 {
-    public class JobDetail : GardenerEntityBase<String>
+    public class JobDetail : GardenerEntityBase<string>
     {
         /// <summary>
         /// 作业 Id

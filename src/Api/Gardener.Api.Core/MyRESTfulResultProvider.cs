@@ -111,7 +111,7 @@ namespace Gardener.Admin
         /// <param name="errors"></param>
         /// <param name="errorCode"></param>
         /// <returns></returns>
-        private static object RESTfulResult(int statusCode, bool succeeded = default, object? data = default, object? errors = default, object? errorCode = default)
+        static private object RESTfulResult(int statusCode, bool succeeded = default, object? data = default, object? errors = default, object? errorCode = default)
         {
 
             if (succeeded)

@@ -31,7 +31,7 @@ namespace Furion.TaskScheduler;
 /// 后台任务静态类
 /// </summary>
 /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+//[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
 [SuppressSniffer]
 public static class SpareTime
 {
@@ -46,7 +46,7 @@ public static class SpareTime
     /// <param name="cancelInNoneNextTime"></param>
     /// <param name="executeType"></param>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static void Do(double interval, Action<SpareTimer, long> doWhat = default, string workerName = default, string description = default, bool startNow = true, bool cancelInNoneNextTime = true, SpareTimeExecuteTypes executeType = SpareTimeExecuteTypes.Parallel)
     {
         Do(() => interval, doWhat, workerName, description, startNow, cancelInNoneNextTime, executeType, true);
@@ -115,7 +115,7 @@ public static class SpareTime
     /// <param name="cancelInNoneNextTime"></param>
     /// <param name="executeType"></param>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static void DoOnce(double interval, Action<SpareTimer, long> doWhat = default, string workerName = default, string description = default, bool startNow = true, bool cancelInNoneNextTime = true, SpareTimeExecuteTypes executeType = SpareTimeExecuteTypes.Parallel)
     {
         Do(() => interval, doWhat, workerName, description, startNow, cancelInNoneNextTime, executeType, false);
@@ -150,7 +150,7 @@ public static class SpareTime
     /// <param name="cronFormat">配置 Cron 表达式格式化</param>
     /// <param name="executeType"></param>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static void Do(string expression, Action<SpareTimer, long> doWhat = default, string workerName = default, string description = default, bool startNow = true, bool cancelInNoneNextTime = true, CronFormat? cronFormat = default, SpareTimeExecuteTypes executeType = SpareTimeExecuteTypes.Parallel)
     {
         Do(() => GetCronNextOccurrence(expression, cronFormat), doWhat, workerName, description, startNow, cancelInNoneNextTime, executeType);
@@ -582,7 +582,7 @@ public static class SpareTime
     /// </summary>
     /// <param name="workerName"></param>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static void Start(string workerName)
     {
         if (string.IsNullOrWhiteSpace(workerName)) throw new ArgumentNullException(workerName);
@@ -613,7 +613,7 @@ public static class SpareTime
     /// <param name="workerName"></param>
     /// <param name="isFaild"></param>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static void Stop(string workerName, bool isFaild = false)
     {
         if (string.IsNullOrWhiteSpace(workerName)) throw new ArgumentNullException(nameof(workerName));
@@ -640,7 +640,7 @@ public static class SpareTime
     /// </summary>
     /// <param name="workerName"></param>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static void Cancel(string workerName)
     {
         if (string.IsNullOrWhiteSpace(workerName)) throw new ArgumentNullException(nameof(workerName));
@@ -680,7 +680,7 @@ public static class SpareTime
     /// </summary>
     /// <returns></returns>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static IEnumerable<SpareTimer> GetWorkers()
     {
         return WorkerRecords.Select(u => u.Value.Timer);
@@ -692,7 +692,7 @@ public static class SpareTime
     /// <param name="workerName"></param>
     /// <returns></returns>
     /// <remarks>TaskScheduler 将于2022年12月31日移除，请使用 Scheduler 替代</remarks>
-    [Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
+    //[Obsolete("The <TaskScheduler> will be removed on December 31, 2022. Please use the <Scheduler> instead.")]
     public static SpareTimer GetWorker(string workerName)
     {
         if (string.IsNullOrWhiteSpace(workerName)) throw new ArgumentNullException(nameof(workerName));
@@ -736,14 +736,14 @@ public static class SpareTime
     /// Cron 表达式解析对象
     /// </summary>
     /// <remarks>由于目前使用项目太多，放弃了进行破坏性更改，无奈之举牺牲点内存换来性能，该处理本不应该存在</remarks>
-    private static readonly ConcurrentDictionary<string, CronExpression> CronExpressionSet = new();
+    static private readonly ConcurrentDictionary<string, CronExpression> CronExpressionSet = new();
 
     /// <summary>
     /// 更新工作记录
     /// </summary>
     /// <param name="workerName"></param>
     /// <param name="newRecord"></param>
-    private static void UpdateWorkerRecord(string workerName, WorkerRecord newRecord)
+    static private void UpdateWorkerRecord(string workerName, WorkerRecord newRecord)
     {
         _ = WorkerRecords.TryGetValue(workerName, out var currentRecord);
         _ = WorkerRecords.TryUpdate(workerName, newRecord, currentRecord);
@@ -755,7 +755,7 @@ public static class SpareTime
     /// <param name="timer"></param>
     /// <param name="statues"></param>
     /// <returns></returns>
-    private static async Task WriteChannel(SpareTimer timer, int statues)
+    static private async Task WriteChannel(SpareTimer timer, int statues)
     {
         await ChannelContext<SpareTimerExecuter, SpareTimeListenerChannelHandler>.BoundedChannel.Writer.WriteAsync(new SpareTimerExecuter(timer, statues));
     }
@@ -763,7 +763,7 @@ public static class SpareTime
     /// <summary>
     /// 记录任务
     /// </summary>
-    internal static readonly ConcurrentDictionary<string, WorkerRecord> WorkerRecords;
+    static internal readonly ConcurrentDictionary<string, WorkerRecord> WorkerRecords;
 
     /// <summary>
     /// 静态构造函数

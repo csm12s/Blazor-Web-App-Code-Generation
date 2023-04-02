@@ -14,13 +14,13 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_timer_refresh">
-                <TableSearch TDto="SysTimerDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="SysTimerDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_timer_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -29,21 +29,21 @@
                         <ResourceAuthorize ResourceKey="system_manager_timer_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @localizer[SharedLocalResource.Add]
+                                    @Localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_timer_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_timer_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport" Loading="_exportDataLoading">
-                                    @localizer[SharedLocalResource.Export]
+                                    @Localizer[SharedLocalResource.Export]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -57,12 +57,12 @@
             </ResourceAuthorize>
             <Column @bind-Field="@model.JobName" Filterable />
             <Column @bind-Field="@model.ExecuteType" Width="10%" Filters="FunctionRequestTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.ExecuteType)"></TagRandomColor>
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.ExecuteType)"></TagPro>
             </Column>
             <Column Title="执行内容" TData="string" Ellipsis>
                 @if (ExecuteType.LOCAL.Equals(model.ExecuteType))
                 {
-                    <Tooltip Title="@model.LocalMethod" Placement="Placement.TopCenter">
+                    <Tooltip Title="@model.LocalMethod" Placement="Placement.Top">
                         <span>@model.LocalMethod</span>
                     </Tooltip>
                 }
@@ -77,7 +77,7 @@
                     <span>@model.Headers</span>
                 }
             </Column>
-            <Column TData="string" Title="@localizer["Scheduling"]">
+            <Column TData="string" Title="@Localizer["Scheduling"]">
                 @if (model.TimerType.Equals(TimerTypes.Cron))
                 {
                     <span>@model.Cron</span>
@@ -101,27 +101,27 @@
                 </Tooltip>
             </Column>
             <Column @bind-Field="@model.Remark" Ellipsis Filterable />
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
 
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_timer_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_timer_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_timer_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
@@ -130,7 +130,7 @@
                         @if (!TimerStatus.Running.Equals(model.TimerStatus))
                         {
                             <SpaceItem>
-                                <Tooltip Title="@(localizer[SharedLocalResource.Open])" ArrowPointAtCenter="true">
+                                <Tooltip Title="@(Localizer[SharedLocalResource.Open])" ArrowPointAtCenter="true">
                                     <Button Icon="play-circle" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
                                 </Tooltip>
                             </SpaceItem>
@@ -140,7 +140,7 @@
                         @if (TimerStatus.Running.Equals(model.TimerStatus))
                         {
                             <SpaceItem>
-                                <Tooltip Title="@(localizer[SharedLocalResource.Close])" ArrowPointAtCenter="true">
+                                <Tooltip Title="@(Localizer[SharedLocalResource.Close])" ArrowPointAtCenter="true">
                                     <Button Icon="pause-circle" Danger Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnStartExecute(model)"></Button>
                                 </Tooltip>
                             </SpaceItem>

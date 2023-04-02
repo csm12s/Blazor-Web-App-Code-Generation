@@ -31,13 +31,13 @@ namespace Gardener.SysTimer.Dtos
         /// 异常信息
         /// </summary>
         [DisplayName("异常信息")]
-        public string Exception { get; set; }
+        public string? Exception { get; set; }
         /// <summary>
         /// 任务名称
         /// </summary>
         [DisplayName("任务名称")]
         [Required, MaxLength(20)]
-        public string JobName { get; set; }
+        public string JobName { get; set; } = null!;
 
         /// <summary>
         /// 只执行一次
@@ -69,7 +69,7 @@ namespace Gardener.SysTimer.Dtos
         /// </summary>
         [DisplayName("Cron表达式")]
         [MaxLength(20)]
-        public string Cron { get; set; }
+        public string? Cron { get; set; }
 
         /// <summary>
         /// 定时器类型
@@ -82,27 +82,27 @@ namespace Gardener.SysTimer.Dtos
         /// </summary>
         [DisplayName("请求url")]
         [MaxLength(200)]
-        public string RequestUrl { get; set; }
+        public string? RequestUrl { get; set; }
 
         /// <summary>
         /// 本地方法
         /// </summary>
         [DisplayName("本地方法")]
         [MaxLength(200)]
-        public string LocalMethod { get; set; }
+        public string? LocalMethod { get; set; }
 
         /// <summary>
         /// 请求参数（Post，Put请求用）
         /// </summary>
         [DisplayName("请求参数")]
-        public string RequestParameters { get; set; }
+        public string? RequestParameters { get; set; }
 
         /// <summary>
         /// Headers(可以包含如：Authorization授权认证)
         /// 格式：{"Authorization":"userpassword.."}
         /// </summary>
         [DisplayName("请求头")]
-        public string Headers { get; set; }
+        public string? Headers { get; set; }
 
         /// <summary>
         /// 执行类型
@@ -123,7 +123,7 @@ namespace Gardener.SysTimer.Dtos
         /// </summary>
         [DisplayName("备注")]
         [MaxLength(100)]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
 
         /// <summary>
         /// 是否启动
@@ -142,7 +142,7 @@ namespace Gardener.SysTimer.Dtos
 
     public class StopJobInput
     {
-        public string JobName { get; set; }
+        public string JobName { get; set; } = null!;
     }
 
     public class DeleteJobInput : BaseDto<int>

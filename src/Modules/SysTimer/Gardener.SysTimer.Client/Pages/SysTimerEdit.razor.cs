@@ -17,7 +17,7 @@ namespace Gardener.SysTimer.Client.Pages
     {
 
         [Inject]
-        private ISysTimerService sysTimerService { get; set; }
+        private ISysTimerService SysTimerService { get; set; } = null!;
 
         /// <summary>
         /// 本地方法
@@ -30,7 +30,7 @@ namespace Gardener.SysTimer.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            localJobs = await sysTimerService.GetLocalJobs();
+            localJobs = await SysTimerService.GetLocalJobs();
         }
     }
 }

@@ -82,7 +82,7 @@ namespace Gardener.EntityFramwork
         {
             DateTimeOffset defaultValue = input.GetPropertyValue<TEntityDto, DateTimeOffset>(nameof(GardenerEntityBase.CreatedTime));
 
-            if (defaultValue.Equals(default(DateTimeOffset)))
+            if (defaultValue.Equals(default))
             {
                 input.SetPropertyValue(nameof(GardenerEntityBase.CreatedTime), DateTimeOffset.Now);
             }
@@ -225,7 +225,7 @@ namespace Gardener.EntityFramwork
         public virtual async Task<List<TEntityDto>> GetAllUsable()
         {
 
-            System.Text.StringBuilder where = new StringBuilder();
+            System.Text.StringBuilder where = new();
             where.Append(" 1==1 ");
             //判断是否有IsDelete、IsLock
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
@@ -295,7 +295,7 @@ namespace Gardener.EntityFramwork
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
-                FilterGroup defaultFilterGroup = new FilterGroup();
+                FilterGroup defaultFilterGroup = new();
                 defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }
@@ -321,7 +321,7 @@ namespace Gardener.EntityFramwork
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
-                FilterGroup defaultFilterGroup = new FilterGroup();
+                FilterGroup defaultFilterGroup = new();
                 defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }
@@ -347,7 +347,7 @@ namespace Gardener.EntityFramwork
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
-                FilterGroup defaultFilterGroup = new FilterGroup();
+                FilterGroup defaultFilterGroup = new();
                 defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }

@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Modules\EasyJob\Gardener.EasyJob.Client\Gardener.EasyJob.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\SysTimer\Gardener.SysTimer.Client\Gardener.SysTimer.Client.csproj" />
     <ProjectReference Include="..\..\AntDesignClient\Gardener.Client.AntDesignUi\Gardener.Client.AntDesignUi.csproj" />
     <ProjectReference Include="..\..\..\Client\Gardener.Client.Core\Gardener.Client.Core.csproj" />
     <ProjectReference Include="..\..\..\Modules\Framework\Gardener.Attachment.Client\Gardener.Attachment.Client.csproj" />
