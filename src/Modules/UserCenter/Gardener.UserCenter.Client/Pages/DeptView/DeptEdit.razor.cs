@@ -46,16 +46,16 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _isLoading = true;
+            base.StartLoading();
+            await base.LoadEditModelData();
             //父级
             deptDatas = await deptService.GetTree();
-            await base.OnInitializedAsync();
             OperationDialogInput<int> editInput = this.Options;
             if (editInput.Type.Equals(DrawerInputType.Add))
             {
                 _editModel.ParentId = editInput.Id==0?null: editInput.Id;
             }
-            _isLoading = false;
+            base.StopLoading();
         }
 
     }

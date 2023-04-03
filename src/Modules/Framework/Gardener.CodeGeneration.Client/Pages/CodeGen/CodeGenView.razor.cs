@@ -187,7 +187,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
         var codeGens = await BaseService.GetAll();
         var codeGenIds = codeGens.Select(it=>it.Id).ToList();
 
-        string data = await codeGenConfigService.GenerateSeedData(new PageRequest()
+        Task<string> data = codeGenConfigService.GenerateSeedData(new PageRequest()
         {
             PageIndex = 1,
             PageSize = int.MaxValue,
@@ -210,7 +210,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
                 }
         });
 
-        await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+        await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
                     Localizer[SharedLocalResource.SeedData],
                     data,
                     width: 1500);

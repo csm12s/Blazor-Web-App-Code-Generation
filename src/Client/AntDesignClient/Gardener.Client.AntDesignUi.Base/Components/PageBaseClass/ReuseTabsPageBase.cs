@@ -50,9 +50,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 强制dom渲染
         /// </summary>
         /// <returns></returns>
-        public async Task RefreshPageDom()
+        public Task RefreshPageDom()
         {
-            await InvokeAsync(StateHasChanged);
+            return InvokeAsync(StateHasChanged);
         }
     }
 
@@ -94,9 +94,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 强制dom渲染
         /// </summary>
         /// <returns></returns>
-        public async Task RefreshPageDom()
+        public Task RefreshPageDom()
         {
-            await InvokeAsync(StateHasChanged);
+            return InvokeAsync(StateHasChanged);
         }
     }
 }

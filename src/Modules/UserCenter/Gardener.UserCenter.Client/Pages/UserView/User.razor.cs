@@ -42,10 +42,19 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override Task OnInitializedAsync()
+        {
+            return base.OnInitializedAsync();
+        }
+        /// <summary>
+        /// 组件首次渲染后
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnFirstAfterRenderAsync()
         {
             await ReLoadDepts(null);
-            await base.OnInitializedAsync();
+
+            await base.OnFirstAfterRenderAsync();
         }
         /// <summary>
         /// 重载部门信息
@@ -62,7 +71,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
-        private async Task SelectedKeyChanged(string key)
+        private Task SelectedKeyChanged(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -73,7 +82,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 int newId = int.Parse(key);
                 _currentDeptId = newId;
             }
-            await ReLoadTable();
+            return ReLoadTable();
         }
         /// <summary>
         /// 配置
@@ -100,9 +109,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 点击分配角色
         /// </summary>
         /// <param name="userId"></param>
-        private async Task OnEditUserRoleClick(int userId)
+        private Task OnEditUserRoleClick(int userId)
         {
-            await OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, async r =>
+            return OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, async r =>
             {
                 await ReLoadTable();
             }, width: 500);
@@ -112,12 +121,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        private async Task OnAvatarClick(UserDto user)
+        private Task OnAvatarClick(UserDto user)
         {
             OperationDialogSettings settings = base.GetOperationDialogSettings();
             settings.Width = 300;
             settings.DrawerPlacement = Placement.Left;
-            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(Localizer[SharedLocalResource.UplaodAvatar],
+            return OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(Localizer[SharedLocalResource.UplaodAvatar],
                 new UserUploadAvatarParams(user,true),
                 async r =>
                 {

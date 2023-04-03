@@ -32,6 +32,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private IClientLocalizer<UserCenterResource> Localizer { get; set; } = null!;
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
             _isLoading = true;
             _userId = this.Options;
             if (_userId > 0)
@@ -52,7 +53,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 }).ToArray();
             }
             _isLoading = false;
-            await base.OnInitializedAsync();
         }
         /// <summary>
         /// 当角色选择有变化时

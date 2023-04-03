@@ -1,8 +1,8 @@
 ﻿@inherits EditOperationDialogBase<DeptDto, int>
 @if (_editModel != null)
 {
-    <Form Loading="@_isLoading"
-      Model="@_editModel"
+    <Form Loading="_isLoading"
+      Model="_editModel"
       LabelCol="new ColLayoutParam { Span = 4 }"
       WrapperCol="new ColLayoutParam { Span = 20 }"
       OnFinish="OnFormFinish"

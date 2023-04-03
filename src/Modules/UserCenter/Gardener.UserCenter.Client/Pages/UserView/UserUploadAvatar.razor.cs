@@ -150,7 +150,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             }
             else
             {
-                MessagerService.Success(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Fail));
+                MessagerService.Error(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Fail));
             }
 
         }

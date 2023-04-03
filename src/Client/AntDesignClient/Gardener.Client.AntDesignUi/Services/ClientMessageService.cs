@@ -58,7 +58,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public void Success(string content, double? duration = null, Action? onClose = null)
         {
-            messageService.Success(content, duration, onClose);
+           messageService.Success(content, duration, onClose);
         }
 
         public Task SuccessAsync(string content, double? duration = null, Action? onClose = null)

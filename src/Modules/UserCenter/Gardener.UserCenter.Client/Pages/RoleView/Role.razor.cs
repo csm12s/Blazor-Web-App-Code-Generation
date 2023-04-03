@@ -34,8 +34,8 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnDownloadClick()
         {
-            string seedData = await roleService.GetRoleResourceSeedData();
-            await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(Localizer[SharedLocalResource.SeedData], seedData, width: 1300);
+            Task<string> seedData = roleService.GetRoleResourceSeedData();
+            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(Localizer[SharedLocalResource.SeedData], seedData, width: 1300);
         }
 
     }

@@ -27,7 +27,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         }
 
         [Inject]
-        IResourceService resourceService { get; set; } = null!;
+        private IResourceService ResourceService { get; set; } = null!;
 
         /// <summary>
         /// 点击展示关联接口
@@ -56,7 +56,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             };
             resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
-            string data = await BaseService.GenerateSeedData(new PageRequest()
+            Task<string> data =  BaseService.GenerateSeedData(new PageRequest()
             {
                 PageIndex = 1,
                 PageSize = int.MaxValue,
@@ -80,7 +80,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 }
             });
 
-            await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
                         Localizer[SharedLocalResource.SeedData],
                         data,
                         width: 1300);
@@ -88,7 +88,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
         protected override async Task<List<ResourceDto>> GetTree()
         {
-            return await resourceService.GetTree();
+            return await ResourceService.GetTree();
 
         }
 

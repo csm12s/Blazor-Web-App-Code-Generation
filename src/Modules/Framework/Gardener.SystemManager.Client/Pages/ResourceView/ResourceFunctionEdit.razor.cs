@@ -231,9 +231,9 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
 
-            string data = await resourceFunctionService.GetSeedData(resourceIds);
+            Task<string> data = resourceFunctionService.GetSeedData(resourceIds);
 
-            await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
                        localizer[SharedLocalResource.SeedData],
                        data,
                        width: 1300);

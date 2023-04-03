@@ -49,7 +49,6 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-
             _isLoading = true;
             resources = await resourceService.GetTree();
             

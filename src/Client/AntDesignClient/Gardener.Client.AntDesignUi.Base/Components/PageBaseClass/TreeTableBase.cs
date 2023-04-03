@@ -33,17 +33,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
         #region abstract mothed
         /// <summary>
-        /// 
+        /// 获取树
         /// </summary>
         /// <returns></returns>
         protected abstract Task<List<TDto>> GetTree();
         /// <summary>
-        /// 
+        /// 获取子集
         /// </summary>
         /// <returns></returns>
         protected abstract ICollection<TDto>? GetChildren(TDto dto);
         /// <summary>
-        /// 
+        /// 设置子集
         /// </summary>
         /// <returns></returns>
         protected abstract void SetChildren(TDto dto, ICollection<TDto> children);
@@ -119,23 +119,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected async Task ReLoadTable()
         {
-            _tableIsLoading = true;
+            StartLoading();
             _datas = await GetTree();
             if (_datas == null)
             {
                 MessageService.Error(this.Localizer.Combination(SharedLocalResource.Load,SharedLocalResource.Fail));
             }
-            _tableIsLoading = false;
-            await RefreshPageDom();
+            StopLoading();
         }
 
         /// <summary>
         /// 刷新页面
         /// </summary>
         /// <returns></returns>
-        protected async Task OnReLoadTable()
+        protected Task OnReLoadTable()
         {
-            await ReLoadTable();
+            return ReLoadTable();
         }
 
         /// <summary>
@@ -143,9 +142,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        protected async Task onChange(QueryModel<TDto> queryModel)
+        protected Task onChange(QueryModel<TDto> queryModel)
         {
-            await ReLoadTable();
+            return ReLoadTable();
         }
 
         /// <summary>
@@ -166,7 +165,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     var pKey = GetParentKey(dto);
                     if (_datas != null && pKey != null && DeleteTreeNode(pKey, GetKey(dto), _datas))
                     {
-                        await InvokeAsync(StateHasChanged);
+                        await RefreshPageDom();
                     }
                     else
                     {
@@ -184,10 +183,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        protected async Task OnClickEdit(TDto dto)
+        protected Task OnClickEdit(TDto dto)
         {
             TDialogInput option = GetEditOption(dto);
-            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Edit],
+            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Edit],
                 option,
                  result =>
                 {
@@ -198,9 +197,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 点击添加按钮
         /// </summary>
-        protected async Task OnClickAdd()
+        protected Task OnClickAdd()
         {
-            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
+            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
                 GetAddOption(),
                 result =>
                 {
@@ -213,9 +212,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="dto">点击的项</param>
         /// <returns></returns>
-        protected async Task OnClickAddChildren(TDto dto)
+        protected Task OnClickAddChildren(TDto dto)
         {
-            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
+            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Add],
                 GetAddOption(dto),
                  result =>
                 {
@@ -257,10 +256,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 点击编辑按钮
         /// </summary>
         /// <param name="roleDto"></param>
-        protected async Task OnClickDetail(TDto dto)
+        protected Task OnClickDetail(TDto dto)
         {
             TDialogInput option = GetSelectOption(dto);
-            await OpenOperationDialogAsync(Localizer[SharedLocalResource.Detail], option);
+            return OpenOperationDialogAsync(Localizer[SharedLocalResource.Detail], option);
         }
 
         /// <summary>
@@ -271,9 +270,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        private async Task OpenOperationDialogAsync(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
+        private Task OpenOperationDialogAsync(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
         {
-            await OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, operationDialogSettings);
+            return OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, operationDialogSettings);
         }
 
         #region tree tool
@@ -311,7 +310,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 TKey key = GetKey(dto);
                 if (key.Equals(pId))
                 {
-                    children = children.Where(x => !key.Equals(id)).ToList();
+                    children = children.Where(x => !x.Id.Equals(id)).ToList();
                     SetChildren(dto, children);
                     return true;
                 }
@@ -466,7 +465,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
 
                 });
-                await InvokeAsync(StateHasChanged);
+                await RefreshPageDom();
             }
         }
 

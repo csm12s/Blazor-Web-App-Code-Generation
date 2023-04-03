@@ -9,21 +9,34 @@ using Microsoft.AspNetCore.Components;
 using Mapster;
 using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.AntDesignUi.Base.Constants;
+using Gardener.Client.Base;
+using Gardener.Base.Resources;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
+    
     /// <summary>
     /// 弹出框基类
     /// </summary>
     /// <typeparam name="TDialogInput">输入参数的类型</typeparam>
     /// <typeparam name="TDialogOutput">输出参数的类型</typeparam>
-    public abstract class OperationDialogBase<TDialogInput, TDialogOutput> : FeedbackComponent<TDialogInput, TDialogOutput>
+    /// <typeparam name="TLocalResource">本地化资源类</typeparam>
+    public abstract class OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> : FeedbackComponent<TDialogInput, TDialogOutput>
     {
+        /// <summary>
+        /// 弹框区域的加载中标识
+        /// </summary>
+        protected bool _isLoading = false;
+        /// <summary>
+        /// 本地化
+        /// </summary>
+        [Inject]
+        protected IClientLocalizer<TLocalResource> Localizer { get; set; } = null!;
         /// <summary>
         /// 操作对话框
         /// </summary>
         [Inject]
-        protected IOperationDialogService operationDialogService { get; set; } = null!;
+        protected IOperationDialogService OperationDialogService { get; set; } = null!;
 
         /// <summary>
         /// 获取操作会话配置
@@ -73,7 +86,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 settings.Width = width.Value;
             }
-            await operationDialogService.OpenAsync<TOperationDialog, TInput, TOutput>(title, input, onClose, settings);
+            await OperationDialogService.OpenAsync<TOperationDialog, TInput, TOutput>(title, input, onClose, settings);
         }
 
 
@@ -128,10 +141,47 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 强制dom渲染
         /// </summary>
         /// <returns></returns>
-        protected async Task RefreshPageDom()
+        protected Task RefreshPageDom()
         {
-            await InvokeAsync(StateHasChanged);
+            return InvokeAsync(StateHasChanged);
         }
+        /// <summary>
+        /// start loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StartLoading()
+        {
+            if (!_isLoading)
+            {
+                _isLoading = true;
+                RefreshPageDom();
+            }
+            return _isLoading;
+        }
+
+        /// <summary>
+        /// stop loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StopLoading()
+        {
+            if (_isLoading)
+            {
+                _isLoading = false;
+                RefreshPageDom();
+            }
+            return _isLoading;
+        }
+    }
+
+    /// <summary>
+    /// 弹出框基类
+    /// </summary>
+    /// <typeparam name="TDialogInput"></typeparam>
+    /// <typeparam name="TDialogOutput"></typeparam>
+    /// <typeparam name="TLocalResource"></typeparam>
+    public class OperationDialogBase<TDialogInput, TDialogOutput> : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResource>
+    {
     }
 
     /// <summary>

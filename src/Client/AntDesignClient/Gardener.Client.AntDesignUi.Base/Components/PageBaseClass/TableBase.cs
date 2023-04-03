@@ -116,14 +116,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="operationDialogSettings"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
+        protected Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             if (width.HasValue)
             {
                 settings.Width = width.Value;
             }
-            await OperationDialogService.OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, settings);
+            return OperationDialogService.OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, settings);
         }
 
 
@@ -152,5 +152,35 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             return tableSearch?.GetFilterGroups();
         }
+
+        #region Page loading
+        /// <summary>
+        /// Page start loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StartLoading()
+        {
+            if (!_tableIsLoading)
+            {
+                _tableIsLoading = true;
+                InvokeAsync(StateHasChanged);
+            }
+            return _tableIsLoading;
+        }
+
+        /// <summary>
+        /// Page stop loading
+        /// </summary>
+        /// <returns></returns>
+        protected bool StopLoading()
+        {
+            if (_tableIsLoading)
+            {
+                _tableIsLoading = false;
+                InvokeAsync(StateHasChanged);
+            }
+            return _tableIsLoading;
+        }
+        #endregion
     }
 }

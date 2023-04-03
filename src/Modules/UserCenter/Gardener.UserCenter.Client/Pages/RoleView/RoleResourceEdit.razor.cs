@@ -6,6 +6,7 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
@@ -19,11 +20,10 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class RoleResourceEdit : FeedbackComponent<OperationDialogInput<int>, bool>
+    public partial class RoleResourceEdit : OperationDialogBase<OperationDialogInput<int>, bool>
     {
         private Tree<ResourceDto>? _tree;
         private bool _isExpanded;
-        private bool _isLoading;
         private int _roleId = 0;
         private List<ResourceDto> _resources = new List<ResourceDto>();
         [Inject]
@@ -44,7 +44,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _isLoading = true;
+            base.StartLoading();
             _roleId = this.Options.Id;
             if (_roleId > 0)
             {
@@ -64,8 +64,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 }
                 _resources.AddRange(resourceResult);
             }
-            await base.OnInitializedAsync();
-            _isLoading = false;
+            base.StopLoading();
         }
        
 

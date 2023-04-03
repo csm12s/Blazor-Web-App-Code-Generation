@@ -1,39 +1,31 @@
 ﻿@using BlazorMonaco;
 @using BlazorMonaco.Editor
 @using Microsoft.AspNetCore.Components.Web
-@inherits FeedbackComponent<string, bool>
+@inherits FeedbackComponent<Task<string>, bool>
 <style>
     .my-editor-class {
         height: 85Vh
     }
 </style>
-@*<TextArea Style="height: 85vh; overflow: scroll;" Value="@seedData" />*@
-<StandaloneCodeEditor @ref="_editor" Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="EditorOnDidInit" />
-@*<HeadContent>
-    <link href="_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.css" rel="stylesheet" />
-</HeadContent>*@
+<Spin Spinning="_loading">
+    <StandaloneCodeEditor @ref="_editor" Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="EditorOnDidInit" />
+</Spin>
 @code {
     private StandaloneCodeEditor _editor = null!;
-    private string seedData = string.Empty;
+    private bool _loading = false;
+    
     /// <summary>
-    /// 页面初始化
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        seedData = this.Options;
-        await base.OnInitializedAsync();
-    }
-    /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     private async Task EditorOnDidInit()
     {
-       await _editor.SetValue(seedData);
+        _loading = true;
+        await _editor.SetValue(await this.Options);
+        _loading = false;
     }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="editor"></param>
     /// <returns></returns>

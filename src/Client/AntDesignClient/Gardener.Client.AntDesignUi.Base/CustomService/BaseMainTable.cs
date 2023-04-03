@@ -296,15 +296,15 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// </summary>
         /// <typeparam name="TShowSeedDataDrawer">展示种子数据抽屉</typeparam>
         /// <returns></returns>
-        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<string, bool>
+        protected virtual async Task OnClickShowSeedData<TShowSeedDataDrawer>() where TShowSeedDataDrawer : FeedbackComponent<Task<string>, bool>
         {
             PageRequest pageRequest = GetPageRequest();
             pageRequest.PageSize = int.MaxValue;
             pageRequest.PageIndex = 1;
-            string seedData = await _service.GenerateSeedData(pageRequest);
+            Task<string> seedData = _service.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, string, bool>(localizer[SharedLocalResource.SeedData], seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(localizer[SharedLocalResource.SeedData], seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>

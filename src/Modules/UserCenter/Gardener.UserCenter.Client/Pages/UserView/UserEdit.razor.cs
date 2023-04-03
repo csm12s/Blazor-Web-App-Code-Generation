@@ -45,28 +45,23 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 }
             }
         }
-
         /// <summary>
-        /// 
+        /// 界面初始化完成
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await base.OnInitializedAsync();
-            if(_editModel!=null)
+            StartLoading();
+            await base.LoadEditModelData();
+            if (_editModel != null)
             {
                 _editModel.Password = null;
             }
-        }
-        protected override async Task OnParametersSetAsync()
-        {
-            _isLoading = true;
             //岗位
             positions = await PositionService.GetAllUsable();
             //部门
             deptDatas = await DeptService.GetTree();
-            await base.OnParametersSetAsync();
-            _isLoading = false;
+            StopLoading();
         }
        
         /// <summary>

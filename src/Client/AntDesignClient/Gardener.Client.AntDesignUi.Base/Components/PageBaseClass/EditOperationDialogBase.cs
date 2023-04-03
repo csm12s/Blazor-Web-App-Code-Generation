@@ -21,7 +21,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public class EditOperationDialogBase<TDto, TKey, TLocalResource> : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new()
+    public class EditOperationDialogBase<TDto, TKey, TLocalResource> : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TDto : BaseDto<TKey>, new()
     {
         [Inject]
         protected IServiceBase<TDto, TKey> BaseService { get; set; } = null!;
@@ -31,30 +31,32 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected ConfirmService ConfirmService { get; set; } = null!;
         [Inject]
         protected DrawerService DrawerService { get; set; } = null!;
-        [Inject]
-        protected IClientLocalizer<TLocalResource> Localizer { get; set; } = null!;
-        /// <summary>
-        /// 编辑区域的加载中标识
-        /// </summary>
-        protected bool _isLoading = false;
+        
         /// <summary>
         /// 当前正在编辑的对象
         /// </summary>
         protected TDto _editModel = new();
-
         /// <summary>
         /// 页面初始化
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _isLoading = true;
-
+            StartLoading();
+            await LoadEditModelData();
+            StopLoading();
+        }
+        /// <summary>
+        /// 加载编辑对象数据
+        /// </summary>
+        /// <returns></returns>
+        protected async Task LoadEditModelData()
+        {
             if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
             {
                 TKey? id = this.Options.Id;
-                if (id != null) 
-                { 
+                if (id != null)
+                {
                     //更新 回填数据
                     var model = await BaseService.Get(id);
                     if (model != null)
@@ -69,10 +71,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
 
             }
-            _isLoading = false;
-            await base.OnInitializedAsync();
         }
-
         /// <summary>
         /// 取消
         /// </summary>
@@ -88,7 +87,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual async Task OnFormFinish(EditContext editContext)
         {
-            _isLoading = true;
+            StartLoading();
             //开始请求
             if (this.Options.Type.Equals(DrawerInputType.Add))
             {
@@ -119,12 +118,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
                 }
             }
-            _isLoading = false;
+            StopLoading();
         }
-
-
-
-
     }
 
     /// <summary>
