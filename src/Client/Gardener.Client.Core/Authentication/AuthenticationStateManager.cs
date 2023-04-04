@@ -208,7 +208,6 @@ namespace Gardener.Client.Core
             if (token != null)
             {
                 SetHttpClientAuthorization(token.AccessToken);
-                await eventBus.Publish(new ReloadCurrentUserEvent(token));
                 //重新请求user信息
                 var userResult = await accountService.GetCurrentUser();
                 if (userResult != null)
@@ -219,6 +218,7 @@ namespace Gardener.Client.Core
                     this.uiHashtableResources = null;
                     this.menuResources = await accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
                     this.currentUser = userResult;
+                    await eventBus.Publish(new ReloadCurrentUserEvent(token));
                     onAuthenticationRefreshSuccessed.Invoke(this.currentUser, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                     return (userResult, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                 }
