@@ -3,7 +3,6 @@
 //  gitee:https://gitee.com/hgflydream/Gardener 
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
-#nullable enable
 
 using Gardener.Client.Base;
 using Gardener.Common;
