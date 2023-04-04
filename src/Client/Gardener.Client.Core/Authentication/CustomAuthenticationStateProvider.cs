@@ -38,15 +38,24 @@ namespace Gardener.Client.Core
             AuthenticationState authenticationState = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             try
             {
-                await authenticationStateManager.ReloadCurrentUserInfos();
+                //取不到
                 var user =await authenticationStateManager.GetCurrentUser();
+                if (user == null)
+                {
+                    //尝试刷新
+                    (user,_,_,_) =await authenticationStateManager.ReloadCurrentUserInfos();
+                }
+                //还是取不到
                 if (user == null)
                 {
                     await logger.ErrorAsync(localizer["User_Info_Get_Error_Retry_Login"]);
                     return authenticationState;
                 }
-                authenticationState = CreateAuthenticationState(user);
-                return authenticationState;
+                else 
+                {
+                    authenticationState = CreateAuthenticationState(user);
+                    return authenticationState;
+                }
             }
             catch (Exception ex)
             {

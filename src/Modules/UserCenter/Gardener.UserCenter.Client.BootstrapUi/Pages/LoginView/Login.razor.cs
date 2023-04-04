@@ -59,13 +59,11 @@ namespace Gardener.UserCenter.Client.BootstrapUi.Pages.LoginView
                 }
             }
             //已登录
-            var user = await authenticationStateManager.GetCurrentUser();
-            if (user != null)
-            {
-                Navigation.NavigateTo(returnUrl ?? "/");
-            }
-
-
+            //var user = await authenticationStateManager.GetCurrentUser();
+            //if (user != null)
+            //{
+            //    Navigation.NavigateTo(returnUrl ?? "/");
+            //}
 
             var result = await imageVerifyCodeService.Create(new VerifyCode.Dtos.ImageVerifyCodeInput()
             {

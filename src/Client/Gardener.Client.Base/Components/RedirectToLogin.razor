@@ -22,7 +22,7 @@
         var uri = new Uri(Navigation.Uri);
         if (!uri.AbsolutePath.Equals(authSettings.LoginPagePath))
         {
-            returnUrl = Navigation.Uri;
+            returnUrl = uri.AbsolutePath;
         }
         var query = uri.Query;
 

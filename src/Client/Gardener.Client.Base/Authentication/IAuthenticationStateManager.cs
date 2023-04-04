@@ -40,10 +40,10 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         List<ResourceDto>? GetCurrentUserMenus();
         /// <summary>
-        /// 刷新当前用户信息
+        /// 重新加载用户相关信息
         /// </summary>
         /// <returns></returns>
-        Task ReloadCurrentUserInfos();
+        Task<(UserDto?, bool?, List<ResourceDto>?, List<string>?)> ReloadCurrentUserInfos();
         /// <summary>
         /// 登录
         /// </summary>

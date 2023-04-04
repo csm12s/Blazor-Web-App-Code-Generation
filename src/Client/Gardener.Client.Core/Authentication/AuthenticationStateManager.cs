@@ -134,9 +134,15 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public async Task Login(TokenOutput token, bool isAutoLogin = true)
         {
+            //自动加载
             this.isAutoLogin = isAutoLogin;
+            //设置token
             await SetToken(token);
+            //加载当前用户信息
+            await ReloadCurrentUserInfos();
+            //通知状态变更
             notifyAuthenticationStateChangedAction();
+            //发送一个登录成功事件
             await eventBus.Publish(new LoginSucceedAfterEvent(token));
 
         }
@@ -186,16 +192,16 @@ namespace Gardener.Client.Core
         /// 获取用户
         /// </summary>
         /// <returns></returns>
-        public async Task<UserDto?> GetCurrentUser()
+        public Task<UserDto?> GetCurrentUser()
         {
-            return await Task.FromResult(currentUser);
+            return Task.FromResult(currentUser);
         }
 
         /// <summary>
-        /// 获取用户
+        /// 重新加载用户相关信息
         /// </summary>
         /// <returns></returns>
-        public async Task ReloadCurrentUserInfos()
+        public async Task<(UserDto?,bool?,List<ResourceDto>?, List<string>?)> ReloadCurrentUserInfos()
         {
             //刷新了，或者首次登录
             var token = await TryGetToken();
@@ -214,8 +220,10 @@ namespace Gardener.Client.Core
                     this.menuResources = await accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
                     this.currentUser = userResult;
                     onAuthenticationRefreshSuccessed.Invoke(this.currentUser, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
+                    return (userResult, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                 }
             }
+            return (null,null,null,null);
         }
 
         /// <summary>

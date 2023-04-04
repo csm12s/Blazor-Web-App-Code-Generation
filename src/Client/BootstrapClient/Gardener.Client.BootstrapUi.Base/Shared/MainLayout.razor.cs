@@ -51,39 +51,41 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
 
         private UserDto? user { get; set; }
 
+        private string LogoutUrl = "/auth/logout";
+
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
         protected async override Task OnInitializedAsync()
         {
-
             List<ResourceDto>? menus = authenticationStateManager.GetCurrentUserMenus();
-            if (menus != null)
+            var user = await authenticationStateManager.GetCurrentUser();
+            if (menus != null && user!=null)
             {
                 //已加载到菜单数据
                 this.Menus = InitMenus(menus);
-            }
-            var user = await authenticationStateManager.GetCurrentUser();
-            if (user != null)
-            {
+                //用户数据
                 this.user = user;
+
             }
-
-            Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
+            else 
             {
-                if (menus != null)
+                //暂未加载
+                Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
                 {
-                    //已加载到菜单数据
-                    this.Menus = InitMenus(menus);
-                }
-                if (user != null)
-                {
-                    this.user = user;
-                }
-
-            };
-            //设置个回调
-            authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
+                    if (menus != null)
+                    {
+                        //已加载到菜单数据
+                        this.Menus = InitMenus(menus);
+                    }
+                    if (user != null)
+                    {
+                        this.user = user;
+                    }
+                };
+                //设置个回调
+                authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
+            }
             await base.OnInitializedAsync();
         }
         /// <summary>
@@ -110,5 +112,14 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
             return menuItems;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private Task<bool> OnAuthorizing(string url)
+        {
+            return Task.FromResult(true);
+        }
     }
 }
