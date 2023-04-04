@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\appsettings.json">
+    <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Template\BaseEdit.cs.razor">
