@@ -3,6 +3,7 @@
 //  gitee:https://gitee.com/hgflydream/Gardener 
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
+#nullable enable
 
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;

@@ -1,4 +1,6 @@
-﻿using Furion;
+﻿#nullable enable
+
+using Furion;
 using Furion.InstantMessaging;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
