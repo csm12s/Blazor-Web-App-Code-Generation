@@ -10,7 +10,7 @@
            @bind-PageIndex="_pageIndex"
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_timer_refresh">

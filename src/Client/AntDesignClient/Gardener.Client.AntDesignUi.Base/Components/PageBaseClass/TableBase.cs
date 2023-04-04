@@ -10,6 +10,7 @@ using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
@@ -41,7 +42,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// table加载中控制
         /// </summary>
-        protected bool _tableIsLoading = false;
+        protected ClientLoading _tableLoading = new ClientLoading();
 
         /// <summary>
         /// 多选删除按钮加载中控制
@@ -160,12 +161,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected bool StartLoading()
         {
-            if (!_tableIsLoading)
+            var run= _tableLoading.Start();
+            if (run)
             {
-                _tableIsLoading = true;
                 InvokeAsync(StateHasChanged);
             }
-            return _tableIsLoading;
+            return run;
         }
 
         /// <summary>
@@ -174,12 +175,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected bool StopLoading()
         {
-            if (_tableIsLoading)
+            var stop=_tableLoading.Stop();
+            if (stop)
             {
-                _tableIsLoading = false;
                 InvokeAsync(StateHasChanged);
             }
-            return _tableIsLoading;
+            return stop;
         }
         #endregion
     }

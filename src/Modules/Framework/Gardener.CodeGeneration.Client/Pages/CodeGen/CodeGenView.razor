@@ -11,7 +11,7 @@
            @bind-PageIndex="_pageIndex"
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            Context="model"
            RemoteDataSource>
         <TitleTemplate>

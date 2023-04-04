@@ -7,7 +7,7 @@
            OnChange="@onChange"
            TreeChildren="item=>item.Children"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            HidePagination="true"
            IndentSize="25"
            Context="model"

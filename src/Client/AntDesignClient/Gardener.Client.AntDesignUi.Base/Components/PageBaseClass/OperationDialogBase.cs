@@ -11,6 +11,7 @@ using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
 using Gardener.Base.Resources;
+using Gardener.Client.Base.Components;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -26,7 +27,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 弹框区域的加载中标识
         /// </summary>
-        protected bool _isLoading = false;
+        protected ClientLoading _dialogLoading = new ClientLoading();
         /// <summary>
         /// 本地化
         /// </summary>
@@ -146,31 +147,31 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             return InvokeAsync(StateHasChanged);
         }
         /// <summary>
-        /// start loading
+        /// Page start loading
         /// </summary>
         /// <returns></returns>
         protected bool StartLoading()
         {
-            if (!_isLoading)
+            var run = _dialogLoading.Start();
+            if (run)
             {
-                _isLoading = true;
-                RefreshPageDom();
+                InvokeAsync(StateHasChanged);
             }
-            return _isLoading;
+            return run;
         }
 
         /// <summary>
-        /// stop loading
+        /// Page stop loading
         /// </summary>
         /// <returns></returns>
         protected bool StopLoading()
         {
-            if (_isLoading)
+            var stop = _dialogLoading.Stop();
+            if (stop)
             {
-                _isLoading = false;
-                RefreshPageDom();
+                InvokeAsync(StateHasChanged);
             }
-            return _isLoading;
+            return stop;
         }
     }
 

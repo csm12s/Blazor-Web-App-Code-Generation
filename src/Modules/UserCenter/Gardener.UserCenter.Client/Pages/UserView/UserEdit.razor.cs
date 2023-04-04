@@ -52,7 +52,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         protected override async Task OnInitializedAsync()
         {
             StartLoading();
-            await base.LoadEditModelData();
+            await base.OnInitializedAsync();
             if (_editModel != null)
             {
                 _editModel.Password = null;

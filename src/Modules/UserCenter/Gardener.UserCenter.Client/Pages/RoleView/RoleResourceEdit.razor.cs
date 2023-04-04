@@ -59,7 +59,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 if (resourceResult == null)
                 {
                     MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
-                    _isLoading = false;
+                    base.StopLoading();
                     return;
                 }
                 _resources.AddRange(resourceResult);
@@ -83,7 +83,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnSaveClick()
         {
-            _isLoading = true;
+            _dialogLoading.Start();
 
             List<Guid> resourceIds = new List<Guid>();
 
@@ -114,7 +114,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             {
                 MessageService.Error(Localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Fail));
             }
-            _isLoading = false;
+            _dialogLoading.Stop();
         }
         
         /// <summary>
@@ -124,7 +124,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         private void OnExpandClick()
         {
             if(_tree==null) return;
-            _isLoading = true;
+            _dialogLoading.Start();
             _isExpanded = !_isExpanded;
             //操作所有的节点
             if (_isExpanded) 

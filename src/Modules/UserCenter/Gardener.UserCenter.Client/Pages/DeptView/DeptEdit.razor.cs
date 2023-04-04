@@ -47,7 +47,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         protected override async Task OnInitializedAsync()
         {
             base.StartLoading();
-            await base.LoadEditModelData();
+            await base.OnInitializedAsync();
             //父级
             deptDatas = await deptService.GetTree();
             OperationDialogInput<int> editInput = this.Options;

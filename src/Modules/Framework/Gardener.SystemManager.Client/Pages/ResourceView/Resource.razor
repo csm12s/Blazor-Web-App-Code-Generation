@@ -4,7 +4,7 @@
     <Table TItem="ResourceDto"
            DataSource="@_datas"
            OnChange="@onChange"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            TreeChildren="item=>item.Children"
            @bind-SelectedRows="_selectedRows"
            HidePagination="true"

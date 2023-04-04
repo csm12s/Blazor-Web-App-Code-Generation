@@ -1,7 +1,7 @@
 ﻿@using Gardener.SystemManager.Dtos
 @inherits OperationDialogBase<OperationDialogInput<int>, bool>
 
-<Spin Spinning="_isLoading">
+<Spin Spinning="_dialogLoading.Value">
     <Row>
         <AntDesign.Col Span="24" Style="max-height: 80Vh; min-height:80Vh; overflow-y: scroll; min-width: 400px ">
             @if (_resources != null && _resources.Count > 0)

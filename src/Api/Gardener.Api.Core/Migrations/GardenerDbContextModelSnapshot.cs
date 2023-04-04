@@ -9838,7 +9838,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 1,
-                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -9855,7 +9855,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 2,
-                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -9872,7 +9872,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 3,
-                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -9889,7 +9889,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 4,
-                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -9906,7 +9906,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 5,
-                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -9923,7 +9923,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 6,
-                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -9940,7 +9940,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 7,
-                            Avatar = "https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,

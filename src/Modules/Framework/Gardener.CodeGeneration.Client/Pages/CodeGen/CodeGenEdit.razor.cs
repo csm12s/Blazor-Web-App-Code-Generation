@@ -96,7 +96,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
 
     protected virtual async Task OnlySaveCodeGen()
     {
-        _isLoading = true;
+        _dialogLoading.Start();
         //修改
         _editModel.UpdateCodeGenConfig = false;
         var result = await BaseService.Update(_editModel);
@@ -109,6 +109,6 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
         {
             MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
         }
-        _isLoading = false;
+        _dialogLoading.Stop();
     }
 }
