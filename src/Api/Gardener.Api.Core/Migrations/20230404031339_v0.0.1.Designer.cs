@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230402113053_v0.0.1")]
+    [Migration("20230404031339_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -9960,7 +9960,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 8,
-                            Avatar = "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 3,
                             EmailConfirmed = false,

@@ -9957,7 +9957,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 8,
-                            Avatar = "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+                            Avatar = "./assets/logo.png",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 3,
                             EmailConfirmed = false,
