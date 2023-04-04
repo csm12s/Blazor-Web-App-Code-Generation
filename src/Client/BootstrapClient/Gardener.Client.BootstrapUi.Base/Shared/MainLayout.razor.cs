@@ -35,21 +35,19 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
         private List<MenuItem> menuDataItems = new List<MenuItem>();
         [Inject]
         [NotNull]
-        private ClientModuleContext moduleContext { get; set; }
+        private ClientModuleContext moduleContext { get; set; } = null!;
 
         /// <summary>
         /// 系统配置服务
         /// </summary>
         [Inject]
-        private ISystemConfigService systemConfigService { get; set; }
+        private ISystemConfigService systemConfigService { get; set; } = null!;
         [Inject]
-        private IJsTool JsTool { get; set; }
+        private IJsTool JsTool { get; set; } = null!;
         [Inject]
-        private IClientLocalizer<MenuNameLocalResource> Loc { get; set; }
+        private IClientLocalizer<MenuNameLocalResource> Loc { get; set; } = null!;
         [Inject]
-        private IAuthenticationStateManager authenticationStateManager { get; set; }
-
-        private SystemConfig systemConfig;
+        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
 
         private UserDto? user { get; set; }
 
@@ -58,6 +56,19 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
         /// </summary>
         protected async override Task OnInitializedAsync()
         {
+
+            List<ResourceDto>? menus = authenticationStateManager.GetCurrentUserMenus();
+            if (menus != null)
+            {
+                //已加载到菜单数据
+                this.Menus = InitMenus(menus);
+            }
+            var user = await authenticationStateManager.GetCurrentUser();
+            if (user != null)
+            {
+                this.user = user;
+            }
+
             Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
             {
                 if (menus != null)
@@ -73,7 +84,7 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
             };
             //设置个回调
             authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
-            base.OnInitialized();
+            await base.OnInitializedAsync();
         }
         /// <summary>
         /// 初始化菜单
@@ -90,7 +101,8 @@ namespace Gardener.Client.BootstrapUi.Base.Shared
                     var menu = new MenuItem();
                     menu.Text = resource.Name;
                     menu.Url = resource.Path;
-                    menu.Items = InitMenus(resource.Children);
+
+                    menu.Items = resource.Children == null ? new() : InitMenus(resource.Children);
                     menuItems.Add(menu);
                 }
 

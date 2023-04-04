@@ -9,23 +9,67 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Base
 {
+    /// <summary>
+    /// Client Notifier
+    /// </summary>
     public interface IClientNotifier
     {
-        void Error(string description, Exception? ex = null);
-        void Error(string msg,string description, Exception? ex = null);
-        void Info(string description);
-        void Info(string msg, string description);
-        void Success(string description);
-        void Success(string msg, string description);
-        void Warn(string description, Exception? ex = null);
-        void Warn(string msg, string description, Exception? ex = null);
-        Task ErrorAsync(string description, Exception? ex = null);
-        Task ErrorAsync(string msg,string description, Exception? ex = null);
-        Task InfoAsync(string description);
-        Task InfoAsync(string msg, string description);
-        Task SuccessAsync(string description);
-        Task SuccessAsync(string msg, string description);
-        Task WarnAsync(string description, Exception? ex = null);
-        Task WarnAsync(string msg, string description, Exception? ex = null);
+        /// <summary>
+        /// Error
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        /// <param name="ex"></param>
+        void Error(string description, string? title=null, Exception? ex = null);
+        /// <summary>
+        /// Error
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
+        Task ErrorAsync(string description, string? title=null, Exception? ex = null);
+        /// <summary>
+        /// Info
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        void Info(string description, string? title=null);
+        /// <summary>
+        /// Info
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        Task InfoAsync(string description, string? title=null);
+        /// <summary>
+        /// Success
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        void Success(string description, string? title=null);
+        /// <summary>
+        /// Success
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        Task SuccessAsync(string description, string? title=null);
+        /// <summary>
+        /// Warn
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        /// <param name="ex"></param>
+        void Warn(string description, string? title=null, Exception? ex = null);
+        /// <summary>
+        /// Warn
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="title"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
+        Task WarnAsync(string description, string? title=null, Exception? ex = null);
     }
 }

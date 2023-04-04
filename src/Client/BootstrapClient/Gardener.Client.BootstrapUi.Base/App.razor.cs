@@ -20,7 +20,7 @@ namespace Gardener.Client.BootstrapUi.Base
     {
         [Inject]
         [NotNull]
-        private ClientModuleContext moduleContext { get; set; }
+        private ClientModuleContext moduleContext { get; set; } = null!;
         /// <summary>
         /// 
         /// </summary>

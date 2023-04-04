@@ -117,75 +117,88 @@ namespace Gardener.Client.Core
         {
             WarnAsync(msg, code, ex, sendNotify);
         }
-
+        /// <summary>
+        /// Debug
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public Task DebugAsync(string msg, int? code = null, Exception? ex = null)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Debug]}:{msg}", code);
-            if (ex == null)
-            {
-                logger.LogDebug(msg);
-            }
-            else
-            {
-                logger.LogDebug(ex, msg);
-            }
+            logger.LogDebug(ex, msg);
             return Task.CompletedTask;
         }
-
+        /// <summary>
+        /// Fatal
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        /// <returns></returns>
         public Task FatalAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.FatalException]}:{msg}", code);
             logger.LogCritical(ex, msg);
             if (sendNotify)
             {
-                return clientErrorNotifier.ErrorAsync(msg);
+                return clientErrorNotifier.ErrorAsync(msg, ex: ex);
             }
             return Task.CompletedTask;
         }
-
+        /// <summary>
+        /// Error
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        /// <returns></returns>
         public Task ErrorAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Error]}:{msg}", code);
             logger.LogError(ex, msg);
             if (sendNotify)
             {
-                return clientErrorNotifier.ErrorAsync(msg);
+                return clientErrorNotifier.ErrorAsync(msg, ex: ex);
             }
             return Task.CompletedTask;
         }
-
+        /// <summary>
+        /// Info
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        /// <returns></returns>
         public Task InfoAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = false)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Info]}:{msg}", code);
-            if (ex == null)
-            {
-                logger.LogInformation(msg);
-            }
-            else
-            {
-                logger.LogInformation(ex, msg);
-            }
+            logger.LogInformation(ex, msg);
             if (sendNotify)
             {
                 return clientErrorNotifier.InfoAsync(msg);
             }
             return Task.CompletedTask;
         }
-
+        /// <summary>
+        /// Warn
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="code"></param>
+        /// <param name="ex"></param>
+        /// <param name="sendNotify"></param>
+        /// <returns></returns>
         public Task WarnAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
             msg = FormatMsg($"{localizer[SharedLocalResource.Warn]}:{msg}", code);
-            if (ex == null)
-            {
-                logger.LogWarning(msg);
-            }
-            else
-            {
-                logger.LogWarning(ex, msg);
-            }
+            logger.LogWarning(ex, msg);
             if (sendNotify)
             {
-                return clientErrorNotifier.WarnAsync(msg);
+                return clientErrorNotifier.WarnAsync(msg, ex: ex);
             }
             return Task.CompletedTask;
         }

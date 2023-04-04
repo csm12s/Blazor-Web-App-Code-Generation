@@ -21,24 +21,24 @@ namespace Gardener.UserCenter.Client.BootstrapUi.Pages.LoginView
     public partial class Login
     {
         [Inject]
-        private IClientLocalizer<UserCenterResource> localizer { get; set; }
+        private IClientLocalizer<UserCenterResource> localizer { get; set; } = null!;
 
         [Inject]
-        private IImageVerifyCodeService imageVerifyCodeService { get; set; }
+        private IImageVerifyCodeService imageVerifyCodeService { get; set; } = null!;
 
         [Inject]
-        private IAccountService accountService { get; set; }
+        private IAccountService accountService { get; set; } = null!;
 
         [Inject]
-        public IAuthenticationStateManager authenticationStateManager { get; set; }
+        public IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
 
 
         [Inject]
-        public NavigationManager Navigation { get; set; }
+        public NavigationManager Navigation { get; set; } = null!;
 
         [Inject]
         [NotNull]
-        private MessageService? MessageService { get; set; }
+        private MessageService MessageService { get; set; } = null!;
 
         private string? returnUrl;
 

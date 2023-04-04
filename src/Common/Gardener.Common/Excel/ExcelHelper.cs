@@ -1,4 +1,5 @@
 ﻿using MiniExcelLibs;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -30,6 +31,7 @@ public class ExcelHelper
     /// <param name="path"></param>
     /// <param name="hasHeader"></param>
     /// <returns></returns>
+    [Obsolete("注意：大数据量加载时可能占用大量内存")]
     public static async Task<DataTable> GetDataTableAsync(string path, bool hasHeader = true)
     {
         //todo:已过时，需处理

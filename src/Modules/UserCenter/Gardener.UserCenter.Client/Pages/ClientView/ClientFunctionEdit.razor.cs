@@ -55,8 +55,6 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
         private ConfirmService ConfirmService { get; set; } = null!;
-        [Inject]
-        private IClientLocalizer Localizer { get; set; } = null!;
 
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();

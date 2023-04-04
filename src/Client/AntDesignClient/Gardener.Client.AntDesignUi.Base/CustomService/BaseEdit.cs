@@ -22,7 +22,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public class BaseEdit<TDto, TKey, TLocalResource> 
-        : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> 
+        : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> 
         where TDto : class, new()
     {
         /// <summary>
@@ -40,11 +40,6 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// </summary>
         [Inject]
         protected ConfirmService ConfirmService { get; set; } = null!;
-        /// <summary>
-        /// 本地化服务
-        /// </summary>
-        [Inject]
-        protected IClientLocalizer<TLocalResource> Localizer { get; set; } = null!;
         /// <summary>
         /// 编辑区域的加载中标识
         /// </summary>

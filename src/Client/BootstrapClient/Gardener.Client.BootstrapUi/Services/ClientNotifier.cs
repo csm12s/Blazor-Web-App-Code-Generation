@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using BootstrapBlazor.Components;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.BootstrapUi.Base.Constants;
 using System;
@@ -21,51 +22,51 @@ namespace Gardener.Client.BootstrapUi.Services
         private double duration = ClientConstant.ClientNotifierMessageDuration;
         private int msgMaxLength = ClientConstant.ClientNotifierUseMessageMaxLength;
         private readonly IClientLocalizer localizer;
-        private readonly ToastService? toastService;
-        public ClientNotifier(IClientLocalizer localizer, ToastService? toastService)
+        private readonly ToastService toastService;
+        public ClientNotifier(IClientLocalizer localizer, ToastService toastService)
         {
             this.localizer = localizer;
             this.toastService = toastService;
         }
 
-        public async Task Error(string description, Exception ex = null)
+        public void Error(string description, string? title = null, Exception? ex = null)
         {
-            await toastService.Error("通知", description);
+            ErrorAsync(description, title, ex);
         }
 
-        public async Task Error(string msg, string description, Exception ex = null)
+        public Task ErrorAsync(string description, string? title = null, Exception? ex = null)
         {
-            await toastService.Error(msg, description);
+            return toastService.Error(title ?? localizer[SharedLocalResource.Error], description);
         }
 
-        public async Task Info(string description)
+        public void Info(string description, string? title = null)
         {
-            await toastService.Information("通知", description);
+            InfoAsync(description, title);
         }
 
-        public async Task Info(string msg, string description)
+        public Task InfoAsync(string description, string? title = null)
         {
-            await toastService.Information(msg, description);
+            return toastService.Information(title ?? localizer[SharedLocalResource.Info], description);
         }
 
-        public async Task Success(string description)
+        public void Success(string description, string? title = null)
         {
-            await toastService.Success("通知", description);
+            SuccessAsync(description, title);
         }
 
-        public async Task Success(string msg, string description)
+        public Task SuccessAsync(string description, string? title = null)
         {
-            await toastService.Success(msg, description);
+            return toastService.Success(title ?? localizer[SharedLocalResource.Success], description);
         }
 
-        public async Task Warn(string description, Exception ex = null)
+        public void Warn(string description, string? title = null, Exception? ex = null)
         {
-            await toastService.Warning("通知", description);
+            WarnAsync(description, title, ex);
         }
 
-        public async Task Warn(string msg, string description, Exception ex = null)
+        public Task WarnAsync(string description, string? title = null, Exception? ex = null)
         {
-            await toastService.Warning(msg, description);
+            return toastService.Warning(title ?? localizer[SharedLocalResource.Warn], description);
         }
     }
 }

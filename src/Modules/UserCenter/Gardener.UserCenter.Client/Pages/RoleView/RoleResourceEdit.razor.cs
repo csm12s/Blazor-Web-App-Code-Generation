@@ -32,8 +32,6 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
         private IRoleService RoleService { get; set; } = null!;
-        [Inject]
-        private IClientLocalizer Localizer { get; set; } = null!;
         /// <summary>
         /// 默认选择
         /// </summary>
