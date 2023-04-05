@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230404031339_v0.0.1")]
+    [Migration("20230405083214_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -3512,21 +3512,6 @@ namespace Gardener.Api.Core.Migrations
                             Service = "客户端服务",
                             Summary = "根据主键获取",
                             UpdatedTime = 1306532718346240480L
-                        },
-                        new
-                        {
-                            Id = new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"),
-                            CreatedTime = 1306532718346240480L,
-                            Description = "",
-                            EnableAudit = false,
-                            Group = "用户中心服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "AF36C639E9127D2C3B5ECB8FE54D26A4",
-                            Method = 0,
-                            Path = "/api/client/{id}/functions",
-                            Service = "客户端服务",
-                            Summary = "根据客户端编号获取绑定的接口列表"
                         },
                         new
                         {
@@ -7621,7 +7606,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
-                            FunctionId = new Guid("5c0a6241-ac2d-442f-9c6c-028566f18b6a"),
+                            FunctionId = new Guid("3a6f74c2-0165-46b0-8cd5-1846846d97bc"),
                             CreatedTime = 1306069130997760480L
                         },
                         new
@@ -9351,6 +9336,14 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("RoleResource");
 
                     b.HasData(
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreatedTime = 1306546785505280000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
                         new
                         {
                             RoleId = 2,

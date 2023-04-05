@@ -76,7 +76,7 @@ namespace Gardener.Authorization.Core
             {
                 return false;
             }
-            //clientId 已不可用
+            //LoginId 已不可用
             if (!await _identityPermissionService.CheckLoginIdUsable(identity.LoginId))
             {
                 return false;

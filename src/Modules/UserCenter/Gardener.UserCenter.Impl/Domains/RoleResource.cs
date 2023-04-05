@@ -71,6 +71,7 @@ namespace Gardener.UserCenter.Impl.Domains
         {
             return new RoleResource[] {
 
+ new RoleResource(){RoleId=2,ResourceId = Guid.Parse("3C124D95-DD76-4903-B240-A4FE4DF93868"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("14636a9b-e6d6-436f-a0aa-0170eed08d99"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
