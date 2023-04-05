@@ -85,7 +85,7 @@ namespace Gardener.UserCenter.Impl.Services
                 throw Oops.Bah(ExceptionCode.TIMESPAN_IS_EXPIRED);
             }
 
-            Client client = _repository.AsQueryable(false).Where(x => x.Id.Equals(input.ClientId) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefault();
+            Client? client = _repository.AsQueryable(false).Where(x => x.Id.Equals(input.ClientId) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefault();
             if (client == null)
             {
                 throw Oops.Bah(ExceptionCode.CLIENT_NO_FIND);

@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.SystemManager.Dtos;
 using System.ComponentModel.DataAnnotations;
 using HttpMethod = Gardener.Enums.HttpMethod;

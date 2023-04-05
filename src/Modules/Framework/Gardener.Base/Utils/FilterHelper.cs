@@ -23,8 +23,8 @@ namespace Gardener.Base
     {
         #region 字段
 
-        private static readonly Dictionary<FilterOperate, Func<Expression, Expression, Expression>> ExpressionDict =
-            new Dictionary<FilterOperate, Func<Expression, Expression, Expression>>
+        private static readonly Dictionary<FilterOperate, Func<Expression, Expression, Expression?>> ExpressionDict =
+            new Dictionary<FilterOperate, Func<Expression, Expression, Expression?>>
             {
                 {
                     FilterOperate.Equal, Expression.Equal
@@ -112,7 +112,7 @@ namespace Gardener.Base
                 }
             };
 
-        private static readonly Dictionary<Type, Func<JsonElement, Object>> jsonElementConvertDic = new Dictionary<Type, Func<JsonElement, object>>()
+        private static readonly Dictionary<Type, Func<JsonElement, object?>> jsonElementConvertDic = new Dictionary<Type, Func<JsonElement, object?>>()
         {
             {typeof(short),e=> e.GetInt16()},
             {typeof(short?),e=> e.GetInt16()},
@@ -152,10 +152,14 @@ namespace Gardener.Base
         /// <typeparam name="T">表达式实体类型</typeparam>
         /// <param name="rule">查询条件，如果为null，则直接返回 true 表达式</param>
         /// <returns>查询表达式</returns>
-        public static Expression<Func<T, bool>> GetExpression<T>(FilterRule rule)
+        public static Expression<Func<T, bool>>? GetExpression<T>(FilterRule rule)
         {
             ParameterExpression param = Expression.Parameter(typeof(T), "m");
-            Expression body = GetExpressionBody(param, rule);
+            Expression? body = GetExpressionBody(param, rule);
+            if (body == null)
+            {
+                return null;
+            }
             Expression<Func<T, bool>> expression = Expression.Lambda<Func<T, bool>>(body, param);
             return expression;
         }
@@ -164,7 +168,7 @@ namespace Gardener.Base
         /// 把查询操作的枚举表示转换为操作码
         /// </summary>
         /// <param name="operate">查询操作的枚举表示</param>
-        public static string ToOperateCode(this FilterOperate operate)
+        public static string? ToOperateCode(this FilterOperate operate)
         {
             return EnumHelper.GetEnumCode(operate);
         }
@@ -195,7 +199,7 @@ namespace Gardener.Base
         /// </summary>
         /// <param name="rules"></param>
         /// <returns></returns>
-        private static List<FilterGroup> Divide(List<FilterRule> rules)
+        private static List<FilterGroup>? Divide(List<FilterRule> rules)
         {
             if (rules == null || rules.Count == 0)
             {
@@ -208,18 +212,18 @@ namespace Gardener.Base
                 {
                     groups.Add(new FilterGroup().AddRule(rules[i]));
                 }
-                else 
+                else
                 {
                     if (rules[i].Condition.Equals(FilterCondition.Or))
                     {
-                        groups.Add(new FilterGroup() .AddRule(rules[i]));
+                        groups.Add(new FilterGroup().AddRule(rules[i]));
                     }
-                    else 
+                    else
                     {
                         groups.Last().Rules.Add(rules[i]);
                     }
                 }
-            
+
             }
             return groups;
         }
@@ -242,18 +246,32 @@ namespace Gardener.Base
             {
                 if (group.Rules == null || group.Rules.Count == 0) { continue; }
                 List<Expression> groupExs = new List<Expression>();
-                List<FilterGroup> dGroups = Divide(group.Rules.ToList());
-
+                List<FilterGroup>? dGroups = Divide(group.Rules.ToList());
+                if (dGroups == null) { continue; }
                 foreach (FilterGroup dgroup in dGroups)
                 {
 
                     if (dgroup.Rules.Count > 1)
                     {
-                        groupExs.Add(dgroup.Rules.Select(x=>GetExpressionBody(param,x)).Aggregate(Expression.AndAlso));
+                        List<Expression> expressions = new List<Expression>();
+                        foreach (FilterRule rule in dgroup.Rules)
+                        {
+                            var temp = GetExpressionBody(param, rule);
+                            if (temp != null)
+                            {
+                                expressions.Add(temp);
+                            }
+                        }
+                        groupExs.Add(expressions.Aggregate(Expression.AndAlso));
                     }
-                    else 
+                    else
                     {
-                        groupExs.Add(GetExpressionBody(param, dgroup.Rules.First()));
+
+                        var temp = GetExpressionBody(param, dgroup.Rules.First());
+                        if (temp != null)
+                        {
+                            groupExs.Add(temp);
+                        }
                     }
 
                 }
@@ -267,14 +285,14 @@ namespace Gardener.Base
         /// <param name="param"></param>
         /// <param name="rule"></param>
         /// <returns></returns>
-        private static Expression GetExpressionBody(ParameterExpression param, FilterRule rule)
+        private static Expression? GetExpressionBody(ParameterExpression param, FilterRule rule)
         {
             // if (rule == null || rule.Value == null || string.IsNullOrEmpty(rule.Value.ToString()))
             if (rule == null)
             {
                 return Expression.Constant(true);
             }
-            LambdaExpression expression = GetPropertyLambdaExpression(param, rule);
+            LambdaExpression? expression = GetPropertyLambdaExpression(param, rule);
             if (expression == null)
             {
                 return Expression.Constant(true);
@@ -283,12 +301,12 @@ namespace Gardener.Base
             return ExpressionDict[rule.Operate](expression.Body, constant);
         }
 
-        private static LambdaExpression GetPropertyLambdaExpression(ParameterExpression param, FilterRule rule)
+        private static LambdaExpression? GetPropertyLambdaExpression(ParameterExpression param, FilterRule rule)
         {
             Expression propertyAccess = param;
             Type type = param.Type;
             string propertyName = rule.Field;
-            PropertyInfo property = type.GetProperty(propertyName);
+            PropertyInfo? property = type.GetProperty(propertyName);
             if (property == null)
             {
                 throw Oops.Oh(ExceptionCode.FIELD_IN_TYPE_NOT_FOUND, rule.Field, type.FullName);
@@ -362,7 +380,7 @@ namespace Gardener.Base
             else if (rule.Value is JsonElement)
             {
                 JsonElement json = (JsonElement)rule.Value;
-                object value = null;
+                object? value = null;
                 //枚举
                 if (conversionType.IsEnum)
                 {
@@ -376,7 +394,7 @@ namespace Gardener.Base
             }
             else
             {
-                object value = rule.Value.CastTo(conversionType);
+                object? value = rule.Value?.CastTo(conversionType);
                 return Expression.Constant(value, conversionType);
             }
 

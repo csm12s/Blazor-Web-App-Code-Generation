@@ -37,7 +37,7 @@ namespace Gardener.Authorization.Core
         /// 获取回退策略
         /// </summary>
         /// <returns></returns>
-        public Task<AuthorizationPolicy> GetFallbackPolicyAsync()
+        public Task<AuthorizationPolicy?> GetFallbackPolicyAsync()
         {
             return FallbackPolicyProvider.GetFallbackPolicyAsync();
         }
@@ -47,7 +47,7 @@ namespace Gardener.Authorization.Core
         /// </summary>
         /// <param name="policyName"></param>
         /// <returns></returns>
-        public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
+        public Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)
         {
             // 判断是否是包含授权策略前缀
             if (policyName.StartsWith(Penetrates.AppAuthorizePrefix))
@@ -59,7 +59,7 @@ namespace Gardener.Authorization.Core
                 var policy = new AuthorizationPolicyBuilder();
                 policy.AddRequirements(new AppAuthorizeRequirement(policies));
 
-                return Task.FromResult(policy.Build());
+                return Task.FromResult<AuthorizationPolicy?>(policy.Build());
             }
 
             // 如果策略不匹配，则返回回退策略

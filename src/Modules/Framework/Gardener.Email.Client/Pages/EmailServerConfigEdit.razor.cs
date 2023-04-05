@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Email.Dtos;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Gardener.Email.Client.Pages
         {
             get
             {
-                return _editModel.Tags?.Split(",");
+                return _editModel.Tags?.Split(",")??new string[0];
             }
             set
             {

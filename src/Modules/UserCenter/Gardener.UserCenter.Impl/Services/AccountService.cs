@@ -133,6 +133,7 @@ namespace Gardener.UserCenter.Impl.Services
         public async Task<bool> RemoveCurrentUserRefreshToken()
         {
             var identity = _authorizationManager.GetIdentity();
+            if (identity == null) return false;
             return await _jwtBearerService.RemoveRefreshToken(identity);
         }
         /// <summary>
@@ -160,9 +161,13 @@ namespace Gardener.UserCenter.Impl.Services
         {
             var userId = _authorizationManager.GetIdentityId();
             var user = await _userRepository.FindAsync(userId);
+            var userDto = user.Adapt<UserDto>();
 
-            return user.Adapt<UserDto>();
+            // set roles for resource auth
+            var roles = await GetCurrentUserRoles();
+            userDto.Roles = roles;
 
+            return userDto;
         }
         /// <summary>
         /// 获取用户资源
@@ -197,14 +202,14 @@ namespace Gardener.UserCenter.Impl.Services
         /// </remarks>
         /// <param name="rootKey"></param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetCurrentUserMenus([FromQuery] string rootKey = null)
+        public async Task<List<ResourceDto>> GetCurrentUserMenus([FromQuery] string? rootKey = null)
         {
             // 获取用户Id
             List<ResourceDto> resources = await GetCurrentUserResources(ResourceType.Root, ResourceType.Menu);
 
-            if (resources == null) return new List<ResourceDto>();
+            var result= resources.Where(x => x.Type.Equals(ResourceType.Root) && (string.IsNullOrEmpty(rootKey) || x.Key.Equals(rootKey))).FirstOrDefault()?.Children?.ToList();
 
-            return resources.Where(x => x.Type.Equals(ResourceType.Root) && !string.IsNullOrEmpty(rootKey) && x.Key.Equals(rootKey)).FirstOrDefault()?.Children?.ToList();
+            return result ?? new List<ResourceDto>();
         }
 
         #region 私有

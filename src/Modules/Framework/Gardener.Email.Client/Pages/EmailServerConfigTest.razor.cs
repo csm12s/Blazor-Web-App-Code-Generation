@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.Email.Dtos;
 using Gardener.Email.Services;
 using Microsoft.AspNetCore.Components;
@@ -22,17 +23,17 @@ namespace Gardener.Email.Client.Pages
     {
         private bool _isLoading = false;
         private SendEmailInputDto _sendEmailInput = new SendEmailInputDto();
-        private List<EmailTemplateDto> emailTemplates;
+        private List<EmailTemplateDto>? emailTemplates;
         [Inject]
-        protected IClientLocalizer localizer { get; set; }
+        protected IClientLocalizer Localizer { get; set; } = null!;
         [Inject]
-        protected IEmailTemplateService emailTemplateService { get; set; }
+        protected IEmailTemplateService EmailTemplateService { get; set; } = null!;
         [Inject]
-        protected IEmailService emailService { get; set; }
+        protected IEmailService EmailService { get; set; } = null!;
         [Inject]
-        protected IEmailServerConfigService emailServerConfigService { get; set; }
+        protected IEmailServerConfigService EmailServerConfigService { get; set; } = null!;
         [Inject]
-        protected MessageService messageService { get; set; }
+        protected IClientMessageService MessageService { get; set; } = null!;
         private string _emailData 
         {
             get {
@@ -41,7 +42,7 @@ namespace Gardener.Email.Client.Pages
             set {
                 if (!string.IsNullOrEmpty(value)) 
                 {
-                    _sendEmailInput.Data = System.Text.Json.JsonSerializer.Deserialize<dynamic>(value);
+                    _sendEmailInput.Data = System.Text.Json.JsonSerializer.Deserialize<dynamic>(value)??string.Empty;
                 }
             }
         }
@@ -60,7 +61,7 @@ namespace Gardener.Email.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             _sendEmailInput.EmailServerConfigId = this.Options.Id;
-            emailTemplates = await emailTemplateService.GetAllUsable();
+            emailTemplates = await EmailTemplateService.GetAllUsable();
             if (emailTemplates != null && emailTemplates.Any())
             {
                 EmailTemplateDto templateDto = emailTemplates.First();
@@ -93,14 +94,14 @@ namespace Gardener.Email.Client.Pages
         protected async Task OnFormFinish(EditContext editContext)
         {
             _isLoading = true;
-            bool result=await emailService.Send(_sendEmailInput);
+            bool result=await EmailService.Send(_sendEmailInput);
             if (result)
             {
-                messageService.Success(localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Success));
+                MessageService.Success(Localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Success));
             }
             else 
             {
-                messageService.Error(localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(SharedLocalResource.Send, SharedLocalResource.Fail));
             }
             _isLoading = false;
         }

@@ -25,7 +25,7 @@ namespace Gardener.Swagger.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public async Task<SwaggerModel> Analysis(string url)
+        public async Task<SwaggerModel?> Analysis(string url)
         {
             url = HttpUtility.UrlEncode(url);
             return await apiCaller.GetAsync<SwaggerModel>($"{controller}/analysis/{url}");

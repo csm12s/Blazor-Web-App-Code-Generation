@@ -7,6 +7,8 @@
 using Furion;
 using Gardener.Cache;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -24,7 +26,16 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddConfigurableOptions<CacheOptions>();
             using var serviceProvider = services.BuildServiceProvider();
-            var cacheOptions = serviceProvider.GetService<IOptions<CacheOptions>>().Value;
+            if(serviceProvider == null)
+            {
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
+            var cacheOptionProvider = serviceProvider.GetService<IOptions<CacheOptions>>();
+            if (cacheOptionProvider == null)
+            {
+                throw new ArgumentNullException(nameof(CacheOptions));
+            }
+            var cacheOptions = cacheOptionProvider.Value;
             if (cacheOptions.Type.Equals("Memory"))
             {
                 services.AddDistributedMemoryCache();
@@ -34,7 +45,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     throw new OptionsValidationException("Cache:SqlServer",typeof(SqlServerCacheOptions),new[] { "请配置SqlServer缓存配置" });
                 }
-                string connectionString = App.Configuration[cacheOptions.SqlServer.ConnectionString];
+                string? connectionString = App.Configuration[cacheOptions.SqlServer.ConnectionString];
                 services.AddDistributedSqlServerCache(options => { 
                     options.ConnectionString = connectionString;
                     options.SchemaName = cacheOptions.SqlServer.SchemaName; 

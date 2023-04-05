@@ -24,41 +24,50 @@ namespace Gardener.UserCenter.Impl.Domains
     public class User : GardenerEntityBase, IEntitySeedData<User>, IEntityTypeBuilder<User>
     {
         /// <summary>
+        /// 用户表
+        /// </summary>
+        public User()
+        {
+            Roles = new List<Role>();
+            UserRoles = new List<UserRole>();
+        }
+
+        /// <summary>
         /// 用户名
         /// </summary>
         [Required, StringLength(32)]
         [DisplayName("用户名")]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = null!;
         /// <summary>
         /// 昵称
         /// </summary>
         [StringLength(50)]
         [DisplayName("昵称")]
-        public string NickName { get; set; }
+        public string? NickName { get; set; }
         /// <summary>
         /// 密码加密后的
         /// </summary>
         [Required, StringLength(64)]
         [DisplayName("密码")]
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
         /// <summary>
         /// 密码加密Key
         /// </summary>
         [Required, StringLength(64)]
         [DisplayName("密码加密KEY")]
-        public string PasswordEncryptKey { get; set; }
+        public string PasswordEncryptKey { get; set; } = null!;
         /// <summary>
         /// 头像
         /// </summary>
         [MaxLength(100)]
         [DisplayName("头像")]
-        public string Avatar { get; set; }
+        public string? Avatar { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
         [MaxLength(50)]
         [DisplayName("邮箱")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         /// <summary>
         /// 邮箱是否确认
         /// </summary>
@@ -69,7 +78,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// </summary>
         [MaxLength(20)]
         [DisplayName("手机")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         /// <summary>
         /// 手机是否确认
         /// </summary>
@@ -95,7 +104,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 用户扩展信息
         /// </summary>
-        public UserExtension UserExtension { get; set; }
+        public UserExtension? UserExtension { get; set; }
 
         /// <summary>
         /// 部门编号
@@ -105,7 +114,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 部门
         /// </summary>
-        public Dept Dept { get; set; }
+        public Dept? Dept { get; set; }
         /// <summary>
         /// 岗位编号
         /// </summary>
@@ -114,7 +123,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 岗位
         /// </summary>
-        public Position Position;
+        public Position? Position;
 
         /// <summary>
         /// 配置多对多关系
@@ -143,6 +152,10 @@ namespace Gardener.UserCenter.Impl.Domains
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.PositionId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            entityBuilder
+                .HasOne(x => x.UserExtension)
+                .WithOne(x => x.User).HasForeignKey<User>(x => x.Id);
         }
 
         /// <summary>
@@ -163,7 +176,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -175,7 +188,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员2",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -187,7 +200,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员3",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -198,7 +211,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员4",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -209,7 +222,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员5",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -220,7 +233,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员6",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -231,7 +244,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员1",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="https://portrait.gitee.com/uploads/avatars/user/100/302533_hgflydream_1578919799.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -243,7 +256,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="测试员",
                     PasswordEncryptKey=passwordEncryptKey,
                     Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
-                    Avatar="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+                    Avatar="./assets/logo.png",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=3,
                     PositionId=2

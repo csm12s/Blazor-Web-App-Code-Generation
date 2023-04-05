@@ -20,7 +20,7 @@ namespace Gardener.Base
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Identity GetIdentity()
+        public static Identity? GetIdentity()
         {
             IIdentityService identityService = App.GetService<IIdentityService>();
 
@@ -30,7 +30,7 @@ namespace Gardener.Base
         /// 
         /// </summary>
         /// <returns></returns>
-        public static string GetIdentityId()
+        public static string? GetIdentityId()
         {
             return GetIdentity()?.Id;
         }
@@ -40,7 +40,7 @@ namespace Gardener.Base
         /// <returns></returns>
         public static IdentityType GetIdentityType()
         {
-            Identity identity = GetIdentity();
+            Identity? identity = GetIdentity();
             return identity==null? IdentityType.Unknown: identity.IdentityType;
         }
     }

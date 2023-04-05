@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Gardener.Base;
+﻿using Gardener.Base;
 using Gardener.Enums;
 using System;
 using System.ComponentModel;
@@ -25,12 +23,12 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// 数据库字段名
     /// </summary>
     [Required, MaxLength(100)]
-    public string ColumnName { get; set; }
+    public string ColumnName { get; set; } = null!;
 
     /// <summary>
     /// Net Column Name
     /// </summary>
-    public string NetColumnName { get; set; }
+    public string NetColumnName { get; set; } = null!;
 
     /// <summary>
     /// DB Description
@@ -46,7 +44,7 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// .NET数据类型
     /// </summary>
     [MaxLength(50)]
-    public string NetType { get; set; }
+    public string NetType { get; set; } = null!;
 
     /// <summary>
     /// .NET数据类型, 不带问号
@@ -57,26 +55,26 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// 数据库中类型（物理类型）
     /// </summary>
     [MaxLength(50)]
-    public string DbDataType { get; set; }
+    public string DbDataType { get; set; } = null!;
 
     /// <summary>
-    /// 视图组件类型
+    /// view
     /// </summary>
     public ClientComponentType? ViewComponentType { get; set; }
     /// <summary>
-    /// 编辑组件类型
+    /// edit
     /// </summary>
     public ClientComponentType? EditComponentType { get; set; }
     /// <summary>
-    /// 编辑组件的长度
+    /// EditComponentLength
     /// </summary>
     public int? EditComponentLength { get; set; }
     /// <summary>
-    /// 自定义搜索类型
+    /// search
     /// </summary>
     public ClientComponentType? CustomSearchType { get; set; }
     /// <summary>
-    /// 自定义搜索的长度
+    /// CustomSearchLength
     /// </summary>
     public int? CustomSearchLength { get; set; }
 
@@ -125,7 +123,7 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// </summary>
     public bool? IsSearch { get; set; } = false;
     /// <summary>
-    /// 是否自定义查询
+    /// 启用自定义搜索
     /// </summary>
     public bool? IsCustomSearch { get; set; } = false;
 
@@ -145,18 +143,16 @@ public class CodeGenConfig: GardenerEntityBase<Guid>//, IEntityTypeBuilder<CodeG
     /// </summary>
 
     public bool? IsCreate { get; set; } = false;
-
     /// <summary>
-    /// 是否必填
+    /// 是否可空
     /// </summary>
     public bool? IsRequired { get; set; } = false;
     /// <summary>
     /// 改
     /// </summary>
     public bool? IsEdit { get; set; } = false;
-
     /// <summary>
-    /// 批量修改
+    /// 开启批量编辑
     /// </summary>
     public bool? IsBatchEdit { get; set; } = false;
 

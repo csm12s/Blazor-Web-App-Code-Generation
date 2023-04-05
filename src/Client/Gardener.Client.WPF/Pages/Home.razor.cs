@@ -5,14 +5,13 @@
 // -----------------------------------------------------------------------------
 #nullable enable
 
-using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Common;
 using Gardener.EventBus;
 using Gardener.NotificationSystem;
-using Gardener.NotificationSystem.Client.Core;
 using Gardener.NotificationSystem.Dtos.Notification;
 using Gardener.NotificationSystem.Enums;
 using Gardener.NotificationSystem.Services;

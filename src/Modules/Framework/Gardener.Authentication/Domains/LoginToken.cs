@@ -23,19 +23,19 @@ namespace Gardener.Authentication.Domains
         /// 身份编号
         /// </summary>
         [DisplayName("身份编号")]
-        public string IdentityId { get; set; }
+        public string IdentityId { get; set; } = null!;
 
         /// <summary>
         /// 身份唯一名称
         /// </summary>
         [DisplayName("身份唯一名称")]
-        public string IdentityName { get; set; }
+        public string IdentityName { get; set; } = null!;
 
         /// <summary>
         /// 身份昵称
         /// </summary>
         [DisplayName("身份昵称")]
-        public string IdentityNickName { get; set; }
+        public string? IdentityNickName { get; set; }
 
         /// <summary>
         /// 身份类型
@@ -47,7 +47,7 @@ namespace Gardener.Authentication.Domains
         /// 获取或设置 登录Id
         /// </summary>
         [DisplayName("登录编号")]
-        public string LoginId { get; set; }
+        public string LoginId { get; set; } = null!;
 
         /// <summary>
         /// 登录的客户端类型
@@ -59,7 +59,7 @@ namespace Gardener.Authentication.Domains
         /// 获取或设置 标识值
         /// </summary>
         [DisplayName("Token")]
-        public string Value { get; set; }
+        public string? Value { get; set; }
 
         /// <summary>
         /// 获取或设置 过期时间
@@ -71,6 +71,6 @@ namespace Gardener.Authentication.Domains
         /// 访问IP
         /// </summary>
         [DisplayName("IP")]
-        public string Ip { get; set; }
+        public string? Ip { get; set; }
     }
 }

@@ -9,17 +9,17 @@
            @bind-PageIndex="_pageIndex"
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_client_refresh">
-                <TableSearch TDto="ClientDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="ClientDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_client_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -28,14 +28,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_client_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @localizer[SharedLocalResource.Add]
+                                    @Localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_client_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -43,7 +43,7 @@
                 </AntDesign.Col>
             </Row>
         </TitleTemplate>
-        <RowTemplate>
+                    <ColumnDefinitions>
             <ResourceAuthorize ResourceKey="system_manager_client_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
@@ -51,7 +51,7 @@
             <Column @bind-Field="@model.Contacts" Filterable />
             <Column @bind-Field="@model.Tel" Filterable />
             <Column @bind-Field="@model.Email" Filterable />
-            <Column @bind-Field="@model.IsLocked" Filterable Title="@localizer[SharedLocalResource.IsLocked]">
+            <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_client_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -61,39 +61,39 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_client_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_client_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_client_show_function">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["BindingApi"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer["BindingApi"])" ArrowPointAtCenter="true">
                                 <Button Icon="api" Type="@ButtonType.Primary" OnClick="()=>OnShowFunctionClick(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_client_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

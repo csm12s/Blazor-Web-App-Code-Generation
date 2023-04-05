@@ -15,7 +15,7 @@ namespace Gardener.Common
     /// <summary>
     /// 枚举操作类
     /// </summary>
-    public static class EnumHelper
+    public class EnumHelper
     {
         /// <summary>
         /// 枚举转list
@@ -41,29 +41,33 @@ namespace Gardener.Common
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Dictionary<T, string> EnumToDictionary<T>()
+        public static Dictionary<T, string> EnumToDictionary<T>() where T : Enum
         {
             Dictionary<T, string> dic = new Dictionary<T, string>();
             if (!typeof(T).IsEnum)
             {
                 return dic;
             }
-            string desc = string.Empty;
+            string? desc = string.Empty;
             foreach (var item in Enum.GetValues(typeof(T)))
             {
-                desc = item.ToString();//未设置Description取英文名
-
+                //未设置Description取英文名
+                desc = item.ToString() ;
+                if (string.IsNullOrEmpty(desc))
+                {
+                    continue;
+                }
                 //需要忽略的
-                var igAttrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
+                var igAttrs = item.GetType().GetField(desc)?.GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
                 if (igAttrs != null && igAttrs.Length > 0) continue;
                 //枚举的Description
-                var attrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true);
+                var attrs = item.GetType().GetField(desc)?.GetCustomAttributes(typeof(DescriptionAttribute), true);
                 if (attrs != null && attrs.Length > 0)
                 {
-                    DescriptionAttribute descAttr = attrs[0] as DescriptionAttribute;
-                    desc = descAttr.Description;
+                    DescriptionAttribute? descAttr = attrs[0] as DescriptionAttribute;
+                    desc = descAttr?.Description;
                 }
-                dic.Add((T)item, desc);
+                dic.Add((T)item, desc??string.Empty);
             }
             return dic;
         }
@@ -73,20 +77,22 @@ namespace Gardener.Common
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Dictionary<object, string> EnumToDictionary(Type type)
+        public static Dictionary<object, string?> EnumToDictionary(Type type)
         {
-            Dictionary<object, string> dic = new Dictionary<object, string>();
+            Dictionary<object, string?> dic = new Dictionary<object, string?>();
             type = type.GetNonNullableType();
             if (!type.IsEnum)
             {
                 return dic;
             }
             Type underlyingType = type.GetEnumUnderlyingType();
-            string desc = string.Empty;
+            string? desc = string.Empty;
             foreach (var item in Enum.GetValues(type))
             {
+                string? itemStr= item.ToString();
+                if (itemStr == null) continue;
                 //需要忽略的
-                FieldInfo field = item.GetType().GetField(item.ToString());
+                FieldInfo? field = item.GetType().GetField(itemStr);
                 if (field == null) { continue; }
                 var igAttrs = field.GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
                 if (igAttrs != null && igAttrs.Length > 0) continue;
@@ -94,10 +100,10 @@ namespace Gardener.Common
                 var attrs = field.GetCustomAttributes(typeof(DescriptionAttribute), true);
                 if (attrs != null && attrs.Length > 0)
                 {
-                    DescriptionAttribute descAttr = attrs[0] as DescriptionAttribute;
-                    desc = descAttr.Description;
+                    DescriptionAttribute? descAttr = attrs[0] as DescriptionAttribute;
+                    desc = descAttr?.Description;
                 }
-                object value= null;
+                object? value= null;
                 if (underlyingType.Equals(typeof(byte)))
                 { 
                     value = (byte)item;
@@ -111,7 +117,10 @@ namespace Gardener.Common
                 {
                     value = (long)item;
                 }
-                dic.Add(value, desc);
+                if(value!=null)
+                {
+                    dic.Add(value, desc);
+                }
             }
             return dic;
         }
@@ -121,12 +130,14 @@ namespace Gardener.Common
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public static TAttribute GetEnumAttribute<TAttribute>(Enum item) where TAttribute: Attribute
+        public static TAttribute? GetEnumAttribute<TAttribute>(Enum item) where TAttribute: Attribute
         {
-            var attrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(TAttribute), true);
+            var itemStr = item.ToString();
+            if (itemStr == null) return null;
+            var attrs = item.GetType().GetField(itemStr)?.GetCustomAttributes(typeof(TAttribute), true);
             if (attrs != null && attrs.Length > 0)
             {
-                TAttribute descAttr = attrs[0] as TAttribute;
+                TAttribute? descAttr = attrs[0] as TAttribute;
                 return descAttr;
             }
             return null;
@@ -137,23 +148,36 @@ namespace Gardener.Common
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public static string GetEnumDescription(Enum item)
+        public static string? GetEnumDescription(Enum item)
         {
             return GetEnumAttribute<DescriptionAttribute>(item)?.Description;
         }
 
         /// <summary>
-        /// 获取枚举描述
+        /// 获取枚举描述,如果没有描述返回名字
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public static string GetEnumCode(Enum item)
+        public static string GetEnumDescriptionOrName(Enum item)
         {
-            var attrs = item.GetType().GetField(item.ToString()).GetCustomAttributes(typeof(CodeAttribute), true);
+            return GetEnumAttribute<DescriptionAttribute>(item)?.Description ?? item.ToString();
+        }
+
+        /// <summary>
+        /// 获取枚举描述
+        /// Get Enum CodeAttribute Value
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static string? GetEnumCode(Enum item)
+        {
+            var itemStr = item.ToString();
+            if (itemStr == null) return null;
+            var attrs = item.GetType().GetField(itemStr)?.GetCustomAttributes(typeof(CodeAttribute), true);
             if (attrs != null && attrs.Length > 0)
             {
-                CodeAttribute descAttr = attrs[0] as CodeAttribute;
-                return descAttr.Code;
+                CodeAttribute? descAttr = attrs[0] as CodeAttribute;
+                return descAttr?.Code;
             }
             return null;
         }

@@ -6,9 +6,15 @@
 
 namespace Gardener.Client.Base.Authorization
 {
+    /// <summary>
+    /// 客户端资源
+    /// </summary>
     public class ClientResource
     {
-        public string[] Keys { get; set; }
+        /// <summary>
+        /// 资源Key集合
+        /// </summary>
+        public string[] Keys { get; set; }=new string[0];
 
         /// <summary>
         /// 并且关系

@@ -26,31 +26,31 @@ namespace Gardener.SystemManager.Dtos
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         /// <summary>
         /// 唯一键
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("唯一键")]
-        public string Key { get; set; }
+        public string Key { get; set; } = null!;
         /// <summary>
         /// 备注
         /// </summary>
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("备注")]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
         /// <summary>
         /// 资源地址
         /// </summary>
         [MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("地址")]
-        public string Path { get; set; }
+        public string? Path { get; set; }
         /// <summary>
         /// 资源图标
         /// </summary>
         [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("图标")]
-        public string Icon { get; set; }
+        public string? Icon { get; set; }
         /// <summary>
         /// 资源排序
         /// </summary>
@@ -64,7 +64,7 @@ namespace Gardener.SystemManager.Dtos
         /// <summary>
         /// 子集
         /// </summary>
-        public ICollection<ResourceDto> Children { get; set; }
+        public ICollection<ResourceDto>? Children { get; set; }
         /// <summary>
         /// 类型
         /// </summary>

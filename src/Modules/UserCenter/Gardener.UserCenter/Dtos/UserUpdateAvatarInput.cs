@@ -22,6 +22,6 @@ namespace Gardener.UserCenter.Dtos
         /// 头像
         /// </summary>
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        public string Avatar { get; set; }
+        public string? Avatar { get; set; }
     }
 }

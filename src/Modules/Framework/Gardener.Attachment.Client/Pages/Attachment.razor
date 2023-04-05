@@ -9,45 +9,40 @@
            @bind-PageIndex="_pageIndex"
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            Context="model">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
-                <TableSearch TDto="AttachmentDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="AttachmentDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
-                    <Space>
                         <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
-                            <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResource.Refresh]
                                 </Button>
-                            </SpaceItem>
                         </ResourceAuthorize>
-                    </Space>
                 </AntDesign.Col>
             </Row>
-
         </TitleTemplate>
-        <RowTemplate>
+        <ColumnDefinitions>
             <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
             @*<Column @bind-Field="@model.Id" />*@
-            <Column @bind-Field="@model.BusinessType" TData="AttachmentBusinessType?" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagRandomColor>
+            <Column @bind-Field="@model.BusinessType" TData="AttachmentBusinessType" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagPro>
             </Column>
             <Column @bind-Field="@model.BusinessId" Filterable />
-            <Column @bind-Field="@model.FileType" TData="AttachmentFileType?" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagRandomColor> @model.ContentType
+            <Column @bind-Field="@model.FileType" TData="AttachmentFileType" Filters="TableFiltersConstants.AttachmentFileTypeFilters">
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.FileType)"></TagPro> @model.ContentType
             </Column>
             <Column @bind-Field="@model.Size" Filterable>
                 @model.Size B
@@ -77,26 +72,26 @@
                 }
 
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>
 
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_attachment_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

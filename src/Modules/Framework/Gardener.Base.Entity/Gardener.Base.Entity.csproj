@@ -1,24 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;8618</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;8618</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Furion" Version="4.8.3.10" />
+		<PackageReference Include="Furion" Version="4.8.7.33" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Gardener\Gardener.csproj" />
+		<ProjectReference Include="..\Gardener\Gardener.csproj" />
 	</ItemGroup>
 
 </Project>

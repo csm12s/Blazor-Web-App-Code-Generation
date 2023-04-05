@@ -15,7 +15,8 @@ using System.Security.Claims;
 namespace Gardener.Authentication.Core
 {
     /// <summary>
-    /// 
+    /// 身份服务
+    /// 每次请求都是新的对象
     /// </summary>
     public class IdentityService : IIdentityService
     {
@@ -23,27 +24,35 @@ namespace Gardener.Authentication.Core
         /// 请求上下文访问器
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        private Identity _identity;
+        /// <summary>
+        /// jwt工具
+        /// </summary>
+        private readonly IJwtService _jwtService;
+        /// <summary>
+        /// 当前请求的身份信息
+        /// </summary>
+        private Identity? _identity;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="httpContextAccessor"></param>
-        public IdentityService(IHttpContextAccessor httpContextAccessor)
+        /// <param name="jwtService"></param>
+        public IdentityService(IHttpContextAccessor httpContextAccessor, IJwtService jwtService)
         {
             _httpContextAccessor = httpContextAccessor;
+            _jwtService = jwtService;
         }
         /// <summary>
         /// 获取身份
         /// </summary>
         /// <returns></returns>
-        public Identity GetIdentity()
+        public Identity? GetIdentity()
         {
             if (_identity != null)
             {
                 return _identity;
             }
-            _identity= GetIdentityFromContext();
+            _identity = GetIdentityFromContext();
             return _identity;
         }
 
@@ -52,32 +61,25 @@ namespace Gardener.Authentication.Core
         /// 获取身份
         /// </summary>
         /// <returns></returns>
-        private Identity GetIdentityFromContext()
+        private Identity? GetIdentityFromContext()
         {
-            if (_httpContextAccessor.HttpContext == null)
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
             {
                 //非http请求
                 return null;
             }
-            if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            if (httpContext.User.Identity == null || !httpContext.User.Identity.IsAuthenticated)
             {
                 return null;
             }
-            string tokenTypeKey = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.TokenTypeKey);
-            if (JwtTokenType.RefreshToken.ToString().Equals(tokenTypeKey))
+            //违法使用
+            string? tokenTypeKey = httpContext.User.FindFirstValue(AuthKeyConstants.TokenTypeKey);
+            if (string.IsNullOrEmpty(tokenTypeKey) || JwtTokenType.RefreshToken.ToString().Equals(tokenTypeKey))
             {
                 throw Oops.Oh(ExceptionCode.REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION);
             }
-            Identity identity = new Identity();
-            identity.Id = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            identity.Name = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
-            identity.NickName = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.GivenName);
-            string identityType = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.IdentityType);
-            identity.IdentityType = Enum.Parse<IdentityType>(identityType, true);
-            identity.LoginId = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
-            string loginClientType = _httpContextAccessor.HttpContext.User.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
-            identity.LoginClientType = Enum.Parse<LoginClientType>(loginClientType, true);
-            return identity;
+            return _jwtService.ClaimsPrincipalToIdentity(httpContext.User);
         }
     }
 }

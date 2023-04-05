@@ -52,11 +52,11 @@ namespace Gardener.Audit.Core
             IgnoreAuditAttribute ignoreAudit = context.HttpContext.GetMetadata<IgnoreAuditAttribute>();
             if (ignoreAudit != null) { await next(); return; }
 
-            if (context.HttpContext.User.Identity.IsAuthenticated == false) { await next(); return; }
+            if (context.HttpContext.User.Identity == null || context.HttpContext.User.Identity.IsAuthenticated == false) { await next(); return; }
 
 
-            ApiEndpoint api=null;
-            Identity identity = null;
+            ApiEndpoint? api = null;
+            Identity? identity = null;
             if (authorizationManager != null)
             {
                 api = await authorizationManager.GetApiEndpoint();
@@ -67,35 +67,37 @@ namespace Gardener.Audit.Core
             HttpContext httpContext = context.HttpContext;
             StringValues ua = string.Empty;
             httpContext.Request.Headers.TryGetValue("User-Agent", out ua);
-            HttpMethod method = (HttpMethod)Enum.Parse(typeof(HttpMethod),httpContext.Request.Method.ToUpper());
-            string path = httpContext.Request.Path.HasValue? httpContext.Request.Path.Value:null;
+            HttpMethod method = (HttpMethod)Enum.Parse(typeof(HttpMethod), httpContext.Request.Method.ToUpper());
+            string? path = httpContext.Request.Path.HasValue ? httpContext.Request.Path.Value : null;
             string parameters = string.Empty;
 
 
             if (method.Equals(HttpMethod.GET) || method.Equals(HttpMethod.DELETE))
             {
-                if(httpContext.Request.QueryString.HasValue) parameters = httpContext.Request.QueryString.Value;
+                if (httpContext.Request.QueryString.Value != null)
+                {
+                    parameters = httpContext.Request.QueryString.Value;
+                }
             }
             else if (method.Equals(HttpMethod.POST) || method.Equals(HttpMethod.PUT) || method.Equals(HttpMethod.PATCH))
             {
                 parameters = await ReadBodyAsync(httpContext.Request);
-                
             }
-            
+
             AuditOperation auditOperation = new AuditOperation()
             {
                 CreatedTime = DateTimeOffset.Now,
                 Id = Guid.NewGuid(),
                 Ip = httpContext.GetRemoteIpAddressToIPv4(),
-                Path= path,
-                Method= method,
-                Parameters= parameters,
+                Path = path,
+                Method = method,
+                Parameters = parameters,
                 UserAgent = ua.ToString(),
-                OperaterId = identity != null? identity.Id.ToString():null,
-                OperaterName = identity != null ? (identity.NickName ?? identity.Name):null,
+                OperaterId = identity != null ? identity.Id.ToString() : null,
+                OperaterName = identity != null ? (identity.NickName ?? identity.Name) : null,
                 OperaterType = identity != null ? identity.IdentityType : IdentityType.Unknown,
-            ResourceId = api!=null? api.Id:Guid.Empty,
-                ResourceName = api!=null? api.Service+":"+api.Summary:null
+                ResourceId = api != null ? api.Id : Guid.Empty,
+                ResourceName = api != null ? $"{api.Service}:{api.Summary}-{api.Description}" : null
             };
             await auditService.SaveAuditOperation(auditOperation);
             await next();

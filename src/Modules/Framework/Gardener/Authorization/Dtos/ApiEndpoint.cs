@@ -18,12 +18,12 @@ namespace Gardener.Authorization.Dtos
         /// <summary>
         /// 唯一键
         /// </summary>
-        public string Key { get; set; }
+        public string Key { get; set; } = null!;
 
         /// <summary>
         /// API路由地址
         /// </summary>
-        public string Path { get; set; }
+        public string Path { get; set; } = null!;
 
         /// <summary>
         /// 接口请求方法
@@ -43,22 +43,22 @@ namespace Gardener.Authorization.Dtos
         /// <summary>
         /// 分组
         /// </summary>
-        public string Group { get; set; }
+        public string Group { get; set; } = null!;
 
         /// <summary>
         /// 服务
         /// </summary>
-        public string Service { get; set; }
+        public string Service { get; set; } = null!;
 
         /// <summary>
         /// 概要
         /// </summary>
-        public string Summary { get; set; }
+        public string? Summary { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
     }
 }

@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Client.Base.Services;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
 using Mapster;
@@ -18,7 +19,7 @@ namespace Gardener.CodeGeneration.Client.Pages
     public partial class CodeGenerration
     {
         [Inject]
-        MessageService messageService { get; set; }
+        IClientMessageService messageService { get; set; }
         [Inject]
         private ICodeGenerationService codeGenerationService { get; set; }
 

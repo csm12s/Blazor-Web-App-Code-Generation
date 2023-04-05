@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base.Components;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.UserCenter.Dtos;
 using System;
 using System.Threading.Tasks;
@@ -21,7 +21,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private async Task OnShowFunctionClick(ClientDto model)
         {
             await OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-            $"{localizer["BindingApi"]}-[{model.Name}]",
+            $"{Localizer["BindingApi"]}-[{model.Name}]",
             new ClientFunctionEditOption
             {
                 Id = model.Id,

@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Furion;
+﻿using Furion;
 using Furion.InstantMessaging;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
@@ -55,7 +53,12 @@ namespace Gardener.NotificationSystem.Core
             {
                 return;
             }
-            Identity identity = identityService.GetIdentity();
+            //没有身份信息
+            Identity? identity = identityService.GetIdentity();
+            if(identity == null)
+            {
+                return;
+            }
             data.Identity = identity;
             data.Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4();
             await eventBus.Publish(data);
@@ -67,9 +70,15 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
+            //没有身份信息
+            Identity? identity = identityService.GetIdentity();
+            if (identity == null)
+            {
+                return;
+            }
             var notification = new UserOnlineChangeNotificationData()
             {
-                Identity= identityService.GetIdentity(),
+                Identity= identity,
                 Ip= Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
                 OnlineStatus = UserOnlineStatus.Online
             };
@@ -82,9 +91,14 @@ namespace Gardener.NotificationSystem.Core
         /// <returns></returns>
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
+            Identity? identity = identityService.GetIdentity();
+            if (identity == null)
+            {
+                return;
+            }
             var notification = new UserOnlineChangeNotificationData()
             {
-                Identity = identityService.GetIdentity(),
+                Identity = identity,
                 Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
                 OnlineStatus = UserOnlineStatus.Offline
             };

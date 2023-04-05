@@ -16,6 +16,7 @@ using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RazorEngine;
 using RazorEngine.Templating;
 using SqlSugar;
@@ -46,8 +47,9 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
 
     private readonly IWebHostEnvironment env;
 
+    private readonly ILogger<CodeGenService> logger;
     /// <summary>
-    /// 代码生成服务
+    /// 
     /// </summary>
     /// <param name="repository"></param>
     /// <param name="configRepository"></param>
@@ -55,12 +57,14 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
     /// <param name="env"></param>
     /// <param name="sugarRepository"></param>
     /// <param name="resourceService"></param>
+    /// <param name="logger"></param>
     public CodeGenService(IRepository<CodeGen> repository,
         IRepository<CodeGenConfig> configRepository,
         ICodeGenConfigService codeGenConfigService,
         IWebHostEnvironment env,
         SqlSugarRepository<CodeGen> sugarRepository,
-        IResourceService resourceService) : base(repository)
+        IResourceService resourceService,
+        ILogger<CodeGenService> logger) : base(repository)
     {
         this.codeGenRepository = repository;
         this.codeGenConfigRepository = configRepository;
@@ -68,13 +72,14 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         this.env = env;
         this.codeGenSugarRep = sugarRepository;
         this.resourceService = resourceService;
+        this.logger = logger;
     }
     #endregion
     /// <summary>
     /// 获取表列表
     /// </summary>
     /// <returns></returns>
-    public async Task<List<TableOutput>> GetTableListAsync()//string dbContextLocatorName = ""
+    public Task<List<TableOutput>> GetTableListAsync()//string dbContextLocatorName = ""
     {
         // Sugar, 这里可以取到数据库中所有的表
         var dbTableInfos = codeGenSugarRep.Context.DbMaintenance
@@ -99,7 +104,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
             }
         }
 
-        return tableInfos;
+        return Task.FromResult(tableInfos);
 
         // EF:
         //var dbContextLocatorName = ""; // todo, 前端数据库选择
@@ -253,7 +258,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         foreach (var column in columnInfos)
         {
             // Data type
-            column.SysDataType = column.PropertyType?.ToString();
+            column.SysDataType = column.PropertyType?.ToString() ??string.Empty;
             column.DbDataType = column.DataType;
             // 同步表设置，用于初始化IsNullable
             if (codeGenDto.EntityFromTable && codeGenDto.AllowNull)
@@ -311,11 +316,16 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
 
 
     #region Get template items
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="nameModel"></param>
+    /// <returns></returns>
     private List<CodeGenTemplateItem> GetTemplateItems(CodeGenNameModel nameModel)
     {
         var templateItems = new List<CodeGenTemplateItem>();
 
-        if (nameModel.CodeGen.EntityFromTable)
+        if (nameModel.CodeGen!=null && nameModel.CodeGen.EntityFromTable)
         {
             templateItems = GetTemplateItems_NewEntity(nameModel);
         }
@@ -330,6 +340,10 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
     private List<CodeGenTemplateItem> GetTemplateItems_NewEntity(CodeGenNameModel nameModel)
     {
         var codeGenDto = nameModel.CodeGen;
+        if (codeGenDto == null)
+        {
+            return new List<CodeGenTemplateItem>(0);
+        }
         string appName = ProjectConstants.AppName;
         string baseGenPath = ProjectConstants.CodeGenPath;
         var templatePath = Path.Combine(env.WebRootPath, "Template");
@@ -361,6 +375,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         string baseGenPath = ProjectConstants.CodeGenPath;
         var templatePath = Path.Combine(env.WebRootPath, "Template");
         var codeGenDto = nameModel.CodeGen;
+        if(codeGenDto == null) { return new List<CodeGenTemplateItem>(0); }
 
         //\Modules\Sys
         var modulePath = Path.Combine(baseGenPath, nameModel.Module);
@@ -384,6 +399,13 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
                 GenPath = Path.Combine(baseModulePath, appName + "." + codeGenDto.Module + ".csproj")
             });
         }
+
+        // base dto
+        itemList.Add(new CodeGenTemplateItem(nameModel)
+        {
+            TemplatePath = Path.Combine(templatePath, "BaseEntityDto.cs.razor"),
+            GenPath = Path.Combine(baseModulePath, codeGenDto.ModuleUpper + "BaseDto.cs")
+        });
 
         // Dto
         itemList.Add(new CodeGenTemplateItem(nameModel)
@@ -543,11 +565,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         }
 
         // base model
-        //itemList.Add(new CodeGenTemplateItem(nameModel)
-        //{
-        //    TemplatePath = Path.Combine(templatePath, "BaseEntity.cs.razor"),
-        //    GenPath = Path.Combine(serverModulePath, genTable.Module + "BaseModel.cs")
-        //});
+        itemList.Add(new CodeGenTemplateItem(nameModel)
+        {
+            TemplatePath = Path.Combine(templatePath, "BaseEntity.cs.razor"),
+            GenPath = Path.Combine(serverModulePath, codeGenDto.Module + "BaseModel.cs")
+        });
 
         // Model
         itemList.Add(new CodeGenTemplateItem(nameModel)
@@ -726,6 +748,10 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         }
         // Locale file path: Gardener\src\Modules\XXX\Gardener.XXX\DB\DB Locale
         var localeFolder = GetLocaleFileFolder(localeFileModule);
+        if(localeFolder == null)
+        {
+            throw new ArgumentNullException(nameof(localeFolder));
+        }
         //var localePath = Path.Combine(env.WebRootPath, "DB Locale");
 
         //\Modules\XXX
@@ -816,7 +842,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
                     item.ValueCH = item.ValueEN;
                 }
             }
-            tableLocale = readLocaleItems.FirstOrDefault();
+            tableLocale = readLocaleItems.First();
             columnLocales = readLocaleItems.Skip(1).ToList();
 
             #region Set column comment
@@ -876,14 +902,14 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
             // 表建表处理, 修改表名
             if (codeGenDto.EntityFromTable)
             {
-                newLocaleItems.FirstOrDefault().Name = codeGenDto.NewTableName ?? codeGenDto.ClassName;
-                newLocaleItems.FirstOrDefault().Key = codeGenDto.ClassName;
+                newLocaleItems.First().Name = codeGenDto.NewTableName ?? codeGenDto.ClassName;
+                newLocaleItems.First().Key = codeGenDto.ClassName;
             }
 
             // 多语言使用C#Class名、列名作Key
             if (codeGenDto.UseNetColumnAsKey)
             {
-                newLocaleItems.FirstOrDefault().Key = codeGenDto.ClassName;
+                newLocaleItems.First().Key = codeGenDto.ClassName;
             }
 
             foreach (var configDto in codeGenConfigDtos)
@@ -914,7 +940,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
                     newLocaleItems.Add(new CodeGenLocaleItem()
                     {
                         Name = configDto.ColumnName,
-                        Key = configDto.ColumnDescription.ToUpperCamel(),
+                        Key = configDto.ColumnDescription?.ToUpperCamel(),
                         ValueEN = configDto.ColumnDescription,
                         ValueCH = configDto.ColumnDescription,
                     });
@@ -927,14 +953,8 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
 
             // Sys\Gardener.Sys\DB\DB Locale
             var filePath = Path.Combine(baseModulePath, "DB", "DB Locale",
-                newLocaleItems.FirstOrDefault().Name + ExcelHelper.Extension);
-            try
-            {
-                await ExcelHelper.SaveAsReplaceAsync(filePath, newLocaleItems);
-            }
-            catch (Exception ex)
-            {
-            }
+                newLocaleItems.First().Name + ExcelHelper.Extension);
+            await ExcelHelper.SaveAsReplaceAsync(filePath, newLocaleItems);
         }
         #endregion
 
@@ -981,7 +1001,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
                 .FirstOrDefault();
             if (matchLocale != null)
             {
-                configDto.ColumnLocaleKey = matchLocale.Key;
+                configDto.ColumnLocaleKey = matchLocale.Key ?? string.Empty;
 
                 // ModelResource.ColumnName
                 configDto.ColumnLocaleKeyRef = codeGenDto.ClassName
@@ -992,7 +1012,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
             }
             else
             {
-                configDto.ColumnLocaleKey = configDto.ColumnDescription;
+                configDto.ColumnLocaleKey = configDto.ColumnDescription ?? string.Empty;
                 configDto.ColumnLocaleKeyRef = "\"" + configDto.ColumnLocaleKey + "\"";
             }
         }
@@ -1095,15 +1115,20 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
     /// </summary>
     /// <param name="moduleName">XXX</param>
     /// <returns></returns>
-    private string GetLocaleFileFolder(string moduleName)
+    private string? GetLocaleFileFolder(string moduleName)
     {
-        return Path.Combine(
-            FileHelper.GetParentDirectory(App.HostEnvironment.ContentRootPath),
-            "Modules",
-            moduleName,
-            ProjectConstants.AppName + "." + moduleName,
-            "DB",
-            "DB Locale");
+        var dir = FileHelper.GetParentDirectory(App.HostEnvironment.ContentRootPath);
+        if (dir != null)
+        {
+            return Path.Combine(dir,
+                "Modules",
+                moduleName,
+                ProjectConstants.AppName + "." + moduleName,
+                "DB",
+                "DB Locale");
+        }
+        return null;
+       
     }
 
     /// <summary>
@@ -1121,7 +1146,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
     // 或者这里手动设置一下MenuNameEN：如果为空 -> _Module._ClassName
     private List<ResourceDto> GetMenus(CodeGenNameModel nameModel)
     {
-        CodeGenDto codeGenDto = nameModel.CodeGen;
+        CodeGenDto? codeGenDto = nameModel.CodeGen;
+        if(codeGenDto == null)
+        {
+            return new List<ResourceDto>(0);
+        }
 
         #region Menu
         var iconName = "Icon Name";
@@ -1135,8 +1164,8 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         {
             Id = Guid.NewGuid(),
             ParentId = codeGenDto.MenuParentId,
-            Name = codeGenDto.MenuNameEN,
-            Key = codeGenDto.MenuKey,
+            Name = codeGenDto.MenuNameEN ?? string.Empty,
+            Key = codeGenDto.MenuKey ?? string.Empty,
             Path = string.Format("/{0}/{1}", ToUrlPath(codeGenDto.Module), codeGenDto.ClassName),
             Icon = iconName,
             Order = 0,
@@ -1170,7 +1199,11 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
 
             foreach (var item in fieldInfos)
             {
-                menus.Add(NewAction(item.GetValue(null).ToString(), menus.First(), codeGenDto));
+                var value=item.GetValue(null)?.ToString();
+                if(value!= null)
+                {
+                    menus.Add(NewAction(value, menus.First(), codeGenDto));
+                }
             }
         }
         #endregion
@@ -1233,6 +1266,10 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
 
             // razor engine . net core
             var result = GetCodeResult(genItem);
+            if (result == null || genItem.GenPath == null) 
+            {
+                continue;
+            }
             //System.IO.File.WriteAllText(genItem.GenPath, result, System.Text.Encoding.UTF8);
             FileHelper.CreateFileReplace(genItem.GenPath, result);
 
@@ -1245,19 +1282,25 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
 
     [NonAction]
     private string GetCodeResult(CodeGenTemplateItem genItem)
-    { // Name should be identical, use GetTick()
+    {
+        if (genItem.TemplatePath == null)
+        {
+            return string.Empty;
+        }
+        // Name should be identical, use GetTick()
         var template = File.ReadAllText(genItem.TemplatePath);
         var model = genItem.Model;
 
         try
         {
             return Engine.Razor.RunCompile(template,
-                IdUtil.GetGuid32() + model.ClassName,
+                IdHelper.GetGuid32() + model.ClassName,
                 model.GetType(),
                 model);
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Code Gen Template Compile Error");
             // Template error
             var tempPath = genItem.TemplatePath;
             throw Oops.Oh(ExceptionCode.Code_Gen_Template_Compile_Error);
@@ -1378,10 +1421,14 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         {
             throw Oops.Oh("不存在多语言Excel文件");
         }
-
+        var dir= FileHelper.GetParentDirectory(App.HostEnvironment.ContentRootPath);
+        if(string.IsNullOrEmpty(dir))
+        {
+            return false;
+        }
         var localeItems = nameModel.LocaleItems;
-        var localeXmlPath = Path.Combine
-            (FileHelper.GetParentDirectory(App.HostEnvironment.ContentRootPath),
+        var localeXmlPath = Path.Combine(
+            dir,
             "Client",
             "Gardener.Client.Entry", // WPF...
             "Resources");

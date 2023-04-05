@@ -25,7 +25,7 @@
                    @bind-Value="@_apiJsonUrl" />
         </AntDesign.Col>
         <AntDesign.Col Span="2">
-            <Button Style="width:100%" Type="@ButtonType.Primary" Size="@ButtonSize.Large" Loading="_loading" OnClick="OnLoad">@localizer[SharedLocalResource.Load]</Button>
+            <Button Style="width:100%" Type="@ButtonType.Primary" Size="@ButtonSize.Large" Loading="_loading" OnClick="OnLoad">@Localizer[SharedLocalResource.Load]</Button>
         </AntDesign.Col>
 
     </Row>
@@ -49,7 +49,7 @@
                 <Column @bind-Field="@model.Description" Width="200" Sortable="false" Filterable />
                 <Column @bind-Field="@model.Path" Width="150" Sortable="false" Filterable />
                 <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
-                    <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Method)"></TagRandomColor>
+                    <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
                 </Column>
                 <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false">
                     <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>
@@ -68,13 +68,13 @@
     <AntDesign.Col Span="8" Offset="8">
         <Space>
             <SpaceItem>
-                <Tooltip Placement="@Placement.Top" Title="@(localizer[SharedLocalResource.Import])">
+                <Tooltip Placement="@Placement.Top" Title="@(Localizer[SharedLocalResource.Import])">
                     <Button Type="@ButtonType.Primary" OnClick="OnImportClick" Loading="_importLoading">
-                        @localizer[SharedLocalResource.Import]
+                        @Localizer[SharedLocalResource.Import]
                     </Button>
                 </Tooltip>
                 <Button Type="@ButtonType.Default" OnClick="OnCancleClick">
-                    @localizer[SharedLocalResource.Close]
+                    @Localizer[SharedLocalResource.Close]
                 </Button>
             </SpaceItem>
         </Space>

@@ -7,7 +7,7 @@
            OnChange="@onChange"
            TreeChildren="item=>item.Children"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            HidePagination="true"
            IndentSize="25"
            Context="model"
@@ -18,7 +18,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="user_center_dept_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes">
-                            @localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -27,14 +27,14 @@
                         <ResourceAuthorize ResourceKey="user_center_dept_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @localizer[SharedLocalResource.Add]
+                                    @Localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="user_center_dept_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="OnReLoadTable">
-                                    @localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -43,14 +43,14 @@
             </Row>
 
         </TitleTemplate>
-        <RowTemplate>
+                    <ColumnDefinitions>
             <Selection CheckStrictly Width="5%" />
             <Column @bind-Field="@model.Name" Width="25%" />
             <Column @bind-Field="@model.Contacts" Width="10%" />
             <Column @bind-Field="@model.Tel" Width="10%" />
             <Column @bind-Field="@model.Order" Width="10%" />
             <Column @bind-Field="@model.Remark" Width="10%" />
-            <Column @bind-Field="@model.IsLocked" Width="10%" Title="@localizer[SharedLocalResource.IsLocked]">
+            <Column @bind-Field="@model.IsLocked" Width="10%" Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="user_center_dept_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -60,26 +60,26 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Width="10%" Title="@localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Width="10%" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn Width="10%">
                 <Space>
                     <ResourceAuthorize ResourceKey="user_center_dept_add_children">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["AddChildren"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer["AddChildren"])" ArrowPointAtCenter="true">
                                 <Button Icon="subnode" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickAddChildren(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="user_center_dept_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="user_center_dept_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
@@ -93,13 +93,13 @@
                     </ResourceAuthorize>*@
                     <ResourceAuthorize ResourceKey="user_center_dept_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer["DeleteAndIncludChildren"])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer["DeleteAndIncludChildren"])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

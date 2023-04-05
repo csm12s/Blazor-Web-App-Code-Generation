@@ -17,24 +17,24 @@ namespace Gardener.SysTimer.Dtos
         /// <summary>
         /// 方法名
         /// </summary>
-        public string MethodName { get; set; }
+        public string MethodName { get; set; } = null!;
 
         /// <summary>
         /// 方法所属类的Type对象
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnore]
-        public Type DeclaringType { get; set; }
+        public Type DeclaringType { get; set; } = null!;
 
 
         /// <summary>
         /// 方法所属类的Type名称
         /// </summary>
-        public string TypeName { get; set; }
+        public string TypeName { get; set; } = null!;
 
         /// <summary>
         /// 任务名称
         /// </summary>
-        public string JobName { get; set; }
+        public string JobName { get; set; } = null!;
 
         /// <summary>
         /// 只执行一次
@@ -59,7 +59,7 @@ namespace Gardener.SysTimer.Dtos
         /// <summary>
         /// Cron表达式
         /// </summary>
-        public string Cron { get; set; }
+        public string? Cron { get; set; }
 
         /// <summary>
         /// 定时器类型
@@ -69,7 +69,7 @@ namespace Gardener.SysTimer.Dtos
         /// <summary>
         /// 本地方法
         /// </summary>
-        public string LocalMethod { get; set; }
+        public string LocalMethod { get; set; } = null!;
 
         /// <summary>
         /// 执行类型
@@ -80,6 +80,6 @@ namespace Gardener.SysTimer.Dtos
         /// <summary>
         /// 备注
         /// </summary>
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
     }
 }

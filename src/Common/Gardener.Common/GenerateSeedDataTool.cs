@@ -26,7 +26,7 @@ namespace Gardener.Common
         /// <remarks>
         /// 根据搜索条叫生成种子数据
         /// </remarks>
-        public static string Generate<TEntity>(IEnumerable<TEntity> datas,string entityName=null)
+        public static string Generate<TEntity>(IEnumerable<TEntity> datas,string? entityName=null)
         {
             if (datas==null || !datas.Any())
             {
@@ -51,6 +51,7 @@ namespace Gardener.Common
 
             foreach (var item in datas)
             {
+                if (item == null) { continue; }
                 Type type = item.GetType();
                 PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
                 sb.Append($"                new {entityName}()");
@@ -59,7 +60,7 @@ namespace Gardener.Common
                 {
                     string propertyName = property.Name;
                     var propertyType = property.PropertyType.GetUnNullableType();
-                    Object value = item.GetPropertyValue(propertyName);
+                    Object? value = item.GetPropertyValue(propertyName);
                     if (value == null)
                     {
                         continue;
@@ -83,7 +84,7 @@ namespace Gardener.Common
                        || propertyType.Equals(typeof(bool))
                        )
                     {
-                        sb.Append($"{propertyName}={value.ToString().ToLower()}");
+                        sb.Append($"{propertyName}={(value.ToString() ?? "").ToLower()}");
                     }
                     else if (propertyType.Equals(typeof(DateTimeOffset)) || propertyType.Equals(typeof(DateTime)))
                     {

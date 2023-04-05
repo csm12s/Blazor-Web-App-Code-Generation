@@ -70,14 +70,14 @@ namespace Gardener.Client.Base
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut>(string methodName, Action<TResut> resutHandler);
+        ISignalRClient On<TResut>(string methodName, Action<TResut?> resutHandler);
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
         /// <typeparam name="TResut"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut>(string methodName, Func<TResut, Task> resutHandler);
+        ISignalRClient On<TResut>(string methodName, Func<TResut?, Task> resutHandler);
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
@@ -87,7 +87,7 @@ namespace Gardener.Client.Base
         /// <typeparam name="TResut4"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1, TResut2, TResut3, TResut4> resutHandler);
+        ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Action<TResut1?, TResut2?, TResut3?, TResut4?> resutHandler);
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
@@ -97,7 +97,7 @@ namespace Gardener.Client.Base
         /// <typeparam name="TResut4"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1, TResut2, TResut3, TResut4, Task> resutHandler);
+        ISignalRClient On<TResut1, TResut2, TResut3, TResut4>(string methodName, Func<TResut1?, TResut2?, TResut3?, TResut4?, Task> resutHandler);
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
@@ -106,7 +106,7 @@ namespace Gardener.Client.Base
         /// <typeparam name="TResut3"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1, TResut2, TResut3> resutHandler);
+        ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Action<TResut1?, TResut2?, TResut3?> resutHandler);
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
@@ -115,7 +115,7 @@ namespace Gardener.Client.Base
         /// <typeparam name="TResut3"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1, TResut2, TResut3, Task> resutHandler);
+        ISignalRClient On<TResut1, TResut2, TResut3>(string methodName, Func<TResut1?, TResut2?, TResut3?, Task> resutHandler);
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
@@ -123,7 +123,7 @@ namespace Gardener.Client.Base
         /// <typeparam name="TResut2"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut1, TResut2>(string methodName, Action<TResut1, TResut2> resutHandler);
+        ISignalRClient On<TResut1, TResut2>(string methodName, Action<TResut1?, TResut2?> resutHandler);
         /// <summary>
         /// 当收到消息时处理
         /// </summary>
@@ -131,7 +131,7 @@ namespace Gardener.Client.Base
         /// <typeparam name="TResut2"></typeparam>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        ISignalRClient On<TResut1, TResut2>(string methodName, Func<TResut1, TResut2, Task> resutHandler);
+        ISignalRClient On<TResut1, TResut2>(string methodName, Func<TResut1?, TResut2?, Task> resutHandler);
         /// <summary>
         /// 发送消息到服务端
         /// </summary>

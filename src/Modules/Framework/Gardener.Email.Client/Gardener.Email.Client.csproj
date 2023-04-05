@@ -2,15 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;0618;4014</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;0618;4014</NoWarn>
-  </PropertyGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -18,7 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Client\Gardener.Client.Base\Gardener.Client.Base.csproj" />
+    <ProjectReference Include="..\..\..\Client\AntDesignClient\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
   </ItemGroup>
 
 

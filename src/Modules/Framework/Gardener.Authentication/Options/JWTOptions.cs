@@ -18,6 +18,6 @@ namespace Gardener.Authentication.Options
         /// <summary>
         /// 设置字典
         /// </summary>
-        public Dictionary<IdentityType, JWTSettingsOptions> Settings { get; set; }
+        public Dictionary<IdentityType, JWTSettingsOptions> Settings { get; set; }=new Dictionary<IdentityType, JWTSettingsOptions>();
     }
 }

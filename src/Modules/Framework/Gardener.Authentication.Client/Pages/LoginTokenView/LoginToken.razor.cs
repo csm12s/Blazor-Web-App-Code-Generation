@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Dtos;
-using Gardener.Client.Base.Components;
+using Gardener.Client.AntDesignUi.Base.Components;
 using System;
 
 namespace Gardener.Authentication.Client.Pages.LoginTokenView

@@ -17,14 +17,14 @@ namespace Gardener.Common
         /// <param name="datas"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static List<KeyValuePair<string, object>> ConvertToQueryParameters<T>(this T[] datas, string name)
+        public static List<KeyValuePair<string, object?>> ConvertToQueryParameters<T>(this T[] datas, string name)
         {
-            List<KeyValuePair<string, object>> paramas = new List<KeyValuePair<string, object>>();
+            List<KeyValuePair<string, object?>> paramas = new List<KeyValuePair<string, object?>>();
             if (datas != null)
             {
                 foreach (T id in datas)
                 {
-                    paramas.Add(new KeyValuePair<string, object>(name, id));
+                    paramas.Add(new KeyValuePair<string, object?>(name, id));
                 }
             }
             return paramas;

@@ -6,7 +6,7 @@
 
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
-using Gardener.Client.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using System;
 using System.ComponentModel.DataAnnotations;
 

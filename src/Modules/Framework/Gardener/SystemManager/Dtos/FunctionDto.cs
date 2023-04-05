@@ -23,42 +23,42 @@ namespace Gardener.SystemManager.Dtos
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("分组")]
-        public string Group { get; set; }
+        public string Group { get; set; } = null!;
 
         /// <summary>
         /// 服务
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("服务")]
-        public string Service { get; set; }
+        public string Service { get; set; } = null!;
 
         /// <summary>
         /// 概要
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("概要")]
-        public string Summary { get; set; }
+        public string Summary { get; set; } = null!;
 
         /// <summary>
         /// 唯一键
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("唯一键")]
-        public string Key { get; set; }
+        public string Key { get; set; } = null!;
 
         /// <summary>
         /// 描述
         /// </summary>
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("描述")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// API路由地址
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("地址")]
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
         /// <summary>
         /// 接口请求方法

@@ -26,7 +26,7 @@ namespace Gardener.Base.Entity
         /// 权限
         /// </summary>
         [DisplayName("资源")]
-        public Resource Resource { get; set; }
+        public Resource Resource { get; set; } = default!;
 
         /// <summary>
         /// 功能Id
@@ -39,7 +39,7 @@ namespace Gardener.Base.Entity
         /// 功能
         /// </summary>
         [DisplayName("功能")]
-        public Function Function { get; set; }
+        public Function Function { get; set; } = default!;
 
         /// <summary>
         /// 创建时间

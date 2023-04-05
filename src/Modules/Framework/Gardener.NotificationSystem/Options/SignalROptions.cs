@@ -16,6 +16,6 @@ namespace Gardener.NotificationSystem.Options
         /// <summary>
         /// 系统通知配置
         /// </summary>
-        public SystemNotificationHubOptions SystemNotificationHub { get; set; }
+        public SystemNotificationHubOptions? SystemNotificationHub { get; set; }
     }
 }

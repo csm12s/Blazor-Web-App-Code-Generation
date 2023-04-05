@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="BootstrapBlazor" Version="7.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Gardener.Client.Base\Gardener.Client.Base.csproj" />
+	</ItemGroup>
+
+
+
+</Project>

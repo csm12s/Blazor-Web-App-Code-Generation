@@ -4,30 +4,30 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gardener.Common;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
-using Gardener.Client.Base.Components;
 using Gardener.Base;
-using Microsoft.AspNetCore.Components.Web;
-using Gardener.Client.Base;
 using Gardener.Base.Resources;
 using Gardener.UserCenter.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Gardener.Client.AntDesignUi.Base;
+using AntDesign;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class User : ListOperateTableBase<UserDto, int, UserEdit, UserCenterResource>
     {
-        private Tree<DeptDto> _deptTree;
-        private List<DeptDto> depts;
+        private Tree<DeptDto>? _deptTree;
+        private List<DeptDto>? depts;
         private bool _deptTreeIsLoading = false;
+        private int _currentDeptId = 0;
         [Inject]
-        IDeptService deptService { get; set; }
-        int _currentDeptId = 0;
+        private IDeptService deptService { get; set; } = null!;
 
         /// <summary>
         /// 
@@ -42,26 +42,36 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override Task OnInitializedAsync()
+        {
+            return base.OnInitializedAsync();
+        }
+        /// <summary>
+        /// 组件首次渲染后
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnFirstAfterRenderAsync()
         {
             await ReLoadDepts(null);
-            await base.OnInitializedAsync();
+
+            await base.OnFirstAfterRenderAsync();
         }
         /// <summary>
         /// 重载部门信息
         /// </summary>
         /// <returns></returns>
-        private async Task ReLoadDepts(MouseEventArgs eventArgs)
+        private async Task ReLoadDepts(MouseEventArgs? eventArgs)
         {
             _deptTreeIsLoading = true;
             depts = await deptService.GetTree();
             _deptTreeIsLoading = false;
         }
+       
         /// <summary>
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
-        private async Task SelectedKeyChanged(string key)
+        private Task SelectedKeyChanged(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -72,7 +82,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 int newId = int.Parse(key);
                 _currentDeptId = newId;
             }
-            await ReLoadTable();
+            return ReLoadTable();
         }
         /// <summary>
         /// 配置
@@ -81,13 +91,16 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override void ConfigurationPageRequest(PageRequest pageRequest)
         {
-            if (_currentDeptId > 0)
+            if (_currentDeptId > 0 && depts!=null)
             {
                 var node = TreeHelper.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
-                List<int> ids = TreeHelper.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
-                if (ids != null)
+                if(null!= node) 
                 {
-                    pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
+                    List<int> ids = TreeHelper.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
+                    if (ids != null)
+                    {
+                        pageRequest.FilterGroups.Add(new FilterGroup().AddRule(new FilterRule(nameof(UserDto.DeptId), ids, FilterOperate.In)));
+                    }
                 }
             }
         }
@@ -96,9 +109,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 点击分配角色
         /// </summary>
         /// <param name="userId"></param>
-        private async Task OnEditUserRoleClick(int userId)
+        private Task OnEditUserRoleClick(int userId)
         {
-            await OpenOperationDialogAsync<UserRoleEdit, int, bool>(localizer["SettingRoles"], userId, async r =>
+            return OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, async r =>
             {
                 await ReLoadTable();
             }, width: 500);
@@ -108,17 +121,13 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        private async Task OnAvatarClick(UserDto user)
+        private Task OnAvatarClick(UserDto user)
         {
             OperationDialogSettings settings = base.GetOperationDialogSettings();
             settings.Width = 300;
             settings.DrawerPlacement = Placement.Left;
-            await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(localizer[SharedLocalResource.UplaodAvatar],
-                new UserUploadAvatarParams
-                {
-                    User = user,
-                    SaveDb = true
-                },
+            return OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(Localizer[SharedLocalResource.UplaodAvatar],
+                new UserUploadAvatarParams(user,true),
                 async r =>
                 {
                     await ReLoadTable();

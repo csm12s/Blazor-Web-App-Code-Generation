@@ -53,11 +53,15 @@ namespace Gardener.NotificationSystem.Client.Core
         /// </summary>
         /// <param name="methodName"></param>
         /// <param name="resutHandler"></param>
-        private Task CallBack(string json)
+        private Task CallBack(string? json)
         {
             try
             {
-                NotificationData notificationData = JsonSerializer.Deserialize<NotificationData>(json, jsonSerializerOptions);
+                if(string.IsNullOrEmpty(json))
+                { 
+                    return Task.CompletedTask; 
+                }
+                NotificationData? notificationData = JsonSerializer.Deserialize<NotificationData>(json, jsonSerializerOptions);
                 //注册接收调用方法
                 if (notificationData == null)
                 {

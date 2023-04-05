@@ -6,8 +6,8 @@
 
 using Gardener.Base;
 using Gardener.Base.Resources;
-using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
+using Gardener.Client.AntDesignUi.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Common;
 using Gardener.Enums;
 using Gardener.SystemManager.Dtos;
@@ -26,12 +26,8 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             return settings;
         }
 
-        // 改为引用继承中的声明，如果发生bug，取消此处注释
-        //[Inject]
-        //DrawerService drawerService { get; set; }
-
         [Inject]
-        IResourceService resourceService { get; set; }
+        private IResourceService ResourceService { get; set; } = null!;
 
         /// <summary>
         /// 点击展示关联接口
@@ -41,8 +37,8 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         private async Task OnShowFunctionClick(ResourceDto model)
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
-                      $"{localizer["BindingApi"]}-[{model.Name}]",
-                      new ResourceFunctionEditOption { Resource = model, Type = 0, Name = model.Name },
+                      $"{Localizer["BindingApi"]}-[{model.Name}]",
+                      new ResourceFunctionEditOption(model, model.Name, 0),
                       width: 1200);
         }
 
@@ -60,7 +56,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             };
             resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
-            string data = await _service.GenerateSeedData(new PageRequest()
+            Task<string> data =  BaseService.GenerateSeedData(new PageRequest()
             {
                 PageIndex = 1,
                 PageSize = int.MaxValue,
@@ -84,20 +80,20 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 }
             });
 
-            await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
-                        localizer[SharedLocalResource.SeedData],
+            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
+                        Localizer[SharedLocalResource.SeedData],
                         data,
                         width: 1300);
         }
 
         protected override async Task<List<ResourceDto>> GetTree()
         {
-            return await resourceService.GetTree();
+            return await ResourceService.GetTree();
 
         }
 
 
-        protected override ICollection<ResourceDto> GetChildren(ResourceDto dto)
+        protected override ICollection<ResourceDto>? GetChildren(ResourceDto dto)
         {
             return dto.Children;
         }

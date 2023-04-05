@@ -21,42 +21,42 @@ namespace Gardener.Base.Entity
         /// </summary>
         [MaxLength(200)]
         [DisplayName("分组")]
-        public string Group { get; set; }
+        public string Group { get; set; } = null!;
 
         /// <summary>
         /// 服务
         /// </summary>
         [MaxLength(200)]
         [DisplayName("服务")]
-        public string Service { get; set; }
+        public string Service { get; set; } = null!;
 
         /// <summary>
         /// 概要
         /// </summary>
         [MaxLength(100)]
         [DisplayName("概要")]
-        public string Summary { get; set; }
+        public string Summary { get; set; } = null!;
 
         /// <summary>
         /// 唯一键
         /// </summary>
         [Required, MaxLength(100)]
         [DisplayName("唯一键")]
-        public string Key { get; set; }
+        public string Key { get; set; } = null!;
 
         /// <summary>
         /// 描述
         /// </summary>
         [MaxLength(500)]
         [DisplayName("描述")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// API路由地址
         /// </summary>
         [Required, MaxLength(200)]
         [DisplayName("地址")]
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
         /// <summary>
         /// 接口请求方法
@@ -73,7 +73,7 @@ namespace Gardener.Base.Entity
         /// <summary>
         /// 多对多中间表
         ///</summary>
-        public List<ResourceFunction> ResourceFunctions { get; set; }
+        public List<ResourceFunction> ResourceFunctions { get; set; }=new List<ResourceFunction>();
 
     }
 }

@@ -6,8 +6,9 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
+using Gardener.Client.Base.Services;
 using Gardener.Common;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
@@ -21,17 +22,35 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
     public class ResourceFunctionEditOption
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        public ResourceFunctionEditOption(ResourceDto resource, string name, int type)
+        {
+            Resource = resource;
+            Name = name;
+            Type = type;
+        }
+
+        /// <summary>
         /// 选中的资源
         /// </summary>
         public ResourceDto Resource { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
+        /// 类型
+        /// </summary>
+        /// <remarks>
         /// 0 展示
         /// 1 添加
-        /// </summary>
+        /// </remarks>
         public int Type { get; set; }
     }
 
@@ -41,17 +60,17 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
     public partial class ResourceFunctionEdit : OperationDialogBase<ResourceFunctionEditOption, bool>
     {
         [Inject]
-        IFunctionService functionService { get; set; }
+        IFunctionService functionService { get; set; } = null!;
         [Inject]
-        IResourceFunctionService resourceFunctionService { get; set; }
+        IResourceFunctionService resourceFunctionService { get; set; } = null!;
         [Inject]
-        IResourceService resourceService { get; set; }
+        IResourceService resourceService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
+        IClientMessageService messageService { get; set; } = null!;
         [Inject]
-        ConfirmService confirmService { get; set; }
+        ConfirmService confirmService { get; set; } = null!;
         [Inject]
-        IClientLocalizer localizer { get; set; }
+        IClientLocalizer localizer { get; set; } = null!;
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
         //List<TableFilter<string>> groupFilters = null;
@@ -94,7 +113,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             //    groupFilters.Add(new TableFilter<string>() { Text=x,Value=x });
 
             //});
-            //_functionDtos.Select(x => x.Service).Distinct().ForEach(x =>
+            //_functionDtos.Select(x => x.BaseService).Distinct().ForEach(x =>
             //{
             //    serviceFilters.Add(new TableFilter<string>() { Text = x, Value = x });
 
@@ -147,7 +166,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             await OpenOperationDialogAsync<ResourceFunctionEdit, ResourceFunctionEditOption, bool>(
                 $"{localizer["BindingApi"]}-[{this.Options.Name}]",
-                     new ResourceFunctionEditOption { Resource = resource, Type = 1 },
+                     new ResourceFunctionEditOption(resource, this.Options.Name, 1),
                      width: 1300,
             onClose: async result =>
             {
@@ -194,7 +213,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             {
                 messageService.Error(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Fail));
             }
-            _bindLoading=false;
+            _bindLoading = false;
         }
 
 
@@ -212,9 +231,9 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             resourceIds.AddRange(TreeHelper.GetAllChildrenNodes(dto, dto => dto.Id, dto => dto.Children));
 
 
-            string data = await resourceFunctionService.GetSeedData(resourceIds);
+            Task<string> data = resourceFunctionService.GetSeedData(resourceIds);
 
-            await OpenOperationDialogAsync<ShowSeedDataCode, string, bool>(
+            await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
                        localizer[SharedLocalResource.SeedData],
                        data,
                        width: 1300);

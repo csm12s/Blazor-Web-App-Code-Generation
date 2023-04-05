@@ -24,12 +24,13 @@ namespace Gardener.Client.Core.EventBus.Subscribes
             this.authenticationStateManager = authenticationStateManager;
         }
 
-        public override async Task CallBack(UnauthorizedApiCallEvent e)
+        public override Task CallBack(UnauthorizedApiCallEvent e)
         {
-            if (e.HttpStatusCode.Equals(HttpStatusCode.Unauthorized)) 
-            {
-                await authenticationStateManager.RefreshToken();
-            }
+            //if (e.HttpStatusCode.Equals(HttpStatusCode.Unauthorized)) 
+            //{
+            //    await authenticationStateManager.RefreshToken();
+            //}
+            return Task.CompletedTask;
         }
     }
 }

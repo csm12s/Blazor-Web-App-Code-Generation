@@ -37,7 +37,7 @@ namespace Gardener.Common
             if (string.IsNullOrEmpty(code)) return new byte[0];
 
             Random random = new Random();
-            byte[] imageBuffer = null;
+            byte[]? imageBuffer = null;
             int space = fontSize / 3;
 
             int width = code.Length * (fontSize + space);

@@ -7,10 +7,12 @@
 using AntDesign;
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Threading.Tasks;
 
@@ -18,22 +20,22 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
 {
     public partial class Login
     {
-        bool loading = false;
-        bool autoLogin = true;
+        private bool loading = false;
+        private bool autoLogin = true;
         private LoginInput loginInput = new LoginInput();
-        private Gardener.Client.Base.Components.ImageVerifyCode _imageVerifyCode;
-        private string returnUrl;
+        private Gardener.Client.AntDesignUi.Base.Components.ImageVerifyCode? _imageVerifyCode;
+        private string? returnUrl;
 
         [Inject]
-        public MessageService MsgSvr { get; set; }
+        private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        public IAccountService accountService { get; set; }
+        private IAccountService AccountService { get; set; } = null!;
         [Inject]
-        public NavigationManager Navigation { get; set; }
+        private NavigationManager Navigation { get; set; } = null!;
         [Inject]
-        public IAuthenticationStateManager authenticationStateManager { get; set; }
+        private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         [Inject]
-        public IClientLocalizer<UserCenterResource> localizer { get; set; }
+        private IClientLocalizer<UserCenterResource> Localizer { get; set; } = null!;
 
         /// <summary>
         /// 
@@ -44,7 +46,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             var url = new Uri(Navigation.Uri);
             var query = url.Query;
 
-            if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
+            if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out StringValues value))
             {
                 if (!value.Equals(Navigation.Uri))
                 {
@@ -52,7 +54,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
                 }
             }
             //已登录
-            var user =  await authenticationStateManager.GetCurrentUser();
+            var user =  await AuthenticationStateManager.GetCurrentUser();
             if (user != null)
             {
                 Navigation.NavigateTo(returnUrl ?? "/");
@@ -66,18 +68,22 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         private async Task OnLogin()
         {
             loading = true;
-            var loginOutResult= await accountService.Login(loginInput);
-            if (loginOutResult!=null)
+            var loginResult= await AccountService.Login(loginInput);
+            if (loginResult!=null)
             {
-                await MsgSvr.Success(localizer.Combination(UserCenterResource.Login,UserCenterResource.Success),0.8);
-                await authenticationStateManager.Login(loginOutResult, autoLogin);
+                await MessageService.SuccessAsync(Localizer.Combination(UserCenterResource.Login,UserCenterResource.Success),0.8);
+                await AuthenticationStateManager.Login(loginResult, autoLogin);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
-            else {
-                await _imageVerifyCode.ReLoadVerifyCode();
+            else 
+            {
                 loading = false;
-                MsgSvr.Error(localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
+                MessageService.Error(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
+                if (_imageVerifyCode != null)
+                {
+                    await _imageVerifyCode.ReLoadVerifyCode();
+                }
                 //await InvokeAsync(StateHasChanged);
             }
             

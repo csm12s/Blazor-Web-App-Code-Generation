@@ -82,7 +82,7 @@ namespace Gardener.EntityFramwork
         {
             DateTimeOffset defaultValue = input.GetPropertyValue<TEntityDto, DateTimeOffset>(nameof(GardenerEntityBase.CreatedTime));
 
-            if (defaultValue.Equals(default(DateTimeOffset)))
+            if (defaultValue.Equals(default))
             {
                 input.SetPropertyValue(nameof(GardenerEntityBase.CreatedTime), DateTimeOffset.Now);
             }
@@ -225,7 +225,7 @@ namespace Gardener.EntityFramwork
         public virtual async Task<List<TEntityDto>> GetAllUsable()
         {
 
-            System.Text.StringBuilder where = new StringBuilder();
+            System.Text.StringBuilder where = new();
             where.Append(" 1==1 ");
             //判断是否有IsDelete、IsLock
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
@@ -295,7 +295,7 @@ namespace Gardener.EntityFramwork
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
-                FilterGroup defaultFilterGroup = new FilterGroup();
+                FilterGroup defaultFilterGroup = new();
                 defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }
@@ -321,16 +321,14 @@ namespace Gardener.EntityFramwork
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
-                FilterGroup defaultFilterGroup = new FilterGroup();
+                FilterGroup defaultFilterGroup = new();
                 defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }
             Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
 
             IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
-            var result = await queryable
-                .OrderConditions(request.OrderConditions.ToArray())
-                .ToPageAsync(request.PageIndex, request.PageSize);
+            Base.PagedList<TEntity> result = await queryable.OrderConditions(request.OrderConditions.ToArray()).ToPageAsync(request.PageIndex, request.PageSize);
             return SeedDataGenerateTool.Generate(result.Items, typeof(TEntity).Name);
         }
 
@@ -349,7 +347,7 @@ namespace Gardener.EntityFramwork
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
-                FilterGroup defaultFilterGroup = new FilterGroup();
+                FilterGroup defaultFilterGroup = new();
                 defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }

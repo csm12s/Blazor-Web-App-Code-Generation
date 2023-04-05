@@ -6,6 +6,7 @@
 
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Common;
 using Gardener.Enums;
 using Gardener.EventBus;
 using Microsoft.AspNetCore.WebUtilities;
@@ -48,8 +49,9 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="func"></param>
+        /// <param name="retry">重试次数</param>
         /// <returns></returns>
-        async Task<TResponse> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func)
+        async Task<TResponse> ResponseHandle<TResponse>(Func<Task<HttpResponseMessage>> func,int retry=0)
         {
             try
             {
@@ -57,63 +59,83 @@ namespace Gardener.Client.Core
                 if (HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<TResponse>>();
-                    if (!result.Succeeded)
+                    if (result==null || !result.Succeeded)
                     {
-                        log.Error(result.Errors?.ToString(), result.StatusCode);
-                        //时间戳过期
-                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+                        log.Error(result?.Errors?.ToString()??string.Empty, result?.StatusCode);
+                              //时间戳过期
+                        if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
-
+                        //TODO:待client全局异常捕获完成时，在这里抛出异常即可
+#pragma warning disable CS8603 // 可能返回 null 引用。
                         return default(TResponse);
+#pragma warning restore CS8603 // 可能返回 null 引用。
                     }
+                    //TODO:待client全局异常捕获完成时，在这里抛出异常即可
+#pragma warning disable CS8603 // 可能返回 null 引用。
                     return result.Data;
+#pragma warning restore CS8603 // 可能返回 null 引用。
                 }
-                //请求失败 
-                log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
                 //身份验证失败
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                 {
                     await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
                 }
-
+                if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry==0)
+                {
+                  return await ResponseHandle<TResponse>(func, ++retry);
+                }
+                //请求失败 
+                log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
+                //TODO:待client全局异常捕获完成时，在这里抛出异常即可
+#pragma warning disable CS8603 // 可能返回 null 引用。
                 return default(TResponse);
+#pragma warning restore CS8603 // 可能返回 null 引用。
             }
             catch (Exception ex)
             {
                 log.Error($"{localizer[SharedLocalResource.ResuqesException]}[{ex.Message}]", -999, ex);
+                //todo:待client全局异常捕获完成时，在这里抛出异常即可
+#pragma warning disable CS8603 // 可能返回 null 引用。
                 return default(TResponse);
+#pragma warning restore CS8603 // 可能返回 null 引用。
             }
         }
         /// <summary>
         /// 调用包装
         /// </summary>
         /// <param name="func"></param>
+        /// <param name="retry"></param>
         /// <returns></returns>
-        async Task ResponseHandle(Func<Task<HttpResponseMessage>> func)
+        async Task ResponseHandle(Func<Task<HttpResponseMessage>> func,int retry=0)
         {
             try
             {
                 HttpResponseMessage httpResponse = await func.Invoke();
                 if (!HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
-                    //请求失败
-                    log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
                     //身份验证失败
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                     {
                         await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode=httpResponse.StatusCode});
                     }
+                    if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry == 0)
+                    {
+                        await ResponseHandle(func, ++retry);
+                        return;
+                    }
+                    //请求失败 
+                    log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
                 }
                 else 
                 {
                     var result = await httpResponse.Content.ReadFromJsonAsync<ApiResult<Object>>();
-                    if (!result.Succeeded)
+                    if (result==null ||!result.Succeeded)
                     {
-                        log.Error(result.Errors?.ToString(), result.StatusCode);
+                        log.Error(result?.Errors?.ToString()??string.Empty, result?.StatusCode);
                         //时间戳过期
-                        if (result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+                        if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             await eventBus.Publish(new RefreshTokenErrorEvent());
                         }
@@ -131,7 +153,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        private string GetUrl(string url, IDictionary<string, object> queryString = null)
+        private string GetUrl(string url, IDictionary<string, object?>? queryString = null)
         {
             if (queryString != null && queryString.Count > 0)
             {
@@ -145,11 +167,11 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        private string GetUrl(string url, List<KeyValuePair<string, object>> queryString)
+        private string GetUrl(string url, List<KeyValuePair<string, object?>> queryString)
         {
             if (queryString != null && queryString.Count() > 0)
             {
-                foreach (KeyValuePair<string, object> item in queryString)
+                foreach (KeyValuePair<string, object?> item in queryString)
                 {
                     url = QueryHelpers.AddQueryString(url, item.Key, item.Value == null ? "" : item.Value.ToString());
                 }
@@ -164,11 +186,16 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task PostAsync<TRequest>(string url, TRequest request = default(TRequest))
+        public Task PostAsync<TRequest>(string url, TRequest? request = default(TRequest))
         {
             return ResponseHandle(() =>
             {
-                return httpClient.PostAsJsonAsync<TRequest>(url, request);
+                if (request == null)
+                {
+                    //todo:request 等于null时 给空 是否会有问题
+                    return httpClient.PostAsJsonAsync(url,string.Empty);
+                }
+                return httpClient.PostAsJsonAsync(url, request);
             });
         }
         /// <summary>
@@ -179,7 +206,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request = default(TRequest))
+        public Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest? request = default(TRequest))
         {
             return ResponseHandle<TResponse>(() =>
            {
@@ -194,7 +221,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        public Task<TResponse> PostWithoutBodyAsync<TResponse>(string url, IDictionary<string, object>? queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -224,7 +251,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object> queryString)
+        public Task<TResponse> GetAsync<TResponse>(string url, IDictionary<string, object?> queryString)
         {
             return ResponseHandle<TResponse>(() =>
              {
@@ -240,7 +267,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object>> queryString)
+        public Task<TResponse> GetAsync<TResponse>(string url, List<KeyValuePair<string, object?>> queryString)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -257,7 +284,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task DeleteAsync(string url, IDictionary<string, object> queryString = null)
+        public Task DeleteAsync(string url, IDictionary<string, object?>? queryString = null)
         {
            return ResponseHandle(() =>
             {
@@ -271,7 +298,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
-        public Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object> queryString = null)
+        public Task<TResponse> DeleteAsync<TResponse>(string url, IDictionary<string, object?>? queryString = null)
         {
             return ResponseHandle<TResponse>(() =>
             {
@@ -287,7 +314,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task PutAsync<TRequest>(string url, TRequest request = default)
+        public Task PutAsync<TRequest>(string url, TRequest? request = default)
         {
             return ResponseHandle(() =>
             {
@@ -302,7 +329,7 @@ namespace Gardener.Client.Core
         /// <param name="url"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request = default)
+        public Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest? request = default)
         {
             return ResponseHandle<TResponse>(() =>
            {

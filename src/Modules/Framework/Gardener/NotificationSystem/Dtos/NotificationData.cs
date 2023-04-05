@@ -39,7 +39,7 @@ namespace Gardener.NotificationSystem.Dtos
         /// <summary>
         /// 程序类型
         /// </summary>
-        public String TypeAssemblyName { get; set; }
+        public string? TypeAssemblyName { get; set; }
 
         /// <summary>
         /// 通知事件类型
@@ -69,11 +69,11 @@ namespace Gardener.NotificationSystem.Dtos
         /// <summary>
         /// 发送者身份
         /// </summary>
-        public Identity Identity { get; set; }
+        public Identity Identity { get; set; } = null!;
 
         /// <summary>
         /// 用户ip
         /// </summary>
-        public string Ip { get; set; }
+        public string? Ip { get; set; }
     }
 }

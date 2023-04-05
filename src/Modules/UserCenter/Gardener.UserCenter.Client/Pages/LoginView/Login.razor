@@ -1,5 +1,5 @@
 ﻿@page "/auth/login"
-@layout Gardener.Client.Base.Shared.LoginLayout
+@layout Gardener.Client.AntDesignUi.Base.Shared.LoginLayout
 @attribute [AllowAnonymous]
 @attribute [ReuseTabsPage(Ignore = true)]
 <div class="main__b__0">
@@ -12,23 +12,23 @@
             <Tabs ActiveKey="@(context.LoginType.ToString())">
                 <TabPane Key="1">
                     <TabTemplate>
-                        @localizer[UserCenterResource.AccountPasswordLogin]
+                        @Localizer[UserCenterResource.AccountPasswordLogin]
                     </TabTemplate>
                     <ChildContent>
-                        <FormItem Label="@localizer[UserCenterResource.UserName]" LabelAlign="AntLabelAlignType.Left">
-                            <AntDesign.Input Placeholder="@localizer[UserCenterResource.UserName]" Size="large" @bind-Value="@context.UserName">
+                        <FormItem Label="@Localizer[UserCenterResource.UserName]" LabelAlign="AntLabelAlignType.Left">
+                            <AntDesign.Input Placeholder="@Localizer[UserCenterResource.UserName]" Size="large" @bind-Value="@context.UserName">
                                 <Prefix><Icon Type="user" /></Prefix>
                             </AntDesign.Input>
                         </FormItem>
-                        <FormItem Label="@localizer[UserCenterResource.LoginPassword]" LabelAlign="AntLabelAlignType.Left">
-                            <AntDesign.Input Placeholder="@localizer[UserCenterResource.LoginPassword]" Size="large" @bind-Value="@context.Password" Type="password">
+                        <FormItem Label="@Localizer[UserCenterResource.LoginPassword]" LabelAlign="AntLabelAlignType.Left">
+                            <AntDesign.Input Placeholder="@Localizer[UserCenterResource.LoginPassword]" Size="large" @bind-Value="@context.Password" Type="password">
                                 <Prefix><Icon Type="lock" /></Prefix>
                             </AntDesign.Input>
                         </FormItem>
-                        <FormItem Label="@localizer[UserCenterResource.VerifyCode]" LabelAlign="AntLabelAlignType.Left">
+                        <FormItem Label="@Localizer[UserCenterResource.VerifyCode]" LabelAlign="AntLabelAlignType.Left">
                             <Row>
                                 <AntDesign.Col Span="18">
-                                    <AntDesign.Input Placeholder="@localizer[UserCenterResource.VerifyCode]" Size="large" @bind-Value="@context.VerifyCode" />
+                                    <AntDesign.Input Placeholder="@Localizer[UserCenterResource.VerifyCode]" Size="large" @bind-Value="@context.VerifyCode" />
                                 </AntDesign.Col>
                                 <AntDesign.Col Span="6">
                                     <ImageVerifyCode @bind-VerifyCodeKey="@context.VerifyCodeKey" @ref="_imageVerifyCode"></ImageVerifyCode>
@@ -44,13 +44,13 @@
             </Tabs>
             <div>
                 <Checkbox @bind-Value="autoLogin">
-                    @localizer[UserCenterResource.AutoLogin]
+                    @Localizer[UserCenterResource.AutoLogin]
                 </Checkbox>
                 @*<a style="float: right;">
                 忘记密码
                 </a>*@
             </div>
-            <Button Type="@ButtonType.Primary" HtmlType="submit" Class="submit" Size="large" Block>@localizer[UserCenterResource.Login]</Button>
+            <Button Type="@ButtonType.Primary" HtmlType="submit" Class="submit" Size="large" Block>@Localizer[UserCenterResource.Login]</Button>
             <div class="other">
                 @*其他登录方式
                 <Icon Type="alipay-circle" />

@@ -1,0 +1,44 @@
+﻿@page "/auth/login"
+@using Gardener.UserCenter.Resources;
+@using Microsoft.AspNetCore.Authorization;
+@layout Gardener.Client.BootstrapUi.Base.Shared.LoginLayout
+@attribute [AllowAnonymous]
+
+<div class="text-center main">
+    <div class="row g-3">
+        <div class="col-24 col-sm-6">
+            <BootstrapInput PlaceHolder="@localizer[UserCenterResource.UserName]"
+                            TValue="string"
+                            IsAutoFocus="true"
+                            ShowLabel="true"
+                            @bind-Value="@loginInput.UserName"
+                            DisplayText="@localizer[UserCenterResource.UserName]" />
+        </div>
+
+    </div>
+    <div class="row g-3">
+        <div class="col-24 col-sm-6">
+            <BootstrapPassword PlaceHolder="@localizer[UserCenterResource.Password]"
+                               ShowLabel="true"
+                               @bind-Value="@loginInput.Password"
+                               DisplayText="@localizer[UserCenterResource.Password]" />
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-18 col-sm-6">
+            <BootstrapInput PlaceHolder="@localizer[UserCenterResource.VerifyCode]"
+                            TValue="string"
+                            ShowLabel="true"
+                            @bind-Value="@loginInput.VerifyCode"
+                            DisplayText="@localizer[UserCenterResource.VerifyCode]" />
+        </div> 
+        <div class="col-6 col-sm-6">
+            <ImageViewer Url="@imageVerifyCode" ShowPlaceHolder="true" style="width:100px;height:50px" />
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-24 col-sm-6">
+            <Button ButtonStyle="ButtonStyle.Round" Color="Color.Primary" OnClick="OnLogin">@localizer[UserCenterResource.Login]</Button>
+        </div>
+    </div>
+</div>

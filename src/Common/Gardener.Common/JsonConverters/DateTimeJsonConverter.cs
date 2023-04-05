@@ -38,7 +38,9 @@ namespace Gardener.Common.JsonConverters
         /// <returns></returns>
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return DateTime.Parse(reader.GetString());
+            var str= reader.GetString();
+            if (str == null) return default(DateTime);
+            return DateTime.Parse(str);
         }
 
         /// <summary>

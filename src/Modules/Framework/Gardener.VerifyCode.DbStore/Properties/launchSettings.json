@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Gardener.VerifyCode.DbStore": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:12385;http://localhost:12386"
+    }
+  }
+}

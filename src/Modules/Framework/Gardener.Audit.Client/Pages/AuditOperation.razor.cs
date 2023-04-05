@@ -7,7 +7,7 @@
 using Gardener.Audit.Dtos;
 using Gardener.Audit.Services;
 using Gardener.Base.Resources;
-using Gardener.Client.Base.Components;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Gardener.Audit.Client.Pages
     public partial class AuditOperation : ListTableBase<AuditOperationDto, Guid>
     {
         [Inject]
-        public IAuditOperationService auditOperationService { get; set; }
+        public IAuditOperationService auditOperationService { get; set; } = null!;
         /// <summary>
         /// 
         /// </summary>
@@ -28,7 +28,7 @@ namespace Gardener.Audit.Client.Pages
         {
             List<AuditEntityDto>  auditEntityDtos= await auditOperationService.GetAuditEntity(id);
 
-            await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(localizer[SharedLocalResource.Detail],auditEntityDtos, width: 960);
+            await OpenOperationDialogAsync<AuditEntityDetailDrawer, ICollection<AuditEntityDto>, bool>(Localizer[SharedLocalResource.Detail],auditEntityDtos, width: 960);
         }
     }
 }

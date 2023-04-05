@@ -18,7 +18,7 @@ namespace Gardener.Attachment.Services
     public interface IAttachmentService : IServiceBase<AttachmentDto, Guid>
     {
         /// <summary>
-        /// 获取远程图片
+        /// 获取远程图片-转换为base64字符串
         /// </summary>
         /// <param name="remoteFilePath"></param>
         /// <returns></returns>

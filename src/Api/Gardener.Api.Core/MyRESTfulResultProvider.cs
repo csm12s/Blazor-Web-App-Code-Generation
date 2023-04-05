@@ -27,9 +27,10 @@ namespace Gardener.Admin
     public class MyRESTfulResultProvider : IUnifyResultProvider
     {
 
-        // 日志对象
+        /// <summary>
+        /// 日志记录器
+        /// </summary>
         private readonly ILogger<MyRESTfulResultProvider> _logger;
-
         /// <summary>
         /// RESTful 风格返回值
         /// </summary>
@@ -110,7 +111,7 @@ namespace Gardener.Admin
         /// <param name="errors"></param>
         /// <param name="errorCode"></param>
         /// <returns></returns>
-        private static object RESTfulResult(int statusCode, bool succeeded = default, object data = default, object errors = default, object errorCode = default)
+        static private object RESTfulResult(int statusCode, bool succeeded = default, object? data = default, object? errors = default, object? errorCode = default)
         {
 
             if (succeeded)

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
-using Gardener.Client.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
@@ -17,17 +17,17 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserEdit : EditOperationDialogBase<UserDto, int, UserCenterResource>
     {
-        private List<PositionDto> positions = new List<PositionDto>();
+        private List<DeptDto>? deptDatas;
+        private List<PositionDto>? positions;
         [Inject]
-        IDeptService deptService { get; set; }
+        private IDeptService DeptService { get; set; } = null!;
         [Inject]
-        IPositionService positionService { get; set; }
+        private IPositionService PositionService { get; set; } = null!;
         //部门树
-        List<DeptDto> deptDatas = new List<DeptDto>();
         /// <summary>
         /// 部门编号
         /// </summary>
-        protected string deptId
+        protected string? DeptId
         {
             get
             {
@@ -45,23 +45,25 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 }
             }
         }
-
         /// <summary>
-        /// 
+        /// 界面初始化完成
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _isLoading = true;
-            positions = await positionService.GetAllUsable();
-            //部门
-            deptDatas = await deptService.GetTree();
-            _isLoading = false;
+            StartLoading();
             await base.OnInitializedAsync();
-            _editModel.Password = null;
-            _editModel.UserExtension = _editModel.UserExtension ?? new UserExtensionDto() { UserId = _editModel.Id };
+            if (_editModel != null)
+            {
+                _editModel.Password = null;
+            }
+            //岗位
+            positions = await PositionService.GetAllUsable();
+            //部门
+            deptDatas = await DeptService.GetTree();
+            StopLoading();
         }
-
+       
         /// <summary>
         /// 点击头像
         /// </summary>
@@ -71,15 +73,15 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
-                localizer[SharedLocalResource.UplaodAvatar],
-                new UserUploadAvatarParams { User = user, SaveDb = false },
+                Localizer[SharedLocalResource.UplaodAvatar],
+                new UserUploadAvatarParams(user, false),
                 width: avatarDrawerWidth);
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="value"></param>
-        private void OnSelectedItemChangedHandler(PositionDto value)
+        static private void OnSelectedItemChangedHandler(PositionDto value)
         {
 
         }

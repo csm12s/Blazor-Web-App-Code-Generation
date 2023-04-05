@@ -29,8 +29,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IAuthorizationPolicyProvider, AppAuthorizationPolicyProvider>();
             services.TryAddSingleton<IAuthorizationHandler, JwtHandler>();
             services.TryAddSingleton<IApiEndpointQueryService, TApiEndpointStoreService>();
-            services.TryAddSingleton<IIdentityPermissionService, TIdentityPermissionService>();
 
+            services.TryAddScoped<IIdentityPermissionService, TIdentityPermissionService>();
             services.TryAddScoped<IIdentityService, IdentityService>();
             services.TryAddScoped<Gardener.Authorization.Core.IAuthorizationService, AuthorizationService>();
             services.Configure<MvcOptions>(options =>

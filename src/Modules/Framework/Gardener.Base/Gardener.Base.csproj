@@ -1,21 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-	<GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Furion" Version="4.8.3.10" />
-    <PackageReference Include="IdGen" Version="3.0.3" />
-    <PackageReference Include="Mapster" Version="7.3.0" />
-    <PackageReference Include="MiniExcel" Version="1.30.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Furion" Version="4.8.7.33" />
+		<PackageReference Include="IdGen" Version="3.0.3" />
+		<PackageReference Include="Mapster" Version="7.3.0" />
+		<PackageReference Include="MiniExcel" Version="1.30.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Gardener.Base.Entity\Gardener.Base.Entity.csproj" />
-    <ProjectReference Include="..\Gardener\Gardener.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Gardener.Base.Entity\Gardener.Base.Entity.csproj" />
+		<ProjectReference Include="..\Gardener\Gardener.csproj" />
+	</ItemGroup>
 
 </Project>

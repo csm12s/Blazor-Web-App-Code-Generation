@@ -8,11 +8,11 @@
         /// <summary>
         /// Key for AntDesign Select
         /// </summary>
-        public string ValueName { get; set; }
+        public string ValueName { get; set; } = null!;
 
         /// <summary>
         /// Label for AntDesign Select
         /// </summary>
-        public string LabelName { get; set; }
+        public string LabelName { get; set; } = null!;
     }
 }

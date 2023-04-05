@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 namespace Gardener.Client.Core
 {
     /// <summary>
-    /// 
+    /// 拦截请求
     /// </summary>
     public class IncludeRequestCredentialsMessageHandler : DelegatingHandler
     {
-        private readonly Action<HttpRequestMessage> _httpRequestConfigure;
+        private readonly Action<HttpRequestMessage>? _httpRequestConfigure;
         /// <summary>
         /// 
         /// </summary>

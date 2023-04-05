@@ -13,20 +13,19 @@ namespace Gardener.CodeGeneration.Services
     public interface ICodeGenConfigService: IServiceBase<CodeGenConfigDto, Guid>
     {
         /// <summary>
-        /// 通过codegenid获取代码生成配置
+        /// GetCodeGenConfigsByCodeGenId
         /// </summary>
         /// <param name="codeGenId"></param>
         /// <returns></returns>
         Task<List<CodeGenConfigDto>> GetCodeGenConfigsByCodeGenId(Guid codeGenId);
         /// <summary>
-        /// 保存全部
+        /// SaveAll
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
         Task<bool> SaveAll(List<CodeGenConfigDto> list);
 
         /// <summary>
-        /// 删除和新增列表
         /// NoAction
         /// </summary>
         /// <param name="tableColumnOuputs"></param>
@@ -34,7 +33,7 @@ namespace Gardener.CodeGeneration.Services
         /// <returns></returns>
         Task DeleteAndAddList(List<TableColumnInfo> tableColumnOuputs, CodeGenDto codeGen);
         /// <summary>
-        /// 根据codegenid删除
+        /// DeleteByCodeGenId
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

@@ -21,7 +21,7 @@ namespace Gardener.VerifyCode.Dtos
         [DisplayName("接收方邮箱地址")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         [RegularExpression("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", ErrorMessage = "请输入正确的邮件地址")]
-        public string ToEmail { get; set; }
+        public string ToEmail { get; set; } = null!;
         /// <summary>
         /// 
         /// </summary>

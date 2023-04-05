@@ -37,8 +37,12 @@ namespace Gardener.Client.Core.EventBus
         /// <returns></returns>
         public Task Publish(EventBase e, CancellationToken? cancellationToken)
         {
-            string typeName = e.GetType().FullName;
-            _logger.Info($"eventBus publish event {e.GetType().FullName}  {System.Text.Json.JsonSerializer.Serialize(e)}");
+            string? typeName = e.GetType().FullName;
+            if (string.IsNullOrEmpty(typeName))
+            {
+                throw new ArgumentException($"{e.GetType().Name} no FullName");
+            }
+            _logger.Info($"eventBus publish event {typeName}  {System.Text.Json.JsonSerializer.Serialize(e)}");
             List<Task> tasks = new List<Task>();
             //静态注册订阅者
             var staticSubscribers = _serviceProvider.GetServices<IEventSubscriber>();
@@ -56,13 +60,13 @@ namespace Gardener.Client.Core.EventBus
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error($"eventBus event handler error {e.GetType().FullName}  {System.Text.Json.JsonSerializer.Serialize(e)}", ex: ex);
+                        _logger.Error($"eventBus event handler error {typeName}  {System.Text.Json.JsonSerializer.Serialize(e)}", ex: ex);
                     }
                 }
 
             }
             //动态注册订阅者
-            if (_subscribers.TryGetValue(typeName, out List<Subscriber> subscribers))
+            if (_subscribers.TryGetValue(typeName, out List<Subscriber>? subscribers))
             {
                 //循环订阅者
                 foreach (var subscriber in subscribers)
@@ -96,9 +100,13 @@ namespace Gardener.Client.Core.EventBus
             Subscriber subscriber = new Subscriber(typeof(TEvent), e => callBack((TEvent)e));
             lock (_subscribers)
             {
-                string typeName = typeof(TEvent).FullName;
-                
-                if (!_subscribers.TryGetValue(typeName, out List<Subscriber> subscribers))
+                string? typeName = typeof(TEvent).FullName;
+                if (string.IsNullOrEmpty(typeName))
+                {
+                    throw new ArgumentException($"{typeof(TEvent).Name} no FullName");
+                }
+
+                if (!_subscribers.TryGetValue(typeName, out List<Subscriber>? subscribers))
                 {
                     subscribers = new List<Subscriber>();
                     _subscribers.Add(typeName, subscribers);
@@ -114,7 +122,12 @@ namespace Gardener.Client.Core.EventBus
         /// <param name="subscriber"></param>
         public void UnSubscribe(Subscriber subscriber)
         {
-            if (_subscribers.TryGetValue(subscriber.EventType.FullName, out List<Subscriber> subscribers))
+            string? typeName = subscriber.EventType.FullName;
+            if (string.IsNullOrEmpty(typeName))
+            {
+                throw new ArgumentException($"{subscriber.EventType.Name} no FullName");
+            }
+            if (_subscribers.TryGetValue(typeName, out List<Subscriber>? subscribers))
             {
                 subscribers.RemoveAll(x => x.Id.Equals(subscriber.Id));
             }

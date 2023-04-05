@@ -14,6 +14,6 @@ namespace Gardener.EntityFramwork.Event
         /// <summary>
         /// 数据
         /// </summary>
-        public object Data { get; set; }
+        public object? Data { get; set; }
     }
 }

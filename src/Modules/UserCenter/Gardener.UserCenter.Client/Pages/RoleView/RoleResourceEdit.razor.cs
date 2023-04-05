@@ -6,7 +6,9 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Gardener.UserCenter.Services;
@@ -18,53 +20,49 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class RoleResourceEdit : FeedbackComponent<OperationDialogInput<int>, bool>
+    public partial class RoleResourceEdit : OperationDialogBase<OperationDialogInput<int>, bool>
     {
-        private Tree<ResourceDto> _tree;
+        private Tree<ResourceDto>? _tree;
         private bool _isExpanded;
-        private bool _isLoading;
         private int _roleId = 0;
         private List<ResourceDto> _resources = new List<ResourceDto>();
         [Inject]
-        IResourceService resourceService { get; set; }
+        private IResourceService ResourceService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
+        private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        IRoleService roleService { get; set; } 
-        [Inject]
-        IClientLocalizer localizer { get; set; }
+        private IRoleService RoleService { get; set; } = null!;
         /// <summary>
         /// 默认选择
         /// </summary>
-        private string[] _defaultCheckedKeys { get; set; }
+        private string[] _defaultCheckedKeys { get; set; } = null!;
         /// <summary>
         /// 页面初始化
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _isLoading = true;
+            base.StartLoading();
             _roleId = this.Options.Id;
             if (_roleId > 0)
             {
                 //已有资源
-                var roleResourceResult = await roleService.GetResource(_roleId);
+                var roleResourceResult = await RoleService.GetResource(_roleId);
                 if (roleResourceResult != null && roleResourceResult.Any())
                 {
                     _defaultCheckedKeys = roleResourceResult.Where(dto => dto.Children == null || !dto.Children.Any()).Select(dto => dto.Id.ToString()).ToArray();
                 }
                 //资源树
-                var resourceResult = await resourceService.GetTree();
+                var resourceResult = await ResourceService.GetTree();
                 if (resourceResult == null)
                 {
-                    messageService.Error(localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
-                    _isLoading = false;
+                    MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
+                    base.StopLoading();
                     return;
                 }
                 _resources.AddRange(resourceResult);
             }
-            await base.OnInitializedAsync();
-            _isLoading = false;
+            base.StopLoading();
         }
        
 
@@ -83,11 +81,11 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private async Task OnSaveClick()
         {
-            _isLoading = true;
+            _dialogLoading.Start();
 
             List<Guid> resourceIds = new List<Guid>();
 
-            if (_tree.CheckedKeys.Length > 0)
+            if (_tree!=null && _tree.CheckedKeys.Length > 0)
             {
                 _tree.CheckedKeys.ForEach(x =>
                 {
@@ -104,17 +102,17 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 });
             }
             //删除所有资源
-            var result = await roleService.Resource(_roleId, resourceIds.Distinct().ToArray());
+            var result = await RoleService.Resource(_roleId, resourceIds.Distinct().ToArray());
             if (result)
             {
-                messageService.Success(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Success));
+                MessageService.Success(Localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Success));
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Fail));
             }
-            _isLoading = false;
+            _dialogLoading.Stop();
         }
         
         /// <summary>
@@ -123,8 +121,9 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         private void OnExpandClick()
         {
+            if(_tree==null) return;
+            _dialogLoading.Start();
             _isExpanded = !_isExpanded;
-
             //操作所有的节点
             if (_isExpanded) 
             { 

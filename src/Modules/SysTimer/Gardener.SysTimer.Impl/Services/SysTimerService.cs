@@ -24,9 +24,9 @@ using Furion.DependencyInjection;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Domains;
 using Gardener.Enums;
-using ExceptionCode = Gardener.SysTimer.Enums.ExceptionCode;
 using Gardener.EntityFramwork;
 using Furion.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Gardener.SysTimer.Services
 {
@@ -40,15 +40,18 @@ namespace Gardener.SysTimer.Services
     public class SysTimerService : ServiceBase<SysTimerEntity, SysTimerDto>, ISysTimerService, IScoped
     {
         private readonly ICache _cache;
+        private readonly ILogger<SysTimerService> _logger;
 
         /// <summary>
         /// 任务调度服务Init
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="cache"></param>
-        public SysTimerService(IRepository<SysTimerEntity> repository, ICache cache) : base(repository)
+        /// <param name="logger"></param>
+        public SysTimerService(IRepository<SysTimerEntity> repository, ICache cache, ILogger<SysTimerService> logger) : base(repository)
         {
             _cache = cache;
+            _logger = logger;
         }
 
         /// <summary>
@@ -87,20 +90,15 @@ namespace Gardener.SysTimer.Services
         [HttpGet]
         public override async Task<SysTimerDto> Get(int id)
         {
-            var data = await base.Get(id);
+            SysTimerDto data = await base.Get(id) ?? throw Oops.Oh(ExceptionCode.Data_Not_Find);
 
-            if (data != null)
+            //只有当任务确认运行时才获取任务数据
+            if (data.StartNow == true)
             {
-                //只有当任务确认运行时才获取任务数据
-                if (data.StartNow == true)
-                {
-                    var worker = SpareTime.GetWorker(data.JobName);
-                    if (worker == null)
-                        throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
-                    data.TimerStatus = (TimerStatus)worker.Status;
-                    data.RunNumber = worker.Tally;
-                    data.Exception = worker.Exception.Values.LastOrDefault()?.Message;
-                }
+                var worker = SpareTime.GetWorker(data.JobName) ?? throw Oops.Oh(SysTimeExceptionCode.TASK_NOT_EXIST);
+                data.TimerStatus = (TimerStatus)worker.Status;
+                data.RunNumber = worker.Tally;
+                data.Exception = worker.Exception.Values.LastOrDefault()?.Message;
             }
             return data;
         }
@@ -151,7 +149,7 @@ namespace Gardener.SysTimer.Services
             var exits = await _repository.Where(x => x.JobName == input.JobName).AnyAsync();
             if (exits)
             {
-                throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
+                throw Oops.Oh(SysTimeExceptionCode.TASK_ALLREADY_EXIST);
             }
             var data = await base.Insert(input);
             if (data.StartNow)
@@ -173,7 +171,7 @@ namespace Gardener.SysTimer.Services
             if (timer == null)
             {
                 return false;
-                throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
+                throw Oops.Oh(SysTimeExceptionCode.TASK_NOT_EXIST);
             }
 
             var result = await base.FakeDelete(id);
@@ -197,7 +195,7 @@ namespace Gardener.SysTimer.Services
             if (timer == null)
             {
                 return false;
-                throw Oops.Oh(ExceptionCode.TASK_NOT_EXIST);
+                throw Oops.Oh(SysTimeExceptionCode.TASK_NOT_EXIST);
             }
 
             var result = await base.Delete(id);
@@ -219,7 +217,7 @@ namespace Gardener.SysTimer.Services
         {
             // 排除自己并且判断与其他是否相同
             var isExist = await _repository.AnyAsync(u => u.JobName == input.JobName && u.Id != input.Id, false);
-            if (isExist) throw Oops.Oh(ExceptionCode.TASK_ALLREADY_EXIST);
+            if (isExist) throw Oops.Oh(SysTimeExceptionCode.TASK_ALLREADY_EXIST);
 
             // 先从调度器里取消
             var oldTimer = await _repository.FirstOrDefaultAsync(u => u.Id == input.Id, false);
@@ -242,7 +240,7 @@ namespace Gardener.SysTimer.Services
         /// <returns></returns>
         public async Task<SysTimerDto> GetDetail([FromQuery] QueryJobInput input)
         {
-            var data = await _repository.DetachedEntities.FirstOrDefaultAsync(u => u.Id == input.Id);
+            var data = await _repository.DetachedEntities.FirstOrDefaultAsync(u => u.Id == input.Id) ?? throw Oops.Oh(Gardener.Enums.ExceptionCode.Data_Not_Find);
             return data.Adapt<SysTimerDto>();
         }
 
@@ -285,7 +283,7 @@ namespace Gardener.SysTimer.Services
         public async void AddTimerJob(SysTimerDto myinput)
         {
             var input = myinput.Adapt<SysTimerEntity>();
-            Action<SpareTimer, long> action = null;
+            Action<SpareTimer, long>? action = null;
 
             switch (input.ExecuteType)
             {
@@ -295,10 +293,9 @@ namespace Gardener.SysTimer.Services
                         // 查询符合条件的任务方法
                         var taskMethod = GetTaskMethods()?.Result.FirstOrDefault(m => m.LocalMethod == input.LocalMethod);
                         if (taskMethod == null) break;
-                        Type t = Type.GetType(taskMethod.TypeName);
+                        Type? t = Type.GetType(taskMethod.TypeName) ?? throw Oops.Oh(SysTimeExceptionCode.LOCAL_JOB_NOT_FIND);
                         // 创建任务对象
-                        var typeInstance = Activator.CreateInstance(t);
-
+                        var typeInstance = Activator.CreateInstance(t) ?? throw Oops.Oh(SysTimeExceptionCode.LOCAL_JOB_CREATE_FAIL);
                         // 创建委托
                         action = (Action<SpareTimer, long>)Delegate.CreateDelegate(typeof(Action<SpareTimer, long>), typeInstance, taskMethod.MethodName);
                         break;
@@ -306,10 +303,15 @@ namespace Gardener.SysTimer.Services
                 // 创建网络任务委托
                 case ExecuteType.HTTP:
                     {
+                        var requestUrl = input.RequestUrl?.Trim();
+                        if (string.IsNullOrEmpty(requestUrl))
+                        {
+                            throw Oops.Oh(SysTimeExceptionCode.REQUEST_URL_IS_NULL_OR_EMPTY);
+                        }
+                        requestUrl = requestUrl?.IndexOf("http") == 0 ? requestUrl : "http://" + requestUrl;
+
                         action = async (_, _) =>
                         {
-                            var requestUrl = input.RequestUrl.Trim();
-                            requestUrl = requestUrl?.IndexOf("http") == 0 ? requestUrl : "http://" + requestUrl;
                             var requestParameters = input.RequestParameters;
                             var headersString = input.Headers;
                             var headers = string.IsNullOrEmpty(headersString)
@@ -338,6 +340,7 @@ namespace Gardener.SysTimer.Services
                             }
                             catch (Exception ex)
                             {
+                                _logger.LogError(ex, $"请求{requestUrl}失败");
                                 return;
                             }
                         };
@@ -366,6 +369,10 @@ namespace Gardener.SysTimer.Services
             switch (input.TimerType)
             {
                 case SpareTimeTypes.Interval:
+                    if (input.Interval == null)
+                    {
+                        throw Oops.Oh(SysTimeExceptionCode.JOB_INTERVAL_IS_NULL);
+                    }
                     if (input.DoOnce)
                         SpareTime.DoOnce((int)input.Interval * 1000, action, input.JobName, input.Remark, input.Started, executeType: mode);
                     else
@@ -409,7 +416,7 @@ namespace Gardener.SysTimer.Services
             if (taskMethods != null) return taskMethods;
 
             // 获取所有本地任务方法，必须有spareTimeAttribute特性
-            taskMethods = App.EffectiveTypes
+            IEnumerable<TaskMethodInfo?> tempTaskMethods = App.EffectiveTypes
                 .Where(u => u.IsClass && !u.IsInterface && !u.IsAbstract && typeof(ISpareTimeWorker).IsAssignableFrom(u))
                 .SelectMany(u => u.GetMethods(BindingFlags.Public | BindingFlags.Instance)
                 .Where(m => m.IsDefined(typeof(SpareTimeAttribute), false) &&
@@ -419,7 +426,11 @@ namespace Gardener.SysTimer.Services
                 .Select(m =>
                 {
                     // 默认获取第一条任务特性
-                    var spareTimeAttribute = m.GetCustomAttribute<SpareTimeAttribute>();
+                    SpareTimeAttribute? spareTimeAttribute = m.GetCustomAttribute<SpareTimeAttribute>();
+                    if (spareTimeAttribute == null || m.DeclaringType?.FullName == null)
+                    {
+                        return null;
+                    }
                     return new TaskMethodInfo
                     {
                         JobName = spareTimeAttribute.WorkerName,
@@ -437,9 +448,14 @@ namespace Gardener.SysTimer.Services
                         LocalMethod = $"{m.DeclaringType.FullName}|{m.Name}"
                     };
                 }));
-
-            await _cache.SetAsync(CacheSchems.CACHE_KEY_TIMER_JOB, taskMethods);
-            return taskMethods;
+            List<TaskMethodInfo> result = new();
+            foreach (var item in tempTaskMethods)
+            {
+                if (item == null) continue;
+                result.Add(item);
+            }
+            await _cache.SetAsync(CacheSchems.CACHE_KEY_TIMER_JOB, result);
+            return result;
         }
     }
 }

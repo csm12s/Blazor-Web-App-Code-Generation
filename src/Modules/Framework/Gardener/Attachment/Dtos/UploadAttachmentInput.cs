@@ -17,12 +17,22 @@ namespace Gardener.Attachment.Dtos
         /// <summary>
         /// 业务ID
         /// </summary>
-        [MaxLength(64,ErrorMessage = "最大长度不能大于{1}")]
-        public string BusinessId { get; set; }
+        [MaxLength(64, ErrorMessage = "最大长度不能大于{1}")]
+        public string BusinessId { get; set; } = null!;
         /// <summary>
         /// 附件业务类型
         /// </summary>
         [Required(ErrorMessage = "附件业务类型不能为空")]
         public AttachmentBusinessType BusinessType { get; set; }
+
+        /// <summary>
+        /// File save path in server
+        /// </summary>
+        public string FileSavePath { get; set; } = string.Empty;
+
+        /// <summary>
+        /// File save folder in server
+        /// </summary>
+        public string FileSaveFolder { get; set; } = string.Empty;
     }
 }

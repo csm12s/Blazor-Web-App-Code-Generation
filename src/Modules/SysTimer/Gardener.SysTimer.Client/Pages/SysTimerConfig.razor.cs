@@ -6,8 +6,7 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
-using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Common;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Enums;
@@ -22,7 +21,7 @@ namespace Gardener.SysTimer.Client.Pages
     public partial class SysTimerConfig : ListOperateTableBase<SysTimerDto, int, SysTimerEdit>
     {
         [Inject]
-        private ISysTimerService _systimerService { get; set; }
+        private ISysTimerService SystimerService { get; set; } = null!;
 
         /// <summary>
         /// 执行任务
@@ -31,20 +30,20 @@ namespace Gardener.SysTimer.Client.Pages
         /// <returns></returns>
         protected async Task OnStartExecute(SysTimerDto model)
         {
-            string title = TimerStatus.Running.Equals(model.TimerStatus) ? localizer[SharedLocalResource.Close] : localizer[SharedLocalResource.Open];
-            var resultStop = await confirmService.YesNo(localizer[title], localizer[SharedLocalResource.OperateConfirmMessage]);
+            string title = TimerStatus.Running.Equals(model.TimerStatus) ? Localizer[SharedLocalResource.Close] : Localizer[SharedLocalResource.Open];
+            var resultStop = await ConfirmService.YesNo(Localizer[title], Localizer[SharedLocalResource.OperateConfirmMessage]);
             if (resultStop == ConfirmResult.Yes)
             {
                 switch (model.TimerStatus)
                 {
                     case TimerStatus.Running:
-                        await _systimerService.Stop(model.JobName);
+                        await SystimerService.Stop(model.JobName);
                         break;
                     case TimerStatus.Stopped:
-                        await _systimerService.Start(model.JobName);
+                        await SystimerService.Start(model.JobName);
                         break;
                     default:
-                        await _systimerService.Start(model.JobName);
+                        await SystimerService.Start(model.JobName);
                         break;
                 }
                 Thread.Sleep(1000);
@@ -53,7 +52,7 @@ namespace Gardener.SysTimer.Client.Pages
             
         }
 
-        public readonly static TableFilter<ExecuteType>[] FunctionRequestTypeFilters = EnumHelper.EnumToList<ExecuteType>().Select(x => { return new TableFilter<ExecuteType>() { Text = x.ToString(), Value = x }; }).ToArray();
-        public readonly static TableFilter<TimerStatus>[] FunctionTimerStatusFilters = EnumHelper.EnumToList<TimerStatus>().Select(x => { return new TableFilter<TimerStatus>() { Text = x.ToString(), Value = x }; }).ToArray();
+        public static readonly TableFilter<ExecuteType>[] FunctionRequestTypeFilters = EnumHelper.EnumToList<ExecuteType>().Select(x => { return new TableFilter<ExecuteType>() { Text = x.ToString(), Value = x }; }).ToArray();
+        public static readonly TableFilter<TimerStatus>[] FunctionTimerStatusFilters = EnumHelper.EnumToList<TimerStatus>().Select(x => { return new TableFilter<TimerStatus>() { Text = x.ToString(), Value = x }; }).ToArray();
     }
 }

@@ -56,9 +56,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 Func<VerifyCodeTypeEnum, IVerifyCode> accesor = key =>
                 {
                     if (VerifyCodeTypeEnum.Image.Equals(key))
-                        return serviceProvider.GetService<ImageVerifyCode>();
+                        return serviceProvider.GetRequiredService<ImageVerifyCode>();
                     else if (VerifyCodeTypeEnum.Email.Equals(key))
-                        return serviceProvider.GetService<EmailVerifyCode>();
+                        return serviceProvider.GetRequiredService<EmailVerifyCode>();
                     else
                         throw new ArgumentException($"不支持的验证码类型: {key}");
                 };
@@ -76,7 +76,8 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddVerifyCode(this IServiceCollection services, bool enableAutoVerification = true)
         {
-            string storeMode = App.Configuration["VerifyCodeStoreSetting"];
+            string? storeMode = App.Configuration["VerifyCodeStoreSetting"];
+            storeMode = storeMode ?? "Cache";
             if ("Cache".Equals(storeMode))
             { 
                 services.AddVerifyCode<VerifyCodeCacheStoreService>();

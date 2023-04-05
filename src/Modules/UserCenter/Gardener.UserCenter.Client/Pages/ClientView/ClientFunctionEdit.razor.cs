@@ -6,8 +6,9 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
+using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Gardener.UserCenter.Dtos;
@@ -20,6 +21,9 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ClientView
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ClientFunctionEditOption
     {
         /// <summary>
@@ -29,32 +33,29 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 0 展示
         /// 1 添加
         /// </summary>
         public int Type { get; set; }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class ClientFunctionEdit : OperationDialogBase<ClientFunctionEditOption, bool>
     {
         [Inject]
-        IFunctionService functionService { get; set; }
+        private IFunctionService FunctionService { get; set; } = null!;
         [Inject]
-        IClientFunctionService clientFunctionService { get; set; }
+        private IClientFunctionService ClientFunctionService { get; set; } = null!;
         [Inject]
-        IClientService clientService { get; set; }
+        private IClientService ClientService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
+        private IClientMessageService MessageService { get; set; } = null!;
+        [Inject]
+        private ConfirmService ConfirmService { get; set; } = null!;
 
-        [Inject]
-        DrawerService drawerService { get; set; }
-        [Inject]
-        ConfirmService confirmService { get; set; }
-        [Inject]
-        NotificationService noticeService { get; set; }
-        [Inject]
-        IClientLocalizer localizer { get; set; }
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
         //List<TableFilter<string>> groupFilters = null;
@@ -68,7 +69,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             _loading = true;
             //根据资源编号获取关联的接口
-            List<FunctionDto> _oldFunctionDtos = await clientService.GetFunctions(this.Options.Id);
+            List<FunctionDto> _oldFunctionDtos = await ClientService.GetFunctions(this.Options.Id);
             if (this.Options.Type == 0)
             {
                 //根据资源编号获取关联的接口
@@ -77,7 +78,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             else if (this.Options.Type == 1)
             {
                 //查看可用的接口
-                List<FunctionDto> tempFunctionDtos = await functionService.GetAllUsable();
+                List<FunctionDto> tempFunctionDtos = await FunctionService.GetAllUsable();
                 //移除已选择的
                 if (_oldFunctionDtos != null)
                 {
@@ -97,7 +98,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             //    groupFilters.Add(new TableFilter<string>() { Text=x,Value=x });
 
             //});
-            //_functionDtos.Select(x => x.Service).Distinct().ForEach(x =>
+            //_functionDtos.Select(x => x.BaseService).Distinct().ForEach(x =>
             //{
             //    serviceFilters.Add(new TableFilter<string>() { Text = x, Value = x });
 
@@ -130,16 +131,16 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+                MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
                 return;
             }
-            if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
+            if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
             {
                 foreach (var item in _selectedFunctionDtos)
                 {
-                    await clientFunctionService.Delete(this.Options.Id, item.Id);
+                    await ClientFunctionService.Delete(this.Options.Id, item.Id);
                 }
-                messageService.Success(localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                 await OnInitializedAsync();
             }
         }
@@ -149,7 +150,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         private async Task OnShowFunctionAddPageClick(Guid id)
         {
             await this.OpenOperationDialogAsync<ClientFunctionEdit, ClientFunctionEditOption, bool>(
-                $"{localizer["BindingApi"]}-[{this.Options.Name}]",
+                $"{Localizer["BindingApi"]}-[{this.Options.Name}]",
                      new ClientFunctionEditOption { Id = id, Type = 1 },
                      width: 1200,
                      onClose: async result =>
@@ -169,11 +170,11 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer[SharedLocalResource.NoRowsAreSelected]);
+                MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
                 return;
             }
 
-            bool result = await clientFunctionService.Add(_selectedFunctionDtos.Select(x =>
+            bool result = await ClientFunctionService.Add(_selectedFunctionDtos.Select(x =>
             {
                 return new ClientFunctionDto
                 {
@@ -184,12 +185,12 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             }).ToList());
             if (result)
             {
-                messageService.Success(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Success));
+                MessageService.Success(Localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Success));
                 await this.CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(SharedLocalResource.Binding, SharedLocalResource.Fail));
             }
         }
     }

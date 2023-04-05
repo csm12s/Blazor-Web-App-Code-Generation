@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base;
 using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -18,7 +19,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 客户端功能信息
     /// </summary>
     [Description("客户端功能信息")]
-    public class ClientFunction : IEntity, IEntityTypeBuilder<ClientFunction>
+    public class ClientFunction : GardenerEntityBaseNoKey, IEntityTypeBuilder<ClientFunction>
     {
         /// <summary>
         /// 客户端编号
@@ -31,7 +32,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 客户端
         /// </summary>
         [DisplayName("客户端")]
-        public Client Client { get; set; }
+        public Client Client { get; set; } = null!;
 
         /// <summary>
         /// 功能Id
@@ -44,13 +45,9 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 功能
         /// </summary>
         [DisplayName("功能")]
-        public Function Function { get; set; }
+        public Function Function { get; set; } = null!;
 
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayName("创建时间")]
-        public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
+
         /// <summary>
         /// 
         /// </summary>

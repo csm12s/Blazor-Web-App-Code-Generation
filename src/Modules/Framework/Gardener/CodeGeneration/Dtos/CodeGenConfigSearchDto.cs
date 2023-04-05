@@ -1,38 +1,33 @@
 ﻿using System.ComponentModel;
 
 namespace Gardener.CodeGeneration.Dtos;
-
 /// <summary>
-/// 代码生成配置检索Dto
+/// CodeGenConfigSearchDto
 /// </summary>
 public partial class CodeGenConfigSearchDto
 {
     /// <summary>
-    /// 净列名
+    /// NetColumnName
     /// </summary>
     [DisplayName("NetColumnName")]
-    public string NetColumnName { get; set; }
-
+    public string NetColumnName { get; set; } = null!;
     /// <summary>
-    /// 列名
+    /// ColumnName
     /// </summary>
     [DisplayName("ColumnName")]
-    public string ColumnName { get; set; }
-
+    public string ColumnName { get; set; } = null!;
     /// <summary>
-    /// net 类型
+    /// NetType
     /// </summary>
     [DisplayName("NetType")]
-    public string NetType { get; set; }
-
+    public string NetType { get; set; } = null!;
     /// <summary>
-    /// 数据库数据类型
+    /// DbDataType
     /// </summary>
     [DisplayName("DbDataType")]
-    public string DbDataType { get; set; }
-
+    public string DbDataType { get; set; } = null!;
     /// <summary>
-    /// 是否常用
+    /// IsCommon
     /// </summary>
     [DisplayName("IsCommon")]
     public bool IsCommon { get; set; }

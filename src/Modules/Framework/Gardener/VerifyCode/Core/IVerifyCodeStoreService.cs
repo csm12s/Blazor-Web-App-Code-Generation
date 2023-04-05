@@ -30,7 +30,7 @@ namespace Gardener.VerifyCode.Core
         /// <param name="verifyCodeType"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<string> GetCode(VerifyCodeTypeEnum verifyCodeType, string key);
+        Task<string?> GetCode(VerifyCodeTypeEnum verifyCodeType, string key);
 
         /// <summary>
         /// 移除校验码

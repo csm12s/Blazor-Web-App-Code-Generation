@@ -26,47 +26,47 @@ namespace Gardener.UserCenter.Impl.Domains
         /// </summary>
         [DisplayName("名称")]
         [Required, MaxLength(30)]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 描述
         /// </summary>
         [MaxLength(500), Required]
         [DisplayName("备注")]
-        public string Remark { get; set; }
+        public string Remark { get; set; } = null!;
 
         /// <summary>
         /// 联系人
         /// </summary>
         [DisplayName("联系人")]
         [MaxLength(20)]
-        public string Contacts { get; set; }
+        public string? Contacts { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
         [DisplayName("电话")]
         [MaxLength(20)]
-        public string Tel { get; set; }
+        public string? Tel { get; set; }
 
         /// <summary>
         /// 私钥
         /// </summary>
         [Required, StringLength(64)]
         [DisplayName("私钥")]
-        public string SecretKey { get; set; }
+        public string SecretKey { get; set; } = null!;
 
         /// <summary>
         /// 邮箱
         /// </summary>
         [MaxLength(50)]
         [DisplayName("邮箱")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<ClientFunction> ClientFunctions { get; set; }
+        public List<ClientFunction> ClientFunctions { get; set; }=new List<ClientFunction>();
 
         /// <summary>
         /// 配置信息

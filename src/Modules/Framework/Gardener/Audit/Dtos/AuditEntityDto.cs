@@ -23,17 +23,17 @@ namespace Gardener.Audit.Dtos
         /// 数据编号
         /// </summary>
         [DisplayName("数据编号")]
-        public string DataId { get; set; }
+        public string DataId { get; set; } = null!;
         /// <summary>
         /// 实体名称
         /// </summary>
         [DisplayName("实体名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         /// <summary>
         /// 实体类型名称
         /// </summary>
         [DisplayName("实体类型名称")]
-        public string TypeName { get; set; }
+        public string TypeName { get; set; } = null!;
         /// <summary>
         /// 操作类型
         /// </summary>
@@ -43,12 +43,12 @@ namespace Gardener.Audit.Dtos
         /// 操作者编号
         /// </summary>
         [DisplayName("操作者编号")]
-        public string OperaterId { get; set; }
+        public string OperaterId { get; set; } = null!;
         /// <summary>
         /// 操作者名称
         /// </summary>
         [DisplayName("操作者名称")]
-        public string OperaterName { get; set; }
+        public string OperaterName { get; set; } = null!;
         /// <summary>
         /// 操作者类型
         /// </summary>
@@ -62,6 +62,6 @@ namespace Gardener.Audit.Dtos
         /// <summary>
         /// 获取或设置 操作实体属性集合
         /// </summary>
-        public ICollection<AuditPropertyDto> AuditProperties { get; set; }
+        public ICollection<AuditPropertyDto>? AuditProperties { get; set; }
     }
 }

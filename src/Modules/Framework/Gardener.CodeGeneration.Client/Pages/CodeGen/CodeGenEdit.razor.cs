@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Gardener.Client.AntDesignUi.Base.Components;
+using AntDesign;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGen;
 
@@ -67,7 +69,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
     }
     #endregion
 
-    protected async Task OnTableSelectChanged()
+    protected Task OnTableSelectChanged()
     {
         // Class name
         _editModel.ClassName = _editModel.TableName
@@ -89,23 +91,24 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
         //    .FirstOrDefault();
         // Menu
         //_editModel.MenuParentId
+        return Task.CompletedTask;
     }
 
     protected virtual async Task OnlySaveCodeGen()
     {
-        _isLoading = true;
+        _dialogLoading.Start();
         //修改
         _editModel.UpdateCodeGenConfig = false;
-        var result = await _service.Update(_editModel);
+        var result = await BaseService.Update(_editModel);
         if (result)
         {
-            messageService.Success(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
+            MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
             await base.FeedbackRef.CloseAsync(OperationDialogOutput<Guid>.Succeed(_editModel.Id));
         }
         else
         {
-            messageService.Error(localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
+            MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
         }
-        _isLoading = false;
+        _dialogLoading.Stop();
     }
 }

@@ -12,13 +12,12 @@ namespace Gardener.CodeGeneration.Dtos
     public class CodeGenReplaceItem
     {
         /// <summary>
-        /// 默认前缀
+        /// OriginText
         /// </summary>
-        public string OriginText { get; set; }//SYS_
-
+        public string? OriginText { get; set; }
         /// <summary>
-        /// 替换前缀
+        /// ReplacedText
         /// </summary>
-        public string ReplacedText { get; set; }//Sys
+        public string? ReplacedText { get; set; }
     }
 }

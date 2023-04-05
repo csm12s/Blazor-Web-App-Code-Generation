@@ -17,11 +17,11 @@ namespace Gardener.Client.Core.Services
     /// </summary>
     public abstract class JsToolBase
     {
-        private readonly Lazy<Task<IJSObjectReference>> moduleTask;
-        private IJSObjectReference jSObjectReference;
+        private readonly Lazy<Task<IJSObjectReference>> moduleTask=null!;
+        private IJSObjectReference? jSObjectReference;
         public JsToolBase(IJSRuntime js)
         {
-            moduleTask = new(() => js.InvokeAsync<IJSObjectReference>("import", $"./js/js-tool/js-tool.js?_={DateTime.Now.ToString("yyyyMMddHHmmss")}").AsTask());
+            moduleTask = new(() => js.InvokeAsync<IJSObjectReference>("import", $"./_content/Gardener.Client.Core/js-tool.js?_={DateTime.Now.ToString("yyyyMMddHHmmss")}").AsTask());
         }
 
         /// <summary>
@@ -157,19 +157,19 @@ namespace Gardener.Client.Core.Services
             return await module.InvokeAsync<Dictionary<string, string>>("getAllCookies");
         }
 
-        public async Task<string> Get(string key, string domain = null)
+        public async Task<string> Get(string key, string? domain = null)
         {
             var module = await GetJsToolModule();
             return await module.InvokeAsync<string>("getCookies", key, new { domain });
         }
 
-        public async Task Remove(string key, string path = null, string domain = null)
+        public async Task Remove(string key, string? path = null, string? domain = null)
         {
             var module = await GetJsToolModule();
             await module.InvokeVoidAsync("removeCookies", key, new { domain, path });
         }
 
-        public async Task Set(string key, string value, int? expires = null, string path = null)
+        public async Task Set(string key, string value, int? expires = null, string? path = null)
         {
             var module = await GetJsToolModule();
             await module.InvokeVoidAsync("setCookies", key, value, new { expires, path });

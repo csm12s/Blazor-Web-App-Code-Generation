@@ -1,10 +1,12 @@
 ﻿@page "/account/center"
-<h3>@userDto.UserName</h3>
+@if (userDto != null)
+{
+    <h3>@userDto.UserName</h3>
 
-<Space Size=@(("8", "8")) Wrap Align="start">
-    <SpaceItem>
-        <GridCol>
-            <Card Title=@localizer["PersonalInformation"] Style="width: 350px" Bordered Hoverable>
+    <Space Size=@(("8", "8")) Wrap Align="start">
+        <SpaceItem>
+            <GridCol>
+                <Card Title=@localizer["PersonalInformation"] Style="width: 350px" Bordered Hoverable>
                 <ChildContent>
                     <body>
                         <p style="margin-top:10px">
@@ -22,7 +24,7 @@
                         <p>
                             <Text>@localizer["Gender"]： </Text><Text>@userDto.Gender</Text>
                         </p>
-                        
+
                     </body>
                 </ChildContent>
             </Card>
@@ -38,29 +40,27 @@
                         <FormItem Label="@localizer["UserName"]">
                             <Input @bind-Value="@context.UserName" />
                         </FormItem>
-                        <FormItem Label="@localizer["Password"]">
-                            <InputPassword @bind-Value="@context.Password" />
-                        </FormItem>
                         <FormItem Label="@localizer["NickName"]">
                             <Input @bind-Value="@context.NickName" />
                         </FormItem>
                         <FormItem Label="@localizer["Gender"]">
                             <RadioGroup @bind-Value="@(context.Gender)">
                                 @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
-                                {
-                                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
-                                }
-                            </RadioGroup>
-                        </FormItem>
+                                    {
+                                        <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                                    }
+                                </RadioGroup>
+                            </FormItem>
 
-                        <FormItem WrapperColOffset="8" WrapperColSpan="16">
-                            <Button Type="@ButtonType.Primary" OnClick="SaveUserInfo">
-                                @localizer[UserCenterResource.Save]
-                            </Button>
-                        </FormItem>
-                    </Form>
-                </ChildContent>
-            </Card>
-        </GridCol>
-    </SpaceItem>
-</Space>
+                            <FormItem WrapperColOffset="8" WrapperColSpan="16">
+                                <Button Type="@ButtonType.Primary" OnClick="SaveUserInfo">
+                                    @localizer[UserCenterResource.Save]
+                                </Button>
+                            </FormItem>
+                        </Form>
+                    </ChildContent>
+                </Card>
+            </GridCol>
+        </SpaceItem>
+    </Space>
+}

@@ -1,0 +1,32 @@
+﻿@using AntDesign.ProLayout
+@using Gardener.Client.AntDesignUi.Base.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
+<AuthorizeView>
+    <Authorized>
+        <AntDesign.ProLayout.BasicLayout Logo="@("./assets/logo.png")" MenuData="_menuData">
+            <RightContentRender>
+                <RightContent />
+            </RightContentRender>
+            <ChildContent>
+                @if (ClientConstant.EnabledTabs)
+                {
+                    <ReuseTabs @ref="reuseTabs" Class="top-row px-4" TabPaneClass="content px-4" Draggable />
+
+                }else
+                {
+                    @Body
+                }
+            </ChildContent>
+            <FooterRender>
+                <FooterView Copyright="@systemConfig?.Copyright" Links="ClientConstant.FooterLinks"></FooterView>
+            </FooterRender>
+        </AntDesign.ProLayout.BasicLayout>
+        <AntContainer />
+    </Authorized>
+    <NotAuthorized>
+        @*Just render the body so that RedirectToLogin works*@
+        @Body
+    </NotAuthorized>
+</AuthorizeView>
+<SettingDrawer />

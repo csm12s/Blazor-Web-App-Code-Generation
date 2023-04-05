@@ -68,13 +68,14 @@ namespace Gardener.EntityFramwork.DbContexts
         /// <param name="result"></param>
         protected override void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
         {
+            var context = eventData.Context;
+            if(context==null) { return; }
             IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
-            ormAuditService.SavingChangesEvent(eventData.Context.ChangeTracker.Entries());
+            ormAuditService.SavingChangesEvent(context.ChangeTracker.Entries());
 
             #region CRUD Filter
-            var dbContext = eventData.Context;
             // 获取所有更改，删除，新增的实体，但排除审计实体（避免死循环）
-            var entityEntries = dbContext.ChangeTracker.Entries()
+            var entityEntries = context.ChangeTracker.Entries()
                   .Where(u => u.Entity.GetType() != typeof(AuditEntity)
                   && u.Entity.GetType() != typeof(AuditOperation)
                   && u.Entity.GetType() != typeof(AuditProperty)

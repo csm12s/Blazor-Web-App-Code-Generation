@@ -23,7 +23,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 角色
         /// </summary>
-        public RoleDto Role { get; set; }
+        public RoleDto Role { get; set; } = null!;
         /// <summary>
         /// 权限Id
         /// </summary>
@@ -32,7 +32,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 权限
         /// </summary>
-        public ResourceDto Resource { get; set; }
+        public ResourceDto Resource { get; set; } = null!;
         /// <summary>
         /// 创建时间
         /// </summary>

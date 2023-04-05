@@ -22,7 +22,7 @@ namespace Gardener.Authorization.Core
         /// <param name="identity"></param>
         /// <param name="api"></param>
         /// <returns></returns>
-        Task<bool> Check(Identity identity, ApiEndpoint api);
+        Task<bool> Check(Identity? identity, ApiEndpoint? api);
 
         /// <summary>
         /// 获取身份的编号

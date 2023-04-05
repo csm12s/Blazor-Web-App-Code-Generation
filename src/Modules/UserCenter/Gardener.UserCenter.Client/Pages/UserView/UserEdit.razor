@@ -1,7 +1,7 @@
 ﻿@inherits EditOperationDialogBase<UserDto, int,UserCenterResource>
 @if (_editModel != null)
 {
-    <Form Loading="@_isLoading"
+    <Form Loading="@_dialogLoading.Value"
           Model="@_editModel"
           LabelCol="new ColLayoutParam { Span = 8 }"
           WrapperCol="new ColLayoutParam { Span = 16 }"
@@ -9,12 +9,12 @@
           Context="model">
         <Row Gutter="24">
             <GridCol Span="11">
-                <Divider Orientation="left" Style="font-weight:bold">@localizer["BasicInformation"]</Divider>
-                <FormItem Label="@localizer[UserCenterResource.Avatar]">
+                <Divider Orientation="left" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
+                <FormItem Label="@Localizer[UserCenterResource.Avatar]">
                     @if (DrawerInputType.Edit.Equals(this.Options.Type) || DrawerInputType.Add.Equals(this.Options.Type))
                     {
 
-                        <Tooltip Placement="Placement.LeftTop" Title="@localizer[UserCenterResource.ClickUpdateAvatar]">
+                        <Tooltip Placement="Placement.LeftTop" Title="@Localizer[UserCenterResource.ClickUpdateAvatar]">
                             <a @onclick="_ => OnAvatarClick(model)">
                                 <Avatar Src="@model.Avatar" />
                             </a>
@@ -26,14 +26,14 @@
                         <Avatar Src="@model.Avatar" />
                     }
                 </FormItem>
-                <FormItem Label="@localizer["Dept"]">
-                    @if (deptDatas != null && deptDatas.Count > 0)
+                <FormItem Label="@Localizer["Dept"]">
+                    @if (deptDatas != null)
                     {
                         <TreeSelect TItem="DeptDto"
                                     Style="width:100%;"
                                     DataSource="deptDatas"
-                        @bind-Value="@deptId"
-                                    Placeholder="@localizer[SharedLocalResource.PleaseSelect]"
+                        @bind-Value="@DeptId"
+                                    Placeholder="@Localizer[SharedLocalResource.PleaseSelect]"
                                     AllowClear
                                     TitleExpression="node => node.DataItem.Name"
                                     KeyExpression="node => node.DataItem.Id.ToString()"
@@ -43,7 +43,7 @@
                         </TreeSelect>
                     }
                 </FormItem>
-                <FormItem Label="@localizer["Position"]">
+                <FormItem Label="@Localizer["Position"]">
                     <Select DataSource="@positions"
                     @bind-Value="@model.PositionId"
                             ValueName="@nameof(PositionDto.Id)"
@@ -54,45 +54,49 @@
                             AllowClear>
                     </Select>
                 </FormItem>
-                <FormItem Label="@localizer["UserName"]">
+                <FormItem Label="@Localizer["UserName"]">
                     <Input @bind-Value="@model.UserName" />
                 </FormItem>
-                <FormItem Label="@localizer["Password"]">
+                <FormItem Label="@Localizer["Password"]">
                     <Input Type="password" @bind-Value="@model.Password" />
                 </FormItem>
-                <FormItem Label="@localizer["NickName"]">
+                <FormItem Label="@Localizer["NickName"]">
                     <Input @bind-Value="@model.NickName" />
                 </FormItem>
-                <FormItem Label="@localizer["Gender"]">
+                <FormItem Label="@Localizer["Gender"]">
                     <RadioGroup @bind-Value="@(model.Gender)">
                         @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                         {
-                            <Radio Value="@(gitem.Key)">@localizer[gitem.Value]</Radio>
+                            <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
                         }
                     </RadioGroup>
                 </FormItem>
-                <FormItem Label="@localizer["IsLocked"]">
+                <FormItem Label="@Localizer["IsLocked"]">
                     <Switch @bind-Value="@model.IsLocked"></Switch>
                 </FormItem>
             </GridCol>
             <GridCol Offset="2" Span="11">
-                <Divider Orientation="left" Style="font-weight:bold">@localizer["ContactInformation"]</Divider>
-                <FormItem Label="@localizer["PhoneNumber"]">
+                <Divider Orientation="left" Style="font-weight:bold">@Localizer["ContactInformation"]</Divider>
+                <FormItem Label="@Localizer["PhoneNumber"]">
                     <Input @bind-Value="@model.PhoneNumber" />
                 </FormItem>
-                <FormItem Label="@localizer["PhoneNumberConfirmed"]">
+                <FormItem Label="@Localizer["PhoneNumberConfirmed"]">
                     <Switch @bind-Value="@model.PhoneNumberConfirmed"></Switch>
                 </FormItem>
-                <FormItem Label="@localizer["Email"]">
+                <FormItem Label="@Localizer["Email"]">
                     <Input @bind-Value="@model.Email" />
                 </FormItem>
-                <FormItem Label="@localizer["EmailConfirmed"]">
+                <FormItem Label="@Localizer["EmailConfirmed"]">
                     <Switch @bind-Value="@model.EmailConfirmed"></Switch>
                 </FormItem>
-                <FormItem Label="@localizer["QQ"]">
+                @if (model.UserExtension == null)
+                {
+                    model.UserExtension = new UserExtensionDto() { UserId = model.Id };
+                }
+                <FormItem Label="@Localizer["QQ"]">
                     <Input @bind-Value="@model.UserExtension.QQ" />
                 </FormItem>
-                <FormItem Label="@localizer["WeChat"]">
+                <FormItem Label="@Localizer["WeChat"]">
                     <Input @bind-Value="@model.UserExtension.WeChat" />
                 </FormItem>
             </GridCol>
@@ -105,13 +109,13 @@
                         {
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" HtmlType="submit">
-                                    @localizer[SharedLocalResource.Save]
+                                    @Localizer[SharedLocalResource.Save]
                                 </Button>
                             </SpaceItem>
                         }
                         <SpaceItem>
                             <Button OnClick="OnFormCancel">
-                                @localizer[SharedLocalResource.Cancel]
+                                @Localizer[SharedLocalResource.Cancel]
                             </Button>
                         </SpaceItem>
                     </Space>

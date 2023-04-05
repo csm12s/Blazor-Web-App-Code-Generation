@@ -7,29 +7,28 @@
 namespace Gardener.CodeGeneration.Dtos
 {
     /// <summary>
-    /// 代码生成模板项
+    /// CodeGenTemplateItem
     /// </summary>
     public class CodeGenTemplateItem
     {
         /// <summary>
-        /// 代码生成模板项
+        /// CodeGenTemplateItem
         /// </summary>
         /// <param name="model"></param>
         public CodeGenTemplateItem(CodeGenNameModel model)
         {
             Model = model;
         }
-
         /// <summary>
-        /// 模板路径
+        /// TemplatePath
         /// </summary>
-        public string TemplatePath { get; set; }
+        public string? TemplatePath { get; set; }
         /// <summary>
-        /// 生成路径
+        /// GenPath
         /// </summary>
-        public string GenPath { get; set; }
+        public string? GenPath { get; set; }
         /// <summary>
-        /// 代码生成命名模型
+        /// Model
         /// </summary>
         public CodeGenNameModel Model { get; }
     }

@@ -192,6 +192,9 @@
   <data name="CreatedTime" xml:space="preserve">
     <value>Created time</value>
   </data>
+  <data name="Data not find" xml:space="preserve">
+    <value>Data not find</value>
+  </data>
   <data name="DataNotFound" xml:space="preserve">
     <value>Data not found</value>
   </data>
@@ -216,6 +219,9 @@
     <value>Detail</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
   <data name="Do" xml:space="preserve">
     <value>Do</value>
     <comment>LocalKeys</comment>
@@ -234,6 +240,9 @@
   <data name="EN" xml:space="preserve">
     <value>EN</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
@@ -488,6 +497,9 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>User name</value>
+  </data>
+  <data name="User_Info_Get_Error_Retry_Login" xml:space="preserve">
+    <value>Failed to obtain user information, please log in again.</value>
   </data>
   <data name="Verify code verification failed" xml:space="preserve">
     <value>Verify code verification failed</value>

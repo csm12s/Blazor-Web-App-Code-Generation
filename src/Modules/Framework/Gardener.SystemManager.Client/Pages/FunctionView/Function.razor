@@ -9,18 +9,18 @@
            @bind-PageIndex="_pageIndex"
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            Context="model"
             >
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_function_refresh">
-                <TableSearch TDto="FunctionDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="FunctionDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -29,14 +29,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_function_import">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="import" OnClick="OnImportClick">
-                                    @localizer[SharedLocalResource.Import]
+                                    @Localizer[SharedLocalResource.Import]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_function_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport" Loading="_exportDataLoading">
-                                    @localizer[SharedLocalResource.Export]
+                                    @Localizer[SharedLocalResource.Export]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -51,14 +51,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_function_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_function_download_seed_data">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnClickShowSeedData">
-                                    @localizer[SharedLocalResource.SeedData]
+                                    @Localizer[SharedLocalResource.SeedData]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -67,7 +67,7 @@
             </Row>
 
         </TitleTemplate>
-        <RowTemplate>
+                    <ColumnDefinitions>
             <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
                 <Selection Key="@(model.Id.ToString())" Width="5%" />
             </ResourceAuthorize>
@@ -76,7 +76,7 @@
             <Column @bind-Field="@model.Summary" Width="10%" Filterable />
             <Column @bind-Field="@model.Path" Width="60" Filterable />
             <Column @bind-Field="@model.Method" Width="10%" Filters="TableFiltersConstants.FunctionMethodFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Method)"></TagRandomColor>
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
             </Column>
             <Column @bind-Field="@model.EnableAudit" Width="8%" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_function_enable_audit">
@@ -88,7 +88,7 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.IsLocked" Width="8%" Filterable Title="@localizer[SharedLocalResource.IsLocked]">
+            <Column @bind-Field="@model.IsLocked" Width="8%" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_function_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
@@ -98,32 +98,32 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn Width="10%">
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_function_edit">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_function_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_function_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

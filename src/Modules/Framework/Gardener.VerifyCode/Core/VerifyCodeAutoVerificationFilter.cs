@@ -49,11 +49,12 @@ namespace Gardener.VerifyCode.Core
             {
                 await next(); return;
             }
-            ParameterDescriptor parameter = parameters.FirstOrDefault(x => x.ParameterType.IsSubclassOf(typeof(VerifyCodeCheckInput)));
+            ParameterDescriptor? parameter = parameters.FirstOrDefault(x => x.ParameterType.IsSubclassOf(typeof(VerifyCodeCheckInput)));
             if (parameter == null) { await next(); return; }
-            var input = context.ActionArguments[parameter.Name] as VerifyCodeCheckInput;
+            var inputTemp = context.ActionArguments[parameter.Name];
+            if(inputTemp == null) { await next(); return; }
+            var input = (VerifyCodeCheckInput)inputTemp;
             IVerifyCode _verifyCodeService = verifyCodeServiceresolve(input.VerifyCodeType);
-
             if (await _verifyCodeService.Verify(input.VerifyCodeKey, input.VerifyCode))
             {
                 await next(); return;

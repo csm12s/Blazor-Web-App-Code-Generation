@@ -16,23 +16,23 @@ namespace Gardener.Swagger.Dtos
         /// <summary>
         /// 接口
         /// </summary>
-        public string openapi { get; set; }
+        public string? openapi { get; set; }
         /// <summary>
         /// 服务器
         /// </summary>
-        public List<SwaggerServerInfo> servers { get; set; }
+        public List<SwaggerServerInfo>? servers { get; set; }
         /// <summary>
         /// 相关信息
         /// </summary>
-        public SwaggerInfo info { get; set; }
+        public SwaggerInfo? info { get; set; }
         /// <summary>
         /// 路径
         /// </summary>
-        public Dictionary <string, Dictionary<string, SwaggerApiInfo>> paths { get; set; }
+        public Dictionary <string, Dictionary<string, SwaggerApiInfo>>? paths { get; set; }
         /// <summary>
         /// 标签
         /// </summary>
-        public List<SwaggerTagInfo> tags { get; set; }
+        public List<SwaggerTagInfo>? tags { get; set; }
 
 
     }
@@ -44,25 +44,25 @@ namespace Gardener.Swagger.Dtos
         /// <summary>
         /// URL
         /// </summary>
-        public string url { get; set; }
+        public string? url { get; set; }
         /// <summary>
         /// 描述
         /// </summary>
-        public string description { get; set; }
+        public string? description { get; set; }
     }
     /// <summary>
     /// 标签信息
     /// </summary>
     public class SwaggerTagInfo
-    { 
+    {
         /// <summary>
         /// 名称
         /// </summary>
-        public string name { get; set; }
+        public string name { get; set; } = null!;
         /// <summary>
         /// 描述
         /// </summary>
-        public string description { get; set; }
+        public string? description { get; set; }
     }
     /// <summary>
     /// swagger 接口信息
@@ -72,15 +72,15 @@ namespace Gardener.Swagger.Dtos
         /// <summary>
         /// 标题名称
         /// </summary>
-        public string title { get; set; }
+        public string? title { get; set; }
         /// <summary>
         /// 描述
         /// </summary>
-        public string description { get; set; }
+        public string? description { get; set; }
         /// <summary>
         /// 版本
         /// </summary>
-        public string version { get; set; }
+        public string? version { get; set; }
     }
     /// <summary>
     /// swagger API接口信息
@@ -90,15 +90,15 @@ namespace Gardener.Swagger.Dtos
         /// <summary>
         /// 标签
         /// </summary>
-        public List<string> tags { get; set; }
+        public List<string>? tags { get; set; }
         /// <summary>
         /// 概述
         /// </summary>
-        public string summary { get; set; }
+        public string? summary { get; set; }
         /// <summary>
         /// 描述
         /// </summary>
-        public string description { get; set; }
+        public string? description { get; set; }
 
     }
 

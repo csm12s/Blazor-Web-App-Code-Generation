@@ -31,7 +31,7 @@ namespace Gardener.Attachment.Client.Services
 
         public async Task<Base.PagedList<AttachmentDto>> Search(int? businessType, int? fileType, string businessId, string order = "desc", int pageIndex = 1, int pageSize = 10)
         {
-            IDictionary<string, object> pramas = new Dictionary<string, object>()
+            IDictionary<string, object?> pramas = new Dictionary<string, object?>()
             {
                 {"businessType",businessType },
                 {"fileType",fileType },

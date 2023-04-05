@@ -80,7 +80,14 @@ namespace Gardener.Admin
             //添加系统通知服务
             services.AddSystemNotify();
             //文件日志
-            services.AddFileLogging();
+            //每天创建一个日志文件
+            services.AddFileLogging("application-{0:yyyy}-{0:MM}-{0:dd}.log", options =>
+            {
+                options.FileNameRule = fileName =>
+                {
+                    return string.Format(fileName, DateTime.UtcNow);
+                };
+            });
             //默认读取 Logging:Monitor 下配置
             services.AddMonitorLogging();
             //全局启用 LoggingMonitor

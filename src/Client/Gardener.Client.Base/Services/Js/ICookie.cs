@@ -42,6 +42,6 @@ namespace Gardener.Client.Base
         /// <param name="path"></param>
         /// <param name="domain"></param>
         /// <returns></returns>
-        public Task Remove(string key, string path=null,string domain=null);
+        public Task Remove(string key, string? path=null,string? domain=null);
     }
 }

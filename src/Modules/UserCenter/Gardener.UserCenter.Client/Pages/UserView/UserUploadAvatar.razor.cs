@@ -7,7 +7,10 @@
 using AntDesign;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
+using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
+using Gardener.Common;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -18,63 +21,56 @@ using System.Threading.Tasks;
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserUploadAvatar : FeedbackComponent<UserUploadAvatarParams, string>
-    {
-        bool loading = false;
-
-        string imageUrl;
-        [Inject]
-        MessageService messagerService { get; set; }
-        [Inject]
-        IOptions<ApiSettings> apiSettings { get; set; }
-        [Inject]
-        IUserService userService { get; set; }
-        [Inject]
-        IAuthenticationStateManager authenticationStateManager { get; set; }
+    { 
         
-        [Inject]
-        protected IClientLocalizer localizer { get; set; }
-        /// <summary>
-        /// 上传地址
-        /// </summary>
-        public string UploadUrl
-        {
-            get
-            {
-                return apiSettings.Value.BaseAddres + apiSettings.Value.UploadPath;
-            }
-        }
         /// <summary>
         /// 上传附件附带参数
         /// </summary>
-        private Dictionary<string,object> uploadAttachmentInput=new Dictionary<string, object>() 
+        private Dictionary<string, object> uploadAttachmentInput = new Dictionary<string, object>()
         {
             { "BusinessType", AttachmentBusinessType.Avatar}
         };
 
-        private Dictionary<string, string> headers;
-
-        private UserDto userDto;
+        private Dictionary<string, string> headers = new Dictionary<string, string>();
+        private UserDto userDto = null!;
         private bool saveDb = false;
+        private bool loading = false;
+        private string? imageUrl;
+        /// <summary>
+        /// 上传地址
+        /// </summary>
+        private string UploadUrl
+        {
+            get
+            {
+                return ApiSettings.Value.BaseAddres + ApiSettings.Value.UploadPath;
+            }
+        }
+
+        [Inject]
+        private IClientMessageService MessagerService { get; set; } = null!;
+        [Inject]
+        private IOptions<ApiSettings> ApiSettings { get; set; } = null!;
+        [Inject]
+        private IUserService UserService { get; set; } = null!;
+        [Inject]
+        private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
+        [Inject]
+        private IClientLocalizer Localizer { get; set; } = null!;
+        
         /// <summary>
         /// 页面初始化
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            if (this.Options != null)
-            {
-                userDto = this.Options.User;
-                saveDb = this.Options.SaveDb;
-
-                if (userDto != null && !string.IsNullOrEmpty(userDto.Avatar))
-                {
-                    imageUrl = userDto.Avatar;
-                }
-                //上传附件附带参数
-                uploadAttachmentInput.Add("BusinessId", userDto != null ? userDto.Id.ToString() : null);
-                //上传附件附带身份信息
-                headers = await authenticationStateManager.GetCurrentTokenHeaders();
-            }
+            userDto = this.Options.User;
+            saveDb = this.Options.SaveDb;
+            imageUrl = userDto.Avatar;
+            //上传附件附带参数
+            uploadAttachmentInput.Add("BusinessId", userDto != null ? userDto.Id.ToString() : string.Empty);
+            //上传附件附带身份信息
+            headers = await AuthenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
             await base.OnInitializedAsync();
         }
 
@@ -83,12 +79,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             var typeOk = file.Type == "image/jpeg" || file.Type == "image/png" || file.Type == "image/gif";
             if (!typeOk)
             {
-                messagerService.Error("头像只能选择JPG/PNG/GIF文件！");
+                MessagerService.Error("头像只能选择JPG/PNG/GIF文件！");
             }
-            var sizeOk= file.Size / 1024 <500;
+            var sizeOk = file.Size / 1024 < 500;
             if (!sizeOk)
             {
-                messagerService.Error("头像必须小于500KB！");
+                MessagerService.Error("头像必须小于500KB！");
             }
             return typeOk && sizeOk;
         }
@@ -96,35 +92,40 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 新的头像上传成功
         /// </summary>
         private bool uploadSucceed = false;
-        async Task HandleChange(UploadInfo fileinfo)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileinfo"></param>
+        /// <returns></returns>
+        private Task HandleChange(UploadInfo fileinfo)
         {
             loading = fileinfo.File.State == UploadState.Uploading;
 
             if (fileinfo.File.State == UploadState.Success)
             {
-                ApiResult<UploadAttachmentOutput> apiResult= fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive=true });
-                if (apiResult.Succeeded)
+                ApiResult<UploadAttachmentOutput> apiResult = fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (apiResult.Succeeded && apiResult.Data != null)
                 {
                     uploadSucceed = true;
-                    imageUrl=apiResult.Data.Url;
-                    
+                    imageUrl = apiResult.Data.Url;
                 }
-                else 
+                else
                 {
-                    messagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
-                    messagerService.Error("上传失败");
+                    MessagerService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
+                    MessagerService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Success));
                 }
             }
-            else if(fileinfo.File.State == UploadState.Fail)
+            else if (fileinfo.File.State == UploadState.Fail)
             {
-                messagerService.Error("上传失败");
+                MessagerService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Fail));
             }
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 保存或返回
         /// </summary>
         /// <returns></returns>
-        async Task OnOkClick() 
+        async Task OnOkClick()
         {
             //失败，直接返回
             if (!uploadSucceed)
@@ -136,31 +137,54 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             //不需要保存，直接返回
             if (!saveDb)
             {
-                userDto.Avatar= imageUrl;
+                userDto.Avatar = imageUrl;
                 await this.FeedbackRef.CloseAsync();
                 return;
             }
             //更新到数据库
-            var state = await userService.UpdateAvatar(new UserUpdateAvatarInput { Id = userDto.Id, Avatar = imageUrl });
+            var state = await UserService.UpdateAvatar(new UserUpdateAvatarInput { Id = userDto.Id, Avatar = imageUrl });
             if (state)
             {
-                messagerService.Success("头像修改成功");
+                MessagerService.Success(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Success));
                 await this.FeedbackRef.CloseAsync(string.Empty);
             }
             else
             {
-                messagerService.Success("头像修改失败");
+                MessagerService.Error(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Fail));
             }
 
         }
     }
-
+    /// <summary>
+    /// 上传头像参数
+    /// </summary>
     public class UserUploadAvatarParams
     {
+        /// <summary>
+        /// 上传头像参数
+        /// </summary>
+        /// <param name="user"></param>
+        public UserUploadAvatarParams(UserDto user)
+        {
+            User = user;
+        }
+
+        /// <summary>
+        /// 上传头像参数
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="saveDb"></param>
+        public UserUploadAvatarParams(UserDto user, bool saveDb)
+        {
+            User = user;
+            SaveDb = saveDb;
+        }
+
         /// <summary>
         /// 用户
         /// </summary>
         public UserDto User { get; set; }
+
         /// <summary>
         /// 保存数据
         /// </summary>

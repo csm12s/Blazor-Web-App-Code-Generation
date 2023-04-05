@@ -16,19 +16,19 @@ public partial class CodeGenSearchDto
     /// </summary>
     [CustomSearchField]
     [DisplayName("TableName")]
-    public IEnumerable<string> TableName { get; set; }
+    public IEnumerable<string>? TableName { get; set; }
     /// <summary>
     /// 类名
     /// </summary>
     [DisplayName("ClassName")]
     [CustomSearchField]
-    public string ClassName { get; set; }
+    public string? ClassName { get; set; }
     #endregion
     /// <summary>
     /// 模块
     /// </summary>
     [DisplayName("Module")]
-    public string Module { get; set; }
+    public string? Module { get; set; }
     /// <summary>
     /// 创建时间
     /// </summary>

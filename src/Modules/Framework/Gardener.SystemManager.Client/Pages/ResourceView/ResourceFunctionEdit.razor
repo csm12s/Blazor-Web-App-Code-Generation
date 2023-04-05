@@ -63,7 +63,7 @@
                     </Row>
                 }
             </TitleTemplate>
-            <RowTemplate>
+            <ColumnDefinitions>
                 <ResourceAuthorize ResourceKey="system_manager_resource_function_delete_selected">
                     <Selection Key="@(model.Path+"_"+model.Method)" Width="50" />
                 </ResourceAuthorize>
@@ -73,12 +73,12 @@
                 <Column @bind-Field="@model.Description" Width="200" Sortable="false" Ellipsis />
                 <Column @bind-Field="@model.Path" Width="150" Sortable="false" Ellipsis />
                 <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
-                    <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.Method)"></TagRandomColor>
+                    <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
                 </Column>
                 <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false" Filterable>
                     <TagYesNo Yes="@model.EnableAudit"></TagYesNo>
                 </Column>
-            </RowTemplate>
+            </ColumnDefinitions>
         </Table>
     </AntDesign.Col>
 </Row>

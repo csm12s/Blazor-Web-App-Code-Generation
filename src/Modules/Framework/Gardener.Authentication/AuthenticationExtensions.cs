@@ -47,7 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
             using var serviceProvider = services.BuildServiceProvider();
-            var jwtSettings = serviceProvider.GetService<IOptions<JWTOptions>>().Value;
+            var jwtSettings = serviceProvider.GetRequiredService<IOptions<JWTOptions>>().Value;
 
             Func<MessageReceivedContext, Task> contextHandle = context =>
             {
@@ -97,21 +97,21 @@ namespace Microsoft.Extensions.DependencyInjection
             return new TokenValidationParameters
             {
                 // 验证签发方密钥
-                ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey.Value,
+                ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
                 // 签发方密钥
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.IssuerSigningKey)),
                 // 验证签发方
-                ValidateIssuer = jwtSettings.ValidateIssuer.Value,
+                ValidateIssuer = jwtSettings.ValidateIssuer,
                 // 设置签发方
                 ValidIssuer = jwtSettings.ValidIssuer,
                 // 验证签收方
-                ValidateAudience = jwtSettings.ValidateAudience.Value,
+                ValidateAudience = jwtSettings.ValidateAudience,
                 // 设置接收方
                 ValidAudience = jwtSettings.ValidAudience,
                 // 验证生存期
-                ValidateLifetime = jwtSettings.ValidateLifetime.Value,
+                ValidateLifetime = jwtSettings.ValidateLifetime,
                 // 过期时间容错值
-                ClockSkew = TimeSpan.FromSeconds(jwtSettings.ClockSkew.Value),
+                ClockSkew = TimeSpan.FromSeconds(jwtSettings.ClockSkew),
                 ValidAlgorithms=new[] {jwtSettings.Algorithm }
             };
         }

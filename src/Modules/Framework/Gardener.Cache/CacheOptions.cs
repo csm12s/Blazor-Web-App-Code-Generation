@@ -8,6 +8,9 @@ using Furion.ConfigurableOptions;
 
 namespace Gardener.Cache
 {
+    /// <summary>
+    /// CacheOptions
+    /// </summary>
     public class CacheOptions : IConfigurableOptions
     {
         /// <summary>
@@ -17,34 +20,57 @@ namespace Gardener.Cache
         /// Redis Redis
         /// </summary>
         public string Type { get; set; } = "Memory";
-        public SqlServerCacheOptions SqlServer { get; set; }
-        public RedisCacheOptions Redis { get; set; }
+        /// <summary>
+        /// SqlServerCacheOptions
+        /// </summary>
+        public SqlServerCacheOptions? SqlServer { get; set; }
+        /// <summary>
+        /// RedisCacheOptions
+        /// </summary>
+        public RedisCacheOptions? Redis { get; set; }
         //public NCacheOptions NCache { get; set; }
     }
-
+    /// <summary>
+    /// SqlServerCacheOptions
+    /// </summary>
     public class SqlServerCacheOptions
     {
-        public string ConnectionString { get; set; }
-        public string SchemaName { get; set; }
-        public string TableName { get; set; }
+        /// <summary>
+        /// ConnectionString
+        /// </summary>
+        public string ConnectionString { get; set; } = null!;
+        /// <summary>
+        /// SchemaName
+        /// </summary>
+        public string SchemaName { get; set; } = null!;
+        /// <summary>
+        /// TableName
+        /// </summary>
+        public string TableName { get; set; } = null!;
     }
+    /// <summary>
+    /// RedisCacheOptions
+    /// </summary>
     public class RedisCacheOptions
     {
         /// <summary>
         /// 连接字符串
         /// </summary>
-        public string Configuration { get; set; }
+        public string Configuration { get; set; } = null!;
         /// <summary>
         /// 键名前缀
         /// </summary>
-        public string InstanceName { get; set; }
+        public string InstanceName { get; set; } = null!;
     }
+    /// <summary>
+    /// NCacheOptions
+    /// </summary>
     public class NCacheOptions
     {
         /// <summary>
         /// 
         /// </summary>
-        public string CacheName { get; set; }
+        public string CacheName { get; set; } = null!;
         /// <summary>
         /// 
         /// </summary>

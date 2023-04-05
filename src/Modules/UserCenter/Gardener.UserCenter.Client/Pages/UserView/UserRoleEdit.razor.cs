@@ -6,7 +6,9 @@
 
 using AntDesign;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -21,24 +23,27 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private CheckboxOption[] _roleOptions = new CheckboxOption[] { };
         private int _userId = 0;
         [Inject]
-        IUserService userService { get; set; }
+        private IUserService UserService { get; set; } = null!;
         [Inject]
-        MessageService messageService { get; set; }
+        private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        IRoleService roleService { get; set; }
+        private IRoleService RoleService { get; set; } = null!;
+        [Inject]
+        private IClientLocalizer<UserCenterResource> Localizer { get; set; } = null!;
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
             _isLoading = true;
             _userId = this.Options;
             if (_userId > 0)
             {
-                var rolesResult = await roleService.GetAllUsable();
+                var rolesResult = await RoleService.GetAllUsable();
                 if (rolesResult == null || !rolesResult.Any()) 
                 {
-                    messageService.Error("没有可用角色，请先添加角色");
+                    MessageService.Error(Localizer[UserCenterResource.NoRoleNeedAdd]);
                     return;
                 }
-                var userRoles = await userService.GetRoles(_userId);
+                var userRoles = await UserService.GetRoles(_userId);
                 userRoles = userRoles ?? new List<RoleDto>();
                 _roleOptions = rolesResult.Select(x => new CheckboxOption
                 {
@@ -48,15 +53,15 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 }).ToArray();
             }
             _isLoading = false;
-            await base.OnInitializedAsync();
         }
         /// <summary>
         /// 当角色选择有变化时
         /// </summary>
         /// <param name="values"></param>
-        private async Task OnEditUserRoleChange(string[] values)
+        private Task OnEditUserRoleChange(string[] values)
         {
             //todo: Add operation logic here
+            return Task.CompletedTask;
         }
         /// <summary>
         /// 
@@ -65,15 +70,16 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             _isLoading = true;
             string[] selectRoles = _roleOptions.Where(x => x.Checked).Select(x => x.Value).ToArray();
-            var result = await userService.Role(_userId, selectRoles?.Select(x => int.Parse(x)).ToArray());
+
+            var result = await UserService.Role(_userId, selectRoles.Select(x => int.Parse(x)).ToArray());
             if (result)
             {
-                messageService.Success("设置成功");
+                MessageService.Success(Localizer.Combination(UserCenterResource.Setting,UserCenterResource.Success));
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-                messageService.Error("设置失败");
+                MessageService.Error(Localizer.Combination(UserCenterResource.Setting, UserCenterResource.Fail));
             }
             _isLoading = false;
         }

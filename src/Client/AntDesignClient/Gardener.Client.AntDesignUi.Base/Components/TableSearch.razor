@@ -1,0 +1,132 @@
+﻿@using AntDesign.Select;
+@typeparam TDto
+<Row Style="margin-bottom:10px;">
+    <AntDesign.Col Span="4">
+        <Select Mode="multiple"
+                Placeholder="@localizer[SharedLocalResource.PleaseSelectSearchField]"
+                @bind-Values="@_selectedValues"
+                TItemValue="string"
+                TItem="string"
+                OnSelectedItemsChanged="OnSelectedItemsChangedHandler"
+                MaxTagCount="@ResponsiveTag.Responsive"
+                AllowClear
+                OnClearSelected="OnClearSearchValue">
+            <SelectOptions>
+                @foreach (TableSearchField item in _fields)
+                {
+                    <SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@localizer[item.DisplayName ?? item.Name]" />
+                }
+            </SelectOptions>
+        </Select>
+    </AntDesign.Col>
+    <AntDesign.Col Span="18">
+        @{
+            string width = Math.Ceiling((decimal)100 / _fields.Count()) + "%";
+            string style = $"margin-right:8px;margin-bottom:2px;width:100px";
+            string begin = localizer[SharedLocalResource.Begin];
+            string end = localizer[SharedLocalResource.End];
+            foreach (TableSearchField fieldInfo in _fields) 
+            {
+                string placeholder = fieldInfo.DisplayName ?? fieldInfo.Name;
+                placeholder = localizer[placeholder];
+                string boStyle = "float:left;" + (_selectedValues!=null &&_selectedValues.Any(x => x.Equals(fieldInfo.Name)) ? "" : "display:none;");
+                <div style="@boStyle">
+                    <span>@(placeholder + ":")</span>
+                    @{
+                        //TODO: 建议这里改成switch
+                        if (fieldInfo.Type.Equals(typeof(string)))
+                        {
+                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
+                        {
+                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(decimal)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(double)))
+                        {
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
+                        {
+                            DateTime? tempBeginTime = fieldInfo.Values==null?null:DateTime.Parse(fieldInfo.Values.First());
+                            DateTime? tempEndTime = fieldInfo.Values == null ? null : DateTime.Parse(fieldInfo.Values.Last());
+                            <RangePicker Style="margin-left:5px;"
+                         TValue="DateTime?[]"
+                         ShowTime="@ShowTime"
+                         Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
+                         OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
+                         DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
+                                         OnClear="()=>{fieldInfo.Values=new string[0];}" />
+                        }
+                        else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
+                        {
+                            <Select Mode="multiple"
+                    Placeholder="@placeholder"
+                    TItemValue="string"
+                    TItem="string"
+                    MaxTagCount="@ResponsiveTag.Responsive"
+                    Style="@style"
+                                            AllowClear
+                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                    DefaultValues="fieldInfo.Values"
+                    Values="fieldInfo.Values">
+                            <SelectOptions>
+                                <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResource.Yes]" />
+                                <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResource.No]" />
+                            </SelectOptions>
+                            </Select>
+                        }
+                        else if (fieldInfo.Type.IsEnum)
+                        {
+                            <Select Mode="multiple"
+                    Placeholder="@placeholder"
+                    Style="@style"
+                    TItemValue="string"
+                    TItem="string"
+                    MaxTagCount="@ResponsiveTag.Responsive"
+                                            AllowClear
+                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                    DefaultValues="fieldInfo.Values"
+                    Values="fieldInfo.Values">
+                            <SelectOptions>
+                                @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
+                                    {
+                                        if (item.Value != null)
+                                        {
+                                            <SelectOption TItemValue="string" TItem="string" Value="@item.Key.ToString()" Label="@localizer[item.Value]" />
+                                        }
+                                    }
+                                </SelectOptions>
+                            </Select>
+                        }
+                    }
+                </div>
+            }
+        }
+    </AntDesign.Col>
+    <AntDesign.Col Span="2" Style="text-align:right">
+        @if (AlwaysShowSearchButton || (_selectedValues != null && _selectedValues.Count() > 0))
+        {
+            <Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
+                @localizer[SharedLocalResource.Search]
+            </Button>
+        }
+    </AntDesign.Col>
+</Row>
+

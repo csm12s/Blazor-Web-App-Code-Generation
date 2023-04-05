@@ -22,18 +22,28 @@ namespace Gardener.UserCenter.Impl.Domains
     public class Role : GardenerEntityBase, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
     {
         /// <summary>
+        /// 角色表
+        /// </summary>
+        public Role()
+        {
+            Users = new List<User>();
+            UserRoles = new List<UserRole>();
+            RoleResources=new List<RoleResource>();
+        }
+
+        /// <summary>
         /// 角色名称
         /// </summary>
         [MaxLength(100), Required]
         [DisplayName("名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 角色描述
         /// </summary>
         [MaxLength(500), Required]
         [DisplayName("备注")]
-        public string Remark { get; set; }
+        public string Remark { get; set; } = null!;
 
         /// <summary>
         /// 是否是超级管理员
@@ -52,17 +62,17 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<User> Users { get; set; }
+        public ICollection<User> Users { get; set; }= new List<User>();
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<UserRole> UserRoles { get; set; }
+        public List<UserRole> UserRoles { get; set; } = new List<UserRole>();
 
         /// <summary>
         /// 多对多中间表
         /// </summary>
-        public List<RoleResource> RoleResources { get; set; }
+        public List<RoleResource> RoleResources { get; set; }=new List<RoleResource>();
 
 
         /// <summary>

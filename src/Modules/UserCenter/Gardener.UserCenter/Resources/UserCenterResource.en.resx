@@ -162,6 +162,9 @@
   <data name="NickName" xml:space="preserve">
     <value>Nick name</value>
   </data>
+  <data name="NoRoleNeedAdd" xml:space="preserve">
+    <value>No role is available. Add a role first</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>

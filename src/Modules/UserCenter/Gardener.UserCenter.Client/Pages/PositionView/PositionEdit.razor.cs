@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.UserCenter.Dtos;
 
 namespace Gardener.UserCenter.Client.Pages.PositionView

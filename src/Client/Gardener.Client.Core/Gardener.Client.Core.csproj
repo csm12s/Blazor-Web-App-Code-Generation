@@ -1,19 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;8618;4014;8620;8604;1998</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;8618;4014;8620;8604;1998</NoWarn>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.4" />
@@ -27,18 +19,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.Attachment.Client\Gardener.Attachment.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.Audit.Client\Gardener.Audit.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.Authentication.Client\Gardener.Authentication.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.CodeGeneration.Client\Gardener.CodeGeneration.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.Email.Client\Gardener.Email.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.NotificationSystem.Client\Gardener.NotificationSystem.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger.Client\Gardener.Swagger.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.SystemManager.Client\Gardener.SystemManager.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\Framework\Gardener.VerifyCode.Client\Gardener.VerifyCode.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\SysTimer\Gardener.SysTimer.Client\Gardener.SysTimer.Client.csproj" />
-    <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Client\Gardener.UserCenter.Client.csproj" />
     <ProjectReference Include="..\Gardener.Client.Base\Gardener.Client.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\js-tool.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js.cookie.min.mjs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js.cookie.mjs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

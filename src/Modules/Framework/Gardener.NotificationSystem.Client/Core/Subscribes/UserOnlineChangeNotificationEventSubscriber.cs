@@ -48,10 +48,10 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
              
             if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Online))
             { 
-               await clientNotifier.Info("用户上线通知",$"{notificationData.Identity.NickName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");
+               clientNotifier.Info("用户上线通知",$"{notificationData.Identity.NickName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");
             }else if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Offline))
             {
-               await clientNotifier.Info("用户离线通知", $"{notificationData.Identity.NickName} 刚刚离线了<br/>IP:[{notificationData.Ip}]");
+               clientNotifier.Info("用户离线通知", $"{notificationData.Identity.NickName} 刚刚离线了<br/>IP:[{notificationData.Ip}]");
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 用户信息
         /// </summary>
-        public UserDto User { get; set; }
+        public UserDto? User { get; set; }
         /// <summary>
         /// 角色Id
         /// </summary>
@@ -28,7 +28,7 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 角色信息
         /// </summary>
-        public RoleDto Role { get; set; }
+        public RoleDto? Role { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

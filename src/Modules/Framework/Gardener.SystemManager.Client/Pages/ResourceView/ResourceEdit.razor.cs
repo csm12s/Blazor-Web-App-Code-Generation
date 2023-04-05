@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Enums;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Common;
 using Gardener.SystemManager.Dtos;
@@ -15,15 +16,18 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
     public partial class ResourceEdit : EditOperationDialogBase<ResourceDto,Guid>
     {
+        private ResourceType currentResourceTypeCopy = ResourceType.Root;
+
         [Inject]
-        IResourceService resourceService { get; set; }
+        IResourceService resourceService { get; set; } = null!;
         /// <summary>
         /// 资源父级
         /// </summary>
         public string ParentId 
         {
-            get {
-                return _editModel.ParentId?.ToString();
+            get 
+            {
+                return _editModel.ParentId?.ToString() ?? string.Empty;
             }
             set 
             {
@@ -39,21 +43,15 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// </summary>
         private List<ResourceDto> resources=new List<ResourceDto>();
         /// <summary>
-        /// 
-        /// </summary>
-        private Dictionary<ResourceType, string> resourceTypes = new Dictionary<ResourceType, string>();
-        /// <summary>
         /// 页面初始化
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            base.StartLoading();
             await base.OnInitializedAsync();
-
-
-            _isLoading = true;
             resources = await resourceService.GetTree();
-
+            
             if (this.Options.Type.Equals(DrawerInputType.Add))
             {
                 _editModel.Id = Guid.NewGuid();
@@ -68,22 +66,8 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
                 }
             }
-
-            if (this.Options.Type.Equals(DrawerInputType.Select))
-            {
-                resourceTypes.Add(_editModel.Type, _editModel.Type.GetEnumDescription());
-            }
-            else
-            {
-                foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
-                {
-                    if ((int)gitem.Key >= (int)_editModel.Type)
-                    {
-                        resourceTypes.Add(gitem.Key, gitem.Value);
-                    }
-                }
-            }
-            _isLoading = false;
+            currentResourceTypeCopy = _editModel.Type;
+            base.StopLoading();
         }
     }
 }

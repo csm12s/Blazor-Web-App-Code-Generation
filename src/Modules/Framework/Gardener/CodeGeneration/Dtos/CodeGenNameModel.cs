@@ -4,22 +4,22 @@ using System.Collections.Generic;
 namespace Gardener.CodeGeneration.Dtos;
 
 /// <summary>
-/// 代码生成命名模型
+/// CodeGenNameModel
 /// </summary>
 public class CodeGenNameModel
 {
     /// <summary>
-    /// 应用名
+    /// AppName
     /// </summary>
     public string AppName { get; set; } = "";
     /// <summary>
-    /// 表明
+    /// TableName
     /// </summary>
     public string TableName { get; set; } = "";
     /// <summary>
-    /// 表格语言环境键
+    /// TableLocaleKey
     /// </summary>
-    public string TableLocaleKey { get; set; }
+    public string? TableLocaleKey { get; set; }
 
     /// <summary>
     /// DB Description
@@ -27,26 +27,24 @@ public class CodeGenNameModel
     public string TableDesc { get; set; } = "";
 
     /// <summary>
-    /// 表摘要
     /// C# Summary, 示例：
     /// User
     /// Table: Sys_User
     /// </summary>
     public string TableSummary { get; set; } = "";
     /// <summary>
-    /// 类名
+    /// ClassName
     /// </summary>
     public string ClassName { get; set; } = "";
 
     /// <summary>
     /// local variables
     /// </summary>
-    public string ClassNameLower { get; set; }
+    public string? ClassNameLower { get; set; }
     /// <summary>
     /// module / package
     /// </summary>
     public string Module { get; set; } = "";
-
     /// <summary>
     /// module / package name to url path
     /// </summary>
@@ -60,33 +58,32 @@ public class CodeGenNameModel
     /// _sys.tool -> sysTool
     /// </summary>
     public string ModuleLower { get; set; } = "";
-
     /// <summary>
-    /// 代码生成Dto
+    /// CodeGen
     /// </summary>
-    public CodeGenDto CodeGen { get; set; }
+    public CodeGenDto? CodeGen { get; set; }
     /// <summary>
-    /// 代码生成配置
+    /// CodeGenConfigs
     /// </summary>
-    public List<CodeGenConfigDto> CodeGenConfigs { get; set; }
+    public List<CodeGenConfigDto>? CodeGenConfigs { get; set; }
     /// <summary>
-    /// 是否包含自定义检索
+    /// HasCustomSearch
     /// </summary>
     public bool HasCustomSearch { get; set; } = false;
     /// <summary>
-    /// 是否包含远程图像
+    /// HasRemoteImage
     /// </summary>
     public bool HasRemoteImage { get; set; } = false;
     /// <summary>
-    /// 菜单
+    /// Menus
     /// </summary>
-    public List<ResourceDto> Menus { get; set; }
+    public List<ResourceDto>? Menus { get; set; }
     /// <summary>
-    /// 本地项
+    /// LocaleItems
     /// </summary>
     public List<CodeGenLocaleItem> LocaleItems { get; set; } = new List<CodeGenLocaleItem>();
     /// <summary>
-    /// 菜单本地项
+    /// MenuLocaleItem
     /// </summary>
-    public CodeGenLocaleItem MenuLocaleItem { get; set; }
+    public CodeGenLocaleItem? MenuLocaleItem { get; set; }
 }

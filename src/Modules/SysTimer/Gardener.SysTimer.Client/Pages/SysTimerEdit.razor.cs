@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Services;
 using Microsoft.AspNetCore.Components;
@@ -17,7 +17,7 @@ namespace Gardener.SysTimer.Client.Pages
     {
 
         [Inject]
-        private ISysTimerService sysTimerService { get; set; }
+        private ISysTimerService SysTimerService { get; set; } = null!;
 
         /// <summary>
         /// 本地方法
@@ -29,8 +29,10 @@ namespace Gardener.SysTimer.Client.Pages
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            base.StartLoading();
+            localJobs = await SysTimerService.GetLocalJobs();
             await base.OnInitializedAsync();
-            localJobs = await sysTimerService.GetLocalJobs();
+            base.StopLoading();
         }
     }
 }

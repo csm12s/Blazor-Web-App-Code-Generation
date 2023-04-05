@@ -1,0 +1,36 @@
+﻿@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Primitives;
+@inject NavigationManager Navigation
+
+@code {
+    //重定向到登录页
+
+
+    /// <summary>
+    /// 权限相关配置
+    /// </summary>
+    [Inject]
+    private IOptions<AuthSettings> AuthSettingsOpt { get; set; } = null!;
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        AuthSettings authSettings = AuthSettingsOpt.Value;
+        string returnUrl = "";
+        var uri = new Uri(Navigation.Uri);
+        if (!uri.AbsolutePath.Equals(authSettings.LoginPagePath))
+        {
+            returnUrl = uri.AbsolutePath;
+        }
+        var query = uri.Query;
+
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out var value))
+        {
+            returnUrl = value.ToString();
+        }
+        returnUrl = Uri.EscapeDataString(returnUrl);
+        Navigation.NavigateTo($"{authSettings.LoginPagePath}{(string.IsNullOrEmpty(returnUrl) ? "" : "?returnUrl=" + returnUrl)}");
+    }
+}

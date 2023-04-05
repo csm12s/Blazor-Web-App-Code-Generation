@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using Gardener.Base;
+﻿using Gardener.Base;
 using Gardener.Enums;
 using System;
 using System.ComponentModel;
@@ -37,25 +35,25 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     /// </summary>
     [Required, MaxLength(100)]
     [DisplayName("列名")]
-    public string ColumnName { get; set; }
+    public string ColumnName { get; set; } = null!;
 
     /// <summary>
     /// Net Column Name
     /// </summary>
     [DisplayName("实体字段名")]
-    public string NetColumnName { get; set; }
+    public string NetColumnName { get; set; } = null!;
 
     /// <summary>
     /// DB Description
     /// </summary>
     [DisplayName("实体字段描述")]
-    public string ColumnDescription { get; set; }
+    public string? ColumnDescription { get; set; }
 
     /// <summary>
     /// Summary in code
     /// </summary>
     [DisplayName("实体字段概要")]
-    public string ColumnSummary { get; set; }
+    public string? ColumnSummary { get; set; }
 
     
     /// <summary>
@@ -73,20 +71,20 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     /// </summary>
     [MaxLength(50)]
     [DisplayName("实体数据类型")]
-    public string NetType { get; set; }
+    public string NetType { get; set; } = null!;
 
     /// <summary>
     /// .NET数据类型, 不带问号
     /// </summary>
     [DisplayName("实体数据类型, 不带问号")]
-    public string NetTypeRaw { get; set; }
+    public string? NetTypeRaw { get; set; }
 
     /// <summary>
     /// 数据库中类型（物理类型）
     /// </summary>
     [MaxLength(50)]
     [DisplayName("数据库数据类型")]
-    public string DbDataType { get; set; }
+    public string DbDataType { get; set; } = null!;
 
     /// <summary>
     /// DB data type with length: nvarchar(20)
@@ -94,23 +92,23 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     public string DbDataTypeText { get; set; } = "";
 
     /// <summary>
-    /// 视图组件类型
+    /// view
     /// </summary>
     public ClientComponentType ViewComponentType { get; set; }
     /// <summary>
-    /// 编辑组件类型
+    /// edit
     /// </summary>
     public ClientComponentType EditComponentType { get; set; }
     /// <summary>
-    /// 编辑组件长度
+    /// EditComponentLength
     /// </summary>
     public int EditComponentLength { get; set; } = 150;
     /// <summary>
-    /// 自定义查询类型
+    /// search
     /// </summary>
     public ClientComponentType CustomSearchType { get; set; }
     /// <summary>
-    /// 自定义查询长度
+    /// CustomSearchLength
     /// </summary>
     public int CustomSearchLength { get; set; } = 150;
 
@@ -118,7 +116,7 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     /// 作用类型（字典）
     /// </summary>
     [MaxLength(50)]
-    public string EffectType { get; set; }
+    public string? EffectType { get; set; }
 
     /// <summary>
     /// 外键实体名称
@@ -159,7 +157,7 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     /// </summary>
     public bool IsSearch { get; set; } = false;
     /// <summary>
-    /// 是否自定义查询
+    /// IsCustomSearch
     /// </summary>
     public bool IsCustomSearch { get; set; } = false;
 
@@ -179,18 +177,16 @@ public partial class CodeGenConfigDto: BaseDto<Guid>
     /// </summary>
 
     public bool IsCreate { get; set; } = true;
-
     /// <summary>
-    /// 必填
+    /// IsRequired
     /// </summary>
     public bool IsRequired { get; set; } = false;
     /// <summary>
     /// 改
     /// </summary>
     public bool IsEdit { get; set; } = true;
-
     /// <summary>
-    /// 批量修改
+    /// IsBatchEdit
     /// </summary>
     public bool IsBatchEdit { get; set; } = false;
 

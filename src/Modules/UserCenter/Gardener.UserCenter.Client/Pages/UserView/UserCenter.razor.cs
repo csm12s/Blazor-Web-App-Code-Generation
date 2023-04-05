@@ -20,11 +20,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 本地化
         /// </summary>
         [Inject]
-        public IClientLocalizer<UserCenterResource> localizer { get; set; }
+        public IClientLocalizer<UserCenterResource> localizer { get; set; } = null!;
 
         [Inject]
-        IUserService userService { get; set; }
-        UserDto userDto { get; set; }
+        IUserService userService { get; set; } = null!;
+
+        UserDto? userDto { get; set; }
 
         public RenderFragment GetPageTitle()
         {
@@ -42,10 +43,16 @@ namespace Gardener.UserCenter.Client.Pages.UserView
 
             await base.OnInitializedAsync();
         }
-
+        /// <summary>
+        /// 保存用户信息
+        /// </summary>
+        /// <returns></returns>
         protected virtual async Task SaveUserInfo()
         {
-            await userService.Update(userDto);
+            if (userDto != null)
+            {
+                await userService.Update(userDto);
+            }
         }
     }
 }

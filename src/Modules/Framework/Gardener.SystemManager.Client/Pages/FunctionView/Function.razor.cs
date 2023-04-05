@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
-using Gardener.Client.Base.Components;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
@@ -15,7 +15,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
     public partial class Function : ListOperateTableBase<FunctionDto, Guid, FunctionEdit>
     {
         [Inject]
-        public IFunctionService functionService { get; set; }
+        public IFunctionService functionService { get; set; } = null!;
 
         // <summary>
         /// 点击启用审计按钮
@@ -28,7 +28,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             if (!result)
             {
                 model.EnableAudit = !enableAudit;
-                messageService.Error((enableAudit ? "启用" : "禁用") + SharedLocalResource.Fail);
+                MessageService.Error((enableAudit ? SharedLocalResource.Enable : SharedLocalResource.Disabled) + SharedLocalResource.Fail);
             }
         }
 
@@ -40,7 +40,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             var setting = base.GetOperationDialogSettings();
             setting.Width = 1000;
-            await OpenOperationDialogAsync<FunctionImport, int, bool>(localizer[SharedLocalResource.Import], 0, async r =>
+            await OpenOperationDialogAsync<FunctionImport, int, bool>(Localizer[SharedLocalResource.Import], 0, async r =>
             {
                 await ReLoadTable();
 

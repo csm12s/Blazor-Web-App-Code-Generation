@@ -9,18 +9,18 @@
            @bind-PageIndex="_pageIndex"
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
-           Loading="@_tableIsLoading"
+           Loading="@_tableLoading.Value"
            RowExpandable="@(r=>true)"
            Context="model">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_audit_operation_refresh">
-                <TableSearch TDto="AuditOperationDto" OnSearchFieldChanged="SetPresetFilterGroups" OnSearch="()=>ReLoadTable(true)" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="AuditOperationDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[SharedLocalResource.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -29,14 +29,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_audit_operation_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_audit_operation_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport"  Loading="_exportDataLoading">
-                                    @localizer[SharedLocalResource.Export]
+                                    @Localizer[SharedLocalResource.Export]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -45,38 +45,38 @@
             </Row>
 
         </TitleTemplate>
-        <RowTemplate>
+        <ColumnDefinitions>
             <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
             <Column @bind-Field="@model.OperaterId" Filterable />
             <Column @bind-Field="@model.OperaterName" Filterable />
             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">
-                <TagRandomColor Text="@EnumHelper.GetEnumDescription(model.OperaterType)"></TagRandomColor>
+                <TagPro Text="@EnumHelper.GetEnumDescription(model.OperaterType)"></TagPro>
             </Column>
             <Column @bind-Field="@model.ResourceName" Filterable />
             <Column @bind-Field="@model.Ip" />
             <Column @bind-Field="@model.Method" Filters="TableFiltersConstants.FunctionMethodFilters" />
             <Column @bind-Field="@model.Path" Width="300" Filterable />
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="read" Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                 </Space>
             </ActionColumn>
-        </RowTemplate>
+        </ColumnDefinitions>
     </Table>
 </div>

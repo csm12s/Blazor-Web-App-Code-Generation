@@ -39,10 +39,10 @@ namespace Gardener.ImageVerifyCode.Core
         /// <returns></returns>
         public async Task<VerifyCodeOutput> Create(VerifyCodeInput input)
         {
-            ImageVerifyCodeInput imageInput = input as ImageVerifyCodeInput;
-            
+            ImageVerifyCodeInput imageInput = (ImageVerifyCodeInput)input;
             var (code,image) = InnerCreate(imageInput);
-            ImageVerifyCodeOutput verifyCodeInfo = new ImageVerifyCodeOutput() {
+            ImageVerifyCodeOutput verifyCodeInfo = new ImageVerifyCodeOutput() 
+            {
                 Key = Guid.NewGuid().ToString(),
                 Base64Image = Convert.ToBase64String(image)
             };
@@ -71,11 +71,10 @@ namespace Gardener.ImageVerifyCode.Core
                 param.FontSize = settings.CodeFontSize;
             }
 
-            string code = null;
-            byte[] image = null;
-            if (param == null) return (code,image);
-            CharacterCodeCreateParam CharacterVerifyCodeParam = param.CreateCodeParam;
-            code= RandomCodeCreator.Create(CharacterVerifyCodeParam.Type.Value, CharacterVerifyCodeParam.CharacterCount.Value);
+            string code = null!;
+            byte[] image = null!;
+            CharacterCodeCreateParam characterVerifyCodeParam = param.CreateCodeParam;
+            code= RandomCodeCreator.Create(characterVerifyCodeParam.Type.Value, characterVerifyCodeParam.CharacterCount.Value);
             image = RandomCodeImageCreatorFromSkiaSharp.Create(code, param.FontSize.Value);
             return (code, image);
         }
@@ -90,7 +89,7 @@ namespace Gardener.ImageVerifyCode.Core
         {
             //code为空，直接返回错误
             if (string.IsNullOrEmpty(code)) return false;
-            string dbCode = await this.store.GetCode(VerifyCodeTypeEnum.Image, key);
+            string? dbCode = await this.store.GetCode(VerifyCodeTypeEnum.Image, key);
             bool success = string.Compare(dbCode, code, settings.IgnoreCase) == 0;
             if (success && settings.UseOnce)
             {

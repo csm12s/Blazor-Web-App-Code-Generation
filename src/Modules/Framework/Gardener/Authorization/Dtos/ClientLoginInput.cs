@@ -34,6 +34,6 @@ namespace Gardener.Authorization.Dtos
         /// </summary>
         [Required]
         [DisplayName("加密的值")]
-        public string EncryptionValue { get; set; }
+        public string EncryptionValue { get; set; } = null!;
     }
 }

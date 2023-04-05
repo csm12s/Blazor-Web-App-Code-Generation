@@ -15,7 +15,7 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 选中的节点主键
         /// </summary>
-        public TKey Id { get; set; } = default(TKey);
+        public TKey? Id { get; set; } = default(TKey);
         /// <summary>
         /// 0添加
         /// 1编辑

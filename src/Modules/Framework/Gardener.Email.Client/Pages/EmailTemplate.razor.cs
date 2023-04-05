@@ -5,8 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi;
+using Gardener.Client.AntDesignUi.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
 using Gardener.Email.Dtos;
 using System;
 using System.Threading.Tasks;
@@ -26,7 +28,7 @@ namespace Gardener.Email.Client.Pages
         protected async Task OnClickSend(Guid id)
         {
             OperationDialogInput<Guid> input = OperationDialogInput<Guid>.IsSelect(id);
-            await OpenOperationDialogAsync<EmailTemplateTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(localizer[SharedLocalResource.Send], input);
+            await OpenOperationDialogAsync<EmailTemplateTest, OperationDialogInput<Guid>, OperationDialogOutput<Guid>>(Localizer[SharedLocalResource.Send], input);
         }
     }
 }

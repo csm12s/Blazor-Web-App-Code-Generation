@@ -23,7 +23,7 @@ namespace Gardener.SysTimer.Impl.Demo
     /// <remarks>定时抓取财经新闻，作为聊天数据推送到客户端</remarks>
     public class DomeWorker : ISpareTimeWorker
     {
-        private static long lastNewsId =0;
+        static private long lastNewsId = 0;
         /// <summary>
         /// 
         /// </summary>
@@ -35,7 +35,7 @@ namespace Gardener.SysTimer.Impl.Demo
             ILogger logger= App.GetRequiredService<ILogger<DomeWorker>>();
             try
             {
-                List<NewsInfo> resultNews = GetLastNews().Result;
+                List<NewsInfo>? resultNews = GetLastNews().Result;
                 if (resultNews == null) { return; }
                 foreach (var newsInfo in resultNews)
                 {
@@ -44,7 +44,7 @@ namespace Gardener.SysTimer.Impl.Demo
                         return;
                     }
                     IEventBus eventBus = App.GetRequiredService<IEventBus>();
-                    ChatDemoNotificationData chatNotification = new ChatDemoNotificationData();
+                    ChatDemoNotificationData chatNotification = new();
                     chatNotification.Avatar = "./assets/logo.png";
                     chatNotification.NickName = "系统";
                     chatNotification.Message = $"{newsInfo.digest}";
@@ -60,18 +60,18 @@ namespace Gardener.SysTimer.Impl.Demo
         /// 
         /// </summary>
         /// <returns></returns>
-        private async Task<List<NewsInfo>> GetLastNews()
+        private async Task<List<NewsInfo>?> GetLastNews()
         {
-            Random random = new Random();
+            Random random = new();
             string api = $"https://newsapi.eastmoney.com/kuaixun/v1/getlist_102__10_1_.html?r={random.Next()}&_={DateTime.Now.Millisecond}";
 
             var response =await api.GetAsync();
             string json = await response.Content.ReadAsStringAsync();
-            NewsResult result= System.Text.Json.JsonSerializer.Deserialize<NewsResult>(json);
+            NewsResult? result= System.Text.Json.JsonSerializer.Deserialize<NewsResult>(json);
 
             if (result != null && result.LivesList != null && result.LivesList.Count>0) 
             {
-                List<NewsInfo> resultNews = new List<NewsInfo>();
+                List<NewsInfo> resultNews = new();
                 foreach (var newsInfo in result.LivesList)
                 {
                     if (newsInfo.newsidL > lastNewsId)
@@ -91,49 +91,47 @@ namespace Gardener.SysTimer.Impl.Demo
 
         }
     }
-
     /// <summary>
-    /// 新闻结果
+    /// 
     /// </summary>
     public class NewsResult
     { 
-        /// <summary>
-        /// live列表
-        /// </summary>
-        public List<NewsInfo> LivesList { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+        public List<NewsInfo>? LivesList { get; set; }
 
 
     }
-
     /// <summary>
-    /// 新闻信息
+    /// 
     /// </summary>
     public class NewsInfo
     {
         /// <summary>
-        /// 新闻id
+        /// 
         /// </summary>
-        public string newsid { get; set; }
+        public string newsid { get; set; } = null!;
         /// <summary>
-        /// 新闻id列表
+        /// 
         /// </summary>
         public long newsidL { get { return long.Parse(newsid); } }
         /// <summary>
-        /// url
+        /// 
         /// </summary>
-        public string url_w { get; set; }
+        public string? url_w { get; set; }
         /// <summary>
-        /// 标题
+        /// 
         /// </summary>
-        public string title { get; set; }
+        public string? title { get; set; }
         /// <summary>
-        /// 摘要
+        /// 
         /// </summary>
-        public string digest { get; set; }
+        public string? digest { get; set; }
         /// <summary>
-        /// 展示时间
+        /// 
         /// </summary>
-        public string showtime { get; set; }
+        public string? showtime { get; set; }
 
     }
 }

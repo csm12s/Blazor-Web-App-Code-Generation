@@ -1,0 +1,27 @@
+﻿<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@moduleContext.ModeuleAssemblies">
+    <Found Context="routeData">
+        <CascadingValue Value="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <Authorizing>
+                    Authorizing...
+                </Authorizing>
+                <NotAuthorized>
+                    <RedirectToLogin />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+        </CascadingValue>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(OtherPageLayout)">
+                <Result Status="404"
+                        Title="404"
+                        SubTitle="@(LocalizerUtil.GetValue("Page404Message"))">
+                </Result>
+                <div style="width:100%;text-align:center;">
+                    <Button OnClick="e=>GoHome()">@LocalizerUtil.GetValue("GoHome")</Button>
+                </div>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>

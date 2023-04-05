@@ -10,16 +10,30 @@ namespace Gardener.Client.Base
 {
     /// <summary>
     /// api的配置
-    /// 如何装配需要看<see cref="ApiSettingExtension"/>
+    /// 如何装配需要看<see cref="Gardener.Client.Core.ApiSettingExtension"/>
     /// </summary>
     public class ApiSettings
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public String BaseAddres { get { return this.Host + ":" + this.Port+"/"+this.BasePath+"/"; } }
-        public String Host { get; set; }
-        public String Port { get; set; }
-        public String BasePath { get; set; }
-        public String UploadPath { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public String? Host { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public String? Port { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public String? BasePath { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public String? UploadPath { get; set; }
 
     }
 }

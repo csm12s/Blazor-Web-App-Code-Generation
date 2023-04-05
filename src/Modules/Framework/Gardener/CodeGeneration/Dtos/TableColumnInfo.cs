@@ -15,11 +15,11 @@ public class TableColumnInfo
     /// <summary>
     /// C# type: string
     /// </summary>
-    public string NetType { get; set; }
+    public string NetType { get; set; } = null!;
     /// <summary>
     /// C# type with ?: string?
     /// </summary>
-    public string NetTypeStr { get; set; }
+    public string NetTypeStr { get; set; } = null!;
 
     /// <summary>
     /// DB raw data type: nvarchar
@@ -29,101 +29,100 @@ public class TableColumnInfo
     /// <summary>
     /// nvarchar(100), for example in SqlServer
     /// </summary>
-    public string DbDataTypeText { get; set; }
+    public string DbDataTypeText { get; set; } = null!;
 
     /// <summary>
     /// [MaxLength(20)]
     /// </summary>
-    public string MaxLengthText { get; set; }
+    public string? MaxLengthText { get; set; }
 
     /// <summary>
     /// 主外键
     /// </summary>
-    public string ColumnKey { get; set; }
+    public string ColumnKey { get; set; } = null!;
     #endregion
 
     #region SqlSugar.DbColumnInfo
     /// <summary>
-    /// 表名
+    /// TableName
     /// </summary>
-    public string TableName { get; set; }
+    public string TableName { get; set; } = null!;
     /// <summary>
-    /// 表id
+    /// TableId
     /// </summary>
     public int TableId { get; set; }
     /// <summary>
-    /// 数据库列名
+    /// DbColumnName
     /// </summary>
-    public string DbColumnName { get; set; }
+    public string DbColumnName { get; set; } = null!;
     /// <summary>
-    /// 属性名
+    /// PropertyName
     /// </summary>
-    public string PropertyName { get; set; }
+    public string PropertyName { get; set; } = null!;
     /// <summary>
-    /// 数据类型
+    /// DataType
     /// </summary>
-    public string DataType { get; set; }
+    public string DataType { get; set; } = null!;
     /// <summary>
-    /// 属性类型
+    /// PropertyType
     /// </summary>
-    public Type PropertyType { get; set; }
+    public Type PropertyType { get; set; } = null!;
     /// <summary>
-    /// 长度
-    /// -1: Max
+    /// Length  -1: Max
     /// </summary>
     public int? Length { get; set; }
     /// <summary>
-    /// 列描述
+    /// ColumnDescription
     /// </summary>
-    public string ColumnDescription { get; set; }
+    public string? ColumnDescription { get; set; }
     /// <summary>
-    /// 默认值
+    /// DefaultValue
     /// </summary>
-    public string DefaultValue { get; set; }
+    public string? DefaultValue { get; set; }
     /// <summary>
-    /// 是否可空
+    /// IsNullable
     /// </summary>
     public bool IsNullable { get; set; }
     /// <summary>
-    /// 是否身份标识
+    /// IsIdentity
     /// </summary>
     public bool IsIdentity { get; set; }
     /// <summary>
-    /// 是否主键
+    /// IsPrimarykey
     /// </summary>
     public bool IsPrimarykey { get; set; }
     /// <summary>
-    /// 值
+    /// Value
     /// </summary>
-    public object Value { get; set; }
+    public object? Value { get; set; }
     /// <summary>
-    /// 小数位数
+    /// DecimalDigits
     /// </summary>
     public int DecimalDigits { get; set; }
     /// <summary>
-    /// 比例
+    /// Scale
     /// </summary>
     public int Scale { get; set; }
     /// <summary>
-    /// 是否排列
+    /// IsArray
     /// </summary>
     public bool IsArray { get; set; }
     /// <summary>
-    /// 是否json
+    /// IsJson
     /// </summary>
     public bool IsJson { get; set; }
     /// <summary>
-    /// 是否未签名
+    /// IsUnsigned
     /// </summary>
     public bool? IsUnsigned { get; set; }
     /// <summary>
-    /// 创建表字段的顺序
+    /// CreateTableFieldSort
     /// </summary>
     public int CreateTableFieldSort { get; set; }
     /// <summary>
-    /// sql参数数据库类型
+    /// SqlParameterDbType
     /// </summary>
-    internal object SqlParameterDbType { get; set; }
+    internal object? SqlParameterDbType { get; set; }
     #endregion
 
     

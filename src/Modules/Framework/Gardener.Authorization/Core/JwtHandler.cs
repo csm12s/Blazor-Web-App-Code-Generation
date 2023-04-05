@@ -25,7 +25,7 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         public override async Task<bool> PipelineAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext)
         {
-            var authorizationManager = httpContext.RequestServices.GetService<IAuthorizationService>();
+            var authorizationManager = httpContext.RequestServices.GetRequiredService<IAuthorizationService>();
             return await authorizationManager.ChecktContenxtApiEndpoint();
 
         }

@@ -21,12 +21,12 @@ namespace Gardener.UserCenter.Dtos
         /// QQ
         /// </summary>
         [MaxLength(15, ErrorMessage = "最大长度不能大于{1}")]
-        public string QQ { get; set; }
+        public string? QQ { get; set; }
         /// <summary>
         /// 微信号
         /// </summary>
         [MaxLength(20, ErrorMessage = "最大长度不能大于{1}")]
-        public string WeChat { get; set; }
+        public string? WeChat { get; set; }
         /// <summary>
         /// 城市ID
         /// </summary>

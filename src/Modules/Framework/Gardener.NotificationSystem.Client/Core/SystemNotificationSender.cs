@@ -5,12 +5,13 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
+using Gardener.Client.Base.NotificationSystem;
 using Gardener.NotificationSystem.Dtos;
 
 namespace Gardener.NotificationSystem.Client.Core
 {
     [ScopedService]
-    public class SystemNotificationSender
+    public class SystemNotificationSender : ISystemNotificationSender
     {
         private readonly ISignalRClientManager signalRClientManager;
 

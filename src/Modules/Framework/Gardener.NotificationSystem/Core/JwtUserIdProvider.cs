@@ -19,9 +19,11 @@ namespace Gardener.NotificationSystem.Core
         /// </summary>
         /// <param name="connection"></param>
         /// <returns></returns>
-        public string GetUserId(HubConnectionContext connection)
+        public string? GetUserId(HubConnectionContext connection)
         {
-            return connection.GetHttpContext().User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var context=connection.GetHttpContext();
+            if(context== null ) { return null; }
+            return context.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
     }
 }

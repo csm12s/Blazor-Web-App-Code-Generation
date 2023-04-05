@@ -27,7 +27,11 @@ namespace Gardener.Client.Core
         public static void AddServicesWithAttributeOfTypeFromModuleContext(this IServiceCollection serviceCollection, Assembly[] assemblys)
         {
             List<Assembly> all = new List<Assembly>();
-            all.AddRange(ModuleExtension.GetModuleContext().ModeuleAssemblies);
+            Assembly[]? assemblies = ModuleExtension.GetModuleContext()?.ModeuleAssemblies;
+            if (assemblies != null)
+            {
+                all.AddRange(assemblies);
+            }
             all.AddRange(assemblys);
             serviceCollection.AddServicesWithAttributeOfType(all.ToArray());
         }
@@ -165,8 +169,8 @@ namespace Gardener.Client.Core
                             }
                         }
 
-                        Type baseType = implementation.BaseType;
-                        if (!baseType.Equals(typeof(Object)))
+                        Type? baseType = implementation.BaseType;
+                        if (baseType!=null && !baseType.Equals(typeof(Object)))
                         {
                             Console.WriteLine("注入服务：" + baseType.Name + "," + implementation.Name);
                             serviceCollection.TryAdd(baseType, implementation, lifetime);

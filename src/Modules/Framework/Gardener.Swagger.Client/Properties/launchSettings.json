@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Gardener.Swagger.Client": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:12383;http://localhost:12384"
+    }
+  }
+}

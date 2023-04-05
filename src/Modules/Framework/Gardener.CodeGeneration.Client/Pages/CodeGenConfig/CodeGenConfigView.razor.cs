@@ -1,6 +1,4 @@
 ﻿using Gardener.Base;
-using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
 using Gardener.CodeGeneration.Resources;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
@@ -8,6 +6,8 @@ using Microsoft.AspNetCore.Components;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Gardener.Client.AntDesignUi.Base.Components;
+using AntDesign;
 
 namespace Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
 
@@ -21,9 +21,11 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
     private Guid _codeGenId { get; set; }
 
     private CodeGenDto _codeGenDto { get; set; } = new();
-    private bool _hideEntityFromTableFields = true;
+    //private bool _hideEntityFromTableFields = true;
 
     protected bool _saveAllBtnLoading = false;
+
+    private TableSearch<CodeGenConfigSearchDto> codeGenConfigSearchDtoTableSearch;
 
     protected override async Task OnInitializedAsync()
     {
@@ -36,7 +38,7 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         //{
         //    _hideEntityFromTableFields = false;
         //}
-
+        this._filterGroupProviders.Add(() => { return codeGenConfigSearchDtoTableSearch?.GetFilterGroups(); });
         await ReLoadTable(true);
         await base.OnInitializedAsync();
     }
@@ -91,11 +93,11 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         var success = await codeGenConfigClientService.SaveAll(listDto);
         if (success)
         {
-            await messageService.Success("保存成功");
+            MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save,CodeGenLocalResource.Success));
         }
         else
         {
-            await messageService.Error("保存失败");
+            MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
         }
 
         _saveAllBtnLoading = false;
@@ -108,14 +110,13 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         var success = await codeGenConfigClientService.SaveAll(_datas.ToList());
         if (success)
         {
-            await messageService.Success("保存成功");
+            MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Success));
             await base.FeedbackRef.CloseAsync(true);
         }
         else
         {
-            await messageService.Error("保存失败");
+            MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
         }
-
 
         _saveAllBtnLoading = false;
     }

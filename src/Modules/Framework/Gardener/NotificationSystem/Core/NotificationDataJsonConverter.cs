@@ -24,15 +24,16 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="options"></param>
         /// <returns></returns>
         /// <exception cref="JsonException"></exception>
-        public override NotificationData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override NotificationData? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             Utf8JsonReader readerCopy = reader;
-            string typeAssemblyName = null;
+            string? typeAssemblyName = null;
             while (readerCopy.Read())
             {
                 if (readerCopy.TokenType == JsonTokenType.PropertyName)
                 {
-                    if (readerCopy.GetString().ToLower().Equals("typeassemblyname"))
+                    var str= readerCopy.GetString();
+                    if (str!=null && str.ToLower().Equals("typeassemblyname"))
                     {
                         readerCopy.Read();
                         if (readerCopy.TokenType == JsonTokenType.String)
@@ -46,7 +47,7 @@ namespace Gardener.NotificationSystem.Core
             {
                 throw new JsonException($"{nameof(NotificationData.TypeAssemblyName)} is required");
             }
-            Type t = Type.GetType(typeAssemblyName);
+            Type? t = Type.GetType(typeAssemblyName);
             if (t == null)
             {
                 throw new JsonException($"{typeAssemblyName} type is not find");
@@ -54,8 +55,8 @@ namespace Gardener.NotificationSystem.Core
             var newOptions =new JsonSerializerOptions(options);
             newOptions.PropertyNameCaseInsensitive = true;
             newOptions.IncludeFields = true;
-            object data= JsonSerializer.Deserialize(ref reader, t, newOptions);
-            return (NotificationData)data;
+            object? data= JsonSerializer.Deserialize(ref reader, t, newOptions);
+            return data==null?null:(NotificationData)data;
         }
 
         /// <summary>

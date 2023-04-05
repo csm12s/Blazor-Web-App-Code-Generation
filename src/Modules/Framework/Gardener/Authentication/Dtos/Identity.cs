@@ -18,15 +18,15 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 身份唯一编号
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
         /// <summary>
         /// 身份唯一名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         /// <summary>
         /// 身份昵称
         /// </summary>
-        public string NickName { get; set; }
+        public string? NickName { get; set; }
         /// <summary>
         /// 身份类型
         /// </summary>
@@ -38,7 +38,7 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 获取或设置 登录Id(每次登录该Id自动生成)
         /// </summary>
-        public string LoginId { get; set; }
+        public string LoginId { get; set; } = null!;
         /// <summary>
         /// 租户编号
         /// </summary>

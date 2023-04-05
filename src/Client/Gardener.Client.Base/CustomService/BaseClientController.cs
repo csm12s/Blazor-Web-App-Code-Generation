@@ -54,7 +54,7 @@ public abstract class BaseClientController<TEntityDto, TKey>
 
     public virtual Task<bool> FakeDeletes(TKey[] ids)
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.PostAsync<TKey[], bool>(url, request: ids);
     }
 
@@ -66,13 +66,13 @@ public abstract class BaseClientController<TEntityDto, TKey>
 
     public virtual Task<List<TEntityDto>> GetAll()
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.GetAsync<List<TEntityDto>>(url);
     }
 
     public virtual Task<List<TEntityDto>> GetAllUsable()
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.GetAsync<List<TEntityDto>>(url);
     }
 
@@ -84,13 +84,13 @@ public abstract class BaseClientController<TEntityDto, TKey>
 
     public virtual Task<TEntityDto> Insert(TEntityDto input)
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.PostAsync<TEntityDto, TEntityDto>(url, request: input);
     }
 
     public virtual Task<bool> Update(TEntityDto item)
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.PostAsync<TEntityDto, bool>(url, request: item);
     }
 
@@ -115,13 +115,13 @@ public abstract class BaseClientController<TEntityDto, TKey>
 
     public virtual Task<string> GenerateSeedData(PageRequest request)
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.PostAsync<PageRequest, string>(url, request);
     }
 
     public virtual async Task<string> Export(PageRequest request)
     {
-        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod().Name}";
+        var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return await apiCaller.PostAsync<PageRequest, string>(url, request);
     }
 

@@ -21,7 +21,7 @@ namespace Gardener.Swagger.Services
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        Task<SwaggerModel> Analysis(string url);
+        Task<SwaggerModel?> Analysis(string url);
 
         /// <summary>
         /// 获取 swagger 配置

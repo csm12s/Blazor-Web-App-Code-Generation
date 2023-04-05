@@ -1,7 +1,7 @@
 ﻿@inherits EditOperationDialogBase<PositionDto, int>
 
 
-<Form Loading="@_isLoading"
+<Form Loading="@_dialogLoading.Value"
       Model="@_editModel"
       LabelCol="new ColLayoutParam { Span = 8 }"
       WrapperCol="new ColLayoutParam { Span = 16 }"
@@ -28,16 +28,16 @@
     <FormItem Label="岗位薪资">
         <Input @bind-Value="@model.Salary" />
     </FormItem>
-    <FormItem Label="@localizer[SharedLocalResource.IsLocked]">
+    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
     @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
     {
-        <FormItem Label="@localizer[SharedLocalResource.CreatedTime]">
+        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem  Label="@localizer[SharedLocalResource.UpdatedTime]">
+        <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -47,13 +47,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @localizer[SharedLocalResource.Save]
+                        @Localizer[SharedLocalResource.Save]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @localizer[SharedLocalResource.Cancel]
+                    @Localizer[SharedLocalResource.Cancel]
                 </Button>
             </SpaceItem>
         </Space>

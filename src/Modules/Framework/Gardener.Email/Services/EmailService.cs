@@ -49,7 +49,7 @@ namespace Gardener.Email.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        private async Task<EmailServerConfig> GetEmailServerConfig()
+        private async Task<EmailServerConfig?> GetEmailServerConfig()
         {
             return await GetEmailServerConfig(EmailServerTag.Base);
         }
@@ -58,7 +58,7 @@ namespace Gardener.Email.Services
         /// </summary>
         /// <param name="serverTag"></param>
         /// <returns></returns>
-        private async Task<EmailServerConfig> GetEmailServerConfig(EmailServerTag serverTag)
+        private async Task<EmailServerConfig?> GetEmailServerConfig(EmailServerTag serverTag)
         {
             return await _emailServerRepository.AsQueryable(false)
                 .Where(x => ("," + x.Tags + ",").Contains("," + serverTag + ",")
@@ -103,7 +103,7 @@ namespace Gardener.Email.Services
             EmailServerTag serverTag = input.ServerTag;
             object data = Clay.Object(input.Data);
             string toEmail = input.ToEmail;
-            EmailServerConfig emailServerConfig;
+            EmailServerConfig? emailServerConfig;
             if (!Guid.Empty.Equals(input.EmailServerConfigId))
             {
                 emailServerConfig =await _emailServerRepository.FindAsync(input.EmailServerConfigId);

@@ -31,7 +31,8 @@
       [ "Controller_Need_Comment", "Controller need comment" ],
       [ "Sugar_Repository_Init_Fail", "SugarRepository initialize error " ],
       [ "Table_Name_Exist", "Table name exist" ],
-      [ "Code_Gen_Template_Compile_Error", "Code generation template compilation error" ]
+      [ "Code_Gen_Template_Compile_Error", "Code generation template compilation error" ],
+      [ "Data_Not_Find", "Data not find" ]
     ]
   },
   "FriendlyExceptionSettings": {

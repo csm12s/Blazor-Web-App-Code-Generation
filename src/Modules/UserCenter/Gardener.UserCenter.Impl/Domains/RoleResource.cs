@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base;
 using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -19,7 +20,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户和角色关系表
     /// </summary>
     [Description("角色资源信息")]
-    public class RoleResource : IEntity, IEntitySeedData<RoleResource>, IEntityTypeBuilder<RoleResource>
+    public class RoleResource : GardenerEntityBaseNoKey, IEntitySeedData<RoleResource>, IEntityTypeBuilder<RoleResource>
     {
         /// <summary>
         /// 角色Id
@@ -31,7 +32,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 角色
         /// </summary>
         [DisplayName("角色")]
-        public Role Role { get; set; }
+        public Role Role { get; set; } = null!;
         /// <summary>
         /// 权限Id
         /// </summary>
@@ -42,13 +43,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// 权限
         /// </summary>
         [DisplayName("资源")]
-        public Resource Resource { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayName("创建时间")]
-        public DateTimeOffset CreatedTime { get; set; } = DateTimeOffset.Now;
-
+        public Resource Resource { get; set; } =null!;
 
         /// <summary>
         /// 配置多对多关系
@@ -76,6 +71,7 @@ namespace Gardener.UserCenter.Impl.Domains
         {
             return new RoleResource[] {
 
+ new RoleResource(){RoleId=2,ResourceId = Guid.Parse("3C124D95-DD76-4903-B240-A4FE4DF93868"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("14636a9b-e6d6-436f-a0aa-0170eed08d99"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
@@ -89,8 +85,6 @@ namespace Gardener.UserCenter.Impl.Domains
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("365fc5c4-404e-408a-88dc-7614dffad91b"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("371b335b-29e5-4846-b6de-78c9cc691717"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
- new RoleResource(){RoleId=2,ResourceId = Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
- new RoleResource(){RoleId=2,ResourceId = Guid.Parse("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("3f8d700a-bc26-4d5c-9622-d98bf9359159"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
@@ -118,11 +112,9 @@ namespace Gardener.UserCenter.Impl.Domains
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("cc23917b-930a-4e34-9717-be71b9fd2dd5"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
- new RoleResource(){RoleId=2,ResourceId = Guid.Parse("d0d6f112-73a4-44ba-82a4-a3ad8bdb6978"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("d697fda5-28fa-46c3-ba88-a98dd510e09d"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
- new RoleResource(){RoleId=2,ResourceId = Guid.Parse("df132f66-027e-4791-af7a-26e496dc8e5a"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("e252c0c6-0f19-4768-954c-c0d83fb96d74"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("e44bb45d-514c-4217-bfba-452c0bd38f28"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},
  new RoleResource(){RoleId=2,ResourceId = Guid.Parse("f1649263-ef9a-4f42-85ac-16009283efff"),CreatedTime= DateTimeOffset.FromUnixTimeSeconds(1660632961)},

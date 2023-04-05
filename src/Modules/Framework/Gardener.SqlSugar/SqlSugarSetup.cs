@@ -112,7 +112,7 @@ public static class SqlSugarSetup
                     //db.DbMaintenance.DropTable("Sys_Code_Gen");
                     //db.DbMaintenance.DropTable("Sys_Code_Gen_Config");
                 }
-                catch (Exception ex)
+                catch
                 {
                 }
 
@@ -173,14 +173,14 @@ public static class SqlSugarSetup
                                 {
                                     var id = ((dynamic)entityInfo.EntityValue).Id;
                                     if (id == null || id == 0)
-                                        entityInfo.SetValue(IdUtil.GetNextId());
+                                        entityInfo.SetValue(IdHelper.GetNextId());
                                 }
                                 // String SnowFlake Id
                                 else if (type == typeof(string))
                                 {
                                     var id = ((dynamic)entityInfo.EntityValue).Id;
                                     if (id == null || id == "")
-                                        entityInfo.SetValue(IdUtil.GetNextId().ToString());
+                                        entityInfo.SetValue(IdHelper.GetNextId().ToString());
                                 }
                             }
 
@@ -230,8 +230,9 @@ public static class SqlSugarSetup
                     //Convert.ToBoolean(App.GetOptions<SystemSettingsOptions>().SuperAdminViewAllData);
                     foreach (var entityType in entityTypes)
                     {
+                        var tenantIdProperty = entityType.GetProperty(nameof(Identity.TenantId));
                         // 多租户全局过滤器
-                        if (!entityType.GetProperty(nameof(Identity.TenantId)).IsEmpty())
+                        if (tenantIdProperty != null && !tenantIdProperty.IsEmpty())
                         { //判断实体类中包含TenantId属性
                           //构建动态Lambda
                             var lambda = DynamicExpressionParser.ParseLambda
@@ -240,9 +241,9 @@ public static class SqlSugarSetup
                               GetTenantId(), IsSuperAdmin(), superAdminViewAllData);
                             dbProvider.QueryFilter.Add(new TableFilterItem<object>(entityType, lambda)); //将Lambda传入过滤器
                         }
-
+                        var IsDeletedProperty= entityType.GetProperty(nameof(GardenerEntityBase.IsDeleted));
                         // 软删除全局过滤器
-                        if (!entityType.GetProperty(nameof(GardenerEntityBase.IsDeleted)).IsEmpty())
+                        if (IsDeletedProperty!=null && !IsDeletedProperty.IsEmpty())
                         { //判断实体类中包含IsDeleted属性
                           //构建动态Lambda
                             var lambda = DynamicExpressionParser.ParseLambda
@@ -391,7 +392,7 @@ public static class SqlSugarSetup
     /// 获取当前租户id
     /// </summary>
     /// <returns></returns>
-    private static object GetTenantId()
+    private static object? GetTenantId()
     {
         if (App.User == null) return null;
         return App.User.FindFirst(nameof(GardenerTenantEntityBase.TenantId))?.Value;
@@ -413,7 +414,7 @@ public static class SqlSugarSetup
     /// <param name="config"></param>
     /// <param name="buildAction"></param>
     /// <returns></returns>
-    public static IServiceCollection AddSqlSugar(this IServiceCollection services, ConnectionConfig config, Action<ISqlSugarClient> buildAction = default)
+    public static IServiceCollection AddSqlSugar(this IServiceCollection services, ConnectionConfig config, Action<ISqlSugarClient>? buildAction = default)
     {
         var list = new List<ConnectionConfig>();
         list.Add(config);
@@ -427,7 +428,7 @@ public static class SqlSugarSetup
     /// <param name="configs"></param>
     /// <param name="buildAction"></param>
     /// <returns></returns>
-    public static IServiceCollection AddSqlSugar(this IServiceCollection services, List<ConnectionConfig> configs, Action<ISqlSugarClient> buildAction = default)
+    public static IServiceCollection AddSqlSugar(this IServiceCollection services, List<ConnectionConfig> configs, Action<ISqlSugarClient>? buildAction = default)
     {
         // 注册 SqlSugar 客户端
         services.AddScoped<ISqlSugarClient>(u =>

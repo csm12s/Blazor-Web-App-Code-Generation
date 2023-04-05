@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attachment.Dtos;
-using Gardener.Client.Base.Components;
+using Gardener.Client.AntDesignUi.Base.Components;
 using System;
 
 namespace Gardener.Attachment.Client.Pages

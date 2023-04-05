@@ -10,25 +10,24 @@ using System.IO;
 namespace Gardener.Base
 {
     /// <summary>
-    /// 项目常量
+    /// ProjectConstants
     /// </summary>
     public class ProjectConstants
     {
         /// <summary>
-        /// 项目名
         /// Gardener
         /// </summary>
         public const string AppName = "Gardener";
         /// <summary>
-        /// 输出exe的文件夹
+        /// ExeFolder
         /// </summary>
-        public static string ExeFolder = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        public static string? ExeFolder = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
         /// <summary>
-        /// 项目文件夹
+        /// ProjectFolder
         /// </summary>
-        public static string ProjectFolder = ExeFolder;
+        public static string ProjectFolder = ExeFolder==null?string.Empty:ExeFolder;
         /// <summary>
-        /// 代码生成路径
+        /// CodeGenPath
         /// </summary>
         public static string CodeGenPath = Path.Combine(ProjectFolder, "codeGen");
     }

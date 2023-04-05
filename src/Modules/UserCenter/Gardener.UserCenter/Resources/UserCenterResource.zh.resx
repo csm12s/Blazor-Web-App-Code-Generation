@@ -159,6 +159,9 @@
   <data name="NickName" xml:space="preserve">
     <value>用户昵称</value>
   </data>
+  <data name="NoRoleNeedAdd" xml:space="preserve">
+    <value>没有可用角色，请先添加角色</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>
   </data>

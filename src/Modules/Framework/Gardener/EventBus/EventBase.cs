@@ -26,7 +26,7 @@ namespace Gardener.EventBus
         /// <summary>
         /// 事件组
         /// </summary>
-        public string EventGroup { get; set; }
+        public string EventGroup { get; set; } = null!;
 
         /// <summary>
         /// 事件类型

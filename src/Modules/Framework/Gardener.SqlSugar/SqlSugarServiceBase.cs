@@ -24,6 +24,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     IServiceBase<TEntityDto, TKey>, ITransient
     where TEntity : class, IPrivateEntity, new()
     where TEntityDto : class, new()
+    where TKey : notnull
 {
     #region Init
     /// <summary>
@@ -173,9 +174,8 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     [HttpPost]
     public virtual async Task<Base.PagedList<TEntityDto>> Search(PageRequest request)
     {
-        var list = await _sugarRepository.GetListAsync(request);
-        var listDto = list.MapTo<TEntityDto>();
-
+        List<TEntity> list = await _sugarRepository.GetListAsync(request);
+        List<TEntityDto> listDto = list.MapTo<TEntityDto>();
         return listDto.ToPageList(request);
     }
     #endregion

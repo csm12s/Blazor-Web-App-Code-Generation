@@ -20,10 +20,10 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 角色名称
         /// </summary>
-        [Required(ErrorMessage ="不能为空")]
-        [MaxLength(100,ErrorMessage = "最大长度不能大于{1}")]
+        [Required(ErrorMessage = "不能为空")]
+        [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 角色描述
@@ -31,7 +31,7 @@ namespace Gardener.UserCenter.Dtos
         [Required(ErrorMessage = "不能为空")]
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("备注")]
-        public string Remark { get; set; }
+        public string Remark { get; set; }=null!;
 
         /// <summary>
         /// 是否是超级管理员
@@ -50,6 +50,6 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<ResourceDto> Resources { get; set; }
+        public ICollection<ResourceDto>? Resources { get; set; }
     }
 }

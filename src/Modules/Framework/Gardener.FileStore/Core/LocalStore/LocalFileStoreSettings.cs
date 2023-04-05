@@ -17,6 +17,6 @@ namespace Gardener.FileStore.Core.LocalStore
         /// 存储的基础目录,在wwwroot下
         /// 为空时，默认是upload 路径
         /// </summary>
-        public string BaseDirectory { get; set; }
+        public string BaseDirectory { get; set; } = "upload";
     }
 }

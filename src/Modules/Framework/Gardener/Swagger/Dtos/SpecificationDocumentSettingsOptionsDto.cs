@@ -18,10 +18,10 @@ namespace Gardener.Swagger.Dtos
         /// <summary>
         /// 所属组
         /// </summary>
-        public string Group { get; set; }
+        public string? Group { get; set; }
         /// <summary>
         /// 标题
         /// </summary>
-        public string Title { get; set; }
+        public string? Title { get; set; }
     }
 }

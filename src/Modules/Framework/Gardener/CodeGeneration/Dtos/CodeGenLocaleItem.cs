@@ -13,25 +13,24 @@ namespace Gardener.CodeGeneration.Dtos
         /// <summary>
         /// Table/Column name in DB
         /// </summary>
-        public string Name { get; set; }
-
+        public string Name { get; set; } = null!;
         /// <summary>
-        /// 键
+        /// Key
         /// </summary>
-        public string Key { get; set; }
+        public string? Key { get; set; }
         /// <summary>
-        /// 英文值
+        /// ValueEN
         /// </summary>
-        public string ValueEN { get; set; }
+        public string? ValueEN { get; set; }
         /// <summary>
-        /// 中文值
+        /// ValueCH
         /// </summary>
-        public string ValueCH { get; set; }
+        public string? ValueCH { get; set; }
 
         /// <summary>
         /// Key in XxxResource.cs
         /// </summary>
         [ExcelIgnore]
-        public string KeyInResource { get; set; }
+        public string? KeyInResource { get; set; }
     }
 }

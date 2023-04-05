@@ -16,6 +16,6 @@ namespace Gardener.NotificationSystem.Options
         /// <summary>
         /// 域
         /// </summary>
-        public string[] Origins { get; set; }
+        public string[]? Origins { get; set; }
     }
 }

@@ -18,5 +18,13 @@ namespace Gardener.Client.Base.EventBus.Events
         /// 登录token
         /// </summary>
         public TokenOutput Token { get; set; }
+        /// <summary>
+        /// 重载当前用户事件
+        /// </summary>
+        /// <param name="token"></param>
+        public ReloadCurrentUserEvent(TokenOutput token)
+        {
+            Token = token;
+        }
     }
 }

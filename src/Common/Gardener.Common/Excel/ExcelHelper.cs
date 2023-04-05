@@ -1,4 +1,5 @@
 ﻿using MiniExcelLibs;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,14 +14,27 @@ namespace Gardener.Common;
 // TODO3: Common库里面要不要输出log
 //https://gitee.com/dotnetchina/MiniExcel?_from=gitee_search#https://gitee.com/link?target=https%3A%2F%2Fdotnetfiddle.net%2Fw5WD1J
 
-
+/// <summary>
+/// Excel 工具类
+/// </summary>
 public class ExcelHelper
 {
+    /// <summary>
+    /// 扩展名称
+    /// </summary>
     public static string Extension = ".xlsx";
 
     #region Read Excel
+    /// <summary>
+    /// 读取Excel
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="hasHeader"></param>
+    /// <returns></returns>
+    [Obsolete("注意：大数据量加载时可能占用大量内存")]
     public static async Task<DataTable> GetDataTableAsync(string path, bool hasHeader = true)
     {
+        //todo:已过时，需处理
         var table = await MiniExcel.QueryAsDataTableAsync(path, hasHeader);
         return table;
 
@@ -31,8 +45,18 @@ public class ExcelHelper
         //var newTable = ChangeValueToString(table);
         //return newTable;
     }
-
-    public static async Task<List<T>> GetListAsync<T>(string path, string sheetName = null, ExcelType excelType = ExcelType.UNKNOWN, string startCell = "A1", IConfiguration configuration = null, CancellationToken cancellationToken = default(CancellationToken)) where T : class, new()
+    /// <summary>
+    /// 读取
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="path"></param>
+    /// <param name="sheetName"></param>
+    /// <param name="excelType"></param>
+    /// <param name="startCell"></param>
+    /// <param name="configuration"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public static async Task<List<T>> GetListAsync<T>(string path, string? sheetName = null, ExcelType excelType = ExcelType.UNKNOWN, string? startCell = "A1", IConfiguration? configuration = null, CancellationToken cancellationToken = default(CancellationToken)) where T : class, new()
     {
         var items = await MiniExcel.QueryAsync<T>(path, sheetName, excelType, startCell, configuration, cancellationToken);
         
@@ -41,21 +65,40 @@ public class ExcelHelper
     #endregion
 
     #region Write Excel
-    // Save excel, overwriteFile = true
-    public static async Task SaveAsReplaceAsync(string path, object value, bool printHeader = true, string sheetName = "Sheet1", ExcelType excelType = ExcelType.UNKNOWN, IConfiguration configuration = null, bool overwriteFile = false, CancellationToken cancellationToken = default(CancellationToken))
+    /// <summary>
+    /// Save excel, overwriteFile = true
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="value"></param>
+    /// <param name="printHeader"></param>
+    /// <param name="sheetName"></param>
+    /// <param name="excelType"></param>
+    /// <param name="configuration"></param>
+    /// <param name="overwriteFile"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public static async Task SaveAsReplaceAsync(string path, object value, bool printHeader = true, string sheetName = "Sheet1", ExcelType excelType = ExcelType.UNKNOWN, IConfiguration? configuration = null, bool overwriteFile = false, CancellationToken cancellationToken = default(CancellationToken))
     {
         overwriteFile = true;
         excelType = ExcelType.XLSX;//dataTable 提示不支持，请指定excel type
 
         var folderPath = FileHelper.GetDirectory(path);
-        FileHelper.CreateDirectory(folderPath);
+        if (folderPath != null) 
+        { 
+            FileHelper.CreateDirectory(folderPath);
 
-        await MiniExcel.SaveAsAsync(path, value, printHeader, sheetName, excelType, configuration, overwriteFile
-            , cancellationToken);
+            await MiniExcel.SaveAsAsync(path, value, printHeader, sheetName, excelType, configuration, overwriteFile
+                , cancellationToken);
+        }
     }
     #endregion
 
     #region Help Function
+    /// <summary>
+    /// ChangeValueToString
+    /// </summary>
+    /// <param name="table"></param>
+    /// <returns></returns>
     public static DataTable ChangeValueToString(DataTable table)
     {
         DataTable newTable = table.Clone(); //just copy structure, no data

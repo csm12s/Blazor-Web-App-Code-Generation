@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
@@ -16,7 +17,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
     public partial class DeptEdit : EditOperationDialogBase<DeptDto, int>
     {
         [Inject]
-        IDeptService deptService { get; set; }
+        IDeptService deptService { get; set; } = null!;
 
         //部门树
         List<DeptDto> deptDatas = new List<DeptDto>();
@@ -25,7 +26,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         /// </summary>
         private string ParentDeptId
         {
-            get { return _editModel.ParentId?.ToString(); }
+            get { return _editModel.ParentId?.ToString() ?? string.Empty; }
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -45,16 +46,16 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _isLoading = true;
+            base.StartLoading();
+            await base.OnInitializedAsync();
             //父级
             deptDatas = await deptService.GetTree();
-            await base.OnInitializedAsync();
             OperationDialogInput<int> editInput = this.Options;
             if (editInput.Type.Equals(DrawerInputType.Add))
             {
                 _editModel.ParentId = editInput.Id==0?null: editInput.Id;
             }
-            _isLoading = false;
+            base.StopLoading();
         }
 
     }

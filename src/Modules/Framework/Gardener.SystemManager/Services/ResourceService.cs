@@ -84,7 +84,7 @@ namespace Gardener.SystemManager.Services
         /// <param name="includLocked">是否包含锁定的资源</param>
         /// <param name="rootKey"></param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetTree([FromQuery]bool includLocked=true,[FromQuery]string rootKey=null)
+        public async Task<List<ResourceDto>> GetTree([FromQuery]bool includLocked=true,[FromQuery]string? rootKey=null)
         {
 
             List<ResourceDto> resourceDtos = new List<ResourceDto>();

@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
+using Gardener.Base;
 using Gardener.EntityFramwork.DbContexts;
 using Gardener.Enums;
 using System;
@@ -20,7 +21,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
     /// </summary>
     [Description("操作审计信息")]
     [IgnoreAudit]
-    public class AuditOperation : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditOperation : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计操作
@@ -33,7 +34,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 资源名
         /// </summary>
         [DisplayName("资源名")]
-        public string ResourceName { get; set; }
+        public string? ResourceName { get; set; }
         /// <summary>
         /// 资源编号
         /// </summary>
@@ -43,12 +44,12 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 操作者编号
         /// </summary>
         [DisplayName("操作者编号")]
-        public string OperaterId { get; set; }
+        public string? OperaterId { get; set; }
         /// <summary>
         /// 操作者名称
         /// </summary>
         [DisplayName("操作者名称")]
-        public string OperaterName { get; set; }
+        public string? OperaterName { get; set; }
         /// <summary>
         /// 操作者类型
         /// </summary>
@@ -58,17 +59,17 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 访问IP
         /// </summary>
         [DisplayName("IP")]
-        public string Ip { get; set; }
+        public string? Ip { get; set; }
         /// <summary>
         /// UserAgent
         /// </summary>
         [DisplayName("UserAgent")]
-        public string UserAgent { get; set; }
+        public string? UserAgent { get; set; }
         /// <summary>
         /// 请求地址
         /// </summary>
         [DisplayName("请求地址")]
-        public string Path { get; set; }
+        public string? Path { get; set; }
         /// <summary>
         /// 请求方法
         /// </summary>
@@ -78,18 +79,8 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 请求参数
         /// </summary>
         [DisplayName("请求参数")]
-        public string Parameters { get; set; }
-        /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
-
-        /// <summary>
-        /// 是否删除
-        /// </summary>
-        [DisplayName("是否删除")]
-        public bool IsDeleted { get; set; }
+        public string? Parameters { get; set; }
+        
         /// <summary>
         /// 审计数据信息集合
         /// </summary>

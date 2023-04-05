@@ -39,7 +39,7 @@ namespace Gardener.Swagger.Services
         /// <param name="url"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<SwaggerModel> Analysis(string url)
+        public async Task<SwaggerModel?> Analysis(string url)
         {
             url = HttpUtility.UrlDecode(url);
 
@@ -66,7 +66,7 @@ namespace Gardener.Swagger.Services
         {
             // 载入配置
             SpecificationDocumentSettingsOptions options = App.GetOptions<SpecificationDocumentSettingsOptions>();
-            if (options == null) return null;
+            if (options == null) return Task.FromResult(new List<SwaggerSpecificationOpenApiInfoDto>(0));
             return Task.FromResult(options.GroupOpenApiInfos.Select(x => x.Adapt<SwaggerSpecificationOpenApiInfoDto>()).ToList());
         }
         /// <summary>
@@ -77,7 +77,7 @@ namespace Gardener.Swagger.Services
         public async Task<List<ApiEndpoint>> GetFunctionsFromJson(string url)
         {
             List<ApiEndpoint> _functionDtos = new List<ApiEndpoint>();
-            SwaggerModel swaggerModel = await Analysis(url);
+            SwaggerModel? swaggerModel = await Analysis(url);
             if (swaggerModel != null && swaggerModel.paths != null)
             {
                 if (swaggerModel.tags == null)
@@ -89,7 +89,7 @@ namespace Gardener.Swagger.Services
                 {
                     foreach (var m in item.Value)
                     {
-                        string tags = m.Value.tags == null ? null : string.Join("_", m.Value.tags.Select(x => tagMap.ContainsKey(x) ? tagMap[x].description : x));
+                        string? tags = m.Value.tags == null ? null : string.Join("_", m.Value.tags.Select(x => tagMap.ContainsKey(x) ? tagMap[x].description : x));
                         ApiEndpoint function = new ApiEndpoint()
                         {
                             Path = item.Key,
@@ -98,7 +98,7 @@ namespace Gardener.Swagger.Services
                             Summary = m.Value.summary,
                             Description = m.Value.description,
                             //Group = _selectedGroup.Title,
-                            Service = tags,
+                            Service = tags ?? "未知",
                             EnableAudit = true
                         };
 

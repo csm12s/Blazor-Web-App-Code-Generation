@@ -1,56 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-	<GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;8618</NoWarn>
-  </PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Audit\Core\**" />
+		<Compile Remove="SqlSugar\**" />
+		<Compile Remove="System\**" />
+		<EmbeddedResource Remove="Audit\Core\**" />
+		<EmbeddedResource Remove="SqlSugar\**" />
+		<EmbeddedResource Remove="System\**" />
+		<None Remove="Audit\Core\**" />
+		<None Remove="SqlSugar\**" />
+		<None Remove="System\**" />
+	</ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;8618</NoWarn>
-  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Audit\Core\**" />
-    <Compile Remove="SqlSugar\**" />
-    <Compile Remove="System\**" />
-    <EmbeddedResource Remove="Audit\Core\**" />
-    <EmbeddedResource Remove="SqlSugar\**" />
-    <EmbeddedResource Remove="System\**" />
-    <None Remove="Audit\Core\**" />
-    <None Remove="SqlSugar\**" />
-    <None Remove="System\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
+		<ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Gardener.Common\Gardener.Common.csproj" />
-    <ProjectReference Include="..\..\..\Common\Gardener.Enums\Gardener.Enums.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Base\Resources\SharedLocalResource.en.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Base\Resources\SharedLocalResource.zh.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.en.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.zh.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CustomToolNamespace>Gardener.Client</CustomToolNamespace>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Base\Resources\SharedLocalResource.en.resx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\SharedLocalResource.zh.resx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.en.resx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.zh.resx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>

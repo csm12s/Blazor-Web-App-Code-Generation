@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Furion" Version="4.8.3.10" />
+    <PackageReference Include="Furion" Version="4.8.7.33" />
   </ItemGroup>
 
   <ItemGroup>

@@ -25,37 +25,37 @@ namespace Gardener.Email.Domains
         /// </summary>
         [DisplayName("名称")]
         [MaxLength(30), Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         /// <summary>
         /// 描述
         /// </summary>
         [DisplayName("备注")]
         [MaxLength(500)]
-        public string Remark { get; set; }
+        public string? Remark { get; set; }
         /// <summary>
         /// 发件人
         /// </summary>
         [DisplayName("发件人")]
         [MaxLength(100)]
-        public string FromName { get; set; }
+        public string? FromName { get; set; }
         /// <summary>
         /// 主题模板
         /// </summary>
         [DisplayName("主题模板")]
         [MaxLength(1000)]
-        public string SubjectTemplate { get; set; }
+        public string? SubjectTemplate { get; set; }
         /// <summary>
         /// 内容模板
         /// </summary>
         [DisplayName("内容模板")]
         [MaxLength(5000)]
-        public string ContentTemplate { get; set; }
+        public string? ContentTemplate { get; set; }
         /// <summary>
         /// 例子
         /// </summary>
         [DisplayName("例子")]
         [MaxLength(1000)]
-        public string Example { get; set; }
+        public string? Example { get; set; }
         /// <summary>
         /// 是否是HTML内容
         /// </summary>

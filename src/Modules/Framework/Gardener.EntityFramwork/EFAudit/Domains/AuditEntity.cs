@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
+using Gardener.Base;
 using Gardener.EntityFramwork.DbContexts;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -22,7 +23,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
     /// </summary>
     [Description("实体审计信息")]
     [IgnoreAudit]
-    public class AuditEntity : Entity<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditEntity : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计实体表
@@ -35,17 +36,17 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 数据编号
         /// </summary>
         [DisplayName("数据编号")]
-        public string DataId { get; set; }
+        public string DataId { get; set; } = null!;
         /// <summary>
         /// 实体名称
         /// </summary>
         [DisplayName("实体名称")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         /// <summary>
         /// 实体类型名称
         /// </summary>
         [DisplayName("实体类型名称")]
-        public string TypeName { get; set; }
+        public string TypeName { get; set; } = null!;
         /// <summary>
         /// 操作类型
         /// </summary>
@@ -55,12 +56,12 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 操作者编号
         /// </summary>
         [DisplayName("操作者编号")]
-        public string OperaterId { get; set; }
+        public string OperaterId { get; set; } = null!;
         /// <summary>
         /// 操作者名称
         /// </summary>
         [DisplayName("操作者名称")]
-        public string OperaterName { get; set; }
+        public string OperaterName { get; set; } = null!;
         /// <summary>
         /// 操作者类型
         /// </summary>
@@ -72,29 +73,18 @@ namespace Gardener.EntityFramwork.Audit.Domains
         [DisplayName("操作审计编号")]
         public Guid OperationId { get; set; }
         /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public bool IsLocked { get; set; }
-
-        /// <summary>
-        /// 是否删除
-        /// </summary>
-        [DisplayName("是否删除")]
-        public bool IsDeleted { get; set; }
-        /// <summary>
         /// 操作实体属性集合
         /// </summary>
-        public ICollection<AuditProperty> AuditProperties { get; set; }
+        public ICollection<AuditProperty>? AuditProperties { get; set; }
         /// <summary>
         /// 新值
         /// </summary>
         [NotMapped]
-        public PropertyValues CurrentValues { get; set; }
+        public PropertyValues CurrentValues { get; set; } = null!;
         /// <summary>
         /// 老值
         /// </summary>
         [NotMapped]
-        public PropertyValues OldValues { get; set; }
+        public PropertyValues? OldValues { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using Gardener.SystemManager.Dtos
-@inherits FeedbackComponent<OperationDialogInput<int>, bool>
+@inherits OperationDialogBase<OperationDialogInput<int>, bool>
 
-<Spin Spinning="_isLoading">
+<Spin Spinning="_dialogLoading.Value">
     <Row>
         <AntDesign.Col Span="24" Style="max-height: 80Vh; min-height:80Vh; overflow-y: scroll; min-width: 400px ">
             @if (_resources != null && _resources.Count > 0)
@@ -27,7 +27,7 @@
         <AntDesign.Col>
             <Space>
                 <SpaceItem>
-                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?localizer[SharedLocalResource.Close]:localizer[SharedLocalResource.Expand])">
+                    <Tooltip Placement="Placement.TopLeft" Title="@(_isExpanded?Localizer[SharedLocalResource.Close]:Localizer[SharedLocalResource.Expand])">
                         <Button Type="@ButtonType.Primary" Icon="@(_isExpanded?"up":"down")" Size="@ClientConstant.OperationButtonSize" OnClick="OnExpandClick" />
                     </Tooltip>
                 </SpaceItem>
@@ -36,12 +36,12 @@
                         <Space>
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">
-                                    @localizer[SharedLocalResource.Save]
+                                    @Localizer[SharedLocalResource.Save]
                                 </Button>
                             </SpaceItem>
                             <SpaceItem>
                                 <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">
-                                    @localizer[SharedLocalResource.Cancel]
+                                    @Localizer[SharedLocalResource.Cancel]
                                 </Button>
                             </SpaceItem>
                         </Space>
