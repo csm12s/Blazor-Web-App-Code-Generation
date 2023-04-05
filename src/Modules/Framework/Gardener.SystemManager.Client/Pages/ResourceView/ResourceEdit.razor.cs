@@ -67,7 +67,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 }
             }
             currentResourceTypeCopy = _editModel.Type;
-            base.StartLoading();
+            base.StopLoading();
         }
     }
 }
