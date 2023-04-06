@@ -5,16 +5,16 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
-namespace Gardener.SystemManager.Domains
+namespace Gardener.SystemManager.Dtos
 {
     /// <summary>
     /// 字典信息
     /// </summary>
     [Description("字典信息")]
-    public class Code : GardenerEntityBase
+    public class CodeDto : BaseDto<int>
     {
         /// <summary>
         /// 字段类型编号
@@ -39,7 +39,7 @@ namespace Gardener.SystemManager.Domains
         /// </summary>
         [DisplayName("扩展参数")]
         [MaxLength(500)]
-        public string? ExtendParams { get;set; }
+        public string? ExtendParams { get; set; }
         /// <summary>
         /// 颜色
         /// </summary>

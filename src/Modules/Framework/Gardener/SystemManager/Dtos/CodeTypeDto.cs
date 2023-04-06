@@ -4,22 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using Gardener.Base;
 
-namespace Gardener.SystemManager.Domains
+namespace Gardener.SystemManager.Dtos
 {
     /// <summary>
     /// 字典类型
     /// </summary>
     [Description("字典类型")]
-    public class CodeType : GardenerEntityBase
+    public class CodeTypeDto : BaseDto<int>
     {
         /// <summary>
         /// 字典类型名称
