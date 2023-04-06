@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Gardener_New\Gardener\src\Modules\SysTimer\Gardener.SysTimer.Impl\Gardener.SysTimer.Impl.csproj" />
+    <ProjectReference Include="..\..\Modules\SysTimer\Gardener.SysTimer.Impl\Gardener.SysTimer.Impl.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Attachment\Gardener.Attachment.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Audit\Gardener.Audit.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Authentication\Gardener.Authentication.csproj" />
