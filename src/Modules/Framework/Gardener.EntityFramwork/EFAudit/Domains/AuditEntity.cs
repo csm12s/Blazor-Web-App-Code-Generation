@@ -28,7 +28,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// <summary>
         /// 审计实体表
         /// </summary>
-        public AuditEntity() 
+        public AuditEntity()
         {
             this.AuditProperties = new List<AuditProperty>();
         }

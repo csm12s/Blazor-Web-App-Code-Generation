@@ -19,7 +19,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 岗位信息
     /// </summary>
     [Description("岗位信息")]
-    public class Position : GardenerEntityBase<int>, IEntityTypeBuilder<Position>, IEntitySeedData<Position>
+    public class Position : GardenerEntityBase, IEntityTypeBuilder<Position>, IEntitySeedData<Position>
     {
         /// <summary>
         /// 角色名称

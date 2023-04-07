@@ -80,7 +80,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// </summary>
         [DisplayName("请求参数")]
         public string? Parameters { get; set; }
-        
+
         /// <summary>
         /// 审计数据信息集合
         /// </summary>

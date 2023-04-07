@@ -124,6 +124,53 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Code",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CodeTypeId = table.Column<int>(type: "INTEGER", maxLength: 50, nullable: false),
+                    CodeName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    ExtendParams = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Color = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Code", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CodeType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CodeTypeName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Remark = table.Column<string>(type: "TEXT", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Dept",
                 columns: table => new
                 {
@@ -1697,6 +1744,12 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "ClientFunction");
+
+            migrationBuilder.DropTable(
+                name: "Code");
+
+            migrationBuilder.DropTable(
+                name: "CodeType");
 
             migrationBuilder.DropTable(
                 name: "EmailServerConfig");
