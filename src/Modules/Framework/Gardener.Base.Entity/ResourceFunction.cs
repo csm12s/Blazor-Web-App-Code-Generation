@@ -14,7 +14,7 @@ namespace Gardener.Base.Entity
     /// 资源功能信息
     /// </summary>
     [Description("资源功能信息")]
-    public class ResourceFunction : IEntity
+    public class ResourceFunction : GardenerEntityBaseNoKeyAndEmpty
     {
         /// <summary>
         /// 资源编号

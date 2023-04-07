@@ -23,12 +23,12 @@ namespace Gardener.EntityFramwork.Audit.Domains
     /// </summary>
     [Description("实体审计信息")]
     [IgnoreAudit]
-    public class AuditEntity : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditEntity : GardenerEntityBase<Guid, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计实体表
         /// </summary>
-        public AuditEntity() 
+        public AuditEntity()
         {
             this.AuditProperties = new List<AuditProperty>();
         }
