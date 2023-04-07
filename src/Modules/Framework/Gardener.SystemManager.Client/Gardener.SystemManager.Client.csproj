@@ -15,5 +15,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Client\AntDesignClient\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Pages\CodeView\" />
+	</ItemGroup>
 
 </Project>
