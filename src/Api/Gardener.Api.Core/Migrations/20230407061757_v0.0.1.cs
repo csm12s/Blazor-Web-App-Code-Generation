@@ -70,35 +70,6 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuditOperation",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ResourceName = table.Column<string>(type: "TEXT", nullable: true),
-                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    OperaterId = table.Column<string>(type: "TEXT", nullable: true),
-                    OperaterName = table.Column<string>(type: "TEXT", nullable: true),
-                    OperaterType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Ip = table.Column<string>(type: "TEXT", nullable: true),
-                    UserAgent = table.Column<string>(type: "TEXT", nullable: true),
-                    Path = table.Column<string>(type: "TEXT", nullable: true),
-                    Method = table.Column<int>(type: "INTEGER", nullable: false),
-                    Parameters = table.Column<string>(type: "TEXT", nullable: true),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuditOperation", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Client",
                 columns: table => new
                 {
@@ -121,6 +92,53 @@ namespace Gardener.Api.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Client", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Code",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CodeTypeId = table.Column<int>(type: "INTEGER", maxLength: 50, nullable: false),
+                    CodeName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    ExtendParams = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Color = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Code", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CodeType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CodeTypeName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Remark = table.Column<string>(type: "TEXT", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -484,39 +502,6 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuditEntity",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DataId = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    TypeName = table.Column<string>(type: "TEXT", nullable: false),
-                    OperationType = table.Column<int>(type: "INTEGER", nullable: false),
-                    OperaterId = table.Column<string>(type: "TEXT", nullable: false),
-                    OperaterName = table.Column<string>(type: "TEXT", nullable: false),
-                    OperaterType = table.Column<int>(type: "INTEGER", nullable: false),
-                    OperationId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    AuditOperationId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuditEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AuditEntity_AuditOperation_AuditOperationId",
-                        column: x => x.AuditOperationId,
-                        principalTable: "AuditOperation",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ClientFunction",
                 columns: table => new
                 {
@@ -707,37 +692,6 @@ namespace Gardener.Api.Core.Migrations
                         name: "FK_Sys_CodeGenConfig_Sys_CodeGen_CodeGenId",
                         column: x => x.CodeGenId,
                         principalTable: "Sys_CodeGen",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AuditProperty",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DisplayName = table.Column<string>(type: "TEXT", nullable: false),
-                    FieldName = table.Column<string>(type: "TEXT", nullable: false),
-                    OriginalValue = table.Column<string>(type: "TEXT", nullable: true),
-                    NewValue = table.Column<string>(type: "TEXT", nullable: true),
-                    DataType = table.Column<string>(type: "TEXT", nullable: true),
-                    AuditEntityid = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuditProperty", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AuditProperty_AuditEntity_AuditEntityid",
-                        column: x => x.AuditEntityid,
-                        principalTable: "AuditEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1628,16 +1582,6 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuditEntity_AuditOperationId",
-                table: "AuditEntity",
-                column: "AuditOperationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuditProperty_AuditEntityid",
-                table: "AuditProperty",
-                column: "AuditEntityid");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ClientFunction_FunctionId",
                 table: "ClientFunction",
                 column: "FunctionId");
@@ -1693,10 +1637,13 @@ namespace Gardener.Api.Core.Migrations
                 name: "Attachment");
 
             migrationBuilder.DropTable(
-                name: "AuditProperty");
+                name: "ClientFunction");
 
             migrationBuilder.DropTable(
-                name: "ClientFunction");
+                name: "Code");
+
+            migrationBuilder.DropTable(
+                name: "CodeType");
 
             migrationBuilder.DropTable(
                 name: "EmailServerConfig");
@@ -1732,9 +1679,6 @@ namespace Gardener.Api.Core.Migrations
                 name: "VerifyCodeLog");
 
             migrationBuilder.DropTable(
-                name: "AuditEntity");
-
-            migrationBuilder.DropTable(
                 name: "Client");
 
             migrationBuilder.DropTable(
@@ -1751,9 +1695,6 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "User");
-
-            migrationBuilder.DropTable(
-                name: "AuditOperation");
 
             migrationBuilder.DropTable(
                 name: "Dept");
