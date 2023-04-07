@@ -21,7 +21,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
     /// </summary>
     [Description("操作审计信息")]
     [IgnoreAudit]
-    public class AuditOperation : GardenerEntityBase<Guid, GardenerAuditDbContextLocator>
+    public class AuditOperation : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计操作

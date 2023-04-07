@@ -10,6 +10,7 @@ using Gardener.Audit.Dtos;
 using Gardener.Base;
 using Gardener.EntityFramwork;
 using Gardener.EntityFramwork.Audit.Domains;
+using Gardener.EntityFramwork.DbContexts;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,14 +24,14 @@ namespace Gardener.Audit.Services
     /// 审计数据服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class AuditEntityService : ServiceBase<AuditEntity, AuditEntityDto, Guid>, IAuditEntityService
+    public class AuditEntityService : ServiceBase<AuditEntity, AuditEntityDto, Guid, GardenerAuditDbContextLocator>, IAuditEntityService
     {
-        private readonly IRepository<AuditEntity> _auditRepository;
+        private readonly IRepository<AuditEntity, GardenerAuditDbContextLocator> _auditRepository;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
-        public AuditEntityService(IRepository<AuditEntity> repository) : base(repository)
+        public AuditEntityService(IRepository<AuditEntity, GardenerAuditDbContextLocator> repository) : base(repository)
         {
             this._auditRepository = repository;
         }
