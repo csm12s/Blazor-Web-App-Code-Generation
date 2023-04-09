@@ -4,38 +4,30 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gardener.SystemManager.Domains
+namespace Gardener.Client.Base
 {
     /// <summary>
-    /// 字典类型
+    /// 抽屉返回结果类型
     /// </summary>
-    [Description("CodeType")]
-    public class CodeType : GardenerEntityBase
+    public enum OperationDialogOutputType
     {
         /// <summary>
-        /// 字典类型名称
+        /// 成功
         /// </summary>
-        [DisplayName("CodeTypeName")]
-        [Required, MaxLength(50)]
-        public string CodeTypeName { get; set; } = null!;
+        Succeeded = 0,
         /// <summary>
-        /// 备注
+        /// 失败
         /// </summary>
-        [DisplayName("Remark")]
-        [MaxLength(200)]
-        public string? Remark { get; set; }
+        Failed = 1,
         /// <summary>
-        /// 字典集合
+        /// 取消
         /// </summary>
-        public ICollection<Code> Codes { get; set; }= new List<Code>();
+        Canceled = 2
     }
 }

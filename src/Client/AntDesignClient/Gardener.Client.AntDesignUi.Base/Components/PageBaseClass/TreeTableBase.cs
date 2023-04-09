@@ -23,7 +23,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new() where TKey : notnull
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new() where TKey : notnull where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 确认提示服务
@@ -123,7 +123,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             _datas = await GetTree();
             if (_datas == null)
             {
-                MessageService.Error(this.Localizer.Combination(SharedLocalResource.Load,SharedLocalResource.Fail));
+                MessageService.Error(this.Localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
             StopLoading();
         }
@@ -161,7 +161,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 var result = await BaseService.FakeDeletes(ids.ToArray());
                 if (result)
                 {
-                    MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete,SharedLocalResource.Success));
+                    MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                     var pKey = GetParentKey(dto);
                     if (_datas != null && pKey != null && DeleteTreeNode(pKey, GetKey(dto), _datas))
                     {
@@ -241,7 +241,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     var result = await BaseService.FakeDeletes(ids.Distinct().ToArray());
                     if (result)
                     {
-                        MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete,SharedLocalResource.Success));
+                        MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
                         await ReLoadTable();
                     }
                     else
@@ -377,7 +377,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new() where TKey : notnull
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new() where TKey : notnull where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
@@ -493,10 +493,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnAddChildrenFinish(TDto dto, OperationDialogOutput<TKey> dialogOutput)
         {
-            if (dialogOutput.Succeeded && dialogOutput.Id != null)
+            if (dialogOutput.Succeeded && dialogOutput.Data != null)
             {
                 //最新的数据
-                var newEntity = await BaseService.Get(dialogOutput.Id);
+                var newEntity = await BaseService.Get(dialogOutput.Data);
                 ICollection<TDto> children = GetChildren(dto) ?? new List<TDto>();
 
                 children.Add(newEntity);

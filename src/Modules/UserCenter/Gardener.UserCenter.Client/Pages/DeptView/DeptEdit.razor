@@ -26,7 +26,7 @@
                     IsLeafExpression="node => node.DataItem.Children==null || !node.DataItem.Children.Any()"
                     TreeDefaultExpandAll
                     DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)" 
-                    Disabled="this.Options.Id!=0 && !DrawerInputType.Edit.Equals(this.Options.Type)">
+                    Disabled="this.Options.Data!=0 && !OperationDialogInputType.Edit.Equals(this.Options.Type)">
             </TreeSelect>
             }
         </FormItem>
@@ -49,7 +49,7 @@
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
 
-        @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+        @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
             <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
@@ -60,7 +60,7 @@
         }
         <FormItem WrapperColOffset="4" WrapperColSpan="24">
             <Space>
-                @if (!DrawerInputType.Select.Equals(this.Options.Type))
+                @if (!OperationDialogInputType.Select.Equals(this.Options.Type))
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">

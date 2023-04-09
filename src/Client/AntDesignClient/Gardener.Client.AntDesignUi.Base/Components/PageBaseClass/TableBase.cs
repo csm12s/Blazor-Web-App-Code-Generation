@@ -17,12 +17,15 @@ using Microsoft.AspNetCore.Components;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
-    //TODO: 这里原来继承ReuseTabsPageBase，修改后的页面可以被当作Modal打开,
-    //请确保这里不会出错，如果出错，请修改CodeGenConfigView，不再使用ReuseTabsPageAndFormBase
     /// <summary>
-    /// table基类
+    /// table列表页面基类(可以被当作OperationDialog打开)
     /// </summary>
-    public abstract class TableBase<TDto, TKey, TLocalResource> : ReuseTabsPageAndFormBase<TKey, bool> where TDto : BaseDto<TKey>, new()
+    /// <typeparam name="TDto">对象Dto</typeparam>
+    /// <typeparam name="TKey">对象的主键</typeparam>
+    /// <typeparam name="TLocalResource">本地化资源</typeparam>
+    /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
+    /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
+    public abstract class TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ReuseTabsPageAndFormBase<TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// table引用
@@ -161,7 +164,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected bool StartLoading()
         {
-            var run= _tableLoading.Start();
+            var run = _tableLoading.Start();
             if (run)
             {
                 InvokeAsync(StateHasChanged);
@@ -175,7 +178,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected bool StopLoading()
         {
-            var stop=_tableLoading.Stop();
+            var stop = _tableLoading.Stop();
             if (stop)
             {
                 InvokeAsync(StateHasChanged);
@@ -184,4 +187,19 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
         #endregion
     }
+    /// <summary>
+    /// table列表页面基类(可以被当作OperationDialog打开)
+    /// </summary>
+    /// <typeparam name="TDto">对象Dto</typeparam>
+    /// <typeparam name="TKey">对象的主键</typeparam>
+    /// <typeparam name="TLocalResource">本地化资源</typeparam>
+    /// <remarks>
+    /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
+    /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
+    /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
+    /// </remarks>
+    public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
+    { 
+    }
+
 }

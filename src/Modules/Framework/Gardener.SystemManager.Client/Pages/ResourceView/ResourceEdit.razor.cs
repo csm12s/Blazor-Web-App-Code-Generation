@@ -52,15 +52,15 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             await base.OnInitializedAsync();
             resources = await resourceService.GetTree();
             
-            if (this.Options.Type.Equals(DrawerInputType.Add))
+            if (this.Options.Type.Equals(OperationDialogInputType.Add))
             {
                 _editModel.Id = Guid.NewGuid();
 
-                if (!Guid.Empty.Equals(this.Options.Id))
+                if (!Guid.Empty.Equals(this.Options.Data))
                 {
-                    _editModel.ParentId = this.Options.Id;
+                    _editModel.ParentId = this.Options.Data;
 
-                    ResourceDto parent = await resourceService.Get(this.Options.Id);
+                    ResourceDto parent = await resourceService.Get(this.Options.Data);
 
                     _editModel.Type = parent.Type;
 

@@ -41,13 +41,13 @@ namespace Gardener.Client.AntDesignUi.Services
         /// <param name="onClose"></param>
         /// <param name="dialogSettings"></param>
         /// <returns></returns>
-        public async Task OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
+        public async Task OpenAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput?, Task>? onClose = null, OperationDialogSettings? dialogSettings = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
         {
             dialogSettings = dialogSettings ?? ClientConstant.DefaultOperationDialogSettings;
 
             if (dialogSettings.DialogType.Equals(OperationDialogType.Modal))
             {
-                ModalRef<TDialogOutput> result = await modalService.CreateModalAsync<TOperationDialog, TDialogInput, TDialogOutput>(new ModalOptions()
+                ModalOptions modalOptions = new ModalOptions()
                 {
                     Title = title,
                     Centered = dialogSettings.ModalCentered,
@@ -55,26 +55,41 @@ namespace Gardener.Client.AntDesignUi.Services
                     Width = dialogSettings.Width,
                     Footer = null,
                     DestroyOnClose = true,
-                }, input);
+                    Maximizable = dialogSettings.ModalMaximizable,
+                    DefaultMaximized = dialogSettings.ModalDefaultMaximized
+                };
+
+                ModalRef<TDialogOutput> result = await modalService.CreateModalAsync<TOperationDialog, TDialogInput, TDialogOutput>(modalOptions, input);
+
                 if (onClose != null)
                 {
                     result.OnOk = onClose;
+
                 }
+                result.OnClose = () =>
+                {
+                    onClose?.Invoke(default);
+                    return Task.CompletedTask;
+                };
 
             }
             else if (dialogSettings.DialogType.Equals(OperationDialogType.Drawer))
             {
-                var result = await drawerService.CreateDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(
-                    input,
-                    closable: dialogSettings.Closable,
-                    maskClosable: dialogSettings.MaskClosable,
-                    title: title,
-                    width: dialogSettings.Width,
-                    placement: dialogSettings.DrawerPlacement.ToString().ToLower());
-                if (onClose != null)
+                DrawerOptions config = new DrawerOptions()
                 {
-                    await onClose.Invoke(result);
-                }
+                    Closable = dialogSettings.Closable,
+                    MaskClosable = dialogSettings.MaskClosable,
+                    Title = title,
+                    Width = dialogSettings.Width,
+                    Height = dialogSettings.DrawerHeight,
+                    Placement = dialogSettings.DrawerPlacement.ToString().ToLower()
+                };
+
+                var drawerRef = await drawerService.CreateAsync<TOperationDialog, TDialogInput, TDialogOutput>(config, input);
+                drawerRef.OnClosed = r =>
+                {
+                    return onClose?.Invoke(r);
+                };
             }
         }
 

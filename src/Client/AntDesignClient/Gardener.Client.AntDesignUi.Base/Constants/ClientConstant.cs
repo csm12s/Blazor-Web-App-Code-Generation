@@ -42,9 +42,11 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
             Closable = true,
             ModalCentered=true,
             DrawerPlacement= Placement.Right,
-            DialogType= OperationDialogType.Modal,
+            DialogType= OperationDialogType.Modal
         };
-
+        /// <summary>
+        /// 
+        /// </summary>
         public readonly static int PageOperationDialogWidth = 1200;//1080;//960;
         /// <summary>
         /// 启用多标签

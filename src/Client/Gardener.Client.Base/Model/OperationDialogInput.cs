@@ -7,75 +7,105 @@
 namespace Gardener.Client.Base
 {
     /// <summary>
-    /// 参数
+    /// 弹出操作框输出参数
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    public class OperationDialogInput<TKey>
+    /// <typeparam name="TData">数据类型</typeparam>
+    public class OperationDialogInput<TData> : OperationDialogInput
     {
         /// <summary>
-        /// 选中的节点主键
+        /// 数据
         /// </summary>
-        public TKey? Id { get; set; } = default(TKey);
+        public TData? Data { get; set; } = default;
+
         /// <summary>
-        /// 0添加
-        /// 1编辑
+        /// 添加操作
         /// </summary>
-        public DrawerInputType Type { get; set; }
-        /// <summary>
-        /// 添加
-        /// </summary>
-        /// <param name="id"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public static OperationDialogInput<TKey> IsAdd()
+        public static OperationDialogInput<TData> IsAdd(TData? data = default)
         {
-            return new OperationDialogInput<TKey> { Type = DrawerInputType.Add };
+            return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Add };
         }
         /// <summary>
-        /// 添加
+        /// 编辑操作
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public static OperationDialogInput<TKey> IsAdd(TKey id)
+        public static OperationDialogInput<TData> IsEdit(TData? data = default)
         {
-            return new OperationDialogInput<TKey> { Id = id, Type = DrawerInputType.Add };
+            return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Edit };
         }
+
         /// <summary>
-        /// 编辑
+        /// 查询操作
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public static OperationDialogInput<TKey> IsEdit(TKey id)
+        public static OperationDialogInput<TData> IsSelect(TData? data = default)
         {
-            return new OperationDialogInput<TKey> { Id = id, Type = DrawerInputType.Edit };
+            return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Select };
         }
+
         /// <summary>
-        /// 编辑
+        /// 其它操作
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public static OperationDialogInput<TKey> IsSelect(TKey id)
+        public static OperationDialogInput<TData> Other(TData? data = default)
         {
-            return new OperationDialogInput<TKey> { Id = id, Type = DrawerInputType.Select };
+            return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Other };
         }
 
 
     }
+
     /// <summary>
-    /// 类型
+    /// 弹出操作框输出参数
     /// </summary>
-    public enum DrawerInputType
+    public class OperationDialogInput
     {
         /// <summary>
-        /// 添加
+        /// 操作框输入类型
         /// </summary>
-        Add = 0,
+        /// <remarks>
+        /// 默认<see cref="OperationDialogInputType.Other"/>
+        /// </remarks>
+        public OperationDialogInputType Type { get; set; } = OperationDialogInputType.Other;
+
         /// <summary>
-        /// 编辑
+        /// 添加操作
         /// </summary>
-        Edit=1,
+        /// <returns></returns>
+        public static OperationDialogInput IsAdd()
+        {
+            return new OperationDialogInput { Type = OperationDialogInputType.Add };
+        }
         /// <summary>
-        /// 查看
+        /// 编辑操作
         /// </summary>
-        Select=2,
+        /// <returns></returns>
+        public static OperationDialogInput IsEdit()
+        {
+            return new OperationDialogInput { Type = OperationDialogInputType.Edit };
+        }
+
+        /// <summary>
+        /// 查询操作
+        /// </summary>
+        /// <returns></returns>
+        public static OperationDialogInput IsSelect()
+        {
+            return new OperationDialogInput { Type = OperationDialogInputType.Select };
+        }
+
+        /// <summary>
+        /// 其它操作
+        /// </summary>
+        /// <returns></returns>
+        public static OperationDialogInput Other()
+        {
+            return new OperationDialogInput { Type = OperationDialogInputType.Other };
+        }
+
     }
 }

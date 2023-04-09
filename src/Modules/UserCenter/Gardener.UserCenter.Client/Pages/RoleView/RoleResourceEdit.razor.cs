@@ -43,7 +43,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         protected override async Task OnInitializedAsync()
         {
             base.StartLoading();
-            _roleId = this.Options.Id;
+            _roleId = this.Options.Data;
             if (_roleId > 0)
             {
                 //已有资源

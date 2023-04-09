@@ -13,38 +13,48 @@ namespace Gardener.SystemManager.Dtos
     /// <summary>
     /// 字典信息
     /// </summary>
-    [Description("字典信息")]
+    [Description("Code")]
     public class CodeDto : BaseDto<int>
     {
         /// <summary>
         /// 字段类型编号
         /// </summary>
-        [DisplayName("字段类型编号")]
-        [Required, MaxLength(50)]
+        [DisplayName("CodeTypeId")]
+        [Required(ErrorMessage ="不能为空")]
         public int CodeTypeId { get; set; }
+        /// <summary>
+        /// 字典值
+        /// </summary>
+        [DisplayName("CodeValue")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        public string CodeValue { get; set; } = null!;
         /// <summary>
         /// 字典名称
         /// </summary>
-        [DisplayName("字典名称")]
-        [Required, MaxLength(50)]
+        [DisplayName("CodeName")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         public string CodeName { get; set; } = null!;
         /// <summary>
         /// 排序
         /// </summary>
-        [DisplayName("排序")]
-        [Required]
+        [DisplayName("Order")]
+        [Required(ErrorMessage = "不能为空")]
         public int Order { get; set; }
         /// <summary>
         /// 扩展参数
         /// </summary>
-        [DisplayName("扩展参数")]
-        [MaxLength(500)]
+        [DisplayName("ExtendParams")]
+        [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
         public string? ExtendParams { get; set; }
         /// <summary>
         /// 颜色
         /// </summary>
-        [DisplayName("颜色")]
-        [MaxLength(50)]
+        [DisplayName("Color")]
+        [MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         public string? Color { get; set; }
+        /// <summary>
+        /// 字典类型
+        /// </summary>
+        public CodeTypeDto CodeType { get; set; } = null!;
     }
 }

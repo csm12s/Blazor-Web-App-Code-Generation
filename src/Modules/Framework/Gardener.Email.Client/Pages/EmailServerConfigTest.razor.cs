@@ -60,7 +60,7 @@ namespace Gardener.Email.Client.Pages
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _sendEmailInput.EmailServerConfigId = this.Options.Id;
+            _sendEmailInput.EmailServerConfigId = this.Options.Data;
             emailTemplates = await EmailTemplateService.GetAllUsable();
             if (emailTemplates != null && emailTemplates.Any())
             {

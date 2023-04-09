@@ -5,10 +5,14 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Authentication.Dtos;
+using Gardener.Base;
 using Gardener.EntityFramwork;
 using Gardener.SystemManager.Domains;
 using Gardener.SystemManager.Dtos;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +33,26 @@ namespace Gardener.SystemManager.Services
         /// <param name="repository"></param>
         public CodeService(IRepository<Code, MasterDbContextLocator> repository) : base(repository)
         {
+        }
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        /// <remarks>
+        /// 搜索数据
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public override async Task<Base.PagedList<CodeDto>> Search(PageRequest request)
+        {
+            IQueryable<Code> queryable = base.GetSearchQueryable(request);
+            
+            return await queryable
+                .Include(x => x.CodeType)
+                .Select(x => x)
+                .OrderConditions(request.OrderConditions.ToArray())
+                .Select(x => x.Adapt<CodeDto>())
+                .ToPageAsync(request.PageIndex, request.PageSize);
         }
     }
 }

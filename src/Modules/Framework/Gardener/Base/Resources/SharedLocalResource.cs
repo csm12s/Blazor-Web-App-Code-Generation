@@ -304,6 +304,10 @@ namespace Gardener.Base.Resources
         /// 禁用
         /// </summary>
         public const string Disabled = nameof(Disabled);
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public const string Remark = nameof(Remark);
 
     }
 }

@@ -21,15 +21,17 @@ using System.Reflection;
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     /// <summary>
-    /// 列表table基类
+    /// table列表基类(可以被当作OperationDialog打开)
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TLocalResource">本地化资源</typeparam>
+    /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
+    /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new()
+    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 显示总数
@@ -76,6 +78,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override Task OnInitializedAsync()
         {
+            //从url加载TableSearch参数
             var url = new Uri(Navigation.Uri);
             var query = url.Query;
             Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
@@ -209,7 +212,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 MessageService.Error(Localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
             StopLoading();
-            
+
         }
 
         /// <summary>
@@ -471,18 +474,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             // TODO: clear search field
             return ReLoadTable(true);
         }
-        
+
     }
 
     /// <summary>
-    /// 列表table基类
+    /// table列表基类(可以被当作OperationDialog打开)
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TLocalResource">本地化资源</typeparam>
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
+    /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
+    /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
+    /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> where TDto : BaseDto<TKey>, new()
+    public abstract class ListTableBase<TDto, TKey, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource, TKey, bool> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
     {
 
     }
@@ -492,12 +499,33 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
+    /// <remarks>
+    /// 包含列表加载、删除、导出、种子数据
+    /// 本地化资源 默认使用<see cref="SharedLocalResource"/>
+    /// 
+    /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
+    /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
+    /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
+    /// </remarks>
+    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> where TDto : BaseDto<TKey>, new()
+    {
+    }
+
+    /// <summary>
+    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
     /// <typeparam name="TLocalResource">本地化资源</typeparam>
+    /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
+    /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
+    /// 快递打开操作框，输入 OperationDialogInput_TKey
+    /// 快递打开操作框，输出 OperationDialogOutput_TKey
     /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 点击添加按钮
@@ -563,18 +591,43 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
     }
 
+    /// <summary>
+    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
+    /// <typeparam name="TLocalResource">本地化资源</typeparam>
+    /// <remarks>
+    /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
+    /// 快递打开操作框，输入 OperationDialogInput_TKey
+    /// 快递打开操作框，输出 OperationDialogOutput_TKey
+    /// 
+    /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
+    /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
+    /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
+    /// </remarks>
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TKey, bool> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TLocalResource : SharedLocalResource
+    {
+    }
 
     /// <summary>
-    /// 列表table基类
+    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
+    /// 本地化资源，默认使用<see cref="SharedLocalResource"/>
+    /// 快递打开操作框，输入 OperationDialogInput_TKey
+    /// 快递打开操作框，输出 OperationDialogOutput_TKey
+    /// 
+    /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
+    /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
+    /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TDto : BaseDto<TKey>, new() where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
     {
-
     }
 }

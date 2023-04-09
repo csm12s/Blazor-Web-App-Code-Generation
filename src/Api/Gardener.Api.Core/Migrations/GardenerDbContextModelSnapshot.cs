@@ -8911,6 +8911,11 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("CodeValue")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Color")
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");

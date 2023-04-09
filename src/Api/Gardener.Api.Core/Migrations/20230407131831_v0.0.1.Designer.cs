@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230407074815_v0.0.1")]
+    [Migration("20230407131831_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -8913,6 +8913,11 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<int>("CodeTypeId")
                         .HasMaxLength(50)
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("CodeValue")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Color")
                         .HasMaxLength(50)

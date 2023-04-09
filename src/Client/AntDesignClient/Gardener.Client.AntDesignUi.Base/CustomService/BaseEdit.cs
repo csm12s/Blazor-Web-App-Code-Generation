@@ -57,9 +57,9 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         {
             _isLoading = true;
 
-            if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+            if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
             {
-                TKey? id = this.Options.Id;
+                TKey? id = this.Options.Data;
                 if (id != null) 
                 {
                     //更新 回填数据
@@ -98,7 +98,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             //TODO: 无主键表编辑，未进入这里
             _isLoading = true;
             //开始请求
-            if (this.Options.Type.Equals(DrawerInputType.Add))
+            if (this.Options.Type.Equals(OperationDialogInputType.Add))
             {
                 //添加
                 var result = await BaseService.Insert(_editModel);
@@ -106,7 +106,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 if (result != null)
                 {
                     MessageService.Success(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
-                    await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TKey>.Succeed(result.Id)
+                    await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TData>.Succeed(result.Data)
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 if (result)
                 {
                     MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
-                    await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TKey>.Succeed(_editModel.Id)
+                    await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TData>.Succeed(_editModel.Data)
                 }
                 else
                 {

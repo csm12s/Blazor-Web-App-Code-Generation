@@ -1,24 +1,24 @@
-﻿@page "/system_manager/function"
-@inherits ListOperateTableBase<FunctionDto, Guid, FunctionEdit>
+﻿@page "/system_manager/code_list"
+@inherits ListOperateTableBase<CodeDto, int, CodeEdit, SystemManagerResource,OperationDialogInput<int?>,OperationDialogOutput>
 <div>
     <Table @ref="_table"
-           TItem="FunctionDto"
+           TItem="CodeDto"
            DataSource="@_datas"
            Total="_total"
            OnChange="@OnChange"
-           @bind-PageIndex="_pageIndex"
-           @bind-PageSize="_pageSize"
-           @bind-SelectedRows="_selectedRows"
+    @bind-PageIndex="_pageIndex"
+    @bind-PageSize="_pageSize"
+    @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
-           Context="model"
-            >
+           Size=@tableSize
+           Context="model">
         <TitleTemplate>
-            <ResourceAuthorize ResourceKey="system_manager_function_refresh">
-                <TableSearch TDto="FunctionDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
-             </ResourceAuthorize>
+            <ResourceAuthorize ResourceKey="system_manager_code_refresh">
+                <TableSearch TDto="CodeDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+            </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
-                    <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
+                    <ResourceAuthorize ResourceKey="system_manager_code_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
                             @Localizer[SharedLocalResource.DeleteSelected]
                         </Button>
@@ -26,36 +26,29 @@
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                     <Space>
-                        <ResourceAuthorize ResourceKey="system_manager_function_import">
-                            <SpaceItem>
-                                <Button Type="@ButtonType.Primary" Icon="import" OnClick="OnImportClick">
-                                    @Localizer[SharedLocalResource.Import]
-                                </Button>
-                            </SpaceItem>
-                        </ResourceAuthorize>
-                        <ResourceAuthorize ResourceKey="system_manager_function_export">
+                        <ResourceAuthorize ResourceKey="system_manager_code_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport" Loading="_exportDataLoading">
                                     @Localizer[SharedLocalResource.Export]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
-                        @*<ResourceAuthorize ResourceKey="system_manager_function_add">
+                        <ResourceAuthorize ResourceKey="system_manager_code_add">
                             <SpaceItem>
-                        <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    添加
+                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                    @Localizer[SharedLocalResource.Add]
                                 </Button>
                             </SpaceItem>
-                        </ResourceAuthorize>*@
+                        </ResourceAuthorize>
 
-                        <ResourceAuthorize ResourceKey="system_manager_function_refresh">
+                        <ResourceAuthorize ResourceKey="system_manager_code_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
                                     @Localizer[SharedLocalResource.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
-                        <ResourceAuthorize ResourceKey="system_manager_function_download_seed_data">
+                        <ResourceAuthorize ResourceKey="system_manager_code_download_seed_data">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnClickShowSeedData">
                                     @Localizer[SharedLocalResource.SeedData]
@@ -67,29 +60,23 @@
             </Row>
 
         </TitleTemplate>
-                    <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
+        <ColumnDefinitions>
+            <ResourceAuthorize ResourceKey="system_manager_code_delete_selected">
                 <Selection Key="@(model.Id.ToString())" Width="5%" />
             </ResourceAuthorize>
-            <Column @bind-Field="@model.Group" Width="10%" Filterable />
-            <Column @bind-Field="@model.Service" Width="10%" Filterable />
-            <Column @bind-Field="@model.Summary" Width="10%" Filterable />
-            <Column @bind-Field="@model.Path" Width="60" Filterable />
-            <Column @bind-Field="@model.Method" Width="10%" Filters="TableFiltersConstants.FunctionMethodFilters">
-                <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
+            <Column Title="@Localizer[SystemManagerResource.CodeName]" @bind-Field="@model.CodeName" Filterable />
+            <Column Title="@Localizer[SystemManagerResource.CodeValue]" @bind-Field="@model.CodeValue" Filterable />
+            <Column Title="@Localizer[SystemManagerResource.CodeTypeId]" @bind-Field="@model.CodeTypeId" Filterable>
+                @model.CodeTypeId
             </Column>
-            <Column @bind-Field="@model.EnableAudit" Width="8%" Filterable>
-                <ResourceAuthorize ResourceKey="system_manager_function_enable_audit">
-                    <Authorized>
-                        <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>
-                    </Authorized>
-                    <NotAuthorized>
-                        <TagYesNo Yes="model.EnableAudit"></TagYesNo>
-                    </NotAuthorized>
-                </ResourceAuthorize>
+            <Column Title="@Localizer[SystemManagerResource.CodeTypeName]" @bind-Field="@model.CodeTypeId">
+                @model.CodeType.CodeTypeName
             </Column>
-            <Column @bind-Field="@model.IsLocked" Width="8%" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
-                <ResourceAuthorize ResourceKey="system_manager_function_lock">
+            <Column Title="@Localizer[SystemManagerResource.Order]" @bind-Field="@model.Order" Filterable />
+            <Column Title="@Localizer[SystemManagerResource.Color]" @bind-Field="@model.Color" Filterable />
+            <Column Title="@Localizer[SystemManagerResource.ExtendParams]" @bind-Field="@model.ExtendParams" Filterable />
+            <Column Title="@Localizer[SystemManagerResource.IsLocked]" @bind-Field="@model.IsLocked" Filterable>
+                <ResourceAuthorize ResourceKey="system_manager_code_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
                     </Authorized>
@@ -98,24 +85,24 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Width="10%" DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
-            <ActionColumn Width="10%">
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
+            <ActionColumn>
                 <Space>
-                    <ResourceAuthorize ResourceKey="system_manager_function_edit">
+                    <ResourceAuthorize ResourceKey="system_manager_code_edit">
                         <SpaceItem>
                             <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
-                    <ResourceAuthorize ResourceKey="system_manager_function_detail">
+                    <ResourceAuthorize ResourceKey="system_manager_code_detail">
                         <SpaceItem>
                             <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
-                    <ResourceAuthorize ResourceKey="system_manager_function_delete">
+                    <ResourceAuthorize ResourceKey="system_manager_code_delete">
                         <SpaceItem>
                             <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>

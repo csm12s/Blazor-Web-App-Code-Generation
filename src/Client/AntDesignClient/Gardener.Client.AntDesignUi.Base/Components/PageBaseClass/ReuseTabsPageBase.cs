@@ -12,15 +12,20 @@ using Microsoft.AspNetCore.Components;
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     /// <summary>
-    /// tab基类 (可以被当作Modal打开)
+    /// tab基类 (可以被当作OperationDialog打开)
     /// </summary>
-    public abstract class ReuseTabsPageAndFormBase<Tkey, TOutput>
-        : FeedbackComponent<Tkey, TOutput>, IReuseTabsPage
+    /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
+    /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
+    public abstract class ReuseTabsPageAndFormBase<TSelfOperationDialogInput, TSelfOperationDialogOutput>
+        : FeedbackComponent<TSelfOperationDialogInput, TSelfOperationDialogOutput>, IReuseTabsPage
     {
         /// <summary>
         /// 获取页面title
         /// </summary>
         /// <returns></returns>
+        /// <remarks>
+        /// 只有当被当做页面打开时有效
+        /// </remarks>
         public RenderFragment GetPageTitle()
         {
             return GetPageTitleValue().ToRenderFragment();
@@ -31,7 +36,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <returns></returns>
         /// <remarks>
-        /// 根据页面路由path获取对应菜单名字作为title
+        /// 根据页面路由path获取对应菜单名字作为title，只有当被当做页面打开时有效
         /// </remarks>
         public virtual string GetPageTitleValue()
         {
@@ -53,6 +58,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public Task RefreshPageDom()
         {
             return InvokeAsync(StateHasChanged);
+        }
+
+        /// <summary>
+        /// 关闭自己
+        /// </summary>
+        /// <param name="output"></param>
+        /// <returns></returns>
+        public async Task CloseAsync(TSelfOperationDialogOutput? output=default)
+        {
+            await base.FeedbackRef.CloseAsync(output);
         }
     }
 

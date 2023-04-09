@@ -182,7 +182,7 @@
 
 
 
-            @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+            @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
             {
                 <FormItem Label="@Localizer[CodeGenLocalResource.CreatedTime]">
                     <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
@@ -197,7 +197,7 @@
         <GridCol Offset="6" Span="18">
             <FormItem WrapperColOffset="8" WrapperColSpan="16">
                 <Space>
-                    @if (this.Options.Type == DrawerInputType.Edit)
+                    @if (this.Options.Type == OperationDialogInputType.Edit)
                     {
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" OnClick="OnlySaveCodeGen">
@@ -210,7 +210,7 @@
                             </Button>
                         </SpaceItem>
                     }
-                    else if (this.Options.Type == DrawerInputType.Add)
+                    else if (this.Options.Type == OperationDialogInputType.Add)
                     {
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" HtmlType="submit">

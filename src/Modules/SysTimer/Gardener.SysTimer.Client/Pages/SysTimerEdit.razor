@@ -96,7 +96,7 @@
         <FormItem>
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+        @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
             <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
@@ -107,7 +107,7 @@
         }
         <FormItem WrapperColOffset="8" WrapperColSpan="16">
             <Space>
-                @if (!DrawerInputType.Select.Equals(this.Options.Type))
+                @if (!OperationDialogInputType.Select.Equals(this.Options.Type))
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">

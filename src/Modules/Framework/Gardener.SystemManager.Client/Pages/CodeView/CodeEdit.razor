@@ -1,5 +1,4 @@
-﻿@inherits EditOperationDialogBase<PositionDto, int>
-
+﻿@inherits EditOperationDialogBase<CodeDto,int,SystemManagerResource>
 
 <Form Loading="@_dialogLoading.Value"
       Model="@_editModel"
@@ -7,26 +6,34 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="名称">
-        <Input @bind-Value="@model.Name" />
+    <FormItem Label="@Localizer[SystemManagerResource.CodeName]">
+        <Input @bind-Value="@model.CodeName" />
     </FormItem>
-    <FormItem Label="目标">
-        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Target"></TextArea>
+    <FormItem Label="@Localizer[SystemManagerResource.CodeValue]">
+        <Input @bind-Value="@model.CodeValue" />
     </FormItem>
-    <FormItem Label="职责">
-        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Duty"></TextArea>
+    <FormItem Label="@Localizer[SystemManagerResource.CodeType]">
+        @if (codeTypeDtos != null)
+        {
+            <Select DataSource="@codeTypeDtos"
+            @bind-Value="@model.CodeTypeId"
+                    ValueName="@nameof(CodeTypeDto.Id)"
+                    LabelName="@nameof(CodeTypeDto.CodeTypeName)"
+                    TItem="CodeTypeDto"
+                    TItemValue="int"
+                DefaultActiveFirstOption>
+        </Select>
+        }
+        
     </FormItem>
-    <FormItem Label="权利">
-        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Right"></TextArea>
+    <FormItem Label="@Localizer[SystemManagerResource.Order]">
+        <Input @bind-Value="@model.Order" />
     </FormItem>
-    <FormItem Label="岗位等级">
-        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Grade"></TextArea>
+    <FormItem Label="@Localizer[SystemManagerResource.Color]">
+        <Input @bind-Value="@model.Color" />
     </FormItem>
-    <FormItem Label="任职资格">
-        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Qualifications"></TextArea>
-    </FormItem>
-    <FormItem Label="岗位薪资">
-        <Input @bind-Value="@model.Salary" />
+    <FormItem Label="@Localizer[SystemManagerResource.ExtendParams]">
+        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.ExtendParams"></TextArea>
     </FormItem>
     <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
         <Switch @bind-Value="@model.IsLocked"></Switch>

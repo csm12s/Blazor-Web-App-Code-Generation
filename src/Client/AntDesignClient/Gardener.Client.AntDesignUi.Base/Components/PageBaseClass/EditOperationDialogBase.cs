@@ -21,7 +21,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public class EditOperationDialogBase<TDto, TKey, TLocalResource> : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TDto : BaseDto<TKey>, new()
+    public class EditOperationDialogBase<TDto, TKey, TLocalResource> : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
     {
         [Inject]
         protected IServiceBase<TDto, TKey> BaseService { get; set; } = null!;
@@ -31,7 +31,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected ConfirmService ConfirmService { get; set; } = null!;
         [Inject]
         protected DrawerService DrawerService { get; set; } = null!;
-        
+
         /// <summary>
         /// 当前正在编辑的对象
         /// </summary>
@@ -52,9 +52,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected async Task LoadEditModelData()
         {
-            if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+            if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
             {
-                TKey? id = this.Options.Id;
+                TKey? id = this.Options.Data;
                 if (id != null)
                 {
                     //更新 回填数据
@@ -89,7 +89,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             StartLoading();
             //开始请求
-            if (this.Options.Type.Equals(DrawerInputType.Add))
+            if (this.Options.Type.Equals(OperationDialogInputType.Add))
             {
                 //添加
                 var result = await BaseService.Insert(_editModel);

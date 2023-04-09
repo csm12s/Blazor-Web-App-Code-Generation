@@ -130,6 +130,7 @@ namespace Gardener.Api.Core.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CodeTypeId = table.Column<int>(type: "INTEGER", maxLength: 50, nullable: false),
+                    CodeValue = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     CodeName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Order = table.Column<int>(type: "INTEGER", nullable: false),
                     ExtendParams = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
