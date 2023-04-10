@@ -6,6 +6,7 @@
 
 using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.Client.Base;
 using Gardener.SystemManager.Client.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
@@ -22,7 +23,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
     /// <summary>
     /// 字典编辑框
     /// </summary>
-    public partial class CodeEdit : EditOperationDialogBase<CodeDto,int, SystemManagerResource>
+    public partial class CodeEdit : EditOperationDialogBase<CodeDto,int, SystemManagerResource, CodeEditParams, OperationDialogOutput>
     {
         [Inject]
         protected ICodeTypeService CodeTypeService { get; set; } = null!;
@@ -39,6 +40,10 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
             StartLoading();
             await LoadEditModelData();
             codeTypeDtos = await CodeTypeService.GetAllUsable();
+            if (this.Options.Type.Equals(OperationDialogInputType.Add) && this.Options.CodeTypeId != null)
+            {
+                this._editModel.CodeTypeId = this.Options.CodeTypeId.Value;
+            }
             StopLoading();
         }
     }

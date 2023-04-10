@@ -28,7 +28,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
         /// <param name="codeType"></param>
         private async Task OnClickShowCodesManager(CodeTypeDto codeType)
         {
-            await OpenOperationDialogAsync<Code, OperationDialogInput<int?>, OperationDialogOutput> (codeType.CodeTypeName, OperationDialogInput<int?>.Other(codeType.Id), width: 1000, onClose: ot => {
+            await OpenOperationDialogAsync<Code, OperationDialogInput<int?>, OperationDialogOutput> (codeType.CodeTypeName, OperationDialogInput<int?>.Other(codeType.Id), width: 1200, onClose: ot => {
 
                 System.Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(ot));
                 return Task.CompletedTask;

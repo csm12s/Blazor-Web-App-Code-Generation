@@ -4,20 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
-using Gardener.SystemManager.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Gardener.Client.Base;
 
-namespace Gardener.SystemManager.Services
+namespace Gardener.SystemManager.Client.Pages.CodeView
 {
-    /// <summary>
-    /// 字典服务
-    /// </summary>
-    public interface ICodeService : IServiceBase<CodeDto>
+    public class CodeEditParams: OperationDialogInput<int>
     {
+        public int? CodeTypeId { get; set; }
     }
 }

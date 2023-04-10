@@ -21,7 +21,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
     /// <summary>
     /// 字典列表
     /// </summary>
-    public partial class Code : ListOperateTableBase<CodeDto, int, CodeEdit, SystemManagerResource,OperationDialogInput<int?>,OperationDialogOutput>
+    public partial class Code : ListOperateTableBase<CodeDto, int, CodeEdit, CodeEditParams, OperationDialogOutput, SystemManagerResource,OperationDialogInput<int?>,OperationDialogOutput>
     {
         private TableSize tableSize = TableSize.Default;
 
@@ -31,10 +31,22 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
             if(this.Options?.Data!=null)
             {
                 tableSize = TableSize.Small;
+                _pageSize = 10;
                 _defaultSearchValue.Add(nameof(CodeDto.CodeTypeId), this.Options.Data);
             }
 
             return base.OnInitializedAsync();
+        }
+        /// <summary>
+        /// 点击添加后，处理输入弹框的参数
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        protected override Task<bool> OnClickAddRunBefore(CodeEditParams input)
+        {
+            input.CodeTypeId = this.Options.Data;
+
+            return base.OnClickAddRunBefore(input);
         }
     }
 }

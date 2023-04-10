@@ -23,7 +23,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new() where TKey : notnull where TLocalResource : SharedLocalResource
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> 
+        where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> 
+        where TDto : BaseDto<TKey>, new() where TKey : notnull 
+        where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 确认提示服务
@@ -366,7 +369,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TOperationDialog"></typeparam>
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, SharedLocalResource> where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput> where TDto : BaseDto<TKey>, new() where TKey : notnull
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, SharedLocalResource>
+        where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResource>
+        where TDto : BaseDto<TKey>, new() 
+        where TKey : notnull
     {
 
     }
@@ -377,7 +383,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new() where TKey : notnull where TLocalResource : SharedLocalResource
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> 
+        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> 
+        where TDto : BaseDto<TKey>, new() where TKey : notnull where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
@@ -386,7 +394,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override OperationDialogInput<TKey> GetSelectOption(TDto dto)
         {
-            return OperationDialogInput<TKey>.IsSelect(dto.Id);
+            return OperationDialogInput<TKey>.Select(dto.Id);
         }
         /// <summary>
         /// 根据<TDto>获取编辑时传入抽屉的数据项<TEditOption>
@@ -395,7 +403,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override OperationDialogInput<TKey> GetEditOption(TDto dto)
         {
-            return OperationDialogInput<TKey>.IsEdit(dto.Id);
+            return OperationDialogInput<TKey>.Edit(dto.Id);
         }
         /// <summary>
         /// 根据<TDto>获取添加时传入抽屉的数据项<TEditOption>
@@ -404,7 +412,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override OperationDialogInput<TKey> GetAddOption(TDto dto)
         {
-            return OperationDialogInput<TKey>.IsAdd(dto.Id);
+            return OperationDialogInput<TKey>.Add(dto.Id);
         }
         // <summary>
         /// 获取添加时传入抽屉的数据项<TEditOption>
@@ -413,7 +421,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override OperationDialogInput<TKey> GetAddOption()
         {
-            return OperationDialogInput<TKey>.IsAdd();
+            return OperationDialogInput<TKey>.Add();
         }
         /// <summary>
         /// 当编辑结束
@@ -512,7 +520,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : FeedbackComponent<OperationDialogInput<TKey>, OperationDialogOutput<TKey>> where TDto : BaseDto<TKey>, new() where TKey : notnull
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource> where TDto : BaseDto<TKey>, new() where TKey : notnull
     {
 
     }

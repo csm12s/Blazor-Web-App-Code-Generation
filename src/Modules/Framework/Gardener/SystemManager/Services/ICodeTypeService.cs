@@ -19,6 +19,18 @@ namespace Gardener.SystemManager.Services
     /// </summary>
     public interface ICodeTypeService : IServiceBase<CodeTypeDto,int>
     {
+        /// <summary>
+        /// 根据多个字典类型获取所有字典的结果
+        /// </summary>
+        /// <param name="codeTypeIds"></param>
+        /// <returns></returns>
+        Task<Dictionary<int, List<CodeDto>>> GetCodeDic(params int[] codeTypeIds);
+        /// <summary>
+        /// 根据字典类型获取字典列表
+        /// </summary>
+        /// <param name="codeTypeId"></param>
+        /// <returns></returns>
+        Task<List<CodeDto>> GetCodes(int codeTypeId);
 
     }
 }

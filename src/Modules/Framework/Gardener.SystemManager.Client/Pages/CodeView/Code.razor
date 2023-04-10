@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/code_list"
-@inherits ListOperateTableBase<CodeDto, int, CodeEdit, SystemManagerResource,OperationDialogInput<int?>,OperationDialogOutput>
+@inherits ListOperateTableBase<CodeDto, int, CodeEdit, CodeEditParams, OperationDialogOutput, SystemManagerResource,OperationDialogInput<int?>,OperationDialogOutput>
 <div>
     <Table @ref="_table"
            TItem="CodeDto"
@@ -61,18 +61,16 @@
 
         </TitleTemplate>
         <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_code_delete_selected">
-                <Selection Key="@(model.Id.ToString())" Width="5%" />
-            </ResourceAuthorize>
+            <Selection Key="@(model.Id.ToString())" Width="5%" />
             <Column Title="@Localizer[SystemManagerResource.CodeName]" @bind-Field="@model.CodeName" Filterable />
             <Column Title="@Localizer[SystemManagerResource.CodeValue]" @bind-Field="@model.CodeValue" Filterable />
-            <Column Title="@Localizer[SystemManagerResource.CodeTypeId]" @bind-Field="@model.CodeTypeId" Filterable>
+            <Column Title="@Localizer[SystemManagerResource.CodeTypeId]" @bind-Field="@model.CodeTypeId" Filterable Sortable DefaultSortOrder="@SortDirection.Descending">
                 @model.CodeTypeId
             </Column>
             <Column Title="@Localizer[SystemManagerResource.CodeTypeName]" @bind-Field="@model.CodeTypeId">
                 @model.CodeType.CodeTypeName
             </Column>
-            <Column Title="@Localizer[SystemManagerResource.Order]" @bind-Field="@model.Order" Filterable />
+            <Column Title="@Localizer[SystemManagerResource.Order]" @bind-Field="@model.Order" Filterable Sortable DefaultSortOrder="@SortDirection.Ascending" />
             <Column Title="@Localizer[SystemManagerResource.Color]" @bind-Field="@model.Color" Filterable />
             <Column Title="@Localizer[SystemManagerResource.ExtendParams]" @bind-Field="@model.ExtendParams" Filterable />
             <Column Title="@Localizer[SystemManagerResource.IsLocked]" @bind-Field="@model.IsLocked" Filterable>
@@ -85,7 +83,7 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_code_edit">

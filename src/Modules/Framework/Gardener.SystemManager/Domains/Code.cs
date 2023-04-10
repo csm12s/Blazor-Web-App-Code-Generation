@@ -4,7 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Gardener.Authentication.Enums;
 using Gardener.Base;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +17,7 @@ namespace Gardener.SystemManager.Domains
     /// 字典信息
     /// </summary>
     [Description("Code")]
-    public class Code : GardenerEntityBase
+    public class Code : GardenerEntityBase, IEntitySeedData<Code>
     {
         /// <summary>
         /// 字段类型编号
@@ -56,5 +59,19 @@ namespace Gardener.SystemManager.Domains
         /// 字典类型
         /// </summary>
         public CodeType CodeType { get; set; } = null!;
+
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <returns></returns>
+        public IEnumerable<Code> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[]{
+                new Code() {CodeTypeId=1,CodeValue="1",CodeName="难过",Order=1,Id=1,IsLocked=false,IsDeleted=false,CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2023-04-10 15:41:07"),},
+                new Code() {CodeTypeId=1,CodeValue="2",CodeName="高兴",Order=2,Id=2,IsLocked=false,IsDeleted=false,CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2023-04-10 15:40:54"),},
+         };
+        }
     }
 }

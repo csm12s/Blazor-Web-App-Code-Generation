@@ -19,5 +19,17 @@ namespace Gardener.SystemManager.Client.Services
         public CodeTypeService(IApiCaller apiCaller) : base(apiCaller, "code-type")
         {
         }
+
+        public Task<Dictionary<int, List<CodeDto>>> GetCodeDic(params int[] codeTypeIds)
+        {
+            IDictionary<string, object?> queryString=new Dictionary<string, object?>();
+            queryString.Add("codeTypeIds", codeTypeIds);
+            return base.apiCaller.GetAsync<Dictionary<int, List<CodeDto>>>($"{controller}/code-dic", queryString);
+        }
+
+        public Task<List<CodeDto>> GetCodes(int codeTypeId)
+        {
+            return base.apiCaller.GetAsync<List<CodeDto>>($"{controller}/{codeTypeId}/codes");
+        }
     }
 }

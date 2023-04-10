@@ -22,7 +22,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput">输入参数的类型</typeparam>
     /// <typeparam name="TDialogOutput">输出参数的类型</typeparam>
     /// <typeparam name="TLocalResource">本地化资源类</typeparam>
-    public abstract class OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> : FeedbackComponent<TDialogInput, TDialogOutput>
+    public abstract class OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> : ReuseTabsPageAndFormBase<TDialogInput, TDialogOutput>
     {
         /// <summary>
         /// 弹框区域的加载中标识
@@ -119,33 +119,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             await OpenOperationDialogAsync<TOperationDialog, TInput, bool>(title, input, close, operationDialogSettings, width);
         }
 
-        /// <summary>
-        /// 关闭自己
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        protected async Task CloseAsync(TDialogOutput result)
-        {
-            await base.FeedbackRef.CloseAsync(result);
-        }
-
-        /// <summary>
-        /// 关闭自己
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        protected async Task CloseAsync()
-        {
-            await base.FeedbackRef.CloseAsync(default(TDialogOutput));
-        }
-        /// <summary>
-        /// 强制dom渲染
-        /// </summary>
-        /// <returns></returns>
-        protected Task RefreshPageDom()
-        {
-            return InvokeAsync(StateHasChanged);
-        }
         /// <summary>
         /// Page start loading
         /// </summary>

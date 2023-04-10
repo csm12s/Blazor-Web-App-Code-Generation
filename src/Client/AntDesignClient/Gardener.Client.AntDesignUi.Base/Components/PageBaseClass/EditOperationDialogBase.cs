@@ -20,8 +20,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TLocalResource"></typeparam>
-    public class EditOperationDialogBase<TDto, TKey, TLocalResource> : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
+    /// <typeparam name="TLocalResource">本地化资源类</typeparam>
+    /// <typeparam name="TOperationDialogInput">弹框输入参数，需要继承 OperationDialogInput<TKey></typeparam>
+    /// <typeparam name="TOperationDialogOutput"></typeparam>
+    public class EditOperationDialogBase<TDto, TKey, TLocalResource, TOperationDialogInput, TOperationDialogOutput> : OperationDialogBase<TOperationDialogInput, TOperationDialogOutput, TLocalResource>
+        where TDto : BaseDto<TKey>, new()
+        where TLocalResource : SharedLocalResource
+        where TOperationDialogInput : OperationDialogInput<TKey>, new()
+        where TOperationDialogOutput : OperationDialogOutput, new()
     {
         [Inject]
         protected IServiceBase<TDto, TKey> BaseService { get; set; } = null!;
@@ -77,9 +83,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected virtual async Task OnFormCancel()
         {
-            await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Cancel());
+            TOperationDialogOutput operationDialogOutput = new TOperationDialogOutput();
+            operationDialogOutput.IsCancel();
+            await CloseAsync(operationDialogOutput);
         }
-
         /// <summary>
         /// 表单完成时
         /// </summary>
@@ -88,6 +95,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected virtual async Task OnFormFinish(EditContext editContext)
         {
             StartLoading();
+            TOperationDialogOutput operationDialogOutput = new TOperationDialogOutput();
             //开始请求
             if (this.Options.Type.Equals(OperationDialogInputType.Add))
             {
@@ -97,7 +105,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (result != null)
                 {
                     MessageService.Success(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
-                    await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Succeed(result.Id));
+                    operationDialogOutput.IsSucceed();
+                    await CloseAsync(operationDialogOutput);
                 }
                 else
                 {
@@ -111,7 +120,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (result)
                 {
                     MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
-                    await base.FeedbackRef.CloseAsync(OperationDialogOutput<TKey>.Succeed(_editModel.Id));
+                    operationDialogOutput.IsSucceed();
+                    await CloseAsync(operationDialogOutput);
                 }
                 else
                 {
@@ -127,6 +137,32 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TLocalResource">本地化资源类</typeparam>
+    /// <remarks>
+    /// <para>
+    /// 弹框输入参数，默认是 <![CDATA[OperationDialogInput<Tkey>]]>
+    /// </para>
+    /// <para>
+    /// 弹框输出参数，默认是 <see cref="OperationDialogOutput"/>
+    /// </para>
+    /// </remarks>
+    public class EditOperationDialogBase<TDto, TKey, TLocalResource> : EditOperationDialogBase<TDto, TKey, TLocalResource, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
+        where TDto : BaseDto<TKey>, new()
+        where TLocalResource : SharedLocalResource
+    {
+
+    }
+
+    /// <summary>
+    /// 编辑，详情弹框
+    /// </summary>
+    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <remarks>
+    /// <para>本地化资源类,默认是 <see cref="SharedLocalResource"/></para>
+    /// <para>弹框输入参数，默认是 <![CDATA[OperationDialogInput<Tkey>]]></para>
+    /// <para>弹框输出参数，默认是 <see cref="OperationDialogOutput"/></para>
+    /// </remarks>
     public class EditOperationDialogBase<TDto, TKey> : EditOperationDialogBase<TDto, TKey, SharedLocalResource> where TDto : BaseDto<TKey>, new()
     {
 

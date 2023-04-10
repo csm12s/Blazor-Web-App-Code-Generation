@@ -44,6 +44,34 @@ namespace Gardener.Client.Base
         {
             return new OperationDialogOutput<TData>() { Data = data, Succeeded = false, Type = OperationDialogOutputType.Canceled };
         }
+
+        /// <summary>
+        /// 成功
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public OperationDialogOutput<TData> IsSucceed(TData? data = default)
+        {
+            Data = data; Succeeded = true; Type = OperationDialogOutputType.Succeeded; return this;
+        }
+        /// <summary>
+        /// 失败
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public OperationDialogOutput<TData> IsFail(TData? data = default)
+        {
+            Data = data; Succeeded = false; Type = OperationDialogOutputType.Failed; return this;
+        }
+        /// <summary>
+        /// 取消
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public OperationDialogOutput<TData> IsCancel(TData? data = default)
+        {
+            Data = data; Succeeded = false; Type = OperationDialogOutputType.Canceled; return this;
+        }
     }
     /// <summary>
     /// 操作框输出
@@ -58,6 +86,36 @@ namespace Gardener.Client.Base
         /// 操作框结束类型
         /// </summary>
         public OperationDialogOutputType Type { get; set; }
+        /// <summary>
+        /// 成功
+        /// </summary>
+        /// <returns></returns>
+        public OperationDialogOutput IsSucceed()
+        {
+            Type = OperationDialogOutputType.Succeeded;
+            Succeeded = true;
+            return this;
+        }
+        /// <summary>
+        /// 失败
+        /// </summary>
+        /// <returns></returns>
+        public OperationDialogOutput IsFail()
+        {
+            Type = OperationDialogOutputType.Failed;
+            Succeeded = false;
+            return this;
+        }
+        /// <summary>
+        /// 取消
+        /// </summary>
+        /// <returns></returns>
+        public OperationDialogOutput IsCancel()
+        {
+            Type = OperationDialogOutputType.Canceled;
+            Succeeded = false;
+            return this;
+        }
         /// <summary>
         /// 成功
         /// </summary>

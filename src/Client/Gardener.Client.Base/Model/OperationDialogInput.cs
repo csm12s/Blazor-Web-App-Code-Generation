@@ -22,7 +22,7 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static OperationDialogInput<TData> IsAdd(TData? data = default)
+        public static OperationDialogInput<TData> Add(TData? data = default)
         {
             return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Add };
         }
@@ -31,7 +31,7 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static OperationDialogInput<TData> IsEdit(TData? data = default)
+        public static OperationDialogInput<TData> Edit(TData? data = default)
         {
             return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Edit };
         }
@@ -41,7 +41,7 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static OperationDialogInput<TData> IsSelect(TData? data = default)
+        public static OperationDialogInput<TData> Select(TData? data = default)
         {
             return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Select };
         }
@@ -56,6 +56,44 @@ namespace Gardener.Client.Base
             return new OperationDialogInput<TData> { Data = data, Type = OperationDialogInputType.Other };
         }
 
+        /// <summary>
+        /// 添加操作
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public OperationDialogInput<TData> IsAdd(TData? data = default)
+        {
+            Data = data; Type = OperationDialogInputType.Add; return this;
+        }
+        /// <summary>
+        /// 编辑操作
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public OperationDialogInput<TData> IsEdit(TData? data = default)
+        {
+            Data = data; Type = OperationDialogInputType.Edit; return this;
+        }
+
+        /// <summary>
+        /// 查询操作
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public OperationDialogInput<TData> IsSelect(TData? data = default)
+        {
+            Data = data; Type = OperationDialogInputType.Select; return this;
+        }
+
+        /// <summary>
+        /// 其它操作
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public OperationDialogInput<TData> IsOther(TData? data = default)
+        {
+            Data = data; Type = OperationDialogInputType.Other; return this;
+        }
 
     }
 
@@ -76,7 +114,7 @@ namespace Gardener.Client.Base
         /// 添加操作
         /// </summary>
         /// <returns></returns>
-        public static OperationDialogInput IsAdd()
+        public static OperationDialogInput Add()
         {
             return new OperationDialogInput { Type = OperationDialogInputType.Add };
         }
@@ -84,7 +122,7 @@ namespace Gardener.Client.Base
         /// 编辑操作
         /// </summary>
         /// <returns></returns>
-        public static OperationDialogInput IsEdit()
+        public static OperationDialogInput Edit()
         {
             return new OperationDialogInput { Type = OperationDialogInputType.Edit };
         }
@@ -93,7 +131,7 @@ namespace Gardener.Client.Base
         /// 查询操作
         /// </summary>
         /// <returns></returns>
-        public static OperationDialogInput IsSelect()
+        public static OperationDialogInput Select()
         {
             return new OperationDialogInput { Type = OperationDialogInputType.Select };
         }
@@ -106,6 +144,43 @@ namespace Gardener.Client.Base
         {
             return new OperationDialogInput { Type = OperationDialogInputType.Other };
         }
+        /// <summary>
+        /// 添加操作
+        /// </summary>
+        /// <returns></returns>
+        public OperationDialogInput IsAdd()
+        {
+            Type = OperationDialogInputType.Add;
+            return this;
+        }
+        /// <summary>
+        /// 编辑操作
+        /// </summary>
+        /// <returns></returns>
+        public OperationDialogInput IsEdit()
+        {
+            Type = OperationDialogInputType.Edit;
+            return this;
+        }
 
+        /// <summary>
+        /// 查询操作
+        /// </summary>
+        /// <returns></returns>
+        public OperationDialogInput IsSelect()
+        {
+            Type = OperationDialogInputType.Select;
+            return this;
+        }
+
+        /// <summary>
+        /// 其它操作
+        /// </summary>
+        /// <returns></returns>
+        public OperationDialogInput IsOther()
+        {
+            Type = OperationDialogInputType.Other;
+            return this;
+        }
     }
 }
