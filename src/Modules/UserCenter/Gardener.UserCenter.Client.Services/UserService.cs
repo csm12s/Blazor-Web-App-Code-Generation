@@ -52,7 +52,7 @@ namespace Gardener.UserCenter.Client.Services
 
         public async Task<string> GetCurrentUserId()
         {
-            return await apiCaller.GetAsync<string>($"{controller}/Current-User-Id");
+            return await apiCaller.GetAsync<string>($"{controller}/Current-User-Data");
         }
     }
 }

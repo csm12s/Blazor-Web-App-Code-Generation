@@ -51,9 +51,9 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
             //父级
             deptDatas = await deptService.GetTree();
             OperationDialogInput<int> editInput = this.Options;
-            if (editInput.Type.Equals(DrawerInputType.Add))
+            if (editInput.Type.Equals(OperationDialogInputType.Add))
             {
-                _editModel.ParentId = editInput.Id==0?null: editInput.Id;
+                _editModel.ParentId = editInput.Data==0?null: editInput.Data;
             }
             base.StopLoading();
         }

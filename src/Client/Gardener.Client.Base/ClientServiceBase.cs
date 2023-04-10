@@ -14,6 +14,9 @@ namespace Gardener.Client.Base
     /// 客户端服务基类
     /// </summary>
     /// <typeparam name="T">Dto</typeparam>
+    /// <remarks>
+    /// 实体主键类型是<see cref="int"/>
+    /// </remarks>
     public abstract class ClientServiceBase<T> : ClientServiceBase<T, int> where T : class, new()
     {
         /// <summary>

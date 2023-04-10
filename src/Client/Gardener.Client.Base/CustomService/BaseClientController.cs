@@ -25,11 +25,11 @@ public abstract class BaseClientController<TEntityDto, TKey>
         this.controller = controller;
     }
 
-    //Normal Delete, add in controller: [FromBody] TKey id
-    //public virtual Task<bool> DeleteNormal(TKey id)
+    //Normal Delete, add in controller: [FromBody] TData id
+    //public virtual Task<bool> DeleteNormal(TData id)
     //{
     //    var url = $"{controller}/Delete";
-    //    return apiCaller.PostAsync<TKey, bool>(url, request: id);
+    //    return apiCaller.PostAsync<TData, bool>(url, request: id);
     //}
 
     public virtual Task<bool> Delete(TKey id)

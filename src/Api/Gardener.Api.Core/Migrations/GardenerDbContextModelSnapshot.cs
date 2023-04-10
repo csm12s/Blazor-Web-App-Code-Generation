@@ -2397,6 +2397,516 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("9a7bf3a2-802b-43b8-817f-f021a75d437f"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966748139520480L,
+                            Description = "根据字典类型获取字典列表",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2FEBEEAEEB7FDD3630AD1411F97E27D2",
+                            Method = 0,
+                            Path = "/api/code-type/{codetypeid}/codes",
+                            Service = "字典类型管理",
+                            Summary = "根据字典类型获取字典列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966748139520480L,
+                            Description = "根据多个字典类型获取所有字典的结果",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "79DE9C21EF2535EFF7ACDCFAD9E9F2E9",
+                            Method = 0,
+                            Path = "/api/code-type/code-dic",
+                            Service = "字典类型管理",
+                            Summary = "根据多个字典类型获取所有字典的结果"
+                        },
+                        new
+                        {
+                            Id = new Guid("7faa6bc4-385b-4cdd-ad8b-4e1673fc893b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961912033280480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B0112E9E5DE1B2C88091175412D6BF7D",
+                            Method = 1,
+                            Path = "/api/code-type/export",
+                            Service = "字典类型管理",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("2fe5043f-fd43-45f7-a60b-e76865778c2a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961912012800480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "304CB45DB11EEBFDDE5E493F9BADE678",
+                            Method = 1,
+                            Path = "/api/code-type/generate-seed-data",
+                            Service = "字典类型管理",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("810235c8-01f5-4255-a30c-fd77ffeb6eab"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961912012800480L,
+                            Description = "搜索数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "79EB05031A70D307DD782CED65E24E0F",
+                            Method = 1,
+                            Path = "/api/code-type/search",
+                            Service = "字典类型管理",
+                            Summary = "搜索"
+                        },
+                        new
+                        {
+                            Id = new Guid("269fe59d-473c-44c5-aadf-54553cb5e059"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911992320480L,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "67BAAA6E6062B824EFCBADF73BCB1587",
+                            Method = 2,
+                            Path = "/api/code-type/{id}/lock/{islocked}",
+                            Service = "字典类型管理",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("b85cabd4-f813-4077-833d-152fb9c3c2b7"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911992320480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0D74D8B03DB1CD915D18B06365A77258",
+                            Method = 0,
+                            Path = "/api/code-type/page/{pageindex}/{pagesize}",
+                            Service = "字典类型管理",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911992320480L,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C8E56A2E79C8B64D478D2148908166C7",
+                            Method = 0,
+                            Path = "/api/code-type/all-usable",
+                            Service = "字典类型管理",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("428421b4-bb3e-49c9-91ce-74da66d3729b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911971840480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E326F4D7B7330B9E249A6BEBEF7C6E59",
+                            Method = 0,
+                            Path = "/api/code-type/all",
+                            Service = "字典类型管理",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("56871df3-2984-4d02-8ff7-61101f0abc19"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911971840480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E08C5E40CD258CEC1CBC279A8A56E26F",
+                            Method = 1,
+                            Path = "/api/code-type/fake-deletes",
+                            Service = "字典类型管理",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("e242137a-b4ea-4dd9-9692-63885fce93b8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911971840480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "730019C5993BDE609E6596851BA232F6",
+                            Method = 3,
+                            Path = "/api/code-type/fake-delete/{id}",
+                            Service = "字典类型管理",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("b69cedcd-49c3-4833-9d80-d67282cd015f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911951360480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D9A20DEED6CAF38F963F938912CA544C",
+                            Method = 1,
+                            Path = "/api/code-type/deletes",
+                            Service = "字典类型管理",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("a28ac095-5faa-4a34-bf4e-5c3d3ab7cac9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911951360480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "29DF672B679D6B4BACD18812F0527DE4",
+                            Method = 0,
+                            Path = "/api/code-type/{id}",
+                            Service = "字典类型管理",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("f3ca4074-503c-49a5-b714-03b121f25e9e"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911951360480L,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9965590775432EAD1C790DB346C5091A",
+                            Method = 3,
+                            Path = "/api/code-type/{id}",
+                            Service = "字典类型管理",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("4c206f6e-5e3a-4c96-b48c-81d6df44c9af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911930880480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4E8341596E72B28095CC42F5E4D4A614",
+                            Method = 2,
+                            Path = "/api/code-type",
+                            Service = "字典类型管理",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("1f164c01-cd48-4b41-8c87-0cd7e5dc1973"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911930880480L,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "34F97902F9A851C8D126DB33A4C0C0BD",
+                            Method = 1,
+                            Path = "/api/code-type",
+                            Service = "字典类型管理",
+                            Summary = "添加"
+                        },
+                        new
+                        {
+                            Id = new Guid("0bc4b901-d9ee-4fac-91c7-e6ea6d6fb852"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911930880480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B802BC3519436726D4D39F9D6C8E0F72",
+                            Method = 1,
+                            Path = "/api/code/export",
+                            Service = "字典管理",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("f9480a7b-3408-44f0-aca9-78ba66a75799"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911910400480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "95D3D2AECB7BA05B1D523003576DBA80",
+                            Method = 1,
+                            Path = "/api/code/generate-seed-data",
+                            Service = "字典管理",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("213eb6ca-e125-4181-b5bd-3e5666d3e8c9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911910400480L,
+                            Description = "搜索数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "874CCECCA57B5B0C884223B9B77FB6CA",
+                            Method = 1,
+                            Path = "/api/code/search",
+                            Service = "字典管理",
+                            Summary = "搜索"
+                        },
+                        new
+                        {
+                            Id = new Guid("b3f529a4-ad25-4d14-a86b-c1f4cd3f33e0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911910400480L,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "298247EAC149319EC01AD1B2C3280CBC",
+                            Method = 2,
+                            Path = "/api/code/{id}/lock/{islocked}",
+                            Service = "字典管理",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("0ffffde0-ddba-4632-b083-e191e3f71b36"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911889920480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FE1D0FCB38385E82E9DBE4111184F797",
+                            Method = 0,
+                            Path = "/api/code/page/{pageindex}/{pagesize}",
+                            Service = "字典管理",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("06b69fae-5d2a-48c4-883a-aff7f1015661"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911889920480L,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CD838C782BF38C679F6017D29A5075B1",
+                            Method = 0,
+                            Path = "/api/code/all-usable",
+                            Service = "字典管理",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1805308-f3d5-4aa2-ba20-26015da551bd"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911889920480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "64C74ADD81A7CEDA017064A06CDE4792",
+                            Method = 0,
+                            Path = "/api/code/all",
+                            Service = "字典管理",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("84a87eb4-7ba2-4623-ad0d-ea467e7e5434"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911869440480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5D8485FD1F4D6A5A7924C93928BB3223",
+                            Method = 1,
+                            Path = "/api/code/fake-deletes",
+                            Service = "字典管理",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("595922c1-5099-4c6f-946f-ed3a7af7d7d3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911869440480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E4E1DDA22B1458D2372BEE9FB3ED124A",
+                            Method = 3,
+                            Path = "/api/code/fake-delete/{id}",
+                            Service = "字典管理",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("28f6b60c-e528-4fd7-9ce9-b1c87452514b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911869440480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7B25BA78214DA9C788A6A0A32E41AEEE",
+                            Method = 1,
+                            Path = "/api/code/deletes",
+                            Service = "字典管理",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("483956b8-4651-4dea-8c34-501108220cc1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911848960480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B732D3822802617A15E93D2BC1872E8D",
+                            Method = 0,
+                            Path = "/api/code/{id}",
+                            Service = "字典管理",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("69d12a63-87a3-48bf-b246-86acd30697f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911848960480L,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E0B6AFB00AB714406B8E6EB6A1C54C28",
+                            Method = 3,
+                            Path = "/api/code/{id}",
+                            Service = "字典管理",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("ce5a43ff-7ee1-451b-ae23-8acd04f87f71"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911848960480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "097F8DBD6CD33EA9DB3976E17A448E17",
+                            Method = 2,
+                            Path = "/api/code",
+                            Service = "字典管理",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("06eff7a6-4291-43b0-9c34-58a97aa0fc01"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911828480480L,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F53D637DD7CC01612737CC2F878A95AA",
+                            Method = 1,
+                            Path = "/api/code",
+                            Service = "字典管理",
+                            Summary = "添加"
+                        },
+                        new
+                        {
                             Id = new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"),
                             CreatedTime = 1306532718346240480L,
                             Description = "根据搜索条叫生成种子数据",
@@ -5586,6 +6096,334 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961904844800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code",
+                            Name = "字典",
+                            Order = 20,
+                            ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            Path = "/system_manager/code_list",
+                            Remark = "字典管理",
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306966617108480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961907343360480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_add",
+                            Name = "添加字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "添加字典",
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961909780480480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_delete",
+                            Name = "删除字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "删除字典",
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306961909944320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961906503680480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_delete_selected",
+                            Name = "删除选中字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "删除选中字典",
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961909370880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_detail",
+                            Name = "查看字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "查看字典",
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306961910128640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961908142080480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_download_seed_data",
+                            Name = "生成字典种子数据",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "生成字典种子数据",
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961908981760480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_edit",
+                            Name = "编辑字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "编辑字典",
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306961910292480480L
+                        },
+                        new
+                        {
+                            Id = new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961906954240480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_export",
+                            Name = "导出字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "导出字典",
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961908613120480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_lock",
+                            Name = "锁定字典",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964577628160480L,
+                            Icon = "tags",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_manager",
+                            Name = "字典管理",
+                            Order = 90,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306964582297600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961905971200480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_refresh",
+                            Name = "刷新字典列表",
+                            Order = 0,
+                            ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            Remark = "刷新字典列表",
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964580823040480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type",
+                            Name = "字典类型",
+                            Order = 10,
+                            ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            Path = "/system_manager/code_type",
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306966617313280480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964897280000480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_add",
+                            Name = "添加字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964899082240480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_codes_manager",
+                            Name = "管理字典类型下字典",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Remark = "功能与 字典管理->字典 相同",
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306964905226240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964899471360480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_delete",
+                            Name = "删除字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964896645120480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_delete_selected",
+                            Name = "删除选中字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964898672640480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_detail",
+                            Name = "查看字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964897853440480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_download_seed_data",
+                            Name = "生成字典类型种子数据",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964898344960480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_edit",
+                            Name = "编辑字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964896993280480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_export",
+                            Name = "导出字典类型",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306964896153600480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_refresh",
+                            Name = "刷新字典类型列表",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
                             Id = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -7278,6 +8116,138 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            ResourceId = new Guid("1f289163-7fb0-49d2-9165-cbb111b6f3ab"),
+                            FunctionId = new Guid("0bc4b901-d9ee-4fac-91c7-e6ea6d6fb852"),
+                            CreatedTime = 1306961917214720480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            FunctionId = new Guid("483956b8-4651-4dea-8c34-501108220cc1"),
+                            CreatedTime = 1306961922150400480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306966786068480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
+                            FunctionId = new Guid("06eff7a6-4291-43b0-9c34-58a97aa0fc01"),
+                            CreatedTime = 1306961917972480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4b4f7b73-df18-4201-876e-b27e172f3b55"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306966786867200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
+                            FunctionId = new Guid("810235c8-01f5-4255-a30c-fd77ffeb6eab"),
+                            CreatedTime = 1306964900782080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            FunctionId = new Guid("483956b8-4651-4dea-8c34-501108220cc1"),
+                            CreatedTime = 1306961921249280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            FunctionId = new Guid("ce5a43ff-7ee1-451b-ae23-8acd04f87f71"),
+                            CreatedTime = 1306961921249280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("520f5cec-5f33-447c-a18b-59d8db31c5e9"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306966788812800480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("535e5f96-a036-4a40-96af-6c03cecadcd1"),
+                            FunctionId = new Guid("595922c1-5099-4c6f-946f-ed3a7af7d7d3"),
+                            CreatedTime = 1306961923010560480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("5676c9b3-2d06-4817-9614-4a34230bb05e"),
+                            FunctionId = new Guid("2fe5043f-fd43-45f7-a60b-e76865778c2a"),
+                            CreatedTime = 1306964902236160480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("68ebd579-e2c7-4f1c-8f9f-7a06df30bd5f"),
+                            FunctionId = new Guid("7faa6bc4-385b-4cdd-ad8b-4e1673fc893b"),
+                            CreatedTime = 1306964901601280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8c447e9b-1d39-48e5-b9b9-41ee2058b0c7"),
+                            FunctionId = new Guid("f9480a7b-3408-44f0-aca9-78ba66a75799"),
+                            CreatedTime = 1306961918914560480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8e913a11-dbbe-4aa4-ad58-f12737039d83"),
+                            FunctionId = new Guid("56871df3-2984-4d02-8ff7-61101f0abc19"),
+                            CreatedTime = 1306964901253120480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9800d45c-7ba8-4728-a6a6-a62dbc7b6f59"),
+                            FunctionId = new Guid("1f164c01-cd48-4b41-8c87-0cd7e5dc1973"),
+                            CreatedTime = 1306964901928960480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a37b1cd8-98c4-4a93-a73e-436c138639eb"),
+                            FunctionId = new Guid("b3f529a4-ad25-4d14-a86b-c1f4cd3f33e0"),
+                            CreatedTime = 1306961920430080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("addfa7a9-7a8c-46ce-90f1-11424f385954"),
+                            FunctionId = new Guid("e242137a-b4ea-4dd9-9692-63885fce93b8"),
+                            CreatedTime = 1306964904099840480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("bedacea2-80f1-4d4a-b401-c82940f80d4c"),
+                            FunctionId = new Guid("595922c1-5099-4c6f-946f-ed3a7af7d7d3"),
+                            CreatedTime = 1306961916436480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
+                            FunctionId = new Guid("a28ac095-5faa-4a34-bf4e-5c3d3ab7cac9"),
+                            CreatedTime = 1306964903444480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
+                            FunctionId = new Guid("213eb6ca-e125-4181-b5bd-3e5666d3e8c9"),
+                            CreatedTime = 1306961914593280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
+                            FunctionId = new Guid("4c206f6e-5e3a-4c96-b48c-81d6df44c9af"),
+                            CreatedTime = 1306964902584320480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("e1ab080c-b598-4c1c-9afa-45681f90f1e3"),
+                            FunctionId = new Guid("a28ac095-5faa-4a34-bf4e-5c3d3ab7cac9"),
+                            CreatedTime = 1306964903055360480L
+                        },
+                        new
+                        {
                             ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             FunctionId = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
                             CreatedTime = 1306069130997760480L
@@ -8908,8 +9878,12 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("CodeTypeId")
-                        .HasMaxLength(50)
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("CodeValue")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Color")
                         .HasMaxLength(50)
@@ -8948,7 +9922,37 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CodeTypeId");
+
                     b.ToTable("Code");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CodeName = "难过",
+                            CodeTypeId = 1,
+                            CodeValue = "1",
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966795612160480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CodeName = "高兴",
+                            CodeTypeId = 1,
+                            CodeValue = "2",
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966795345920480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 2
+                        });
                 });
 
             modelBuilder.Entity("Gardener.SystemManager.Domains.CodeType", b =>
@@ -8978,6 +9982,7 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Remark")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -8992,6 +9997,19 @@ namespace Gardener.Api.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CodeType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CodeTypeName = "心情",
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966793932800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Remark = "心情"
+                        });
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
@@ -9434,16 +10452,8 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             RoleId = 2,
-                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreatedTime = 1306546785505280000L,
-                            IsDeleted = false,
-                            IsLocked = false
-                        },
-                        new
-                        {
-                            RoleId = 2,
                             ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9451,7 +10461,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9459,7 +10469,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9467,7 +10477,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9475,7 +10485,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9483,7 +10493,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9491,7 +10501,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9499,7 +10509,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9507,7 +10517,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9515,7 +10533,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9523,7 +10541,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9531,7 +10557,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9539,7 +10565,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9547,7 +10581,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9555,7 +10589,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9563,7 +10605,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9571,7 +10613,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9579,7 +10621,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9587,7 +10629,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9595,7 +10645,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9603,7 +10653,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9611,7 +10661,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9619,7 +10669,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9627,7 +10677,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9635,7 +10685,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9643,7 +10693,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9651,7 +10701,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9659,7 +10709,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9667,7 +10717,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9675,7 +10725,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9683,7 +10733,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9691,7 +10741,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9699,7 +10749,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9707,7 +10757,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9715,7 +10765,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9723,7 +10781,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9731,7 +10789,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9739,7 +10797,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9747,7 +10805,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9755,7 +10813,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9763,7 +10829,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9771,7 +10845,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9779,7 +10853,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9787,7 +10869,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9795,7 +10877,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9803,7 +10885,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9811,7 +10893,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9819,7 +10901,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9827,7 +10909,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -9835,7 +10917,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreatedTime = 1306546785505280000L,
+                            CreatedTime = 1306966185512960000L,
                             IsDeleted = false,
                             IsLocked = false
                         });
@@ -10324,6 +11406,17 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("AuditEntity");
                 });
 
+            modelBuilder.Entity("Gardener.SystemManager.Domains.Code", b =>
+                {
+                    b.HasOne("Gardener.SystemManager.Domains.CodeType", "CodeType")
+                        .WithMany("Codes")
+                        .HasForeignKey("CodeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CodeType");
+                });
+
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
                 {
                     b.HasOne("Gardener.UserCenter.Impl.Domains.Client", "Client")
@@ -10441,6 +11534,11 @@ namespace Gardener.Api.Core.Migrations
             modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
                 {
                     b.Navigation("AuditEntities");
+                });
+
+            modelBuilder.Entity("Gardener.SystemManager.Domains.CodeType", b =>
+                {
+                    b.Navigation("Codes");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>

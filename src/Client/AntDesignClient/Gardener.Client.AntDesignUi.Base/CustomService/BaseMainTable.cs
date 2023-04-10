@@ -447,7 +447,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         protected virtual async Task OnClickAdd()
         {
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
-            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsAdd();
+            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Add();
 
             Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
             {
@@ -467,7 +467,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <param name="model"></param>
         protected virtual async Task OnClickEdit(TKey id)
         {
-            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsEdit(id);
+            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Edit(id);
             Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
             {
                 if (result.Succeeded)
@@ -486,7 +486,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <param name="roleDto"></param>
         protected virtual async Task OnClickDetail(TKey id)
         {
-            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.IsSelect(id);
+            OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Select(id);
             await OpenOperationDialogAsync(localizer[SharedLocalResource.Detail], input);
         }
 

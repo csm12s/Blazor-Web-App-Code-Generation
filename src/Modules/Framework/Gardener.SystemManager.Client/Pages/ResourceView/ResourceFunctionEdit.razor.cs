@@ -110,12 +110,12 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
             //_functionDtos.Select(x => x.Group).Distinct().ForEach(x =>
             //{
-            //    groupFilters.Add(new TableFilter<string>() { Text=x,Value=x });
+            //    groupFilters.Add(new TableFilter<string>() { Text=x,Data=x });
 
             //});
             //_functionDtos.Select(x => x.BaseService).Distinct().ForEach(x =>
             //{
-            //    serviceFilters.Add(new TableFilter<string>() { Text = x, Value = x });
+            //    serviceFilters.Add(new TableFilter<string>() { Text = x, Data = x });
 
             //});
             _loading = false;

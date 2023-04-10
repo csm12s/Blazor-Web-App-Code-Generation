@@ -149,6 +149,18 @@
     <value>Client</value>
     <comment>menu</comment>
   </data>
+  <data name="menu:system_manager_code" xml:space="preserve">
+    <value>Code</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:system_manager_code_manager" xml:space="preserve">
+    <value>Code manager</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:system_manager_code_type" xml:space="preserve">
+    <value>Code type</value>
+    <comment>menu</comment>
+  </data>
   <data name="menu:system_manager_email_server_config" xml:space="preserve">
     <value>Email config</value>
     <comment>menu</comment>

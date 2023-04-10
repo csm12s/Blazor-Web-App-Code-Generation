@@ -44,6 +44,12 @@ namespace Gardener.Client.AntDesignUi.Base
         /// </summary>
         public Placement DrawerPlacement { get; set; } = Placement.Right;
 
+        /// <summary>
+        /// 抽屉高度
+        /// 仅在 Placement 为“top”或“bottom”时使用
+        /// </summary>
+        public int DrawerHeight { get; set; } = 500;
+
         #endregion
 
 
@@ -53,6 +59,14 @@ namespace Gardener.Client.AntDesignUi.Base
         /// 弹出框是否水平居中
         /// </summary>
         public bool ModalCentered { get; set; } = true;
+        /// <summary>
+        /// 是否显示最大化按钮
+        /// </summary>
+        public bool ModalMaximizable { get; set; } = false;
+        /// <summary>
+        /// Modal在初始化时即为最大化状态
+        /// </summary>
+        public bool ModalDefaultMaximized { get; set; } = false;
 
         #endregion
     }

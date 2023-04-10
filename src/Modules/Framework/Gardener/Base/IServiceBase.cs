@@ -13,8 +13,8 @@ namespace Gardener.Base
     /// 定义了基础方法
     /// 方法包括：CURD、获取全部、分页获取 
     /// </summary>
-    /// <typeparam name="TEntityDto"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TEntityDto">实体对应dto</typeparam>
+    /// <typeparam name="TKey">主键类型</typeparam>
     public interface IServiceBase<TEntityDto, TKey> where TEntityDto : class, new()
     {
         /// <summary>
@@ -116,5 +116,17 @@ namespace Gardener.Base
         /// <param name="request"></param>
         /// <returns></returns>
         Task<string> Export(PageRequest request);
+    }
+
+    /// <summary>
+    /// 定义了基础方法
+    /// 方法包括：CURD、获取全部、分页获取 
+    /// </summary>
+    /// <typeparam name="TEntityDto">实体对应dto</typeparam>
+    /// <remarks>
+    /// 主键默认类型是<see cref="int"/>
+    /// </remarks>
+    public interface IServiceBase<TEntityDto> : IServiceBase<TEntityDto, int> where TEntityDto : class, new()
+    { 
     }
 }

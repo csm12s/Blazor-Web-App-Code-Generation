@@ -292,6 +292,20 @@ namespace Gardener.EntityFramwork
         [HttpPost]
         public virtual async Task<Base.PagedList<TEntityDto>> Search(PageRequest request)
         {
+            IQueryable<TEntity> queryable = GetSearchQueryable(request);
+            return await queryable
+                .OrderConditions(request.OrderConditions.ToArray())
+                .Select(x => x.Adapt<TEntityDto>())
+                .ToPageAsync(request.PageIndex, request.PageSize);
+        }
+        /// <summary>
+        /// 获取搜索数据Queryable方便自己重载定制
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [NonAction]
+        public virtual IQueryable<TEntity> GetSearchQueryable(PageRequest request)
+        {
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
             if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
             {
@@ -300,12 +314,8 @@ namespace Gardener.EntityFramwork
                 request.FilterGroups.Add(defaultFilterGroup);
             }
             Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
-
             IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
-            return await queryable
-                .OrderConditions(request.OrderConditions.ToArray())
-                .Select(x => x.Adapt<TEntityDto>())
-                .ToPageAsync(request.PageIndex, request.PageSize);
+            return queryable;
         }
 
         /// <summary>

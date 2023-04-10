@@ -44,6 +44,12 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
+		<EmbeddedResource Update="SystemManager\Resources\SystemManagerResource.en.resx">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Update="SystemManager\Resources\SystemManagerResource.zh.resx">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>

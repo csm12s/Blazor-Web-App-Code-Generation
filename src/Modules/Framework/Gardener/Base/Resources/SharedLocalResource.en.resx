@@ -381,6 +381,9 @@
   <data name="RefreshToken cannot used in authentication" xml:space="preserve">
     <value>RefreshToken cannot used in authentication</value>
   </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
   <data name="Request url is invalid" xml:space="preserve">
     <value>Request url is invalid</value>
   </data>

@@ -11,7 +11,7 @@
             <GridCol Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
                 <FormItem Label="@Localizer[UserCenterResource.Avatar]">
-                    @if (DrawerInputType.Edit.Equals(this.Options.Type) || DrawerInputType.Add.Equals(this.Options.Type))
+                    @if (OperationDialogInputType.Edit.Equals(this.Options.Type) || OperationDialogInputType.Add.Equals(this.Options.Type))
                     {
 
                         <Tooltip Placement="Placement.LeftTop" Title="@Localizer[UserCenterResource.ClickUpdateAvatar]">
@@ -21,7 +21,7 @@
                         </Tooltip>
 
                     }
-                    else if (DrawerInputType.Select.Equals(this.Options.Type))
+                    else if (OperationDialogInputType.Select.Equals(this.Options.Type))
                     {
                         <Avatar Src="@model.Avatar" />
                     }
@@ -105,7 +105,7 @@
             <GridCol Offset="6" Span="18">
                 <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
                     <Space>
-                        @if (!DrawerInputType.Select.Equals(this.Options.Type))
+                        @if (!OperationDialogInputType.Select.Equals(this.Options.Type))
                         {
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" HtmlType="submit">

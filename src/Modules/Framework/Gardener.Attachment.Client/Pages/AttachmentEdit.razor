@@ -60,7 +60,7 @@
         <Input @bind-Value="@model.Url" />
     </FormItem>
 
-    @if (this.Options.Type.Equals(DrawerInputType.Edit) || this.Options.Type.Equals(DrawerInputType.Select))
+    @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
     {
         <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>

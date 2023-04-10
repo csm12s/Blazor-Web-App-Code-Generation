@@ -4,7 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Gardener.Authentication.Enums;
 using Gardener.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,19 +21,37 @@ namespace Gardener.SystemManager.Domains
     /// <summary>
     /// 字典类型
     /// </summary>
-    [Description("字典类型")]
-    public class CodeType : GardenerEntityBase
+    [Description("CodeType")]
+    public class CodeType : GardenerEntityBase, IEntitySeedData<CodeType>
     {
         /// <summary>
         /// 字典类型名称
         /// </summary>
-        [DisplayName("字典类型名称")]
+        [DisplayName("CodeTypeName")]
         [Required, MaxLength(50)]
         public string CodeTypeName { get; set; } = null!;
         /// <summary>
         /// 备注
         /// </summary>
-        [DisplayName("字典类型名称")]
+        [DisplayName("Remark")]
+        [MaxLength(200)]
         public string? Remark { get; set; }
+        /// <summary>
+        /// 字典集合
+        /// </summary>
+        public ICollection<Code> Codes { get; set; }= new List<Code>();
+
+        /// <summary>
+        /// 种子数据
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <returns></returns>
+        public IEnumerable<CodeType> HasData(DbContext dbContext, Type dbContextLocator)
+        {
+            return new[]{
+                new CodeType() {CodeTypeName="心情",Remark="心情",Id=1,IsLocked=false,IsDeleted=false,CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2023-04-10 15:39:45"),},
+         };
+        }
     }
 }

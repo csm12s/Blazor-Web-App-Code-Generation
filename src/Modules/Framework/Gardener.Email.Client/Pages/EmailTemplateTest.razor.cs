@@ -62,8 +62,8 @@ namespace Gardener.Email.Client.Pages
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            _sendEmailInput.TemplateId = this.Options.Id;
-            EmailTemplateDto templateDto = await EmailTemplateService.Get(this.Options.Id);
+            _sendEmailInput.TemplateId = this.Options.Data;
+            EmailTemplateDto templateDto = await EmailTemplateService.Get(this.Options.Data);
             if (templateDto.Example != null)
             {
                 _emailData = templateDto.Example;

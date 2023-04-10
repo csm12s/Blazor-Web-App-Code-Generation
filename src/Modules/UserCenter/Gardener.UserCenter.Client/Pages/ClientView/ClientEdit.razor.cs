@@ -22,7 +22,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            if (this.Options.Type.Equals(DrawerInputType.Add))
+            if (this.Options.Type.Equals(OperationDialogInputType.Add))
             { 
                  _editModel.Id = Guid.NewGuid();
                  _editModel.SecretKey = Guid.NewGuid().ToString();
