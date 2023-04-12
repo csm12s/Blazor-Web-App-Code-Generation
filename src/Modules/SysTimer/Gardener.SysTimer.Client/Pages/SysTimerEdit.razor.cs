@@ -30,8 +30,10 @@ namespace Gardener.SysTimer.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             base.StartLoading();
-            localJobs = await SysTimerService.GetLocalJobs();
-            await base.OnInitializedAsync();
+            var t1 = base.OnInitializedAsync();
+            var t2 = SysTimerService.GetLocalJobs();
+            await t2;
+            localJobs = await t2;
             base.StopLoading();
         }
     }

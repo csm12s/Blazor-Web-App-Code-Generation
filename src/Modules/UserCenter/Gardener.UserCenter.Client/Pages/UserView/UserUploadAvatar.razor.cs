@@ -138,7 +138,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             if (!saveDb)
             {
                 userDto.Avatar = imageUrl;
-                await this.FeedbackRef.CloseAsync();
+                await this.FeedbackRef.CloseAsync(imageUrl);
                 return;
             }
             //更新到数据库
@@ -146,7 +146,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             if (state)
             {
                 MessagerService.Success(Localizer.Combination(SharedLocalResource.Avatar, SharedLocalResource.Edit, SharedLocalResource.Success));
-                await this.FeedbackRef.CloseAsync(string.Empty);
+                await this.FeedbackRef.CloseAsync(imageUrl);
             }
             else
             {

@@ -63,7 +63,7 @@ namespace Gardener.Client.Core
             this.httpClientManager = httpClientManager;
             this.accountService = accountService;
             this.logger = logger;
-            if(authSettings.EnableAutoRefresh)
+            if (authSettings.EnableAutoRefresh)
             {
                 timer = new Timer(TimerCallback, true, 10000, authSettings.RefreshTokenCheckInterval * 1000);
             }
@@ -113,7 +113,7 @@ namespace Gardener.Client.Core
             var tokenResult = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
             {
-                await eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
+                eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
                 //token 设置
                 await SetToken(tokenResult);
                 logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
@@ -143,7 +143,7 @@ namespace Gardener.Client.Core
             //通知状态变更
             notifyAuthenticationStateChangedAction();
             //发送一个登录成功事件
-            await eventBus.Publish(new LoginSucceedAfterEvent(token));
+            eventBus.Publish(new LoginSucceedAfterEvent(token));
 
         }
         /// <summary>
@@ -151,9 +151,8 @@ namespace Gardener.Client.Core
         /// </summary>
         public async Task Logout()
         {
-            await accountService.RemoveCurrentUserRefreshToken();
-            await CleanUserInfo();
-            await eventBus.Publish(new LogoutSucceedAfterEvent());
+            await Task.WhenAll(accountService.RemoveCurrentUserRefreshToken(), CleanUserInfo());
+            eventBus.Publish(new LogoutSucceedAfterEvent());
         }
         /// <summary>
         /// CleanClientLoginInfo
@@ -201,7 +200,7 @@ namespace Gardener.Client.Core
         /// 重新加载用户相关信息
         /// </summary>
         /// <returns></returns>
-        public async Task<(UserDto?,bool?,List<ResourceDto>?, List<string>?)> ReloadCurrentUserInfos()
+        public async Task<(UserDto?, bool?, List<ResourceDto>?, List<string>?)> ReloadCurrentUserInfos()
         {
             //刷新了，或者首次登录
             var token = await TryGetToken();
@@ -212,18 +211,22 @@ namespace Gardener.Client.Core
                 var userResult = await accountService.GetCurrentUser();
                 if (userResult != null)
                 {
+                    this.uiHashtableResources = null;
+                    this.currentUser = userResult;
+
                     //超级管理员
                     currentUserIsSuperAdmin = userResult.Roles != null && userResult.Roles.Any(x => x.IsSuperAdministrator);
-                    this.uiResourceKeys = await accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
-                    this.uiHashtableResources = null;
-                    this.menuResources = await accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
-                    this.currentUser = userResult;
-                    await eventBus.Publish(new ReloadCurrentUserEvent(token));
+                    var task1 = accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
+                    var task2 = accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
+                    this.uiResourceKeys = await task1;
+                    this.menuResources = await task2;
+
+                    eventBus.Publish(new ReloadCurrentUserEvent(token));
                     onAuthenticationRefreshSuccessed.Invoke(this.currentUser, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                     return (userResult, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                 }
             }
-            return (null,null,null,null);
+            return (null, null, null, null);
         }
 
         /// <summary>
@@ -244,7 +247,7 @@ namespace Gardener.Client.Core
             return uiResourceKeys ?? new List<string>();
         }
         /// <summary>
-        /// 
+        /// 判断当前用户是否用于资源key
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -263,6 +266,10 @@ namespace Gardener.Client.Core
             }
             return Task.FromResult(uiHashtableResources.ContainsKey(key));
         }
+        /// <summary>
+        /// 获取当前用户菜单
+        /// </summary>
+        /// <returns></returns>
         public List<ResourceDto>? GetCurrentUserMenus()
         {
             return this.menuResources;
@@ -290,12 +297,17 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public async Task<TokenOutput?> GetCurrentToken()
         {
-            var isAutoLoginStr = await jsTool.LocalStorage.GetAsync<string>(nameof(isAutoLogin));
+            var task1 = jsTool.LocalStorage.GetAsync<string>(nameof(isAutoLogin));
+            var task2 = GetWebStorageFromAutoLogin(isAutoLogin).GetAsync<string>(nameof(TokenOutput.AccessTokenExpires));
+            var task3 = GetWebStorageFromAutoLogin(isAutoLogin).GetAsync<string>(nameof(TokenOutput.AccessToken));
+            var task4 = GetWebStorageFromAutoLogin(this.isAutoLogin).GetAsync<string>(nameof(TokenOutput.RefreshToken));
+            var task5 = GetWebStorageFromAutoLogin(this.isAutoLogin).GetAsync<string>(nameof(TokenOutput.RefreshTokenExpires));
+            var isAutoLoginStr = await task1;
+            var accessTokenExpiresLocal = await task2;
+            var accessTokenLocal = await task3;
+            var refreshTokenLocal = await task4;
+            var refreshTokenExpiresLocal = await task5;
             this.isAutoLogin = string.IsNullOrEmpty(isAutoLoginStr) ? false : bool.Parse(isAutoLoginStr);
-            var accessTokenExpiresLocal = await GetWebStorageFromAutoLogin(isAutoLogin).GetAsync<string>(nameof(TokenOutput.AccessTokenExpires));
-            var accessTokenLocal = await GetWebStorageFromAutoLogin(isAutoLogin).GetAsync<string>(nameof(TokenOutput.AccessToken));
-            var refreshTokenLocal = await GetWebStorageFromAutoLogin(this.isAutoLogin).GetAsync<string>(nameof(TokenOutput.RefreshToken));
-            var refreshTokenExpiresLocal = await GetWebStorageFromAutoLogin(this.isAutoLogin).GetAsync<string>(nameof(TokenOutput.RefreshTokenExpires));
             //accessToken || refretoken 不存在，可能被破坏了
             if (string.IsNullOrEmpty(accessTokenLocal) || string.IsNullOrEmpty(accessTokenExpiresLocal) || string.IsNullOrEmpty(refreshTokenLocal) || string.IsNullOrEmpty(refreshTokenExpiresLocal)) return null;
             var token = new TokenOutput
@@ -331,33 +343,37 @@ namespace Gardener.Client.Core
                 await RefreshToken(true);
                 return await GetCurrentToken();
             }
-            
+
         }
         /// <summary>
         /// token 设置到浏览器缓存
         /// </summary>
         /// <param name="loginOutput"></param>
         /// <returns></returns>
-        private async Task SetToken(TokenOutput token)
+        private Task SetToken(TokenOutput token)
         {
-            await GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessToken), token.AccessToken);
-            await GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessTokenExpires), token.AccessTokenExpires);
-            await GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshToken), token.RefreshToken);
-            await GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshTokenExpires), token.RefreshTokenExpires);
-            await jsTool.LocalStorage.SetAsync(nameof(isAutoLogin), isAutoLogin);
+            var task1= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessToken), token.AccessToken);
+            var task2= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessTokenExpires), token.AccessTokenExpires);
+            var task3= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshToken), token.RefreshToken);
+            var task4= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshTokenExpires), token.RefreshTokenExpires);
+            var task5= jsTool.LocalStorage.SetAsync(nameof(isAutoLogin), isAutoLogin);
             SetHttpClientAuthorization(token.AccessToken);
+            return Task.WhenAll(task1,task2, task3, task4, task5);
         }
         /// <summary>
         ///  移除浏览器token缓存
         /// </summary>
-        private async Task RemoveToken()
+        private Task RemoveToken()
         {
-            await GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.AccessToken));
-            await GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.AccessTokenExpires));
-            await GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshToken));
-            await GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshTokenExpires));
-            await jsTool.LocalStorage.RemoveAsync(nameof(isAutoLogin));
+            //httpClient clear
             SetHttpClientAuthorization("");
+            //浏览器本地 clear
+            var task1 = GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.AccessToken));
+            var task2= GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.AccessTokenExpires));
+            var task3= GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshToken));
+            var task4= GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshTokenExpires));
+            var task5= jsTool.LocalStorage.RemoveAsync(nameof(isAutoLogin));
+           return Task.WhenAll(task1,task2,task3,task4,task5);
         }
         /// <summary>
         /// 

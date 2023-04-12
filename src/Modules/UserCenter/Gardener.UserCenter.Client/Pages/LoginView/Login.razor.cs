@@ -41,25 +41,26 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override  async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-            var url = new Uri(Navigation.Uri);
-            var query = url.Query;
-
-            if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out StringValues value))
-            {
-                if (!value.Equals(Navigation.Uri))
-                {
-                    returnUrl = value;
-                }
-            }
             //已登录
-            var user =  await AuthenticationStateManager.GetCurrentUser();
+            var user = await AuthenticationStateManager.GetCurrentUser();
             if (user != null)
             {
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
-           
+            else
+            {
+                var url = new Uri(Navigation.Uri);
+                var query = url.Query;
+                if (QueryHelpers.ParseQuery(query).TryGetValue("returnUrl", out StringValues value))
+                {
+                    if (!value.Equals(Navigation.Uri))
+                    {
+                        returnUrl = value;
+                    }
+                }
+            }
         }
         /// <summary>
         /// 
@@ -68,15 +69,15 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         private async Task OnLogin()
         {
             loading = true;
-            var loginResult= await AccountService.Login(loginInput);
-            if (loginResult!=null)
+            var loginResult = await AccountService.Login(loginInput);
+            if (loginResult != null)
             {
-                await MessageService.SuccessAsync(Localizer.Combination(UserCenterResource.Login,UserCenterResource.Success),0.8);
+                MessageService.Success(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Success), 0.8);
                 await AuthenticationStateManager.Login(loginResult, autoLogin);
                 loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
             }
-            else 
+            else
             {
                 loading = false;
                 MessageService.Error(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
@@ -86,8 +87,8 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
                 }
                 //await InvokeAsync(StateHasChanged);
             }
-            
+
         }
     }
-    
+
 }

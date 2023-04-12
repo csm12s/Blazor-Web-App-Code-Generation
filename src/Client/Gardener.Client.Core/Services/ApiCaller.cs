@@ -65,7 +65,7 @@ namespace Gardener.Client.Core
                               //时间戳过期
                         if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
-                            await eventBus.Publish(new RefreshTokenErrorEvent());
+                            eventBus.Publish(new RefreshTokenErrorEvent());
                         }
                         //TODO:待client全局异常捕获完成时，在这里抛出异常即可
 #pragma warning disable CS8603 // 可能返回 null 引用。
@@ -80,7 +80,7 @@ namespace Gardener.Client.Core
                 //身份验证失败
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                 {
-                    await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
+                    eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
                 }
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry==0)
                 {
@@ -118,7 +118,7 @@ namespace Gardener.Client.Core
                     //身份验证失败
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
                     {
-                        await eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode=httpResponse.StatusCode});
+                        eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
                     }
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry == 0)
                     {
@@ -137,7 +137,7 @@ namespace Gardener.Client.Core
                         //时间戳过期
                         if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
                         {
-                            await eventBus.Publish(new RefreshTokenErrorEvent());
+                            eventBus.Publish(new RefreshTokenErrorEvent());
                         }
                     }
                 }

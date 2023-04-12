@@ -89,18 +89,14 @@ namespace Gardener.Authorization.Core
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<bool> IsSuperAdministrator(int userId)
+        public Task<bool> IsSuperAdministrator(int userId)
         {
             //超管
-            if (await _userRepository.AsQueryable(false)
+            return _userRepository.AsQueryable(false)
                  .Include(u => u.Roles)
                  .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
                  .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsSuperAdministrator == true))
-                 .AnyAsync())
-            {
-                return true;
-            }
-            return false;
+                 .AnyAsync();
         }
         /// <summary>
         /// 判断是否拥有该权限
@@ -111,8 +107,10 @@ namespace Gardener.Authorization.Core
         private async Task<bool> CurrentUserHaveResource(int userId, string functionKey)
         {
             //分步查询，减少表关联
-            var user = await _userRepository.FindOrDefaultAsync(userId);
-            var function = await _functionRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && x.Key.Equals(functionKey)).FirstOrDefaultAsync();
+            var userTask = _userRepository.FindOrDefaultAsync(userId);
+            var functionTask = _functionRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && x.Key.Equals(functionKey)).FirstOrDefaultAsync();
+            var user = await userTask;
+            var function = await functionTask;
             if (user == null || user.IsDeleted || user.IsLocked)
             {
                 return false;
@@ -129,8 +127,10 @@ namespace Gardener.Authorization.Core
             {
                 return false;
             }
-            var resourceIds = await _roleResourceRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && roleIds.Contains(x.RoleId)).Select(x => x.ResourceId).ToListAsync();
-            var functionResourceIds = await _resourceFunctionRepository.AsQueryable(false).Where(x => x.FunctionId.Equals(function.Id)).Select(x => x.ResourceId).ToListAsync();
+            var resourceTask = _roleResourceRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && roleIds.Contains(x.RoleId)).Select(x => x.ResourceId).ToListAsync();
+            var functionResourceTask = _resourceFunctionRepository.AsQueryable(false).Where(x => x.FunctionId.Equals(function.Id)).Select(x => x.ResourceId).ToListAsync();
+            var resourceIds = await resourceTask;
+            var functionResourceIds = await functionResourceTask;
             if (resourceIds == null || !resourceIds.Any())
             {
                 return false;
@@ -225,9 +225,9 @@ namespace Gardener.Authorization.Core
         /// </summary>
         /// <param name="loginId"></param>
         /// <returns></returns>
-        public async Task<bool> CheckLoginIdUsable(string loginId)
+        public Task<bool> CheckLoginIdUsable(string loginId)
         {
-            return await _loginTokenRepository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.LoginId.Equals(loginId)).AnyAsync();
+            return _loginTokenRepository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.LoginId.Equals(loginId)).AnyAsync();
         }
 
     }

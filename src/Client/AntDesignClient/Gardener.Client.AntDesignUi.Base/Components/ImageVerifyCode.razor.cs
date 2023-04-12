@@ -53,26 +53,31 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public async Task ReLoadVerifyCode()
         {
             isLoading = true;
+            Task? removeTask=null;
             //移除上次的验证码
             if (!string.IsNullOrEmpty(VerifyCodeKey))
             {
-                await verifyCodeService.Remove(VerifyCodeKey);
+                removeTask = verifyCodeService.Remove(VerifyCodeKey);
             }
-            ImageVerifyCodeInput input = new ImageVerifyCodeInput() 
+            ImageVerifyCodeInput input = new ImageVerifyCodeInput()
             {
-                FontSize=FontSize,
-                CreateCodeParam=new CharacterCodeCreateParam 
+                FontSize = FontSize,
+                CreateCodeParam = new CharacterCodeCreateParam
                 {
-                    Type=Type,
-                    CharacterCount= CharacterCount
+                    Type = Type,
+                    CharacterCount = CharacterCount
                 }
-            }; 
-            ImageVerifyCodeOutput output =await verifyCodeService.Create(input);
+            };
+            ImageVerifyCodeOutput output = await verifyCodeService.Create(input);
             if (output != null)
             {
+                verifyCodeImage = "data:image/gif;base64," + output.Base64Image;
                 VerifyCodeKey = output.Key;
                 await VerifyCodeKeyChanged.InvokeAsync(VerifyCodeKey);
-                verifyCodeImage = "data:image/gif;base64," + output.Base64Image;
+            }
+            if (removeTask != null)
+            { 
+                await removeTask; 
             }
             isLoading = false;
         }

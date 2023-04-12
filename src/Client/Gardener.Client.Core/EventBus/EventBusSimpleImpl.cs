@@ -35,7 +35,7 @@ namespace Gardener.Client.Core.EventBus
         /// <param name="e"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Publish(EventBase e, CancellationToken? cancellationToken)
+        public Task PublishAsync(EventBase e, CancellationToken? cancellationToken)
         {
             string? typeName = e.GetType().FullName;
             if (string.IsNullOrEmpty(typeName))
@@ -87,6 +87,17 @@ namespace Gardener.Client.Core.EventBus
 
             }
             return Task.WhenAll(tasks);
+        }
+
+        /// <summary>
+        /// 发布消息
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public void Publish(EventBase e, CancellationToken? cancellationToken)
+        {
+            PublishAsync(e,cancellationToken);
         }
 
         /// <summary>

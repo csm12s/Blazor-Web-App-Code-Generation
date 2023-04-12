@@ -67,7 +67,7 @@ namespace Gardener.NotificationSystem.Client.Core
                 {
                     return Task.CompletedTask;
                 }
-                return _eventBus.Publish(notificationData);
+                return _eventBus.PublishAsync(notificationData);
             }
             catch (Exception ex) {
                 clientLogger.Error("Notification System CallBack Error", ex:ex, sendNotify:false);

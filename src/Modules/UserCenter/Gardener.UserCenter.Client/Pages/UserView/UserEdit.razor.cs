@@ -52,15 +52,18 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         protected override async Task OnInitializedAsync()
         {
             StartLoading();
-            await base.OnInitializedAsync();
+            var t1= base.OnInitializedAsync();
+            var t2= PositionService.GetAllUsable();
+            var t3 = DeptService.GetTree();
+            await t1;
             if (_editModel != null)
             {
                 _editModel.Password = null;
             }
             //岗位
-            positions = await PositionService.GetAllUsable();
+            positions =await t2;
             //部门
-            deptDatas = await DeptService.GetTree();
+            deptDatas = await t3;
             StopLoading();
         }
        
