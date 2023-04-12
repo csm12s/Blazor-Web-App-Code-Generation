@@ -49,11 +49,11 @@ namespace Gardener.Base
         /// <param name="operateType"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        private static async Task NotifyAsync<TEntity,TData>(EntityOperateType operateType,TData data)
+        private static Task NotifyAsync<TEntity,TData>(EntityOperateType operateType,TData data)
         {
             EventInfo<TData> eventBase = new EventInfo<TData>(EventType.EntityOperate, data);
             eventBase.EventGroup = typeof(TEntity).Name + operateType.ToString();
-            await GetEventBus().Publish(eventBase);
+            return GetEventBus().PublishAsync(eventBase);
         }
         /// <summary>
         /// 
@@ -62,11 +62,11 @@ namespace Gardener.Base
         /// <param name="operateType"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        private static async Task NotifyAsync<TEntity>(EntityOperateType operateType, TEntity data)
+        private static Task NotifyAsync<TEntity>(EntityOperateType operateType, TEntity data)
         {
             EventInfo<TEntity> eventBase = new EventInfo<TEntity>(EventType.EntityOperate, data);
             eventBase.EventGroup = typeof(TEntity).Name + operateType.ToString();
-            await GetEventBus().Publish(eventBase);
+            return GetEventBus().PublishAsync(eventBase);
         }
         /// <summary>
         /// 通知删除

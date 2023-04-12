@@ -20,7 +20,14 @@ namespace Gardener.EventBus
         /// </summary>
         /// <param name="e"></param>
         /// <param name="cancellationToken"></param>
-        Task Publish(EventBase e, CancellationToken? cancellationToken=null);
+        void Publish(EventBase e, CancellationToken? cancellationToken=null); 
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="cancellationToken"></param>
+        Task PublishAsync(EventBase e, CancellationToken? cancellationToken=null);
 
         /// <summary>
         /// 订阅

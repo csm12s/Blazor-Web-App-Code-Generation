@@ -78,7 +78,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected async Task OpenOperationDialogAsync<TOperationDialog, TInput, TOutput>(string title,
             TInput input,
-            Func<TOutput, Task>? onClose = null,
+            Func<TOutput?, Task>? onClose = null,
             OperationDialogSettings? operationDialogSettings = null,
             int? width = null) where TOperationDialog : FeedbackComponent<TInput, TOutput>
         {

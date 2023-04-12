@@ -22,14 +22,13 @@ namespace Gardener.EventBus
         {
             this.eventPublisher = eventPublisher;
         }
-
         /// <summary>
         /// 发布消息
         /// </summary>
         /// <param name="e"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Publish(EventBase e, CancellationToken? cancellationToken = null)
+        public Task PublishAsync(EventBase e, CancellationToken? cancellationToken = null)
         {
             EventSource<EventBase> eventSource = new EventSource<EventBase>(e.EventType.ToString() + e.EventGroup);
             eventSource.Body = e;
@@ -38,6 +37,17 @@ namespace Gardener.EventBus
                 eventSource.CancellationToken = cancellationToken.Value;
             }
             return eventPublisher.PublishAsync(eventSource);
+        }
+
+        /// <summary>
+        /// 发布消息
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public void Publish(EventBase e, CancellationToken? cancellationToken = null)
+        {
+            PublishAsync(e, cancellationToken);
         }
 
         /// <summary>

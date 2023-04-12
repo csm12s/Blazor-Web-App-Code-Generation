@@ -113,7 +113,7 @@ namespace Gardener.Client.Core
             var tokenResult = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
             {
-                await eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
+                eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
                 //token 设置
                 await SetToken(tokenResult);
                 logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
@@ -143,7 +143,7 @@ namespace Gardener.Client.Core
             //通知状态变更
             notifyAuthenticationStateChangedAction();
             //发送一个登录成功事件
-            await eventBus.Publish(new LoginSucceedAfterEvent(token));
+            eventBus.Publish(new LoginSucceedAfterEvent(token));
 
         }
         /// <summary>
@@ -152,7 +152,7 @@ namespace Gardener.Client.Core
         public async Task Logout()
         {
             await Task.WhenAll(accountService.RemoveCurrentUserRefreshToken(), CleanUserInfo());
-            await eventBus.Publish(new LogoutSucceedAfterEvent());
+            eventBus.Publish(new LogoutSucceedAfterEvent());
         }
         /// <summary>
         /// CleanClientLoginInfo
@@ -221,7 +221,7 @@ namespace Gardener.Client.Core
                     this.uiResourceKeys = await task1;
                     this.menuResources = await task2;
 
-                    await eventBus.Publish(new ReloadCurrentUserEvent(token));
+                    eventBus.Publish(new ReloadCurrentUserEvent(token));
                     onAuthenticationRefreshSuccessed.Invoke(this.currentUser, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                     return (userResult, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                 }

@@ -109,10 +109,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <param name="userId"></param>
         private Task OnEditUserRoleClick(int userId)
         {
-            return OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, async r =>
-            {
-                //await ReLoadTable();
-            }, width: 500);
+            return OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, width: 500);
         }
         /// <summary>
         /// 点击头像

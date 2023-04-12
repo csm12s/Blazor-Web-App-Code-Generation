@@ -46,22 +46,22 @@ namespace Gardener.NotificationSystem.Core
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task Send(NotificationData data)
+        public Task Send(NotificationData data)
         {
             //收到客户端信息
             if (data == null)
             {
-                return;
+                return Task.CompletedTask;
             }
             //没有身份信息
             Identity? identity = identityService.GetIdentity();
             if(identity == null)
             {
-                return;
+                return Task.CompletedTask;
             }
             data.Identity = identity;
             data.Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4();
-            await eventBus.Publish(data);
+            return eventBus.PublishAsync(data);
 
         }
         /// <summary>
