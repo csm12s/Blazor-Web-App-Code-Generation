@@ -46,14 +46,16 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             _roleId = this.Options.Data;
             if (_roleId > 0)
             {
+                var t1 = RoleService.GetResource(_roleId);
+                var t2 = ResourceService.GetTree();
                 //已有资源
-                var roleResourceResult = await RoleService.GetResource(_roleId);
+                var roleResourceResult = await t1;
                 if (roleResourceResult != null && roleResourceResult.Any())
                 {
                     _defaultCheckedKeys = roleResourceResult.Where(dto => dto.Children == null || !dto.Children.Any()).Select(dto => dto.Id.ToString()).ToArray();
                 }
                 //资源树
-                var resourceResult = await ResourceService.GetTree();
+                var resourceResult = await t2;
                 if (resourceResult == null)
                 {
                     MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
@@ -64,7 +66,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             }
             base.StopLoading();
         }
-       
+
 
         /// <summary>
         /// 点击取消
@@ -85,18 +87,18 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
 
             List<Guid> resourceIds = new List<Guid>();
 
-            if (_tree!=null && _tree.CheckedKeys.Length > 0)
+            if (_tree != null && _tree.CheckedKeys.Length > 0)
             {
                 _tree.CheckedKeys.ForEach(x =>
                 {
-                   TreeNode<ResourceDto> node = _tree.FindFirstOrDefaultNode(node => { return node.Key.Equals(x);}, true);
+                    TreeNode<ResourceDto> node = _tree.FindFirstOrDefaultNode(node => { return node.Key.Equals(x); }, true);
                     if (node != null)
                     {
                         resourceIds.Add(node.DataItem.Id);
                         List<TreeNode<ResourceDto>> predecessors = node.GetPredecessors();
                         if (predecessors != null)
                         {
-                            resourceIds.AddRange(predecessors.Select(x=>x.DataItem.Id));
+                            resourceIds.AddRange(predecessors.Select(x => x.DataItem.Id));
                         }
                     }
                 });
@@ -114,23 +116,23 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
             }
             _dialogLoading.Stop();
         }
-        
+
         /// <summary>
         /// 当展开关闭点击时触发
         /// </summary>
         /// <returns></returns>
         private void OnExpandClick()
         {
-            if(_tree==null) return;
+            if (_tree == null) return;
             _dialogLoading.Start();
             _isExpanded = !_isExpanded;
             //操作所有的节点
-            if (_isExpanded) 
-            { 
+            if (_isExpanded)
+            {
                 _tree.ExpandAll();
-            } 
-            else 
-            { 
+            }
+            else
+            {
                 _tree.CollapseAll();
             }
         }

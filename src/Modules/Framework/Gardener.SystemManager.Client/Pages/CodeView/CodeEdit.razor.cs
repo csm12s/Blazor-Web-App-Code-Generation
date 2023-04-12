@@ -38,8 +38,9 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
         protected override async Task OnInitializedAsync()
         {
             StartLoading();
+            var task= CodeTypeService.GetAllUsable();
             await LoadEditModelData();
-            codeTypeDtos = await CodeTypeService.GetAllUsable();
+            codeTypeDtos = await task;
             if (this.Options.Type.Equals(OperationDialogInputType.Add) && this.Options.CodeTypeId != null)
             {
                 this._editModel.CodeTypeId = this.Options.CodeTypeId.Value;

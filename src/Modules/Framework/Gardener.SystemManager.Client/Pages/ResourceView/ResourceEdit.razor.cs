@@ -49,9 +49,10 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         protected override async Task OnInitializedAsync()
         {
             base.StartLoading();
-            await base.OnInitializedAsync();
-            resources = await resourceService.GetTree();
-            
+            var t1= base.OnInitializedAsync();
+            var t2= resourceService.GetTree();
+            await t1;
+            resources = await t2;
             if (this.Options.Type.Equals(OperationDialogInputType.Add))
             {
                 _editModel.Id = Guid.NewGuid();

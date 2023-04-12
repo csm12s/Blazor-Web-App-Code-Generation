@@ -50,11 +50,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 组件首次渲染后
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnFirstAfterRenderAsync()
+        protected override Task OnFirstAfterRenderAsync()
         {
-            await ReLoadDepts(null);
-
-            await base.OnFirstAfterRenderAsync();
+            return Task.WhenAll(ReLoadDepts(null), base.OnFirstAfterRenderAsync());
         }
         /// <summary>
         /// 重载部门信息
@@ -113,7 +111,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             return OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, async r =>
             {
-                await ReLoadTable();
+                //await ReLoadTable();
             }, width: 500);
         }
         /// <summary>
@@ -130,7 +128,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 new UserUploadAvatarParams(user,true),
                 async r =>
                 {
-                    await ReLoadTable();
+                    if(r!=null)
+                    {
+                        await ReLoadTable();
+                    }
                 }
             , settings);
         }

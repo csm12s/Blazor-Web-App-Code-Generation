@@ -32,18 +32,19 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private IClientLocalizer<UserCenterResource> Localizer { get; set; } = null!;
         protected override async Task OnInitializedAsync()
         {
-            await base.OnInitializedAsync();
             _isLoading = true;
             _userId = this.Options;
             if (_userId > 0)
             {
-                var rolesResult = await RoleService.GetAllUsable();
+                var t1= RoleService.GetAllUsable();
+                var t2 = UserService.GetRoles(_userId);
+                var rolesResult = await t1;
                 if (rolesResult == null || !rolesResult.Any()) 
                 {
                     MessageService.Error(Localizer[UserCenterResource.NoRoleNeedAdd]);
                     return;
                 }
-                var userRoles = await UserService.GetRoles(_userId);
+                var userRoles = await t2;
                 userRoles = userRoles ?? new List<RoleDto>();
                 _roleOptions = rolesResult.Select(x => new CheckboxOption
                 {
