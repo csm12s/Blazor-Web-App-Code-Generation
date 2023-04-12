@@ -56,7 +56,10 @@ namespace Gardener.Client.AntDesignUi.Services
                     Footer = null,
                     DestroyOnClose = true,
                     Maximizable = dialogSettings.ModalMaximizable,
+                    #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
                     DefaultMaximized = dialogSettings.ModalDefaultMaximized
+                    #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
+
                 };
 
                 ModalRef<TDialogOutput> result = await modalService.CreateModalAsync<TOperationDialog, TDialogInput, TDialogOutput>(modalOptions, input);

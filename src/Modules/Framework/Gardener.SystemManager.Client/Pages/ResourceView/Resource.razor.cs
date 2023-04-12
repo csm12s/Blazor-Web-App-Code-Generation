@@ -99,7 +99,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         }
 
 
-        protected override void SetChildren(ResourceDto dto, ICollection<ResourceDto> children)
+        protected override void SetChildren(ResourceDto dto, ICollection<ResourceDto>? children)
         {
             dto.Children = children;
         }
@@ -109,9 +109,9 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             return dto.ParentId.HasValue ? dto.ParentId.Value : Guid.Empty;
         }
 
-        protected override ICollection<ResourceDto> SortChildren(ICollection<ResourceDto> children)
+        protected override ICollection<ResourceDto>? SortChildren(ICollection<ResourceDto>? children)
         {
-            return children.OrderBy(x => x.Order).ToList();
+            return children?.OrderBy(x => x.Order).ToList();
         }
     }
 }
