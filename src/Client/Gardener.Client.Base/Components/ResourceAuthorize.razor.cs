@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Base.Components
@@ -52,7 +53,8 @@ namespace Gardener.Client.Base.Components
         /// 多个以逗号隔开 eg:key1,key2
         /// </summary>
         [Parameter]
-        public string? ResourceKey { get; set; }
+        [Required]
+        public string ResourceKey { get; set; } = null!;
 
         /// <summary>
         /// 并且关系
@@ -92,6 +94,7 @@ namespace Gardener.Client.Base.Components
                         if (!isAuth) 
                         {
                             state = -1;
+                            break;
                         }
                     }
                     else
@@ -99,9 +102,11 @@ namespace Gardener.Client.Base.Components
                         if (isAuth) 
                         {
                             state = 1;
+                            break;
                         }
                     }
                 }
+                //正常运行结束
                 if (state == 0)
                 {
                     state = AndCondition ? (short)1 : (short)-1;
