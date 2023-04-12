@@ -77,14 +77,12 @@ namespace Gardener.Client.Core
                     return result.Data;
 #pragma warning restore CS8603 // 可能返回 null 引用。
                 }
-                //身份验证失败
-                if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
-                {
-                    eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
-                }
+                //身份验证失败401,第一次失败
                 if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry==0)
                 {
-                  return await ResponseHandle<TResponse>(func, ++retry);
+                    //刷新身份信息
+                    await eventBus.PublishAsync(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
+                    return await ResponseHandle<TResponse>(func, ++retry);
                 }
                 //请求失败 
                 log.Error(localizer[SharedLocalResource.ResuqesFail], (int)httpResponse.StatusCode);
@@ -115,13 +113,11 @@ namespace Gardener.Client.Core
                 HttpResponseMessage httpResponse = await func.Invoke();
                 if (!HttpStatusCode.OK.Equals(httpResponse.StatusCode))
                 {
-                    //身份验证失败
-                    if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) || httpResponse.StatusCode.Equals(HttpStatusCode.Forbidden))
-                    {
-                        eventBus.Publish(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
-                    }
+                    //身份验证失败401,第一次失败
                     if (httpResponse.StatusCode.Equals(HttpStatusCode.Unauthorized) && retry == 0)
                     {
+                        //刷新身份信息
+                        await eventBus.PublishAsync(new UnauthorizedApiCallEvent() { HttpStatusCode = httpResponse.StatusCode });
                         await ResponseHandle(func, ++retry);
                         return;
                     }
