@@ -12,6 +12,9 @@ namespace Gardener.Client.Base
     /// <summary>
     /// 授权失败的api调用
     /// </summary>
+    /// <remarks>
+    /// 此消息标志着httpcode=401
+    /// </remarks>
     public class UnauthorizedApiCallEvent : EventBase
     {
         public HttpStatusCode HttpStatusCode { get; set; }

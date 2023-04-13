@@ -150,7 +150,7 @@
                     <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[UserCenterResource.IsLocked]">
                         <ResourceAuthorize ResourceKey="user_center_user_lock">
                             <Authorized>
-                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                                <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
                             </Authorized>
                             <NotAuthorized>
                                 <TagYesNo Yes="model.IsLocked"></TagYesNo>

@@ -44,15 +44,15 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
             return await deptService.GetTree(true);
         }
 
-        protected override void SetChildren(DeptDto dto, ICollection<DeptDto> children)
+        protected override void SetChildren(DeptDto dto, ICollection<DeptDto>? children)
         {
             dto.Children = children;
         }
 
 
-        protected override ICollection<DeptDto> SortChildren(ICollection<DeptDto> children)
+        protected override ICollection<DeptDto>? SortChildren(ICollection<DeptDto>? children)
         {
-            return children.OrderBy(x=>x.Order).ToList();
+            return children?.OrderBy(x=>x.Order).ToList();
         }
     }
 }

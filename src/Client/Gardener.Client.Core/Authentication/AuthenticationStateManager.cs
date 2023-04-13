@@ -90,7 +90,7 @@ namespace Gardener.Client.Core
         /// <summary>
         /// 刷新token
         /// </summary>
-        /// <param name="refreshToken"></param>
+        /// <param name="force">强制刷新</param>
         /// <returns></returns>
         public async Task<bool> RefreshToken(bool force = false)
         {

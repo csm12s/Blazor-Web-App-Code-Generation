@@ -26,10 +26,6 @@ namespace Gardener.CodeGeneration.Resources
         /// </summary>
         public const string Module = nameof(Module);
         /// <summary>
-        /// Remark
-        /// </summary>
-        public const string Remark = nameof(Remark);
-        /// <summary>
         /// TableDescription
         /// </summary>
         public const string TableDescription = nameof(TableDescription);

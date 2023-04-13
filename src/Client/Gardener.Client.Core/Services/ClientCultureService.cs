@@ -44,9 +44,12 @@ namespace Gardener.Client.Core.Services
             if (CultureInfo.CurrentCulture.Name != culture)
             {
                 //存储到session，在刷新页面后生效
-                await jsTool.SessionStorage.SetAsync(ClientConstant.BlazorCultureKey, culture);
+                var task1= jsTool.SessionStorage.SetAsync(ClientConstant.BlazorCultureKey, culture);
                 //存储到cookie 调用接口时，api端生效
-                await jsTool.Cookie.Set(".AspNetCore.Culture", $"c={culture}|uic={culture}",path:"/");
+                var task2= jsTool.Cookie.Set(".AspNetCore.Culture", $"c={culture}|uic={culture}",path:"/");
+
+                await task1;
+                await task2;
                 return true;
             }
             return false;

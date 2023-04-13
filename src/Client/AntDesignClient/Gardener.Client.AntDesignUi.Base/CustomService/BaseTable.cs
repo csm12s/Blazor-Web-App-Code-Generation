@@ -111,7 +111,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <param name="operationDialogSettings"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
+        protected async Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput?, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             if (width.HasValue)

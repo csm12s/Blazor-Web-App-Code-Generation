@@ -36,8 +36,6 @@ namespace Gardener.Client.Core
             List<string> assembliesToBeLoaded = new List<string>();
 
             string appDllsDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            Console.WriteLine(appDllsDirectory);
-
             if (scanAssembliesStartsWith?.Any() == true)
             {
                 if (scanAssembliesStartsWith.Length == 1)

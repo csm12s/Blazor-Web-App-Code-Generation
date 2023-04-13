@@ -76,7 +76,7 @@
             <Column Title="@Localizer[SystemManagerResource.IsLocked]" @bind-Field="@model.IsLocked" Filterable>
                 <ResourceAuthorize ResourceKey="system_manager_code_lock">
                     <Authorized>
-                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)"></Switch>
+                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
                     </Authorized>
                     <NotAuthorized>
                         <TagYesNo Yes="model.IsLocked"></TagYesNo>

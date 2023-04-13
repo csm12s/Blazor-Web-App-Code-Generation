@@ -56,6 +56,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 导出数据加载中绑定数据
         /// </summary>
         protected bool _exportDataLoading = false;
+
+        /// <summary>
+        /// 锁定按钮加载中
+        /// </summary>
+        protected ClientMultiLoading _lockBtnLoading = new ClientMultiLoading(false);
         /// <summary>
         /// 搜索组件
         /// </summary>
@@ -120,7 +125,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="operationDialogSettings"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        protected Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
+        protected Task OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(string title, TDialogInput input, Func<TDialogOutput?, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null, int? width = null) where TOperationDialog : FeedbackComponent<TDialogInput, TDialogOutput>
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             if (width.HasValue)
@@ -138,6 +143,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="isLocked"></param>
         protected virtual async Task OnChangeIsLocked(TDto model, bool isLocked)
         {
+            _lockBtnLoading.Start(model);
             var result = await BaseService.Lock(model.Id, isLocked);
             if (!result)
             {
@@ -146,6 +152,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
                 MessageService.Error($"{msg} {Localizer[SharedLocalResource.Fail]}");
             }
+            _lockBtnLoading.Stop(model);
         }
 
         /// <summary>

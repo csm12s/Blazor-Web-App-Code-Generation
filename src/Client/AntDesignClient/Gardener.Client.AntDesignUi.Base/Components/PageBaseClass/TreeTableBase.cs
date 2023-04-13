@@ -49,7 +49,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 设置子集
         /// </summary>
         /// <returns></returns>
-        protected abstract void SetChildren(TDto dto, ICollection<TDto> children);
+        protected abstract void SetChildren(TDto dto, ICollection<TDto>? children);
         /// <summary>
         /// 获取父级主键
         /// </summary>
@@ -85,24 +85,24 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="children"></param>
         /// <returns></returns>
-        protected abstract ICollection<TDto> SortChildren(ICollection<TDto> children);
+        protected abstract ICollection<TDto>? SortChildren(ICollection<TDto>? children);
         /// <summary>
         /// 当编辑结束
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="dialogOutput"></param>
-        protected abstract Task OnEditFinish(TDto dto, TDialogOutput dialogOutput);
+        protected abstract Task OnEditFinish(TDto dto, TDialogOutput? dialogOutput);
         /// <summary>
         /// 当添加结束
         /// </summary>
         /// <param name="dialogOutput"></param>
-        protected abstract Task OnAddFinish(TDialogOutput dialogOutput);
+        protected abstract Task OnAddFinish(TDialogOutput? dialogOutput);
         /// <summary>
         /// 当添加子节点结束
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="dialogOutput"></param>
-        protected abstract Task OnAddChildrenFinish(TDto dto, TDialogOutput dialogOutput);
+        protected abstract Task OnAddChildrenFinish(TDto dto, TDialogOutput? dialogOutput);
 
         #endregion
 
@@ -273,7 +273,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        private Task OpenOperationDialogAsync(string title, TDialogInput input, Func<TDialogOutput, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
+        private Task OpenOperationDialogAsync(string title, TDialogInput input, Func<TDialogOutput?, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
         {
             return OpenOperationDialogAsync<TOperationDialog, TDialogInput, TDialogOutput>(title, input, onClose, operationDialogSettings);
         }
@@ -429,9 +429,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="dto"></param>
         /// <param name="dialogOutput"></param>
         /// <returns></returns>
-        protected override async Task OnEditFinish(TDto dto, OperationDialogOutput<TKey> dialogOutput)
+        protected override async Task OnEditFinish(TDto dto, OperationDialogOutput<TKey>? dialogOutput)
         {
-            if (dialogOutput.Succeeded)
+            if (dialogOutput!=null && dialogOutput.Succeeded)
             {
                 //最新的数据
                 var newEntity = await BaseService.Get(GetKey(dto));
@@ -482,9 +482,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="dialogOutput"></param>
         /// <returns></returns>
-        protected override Task OnAddFinish(OperationDialogOutput<TKey> dialogOutput)
+        protected override Task OnAddFinish(OperationDialogOutput<TKey>? dialogOutput)
         {
-            if (dialogOutput.Succeeded)
+            if (dialogOutput != null && dialogOutput.Succeeded)
             {
                 //最新的数据
                 return ReLoadTable();
@@ -499,9 +499,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="dto"></param>
         /// <param name="dialogOutput"></param>
         /// <returns></returns>
-        protected override async Task OnAddChildrenFinish(TDto dto, OperationDialogOutput<TKey> dialogOutput)
+        protected override async Task OnAddChildrenFinish(TDto dto, OperationDialogOutput<TKey>? dialogOutput)
         {
-            if (dialogOutput.Succeeded && dialogOutput.Data != null)
+            if (dialogOutput != null && dialogOutput.Succeeded && dialogOutput.Data != null)
             {
                 //最新的数据
                 var newEntity = await BaseService.Get(dialogOutput.Data);
