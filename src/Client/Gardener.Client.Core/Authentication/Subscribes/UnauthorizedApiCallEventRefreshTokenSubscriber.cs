@@ -31,11 +31,11 @@ namespace Gardener.Client.Core.Authentication.Subscribes
         {
             if (e.HttpStatusCode.Equals(HttpStatusCode.Unauthorized))
             {
-                if (refreshTask == null)
+                if (refreshTask == null || refreshTask.IsCompleted)
                 {
                     lock (lockObj)
                     {
-                        if (refreshTask == null)
+                        if (refreshTask == null || refreshTask.IsCompleted)
                         {
                             refreshTask = authenticationStateManager.RefreshToken(true);
                         }
