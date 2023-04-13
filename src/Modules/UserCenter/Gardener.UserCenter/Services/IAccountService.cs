@@ -62,5 +62,13 @@ namespace Gardener.UserCenter.Services
         /// </summary>
         /// <returns></returns>
         Task<bool> RemoveCurrentUserRefreshToken();
+        /// <summary>
+        /// 测试token是否可用
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// 不执行任何内容，token无效将响应401
+        /// </remarks>
+        Task<bool> TestToken();
     }
 }

@@ -33,6 +33,7 @@ namespace Gardener.UserCenter.Impl.SeedDatas
                 new ResourceFunction() {ResourceId=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),FunctionId=Guid.Parse("713341f2-47e1-42af-b717-bfa75904d32e"),CreatedTime=DateTimeOffset.Parse("2022-09-05 17:18:08"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),FunctionId=Guid.Parse("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"),CreatedTime=DateTimeOffset.Parse("2022-09-05 17:18:08"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),FunctionId=Guid.Parse("c96dd7f7-f935-4499-8ef5-6d39fe26141a"),CreatedTime=DateTimeOffset.Parse("2022-09-05 17:18:08"),},
+                new ResourceFunction() {ResourceId=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),FunctionId=Guid.Parse("e0b19b01-4b37-426a-a5c4-749e5936b64c"),CreatedTime=DateTimeOffset.Parse("2023-04-13 14:07:02"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),FunctionId=Guid.Parse("e2bb65e0-5d9e-485e-9059-8148fc236246"),CreatedTime=DateTimeOffset.Parse("2022-09-05 17:18:08"),},
          };
         }

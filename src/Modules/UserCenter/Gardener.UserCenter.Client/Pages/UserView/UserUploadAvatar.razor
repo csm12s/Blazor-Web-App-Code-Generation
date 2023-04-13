@@ -26,21 +26,20 @@
 </Row>
 <Row>
     <Col Span="24" Style="text-align:center;">
-    <Button Type="@ButtonType.Primary" OnClick="OnOkClick">
-            @Localizer[SharedLocalResource.Do]
+    <Button Type="@ButtonType.Primary" OnClick="OnOkClick" Loading="btnLoading">
+            @Localizer[SharedLocalResource.Save]
     </Button>
     </Col>
 </Row>
-
 <style>
     .avatar-uploader {
         text-align: center;
     }
 
-    .avatar-uploader > .ant-upload {
-        width: 128px;
-        height: 128px;
-    }
+        .avatar-uploader > .ant-upload {
+            width: 128px;
+            height: 128px;
+        }
 
     .avatar-uploader-img {
         width: 126px;
