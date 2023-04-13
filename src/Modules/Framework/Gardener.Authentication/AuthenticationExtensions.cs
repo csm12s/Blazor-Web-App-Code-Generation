@@ -32,10 +32,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddAuthen(this IServiceCollection services)
         {
-            services.TryAddScoped<IIdentityService, IdentityService>();
-
+            //配置
             services.AddConfigurableOptions<JWTOptions>();
+            //工具
             services.TryAddSingleton<IJwtService, JwtBearerService>();
+            services.TryAddSingleton<IIdentityConverter, IdentityConverter>();
+            //当前请求身份
+            services.TryAddScoped<IIdentityService, IdentityService>();
+            //mvc配置
             services.Configure<MvcOptions>(options =>
             {
 

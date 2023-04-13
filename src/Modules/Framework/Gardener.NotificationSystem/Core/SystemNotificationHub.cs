@@ -3,6 +3,7 @@ using Furion.InstantMessaging;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
+using Gardener.Common;
 using Gardener.EventBus;
 using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Enums;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace Gardener.NotificationSystem.Core
 {
@@ -32,8 +34,8 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="eventBus"></param>
         /// <param name="identityService"></param>
         /// <param name="systemNotificationService"></param>
-        public SystemNotificationHub(IEventBus eventBus, 
-            IIdentityService identityService, 
+        public SystemNotificationHub(IEventBus eventBus,
+            IIdentityService identityService,
             ISystemNotificationService systemNotificationService)
         {
             this.eventBus = eventBus;
@@ -55,7 +57,7 @@ namespace Gardener.NotificationSystem.Core
             }
             //没有身份信息
             Identity? identity = identityService.GetIdentity();
-            if(identity == null)
+            if (identity == null)
             {
                 return Task.CompletedTask;
             }
@@ -76,14 +78,43 @@ namespace Gardener.NotificationSystem.Core
             {
                 return;
             }
+            await systemNotificationService.SetUserOnline(identity);
+            
+            //分组器
+            IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
+            List<Task<IEnumerable<string>>> tasks = new ();
+            foreach (var grouper in groupers)
+            {
+                tasks.Add(grouper.GetGroupName(identity));
+            }
+            if(tasks.Any())
+            {
+                //分组完成
+                IEnumerable<string>[] groupNameGroups = await Task.WhenAll(tasks);
+                List<Task> tasks1 = new List<Task>();
+                foreach (IEnumerable<string> groups in groupNameGroups)
+                {
+                    if (!groups.Any()) continue;
+                    foreach (var group in groups)
+                    {
+                        tasks1.Add(base.Groups.AddToGroupAsync(this.Context.ConnectionId, group));
+                    }
+                }
+                if(tasks1.Any())
+                {
+                    //入组完成
+                    await Task.WhenAll(tasks1);
+                }
+            }
+            
+
             var notification = new UserOnlineChangeNotificationData()
             {
-                Identity= identity,
-                Ip= Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
+                Identity = identity,
+                Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
                 OnlineStatus = UserOnlineStatus.Online
             };
             await systemNotificationService.SendToAllClient(notification);
-            await base.OnConnectedAsync();
         }
         /// <summary>
         /// 用户断开连接
@@ -96,6 +127,34 @@ namespace Gardener.NotificationSystem.Core
             {
                 return;
             }
+            await systemNotificationService.SetUserOffline(identity);
+            //分组器
+            IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
+            List<Task<IEnumerable<string>>> tasks = new();
+            foreach (var grouper in groupers)
+            {
+                tasks.Add(grouper.GetGroupName(identity));
+            }
+            if(tasks.Any())
+            {
+                //分组完成
+                IEnumerable<string>[] groupNameGroups = await Task.WhenAll(tasks);
+                List<Task> tasks1 = new List<Task>();
+                foreach (IEnumerable<string> groups in groupNameGroups)
+                {
+                    if (!groups.Any()) continue;
+                    foreach (var group in groups)
+                    {
+                        tasks1.Add(base.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, group));
+                    }
+                }
+                if (tasks1.Any())
+                {
+                    //出组完成
+                    await Task.WhenAll(tasks1);
+                }
+            }
+            
             var notification = new UserOnlineChangeNotificationData()
             {
                 Identity = identity,
@@ -122,17 +181,14 @@ namespace Gardener.NotificationSystem.Core
         public static void HubEndpointConventionBuilderSettings(HubEndpointConventionBuilder builder)
         {
             // 配置
-            var options = App.GetService<IOptions<SignalROptions>>().Value;
-            if (options == null)
-                throw new ArgumentNullException("没有signalr的配置");
-
+            var options = App.GetService<IOptions<SignalROptions>>().Value ?? throw new NullReferenceException($"没有{nameof(SignalROptions)}的配置");
             if (options.SystemNotificationHub == null)
-                throw new ArgumentNullException("没有对跨域进行配置");
+                throw new NullReferenceException($"没有对跨域{nameof(SignalROptions.SystemNotificationHub)}进行配置");
 
             var origins = options.SystemNotificationHub.Origins;
 
-            if (origins == null || origins.Count() == 0)
-                throw new ArgumentNullException("请至少配置一个域");
+            if (origins == null || origins.Length == 0)
+                throw new NullReferenceException($"请至少配置一个域{nameof(SignalROptions.SystemNotificationHub.Origins)}");
 
             builder.RequireCors(cpb =>
             {

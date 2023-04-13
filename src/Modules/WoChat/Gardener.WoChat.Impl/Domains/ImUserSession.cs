@@ -29,5 +29,10 @@ namespace Gardener.WoChat.Domains
         /// </summary>
         [DisplayName("UserId")]
         public int UserId { get; set; }
+        /// <summary>
+        /// 是否激活
+        /// </summary>
+        [DisplayName("IsActive")]
+        public bool IsActive { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Gardener.WoChat.Services
         /// <param name="maxDateTime"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<List<ImSessionMessageDto>> GetSessionMessages(Guid imSessionId,DateTimeOffset? maxDateTime,int? pageSize=100);
+        Task<List<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId,DateTimeOffset? maxDateTime,int pageSize=100);
 
         /// <summary>
         /// 发送消息到会话
@@ -46,7 +46,7 @@ namespace Gardener.WoChat.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<bool> AddImSession(ImSessionAddInput input);
+        Task<bool> AddMyImSession(ImSessionAddInput input);
 
         /// <summary>
         /// 移除会话
@@ -54,9 +54,19 @@ namespace Gardener.WoChat.Services
         /// <param name="imSessionId"></param>
         /// <returns></returns>
         /// <remarks>
-        /// 私聊直接解散，群里就退出
+        /// 仅仅隐藏会话
         /// </remarks>
-        Task<bool> RemoveImSession(Guid imSessionId);
+        Task<bool> RemoveMyImSession(Guid imSessionId);
+
+        /// <summary>
+        /// 退出会话
+        /// </summary>
+        /// <param name="imSessionId"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 私聊直接删除，群里直接退出，自己创建的话直接解散
+        /// </remarks>
+        Task<bool> QuitMyImSession(Guid imSessionId);
 
     }
 }
