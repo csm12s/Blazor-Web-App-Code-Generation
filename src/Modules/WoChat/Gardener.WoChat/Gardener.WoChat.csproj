@@ -10,8 +10,4 @@
     <ProjectReference Include="..\..\Framework\Gardener\Gardener.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
 </Project>
