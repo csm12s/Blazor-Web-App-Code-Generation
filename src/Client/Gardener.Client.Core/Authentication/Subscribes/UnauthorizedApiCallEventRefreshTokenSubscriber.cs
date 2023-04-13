@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gardener.Client.Core.EventBus.Subscribes
+namespace Gardener.Client.Core.Authentication.Subscribes
 {
     /// <summary>
     /// 身份验证失败时刷新token
@@ -19,7 +19,7 @@ namespace Gardener.Client.Core.EventBus.Subscribes
     public class UnauthorizedApiCallEventRefreshTokenSubscriber : EventSubscriberBase<UnauthorizedApiCallEvent>
     {
         private object lockObj = new object();
-        private int state = 0;
+        private Task? refreshTask = null;
         private readonly IAuthenticationStateManager authenticationStateManager;
 
         public UnauthorizedApiCallEventRefreshTokenSubscriber(IAuthenticationStateManager authenticationStateManager)
@@ -27,34 +27,23 @@ namespace Gardener.Client.Core.EventBus.Subscribes
             this.authenticationStateManager = authenticationStateManager;
         }
 
-        public override async Task CallBack(UnauthorizedApiCallEvent e)
+        public override Task CallBack(UnauthorizedApiCallEvent e)
         {
             if (e.HttpStatusCode.Equals(HttpStatusCode.Unauthorized))
             {
-
-                lock (lockObj)
+                if (refreshTask == null)
                 {
-                    while (state==1)
+                    lock (lockObj)
                     {
-                        if (state == 0)
+                        if (refreshTask == null)
                         {
-                            state = 1;
+                            refreshTask = authenticationStateManager.RefreshToken(true);
                         }
-                        else
-                        if (state == 2)
-                        {
-                            state = 0;
-                        }
-                        Thread.Sleep(10);
                     }
                 }
-                if (state == 1)
-                {
-                    await authenticationStateManager.RefreshToken(true);
-                    state = 2;
-                }
-
+                return refreshTask;
             }
+            return Task.CompletedTask;
         }
     }
 }
