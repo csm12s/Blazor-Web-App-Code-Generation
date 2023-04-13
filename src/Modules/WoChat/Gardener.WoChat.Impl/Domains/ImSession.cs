@@ -6,6 +6,7 @@
 
 using Gardener.Base;
 using Gardener.NotificationSystem.Enums;
+using Gardener.WoChat.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
