@@ -29,57 +29,62 @@ namespace Gardener.UserCenter.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public async Task<UserDto> GetCurrentUser()
+        public Task<UserDto> GetCurrentUser()
         {
-            return await apiCaller.GetAsync<UserDto>($"{controller}/current-user");
+            return apiCaller.GetAsync<UserDto>($"{controller}/current-user");
         }
 
-        public async Task<List<ResourceDto>> GetCurrentUserMenus(string? rootKey = null)
+        public Task<List<ResourceDto>> GetCurrentUserMenus(string? rootKey = null)
         {
             IDictionary<string, object?> queryString = new Dictionary<string, object?>();
             queryString.Add(nameof(rootKey), rootKey);
-            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-menus", queryString);
+            return apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-menus", queryString);
         }
 
-        public async Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes)
+        public Task<List<string>> GetCurrentUserResourceKeys(params ResourceType[] resourceTypes)
         {
             List<KeyValuePair<string, object?>> paras = new List<KeyValuePair<string, object?>>();
             for (int i = 0; i < resourceTypes.Length; i++)
             {
                 paras.Add(new KeyValuePair<string, object?>("resourceTypes", resourceTypes[i]));
             }
-            return await apiCaller.GetAsync<List<string>>($"{controller}/current-user-resource-keys", paras);
+            return apiCaller.GetAsync<List<string>>($"{controller}/current-user-resource-keys", paras);
         }
 
-        public async Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes)
+        public Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes)
         {
             List<KeyValuePair<string, object?>> paras = new List<KeyValuePair<string, object?>>();
             for (int i = 0; i < resourceTypes.Length; i++)
             {
                 paras.Add(new KeyValuePair<string, object?> ("resourceTypes" ,resourceTypes[i]));
             }
-            return await apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-resources", paras);
+            return apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-resources", paras);
         }
 
-        public async Task<List<RoleDto>> GetCurrentUserRoles()
+        public Task<List<RoleDto>> GetCurrentUserRoles()
         {
-            return await apiCaller.GetAsync<List<RoleDto>>($"{controller}/current-user-roles");
+            return apiCaller.GetAsync<List<RoleDto>>($"{controller}/current-user-roles");
         }
 
-        public async Task<TokenOutput> Login(LoginInput input)
+        public Task<TokenOutput> Login(LoginInput input)
         {
-            var result = await apiCaller.PostAsync<LoginInput, TokenOutput>($"{controller}/login", input);
+            var result = apiCaller.PostAsync<LoginInput, TokenOutput>($"{controller}/login", input);
             return result;
         }
 
-        public async Task<TokenOutput> RefreshToken(RefreshTokenInput input)
+        public Task<TokenOutput> RefreshToken(RefreshTokenInput input)
         {
-            return await apiCaller.PostAsync<RefreshTokenInput, TokenOutput>($"{controller}/refresh-token", input);
+            return apiCaller.PostAsync<RefreshTokenInput, TokenOutput>($"{controller}/refresh-token", input);
         }
 
-        public async Task<bool> RemoveCurrentUserRefreshToken()
+        public Task<bool> RemoveCurrentUserRefreshToken()
         {
-            return await apiCaller.DeleteAsync<bool>($"{controller}/current-user-refresh-token");
+            return apiCaller.DeleteAsync<bool>($"{controller}/current-user-refresh-token");
+        }
+
+        public Task<bool> TestToken()
+        {
+            return apiCaller.PostAsync<int,bool>($"{controller}/test-token",0);
         }
     }
 }

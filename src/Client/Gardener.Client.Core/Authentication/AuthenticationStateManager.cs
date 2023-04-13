@@ -398,5 +398,18 @@ namespace Gardener.Client.Core
                 {"authorization","Bearer "+currentToken.AccessToken }
             };
         }
+        /// <summary>
+        /// 测试token是否可用
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// 不执行任何内容，token无效将响应401；
+        /// 在特殊位置，不通过apicaller调用接口，无法实现token的被动刷新，就需要调用该方法去触发一下；
+        /// 当然其他通过apicaller调用的接口也可以达到该效果；
+        /// </remarks>
+        public async Task<bool> TestToken()
+        {
+          return await accountService.TestToken();
+        }
     }
 }

@@ -15,14 +15,16 @@ using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
     public partial class UserUploadAvatar : FeedbackComponent<UserUploadAvatarParams, string>
-    { 
-        
+    {
+
         /// <summary>
         /// 上传附件附带参数
         /// </summary>
@@ -35,6 +37,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private UserDto userDto = null!;
         private bool saveDb = false;
         private bool loading = false;
+        private bool btnLoading = false;
         private string? imageUrl;
         /// <summary>
         /// 上传地址
@@ -57,24 +60,33 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         [Inject]
         private IClientLocalizer Localizer { get; set; } = null!;
-        
+
         /// <summary>
         /// 页面初始化
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
+            btnLoading = true;
             userDto = this.Options.User;
             saveDb = this.Options.SaveDb;
             imageUrl = userDto.Avatar;
             //上传附件附带参数
             uploadAttachmentInput.Add("BusinessId", userDto != null ? userDto.Id.ToString() : string.Empty);
-            //上传附件附带身份信息
-            headers = await AuthenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
-            await base.OnInitializedAsync();
+            //测试token是否可用
+            if (await AuthenticationStateManager.TestToken())
+            {
+                //上传附件附带身份信息
+                headers = await AuthenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();
+            }
+            btnLoading =false;
         }
-
-        bool BeforeUpload(UploadFileItem file)
+        /// <summary>
+        /// 上传前拦截
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        private bool BeforeUpload(UploadFileItem file)
         {
             var typeOk = file.Type == "image/jpeg" || file.Type == "image/png" || file.Type == "image/gif";
             if (!typeOk)
@@ -97,10 +109,9 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// </summary>
         /// <param name="fileinfo"></param>
         /// <returns></returns>
-        private Task HandleChange(UploadInfo fileinfo)
+        private void HandleChange(UploadInfo fileinfo)
         {
             loading = fileinfo.File.State == UploadState.Uploading;
-
             if (fileinfo.File.State == UploadState.Success)
             {
                 ApiResult<UploadAttachmentOutput> apiResult = fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
@@ -119,7 +130,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             {
                 MessagerService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Fail));
             }
-            return Task.CompletedTask;
         }
         /// <summary>
         /// 保存或返回

@@ -213,6 +213,18 @@ namespace Gardener.UserCenter.Impl.Services
             return result ?? new List<ResourceDto>();
         }
 
+        /// <summary>
+        /// 测试token是否可用
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// 不执行任何内容，token无效将响应401
+        /// </remarks>
+        public Task<bool> TestToken()
+        { 
+            return Task.FromResult(true);
+        }
+
         #region 私有
 
         /// <summary>

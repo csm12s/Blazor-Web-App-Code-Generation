@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using Gardener.Enums;
 using Gardener.Base.Entity;
+using Gardener.Authentication.Enums;
 
 namespace Gardener.UserCenter.SeedDatas
 {
@@ -35,6 +36,7 @@ namespace Gardener.UserCenter.SeedDatas
                 new Function() {Group="用户中心服务",Service="用户账户认证授权服务",Summary="获取用户资源的key",Key="0AC55E6880AE8FACEBACB093AF914C65",Path="/api/account/current-user-resource-keys",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="用户中心服务",Service="用户账户认证授权服务",Summary="登录",Key="B6792454A69F875EEC82455D02BB3AAA",Description="登录接口",Path="/api/account/login",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,Id=Guid.Parse("c96dd7f7-f935-4499-8ef5-6d39fe26141a"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="用户中心服务",Service="用户账户认证授权服务",Summary="获取当前用户的所有菜单",Key="3317F3470BD4CCECEB26F73F6551D9D6",Description="获取当前用户的所有菜单",Path="/api/account/current-user-menus",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("e2bb65e0-5d9e-485e-9059-8148fc236246"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
+                new Function() {Group="用户中心服务",Service="用户账户认证授权服务",Summary="测试token是否可用",Key="F8F937E7C7DC6514F3C0E1353D4D35FB",Description="不执行任何内容，token无效将响应401",Path="/api/account/test-token",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,Id=Guid.Parse("e0b19b01-4b37-426a-a5c4-749e5936b64c"),IsLocked=false,IsDeleted=false,CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2023-04-13 14:06:31"),},
          };
         }
 
