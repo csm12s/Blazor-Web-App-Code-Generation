@@ -66,7 +66,7 @@ namespace Gardener.Client.AntDesignUi.Services
                 }
                 return msgSvr.Open(new MessageConfig()
                 {
-                    Content = description,
+                    Content ="["+msg+"]"+ description,
                     Duration = duration,
                     Type = messageType
                 });

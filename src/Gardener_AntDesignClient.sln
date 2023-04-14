@@ -125,9 +125,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Furion.TaskScheduler", "Mod
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WoChat", "WoChat", "{F02762A3-B92F-4365-A04B-176181600E00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.WoChat.Impl", "Modules\WoChat\Gardener.WoChat.Impl\Gardener.WoChat.Impl.csproj", "{ADD852C9-C9EB-4045-BCA3-ECE19C98EC98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.WoChat.Impl", "Modules\WoChat\Gardener.WoChat.Impl\Gardener.WoChat.Impl.csproj", "{ADD852C9-C9EB-4045-BCA3-ECE19C98EC98}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.WoChat", "Modules\WoChat\Gardener.WoChat\Gardener.WoChat.csproj", "{BC3EDD1A-8E76-424F-BD02-CA0B5BC402D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.WoChat.Client", "Modules\WoChat\Gardener.WoChat.Client\Gardener.WoChat.Client.csproj", "{FA3B756B-B476-48FC-A7E7-7D0E1692054D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -351,6 +353,10 @@ Global
 		{BC3EDD1A-8E76-424F-BD02-CA0B5BC402D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC3EDD1A-8E76-424F-BD02-CA0B5BC402D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC3EDD1A-8E76-424F-BD02-CA0B5BC402D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA3B756B-B476-48FC-A7E7-7D0E1692054D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA3B756B-B476-48FC-A7E7-7D0E1692054D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA3B756B-B476-48FC-A7E7-7D0E1692054D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA3B756B-B476-48FC-A7E7-7D0E1692054D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -414,6 +420,7 @@ Global
 		{F02762A3-B92F-4365-A04B-176181600E00} = {3286622B-B797-474B-8975-30242B042689}
 		{ADD852C9-C9EB-4045-BCA3-ECE19C98EC98} = {F02762A3-B92F-4365-A04B-176181600E00}
 		{BC3EDD1A-8E76-424F-BD02-CA0B5BC402D0} = {F02762A3-B92F-4365-A04B-176181600E00}
+		{FA3B756B-B476-48FC-A7E7-7D0E1692054D} = {F02762A3-B92F-4365-A04B-176181600E00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0782AFAE-11B9-4CBE-8DC6-169EB1CBA894}
