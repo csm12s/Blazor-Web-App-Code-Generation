@@ -3900,6 +3900,23 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("e0b19b01-4b37-426a-a5c4-749e5936b64c"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306971987783680480L,
+                            Description = "不执行任何内容，token无效将响应401",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F8F937E7C7DC6514F3C0E1353D4D35FB",
+                            Method = 1,
+                            Path = "/api/account/test-token",
+                            Service = "用户账户认证授权服务",
+                            Summary = "测试token是否可用"
+                        },
+                        new
+                        {
                             Id = new Guid("4963631e-6343-469a-a189-10bfce6e3195"),
                             CreatedTime = 1306532718346240480L,
                             EnableAudit = true,
@@ -8707,6 +8724,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
                             FunctionId = new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"),
                             CreatedTime = 1306582939402240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            FunctionId = new Guid("e0b19b01-4b37-426a-a5c4-749e5936b64c"),
+                            CreatedTime = 1306971988418560480L
                         },
                         new
                         {

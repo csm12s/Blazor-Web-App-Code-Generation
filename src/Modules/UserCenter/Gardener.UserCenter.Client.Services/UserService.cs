@@ -52,7 +52,17 @@ namespace Gardener.UserCenter.Client.Services
 
         public async Task<string> GetCurrentUserId()
         {
-            return await apiCaller.GetAsync<string>($"{controller}/Current-User-Data");
+            return await apiCaller.GetAsync<string>($"{controller}/current-user-id");
+        }
+
+        public Task<List<UserDto>> GetUsers(IEnumerable<int> userIds)
+        {
+            List<KeyValuePair<string, object?>> values = new List<KeyValuePair<string, object?>>();
+            foreach (int userId in userIds)
+            {
+                values.Add(new KeyValuePair<string, object?>("userIds", userId));
+            }
+            return apiCaller.GetAsync<List<UserDto>>($"{controller}/users", values);
         }
     }
 }

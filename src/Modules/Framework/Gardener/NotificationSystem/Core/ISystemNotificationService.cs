@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Dtos;
-using Gardener.Cache;
 using Gardener.NotificationSystem.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,18 +27,18 @@ namespace Gardener.NotificationSystem.Core
         /// <summary>
         /// 向指定用户发送信息
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="receiveUser">接收用户</param>
         /// <param name="notifyData"></param>
         /// <returns></returns>
-        Task SendToUser(int userId, NotificationData notifyData);
+        Task SendToUser(Identity receiveUser, NotificationData notifyData);
 
         /// <summary>
         /// 向指定用户发送信息
         /// </summary>
-        /// <param name="userIds"></param>
+        /// <param name="receiveUsers"></param>
         /// <param name="notifyData"></param>
         /// <returns></returns>
-        Task SendToUsers(IEnumerable<int> userIds, NotificationData notifyData);
+        Task SendToUsers(IEnumerable<Identity> receiveUsers, NotificationData notifyData);
 
         /// <summary>
         /// 向指定用户组发送信息
@@ -55,7 +54,7 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="groupNames"></param>
         /// <param name="notifyData"></param>
         /// <returns></returns>
-        Task SendToGroup(IEnumerable<string> groupNames, NotificationData notifyData);
+        Task SendToGroups(IEnumerable<string> groupNames, NotificationData notifyData);
 
         /// <summary>
         /// 设置用户在线状态为在线

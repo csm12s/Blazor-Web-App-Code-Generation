@@ -6,6 +6,7 @@
 
 using Gardener.Base;
 using Gardener.NotificationSystem.Enums;
+using Gardener.UserCenter.Dtos;
 using Gardener.WoChat.Enums;
 using System;
 using System.ComponentModel;
@@ -40,5 +41,10 @@ namespace Gardener.WoChat.Dtos
         /// </summary>
         [DisplayName("Message")]
         public string? Message { get; set; }
+
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        public UserDto? User { get; set; }
     }
 }

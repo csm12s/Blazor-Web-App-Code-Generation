@@ -3,7 +3,6 @@ using Furion.InstantMessaging;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
-using Gardener.Common;
 using Gardener.EventBus;
 using Gardener.NotificationSystem.Dtos;
 using Gardener.NotificationSystem.Enums;
@@ -14,7 +13,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 
 namespace Gardener.NotificationSystem.Core
 {
@@ -79,15 +77,15 @@ namespace Gardener.NotificationSystem.Core
                 return;
             }
             await systemNotificationService.SetUserOnline(identity);
-            
+
             //分组器
             IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
-            List<Task<IEnumerable<string>>> tasks = new ();
+            List<Task<IEnumerable<string>>> tasks = new();
             foreach (var grouper in groupers)
             {
                 tasks.Add(grouper.GetGroupName(identity));
             }
-            if(tasks.Any())
+            if (tasks.Any())
             {
                 //分组完成
                 IEnumerable<string>[] groupNameGroups = await Task.WhenAll(tasks);
@@ -100,21 +98,20 @@ namespace Gardener.NotificationSystem.Core
                         tasks1.Add(base.Groups.AddToGroupAsync(this.Context.ConnectionId, group));
                     }
                 }
-                if(tasks1.Any())
+                if (tasks1.Any())
                 {
                     //入组完成
                     await Task.WhenAll(tasks1);
                 }
             }
-            
-
-            var notification = new UserOnlineChangeNotificationData()
+            //用户上线
+            await eventBus.PublishAsync(new UserOnlineChangeNotificationData()
             {
                 Identity = identity,
                 Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
                 OnlineStatus = UserOnlineStatus.Online
-            };
-            await systemNotificationService.SendToAllClient(notification);
+            });
+            await base.OnConnectedAsync();
         }
         /// <summary>
         /// 用户断开连接
@@ -135,7 +132,7 @@ namespace Gardener.NotificationSystem.Core
             {
                 tasks.Add(grouper.GetGroupName(identity));
             }
-            if(tasks.Any())
+            if (tasks.Any())
             {
                 //分组完成
                 IEnumerable<string>[] groupNameGroups = await Task.WhenAll(tasks);
@@ -154,14 +151,13 @@ namespace Gardener.NotificationSystem.Core
                     await Task.WhenAll(tasks1);
                 }
             }
-            
-            var notification = new UserOnlineChangeNotificationData()
+            //用户离线
+            await eventBus.PublishAsync(new UserOnlineChangeNotificationData()
             {
                 Identity = identity,
                 Ip = Context.GetHttpContext().GetRemoteIpAddressToIPv4(),
                 OnlineStatus = UserOnlineStatus.Offline
-            };
-            await systemNotificationService.SendToAllClient(notification);
+            });
             await base.OnDisconnectedAsync(exception);
         }
 

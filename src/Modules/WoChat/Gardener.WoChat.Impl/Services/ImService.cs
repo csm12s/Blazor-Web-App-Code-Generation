@@ -10,9 +10,13 @@ using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;
 using Gardener.Common;
+using Gardener.NotificationSystem.Core;
+using Gardener.UserCenter.Services;
 using Gardener.WoChat.Domains;
 using Gardener.WoChat.Dtos;
+using Gardener.WoChat.Dtos.Notification;
 using Gardener.WoChat.Enums;
+using Gardener.WoChat.Impl.Core;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +33,8 @@ namespace Gardener.WoChat.Services
         private readonly IRepository<ImSession> imSessionRepository;
         private readonly IRepository<ImSessionMessage> imSessionMessageRepository;
         private readonly IRepository<ImUserSession> imUserSessionRepository;
+        private readonly ISystemNotificationService systemNotificationService;
+        private readonly IUserService userService;
         /// <summary>
         /// Im聊天服务
         /// </summary>
@@ -36,14 +42,17 @@ namespace Gardener.WoChat.Services
         /// <param name="imSessionRepository"></param>
         /// <param name="imSessionMessageRepository"></param>
         /// <param name="imUserSessionRepository"></param>
-        public ImService(IAuthorizationService authorizationService, IRepository<ImSession> imSessionRepository, IRepository<ImSessionMessage> imSessionMessageRepository, IRepository<ImUserSession> imUserSessionRepository)
+        /// <param name="systemNotificationService"></param>
+        /// <param name="userService"></param>
+        public ImService(IAuthorizationService authorizationService, IRepository<ImSession> imSessionRepository, IRepository<ImSessionMessage> imSessionMessageRepository, IRepository<ImUserSession> imUserSessionRepository, ISystemNotificationService systemNotificationService, IUserService userService)
         {
             this.authorizationService = authorizationService;
             this.imSessionRepository = imSessionRepository;
             this.imSessionMessageRepository = imSessionMessageRepository;
             this.imUserSessionRepository = imUserSessionRepository;
+            this.systemNotificationService = systemNotificationService;
+            this.userService = userService;
         }
-
         /// <summary>
         /// 添加会话
         /// </summary>
@@ -80,7 +89,6 @@ namespace Gardener.WoChat.Services
             }
             return true;
         }
-
         /// <summary>
         /// 获取会话列表
         /// </summary>
@@ -135,11 +143,21 @@ namespace Gardener.WoChat.Services
             {
                 query = query.Where(x => x.CreatedTime > maxDateTime);
             }
-            return await query
+            List<ImSessionMessageDto> messages= await query
                 .Select(x => x.Adapt<ImSessionMessageDto>())
                 .OrderBy(x => x.CreatedTime)
                 .Take(pageSize)
                 .ToListAsync();
+            if(messages.Any())
+            {
+                //填充用戶信息
+                var users=await userService.GetUsers(messages.Select(x => x.UserId));
+                foreach (ImSessionMessageDto message in messages)
+                {
+                    message.User= users.Where(x=>x.Id==message.UserId).FirstOrDefault();
+                }
+            }
+            return messages;
         }
         /// <summary>
         /// 退出会话
@@ -180,7 +198,6 @@ namespace Gardener.WoChat.Services
             }
             return true;
         }
-
         /// <summary>
         /// 移除会话
         /// </summary>
@@ -229,14 +246,21 @@ namespace Gardener.WoChat.Services
                 return false;
             }
             int userId = int.Parse(identity.Id);
-            
+
             ImSessionMessage sessionMessage = message.Adapt<ImSessionMessage>();
             sessionMessage.UserId = userId;
             sessionMessage.CreatedTime = DateTimeOffset.Now;
             sessionMessage.CreateBy = identity.Id;
-            sessionMessage.CreateIdentityType=identity.IdentityType;
+            sessionMessage.CreateIdentityType = identity.IdentityType;
             await imSessionMessageRepository.InsertAsync(sessionMessage);
             //发送
+            var user=await userService.Get(userId);
+            message.User = user;
+            await systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImMessageNotificationData()
+            {
+                Identity = identity,
+                ImMessage = message,
+            });
             return true;
         }
     }

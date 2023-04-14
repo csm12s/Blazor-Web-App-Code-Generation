@@ -49,5 +49,12 @@ namespace Gardener.UserCenter.Services
         /// <param name="input"></param>
         /// <returns></returns>
         Task<bool> UpdateAvatar(UserUpdateAvatarInput input);
+
+        /// <summary>
+        /// 根据用户编号集合获取多个用户
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <returns></returns>
+        Task<List<UserDto>> GetUsers(IEnumerable<int> userIds);
     }
 }

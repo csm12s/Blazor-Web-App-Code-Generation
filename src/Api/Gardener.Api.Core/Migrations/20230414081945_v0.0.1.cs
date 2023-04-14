@@ -1166,6 +1166,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("dca2b115-3363-4f7f-8bba-b051b8d8603a"), "1", 1, 1306552940953600480L, "导出数据", true, "系统基础服务", false, false, "C159134CE2D63BC05680B2AD2BB86E7C", 1, "/api/function/export", "功能服务", "导出", null, null, null },
                     { new Guid("ddeeea7e-09e3-42c1-b536-0ff16393db1c"), null, null, 1306532718346240480L, null, true, "系统基础服务", false, false, "E23CF3B8D86A5D0E1F13759117676687", 1, "/api/email-verify-code", "邮件验证码服务", "获取验证码", null, null, 1306532718346240480L },
                     { new Guid("deb0a631-d0fb-4b6f-8b0d-bfeee5c759c8"), "1", 1, 1306782482718720480L, "导出数据", true, "系统基础服务", false, false, "B544D64F87CECA7C98BD6D944E214805", 1, "/api/code-gen/export", "代码生成 - DB First", "导出", null, null, null },
+                    { new Guid("e0b19b01-4b37-426a-a5c4-749e5936b64c"), "2", 1, 1306971987783680480L, "不执行任何内容，token无效将响应401", true, "用户中心服务", false, false, "F8F937E7C7DC6514F3C0E1353D4D35FB", 1, "/api/account/test-token", "用户账户认证授权服务", "测试token是否可用", null, null, null },
                     { new Guid("e22446f3-1a8c-4500-ab7b-8922f70a811a"), "1", 1, 1306782482472960480L, "根据多个主键批量删除", true, "系统基础服务", false, false, "90302348A7CC0816FA57893583185966", 1, "/api/code-gen-config/deletes", "代码生成配置 - DB First", "批量删除", null, null, null },
                     { new Guid("e23b555c-600a-4839-9439-2ee0ad0ae4f8"), null, null, 1306532718346240480L, "更新一条数据", true, "用户中心服务", false, false, "248BF161E6BEB662D259298A8E564433", 2, "/api/dept", "部门服务", "更新", null, null, 1306532718346240480L },
                     { new Guid("e242137a-b4ea-4dd9-9692-63885fce93b8"), "1", 1, 1306961911971840480L, "根据主键逻辑删除", true, "系统基础服务", false, false, "730019C5993BDE609E6596851BA232F6", 3, "/api/code-type/fake-delete/{id}", "字典类型管理", "逻辑删除", null, null, null },
@@ -1312,6 +1313,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("713341f2-47e1-42af-b717-bfa75904d32e"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306582939402240480L },
                     { new Guid("89a06a4e-1a8e-41aa-a443-fd11bcc8497d"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306582939402240480L },
                     { new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306582939402240480L },
+                    { new Guid("e0b19b01-4b37-426a-a5c4-749e5936b64c"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306971988418560480L },
                     { new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306582939402240480L }
                 });
 

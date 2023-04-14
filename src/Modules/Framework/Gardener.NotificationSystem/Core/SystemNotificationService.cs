@@ -56,7 +56,7 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="groupNames"></param>
         /// <param name="notifyData"></param>
         /// <returns></returns>
-        public Task SendToGroup(IEnumerable<string> groupNames, NotificationData notifyData)
+        public Task SendToGroups(IEnumerable<string> groupNames, NotificationData notifyData)
         {
             string json = System.Text.Json.JsonSerializer.Serialize(notifyData, notifyData.GetType());
             return hubContext.Clients.Groups(groupNames).SendAsync(method, json);
@@ -64,26 +64,34 @@ namespace Gardener.NotificationSystem.Core
         /// <summary>
         /// 向指定用户发送信息
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="receiveUser">接收用户</param>
         /// <param name="notifyData"></param>
         /// <returns></returns>
-        public Task SendToUser(int userId, NotificationData notifyData)
+        public Task SendToUser(Identity receiveUser, NotificationData notifyData)
         {
             string json = System.Text.Json.JsonSerializer.Serialize(notifyData);
-            return hubContext.Clients.User(userId.ToString()).SendAsync(method, json);
+            return hubContext.Clients.User(GetUserId(receiveUser)).SendAsync(method, json);
         }
         /// <summary>
         /// 向指定用户发送信息
         /// </summary>
-        /// <param name="userIds"></param>
+        /// <param name="receiveUsers">接收用户集合</param>
         /// <param name="notifyData"></param>
         /// <returns></returns>
-        public Task SendToUsers(IEnumerable<int> userIds, NotificationData notifyData)
+        public Task SendToUsers(IEnumerable<Identity> receiveUsers, NotificationData notifyData)
         {
             string json = System.Text.Json.JsonSerializer.Serialize(notifyData);
-            return hubContext.Clients.Users(userIds.Select(x => x.ToString())).SendAsync(method, json);
+            return hubContext.Clients.Users(receiveUsers.Select(x => GetUserId(x))).SendAsync(method, json);
         }
-
+        /// <summary>
+        /// 获取用户编号
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        private string GetUserId(Identity identity)
+        {
+            return $"{identity.IdentityType}_{identity.Id}";
+        }
         /// <summary>
         /// 设置用户在线状态为在线
         /// </summary>
