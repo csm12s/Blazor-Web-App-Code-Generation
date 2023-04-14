@@ -11,7 +11,7 @@ namespace Gardener.WoChat.Services
     /// <summary>
     /// Im聊天服务
     /// </summary>
-    public interface IImService
+    public interface IWoChatImService
     {
         /// <summary>
         /// 获取会话列表

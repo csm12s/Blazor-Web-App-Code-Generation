@@ -27,7 +27,7 @@ namespace Gardener.WoChat.Services
     /// Im聊天服务
     /// </summary>
     [ApiDescriptionSettings("NotificationSystem")]
-    public class ImService : IImService, IDynamicApiController
+    public class WoChatImService : IWoChatImService, IDynamicApiController
     {
         private readonly IAuthorizationService authorizationService;
         private readonly IRepository<ImSession> imSessionRepository;
@@ -44,7 +44,7 @@ namespace Gardener.WoChat.Services
         /// <param name="imUserSessionRepository"></param>
         /// <param name="systemNotificationService"></param>
         /// <param name="userService"></param>
-        public ImService(IAuthorizationService authorizationService, IRepository<ImSession> imSessionRepository, IRepository<ImSessionMessage> imSessionMessageRepository, IRepository<ImUserSession> imUserSessionRepository, ISystemNotificationService systemNotificationService, IUserService userService)
+        public WoChatImService(IAuthorizationService authorizationService, IRepository<ImSession> imSessionRepository, IRepository<ImSessionMessage> imSessionMessageRepository, IRepository<ImUserSession> imUserSessionRepository, ISystemNotificationService systemNotificationService, IUserService userService)
         {
             this.authorizationService = authorizationService;
             this.imSessionRepository = imSessionRepository;
@@ -123,7 +123,7 @@ namespace Gardener.WoChat.Services
         /// <param name="maxDateTime"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<List<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId, DateTimeOffset? maxDateTime, int pageSize = 100)
+        public async Task<List<ImSessionMessageDto>> GetMySessionMessages([FromQuery] Guid imSessionId, [FromQuery] DateTimeOffset? maxDateTime, [FromQuery] int pageSize = 100)
         {
             Identity? identity = authorizationService.GetIdentity();
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
