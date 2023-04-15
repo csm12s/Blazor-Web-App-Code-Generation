@@ -60,15 +60,17 @@ namespace Gardener.NotificationSystem.Core
         /// 设置用户在线状态为在线
         /// </summary>
         /// <param name="identity"></param>
+        /// <param name="connectionId"></param>
         /// <returns></returns>
-        public Task SetUserOnline(Identity identity);
+        public Task SetUserOnline(Identity identity, string connectionId);
 
         /// <summary>
         /// 设置用户在线状态为离线
         /// </summary>
         /// <param name="identity"></param>
+        /// <param name="connectionId"></param>
         /// <returns></returns>
-        public Task SetUserOffline(Identity identity);
+        public Task SetUserOffline(Identity identity, string connectionId);
 
         /// <summary>
         /// 判断用户是否在线
@@ -76,5 +78,27 @@ namespace Gardener.NotificationSystem.Core
         /// <param name="identity"></param>
         /// <returns></returns>
         public Task<bool> CheckUserIsOnline(Identity identity);
+
+        /// <summary>
+        /// 设置用户到某个分组
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果不在线或链接信息不存在，无法设置
+        /// </remarks>
+        Task<bool> UserGroupAdd(string groupName, Identity identity);
+
+        /// <summary>
+        /// 移除用户的某个分组
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果链接信息不存在，无法设置
+        /// </remarks>
+        Task<bool> UserGroupRemove(string groupName, Identity identity);
     }
 }

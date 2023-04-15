@@ -9,8 +9,8 @@ using Furion.DynamicApiController;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;
-using Gardener.Common;
 using Gardener.NotificationSystem.Core;
+using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Gardener.WoChat.Domains;
 using Gardener.WoChat.Dtos;
@@ -93,28 +93,66 @@ namespace Gardener.WoChat.Services
         /// 获取会话列表
         /// </summary>
         /// <returns></returns>
-        public Task<List<ImSessionDto>> GetImSessions()
+        public async Task<IEnumerable<ImSessionDto>> GetImGroupSessions()
         {
-            return imUserSessionRepository.AsQueryable(false).Select(x => x.Adapt<ImSessionDto>()).ToListAsync();
+            List<ImSessionDto> imSessions = await imSessionRepository.AsQueryable(false).Where(x=>x.SessionType.Equals(ImSessionType.Group)).Select(x => x.Adapt<ImSessionDto>()).ToListAsync();
+            if (!imSessions.Any())
+            {
+                return new ImSessionDto[0];
+            }
+            List<ImUserSessionDto> imUserSessions = await imUserSessionRepository.AsQueryable(false).Where(x=> imSessions.Select(u=>u.Id).Contains(x.ImSessionId)).Select(x => x.Adapt<ImUserSessionDto>()).ToListAsync();
+            if (!imUserSessions.Any())
+            {
+                return new ImSessionDto[0];
+            }
+            List<UserDto> users = await userService.GetUsers(imUserSessions.Select(x => x.UserId).Distinct());
+            imSessions.ForEach(x => 
+            {
+               IEnumerable<int> userIds= imUserSessions.Where(u => u.ImSessionId.Equals(x.Id)).Select(u => u.UserId);
+                x.Users = users.Where(r=>userIds.Contains(r.Id)).Select(x=>x);
+            });
+            return imSessions;
         }
         /// <summary>
         /// 获取我的会话列表
         /// </summary>
         /// <returns></returns>
-        public Task<List<ImSessionDto>> GetMyImSessions()
+        public async Task<IEnumerable<ImSessionDto>> GetMyImSessions()
         {
             Identity? identity = authorizationService.GetIdentity();
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
             {
-                return Task.FromResult<List<ImSessionDto>>(new()); ;
+                return new ImSessionDto[0];
             }
             int userId = int.Parse(identity.Id);
-            return imUserSessionRepository
+            //我的会话
+            IEnumerable<ImUserSessionDto> imUsersessionDtos=await imUserSessionRepository
                 .AsQueryable(false)
                 .Where(x => x.UserId.Equals(userId) && x.IsActive == true)
-                .Select(x => x.Adapt<ImSessionDto>())
-                .OrderByDescending(x => x.LastMessageTime)
+                .Select(x => x.Adapt<ImUserSessionDto>())
                 .ToListAsync();
+
+            IEnumerable<Guid> sessionIds = imUsersessionDtos.Select(x => x.ImSessionId).Distinct();
+            IEnumerable<int> userIds = imUsersessionDtos.Select(x => (int)(x.UserId)).Distinct();
+
+            var task1= imSessionRepository.AsQueryable(false)
+                .Where(x => sessionIds.Contains(x.Id))
+                .Select(x => x.Adapt<ImSessionDto>())
+                .ToListAsync();
+
+            var task2= userService.GetUsers(userIds);
+
+            IEnumerable<ImSessionDto> sessions = await task1;
+            IEnumerable<UserDto> users = await task2;
+            if (sessions.Any())
+            {
+                //填充用戶信息
+                foreach (ImSessionDto session in sessions)
+                {
+                    session.Users = users.Where(x => x.Id == userId);
+                }
+            }
+            return sessions;
         }
         /// <summary>
         /// 获取会话消息列表
@@ -123,19 +161,19 @@ namespace Gardener.WoChat.Services
         /// <param name="maxDateTime"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<List<ImSessionMessageDto>> GetMySessionMessages([FromQuery] Guid imSessionId, [FromQuery] DateTimeOffset? maxDateTime, [FromQuery] int pageSize = 100)
+        public async Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages([FromQuery] Guid imSessionId, [FromQuery] DateTimeOffset? maxDateTime, [FromQuery] int pageSize = 100)
         {
             Identity? identity = authorizationService.GetIdentity();
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
             {
-                return new List<ImSessionMessageDto>(0);
+                return new ImSessionMessageDto[0];
             }
             int userId = int.Parse(identity.Id);
             if (await imUserSessionRepository
                 .AsQueryable(false)
                 .Where(x => x.UserId.Equals(userId)).AnyAsync())
             {
-                return new List<ImSessionMessageDto>(0);
+                return new ImSessionMessageDto[0];
             }
             var query = imSessionMessageRepository.AsQueryable(false)
                .Where(x => x.ImSessionId.Equals(imSessionId));
@@ -143,18 +181,18 @@ namespace Gardener.WoChat.Services
             {
                 query = query.Where(x => x.CreatedTime > maxDateTime);
             }
-            List<ImSessionMessageDto> messages= await query
+            IEnumerable<ImSessionMessageDto> messages = await query
                 .Select(x => x.Adapt<ImSessionMessageDto>())
                 .OrderBy(x => x.CreatedTime)
                 .Take(pageSize)
                 .ToListAsync();
-            if(messages.Any())
+            if (messages.Any())
             {
                 //填充用戶信息
-                var users=await userService.GetUsers(messages.Select(x => x.UserId));
+                var users = await userService.GetUsers(messages.Select(x => x.UserId));
                 foreach (ImSessionMessageDto message in messages)
                 {
-                    message.User= users.Where(x=>x.Id==message.UserId).FirstOrDefault();
+                    message.User = users.Where(x => x.Id == message.UserId).FirstOrDefault();
                 }
             }
             return messages;
@@ -165,7 +203,7 @@ namespace Gardener.WoChat.Services
         /// <param name="imSessionId"></param>
         /// <returns></returns>
         /// <remarks>
-        /// 私聊直接删除，群里直接退出，自己创建的话直接解散
+        /// 私聊直接删除，群聊直接退出，自己创建的话直接解散
         /// </remarks>
         public async Task<bool> QuitMyImSession(Guid imSessionId)
         {
@@ -195,6 +233,10 @@ namespace Gardener.WoChat.Services
                     tasks.Add(imUserSessionRepository.DeleteAsync(x.Id));
                 });
                 await Task.WhenAll(tasks);
+            }
+            else if (session.SessionType.Equals(ImSessionType.Group))
+            {
+                //群聊直接退出，自己创建的话直接解散
             }
             return true;
         }
@@ -254,7 +296,7 @@ namespace Gardener.WoChat.Services
             sessionMessage.CreateIdentityType = identity.IdentityType;
             await imSessionMessageRepository.InsertAsync(sessionMessage);
             //发送
-            var user=await userService.Get(userId);
+            var user = await userService.Get(userId);
             message.User = user;
             await systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImMessageNotificationData()
             {

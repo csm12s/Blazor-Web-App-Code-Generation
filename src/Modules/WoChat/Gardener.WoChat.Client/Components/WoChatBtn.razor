@@ -1,8 +1,76 @@
-﻿<div class="wochat-show-box">
-    <Badge Count="5">
-        <Button Size="@ButtonSize.Large" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="comment"></Button>
+﻿@using Gardener.Client.AntDesignUi.Base.Constants;
+@using Gardener.Client.Base.EventBus.Events;
+@using Gardener.EventBus;
+@using Gardener.WoChat.Dtos.Notification;
+<div class="wochat-show-box" style="@(userIsLogin?"":"display:none;")">
+    <Badge Count="messageCount">
+        <Button Size="@ButtonSize.Large" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="comment" OnClick="OnClick" Style="font-size:34px;"></Button>
     </Badge>
 </div>
 @code {
+    private bool userIsLogin = false;
+    private int messageCount = 0;
 
+    [Inject]
+    private IOperationDialogService OperationDialogService { get; set; } = null!;
+
+    [Inject]
+    private IEventBus EventBus { get; set; } = null!;
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    /// <returns></returns>
+    protected override Task OnInitializedAsync()
+    {
+        //登陆成功
+        EventBus.Subscribe<LoginSucceedAfterEvent>(token=>
+        {
+            userIsLogin = true;
+            return InvokeAsync(StateHasChanged);
+        });
+        EventBus.Subscribe<ReloadCurrentUserEvent>(token =>
+        {
+            userIsLogin = true;
+            return InvokeAsync(StateHasChanged);
+        });
+        //登出成功
+        EventBus.Subscribe<LogoutSucceedAfterEvent>(token =>
+        {
+            userIsLogin = false;
+            return InvokeAsync(StateHasChanged);
+        });
+        //im消息
+        EventBus.Subscribe<WoChatImMessageNotificationData>(token =>
+        {
+            messageCount++;
+            return InvokeAsync(StateHasChanged);
+        });
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private Task OnClick()
+    {
+        messageCount = 0;
+        OperationDialogSettings dialogSettings = ClientConstant.DefaultOperationDialogSettings;
+        dialogSettings.Width = 800;
+        dialogSettings.BodyStyle = "padding: 5px;";
+        return OperationDialogService.OpenAsync<WoChat, Guid?, bool>("WoChat", null, OnWoChatClose, dialogSettings);
+
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    private Task OnWoChatClose(bool result)
+    {
+
+        return Task.CompletedTask;
+
+    }
 }

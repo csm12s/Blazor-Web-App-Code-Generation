@@ -76,7 +76,7 @@ namespace Gardener.NotificationSystem.Core
             {
                 return;
             }
-            await systemNotificationService.SetUserOnline(identity);
+            await systemNotificationService.SetUserOnline(identity, this.Context.ConnectionId);
 
             //分组器
             IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
@@ -124,7 +124,7 @@ namespace Gardener.NotificationSystem.Core
             {
                 return;
             }
-            await systemNotificationService.SetUserOffline(identity);
+            await systemNotificationService.SetUserOffline(identity, this.Context.ConnectionId);
             //分组器
             IEnumerable<ISystemNotificationHubGrouper> groupers = App.GetServices<ISystemNotificationHubGrouper>();
             List<Task<IEnumerable<string>>> tasks = new();

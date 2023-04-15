@@ -1,7 +1,114 @@
 ﻿@page "/wo-chat"
+@using Gardener.UserCenter.Dtos;
+@using Gardener.WoChat.Dtos;
 @inherits OperationDialogBase<Guid?,bool,WoChatResource>
-<Row>
-    <Col>
+<GridRow Style="@($"height:{height}px;")">
+    @*<GridCol Span="2">
+    <GridRow>
+    <GridCol Span="24">
+    <Button Type="@ButtonType.Dashed" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Message" Block />
+    </GridCol>
+    </GridRow>
+    </GridCol>
+    <GridCol Span="6" Style="border: 1px solid #ccc;">
+    <GridRow>
+    <GridCol Span="24">
+    @if (imSessions != null && imSessions.Count() > 0)
+    {
+    <AntList DataSource="imSessions" TItem="ImSessionDto ">
+    <ListItem>
+    <Comment Avatar="@context.Users.First().Avatar"
+    Author="@context.Users.First().NickName">
+    </Comment>
+    </ListItem>
+    </AntList>
+    }
+    </GridCol>
+    </GridRow>
 
-    </Col>
-</Row>
+    </GridCol>*@
+    <GridCol Span="24">
+        <Tabs DefaultActiveKey="1" TabPosition="TabPosition.Left" OnTabClick="OnTabClick">
+            <TabPane Key="1">
+                <TabTemplate>
+                    <Icon Type="message" Theme="outline" Style="font-size:34px;" />
+                </TabTemplate>
+                <ChildContent>Tab 1</ChildContent>
+            </TabPane>
+            <TabPane Key="2">
+                <TabTemplate>
+                    <Icon Type="team" Theme="outline" Style="font-size:34px;" />
+                </TabTemplate>
+                <ChildContent>
+                    <GridRow>
+                        <GridCol Span="6" Style="@($"height:{height}px;overflow-y:scroll;border-right: 1px solid #ccc;")">
+                            @if (users != null)
+                            {
+                                <AntList DataSource="users" TItem="UserDto ">
+                                    <ListItem OnClick="()=>OnClickUserListItem(context)">
+                                        <span>
+                                            @if (context.Avatar == null)
+                                            {
+                                                <Avatar Size="large">@(context.GetAvatarFromName())</Avatar>
+                                            }
+                                            else
+                                            {
+                                                <Avatar Size="large" Src="@context.Avatar" />
+                                            }
+                                            @(context.NickName ?? context.UserName)
+                                        </span>
+                                    </ListItem>
+                                </AntList>
+                            }
+
+                        </GridCol>
+                        <GridCol Span="18" Style="@($"height:{height}px;overflow-y:scroll;")">
+                            <GridRow>
+                                <GridCol Span="24">
+                                    @if (userListSelectedUser == null)
+                                    {
+                                        <Empty Simple Description="false" />
+                                    }
+                                    else
+                                    {
+                                        <Descriptions Title="@Localizer["UserInfo"]" Bordered>
+                                        <DescriptionsItem Title="@Localizer["Avatar"]" Span="3">
+                                            @if (userListSelectedUser?.Avatar == null)
+                                                {
+                                                    <Avatar Size="5rem">@(userListSelectedUser?.GetAvatarFromName())</Avatar>
+                                                }
+                                                else
+                                                {
+                                                    <Avatar Size="5rem" Src="@userListSelectedUser?.Avatar" />
+                                                }
+                                            </DescriptionsItem>
+                                            <DescriptionsItem Title="@Localizer["UserName"]" Span="3">@(userListSelectedUser?.UserName)</DescriptionsItem>
+                                                <DescriptionsItem Title="@Localizer["NickName"]" Span="3">@(userListSelectedUser?.NickName)</DescriptionsItem>
+                                                <DescriptionsItem Title="Telephone" Span="3">18100000000</DescriptionsItem>
+                                                <DescriptionsItem Title="Live" Span="3">Hangzhou, Zhejiang</DescriptionsItem>
+                                                <DescriptionsItem Title="Remark" Span="3">Empty</DescriptionsItem>
+                                                <DescriptionsItem Title="Address" Span="3">
+                                                    No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+                                                </DescriptionsItem>
+                                            </Descriptions>
+                                    }
+                                </GridCol>
+                            </GridRow>
+                            <GridRow>
+                                <GridCol Span="24" Style="text-align:center;">
+                                    @if (userListSelectedUser != null)
+                                    {
+                                        <Button Type="@ButtonType.Primary">
+                                            发送消息
+                                        </Button>
+                                    }
+                                </GridCol>
+
+                            </GridRow>
+                        </GridCol>
+                    </GridRow>
+                </ChildContent>
+            </TabPane>
+        </Tabs>
+    </GridCol>
+</GridRow>

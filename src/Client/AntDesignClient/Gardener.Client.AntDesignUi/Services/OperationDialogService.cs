@@ -56,6 +56,7 @@ namespace Gardener.Client.AntDesignUi.Services
                     Footer = null,
                     DestroyOnClose = true,
                     Maximizable = dialogSettings.ModalMaximizable,
+                    BodyStyle = dialogSettings.BodyStyle,
                     #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
                     DefaultMaximized = dialogSettings.ModalDefaultMaximized
                     #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
@@ -84,7 +85,9 @@ namespace Gardener.Client.AntDesignUi.Services
                     MaskClosable = dialogSettings.MaskClosable,
                     Title = title,
                     Width = dialogSettings.Width,
-                    Height = dialogSettings.DrawerHeight,
+                    Height = dialogSettings.Height,
+                    BodyStyle=dialogSettings.BodyStyle,
+                    HeaderStyle = dialogSettings.HeaderStyle,
                     Placement = dialogSettings.DrawerPlacement.ToString().ToLower()
                 };
 

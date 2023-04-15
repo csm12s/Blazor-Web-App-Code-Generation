@@ -23,7 +23,7 @@ using Gardener.UserCenter.Impl.Core;
 using Gardener.UserCenter.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.EntityFramwork;
-using IdGen;
+using Furion.DependencyInjection;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -31,7 +31,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// 用户服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
-    public class UserService : ServiceBase<User, UserDto>, IUserService
+    public class UserService : ServiceBase<User, UserDto>, IUserService,IScoped
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;

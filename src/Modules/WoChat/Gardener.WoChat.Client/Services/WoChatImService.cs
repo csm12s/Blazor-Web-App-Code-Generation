@@ -37,24 +37,24 @@ namespace Gardener.WoChat.Client.Services
             return apiCaller.PostAsync<ImSessionAddInput, bool>($"{controller}/my-im-session", input);
         }
 
-        public Task<List<ImSessionDto>> GetImSessions()
+        public Task<IEnumerable<ImSessionDto>> GetImGroupSessions()
         {
-            return apiCaller.GetAsync<List<ImSessionDto>>($"{controller}/im-sessions");
+            return apiCaller.GetAsync<IEnumerable<ImSessionDto>>($"{controller}/im-group-sessions");
         }
 
-        public Task<List<ImSessionDto>> GetMyImSessions()
+        public Task<IEnumerable<ImSessionDto>> GetMyImSessions()
         {
-            return apiCaller.GetAsync<List<ImSessionDto>>($"{controller}/my-im-sessions");
+            return apiCaller.GetAsync<IEnumerable<ImSessionDto>>($"{controller}/my-im-sessions");
         }
 
-        public Task<List<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId, DateTimeOffset? maxDateTime, int pageSize = 100)
+        public Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId, DateTimeOffset? maxDateTime, int pageSize = 100)
         {
             IDictionary<string, object?> queryString = new Dictionary<string, object?>();
             queryString.Add("imSessionId", imSessionId);
             queryString.Add("maxDateTime", maxDateTime);
             queryString.Add("pageSize", pageSize);
 
-            return apiCaller.GetAsync<List<ImSessionMessageDto>>($"{controller}/my-session-messages", queryString);
+            return apiCaller.GetAsync<IEnumerable<ImSessionMessageDto>>($"{controller}/my-session-messages", queryString);
         }
 
         public Task<bool> QuitMyImSession(Guid imSessionId)

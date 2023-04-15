@@ -99,5 +99,13 @@ namespace Gardener.UserCenter.Dtos
         /// 岗位
         /// </summary>
         public PositionDto? Position;
+        /// <summary>
+        /// 从名字获取头像
+        /// </summary>
+        /// <returns></returns>
+        public string GetAvatarFromName()
+        {
+            return (this.NickName ?? this.UserName).Substring(0,1);
+        }
     }
 }

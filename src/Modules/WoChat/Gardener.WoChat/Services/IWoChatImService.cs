@@ -14,16 +14,16 @@ namespace Gardener.WoChat.Services
     public interface IWoChatImService
     {
         /// <summary>
-        /// 获取会话列表
+        /// 获取IM群组会话列表
         /// </summary>
         /// <returns></returns>
-        Task<List<ImSessionDto>> GetImSessions();
+        Task<IEnumerable<ImSessionDto>> GetImGroupSessions();
 
         /// <summary>
         /// 获取我的会话列表
         /// </summary>
         /// <returns></returns>
-        Task<List<ImSessionDto>> GetMyImSessions();
+        Task<IEnumerable<ImSessionDto>> GetMyImSessions();
 
         /// <summary>
         /// 获取会话消息列表
@@ -32,7 +32,7 @@ namespace Gardener.WoChat.Services
         /// <param name="maxDateTime"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<List<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId,DateTimeOffset? maxDateTime,int pageSize=100);
+        Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId,DateTimeOffset? maxDateTime,int pageSize=100);
 
         /// <summary>
         /// 发送消息到会话

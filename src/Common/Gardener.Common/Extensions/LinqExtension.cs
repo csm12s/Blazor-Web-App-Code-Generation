@@ -19,12 +19,15 @@ namespace Gardener.Common
         /// <param name="list">集合</param>
         /// <param name="func">Lambda表达式</param>
         /// <returns> </returns>
-        public static async Task ForEachAsync<T>(this IEnumerable<T> list, Func<T, Task> func)
+        public static Task ForEachAsync<T>(this IEnumerable<T> list, Func<T, Task> func)
         {
+            List<Task> tasks = new List<Task>();
             foreach (T value in list)
             {
-                await func(value);
+                tasks.Add(func(value));
             }
+
+            return Task.WhenAll(tasks);
         }
     }
 }
