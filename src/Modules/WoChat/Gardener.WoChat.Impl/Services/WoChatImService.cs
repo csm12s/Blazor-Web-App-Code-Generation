@@ -9,6 +9,7 @@ using Furion.DynamicApiController;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;
+using Gardener.Common;
 using Gardener.NotificationSystem.Core;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
@@ -18,6 +19,7 @@ using Gardener.WoChat.Dtos.Notification;
 using Gardener.WoChat.Enums;
 using Gardener.WoChat.Impl.Core;
 using Mapster;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,26 +56,52 @@ namespace Gardener.WoChat.Services
             this.userService = userService;
         }
         /// <summary>
+        /// 获取签名
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <returns></returns>
+        private string GetSignature(IEnumerable<int> userIds)
+        {
+            string userIdStrs = string.Join(",", userIds.OrderBy(x => x));
+            return MD5Encryption.Encrypt(userIdStrs);
+        }
+        /// <summary>
         /// 添加会话
         /// </summary>
         /// <param name="input"></param>
-        /// <returns></returns>
-        public async Task<bool> AddMyImSession(ImSessionAddInput input)
+        /// <returns>会话编号</returns>
+        public async Task<Guid?> AddMyImSession(ImSessionAddInput input)
         {
             Identity? identity = authorizationService.GetIdentity();
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
             {
-                return false;
+                return null;
             }
+            int currentUserId = int.Parse(identity.Id);
+            List<int> userIds = input.UserIds.ToList();
+            if (input.SessionType.Equals(ImSessionType.Personal))
+            {
+                userIds.Add(currentUserId);
+                //判断私聊是否存在
+                string signature = GetSignature(userIds);
+                var session = await imSessionRepository.Where(x => x.SessionType.Equals(ImSessionType.Personal) && x.UsersSignature.Equals(signature)).FirstOrDefaultAsync();
+                if (session!=null)
+                {
+                    //已存在
+                    return session.Id;
+                }
+            }
+
             ImSession imSession = input.Adapt<ImSession>();
             imSession.Id = Guid.NewGuid();
+            imSession.UsersSignature = GetSignature(userIds);
             imSession.CreateBy = identity.Id;
             imSession.CreateIdentityType = identity.IdentityType;
             imSession.CreatedTime = DateTimeOffset.Now;
 
             await imSessionRepository.InsertAsync(imSession);
 
-            foreach (var userId in input.UserIds)
+            foreach (var userId in userIds)
             {
                 ImUserSession imUserSession = new()
                 {
@@ -87,7 +115,7 @@ namespace Gardener.WoChat.Services
                 };
                 await imUserSessionRepository.InsertAsync(imUserSession);
             }
-            return true;
+            return imSession.Id;
         }
         /// <summary>
         /// 获取会话列表
@@ -95,21 +123,21 @@ namespace Gardener.WoChat.Services
         /// <returns></returns>
         public async Task<IEnumerable<ImSessionDto>> GetImGroupSessions()
         {
-            List<ImSessionDto> imSessions = await imSessionRepository.AsQueryable(false).Where(x=>x.SessionType.Equals(ImSessionType.Group)).Select(x => x.Adapt<ImSessionDto>()).ToListAsync();
+            List<ImSessionDto> imSessions = await imSessionRepository.AsQueryable(false).Where(x => x.SessionType.Equals(ImSessionType.Group)).Select(x => x.Adapt<ImSessionDto>()).ToListAsync();
             if (!imSessions.Any())
             {
                 return new ImSessionDto[0];
             }
-            List<ImUserSessionDto> imUserSessions = await imUserSessionRepository.AsQueryable(false).Where(x=> imSessions.Select(u=>u.Id).Contains(x.ImSessionId)).Select(x => x.Adapt<ImUserSessionDto>()).ToListAsync();
+            List<ImUserSessionDto> imUserSessions = await imUserSessionRepository.AsQueryable(false).Where(x => imSessions.Select(u => u.Id).Contains(x.ImSessionId)).Select(x => x.Adapt<ImUserSessionDto>()).ToListAsync();
             if (!imUserSessions.Any())
             {
                 return new ImSessionDto[0];
             }
             List<UserDto> users = await userService.GetUsers(imUserSessions.Select(x => x.UserId).Distinct());
-            imSessions.ForEach(x => 
+            imSessions.ForEach(x =>
             {
-               IEnumerable<int> userIds= imUserSessions.Where(u => u.ImSessionId.Equals(x.Id)).Select(u => u.UserId);
-                x.Users = users.Where(r=>userIds.Contains(r.Id)).Select(x=>x);
+                IEnumerable<int> userIds = imUserSessions.Where(u => u.ImSessionId.Equals(x.Id)).Select(u => u.UserId);
+                x.Users = users.Where(r => userIds.Contains(r.Id)).Select(x => x);
             });
             return imSessions;
         }
@@ -126,7 +154,7 @@ namespace Gardener.WoChat.Services
             }
             int userId = int.Parse(identity.Id);
             //我的会话
-            IEnumerable<ImUserSessionDto> imUsersessionDtos=await imUserSessionRepository
+            IEnumerable<ImUserSessionDto> imUsersessionDtos = await imUserSessionRepository
                 .AsQueryable(false)
                 .Where(x => x.UserId.Equals(userId) && x.IsActive == true)
                 .Select(x => x.Adapt<ImUserSessionDto>())
@@ -135,12 +163,12 @@ namespace Gardener.WoChat.Services
             IEnumerable<Guid> sessionIds = imUsersessionDtos.Select(x => x.ImSessionId).Distinct();
             IEnumerable<int> userIds = imUsersessionDtos.Select(x => (int)(x.UserId)).Distinct();
 
-            var task1= imSessionRepository.AsQueryable(false)
+            var task1 = imSessionRepository.AsQueryable(false)
                 .Where(x => sessionIds.Contains(x.Id))
                 .Select(x => x.Adapt<ImSessionDto>())
                 .ToListAsync();
 
-            var task2= userService.GetUsers(userIds);
+            var task2 = userService.GetUsers(userIds);
 
             IEnumerable<ImSessionDto> sessions = await task1;
             IEnumerable<UserDto> users = await task2;

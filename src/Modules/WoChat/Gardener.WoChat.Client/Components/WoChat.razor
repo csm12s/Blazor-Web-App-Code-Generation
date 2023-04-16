@@ -92,7 +92,7 @@
                                 <GridCol Span="24" Style="text-align:center;">
                                     @if (userListSelectedUser != null)
                                     {
-                                        <Button Type="@ButtonType.Primary">
+                                        <Button Type="@ButtonType.Primary" OnClick="OnClickSendMessage">
                                             @Localizer[WoChatResource.SendMessage]
                                         </Button>
                                     }

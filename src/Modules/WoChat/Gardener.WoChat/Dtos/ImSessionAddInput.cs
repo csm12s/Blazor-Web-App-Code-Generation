@@ -16,6 +16,6 @@ namespace Gardener.WoChat.Dtos
         /// <summary>
         /// 邀请的用户
         /// </summary>
-        public List<int> UserIds { get; set; }=new List<int>();
+        public IEnumerable<int> UserIds { get; set; }=new int[0];
     }
 }

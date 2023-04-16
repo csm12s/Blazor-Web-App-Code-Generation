@@ -11416,6 +11416,10 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long?>("UpdatedTime")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("UsersSignature")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("ImSession");

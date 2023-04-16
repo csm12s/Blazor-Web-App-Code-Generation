@@ -32,9 +32,9 @@ namespace Gardener.WoChat.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public Task<bool> AddMyImSession(ImSessionAddInput input)
+        public Task<Guid?> AddMyImSession(ImSessionAddInput input)
         {
-            return apiCaller.PostAsync<ImSessionAddInput, bool>($"{controller}/my-im-session", input);
+            return apiCaller.PostAsync<ImSessionAddInput, Guid?>($"{controller}/my-im-session", input);
         }
 
         public Task<IEnumerable<ImSessionDto>> GetImGroupSessions()

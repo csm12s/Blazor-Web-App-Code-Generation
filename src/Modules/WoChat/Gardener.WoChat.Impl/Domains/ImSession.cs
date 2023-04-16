@@ -44,5 +44,14 @@ namespace Gardener.WoChat.Domains
         /// </summary>
         [DisplayName("LastMessageTime")]
         public DateTimeOffset LastMessageTime { get; set; }
+        /// <summary>
+        /// 用户签名
+        /// </summary>
+        /// <remarks>
+        /// 通过用户编号组，计算签名，方便从用户编号组进行查重
+        /// userIds 正序，逗号拼接，MD5
+        /// </remarks>
+        [DisplayName("UsersSignature")]
+        public string UsersSignature { get; set; } = null!;
     }
 }

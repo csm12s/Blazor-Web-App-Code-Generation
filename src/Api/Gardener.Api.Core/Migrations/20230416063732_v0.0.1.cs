@@ -290,6 +290,7 @@ namespace Gardener.Api.Core.Migrations
                     SessionName = table.Column<string>(type: "TEXT", nullable: true),
                     Announcement = table.Column<string>(type: "TEXT", nullable: true),
                     LastMessageTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    UsersSignature = table.Column<string>(type: "TEXT", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),

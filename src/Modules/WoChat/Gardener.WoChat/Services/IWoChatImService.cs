@@ -45,8 +45,8 @@ namespace Gardener.WoChat.Services
         /// 添加会话
         /// </summary>
         /// <param name="input"></param>
-        /// <returns></returns>
-        Task<bool> AddMyImSession(ImSessionAddInput input);
+        /// <returns>会话编号</returns>
+        Task<Guid?> AddMyImSession(ImSessionAddInput input);
 
         /// <summary>
         /// 移除会话

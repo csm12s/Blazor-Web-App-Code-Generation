@@ -42,7 +42,7 @@ namespace Gardener.WoChat.Dtos
         [DisplayName("LastMessageTime")]
         public DateTimeOffset LastMessageTime { get; set; }
         /// <summary>
-        /// 用户列表
+        /// 用户列表-输出展示
         /// </summary>
         public IEnumerable<UserDto> Users { get; set; }=new List<UserDto>();
     }

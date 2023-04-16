@@ -27,5 +27,9 @@ namespace Gardener.WoChat.Resources
         /// 发送消息
         /// </summary>
         public const string SendMessage = nameof(SendMessage);
+        /// <summary>
+        /// 开启会话
+        /// </summary>
+        public const string OpenSession = nameof(OpenSession);
     }
 }

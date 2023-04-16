@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230414083810_v0.0.1")]
+    [Migration("20230416063732_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -11418,6 +11418,10 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<long?>("UpdatedTime")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("UsersSignature")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
