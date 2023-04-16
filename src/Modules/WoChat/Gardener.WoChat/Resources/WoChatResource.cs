@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
+using Gardener.UserCenter.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,13 @@ namespace Gardener.WoChat.Resources
     /// </summary>
     public class WoChatResource : SharedLocalResource
     {
-
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        public const string UserInfo = nameof(UserInfo);
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        public const string SendMessage = nameof(SendMessage);
     }
 }

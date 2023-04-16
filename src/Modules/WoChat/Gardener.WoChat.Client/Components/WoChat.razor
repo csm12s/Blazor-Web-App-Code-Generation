@@ -62,7 +62,7 @@
                             }
 
                         </GridCol>
-                        <GridCol Span="18" Style="@($"height:{height}px;overflow-y:scroll;")">
+                        <GridCol Span="18" Style="@($"height:{height}px;overflow-y:scroll;padding-left: 10px;")">
                             <GridRow>
                                 <GridCol Span="24">
                                     @if (userListSelectedUser == null)
@@ -71,35 +71,29 @@
                                     }
                                     else
                                     {
-                                        <Descriptions Title="@Localizer["UserInfo"]" Bordered>
-                                        <DescriptionsItem Title="@Localizer["Avatar"]" Span="3">
-                                            @if (userListSelectedUser?.Avatar == null)
-                                                {
-                                                    <Avatar Size="5rem">@(userListSelectedUser?.GetAvatarFromName())</Avatar>
-                                                }
-                                                else
-                                                {
-                                                    <Avatar Size="5rem" Src="@userListSelectedUser?.Avatar" />
-                                                }
-                                            </DescriptionsItem>
-                                            <DescriptionsItem Title="@Localizer["UserName"]" Span="3">@(userListSelectedUser?.UserName)</DescriptionsItem>
-                                                <DescriptionsItem Title="@Localizer["NickName"]" Span="3">@(userListSelectedUser?.NickName)</DescriptionsItem>
-                                                <DescriptionsItem Title="Telephone" Span="3">18100000000</DescriptionsItem>
-                                                <DescriptionsItem Title="Live" Span="3">Hangzhou, Zhejiang</DescriptionsItem>
-                                                <DescriptionsItem Title="Remark" Span="3">Empty</DescriptionsItem>
-                                                <DescriptionsItem Title="Address" Span="3">
-                                                    No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+                                        <Descriptions Title="@Localizer[WoChatResource.UserInfo]" Bordered Style="text-align:center;">
+                                                <DescriptionsItem Title="@Localizer[WoChatResource.Avatar]" Span="3">
+                                                    @if (userListSelectedUser?.Avatar == null)
+                                                    {
+                                                        <Avatar Size="5rem">@(userListSelectedUser?.GetAvatarFromName())</Avatar>
+                                                    }
+                                                    else
+                                                    {
+                                                        <Avatar Size="5rem" Src="@userListSelectedUser?.Avatar" />
+                                                    }
                                                 </DescriptionsItem>
+                                                <DescriptionsItem Title="@Localizer[WoChatResource.UserName]" Span="3">@(userListSelectedUser?.UserName)</DescriptionsItem>
+                                                <DescriptionsItem Title="@Localizer[WoChatResource.NickName]" Span="3">@(userListSelectedUser?.NickName)</DescriptionsItem>
                                             </Descriptions>
                                     }
                                 </GridCol>
                             </GridRow>
-                            <GridRow>
+                            <GridRow Style="margin-top:5px;">
                                 <GridCol Span="24" Style="text-align:center;">
                                     @if (userListSelectedUser != null)
                                     {
                                         <Button Type="@ButtonType.Primary">
-                                            发送消息
+                                            @Localizer[WoChatResource.SendMessage]
                                         </Button>
                                     }
                                 </GridCol>

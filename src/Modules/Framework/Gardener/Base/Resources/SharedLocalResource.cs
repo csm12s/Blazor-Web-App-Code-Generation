@@ -308,6 +308,14 @@ namespace Gardener.Base.Resources
         /// 备注
         /// </summary>
         public const string Remark = nameof(Remark);
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public const string UserName = nameof(UserName);
+        /// <summary>
+        /// 用户昵称
+        /// </summary>
+        public const string NickName = nameof(NickName);
 
     }
 }
