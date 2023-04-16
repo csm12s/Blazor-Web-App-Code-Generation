@@ -79,13 +79,23 @@ namespace Gardener.WoChat.Services
             }
             int currentUserId = int.Parse(identity.Id);
             List<int> userIds = input.UserIds.ToList();
+            if (userIds.Count == 0) 
+            {
+                return null;
+            }
+            if(userIds.Count == 1)
+            {
+                //只有一个只能是私聊
+                input.SessionType = ImSessionType.Personal;
+            }
+
+            userIds.Add(currentUserId);
+            string signature = GetSignature(userIds);
             if (input.SessionType.Equals(ImSessionType.Personal))
             {
-                userIds.Add(currentUserId);
                 //判断私聊是否存在
-                string signature = GetSignature(userIds);
                 var session = await imSessionRepository.Where(x => x.SessionType.Equals(ImSessionType.Personal) && x.UsersSignature.Equals(signature)).FirstOrDefaultAsync();
-                if (session!=null)
+                if (session != null)
                 {
                     //已存在
                     return session.Id;
@@ -94,7 +104,7 @@ namespace Gardener.WoChat.Services
 
             ImSession imSession = input.Adapt<ImSession>();
             imSession.Id = Guid.NewGuid();
-            imSession.UsersSignature = GetSignature(userIds);
+            imSession.UsersSignature = signature;
             imSession.CreateBy = identity.Id;
             imSession.CreateIdentityType = identity.IdentityType;
             imSession.CreatedTime = DateTimeOffset.Now;
@@ -113,6 +123,11 @@ namespace Gardener.WoChat.Services
                     CreateIdentityType = identity.IdentityType,
                     CreatedTime = DateTimeOffset.Now
                 };
+                if (userId.Equals(currentUserId))
+                {
+                    //激活自己的会话
+                    imUserSession.IsActive = true;
+                }
                 await imUserSessionRepository.InsertAsync(imUserSession);
             }
             return imSession.Id;
@@ -161,24 +176,28 @@ namespace Gardener.WoChat.Services
                 .ToListAsync();
 
             IEnumerable<Guid> sessionIds = imUsersessionDtos.Select(x => x.ImSessionId).Distinct();
-            IEnumerable<int> userIds = imUsersessionDtos.Select(x => (int)(x.UserId)).Distinct();
-
+            if (!sessionIds.Any())
+            {
+                return new ImSessionDto[0];
+            }
             var task1 = imSessionRepository.AsQueryable(false)
                 .Where(x => sessionIds.Contains(x.Id))
                 .Select(x => x.Adapt<ImSessionDto>())
                 .ToListAsync();
-
-            var task2 = userService.GetUsers(userIds);
+            var task2 = imUserSessionRepository.AsQueryable(false)
+                .Where(x => sessionIds.Contains(x.ImSessionId))
+                .ToListAsync();
 
             IEnumerable<ImSessionDto> sessions = await task1;
-            IEnumerable<UserDto> users = await task2;
-            if (sessions.Any())
+            IEnumerable<ImUserSession> userSessions = await task2;
+
+            IEnumerable<UserDto> users = await userService.GetUsers(userSessions.Select(x => x.UserId).Distinct());
+            //填充用戶信息
+            foreach (ImSessionDto session in sessions)
             {
-                //填充用戶信息
-                foreach (ImSessionDto session in sessions)
-                {
-                    session.Users = users.Where(x => x.Id == userId);
-                }
+                IEnumerable<int> userIds = userSessions.Where(x => x.ImSessionId.Equals(session.Id)).Select(x => x.UserId).Distinct();
+                session.Users = users.Where(x => userIds.Any(u => u.Equals(x.Id)));
+                session.SessionName = GetShowSessionName(session, userId);
             }
             return sessions;
         }
@@ -332,6 +351,29 @@ namespace Gardener.WoChat.Services
                 ImMessage = message,
             });
             return true;
+        }
+
+        /// <summary>
+        /// 获取展示的会话名称
+        /// </summary>
+        /// <param name="myUserId">自己的用户编号-<see cref="ImSessionType.Personal"/>有效</param>
+        /// <returns></returns>
+        private string GetShowSessionName(ImSessionDto session,int? myUserId = null)
+        {
+            if (session.SessionType.Equals(ImSessionType.Personal))
+            {
+                UserDto userTemp = session.Users.Where(x => x.Id != myUserId).First();
+                return userTemp.NickName ?? userTemp.UserName;
+            }
+            else if (session.SessionType.Equals(ImSessionType.Group))
+            {
+                if (!string.IsNullOrEmpty(session.SessionName))
+                {
+                    return session.SessionName;
+                }
+                return string.Join("、", session.Users.Take(3).Select(x => x.NickName ?? x.UserName)) + "...";
+            }
+            return string.Empty;
         }
     }
 }
