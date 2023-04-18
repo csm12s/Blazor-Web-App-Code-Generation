@@ -36,3 +36,10 @@ export function removeCookies(key, params) {
 export function getAllCookies() {
     return Cookies.get();
 }
+//聊天窗口滚动条滚到最下面
+export function scrollBarToBottom(boxId) {
+    var div = document.getElementById(boxId);
+    if (div) {
+        div.scrollTop = div.scrollHeight;
+    }
+}

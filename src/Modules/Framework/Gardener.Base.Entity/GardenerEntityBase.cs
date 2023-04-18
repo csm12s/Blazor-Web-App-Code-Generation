@@ -11,6 +11,7 @@ using Furion.DependencyInjection;
 using Gardener.Authentication.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Gardener.Authentication.Dtos;
 
 namespace Gardener.Base
 {
@@ -113,6 +114,25 @@ namespace Gardener.Base
         /// </summary>
         [DisplayName("更新时间")]
         public virtual DateTimeOffset? UpdatedTime { get; set; }
+
+        /// <summary>
+        /// 设置创建者身份
+        /// </summary>
+        /// <param name="identity"></param>
+        public void SetCreatedIdentity(Identity identity)
+        {
+            this.CreateBy = identity.Id;
+            this.CreateIdentityType = identity.IdentityType;
+        }
+        /// <summary>
+        /// 设置更新者身份
+        /// </summary>
+        /// <param name="identity"></param>
+        public void SetUpdatedIdentity(Identity identity)
+        {
+            this.UpdateBy = identity.Id;
+            this.UpdateIdentityType = identity.IdentityType;
+        }
     }
     /// <summary>
     /// 一个主键的Entity基础信息

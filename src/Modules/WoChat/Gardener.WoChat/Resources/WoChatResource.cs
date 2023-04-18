@@ -31,5 +31,23 @@ namespace Gardener.WoChat.Resources
         /// 开启会话
         /// </summary>
         public const string OpenSession = nameof(OpenSession);
+        /// <summary>
+        /// 发送图片
+        /// </summary>
+        public const string SendImage = nameof(SendImage);
+        /// <summary>
+        /// 输入群组名称
+        /// </summary>
+        public const string InputGroupName = nameof(InputGroupName);
+        /// <summary>
+        /// 发起群组聊天
+        /// </summary>
+        public const string InitiateGroupChat = nameof(InitiateGroupChat);
+        /// <summary>
+        /// 请输入内容
+        /// </summary>
+        public const string PleaseInputContent = nameof(PleaseInputContent);
+
+
     }
 }

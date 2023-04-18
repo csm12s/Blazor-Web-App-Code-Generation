@@ -32,7 +32,7 @@ namespace Gardener.WoChat.Services
         /// <param name="maxDateTime"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId,DateTimeOffset? maxDateTime,int pageSize=100);
+        Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId,DateTimeOffset? maxDateTime=null,int pageSize=100);
 
         /// <summary>
         /// 发送消息到会话

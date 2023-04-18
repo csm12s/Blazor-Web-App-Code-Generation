@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attributes;
+using Gardener.Authentication.Enums;
 using System;
 using System.ComponentModel;
 
@@ -61,5 +62,29 @@ namespace Gardener.Base
         /// </summary>
         [DisplayName("UpdatedTime")]
         public DateTimeOffset? UpdatedTime { get; set; }
+
+        /// <summary>
+        /// 创建者编号
+        /// </summary>
+        [DisplayName("CreateBy")]
+        public string? CreateBy { get; set; }
+
+        /// <summary>
+        /// 修改者编号
+        /// </summary>
+        [DisplayName("UpdateBy")]
+        public string? UpdateBy { get; set; }
+
+        /// <summary>
+        /// 创建者身份类型
+        /// </summary>
+        [DisplayName("CreateIdentityType")]
+        public IdentityType? CreateIdentityType { get; set; }
+
+        /// <summary>
+        /// 修改者身份类型
+        /// </summary>
+        [DisplayName("UpdateIdentityType")]
+        public IdentityType? UpdateIdentityType { get; set; }
     }
 }

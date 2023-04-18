@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InitiateGroupChat" xml:space="preserve">
+    <value>发起群聊</value>
+  </data>
+  <data name="InputGroupName" xml:space="preserve">
+    <value>输入群组名称</value>
+  </data>
   <data name="OpenSession" xml:space="preserve">
     <value>开启会话</value>
+  </data>
+  <data name="PleaseInputContent" xml:space="preserve">
+    <value>请输入内容</value>
+  </data>
+  <data name="SendImage" xml:space="preserve">
+    <value>发送图片</value>
   </data>
   <data name="SendMessage" xml:space="preserve">
     <value>发送消息</value>

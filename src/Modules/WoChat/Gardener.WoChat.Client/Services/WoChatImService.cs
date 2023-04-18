@@ -47,7 +47,7 @@ namespace Gardener.WoChat.Client.Services
             return apiCaller.GetAsync<IEnumerable<ImSessionDto>>($"{controller}/my-im-sessions");
         }
 
-        public Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId, DateTimeOffset? maxDateTime, int pageSize = 100)
+        public Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages(Guid imSessionId, DateTimeOffset? maxDateTime = null, int pageSize = 100)
         {
             IDictionary<string, object?> queryString = new Dictionary<string, object?>();
             queryString.Add("imSessionId", imSessionId);

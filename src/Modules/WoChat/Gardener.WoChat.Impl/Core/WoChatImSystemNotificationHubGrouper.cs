@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.NotificationSystem.Core;
@@ -16,7 +17,7 @@ namespace Gardener.WoChat.Impl.Core
     /// <summary>
     /// 将WoChat用户进行分组
     /// </summary>
-    public class WoChatImSystemNotificationHubGrouper : ISystemNotificationHubGrouper
+    public class WoChatImSystemNotificationHubGrouper : ISystemNotificationHubGrouper,IScoped
     {
 
         private readonly IRepository<ImUserSession> imUserSessionRepository;

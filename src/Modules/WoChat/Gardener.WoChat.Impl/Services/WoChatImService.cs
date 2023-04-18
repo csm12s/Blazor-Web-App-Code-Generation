@@ -22,6 +22,7 @@ using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Gardener.WoChat.Services
 {
@@ -79,11 +80,11 @@ namespace Gardener.WoChat.Services
             }
             int currentUserId = int.Parse(identity.Id);
             List<int> userIds = input.UserIds.ToList();
-            if (userIds.Count == 0) 
+            if (userIds.Count == 0)
             {
                 return null;
             }
-            if(userIds.Count == 1)
+            if (userIds.Count == 1)
             {
                 //只有一个只能是私聊
                 input.SessionType = ImSessionType.Personal;
@@ -97,6 +98,34 @@ namespace Gardener.WoChat.Services
                 var session = await imSessionRepository.Where(x => x.SessionType.Equals(ImSessionType.Personal) && x.UsersSignature.Equals(signature)).FirstOrDefaultAsync();
                 if (session != null)
                 {
+                    var userSession = await imUserSessionRepository.Where(x => x.UserId.Equals(currentUserId) && x.ImSessionId.Equals(session.Id)).FirstOrDefaultAsync();
+                    if (userSession != null)
+                    {
+                        //激活我的会话
+                        userSession.IsActive = true;
+                        userSession.SetUpdatedIdentity(identity);
+                        userSession.UpdatedTime = DateTimeOffset.Now;
+                        await imUserSessionRepository.UpdateIncludeAsync(userSession, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) });
+                    }
+                    else
+                    {
+                        //会话缺失
+                        ImUserSession imUserSession = new()
+                        {
+                            Id = Guid.NewGuid(),
+                            IsActive = true,
+                            UserId = currentUserId,
+                            ImSessionId = session.Id,
+                            CreatedTime = DateTimeOffset.Now
+                        };
+                        imUserSession.SetCreatedIdentity(identity);
+                        await imUserSessionRepository.InsertAsync(imUserSession);
+
+                    }
+                    session.LastMessageTime = DateTimeOffset.Now;
+                    session.SetUpdatedIdentity(identity);
+                    session.UpdatedTime = DateTimeOffset.Now;
+                    await imSessionRepository.UpdateIncludeAsync(session, new[] { nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) });
                     //已存在
                     return session.Id;
                 }
@@ -105,8 +134,7 @@ namespace Gardener.WoChat.Services
             ImSession imSession = input.Adapt<ImSession>();
             imSession.Id = Guid.NewGuid();
             imSession.UsersSignature = signature;
-            imSession.CreateBy = identity.Id;
-            imSession.CreateIdentityType = identity.IdentityType;
+            imSession.SetUpdatedIdentity(identity);
             imSession.CreatedTime = DateTimeOffset.Now;
 
             await imSessionRepository.InsertAsync(imSession);
@@ -119,16 +147,21 @@ namespace Gardener.WoChat.Services
                     IsActive = true,
                     UserId = userId,
                     ImSessionId = imSession.Id,
-                    CreateBy = identity.Id,
-                    CreateIdentityType = identity.IdentityType,
                     CreatedTime = DateTimeOffset.Now
                 };
+                imUserSession.SetCreatedIdentity(identity);
                 if (userId.Equals(currentUserId))
                 {
                     //激活自己的会话
                     imUserSession.IsActive = true;
                 }
                 await imUserSessionRepository.InsertAsync(imUserSession);
+
+                await systemNotificationService.UserGroupAdd(WoChatUtil.GetImGroupName(imSession.Id), new Identity()
+                {
+                    Id = identity.Id,
+                    IdentityType = identity.IdentityType
+                });
             }
             return imSession.Id;
         }
@@ -199,7 +232,7 @@ namespace Gardener.WoChat.Services
                 session.Users = users.Where(x => userIds.Any(u => u.Equals(x.Id)));
                 session.SessionName = GetShowSessionName(session, userId);
             }
-            return sessions;
+            return sessions.OrderByDescending(x => x.LastMessageTime);
         }
         /// <summary>
         /// 获取会话消息列表
@@ -208,7 +241,7 @@ namespace Gardener.WoChat.Services
         /// <param name="maxDateTime"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages([FromQuery] Guid imSessionId, [FromQuery] DateTimeOffset? maxDateTime, [FromQuery] int pageSize = 100)
+        public async Task<IEnumerable<ImSessionMessageDto>> GetMySessionMessages([FromQuery] Guid imSessionId, [FromQuery] DateTimeOffset? maxDateTime = null, [FromQuery] int pageSize = 100)
         {
             Identity? identity = authorizationService.GetIdentity();
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
@@ -216,7 +249,8 @@ namespace Gardener.WoChat.Services
                 return new ImSessionMessageDto[0];
             }
             int userId = int.Parse(identity.Id);
-            if (await imUserSessionRepository
+            //不在会话中，不能查询
+            if (!await imUserSessionRepository
                 .AsQueryable(false)
                 .Where(x => x.UserId.Equals(userId)).AnyAsync())
             {
@@ -228,21 +262,25 @@ namespace Gardener.WoChat.Services
             {
                 query = query.Where(x => x.CreatedTime > maxDateTime);
             }
-            IEnumerable<ImSessionMessageDto> messages = await query
-                .Select(x => x.Adapt<ImSessionMessageDto>())
+            IEnumerable<ImSessionMessage> messages = await query
                 .OrderBy(x => x.CreatedTime)
                 .Take(pageSize)
                 .ToListAsync();
-            if (messages.Any())
+            if (!messages.Any())
             {
-                //填充用戶信息
-                var users = await userService.GetUsers(messages.Select(x => x.UserId));
-                foreach (ImSessionMessageDto message in messages)
-                {
-                    message.User = users.Where(x => x.Id == message.UserId).FirstOrDefault();
-                }
+                return new ImSessionMessageDto[0];
             }
-            return messages;
+            //填充用戶信息
+            var users = await userService.GetUsers(messages.Select(x => x.UserId));
+
+            List<ImSessionMessageDto> messageDtos = new List<ImSessionMessageDto>();
+            foreach (ImSessionMessage message in messages)
+            {
+                var userDto = message.Adapt<ImSessionMessageDto>();
+                userDto.User = users.Where(x => x.Id == message.UserId).FirstOrDefault();
+                messageDtos.Add(userDto);
+            }
+            return messageDtos;
         }
         /// <summary>
         /// 退出会话
@@ -358,7 +396,7 @@ namespace Gardener.WoChat.Services
         /// </summary>
         /// <param name="myUserId">自己的用户编号-<see cref="ImSessionType.Personal"/>有效</param>
         /// <returns></returns>
-        private string GetShowSessionName(ImSessionDto session,int? myUserId = null)
+        private string GetShowSessionName(ImSessionDto session, int? myUserId = null)
         {
             if (session.SessionType.Equals(ImSessionType.Personal))
             {

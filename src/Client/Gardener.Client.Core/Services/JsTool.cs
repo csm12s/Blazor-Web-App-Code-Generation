@@ -141,6 +141,12 @@ namespace Gardener.Client.Core.Services
             var module = await GetJsToolModule();
             await module.InvokeVoidAsync("downloadFile", url);
         }
+
+        public async Task ScrollBarToBottom(string boxId)
+        {
+            var module = await GetJsToolModule();
+            await module.InvokeVoidAsync("scrollBarToBottom", boxId);
+        }
     }
     /// <summary>
     /// Cookie
