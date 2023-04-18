@@ -379,15 +379,28 @@ namespace Gardener.WoChat.Services
             sessionMessage.CreatedTime = DateTimeOffset.Now;
             sessionMessage.CreateBy = identity.Id;
             sessionMessage.CreateIdentityType = identity.IdentityType;
-            await imSessionMessageRepository.InsertAsync(sessionMessage);
+            var task1 =imSessionMessageRepository.InsertAsync(sessionMessage);
+            var task2 = imSessionRepository.FindAsync(sessionMessage.ImSessionId);
+            var task3 = userService.Get(userId);
+            await task1;
+            var imSession= await task2;
             //发送
-            var user = await userService.Get(userId);
+            var user = await task3;
+            message= sessionMessage.Adapt<ImSessionMessageDto>();
             message.User = user;
-            await systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImMessageNotificationData()
+            var task4= systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImMessageNotificationData()
             {
                 Identity = identity,
                 ImMessage = message,
             });
+            if(imSession!=null)
+            {
+                imSession.SetUpdatedIdentity(identity);
+                imSession.LastMessageTime= DateTimeOffset.Now;
+                await imSessionRepository.UpdateIncludeAsync(imSession, new[] { nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) });
+            }
+            
+            await task4;
             return true;
         }
 

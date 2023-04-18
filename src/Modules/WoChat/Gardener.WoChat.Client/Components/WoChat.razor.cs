@@ -19,7 +19,7 @@ namespace Gardener.WoChat.Client.Components
     /// <summary>
     /// wo chat 聊天
     /// </summary>
-    public partial class WoChat : OperationDialogBase<Guid?, bool, WoChatResource>
+    public partial class WoChat : OperationDialogBase<WoChatDialogConfig, bool, WoChatResource>
     {
         /// <summary>
         /// Im服务
@@ -55,19 +55,27 @@ namespace Gardener.WoChat.Client.Components
         /// <summary>
         /// 界面高度
         /// </summary>
-        private readonly static int height = 600;
+        [Parameter]
+        public int Height { get; set; } = 600;
         /// <summary>
         /// 消息标题区高度
         /// </summary>
-        private readonly static int messageTitleHeight = 50;
+        [Parameter]
+        public int MessageTitleHeight { get; set; } = 50;
         /// <summary>
         /// 消息输入区高度
         /// </summary>
-        private readonly static int messageInputHeight = 200;
+        [Parameter]
+        public int MessageInputHeight { get; set; } = 200;
+        /// <summary>
+        /// 默认选择的会话编号
+        /// </summary>
+        [Parameter]
+        public Guid? DefaultSelectedSessionId { get; set; }
         /// <summary>
         /// 消息列表区高度
         /// </summary>
-        private readonly static int messageListHeight = height - messageInputHeight - messageTitleHeight;
+        private int messageListHeight = 350;
         /// <summary>
         /// 头像显示形状
         /// </summary>
@@ -127,7 +135,7 @@ namespace Gardener.WoChat.Client.Components
         /// <summary>
         /// 设置抽屉信息
         /// </summary>
-        private bool settingDrawerVisible=false;
+        private bool settingDrawerVisible = false;
         /// <summary>
         /// 订阅者
         /// </summary>
@@ -136,6 +144,37 @@ namespace Gardener.WoChat.Client.Components
         /// 用户列表选中的用户
         /// </summary>
         private UserDto? userListSelectedUser;
+        /// <summary>
+        /// 消息显示容器编号-用于js控制
+        /// </summary>
+        private string woChatMessageBoxId = "wo-chat-message-box";
+
+        /// <summary>
+        /// 参数设置后
+        /// </summary>
+        /// <returns></returns>
+        protected override Task OnParametersSetAsync()
+        {
+            woChatMessageBoxId = "wo-chat-message-box-" + Guid.NewGuid();
+
+            
+            if (this.Options != null)
+            {
+                //弹框打开
+                sessionListSelectedSessionId = this.Options.DefaultSelectedSessionId;
+                this.Height = this.Options.Height;
+                this.MessageInputHeight = this.Options.MessageInputHeight;
+                this.MessageTitleHeight = this.Options.MessageTitleHeight;
+            }
+            else 
+            {
+                //页面或组件打开
+                sessionListSelectedSessionId = this.DefaultSelectedSessionId;
+            }
+            //消息区域高度
+            messageListHeight = Height - MessageInputHeight - MessageTitleHeight;
+            return base.OnParametersSetAsync();
+        }
 
         /// <summary>
         /// 加载
@@ -143,13 +182,11 @@ namespace Gardener.WoChat.Client.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            //传入的会话编号
-            sessionListSelectedSessionId = this.Options;
             //当前用户
             currentUser = await AuthenticationStateManager.GetCurrentUser();
 
             //订阅消息
-            messageNotificationSubscriber=EventBus.Subscribe<WoChatImMessageNotificationData>(OnReceiveMessage);
+            messageNotificationSubscriber = EventBus.Subscribe<WoChatImMessageNotificationData>(OnReceiveMessage);
 
             //默认到消息列表
             await OnChange(tabMessageKey);
@@ -307,8 +344,8 @@ namespace Gardener.WoChat.Client.Components
         /// 点击设置
         /// </summary>
         private void OnClickSetting()
-        { 
-            settingDrawerVisible= true;
+        {
+            settingDrawerVisible = true;
         }
         /// <summary>
         /// 给当前会话发送消息
@@ -317,7 +354,7 @@ namespace Gardener.WoChat.Client.Components
         private async Task OnClickSendMessage()
         {
 
-            if (sessionListSelectedSession == null) 
+            if (sessionListSelectedSession == null)
             {
                 return;
             }
@@ -331,6 +368,7 @@ namespace Gardener.WoChat.Client.Components
             message.Message = inputMessage;
             message.MessageType = ImMessageType.Text;
             await WoChatImService.SendMessage(message);
+            inputMessage=string.Empty;
         }
         /// <summary>
         /// 收到消息
@@ -339,6 +377,8 @@ namespace Gardener.WoChat.Client.Components
         /// <returns></returns>
         private Task OnReceiveMessage(WoChatImMessageNotificationData message)
         {
+            System.Console.WriteLine("***"+sessionListSelectedSessionId);
+            System.Console.WriteLine("==="+ message.ImMessage.ImSessionId);
             if (message.ImMessage.ImSessionId.Equals(sessionListSelectedSessionId))
             {
                 //当前打开会话窗口
@@ -354,7 +394,7 @@ namespace Gardener.WoChat.Client.Components
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            if(messageNotificationSubscriber!=null)
+            if (messageNotificationSubscriber != null)
             {
                 EventBus.UnSubscribe(messageNotificationSubscriber);
             }
@@ -367,7 +407,7 @@ namespace Gardener.WoChat.Client.Components
         /// <returns></returns>
         private async Task MessageBoxScrollBarToBottom()
         {
-            await JsTool.Document.ScrollBarToBottom("wo-chat-message-box");
+            await JsTool.Document.ScrollBarToBottom(woChatMessageBoxId);
         }
         /// <summary>
         /// 页面渲染后

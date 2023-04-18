@@ -2,7 +2,7 @@
 @using Gardener.UserCenter.Dtos;
 @using Gardener.WoChat.Dtos;
 @using Gardener.WoChat.Enums;
-@inherits OperationDialogBase<Guid?,bool,WoChatResource>
+@inherits OperationDialogBase<WoChatDialogConfig,bool,WoChatResource>
 @{
     RenderFragment<ImSessionMessageDto> content = message =>
     @<div>
@@ -16,7 +16,7 @@
                 }
     </div>;
 }
-<GridRow Style="@($"height:{height}px;")">
+<GridRow Style="@($"Height:{Height}px;")">
     <GridCol Span="24">
         <Tabs ActiveKey="@tabActiveKey" TabPosition="TabPosition.Left" OnChange="OnChange">
             <TabPane Key="@tabMessageKey">
@@ -27,7 +27,7 @@
                     <GridRow Style="margin-left: -24px;">
                         <GridCol Span="8">
                             <Spin Spinning="sessionListLoading">
-                                <div style="@($"height:{height}px;overflow-y:scroll;border-right: 1px solid #ccc;")">
+                                <div style="@($"Height:{Height}px;overflow-y:scroll;border-right: 1px solid #ccc;")">
                                     @if (imSessions != null)
                                     {
                                         <AntList DataSource="imSessions" TItem="ImSessionDto ">
@@ -70,10 +70,10 @@
                                 </div>
                             </Spin>
                         </GridCol>
-                        <GridCol Span="16" Style="@($"height:{height}px;padding-left: 10px;overflow-x:hidden;")">
+                        <GridCol Span="16" Style="@($"Height:{Height}px;padding-left: 10px;overflow-x:hidden;")">
                             @if (sessionListSelectedSession != null)
                             {
-                                <GridRow Style="@($"padding:0 5px;border-bottom:1px solid #dfe1e3;height:{messageTitleHeight}px;")">
+                                <GridRow Style="@($"padding:0 5px;border-bottom:1px solid #dfe1e3;height:{MessageTitleHeight}px;line-height:{MessageTitleHeight}px;")">
                                     <GridCol Span="22">
                                         <span>
                                             @if (sessionListSelectedSession.SessionType.Equals(ImSessionType.Personal))
@@ -112,7 +112,7 @@
                                     </GridCol>
                                 </GridRow>
 
-                                <GridRow Style="@($"height:{messageListHeight}px;overflow-y:scroll;")" Id="wo-chat-message-box">
+                                <GridRow Style="@($"Height:{messageListHeight}px;overflow-y:scroll;")" Id="@woChatMessageBoxId">
                                     <GridCol Span="24" Style="">
                                      @if(messages!=null){
                                             <AntList DataSource="messages" TItem="ImSessionMessageDto">
@@ -128,7 +128,7 @@
                                     </GridCol>
                                 </GridRow>
 
-                                <GridRow Style="@($"height:{messageInputHeight}px;")">
+                                <GridRow Style="@($"Height:{MessageInputHeight}px;")">
                                     <GridCol Span="24">
                                         <GridRow>
                                             <GridCol Span="24" Style="">
@@ -203,7 +203,7 @@
                     <GridRow Style="margin-left: -24px;">
                         <GridCol Span="8">
                             <Spin Spinning="userListLoading">
-                                <div style="@($"height:{height}px;overflow-y:scroll;border-right: 1px solid #ccc;")">
+                                <div style="@($"Height:{Height}px;overflow-y:scroll;border-right: 1px solid #ccc;")">
                                     <GridRow>
                                         <GridCol Span="24" Style="padding:5px 0px;">
                                             @if (openGroupMode)
@@ -249,7 +249,7 @@
                                 </div>
                             </Spin>
                         </GridCol>
-                        <GridCol Span="16" Style="@($"height:{height}px;overflow-y:scroll;padding-left: 10px;")">
+                        <GridCol Span="16" Style="@($"Height:{Height}px;overflow-y:scroll;padding-left: 10px;")">
                             <GridRow>
                                 <GridCol Span="24">
                                     @if (userListSelectedUser == null)

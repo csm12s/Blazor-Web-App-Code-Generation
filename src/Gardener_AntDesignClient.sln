@@ -129,7 +129,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.WoChat.Impl", "Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.WoChat", "Modules\WoChat\Gardener.WoChat\Gardener.WoChat.csproj", "{BC3EDD1A-8E76-424F-BD02-CA0B5BC402D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.WoChat.Client", "Modules\WoChat\Gardener.WoChat.Client\Gardener.WoChat.Client.csproj", "{FA3B756B-B476-48FC-A7E7-7D0E1692054D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.WoChat.Client", "Modules\WoChat\Gardener.WoChat.Client\Gardener.WoChat.Client.csproj", "{FA3B756B-B476-48FC-A7E7-7D0E1692054D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,10 +13,6 @@
 	  <None Remove="wwwroot\**" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Content Include="Pages\Home.razor.js" />
-	</ItemGroup>
-
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
@@ -27,13 +23,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\Modules\WoChat\Gardener.WoChat.Client\Gardener.WoChat.Client.csproj" />
 		<ProjectReference Include="..\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="Pages\Home.razor.js">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>
