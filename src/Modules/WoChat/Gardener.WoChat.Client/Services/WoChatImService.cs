@@ -37,6 +37,11 @@ namespace Gardener.WoChat.Client.Services
             return apiCaller.PostAsync<ImSessionAddInput, Guid?>($"{controller}/my-im-session", input);
         }
 
+        public Task<bool> DisableSessionSendMessage(Guid imSessionId)
+        {
+            return apiCaller.PostAsync<Guid, bool>($"{controller}/disable-session-send-message", imSessionId);
+        }
+
         public Task<IEnumerable<ImSessionDto>> GetImGroupSessions()
         {
             return apiCaller.GetAsync<IEnumerable<ImSessionDto>>($"{controller}/im-group-sessions");
@@ -59,13 +64,9 @@ namespace Gardener.WoChat.Client.Services
 
         public Task<bool> QuitMyImSession(Guid imSessionId)
         {
-            return apiCaller.PostWithoutBodyAsync<bool>($"{controller}/quit-im-session/{imSessionId}");
+            return apiCaller.PostAsync<Guid, bool>($"{controller}/quit-my-im-session", imSessionId);
         }
 
-        public Task<bool> RemoveMyImSession(Guid imSessionId)
-        {
-            return apiCaller.PostWithoutBodyAsync<bool>($"{controller}/my-im-session/{imSessionId}");
-        }
 
         public Task<bool> SendMessage(ImSessionMessageDto message)
         {

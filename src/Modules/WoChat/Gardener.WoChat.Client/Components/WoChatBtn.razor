@@ -67,7 +67,7 @@
             return InvokeAsync(StateHasChanged);
         });
         //im消息
-        EventBus.Subscribe<WoChatImMessageNotificationData>(async message => 
+        EventBus.Subscribe<WoChatImUserMessageNotificationData>(async message => 
         {
             //已打开聊天窗口就不统计了
             if (woCahtIsOpen) { return; }

@@ -47,7 +47,18 @@ namespace Gardener.WoChat.Resources
         /// 请输入内容
         /// </summary>
         public const string PleaseInputContent = nameof(PleaseInputContent);
-
+        /// <summary>
+        /// 删除会话
+        /// </summary>
+        public const string DeleteSession = nameof(DeleteSession);
+        /// <summary>
+        /// 移除群聊
+        /// </summary>
+        public const string RemoveGroupChat = nameof(RemoveGroupChat);
+        /// <summary>
+        /// 退出群聊
+        /// </summary>
+        public const string QuitGroupChat = nameof(QuitGroupChat);
 
     }
 }

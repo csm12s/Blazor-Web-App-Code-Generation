@@ -291,6 +291,8 @@ namespace Gardener.Api.Core.Migrations
                     Announcement = table.Column<string>(type: "TEXT", nullable: true),
                     LastMessageTime = table.Column<long>(type: "INTEGER", nullable: false),
                     UsersSignature = table.Column<string>(type: "TEXT", nullable: false),
+                    AllUserIsActive = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DisableSendMessage = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreateBy = table.Column<string>(type: "TEXT", nullable: true),
@@ -1403,13 +1405,13 @@ namespace Gardener.Api.Core.Migrations
                 values: new object[,]
                 {
                     { 1, "./assets/logo.png", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin" },
-                    { 2, "./assets/logo.png", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员2", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin2" },
-                    { 3, "./assets/logo.png", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员3", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin3" },
-                    { 4, "./assets/logo.png", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员4", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin4" },
-                    { 5, "./assets/logo.png", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员5", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin5" },
-                    { 6, "./assets/logo.png", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员6", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin6" },
-                    { 7, "./assets/logo.png", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员1", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin1" },
-                    { 8, "./assets/logo.png", null, null, 1305892579553280000L, 3, null, false, 0, false, false, "测试员", "60759dd06243d0837b88ab9b7183e6df", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 2, null, null, null, "testuser" }
+                    { 2, "./avatars/2.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员2", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin2" },
+                    { 3, "./avatars/3.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员3", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin3" },
+                    { 4, "./avatars/4.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员4", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin4" },
+                    { 5, "./avatars5.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员5", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin5" },
+                    { 6, "./avatars/6.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员6", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin6" },
+                    { 7, "./avatars/1.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员1", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin1" },
+                    { 8, "./avatars/7.jpeg", null, null, 1305892579553280000L, 3, null, false, 0, false, false, "测试员", "60759dd06243d0837b88ab9b7183e6df", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 2, null, null, null, "testuser" }
                 });
 
             migrationBuilder.InsertData(

@@ -9,24 +9,24 @@ using System.ComponentModel;
 namespace Gardener.WoChat.Enums
 {
     /// <summary>
-    /// Im消息类型
+    /// 系统消息
     /// </summary>
-    public enum ImMessageType
+    public enum ImSystemMessageType
     {
         /// <summary>
-        /// 图片
+        /// 添加用户
         /// </summary>
-        [Description("图片")]
-        Image,
+        [Description("用户加入")]
+        UserJoin,
         /// <summary>
-        /// 文本
+        /// 移除用户
         /// </summary>
-        [Description("文本")]
-        Text,
+        [Description("用户离开")]
+        UserQuit,
         /// <summary>
-        /// 文件
+        /// 会话禁言
         /// </summary>
-        [Description("文件")]
-        File
+        [Description("会话禁言")]
+        DisableSessionSendMessage
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230416063732_v0.0.1")]
+    [Migration("20230419093034_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -11054,7 +11054,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 2,
-                            Avatar = "./assets/logo.png",
+                            Avatar = "./avatars/2.jpeg",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -11071,7 +11071,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 3,
-                            Avatar = "./assets/logo.png",
+                            Avatar = "./avatars/3.jpeg",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -11088,7 +11088,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 4,
-                            Avatar = "./assets/logo.png",
+                            Avatar = "./avatars/4.jpeg",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -11105,7 +11105,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 5,
-                            Avatar = "./assets/logo.png",
+                            Avatar = "./avatars5.jpeg",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -11122,7 +11122,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 6,
-                            Avatar = "./assets/logo.png",
+                            Avatar = "./avatars/6.jpeg",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -11139,7 +11139,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 7,
-                            Avatar = "./assets/logo.png",
+                            Avatar = "./avatars/1.jpeg",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 2,
                             EmailConfirmed = false,
@@ -11156,7 +11156,7 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             Id = 8,
-                            Avatar = "./assets/logo.png",
+                            Avatar = "./avatars/7.jpeg",
                             CreatedTime = 1305892579553280000L,
                             DeptId = 3,
                             EmailConfirmed = false,
@@ -11383,6 +11383,9 @@ namespace Gardener.Api.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("AllUserIsActive")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Announcement")
                         .HasColumnType("TEXT");
 
@@ -11393,6 +11396,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("DisableSendMessage")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDeleted")

@@ -20,8 +20,12 @@ namespace Gardener.NotificationSystem.Enums
         /// </summary>
         Chat,
         /// <summary>
-        /// WoChatIm消息
+        /// WoChatIm用户消息
         /// </summary>
-        WoChatImMessage
+        WoChatImUserMessage,
+        /// <summary>
+        /// WoChatIm系统消息
+        /// </summary>
+        WoChatImSystemMessage
     }
 }

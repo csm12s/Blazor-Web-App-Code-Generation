@@ -10,14 +10,14 @@ using Gardener.NotificationSystem.Enums;
 namespace Gardener.WoChat.Dtos.Notification
 {
     /// <summary>
-    /// WoChat im 消息通知
+    /// WoChat im 用户 消息通知
     /// </summary>
-    public class WoChatImMessageNotificationData : NotificationData
+    public class WoChatImUserMessageNotificationData : NotificationData
     {
         /// <summary>
-        /// WoChat im 消息通知
+        /// WoChat im 用户 消息通知
         /// </summary>
-        public WoChatImMessageNotificationData() : base(NotificationDataType.WoChatImMessage)
+        public WoChatImUserMessageNotificationData() : base(NotificationDataType.WoChatImUserMessage)
         {
 
         }

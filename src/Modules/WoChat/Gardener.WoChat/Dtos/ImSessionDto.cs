@@ -41,6 +41,25 @@ namespace Gardener.WoChat.Dtos
         /// </summary>
         [DisplayName("LastMessageTime")]
         public DateTimeOffset LastMessageTime { get; set; }
+
+        /// <summary>
+        /// 所有用户是否都激活
+        /// </summary>
+        /// <remarks>
+        /// 在收到消息后，用户会话未激活的会被动置为激活 
+        /// </remarks>
+        [DisplayName("AllUserIsActive")]
+        public bool AllUserIsActive { get; set; } = false;
+
+        /// <summary>
+        /// 是否禁言
+        /// </summary>
+        /// <remarks>
+        /// 禁言后只有创建者能够发送消息
+        /// </remarks>
+        [DisplayName("DisableSendMessage")]
+        public bool DisableSendMessage { get; set; } = false;
+
         /// <summary>
         /// 用户列表-输出展示
         /// </summary>

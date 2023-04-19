@@ -114,7 +114,8 @@
 
                                 <GridRow Style="@($"Height:{messageListHeight}px;overflow-y:scroll;")" Id="@woChatMessageBoxId">
                                     <GridCol Span="24" Style="">
-                                     @if(messages!=null){
+                                        @if (messages != null)
+                                        {
                                             <AntList DataSource="messages" TItem="ImSessionMessageDto">
                                                 <ListItem>
                                                     <Comment Avatar="@context.User?.Avatar"
@@ -124,7 +125,7 @@
                                                     </Comment>
                                                 </ListItem>
                                             </AntList>
-                                     }
+                                        }
                                     </GridCol>
                                 </GridRow>
 
@@ -139,7 +140,7 @@
                                         </GridRow>
                                         <GridRow>
                                             <GridCol Span="24" Style="">
-                                                <TextArea MinRows="4" @bind-Value="@inputMessage" Placeholder="@Localizer[WoChatResource.PleaseInputContent]" />
+                                                <TextArea MinRows="4" @bind-Value="@inputMessage" Placeholder="@Localizer[WoChatResource.PleaseInputContent]" Disabled="@sessionListSelectedSession.DisableSendMessage" ShowCount MaxLength="100" />
                                             </GridCol>
                                         </GridRow>
                                         <GridRow>
@@ -155,36 +156,52 @@
                                 <Drawer Style="position:absolute" Visible="settingDrawerVisible" Placement="right" Title="@Localizer[WoChatResource.Setting]" OnClose="_=>{settingDrawerVisible=false;}">
                                     <GridRow>
                                         <GridCol Span="24">
-                                        @foreach(var user in sessionListSelectedSession.Users)
-                                        {
-                                            if(sessionListSelectedSession.SessionType.Equals(ImSessionType.Personal) && user.Id==currentUser?.Id)
+                                            @foreach (var user in sessionListSelectedSession.Users)
                                             {
+                                                if (sessionListSelectedSession.SessionType.Equals(ImSessionType.Personal) && user.Id == currentUser?.Id)
+                                                {
                                                     continue;
-                                            }
+                                                }
+                                                <Tooltip Placement="@Placement.Top" Title="@(user.NickName ?? user.UserName)">
+                                                    @if (user.Avatar == null)
+                                                    {
+                                                        <Avatar Shape="@avatarShape" Size="large">@(user.GetAvatarFromName())</Avatar>
+                                                    }
+                                                    else
+                                                    {
+                                                        <Avatar Shape="@avatarShape" Size="large" Src="@user.Avatar" />
+                                                    }
+                                                </Tooltip>
 
-                                            if (user.Avatar == null)
-                                            {
-                                                <Avatar Shape="@avatarShape" Size="small">@(user.GetAvatarFromName())</Avatar>
                                             }
-                                            else
-                                            {
-                                                <Avatar Shape="@avatarShape" Size="small" Src="@user.Avatar" />
-                                            }
-                                        }
                                         </GridCol>
                                     </GridRow>
                                     <GridRow Style="padding-top:10px;text-align:center;">
                                         <GridCol Span="24">
-                                            @if(sessionListSelectedSession.SessionType.Equals(ImSessionType.Group))
+                                            @if (sessionListSelectedSession.SessionType.Equals(ImSessionType.Group))
                                             {
-                                                if(sessionListSelectedSession.CreateBy?.Equals(currentUser?.Id.ToString()) == true)
-                                                {
-                                                    <Button Type="@ButtonType.Primary" Danger>解散群聊</Button>
-                                                }
-                                                else
-                                                {
-                                                    <Button Type="@ButtonType.Primary" Danger>退出群聊</Button>
-                                                }
+                                                <GridRow>
+                                                <GridCol Span="10">禁言：</GridCol>
+                                                <GridCol Span="14">
+                                                        <Switch Checked="@sessionListSelectedSession.DisableSendMessage" Loading="@disableSendMessageLoading" Control OnClick="OnDisableSendMessage" />
+                                                </GridCol>
+                                                </GridRow>
+                                                <GridRow>
+                                                <GridCol Span="24">
+                                                        if (sessionListSelectedSession.CreateBy?.Equals(currentUser?.Id.ToString()) == true)
+                                                        {
+                                                        <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.RemoveGroupChat])">@Localizer[WoChatResource.RemoveGroupChat]</Button>
+                                                        }
+                                                        else
+                                                        {
+                                                        <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.QuitGroupChat])">@Localizer[WoChatResource.QuitGroupChat]</Button>
+                                                        }
+                                                </GridCol>
+                                                </GridRow>
+                                                
+                                            }else
+                                            {
+                                                <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.DeleteSession])">@Localizer[WoChatResource.DeleteSession]</Button>
                                             }
                                         </GridCol>
                                     </GridRow>

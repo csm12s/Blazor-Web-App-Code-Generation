@@ -49,24 +49,20 @@ namespace Gardener.WoChat.Services
         Task<Guid?> AddMyImSession(ImSessionAddInput input);
 
         /// <summary>
-        /// 移除会话
-        /// </summary>
-        /// <param name="imSessionId"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// 仅仅隐藏会话
-        /// </remarks>
-        Task<bool> RemoveMyImSession(Guid imSessionId);
-
-        /// <summary>
         /// 退出会话
         /// </summary>
         /// <param name="imSessionId"></param>
         /// <returns></returns>
         /// <remarks>
-        /// 私聊直接删除，群里直接退出，自己创建的话直接解散
+        /// 私聊隐藏，群聊自己创建的话直接解散，不是就退出
         /// </remarks>
         Task<bool> QuitMyImSession(Guid imSessionId);
 
+        /// <summary>
+        /// 禁言会话
+        /// </summary>
+        /// <param name="imSessionId"></param>
+        /// <returns></returns>
+        Task<bool> DisableSessionSendMessage(Guid imSessionId);
     }
 }

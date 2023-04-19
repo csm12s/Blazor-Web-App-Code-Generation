@@ -9,24 +9,14 @@ using System.ComponentModel;
 namespace Gardener.WoChat.Enums
 {
     /// <summary>
-    /// Im消息类型
+    /// 异常code
     /// </summary>
-    public enum ImMessageType
+    public enum ExceptionCode
     {
         /// <summary>
-        /// 图片
+        /// 会话禁止发送消息
         /// </summary>
-        [Description("图片")]
-        Image,
-        /// <summary>
-        /// 文本
-        /// </summary>
-        [Description("文本")]
-        Text,
-        /// <summary>
-        /// 文件
-        /// </summary>
-        [Description("文件")]
-        File
+        [Description("会话禁止发送消息")]
+        SessionDisableSendMessage,
     }
 }

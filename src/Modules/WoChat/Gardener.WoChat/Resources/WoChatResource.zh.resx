@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeleteSession" xml:space="preserve">
+    <value>删除会话</value>
+  </data>
   <data name="InitiateGroupChat" xml:space="preserve">
     <value>发起群聊</value>
   </data>
@@ -128,6 +131,12 @@
   </data>
   <data name="PleaseInputContent" xml:space="preserve">
     <value>请输入内容</value>
+  </data>
+  <data name="QuitGroupChat" xml:space="preserve">
+    <value>退出群聊</value>
+  </data>
+  <data name="RemoveGroupChat" xml:space="preserve">
+    <value>移除群聊</value>
   </data>
   <data name="SendImage" xml:space="preserve">
     <value>发送图片</value>

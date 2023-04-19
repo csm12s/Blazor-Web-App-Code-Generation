@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DynamicApiController;
+using Furion.FriendlyException;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;
@@ -159,7 +160,7 @@ namespace Gardener.WoChat.Services
 
                 await systemNotificationService.UserGroupAdd(WoChatUtil.GetImGroupName(imSession.Id), new Identity()
                 {
-                    Id = identity.Id,
+                    Id = userId.ToString(),
                     IdentityType = identity.IdentityType
                 });
             }
@@ -231,6 +232,7 @@ namespace Gardener.WoChat.Services
                 IEnumerable<int> userIds = userSessions.Where(x => x.ImSessionId.Equals(session.Id)).Select(x => x.UserId).Distinct();
                 session.Users = users.Where(x => userIds.Any(u => u.Equals(x.Id)));
                 session.SessionName = GetShowSessionName(session, userId);
+                session.DisableSendMessage = session.DisableSendMessage.Equals(true) && !userId.ToString().Equals(session?.CreateBy);
             }
             return sessions.OrderByDescending(x => x.LastMessageTime);
         }
@@ -282,15 +284,16 @@ namespace Gardener.WoChat.Services
             }
             return messageDtos;
         }
+
         /// <summary>
         /// 退出会话
         /// </summary>
         /// <param name="imSessionId"></param>
         /// <returns></returns>
         /// <remarks>
-        /// 私聊直接删除，群聊直接退出，自己创建的话直接解散
+        /// 私聊隐藏，群聊自己创建的话直接解散，不是就退出
         /// </remarks>
-        public async Task<bool> QuitMyImSession(Guid imSessionId)
+        public async Task<bool> QuitMyImSession([FromBody] Guid imSessionId)
         {
             Identity? identity = authorizationService.GetIdentity();
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
@@ -306,58 +309,53 @@ namespace Gardener.WoChat.Services
             {
                 return false;
             }
+            List<Task> tasks = new List<Task>();
             if (session.SessionType.Equals(ImSessionType.Personal))
             {
-                List<Task> tasks = new()
-                {
-                    //私聊直接删除
-                    imSessionRepository.DeleteAsync(imSessionId)
-                };
-                userSessions.ForEach(x =>
-                {
-                    tasks.Add(imUserSessionRepository.DeleteAsync(x.Id));
-                });
-                await Task.WhenAll(tasks);
+                //隐藏
+                ImUserSession userSession = userSessions.Where(x => x.UserId.Equals(userId)).First();
+                userSession.SetUpdatedIdentity(identity);
+                userSession.UpdatedTime = DateTimeOffset.Now;
+                userSession.IsActive = false;
+                tasks.Add(imUserSessionRepository.UpdateIncludeAsync(userSession, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) }));
+                //更新会话已有人隐藏了
+                session.AllUserIsActive = false;
+                session.SetUpdatedIdentity(identity);
+                session.UpdatedTime = DateTimeOffset.Now;
+                tasks.Add(imSessionRepository.UpdateIncludeAsync(session, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) }));
             }
             else if (session.SessionType.Equals(ImSessionType.Group))
             {
-                //群聊直接退出，自己创建的话直接解散
-            }
-            return true;
-        }
-        /// <summary>
-        /// 移除会话
-        /// </summary>
-        /// <param name="imSessionId"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// 仅仅隐藏会话
-        /// </remarks>
-        public async Task<bool> RemoveMyImSession(Guid imSessionId)
-        {
-            Identity? identity = authorizationService.GetIdentity();
-            if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
-            {
-                return false;
-            }
-            int userId = int.Parse(identity.Id);
-            var userSession = await imUserSessionRepository.AsQueryable(false).Where(x => x.IsActive.Equals(true) && x.UserId.Equals(userId)).FirstOrDefaultAsync();
-            if (userSession == null)
-            {
-                return false;
-            }
+                if (userId.ToString().Equals(session.CreateBy))
+                {
+                    //解散
+                    tasks.Add(imSessionRepository.DeleteAsync(imSessionId));
+                    userSessions.ForEach(x =>
+                    {
+                        tasks.Add(imUserSessionRepository.DeleteAsync(x.Id));
+                        tasks.Add(systemNotificationService.UserGroupRemove(WoChatUtil.GetImGroupName(imSessionId), new Identity()
+                        {
+                            Id = x.UserId.ToString(),
+                            IdentityType = IdentityType.User
+                        }));
+                    });
 
-            userSession.IsActive = false;
-            userSession.UpdatedTime = DateTime.UtcNow;
-            userSession.UpdateBy = identity.Id;
-            userSession.UpdateIdentityType = identity.IdentityType;
-            await imUserSessionRepository.UpdateIncludeAsync(userSession,
-                new string[] {
-                    nameof(ImUserSession.IsActive),
-                    nameof(ImUserSession.UpdateBy),
-                    nameof(ImUserSession.UpdatedTime),
-                    nameof(ImUserSession.UpdateIdentityType)
-                });
+                }
+                else
+                {
+                    //退出
+                    ImUserSession userSession = userSessions.Where(x => x.UserId.Equals(userId)).First();
+                    tasks.Add(imUserSessionRepository.DeleteAsync(userSession.Id));
+                    tasks.Add(systemNotificationService.UserGroupRemove(WoChatUtil.GetImGroupName(imSessionId), identity));
+                    tasks.Add(systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(imSessionId), new WoChatImSystemMessageNotificationData()
+                    {
+                        Identity = identity,
+                        ImSessionId = imSessionId,
+                        MessageType = ImSystemMessageType.UserQuit
+                    }));
+                }
+            }
+            await Task.WhenAll(tasks);
             return true;
         }
         /// <summary>
@@ -379,34 +377,101 @@ namespace Gardener.WoChat.Services
             sessionMessage.CreatedTime = DateTimeOffset.Now;
             sessionMessage.CreateBy = identity.Id;
             sessionMessage.CreateIdentityType = identity.IdentityType;
-            var task1 =imSessionMessageRepository.InsertAsync(sessionMessage);
+            List<Task> tasks = new List<Task>();
+
+            //入库
+            tasks.Add(imSessionMessageRepository.InsertAsync(sessionMessage));
+            //查找会话
             var task2 = imSessionRepository.FindAsync(sessionMessage.ImSessionId);
             var task3 = userService.Get(userId);
-            await task1;
-            var imSession= await task2;
-            //发送
+
+            var imSession = await task2;
+            if (imSession.DisableSendMessage.Equals(true) && !userId.ToString().Equals(imSession.CreateBy))
+            {
+                //禁言中
+                throw Oops.Oh(ExceptionCode.SessionDisableSendMessage);
+            }
             var user = await task3;
-            message= sessionMessage.Adapt<ImSessionMessageDto>();
+            message = sessionMessage.Adapt<ImSessionMessageDto>();
             message.User = user;
-            var task4= systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImMessageNotificationData()
+            
+            if (imSession != null)
+            {
+
+                if (!imSession.AllUserIsActive)
+                {
+                    //查看那些用户未激活
+                    List<ImUserSession> noActiveUserSessions = await imUserSessionRepository.AsQueryable(false).Where(x => x.IsActive == false && x.ImSessionId.Equals(imSession.Id)).ToListAsync();
+                    noActiveUserSessions.ForEach(x =>
+                    {
+                        //激活
+                        x.IsActive = true;
+                        x.SetUpdatedIdentity(identity);
+                        x.UpdatedTime = DateTimeOffset.Now;
+                        tasks.Add(imUserSessionRepository.UpdateIncludeAsync(x, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) }));
+                    });
+
+                    imSession.AllUserIsActive = true;
+
+                }
+
+                //更新会话时间
+
+                imSession.SetUpdatedIdentity(identity);
+                imSession.LastMessageTime = DateTimeOffset.Now;
+                tasks.Add(imSessionRepository.UpdateIncludeAsync(imSession, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) }));
+            }
+            await Task.WhenAll(tasks);
+            //发送
+            await systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImUserMessageNotificationData()
             {
                 Identity = identity,
                 ImMessage = message,
             });
-            if(imSession!=null)
-            {
-                imSession.SetUpdatedIdentity(identity);
-                imSession.LastMessageTime= DateTimeOffset.Now;
-                await imSessionRepository.UpdateIncludeAsync(imSession, new[] { nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) });
-            }
-            
-            await task4;
             return true;
         }
+        /// <summary>
+        /// 禁言会话
+        /// </summary>
+        /// <param name="imSessionId"></param>
+        /// <returns></returns>
+        public async Task<bool> DisableSessionSendMessage([FromBody] Guid imSessionId)
+        {
+            Identity? identity = authorizationService.GetIdentity();
+            if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
+            {
+                return false;
+            }
+            int userId = int.Parse(identity.Id);
 
+            var session = await imSessionRepository.FindAsync(imSessionId);
+            if (session == null)
+            {
+                return false;
+            }
+
+            if (!userId.ToString().Equals(identity.Id))
+            {
+                return false;
+            }
+
+            session.DisableSendMessage = true;
+            session.SetUpdatedIdentity(identity);
+            session.UpdatedTime = DateTimeOffset.Now;
+            await imSessionRepository.UpdateIncludeAsync(session, new[] { nameof(ImSession.DisableSendMessage), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) });
+            await systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(imSessionId), new WoChatImSystemMessageNotificationData()
+            {
+                Identity = identity,
+                ImSessionId = imSessionId,
+                MessageType=ImSystemMessageType.DisableSessionSendMessage
+            });
+            return true;
+
+        }
         /// <summary>
         /// 获取展示的会话名称
         /// </summary>
+        /// <param name="session"></param>
         /// <param name="myUserId">自己的用户编号-<see cref="ImSessionType.Personal"/>有效</param>
         /// <returns></returns>
         private string GetShowSessionName(ImSessionDto session, int? myUserId = null)

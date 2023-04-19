@@ -188,7 +188,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员2",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="./assets/logo.png",
+                    Avatar="./avatars/2.jpeg",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -200,7 +200,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员3",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="./assets/logo.png",
+                    Avatar="./avatars/3.jpeg",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -211,7 +211,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员4",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="./assets/logo.png",
+                    Avatar="./avatars/4.jpeg",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -222,7 +222,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员5",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="./assets/logo.png",
+                    Avatar="./avatars5.jpeg",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -233,7 +233,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员6",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="./assets/logo.png",
+                    Avatar="./avatars/6.jpeg",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -244,7 +244,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="管理员1",
                     PasswordEncryptKey=passwordEncryptKey ,
                     Password=MD5Encryption.Encrypt("admin"+passwordEncryptKey),
-                    Avatar="./assets/logo.png",
+                    Avatar="./avatars/1.jpeg",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
@@ -256,7 +256,7 @@ namespace Gardener.UserCenter.Impl.Domains
                     NickName="测试员",
                     PasswordEncryptKey=passwordEncryptKey,
                     Password=MD5Encryption.Encrypt("testuser"+passwordEncryptKey),
-                    Avatar="./assets/logo.png",
+                    Avatar="./avatars/7.jpeg",
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=3,
                     PositionId=2
