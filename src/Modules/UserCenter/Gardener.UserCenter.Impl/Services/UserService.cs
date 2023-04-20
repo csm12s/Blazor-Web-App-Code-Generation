@@ -23,6 +23,7 @@ using Gardener.UserCenter.Impl.Core;
 using Gardener.UserCenter.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.EntityFramwork;
+using Furion.DependencyInjection;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -30,7 +31,7 @@ namespace Gardener.UserCenter.Impl.Services
     /// 用户服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
-    public class UserService : ServiceBase<User, UserDto>, IUserService
+    public class UserService : ServiceBase<User, UserDto>, IUserService,IScoped
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
@@ -319,6 +320,19 @@ namespace Gardener.UserCenter.Impl.Services
                 throw new ArgumentNullException("CurrentUserId");
             }
             return Task.FromResult(id);
+        }
+        /// <summary>
+        /// 根据用户编号集合获取多个用户
+        /// </summary>
+        /// <param name="userIds"></param>
+        /// <returns></returns>
+        public Task<List<UserDto>> GetUsers(IEnumerable<int> userIds)
+        {
+            return _userRepository
+                .AsQueryable(false).Include(x=>x.UserExtension)
+               .Where(x => userIds.Contains(x.Id))
+               .Select(x => x.Adapt<UserDto>())
+               .ToListAsync();
         }
     }
 }

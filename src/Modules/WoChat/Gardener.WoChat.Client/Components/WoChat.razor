@@ -1,0 +1,350 @@
+﻿@page "/wo-chat"
+@using Gardener.UserCenter.Dtos;
+@using Gardener.WoChat.Dtos;
+@using Gardener.WoChat.Enums;
+@inherits OperationDialogBase<WoChatDialogConfig,bool,WoChatResource>
+@{
+    RenderFragment<ImSessionMessageDto> content = message =>
+    @<div>
+        @if (message.MessageType.Equals(ImMessageType.Image))
+                {
+        <Image Height="100px" Src="@message.Message" />
+                }
+                else if (!string.IsNullOrEmpty(message.Message))
+                {
+        <p>@message.Message</p>
+                }
+    </div>;
+}
+
+<GridRow Style="@($"Height:{Height}px;")">
+    <GridCol Span="24">
+        <Tabs ActiveKey="@tabActiveKey" TabPosition="TabPosition.Left" OnChange="OnChange">
+            <TabPane Key="@tabMessageKey">
+                <TabTemplate>
+                    <Icon Type="message" Theme="outline" Style="font-size:34px;" />
+                </TabTemplate>
+                <ChildContent>
+                    <GridRow Style="margin-left: -24px;">
+                        <GridCol Span="8">
+                            <Spin Spinning="sessionListLoading">
+                                <div style="@($"Height:{Height}px;overflow-y:scroll;border-right: 1px solid #ccc;")">
+                                    @if (imSessions != null)
+                                    {
+                                        <AntList DataSource="imSessions" TItem="ImSessionDto ">
+                                            <ListItem OnClick="()=>OnClickSessionListItem(context)" Style="@("padding-left:10px;"+(context.Id.Equals(sessionListSelectedSessionId)?"background-color: #c5c4c4;":""))">
+                                                <Badge Count="context.UnreadMessageCount">
+                                                    <span>
+                                                        @if (context.SessionType.Equals(ImSessionType.Personal))
+                                                        {
+                                                            UserDto userTemp = context.Users.Where(x => x.Id != currentUser?.Id).First();
+                                                            @if (userTemp.Avatar == null)
+                                                            {
+                                                                <Avatar Shape="@avatarShape" Size="large">@(userTemp.GetAvatarFromName())</Avatar>
+                                                            }
+                                                            else
+                                                            {
+                                                                <Avatar Shape="@avatarShape" Size="large" Src="@userTemp.Avatar" />
+                                                            }
+                                                            @(context.SessionName)
+                                                        }
+                                                        else
+                                                        {
+                                                            <AvatarGroup MaxCount="2" MaxStyle="color: #f56a00; background-color:#fde3cf;">
+                                                                @foreach (var user in context.Users)
+                                                                {
+                                                                    @if (user.Avatar == null)
+                                                                    {
+                                                                        <Avatar Shape="@avatarShape" Size="small">@(user.GetAvatarFromName())</Avatar>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <Avatar Shape="@avatarShape" Size="small" Src="@user.Avatar" />
+                                                                    }
+                                                                }
+                                                            </AvatarGroup>
+                                                            @(context.SessionName)
+                                                        }
+                                                    </span>
+                                                </Badge>
+                                            </ListItem>
+                                        </AntList>
+                                    }
+                                </div>
+                            </Spin>
+                        </GridCol>
+                        <GridCol Span="16" Style="@($"Height:{Height}px;padding-left: 10px;overflow-x:hidden;")">
+                            @if (sessionListSelectedSession != null)
+                            {
+                                <GridRow Style="@($"padding:0 5px;border-bottom:1px solid #dfe1e3;height:{MessageTitleHeight}px;line-height:{MessageTitleHeight}px;")">
+                                    <GridCol Span="22">
+                                        <span>
+                                            @if (sessionListSelectedSession.SessionType.Equals(ImSessionType.Personal))
+                                            {
+                                                UserDto userTemp = sessionListSelectedSession.Users.Where(x => x.Id != currentUser?.Id).First();
+                                                @if (userTemp.Avatar == null)
+                                                {
+                                                    <Avatar Shape="@avatarShape" Size="large">@(userTemp.GetAvatarFromName())</Avatar>
+                                                }
+                                                else
+                                                {
+                                                    <Avatar Shape="@avatarShape" Size="large" Src="@userTemp.Avatar" />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <AvatarGroup MaxCount="2" MaxStyle="color: #f56a00; background-color:#fde3cf;">
+                                                    @foreach (var user in sessionListSelectedSession.Users)
+                                                    {
+                                                        @if (user.Avatar == null)
+                                                        {
+                                                            <Avatar Shape="@avatarShape" Size="small">@(user.GetAvatarFromName())</Avatar>
+                                                        }
+                                                        else
+                                                        {
+                                                            <Avatar Shape="@avatarShape" Size="small" Src="@user.Avatar" />
+                                                        }
+                                                    }
+                                                </AvatarGroup>
+                                            }
+                                            @(sessionListSelectedSession.SessionName)
+                                        </span>
+                                    </GridCol>
+                                    <GridCol Span="2">
+                                        <Button Type="@ButtonType.Text" Icon="@IconType.Outline.Setting" OnClick="OnClickSetting" />
+                                    </GridCol>
+                                </GridRow>
+
+                                <GridRow Style="@($"Height:{messageListHeight}px;overflow-y:scroll;")" Id="@woChatMessageBoxId">
+                                    <GridCol Span="24" Style="">
+                                        @if (messages != null)
+                                        {
+                                            <AntList DataSource="messages" TItem="ImSessionMessageDto">
+                                                <ListItem>
+                                                    <Comment Avatar="@context.User?.Avatar"
+                                                             Author="@context.User?.NickName"
+                                                             Datetime="@context.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")"
+                                                             ContentTemplate="@content(context)">
+                                                    </Comment>
+                                                </ListItem>
+                                            </AntList>
+                                        }
+                                    </GridCol>
+                                </GridRow>
+
+                                <GridRow Style="@($"Height:{MessageInputHeight}px;")">
+                                    <GridCol Span="24">
+                                        <GridRow>
+                                            <GridCol Span="24" Style="">
+                                                <Popover Visible="currentUserWoChatImagesBoxVisible" Placement="@Placement.TopLeft" Title="@Localizer[WoChatResource.SendImage]" OnVisibleChange="OnShowImageList" Trigger="@(new AntDesign.Trigger[] { AntDesign.Trigger.Hover})">
+                                                    <ContentTemplate>
+                                                        <GridRow>
+                                                            <GridCol Span="24" Style="width:280px;height:160px;overflow-y:scroll;">
+                                                                @if (currentUserWoChatImages != null)
+                                                                {
+                                                                    foreach (string image in currentUserWoChatImages)
+                                                                    {
+                                                                        <Image Style="cursor:pointer" Width="50" Src="@image" Preview="false" OnClick="()=>OnClickImage(image)" />
+                                                                    }
+                                                                }
+                                                            </GridCol>
+                                                        </GridRow>
+                                                        <GridRow>
+                                                            <GridCol Span="24" Style="border-top: 1px solid #ccc;padding-top: 5px;margin-top: 5px;text-align: right;">
+                                                                <Upload Action="@uploadUrl"
+                                                                        Name="file"
+                                                                        ShowUploadList="false"
+                                                                        BeforeUpload="BeforeUpload"
+                                                                        OnChange="UploadHandleChange"
+                                                                        Data="uploadAttachmentInput"
+                                                                        Headers="uploadHeaders">
+                                                                    <Button Icon="upload" Size="@ButtonSize.Small">
+                                                                        <span>@Localizer[WoChatResource.Upload]</span>
+                                                                    </Button>
+                                                                </Upload>
+                                                            </GridCol>
+                                                        </GridRow>
+
+                                                    </ContentTemplate>
+                                                    <ChildContent>
+                                                        <Button Type="@ButtonType.Dashed" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.FileAdd" />
+                                                    </ChildContent>
+                                                </Popover>
+                                            </GridCol>
+                                        </GridRow>
+                                        <GridRow>
+                                            <GridCol Span="24" Style="padding-right:2px;">
+                                                <TextArea MinRows="4" @bind-Value="@inputMessage" Placeholder="@(sessionListSelectedSession.CurrentUserCanSendMessage?Localizer[WoChatResource.DisableSendMessage]:Localizer[WoChatResource.PleaseInputContent])" Disabled="@sessionListSelectedSession.CurrentUserCanSendMessage" ShowCount MaxLength="100" />
+                                            </GridCol>
+                                        </GridRow>
+                                        <GridRow>
+                                            <GridCol Span="24" Style="text-align:right;padding-top:5px;padding-right:5px;">
+                                                <Button Type="@ButtonType.Primary" Size="@ButtonSize.Small" OnClick="OnClickSendMessage">@Localizer[WoChatResource.Send]</Button>
+                                            </GridCol>
+                                        </GridRow>
+                                    </GridCol>
+                                </GridRow>
+                            }
+                            @if (sessionListSelectedSession != null)
+                            {
+                                <Drawer Style="position:absolute" Visible="settingDrawerVisible" Placement="right" Title="@Localizer[WoChatResource.Setting]" OnClose="_=>{settingDrawerVisible=false;}">
+                                    <GridRow>
+                                        <GridCol Span="24">
+                                            @foreach (var user in sessionListSelectedSession.Users)
+                                            {
+                                                if (sessionListSelectedSession.SessionType.Equals(ImSessionType.Personal) && user.Id == currentUser?.Id)
+                                                {
+                                                    continue;
+                                                }
+                                                <Tooltip Placement="@Placement.Top" Title="@(user.NickName ?? user.UserName)">
+                                                    @if (user.Avatar == null)
+                                                    {
+                                                        <Avatar Shape="@avatarShape" Size="large">@(user.GetAvatarFromName())</Avatar>
+                                                    }
+                                                    else
+                                                    {
+                                                        <Avatar Shape="@avatarShape" Size="large" Src="@user.Avatar" />
+                                                    }
+                                                </Tooltip>
+
+                                            }
+                                        </GridCol>
+                                    </GridRow>
+                                    <GridRow Style="padding-top:10px;text-align:center;">
+                                        <GridCol Span="24">
+                                            @if (sessionListSelectedSession.SessionType.Equals(ImSessionType.Group))
+                                            {
+                                                @if (sessionListSelectedSession.CreateBy?.Equals(currentUser?.Id.ToString()) == true)
+                                                {
+                                                    <GridRow>
+                                                        <GridCol Span="10"><span> @Localizer[WoChatResource.DisableSendMessage] ：</span></GridCol>
+                                                        <GridCol Span="14">
+                                                            <Switch Checked="@sessionListSelectedSession.DisableSendMessage" Loading="@disableSendMessageLoading" Control OnClick="OnDisableSendMessage" />
+                                                        </GridCol>
+                                                    </GridRow>
+                                                }
+                                                <GridRow>
+                                                    <GridCol Span="24">
+                                                        @if (sessionListSelectedSession.CreateBy?.Equals(currentUser?.Id.ToString()) == true)
+                                                        {
+                                                            <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.RemoveGroupChat])">@Localizer[WoChatResource.RemoveGroupChat]</Button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.QuitGroupChat])">@Localizer[WoChatResource.QuitGroupChat]</Button>
+                                                        }
+                                                    </GridCol>
+                                                </GridRow>
+
+                                            }
+                                            else
+                                            {
+                                                <Button Type="@ButtonType.Primary" Danger OnClick="()=>OnClickQuitGroupChat(Localizer[WoChatResource.DeleteSession])">@Localizer[WoChatResource.DeleteSession]</Button>
+                                            }
+                                        </GridCol>
+                                    </GridRow>
+                                </Drawer>
+                            }
+
+                        </GridCol>
+                    </GridRow>
+                </ChildContent>
+            </TabPane>
+            <TabPane Key="@tabUsersKey">
+                <TabTemplate>
+                    <Icon Type="team" Theme="outline" Style="font-size:34px;" />
+                </TabTemplate>
+                <ChildContent>
+                    <GridRow Style="margin-left: -24px;">
+                        <GridCol Span="8">
+                            <Spin Spinning="userListLoading">
+                                <div style="@($"Height:{Height}px;overflow-y:scroll;border-right: 1px solid #ccc;")">
+                                    <GridRow>
+                                        <GridCol Span="24" Style="padding:5px 0px;">
+                                            @if (openGroupMode)
+                                            {
+                                                <InputGroup Compact>
+                                                <Input Placeholder="@Localizer[WoChatResource.InputGroupName]" @bind-Value="@openGroupName" Style="width: 80%;" />
+                                                <Button Type="@ButtonType.Primary" Icon="@IconType.Outline.Check" Size="@ButtonSize.Default" OnClick="OnClickOpenGroupModeOk" />
+                                            </InputGroup>
+
+                                            }
+                                            else
+                                            {
+                                                <Button Block Icon="@IconType.Outline.Plus" Size="@ButtonSize.Default" OnClick="OnClickOpenGroupMode">@Localizer[WoChatResource.InitiateGroupChat]</Button>
+                                            }
+                                        </GridCol>
+                                    </GridRow>
+                                    <GridRow>
+                                        <GridCol Span="24">
+                                            @if (users != null)
+                                            {
+                                                <AntList DataSource="users" TItem="UserDto ">
+                                                    <ListItem OnClick="()=>OnClickUserListItem(context)" Style="@("padding-left:10px;"+(userListSelectedUser?.Id==context.Id?"background-color: #c5c4c4;":""))">
+                                                        <span>
+                                                            @if (openGroupMode)
+                                                            {
+                                                                <Checkbox @bind-Checked="openGroupSelectedUsers[context.Id]" />
+                                                            }
+                                                            @if (context.Avatar == null)
+                                                            {
+                                                                <Avatar Shape="@avatarShape" Size="large">@(context.GetAvatarFromName())</Avatar>
+                                                            }
+                                                            else
+                                                            {
+                                                                <Avatar Shape="@avatarShape" Size="large" Src="@context.Avatar" />
+                                                            }
+                                                            @(context.NickName ?? context.UserName)
+                                                        </span>
+                                                    </ListItem>
+                                                </AntList>
+                                            }
+                                        </GridCol>
+                                    </GridRow>
+                                </div>
+                            </Spin>
+                        </GridCol>
+                        <GridCol Span="16" Style="@($"Height:{Height}px;overflow-y:scroll;padding-left: 10px;")">
+                            <GridRow>
+                                <GridCol Span="24">
+                                    @if (userListSelectedUser == null)
+                                    {
+                                        <Empty Simple Description="false" />
+                                    }
+                                    else
+                                    {
+                                        <Descriptions Title="@Localizer[WoChatResource.UserInfo]" Bordered Style="text-align:center;">
+                                            <DescriptionsItem Title="@Localizer[WoChatResource.Avatar]" Span="3">
+                                                @if (userListSelectedUser?.Avatar == null)
+                                                {
+                                                    <Avatar Shape="@avatarShape" Size="5rem">@(userListSelectedUser?.GetAvatarFromName())</Avatar>
+                                                }
+                                                else
+                                                {
+                                                    <Avatar Shape="@avatarShape" Size="5rem" Src="@userListSelectedUser?.Avatar" />
+                                                }
+                                            </DescriptionsItem>
+                                            <DescriptionsItem Title="@Localizer[WoChatResource.UserName]" Span="3">@(userListSelectedUser?.UserName)</DescriptionsItem>
+                                                <DescriptionsItem Title="@Localizer[WoChatResource.NickName]" Span="3">@(userListSelectedUser?.NickName)</DescriptionsItem>
+                                            </Descriptions>
+                                    }
+                                </GridCol>
+                            </GridRow>
+                            <GridRow Style="margin-top:5px;">
+                                <GridCol Span="24" Style="text-align:center;">
+                                    @if (userListSelectedUser != null)
+                                    {
+                                        <Button Type="@ButtonType.Primary" OnClick="OnClickOpenSession">
+                                            @Localizer[WoChatResource.SendMessage]
+                                        </Button>
+                                    }
+                                </GridCol>
+
+                            </GridRow>
+                        </GridCol>
+                    </GridRow>
+                </ChildContent>
+            </TabPane>
+        </Tabs>
+    </GridCol>
+</GridRow>

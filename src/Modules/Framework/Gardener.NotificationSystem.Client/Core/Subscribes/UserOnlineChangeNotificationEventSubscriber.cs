@@ -35,23 +35,24 @@ namespace Gardener.NotificationSystem.Client.Core.Subscribes
         {
             UserOnlineChangeNotificationData notificationData = e;
             //无数据 或 无身份 或 非user身份
-            if (notificationData == null || notificationData.Identity==null || !notificationData.Identity.IdentityType.Equals(IdentityType.User))
+            if (notificationData == null || notificationData.Identity == null || !notificationData.Identity.IdentityType.Equals(IdentityType.User))
             {
                 return;
             }
             var user = await authStateManager.GetCurrentUser();
             //未登录，或是自己
-            if (user==null || user.Id.ToString() == notificationData.Identity.Id) 
+            if (user == null || user.Id.ToString() == notificationData.Identity.Id)
             {
                 return;
             }
-             
+
             if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Online))
-            { 
-               clientNotifier.Info("用户上线通知",$"{notificationData.Identity.NickName} 刚刚上线了<br/>IP:[{notificationData.Ip}]");
-            }else if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Offline))
             {
-               clientNotifier.Info("用户离线通知", $"{notificationData.Identity.NickName} 刚刚离线了<br/>IP:[{notificationData.Ip}]");
+                clientNotifier.Info($"{notificationData.Identity.NickName} 刚刚上线了<br/>IP:[{notificationData.Ip}]", "用户上线通知");
+            }
+            else if (notificationData.OnlineStatus.Equals(UserOnlineStatus.Offline))
+            {
+                clientNotifier.Info($"{notificationData.Identity.NickName} 刚刚离线了<br/>IP:[{notificationData.Ip}]", "用户离线通知");
             }
         }
     }

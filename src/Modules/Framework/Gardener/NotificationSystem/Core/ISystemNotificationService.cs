@@ -4,7 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authentication.Dtos;
 using Gardener.NotificationSystem.Dtos;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.NotificationSystem.Core
@@ -25,9 +27,78 @@ namespace Gardener.NotificationSystem.Core
         /// <summary>
         /// 向指定用户发送信息
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="receiveUser">接收用户</param>
         /// <param name="notifyData"></param>
         /// <returns></returns>
-        Task SendToUser(int userId, NotificationData notifyData);
+        Task SendToUser(Identity receiveUser, NotificationData notifyData);
+
+        /// <summary>
+        /// 向指定用户发送信息
+        /// </summary>
+        /// <param name="receiveUsers"></param>
+        /// <param name="notifyData"></param>
+        /// <returns></returns>
+        Task SendToUsers(IEnumerable<Identity> receiveUsers, NotificationData notifyData);
+
+        /// <summary>
+        /// 向指定用户组发送信息
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="notifyData"></param>
+        /// <returns></returns>
+        Task SendToGroup(string groupName, NotificationData notifyData);
+
+        /// <summary>
+        /// 向指定用户组发送信息
+        /// </summary>
+        /// <param name="groupNames"></param>
+        /// <param name="notifyData"></param>
+        /// <returns></returns>
+        Task SendToGroups(IEnumerable<string> groupNames, NotificationData notifyData);
+
+        /// <summary>
+        /// 设置用户在线状态为在线
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="connectionId"></param>
+        /// <returns></returns>
+        public Task SetUserOnline(Identity identity, string connectionId);
+
+        /// <summary>
+        /// 设置用户在线状态为离线
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="connectionId"></param>
+        /// <returns></returns>
+        public Task SetUserOffline(Identity identity, string connectionId);
+
+        /// <summary>
+        /// 判断用户是否在线
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        public Task<bool> CheckUserIsOnline(Identity identity);
+
+        /// <summary>
+        /// 设置用户到某个分组
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果不在线或链接信息不存在，无法设置
+        /// </remarks>
+        Task<bool> UserGroupAdd(string groupName, Identity identity);
+
+        /// <summary>
+        /// 移除用户的某个分组
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果链接信息不存在，无法设置
+        /// </remarks>
+        Task<bool> UserGroupRemove(string groupName, Identity identity);
     }
 }

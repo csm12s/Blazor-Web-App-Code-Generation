@@ -95,7 +95,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected virtual async Task OnFormFinish(EditContext editContext)
         {
             StartLoading();
-            TOperationDialogOutput operationDialogOutput = new TOperationDialogOutput();
+            var operationDialogOutput = new OperationDialogOutput<TKey>();
             //开始请求
             if (this.Options.Type.Equals(OperationDialogInputType.Add))
             {
@@ -105,8 +105,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (result != null)
                 {
                     MessageService.Success(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
-                    operationDialogOutput.IsSucceed();
-                    await CloseAsync(operationDialogOutput);
+                    operationDialogOutput.IsSucceed(result.Id);
+                    await CloseAsync(operationDialogOutput as TOperationDialogOutput);
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 {
                     MessageService.Success(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Success));
                     operationDialogOutput.IsSucceed();
-                    await CloseAsync(operationDialogOutput);
+                    await CloseAsync(operationDialogOutput as TOperationDialogOutput);
                 }
                 else
                 {

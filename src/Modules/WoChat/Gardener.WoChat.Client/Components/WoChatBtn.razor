@@ -1,0 +1,116 @@
+﻿@using Gardener.Client.AntDesignUi.Base.Constants;
+@using Gardener.Client.Base.EventBus.Events;
+@using Gardener.EventBus;
+@using Gardener.UserCenter.Dtos;
+@using Gardener.UserCenter.Services;
+@using Gardener.WoChat.Dtos.Notification;
+<div class="wochat-show-box" style="@(userIsLogin?"":"display:none;")">
+    <Badge Count="messageCount">
+        <Button Size="@ButtonSize.Large" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="comment" OnClick="OnClick" Style="font-size:34px;"></Button>
+    </Badge>
+</div>
+@code {
+    /// <summary>
+    /// 最后的会话编号
+    /// </summary>
+    private Guid? lastSessionId;
+    //用户登陆状态
+    private bool userIsLogin = false;
+    /// <summary>
+    /// 消息数量
+    /// </summary>
+    private int messageCount = 0;
+    /// <summary>
+    /// 聊天窗体是否打开了
+    /// </summary>
+    private bool woCahtIsOpen = false;
+    /// <summary>
+    /// 身份权限服务
+    /// </summary>
+    [Inject]
+    public IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
+    /// <summary>
+    /// 操作框服务
+    /// </summary>
+    [Inject]
+    private IOperationDialogService OperationDialogService { get; set; } = null!;
+    /// <summary>
+    /// 事件总线
+    /// </summary>
+    [Inject]
+    private IEventBus EventBus { get; set; } = null!;
+
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    /// <returns></returns>
+    protected override Task OnInitializedAsync()
+    {
+        //登陆成功
+        EventBus.Subscribe<LoginSucceedAfterEvent>(async token =>
+        {
+            bool ok = await AuthenticationStateManager.CheckCurrentUserHaveBtnResourceKey("global_wo_chat_btn");
+            userIsLogin = ok;
+            await InvokeAsync(StateHasChanged);
+        });
+        //刷新页面成功
+        EventBus.Subscribe<ReloadCurrentUserEvent>(token =>
+        {
+            userIsLogin = true;
+            return InvokeAsync(StateHasChanged);
+        });
+        //登出成功
+        EventBus.Subscribe<LogoutSucceedAfterEvent>(token =>
+        {
+            userIsLogin = false;
+            return InvokeAsync(StateHasChanged);
+        });
+        //im消息
+        EventBus.Subscribe<WoChatImUserMessageNotificationData>(async message =>
+        {
+            //已打开聊天窗口就不统计了
+            if (woCahtIsOpen) { return; }
+            UserDto? user = await AuthenticationStateManager.GetCurrentUser();
+            System.Console.WriteLine("===" + message.ImMessage.UserId);
+            System.Console.WriteLine("***" + user?.Id);
+            if (message.ImMessage.UserId != user?.Id)
+            {
+                messageCount++;
+                lastSessionId = message.ImMessage.ImSessionId;
+                await InvokeAsync(StateHasChanged);
+            }
+        });
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    private async Task OnClick()
+    {
+        messageCount = 0;
+        OperationDialogSettings dialogSettings = ClientConstant.DefaultOperationDialogSettings;
+        dialogSettings.Width = 800;
+        dialogSettings.BodyStyle = "padding: 5px;";
+        await OperationDialogService.OpenAsync<WoChat, WoChatDialogConfig, bool>("WoChat", new WoChatDialogConfig()
+            {
+                DefaultSelectedSessionId = lastSessionId,
+                Height = 600
+            }, OnWoChatClose, dialogSettings);
+        woCahtIsOpen = true;
+
+    }
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
+    private Task OnWoChatClose(bool result)
+    {
+        woCahtIsOpen = false;
+        return Task.CompletedTask;
+
+    }
+}

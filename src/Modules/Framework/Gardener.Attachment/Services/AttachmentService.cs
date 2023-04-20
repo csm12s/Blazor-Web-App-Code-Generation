@@ -18,7 +18,12 @@ using Gardener.FileStore;
 using Gardener.Attachment.Core;
 using Gardener.Common;
 using Gardener.EntityFramwork;
-using Gardener.Base;
+using System.Collections.Generic;
+using Gardener.Attachment.Enums;
+using Gardener.Authentication.Core;
+using System.Linq.Dynamic.Core;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gardener.Attachment.Services
 {
@@ -30,16 +35,19 @@ namespace Gardener.Attachment.Services
     {
         private readonly IFileStoreService fileStoreService;
         private readonly IRepository<Domains.Attachment> repository;
+        private readonly IIdentityService identityService;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="fileStoreService"></param>
-        public AttachmentService(IRepository<Domains.Attachment> repository, IFileStoreService fileStoreService) : base(repository)
+        /// <param name="identityService"></param>
+        public AttachmentService(IRepository<Domains.Attachment> repository, IFileStoreService fileStoreService, IIdentityService identityService) : base(repository)
         {
             this.fileStoreService = fileStoreService;
             this.repository = repository;
+            this.identityService = identityService;
         }
         /// <summary>
         /// 上传附件
@@ -66,18 +74,18 @@ namespace Gardener.Attachment.Services
             attachment.Name = fileName;
             string savePartialPath = $"{input.BusinessType}/{DateTime.Now.ToString("yyyMMdd")}/".ToLower();
             attachment.Path = savePartialPath;
-            
+
             // save file
             string url = await fileStoreService.Save(file.OpenReadStream(), savePartialPath + fileName);
             if (!string.IsNullOrEmpty(input.FileSavePath))
             {
                 await fileStoreService.SaveToLocal(file.OpenReadStream(), input.FileSavePath);
-            } 
+            }
             else if (!string.IsNullOrEmpty(input.FileSaveFolder))
             {
                 var fileExt = Path.GetExtension(file.FileName);
                 var originName = file.FileName.Replace(fileExt, "");
-                var newName = originName 
+                var newName = originName
                     + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")
                     + "_" + IdHelper.GetGuid32()
                     + fileExt;
@@ -85,7 +93,7 @@ namespace Gardener.Attachment.Services
                 await fileStoreService.Save(file.OpenReadStream(),
                     Path.Combine(input.FileSaveFolder, newName));
             }
-            
+
             attachment.Url = url;
             attachment.CreatedTime = DateTime.Now;
             var entity = await base.Insert(attachment);
@@ -157,6 +165,25 @@ namespace Gardener.Attachment.Services
         {
             var image64 = ImageHelper.ImageToBase64(remoteFilePath);
             return Task.FromResult(image64);
+        }
+        /// <summary>
+        /// 获取我的某一类型附件数据
+        /// </summary>
+        /// <param name="attachmentBusinessType"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<AttachmentDto>> GetMyAttachments(AttachmentBusinessType attachmentBusinessType)
+        {
+            var identity = identityService.GetIdentity();
+            if (identity == null)
+            {
+                return new AttachmentDto[0];
+            }
+
+            return await repository.AsQueryable(false)
+                 .Where(x => x.BusinessType.Equals(attachmentBusinessType) && identity.Id.Equals(x.CreateBy) && identity.IdentityType.Equals(x.CreateIdentityType))
+                 .OrderBy(x => x.CreatedTime)
+                 .Select(x => x.Adapt<AttachmentDto>())
+                 .ToListAsync();
         }
     }
 }

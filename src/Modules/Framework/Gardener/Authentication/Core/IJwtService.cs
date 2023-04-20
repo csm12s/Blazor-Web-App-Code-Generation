@@ -33,13 +33,5 @@ namespace Gardener.Authentication.Core
         /// <param name="identity"></param>
         /// <returns></returns>
         Task<bool> RemoveRefreshToken(Identity identity);
-
-        /// <summary>
-        /// 从请求主体信息解析出身份信息
-        /// </summary>
-        /// <param name="principal"></param>
-        /// <returns></returns>
-        Identity? ClaimsPrincipalToIdentity(ClaimsPrincipal principal);
-
     }
 }

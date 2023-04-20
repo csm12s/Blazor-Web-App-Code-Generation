@@ -38,6 +38,12 @@ namespace Gardener.Client.AntDesignUi.Base
         /// </summary>
         public int Width { get; set; } = 500;
 
+        /// <summary>
+        /// body 样式
+        /// </summary>
+        public string? BodyStyle { get; set; }
+
+
         #region  Drawer
         /// <summary>
         /// 抽屉弹出位置
@@ -45,10 +51,15 @@ namespace Gardener.Client.AntDesignUi.Base
         public Placement DrawerPlacement { get; set; } = Placement.Right;
 
         /// <summary>
-        /// 抽屉高度
+        /// 高度-Drawer 有效
         /// 仅在 Placement 为“top”或“bottom”时使用
         /// </summary>
-        public int DrawerHeight { get; set; } = 500;
+        public int Height { get; set; } = 500;
+
+        /// <summary>
+        /// 标题部分的样式-Drawer 有效
+        /// </summary>
+        public string? HeaderStyle { get; set; }
 
         #endregion
 

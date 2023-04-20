@@ -425,6 +425,9 @@
   <data name="SendImage" xml:space="preserve">
     <value>Send image</value>
   </data>
+  <data name="SessionDisableSendMessage" xml:space="preserve">
+    <value>Session disable send message</value>
+  </data>
   <data name="Setting" xml:space="preserve">
     <value>Setting</value>
     <comment>LocalKeys</comment>

@@ -20,19 +20,12 @@ namespace Gardener.NotificationSystem.Dtos
         /// <summary>
         /// 系统通知数据
         /// </summary>
-        public NotificationData()
+        /// <param name="type">通知类型</param>
+        public NotificationData(NotificationDataType type)
         {
             this.Time = DateTimeOffset.Now;
             this.TypeAssemblyName = this.GetType().AssemblyQualifiedName;
             this.EventType = EventType.SystemNotify;
-        }
-
-        /// <summary>
-        /// 系统通知数据
-        /// </summary>
-        /// <param name="type">通知类型</param>
-        public NotificationData(NotificationDataType type):this()
-        {
             this.NotificationDataType = type;
         }
 

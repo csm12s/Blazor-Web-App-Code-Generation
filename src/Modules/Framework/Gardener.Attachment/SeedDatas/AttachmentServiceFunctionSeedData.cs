@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using Gardener.Enums;
 using Gardener.Base.Entity;
+using Gardener.Authentication.Enums;
 
 namespace Gardener.Attachment.SeedDatas
 {
@@ -39,6 +40,7 @@ namespace Gardener.Attachment.SeedDatas
                 new Function() {Group="系统基础服务",Service="附件服务",Summary="查询所有",Key="3CBCB4608120758739D941BFCCC09C18",Description="查找到所有数据",Path="/api/attachment/all",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("a3ea9c9f-da6f-48e1-8255-d250bb3e52d5"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="附件服务",Summary="分页查询",Key="9BE552AEF35878A71ABE8179B80AA036",Description="根据分页参数，分页获取数据",Path="/api/attachment/page/{pageindex}/{pagesize}",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("aedc9e9c-f011-4d46-966e-3b14fd5298c2"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
                 new Function() {Group="系统基础服务",Service="附件服务",Summary="批量删除",Key="33524956F6EC6C08F348500B3E2D9E9C",Description="根据多个主键批量删除",Path="/api/attachment/deletes",Method=Enum.Parse<HttpMethod>("POST"),EnableAudit=true,Id=Guid.Parse("ef62671e-4d35-4993-83c4-4dcdf7cbf0d0"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),UpdatedTime=DateTimeOffset.Parse("2022-08-08 08:08:08"),},
+                new Function() {Group="系统基础服务",Service="附件服务",Summary="获取我的某一类型附件数据",Key="A6BE53DBFEC19CB43380056A69B1037F",Description="{attachmentbusinesstype}",Path="/api/attachment/my-attachments/{attachmentbusinesstype}",Method=Enum.Parse<HttpMethod>("GET"),EnableAudit=false,Id=Guid.Parse("be639780-fbd0-4335-95e3-91e099d87850"),IsLocked=false,IsDeleted=false,CreateBy="4",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2023-04-20 15:52:36"),},
          };
         }
     }

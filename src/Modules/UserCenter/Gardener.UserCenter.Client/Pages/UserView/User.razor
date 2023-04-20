@@ -120,7 +120,14 @@
                             <Authorized>
                                 <Tooltip Placement="Placement.LeftTop" Title="@Localizer[UserCenterResource.ClickUpdateAvatar]">
                                     <a @onclick="_=>OnAvatarClick(model)">
-                                        <Avatar Src="@model.Avatar" />
+                                        @if (model.Avatar == null)
+                                        {
+                                            <Avatar Size="large">@(model.GetAvatarFromName())</Avatar>
+                                        }
+                                        else
+                                        {
+                                            <Avatar Size="large" Src="@model.Avatar" />
+                                        }
                                     </a>
                                 </Tooltip>
                             </Authorized>

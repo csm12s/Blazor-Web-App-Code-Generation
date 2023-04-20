@@ -25,7 +25,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Furion;
 using Microsoft.AspNetCore.Http;
-using System.Net.Http;
 
 namespace Gardener.Authentication.Core
 {
@@ -38,13 +37,17 @@ namespace Gardener.Authentication.Core
 
         private readonly JWTOptions jWTOptions;
 
+        private readonly IIdentityConverter identityConverter;
+
         /// <summary>
         /// 初始化声明
         /// </summary>
         /// <param name="jWTOptions"></param>
-        public JwtBearerService(IOptions<JWTOptions> jWTOptions)
+        /// <param name="identityConverter"></param>
+        public JwtBearerService(IOptions<JWTOptions> jWTOptions, IIdentityConverter identityConverter)
         {
             this.jWTOptions = jWTOptions.Value;
+            this.identityConverter = identityConverter;
         }
 
         /// <summary>
@@ -247,7 +250,7 @@ namespace Gardener.Authentication.Core
             };
             ClaimsPrincipal principal = _tokenHandler.ValidateToken(tokenStr, parameters, out _);
 
-            Identity? identity = ClaimsPrincipalToIdentity(principal);
+            Identity? identity = identityConverter.ClaimsPrincipalToIdentity(principal);
             if (identity == null)
             {
                 throw Oops.Oh(ExceptionCode.TOKEN_INVALID);
@@ -256,37 +259,7 @@ namespace Gardener.Authentication.Core
             return identity;
         }
 
-        /// <summary>
-        /// 从请求主体信息解析出身份信息
-        /// </summary>
-        /// <param name="principal"></param>
-        /// <returns></returns>
-        public Identity? ClaimsPrincipalToIdentity(ClaimsPrincipal principal)
-        {
-            Identity identity = new Identity();
-            string? id = principal.FindFirstValue(ClaimTypes.NameIdentifier);
-            string? loginId = principal.FindFirstValue(AuthKeyConstants.ClientIdKeyName);
-            string? name = principal.FindFirstValue(ClaimTypes.Name);
-            //无法解析
-            if (id == null || loginId == null || name == null)
-            {
-                return null;
-            }
-            identity.Id = id;
-            identity.LoginId = loginId;
-            identity.Name = name;
-
-            string? nickName = principal.FindFirstValue(ClaimTypes.GivenName);
-            identity.NickName = principal.FindFirstValue(ClaimTypes.GivenName);
-
-            string? loginClientType = principal.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
-            string? identityType = principal.FindFirstValue(AuthKeyConstants.IdentityType);
-
-            identity.IdentityType = identityType == null ? IdentityType.Unknown : Enum.Parse<IdentityType>(identityType, true);
-            identity.LoginClientType = loginClientType == null ? LoginClientType.Unknown : Enum.Parse<LoginClientType>(loginClientType, true);
-
-            return identity;
-        }
+       
 
     }
 

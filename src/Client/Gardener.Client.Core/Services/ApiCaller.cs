@@ -176,7 +176,7 @@ namespace Gardener.Client.Core
         }
         #region post
         /// <summary>
-        /// post
+        /// post 有参数 无返回
         /// </summary>
         /// <typeparam name="TRequest"></typeparam>
         /// <param name="url"></param>
@@ -195,7 +195,7 @@ namespace Gardener.Client.Core
             });
         }
         /// <summary>
-        /// post
+        /// post 有参数 有返回
         /// </summary>
         /// <typeparam name="TRequest"></typeparam>
         /// <typeparam name="TResponse"></typeparam>
@@ -211,7 +211,7 @@ namespace Gardener.Client.Core
 
         }
         /// <summary>
-        /// post
+        /// post 无参数 有返回
         /// </summary>
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="url"></param>

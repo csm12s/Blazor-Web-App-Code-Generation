@@ -5,9 +5,11 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attachment.Dtos;
+using Gardener.Attachment.Enums;
 using Gardener.Base;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.Attachment.Services
@@ -31,5 +33,11 @@ namespace Gardener.Attachment.Services
         /// <param name="file"></param>
         /// <returns></returns>
         Task<UploadAttachmentOutput> Upload(UploadAttachmentInput input, IFormFile file);
+        /// <summary>
+        /// 获取我的某一类型附件数据
+        /// </summary>
+        /// <param name="attachmentBusinessType"></param>
+        /// <returns></returns>
+        Task<IEnumerable<AttachmentDto>> GetMyAttachments(AttachmentBusinessType attachmentBusinessType);
     }
 }

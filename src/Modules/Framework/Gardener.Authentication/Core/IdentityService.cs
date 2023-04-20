@@ -25,9 +25,9 @@ namespace Gardener.Authentication.Core
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
         /// <summary>
-        /// jwt工具
+        /// 身份转换器
         /// </summary>
-        private readonly IJwtService _jwtService;
+        private readonly IIdentityConverter identityConverter;
         /// <summary>
         /// 当前请求的身份信息
         /// </summary>
@@ -36,11 +36,11 @@ namespace Gardener.Authentication.Core
         /// 
         /// </summary>
         /// <param name="httpContextAccessor"></param>
-        /// <param name="jwtService"></param>
-        public IdentityService(IHttpContextAccessor httpContextAccessor, IJwtService jwtService)
+        /// <param name="identityConverter"></param>
+        public IdentityService(IHttpContextAccessor httpContextAccessor, IIdentityConverter identityConverter)
         {
             _httpContextAccessor = httpContextAccessor;
-            _jwtService = jwtService;
+            this.identityConverter = identityConverter;
         }
         /// <summary>
         /// 获取身份
@@ -79,7 +79,7 @@ namespace Gardener.Authentication.Core
             {
                 throw Oops.Oh(ExceptionCode.REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION);
             }
-            return _jwtService.ClaimsPrincipalToIdentity(httpContext.User);
+            return identityConverter.ClaimsPrincipalToIdentity(httpContext.User);
         }
     }
 }

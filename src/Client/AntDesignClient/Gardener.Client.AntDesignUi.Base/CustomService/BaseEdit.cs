@@ -21,8 +21,8 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public class BaseEdit<TDto, TKey, TLocalResource> 
-        : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> 
+    public class BaseEdit<TDto, TKey, TLocalResource>
+        : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TLocalResource : SharedLocalResource
         where TDto : class, new()
     {
         /// <summary>
@@ -60,7 +60,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
             {
                 TKey? id = this.Options.Data;
-                if (id != null) 
+                if (id != null)
                 {
                     //更新 回填数据
                     var model = await BaseService.Get(id);

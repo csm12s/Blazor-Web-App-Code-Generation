@@ -505,4 +505,13 @@
   <data name="Remark" xml:space="preserve">
     <value>备注</value>
   </data>
+  <data name="NickName" xml:space="preserve">
+    <value>用户昵称</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="SessionDisableSendMessage" xml:space="preserve">
+    <value>会话已禁言</value>
+  </data>
 </root>

@@ -18,14 +18,11 @@ namespace Gardener.UserCenter.Resources
         /// 点击修改头像
         /// </summary>
         public const string ClickUpdateAvatar = nameof(ClickUpdateAvatar);
+       
         /// <summary>
         /// 用户编号
         /// </summary>
         public const string UserId = nameof(UserId);
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public const string UserName = nameof(UserName);
         /// <summary>
         /// 密码
         /// </summary>

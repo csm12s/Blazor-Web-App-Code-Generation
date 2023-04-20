@@ -545,9 +545,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            Func<OperationDialogOutput, Task> onClose = async (result) =>
+            Func<OperationDialogOutput?, Task> onClose = async (result) =>
             {
-                if (result.Succeeded)
+                if (result!=null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(true);
@@ -583,9 +583,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            Func<OperationDialogOutput, Task> onClose = async (result) =>
+            Func<OperationDialogOutput?, Task> onClose = async (result) =>
             {
-                if (result.Succeeded)
+                if (result!=null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(true);
@@ -667,7 +667,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        protected Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
+        protected Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>?, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             return OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);

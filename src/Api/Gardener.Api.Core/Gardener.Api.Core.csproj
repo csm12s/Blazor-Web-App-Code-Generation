@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.VerifyCode\Gardener.VerifyCode.csproj" />
     <ProjectReference Include="..\..\Modules\SysTimer\Gardener.SysTimer.Impl\Gardener.SysTimer.Impl.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />
+    <ProjectReference Include="..\..\Modules\WoChat\Gardener.WoChat.Impl\Gardener.WoChat.Impl.csproj" />
   </ItemGroup>
 
   <ItemGroup>
