@@ -1387,6 +1387,7 @@ namespace Gardener.Api.Core.Migrations
                 columns: new[] { "FunctionId", "ResourceId", "CreatedTime" },
                 values: new object[,]
                 {
+                    { new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"), new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 1306984589557760480L },
                     { new Guid("1adcacf3-33ae-4b36-b5c9-dcd95151ef3a"), new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 1306984539402240480L },
                     { new Guid("27d997d7-e691-4dbe-b5e0-74acbca53d98"), new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 1306984539402240480L },
                     { new Guid("333a3802-f8d2-4625-9476-dee8bf43fd0d"), new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 1306984539402240480L },

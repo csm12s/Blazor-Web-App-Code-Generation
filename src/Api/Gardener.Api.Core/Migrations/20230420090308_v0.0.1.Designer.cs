@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230420085402_v0.0.1")]
+    [Migration("20230420090308_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -9146,6 +9146,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
                             FunctionId = new Guid("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),
                             CreatedTime = 1306552953200640480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
+                            CreatedTime = 1306984589557760480L
                         },
                         new
                         {

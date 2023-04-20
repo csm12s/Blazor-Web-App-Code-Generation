@@ -24,6 +24,7 @@ namespace Gardener.WoChat.Impl.SeedDatas
         public IEnumerable<ResourceFunction> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[]{
+               new ResourceFunction() {ResourceId=Guid.Parse("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),FunctionId=Guid.Parse("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),CreatedTime=DateTimeOffset.Parse("2023-04-20 17:01:52"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),FunctionId=Guid.Parse("1adcacf3-33ae-4b36-b5c9-dcd95151ef3a"),CreatedTime=DateTimeOffset.Parse("2023-04-20 16:21:03"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),FunctionId=Guid.Parse("27d997d7-e691-4dbe-b5e0-74acbca53d98"),CreatedTime=DateTimeOffset.Parse("2023-04-20 16:21:03"),},
                 new ResourceFunction() {ResourceId=Guid.Parse("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),FunctionId=Guid.Parse("333a3802-f8d2-4625-9476-dee8bf43fd0d"),CreatedTime=DateTimeOffset.Parse("2023-04-20 16:21:03"),},

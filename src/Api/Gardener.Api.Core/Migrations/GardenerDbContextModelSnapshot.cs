@@ -9147,6 +9147,12 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            FunctionId = new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"),
+                            CreatedTime = 1306984589557760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
                             FunctionId = new Guid("1adcacf3-33ae-4b36-b5c9-dcd95151ef3a"),
                             CreatedTime = 1306984539402240480L
                         },
