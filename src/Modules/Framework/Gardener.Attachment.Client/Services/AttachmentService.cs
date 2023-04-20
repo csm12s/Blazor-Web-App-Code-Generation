@@ -5,12 +5,14 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attachment.Dtos;
+using Gardener.Attachment.Enums;
 using Gardener.Attachment.Services;
 using Gardener.Base;
 using Gardener.Client.Base;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Threading.Tasks;
 
 namespace Gardener.Attachment.Client.Services
@@ -21,6 +23,11 @@ namespace Gardener.Attachment.Client.Services
 
         public AttachmentService(IApiCaller apiCaller) : base(apiCaller, "attachment")
         {
+        }
+
+        public Task<IEnumerable<AttachmentDto>> GetMyAttachments(AttachmentBusinessType attachmentBusinessType)
+        {
+            return apiCaller.GetAsync<IEnumerable<AttachmentDto>>($"{controller}/my-attachments/{attachmentBusinessType}");
         }
 
         public async Task<string> GetRemoteImage(string remoteFilePath)

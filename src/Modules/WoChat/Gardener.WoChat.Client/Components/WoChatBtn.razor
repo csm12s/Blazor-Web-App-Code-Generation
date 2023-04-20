@@ -47,12 +47,12 @@
     /// <returns></returns>
     protected override Task OnInitializedAsync()
     {
-
         //登陆成功
-        EventBus.Subscribe<LoginSucceedAfterEvent>(token =>
+        EventBus.Subscribe<LoginSucceedAfterEvent>(async token =>
         {
-            userIsLogin = true;
-            return InvokeAsync(StateHasChanged);
+            bool ok = await AuthenticationStateManager.CheckCurrentUserHaveBtnResourceKey("global_wo_chat_btn");
+            userIsLogin = ok;
+            await InvokeAsync(StateHasChanged);
         });
         //刷新页面成功
         EventBus.Subscribe<ReloadCurrentUserEvent>(token =>
@@ -67,14 +67,14 @@
             return InvokeAsync(StateHasChanged);
         });
         //im消息
-        EventBus.Subscribe<WoChatImUserMessageNotificationData>(async message => 
+        EventBus.Subscribe<WoChatImUserMessageNotificationData>(async message =>
         {
             //已打开聊天窗口就不统计了
             if (woCahtIsOpen) { return; }
             UserDto? user = await AuthenticationStateManager.GetCurrentUser();
-            System.Console.WriteLine("==="+message.ImMessage.UserId);
-            System.Console.WriteLine("***"+user?.Id);
-            if (message.ImMessage.UserId!=user?.Id)
+            System.Console.WriteLine("===" + message.ImMessage.UserId);
+            System.Console.WriteLine("***" + user?.Id);
+            if (message.ImMessage.UserId != user?.Id)
             {
                 messageCount++;
                 lastSessionId = message.ImMessage.ImSessionId;

@@ -59,6 +59,18 @@ namespace Gardener.WoChat.Resources
         /// 退出群聊
         /// </summary>
         public const string QuitGroupChat = nameof(QuitGroupChat);
+        /// <summary>
+        /// 开启会话消息发送权限
+        /// </summary>
+        public const string EnableSessionSendMessage = nameof(EnableSessionSendMessage);
+        /// <summary>
+        /// 关闭会话消息发送权限
+        /// </summary>
+        public const string DisableSessionSendMessage = nameof(DisableSessionSendMessage);
+        /// <summary>
+        /// 禁止发送消息
+        /// </summary>
+        public const string DisableSendMessage = nameof(DisableSendMessage);
 
     }
 }

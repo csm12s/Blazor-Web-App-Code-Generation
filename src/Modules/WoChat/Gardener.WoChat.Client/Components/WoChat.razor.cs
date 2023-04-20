@@ -1,8 +1,14 @@
 ﻿using AntDesign;
+using AntDesign.Core.Extensions;
+using Gardener.Attachment.Dtos;
+using Gardener.Attachment.Enums;
+using Gardener.Attachment.Services;
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Services;
+using Gardener.Common;
 using Gardener.EventBus;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
@@ -12,7 +18,10 @@ using Gardener.WoChat.Enums;
 using Gardener.WoChat.Resources;
 using Gardener.WoChat.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using System.Linq;
+using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
 
 namespace Gardener.WoChat.Client.Components
 {
@@ -25,33 +34,42 @@ namespace Gardener.WoChat.Client.Components
         /// Im服务
         /// </summary>
         [Inject]
-        public IWoChatImService WoChatImService { get; set; } = null!;
+        private IWoChatImService woChatImService { get; set; } = null!;
         /// <summary>
         /// 用户服务
         /// </summary>
         [Inject]
-        public IUserService UserService { get; set; } = null!;
+        private IUserService userService { get; set; } = null!;
         /// <summary>
         /// 消息提示服务
         /// </summary>
         [Inject]
-        public IClientMessageService MessageService { get; set; } = null!;
+        private IClientMessageService messageService { get; set; } = null!;
         /// <summary>
         /// 身份权限服务
         /// </summary>
         [Inject]
-        public IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
+        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
         /// <summary>
         /// 时间总线
         /// </summary>
         [Inject]
-        private IEventBus EventBus { get; set; } = null!;
-        [Inject]
-        private IJsTool JsTool { get; set; } = null!;
+        private IEventBus eventBus { get; set; } = null!;
         /// <summary>
-        /// 用户选择绑定值
+        /// js工具
         /// </summary>
-        private ClientListBindValue<int, bool> openGroupSelectedUsers = new ClientListBindValue<int, bool>(false);
+        [Inject]
+        private IJsTool jsTool { get; set; } = null!;
+        /// <summary>
+        /// 附件
+        /// </summary>
+        [Inject]
+        private IAttachmentService attachmentService { get; set; } = null!;
+        /// <summary>
+        /// 接口配置
+        /// </summary>
+        [Inject]
+        private IOptions<ApiSettings> ApiSettings { get; set; } = null!;
         /// <summary>
         /// 界面高度
         /// </summary>
@@ -73,6 +91,39 @@ namespace Gardener.WoChat.Client.Components
         [Parameter]
         public Guid? DefaultSelectedSessionId { get; set; }
         /// <summary>
+        /// 上传附件附带参数
+        /// </summary>
+        private Dictionary<string, object> uploadAttachmentInput = new Dictionary<string, object>()
+        {
+            { "BusinessType", AttachmentBusinessType.WoChat}
+        };
+        /// <summary>
+        /// 上传时添加请求头
+        /// </summary>
+        private Dictionary<string, string> uploadHeaders = new Dictionary<string, string>();
+        /// <summary>
+        /// 上传地址
+        /// </summary>
+        private string uploadUrl
+        {
+            get
+            {
+                return ApiSettings.Value.BaseAddres + ApiSettings.Value.UploadPath;
+            }
+        }
+        /// <summary>
+        /// 当前用户的聊天图片
+        /// </summary>
+        private List<string>? currentUserWoChatImages;
+        /// <summary>
+        /// 是否显示-当前用户的聊天图片
+        /// </summary>
+        private bool currentUserWoChatImagesBoxVisible = false;
+        /// <summary>
+        /// 用户选择绑定值
+        /// </summary>
+        private ClientListBindValue<int, bool> openGroupSelectedUsers = new ClientListBindValue<int, bool>(false);
+        /// <summary>
         /// 消息列表区高度
         /// </summary>
         private int messageListHeight = 350;
@@ -87,7 +138,7 @@ namespace Gardener.WoChat.Client.Components
         /// <summary>
         /// 会话列表
         /// </summary>
-        private IEnumerable<ImSessionDto>? imSessions;
+        private List<ImSessionDto>? imSessions;
         /// <summary>
         /// 用户列表
         /// </summary>
@@ -174,11 +225,13 @@ namespace Gardener.WoChat.Client.Components
             messageListHeight = Height - MessageInputHeight - MessageTitleHeight;
 
             //当前用户
-            currentUser = await AuthenticationStateManager.GetCurrentUser();
+            currentUser = await authenticationStateManager.GetCurrentUser();
             //默认到消息列表
             await OnChange(tabMessageKey);
             //订阅消息
-            messageNotificationSubscriber = EventBus.Subscribe<WoChatImUserMessageNotificationData>(OnReceiveMessage);
+            messageNotificationSubscriber = eventBus.Subscribe<WoChatImUserMessageNotificationData>(OnReceiveMessage);
+
+
 
         }
         /// <summary>
@@ -192,7 +245,7 @@ namespace Gardener.WoChat.Client.Components
             if (tabUsersKey.Equals(key))
             {
                 userListLoading = true;
-                var usersTemp = await UserService.GetAllUsable();
+                var usersTemp = await userService.GetAllUsable();
                 if (usersTemp != null && usersTemp.Any())
                 {
                     //排除自己
@@ -204,7 +257,7 @@ namespace Gardener.WoChat.Client.Components
             else if (tabMessageKey.Equals(key))
             {
                 sessionListLoading = true;
-                imSessions = await WoChatImService.GetMyImSessions();
+                imSessions = (await woChatImService.GetMyImSessions()).ToList();
                 if (imSessions != null && imSessions.Any())
                 {
                     if (this.sessionListSelectedSessionId != null)
@@ -240,12 +293,12 @@ namespace Gardener.WoChat.Client.Components
         {
             if (userListSelectedUser == null)
             {
-                MessageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
                 return;
             }
 
             //发起私聊
-            var sessionId = await WoChatImService.AddMyImSession(new ImSessionAddInput
+            var sessionId = await woChatImService.AddMyImSession(new ImSessionAddInput
             {
                 UserIds = new List<int> { userListSelectedUser.Id },
                 SessionType = ImSessionType.Personal,
@@ -254,7 +307,7 @@ namespace Gardener.WoChat.Client.Components
             });
             if (sessionId == null)
             {
-                MessageService.Error(Localizer.Combination(WoChatResource.OpenSession, WoChatResource.Fail));
+                messageService.Error(Localizer.Combination(WoChatResource.OpenSession, WoChatResource.Fail));
             }
             else
             {
@@ -273,6 +326,7 @@ namespace Gardener.WoChat.Client.Components
             sessionListSelectedSession = session;
 
             await LoadCurrentSessionMessage();
+            session.UnreadMessageCount = 0;
         }
         /// <summary>
         /// 加载消息列表
@@ -283,7 +337,7 @@ namespace Gardener.WoChat.Client.Components
             if (this.sessionListSelectedSessionId != null)
             {
                 //查找这个会话的消息列表
-                var list = await WoChatImService.GetMySessionMessages(sessionListSelectedSessionId.Value, pageSize: messagePageSize);
+                var list = await woChatImService.GetMySessionMessages(sessionListSelectedSessionId.Value, pageSize: messagePageSize);
                 if (list != null)
                 {
                     messages = list.ToList();
@@ -305,11 +359,11 @@ namespace Gardener.WoChat.Client.Components
             IEnumerable<int> userIds = openGroupSelectedUsers.SelectKeys(true);
             if (!userIds.Any())
             {
-                MessageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
                 return;
             }
             //发起群聊
-            var sessionId = await WoChatImService.AddMyImSession(new ImSessionAddInput
+            var sessionId = await woChatImService.AddMyImSession(new ImSessionAddInput
             {
                 UserIds = userIds,
                 SessionType = ImSessionType.Group,
@@ -318,7 +372,7 @@ namespace Gardener.WoChat.Client.Components
             });
             if (sessionId == null)
             {
-                MessageService.Error(Localizer.Combination(WoChatResource.OpenSession, WoChatResource.Fail));
+                messageService.Error(Localizer.Combination(WoChatResource.OpenSession, WoChatResource.Fail));
             }
             else
             {
@@ -349,14 +403,14 @@ namespace Gardener.WoChat.Client.Components
             }
             if (string.IsNullOrEmpty(inputMessage))
             {
-                MessageService.Warn(Localizer[WoChatResource.PleaseInputContent]);
+                messageService.Warn(Localizer[WoChatResource.PleaseInputContent]);
                 return;
             }
             ImSessionMessageDto message = new ImSessionMessageDto();
             message.ImSessionId = sessionListSelectedSession.Id;
             message.Message = inputMessage;
             message.MessageType = ImMessageType.Text;
-            await WoChatImService.SendMessage(message);
+            await woChatImService.SendMessage(message);
             inputMessage = string.Empty;
         }
         /// <summary>
@@ -364,16 +418,46 @@ namespace Gardener.WoChat.Client.Components
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        private Task OnReceiveMessage(WoChatImUserMessageNotificationData message)
+        private async Task OnReceiveMessage(WoChatImUserMessageNotificationData message)
         {
             if (message.ImMessage.ImSessionId.Equals(sessionListSelectedSessionId))
             {
                 //当前打开会话窗口
                 if (messages == null) { messages = new List<ImSessionMessageDto>(); }
                 messages.Add(message.ImMessage);
-                return InvokeAsync(StateHasChanged);
+
             }
-            return Task.CompletedTask;
+            else
+            {
+                //如果会话列表中没有此会话，尝试去获取
+                if (imSessions != null && !imSessions.Any(x => x.Id.Equals(message.ImMessage.ImSessionId)))
+                {
+                    var imSession = await woChatImService.GetImSession(message.ImMessage.ImSessionId);
+                    if (imSession != null)
+                    {
+                        imSession.UnreadMessageCount++;
+                        if (imSessions == null)
+                        {
+                            imSessions = new List<ImSessionDto> { imSession };
+                        }
+                        else
+                        {
+                            imSessions.Add(imSession);
+                        }
+                        imSessions = imSessions.OrderByDescending(x => x.LastMessageTime).ToList();
+                    }
+                }
+                else
+                {
+                    var session = imSessions?.Where(x => x.Id.Equals(message.ImMessage.ImSessionId)).FirstOrDefault();
+                    if (session != null)
+                    {
+                        session.UnreadMessageCount++;
+                    }
+                }
+
+            }
+            await InvokeAsync(StateHasChanged);
         }
         /// <summary>
         /// 页面释放
@@ -383,7 +467,7 @@ namespace Gardener.WoChat.Client.Components
         {
             if (messageNotificationSubscriber != null)
             {
-                EventBus.UnSubscribe(messageNotificationSubscriber);
+                eventBus.UnSubscribe(messageNotificationSubscriber);
             }
             base.Dispose(disposing);
         }
@@ -394,7 +478,7 @@ namespace Gardener.WoChat.Client.Components
         /// <returns></returns>
         private async Task MessageBoxScrollBarToBottom()
         {
-            await JsTool.Document.ScrollBarToBottom(woChatMessageBoxId);
+            await jsTool.Document.ScrollBarToBottom(woChatMessageBoxId);
         }
         /// <summary>
         /// 页面渲染后
@@ -415,11 +499,11 @@ namespace Gardener.WoChat.Client.Components
         {
             if (sessionListSelectedSessionId == null)
             {
-                MessageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
+                messageService.Warn(Localizer[WoChatResource.NoRowsAreSelected]);
                 return;
             }
 
-            bool result = await WoChatImService.QuitMyImSession(sessionListSelectedSessionId.Value);
+            bool result = await woChatImService.QuitMyImSession(sessionListSelectedSessionId.Value);
             if (result)
             {
                 sessionListSelectedSessionId = null;
@@ -428,22 +512,139 @@ namespace Gardener.WoChat.Client.Components
             }
             else
             {
-                MessageService.Error(action + Localizer[WoChatResource.Fail]);
+                messageService.Error(action + Localizer[WoChatResource.Fail]);
             }
         }
 
+        /// <summary>
+        /// 禁言加载中
+        /// </summary>
         private bool disableSendMessageLoading = false;
         /// <summary>
-        /// 
+        /// 禁言
         /// </summary>
         /// <returns></returns>
         private async Task OnDisableSendMessage()
         {
             if (sessionListSelectedSession == null) { return; }
-
-            bool result = await WoChatImService.DisableSessionSendMessage(sessionListSelectedSession.Id);
-            sessionListSelectedSession.DisableSendMessage = sessionListSelectedSession.DisableSendMessage;
+            disableSendMessageLoading = true;
+            bool result = false;
+            if (sessionListSelectedSession.DisableSendMessage)
+            {
+                //开启会话消息发送权限
+                result = await woChatImService.EnableSessionSendMessage(sessionListSelectedSession.Id);
+            }
+            else
+            {
+                //关闭会话消息发送权限
+                result = await woChatImService.DisableSessionSendMessage(sessionListSelectedSession.Id);
+            }
+            if (result)
+            {
+                sessionListSelectedSession.DisableSendMessage = !sessionListSelectedSession.DisableSendMessage;
+            }
+            else
+            {
+                messageService.Warn(Localizer.Combination(sessionListSelectedSession.DisableSendMessage ? WoChatResource.EnableSessionSendMessage : WoChatResource.DisableSessionSendMessage, WoChatResource.Fail));
+            }
+            disableSendMessageLoading = false;
         }
 
+        /// <summary>
+        /// 点击显示图片列表
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnShowImageList(bool visible)
+        {
+            //currentUserWoChatImagesBoxVisible = visible;
+            if (!visible) { return; }
+            //加载图片
+            var task = attachmentService.GetMyAttachments(AttachmentBusinessType.WoChat);
+            //token
+            var task1= authenticationStateManager.GetCurrentTokenHeaders();
+            //测试token是否可用
+            if (await authenticationStateManager.TestToken())
+            {
+                //上传附件附带身份信息
+                uploadHeaders = await task1 ?? new Dictionary<string, string>();
+                //上传附件附带参数
+                if (uploadAttachmentInput.ContainsKey("BusinessId"))
+                {
+                    uploadAttachmentInput["BusinessId"] = sessionListSelectedSessionId != null ? sessionListSelectedSessionId : Guid.Empty;
+                }
+                else
+                {
+                    uploadAttachmentInput.Add("BusinessId", sessionListSelectedSessionId != null ? sessionListSelectedSessionId : Guid.Empty);
+                }
+                //
+                IEnumerable<AttachmentDto> attachmentDtos = await task;
+                currentUserWoChatImages = attachmentDtos.Select(x => x.Url).ToList();
+            }
+        }
+        /// <summary>
+        /// 上传前拦截
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        private bool BeforeUpload(UploadFileItem file)
+        {
+            var typeOk = file.Type == "image/jpeg" || file.Type == "image/png" || file.Type == "image/gif";
+            if (!typeOk)
+            {
+                messageService.Error("图片只能选择JPG/PNG/GIF文件！");
+            }
+            var sizeOk = file.Size / 1024 < 500;
+            if (!sizeOk)
+            {
+                messageService.Error("图片必须小于500KB！");
+            }
+            return typeOk && sizeOk;
+        }
+        /// <summary>
+        /// 上传过程
+        /// </summary>
+        /// <param name="fileinfo"></param>
+        /// <returns></returns>
+        private void UploadHandleChange(UploadInfo fileinfo)
+        {
+            if (sessionListSelectedSession == null) { return; }
+            if (fileinfo.File.State == UploadState.Success)
+            {
+                ApiResult<UploadAttachmentOutput> apiResult = fileinfo.File.GetResponse<ApiResult<UploadAttachmentOutput>>(new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (apiResult.Succeeded && apiResult.Data != null)
+                {
+                    if (currentUserWoChatImages == null) 
+                    {
+                        currentUserWoChatImages = new List<string>();
+                    }
+                    currentUserWoChatImages.Add(apiResult.Data.Url);
+                   
+                }
+                else
+                {
+                    messageService.Error($"{apiResult.Errors} [{apiResult.StatusCode}]");
+                    messageService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Success));
+                }
+            }
+            else if (fileinfo.File.State == UploadState.Fail)
+            {
+                messageService.Error(Localizer.Combination(SharedLocalResource.Upload, SharedLocalResource.Fail));
+            }
+        }
+        /// <summary>
+        /// 点击图片
+        /// </summary>
+        /// <param name="images"></param>
+        /// <returns></returns>
+        private async Task OnClickImage(string images)
+        {
+            if (sessionListSelectedSession == null) { return; }
+            ImSessionMessageDto message = new ImSessionMessageDto();
+            message.ImSessionId = sessionListSelectedSession.Id;
+            message.Message = images;
+            message.MessageType = ImMessageType.Image;
+            await woChatImService.SendMessage(message);
+            currentUserWoChatImagesBoxVisible = false;
+        }
     }
 }

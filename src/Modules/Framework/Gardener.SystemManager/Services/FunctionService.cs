@@ -13,6 +13,7 @@ using Gardener.SystemManager.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 using System.Web;
 using HttpMethod = Gardener.Enums.HttpMethod;
 
@@ -43,7 +44,7 @@ namespace Gardener.SystemManager.Services
         /// <param name="enableAudit"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<bool> EnableAudit([ApiSeat(ApiSeats.ActionStart)] Guid id,bool enableAudit = true)
+        public async Task<bool> EnableAudit([ApiSeat(ApiSeats.ActionStart)] Guid id, bool enableAudit = true)
         {
             var entity = await _repository.FindAsync(id);
             if (entity == null) return false;
@@ -69,7 +70,7 @@ namespace Gardener.SystemManager.Services
         {
             path = HttpUtility.UrlDecode(path);
 
-            return await _repository.Where(x => x.Method.Equals(method) && path.Equals(x.Path),tracking:false).AnyAsync();
+            return await _repository.Where(x => x.Method.Equals(method) && path.Equals(x.Path), tracking: false).AnyAsync();
         }
 
         /// <summary>
@@ -82,8 +83,31 @@ namespace Gardener.SystemManager.Services
         /// <returns></returns>
         public async Task<FunctionDto?> GetByKey(string key)
         {
-            Function? function= await _repository.Where(x => x.Key.Equals(key), tracking: false).FirstOrDefaultAsync();
+            Function? function = await _repository.Where(x => x.Key.Equals(key), tracking: false).FirstOrDefaultAsync();
             return function?.Adapt<FunctionDto>();
+        }
+        /// <summary>
+        /// 生成种子数据
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 根据搜索条叫生成种子数据
+        /// </remarks>
+        public override async Task<string> GenerateSeedData(PageRequest request)
+        {
+            string seedData = await base.GenerateSeedData(request);
+            StringBuilder usings = new StringBuilder();
+            usings.AppendLine("using Furion.DatabaseAccessor;");
+            usings.AppendLine("using Gardener.Authentication.Enums;");
+            usings.AppendLine("using Gardener.Base.Entity;");
+            usings.AppendLine("using Microsoft.EntityFrameworkCore;");
+            usings.AppendLine("using HttpMethod = Gardener.Enums.HttpMethod;");
+            usings.AppendLine("namespace Gardener");
+            usings.AppendLine("{");
+            usings.AppendLine(seedData);
+            usings.AppendLine("}");
+            return usings.ToString();
         }
     }
 }

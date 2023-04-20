@@ -120,6 +120,15 @@
   <data name="DeleteSession" xml:space="preserve">
     <value>Delete session</value>
   </data>
+  <data name="DisableSendMessage" xml:space="preserve">
+    <value>Disable send message</value>
+  </data>
+  <data name="DisableSessionSendMessage" xml:space="preserve">
+    <value>Disable session send message</value>
+  </data>
+  <data name="EnableSessionSendMessage" xml:space="preserve">
+    <value>Enable session send message</value>
+  </data>
   <data name="InitiateGroupChat" xml:space="preserve">
     <value>Initiate group chat</value>
   </data>

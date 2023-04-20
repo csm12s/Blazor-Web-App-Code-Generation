@@ -64,5 +64,20 @@ namespace Gardener.WoChat.Dtos
         /// 用户列表-输出展示
         /// </summary>
         public IEnumerable<UserDto> Users { get; set; }=new List<UserDto>();
+
+        /// <summary>
+        /// 当前用户的未读消息数
+        /// </summary>
+        [DisplayName("UnreadMessageCount")]
+        public int UnreadMessageCount { get; set; }
+
+        /// <summary>
+        /// 当前用户是否能发送消息
+        /// </summary>
+        /// <remarks>
+        /// 当前用户是否能发送消息
+        /// </remarks>
+        [DisplayName("CurrentUserCanSendMessage")]
+        public bool CurrentUserCanSendMessage { get; set; } = false;
     }
 }

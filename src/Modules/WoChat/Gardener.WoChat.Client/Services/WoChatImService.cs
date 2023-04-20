@@ -42,9 +42,19 @@ namespace Gardener.WoChat.Client.Services
             return apiCaller.PostAsync<Guid, bool>($"{controller}/disable-session-send-message", imSessionId);
         }
 
+        public Task<bool> EnableSessionSendMessage(Guid imSessionId)
+        {
+            return apiCaller.PostAsync<Guid, bool>($"{controller}/enable-session-send-message", imSessionId);
+        }
+
         public Task<IEnumerable<ImSessionDto>> GetImGroupSessions()
         {
             return apiCaller.GetAsync<IEnumerable<ImSessionDto>>($"{controller}/im-group-sessions");
+        }
+
+        public Task<ImSessionDto?> GetImSession(Guid imSessionId)
+        {
+            return apiCaller.GetAsync<ImSessionDto?>($"{controller}/im-session/{imSessionId}");
         }
 
         public Task<IEnumerable<ImSessionDto>> GetMyImSessions()

@@ -64,5 +64,19 @@ namespace Gardener.WoChat.Services
         /// <param name="imSessionId"></param>
         /// <returns></returns>
         Task<bool> DisableSessionSendMessage(Guid imSessionId);
+
+        /// <summary>
+        /// 解除会话禁言
+        /// </summary>
+        /// <param name="imSessionId"></param>
+        /// <returns></returns>
+        Task<bool> EnableSessionSendMessage(Guid imSessionId);
+
+        /// <summary>
+        /// 根据会话编号获取会话
+        /// </summary>
+        /// <param name="imSessionId">会话编号</param>
+        /// <returns></returns>
+        Task<ImSessionDto?> GetImSession(Guid imSessionId);
     }
 }

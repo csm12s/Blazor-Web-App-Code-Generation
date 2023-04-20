@@ -232,7 +232,7 @@ namespace Gardener.WoChat.Services
                 IEnumerable<int> userIds = userSessions.Where(x => x.ImSessionId.Equals(session.Id)).Select(x => x.UserId).Distinct();
                 session.Users = users.Where(x => userIds.Any(u => u.Equals(x.Id)));
                 session.SessionName = GetShowSessionName(session, userId);
-                session.DisableSendMessage = session.DisableSendMessage.Equals(true) && !userId.ToString().Equals(session?.CreateBy);
+                session.CurrentUserCanSendMessage = session.DisableSendMessage.Equals(true) && !userId.ToString().Equals(session?.CreateBy);
             }
             return sessions.OrderByDescending(x => x.LastMessageTime);
         }
@@ -372,6 +372,13 @@ namespace Gardener.WoChat.Services
             }
             int userId = int.Parse(identity.Id);
 
+            var imSession = await imSessionRepository.FindAsync(message.ImSessionId);
+            if (imSession.DisableSendMessage.Equals(true) && !userId.ToString().Equals(imSession.CreateBy))
+            {
+                //禁言中
+                throw Oops.Oh(ExceptionCode.SessionDisableSendMessage);
+            }
+
             ImSessionMessage sessionMessage = message.Adapt<ImSessionMessage>();
             sessionMessage.UserId = userId;
             sessionMessage.CreatedTime = DateTimeOffset.Now;
@@ -382,19 +389,10 @@ namespace Gardener.WoChat.Services
             //入库
             tasks.Add(imSessionMessageRepository.InsertAsync(sessionMessage));
             //查找会话
-            var task2 = imSessionRepository.FindAsync(sessionMessage.ImSessionId);
-            var task3 = userService.Get(userId);
-
-            var imSession = await task2;
-            if (imSession.DisableSendMessage.Equals(true) && !userId.ToString().Equals(imSession.CreateBy))
-            {
-                //禁言中
-                throw Oops.Oh(ExceptionCode.SessionDisableSendMessage);
-            }
-            var user = await task3;
+            var user = await userService.Get(userId);
             message = sessionMessage.Adapt<ImSessionMessageDto>();
             message.User = user;
-            
+
             if (imSession != null)
             {
 
@@ -431,7 +429,7 @@ namespace Gardener.WoChat.Services
             return true;
         }
         /// <summary>
-        /// 禁言会话
+        /// 关闭会话消息发送权限
         /// </summary>
         /// <param name="imSessionId"></param>
         /// <returns></returns>
@@ -463,7 +461,7 @@ namespace Gardener.WoChat.Services
             {
                 Identity = identity,
                 ImSessionId = imSessionId,
-                MessageType=ImSystemMessageType.DisableSessionSendMessage
+                MessageType = ImSystemMessageType.DisableSessionSendMessage
             });
             return true;
 
@@ -490,6 +488,90 @@ namespace Gardener.WoChat.Services
                 return string.Join("、", session.Users.Take(3).Select(x => x.NickName ?? x.UserName)) + "...";
             }
             return string.Empty;
+        }
+        /// <summary>
+        /// 开启会话消息发送权限
+        /// </summary>
+        /// <param name="imSessionId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> EnableSessionSendMessage(Guid imSessionId)
+        {
+            Identity? identity = authorizationService.GetIdentity();
+            if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
+            {
+                return false;
+            }
+            int userId = int.Parse(identity.Id);
+
+            var session = await imSessionRepository.FindAsync(imSessionId);
+            if (session == null)
+            {
+                return false;
+            }
+
+            if (!userId.ToString().Equals(identity.Id))
+            {
+                return false;
+            }
+
+            session.DisableSendMessage = false;
+            session.SetUpdatedIdentity(identity);
+            session.UpdatedTime = DateTimeOffset.Now;
+            await imSessionRepository.UpdateIncludeAsync(session, new[] { nameof(ImSession.DisableSendMessage), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) });
+            await systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(imSessionId), new WoChatImSystemMessageNotificationData()
+            {
+                Identity = identity,
+                ImSessionId = imSessionId,
+                MessageType = ImSystemMessageType.EnableSessionSendMessage
+            });
+            return true;
+        }
+        /// <summary>
+        /// 根据会话编号获取会话
+        /// </summary>
+        /// <param name="imSessionId">会话编号</param>
+        /// <returns></returns>
+        public async Task<ImSessionDto?> GetImSession(Guid imSessionId)
+        {
+            Identity? identity = authorizationService.GetIdentity();
+            if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
+            {
+                return null;
+            }
+            int userId = int.Parse(identity.Id);
+            //我的会话
+            bool exitis = await imUserSessionRepository
+                .AsQueryable(false)
+                .Where(x => x.UserId.Equals(userId) && x.ImSessionId.Equals(imSessionId))
+                .AnyAsync();
+
+            if (!exitis)
+            {
+                return null;
+            }
+            var task1 = imSessionRepository.AsQueryable(false)
+                .Where(x => x.Id.Equals(imSessionId))
+                .Select(x => x.Adapt<ImSessionDto>())
+                .FirstOrDefaultAsync();
+            var task2 = imUserSessionRepository.AsQueryable(false)
+                .Where(x => x.ImSessionId.Equals(imSessionId))
+                .Select(x => x.UserId)
+                .ToListAsync();
+
+            ImSessionDto? session = await task1;
+            if (session == null)
+            {
+                return null;
+            }
+            IEnumerable<int> userIds = await task2;
+
+            IEnumerable<UserDto> users = await userService.GetUsers(userIds.Distinct());
+            //填充用戶信息
+            session.Users = users;
+            session.SessionName = GetShowSessionName(session, userId);
+            session.CurrentUserCanSendMessage = session.DisableSendMessage.Equals(true) && !userId.ToString().Equals(session?.CreateBy);
+            return session;
         }
     }
 }

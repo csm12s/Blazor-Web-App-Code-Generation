@@ -120,6 +120,15 @@
   <data name="DeleteSession" xml:space="preserve">
     <value>删除会话</value>
   </data>
+  <data name="DisableSendMessage" xml:space="preserve">
+    <value>禁言</value>
+  </data>
+  <data name="DisableSessionSendMessage" xml:space="preserve">
+    <value>启用禁言</value>
+  </data>
+  <data name="EnableSessionSendMessage" xml:space="preserve">
+    <value>关闭禁言</value>
+  </data>
   <data name="InitiateGroupChat" xml:space="preserve">
     <value>发起群聊</value>
   </data>

@@ -27,6 +27,11 @@ namespace Gardener.WoChat.Enums
         /// 会话禁言
         /// </summary>
         [Description("会话禁言")]
-        DisableSessionSendMessage
+        DisableSessionSendMessage,
+        /// <summary>
+        /// 解除会话禁言
+        /// </summary>
+        [Description("解除会话禁言")]
+        EnableSessionSendMessage
     }
 }
