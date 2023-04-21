@@ -382,14 +382,12 @@ namespace Gardener.WoChat.Services
                 return false;
             }
             int userId = int.Parse(identity.Id);
-
             var imSession = await imSessionRepository.FindAsync(message.ImSessionId);
             if (imSession.DisableSendMessage.Equals(true) && !userId.ToString().Equals(imSession.CreateBy))
             {
                 //禁言中
                 throw Oops.Oh(ExceptionCode.SessionDisableSendMessage);
             }
-
             ImSessionMessage sessionMessage = message.Adapt<ImSessionMessage>();
             sessionMessage.UserId = userId;
             sessionMessage.CreatedTime = DateTimeOffset.Now;
@@ -397,12 +395,11 @@ namespace Gardener.WoChat.Services
             sessionMessage.CreateIdentityType = identity.IdentityType;
             List<Task> tasks = new List<Task>();
             //入库
-            tasks.Add(imSessionMessageRepository.InsertAsync(sessionMessage));
+            tasks.Add(imSessionMessageRepository.InsertNowAsync(sessionMessage));
             //查找会话
             var user = await userService.Get(userId);
             message = sessionMessage.Adapt<ImSessionMessageDto>();
             message.User = user;
-
             if (imSession != null)
             {
                 if (!imSession.AllUserIsActive)
@@ -415,26 +412,23 @@ namespace Gardener.WoChat.Services
                         x.IsActive = true;
                         x.SetUpdatedIdentity(identity);
                         x.UpdatedTime = DateTimeOffset.Now;
-                        tasks.Add(imUserSessionRepository.UpdateIncludeAsync(x, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) }));
+                        tasks.Add(imUserSessionRepository.UpdateIncludeNowAsync(x, new[] { nameof(ImUserSession.IsActive), nameof(ImUserSession.UpdateIdentityType), nameof(ImUserSession.UpdateBy), nameof(ImUserSession.UpdatedTime) }));
                     });
-
                     imSession.AllUserIsActive = true;
-
                 }
-
                 //更新会话时间
-
                 imSession.SetUpdatedIdentity(identity);
                 imSession.LastMessageTime = DateTimeOffset.Now;
-                tasks.Add(imSessionRepository.UpdateIncludeAsync(imSession, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) }));
+                tasks.Add(imSessionRepository.UpdateIncludeNowAsync(imSession, new[] { nameof(ImSession.AllUserIsActive), nameof(ImSession.LastMessageTime), nameof(ImSession.UpdateIdentityType), nameof(ImSession.UpdateBy), nameof(ImSession.UpdatedTime) }));
             }
-            await Task.WhenAll(tasks);
             //发送
-            await systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImUserMessageNotificationData()
+            tasks.Add(systemNotificationService.SendToGroup(WoChatUtil.GetImGroupName(message.ImSessionId), new WoChatImUserMessageNotificationData()
             {
                 Identity = identity,
                 ImMessage = message,
-            });
+            }));
+
+            await Task.WhenAll(tasks);
             return true;
         }
         /// <summary>

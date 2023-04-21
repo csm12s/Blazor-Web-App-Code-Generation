@@ -16,6 +16,7 @@ using Gardener.SysTimer.Dtos;
 using Gardener.WoChat.Domains;
 using Gardener.WoChat.Enums;
 using Gardener.WoChat.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Gardener.WoChat.Impl.Core.Subscribes
 {
@@ -24,6 +25,17 @@ namespace Gardener.WoChat.Impl.Core.Subscribes
     /// </summary>
     public class DongFangCaiFuNewsEventSubscriber : IEventSubscriber, ISingleton
     {
+
+        private readonly IServiceScopeFactory _scopeFactory;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scopeFactory"></param>
+        public DongFangCaiFuNewsEventSubscriber(IServiceScopeFactory scopeFactory)
+        {
+            _scopeFactory = scopeFactory;
+        }
+
         /// <summary>
         /// 订阅东方财富资讯
         /// </summary>
@@ -31,12 +43,13 @@ namespace Gardener.WoChat.Impl.Core.Subscribes
         [EventSubscribe(nameof(EventType.SystemNotify) + nameof(DongFangCaiFuNewsEvent))]
         public async Task News(EventHandlerExecutingContext context)
         {
+            using var serviceScope = _scopeFactory.CreateScope();
             IEventSource eventSource = context.Source;
             DongFangCaiFuNewsEvent news = (DongFangCaiFuNewsEvent)eventSource.Payload;
             int userId = 9;
-            IRepository<ImUserSession> imUserSessionRepository = Db.GetRepository<ImUserSession>();
+            IRepository<ImUserSession> imUserSessionRepository = serviceScope.ServiceProvider.GetRequiredService<IRepository<ImUserSession>>();
             List<Guid> imSessionIds = imUserSessionRepository.AsQueryable(false).Where(x => x.UserId.Equals(userId)).Select(x => x.ImSessionId).Distinct().ToList();
-            var imService = App.GetRequiredService<IWoChatImService>();
+            var imService = serviceScope.ServiceProvider.GetRequiredService<IWoChatImService>();
             List<Task> tasks = new List<Task>();
             foreach (var im in imSessionIds)
             {
