@@ -498,7 +498,7 @@ namespace Gardener.WoChat.Services
         /// <param name="imSessionId"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<bool> EnableSessionSendMessage(Guid imSessionId)
+        public async Task<bool> EnableSessionSendMessage([FromBody] Guid imSessionId)
         {
             Identity? identity = authorizationService.GetIdentity();
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))

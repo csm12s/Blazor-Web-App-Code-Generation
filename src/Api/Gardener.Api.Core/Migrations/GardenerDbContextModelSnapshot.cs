@@ -15,7 +15,7 @@ namespace Gardener.Api.Core.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -5356,7 +5356,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "ED0E0A2262D113044CA7B4539AE1B1EA",
                             Method = 1,
-                            Path = "/api/wo-chat-im/enable-session-send-message/{imsessionid}",
+                            Path = "/api/wo-chat-im/enable-session-send-message",
                             Service = "Im聊天服务",
                             Summary = "开启会话消息发送权限"
                         },
