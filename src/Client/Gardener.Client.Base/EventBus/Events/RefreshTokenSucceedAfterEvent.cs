@@ -12,7 +12,7 @@ namespace Gardener.Client.Base.EventBus.Events
     /// <summary>
     /// 刷新token成功后
     /// </summary>
-    public class RefreshTokenSucceedAfterEvent:EventBase
+    public class RefreshTokenSucceedAfterEvent : EventBase
     {
         /// <summary>
         /// 登录token
@@ -22,7 +22,7 @@ namespace Gardener.Client.Base.EventBus.Events
         /// 
         /// </summary>
         /// <param name="token"></param>
-        public RefreshTokenSucceedAfterEvent(TokenOutput token)
+        public RefreshTokenSucceedAfterEvent(TokenOutput token) : base(nameof(RefreshTokenSucceedAfterEvent))
         {
             Token = token;
         }

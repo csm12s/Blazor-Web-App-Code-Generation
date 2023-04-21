@@ -17,6 +17,10 @@ namespace Gardener.Client.Base
     /// </remarks>
     public class UnauthorizedApiCallEvent : EventBase
     {
+        public UnauthorizedApiCallEvent() : base(nameof(UnauthorizedApiCallEvent))
+        {
+        }
+
         public HttpStatusCode HttpStatusCode { get; set; }
     }
 }

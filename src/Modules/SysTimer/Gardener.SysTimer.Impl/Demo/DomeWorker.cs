@@ -9,6 +9,7 @@ using Furion.RemoteRequest.Extensions;
 using Furion.TaskScheduler;
 using Gardener.EventBus;
 using Gardener.NotificationSystem.Dtos.Notification;
+using Gardener.SysTimer.Dtos;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -44,11 +45,10 @@ namespace Gardener.SysTimer.Impl.Demo
                         return;
                     }
                     IEventBus eventBus = App.GetRequiredService<IEventBus>();
-                    ChatDemoNotificationData chatNotification = new();
-                    chatNotification.Avatar = "./assets/logo.png";
-                    chatNotification.NickName = "系统";
-                    chatNotification.Message = $"{newsInfo.digest}";
-                    eventBus.Publish(chatNotification);
+                    DongFangCaiFuNewsEvent newsEvent = new();
+                    newsEvent.Title = newsInfo.title;
+                    newsEvent.Content = newsInfo.digest;
+                    eventBus.Publish(newsEvent);
                 }
             }
             catch (Exception ex) 

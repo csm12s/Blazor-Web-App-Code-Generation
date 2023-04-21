@@ -22,7 +22,7 @@ namespace Gardener.Client.Base.EventBus.Events
         /// 
         /// </summary>
         /// <param name="token"></param>
-        public LoginSucceedAfterEvent(TokenOutput token)
+        public LoginSucceedAfterEvent(TokenOutput token) : base(nameof(LoginSucceedAfterEvent))
         {
             Token = token;
         }

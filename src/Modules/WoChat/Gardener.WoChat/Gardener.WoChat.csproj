@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Gardener\Gardener.csproj" />
+    <ProjectReference Include="..\..\SysTimer\Gardener.SysTimer\Gardener.SysTimer.csproj" />
     <ProjectReference Include="..\..\UserCenter\Gardener.UserCenter\Gardener.UserCenter.csproj" />
   </ItemGroup>
 

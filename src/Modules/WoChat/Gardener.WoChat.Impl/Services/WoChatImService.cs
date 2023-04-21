@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Furion.FriendlyException;
 using Gardener.Authentication.Dtos;
@@ -31,7 +32,7 @@ namespace Gardener.WoChat.Services
     /// Im聊天服务
     /// </summary>
     [ApiDescriptionSettings("NotificationSystem")]
-    public class WoChatImService : IWoChatImService, IDynamicApiController
+    public class WoChatImService : IWoChatImService, IDynamicApiController, IScoped
     {
         private readonly IAuthorizationService authorizationService;
         private readonly IRepository<ImSession> imSessionRepository;
@@ -363,9 +364,19 @@ namespace Gardener.WoChat.Services
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async Task<bool> SendMessage(ImSessionMessageDto message)
+        public Task<bool> SendMessage(ImSessionMessageDto message)
         {
-            Identity? identity = authorizationService.GetIdentity();
+            return SendMessage(message, authorizationService.GetIdentity());
+        }
+        /// <summary>
+        /// 发送消息到会话
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        [NonAction]
+        public async Task<bool> SendMessage(ImSessionMessageDto message, Identity? identity)
+        {
             if (identity == null || !IdentityType.User.Equals(identity.IdentityType))
             {
                 return false;
@@ -385,7 +396,6 @@ namespace Gardener.WoChat.Services
             sessionMessage.CreateBy = identity.Id;
             sessionMessage.CreateIdentityType = identity.IdentityType;
             List<Task> tasks = new List<Task>();
-
             //入库
             tasks.Add(imSessionMessageRepository.InsertAsync(sessionMessage));
             //查找会话
@@ -395,7 +405,6 @@ namespace Gardener.WoChat.Services
 
             if (imSession != null)
             {
-
                 if (!imSession.AllUserIsActive)
                 {
                     //查看那些用户未激活

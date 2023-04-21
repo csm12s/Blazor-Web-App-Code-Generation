@@ -12,7 +12,10 @@ namespace Gardener.Client.Base
     /// <summary>
     /// 刷新token失败事件
     /// </summary>
-    public class RefreshTokenErrorEvent:EventBase
+    public class RefreshTokenErrorEvent : EventBase
     {
+        public RefreshTokenErrorEvent() : base(nameof(RefreshTokenErrorEvent))
+        {
+        }
     }
 }

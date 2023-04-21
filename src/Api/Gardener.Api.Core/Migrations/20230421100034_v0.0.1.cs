@@ -1435,7 +1435,8 @@ namespace Gardener.Api.Core.Migrations
                     { 5, "./avatars/5.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员5", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin5" },
                     { 6, "./avatars/6.jpg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员6", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin6" },
                     { 7, "./avatars/1.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "管理员1", "6b8ecfe60e9d1945869fdfc7e65c1315", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "admin1" },
-                    { 8, "./avatars/7.jpeg", null, null, 1305892579553280000L, 3, null, false, 0, false, false, "测试员", "60759dd06243d0837b88ab9b7183e6df", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 2, null, null, null, "testuser" }
+                    { 8, "./avatars/7.jpeg", null, null, 1305892579553280000L, 3, null, false, 0, false, false, "测试员", "60759dd06243d0837b88ab9b7183e6df", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 2, null, null, null, "testuser" },
+                    { 9, "./avatars/8.jpeg", null, null, 1305892579553280000L, 2, null, false, 0, false, false, "东方财富播报", "bed99107b3729bb4cc015185ff30aaff", "032854df-332d-4c60-905a-fb9487b711e4", null, false, 1, null, null, null, "dongfangcaifu" }
                 });
 
             migrationBuilder.InsertData(

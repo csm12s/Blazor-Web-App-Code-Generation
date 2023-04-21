@@ -16,14 +16,23 @@ namespace Gardener.EventBus
         /// 事件消息
         /// </summary>
         /// <param name="eventType"></param>
+        /// <param name="groupName"></param>
         /// <param name="data"></param>
-        public EventInfo(EventType eventType, TData data)
-        { 
-            EventType = eventType;
-            Data= data;
-        
+        public EventInfo(EventType eventType, string groupName, TData data) : base(eventType, groupName)
+        {
+            Data = data;
         }
-        
+
+        /// <summary>
+        /// 事件消息
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <param name="data"></param>
+        public EventInfo(EventType eventType, TData data) : base(eventType)
+        {
+            Data = data;
+        }
+
         /// <summary>
         /// 消息
         /// </summary>

@@ -11431,6 +11431,23 @@ namespace Gardener.Api.Core.Migrations
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
                             UserName = "testuser"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Avatar = "./avatars/8.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "东方财富播报",
+                            Password = "bed99107b3729bb4cc015185ff30aaff",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "dongfangcaifu"
                         });
                 });
 

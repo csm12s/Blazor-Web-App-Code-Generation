@@ -260,6 +260,18 @@ namespace Gardener.UserCenter.Impl.Domains
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=3,
                     PositionId=2
+                },
+                new User
+                {
+                    Id=9,
+                    UserName="dongfangcaifu",
+                    NickName="东方财富播报",
+                    PasswordEncryptKey=passwordEncryptKey,
+                    Password=MD5Encryption.Encrypt("dongfangcaifu"+passwordEncryptKey),
+                    Avatar="./avatars/8.jpeg",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1
                 }
             };
         }
