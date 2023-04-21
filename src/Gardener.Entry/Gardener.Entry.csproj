@@ -209,4 +209,10 @@
 	  <Folder Include="wwwroot\upload\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="gardener.db">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
