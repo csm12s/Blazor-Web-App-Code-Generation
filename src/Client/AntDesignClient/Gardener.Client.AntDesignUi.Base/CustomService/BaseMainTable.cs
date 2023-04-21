@@ -449,9 +449,9 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Add();
 
-            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
+            Func<OperationDialogOutput<TKey>?, Task> onClose = async (result) =>
             {
-                if (result.Succeeded)
+                if (result != null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(true);
@@ -468,9 +468,9 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         protected virtual async Task OnClickEdit(TKey id)
         {
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Edit(id);
-            Func<OperationDialogOutput<TKey>, Task> onClose = async (result) =>
+            Func<OperationDialogOutput<TKey>?, Task> onClose = async (result) =>
             {
-                if (result.Succeeded)
+                if (result!=null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(true);
@@ -498,7 +498,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// <param name="onClose"></param>
         /// <param name="operationDialogSettings "></param>
         /// <returns></returns>
-        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
+        protected async Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>?, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
         {
             OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
             await OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
