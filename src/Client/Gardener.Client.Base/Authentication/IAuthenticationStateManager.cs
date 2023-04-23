@@ -87,9 +87,9 @@ namespace Gardener.Client.Base
         /// </summary>
         /// <returns></returns>
         /// <remarks>
-        /// 不执行任何内容，token无效将响应401；
-        /// 在特殊位置，不通过apicaller调用接口，无法实现token的被动刷新，就需要调用该方法去触发一下；
-        /// 当然其他通过apicaller调用的接口也可以达到该效果；
+        /// <para>服务端不执行任何内容，token无效将返回响应401；</para>
+        /// <para>在特殊位置，不通过apicaller调用接口，无法实现token的被动刷新，就需要调用该方法去触发一下；</para>
+        /// <para>当然通过apicaller调用的其他需校验token的接口也可以达到该效果；</para>
         /// </remarks>
         Task<bool> TestToken();
     }
