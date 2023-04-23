@@ -103,7 +103,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 // 验证签发方密钥
                 ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
                 // 签发方密钥
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.IssuerSigningKey)),
+                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(jwtSettings.IssuerSigningKey)),
                 // 验证签发方
                 ValidateIssuer = jwtSettings.ValidateIssuer,
                 // 设置签发方
