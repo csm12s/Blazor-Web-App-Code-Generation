@@ -47,6 +47,9 @@ namespace Gardener.Client.Core
             {
                 _accessTokenProvider = async () =>
                  {
+                     //测试token可用性
+                     await _authenticationStateManager.TestToken();
+                     //token
                      TokenOutput? token = await _authenticationStateManager.GetCurrentToken();
                      if (token != null) 
                      {
