@@ -4,17 +4,22 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authentication.Constants;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Enums;
 using Gardener.Authentication.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure<MvcOptions>(options =>
             {
 
-                AuthorizationPolicy policy= new AuthorizationPolicyBuilder()
+                AuthorizationPolicy policy = new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
                         .AddAuthenticationSchemes(IdentityType.User.ToString(), IdentityType.Client.ToString())
                         .Build();
@@ -60,31 +65,85 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     context.Token = accessToken;
                 }
+                else if (context.Request.Headers.TryGetValue("Authorization", out var value))
+                {
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        string token = value.ToString();
+                        if (token.StartsWith(GardenerAuthenticationSchemes.User + " ", StringComparison.OrdinalIgnoreCase))
+                        {
+                            token = token.Substring((GardenerAuthenticationSchemes.User + " ").Length);
+                        }
+                        else if (token.StartsWith(GardenerAuthenticationSchemes.Client + " ", StringComparison.OrdinalIgnoreCase))
+                        {
+                            token = token.Substring((GardenerAuthenticationSchemes.Client + " ").Length);
+                        }
+                        else if (token.StartsWith(JwtBearerDefaults.AuthenticationScheme + " ", StringComparison.OrdinalIgnoreCase))
+                        {
+                            token = token.Substring((JwtBearerDefaults.AuthenticationScheme + " ").Length);
+                        }
+                        context.Token = token;
+                    }
+                }
 
                 return Task.CompletedTask;
             };
-            //jwt身份认证配置
-            services.AddAuthentication(options =>
-           {
-               options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-               options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-               options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-           }).AddJwtBearer(IdentityType.User.ToString(),options =>
+            //jwt身份认证配置
+            string defaultScheme = GardenerAuthenticationSchemes.User;
+            Func<HttpContext, string?> forwardDefaultSelector = context =>
+            {
+                //根据token 头选择对应验证方案
+                if (context.Request.Headers.TryGetValue("Authorization", out var value))
+                {
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        string token = value.ToString();
+                        if (token.StartsWith(GardenerAuthenticationSchemes.User, StringComparison.OrdinalIgnoreCase))
+                        {
+                            //User
+                            return GardenerAuthenticationSchemes.User;
+                        }
+                        else if (token.StartsWith(GardenerAuthenticationSchemes.Client, StringComparison.OrdinalIgnoreCase))
+                        {
+                            //Client
+                            return GardenerAuthenticationSchemes.Client;
+                        }
+                        else if (token.StartsWith(JwtBearerDefaults.AuthenticationScheme, StringComparison.OrdinalIgnoreCase))
+                        {
+                            //Bearer => User
+                            return GardenerAuthenticationSchemes.User;
+                        }
+                    }
+                }
+                return defaultScheme;
+            };
+            services
+            .AddAuthentication(defaultScheme)
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
            {
+               //Bearer => User
+               options.ForwardDefaultSelector = forwardDefaultSelector;
+           })
+            .AddJwtBearer(GardenerAuthenticationSchemes.User, options =>
+           {
+               //User
                options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.User]);
                options.Events = new JwtBearerEvents
                {
                    OnMessageReceived = contextHandle
                };
+               options.ForwardDefaultSelector = forwardDefaultSelector;
            })
-           .AddJwtBearer(IdentityType.Client.ToString(), options =>
+           .AddJwtBearer(GardenerAuthenticationSchemes.Client, options =>
            {
+               //Client
                options.TokenValidationParameters = CreateTokenValidationParameters(jwtSettings.Settings[IdentityType.Client]);
                options.Events = new JwtBearerEvents
                {
                    OnMessageReceived = contextHandle
                };
+               options.ForwardDefaultSelector = forwardDefaultSelector;
            })
            ;
             return services;
@@ -116,7 +175,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 ValidateLifetime = jwtSettings.ValidateLifetime,
                 // 过期时间容错值
                 ClockSkew = TimeSpan.FromSeconds(jwtSettings.ClockSkew),
-                ValidAlgorithms=new[] {jwtSettings.Algorithm }
+                ValidAlgorithms = new[] { jwtSettings.Algorithm }
             };
         }
     }

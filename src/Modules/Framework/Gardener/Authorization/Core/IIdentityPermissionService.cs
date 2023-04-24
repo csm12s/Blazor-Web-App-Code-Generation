@@ -17,6 +17,14 @@ namespace Gardener.Authorization.Core
     {
 
         /// <summary>
+        /// 检测是否有该资源的使用权限
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="resourceKey"></param>
+        /// <returns></returns>
+        Task<bool> Check(Identity? identity, string resourceKey);
+
+        /// <summary>
         /// 检测是否有该功能点的使用权限
         /// </summary>
         /// <param name="identity"></param>

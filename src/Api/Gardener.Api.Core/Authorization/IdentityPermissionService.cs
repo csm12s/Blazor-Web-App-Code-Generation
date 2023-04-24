@@ -28,6 +28,7 @@ namespace Gardener.Authorization.Core
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
         private readonly IRepository<RoleResource> _roleResourceRepository;
+        private readonly IRepository<Resource> _resourceRepository;
         private readonly IRepository<ResourceFunction> _resourceFunctionRepository;
         private readonly IRepository<Function> _functionRepository;
         private readonly IRepository<Client> _clientRepository;
@@ -42,7 +43,8 @@ namespace Gardener.Authorization.Core
         /// <param name="functionRepository"></param>
         /// <param name="clientRepository"></param>
         /// <param name="loginTokenRepository"></param>
-        public IdentityPermissionService(IRepository<User> userRepository, IRepository<Role> roleRepository, IRepository<RoleResource> roleResourceRepository, IRepository<ResourceFunction> resourceFunctionRepository, IRepository<Function> functionRepository, IRepository<Client> clientRepository, IRepository<LoginToken> loginTokenRepository)
+        /// <param name="resourceRepository"></param>
+        public IdentityPermissionService(IRepository<User> userRepository, IRepository<Role> roleRepository, IRepository<RoleResource> roleResourceRepository, IRepository<ResourceFunction> resourceFunctionRepository, IRepository<Function> functionRepository, IRepository<Client> clientRepository, IRepository<LoginToken> loginTokenRepository, IRepository<Resource> resourceRepository)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
@@ -51,6 +53,7 @@ namespace Gardener.Authorization.Core
             _functionRepository = functionRepository;
             _clientRepository = clientRepository;
             _loginTokenRepository = loginTokenRepository;
+            _resourceRepository = resourceRepository;
         }
 
         /// <summary>
@@ -76,11 +79,11 @@ namespace Gardener.Authorization.Core
                 {
                     return true;
                 }
-                return await CurrentUserHaveResource(int.Parse(identity.Id), api.Key);
+                return await CurrentUserHaveFunction(int.Parse(identity.Id), api.Key);
             }
             else if (IdentityType.Client.Equals(identity.IdentityType))
             {
-                return await CurrentClientHaveResource(Guid.Parse(identity.Id), api.Key);
+                return await CurrentClientHaveFunction(Guid.Parse(identity.Id), api.Key);
             }
             return false;
         }
@@ -104,7 +107,7 @@ namespace Gardener.Authorization.Core
         /// <param name="userId"></param>
         /// <param name="functionKey"></param>
         /// <returns></returns>
-        private async Task<bool> CurrentUserHaveResource(int userId, string functionKey)
+        private async Task<bool> CurrentUserHaveFunction(int userId, string functionKey)
         {
             //分步查询，减少表关联
             var userTask = _userRepository.FindOrDefaultAsync(userId);
@@ -154,13 +157,46 @@ namespace Gardener.Authorization.Core
             //                )
             //            ).AnyAsync();
         }
+
+        /// <summary>
+        /// 判断是否拥有该权限
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="resourceKey"></param>
+        /// <returns></returns>
+        private async Task<bool> CurrentUserHaveResource(int userId, string resourceKey)
+        {
+            //分步查询，减少表关联
+            var userTask = _userRepository.FindOrDefaultAsync(userId);
+            var resourceTask = _resourceRepository.Where(x => !x.IsDeleted && !x.IsLocked && x.Key.Equals(resourceKey)).FirstOrDefaultAsync();
+
+            var user = await userTask;
+            if (user == null || user.IsDeleted || user.IsLocked)
+            {
+                return false;
+            }
+            var resource = await resourceTask;
+            if (resource == null)
+            {
+                return false;
+            }
+            var roleIds = await _roleRepository.AsQueryable(false)
+                .Include(x => x.UserRoles)
+                .Where(x => !x.IsDeleted && !x.IsLocked)
+                .SelectMany(x => x.UserRoles.Where(r => r.UserId == userId && !r.IsDeleted && !r.IsLocked)).Select(x => x.RoleId).ToListAsync();
+            if (roleIds == null || !roleIds.Any())
+            {
+                return false;
+            }
+            return await _roleResourceRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && roleIds.Contains(x.RoleId) && x.ResourceId.Equals(resource.Id)).AnyAsync();
+        }
         /// <summary>
         /// 判断是否拥有该权限
         /// </summary>
         /// <param name="clientId"></param>
         /// <param name="functionKey"></param>
         /// <returns></returns>
-        private async Task<bool> CurrentClientHaveResource(Guid clientId, string functionKey)
+        private async Task<bool> CurrentClientHaveFunction(Guid clientId, string functionKey)
         {
             return await _clientRepository.AsQueryable(false)
                     .Include(u => u.ClientFunctions)
@@ -229,6 +265,33 @@ namespace Gardener.Authorization.Core
         {
             return _loginTokenRepository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.LoginId.Equals(loginId)).AnyAsync();
         }
+        /// <summary>
+        /// 检测是否有该资源的使用权限
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="resourceKey"></param>
+        /// <returns></returns>
+        public async Task<bool> Check(Identity? identity, string resourceKey)
+        {
+            if (identity == null)
+            {
+                return false;
+            }
 
+            if (IdentityType.User.Equals(identity.IdentityType))
+            {
+                if (await IsSuperAdministrator(GetUserId(identity)))
+                {
+                    return true;
+                }
+                return await CurrentUserHaveResource(int.Parse(identity.Id), resourceKey);
+            }
+            else if (IdentityType.Client.Equals(identity.IdentityType))
+            {
+                //client 暂时没有绑定resource功能
+                return false;
+            }
+            return false;
+        }
     }
 }

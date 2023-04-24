@@ -30,6 +30,11 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         Task<UserDto?> GetCurrentUser();
         /// <summary>
+        /// 当前用户是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        public bool CurrentUserIsSuperAdmin();
+        /// <summary>
         /// 设置一个身份验证刷新成功的回调
         /// </summary>
         /// <param name="action"></param>

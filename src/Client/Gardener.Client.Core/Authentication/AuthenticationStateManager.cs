@@ -30,7 +30,6 @@ namespace Gardener.Client.Core
     public class AuthenticationStateManager : IAuthenticationStateManager
     {
         private UserDto? currentUser;
-        private bool currentUserIsSuperAdmin = false;
         private List<string>? uiResourceKeys;
         private List<ResourceDto>? menuResources;
         private Hashtable? uiHashtableResources;
@@ -215,7 +214,7 @@ namespace Gardener.Client.Core
                     this.currentUser = userResult;
 
                     //超级管理员
-                    currentUserIsSuperAdmin = userResult.Roles != null && userResult.Roles.Any(x => x.IsSuperAdministrator);
+                    bool currentUserIsSuperAdmin = CurrentUserIsSuperAdmin();
                     var task1 = accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
                     var task2 = accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
                     this.uiResourceKeys = await task1;
@@ -227,6 +226,18 @@ namespace Gardener.Client.Core
                 }
             }
             return (null, null, null, null);
+        }
+        /// <summary>
+        /// 当前用户是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        public bool CurrentUserIsSuperAdmin()
+        {
+            if (this.currentUser == null) 
+            {
+                return false;
+            }
+            return this.currentUser.Roles != null && this.currentUser.Roles.Any(x => x.IsSuperAdministrator);
         }
 
         /// <summary>
@@ -254,7 +265,7 @@ namespace Gardener.Client.Core
         public Task<bool> CheckCurrentUserHaveBtnResourceKey(object key)
         {
             //超级管理员
-            if (currentUserIsSuperAdmin)
+            if (CurrentUserIsSuperAdmin())
             {
                 return Task.FromResult(true);
             }
@@ -352,13 +363,13 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private Task SetToken(TokenOutput token)
         {
-            var task1= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessToken), token.AccessToken);
-            var task2= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessTokenExpires), token.AccessTokenExpires);
-            var task3= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshToken), token.RefreshToken);
-            var task4= GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshTokenExpires), token.RefreshTokenExpires);
-            var task5= jsTool.LocalStorage.SetAsync(nameof(isAutoLogin), isAutoLogin);
+            var task1 = GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessToken), token.AccessToken);
+            var task2 = GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.AccessTokenExpires), token.AccessTokenExpires);
+            var task3 = GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshToken), token.RefreshToken);
+            var task4 = GetWebStorageFromAutoLogin(isAutoLogin).SetAsync(nameof(TokenOutput.RefreshTokenExpires), token.RefreshTokenExpires);
+            var task5 = jsTool.LocalStorage.SetAsync(nameof(isAutoLogin), isAutoLogin);
             SetHttpClientAuthorization(token.AccessToken);
-            return Task.WhenAll(task1,task2, task3, task4, task5);
+            return Task.WhenAll(task1, task2, task3, task4, task5);
         }
         /// <summary>
         ///  移除浏览器token缓存
@@ -369,11 +380,11 @@ namespace Gardener.Client.Core
             SetHttpClientAuthorization("");
             //浏览器本地 clear
             var task1 = GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.AccessToken));
-            var task2= GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.AccessTokenExpires));
-            var task3= GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshToken));
-            var task4= GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshTokenExpires));
-            var task5= jsTool.LocalStorage.RemoveAsync(nameof(isAutoLogin));
-           return Task.WhenAll(task1,task2,task3,task4,task5);
+            var task2 = GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.AccessTokenExpires));
+            var task3 = GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshToken));
+            var task4 = GetWebStorageFromAutoLogin(isAutoLogin).RemoveAsync(nameof(TokenOutput.RefreshTokenExpires));
+            var task5 = jsTool.LocalStorage.RemoveAsync(nameof(isAutoLogin));
+            return Task.WhenAll(task1, task2, task3, task4, task5);
         }
         /// <summary>
         /// 
@@ -388,15 +399,17 @@ namespace Gardener.Client.Core
         /// 获取当前身份的token头，可以添加于自定义的httpclient中验证使用
         /// </summary>
         /// <returns></returns>
-        public async Task<Dictionary<string, string>?> GetCurrentTokenHeaders()
+        public Task<Dictionary<string, string>?> GetCurrentTokenHeaders()
         {
-            TokenOutput? currentToken = await GetCurrentToken();
-            if (currentToken == null) return null;
-
-            return new Dictionary<string, string>
+            var auth = httpClientManager.GetAuthorizationHeaders();
+            if (auth == null)
             {
-                {"authorization","Bearer "+currentToken.AccessToken }
-            };
+                return Task.FromResult<Dictionary<string, string>?>(null);
+            }
+            return Task.FromResult<Dictionary<string, string>?>(new Dictionary<string, string>
+            {
+                {auth.Value.Key,auth.Value.Value }
+            });
         }
         /// <summary>
         /// 测试token是否可用
@@ -409,7 +422,7 @@ namespace Gardener.Client.Core
         /// </remarks>
         public async Task<bool> TestToken()
         {
-          return await accountService.TestToken();
+            return await accountService.TestToken();
         }
     }
 }

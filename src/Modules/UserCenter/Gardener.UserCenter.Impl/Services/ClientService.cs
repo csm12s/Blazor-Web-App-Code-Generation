@@ -109,8 +109,6 @@ namespace Gardener.UserCenter.Impl.Services
             };
 
             var token = await _jwtBearerService.CreateToken(identity);
-            // 设置 Swagger 刷新自动授权
-            _httpContextAccessor.HttpContext.SigninToSwagger(token.AccessToken);
             return token.Adapt<TokenOutput>();
         }
 

@@ -134,7 +134,7 @@ namespace Gardener.Authorization.Core
         /// 获取当前请求的功能
         /// </summary>
         /// <returns></returns>
-        private async Task<ApiEndpoint?> GetApiEndpointFromContext()
+        public async Task<ApiEndpoint?> GetApiEndpointFromContext()
         {
             string? functionKey = GetApiEndpointKeyFromContext();
             if (!string.IsNullOrEmpty(functionKey))
@@ -144,6 +144,7 @@ namespace Gardener.Authorization.Core
             var (method, path) = GetContextEndpoint();
             return await _apiEndpointStoreService.Query(path, method);
         }
+        #endregion
 
         /// <summary>
         /// 获取身份
@@ -193,6 +194,5 @@ namespace Gardener.Authorization.Core
             
         }
 
-        #endregion
     }
 }
