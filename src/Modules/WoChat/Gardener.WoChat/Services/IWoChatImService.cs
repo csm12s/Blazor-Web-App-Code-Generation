@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Authentication.Dtos;
 using Gardener.WoChat.Dtos;
 
 namespace Gardener.WoChat.Services
@@ -40,6 +41,14 @@ namespace Gardener.WoChat.Services
         /// <param name="message"></param>
         /// <returns></returns>
         Task<bool> SendMessage(ImSessionMessageDto message);
+
+        /// <summary>
+        /// 发送消息到会话
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        Task<bool> SendMessage(ImSessionMessageDto message, Identity identity);
 
         /// <summary>
         /// 添加会话

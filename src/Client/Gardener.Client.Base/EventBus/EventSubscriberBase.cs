@@ -29,7 +29,7 @@ namespace Gardener.Client.Base
         public Task CallBack(object e)
         {
             //类型不同，无法转换，返回
-            if (!e.GetType().Equals(typeof(TEvent))) 
+            if (!e.GetType().Equals(typeof(TEvent)))
             {
                 return Task.CompletedTask;
             }
@@ -37,5 +37,5 @@ namespace Gardener.Client.Base
         }
     }
 
-    
+
 }

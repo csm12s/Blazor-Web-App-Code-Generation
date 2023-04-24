@@ -207,7 +207,7 @@ namespace Gardener.Authentication.Core
                 double minutes = jwtOpt.ExpiredTime.HasValue ? jwtOpt.ExpiredTime.Value : 5; 
                 expires = now.AddMinutes(minutes);
             }
-            SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(issuerSigningKey));
+            SecurityKey key = new SymmetricSecurityKey(Convert.FromBase64String(issuerSigningKey));
             SigningCredentials credentials = new SigningCredentials(key, jwtOpt.Algorithm);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
             {
@@ -246,7 +246,7 @@ namespace Gardener.Authentication.Core
                 ValidateLifetime = jWTSettingsOptions.ValidateLifetime,
                 ValidIssuer = jWTSettingsOptions.ValidIssuer,
                 ValidAudience = jWTSettingsOptions.ValidAudience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jWTSettingsOptions.IssuerSigningKey))
+                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(jWTSettingsOptions.IssuerSigningKey))
             };
             ClaimsPrincipal principal = _tokenHandler.ValidateToken(tokenStr, parameters, out _);
 

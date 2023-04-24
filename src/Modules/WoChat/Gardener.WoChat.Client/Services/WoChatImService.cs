@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Authentication.Dtos;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.WoChat.Dtos;
@@ -81,6 +82,11 @@ namespace Gardener.WoChat.Client.Services
         public Task<bool> SendMessage(ImSessionMessageDto message)
         {
             return apiCaller.PostAsync<ImSessionMessageDto, bool>($"{controller}/send-message", message);
+        }
+
+        public Task<bool> SendMessage(ImSessionMessageDto message, Identity identity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

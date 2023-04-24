@@ -15,7 +15,7 @@ namespace Gardener.Api.Core.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -5356,7 +5356,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "ED0E0A2262D113044CA7B4539AE1B1EA",
                             Method = 1,
-                            Path = "/api/wo-chat-im/enable-session-send-message/{imsessionid}",
+                            Path = "/api/wo-chat-im/enable-session-send-message",
                             Service = "Im聊天服务",
                             Summary = "开启会话消息发送权限"
                         },
@@ -11431,6 +11431,23 @@ namespace Gardener.Api.Core.Migrations
                             PhoneNumberConfirmed = false,
                             PositionId = 2,
                             UserName = "testuser"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Avatar = "./avatars/8.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "东方财富播报",
+                            Password = "bed99107b3729bb4cc015185ff30aaff",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            UserName = "dongfangcaifu"
                         });
                 });
 

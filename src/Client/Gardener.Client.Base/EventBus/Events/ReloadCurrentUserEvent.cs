@@ -12,7 +12,7 @@ namespace Gardener.Client.Base.EventBus.Events
     /// <summary>
     /// 重载当前用户事件
     /// </summary>
-    public class ReloadCurrentUserEvent:EventBase
+    public class ReloadCurrentUserEvent : EventBase
     {
         /// <summary>
         /// 登录token
@@ -22,7 +22,7 @@ namespace Gardener.Client.Base.EventBus.Events
         /// 重载当前用户事件
         /// </summary>
         /// <param name="token"></param>
-        public ReloadCurrentUserEvent(TokenOutput token)
+        public ReloadCurrentUserEvent(TokenOutput token) : base(nameof(ReloadCurrentUserEvent))
         {
             Token = token;
         }

@@ -14,6 +14,8 @@ namespace Gardener.Client.Base.EventBus.Events
     /// </summary>
     public class LogoutSucceedAfterEvent : EventBase
     {
-       
+        public LogoutSucceedAfterEvent() : base(nameof(LogoutSucceedAfterEvent))
+        {
+        }
     }
 }
