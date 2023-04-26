@@ -13,6 +13,7 @@ using Gardener.SystemManager.Utils;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Gardener.SystemManager.Services
 {
@@ -42,16 +43,20 @@ namespace Gardener.SystemManager.Services
         /// </remarks>
         public async Task<Dictionary<int, IEnumerable<CodeDto>>> GetCodeDic(params int[] codeTypeIds)
         {
-            var list = await _codeRepository
+            IQueryable<Code> query = _codeRepository
                 .AsQueryable(false)
                 .Include(x => x.CodeType)
-                .Where(x => x.CodeType.IsLocked == false && x.CodeType.IsDeleted == false && x.IsLocked == false && x.IsDeleted == false && codeTypeIds.Contains(x.CodeTypeId))
-                .Select(x => x.Adapt<CodeDto>())
-                .ToListAsync();
-            Dictionary<int, IEnumerable<CodeDto>> result = new Dictionary<int, IEnumerable<CodeDto>>();
-            for (int i = 0; i < codeTypeIds.Length; i++)
+                .Where(x => x.CodeType.IsLocked == false && x.CodeType.IsDeleted == false && x.IsLocked == false && x.IsDeleted == false);
+            if (codeTypeIds.Length > 0)
             {
-                result.Add(codeTypeIds[i], list.Where(x => x.CodeTypeId.Equals(codeTypeIds[i])).Select(x => x.Adapt<CodeDto>()).ToList());
+                query.Where(x => codeTypeIds.Contains(x.CodeTypeId));
+            }
+            var list = await query.Select(x => x.Adapt<CodeDto>())
+             .ToListAsync();
+            Dictionary<int, IEnumerable<CodeDto>> result = new Dictionary<int, IEnumerable<CodeDto>>();
+            foreach (int codeTypeId in list.Select(x => x.CodeTypeId).Distinct())
+            {
+                result.Add(codeTypeId, list.Where(x => x.CodeTypeId.Equals(codeTypeId)));
             }
             return result;
         }
@@ -65,22 +70,43 @@ namespace Gardener.SystemManager.Services
         /// </remarks>
         public async Task<Dictionary<string, IEnumerable<CodeDto>>> GetCodeDicByValues(params string[] codeTypeValues)
         {
-            List<CodeTypeDto> codeTypes = await _repository.AsQueryable(false).Where(x => x.IsLocked == false && x.IsDeleted == false && codeTypeValues.Contains(x.CodeTypeValue)).Select(x => x.Adapt<CodeTypeDto>()).ToListAsync();
-            if (!codeTypes.Any())
+            IEnumerable<CodeDto> codes = new List<CodeDto>();
+
+            if (codeTypeValues.Length > 0)
             {
-                return new Dictionary<string, IEnumerable<CodeDto>>(0);
+                List<int> codeTypeIds = await _repository
+                    .AsQueryable(false)
+                    .Where(x => x.IsLocked == false && x.IsDeleted == false && codeTypeValues.Contains(x.CodeTypeValue))
+                    .Select(x => x.Id).ToListAsync();
+                if (!codeTypeIds.Any())
+                {
+                    return new Dictionary<string, IEnumerable<CodeDto>>(0);
+                }
+                IQueryable<Code> query = _codeRepository
+                    .AsQueryable(false)
+                    .Include(x => x.CodeType)
+                    .Where(x => x.CodeType.IsLocked == false && x.CodeType.IsDeleted == false && x.IsLocked == false && x.IsDeleted == false);
+                if (codeTypeIds.Count > 0)
+                {
+                    query.Where(x => codeTypeIds.Contains(x.CodeTypeId));
+                }
+                codes = await query.Select(x => x.Adapt<CodeDto>())
+                 .ToListAsync();
             }
-            var list = await _codeRepository.AsQueryable(false).Where(x => x.IsLocked == false && x.IsDeleted == false && codeTypes.Select(x => x.Id).Contains(x.CodeTypeId)).ToListAsync();
-            Dictionary<string, IEnumerable<CodeDto>> result = new Dictionary<string, IEnumerable<CodeDto>>();
-            foreach (CodeTypeDto codeType in codeTypes)
+            else
             {
-                var codes = list.Where(x => x.CodeTypeId.Equals(codeType.Id)).Select(x =>
-                  {
-                      var code = x.Adapt<CodeDto>();
-                      code.CodeType = codeType;
-                      return code;
-                  }).ToList();
-                result.Add(codeType.CodeTypeValue, codes);
+                codes = await _codeRepository
+                       .AsQueryable(false)
+                       .Include(x => x.CodeType)
+                       .Where(x => x.CodeType.IsLocked == false && x.CodeType.IsDeleted == false && x.IsLocked == false && x.IsDeleted == false)
+                       .Select(x => x.Adapt<CodeDto>()).ToListAsync();
+            }
+
+            Dictionary<string, IEnumerable<CodeDto>> result = new Dictionary<string, IEnumerable<CodeDto>>();
+            foreach (string codeTypeValue in codes.Select(x => x.CodeType.CodeTypeValue).Distinct())
+            {
+                var items = codes.Where(x => x.CodeType.CodeTypeValue.Equals(codeTypeValue)).ToList();
+                result.Add(codeTypeValue, items);
             }
             return result;
         }

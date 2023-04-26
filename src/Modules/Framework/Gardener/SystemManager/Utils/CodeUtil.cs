@@ -32,69 +32,6 @@ namespace Gardener.SystemManager.Utils
         /// </summary>
         private static ICodeTypeService? _codeTypeService;
         /// <summary>
-        /// 初始化Code缓存
-        /// </summary>
-        /// <param name="codeTypeValues"></param>
-        /// <returns></returns>
-        private static async Task InitCodeCache(params string[] codeTypeValues)
-        {
-            if (_codeTypeService == null)
-            {
-                throw new ArgumentNullException(nameof(_codeTypeService));
-            }
-            if (codeTypeValues.Length == 0)
-            {
-                return;
-            }
-            foreach (var codeType in codeTypeValues)
-            {
-                if (typeValueCodeMap.ContainsKey(codeType))
-                {
-                    typeValueCodeMap.Remove(codeType);
-                }
-            }
-            Dictionary<string, IEnumerable<CodeDto>> keyValues = await _codeTypeService.GetCodeDicByValues(codeTypeValues);
-            foreach (var item in keyValues)
-            {
-                Dictionary<string, CodeDto> codeValueMap = new Dictionary<string, CodeDto>();
-                foreach (var value in item.Value)
-                {
-                    codeValueMap.TryAdd(value.CodeValue, value);
-                }
-                typeValueCodeMap.TryAdd(item.Key, codeValueMap);
-            }
-        }
-        /// <summary>
-        /// 初始化Code缓存
-        /// </summary>
-        /// <param name="codeTypeService"></param>
-        /// <param name="codeTypeValues"></param>
-        /// <returns></returns>
-        public static Task InitCodeCache(ICodeTypeService codeTypeService, params string[] codeTypeValues)
-        {
-            _codeTypeService = codeTypeService;
-            return InitCodeCache(codeTypeValues);
-        }
-        /// <summary>
-        /// 初始化Code缓存
-        /// </summary>
-        /// <typeparam name="TDto"></typeparam>
-        /// <param name="codeTypeService"></param>
-        /// <returns></returns>
-        public static Task InitCodeCache<TDto>(ICodeTypeService codeTypeService)
-        {
-            if (codeTypeService != null)
-            {
-                _codeTypeService = codeTypeService;
-            }
-            List<string> codeTypeValues = GetCodeTypeValues<TDto>();
-            if (codeTypeValues.Any())
-            {
-                return InitCodeCache(codeTypeValues.ToArray());
-            }
-            return Task.CompletedTask;
-        }
-        /// <summary>
         /// 初始化所有Code缓存
         /// </summary>
         /// <param name="codeTypeService"></param>
@@ -110,10 +47,15 @@ namespace Gardener.SystemManager.Utils
                 throw new ArgumentNullException(nameof(codeTypeService));
             }
             typeValueCodeMap.Clear();
-            var codeTypes = await _codeTypeService.GetAllUsable();
-            if (codeTypes != null)
+            Dictionary<string, IEnumerable<CodeDto>> keyValues = await _codeTypeService.GetCodeDicByValues(new string[0]);
+            foreach (var item in keyValues)
             {
-                await InitCodeCache(codeTypes.Select(x => x.CodeTypeValue).ToArray());
+                Dictionary<string, CodeDto> codeValueMap = new Dictionary<string, CodeDto>();
+                foreach (var value in item.Value)
+                {
+                    codeValueMap.TryAdd(value.CodeValue, value);
+                }
+                typeValueCodeMap.TryAdd(item.Key, codeValueMap);
             }
         }
         /// <summary>
