@@ -122,7 +122,7 @@ namespace Gardener.SystemManager.Services
         /// <returns></returns>
         public async Task<bool> RefreshCodeUtilCache()
         {
-            await CodeUtil.InitAllCode();
+            await CodeUtil.InitAllCode(this);
             return true;
         }
     }

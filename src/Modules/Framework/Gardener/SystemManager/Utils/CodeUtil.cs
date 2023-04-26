@@ -32,19 +32,11 @@ namespace Gardener.SystemManager.Utils
         /// </summary>
         private static ICodeTypeService? _codeTypeService;
         /// <summary>
-        /// 字典工具
-        /// </summary>
-        /// <param name="codeTypeService"></param>
-        public static void SetCodeTypeService(ICodeTypeService codeTypeService)
-        {
-            _codeTypeService = codeTypeService;
-        }
-        /// <summary>
         /// 初始化Code缓存
         /// </summary>
         /// <param name="codeTypeValues"></param>
         /// <returns></returns>
-        public static async Task InitCodeCache(params string[] codeTypeValues)
+        private static async Task InitCodeCache(params string[] codeTypeValues)
         {
             if (_codeTypeService == null)
             {
@@ -89,7 +81,7 @@ namespace Gardener.SystemManager.Utils
         /// <typeparam name="TDto"></typeparam>
         /// <param name="codeTypeService"></param>
         /// <returns></returns>
-        public static Task InitCodeCache<TDto>(ICodeTypeService? codeTypeService = null)
+        public static Task InitCodeCache<TDto>(ICodeTypeService codeTypeService)
         {
             if (codeTypeService != null)
             {
@@ -107,7 +99,7 @@ namespace Gardener.SystemManager.Utils
         /// </summary>
         /// <param name="codeTypeService"></param>
         /// <returns></returns>
-        public static async Task InitAllCode(ICodeTypeService? codeTypeService = null)
+        public static async Task InitAllCode(ICodeTypeService codeTypeService)
         {
             if (codeTypeService != null)
             {
