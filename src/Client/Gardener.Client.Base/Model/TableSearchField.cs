@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.SystemManager.Dtos;
 using System;
 using System.Collections.Generic;
 
@@ -38,5 +39,17 @@ namespace Gardener.Client.Base
         /// 是否有多值
         /// </summary>
         public bool Multiple { get; set; } = false;
+        /// <summary>
+        /// 是否是字典
+        /// </summary>
+        public bool IsCode { get; set; }=false;
+        /// <summary>
+        /// 字典类型值
+        /// </summary>
+        public string? CodeTypeValue { get; set; }
+        /// <summary>
+        /// 字典
+        /// </summary>
+        public List<CodeDto>? Codes { get; set; }
     }
 }

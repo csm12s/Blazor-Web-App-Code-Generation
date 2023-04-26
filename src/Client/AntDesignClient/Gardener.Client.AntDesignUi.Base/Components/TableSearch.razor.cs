@@ -10,6 +10,7 @@ using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
 using Gardener.Common;
+using Gardener.SystemManager.Utils;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -90,6 +91,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                 localizer = CustomLocalizer;
             }
             InitSearchFields();
+
             await base.OnInitializedAsync();
         }
 
@@ -116,14 +118,27 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                     DisplayName = displayName,
                     Type = fieldType
                 };
-
+                
                 //填充默认值
                 Action<TableSearchField, object> fullValue = (field, value) => {
                     field.Value = value.ToString()??"";
                 };
                 searchField.Values = new string[0];
                 searchField.Value = string.Empty;
-                if (IsDateTimeType(searchField.Type)) {
+
+                var codeType = property.GetCustomAttribute<CodeTypeAttribute>();
+                if (codeType != null)
+                {
+                    //字典
+                    searchField.IsCode = true;
+                    searchField.CodeTypeValue = codeType.CodeTypeValue;
+                    searchField.Codes= CodeUtil.GetCodesFromCache(codeType.CodeTypeValue)?.ToList();
+                    searchField.Multiple = true;
+                    fullValue = (field, value) => {
+                        field.Values = (value.ToString() ?? "").Split(",");
+                    };
+                }
+                else if (IsDateTimeType(searchField.Type)) {
                     searchField.Multiple = true;
                     //默认值初始化
                     fullValue = (field, value) => {
@@ -271,18 +286,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components {
                             continue;
                         }
 
-                        if (field.Type.IsEnum || field.Type.Equals(typeof(bool))) {
-                            foreach (string valueTemp in field.Values) {
-                                FilterRule rule = new FilterRule();
-                                rule.Field = field.Name;
-                                rule.Value = valueTemp.CastTo(field.Type);
-                                rule.Operate = FilterOperate.Equal;
-                                rule.Condition = FilterCondition.Or;
-                                filterGroup.AddRule(rule);
-                            }
-
+                        foreach (string valueTemp in field.Values)
+                        {
+                            FilterRule rule = new FilterRule();
+                            rule.Field = field.Name;
+                            rule.Value = valueTemp.CastTo(field.Type);
+                            rule.Operate = FilterOperate.Equal;
+                            rule.Condition = FilterCondition.Or;
+                            filterGroup.AddRule(rule);
                         }
-
                     }
                     else {
                         //单值
