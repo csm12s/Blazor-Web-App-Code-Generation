@@ -49,7 +49,9 @@
             </ResourceAuthorize>
             <Column @bind-Field="@model.Name" Filterable />
             <Column @bind-Field="@model.Duty" Filterable />
-            <Column @bind-Field="@model.Grade" Filterable />
+            <Column TData="string" Title="岗位等级">
+                <span>@(CodeUtil.GetCodeNameFromCache<PositionDto>(()=>model.Grade))</span>
+            </Column>
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="user_center_position_lock">
                     <Authorized>

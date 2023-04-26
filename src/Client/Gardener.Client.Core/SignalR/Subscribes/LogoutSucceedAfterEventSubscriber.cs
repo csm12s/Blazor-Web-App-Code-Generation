@@ -25,7 +25,9 @@ namespace Gardener.Client.Core.Subscribes
 
         public override Task CallBack(LogoutSucceedAfterEvent e)
         {
-            return signalRClientManager.StopAll();
+            //无需等待
+            signalRClientManager.StopAll();
+            return Task.CompletedTask;
         }
     }
 }

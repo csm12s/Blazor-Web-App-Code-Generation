@@ -52,9 +52,17 @@ namespace Gardener.SystemManager.Resources
         /// </summary>
         public const string CodeTypeName = nameof(CodeTypeName);
         /// <summary>
+        /// 字典类型值
+        /// </summary>
+        public const string CodeTypeValue = nameof(CodeTypeValue);
+        /// <summary>
         /// 字典管理
         /// </summary>
         public const string CodeManager = nameof(CodeManager);
+        /// <summary>
+        /// 刷新字典工具缓存
+        /// </summary>
+        public const string RefreshCodeUtilCache = nameof(RefreshCodeUtilCache);
 
 
     }

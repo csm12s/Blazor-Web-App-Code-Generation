@@ -1,4 +1,5 @@
-﻿@inherits EditOperationDialogBase<PositionDto, int>
+﻿@using Gardener.SystemManager.Dtos;
+@inherits EditOperationDialogBase<PositionDto, int>
 
 
 <Form Loading="@_dialogLoading.Value"
@@ -20,7 +21,14 @@
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Right"></TextArea>
     </FormItem>
     <FormItem Label="岗位等级">
-        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Grade"></TextArea>
+        <Select DataSource="@grades"
+                @bind-Value="@model.Grade"
+                ValueName="@nameof(CodeDto.CodeValue)"
+                LabelName="@nameof(CodeDto.CodeName)"
+                TItem="CodeDto"
+                TItemValue="string"
+                AllowClear>
+        </Select>
     </FormItem>
     <FormItem Label="任职资格">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Qualifications"></TextArea>

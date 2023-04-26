@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230421133853_v0.0.1")]
+    [Migration("20230426072749_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -160,6 +160,305 @@ namespace Gardener.Api.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LoginToken");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Code", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CodeName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CodeTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CodeValue")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Color")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ExtendParams")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodeTypeId");
+
+                    b.ToTable("Code");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 7,
+                            CodeName = "P1",
+                            CodeTypeId = 3,
+                            CodeValue = "p1",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306992882278400480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 10
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CodeName = "P2",
+                            CodeTypeId = 3,
+                            CodeValue = "p2",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306992882688000480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 20
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CodeName = "P3",
+                            CodeTypeId = 3,
+                            CodeValue = "p3",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306992882954240480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 30
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CodeName = "P4",
+                            CodeTypeId = 3,
+                            CodeValue = "p4",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306992883343360480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 40
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CodeName = "P5",
+                            CodeTypeId = 3,
+                            CodeValue = "p5",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306992883630080480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 50
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CodeName = "乒乓球",
+                            CodeTypeId = 2,
+                            CodeValue = "pingpang",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306991751884800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 10,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306991752990720480L
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CodeName = "篮球",
+                            CodeTypeId = 2,
+                            CodeValue = "basketball",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306991752765440480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 20
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CodeName = "游泳",
+                            CodeTypeId = 2,
+                            CodeValue = "swimming",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306991753584640480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 30
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CodeName = "足球",
+                            CodeTypeId = 2,
+                            CodeValue = "football",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306991754936320480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 40
+                        },
+                        new
+                        {
+                            Id = 1,
+                            CodeName = "难过",
+                            CodeTypeId = 1,
+                            CodeValue = "1",
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966795612160480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CodeName = "高兴",
+                            CodeTypeId = 1,
+                            CodeValue = "2",
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966795345920480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 2
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.CodeType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CodeTypeName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CodeTypeValue")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CodeType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            CodeTypeName = "岗位等级",
+                            CodeTypeValue = "position-level",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306992877936640480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Remark = "",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306992878100480480L
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CodeTypeName = "爱好",
+                            CodeTypeValue = "interest",
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306991751352320480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Remark = ""
+                        },
+                        new
+                        {
+                            Id = 1,
+                            CodeTypeName = "心情",
+                            CodeTypeValue = "mood",
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966793932800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Remark = ""
+                        });
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
@@ -2417,20 +2716,57 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9a7bf3a2-802b-43b8-817f-f021a75d437f"),
-                            CreateBy = "2",
+                            Id = new Guid("70dd5b33-585d-4ed4-83b7-4e55f62298d1"),
+                            CreateBy = "6",
                             CreateIdentityType = 1,
-                            CreatedTime = 1306966748139520480L,
-                            Description = "根据字典类型获取字典列表",
+                            CreatedTime = 1306994996695040480L,
+                            Description = "根据字典类型值获取字典列表",
                             EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "2FEBEEAEEB7FDD3630AD1411F97E27D2",
+                            Key = "F1EB36795F9ABEFB53058F8A1B80E294",
                             Method = 0,
-                            Path = "/api/code-type/{codetypeid}/codes",
+                            Path = "/api/code-type/{codetypevalue}/codes-by-value",
                             Service = "字典类型管理",
-                            Summary = "根据字典类型获取字典列表"
+                            Summary = "根据字典类型值获取字典列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("09d15841-71c7-4afc-99f8-dd906a0248d9"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306994996674560480L,
+                            Description = "根据多个字典类型编号获取所有字典的结果",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4B5955C39899A574748AEC9472EAD3DF",
+                            Method = 0,
+                            Path = "/api/code-type/code-dic-by-values",
+                            Service = "字典类型管理",
+                            Summary = "根据多个字典类型编号获取所有字典的结果"
+                        },
+                        new
+                        {
+                            Id = new Guid("332d731a-e209-48da-84e9-508288efbf22"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306994995814400480L,
+                            Description = "refresh-code-util-cache",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "84729CE5CCEDE2B91418572851547D7A",
+                            Method = 1,
+                            Path = "/api/code-type/refresh-code-util-cache",
+                            Service = "字典类型管理",
+                            Summary = "刷新字典工具缓存",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996695040480L
                         },
                         new
                         {
@@ -2438,7 +2774,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateBy = "2",
                             CreateIdentityType = 1,
                             CreatedTime = 1306966748139520480L,
-                            Description = "根据多个字典类型获取所有字典的结果",
+                            Description = "根据多个字典类型编号获取所有字典的结果",
                             EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
@@ -2447,7 +2783,30 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/code-type/code-dic",
                             Service = "字典类型管理",
-                            Summary = "根据多个字典类型获取所有字典的结果"
+                            Summary = "根据多个字典类型编号获取所有字典的结果",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996674560480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9a7bf3a2-802b-43b8-817f-f021a75d437f"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306966748139520480L,
+                            Description = "根据字典类型编号获取字典列表",
+                            EnableAudit = false,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2FEBEEAEEB7FDD3630AD1411F97E27D2",
+                            Method = 0,
+                            Path = "/api/code-type/{codetypeid}/codes",
+                            Service = "字典类型管理",
+                            Summary = "根据字典类型编号获取字典列表",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996674560480L
                         },
                         new
                         {
@@ -2464,7 +2823,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/code-type/export",
                             Service = "字典类型管理",
-                            Summary = "导出"
+                            Summary = "导出",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996756480480L
                         },
                         new
                         {
@@ -2481,7 +2843,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/code-type/generate-seed-data",
                             Service = "字典类型管理",
-                            Summary = "生成种子数据"
+                            Summary = "生成种子数据",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996736000480L
                         },
                         new
                         {
@@ -2490,7 +2855,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1306961912012800480L,
                             Description = "搜索数据",
-                            EnableAudit = false,
+                            EnableAudit = true,
                             Group = "系统基础服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -2498,7 +2863,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/code-type/search",
                             Service = "字典类型管理",
-                            Summary = "搜索"
+                            Summary = "搜索",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996736000480L
                         },
                         new
                         {
@@ -2515,7 +2883,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 2,
                             Path = "/api/code-type/{id}/lock/{islocked}",
                             Service = "字典类型管理",
-                            Summary = "锁定"
+                            Summary = "锁定",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996736000480L
                         },
                         new
                         {
@@ -2532,7 +2903,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/code-type/page/{pageindex}/{pagesize}",
                             Service = "字典类型管理",
-                            Summary = "分页查询"
+                            Summary = "分页查询",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996736000480L
                         },
                         new
                         {
@@ -2549,7 +2923,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/code-type/all-usable",
                             Service = "字典类型管理",
-                            Summary = "查询所有可以用的"
+                            Summary = "查询所有可以用的",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996715520480L
                         },
                         new
                         {
@@ -2566,7 +2943,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/code-type/all",
                             Service = "字典类型管理",
-                            Summary = "查询所有"
+                            Summary = "查询所有",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996715520480L
                         },
                         new
                         {
@@ -2583,7 +2963,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/code-type/fake-deletes",
                             Service = "字典类型管理",
-                            Summary = "批量逻辑删除"
+                            Summary = "批量逻辑删除",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996715520480L
                         },
                         new
                         {
@@ -2600,24 +2983,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/code-type/fake-delete/{id}",
                             Service = "字典类型管理",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("b69cedcd-49c3-4833-9d80-d67282cd015f"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961911951360480L,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "D9A20DEED6CAF38F963F938912CA544C",
-                            Method = 1,
-                            Path = "/api/code-type/deletes",
-                            Service = "字典类型管理",
-                            Summary = "批量删除"
+                            Summary = "逻辑删除",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996715520480L
                         },
                         new
                         {
@@ -2634,7 +3003,30 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/code-type/{id}",
                             Service = "字典类型管理",
-                            Summary = "根据主键获取"
+                            Summary = "根据主键获取",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996695040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b69cedcd-49c3-4833-9d80-d67282cd015f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911951360480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D9A20DEED6CAF38F963F938912CA544C",
+                            Method = 1,
+                            Path = "/api/code-type/deletes",
+                            Service = "字典类型管理",
+                            Summary = "批量删除",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996715520480L
                         },
                         new
                         {
@@ -2651,24 +3043,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/code-type/{id}",
                             Service = "字典类型管理",
-                            Summary = "删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("4c206f6e-5e3a-4c96-b48c-81d6df44c9af"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306961911930880480L,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
-                            Group = "系统基础服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "4E8341596E72B28095CC42F5E4D4A614",
-                            Method = 2,
-                            Path = "/api/code-type",
-                            Service = "字典类型管理",
-                            Summary = "更新"
+                            Summary = "删除",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996695040480L
                         },
                         new
                         {
@@ -2685,7 +3063,30 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/code-type",
                             Service = "字典类型管理",
-                            Summary = "添加"
+                            Summary = "添加",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996695040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4c206f6e-5e3a-4c96-b48c-81d6df44c9af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306961911930880480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "系统基础服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4E8341596E72B28095CC42F5E4D4A614",
+                            Method = 2,
+                            Path = "/api/code-type",
+                            Service = "字典类型管理",
+                            Summary = "更新",
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994996695040480L
                         },
                         new
                         {
@@ -6286,6 +6687,23 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306994998394880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_code_utils",
+                            Name = "字典工具",
+                            Order = 0,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1306994999357440480L
+                        },
+                        new
+                        {
                             Id = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             CreateBy = "1",
                             CreateIdentityType = 1,
@@ -6608,6 +7026,20 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "system_manager_code_type_refresh",
                             Name = "刷新字典类型列表",
+                            Order = 0,
+                            ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306994982113280480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_code_type_refresh_code_util_cache",
+                            Name = "刷新字典工具缓存",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
                             Type = 2000
@@ -8453,6 +8885,30 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
+                            FunctionId = new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"),
+                            CreatedTime = 1306995003985920480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306995003985920480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            FunctionId = new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"),
+                            CreatedTime = 1306995002163200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
+                            CreatedTime = 1306995002163200480L
+                        },
+                        new
+                        {
                             ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             FunctionId = new Guid("416fe54b-6c50-4b1b-bf77-6744cf19fa72"),
                             CreatedTime = 1306069130997760480L
@@ -10149,152 +10605,6 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gardener.SystemManager.Domains.Code", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CodeName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CodeTypeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CodeValue")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Color")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ExtendParams")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CodeTypeId");
-
-                    b.ToTable("Code");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CodeName = "难过",
-                            CodeTypeId = 1,
-                            CodeValue = "1",
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306966795612160480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Order = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CodeName = "高兴",
-                            CodeTypeId = 1,
-                            CodeValue = "2",
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306966795345920480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Order = 2
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.SystemManager.Domains.CodeType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CodeTypeName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CodeType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CodeTypeName = "心情",
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1306966793932800480L,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Remark = "心情"
-                        });
-                });
-
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
                 {
                     b.Property<Guid>("Id")
@@ -11807,6 +12117,17 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("ImUserSession");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.Code", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.CodeType", "CodeType")
+                        .WithMany("Codes")
+                        .HasForeignKey("CodeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CodeType");
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
                 {
                     b.HasOne("Gardener.Base.Entity.Resource", "Parent")
@@ -11860,17 +12181,6 @@ namespace Gardener.Api.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("AuditEntity");
-                });
-
-            modelBuilder.Entity("Gardener.SystemManager.Domains.Code", b =>
-                {
-                    b.HasOne("Gardener.SystemManager.Domains.CodeType", "CodeType")
-                        .WithMany("Codes")
-                        .HasForeignKey("CodeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CodeType");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
@@ -11965,6 +12275,11 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.CodeType", b =>
+                {
+                    b.Navigation("Codes");
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
                 {
                     b.Navigation("ResourceFunctions");
@@ -11990,11 +12305,6 @@ namespace Gardener.Api.Core.Migrations
             modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
                 {
                     b.Navigation("AuditEntities");
-                });
-
-            modelBuilder.Entity("Gardener.SystemManager.Domains.CodeType", b =>
-                {
-                    b.Navigation("Codes");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>

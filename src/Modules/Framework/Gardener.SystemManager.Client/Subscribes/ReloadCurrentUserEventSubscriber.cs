@@ -6,28 +6,30 @@
 
 using Gardener.Client.Base;
 using Gardener.Client.Base.EventBus.Events;
-using System.Threading.Tasks;
+using Gardener.SystemManager.Services;
+using Gardener.SystemManager.Utils;
 
-namespace Gardener.Client.Core.Subscribes
+namespace Gardener.SystemManager.Client.Subscribes
 {
     /// <summary>
-    /// 重载用户后，连接系统通知
+    /// 重载用户后
     /// </summary>
     [TransientService]
     public class ReloadCurrentUserEventSubscriber : EventSubscriberBase<ReloadCurrentUserEvent>
     {
-        private readonly ISignalRClientManager signalRClientManager;
-
-        public ReloadCurrentUserEventSubscriber(ISignalRClientManager signalRClientManager)
+        private readonly ICodeTypeService codeTypeService;
+        /// <summary>
+        /// 登录成功后
+        /// </summary>
+        /// <param name="codeTypeService"></param>
+        public ReloadCurrentUserEventSubscriber(ICodeTypeService codeTypeService)
         {
-            this.signalRClientManager = signalRClientManager;
+            this.codeTypeService = codeTypeService;
         }
 
         public override Task CallBack(ReloadCurrentUserEvent e)
         {
-            //无需等待
-            signalRClientManager.ConnectionAndStartAll();
-            return Task.CompletedTask;
+            return CodeUtil.InitAllCode(codeTypeService);
         }
     }
 }

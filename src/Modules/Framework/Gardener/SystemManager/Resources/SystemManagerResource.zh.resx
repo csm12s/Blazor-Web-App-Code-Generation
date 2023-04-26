@@ -132,6 +132,9 @@
   <data name="CodeTypeName" xml:space="preserve">
     <value>字典类型名称</value>
   </data>
+  <data name="CodeTypeValue" xml:space="preserve">
+    <value>字典类型值</value>
+  </data>
   <data name="CodeValue" xml:space="preserve">
     <value>字典值</value>
   </data>
@@ -143,5 +146,8 @@
   </data>
   <data name="Order" xml:space="preserve">
     <value>排序</value>
+  </data>
+  <data name="RefreshCodeUtilCache" xml:space="preserve">
+    <value>刷新字典工具缓存</value>
   </data>
 </root>

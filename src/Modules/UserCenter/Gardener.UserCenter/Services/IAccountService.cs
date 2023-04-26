@@ -65,10 +65,11 @@ namespace Gardener.UserCenter.Services
         /// <summary>
         /// 测试token是否可用
         /// </summary>
+        /// <param name="flag">标记</param>
         /// <returns></returns>
         /// <remarks>
         /// 不执行任何内容，token无效将响应401
         /// </remarks>
-        Task<bool> TestToken();
+        Task<bool> TestToken(string? flag=null);
     }
 }

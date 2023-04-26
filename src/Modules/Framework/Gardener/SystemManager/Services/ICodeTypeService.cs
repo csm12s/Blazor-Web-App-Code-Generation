@@ -24,13 +24,36 @@ namespace Gardener.SystemManager.Services
         /// </summary>
         /// <param name="codeTypeIds"></param>
         /// <returns></returns>
-        Task<Dictionary<int, List<CodeDto>>> GetCodeDic(params int[] codeTypeIds);
+        Task<Dictionary<int, IEnumerable<CodeDto>>> GetCodeDic(params int[] codeTypeIds);
         /// <summary>
         /// 根据字典类型获取字典列表
         /// </summary>
         /// <param name="codeTypeId"></param>
         /// <returns></returns>
-        Task<List<CodeDto>> GetCodes(int codeTypeId);
+        Task<IEnumerable<CodeDto>> GetCodes(int codeTypeId);
 
+        /// <summary>
+        /// 根据字典类型值获取字典列表
+        /// </summary>
+        /// <param name="codeTypeValue"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 根据字典类型值获取字典列表
+        /// </remarks>
+        Task<IEnumerable<CodeDto>> GetCodesByValue(string codeTypeValue);
+        /// <summary>
+        /// 根据多个字典类型编号获取所有字典的结果
+        /// </summary>
+        /// <param name="codeTypeValues"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 根据多个字典类型编号获取所有字典的结果
+        /// </remarks>
+        Task<Dictionary<string, IEnumerable<CodeDto>>> GetCodeDicByValues(params string[] codeTypeValues);
+        /// <summary>
+        /// 刷新字典工具缓存
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> RefreshCodeUtilCache();
     }
 }

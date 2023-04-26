@@ -563,7 +563,7 @@ namespace Gardener.WoChat.Client.Components
             //token
             var task1= authenticationStateManager.GetCurrentTokenHeaders();
             //测试token是否可用
-            if (await authenticationStateManager.TestToken())
+            if (await authenticationStateManager.TestToken("WoChat"))
             {
                 //上传附件附带身份信息
                 uploadHeaders = await task1 ?? new Dictionary<string, string>();

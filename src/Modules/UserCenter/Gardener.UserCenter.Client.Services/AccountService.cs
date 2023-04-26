@@ -82,9 +82,9 @@ namespace Gardener.UserCenter.Client.Services
             return apiCaller.DeleteAsync<bool>($"{controller}/current-user-refresh-token");
         }
 
-        public Task<bool> TestToken()
+        public Task<bool> TestToken(string? flag = null)
         {
-            return apiCaller.PostAsync<int,bool>($"{controller}/test-token",0);
+            return apiCaller.PostAsync<int,bool>($"{controller}/test-token?flag={flag}",0);
         }
     }
 }
