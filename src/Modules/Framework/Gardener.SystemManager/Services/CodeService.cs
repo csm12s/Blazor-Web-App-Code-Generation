@@ -5,19 +5,14 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Authentication.Dtos;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Gardener.EntityFramwork;
-using Gardener.SystemManager.Domains;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Utils;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.SystemManager.Services
 {
@@ -46,7 +41,7 @@ namespace Gardener.SystemManager.Services
         public override async Task<Base.PagedList<CodeDto>> Search(PageRequest request)
         {
             IQueryable<Code> queryable = base.GetSearchQueryable(request);
-            
+            var codes=CodeUtil.GetCodesFromCache("mood");
             return await queryable
                 .Include(x => x.CodeType)
                 .Select(x => x)

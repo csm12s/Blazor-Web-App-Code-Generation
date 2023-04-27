@@ -31,7 +31,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
+    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 显示总数
@@ -268,27 +268,34 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                _deletesBtnLoading = true;
-                if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
+                if (typeof(TDto).IsAssignableTo(typeof(IModelId<TKey>)))
                 {
-                    var result = await BaseService.FakeDeletes(_selectedRows.Select(x => x.Id).ToArray());
-                    if (result)
+                    _deletesBtnLoading = true;
+                    if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
                     {
-                        MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
-                        //删除整页，且是最后一页
-                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+                        var result = await BaseService.FakeDeletes(_selectedRows.Select(x => ((IModelId<TKey>)x).Id).ToArray());
+                        if (result)
                         {
-                            await ReLoadTable(true);
+                            MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                            //删除整页，且是最后一页
+                            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+                            {
+                                await ReLoadTable(true);
+                            }
+                            else
+                            {
+                                await ReLoadTable(false);
+                            }
                         }
                         else
                         {
-                            await ReLoadTable(false);
+                            MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                         }
                     }
-                    else
-                    {
-                        MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
-                    }
+                }
+                else
+                {
+                    MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
                 }
                 _deletesBtnLoading = false;
             }
@@ -330,24 +337,31 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 _deletesBtnLoading = true;
                 if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    var result = await BaseService.Deletes(_selectedRows.Select(x => x.Id).ToArray());
-                    if (result)
+                    if (typeof(TDto).IsAssignableTo(typeof(IModelId<TKey>)))
                     {
-                        MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
-
-                        //删除整页，且是最后一页
-                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+                        var result = await BaseService.Deletes(_selectedRows.Select(x => ((IModelId<TKey>)x).Id).ToArray());
+                        if (result)
                         {
-                            await ReLoadTable(true);
+                            MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+
+                            //删除整页，且是最后一页
+                            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+                            {
+                                await ReLoadTable(true);
+                            }
+                            else
+                            {
+                                await ReLoadTable(false);
+                            }
                         }
                         else
                         {
-                            await ReLoadTable(false);
+                            MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                         }
                     }
                     else
                     {
-                        MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                        MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
                     }
                 }
                 _deletesBtnLoading = false;
@@ -547,7 +561,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             Func<OperationDialogOutput?, Task> onClose = async (result) =>
             {
-                if (result!=null && result.Succeeded)
+                if (result != null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(true);
@@ -566,7 +580,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 可用于处理输入弹框的参数，和拦截弹框弹出
         /// </remarks>
         /// <returns></returns>
-        protected virtual Task<bool> OnClickAddRunBefore(TOperationDialogInput input) 
+        protected virtual Task<bool> OnClickAddRunBefore(TOperationDialogInput input)
         {
 
             return Task.FromResult(true);
@@ -585,7 +599,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             Func<OperationDialogOutput?, Task> onClose = async (result) =>
             {
-                if (result!=null && result.Succeeded)
+                if (result != null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(true);

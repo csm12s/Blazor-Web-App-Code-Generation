@@ -514,4 +514,19 @@
   <data name="SessionDisableSendMessage" xml:space="preserve">
     <value>会话已禁言</value>
   </data>
+  <data name="ClickRefresh" xml:space="preserve">
+    <value>点击刷新</value>
+  </data>
+  <data name="CreateBy" xml:space="preserve">
+    <value>创建者</value>
+  </data>
+  <data name="CreateIdentityType" xml:space="preserve">
+    <value>创建者类型</value>
+  </data>
+  <data name="UpdateBy" xml:space="preserve">
+    <value>修改者</value>
+  </data>
+  <data name="UpdateIdentityType" xml:space="preserve">
+    <value>修改者类型</value>
+  </data>
 </root>

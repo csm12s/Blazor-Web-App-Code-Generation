@@ -74,7 +74,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             //上传附件附带参数
             uploadAttachmentInput.Add("BusinessId", userDto != null ? userDto.Id.ToString() : string.Empty);
             //测试token是否可用
-            if (await AuthenticationStateManager.TestToken())
+            if (await AuthenticationStateManager.TestToken("UserUploadAvatar"))
             {
                 //上传附件附带身份信息
                 headers = await AuthenticationStateManager.GetCurrentTokenHeaders() ?? new Dictionary<string, string>();

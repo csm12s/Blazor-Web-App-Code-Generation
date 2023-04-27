@@ -5,12 +5,24 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Utils;
 using Gardener.UserCenter.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.PositionView
 {
     public partial class PositionEdit : EditOperationDialogBase<PositionDto,int>
     {
-      
+        private IEnumerable<CodeDto>? grades;
+        protected override async Task OnInitializedAsync()
+        {
+            StartLoading();
+            await base.OnInitializedAsync();
+            grades= CodeUtil.GetCodesFromCache<PositionDto>(() => _editModel.Grade);
+            StopLoading();
+        }
+
     }
 }

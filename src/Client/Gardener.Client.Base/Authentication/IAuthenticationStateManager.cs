@@ -35,11 +35,6 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         public bool CurrentUserIsSuperAdmin();
         /// <summary>
-        /// 设置一个身份验证刷新成功的回调
-        /// </summary>
-        /// <param name="action"></param>
-        void SetOnAuthenticationRefreshSuccessed(Action<UserDto, bool, List<ResourceDto>, List<string>> action);
-        /// <summary>
         /// 获取当前用户的菜单
         /// </summary>
         /// <returns></returns>
@@ -90,12 +85,13 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 测试token是否可用
         /// </summary>
+        /// <param name="flag">标记</param>
         /// <returns></returns>
         /// <remarks>
         /// <para>服务端不执行任何内容，token无效将返回响应401；</para>
         /// <para>在特殊位置，不通过apicaller调用接口，无法实现token的被动刷新，就需要调用该方法去触发一下；</para>
         /// <para>当然通过apicaller调用的其他需校验token的接口也可以达到该效果；</para>
         /// </remarks>
-        Task<bool> TestToken();
+        Task<bool> TestToken(string? flag = null);
     }
 }

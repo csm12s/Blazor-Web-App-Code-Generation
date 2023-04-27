@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using Gardener.Base;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -44,6 +45,7 @@ namespace Gardener.UserCenter.Dtos
         /// 岗位等级
         /// </summary>
         [DisplayName("岗位等级")]
+        [CodeType("position-level")]
         public string? Grade { get; set; }
 
         /// <summary>

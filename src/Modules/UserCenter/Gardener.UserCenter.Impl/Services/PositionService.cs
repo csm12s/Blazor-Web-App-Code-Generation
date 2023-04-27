@@ -30,6 +30,5 @@ namespace Gardener.UserCenter.Impl.Services
         {
             this._positionRepository = positionRepository;
         }
-
     }
 }

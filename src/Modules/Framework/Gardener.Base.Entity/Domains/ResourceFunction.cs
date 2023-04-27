@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DatabaseAccessor;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 

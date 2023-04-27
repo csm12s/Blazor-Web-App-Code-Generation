@@ -23,9 +23,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource> 
-        where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> 
-        where TDto : BaseDto<TKey>, new() where TKey : notnull 
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource>
+        where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource>
+        where TDto : class, new() 
+        where TKey : notnull
         where TLocalResource : SharedLocalResource
     {
         /// <summary>
@@ -113,7 +114,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected TKey GetKey(TDto dto)
         {
-            return dto.Id;
+            if (dto is IModelId<TKey> temp)
+            {
+                return temp.Id;
+            }
+            else
+            {
+                throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+            }
         }
 
         /// <summary>
@@ -313,7 +321,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 TKey key = GetKey(dto);
                 if (key.Equals(pId))
                 {
-                    children = children.Where(x => !x.Id.Equals(id)).ToList();
+                    children = children.Where(x => !GetKey(x).Equals(id)).ToList();
                     SetChildren(dto, children);
                     return true;
                 }
@@ -371,7 +379,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogOutput"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput> : TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, SharedLocalResource>
         where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResource>
-        where TDto : BaseDto<TKey>, new() 
+        where TDto : class, new()
         where TKey : notnull
     {
 
@@ -383,8 +391,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> 
-        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> 
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
+        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
         where TDto : BaseDto<TKey>, new() where TKey : notnull where TLocalResource : SharedLocalResource
     {
         /// <summary>
@@ -431,7 +439,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnEditFinish(TDto dto, OperationDialogOutput<TKey>? dialogOutput)
         {
-            if (dialogOutput!=null && dialogOutput.Succeeded)
+            if (dialogOutput != null && dialogOutput.Succeeded)
             {
                 //最新的数据
                 var newEntity = await BaseService.Get(GetKey(dto));

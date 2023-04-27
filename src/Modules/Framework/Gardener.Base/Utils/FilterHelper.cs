@@ -9,6 +9,7 @@ using Gardener.Common;
 using Gardener.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -381,10 +382,11 @@ namespace Gardener.Base
             {
                 JsonElement json = (JsonElement)rule.Value;
                 object? value = null;
+                bool isNullableType = conversionType.IsNullableType();
                 //枚举
-                if (conversionType.IsEnum)
+                if ((!isNullableType && conversionType.IsEnum) || (isNullableType && conversionType.GetNonNullableType().IsEnum))
                 {
-                    value = Enum.ToObject(conversionType, json.GetInt64());
+                    value = Enum.ToObject(isNullableType ? conversionType.GetNonNullableType() : conversionType, json.GetInt64());
                 }
                 else
                 {

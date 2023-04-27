@@ -112,9 +112,9 @@ namespace Gardener.Client.Core
             var tokenResult = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
             {
-                eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
                 //token 设置
                 await SetToken(tokenResult);
+                eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
                 logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
                 return true;
             }
@@ -137,12 +137,12 @@ namespace Gardener.Client.Core
             this.isAutoLogin = isAutoLogin;
             //设置token
             await SetToken(token);
+            //发送一个登录成功事件
+            eventBus.Publish(new LoginSucceedAfterEvent(token));
             //加载当前用户信息
             await ReloadCurrentUserInfos();
             //通知状态变更
             notifyAuthenticationStateChangedAction();
-            //发送一个登录成功事件
-            eventBus.Publish(new LoginSucceedAfterEvent(token));
 
         }
         /// <summary>
@@ -150,7 +150,8 @@ namespace Gardener.Client.Core
         /// </summary>
         public async Task Logout()
         {
-            await Task.WhenAll(accountService.RemoveCurrentUserRefreshToken(), CleanUserInfo());
+            await accountService.RemoveCurrentUserRefreshToken();
+            await CleanUserInfo();
             eventBus.Publish(new LogoutSucceedAfterEvent());
         }
         /// <summary>
@@ -207,21 +208,24 @@ namespace Gardener.Client.Core
             {
                 SetHttpClientAuthorization(token.AccessToken);
                 //重新请求user信息
-                var userResult = await accountService.GetCurrentUser();
+                var task= accountService.GetCurrentUser();
+                var task1 = accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
+                var task2 = accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
+                var userResult = await task;
+                this.uiResourceKeys = await task1;
+                this.menuResources = await task2;
                 if (userResult != null)
                 {
                     this.uiHashtableResources = null;
                     this.currentUser = userResult;
-
                     //超级管理员
                     bool currentUserIsSuperAdmin = CurrentUserIsSuperAdmin();
-                    var task1 = accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
-                    var task2 = accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
-                    this.uiResourceKeys = await task1;
-                    this.menuResources = await task2;
-
-                    eventBus.Publish(new ReloadCurrentUserEvent(token));
-                    onAuthenticationRefreshSuccessed.Invoke(this.currentUser, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
+                    eventBus.Publish(new ReloadCurrentUserEvent(token, currentUser)
+                    {
+                        CurrentUserIsSuperAdmin=currentUserIsSuperAdmin,
+                        UiResourceKeys = uiResourceKeys,
+                        MenuResources = menuResources
+                    });
                     return (userResult, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                 }
             }
@@ -233,26 +237,17 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public bool CurrentUserIsSuperAdmin()
         {
-            if (this.currentUser == null) 
+            if (this.currentUser == null)
             {
                 return false;
             }
             return this.currentUser.Roles != null && this.currentUser.Roles.Any(x => x.IsSuperAdministrator);
         }
 
-        /// <summary>
-        /// 身份刷新成功后
-        /// </summary>
-        private Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) => { };
-
-        /// <summary>
-        /// 身份刷新成功后
-        /// </summary>
-        /// <param name="action"></param>
-        public void SetOnAuthenticationRefreshSuccessed(Action<UserDto, bool, List<ResourceDto>, List<string>> action)
-        {
-            this.onAuthenticationRefreshSuccessed = action;
-        }
+       /// <summary>
+       /// 获取当前用户的页面资源key
+       /// </summary>
+       /// <returns></returns>
         private List<string> GetCurrentUserUiResourceKeys()
         {
             return uiResourceKeys ?? new List<string>();
@@ -414,15 +409,16 @@ namespace Gardener.Client.Core
         /// <summary>
         /// 测试token是否可用
         /// </summary>
+        /// <param name="flag">标记</param>
         /// <returns></returns>
         /// <remarks>
         /// 不执行任何内容，token无效将响应401；
         /// 在特殊位置，不通过apicaller调用接口，无法实现token的被动刷新，就需要调用该方法去触发一下；
         /// 当然其他通过apicaller调用的接口也可以达到该效果；
         /// </remarks>
-        public async Task<bool> TestToken()
+        public async Task<bool> TestToken(string? flag = null)
         {
-            return await accountService.TestToken();
+            return await accountService.TestToken(flag);
         }
     }
 }

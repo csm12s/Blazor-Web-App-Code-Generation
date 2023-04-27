@@ -23,6 +23,12 @@ namespace Gardener.SystemManager.Dtos
         [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         public string CodeTypeName { get; set; } = null!;
         /// <summary>
+        /// 字典类型值
+        /// </summary>
+        [DisplayName("CodeTypeValue")]
+        [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
+        public string CodeTypeValue { get; set; } = null!;
+        /// <summary>
         /// 备注
         /// </summary>
         [DisplayName("Remark")]

@@ -5,8 +5,9 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Common;
+using Furion.FriendlyException;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gardener.Base
@@ -25,10 +26,25 @@ namespace Gardener.Base
         /// <returns></returns>
         private static async Task FakeDeleteAsync<TEntity>(this IRepository<TEntity> repository, TEntity entity) where TEntity : class, IPrivateEntity, new()
         {
-            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
+            if (entity is IModelDeleted temp)
             {
-                entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-                await repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsDeleted), nameof(GardenerEntityBase.UpdatedTime) });
+                List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
+                temp.IsDeleted = true;
+                if (entity is IModelUpdated temp1)
+                {
+                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
+                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
+                    temp1.UpdatedTime = DateTimeOffset.Now;
+
+                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
+                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
+                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
+                }
+                await repository.UpdateIncludeAsync(entity, includeFields);
+            }
+            else
+            {
+                throw Oops.Oh($"{typeof(TEntity).Name} no implement {nameof(IModelDeleted)}");
             }
         }
         /// <summary>
@@ -40,10 +56,25 @@ namespace Gardener.Base
         /// <returns></returns>
         private static async Task FakeDeleteNowAsync<TEntity>(this IRepository<TEntity> repository, TEntity entity) where TEntity : class, IPrivateEntity, new()
         {
-            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
+            if (entity is IModelDeleted temp)
             {
-                entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-                await repository.UpdateIncludeNowAsync(entity, new[] { nameof(GardenerEntityBase.IsDeleted), nameof(GardenerEntityBase.UpdatedTime) });
+                List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
+                temp.IsDeleted = true;
+                if (entity is IModelUpdated temp1)
+                {
+                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
+                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
+                    temp1.UpdatedTime = DateTimeOffset.Now;
+
+                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
+                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
+                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
+                }
+                await repository.UpdateIncludeNowAsync(entity, includeFields);
+            }
+            else
+            {
+                throw Oops.Oh($"{typeof(TEntity).Name} no implement {nameof(IModelDeleted)}");
             }
         }
 
@@ -57,13 +88,29 @@ namespace Gardener.Base
         /// <returns></returns>
         private static async Task FakeDeleteAsync<TEntity, TDbContextLocator>(this IRepository<TEntity, TDbContextLocator> repository, TEntity entity) where TEntity : class, IPrivateEntity, new() where TDbContextLocator : class, IDbContextLocator
         {
-            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
+            if (entity is IModelDeleted temp)
             {
-                entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-                await repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsDeleted), nameof(GardenerEntityBase.UpdatedTime) });
+                List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
+                temp.IsDeleted = true;
+                if (entity is IModelUpdated temp1)
+                {
+                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
+                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
+                    temp1.UpdatedTime = DateTimeOffset.Now;
+
+                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
+                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
+                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
+                }
+                await repository.UpdateIncludeAsync(entity, includeFields);
             }
+            else
+            {
+                throw Oops.Oh($"{typeof(TEntity).Name} no implement {nameof(IModelDeleted)}");
+            }
+            
         }
-        
+
         /// <summary>
         /// 逻辑删除
         /// </summary>
@@ -74,10 +121,25 @@ namespace Gardener.Base
         /// <returns></returns>
         private static async Task FakeDeleteNowAsync<TEntity, TDbContextLocator>(this IRepository<TEntity, TDbContextLocator> repository, TEntity entity) where TEntity : class, IPrivateEntity, new() where TDbContextLocator : class, IDbContextLocator
         {
-            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsDeleted), true))
+            if (entity is IModelDeleted temp)
             {
-                entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-                await repository.UpdateIncludeNowAsync(entity, new[] { nameof(GardenerEntityBase.IsDeleted), nameof(GardenerEntityBase.UpdatedTime) });
+                List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
+                temp.IsDeleted = true;
+                if (entity is IModelUpdated temp1)
+                {
+                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
+                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
+                    temp1.UpdatedTime = DateTimeOffset.Now;
+
+                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
+                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
+                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
+                }
+                await repository.UpdateIncludeNowAsync(entity, includeFields);
+            }
+            else
+            {
+                throw Oops.Oh($"{typeof(TEntity).Name} no implement {nameof(IModelDeleted)}");
             }
         }
 
@@ -94,7 +156,7 @@ namespace Gardener.Base
             TEntity entity = await repository.FindAsync(id);
             await repository.FakeDeleteAsync<TEntity>(entity);
         }
-        
+
         /// <summary>
         /// 逻辑删除
         /// </summary>

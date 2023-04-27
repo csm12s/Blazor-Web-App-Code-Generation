@@ -1,4 +1,6 @@
 ﻿@using AntDesign.Select;
+@using Gardener.SystemManager.Dtos;
+@using Gardener.SystemManager.Utils;
 @typeparam TDto
 <Row Style="margin-bottom:10px;">
     <AntDesign.Col Span="4">
@@ -25,16 +27,37 @@
             string style = $"margin-right:8px;margin-bottom:2px;width:100px";
             string begin = localizer[SharedLocalResource.Begin];
             string end = localizer[SharedLocalResource.End];
-            foreach (TableSearchField fieldInfo in _fields) 
+            foreach (TableSearchField fieldInfo in _fields)
             {
                 string placeholder = fieldInfo.DisplayName ?? fieldInfo.Name;
                 placeholder = localizer[placeholder];
-                string boStyle = "float:left;" + (_selectedValues!=null &&_selectedValues.Any(x => x.Equals(fieldInfo.Name)) ? "" : "display:none;");
+                string boStyle = "float:left;" + (_selectedValues != null && _selectedValues.Any(x => x.Equals(fieldInfo.Name)) ? "" : "display:none;");
                 <div style="@boStyle">
                     <span>@(placeholder + ":")</span>
                     @{
                         //TODO: 建议这里改成switch
-                        if (fieldInfo.Type.Equals(typeof(string)))
+                        if(fieldInfo.IsCode && fieldInfo.Codes!=null)
+                        {
+                           <Select 
+                                    Mode="multiple"
+                                    Placeholder="@placeholder"
+                                    Style="@style"
+                                    TItem="string"
+                                    TItemValue="string"
+                                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                                    DefaultValues="fieldInfo.Values"
+                                    Values="fieldInfo.Values"
+                                    MaxTagCount="@ResponsiveTag.Responsive"
+                                    AllowClear>
+                                    <SelectOptions>
+                                    @foreach (CodeDto item in fieldInfo.Codes)
+                                    {
+                                        <SelectOption TItemValue="string" TItem="string" Value="@item.CodeValue" Label="@item.CodeName" />
+                                    }
+                                    </SelectOptions>
+                            </Select>
+                            
+                        }else if (fieldInfo.Type.Equals(typeof(string)))
                         {
                             <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
@@ -64,48 +87,48 @@
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
                         {
-                            DateTime? tempBeginTime = fieldInfo.Values==null?null:DateTime.Parse(fieldInfo.Values.First());
+                            DateTime? tempBeginTime = fieldInfo.Values == null ? null : DateTime.Parse(fieldInfo.Values.First());
                             DateTime? tempEndTime = fieldInfo.Values == null ? null : DateTime.Parse(fieldInfo.Values.Last());
                             <RangePicker Style="margin-left:5px;"
-                         TValue="DateTime?[]"
-                         ShowTime="@ShowTime"
-                         Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
-                         OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
-                         DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
+                                         TValue="DateTime?[]"
+                                         ShowTime="@ShowTime"
+                                         Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
+                                         OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
+                                         DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
                                          OnClear="()=>{fieldInfo.Values=new string[0];}" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
                         {
                             <Select Mode="multiple"
-                    Placeholder="@placeholder"
-                    TItemValue="string"
-                    TItem="string"
-                    MaxTagCount="@ResponsiveTag.Responsive"
-                    Style="@style"
+                                    Placeholder="@placeholder"
+                                    TItemValue="string"
+                                    TItem="string"
+                                    MaxTagCount="@ResponsiveTag.Responsive"
+                                    Style="@style"
                                             AllowClear
-                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
-                    DefaultValues="fieldInfo.Values"
-                    Values="fieldInfo.Values">
-                            <SelectOptions>
-                                <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResource.Yes]" />
-                                <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResource.No]" />
-                            </SelectOptions>
+                                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                                    DefaultValues="fieldInfo.Values"
+                                    Values="fieldInfo.Values">
+                                <SelectOptions>
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResource.Yes]" />
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResource.No]" />
+                                </SelectOptions>
                             </Select>
                         }
                         else if (fieldInfo.Type.IsEnum)
                         {
                             <Select Mode="multiple"
-                    Placeholder="@placeholder"
-                    Style="@style"
-                    TItemValue="string"
-                    TItem="string"
-                    MaxTagCount="@ResponsiveTag.Responsive"
+                                    Placeholder="@placeholder"
+                                    Style="@style"
+                                    TItemValue="string"
+                                    TItem="string"
+                                    MaxTagCount="@ResponsiveTag.Responsive"
                                             AllowClear
-                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
-                    DefaultValues="fieldInfo.Values"
-                    Values="fieldInfo.Values">
-                            <SelectOptions>
-                                @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
+                                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                                    DefaultValues="fieldInfo.Values"
+                                    Values="fieldInfo.Values">
+                                <SelectOptions>
+                                    @foreach (var item in EnumHelper.EnumToDictionary(fieldInfo.Type))
                                     {
                                         if (item.Value != null)
                                         {
