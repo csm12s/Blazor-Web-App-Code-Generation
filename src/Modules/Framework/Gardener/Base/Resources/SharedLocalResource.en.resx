@@ -166,6 +166,9 @@
     <value>CH</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="ClickRefresh" xml:space="preserve">
+    <value>Click refresh</value>
+  </data>
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>Modify avatar</value>
   </data>
@@ -189,8 +192,14 @@
   <data name="Controller need comment" xml:space="preserve">
     <value>Controller need comment</value>
   </data>
+  <data name="CreateBy" xml:space="preserve">
+    <value>Creater</value>
+  </data>
   <data name="CreatedTime" xml:space="preserve">
     <value>Created time</value>
+  </data>
+  <data name="CreateIdentityType" xml:space="preserve">
+    <value>Creater type</value>
   </data>
   <data name="Data not find" xml:space="preserve">
     <value>Data not find</value>
@@ -473,8 +482,14 @@
     <value>Unlock</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="UpdateBy" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
   <data name="UpdatedTime" xml:space="preserve">
     <value>Updated time</value>
+  </data>
+  <data name="UpdateIdentityType" xml:space="preserve">
+    <value>Modifier type</value>
   </data>
   <data name="UplaodAvatar" xml:space="preserve">
     <value>Uplaod avatar</value>

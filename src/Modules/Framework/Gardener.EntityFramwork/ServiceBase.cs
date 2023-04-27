@@ -24,6 +24,8 @@ using System.Text;
 using System.IO;
 using MiniExcelLibs;
 using Gardener.FileStore;
+using System.Reflection;
+using Furion.FriendlyException;
 
 namespace Gardener.EntityFramwork
 {
@@ -80,17 +82,12 @@ namespace Gardener.EntityFramwork
         /// <returns></returns>
         public virtual async Task<TEntityDto> Insert(TEntityDto input)
         {
-            DateTimeOffset defaultValue = input.GetPropertyValue<TEntityDto, DateTimeOffset>(nameof(GardenerEntityBase.CreatedTime));
-
-            if (defaultValue.Equals(default))
-            {
-                input.SetPropertyValue(nameof(GardenerEntityBase.CreatedTime), DateTimeOffset.Now);
-            }
             TEntity entity = input.Adapt<TEntity>();
-            if (entity is GardenerEntityBase<TKey> ge1)
+            if (entity is IModelCreated temp)
             {
-                ge1.CreateBy = IdentityUtil.GetIdentityId();
-                ge1.CreateIdentityType = IdentityUtil.GetIdentityType();
+                temp.CreateBy = IdentityUtil.GetIdentityId();
+                temp.CreateIdentityType = IdentityUtil.GetIdentityType();
+                temp.CreatedTime = DateTimeOffset.Now;
             }
             var newEntity = await _repository.InsertNowAsync(entity);
             //发送通知
@@ -108,8 +105,19 @@ namespace Gardener.EntityFramwork
         /// <returns></returns>
         public virtual async Task<bool> Update(TEntityDto input)
         {
-            input.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-            EntityEntry<TEntity> entityEntry = await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreateBy), nameof(GardenerEntityBase.CreateIdentityType) });
+            TEntity entity = input.Adapt<TEntity>();
+            string[] excludeFields = new string[] { };
+            if (entity is IModelCreated)
+            {
+                excludeFields = new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreateBy), nameof(GardenerEntityBase.CreateIdentityType) };
+            }
+            if (entity is IModelUpdated temp)
+            {
+                temp.UpdateBy = IdentityUtil.GetIdentityId();
+                temp.UpdateIdentityType = IdentityUtil.GetIdentityType();
+                temp.UpdatedTime = DateTimeOffset.Now;
+            }
+            EntityEntry<TEntity> entityEntry = await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), excludeFields);
             //发送通知
             await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
             return true;
@@ -146,7 +154,6 @@ namespace Gardener.EntityFramwork
             foreach (TKey id in ids)
             {
                 await _repository.DeleteAsync(id);
-
             }
             await EntityEventNotityUtil.NotifyDeletesAsync<TEntity, TKey>(ids);
             return true;
@@ -225,16 +232,18 @@ namespace Gardener.EntityFramwork
         public virtual async Task<List<TEntityDto>> GetAllUsable()
         {
 
-            System.Text.StringBuilder where = new();
+            StringBuilder where = new();
             where.Append(" 1==1 ");
-            //判断是否有IsDelete、IsLock
-            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
+            //判断是否有IsDelete
+            Type type = typeof(TEntity);
+            if (type.IsAssignableFrom(typeof(IModelDeleted)))
             {
-                where.Append($"and {nameof(GardenerEntityBase.IsDeleted)}==false ");
+                where.Append($"and {nameof(IModelDeleted.IsDeleted)}==false ");
             }
-            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsLocked)))
+            //判断是否有IsLock
+            if (type.IsAssignableFrom(typeof(IModelLocked)))
             {
-                where.Append($"and {nameof(GardenerEntityBase.IsLocked)}==false ");
+                where.Append($"and {nameof(IModelLocked.IsLocked)}==false ");
             }
             var persons = GetReadableRepository().AsQueryable().Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
             return await persons.ToListAsync();
@@ -271,14 +280,28 @@ namespace Gardener.EntityFramwork
         public virtual async Task<bool> Lock([ApiSeat(ApiSeats.ActionStart)] TKey id, bool isLocked = true)
         {
             var entity = await _repository.FindAsync(id);
-            if (entity != null && entity.SetPropertyValue(nameof(GardenerEntityBase.IsLocked), isLocked))
+            if (entity is IModelLocked temp)
             {
-                entity.SetPropertyValue(nameof(GardenerEntityBase.UpdatedTime), DateTimeOffset.Now);
-                await _repository.UpdateIncludeAsync(entity, new[] { nameof(GardenerEntityBase.IsLocked), nameof(GardenerEntityBase.UpdatedTime) });
+                List<string> includeFields = new List<string> { nameof(IModelLocked.IsLocked) };
+                temp.IsLocked = isLocked;
+                if (entity is IModelUpdated temp1)
+                {
+                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
+                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
+                    temp1.UpdatedTime = DateTimeOffset.Now;
+
+                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
+                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
+                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
+                }
+                await _repository.UpdateIncludeAsync(entity, includeFields);
                 await EntityEventNotityUtil.NotifyLockAsync(entity);
                 return true;
             }
-            return false;
+            else
+            {
+                throw Oops.Oh($"{typeof(TEntity).Name} no implement {nameof(IModelLocked)}");
+            }
         }
 
         /// <summary>
@@ -307,10 +330,10 @@ namespace Gardener.EntityFramwork
         public virtual IQueryable<TEntity> GetSearchQueryable(PageRequest request)
         {
             IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
-            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
+            if (typeof(TEntity).IsAssignableTo(typeof(IModelDeleted)))
             {
                 FilterGroup defaultFilterGroup = new();
-                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
+                defaultFilterGroup.AddRule(new FilterRule(nameof(IModelDeleted.IsDeleted), false, FilterOperate.Equal));
                 request.FilterGroups.Add(defaultFilterGroup);
             }
             Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
@@ -328,17 +351,10 @@ namespace Gardener.EntityFramwork
         /// </remarks>
         public virtual async Task<string> GenerateSeedData(PageRequest request)
         {
-            IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
-            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
-            {
-                FilterGroup defaultFilterGroup = new();
-                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
-                request.FilterGroups.Add(defaultFilterGroup);
-            }
-            Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
-
-            IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
-            Base.PagedList<TEntity> result = await queryable.OrderConditions(request.OrderConditions.ToArray()).ToPageAsync(request.PageIndex, request.PageSize);
+            IQueryable<TEntity> queryable = GetSearchQueryable(request);
+            Base.PagedList<TEntity> result = await queryable
+                .OrderConditions(request.OrderConditions.ToArray())
+                .ToPageAsync(request.PageIndex, request.PageSize);
             return SeedDataGenerateTool.Generate(result.Items, typeof(TEntity).Name);
         }
 
@@ -354,16 +370,7 @@ namespace Gardener.EntityFramwork
         [HttpPost]
         public virtual async Task<string> Export(PageRequest request)
         {
-            IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
-            if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
-            {
-                FilterGroup defaultFilterGroup = new();
-                defaultFilterGroup.AddRule(new FilterRule(nameof(GardenerEntityBase.IsDeleted), false, FilterOperate.Equal));
-                request.FilterGroups.Add(defaultFilterGroup);
-            }
-            Expression<Func<TEntity, bool>> expression = filterService.GetExpression<TEntity>(request.FilterGroups);
-
-            IQueryable<TEntity> queryable = GetReadableRepository().AsQueryable(false).Where(expression);
+            IQueryable<TEntity> queryable = GetSearchQueryable(request);
             var list = await queryable
                  .OrderConditions(request.OrderConditions.ToArray())
                  .Select(x => x.Adapt<TEntityDto>()).ToListAsync();
@@ -373,7 +380,7 @@ namespace Gardener.EntityFramwork
             memoryStream.Seek(0, SeekOrigin.Begin);
             string fileName = typeof(TEntityDto).GetDescription() + DateTimeOffset.UtcNow.ToLocalTime().ToString("yyyyMMddHHmmss") + ".xlsx";
             var fileService = App.GetService<IFileStoreService>();
-            
+
             return await fileService.Save(memoryStream, "export/" + fileName);
         }
 

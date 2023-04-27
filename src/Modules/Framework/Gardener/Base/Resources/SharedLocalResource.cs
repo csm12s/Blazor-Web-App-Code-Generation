@@ -316,6 +316,26 @@ namespace Gardener.Base.Resources
         /// 用户昵称
         /// </summary>
         public const string NickName = nameof(NickName);
+        /// <summary>
+        /// 创建者
+        /// </summary>
+        public const string CreateBy = nameof(CreateBy);
+        /// <summary>
+        /// 创建者身份类型
+        /// </summary>
+        public const string CreateIdentityType = nameof(CreateIdentityType);
+        /// <summary>
+        /// 修改者
+        /// </summary>
+        public const string UpdateBy = nameof(UpdateBy);
+        /// <summary>
+        /// 修改者身份类型
+        /// </summary>
+        public const string UpdateIdentityType = nameof(UpdateIdentityType);
+        /// <summary>
+        /// 点击刷新
+        /// </summary>
+        public const string ClickRefresh= nameof(ClickRefresh);
 
     }
 }

@@ -25,7 +25,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TLocalResource">本地化资源</typeparam>
     /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
     /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
-    public abstract class TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ReuseTabsPageAndFormBase<TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
+    public abstract class TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ReuseTabsPageAndFormBase<TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// table引用
@@ -144,14 +144,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected virtual async Task OnChangeIsLocked(TDto model, bool isLocked)
         {
             _lockBtnLoading.Start(model);
-            var result = await BaseService.Lock(model.Id, isLocked);
-            if (!result)
+            if (model is IModelId<TKey> temp && model is IModelLocked temp1)
             {
-                model.IsLocked = !isLocked;
-                string msg = isLocked ? Localizer[SharedLocalResource.Lock] : Localizer[SharedLocalResource.Unlock];
+                var result = await BaseService.Lock(temp.Id, isLocked);
+                if (!result)
+                {
+                    temp1.IsLocked = !isLocked;
+                    string msg = isLocked ? Localizer[SharedLocalResource.Lock] : Localizer[SharedLocalResource.Unlock];
 
-                MessageService.Error($"{msg} {Localizer[SharedLocalResource.Fail]}");
+                    MessageService.Error($"{msg} {Localizer[SharedLocalResource.Fail]}");
+                }
             }
+            else 
+            {
+                MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
+            }
+            
             _lockBtnLoading.Stop(model);
         }
 
@@ -205,7 +213,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
+    public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool> 
+        where TDto : class, new() 
+        where TLocalResource : SharedLocalResource
     { 
     }
 

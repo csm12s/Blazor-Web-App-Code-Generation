@@ -66,73 +66,9 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class EntityBaseInfoNoKey
+    public abstract class EntityBaseInfoNoKey : BaseDto
     {
-        /// <summary>
-        /// 是否锁定
-        /// </summary>
-        [DisplayName("是否锁定")]
-        public virtual bool IsLocked { get; set; }
 
-        /// <summary>
-        /// 是否删除
-        /// </summary>
-        [DisplayName("是否删除")]
-        public virtual bool IsDeleted { get; set; }
-
-        /// <summary>
-        /// 创建者编号
-        /// </summary>
-        [DisplayName("创建者编号")]
-        public virtual string? CreateBy { get; set; }
-
-        /// <summary>
-        /// 修改者编号
-        /// </summary>
-        [DisplayName("修改者编号")]
-        public virtual string? UpdateBy { get; set; }
-
-        /// <summary>
-        /// 创建者身份类型
-        /// </summary>
-        [DisplayName("创建者身份类型")]
-        public virtual IdentityType? CreateIdentityType { get; set; }
-
-        /// <summary>
-        /// 修改者身份类型
-        /// </summary>
-        [DisplayName("修改者身份类型")]
-        public virtual IdentityType? UpdateIdentityType { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DisplayName("创建时间")]
-        public virtual DateTimeOffset CreatedTime { get; set; }
-
-        /// <summary>
-        /// 更新时间
-        /// </summary>
-        [DisplayName("更新时间")]
-        public virtual DateTimeOffset? UpdatedTime { get; set; }
-
-        /// <summary>
-        /// 设置创建者身份
-        /// </summary>
-        /// <param name="identity"></param>
-        public void SetCreatedIdentity(Identity identity)
-        {
-            this.CreateBy = identity.Id;
-            this.CreateIdentityType = identity.IdentityType;
-        }
-        /// <summary>
-        /// 设置更新者身份
-        /// </summary>
-        /// <param name="identity"></param>
-        public void SetUpdatedIdentity(Identity identity)
-        {
-            this.UpdateBy = identity.Id;
-            this.UpdateIdentityType = identity.IdentityType;
-        }
     }
     /// <summary>
     /// 一个主键的Entity基础信息
@@ -142,7 +78,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class EntityBaseInfo<TKey> : EntityBaseInfoNoKey
+    public abstract class EntityBaseInfo<TKey> : EntityBaseInfoNoKey, IModelId<TKey>
     {
         /// <summary>
         /// 主键Id
@@ -159,7 +95,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class EntityBaseInfoEmpty<TKey>
+    public abstract class EntityBaseInfoEmpty<TKey> : IModelId<TKey>
     {
         /// <summary>
         /// 主键Id
@@ -176,7 +112,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfoNoKey : EntityBaseInfoNoKey
+    public abstract class TenantEntityBaseInfoNoKey : EntityBaseInfoNoKey, IModelTenantId
     {
         /// <summary>
         /// 租户编号
@@ -191,7 +127,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfoNoKeyAndEmpty
+    public abstract class TenantEntityBaseInfoNoKeyAndEmpty : IModelTenantId
     {
         /// <summary>
         /// 租户编号
@@ -207,7 +143,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfo<TKey> : TenantEntityBaseInfoNoKey
+    public abstract class TenantEntityBaseInfo<TKey> : TenantEntityBaseInfoNoKey, IModelId<TKey>
     {
         /// <summary>
         /// 主键Id
@@ -224,7 +160,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfoEmpty<TKey> : TenantEntityBaseInfoNoKeyAndEmpty
+    public abstract class TenantEntityBaseInfoEmpty<TKey> : TenantEntityBaseInfoNoKeyAndEmpty, IModelId<TKey>
     {
         /// <summary>
         /// 主键Id
