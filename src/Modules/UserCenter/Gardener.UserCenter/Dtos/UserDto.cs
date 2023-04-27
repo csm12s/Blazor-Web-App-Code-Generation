@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
 using Gardener.Base;
 using Gardener.Enums;
 using System.Collections.Generic;
@@ -23,12 +24,14 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(32, ErrorMessage = "最大长度不能大于{1}"), MinLength(5, ErrorMessage = "最小长度不能小于{1}")]
         [DisplayName("UserName")]
+        [Order(1)]
         public string UserName { get; set; } = null!;
         /// <summary>
         /// 昵称
         /// </summary>
         [MaxLength(32, ErrorMessage = "最大长度不能大于{1}")]
         [DisplayName("NickName")]
+        [Order(2)]
         public string? NickName { get; set; }
         /// <summary>
         /// 密码加密后的
@@ -71,6 +74,7 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         [Required(ErrorMessage = "不能为空"), DefaultValue(Gender.Male)]
         [DisplayName("Gender")]
+        [Order(3)]
         public Gender Gender { get; set; }
         /// <summary>
         /// 多对多

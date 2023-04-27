@@ -6,40 +6,37 @@
             <Spin Spinning="_deptTreeIsLoading">
                 <Row Style="margin-bottom:2px;">
                     <Col Span="24">
-                        <Space>
-                            <SpaceItem>
-                            <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResource.Refresh]">
-                                 <Button 
-                                    Type="@ButtonType.Default"
-                                    Size="small"
-                                    Icon="reload"
-                                    OnClick="ReLoadDepts" />
-                                </Tooltip>
-                            </SpaceItem>
+                    <Space>
                         <SpaceItem>
-                             <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResource.Expand]">
-                                <Button 
-                                    Type="@ButtonType.Default"
-                                    Icon="down"
-                                    Size="small"
-                                    OnClick="_=>{_deptTree?.ExpandAll();}" />
-                             </Tooltip>
+                            <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResource.Refresh]">
+                                <Button Type="@ButtonType.Default"
+                                        Size="small"
+                                        Icon="reload"
+                                        OnClick="ReLoadDepts" />
+                            </Tooltip>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResource.Expand]">
+                                <Button Type="@ButtonType.Default"
+                                        Icon="down"
+                                        Size="small"
+                                        OnClick="_=>{_deptTree?.ExpandAll();}" />
+                            </Tooltip>
                         </SpaceItem>
                         <SpaceItem>
                             <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResource.Collapse]">
-                                <Button 
-                                    Type="@ButtonType.Default"
-                                    Icon="up"
-                                    Size="small"
-                                    OnClick="_=>{_deptTree?.CollapseAll();}" />
+                                <Button Type="@ButtonType.Default"
+                                        Icon="up"
+                                        Size="small"
+                                        OnClick="_=>{_deptTree?.CollapseAll();}" />
                             </Tooltip>
                         </SpaceItem>
-                        </Space>
+                    </Space>
                     </Col>
                 </Row>
                 <Row>
                     <Col Span="24">
-                        <Tree @ref="_deptTree"
+                    <Tree @ref="_deptTree"
                           ShowLine
                           DataSource="depts"
                           Multiple="false"
@@ -53,7 +50,7 @@
                     </Tree>
                     </Col>
                 </Row>
-                
+
             </Spin>
         </AntDesign.Col>
         <AntDesign.Col Span="1">
@@ -65,15 +62,22 @@
                    DataSource="@_datas"
                    Total="_total"
                    OnChange="@OnChange"
-                   @bind-PageIndex="_pageIndex"
-                   @bind-PageSize="_pageSize"
-                   @bind-SelectedRows="_selectedRows"
+            @bind-PageIndex="_pageIndex"
+            @bind-PageSize="_pageSize"
+            @bind-SelectedRows="_selectedRows"
                    Loading="@_tableLoading.Value"
                    Context="model"
                    Size=@TableSize.Small>
                 <TitleTemplate>
                     <ResourceAuthorize ResourceKey="user_center_user_refresh">
-                        <TableSearch TDto="UserDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+                        <TableSearch TDto="UserDto"
+                                     OnSearch="(filterGroups)=>ReLoadTable(true)"
+                        @ref="this.tableSearch"
+                                     DefaultValue="_defaultSearchValue"
+                                     CustomLocalizer="Localizer"
+                                     ExcludeFields="@(new[]{nameof(UserDto.Password),nameof(UserDto.Avatar)})"
+                                     FieldOrders="@(new Dictionary<string, int>(){ {nameof(UserDto.Id),-1}})">
+                        </TableSearch>
                     </ResourceAuthorize>
                     <Row>
                         <AntDesign.Col Span="8">
@@ -110,7 +114,7 @@
                         </AntDesign.Col>
                     </Row>
                 </TitleTemplate>
-                            <ColumnDefinitions>
+                <ColumnDefinitions>
                     <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
                         <Selection Key="@(model.Id.ToString())" />
                     </ResourceAuthorize>
@@ -147,12 +151,12 @@
                     @*<Column @bind-Field="@model.PhoneNumber" />
                     <Column @bind-Field="@model.Email" />*@
                     @*<Column @bind-Field="@model.Roles" Style="max-width:150px">
-                        @foreach (var role in model.Roles)
-                        {
-                            <Tooltip Placement="@Placement.Top" Title="@role.Remark">
-                                <Tag>@role.Name</Tag>
-                            </Tooltip>
-                        }
+                    @foreach (var role in model.Roles)
+                    {
+                    <Tooltip Placement="@Placement.Top" Title="@role.Remark">
+                    <Tag>@role.Name</Tag>
+                    </Tooltip>
+                    }
                     </Column>*@
                     <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[UserCenterResource.IsLocked]">
                         <ResourceAuthorize ResourceKey="user_center_user_lock">

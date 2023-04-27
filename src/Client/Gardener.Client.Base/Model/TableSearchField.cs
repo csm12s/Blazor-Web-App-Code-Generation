@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Enums;
 using Gardener.SystemManager.Dtos;
 using System;
 using System.Collections.Generic;
@@ -51,5 +52,9 @@ namespace Gardener.Client.Base
         /// 字典
         /// </summary>
         public List<CodeDto>? Codes { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Order { get; set; } = int.MaxValue-1000;
     }
 }

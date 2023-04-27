@@ -28,6 +28,7 @@ namespace Gardener.Base
         /// 编号
         /// </summary>
         [DisplayName("Id")]
+        [Order(1000)]
         public TKey Id { get; set; } = default!;
     }
 
@@ -40,6 +41,7 @@ namespace Gardener.Base
         /// 是否锁定
         /// </summary>
         [DisplayName("IsLocked")]
+        [Order(int.MaxValue-1000)]
         public virtual bool IsLocked { get; set; }
         /// <summary>
         /// 是否逻辑删除
@@ -51,31 +53,37 @@ namespace Gardener.Base
         /// 创建日期
         /// </summary>
         [DisplayName("CreatedTime")]
+        [Order(int.MaxValue - 900)]
         public virtual DateTimeOffset CreatedTime { get; set; }
         /// <summary>
         /// 创建者编号
         /// </summary>
         [DisplayName("CreateBy")]
+        [Order(int.MaxValue - 800)]
         public virtual string? CreateBy { get; set; }
         /// <summary>
         /// 创建者身份类型
         /// </summary>
         [DisplayName("CreateIdentityType")]
+        [Order(int.MaxValue - 700)]
         public virtual IdentityType? CreateIdentityType { get; set; }
         /// <summary>
         /// 修改日期
         /// </summary>
         [DisplayName("UpdatedTime")]
+        [Order(int.MaxValue - 600)]
         public virtual DateTimeOffset? UpdatedTime { get; set; }
         /// <summary>
         /// 修改者编号
         /// </summary>
         [DisplayName("UpdateBy")]
+        [Order(int.MaxValue - 500)]
         public virtual string? UpdateBy { get; set; }
         /// <summary>
         /// 修改者身份类型
         /// </summary>
         [DisplayName("UpdateIdentityType")]
+        [Order(int.MaxValue - 400)]
         public virtual IdentityType? UpdateIdentityType { get; set; }
 
         /// <summary>
@@ -109,6 +117,7 @@ namespace Gardener.Base
         /// 编号
         /// </summary>
         [DisplayName("Id")]
+        [Order(1000)]
         public TKey Id { get; set; } = default!;
 
     }
@@ -124,6 +133,7 @@ namespace Gardener.Base
         /// 租户编号
         /// </summary>
         [DisplayName("TenantId")]
+        [Order(1001)]
         public virtual Guid? TenantId { get; set; }
     }
     /// <summary>
@@ -135,6 +145,7 @@ namespace Gardener.Base
         /// 租户编号
         /// </summary>
         [DisplayName("TenantId")]
+        [Order(1001)]
         public virtual Guid? TenantId { get; set; }
     }
 
@@ -148,6 +159,7 @@ namespace Gardener.Base
         /// 租户编号
         /// </summary>
         [DisplayName("TenantId")]
+        [Order(1001)]
         public virtual Guid? TenantId { get; set; }
     }
     /// <summary>
@@ -159,6 +171,7 @@ namespace Gardener.Base
         /// 租户编号
         /// </summary>
         [DisplayName("TenantId")]
+        [Order(1001)]
         public virtual Guid? TenantId { get; set; }
     }
 }
