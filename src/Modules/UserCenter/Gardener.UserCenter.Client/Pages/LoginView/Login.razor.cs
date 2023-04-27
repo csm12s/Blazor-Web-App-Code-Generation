@@ -72,10 +72,10 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             var loginResult = await AccountService.Login(loginInput);
             if (loginResult != null)
             {
-                MessageService.Success(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Success), 0.8);
+                //MessageService.Success(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Success), 0.8);
                 await AuthenticationStateManager.Login(loginResult, autoLogin);
-                loading = false;
                 Navigation.NavigateTo(returnUrl ?? "/");
+                loading = false;
             }
             else
             {

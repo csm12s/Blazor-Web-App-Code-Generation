@@ -148,7 +148,7 @@ namespace Gardener.SystemManager.Services
         /// <returns></returns>
         public async Task<bool> RefreshCodeUtilCache()
         {
-            await CodeUtil.InitAllCode(this);
+            CodeUtil.InitAllCode(await GetCodeDicByValues());
             return true;
         }
     }

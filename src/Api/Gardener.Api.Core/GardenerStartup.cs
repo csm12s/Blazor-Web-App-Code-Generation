@@ -89,7 +89,7 @@ namespace Gardener.Admin
                 };
             });
             //默认读取 Logging:Monitor 下配置
-            services.AddMonitorLogging();
+            //services.AddMonitorLogging();
 
             // 配置Nginx转发获取客户端真实IP
             // 1：如果负载均衡不是在本机通过 Loopback 地址转发请求的，

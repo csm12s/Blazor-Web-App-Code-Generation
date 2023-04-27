@@ -57,8 +57,9 @@ namespace Gardener.SystemManager.Client.Services
             //服务端刷新
             var task1 = base.apiCaller.PostWithoutBodyAsync<bool>($"{controller}/refresh-code-util-cache");
             //客户端刷新
-            var task2 = CodeUtil.InitAllCode(this);
-            await Task.WhenAll(task1, task2);
+            var task2 = GetCodeDicByValues();
+            await task1;
+            CodeUtil.InitAllCode(await task2);
             return true;
         }
     }

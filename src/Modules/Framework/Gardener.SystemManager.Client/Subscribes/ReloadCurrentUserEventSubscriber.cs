@@ -27,9 +27,9 @@ namespace Gardener.SystemManager.Client.Subscribes
             this.codeTypeService = codeTypeService;
         }
 
-        public override Task CallBack(ReloadCurrentUserEvent e)
+        public override async Task CallBack(ReloadCurrentUserEvent e)
         {
-            return CodeUtil.InitAllCode(codeTypeService);
+            CodeUtil.InitAllCode(await codeTypeService.GetCodeDicByValues());
         }
     }
 }

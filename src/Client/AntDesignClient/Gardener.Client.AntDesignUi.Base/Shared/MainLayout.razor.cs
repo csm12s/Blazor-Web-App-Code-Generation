@@ -9,7 +9,9 @@ using AntDesign.ProLayout;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
+using Gardener.Client.Base.EventBus.Events;
 using Gardener.Client.Base.Services;
+using Gardener.EventBus;
 using Gardener.SystemManager.Dtos;
 using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components;
@@ -46,6 +48,11 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// </summary>
         [Inject]
         private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
+        /// <summary>
+        /// 
+        /// </summary>
+        [Inject]
+        private IEventBus eventBus { get; set; } = null!;
         /// <summary>
         /// 
         /// </summary>
@@ -107,7 +114,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
             }
         }
 
-        protected override async Task OnInitializedAsync()
+        protected override Task OnInitializedAsync()
         {
             systemConfig = systemConfigService.GetSystemConfig();
             
@@ -121,9 +128,9 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
             }
             else
             {
-                //暂未加载
-                Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) =>
-                {
+                //设置个回调
+                eventBus.Subscribe<ReloadCurrentUserEvent>(e => {
+                    var menus = e.MenuResources;
                     if (menus != null)
                     {
                         menuDataItems = new List<MenuDataItem>();
@@ -131,14 +138,16 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
                         _menuData = menuDataItems.ToArray();
                     }
 
-                };
-                //设置个回调
-                authenticationStateManager.SetOnAuthenticationRefreshSuccessed(onAuthenticationRefreshSuccessed);
+                    return Task.CompletedTask;
+                });
             }
-            await JsTool.Document.SetTitle(systemConfig.SystemName);
-            //导航控制
             ClientNavTabControl.SetReuseTabs(reuseTabs);
-            await base.OnInitializedAsync();
+
+            var task1= JsTool.Document.SetTitle(systemConfig.SystemName);
+            //导航控制
+            var task2= base.OnInitializedAsync();
+
+            return Task.WhenAll(task1, task2);
         }
 
         void toggle()

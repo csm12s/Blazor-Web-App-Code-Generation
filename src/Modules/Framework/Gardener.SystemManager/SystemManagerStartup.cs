@@ -33,7 +33,8 @@ namespace Gardener.SystemManager
             {
                 //启动时初始化 CodeUtil 所有code 缓存
                 var codeTypeService = scope.ServiceProvider.GetRequiredService<ICodeTypeService>();
-                await CodeUtil.InitAllCode(codeTypeService);
+                var codes =await codeTypeService.GetCodeDicByValues();
+                CodeUtil.InitAllCode(codes);
             });
         }
     }

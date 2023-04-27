@@ -112,9 +112,9 @@ namespace Gardener.Client.Core
             var tokenResult = await accountService.RefreshToken(new RefreshTokenInput() { RefreshToken = currentToken.RefreshToken });
             if (tokenResult != null)
             {
-                eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
                 //token 设置
                 await SetToken(tokenResult);
+                eventBus.Publish(new RefreshTokenSucceedAfterEvent(tokenResult));
                 logger.Debug($"token refresh successed {DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")}");
                 return true;
             }
@@ -137,12 +137,12 @@ namespace Gardener.Client.Core
             this.isAutoLogin = isAutoLogin;
             //设置token
             await SetToken(token);
+            //发送一个登录成功事件
+            eventBus.Publish(new LoginSucceedAfterEvent(token));
             //加载当前用户信息
             await ReloadCurrentUserInfos();
             //通知状态变更
             notifyAuthenticationStateChangedAction();
-            //发送一个登录成功事件
-            eventBus.Publish(new LoginSucceedAfterEvent(token));
 
         }
         /// <summary>
@@ -208,22 +208,24 @@ namespace Gardener.Client.Core
             {
                 SetHttpClientAuthorization(token.AccessToken);
                 //重新请求user信息
-                var userResult = await accountService.GetCurrentUser();
+                var task= accountService.GetCurrentUser();
+                var task1 = accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
+                var task2 = accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
+                var userResult = await task;
+                this.uiResourceKeys = await task1;
+                this.menuResources = await task2;
                 if (userResult != null)
                 {
                     this.uiHashtableResources = null;
                     this.currentUser = userResult;
-
                     //超级管理员
                     bool currentUserIsSuperAdmin = CurrentUserIsSuperAdmin();
-                    var task1 = accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
-                    var task2 = accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
-                    var task3 = eventBus.PublishAsync(new ReloadCurrentUserEvent(token));
-
-                    this.uiResourceKeys = await task1;
-                    this.menuResources = await task2;
-                    await task3;
-                    onAuthenticationRefreshSuccessed.Invoke(this.currentUser, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
+                    eventBus.Publish(new ReloadCurrentUserEvent(token, currentUser)
+                    {
+                        CurrentUserIsSuperAdmin=currentUserIsSuperAdmin,
+                        UiResourceKeys = uiResourceKeys,
+                        MenuResources = menuResources
+                    });
                     return (userResult, currentUserIsSuperAdmin, this.menuResources, this.uiResourceKeys);
                 }
             }
@@ -242,19 +244,10 @@ namespace Gardener.Client.Core
             return this.currentUser.Roles != null && this.currentUser.Roles.Any(x => x.IsSuperAdministrator);
         }
 
-        /// <summary>
-        /// 身份刷新成功后
-        /// </summary>
-        private Action<UserDto, bool, List<ResourceDto>, List<string>> onAuthenticationRefreshSuccessed = (user, isSuperAdmin, menus, uiResourceKeys) => { };
-
-        /// <summary>
-        /// 身份刷新成功后
-        /// </summary>
-        /// <param name="action"></param>
-        public void SetOnAuthenticationRefreshSuccessed(Action<UserDto, bool, List<ResourceDto>, List<string>> action)
-        {
-            this.onAuthenticationRefreshSuccessed = action;
-        }
+       /// <summary>
+       /// 获取当前用户的页面资源key
+       /// </summary>
+       /// <returns></returns>
         private List<string> GetCurrentUserUiResourceKeys()
         {
             return uiResourceKeys ?? new List<string>();

@@ -9,6 +9,7 @@ using Gardener.Base;
 using Gardener.Base.Entity;
 using Gardener.EntityFramwork;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Utils;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ namespace Gardener.SystemManager.Services
         public override async Task<Base.PagedList<CodeDto>> Search(PageRequest request)
         {
             IQueryable<Code> queryable = base.GetSearchQueryable(request);
-            
+            var codes=CodeUtil.GetCodesFromCache("mood");
             return await queryable
                 .Include(x => x.CodeType)
                 .Select(x => x)

@@ -35,11 +35,6 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         public bool CurrentUserIsSuperAdmin();
         /// <summary>
-        /// 设置一个身份验证刷新成功的回调
-        /// </summary>
-        /// <param name="action"></param>
-        void SetOnAuthenticationRefreshSuccessed(Action<UserDto, bool, List<ResourceDto>, List<string>> action);
-        /// <summary>
         /// 获取当前用户的菜单
         /// </summary>
         /// <returns></returns>

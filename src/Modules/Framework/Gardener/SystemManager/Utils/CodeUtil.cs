@@ -27,28 +27,16 @@ namespace Gardener.SystemManager.Utils
         /// 字典缓存
         /// </summary>
         private static Dictionary<string, Dictionary<string, CodeDto>> typeValueCodeMap = new Dictionary<string, Dictionary<string, CodeDto>>();
-        /// <summary>
-        /// 字典类型服务
-        /// </summary>
-        private static ICodeTypeService? _codeTypeService;
+
         /// <summary>
         /// 初始化所有Code缓存
         /// </summary>
-        /// <param name="codeTypeService"></param>
+        /// <param name="codeDic"></param>
         /// <returns></returns>
-        public static async Task InitAllCode(ICodeTypeService codeTypeService)
+        public static void InitAllCode(Dictionary<string, IEnumerable<CodeDto>> codeDic)
         {
-            if (codeTypeService != null)
-            {
-                _codeTypeService = codeTypeService;
-            }
-            if (_codeTypeService == null)
-            {
-                throw new ArgumentNullException(nameof(codeTypeService));
-            }
             typeValueCodeMap.Clear();
-            Dictionary<string, IEnumerable<CodeDto>> keyValues = await _codeTypeService.GetCodeDicByValues(new string[0]);
-            foreach (var item in keyValues)
+            foreach (var item in codeDic)
             {
                 Dictionary<string, CodeDto> codeValueMap = new Dictionary<string, CodeDto>();
                 foreach (var value in item.Value)
