@@ -6,10 +6,11 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class RoleEdit : EditOperationDialogBase<RoleDto, int>
+    public partial class RoleEdit : EditOperationDialogBase<RoleDto, int, UserCenterResource>
     {
     }
 }

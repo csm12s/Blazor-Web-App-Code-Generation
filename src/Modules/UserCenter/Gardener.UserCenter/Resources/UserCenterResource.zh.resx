@@ -156,6 +156,12 @@
   <data name="Grade" xml:space="preserve">
     <value>等级</value>
   </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>是默认的</value>
+  </data>
+  <data name="IsSuperAdministrator" xml:space="preserve">
+    <value>是超级管理员</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>登录</value>
   </data>

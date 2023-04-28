@@ -8,13 +8,14 @@ using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class Role : ListOperateTableBase<RoleDto, int, RoleEdit>
+    public partial class Role : ListOperateTableBase<RoleDto, int, RoleEdit, UserCenterResource>
     {
         [Inject]
         public IRoleService roleService { get; set; } = null!;

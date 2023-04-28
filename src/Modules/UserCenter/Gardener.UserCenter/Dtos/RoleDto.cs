@@ -22,7 +22,7 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         [Required(ErrorMessage = "不能为空")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("名称")]
+        [DisplayName("Name")]
         public string Name { get; set; } = null!;
 
         /// <summary>
@@ -30,21 +30,21 @@ namespace Gardener.UserCenter.Dtos
         /// </summary>
         [Required(ErrorMessage = "不能为空")]
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("备注")]
+        [DisplayName("Remark")]
         public string Remark { get; set; }=null!;
 
         /// <summary>
         /// 是否是超级管理员
         /// 超级管理员拥有所有权限
         /// </summary>
-        [DisplayName("是否是超级管理员")]
+        [DisplayName("IsSuperAdministrator")]
         public bool IsSuperAdministrator { get; set; }
 
         /// <summary>
         /// 是否是默认权限
         /// 注册用户时默认设置
         /// </summary>
-        [DisplayName("是否是默认角色")]
+        [DisplayName("IsDefault")]
         public bool IsDefault { get; set; }
 
         /// <summary>

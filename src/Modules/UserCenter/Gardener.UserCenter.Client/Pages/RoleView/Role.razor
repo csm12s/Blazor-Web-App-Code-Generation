@@ -1,5 +1,5 @@
 ﻿@page "/user_center/role"
-@inherits ListOperateTableBase<RoleDto, int, RoleEdit>
+@inherits ListOperateTableBase<RoleDto, int, RoleEdit,UserCenterResource>
 <div>
     <Table @ref="_table"
            TItem="RoleDto"
@@ -14,7 +14,7 @@
            RemoteDataSource>
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="user_center_role_refresh">
-                <TableSearch TDto="RoleDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="RoleDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -56,13 +56,13 @@
             <ResourceAuthorize ResourceKey="user_center_role_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
-            <Column @bind-Field="@model.Id" Sortable />
-            <Column @bind-Field="@model.Name" Filterable />
-            <Column @bind-Field="@model.Remark" Filterable />
-            <Column @bind-Field="@model.IsSuperAdministrator" Filterable>
+            <Column @bind-Field="@model.Id" Sortable Title="@Localizer[UserCenterResource.Id]" />
+            <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
+            <Column @bind-Field="@model.Remark" Filterable Title="@Localizer[UserCenterResource.Remark]" />
+            <Column @bind-Field="@model.IsSuperAdministrator" Filterable Title="@Localizer[UserCenterResource.IsSuperAdministrator]">
                 <TagYesNo Yes="model.IsSuperAdministrator"></TagYesNo>
             </Column>
-            <Column @bind-Field="@model.IsDefault" Filterable>
+            <Column @bind-Field="@model.IsDefault" Filterable Title="@Localizer[UserCenterResource.IsDefault]">
                 <TagYesNo Yes="model.IsDefault"></TagYesNo>
             </Column>
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">

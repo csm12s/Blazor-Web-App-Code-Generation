@@ -1,4 +1,4 @@
-﻿@inherits EditOperationDialogBase<RoleDto, int>
+﻿@inherits EditOperationDialogBase<RoleDto, int,UserCenterResource>
 
 <Form Loading="@_dialogLoading.Value"
       Model="@_editModel"
@@ -6,16 +6,16 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="名称">
+    <FormItem Label="@Localizer[UserCenterResource.Name]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-    <FormItem Label="备注">
+    <FormItem Label="@Localizer[UserCenterResource.Remark]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
     </FormItem>
-    <FormItem Label="是否是超级管理员">
+    <FormItem Label="@Localizer[UserCenterResource.IsSuperAdministrator]">
         <Switch @bind-Value="@model.IsSuperAdministrator"></Switch>
     </FormItem>
-    <FormItem Label="是否是默认角色">
+    <FormItem Label="@Localizer[UserCenterResource.IsDefault]">
         <Switch @bind-Value="@model.IsDefault"></Switch>
     </FormItem>
     <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">

@@ -159,6 +159,12 @@
   <data name="Grade" xml:space="preserve">
     <value>Grade</value>
   </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>Is default</value>
+  </data>
+  <data name="IsSuperAdministrator" xml:space="preserve">
+    <value>Is super administrator</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>

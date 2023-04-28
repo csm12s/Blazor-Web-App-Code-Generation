@@ -91,5 +91,13 @@ namespace Gardener.UserCenter.Resources
         /// 薪资
         /// </summary>
         public const string Salary = nameof(Salary);
+        /// <summary>
+        /// 超级管理员
+        /// </summary>
+        public const string IsSuperAdministrator = nameof(IsSuperAdministrator);
+        /// <summary>
+        /// 默认的
+        /// </summary>
+        public const string IsDefault = nameof(IsDefault);
     }
 }
