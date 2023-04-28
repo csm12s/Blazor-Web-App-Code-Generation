@@ -348,6 +348,41 @@ namespace Gardener.Base.Resources
         /// 名称
         /// </summary>
         public const string Name = nameof(Name);
-
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public const string Type = nameof(Type);
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public const string Key = nameof(Key);
+        /// <summary>
+        /// 路径
+        /// </summary>
+        public const string Path = nameof(Path);
+        /// <summary>
+        /// 图标
+        /// </summary>
+        public const string Icon = nameof(Icon);
+        /// <summary>
+        /// 分组
+        /// </summary>
+        public const string Group = nameof(Group);
+        /// <summary>
+        /// 服务
+        /// </summary>
+        public const string Service = nameof(Service);
+        /// <summary>
+        /// 概要
+        /// </summary>
+        public const string Summary = nameof(Summary);
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public const string Description = nameof(Description);
+        /// <summary>
+        /// 方法
+        /// </summary>
+        public const string Method = nameof(Method);
     }
 }

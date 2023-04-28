@@ -11,6 +11,7 @@ using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Common;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -57,7 +58,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
     /// <summary>
     /// 
     /// </summary>
-    public partial class ResourceFunctionEdit : OperationDialogBase<ResourceFunctionEditOption, bool>
+    public partial class ResourceFunctionEdit : OperationDialogBase<ResourceFunctionEditOption, bool, SystemManagerResource>
     {
         [Inject]
         IFunctionService functionService { get; set; } = null!;

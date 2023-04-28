@@ -1,5 +1,5 @@
 ﻿@page "/system_manager/resource"
-@inherits TreeTableBase<ResourceDto, Guid, ResourceEdit>
+@inherits TreeTableBase<ResourceDto, Guid, ResourceEdit,SystemManagerResource>
 <div>
     <Table TItem="ResourceDto"
            DataSource="@_datas"
@@ -42,7 +42,7 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection CheckStrictly Width="5%" />
-            <Column @bind-Field="@model.Name" Width="20%">
+            <Column @bind-Field="@model.Name" Width="20%" Title="@Localizer[SystemManagerResource.Name]">
                 <span>
                     @if (!string.IsNullOrEmpty(model.Icon))
                     {
@@ -54,11 +54,11 @@
 
             @*<Column @bind-Field="@model.Key" Width="10%" />
             <Column @bind-Field="@model.Path" Width="10%"/>*@
-            <Column @bind-Field="@model.Type" Width="5%">
+            <Column @bind-Field="@model.Type" Width="5%" Title="@Localizer[SystemManagerResource.Type]">
                 <TagPro Text="@(EnumHelper.GetEnumDescription(model.Type))"></TagPro>
             </Column>
-            <Column @bind-Field="@model.Key" Width="5%" />
-            <Column @bind-Field="@model.Order" Width="5%" />
+            <Column @bind-Field="@model.Key" Width="5%" Title="@Localizer[SystemManagerResource.Key]" />
+            <Column @bind-Field="@model.Order" Width="5%" Title="@Localizer[SystemManagerResource.Order]" />
             <Column @bind-Field="@model.IsLocked" Width="10%" Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_resource_lock">
                     <Authorized>

@@ -224,6 +224,9 @@
   <data name="Dept" xml:space="preserve">
     <value>Dept</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="Detail" xml:space="preserve">
     <value>Detail</value>
     <comment>LocalKeys</comment>
@@ -299,6 +302,12 @@
   <data name="GoHome" xml:space="preserve">
     <value>Go home</value>
   </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>
   </data>
@@ -318,6 +327,9 @@
   <data name="IsLocked" xml:space="preserve">
     <value>Locked</value>
   </data>
+  <data name="Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
   <data name="Load" xml:space="preserve">
     <value>Load</value>
     <comment>LocalKeys</comment>
@@ -335,6 +347,9 @@
   </data>
   <data name="Male" xml:space="preserve">
     <value>Male</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Method</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -377,6 +392,9 @@
   </data>
   <data name="Parent" xml:space="preserve">
     <value>Parent</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Path</value>
   </data>
   <data name="PersonalSettings" xml:space="preserve">
     <value>Personal settings</value>
@@ -443,6 +461,9 @@
   <data name="SendImage" xml:space="preserve">
     <value>Send image</value>
   </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
   <data name="SessionDisableSendMessage" xml:space="preserve">
     <value>Session disable send message</value>
   </data>
@@ -459,6 +480,9 @@
   </data>
   <data name="SugarRepository initialize error" xml:space="preserve">
     <value>SugarRepository initialize error</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
   </data>
   <data name="System error,Please contact the administrator" xml:space="preserve">
     <value>System error,Please contact the administrator</value>
@@ -483,6 +507,9 @@
   </data>
   <data name="Token invalid" xml:space="preserve">
     <value>Token invalid</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="Unauthorized" xml:space="preserve">
     <value>Unauthorized</value>

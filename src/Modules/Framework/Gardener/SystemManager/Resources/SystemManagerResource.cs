@@ -53,7 +53,9 @@ namespace Gardener.SystemManager.Resources
         /// 刷新字典工具缓存
         /// </summary>
         public const string RefreshCodeUtilCache = nameof(RefreshCodeUtilCache);
-
-
+        /// <summary>
+        /// 启用审计
+        /// </summary>
+        public const string EnableAudit = nameof(EnableAudit);
     }
 }

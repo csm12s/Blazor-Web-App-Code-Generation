@@ -1,70 +1,70 @@
-﻿@inherits EditOperationDialogBase<ResourceDto, Guid>
+﻿@inherits EditOperationDialogBase<ResourceDto, Guid,SystemManagerResource>
 @if (_editModel != null)
 {
     <Form Loading="@_dialogLoading.Value"
-      Model="@_editModel"
-      LabelCol="new ColLayoutParam { Span = 8 }"
-      WrapperCol="new ColLayoutParam { Span = 16 }"
-      OnFinish="OnFormFinish"
-      Context="model"
-      Style="min-height:600px;">
-        <FormItem Label="编号">
+          Model="@_editModel"
+          LabelCol="new ColLayoutParam { Span = 8 }"
+          WrapperCol="new ColLayoutParam { Span = 16 }"
+          OnFinish="OnFormFinish"
+          Context="model"
+          Style="min-height:600px;">
+        <FormItem Label="@Localizer[SystemManagerResource.Id]">
             <Input @bind-Value="@model.Id" Disabled />
         </FormItem>
-        <FormItem Label="父级">
+        <FormItem Label="@Localizer[SystemManagerResource.Parent]">
             <Input @bind-Value="@model.ParentId" Type="hidden" />
             @if (resources != null && resources.Count > 0)
             {
                 <TreeSelect TItem="ResourceDto"
-                    Style="width:100%;"
-                    DataSource="resources"
-                    @bind-Value="@ParentId"
-                    Placeholder="@Localizer[SharedLocalResource.PleaseSelect]"
-                    AllowClear="false"
-                    TitleExpression="node=>node.DataItem.Name"
-                    KeyExpression="node =>node.DataItem.Id.ToString()"
-                    ChildrenExpression="node =>node.DataItem.Children?.ToList()"
-                    IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
-                    TreeDefaultExpandAll="true"
-                    ShowExpand="true"
-                    DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
+                            Style="width:100%;"
+                            DataSource="resources"
+                @bind-Value="@ParentId"
+                            Placeholder="@Localizer[SharedLocalResource.PleaseSelect]"
+                            AllowClear="false"
+                            TitleExpression="node=>node.DataItem.Name"
+                            KeyExpression="node =>node.DataItem.Id.ToString()"
+                            ChildrenExpression="node =>node.DataItem.Children?.ToList()"
+                            IsLeafExpression="node =>node.DataItem.Children==null || !node.DataItem.Children.Any()"
+                            TreeDefaultExpandAll="true"
+                            ShowExpand="true"
+                            DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)">
                 </TreeSelect>
             }
         </FormItem>
-        <FormItem Label="名称">
+        <FormItem Label="@Localizer[SystemManagerResource.Name]">
             <Input @bind-Value="@model.Name" />
         </FormItem>
-        <FormItem Label="键值">
+        <FormItem Label="@Localizer[SystemManagerResource.Key]">
             <Input @bind-Value="@model.Key" />
         </FormItem>
-        <FormItem Label="类型">
+        <FormItem Label="@Localizer[SystemManagerResource.Type]">
             <RadioGroup @bind-Value="@(model.Type)">
-            @foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
-            {
-                if ((int)gitem.Key >= (int)currentResourceTypeCopy)
+                @foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
                 {
-                    <Radio Value="gitem.Key" >@gitem.Value</Radio>
+                    if ((int)gitem.Key >= (int)currentResourceTypeCopy)
+                    {
+                        <Radio Value="gitem.Key">@gitem.Value</Radio>
+                    }
                 }
-            }
             </RadioGroup>
         </FormItem>
         @if (model.Type.Equals(ResourceType.Menu))
         {
-            <FormItem Label="地址">
+            <FormItem Label="@Localizer[SystemManagerResource.Path]">
                 <Input @bind-Value="@model.Path" Placeholder="/module/view" />
             </FormItem>
-            <FormItem Label="图标">
+            <FormItem Label="@Localizer[SystemManagerResource.Icon]">
                 <Input @bind-Value="@model.Icon" />
             </FormItem>
         }
-        <FormItem Label="排序">
+        <FormItem Label="@Localizer[SystemManagerResource.Order]">
             <AntDesign.InputNumber @bind-Value="@model.Order" />
         </FormItem>
         <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
 
-        <FormItem Label="备注">
+        <FormItem Label="@Localizer[SystemManagerResource.Remark]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
 
@@ -73,7 +73,7 @@
             <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
-            <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
+            <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
                 <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
         }

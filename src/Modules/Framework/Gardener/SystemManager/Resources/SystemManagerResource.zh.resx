@@ -141,6 +141,9 @@
   <data name="Color" xml:space="preserve">
     <value>颜色</value>
   </data>
+  <data name="EnableAudit" xml:space="preserve">
+    <value>启用审计</value>
+  </data>
   <data name="ExtendParams" xml:space="preserve">
     <value>扩展参数</value>
   </data>

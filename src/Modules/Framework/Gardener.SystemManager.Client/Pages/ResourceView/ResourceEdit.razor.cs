@@ -9,12 +9,13 @@ using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Common;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
-    public partial class ResourceEdit : EditOperationDialogBase<ResourceDto,Guid>
+    public partial class ResourceEdit : EditOperationDialogBase<ResourceDto,Guid, SystemManagerResource>
     {
         private ResourceType currentResourceTypeCopy = ResourceType.Root;
 

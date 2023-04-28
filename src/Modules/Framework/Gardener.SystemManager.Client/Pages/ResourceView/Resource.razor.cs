@@ -11,12 +11,13 @@ using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Common;
 using Gardener.Enums;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.SystemManager.Client.Pages.ResourceView
 {
-    public partial class Resource : TreeTableBase<ResourceDto, Guid, ResourceEdit>
+    public partial class Resource : TreeTableBase<ResourceDto, Guid, ResourceEdit, SystemManagerResource>
     {
 
         protected override OperationDialogSettings GetOperationDialogSettings()

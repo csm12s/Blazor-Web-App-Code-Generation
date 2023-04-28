@@ -141,6 +141,9 @@
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="EnableAudit" xml:space="preserve">
+    <value>Enable audit</value>
+  </data>
   <data name="ExtendParams" xml:space="preserve">
     <value>Extend parameters</value>
   </data>
