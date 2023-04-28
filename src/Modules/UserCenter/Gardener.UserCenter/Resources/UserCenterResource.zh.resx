@@ -141,6 +141,9 @@
   <data name="DeptId" xml:space="preserve">
     <value>部门编号</value>
   </data>
+  <data name="Duty" xml:space="preserve">
+    <value>责任</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>邮箱</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Gender" xml:space="preserve">
     <value>性别</value>
+  </data>
+  <data name="Grade" xml:space="preserve">
+    <value>等级</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>登录</value>
@@ -189,11 +195,23 @@
   <data name="QQ" xml:space="preserve">
     <value>QQ</value>
   </data>
+  <data name="Qualifications" xml:space="preserve">
+    <value>资质</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>权利</value>
+  </data>
   <data name="Roles" xml:space="preserve">
     <value>角色</value>
   </data>
+  <data name="Salary" xml:space="preserve">
+    <value>薪资</value>
+  </data>
   <data name="SecretKey" xml:space="preserve">
     <value>私钥</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>目标</value>
   </data>
   <data name="Tel" xml:space="preserve">
     <value>电话</value>

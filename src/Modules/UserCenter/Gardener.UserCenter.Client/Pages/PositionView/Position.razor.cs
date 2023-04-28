@@ -6,10 +6,11 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 
 namespace Gardener.UserCenter.Client.Pages.PositionView
 {
-    public partial class Position : ListOperateTableBase<PositionDto, int, PositionEdit>
+    public partial class Position : ListOperateTableBase<PositionDto, int, PositionEdit, UserCenterResource>
     {
        
     }

@@ -19,46 +19,46 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 岗位名称
         /// </summary>
-        [DisplayName("名称")]
+        [DisplayName("Name")]
         [Required(ErrorMessage = "不能为空")]
         public string Name { get; set; } = null!;
 
         /// <summary>
         /// 设置该岗位的目标
         /// </summary>
-        [DisplayName("目标")]
+        [DisplayName("Target")]
         public string? Target { get; set; }
 
         /// <summary>
         /// 职责
         /// </summary>
-        [DisplayName("职责")]
+        [DisplayName("Duty")]
         public string? Duty { get; set; }
 
         /// <summary>
         /// 权利
         /// </summary>
-        [DisplayName("权利")]
+        [DisplayName("Right")]
         public string? Right { get; set; }
 
         /// <summary>
         /// 岗位等级
         /// </summary>
-        [DisplayName("岗位等级")]
+        [DisplayName("Grade")]
         [CodeType("position-level")]
         public string? Grade { get; set; }
 
         /// <summary>
         /// 岗位薪资
         /// </summary>
-        [DisplayName("岗位薪资")]
+        [DisplayName("Salary")]
         public string? Salary { get; set; }
 
 
         /// <summary>
         /// 任职资格
         /// </summary>
-        [DisplayName("任职资格")]
+        [DisplayName("Qualifications")]
         public string? Qualifications { get; set; }
     }
 }

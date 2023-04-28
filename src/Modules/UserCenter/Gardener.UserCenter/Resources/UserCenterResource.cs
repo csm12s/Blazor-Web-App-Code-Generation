@@ -67,5 +67,29 @@ namespace Gardener.UserCenter.Resources
         /// 私钥
         /// </summary>
         public const string SecretKey = nameof(SecretKey);
+        /// <summary>
+        /// 责任
+        /// </summary>
+        public const string Duty = nameof(Duty);
+        /// <summary>
+        /// 等级
+        /// </summary>
+        public const string Grade = nameof(Grade);
+        /// <summary>
+        /// 目标
+        /// </summary>
+        public const string Target = nameof(Target);
+        /// <summary>
+        /// 权利
+        /// </summary>
+        public const string Right = nameof(Right);
+        /// <summary>
+        /// 资质
+        /// </summary>
+        public const string Qualifications = nameof(Qualifications);
+        /// <summary>
+        /// 薪资
+        /// </summary>
+        public const string Salary = nameof(Salary);
     }
 }

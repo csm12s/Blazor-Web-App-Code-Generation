@@ -144,6 +144,9 @@
   <data name="DeptId" xml:space="preserve">
     <value>Dept id</value>
   </data>
+  <data name="Duty" xml:space="preserve">
+    <value>Duty</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
+  </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Grade</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -192,11 +198,23 @@
   <data name="QQ" xml:space="preserve">
     <value>QQ</value>
   </data>
+  <data name="Qualifications" xml:space="preserve">
+    <value>Qualifications</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
   </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salary</value>
+  </data>
   <data name="SecretKey" xml:space="preserve">
     <value>SecretKey</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Target</value>
   </data>
   <data name="Tel" xml:space="preserve">
     <value>Tel</value>

@@ -1,5 +1,5 @@
 ﻿@using Gardener.SystemManager.Dtos;
-@inherits EditOperationDialogBase<PositionDto, int>
+@inherits EditOperationDialogBase<PositionDto, int,UserCenterResource>
 
 
 <Form Loading="@_dialogLoading.Value"
@@ -8,19 +8,19 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="名称">
+    <FormItem Label="@Localizer[UserCenterResource.Name]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-    <FormItem Label="目标">
+    <FormItem Label="@Localizer[UserCenterResource.Target]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Target"></TextArea>
     </FormItem>
-    <FormItem Label="职责">
+    <FormItem Label="@Localizer[UserCenterResource.Duty]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Duty"></TextArea>
     </FormItem>
-    <FormItem Label="权利">
+    <FormItem Label="@Localizer[UserCenterResource.Right]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Right"></TextArea>
     </FormItem>
-    <FormItem Label="岗位等级">
+    <FormItem Label="@Localizer[UserCenterResource.Grade]">
         <Select DataSource="@grades"
                 @bind-Value="@model.Grade"
                 ValueName="@nameof(CodeDto.CodeValue)"
@@ -30,10 +30,10 @@
                 AllowClear>
         </Select>
     </FormItem>
-    <FormItem Label="任职资格">
+    <FormItem Label="@Localizer[UserCenterResource.Qualifications]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Qualifications"></TextArea>
     </FormItem>
-    <FormItem Label="岗位薪资">
+    <FormItem Label="@Localizer[UserCenterResource.Salary]">
         <Input @bind-Value="@model.Salary" />
     </FormItem>
     <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
