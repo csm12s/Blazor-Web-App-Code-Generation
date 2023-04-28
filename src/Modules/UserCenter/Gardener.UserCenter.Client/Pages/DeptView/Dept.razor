@@ -1,4 +1,4 @@
-﻿@inherits TreeTableBase<DeptDto, int, DeptEdit>
+﻿@inherits TreeTableBase<DeptDto, int, DeptEdit,UserCenterResource>
 @page "/user_center/dept"
 <div>
     <Table @ref="_table"
@@ -6,13 +6,12 @@
            DataSource="@_datas"
            OnChange="@onChange"
            TreeChildren="item=>item.Children"
-           @bind-SelectedRows="_selectedRows"
+    @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
            HidePagination="true"
            IndentSize="25"
            Context="model"
-           DefaultExpandAllRows="true"
-        >
+           DefaultExpandAllRows="true">
         <TitleTemplate>
             <Row>
                 <AntDesign.Col Span="8">
@@ -43,17 +42,17 @@
             </Row>
 
         </TitleTemplate>
-                    <ColumnDefinitions>
+        <ColumnDefinitions>
             <Selection CheckStrictly Width="5%" />
-            <Column @bind-Field="@model.Name" Width="25%" />
-            <Column @bind-Field="@model.Contacts" Width="10%" />
-            <Column @bind-Field="@model.Tel" Width="10%" />
-            <Column @bind-Field="@model.Order" Width="10%" />
-            <Column @bind-Field="@model.Remark" Width="10%" />
+            <Column @bind-Field="@model.Name" Width="25%" Title="@Localizer[UserCenterResource.Name]" />
+            <Column @bind-Field="@model.Contacts" Width="10%" Title="@Localizer[UserCenterResource.Contacts]" />
+            <Column @bind-Field="@model.Tel" Width="10%" Title="@Localizer[UserCenterResource.Tel]" />
+            <Column @bind-Field="@model.Order" Width="10%" Title="@Localizer[UserCenterResource.Order]" />
+            <Column @bind-Field="@model.Remark" Width="10%" Title="@Localizer[UserCenterResource.Remark]" />
             <Column @bind-Field="@model.IsLocked" Width="10%" Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="user_center_dept_lock">
                     <Authorized>
-                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]" ></Switch>
+                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
                     </Authorized>
                     <NotAuthorized>
                         <TagYesNo Yes="model.IsLocked"></TagYesNo>
@@ -85,11 +84,11 @@
                         </SpaceItem>
                     </ResourceAuthorize>
                     @*<ResourceAuthorize ResourceKey="user_center_dept_set_resource">
-                        <SpaceItem>
-                            <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
-                                <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
-                            </Tooltip>
-                        </SpaceItem>
+                    <SpaceItem>
+                    <Tooltip Title="@("分配资源")" ArrowPointAtCenter="true">
+                    <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
+                    </Tooltip>
+                    </SpaceItem>
                     </ResourceAuthorize>*@
                     <ResourceAuthorize ResourceKey="user_center_dept_delete">
                         <SpaceItem>

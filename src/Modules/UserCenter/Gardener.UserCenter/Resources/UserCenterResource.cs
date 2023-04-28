@@ -52,10 +52,6 @@ namespace Gardener.UserCenter.Resources
         /// </summary>
         public const string NoRoleNeedAdd = nameof(NoRoleNeedAdd);
         /// <summary>
-        /// 名称
-        /// </summary>
-        public const string Name = nameof(Name);
-        /// <summary>
         /// 联系人
         /// </summary>
         public const string Contacts = nameof(Contacts);

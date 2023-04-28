@@ -336,6 +336,18 @@ namespace Gardener.Base.Resources
         /// 点击刷新
         /// </summary>
         public const string ClickRefresh= nameof(ClickRefresh);
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public const string Order = nameof(Order);
+        /// <summary>
+        /// 父级
+        /// </summary>
+        public const string Parent = nameof(Parent);
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public const string Name = nameof(Name);
 
     }
 }

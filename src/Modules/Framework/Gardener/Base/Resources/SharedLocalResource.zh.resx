@@ -529,4 +529,13 @@
   <data name="UpdateIdentityType" xml:space="preserve">
     <value>修改者类型</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Parent" xml:space="preserve">
+    <value>父级</value>
+  </data>
 </root>

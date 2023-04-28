@@ -5,12 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.SystemManager.Resources
 {
@@ -31,10 +25,6 @@ namespace Gardener.SystemManager.Resources
         /// 扩展参数
         /// </summary>
         public const string ExtendParams = nameof(ExtendParams);
-        /// <summary>
-        /// 排序
-        /// </summary>
-        public const string Order = nameof(Order);
         /// <summary>
         /// 颜色
         /// </summary>

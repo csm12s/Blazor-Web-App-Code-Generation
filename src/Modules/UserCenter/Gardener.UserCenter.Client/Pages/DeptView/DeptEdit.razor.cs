@@ -7,6 +7,7 @@
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.DeptView
 {
-    public partial class DeptEdit : EditOperationDialogBase<DeptDto, int>
+    public partial class DeptEdit : EditOperationDialogBase<DeptDto, int, UserCenterResource>
     {
         [Inject]
         IDeptService deptService { get; set; } = null!;
