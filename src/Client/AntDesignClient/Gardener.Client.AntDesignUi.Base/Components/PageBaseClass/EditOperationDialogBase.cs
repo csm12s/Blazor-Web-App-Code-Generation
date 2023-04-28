@@ -24,7 +24,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TOperationDialogInput">弹框输入参数，需要继承 OperationDialogInput<TKey></typeparam>
     /// <typeparam name="TOperationDialogOutput"></typeparam>
     public class EditOperationDialogBase<TDto, TKey, TLocalResource, TOperationDialogInput, TOperationDialogOutput> : OperationDialogBase<TOperationDialogInput, TOperationDialogOutput, TLocalResource>
-        where TDto : class, IModelId<TKey>, new()
+        where TDto : class, new()
         where TLocalResource : SharedLocalResource
         where TOperationDialogInput : OperationDialogInput<TKey>, new()
         where TOperationDialogOutput : OperationDialogOutput, new()
@@ -105,7 +105,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (result != null)
                 {
                     MessageService.Success(Localizer.Combination(SharedLocalResource.Add, SharedLocalResource.Success));
-                    operationDialogOutput.IsSucceed(result.Id);
+                    operationDialogOutput.IsSucceed(GetKey(result));
                     await CloseAsync(operationDialogOutput as TOperationDialogOutput);
                 }
                 else
@@ -130,6 +130,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             StopLoading();
         }
+        /// <summary>
+        /// 获取主键
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        protected virtual TKey GetKey(TDto dto)
+        {
+            if (dto is IModelId<TKey> temp)
+            {
+                return temp.Id;
+            }
+            else
+            {
+                throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+            }
+        }
     }
 
     /// <summary>
@@ -147,7 +163,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </para>
     /// </remarks>
     public class EditOperationDialogBase<TDto, TKey, TLocalResource> : EditOperationDialogBase<TDto, TKey, TLocalResource, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>
-        where TDto : class, IModelId<TKey>, new()
+        where TDto : class, new()
         where TLocalResource : SharedLocalResource
     {
 
@@ -164,7 +180,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <para>弹框输出参数，默认是 <see cref="OperationDialogOutput"/></para>
     /// </remarks>
     public class EditOperationDialogBase<TDto, TKey> : EditOperationDialogBase<TDto, TKey, SharedLocalResource>
-        where TDto : class, IModelId<TKey>, new()
+        where TDto : class, new()
     {
 
     }

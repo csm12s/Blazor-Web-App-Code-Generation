@@ -201,6 +201,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             return stop;
         }
         #endregion
+        /// <summary>
+        /// 获取主键
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        protected virtual TKey GetKey(TDto dto)
+        {
+            if (dto is IModelId<TKey> temp)
+            {
+                return temp.Id;
+            }
+            else
+            {
+                throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+            }
+        }
     }
     /// <summary>
     /// table列表页面基类(可以被当作OperationDialog打开)

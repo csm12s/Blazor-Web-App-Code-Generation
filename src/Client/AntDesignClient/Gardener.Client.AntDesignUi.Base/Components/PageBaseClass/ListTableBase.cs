@@ -268,35 +268,29 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                if (typeof(TDto).IsAssignableTo(typeof(IModelId<TKey>)))
+                _deletesBtnLoading = true;
+                if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    _deletesBtnLoading = true;
-                    if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
+                    var result = await BaseService.FakeDeletes(_selectedRows.Select(x => GetKey(x)).ToArray());
+                    if (result)
                     {
-                        var result = await BaseService.FakeDeletes(_selectedRows.Select(x => ((IModelId<TKey>)x).Id).ToArray());
-                        if (result)
+                        MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                        //删除整页，且是最后一页
+                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
                         {
-                            MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
-                            //删除整页，且是最后一页
-                            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
-                            {
-                                await ReLoadTable(true);
-                            }
-                            else
-                            {
-                                await ReLoadTable(false);
-                            }
+                            await ReLoadTable(true);
                         }
                         else
                         {
-                            MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                            await ReLoadTable(false);
                         }
                     }
+                    else
+                    {
+                        MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                    }
                 }
-                else
-                {
-                    MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
-                }
+
                 _deletesBtnLoading = false;
             }
         }
@@ -337,32 +331,27 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 _deletesBtnLoading = true;
                 if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
                 {
-                    if (typeof(TDto).IsAssignableTo(typeof(IModelId<TKey>)))
-                    {
-                        var result = await BaseService.Deletes(_selectedRows.Select(x => ((IModelId<TKey>)x).Id).ToArray());
-                        if (result)
-                        {
-                            MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
 
-                            //删除整页，且是最后一页
-                            if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
-                            {
-                                await ReLoadTable(true);
-                            }
-                            else
-                            {
-                                await ReLoadTable(false);
-                            }
+                    var result = await BaseService.Deletes(_selectedRows.Select(x => GetKey(x)).ToArray());
+                    if (result)
+                    {
+                        MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+
+                        //删除整页，且是最后一页
+                        if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
+                        {
+                            await ReLoadTable(true);
                         }
                         else
                         {
-                            MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                            await ReLoadTable(false);
                         }
                     }
                     else
                     {
-                        MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+                        MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
                     }
+
                 }
                 _deletesBtnLoading = false;
             }
@@ -503,8 +492,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource, TKey, bool> 
-        where TDto : class, new() 
+    public abstract class ListTableBase<TDto, TKey, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource, TKey, bool>
+        where TDto : class, new()
         where TLocalResource : SharedLocalResource
     {
 
@@ -523,7 +512,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> 
+    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource>
         where TDto : class, new()
     {
     }

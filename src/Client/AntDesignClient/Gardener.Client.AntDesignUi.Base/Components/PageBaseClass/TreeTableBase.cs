@@ -107,22 +107,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
         #endregion
 
-        /// <summary>
-        /// 获取主键
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        protected TKey GetKey(TDto dto)
-        {
-            if (dto is IModelId<TKey> temp)
-            {
-                return temp.Id;
-            }
-            else
-            {
-                throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
-            }
-        }
+        
 
         /// <summary>
         /// 重新加载table
