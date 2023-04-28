@@ -454,6 +454,9 @@
     <value>Select</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
     <comment>LocalKeys</comment>

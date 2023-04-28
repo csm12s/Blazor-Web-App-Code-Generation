@@ -556,6 +556,9 @@
   <data name="Path" xml:space="preserve">
     <value>路径</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
   <data name="Service" xml:space="preserve">
     <value>服务</value>
   </data>

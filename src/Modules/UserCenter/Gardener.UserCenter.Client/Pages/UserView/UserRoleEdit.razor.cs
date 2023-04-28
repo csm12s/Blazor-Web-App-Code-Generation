@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.UserCenter.Dtos;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class UserRoleEdit: FeedbackComponent<int, bool>
+    public partial class UserRoleEdit: OperationDialogBase<int, bool, UserCenterResource>
     {
         private bool _isLoading = false;
         private CheckboxOption[] _roleOptions = new CheckboxOption[] { };
