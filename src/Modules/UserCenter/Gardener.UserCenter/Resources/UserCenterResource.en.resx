@@ -135,6 +135,9 @@
   <data name="ContactInformation" xml:space="preserve">
     <value>Contact information</value>
   </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
   <data name="Dept" xml:space="preserve">
     <value>Dept</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="ModifyPersonalInformation" xml:space="preserve">
     <value>Modify personal information</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick name</value>
@@ -188,6 +194,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
+  </data>
+  <data name="SecretKey" xml:space="preserve">
+    <value>SecretKey</value>
+  </data>
+  <data name="Tel" xml:space="preserve">
+    <value>Tel</value>
   </data>
   <data name="UserCenter" xml:space="preserve">
     <value>User center</value>

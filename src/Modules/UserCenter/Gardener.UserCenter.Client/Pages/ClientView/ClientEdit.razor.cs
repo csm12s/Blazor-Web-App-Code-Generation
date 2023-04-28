@@ -7,12 +7,13 @@
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using System;
 using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ClientView
 {
-    public partial class ClientEdit : EditOperationDialogBase<ClientDto, Guid>
+    public partial class ClientEdit : EditOperationDialogBase<ClientDto, Guid, UserCenterResource>
     {
 
         /// <summary>

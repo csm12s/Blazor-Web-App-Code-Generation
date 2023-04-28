@@ -1,4 +1,4 @@
-﻿@inherits EditOperationDialogBase<ClientDto, Guid>
+﻿@inherits EditOperationDialogBase<ClientDto, Guid,UserCenterResource>
 @if (_editModel != null)
 {
 
@@ -8,26 +8,26 @@
           WrapperCol="new ColLayoutParam { Span = 16 }"
           OnFinish="OnFormFinish"
           Context="model">
-        <FormItem>
-            <Input @bind-Value="@model.Id" Disabled="true"/>
+        <FormItem Label="@Localizer[UserCenterResource.Id]">
+            <Input @bind-Value="@model.Id" Disabled="true" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[UserCenterResource.Name]">
             <Input @bind-Value="@model.Name" />
         </FormItem>
-        
-        <FormItem>
+
+        <FormItem Label="@Localizer[UserCenterResource.Contacts]">
             <Input @bind-Value="@model.Contacts" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[UserCenterResource.Tel]">
             <Input @bind-Value="@model.Tel" />
         </FormItem>
-        <FormItem >
-            <Input @bind-Value="@model.Email"/>
+        <FormItem Label="@Localizer[UserCenterResource.Email]">
+            <Input @bind-Value="@model.Email" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[UserCenterResource.SecretKey]">
             <Input @bind-Value="@model.SecretKey" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[UserCenterResource.Remark]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
         <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">

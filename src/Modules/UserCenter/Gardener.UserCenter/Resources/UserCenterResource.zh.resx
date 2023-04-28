@@ -132,6 +132,9 @@
   <data name="ContactInformation" xml:space="preserve">
     <value>联系信息</value>
   </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>联系人</value>
+  </data>
   <data name="Dept" xml:space="preserve">
     <value>部门</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="ModifyPersonalInformation" xml:space="preserve">
     <value>修改资料</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>用户昵称</value>
@@ -185,6 +191,12 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>角色</value>
+  </data>
+  <data name="SecretKey" xml:space="preserve">
+    <value>私钥</value>
+  </data>
+  <data name="Tel" xml:space="preserve">
+    <value>电话</value>
   </data>
   <data name="UserCenter" xml:space="preserve">
     <value>个人中心</value>

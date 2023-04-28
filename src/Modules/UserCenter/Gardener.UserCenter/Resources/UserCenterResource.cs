@@ -51,5 +51,25 @@ namespace Gardener.UserCenter.Resources
         /// 没有可用角色，请先添加角色
         /// </summary>
         public const string NoRoleNeedAdd = nameof(NoRoleNeedAdd);
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public const string Name = nameof(Name);
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public const string Contacts = nameof(Contacts);
+        /// <summary>
+        /// 电话
+        /// </summary>
+        public const string Tel = nameof(Tel);
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public const string Email = nameof(Email);
+        /// <summary>
+        /// 私钥
+        /// </summary>
+        public const string SecretKey = nameof(SecretKey);
     }
 }

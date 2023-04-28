@@ -1,4 +1,4 @@
-﻿@inherits ListOperateTableBase<ClientDto, Guid, ClientEdit>
+﻿@inherits ListOperateTableBase<ClientDto, Guid, ClientEdit, UserCenterResource>
 @page "/system_manager/client"
 <div>
     <Table @ref="_table"
@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_client_refresh">
-                <TableSearch TDto="ClientDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="ClientDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -47,10 +47,10 @@
             <ResourceAuthorize ResourceKey="system_manager_client_delete_selected">
                 <Selection Key="@(model.Id.ToString())" />
             </ResourceAuthorize>
-            <Column @bind-Field="@model.Name" Filterable />
-            <Column @bind-Field="@model.Contacts" Filterable />
-            <Column @bind-Field="@model.Tel" Filterable />
-            <Column @bind-Field="@model.Email" Filterable />
+            <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
+            <Column @bind-Field="@model.Contacts" Filterable Title="@Localizer[UserCenterResource.Contacts]" />
+            <Column @bind-Field="@model.Tel" Filterable Title="@Localizer[UserCenterResource.Tel]" />
+            <Column @bind-Field="@model.Email" Filterable Title="@Localizer[UserCenterResource.Email]" />
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_client_lock">
                     <Authorized>

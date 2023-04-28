@@ -6,12 +6,13 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Resources;
 using System;
 using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.ClientView
 {
-    public partial class Client : ListOperateTableBase<ClientDto, Guid, ClientEdit>
+    public partial class Client : ListOperateTableBase<ClientDto, Guid, ClientEdit, UserCenterResource>
     {
         /// <summary>
         /// 点击展示关联接口
