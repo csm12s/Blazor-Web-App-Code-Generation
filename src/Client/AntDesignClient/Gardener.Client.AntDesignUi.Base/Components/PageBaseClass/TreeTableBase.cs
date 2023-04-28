@@ -393,7 +393,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TLocalResource"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TLocalResource> : TreeTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
         where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
-        where TDto : BaseDto<TKey>, new() where TKey : notnull where TLocalResource : SharedLocalResource
+        where TDto : class, new() where TKey : notnull where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 根据<TDto>获取查看时传入抽屉的数据项<TEditOption>
@@ -402,7 +402,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override OperationDialogInput<TKey> GetSelectOption(TDto dto)
         {
-            return OperationDialogInput<TKey>.Select(dto.Id);
+            return OperationDialogInput<TKey>.Select(GetKey(dto));
         }
         /// <summary>
         /// 根据<TDto>获取编辑时传入抽屉的数据项<TEditOption>
@@ -411,7 +411,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override OperationDialogInput<TKey> GetEditOption(TDto dto)
         {
-            return OperationDialogInput<TKey>.Edit(dto.Id);
+            return OperationDialogInput<TKey>.Edit(GetKey(dto));
         }
         /// <summary>
         /// 根据<TDto>获取添加时传入抽屉的数据项<TEditOption>
@@ -420,7 +420,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override OperationDialogInput<TKey> GetAddOption(TDto dto)
         {
-            return OperationDialogInput<TKey>.Add(dto.Id);
+            return OperationDialogInput<TKey>.Add(GetKey(dto));
         }
         // <summary>
         /// 获取添加时传入抽屉的数据项<TEditOption>
@@ -528,7 +528,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource> where TDto : BaseDto<TKey>, new() where TKey : notnull
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource> where TDto : class, new() where TKey : notnull
     {
 
     }
