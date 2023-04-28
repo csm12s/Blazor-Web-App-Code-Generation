@@ -503,7 +503,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource, TKey, bool> where TDto : BaseDto<TKey>, new() where TLocalResource : SharedLocalResource
+    public abstract class ListTableBase<TDto, TKey, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource, TKey, bool> 
+        where TDto : class, new() 
+        where TLocalResource : SharedLocalResource
     {
 
     }
@@ -521,10 +523,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> where TDto : BaseDto<TKey>, new()
+    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource> 
+        where TDto : class, new()
     {
     }
-
 
     /// <summary>
     /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
@@ -543,7 +545,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 快递打开操作框，输出 OperationDialogOutput_TKey
     /// </remarks>
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TOperationDialogInput, TOperationDialogOutput, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput>
-        where TDto : BaseDto<TKey>, new()
+        where TDto : class, new()
         where TOperationDialog : OperationDialogBase<TOperationDialogInput, TOperationDialogOutput, TLocalResource>
         where TLocalResource : SharedLocalResource
         where TOperationDialogInput : OperationDialogInput<TKey>, new()
@@ -667,7 +669,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 快递打开操作框，输出 OperationDialogOutput_TKey
     /// </remarks>
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ListOperateTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput>
-        where TDto : BaseDto<TKey>, new()
+        where TDto : class, new()
         where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
         where TLocalResource : SharedLocalResource
     {
@@ -705,7 +707,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TKey, bool>
-        where TDto : BaseDto<TKey>, new()
+        where TDto : class, new()
         where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
         where TLocalResource : SharedLocalResource
     {
@@ -728,7 +730,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
     public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResource>
-        where TDto : BaseDto<TKey>, new()
+        where TDto : class, new()
         where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource>
     {
     }
