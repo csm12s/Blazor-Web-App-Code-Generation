@@ -5,21 +5,18 @@
 // -----------------------------------------------------------------------------
 
 using Furion;
-using Furion.DependencyInjection;
-using Gardener.EntityFramwork.DbContexts;
 using Gardener.SystemManager.Services;
 using Gardener.SystemManager.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Gardener.SystemManager
 {
     /// <summary>
     /// 配置启动时操作
     /// </summary>
-    [AppStartup(900)]
+    [AppStartup(500)]
     public sealed class SystemManagerStartup : AppStartup
     {
         /// <summary>
@@ -27,15 +24,14 @@ namespace Gardener.SystemManager
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            Scoped.Create(async (_, scope) =>
-            {
-                //启动时初始化 CodeUtil 所有code 缓存
-                var codeTypeService = scope.ServiceProvider.GetRequiredService<ICodeTypeService>();
-                var codes =await codeTypeService.GetCodeDicByValues();
-                CodeUtil.InitAllCode(codes);
-            });
+            IServiceScopeFactory serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using var serviceScope = serviceScopeFactory.CreateScope();
+            //启动时初始化 CodeUtil 所有code 缓存
+            var codeTypeService = serviceScope.ServiceProvider.GetRequiredService<ICodeTypeService>();
+            var codes = await codeTypeService.GetCodeDicByValues();
+            CodeUtil.InitAllCode(codes);
         }
     }
 }
