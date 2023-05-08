@@ -110,14 +110,12 @@ namespace Gardener.Authorization.Core
         private async Task<bool> CurrentUserHaveFunction(int userId, string functionKey)
         {
             //分步查询，减少表关联
-            var userTask = _userRepository.FindOrDefaultAsync(userId);
-            var functionTask = _functionRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && x.Key.Equals(functionKey)).FirstOrDefaultAsync();
-            var user = await userTask;
-            var function = await functionTask;
+            var user = await _userRepository.FindOrDefaultAsync(userId);
             if (user == null || user.IsDeleted || user.IsLocked)
             {
                 return false;
             }
+            var function = await _functionRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && x.Key.Equals(functionKey)).FirstOrDefaultAsync();
             if (function == null)
             {
                 return false;
@@ -130,14 +128,12 @@ namespace Gardener.Authorization.Core
             {
                 return false;
             }
-            var resourceTask = _roleResourceRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && roleIds.Contains(x.RoleId)).Select(x => x.ResourceId).ToListAsync();
-            var functionResourceTask = _resourceFunctionRepository.AsQueryable(false).Where(x => x.FunctionId.Equals(function.Id)).Select(x => x.ResourceId).ToListAsync();
-            var resourceIds = await resourceTask;
-            var functionResourceIds = await functionResourceTask;
+            var resourceIds = await _roleResourceRepository.AsQueryable(false).Where(x => !x.IsDeleted && !x.IsLocked && roleIds.Contains(x.RoleId)).Select(x => x.ResourceId).ToListAsync();
             if (resourceIds == null || !resourceIds.Any())
             {
                 return false;
             }
+            var functionResourceIds = await _resourceFunctionRepository.AsQueryable(false).Where(x => x.FunctionId.Equals(function.Id)).Select(x => x.ResourceId).ToListAsync();
             if (functionResourceIds == null || !functionResourceIds.Any())
             {
                 return false;
@@ -167,15 +163,13 @@ namespace Gardener.Authorization.Core
         private async Task<bool> CurrentUserHaveResource(int userId, string resourceKey)
         {
             //分步查询，减少表关联
-            var userTask = _userRepository.FindOrDefaultAsync(userId);
-            var resourceTask = _resourceRepository.Where(x => !x.IsDeleted && !x.IsLocked && x.Key.Equals(resourceKey)).FirstOrDefaultAsync();
 
-            var user = await userTask;
+            var user = await _userRepository.FindOrDefaultAsync(userId);
             if (user == null || user.IsDeleted || user.IsLocked)
             {
                 return false;
             }
-            var resource = await resourceTask;
+            var resource = await _resourceRepository.Where(x => !x.IsDeleted && !x.IsLocked && x.Key.Equals(resourceKey)).FirstOrDefaultAsync();
             if (resource == null)
             {
                 return false;
