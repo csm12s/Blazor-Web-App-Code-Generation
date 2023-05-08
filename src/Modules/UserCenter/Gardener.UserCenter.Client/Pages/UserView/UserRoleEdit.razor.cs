@@ -29,8 +29,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
         private IRoleService RoleService { get; set; } = null!;
-        [Inject]
-        private IClientLocalizer<UserCenterResource> Localizer { get; set; } = null!;
         protected override async Task OnInitializedAsync()
         {
             _isLoading = true;
