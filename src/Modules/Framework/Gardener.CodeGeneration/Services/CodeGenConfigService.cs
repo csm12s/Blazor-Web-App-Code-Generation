@@ -16,6 +16,7 @@ using Gardener.Sugar;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -36,20 +37,24 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
     private readonly IRepository<CodeGenConfig> repository;
     private readonly SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep;
     private readonly IWebHostEnvironment env;
+    private readonly ILogger<CodeGenConfigService> logger;
     /// <summary>
     /// 
     /// </summary>
     /// <param name="repository"></param>
     /// <param name="codeGenConfigSugarRep"></param>
     /// <param name="env"></param>
+    /// <param name="logger"></param>
     public CodeGenConfigService(
         IRepository<CodeGenConfig> repository,
         SqlSugarRepository<CodeGenConfig> codeGenConfigSugarRep,
-        IWebHostEnvironment env) : base(repository)
+        IWebHostEnvironment env,
+        ILogger<CodeGenConfigService> logger) : base(repository)
     {
         this.repository = repository;
         this.codeGenConfigSugarRep = codeGenConfigSugarRep;
         this.env = env;
+        this.logger = logger;
     }
 
     /// <summary>
@@ -61,7 +66,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
     [NonAction]
     public async Task DeleteAndAddList(List<TableColumnInfo> dbColumnInfos, CodeGenDto codeGen)
     {
-        if (dbColumnInfos == null) 
+        if (dbColumnInfos == null)
             return;
 
         var list = new List<CodeGenConfig>();
@@ -75,16 +80,22 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         //        && a.Name.Equals(codeGen.Module + "BaseModel"))
         //    .FirstOrDefault();
 
-        
-        var dllName = "Gardener." + codeGen.Module + ".Server";
-        Assembly a = Assembly.Load(dllName);//这里找不到dll会报错
-        var baseModelType = a.GetType(dllName + "." + codeGen.Module + "BaseModel");
-
-        if (baseModelType != null)
+        try
         {
-            baseModelFields = baseModelType.GetProperties();
+            var dllName = "Gardener." + codeGen.Module + ".Server";
+            Assembly a = Assembly.Load(dllName);//这里找不到dll会报错
+            var baseModelType = a.GetType(dllName + "." + codeGen.Module + "BaseModel");
+
+            if (baseModelType != null)
+            {
+                baseModelFields = baseModelType.GetProperties();
+            }
         }
-       
+        catch (Exception ex)
+        {
+            logger.LogError("DeleteAndAddList error", ex);
+        }
+
         #endregion
 
         foreach (var column in dbColumnInfos)
@@ -139,7 +150,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
 
             // isBaseModelField
             codeGenConfig.IsCommon = baseModelFields
-                .Where(it=>it.Name == codeGenConfig.NetColumnName)
+                .Where(it => it.Name == codeGenConfig.NetColumnName)
                 .Any();
 
             list.Add(codeGenConfig);
@@ -149,7 +160,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         var res = await repository.Entities
             .Where(it => it.CodeGenId == codeGen.Id)
             .ExecuteDeleteAsync();
-           
+
         // Insert new:
         await repository.InsertAsync(list);
     }
@@ -237,11 +248,11 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
         {
             localeFileModule = codeGenDto.OriginModule;
         }
-        
+
         var appName = ProjectConstants.AppName;
         // Gardener\src\Modules\XXX\Gardener.XXX\DB\DB Naming
-        var dir= FileHelper.GetParentDirectory(env.ContentRootPath);
-        if(dir== null)
+        var dir = FileHelper.GetParentDirectory(env.ContentRootPath);
+        if (dir == null)
         {
             return null;
         }
@@ -265,7 +276,7 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
                     newColumnName = newColumnName.Replace(item.OriginText, item.ReplacedText);
                 }
 
-                
+
             }
         }
         #endregion
@@ -325,12 +336,12 @@ public class CodeGenConfigService : ServiceBase<CodeGenConfig, CodeGenConfigDto,
     public async Task<bool> SaveAll(List<CodeGenConfigDto> listDto)
     {
         var list = listDto.MapTo<CodeGenConfig>();
-#region 处理更新数据
-// TODO: 这里在企图更新的时候用Get(item.Id);，会报错
-//异常: The instance of entity type 'CodeGenConfig' cannot be tracked
-//because another instance with the key value '{Id: 3485}' is already
-//being tracked.When attaching existing entities,
-//ensure that only one entity instance with a given key value is attached.[500]
+        #region 处理更新数据
+        // TODO: 这里在企图更新的时候用Get(item.Id);，会报错
+        //异常: The instance of entity type 'CodeGenConfig' cannot be tracked
+        //because another instance with the key value '{Id: 3485}' is already
+        //being tracked.When attaching existing entities,
+        //ensure that only one entity instance with a given key value is attached.[500]
 
         // 如果为了项目简洁，可以不在这里处理，直接把各种字段如IsNullable，IsRequired,
         // NetType在前端呈现，然后在模板里处理字段
