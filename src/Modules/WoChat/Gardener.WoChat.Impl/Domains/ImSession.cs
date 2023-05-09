@@ -4,22 +4,18 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
 using Gardener.Base;
-using Gardener.NotificationSystem.Enums;
+using Gardener.Base.Entity;
 using Gardener.WoChat.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.WoChat.Domains
 {
     /// <summary>
     /// Im系统会话数据
     /// </summary>
-    public class ImSession : GardenerEntityBase<Guid>
+    public class ImSession : GardenerTenantEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 会话类型
@@ -69,6 +65,6 @@ namespace Gardener.WoChat.Domains
         /// 禁言后只有创建者能够发送消息
         /// </remarks>
         [DisplayName("DisableSendMessage")]
-        public bool DisableSendMessage { get; set; }=false;
+        public bool DisableSendMessage { get; set; } = false;
     }
 }

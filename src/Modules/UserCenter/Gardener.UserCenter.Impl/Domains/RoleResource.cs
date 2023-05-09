@@ -20,7 +20,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户和角色关系表
     /// </summary>
     [Description("角色资源信息")]
-    public class RoleResource : GardenerTenantEntityBaseNoKey, IEntitySeedData<RoleResource>, IEntityTypeBuilder<RoleResource>
+    public class RoleResource : GardenerTenantEntityBaseNoKey<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<RoleResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<RoleResource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 角色Id

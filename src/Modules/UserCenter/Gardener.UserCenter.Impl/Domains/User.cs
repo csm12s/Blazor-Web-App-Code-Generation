@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -21,7 +22,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户表
     /// </summary>
     [Description("用户信息")]
-    public class User : GardenerTenantEntityBase, IEntitySeedData<User>, IEntityTypeBuilder<User>
+    public class User : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 用户表

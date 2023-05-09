@@ -6,27 +6,32 @@
 
 using Furion;
 using Furion.DatabaseAccessor;
+using Gardener.Base;
+using Gardener.Base.Entity;
 using Gardener.EntityFramwork.Core;
 using Gardener.EntityFramwork.EFAudit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Gardener.EntityFramwork.DbContexts
 {
     /// <summary>
-    /// 数据库上下文
+    /// 多租户数据库上下文
     /// </summary>
     [AppDbContext("Default")]
-    public class GardenerDbContext : AppDbContext<GardenerDbContext>
+    public class GardenerMultiTenantDbContext : AppDbContext<GardenerMultiTenantDbContext, GardenerMultiTenantDbContextLocator>, IModelBuilderFilter
     {
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="options"></param>
-        public GardenerDbContext(DbContextOptions<GardenerDbContext> options) : base(options)
+        public GardenerMultiTenantDbContext(DbContextOptions<GardenerMultiTenantDbContext> options) : base(options)
         {
         }
         /// <summary>
@@ -71,7 +76,7 @@ namespace Gardener.EntityFramwork.DbContexts
             if (context == null) { return; }
 
             //基础数据初始化
-            EntityEntryBaseInfoHandle.Handle(context.ChangeTracker.Entries());
+            EntityEntryBaseInfoHandle.Handle(context.ChangeTracker.Entries(),true);
             IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
             ormAuditService.SavingChangesEvent(context.ChangeTracker.Entries());
         }
@@ -85,6 +90,66 @@ namespace Gardener.EntityFramwork.DbContexts
         {
             IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
             ormAuditService.SavedChangesEvent();
+        }
+        /// <summary>
+        /// 获取当前用户租户编号
+        /// </summary>
+        /// <returns></returns>
+        public Guid GetTenantId()
+        {
+            return IdentityUtil.GetIdentity()?.TenantId ?? Guid.Empty;
+        }
+        /// <summary>
+        /// 查询时添加租户编号条件
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void OnCreating(ModelBuilder modelBuilder, EntityTypeBuilder entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+            LambdaExpression? expression = this.BuildTenantQueryFilter(entityBuilder, dbContext, nameof(IModelTenantId.TenantId));
+            entityBuilder.HasQueryFilter(expression);
+        }
+
+
+        /// <summary>
+        /// 构建基于表租户查询过滤器表达式
+        /// </summary>
+        /// <param name="entityBuilder">实体类型构建器</param>
+        /// <param name="dbContext">数据库上下文</param>
+        /// <param name="onTableTenantId">多租户Id属性名</param>
+        /// <returns>表达式</returns>
+        protected override LambdaExpression? BuildTenantQueryFilter(EntityTypeBuilder entityBuilder, DbContext dbContext, string onTableTenantId)
+        {
+            // 获取实体构建器元数据
+            var metadata = entityBuilder.Metadata;
+            if (metadata.FindProperty(onTableTenantId) == null) return default;
+            MethodInfo? method = dbContext.GetType().GetMethod(nameof(IMultiTenantOnTable.GetTenantId));
+            if (method == null) return default;
+            // 创建表达式元素
+            var parameter = Expression.Parameter(metadata.ClrType, "u");
+            var properyName = Expression.Constant(onTableTenantId);
+            var propertyValue = Expression.Call(Expression.Constant(dbContext), method);
+            //当前租户编号如果为空认为不需要限制
+            var expressionBody1 = Expression.Equal(Expression.Constant(Guid.Empty), propertyValue);
+            var expressionBody2 = Expression.Equal(Expression.Call(typeof(EF), nameof(EF.Property), new[] { typeof(Guid) }, parameter, properyName), propertyValue);
+            var expression = Expression.Lambda(Expression.Or(expressionBody1, expressionBody2), parameter);
+            return expression;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override Tenant? Tenant
+        {
+            get
+            {
+                var tenantId = IdentityUtil.GetIdentity()?.TenantId;
+                if (tenantId == null) return null;
+                return new Tenant() { TenantId = tenantId.Value };
+            }
         }
     }
 }

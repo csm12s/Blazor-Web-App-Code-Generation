@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gardener.UserCenter.Services;
 using Gardener.EntityFramwork;
+using Gardener.Base.Entity;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -23,13 +24,13 @@ namespace Gardener.UserCenter.Impl.Services
     /// 部门服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
-    public class DeptService : ServiceBase<Dept, DeptDto, int>,IDeptService
+    public class DeptService : ServiceBase<Dept, DeptDto, int, GardenerMultiTenantDbContextLocator>, IDeptService
     {
         /// <summary>
         /// 部门服务
         /// </summary>
         /// <param name="repository"></param>
-        public DeptService(IRepository<Dept> repository) : base(repository)
+        public DeptService(IRepository<Dept, GardenerMultiTenantDbContextLocator> repository) : base(repository)
         {
         }
         /// <summary>
@@ -45,12 +46,12 @@ namespace Gardener.UserCenter.Impl.Services
         /// </summary>
         /// <param name="includeLocked"></param>
         /// <returns></returns>
-        public async Task<List<DeptDto>> GetTree(bool includeLocked=false)
+        public async Task<List<DeptDto>> GetTree(bool includeLocked = false)
         {
             List<DeptDto> depts = new List<DeptDto>();
 
-            var list =await _repository
-                .Where(x => x.IsDeleted == false && (x.IsLocked==false || includeLocked))
+            var list = await _repository
+                .Where(x => x.IsDeleted == false && (x.IsLocked == false || includeLocked))
                 .OrderBy(x => x.Order)
                 .ToListAsync();
             return list.Where(x => !x.ParentId.HasValue).Select(x => x.Adapt<DeptDto>()).ToList();

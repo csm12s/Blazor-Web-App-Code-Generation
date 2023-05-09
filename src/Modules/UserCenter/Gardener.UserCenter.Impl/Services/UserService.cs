@@ -24,6 +24,7 @@ using Gardener.UserCenter.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.EntityFramwork;
 using Furion.DependencyInjection;
+using Gardener.Base.Entity;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -31,13 +32,13 @@ namespace Gardener.UserCenter.Impl.Services
     /// 用户服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
-    public class UserService : ServiceBase<User, UserDto>, IUserService,IScoped
+    public class UserService : ServiceBase<User, UserDto, int, GardenerMultiTenantDbContextLocator>, IUserService, IScoped
     {
-        private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Role> _roleRepository;
-        private readonly IRepository<UserRole> _userRoleRepository;
-        private readonly IRepository<UserExtension> _userExtensionRepository;
-        private readonly IRepository<Dept> _deptRepository;
+        private readonly IRepository<User, GardenerMultiTenantDbContextLocator> _userRepository;
+        private readonly IRepository<Role, GardenerMultiTenantDbContextLocator> _roleRepository;
+        private readonly IRepository<UserRole, GardenerMultiTenantDbContextLocator> _userRoleRepository;
+        private readonly IRepository<UserExtension, GardenerMultiTenantDbContextLocator> _userExtensionRepository;
+        private readonly IRepository<Dept, GardenerMultiTenantDbContextLocator> _deptRepository;
         private readonly IDynamicFilterService _filterService;
         /// <summary>
         /// 用户服务
@@ -49,10 +50,11 @@ namespace Gardener.UserCenter.Impl.Services
         /// <param name="deptRepository"></param>
         /// <param name="filterService"></param>
         public UserService(
-            IRepository<User> userRepository,
-            IRepository<UserExtension> userExtensionRepository,
-            IRepository<UserRole> userRoleRepository,
-            IRepository<Role> roleRepository, IRepository<Dept> deptRepository,
+            IRepository<User, GardenerMultiTenantDbContextLocator> userRepository,
+            IRepository<UserExtension, GardenerMultiTenantDbContextLocator> userExtensionRepository,
+            IRepository<UserRole, GardenerMultiTenantDbContextLocator> userRoleRepository,
+            IRepository<Role, GardenerMultiTenantDbContextLocator> roleRepository, 
+            IRepository<Dept, GardenerMultiTenantDbContextLocator> deptRepository,
             IDynamicFilterService filterService) : base(userRepository)
         {
             _userRepository = userRepository;
@@ -96,12 +98,12 @@ namespace Gardener.UserCenter.Impl.Services
             return await _userRepository
                .Include(u => u.Roles, false)
                    .ThenInclude(u => u.RoleResources)
-                   .ThenInclude(u=>u.Resource)
+                   .ThenInclude(u => u.Resource)
                .Where(u => u.Id == userId)
                .Where(u => u.IsDeleted == false)
                .SelectMany(u => u.Roles
                    .SelectMany(u => u.RoleResources))
-                    .Select(u=>u.Resource)
+                    .Select(u => u.Resource)
                .ProjectToType<ResourceDto>()
                .ToListAsync();
         }
@@ -124,7 +126,7 @@ namespace Gardener.UserCenter.Impl.Services
               .Where(u => u.IsDeleted == false)
               .Where(expression)
               .OrderConditions(request.OrderConditions)
-              .Select(x=>x.Adapt<UserDto>());
+              .Select(x => x.Adapt<UserDto>());
             var pageList = await users.ToPageAsync(request.PageIndex, request.PageSize);
             foreach (var item in pageList.Items)
             {
@@ -169,9 +171,9 @@ namespace Gardener.UserCenter.Impl.Services
                 exclude.Add(x => x.Password);
                 exclude.Add(x => x.PasswordEncryptKey);
             }
-            
+
             //更新
-            await _userRepository.UpdateExcludeAsync(user,exclude);
+            await _userRepository.UpdateExcludeAsync(user, exclude);
 
             var userExt = input.UserExtension?.Adapt<UserExtension>();
             if (userExt != null)
@@ -187,7 +189,7 @@ namespace Gardener.UserCenter.Impl.Services
                     await _userExtensionRepository.InsertAsync(userExt);
                 }
             }
-            
+
             return true;
         }
         /// <summary>
@@ -200,7 +202,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public override async Task<UserDto> Insert(UserDto input)
         {
-            if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.IsDeleted==false, false))
+            if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.IsDeleted == false, false))
             {
                 throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
             }
@@ -245,7 +247,7 @@ namespace Gardener.UserCenter.Impl.Services
                 .Include(x => x.Roles.Where(r => r.IsDeleted == false))
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
-            if(person== null)
+            if (person == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
             }
@@ -262,7 +264,7 @@ namespace Gardener.UserCenter.Impl.Services
         /// <param name="roleIds"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<bool> Role([ApiSeat(ApiSeats.ActionStart)] int userId,[FromBody] int[] roleIds)
+        public async Task<bool> Role([ApiSeat(ApiSeats.ActionStart)] int userId, [FromBody] int[] roleIds)
         {
             //先删除现有的
             var userRoles = await _userRoleRepository.AsQueryable(x => x.UserId == userId).ToListAsync();
@@ -295,16 +297,16 @@ namespace Gardener.UserCenter.Impl.Services
         /// <returns></returns>
         public async Task<bool> UpdateAvatar(UserUpdateAvatarInput input)
         {
-            User user=await _userRepository.FindAsync(input.Id);
+            User user = await _userRepository.FindAsync(input.Id);
             if (user == null)
             {
                 return false;
             }
             user.Avatar = input.Avatar;
             user.UpdatedTime = DateTimeOffset.Now;
-             await _userRepository.UpdateIncludeAsync(user, new[] { 
-                nameof(User.Avatar), 
-                nameof(User.UpdatedTime) },true);
+            await _userRepository.UpdateIncludeAsync(user, new[] {
+                nameof(User.Avatar),
+                nameof(User.UpdatedTime) }, true);
             return true;
 
         }
@@ -316,7 +318,7 @@ namespace Gardener.UserCenter.Impl.Services
         {
             var id = IdentityUtil.GetIdentityId();
             if (id == null)
-            { 
+            {
                 throw new ArgumentNullException("CurrentUserId");
             }
             return Task.FromResult(id);
@@ -329,7 +331,7 @@ namespace Gardener.UserCenter.Impl.Services
         public Task<List<UserDto>> GetUsers(IEnumerable<int> userIds)
         {
             return _userRepository
-                .AsQueryable(false).Include(x=>x.UserExtension)
+                .AsQueryable(false).Include(x => x.UserExtension)
                .Where(x => userIds.Contains(x.Id))
                .Select(x => x.Adapt<UserDto>())
                .ToListAsync();

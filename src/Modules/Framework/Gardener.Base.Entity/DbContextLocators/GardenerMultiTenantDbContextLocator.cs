@@ -6,12 +6,12 @@
 
 using Furion.DatabaseAccessor;
 
-namespace Gardener.EntityFramwork.DbContexts
+namespace Gardener.Base.Entity
 {
     /// <summary>
-    /// 审计数据库定位器
+    /// 多租户dbContext定位器
     /// </summary>
-    public class GardenerAuditDbContextLocator: IDbContextLocator
+    public class GardenerMultiTenantDbContextLocator : IDbContextLocator
     {
     }
 }

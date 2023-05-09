@@ -7,6 +7,7 @@
 using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Gardener.Base.Entity;
 using Gardener.EntityFramwork.DbContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,8 +25,6 @@ namespace Gardener.EntityFramwork
     [AppStartup(601)]
     public class DbContextStartup : AppStartup
     {
-
-
         /// <summary>
         /// 初始化默认数据库
         /// </summary>
@@ -47,9 +46,11 @@ namespace Gardener.EntityFramwork
             string? migrationAssemblyName = App.Configuration["DefaultDbSettings:MigrationAssemblyName"];
             services.AddDatabaseAccessor(options =>
                                         {
-                                            //注入数据库上下文
+                                            //注入默认数据库上下文
                                             options.AddDbPool<GardenerDbContext>(dbProvider);
-
+                                            //注入多租户数据库上下文
+                                            options.AddDbPool<GardenerMultiTenantDbContext, GardenerMultiTenantDbContextLocator>(dbProvider);
+                                            //注入审计数据库上下文
                                             options.AddDbPool<GardenerAuditDbContext, GardenerAuditDbContextLocator>(dbProvider);
                                         },
                                             migrationAssemblyName);

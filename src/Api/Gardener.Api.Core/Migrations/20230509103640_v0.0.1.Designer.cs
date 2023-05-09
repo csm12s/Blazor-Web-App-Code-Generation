@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230509021752_v0.0.1")]
+    [Migration("20230509103640_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -465,6 +465,206 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Remark = ""
                         });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("AuditOperationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DataId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperaterType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("OperationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperationType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditOperationId");
+
+                    b.ToTable("AuditEntity");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditOperation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Method")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OperaterId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperaterType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Parameters")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ResourceName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserAgent")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditOperation");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditProperty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AuditEntityid")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DataType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FieldName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginalValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditEntityid");
+
+                    b.ToTable("AuditProperty");
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
@@ -10209,206 +10409,6 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("AuditOperationId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DataId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperaterType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("OperationId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperationType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuditOperationId");
-
-                    b.ToTable("AuditEntity");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Ip")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Method")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OperaterId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperaterType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Parameters")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ResourceName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserAgent")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditOperation");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditProperty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("AuditEntityid")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DataType")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FieldName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("NewValue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OriginalValue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuditEntityid");
-
-                    b.ToTable("AuditProperty");
-                });
-
             modelBuilder.Entity("Gardener.NotificationSystem.Domains.Announcement", b =>
                 {
                     b.Property<int>("Id")
@@ -11551,6 +11551,53 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Tenant", b =>
+                {
+                    b.Property<Guid>("TenantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EmailAddress")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TenantId");
+
+                    b.ToTable("Tenant");
+                });
+
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.User", b =>
                 {
                     b.Property<int>("Id")
@@ -12098,6 +12145,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<int>("SessionType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -12146,6 +12196,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<int>("MessageType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -12190,6 +12243,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -12216,6 +12272,24 @@ namespace Gardener.Api.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("CodeType");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditEntity", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Domains.AuditOperation", null)
+                        .WithMany("AuditEntities")
+                        .HasForeignKey("AuditOperationId");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditProperty", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Domains.AuditEntity", "AuditEntity")
+                        .WithMany("AuditProperties")
+                        .HasForeignKey("AuditEntityid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AuditEntity");
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
@@ -12253,24 +12327,6 @@ namespace Gardener.Api.Core.Migrations
                         .HasForeignKey("CodeGenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
-                {
-                    b.HasOne("Gardener.EntityFramwork.Audit.Domains.AuditOperation", null)
-                        .WithMany("AuditEntities")
-                        .HasForeignKey("AuditOperationId");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditProperty", b =>
-                {
-                    b.HasOne("Gardener.EntityFramwork.Audit.Domains.AuditEntity", "AuditEntity")
-                        .WithMany("AuditProperties")
-                        .HasForeignKey("AuditEntityid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AuditEntity");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
@@ -12370,6 +12426,16 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Codes");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditEntity", b =>
+                {
+                    b.Navigation("AuditProperties");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditOperation", b =>
+                {
+                    b.Navigation("AuditEntities");
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
                 {
                     b.Navigation("ResourceFunctions");
@@ -12385,16 +12451,6 @@ namespace Gardener.Api.Core.Migrations
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>
                 {
                     b.Navigation("CodeGenConfigs");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
-                {
-                    b.Navigation("AuditProperties");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
-                {
-                    b.Navigation("AuditEntities");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>

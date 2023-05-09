@@ -4,20 +4,17 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
 using Gardener.Base;
-using System;
-using System.Collections.Generic;
+using Gardener.Base.Entity;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.WoChat.Domains
 {
     /// <summary>
     /// 用户会话列表
     /// </summary>
-    public class ImUserSession : GardenerEntityBase<Guid>
+    public class ImUserSession : GardenerTenantEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 会话编号

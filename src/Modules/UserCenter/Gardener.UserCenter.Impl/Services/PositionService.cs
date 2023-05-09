@@ -10,6 +10,7 @@ using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Gardener.UserCenter.Services;
 using Gardener.EntityFramwork;
+using Gardener.Base.Entity;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -17,16 +18,16 @@ namespace Gardener.UserCenter.Impl.Services
     /// 岗位管理服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
-    public class PositionService : ServiceBase<Position, PositionDto, int>, IPositionService
+    public class PositionService : ServiceBase<Position, PositionDto, int, GardenerMultiTenantDbContextLocator>, IPositionService
     {
 
-        private readonly IRepository<Position> _positionRepository;
+        private readonly IRepository<Position, GardenerMultiTenantDbContextLocator> _positionRepository;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="positionRepository"></param>
-        public PositionService(IRepository<Position> positionRepository) : base(positionRepository)
+        public PositionService(IRepository<Position, GardenerMultiTenantDbContextLocator> positionRepository) : base(positionRepository)
         {
             this._positionRepository = positionRepository;
         }

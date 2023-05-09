@@ -6,7 +6,7 @@
 
 using Gardener.Authentication.Dtos;
 using Gardener.Base;
-using Gardener.EntityFramwork.Audit.Domains;
+using Gardener.Base.Entity.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -25,10 +25,11 @@ namespace Gardener.EntityFramwork.Core
     public static class EntityEntryBaseInfoHandle
     {
         /// <summary>
-        /// 
+        /// 处理
         /// </summary>
         /// <param name="entityEntries"></param>
-        public static void Handle(IEnumerable<EntityEntry>? entityEntries)
+        /// <param name="handleTenant">是否处理租户信息</param>
+        public static void Handle(IEnumerable<EntityEntry>? entityEntries,bool handleTenant=false)
         {
             if (entityEntries == null || !entityEntries.Any())
             {
@@ -77,7 +78,7 @@ namespace Gardener.EntityFramwork.Core
                         entity.Property(nameof(IModelCreated.CreateIdentityType)).CurrentValue = identity?.IdentityType;
                         entity.Property(nameof(IModelCreated.CreatedTime)).CurrentValue = DateTimeOffset.Now;
                     }
-                    if (type.IsAssignableTo(typeof(IModelTenantId)))
+                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)))
                     {
                         //租户信息
                         entity.Property(nameof(IModelTenantId.TenantId)).CurrentValue = identity?.TenantId;
@@ -94,7 +95,7 @@ namespace Gardener.EntityFramwork.Core
                         entity.Property(nameof(IModelCreated.CreateIdentityType)).IsModified = false;
                         entity.Property(nameof(IModelCreated.CreatedTime)).IsModified = false;
                     }
-                    if (type.IsAssignableTo(typeof(IModelTenantId)))
+                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)))
                     {
                         //排除租户信息
                         entity.Property(nameof(IModelTenantId.TenantId)).IsModified = false;

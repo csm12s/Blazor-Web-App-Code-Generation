@@ -7,21 +7,16 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
-using Gardener.Base;
-using Gardener.EntityFramwork.DbContexts;
-using Gardener.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Gardener.EntityFramwork.Audit.Domains
+namespace Gardener.Base.Entity.Domains
 {
     /// <summary>
     /// 操作审计信息
     /// </summary>
     [Description("操作审计信息")]
     [IgnoreAudit]
-    public class AuditOperation : GardenerTenantEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditOperation : GardenerTenantEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计操作
@@ -74,7 +69,7 @@ namespace Gardener.EntityFramwork.Audit.Domains
         /// 请求方法
         /// </summary>
         [DisplayName("请求方法")]
-        public HttpMethod Method { get; set; }
+        public Gardener.Enums.HttpMethod Method { get; set; }
         /// <summary>
         /// 请求参数
         /// </summary>

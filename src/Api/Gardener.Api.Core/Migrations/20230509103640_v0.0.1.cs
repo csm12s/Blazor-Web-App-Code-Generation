@@ -304,7 +304,8 @@ namespace Gardener.Api.Core.Migrations
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -327,7 +328,8 @@ namespace Gardener.Api.Core.Migrations
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -349,7 +351,8 @@ namespace Gardener.Api.Core.Migrations
                     CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
                     UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
                     UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -559,6 +562,28 @@ namespace Gardener.Api.Core.Migrations
                     table.PrimaryKey("PK_SysTimer", x => x.Id);
                 },
                 comment: "定时任务表");
+
+            migrationBuilder.CreateTable(
+                name: "Tenant",
+                columns: table => new
+                {
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    EmailAddress = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", maxLength: 32, nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tenant", x => x.TenantId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "VerifyCodeLog",
@@ -2024,6 +2049,9 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "SysTimer");
+
+            migrationBuilder.DropTable(
+                name: "Tenant");
 
             migrationBuilder.DropTable(
                 name: "UserExtension");

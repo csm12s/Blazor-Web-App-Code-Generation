@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,7 +19,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户和角色关系表
     /// </summary>
     [Description("用户角色信息")]
-    public class UserRole : GardenerTenantEntityBaseNoKey, IEntitySeedData<UserRole>, IEntityTypeBuilder<UserRole>
+    public class UserRole : GardenerTenantEntityBaseNoKey<MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<UserRole, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<UserRole, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 用户Id

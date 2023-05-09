@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
