@@ -19,7 +19,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户扩展信息表
     /// </summary>
     [Description("用户扩展信息")]
-    public class UserExtension : GardenerEntityBaseNoKey, IEntityTypeBuilder<UserExtension>, IEntitySeedData<UserExtension>
+    public class UserExtension : GardenerTenantEntityBaseNoKey, IEntityTypeBuilder<UserExtension>, IEntitySeedData<UserExtension>
     {
         /// <summary>
         /// 用户ID

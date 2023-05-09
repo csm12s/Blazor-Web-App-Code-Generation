@@ -18,7 +18,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户和角色关系表
     /// </summary>
     [Description("用户角色信息")]
-    public class UserRole : GardenerEntityBaseNoKey, IEntitySeedData<UserRole>, IEntityTypeBuilder<UserRole>
+    public class UserRole : GardenerTenantEntityBaseNoKey, IEntitySeedData<UserRole>, IEntityTypeBuilder<UserRole>
     {
         /// <summary>
         /// 用户Id

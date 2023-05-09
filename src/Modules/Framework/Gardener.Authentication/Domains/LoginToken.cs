@@ -17,7 +17,7 @@ namespace Gardener.Authentication.Domains
     /// </summary>
     [Description("登录Token信息")]
     [IgnoreAudit]
-    public class LoginToken : GardenerEntityBase<Guid>
+    public class LoginToken : GardenerTenantEntityBase<Guid>
     {
         /// <summary>
         /// 身份编号

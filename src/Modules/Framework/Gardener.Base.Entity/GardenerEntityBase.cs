@@ -8,10 +8,8 @@ using Furion.DatabaseAccessor;
 using System.ComponentModel;
 using Gardener.Base.Entity;
 using Furion.DependencyInjection;
-using Gardener.Authentication.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Gardener.Authentication.Dtos;
 
 namespace Gardener.Base
 {

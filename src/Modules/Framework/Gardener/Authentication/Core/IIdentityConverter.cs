@@ -5,18 +5,17 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Gardener.Authentication.Enums;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.Authentication.Core
 {
     /// <summary>
     /// 身份转换器
     /// </summary>
+    /// <remarks>
+    /// 通过转换器将自定义的身份数据转换为系统中的身份数据
+    /// </remarks>
     public interface IIdentityConverter
     {
         /// <summary>
@@ -25,5 +24,12 @@ namespace Gardener.Authentication.Core
         /// <param name="principal"></param>
         /// <returns></returns>
         Identity? ClaimsPrincipalToIdentity(ClaimsPrincipal principal);
+        /// <summary>
+        /// identity生成ClaimsIdentity
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="tokenType"></param>
+        /// <returns></returns>
+        ClaimsIdentity IdentityToClaimsIdentity(Identity identity, JwtTokenType tokenType);
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230426072749_v0.0.1")]
+    [Migration("20230509021752_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -76,6 +76,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<string>("Suffix")
                         .IsRequired()
                         .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -143,6 +146,9 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("LoginId")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -10252,6 +10258,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<int>("OperationType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("TypeName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -10320,6 +10329,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<string>("ResourceName")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -10376,6 +10388,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OriginalValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -10765,6 +10780,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -10896,6 +10914,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -10965,6 +10986,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -11025,6 +11049,9 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
@@ -11586,6 +11613,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<int?>("PositionId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -11761,6 +11791,60 @@ namespace Gardener.Api.Core.Migrations
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
                             UserName = "dongfangcaifu"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Avatar = "./avatars/9.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户1用户1",
+                            Password = "40a693e8e3fad5807e0a9f241752dd2c",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            UserName = "zuhu1_user1"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Avatar = "./avatars/10.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户2用户1",
+                            Password = "093195e5bda467b3c6f791e530bbf996",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            UserName = "zuhu2_user1"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Avatar = "./avatars/11.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户2用户2",
+                            Password = "55ac694faa3b8ca826beb0cea3f2b4c4",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            UserName = "zuhu2_user2"
                         });
                 });
 
@@ -11788,6 +11872,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("QQ")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -11839,6 +11926,9 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");

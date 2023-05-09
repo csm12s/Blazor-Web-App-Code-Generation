@@ -6,7 +6,6 @@
 
 using Furion.DatabaseAccessor;
 using Furion.FriendlyException;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,16 +29,6 @@ namespace Gardener.Base
             {
                 List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
                 temp.IsDeleted = true;
-                if (entity is IModelUpdated temp1)
-                {
-                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
-                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
-                    temp1.UpdatedTime = DateTimeOffset.Now;
-
-                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
-                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
-                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
-                }
                 await repository.UpdateIncludeAsync(entity, includeFields);
             }
             else
@@ -60,16 +49,6 @@ namespace Gardener.Base
             {
                 List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
                 temp.IsDeleted = true;
-                if (entity is IModelUpdated temp1)
-                {
-                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
-                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
-                    temp1.UpdatedTime = DateTimeOffset.Now;
-
-                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
-                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
-                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
-                }
                 await repository.UpdateIncludeNowAsync(entity, includeFields);
             }
             else
@@ -92,16 +71,6 @@ namespace Gardener.Base
             {
                 List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
                 temp.IsDeleted = true;
-                if (entity is IModelUpdated temp1)
-                {
-                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
-                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
-                    temp1.UpdatedTime = DateTimeOffset.Now;
-
-                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
-                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
-                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
-                }
                 await repository.UpdateIncludeAsync(entity, includeFields);
             }
             else
@@ -125,16 +94,6 @@ namespace Gardener.Base
             {
                 List<string> includeFields = new List<string> { nameof(IModelDeleted.IsDeleted) };
                 temp.IsDeleted = true;
-                if (entity is IModelUpdated temp1)
-                {
-                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
-                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
-                    temp1.UpdatedTime = DateTimeOffset.Now;
-
-                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
-                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
-                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
-                }
                 await repository.UpdateIncludeNowAsync(entity, includeFields);
             }
             else

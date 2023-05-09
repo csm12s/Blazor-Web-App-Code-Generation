@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Enums;
+using Gardener.Base;
+using System;
 using System.ComponentModel;
 
 namespace Gardener.Authentication.Dtos
@@ -13,7 +15,7 @@ namespace Gardener.Authentication.Dtos
     /// 身份信息
     /// </summary>
     [Description("身份信息")]
-    public class Identity
+    public class Identity : IModelTenantId
     {
         /// <summary>
         /// 身份唯一编号
@@ -42,6 +44,13 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 租户编号
         /// </summary>
-        public int TenantId { get; set; } = 0;
+        public Guid? TenantId { get; set; }
+        /// <summary>
+        /// 自定义数据
+        /// </summary>
+        ///<remarks>
+        ///可以在登录后放入一些数据（注意不能放入敏感数据，前端能够看到）
+        /// </remarks>
+        public string? CustomData { get; set; }
     }
 }

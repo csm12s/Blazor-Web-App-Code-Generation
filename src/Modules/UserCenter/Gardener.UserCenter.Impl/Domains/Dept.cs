@@ -19,7 +19,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 部门信息
     /// </summary>
     [Description("部门信息")]
-    public class Dept: GardenerEntityBase, IEntityTypeBuilder<Dept>, IEntitySeedData<Dept>
+    public class Dept: GardenerTenantEntityBase, IEntityTypeBuilder<Dept>, IEntitySeedData<Dept>
     {
         /// <summary>
         /// 名称

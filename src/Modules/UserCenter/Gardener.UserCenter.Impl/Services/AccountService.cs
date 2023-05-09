@@ -102,7 +102,8 @@ namespace Gardener.UserCenter.Impl.Services
                 LoginClientType=input.LoginClientType,
                 IdentityType=IdentityType.User,
                 Name=user.UserName,
-                NickName=user.NickName
+                NickName=user.NickName,
+                TenantId=user.TenantId
             };
 
             var token = await _jwtBearerService.CreateToken(identity);

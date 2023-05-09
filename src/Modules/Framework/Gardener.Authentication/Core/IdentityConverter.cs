@@ -40,11 +40,37 @@ namespace Gardener.Authentication.Core
             identity.NickName = principal.FindFirstValue(ClaimTypes.GivenName);
             string? loginClientType = principal.FindFirstValue(AuthKeyConstants.ClientTypeKeyName);
             string? identityType = principal.FindFirstValue(AuthKeyConstants.IdentityType);
+            string? tenantId = principal.FindFirstValue(AuthKeyConstants.TenantId);
+            string? customData = principal.FindFirstValue(AuthKeyConstants.CustomData);
 
             identity.IdentityType = identityType == null ? IdentityType.Unknown : Enum.Parse<IdentityType>(identityType, true);
             identity.LoginClientType = loginClientType == null ? LoginClientType.Unknown : Enum.Parse<LoginClientType>(loginClientType, true);
-
+            identity.TenantId = string.IsNullOrEmpty(tenantId) ? null : Guid.Parse(tenantId);
+            identity.CustomData = customData;
             return identity;
+        }
+        /// <summary>
+        /// identity生成ClaimsIdentity
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="tokenType"></param>
+        /// <returns></returns>
+        public ClaimsIdentity IdentityToClaimsIdentity(Identity identity, JwtTokenType tokenType)
+        {
+            Claim[] claims =
+                {
+                new Claim(ClaimTypes.NameIdentifier, identity.Id),
+                new Claim(ClaimTypes.GivenName, identity.NickName ?? identity.Name),
+                new Claim(ClaimTypes.Name, identity.Name),
+                new Claim(AuthKeyConstants.IdentityType, identity.IdentityType.ToString()),
+                new Claim(AuthKeyConstants.ClientIdKeyName, identity.LoginId),
+                new Claim(AuthKeyConstants.ClientTypeKeyName, identity.LoginClientType.ToString()),
+                new Claim(AuthKeyConstants.TenantId, identity.TenantId?.ToString() ?? string.Empty),
+                new Claim(AuthKeyConstants.CustomData, identity.CustomData ?? string.Empty),
+
+                new Claim(AuthKeyConstants.TokenTypeKey, tokenType.ToString())
+            };
+            return new ClaimsIdentity(claims);
         }
     }
 }

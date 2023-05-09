@@ -83,12 +83,6 @@ namespace Gardener.EntityFramwork
         public virtual async Task<TEntityDto> Insert(TEntityDto input)
         {
             TEntity entity = input.Adapt<TEntity>();
-            if (entity is IModelCreated temp)
-            {
-                temp.CreateBy = IdentityUtil.GetIdentityId();
-                temp.CreateIdentityType = IdentityUtil.GetIdentityType();
-                temp.CreatedTime = DateTimeOffset.Now;
-            }
             var newEntity = await _repository.InsertNowAsync(entity);
             //发送通知
             await EntityEventNotityUtil.NotifyInsertAsync(newEntity.Entity);
@@ -106,18 +100,7 @@ namespace Gardener.EntityFramwork
         public virtual async Task<bool> Update(TEntityDto input)
         {
             TEntity entity = input.Adapt<TEntity>();
-            string[] excludeFields = new string[] { };
-            if (entity is IModelCreated)
-            {
-                excludeFields = new[] { nameof(GardenerEntityBase.CreatedTime), nameof(GardenerEntityBase.CreateBy), nameof(GardenerEntityBase.CreateIdentityType) };
-            }
-            if (entity is IModelUpdated temp)
-            {
-                temp.UpdateBy = IdentityUtil.GetIdentityId();
-                temp.UpdateIdentityType = IdentityUtil.GetIdentityType();
-                temp.UpdatedTime = DateTimeOffset.Now;
-            }
-            EntityEntry<TEntity> entityEntry = await _repository.UpdateExcludeAsync(input.Adapt<TEntity>(), excludeFields);
+            EntityEntry<TEntity> entityEntry = await _repository.UpdateAsync(input.Adapt<TEntity>());
             //发送通知
             await EntityEventNotityUtil.NotifyUpdateAsync(entityEntry.Entity);
             return true;
@@ -284,16 +267,6 @@ namespace Gardener.EntityFramwork
             {
                 List<string> includeFields = new List<string> { nameof(IModelLocked.IsLocked) };
                 temp.IsLocked = isLocked;
-                if (entity is IModelUpdated temp1)
-                {
-                    temp1.UpdateBy = IdentityUtil.GetIdentityId();
-                    temp1.UpdateIdentityType = IdentityUtil.GetIdentityType();
-                    temp1.UpdatedTime = DateTimeOffset.Now;
-
-                    includeFields.Add(nameof(IModelUpdated.UpdateBy));
-                    includeFields.Add(nameof(IModelUpdated.UpdateIdentityType));
-                    includeFields.Add(nameof(IModelUpdated.UpdatedTime));
-                }
                 await _repository.UpdateIncludeAsync(entity, includeFields);
                 await EntityEventNotityUtil.NotifyLockAsync(entity);
                 return true;
