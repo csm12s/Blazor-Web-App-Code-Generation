@@ -4,6 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +16,7 @@ namespace Gardener.Base.Entity
     /// 字典类型
     /// </summary>
     [Description("CodeType")]
-    public class CodeType : GardenerEntityBase
+    public class CodeType : GardenerEntityBase, IEntityTypeBuilder<CodeType>
     {
         /// <summary>
         /// 字典类型名称
@@ -37,5 +40,16 @@ namespace Gardener.Base.Entity
         /// 字典集合
         /// </summary>
         public ICollection<Code> Codes { get; set; }= new List<Code>();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Configure(EntityTypeBuilder<CodeType> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+            entityBuilder.HasIndex(x => x.CodeTypeValue);
+        }
     }
 }
