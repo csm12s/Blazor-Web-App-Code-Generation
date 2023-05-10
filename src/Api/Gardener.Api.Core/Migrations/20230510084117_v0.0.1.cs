@@ -567,10 +567,11 @@ namespace Gardener.Api.Core.Migrations
                 name: "Tenant",
                 columns: table => new
                 {
-                    TenantId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    EmailAddress = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", maxLength: 32, nullable: true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Tel = table.Column<string>(type: "TEXT", maxLength: 32, nullable: true),
+                    Remark = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
                     CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
@@ -582,7 +583,7 @@ namespace Gardener.Api.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenant", x => x.TenantId);
+                    table.PrimaryKey("PK_Tenant", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1019,12 +1020,14 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("06eff7a6-4291-43b0-9c34-58a97aa0fc01"), "1", 1, 1306961911828480480L, "添加一条数据", true, "系统基础服务", false, false, "F53D637DD7CC01612737CC2F878A95AA", 1, "/api/code", "字典管理", "添加", null, null, null },
                     { new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"), null, null, 1306532718346240480L, "根据主键逻辑删除", true, "系统基础服务", false, false, "4A29177C50844829451B9ABBFA5DAFAC", 3, "/api/attachment/fake-delete/{id}", "附件服务", "逻辑删除", null, null, 1306532718346240480L },
                     { new Guid("080dd200-8e8a-489c-86ca-8eb74c417c0b"), null, null, 1306532718346240480L, "根据主键逻辑删除", true, "系统基础服务", false, false, "A20264B6A44D74DBF0C7990CF3FE6DC1", 3, "/api/audit-operation/fake-delete/{id}", "审计操作服务", "逻辑删除", null, null, 1306532718346240480L },
+                    { new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"), "6", 1, 1307019897774080480L, "查找到所有数据", false, "用户中心服务", false, false, "98F7C609E0FDCAC25D70E29A5DCFF83B", 0, "/api/tenant/all", "租户服务", "查询所有", null, null, null },
                     { new Guid("08d002b9-d320-4410-b9f3-7986ed87ece4"), null, null, 1306532718346240480L, "根据主键查找一条数据", false, "系统基础服务", false, false, "DA5651C09F319A1358B9948735712DCF", 0, "/api/audit-operation/{id}", "审计操作服务", "根据主键获取", null, null, 1306532718346240480L },
                     { new Guid("09d15841-71c7-4afc-99f8-dd906a0248d9"), "6", 1, 1306994996674560480L, "根据多个字典类型编号获取所有字典的结果", false, "系统基础服务", false, false, "4B5955C39899A574748AEC9472EAD3DF", 0, "/api/code-type/code-dic-by-values", "字典类型管理", "根据多个字典类型编号获取所有字典的结果", null, null, null },
                     { new Guid("0a0cfc96-79d4-473e-aaef-91ae86c640d3"), "1", 1, 1306782482677760480L, "查找到所有数据", false, "系统基础服务", false, false, "F73EC4D6186B170DD30D0084F7CB1D04", 0, "/api/code-gen/all", "代码生成 - DB First", "查询所有", null, null, null },
                     { new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"), null, null, 1306532718346240480L, "根据主键逻辑删除", true, "用户中心服务", false, false, "02836036DDDF7900E5F5E9762F5E4229", 3, "/api/user/fake-delete/{id}", "用户服务", "逻辑删除", null, null, 1306532718346240480L },
                     { new Guid("0b7a9ed1-86cc-42a6-a260-f7ba33054054"), null, null, 1306532718346240480L, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "FD2CAFBFF34B435DF026315EF4D89CC5", 1, "/api/role/generate-seed-data", "角色服务", "生成种子数据", null, null, 1306532718346240480L },
                     { new Guid("0bc4b901-d9ee-4fac-91c7-e6ea6d6fb852"), "1", 1, 1306961911930880480L, "导出数据", true, "系统基础服务", false, false, "B802BC3519436726D4D39F9D6C8E0F72", 1, "/api/code/export", "字典管理", "导出", null, null, null },
+                    { new Guid("0c1058f6-a425-40fe-bc5e-47fbf91ca7bd"), "6", 1, 1307019897794560480L, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "746BEA6EC665547A8A7166B62497998B", 1, "/api/tenant/generate-seed-data", "租户服务", "生成种子数据", null, null, null },
                     { new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"), null, null, 1306532718346240480L, "更新用户的头像", true, "用户中心服务", false, false, "FEBD6097BE29268FDFDC295C98A9AD9F", 2, "/api/user/avatar", "用户服务", "更新头像", null, null, 1306532718346240480L },
                     { new Guid("0d2df690-6aa7-466b-b1e4-73fa4fda1b5d"), null, null, 1306532718346240480L, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "8AED5C0B53588415D98E97119880AC6A", 2, "/api/dept/{id}/lock/{islocked}", "部门服务", "锁定", null, null, 1306532718346240480L },
                     { new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"), null, null, 1306532718346240480L, "给用户设置角色", true, "用户中心服务", false, false, "A843DEF0CDD97A394996DCF7C5E80F5B", 1, "/api/user/{userid}/role", "用户服务", "设置角色", null, null, 1306532718346240480L },
@@ -1039,7 +1042,9 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("138283bd-f2ee-4b3b-b268-a12185264103"), null, null, 1306532718346240480L, null, true, "系统基础服务", false, false, "715A826DCD331B3155650A79BE0015D8", 3, "/api/image-verify-code/{key}", "图片验证码服务", "移除验证码", null, null, 1306532718346240480L },
                     { new Guid("1562071d-e18c-4d29-a854-12a562961140"), null, null, 1306532718346240480L, "查找到所有数据", false, "用户中心服务", false, false, "9B0AD48E75A6C37EDC7101236F93CF77", 0, "/api/user/all", "用户服务", "查询所有", null, null, 1306532718346240480L },
                     { new Guid("16517409-c055-447b-8e91-7155537c6d15"), null, null, 1306532718346240480L, "添加一条数据", true, "用户中心服务", false, false, "F57997ED31483BE396EB71C98D07B6F5", 1, "/api/role", "角色服务", "添加", null, null, 1306532718346240480L },
+                    { new Guid("17388acc-2ef7-487d-bcef-fe4c6a708ecd"), "6", 1, 1307019897794560480L, "导出数据", true, "用户中心服务", false, false, "9880EDB9BD13EEB5B77C89EFBEE1CDAB", 1, "/api/tenant/export", "租户服务", "导出", null, null, null },
                     { new Guid("17e7dc0d-b36a-48e6-9e5f-645baf674299"), "1", 1, 1306782482493440480L, "根据主键逻辑删除", true, "系统基础服务", false, false, "60BB1B471DADBD43F1A6E69E7233BE6A", 3, "/api/code-gen-config/fake-delete/{id}", "代码生成配置 - DB First", "逻辑删除", null, null, null },
+                    { new Guid("189016af-1473-4107-9d91-67d25f5c4dfd"), "6", 1, 1307019897774080480L, "根据多个主键批量删除", true, "用户中心服务", false, false, "B1885DC2864312A61C6427637A0E7FB4", 1, "/api/tenant/deletes", "租户服务", "批量删除", null, null, null },
                     { new Guid("18f4fc9a-8670-4fcb-a13b-03aec85c673a"), "1", 1, 1306782482452480480L, "save-all", true, "系统基础服务", false, false, "E557654AE20986A0E2E7297D32D66170", 1, "/api/code-gen-config/save-all", "代码生成配置 - DB First", "保存", null, null, null },
                     { new Guid("1adcacf3-33ae-4b36-b5c9-dcd95151ef3a"), "4", 1, 1306984506163200480L, "my-session-messages", false, "通知系统服务", false, false, "4CC387634C5025C3FEE188125B33C9D2", 0, "/api/wo-chat-im/my-session-messages", "Im聊天服务", "获取会话消息列表", null, null, null },
                     { new Guid("1c6dfb26-4149-4fa3-a7de-083ad7ff7d6c"), null, null, 1306532718346240480L, "移除当前用户token", true, "用户中心服务", false, false, "34925D025D1D97104B7A51EF41C393F3", 3, "/api/account/current-user-refresh-token", "用户账户认证授权服务", "移除当前用户token", null, null, 1306532718346240480L },
@@ -1053,6 +1058,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("20b44c15-481f-4bba-8905-3e5f983927b0"), null, null, 1306532718346240480L, "登录接口", true, "用户中心服务", false, false, "6050B0AE0242E8D1D8A6B5B0EAFFA1E0", 1, "/api/client/login", "客户端服务", "登录", null, null, 1306532718346240480L },
                     { new Guid("20b7e3c2-1ab5-4a5e-993e-e5599a583fdd"), null, null, 1306532718346240480L, "添加一条数据", true, "系统基础服务", false, false, "7E91BA4770C4FDF6B865C2D4C7984132", 1, "/api/login-token", "用户登录TOKEN服务", "添加", null, null, 1306532718346240480L },
                     { new Guid("213eb6ca-e125-4181-b5bd-3e5666d3e8c9"), "1", 1, 1306961911910400480L, "搜索数据", false, "系统基础服务", false, false, "874CCECCA57B5B0C884223B9B77FB6CA", 1, "/api/code/search", "字典管理", "搜索", null, null, null },
+                    { new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"), "6", 1, 1307019897753600480L, "根据主键查找一条数据", false, "用户中心服务", false, false, "723A65C5AE34149B05DCF8A128CBC74A", 0, "/api/tenant/{id}", "租户服务", "根据主键获取", null, null, null },
                     { new Guid("2428c3c3-740e-45fc-9047-5a2be3c9cd70"), null, null, 1306532718346240480L, "根据主键删除一条数据", true, "用户中心服务", false, false, "FBAC1FD6280B05C7EAFD6BD24F0DE077", 3, "/api/user/{id}", "用户服务", "删除", null, null, 1306532718346240480L },
                     { new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"), null, null, 1306532718346240480L, "根据主键查找一条数据", false, "用户中心服务", false, false, "213D1BBDB567A74636ACE841D780F663", 0, "/api/dept/{id}", "部门服务", "根据主键获取", null, null, 1306532718346240480L },
                     { new Guid("25bad725-529b-4a67-814a-1a6171a4b6d1"), null, null, 1306532718346240480L, "搜索数据", false, "通知系统服务", false, false, "9AD6BA02957A5D79C763F37FC7350C1F", 1, "/api/announcement/search", "公告服务", "搜索", null, null, null },
@@ -1138,6 +1144,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("63b4ad68-3fc7-46e3-93c3-1a9b87e18a85"), null, null, 1306532718346240480L, "通过刷新token获取新的token", true, "用户中心服务", false, false, "DF709DE63630893E744DA34D950EC7AE", 1, "/api/client/refresh-token", "客户端服务", "刷新Token", null, null, null },
                     { new Guid("63d7208e-45d3-406e-a4a1-c87e3afda04d"), null, null, 1306532718346240480L, "获取种子数据", false, "用户中心服务", false, false, "72B515FB99A1EFE42DEFCFC12954F93D", 0, "/api/role/role-resource-seed-data", "角色服务", "获取种子数据", null, null, 1306532718346240480L },
                     { new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"), null, null, 1306532718346240480L, "根据主键逻辑删除", true, "用户中心服务", false, false, "BB0B0620A9F5665B13ADC8D8C8B8F98A", 3, "/api/position/fake-delete/{id}", "岗位管理服务", "逻辑删除", null, null, 1306532718346240480L },
+                    { new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"), "6", 1, 1307019897794560480L, "搜索数据", false, "用户中心服务", false, false, "5F3F0C211E6008478BC1B6AB08374C4C", 1, "/api/tenant/search", "租户服务", "搜索", null, null, null },
                     { new Guid("68ce42ff-acc7-485f-bc91-df471b520be7"), null, null, 1306532718346240480L, "查看当前用户角色", false, "用户中心服务", false, false, "7F3E99BDC443556613552A21A56D9B73", 0, "/api/account/current-user-roles", "用户账户认证授权服务", "查看用户角色", null, null, 1306532718346240480L },
                     { new Guid("69d12a63-87a3-48bf-b246-86acd30697f2"), "1", 1, 1306961911848960480L, "根据主键删除一条数据", true, "系统基础服务", false, false, "E0B6AFB00AB714406B8E6EB6A1C54C28", 3, "/api/code/{id}", "字典管理", "删除", null, null, null },
                     { new Guid("69f70da1-fb4e-443f-9efe-e3d12cc95eed"), null, null, 1306532718346240480L, "查找到所有数据", false, "用户中心服务", false, false, "88BAC4E29D23BD095207644BB397E5EE", 0, "/api/position/all", "岗位管理服务", "查询所有", null, null, 1306532718346240480L },
@@ -1155,6 +1162,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("724e4ba8-59ff-458a-a940-325f973827d0"), null, null, 1306532718346240480L, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "25F7A33EC2479E4589E5A540765C3DA0", 1, "/api/audit-entity/generate-seed-data", "审计数据服务", "生成种子数据", null, null, 1306532718346240480L },
                     { new Guid("736fd9b6-b56a-4860-8a1c-9a077be886e3"), null, null, 1306532718346240480L, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "系统基础服务", false, false, "18B1E82C7D5150FD3EDC3BB52FB3ACF9", 2, "/api/email-template/{id}/lock/{islocked}", "邮件模板服务", "锁定", null, null, 1306532718346240480L },
                     { new Guid("73cfe63f-3338-4bd0-a0b9-1b9cc39951ea"), null, null, 1306532718346240480L, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "C53E746377386D224D0941DB8F4CB539", 1, "/api/audit-operation/fake-deletes", "审计操作服务", "批量逻辑删除", null, null, 1306532718346240480L },
+                    { new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"), "6", 1, 1307019897753600480L, "更新一条数据", true, "用户中心服务", false, false, "18C3543AD49B3D3CB78C696A636FB1D5", 2, "/api/tenant", "租户服务", "更新", null, null, null },
                     { new Guid("752b1623-8898-431f-ab3f-db9ebffae4e6"), "4", 1, 1306984506142720480L, "im-group-sessions", false, "通知系统服务", false, false, "5DC2499F878F522E4C0DD78321F444DE", 0, "/api/wo-chat-im/im-group-sessions", "Im聊天服务", "获取会话列表", null, null, null },
                     { new Guid("75abfcbe-a00b-444f-baa6-503ae03b3434"), null, null, 1306532718346240480L, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "53151648D7858D9061CC0D89B4EA43F5", 1, "/api/email-template/generate-seed-data", "邮件模板服务", "生成种子数据", null, null, 1306532718346240480L },
                     { new Guid("7a3399b3-6003-4aae-8e24-2e478992630e"), null, null, 1306532718346240480L, "添加一条数据", true, "用户中心服务", false, false, "1EB184263BA127C79364162F4E75E660", 1, "/api/position", "岗位管理服务", "添加", null, null, 1306532718346240480L },
@@ -1172,6 +1180,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("814304bb-22fe-4a33-82e1-8ad7c64bab4a"), null, null, 1306532718346240480L, "获取所有子资源", false, "系统基础服务", false, false, "C5668FD7C42E9FB532AB9CB2E1480E1F", 0, "/api/resource/{id}/children", "资源服务", "获取所有子资源", null, null, 1306532718346240480L },
                     { new Guid("8172d258-7a75-4ced-b5e2-b0be7350aa1f"), null, null, 1306532718346240480L, "添加一条数据", true, "用户中心服务", false, false, "8ECC90D5D58B7FD57A1D06C0F5C4CECA", 1, "/api/client", "客户端服务", "添加", null, null, 1306532718346240480L },
                     { new Guid("81b4bb91-1f42-4043-9acb-dac756ce729b"), null, null, 1306532718346240480L, null, false, "系统基础服务", false, false, "7CD8C319088D7195B2E9C236613DE833", 0, "/api/sys-timer/{id}", "任务调度服务", "获取任务信息", null, null, 1306532718346240480L },
+                    { new Guid("82635595-f7c8-45af-9aaa-534e53e53ff5"), "6", 1, 1307019897753600480L, "根据主键删除一条数据", true, "用户中心服务", false, false, "72760A5FE6E2516D899EF7C88273FEB1", 3, "/api/tenant/{id}", "租户服务", "删除", null, null, null },
                     { new Guid("8267679d-0482-4b2d-81ca-67a555f28b79"), "1", 1, 1306782482616320480L, "generate-code", true, "系统基础服务", false, false, "58F507AB025E3DD861EFE9AF5FAED7D3", 1, "/api/code-gen/generate-code", "代码生成 - DB First", "生成代码", null, null, null },
                     { new Guid("83cc7cb7-dac6-49f2-85fa-e903039f3d0a"), null, null, 1306532718346240480L, "搜索数据", false, "用户中心服务", false, false, "DA7F00498254B5B31B18D7C877F96FB7", 1, "/api/client/search", "客户端服务", "搜索", null, null, 1306532718346240480L },
                     { new Guid("841a3afa-a128-4751-b3b2-b2849da338e1"), null, null, 1306532718346240480L, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "通知系统服务", false, false, "7DAD544022ECAB407CA07965FBDEC6AB", 0, "/api/announcement/all-usable", "公告服务", "查询所有可以用的", null, null, null },
@@ -1188,6 +1197,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"), null, null, 1306532718346240480L, null, false, "示例服务", false, false, "2A74937190C8E652BF107434EFFD1C17", 0, "/api/chat-demo/history", "聊天示例服务", "获取聊天历史记录", null, null, null },
                     { new Guid("8d94c826-ddba-47fe-94c9-333880fee187"), null, null, 1306532718346240480L, "swagger json 文件解析功能", false, "系统基础服务", false, false, "7E9057E559FB68353DCA5D208B7B2A71", 0, "/api/swagger/analysis/{url}", "Swagger服务", "解析api json", null, null, 1306532718346240480L },
                     { new Guid("8d97bc08-7505-4b87-a99d-dc555a28265e"), "1", 1, 1306782482493440480L, "根据多个主键批量逻辑删除", true, "系统基础服务", false, false, "518FA5CE716696F2F9AEC8D3C85D46AE", 1, "/api/code-gen-config/fake-deletes", "代码生成配置 - DB First", "批量逻辑删除", null, null, null },
+                    { new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"), "6", 1, 1307019897753600480L, "添加一条数据", true, "用户中心服务", false, false, "6C437FCA7A65CB18677DEAC79A73AC50", 1, "/api/tenant", "租户服务", "添加", null, null, null },
                     { new Guid("8f0fb7b6-9087-40c3-a894-8be057ac044e"), null, null, 1306532718346240480L, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "A16E0CAA03E75A172F6A782E8BB86ECC", 0, "/api/client/page/{pageindex}/{pagesize}", "客户端服务", "分页查询", null, null, 1306532718346240480L },
                     { new Guid("8f114b96-dc3d-4dd4-854a-4c793c121e43"), null, null, 1306532718346240480L, "根据主键删除一条数据", true, "系统基础服务", false, false, "873AFCBA915D056ED9D8EDA9D23F9061", 3, "/api/login-token/{id}", "用户登录TOKEN服务", "删除", null, null, 1306532718346240480L },
                     { new Guid("8f1c2eeb-248f-41bb-a083-511664f2fd8e"), null, null, 1306532718346240480L, "根据多个主键批量删除", true, "系统基础服务", false, false, "717D6057E652BA28D3BF0CE337180E9E", 1, "/api/function/deletes", "功能服务", "批量删除", null, null, 1306532718346240480L },
@@ -1224,11 +1234,13 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("a4a2536b-1cc6-438c-ba00-054e16fc2c7c"), null, null, 1306532718346240480L, "根据主键删除一条数据", true, "用户中心服务", false, false, "1A6C9AC4F4D71B0FC154AD8CE6FE6D29", 3, "/api/role/{id}", "角色服务", "删除", null, null, 1306532718346240480L },
                     { new Guid("a4e467c5-639c-40bf-a71c-7d3c0d0760e7"), null, null, 1306532718346240480L, "查找到所有数据", false, "通知系统服务", false, false, "54C22639E8EF99A5CEEC744853C5DFCD", 0, "/api/announcement/all", "公告服务", "查询所有", null, null, null },
                     { new Guid("a53a9c89-7968-4598-9c46-dad4e9188bd0"), null, null, 1306532718346240480L, "获取api分组设置", false, "系统基础服务", false, false, "945B6A21E0C00F9BB0F7EEE37C671E3E", 0, "/api/swagger/api-group", "Swagger服务", "获取 swagger 配置", null, null, 1306532718346240480L },
+                    { new Guid("a6939609-708f-4231-a726-6da1903ef69a"), "6", 1, 1307019897774080480L, "根据主键逻辑删除", true, "用户中心服务", false, false, "03522FF7125C61C2E7C1BD96FEA4E64C", 3, "/api/tenant/fake-delete/{id}", "租户服务", "逻辑删除", null, null, null },
                     { new Guid("a6db8946-339f-423e-8641-902da36d3d39"), null, null, 1306532718346240480L, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "071E85AC46B630CFCC89C5EAF1E23F68", 1, "/api/user/generate-seed-data", "用户服务", "生成种子数据", null, null, 1306532718346240480L },
                     { new Guid("a75bd9a7-e3f0-4736-9c27-8763a3d3768b"), null, null, 1306532718346240480L, "更新一条数据", true, "系统基础服务", false, false, "7037CCD6F97FA35692ED560CE1756F86", 2, "/api/audit-operation", "审计操作服务", "更新", null, null, 1306532718346240480L },
                     { new Guid("a7f5ae02-cff0-4281-a153-145e612fb1ca"), "1", 1, 1306782482595840480L, "table-list", false, "系统基础服务", false, false, "DDC76CDC58280006E86B2F5354E71058", 0, "/api/code-gen/table-list", "代码生成 - DB First", "获取表列表", null, null, null },
                     { new Guid("a8211f75-bf19-459a-bf66-9c31c6f334aa"), null, null, 1306532718346240480L, "根据多个主键批量删除", true, "系统基础服务", false, false, "1C8C95EA831A3D031460A1390DF26E83", 1, "/api/audit-operation/deletes", "审计操作服务", "批量删除", null, null, 1306532718346240480L },
                     { new Guid("a96bb19e-794e-4fe0-ad39-f423df44f633"), null, null, 1306532718346240480L, null, false, "用户中心服务", false, false, "6A85EF9D6FBD3B330E1827AB0949D7E4", 0, "/api/dept/tree", "部门服务", "获取所有部门数据，以树形结构返回", null, null, 1306532718346240480L },
+                    { new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"), "6", 1, 1307019897774080480L, "根据主键锁定或解锁数据（必须有IsLock才能生效）", true, "用户中心服务", false, false, "6A181466880BA2B3A8B0BC66906ACA90", 2, "/api/tenant/{id}/lock/{islocked}", "租户服务", "锁定", null, null, null },
                     { new Guid("aa7a6284-4351-4853-b066-4ea925fe36cc"), "1", 1, 1306782482595840480L, "code-gen", true, "系统基础服务", false, false, "2D20CFA2D1B0C847C2F9AA33215EA872", 1, "/api/code-gen", "代码生成 - DB First", "添加配置", null, null, null },
                     { new Guid("aad857df-a1e7-43cb-be82-55c60865da86"), null, null, 1306532718346240480L, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "5F7047AD7EC090D04B2AF8C4847678A8", 0, "/api/email-template/all-usable", "邮件模板服务", "查询所有可以用的", null, null, 1306532718346240480L },
                     { new Guid("ab562cb0-7919-4b26-836a-f5865c1ddf63"), "1", 1, 1306782482677760480L, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "系统基础服务", false, false, "0034E714497B05DB3FA37E8D28D730A1", 0, "/api/code-gen/all-usable", "代码生成 - DB First", "查询所有可以用的", null, null, null },
@@ -1270,9 +1282,11 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("c96dd7f7-f935-4499-8ef5-6d39fe26141a"), null, null, 1306532718346240480L, "登录接口", true, "用户中心服务", false, false, "B6792454A69F875EEC82455D02BB3AAA", 1, "/api/account/login", "用户账户认证授权服务", "登录", null, null, 1306532718346240480L },
                     { new Guid("c9cf322b-5228-4ea9-b40d-64534db5d292"), "1", 1, 1306782482472960480L, "更新一条数据", true, "系统基础服务", false, false, "99C5D9DAADE9FF4039861475A7C4E7D8", 2, "/api/code-gen-config", "代码生成配置 - DB First", "更新", null, null, null },
                     { new Guid("ca62cf90-fcfd-40aa-bd06-30afc7c6dd9f"), null, null, 1306532718346240480L, "根据搜索条叫生成种子数据", true, "系统基础服务", false, false, "2F1D00EDA3F9BA770FC2D6E15892FBB4", 1, "/api/audit-operation/generate-seed-data", "审计操作服务", "生成种子数据", null, null, 1306532718346240480L },
+                    { new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"), "6", 1, 1307019897774080480L, "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)", false, "用户中心服务", false, false, "7759AEBBAB92B29DD030D2D38CC6C2BC", 0, "/api/tenant/all-usable", "租户服务", "查询所有可以用的", null, null, null },
                     { new Guid("cb9f6387-5817-4fd6-b9eb-6553dcaf5e87"), null, null, 1306532718346240480L, "查找到所有数据", false, "用户中心服务", false, false, "8D8980AD32B8E49FB140F9DCE14B897C", 0, "/api/role/all", "角色服务", "查询所有", null, null, 1306532718346240480L },
                     { new Guid("cba739f0-9f8a-40c2-afff-d66c3382e096"), null, null, 1306532718346240480L, "根据主键查找一条数据", false, "用户中心服务", false, false, "CC8DA87E574A106E9B14287FEC850037", 0, "/api/role/{id}", "角色服务", "根据主键获取", null, null, 1306532718346240480L },
                     { new Guid("cbc8aff4-6dc0-41f2-b684-caba8e0657ac"), null, null, 1306532718346240480L, "搜索用户数据", true, "用户中心服务", false, false, "04608E487B494D4597BBAD83DF59D2FF", 1, "/api/user/search", "用户服务", "搜索", null, null, 1306532718346240480L },
+                    { new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"), "6", 1, 1307019897774080480L, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "CB0773C970DC23647D09D3D9A51DA5F3", 1, "/api/tenant/fake-deletes", "租户服务", "批量逻辑删除", null, null, null },
                     { new Guid("cc73d556-6ded-4a2a-8b5c-62ea9c897351"), null, null, 1306532718346240480L, "根据多个主键批量逻辑删除", true, "用户中心服务", false, false, "1DC4817A750A7C248B15EA766BDD53C8", 1, "/api/client/fake-deletes", "客户端服务", "批量逻辑删除", null, null, 1306532718346240480L },
                     { new Guid("cd1b93ed-2fae-47f2-83b2-e9b0a949f476"), "1", 1, 1306552940953600480L, "导出数据", true, "系统基础服务", false, false, "91D755377D8744A976836037290BB199", 1, "/api/login-token/export", "用户登录TOKEN服务", "导出", null, null, null },
                     { new Guid("cd7db809-50f5-4bf3-a464-89218e24077f"), null, null, 1306532718346240480L, "获取角色所有资源", false, "用户中心服务", false, false, "011A2E3F574F9C151E044EFA80A05F29", 0, "/api/role/{roleid}/resource", "角色服务", "获取角色所有资源", null, null, 1306532718346240480L },
@@ -1299,6 +1313,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("e2bb65e0-5d9e-485e-9059-8148fc236246"), null, null, 1306532718346240480L, "获取当前用户的所有菜单", false, "用户中心服务", false, false, "3317F3470BD4CCECEB26F73F6551D9D6", 0, "/api/account/current-user-menus", "用户账户认证授权服务", "获取当前用户的所有菜单", null, null, 1306532718346240480L },
                     { new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"), null, null, 1306532718346240480L, "查询所有资源 按树形结构返回", false, "系统基础服务", false, false, "6AFF14D9D209CDEEFFC0E4872E060F42", 0, "/api/resource/tree", "资源服务", "查询所有资源", null, null, 1306532718346240480L },
                     { new Guid("e466c648-4dc5-4ca4-b8f9-826c51b2a462"), null, null, 1306532718346240480L, null, true, "系统基础服务", false, false, "1113744E52468C0ED06582D699F77B87", 1, "/api/email-verify-code/verify", "邮件验证码服务", "验证验证码", null, null, 1306532718346240480L },
+                    { new Guid("e5669b2a-a097-46c4-b5ed-aadff087cbae"), "6", 1, 1307019897774080480L, "根据分页参数，分页获取数据", false, "用户中心服务", false, false, "44CA7D257E0C34AD9066BBF6E6619523", 0, "/api/tenant/page/{pageindex}/{pagesize}", "租户服务", "分页查询", null, null, null },
                     { new Guid("e651d9a4-9d6d-44c7-a833-08da6ed19892"), null, null, 1306532718346240480L, "搜索数据", false, "系统基础服务", false, false, "860A62FFC20FAAAE60E760D4305104DF", 1, "/api/login-token/search", "用户登录TOKEN服务", "搜索", null, null, 1306532718346240480L },
                     { new Guid("e7e8c401-2ff1-45ee-adfd-cebe90117575"), null, null, 1306532718346240480L, "根据主键逻辑删除", true, "系统基础服务", false, false, "FEB756C21615385FC3C747ACB240DC2D", 3, "/api/resource/fake-delete/{id}", "资源服务", "逻辑删除", null, null, 1306532718346240480L },
                     { new Guid("e81c2cc3-b2cb-4515-a5bb-b5ef3caa5050"), null, null, 1306532718346240480L, "根据搜索条叫生成种子数据", true, "用户中心服务", false, false, "80E175A5D68598258AE3022F6CD323F0", 1, "/api/client/generate-seed-data", "客户端服务", "生成种子数据", null, null, null },
@@ -1372,6 +1387,15 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Tenant",
+                columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Email", "IsDeleted", "IsLocked", "Name", "Remark", "Tel", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
+                values: new object[,]
+                {
+                    { new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"), null, null, 1305892579553280000L, "gardener@163.com", false, false, "租户1", "预设数据。", "400-888-8888", null, null, null },
+                    { new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"), null, null, 1305892579553280000L, "gardener@163.com", false, false, "租户2", "预设数据。", "400-888-8888", null, null, null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Code",
                 columns: new[] { "Id", "CodeName", "CodeTypeId", "CodeValue", "Color", "CreateBy", "CreateIdentityType", "CreatedTime", "ExtendParams", "IsDeleted", "IsLocked", "Order", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
@@ -1415,7 +1439,7 @@ namespace Gardener.Api.Core.Migrations
             migrationBuilder.InsertData(
                 table: "RoleResource",
                 columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "TenantId", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
-                values: new object[] { new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null });
+                values: new object[] { new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "Resource",
@@ -1435,7 +1459,8 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), null, 0, 1306051389542400480L, "file", false, false, "system_manager_attachment", "附件管理", 50, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/attachment", "附件管理", 1000, null, null, null },
                     { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), null, 0, 1306051389542400480L, "cloud-server", false, false, "system_manager_client", "客户端管理", 45, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/client", "客户端管理", 1000, null, null, null },
                     { new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "1", 1, 1306964577628160480L, "tags", false, false, "system_manager_code_manager", "字典管理", 90, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), null, null, 1000, "1", 1, 1306964582297600480L },
-                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), null, 0, 1306051389542400480L, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/login-token", "", 1000, null, null, null }
+                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), null, 0, 1306051389542400480L, "idcard", false, false, "system_manager_login_token", "登录管理", 70, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/login-token", "", 1000, null, null, null },
+                    { new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), "6", 1, 1307019908341760480L, "deployment-unit", false, false, "user_center_tenant", "租户管理", 0, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/tenant", null, 1000, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1474,11 +1499,12 @@ namespace Gardener.Api.Core.Migrations
                 columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "TenantId", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null }
+                    { new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1506,6 +1532,7 @@ namespace Gardener.Api.Core.Migrations
                 values: new object[,]
                 {
                     { new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"), null, 0, 1306051389542400480L, "", false, false, "user_center_dept_add_children", "添加子级部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", 2000, null, null, null },
+                    { new Guid("07af05b1-6f3e-49fa-9959-463e246346df"), "6", 1, 1307019922186240480L, null, false, false, "user_center_tenant_detail", "查看租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, "6", 1, 1307019929804800480L },
                     { new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"), null, 0, 1306051389542400480L, "", false, false, "system_manager_resource_delete_selected", "删除选中", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "删除选中", 2000, null, null, null },
                     { new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_edit", "编辑用户", 4, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null, null, null },
                     { new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"), null, 0, 1306051389542400480L, "", false, false, "system_manager_login_token_lock", "锁定登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", 2000, null, null, null },
@@ -1529,6 +1556,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"), "1", 1, 1306552948224000480L, null, false, false, "system_manager_function_export", "导出接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), null, "导出接口", 2000, null, null, null },
                     { new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_role_edit", "用户分配角色", 5, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null, null, null },
                     { new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_delete_selected", "删除选中用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "删除选中", 2000, null, null, null },
+                    { new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"), "6", 1, 1307019916656640480L, null, false, false, "user_center_tenant_lock", "锁定租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, null, null, null },
                     { new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), null, 0, 1306051389542400480L, "", false, false, "user_center_position_delete", "删除岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null, null, null },
                     { new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), null, 0, 1306051389542400480L, "", false, false, "system_manager_function_edit", "编辑接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null, null, null },
                     { new Guid("51991266-0a62-4f8b-ab7a-3bdc48595ea0"), "1", 1, 1306547310182400480L, null, false, false, "system_manager_timer_stop", "停止调度", 0, new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"), null, null, 2000, null, null, null },
@@ -1545,6 +1573,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("87377abe-785d-426c-b052-f706a2c7173d"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_lock", "锁定用户", 7, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null, null, null },
                     { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), null, 0, 1306051389542400480L, "", false, false, "system_manager_client_detail", "查看客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "查看客户端", 2000, null, null, null },
                     { new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"), null, 0, 1306051389542400480L, "", false, false, "system_manager_resource_add", "添加资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "添加资源", 2000, null, null, null },
+                    { new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"), "6", 1, 1307019914690560480L, null, false, false, "user_center_tenant_refresh", "刷新租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, "6", 1, 1307019926507520480L },
                     { new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), null, 0, 1306051389542400480L, "copy", false, false, "system_manager_email_temaplate", "邮件模板", 20, new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), "/system_manager/email_temaplate", "邮件模板", 1000, null, null, null },
                     { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), null, 0, 1306051389542400480L, "", false, false, "system_manager_function_detail", "查看接口详情", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口详情", 2000, null, null, null },
                     { new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"), null, 0, 1306051389542400480L, "", false, false, "system_manager_client_edit", "编辑客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "编辑客户端", 2000, null, null, null },
@@ -1559,6 +1588,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("a7a949b0-ca8e-47a1-a5be-ce0fa3c501e6"), null, 0, 1306051389542400480L, "", false, false, "system_manager_client_delete_selected", "删除选中客户端", 0, new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), "", "删除选中客户端", 2000, null, null, null },
                     { new Guid("a8a4b47a-7bdc-4b03-8c46-d3cd240ae8c9"), "1", 1, 1306547306577920480L, null, false, false, "system_manager_timer_delete_selected", "删除选中调度", 0, new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"), null, "删除选中调度", 2000, null, null, null },
                     { new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"), null, 0, 1306051389542400480L, "", false, false, "system_manager_function_delete", "删除接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null, null, null },
+                    { new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"), "6", 1, 1307019920977920480L, null, false, false, "user_center_tenant_edit", "编辑租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, null, null, null },
                     { new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), null, 0, 1306051389542400480L, "", false, false, "user_center_dept_detail", "查看部门详情", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "查看部门详情", 2000, null, null, null },
                     { new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"), null, 0, 1306051389542400480L, "", false, false, "user_center_role_lock", "锁定角色", 7, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null, null, null },
                     { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), null, 0, 1306051389542400480L, "", false, false, "system_manager_audit_operation", "操作审计", 1, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-operation", "操作审计", 1000, null, null, null },
@@ -1571,9 +1601,11 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"), null, 0, 1306051389542400480L, "", false, false, "system_manager_function_download_seed_data", "查看接口种子数据", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "查看接口种子数据", 2000, null, null, null },
                     { new Guid("d0d6f112-73a4-44ba-82a4-a3ad8bdb6978"), "1", 1, 1306547311431680480L, null, false, false, "system_manager_timer_refresh", "刷新调度列表", 0, new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"), null, null, 2000, null, null, null },
                     { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), null, 0, 1306051389542400480L, "", false, false, "system_manager_audit_entity", "数据审计", 2, new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), "/system_manager/audit-entity", "数据审计", 1000, null, null, null },
+                    { new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"), "6", 1, 1307019913543680480L, null, false, false, "user_center_tenant_add", "添加租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, null, null, null },
                     { new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_delete", "删除用户", 1, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null, null, null },
                     { new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), "1", 1, 1306961904844800480L, null, false, false, "system_manager_code", "字典", 20, new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), "/system_manager/code_list", "字典管理", 1000, "2", 1, 1306966617108480480L },
                     { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), null, 0, 1306051389542400480L, "", false, false, "system_manager_resource_detail", "查看资源", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "查看资源", 2000, null, null, null },
+                    { new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"), "6", 1, 1307019930869760480L, null, false, false, "user_center_tenant_delete", "删除租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, null, null, null },
                     { new Guid("d982a072-4681-45d9-8489-7a14218adb04"), null, 0, 1306051389542400480L, "", false, false, "user_center_role_delete", "删除角色", 1, new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), "", "", 2000, null, null, null },
                     { new Guid("d998802f-776e-4137-bc63-d8d818464f98"), null, 0, 1306051389542400480L, "null", false, false, "system_manager_attachment_delete_selected", "删除选中附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "null", "删除选中附件", 2000, null, null, null },
                     { new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"), null, 0, 1306051389542400480L, "", false, false, "user_center_dept_delete", "删除部门", 0, new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), "", "", 2000, null, null, null },
@@ -1583,6 +1615,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), null, 0, 1306051389542400480L, "", false, false, "system_manager_resource_show_function", "关联资源接口", 0, new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), "", "", 2000, null, null, null },
                     { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_refresh", "刷新用户", 3, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null, null, null },
                     { new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_list_edit_avatar", "编辑用户头像-列表中", 8, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "编辑用户头像-列表中", 2000, null, null, null },
+                    { new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"), "6", 1, 1307019911249920480L, null, false, false, "user_center_tenant_delete_selected", "删除选中租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, null, null, null },
                     { new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"), null, 0, 1306051389542400480L, "", false, false, "system_manager_attachment_delete", "删除附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", 2000, null, null, null },
                     { new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), null, 0, 1306051389542400480L, "", false, false, "system_manager_login_token_delete_selected", "删除选中登录Token", 0, new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), "", "", 2000, null, null, null },
                     { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), null, 0, 1306051389542400480L, "", false, false, "system_manager_attachment_refresh", "刷新附件", 0, new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), "", "", 2000, null, null, null },
@@ -1612,18 +1645,19 @@ namespace Gardener.Api.Core.Migrations
                 columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "TenantId", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null }
+                    { new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1715,6 +1749,7 @@ namespace Gardener.Api.Core.Migrations
                 values: new object[,]
                 {
                     { new Guid("f5c318f6-9230-475a-830e-a404e17506b5"), new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"), 1306069130997760480L },
+                    { new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"), new Guid("07af05b1-6f3e-49fa-9959-463e246346df"), 1307019923640320480L },
                     { new Guid("7f0d7abb-06a4-4a35-b4e3-7798b21e37fa"), new Guid("08ae2764-e551-45d2-9da7-49648481a8e0"), 1306069130997760480L },
                     { new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"), new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"), 1306069130997760480L },
                     { new Guid("f59833a1-c9af-4bb2-be4b-d6935513fc99"), new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"), 1306550925844480480L },
@@ -1744,6 +1779,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"), new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), 1306069130997760480L },
                     { new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"), new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), 1306069130997760480L },
                     { new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"), new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), 1306069130997760480L },
+                    { new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"), new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"), 1307019918479360480L },
                     { new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"), new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), 1306069130997760480L },
                     { new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"), new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), 1306069130997760480L },
                     { new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"), new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), 1306069130997760480L },
@@ -1768,6 +1804,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("04ad3c68-6e35-4175-a8ff-564d4bf51e91"), new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"), 1306069130997760480L },
                     { new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"), new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"), 1306069130997760480L },
                     { new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"), new Guid("8ab307de-ad4b-462f-b61d-7f1d53b82f3d"), 1306069130997760480L },
+                    { new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"), new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"), 1307019915325440480L },
                     { new Guid("b952b41e-b3e9-4c53-9a7d-6b561acf4bc4"), new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), 1306069130997760480L },
                     { new Guid("cecdfb7d-6796-4bd8-a3d7-164c16a7c959"), new Guid("92ed8299-ff26-4fae-b852-fe33f0c01a09"), 1306069130997760480L },
                     { new Guid("5eb48cf2-6c45-47c2-a68b-84284a389c69"), new Guid("97a7d440-b7fe-4af6-a8a1-18846c48828b"), 1306069130997760480L },
@@ -1780,6 +1817,8 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("99c24403-1417-4c04-b1ef-0c17243215e0"), new Guid("a8a4b47a-7bdc-4b03-8c46-d3cd240ae8c9"), 1306547367157760480L },
                     { new Guid("b2ffcf41-7c74-4815-a367-d55c9a536b22"), new Guid("a8a4b47a-7bdc-4b03-8c46-d3cd240ae8c9"), 1306547369553920480L },
                     { new Guid("4b57474a-88b4-4393-bb49-4b59e8c3c41d"), new Guid("b100a7eb-ef44-4669-bac5-3c5ce52871bb"), 1306069130997760480L },
+                    { new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"), new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"), 1307019923087360480L },
+                    { new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"), new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"), 1307019921326080480L },
                     { new Guid("2502e6ae-879b-4674-a557-cd7b4de891a7"), new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), 1306069130997760480L },
                     { new Guid("868fc0df-7cdf-4b56-873e-16dd3e0aa528"), new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"), 1306069130997760480L },
                     { new Guid("db76ae46-851b-47bc-94be-b2e869043636"), new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), 1306069130997760480L },
@@ -1794,9 +1833,11 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("c4cc2526-8403-4e6c-a88b-94e55279eaa3"), new Guid("cc8a9836-3c4d-4d0b-ae64-a31a6bb36b6f"), 1306547596206080480L },
                     { new Guid("a2504e15-4b43-4a6a-bc1a-9c06effa672c"), new Guid("d0d6f112-73a4-44ba-82a4-a3ad8bdb6978"), 1306547370987520480L },
                     { new Guid("7fa014c4-08db-4f96-8132-2bf3db32b256"), new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), 1306069130997760480L },
+                    { new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"), new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"), 1307019913953280480L },
                     { new Guid("0b605fe1-c77c-4735-8320-b8f400163ac9"), new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"), 1306069130997760480L },
                     { new Guid("10fc92a8-30ed-4536-a995-c7af8e5548a1"), new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 1306069130997760480L },
                     { new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"), new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 1306069130997760480L },
+                    { new Guid("a6939609-708f-4231-a726-6da1903ef69a"), new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"), 1307019931443200480L },
                     { new Guid("2c3ec3c9-76c7-4d29-953f-e7430f22577b"), new Guid("d982a072-4681-45d9-8489-7a14218adb04"), 1306069130997760480L },
                     { new Guid("10190ac3-1092-49a9-8ad2-313454b40447"), new Guid("d998802f-776e-4137-bc63-d8d818464f98"), 1306069130997760480L },
                     { new Guid("337bae83-a083-4e0e-8ceb-2bb21ae22145"), new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"), 1306069130997760480L },
@@ -1808,6 +1849,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("3e2f4464-6b69-4a00-acfb-d39184729cdd"), new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), 1306069130997760480L },
                     { new Guid("0367ad11-0be0-48dd-a5a9-1d473b78c0bf"), new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"), 1306069130997760480L },
                     { new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"), new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"), 1306069130997760480L },
+                    { new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"), new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"), 1307019912355840480L },
                     { new Guid("070ae0e4-0193-4ce0-8ba6-b8c344086ced"), new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"), 1306069130997760480L },
                     { new Guid("040878a9-1b78-494e-9ee1-b4a7eab118fb"), new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), 1306550928138240480L },
                     { new Guid("6dc1a088-15f6-43b8-8465-3a95cc495bab"), new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"), 1306550928138240480L },
@@ -1821,32 +1863,34 @@ namespace Gardener.Api.Core.Migrations
                 columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "TenantId", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null }
+                    { new Guid("07af05b1-6f3e-49fa-9959-463e246346df"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("2c1c895c-6434-4f14-91f2-144e48457101"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("b63d694e-205f-44c0-8353-0c9507f44696"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("f1649263-ef9a-4f42-85ac-16009283efff"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1920,22 +1964,22 @@ namespace Gardener.Api.Core.Migrations
                 columns: new[] { "ResourceId", "RoleId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "TenantId", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("36a4434a-f702-42be-a211-862d0b3b5288"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("86a086a1-0770-4df4-ade3-433ff7226399"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null },
-                    { new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"), 2, null, null, 1306983983841280000L, false, false, null, null, null, null }
+                    { new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("36a4434a-f702-42be-a211-862d0b3b5288"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("86a086a1-0770-4df4-ade3-433ff7226399"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null },
+                    { new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"), 2, null, null, 1307019360624640000L, false, false, null, null, null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1959,9 +2003,29 @@ namespace Gardener.Api.Core.Migrations
                 column: "CodeTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CodeType_CodeTypeValue",
+                table: "CodeType",
+                column: "CodeTypeValue");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Dept_ParentId",
                 table: "Dept",
                 column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Function_Key",
+                table: "Function",
+                column: "Key");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Function_Path_Method",
+                table: "Function",
+                columns: new[] { "Path", "Method" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resource_Key",
+                table: "Resource",
+                column: "Key");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Resource_ParentId",

@@ -420,6 +420,8 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CodeTypeValue");
+
                     b.ToTable("CodeType");
 
                     b.HasData(
@@ -730,6 +732,10 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Key");
+
+                    b.HasIndex("Path", "Method");
 
                     b.ToTable("Function");
 
@@ -5845,6 +5851,244 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("17388acc-2ef7-487d-bcef-fe4c6a708ecd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897794560480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9880EDB9BD13EEB5B77C89EFBEE1CDAB",
+                            Method = 1,
+                            Path = "/api/tenant/export",
+                            Service = "租户服务",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("0c1058f6-a425-40fe-bc5e-47fbf91ca7bd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897794560480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "746BEA6EC665547A8A7166B62497998B",
+                            Method = 1,
+                            Path = "/api/tenant/generate-seed-data",
+                            Service = "租户服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897794560480L,
+                            Description = "搜索数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5F3F0C211E6008478BC1B6AB08374C4C",
+                            Method = 1,
+                            Path = "/api/tenant/search",
+                            Service = "租户服务",
+                            Summary = "搜索"
+                        },
+                        new
+                        {
+                            Id = new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6A181466880BA2B3A8B0BC66906ACA90",
+                            Method = 2,
+                            Path = "/api/tenant/{id}/lock/{islocked}",
+                            Service = "租户服务",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("e5669b2a-a097-46c4-b5ed-aadff087cbae"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "44CA7D257E0C34AD9066BBF6E6619523",
+                            Method = 0,
+                            Path = "/api/tenant/page/{pageindex}/{pagesize}",
+                            Service = "租户服务",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7759AEBBAB92B29DD030D2D38CC6C2BC",
+                            Method = 0,
+                            Path = "/api/tenant/all-usable",
+                            Service = "租户服务",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "98F7C609E0FDCAC25D70E29A5DCFF83B",
+                            Method = 0,
+                            Path = "/api/tenant/all",
+                            Service = "租户服务",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CB0773C970DC23647D09D3D9A51DA5F3",
+                            Method = 1,
+                            Path = "/api/tenant/fake-deletes",
+                            Service = "租户服务",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("a6939609-708f-4231-a726-6da1903ef69a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "03522FF7125C61C2E7C1BD96FEA4E64C",
+                            Method = 3,
+                            Path = "/api/tenant/fake-delete/{id}",
+                            Service = "租户服务",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("189016af-1473-4107-9d91-67d25f5c4dfd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B1885DC2864312A61C6427637A0E7FB4",
+                            Method = 1,
+                            Path = "/api/tenant/deletes",
+                            Service = "租户服务",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "723A65C5AE34149B05DCF8A128CBC74A",
+                            Method = 0,
+                            Path = "/api/tenant/{id}",
+                            Service = "租户服务",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("82635595-f7c8-45af-9aaa-534e53e53ff5"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "72760A5FE6E2516D899EF7C88273FEB1",
+                            Method = 3,
+                            Path = "/api/tenant/{id}",
+                            Service = "租户服务",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "18C3543AD49B3D3CB78C696A636FB1D5",
+                            Method = 2,
+                            Path = "/api/tenant",
+                            Service = "租户服务",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6C437FCA7A65CB18677DEAC79A73AC50",
+                            Method = 1,
+                            Path = "/api/tenant",
+                            Service = "租户服务",
+                            Summary = "添加"
+                        },
+                        new
+                        {
                             Id = new Guid("3896ea42-a5ed-4bc5-8dc5-21e0e5adb2fa"),
                             CreatedTime = 1306532718346240480L,
                             EnableAudit = true,
@@ -6150,6 +6394,8 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Key");
 
                     b.HasIndex("ParentId");
 
@@ -8496,6 +8742,126 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019908341760480L,
+                            Icon = "deployment-unit",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant",
+                            Name = "租户管理",
+                            Order = 0,
+                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            Path = "/user_center/tenant",
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019913543680480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_add",
+                            Name = "添加租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019930869760480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_delete",
+                            Name = "删除租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019911249920480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_delete_selected",
+                            Name = "删除选中租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019922186240480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_detail",
+                            Name = "查看租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307019929804800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019920977920480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_edit",
+                            Name = "编辑租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019916656640480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_lock",
+                            Name = "锁定租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019914690560480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_refresh",
+                            Name = "刷新租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307019926507520480L
+                        },
+                        new
+                        {
                             Id = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306546809856000480L,
@@ -9715,6 +10081,54 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
                             FunctionId = new Guid("38c69230-1ed0-413e-9ae6-05bc1ef989e0"),
                             CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307019923640320480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
+                            FunctionId = new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"),
+                            CreatedTime = 1307019918479360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            FunctionId = new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"),
+                            CreatedTime = 1307019915325440480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307019923087360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            FunctionId = new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"),
+                            CreatedTime = 1307019921326080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
+                            FunctionId = new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"),
+                            CreatedTime = 1307019913953280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
+                            FunctionId = new Guid("a6939609-708f-4231-a726-6da1903ef69a"),
+                            CreatedTime = 1307019931443200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
+                            FunctionId = new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"),
+                            CreatedTime = 1307019912355840480L
                         },
                         new
                         {
@@ -11070,7 +11484,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11078,7 +11500,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11086,7 +11508,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11094,7 +11516,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11102,7 +11524,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11110,7 +11532,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11118,7 +11540,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11126,7 +11548,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11134,7 +11556,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11142,7 +11564,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11150,7 +11572,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11158,7 +11580,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11166,7 +11588,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11174,7 +11596,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11182,7 +11604,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11190,7 +11612,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11198,7 +11620,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11206,7 +11628,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11214,7 +11636,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11222,7 +11644,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11230,7 +11652,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11238,7 +11660,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11246,7 +11668,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11254,7 +11676,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11262,7 +11684,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11270,7 +11692,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11278,7 +11700,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11286,7 +11708,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11294,7 +11716,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11302,7 +11724,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11310,7 +11740,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11318,7 +11756,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11326,7 +11764,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11334,7 +11772,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11342,7 +11780,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11350,7 +11788,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11358,7 +11796,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11366,7 +11804,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11374,7 +11812,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11382,7 +11820,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11390,7 +11828,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11398,7 +11836,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11406,7 +11844,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11414,7 +11852,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11422,7 +11860,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11430,7 +11868,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11438,7 +11876,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11446,7 +11884,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11454,7 +11892,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11462,7 +11900,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11470,7 +11908,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11478,7 +11916,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11486,7 +11924,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11494,7 +11932,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11502,7 +11940,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11510,7 +11948,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11518,7 +11956,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11526,7 +11964,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11534,7 +11972,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11542,7 +11980,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640000L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
                         });
@@ -11550,7 +11996,7 @@ namespace Gardener.Api.Core.Migrations
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Tenant", b =>
                 {
-                    b.Property<Guid>("TenantId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
@@ -11563,7 +12009,7 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long>("CreatedTime")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("EmailAddress")
+                    b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
@@ -11575,9 +12021,14 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
                         .HasMaxLength(32)
                         .HasColumnType("TEXT");
 
@@ -11590,9 +12041,33 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<long?>("UpdatedTime")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("TenantId");
+                    b.HasKey("Id");
 
                     b.ToTable("Tenant");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户1",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        },
+                        new
+                        {
+                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户2",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        });
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.User", b =>

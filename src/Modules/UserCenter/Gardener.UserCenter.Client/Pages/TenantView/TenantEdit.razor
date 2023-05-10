@@ -1,0 +1,49 @@
+﻿@inherits EditOperationDialogBase<TenantDto, Guid, UserCenterResource>
+<Form Loading="@_dialogLoading.Value"
+      Model="@_editModel"
+      LabelCol="new ColLayoutParam { Span = 8 }"
+      WrapperCol="new ColLayoutParam { Span = 16 }"
+      OnFinish="OnFormFinish"
+      Context="model">
+    <FormItem Label="@Localizer[UserCenterResource.Name]">
+        <Input @bind-Value="@model.Name" />
+    </FormItem>
+    <FormItem Label="@Localizer[UserCenterResource.Email]">
+        <Input @bind-Value="@model.Email" />
+    </FormItem>
+    <FormItem Label="@Localizer[UserCenterResource.Tel]">
+        <Input @bind-Value="@model.Tel" />
+    </FormItem>
+    <FormItem Label="@Localizer[UserCenterResource.Remark]">
+        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
+    </FormItem>
+    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+        <Switch @bind-Value="@model.IsLocked"></Switch>
+    </FormItem>
+    @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
+    {
+        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+            <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+        <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
+            <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
+        </FormItem>
+    }
+    <FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Space>
+            @if (!OperationDialogInputType.Select.Equals(this.Options.Type))
+            {
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        @Localizer[SharedLocalResource.Save]
+                    </Button>
+                </SpaceItem>
+            }
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    @Localizer[SharedLocalResource.Cancel]
+                </Button>
+            </SpaceItem>
+        </Space>
+    </FormItem>
+</Form>
