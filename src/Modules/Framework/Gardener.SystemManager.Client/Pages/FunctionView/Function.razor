@@ -67,10 +67,8 @@
             </Row>
 
         </TitleTemplate>
-                    <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_function_delete_selected">
-                <Selection Key="@(model.Id.ToString())" Width="5%" />
-            </ResourceAuthorize>
+            <ColumnDefinitions>
+            <Selection Key="@(model.Id.ToString())" Width="5%" Hidden="@UserUnauthorizedResources["system_manager_function_delete_selected"]" />
             <Column @bind-Field="@model.Group" Width="10%" Filterable />
             <Column @bind-Field="@model.Service" Width="10%" Filterable />
             <Column @bind-Field="@model.Summary" Width="10%" Filterable />

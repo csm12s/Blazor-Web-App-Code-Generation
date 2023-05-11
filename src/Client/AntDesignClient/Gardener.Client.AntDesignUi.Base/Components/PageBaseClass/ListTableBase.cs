@@ -11,6 +11,7 @@ using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Components;
 using Gardener.Common;
 using Mapster;
 using Microsoft.AspNetCore.Components;
@@ -104,10 +105,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>
-        protected override Task OnFirstAfterRenderAsync()
+        protected override async Task OnFirstAfterRenderAsync()
         {
             this.firstRenderAfter = true;
-            return ReLoadTable();
+            await ReLoadTable();
+            await base.OnFirstAfterRenderAsync();
         }
 
         #endregion

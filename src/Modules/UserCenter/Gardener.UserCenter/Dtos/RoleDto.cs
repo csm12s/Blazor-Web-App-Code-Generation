@@ -15,7 +15,7 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 角色
     /// </summary>
-    public class RoleDto : BaseDto<int>
+    public class RoleDto : TenantBaseDto<int>
     {
         /// <summary>
         /// 角色名称

@@ -568,4 +568,10 @@
   <data name="Type" xml:space="preserve">
     <value>类型</value>
   </data>
+  <data name="Tenant" xml:space="preserve">
+    <value>租户</value>
+  </data>
+  <data name="TenantId" xml:space="preserve">
+    <value>租户编号</value>
+  </data>
 </root>

@@ -127,7 +127,7 @@ namespace Gardener.Base
     /// 多租户Dto基类
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class TenantBaseDtoEmpty<TKey> : BaseDtoEmpty<TKey>, IModelTenantId
+    public abstract class TenantBaseDtoEmpty<TKey> : BaseDtoEmpty<TKey>, IModelTenant
     {
         /// <summary>
         /// 租户编号
@@ -139,7 +139,7 @@ namespace Gardener.Base
     /// <summary>
     /// 多租户Dto基类
     /// </summary>
-    public abstract class TenantBaseDtoEmptyNoKey : BaseDtoEmptyNoKey, IModelTenantId
+    public abstract class TenantBaseDtoEmptyNoKey : BaseDtoEmptyNoKey, IModelTenant
     {
         /// <summary>
         /// 租户编号
@@ -153,7 +153,7 @@ namespace Gardener.Base
     /// 多租户Dto基类
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class TenantBaseDto<TKey> : BaseDto<TKey>, IModelTenantId
+    public abstract class TenantBaseDto<TKey> : BaseDto<TKey>, IModelTenant
     {
         /// <summary>
         /// 租户编号
@@ -165,7 +165,7 @@ namespace Gardener.Base
     /// <summary>
     /// 多租户Dto基类
     /// </summary>
-    public abstract class TenantBaseDtoNoKey : BaseDto, IModelTenantId
+    public abstract class TenantBaseDtoNoKey : BaseDto, IModelTenant
     {
         /// <summary>
         /// 租户编号

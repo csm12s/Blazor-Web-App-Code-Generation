@@ -384,5 +384,13 @@ namespace Gardener.Base.Resources
         /// 方法
         /// </summary>
         public const string Method = nameof(Method);
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public const string TenantId = nameof(TenantId);
+        /// <summary>
+        /// 租户
+        /// </summary>
+        public const string Tenant = nameof(Tenant);
     }
 }

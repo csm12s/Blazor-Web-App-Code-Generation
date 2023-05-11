@@ -121,7 +121,7 @@ public abstract partial class BaseController<TEntity, TEntityDto, TKey> :
     }
 
     [HttpGet]
-    public virtual async Task<List<TEntityDto>> GetAllUsable()
+    public virtual async Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null)
     {
         var list = await _baseService.GetAllUsableAsync();
         return list.MapTo<TEntityDto>();

@@ -24,7 +24,6 @@ using System.Text;
 using System.IO;
 using MiniExcelLibs;
 using Gardener.FileStore;
-using System.Reflection;
 using Furion.FriendlyException;
 
 namespace Gardener.EntityFramwork
@@ -208,27 +207,36 @@ namespace Gardener.EntityFramwork
         /// <summary>
         /// 查询所有可以用的
         /// </summary>
+        /// <param name="tenantId">租户编号</param>
         /// <remarks>
         /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
         /// </remarks>
         /// <returns></returns>
-        public virtual async Task<List<TEntityDto>> GetAllUsable()
+        public virtual async Task<List<TEntityDto>> GetAllUsable([FromQuery] Guid? tenantId=null)
         {
-
+            var paramList = new List<object>();
             StringBuilder where = new();
             where.Append(" 1==1 ");
             //判断是否有IsDelete
             Type type = typeof(TEntity);
-            if (type.IsAssignableFrom(typeof(IModelDeleted)))
+            if (type.IsAssignableTo(typeof(IModelDeleted)))
             {
-                where.Append($"and {nameof(IModelDeleted.IsDeleted)}==false ");
+                where.Append($" &&  {nameof(IModelDeleted.IsDeleted)} == @{paramList.Count}");
+                paramList.Add(false);
             }
             //判断是否有IsLock
-            if (type.IsAssignableFrom(typeof(IModelLocked)))
+            if (type.IsAssignableTo(typeof(IModelLocked)))
             {
-                where.Append($"and {nameof(IModelLocked.IsLocked)}==false ");
+                where.Append($" &&  {nameof(IModelLocked.IsLocked)} == @{paramList.Count}");
+                paramList.Add(false);
             }
-            var persons = GetReadableRepository().AsQueryable().Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());
+            //租户
+            if (type.IsAssignableTo(typeof(IModelTenant)) && tenantId!=null)
+            {
+                where.Append($" &&  {nameof(IModelTenant.TenantId)}.Equals(@{paramList.Count})");
+                paramList.Add(tenantId);
+            }
+            var persons = GetReadableRepository().AsQueryable().Where(where.ToString(),paramList.ToArray()).Select(x => x.Adapt<TEntityDto>());
             return await persons.ToListAsync();
         }
 

@@ -43,10 +43,8 @@
                 </AntDesign.Col>
             </Row>
         </TitleTemplate>
-                    <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_email_template_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <ColumnDefinitions>
+            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["system_manager_email_template_delete_selected"]" />
             <Column @bind-Field="@model.Id" Filterable />
             <Column @bind-Field="@model.Name" Filterable />
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">

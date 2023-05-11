@@ -43,10 +43,8 @@
                 </AntDesign.Col>
             </Row>
         </TitleTemplate>
-                    <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <ColumnDefinitions>
+            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["user_center_position_delete_selected"]" />
             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
             <Column @bind-Field="@model.Duty" Filterable Title="@Localizer[UserCenterResource.Duty]" />
             <Column TData="string" Title="@Localizer[UserCenterResource.Grade]">

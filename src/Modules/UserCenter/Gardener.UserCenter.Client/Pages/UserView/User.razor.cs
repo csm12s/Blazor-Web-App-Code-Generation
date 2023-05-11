@@ -17,6 +17,8 @@ using Gardener.Client.AntDesignUi.Base.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Gardener.Client.AntDesignUi.Base;
 using AntDesign;
+using Gardener.Client.Base;
+using System;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
@@ -28,7 +30,11 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private int _currentDeptId = 0;
         [Inject]
         private IDeptService deptService { get; set; } = null!;
-
+        /// <summary>
+        /// 排除搜索字段
+        /// </summary>
+        private List<string> excludeSeatchFields = new List<string>() { nameof(UserDto.Password), nameof(UserDto.Avatar) };
+      
         /// <summary>
         /// 
         /// </summary>
@@ -42,9 +48,14 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-            return base.OnInitializedAsync();
+            bool admin = await AuthenticationStateManager.IsTenantAdministratorAsync();
+            if (!admin)
+            {
+                excludeSeatchFields.Add(nameof(IModelTenant.TenantId));
+            }
+            await base.OnInitializedAsync();
         }
         /// <summary>
         /// 组件首次渲染后
@@ -64,7 +75,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             depts = await deptService.GetTree();
             _deptTreeIsLoading = false;
         }
-       
+
         /// <summary>
         /// 重新加载table
         /// </summary>
@@ -89,10 +100,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override void ConfigurationPageRequest(PageRequest pageRequest)
         {
-            if (_currentDeptId > 0 && depts!=null)
+            if (_currentDeptId > 0 && depts != null)
             {
                 var node = TreeHelper.QueryNode(depts, d => d.Id.Equals(_currentDeptId), d => d.Children);
-                if(null!= node) 
+                if (null != node)
                 {
                     List<int> ids = TreeHelper.GetAllChildrenNodes(node, d => d.Id, d => d.Children);
                     if (ids != null)
@@ -106,10 +117,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <summary>
         /// 点击分配角色
         /// </summary>
-        /// <param name="userId"></param>
-        private Task OnEditUserRoleClick(int userId)
+        /// <param name="user"></param>
+        private Task OnEditUserRoleClick(UserDto user)
         {
-            return OpenOperationDialogAsync<UserRoleEdit, int, bool>(Localizer["SettingRoles"], userId, width: 500);
+            return OpenOperationDialogAsync<UserRoleEdit, UserDto, bool>(Localizer["SettingRoles"], user, width: 500);
         }
         /// <summary>
         /// 点击头像
@@ -122,10 +133,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             settings.Width = 300;
             settings.DrawerPlacement = Placement.Left;
             return OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(Localizer[SharedLocalResource.UplaodAvatar],
-                new UserUploadAvatarParams(user,true),
+                new UserUploadAvatarParams(user, true),
                 async r =>
                 {
-                    if(r!=null)
+                    if (r != null)
                     {
                         await ReLoadTable();
                     }

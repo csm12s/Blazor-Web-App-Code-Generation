@@ -1,4 +1,5 @@
 ﻿using Gardener.Base;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -70,10 +71,12 @@ public abstract class BaseClientController<TEntityDto, TKey>
         return apiCaller.GetAsync<List<TEntityDto>>(url);
     }
 
-    public virtual Task<List<TEntityDto>> GetAllUsable()
+    public virtual Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null)
     {
+        IDictionary<string, object?> queryString=new Dictionary<string, object?>();
+        queryString.Add($"{nameof(tenantId)}", tenantId);
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
-        return apiCaller.GetAsync<List<TEntityDto>>(url);
+        return apiCaller.GetAsync<List<TEntityDto>>(url, queryString);
     }
 
     public virtual Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10)

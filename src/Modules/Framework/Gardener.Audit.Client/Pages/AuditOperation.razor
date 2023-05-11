@@ -46,9 +46,7 @@
 
         </TitleTemplate>
         <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_audit_operation_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["system_manager_audit_operation_delete_selected"]" />
             <Column @bind-Field="@model.OperaterId" Filterable />
             <Column @bind-Field="@model.OperaterName" Filterable />
             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">

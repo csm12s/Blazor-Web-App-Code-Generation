@@ -33,7 +33,7 @@ namespace Gardener.Client.Core
 
                 foreach (string key in resource.Keys)
                 {
-                    var isAuth = await authenticationStateManager.CheckCurrentUserHaveBtnResourceKey(key);
+                    var isAuth = await authenticationStateManager.CheckCurrentUserHaveResourceAsync(key);
                     if (resource.AndCondition)
                     {
                         if (!isAuth)

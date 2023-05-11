@@ -110,7 +110,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfoNoKey : EntityBaseInfoNoKey, IModelTenantId
+    public abstract class TenantEntityBaseInfoNoKey : EntityBaseInfoNoKey, IModelTenant
     {
         /// <summary>
         /// 租户编号
@@ -125,7 +125,7 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfoNoKeyAndEmpty : IModelTenantId
+    public abstract class TenantEntityBaseInfoNoKeyAndEmpty : IModelTenant
     {
         /// <summary>
         /// 租户编号

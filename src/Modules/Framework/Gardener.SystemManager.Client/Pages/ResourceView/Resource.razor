@@ -41,7 +41,7 @@
             </Row>
         </TitleTemplate>
         <ColumnDefinitions>
-            <Selection CheckStrictly Width="5%" />
+            <Selection CheckStrictly Width="5%" Hidden="@UserUnauthorizedResources["system_manager_resource_delete_selected"]" />
             <Column @bind-Field="@model.Name" Width="20%" Title="@Localizer[SystemManagerResource.Name]">
                 <span>
                     @if (!string.IsNullOrEmpty(model.Icon))

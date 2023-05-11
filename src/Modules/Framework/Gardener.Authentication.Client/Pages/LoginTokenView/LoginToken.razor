@@ -45,9 +45,7 @@
             </Row>
         </TitleTemplate>
         <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_login_token_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["system_manager_login_token_delete_selected"]" />
             <Column @bind-Field="@model.IdentityId" Filterable />
             <Column @bind-Field="@model.IdentityName" Filterable />
             <Column @bind-Field="@model.IdentityNickName" Filterable />

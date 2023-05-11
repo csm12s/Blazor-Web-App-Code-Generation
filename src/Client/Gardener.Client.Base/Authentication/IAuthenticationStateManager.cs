@@ -19,11 +19,17 @@ namespace Gardener.Client.Base
     public interface IAuthenticationStateManager
     {
         /// <summary>
-        /// 判断当前用户是否有该按钮资源权限
+        /// 判断当前用户是否有该资源权限
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<bool> CheckCurrentUserHaveBtnResourceKey(object key);
+        bool CheckCurrentUserHaveResource(object key);
+        /// <summary>
+        /// 判断当前用户是否有该资源权限
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        Task<bool> CheckCurrentUserHaveResourceAsync(object key);
         /// <summary>
         /// 获取当前用户
         /// </summary>
@@ -93,5 +99,22 @@ namespace Gardener.Client.Base
         /// <para>当然通过apicaller调用的其他需校验token的接口也可以达到该效果；</para>
         /// </remarks>
         Task<bool> TestToken(string? flag = null);
+
+        /// <summary>
+        /// 是否是租户管理员
+        /// </summary>
+        /// <remarks>
+        /// <para>如果用户有该<see cref="Gardener.Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>资源权限，就是租户管理员</para>
+        /// </remarks>
+        /// <returns></returns>
+        Task<bool> IsTenantAdministratorAsync();
+        /// <summary>
+        /// 是否是租户管理员
+        /// </summary>
+        /// <remarks>
+        /// <para>如果用户有该<see cref="Gardener.Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>资源权限，就是租户管理员</para>
+        /// </remarks>
+        /// <returns></returns>
+        bool IsTenantAdministrator();
     }
 }

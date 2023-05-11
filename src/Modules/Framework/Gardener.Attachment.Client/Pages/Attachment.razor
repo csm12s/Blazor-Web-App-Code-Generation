@@ -33,9 +33,7 @@
             </Row>
         </TitleTemplate>
         <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["system_manager_attachment_delete_selected"]" />
             @*<Column @bind-Field="@model.Id" />*@
             <Column @bind-Field="@model.BusinessType" TData="AttachmentBusinessType" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.BusinessType)"></TagPro>

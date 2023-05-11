@@ -197,20 +197,26 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     }
 
     //[HttpGet]
-    public virtual async Task<List<TEntityDto>> GetAllUsable()
+    public virtual async Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null)
     {
-        System.Text.StringBuilder where = new StringBuilder();
-        where.Append(" 1==1 ");
-        //判断是否有IsDelete、IsLock
-        if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
+        StringBuilder where = new();
+        where.Append(" 1=1 ");
+        //判断是否有IsDelete
+        Type type = typeof(TEntity);
+        if (type.IsAssignableFrom(typeof(IModelDeleted)))
         {
-            where.Append($"and {nameof(GardenerEntityBase.IsDeleted)}==false ");
+            where.Append($"and {nameof(IModelDeleted.IsDeleted)}=false ");
         }
-        if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsLocked)))
+        //判断是否有IsLock
+        if (type.IsAssignableFrom(typeof(IModelLocked)))
         {
-            where.Append($"and {nameof(GardenerEntityBase.IsLocked)}==false ");
+            where.Append($"and {nameof(IModelLocked.IsLocked)}=false ");
         }
-
+        //租户
+        if (type.IsAssignableFrom(typeof(IModelTenant)) && tenantId != null)
+        {
+            where.Append($"and {nameof(IModelTenant.TenantId)}='{tenantId}' ");
+        }
         var persons = _sugarRepository.Context
            .Queryable<TEntity>()
            .Where(where.ToString()).Select(x => x.Adapt<TEntityDto>());

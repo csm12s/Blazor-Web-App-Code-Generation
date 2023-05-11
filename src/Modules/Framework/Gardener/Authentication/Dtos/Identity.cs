@@ -15,7 +15,7 @@ namespace Gardener.Authentication.Dtos
     /// 身份信息
     /// </summary>
     [Description("身份信息")]
-    public class Identity : IModelTenantId
+    public class Identity : IModelTenant
     {
         /// <summary>
         /// 身份唯一编号
@@ -52,5 +52,23 @@ namespace Gardener.Authentication.Dtos
         ///可以在登录后放入一些数据（注意不能放入敏感数据，前端能够看到）
         /// </remarks>
         public string? CustomData { get; set; }
+
+        /// <summary>
+        /// 是否是租户管理员
+        /// </summary>
+        /// <remarks>
+        /// <para>默认：租户编号为null或空的是租户管理员</para>
+        /// <para>租户管理员在查询时不限制租户编号</para>
+        /// <para>租户管理员在新增更新时不处理租户编号</para>
+        /// <para>
+        /// 处理详情在
+        /// <code>Gardener.EntityFramwork.DbContexts.GardenerMultiTenantDbContext</code>
+        /// </para>
+        /// </remarks>
+        /// <returns></returns>
+        public bool IsTenantAdministrator()
+        {
+            return TenantId == null || TenantId.Equals(Guid.Empty);
+        }
     }
 }

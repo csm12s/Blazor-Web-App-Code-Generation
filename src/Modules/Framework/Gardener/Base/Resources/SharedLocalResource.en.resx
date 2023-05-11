@@ -499,6 +499,12 @@
   <data name="Task not exist" xml:space="preserve">
     <value>Task not exist</value>
   </data>
+  <data name="Tenant" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
+  <data name="TenantId" xml:space="preserve">
+    <value>Tenant id</value>
+  </data>
   <data name="The value cannot be empty or null" xml:space="preserve">
     <value>The value cannot be empty or null</value>
   </data>

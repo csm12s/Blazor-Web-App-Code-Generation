@@ -4,20 +4,16 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-
-namespace Gardener.Base
+namespace Gardener.Authorization.Constants
 {
     /// <summary>
-    /// 租户编号
+    /// 全局常用资源key
     /// </summary>
-    public interface IModelTenantId
+    public static class ResourceKeys
     {
         /// <summary>
-        /// 租户编号
+        /// 系统租户管理员Key
         /// </summary>
-        [DisplayName("TenantId")]
-        public Guid? TenantId { get; set; }
+        public static readonly string SystemTenantAdministratorKey = "system_tenant_administrator";
     }
 }

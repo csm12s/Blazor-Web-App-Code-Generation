@@ -12,8 +12,13 @@ using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Services;
+using Gardener.UserCenter.Dtos;
+using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
+using System;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -65,7 +70,42 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 搜索组件
         /// </summary>
         protected TableSearch<TDto>? tableSearch;
-
+        /// <summary>
+        /// 用户在当前页面使用该资源是否越权
+        /// <para>true 越权</para> 
+        /// <para>false 不越权</para> 
+        /// </summary>
+        /// <remarks>
+        /// 方便列表中组件显示隐藏绑定
+        /// 在组件参数设置后（OnParametersSet）才有效
+        /// <para>使用方式<code>UserUnauthorizedResources[ResourceKey]</code></para> 
+        /// </remarks>
+        protected ClientListBindValue<string, bool> UserUnauthorizedResources = new ClientListBindValue<string, bool>(true);
+        /// <summary>
+        /// 用户在当前页面使用该资源是否可以
+        /// <para>true 可以</para> 
+        /// <para>false 不可</para> 
+        /// </summary>
+        /// <remarks>
+        /// 方便列表中组件显示隐藏绑定
+        /// 在组件参数设置后（OnParametersSet）才有效
+        /// <para>使用方式<code>UserAuthorizedResources[ResourceKey]</code></para> 
+        /// </remarks>
+        protected ClientListBindValue<string, bool> UserAuthorizedResources = new ClientListBindValue<string, bool>(false);
+        /// <summary>
+        /// 租户数据
+        /// </summary>
+        protected Dictionary<Guid, TenantDto> tenantMap = new Dictionary<Guid, TenantDto>();
+        /// <summary>
+        /// 租户服务    
+        /// </summary>
+        [Inject]
+        private ITenantService tenantService { get; set; } = null!;
+        /// <summary>
+        /// 身份状态管理
+        /// </summary>
+        [Inject]
+        protected IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         /// <summary>
         /// 服务
         /// </summary>
@@ -89,8 +129,34 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         [Inject]
         protected IClientMessageService MessageService { get; set; } = null!;
-
-
+        /// <summary>
+        /// 参数设置完成
+        /// </summary>
+        /// <returns></returns>
+        protected override void OnParametersSet()
+        {
+            //资源越权绑定数据
+            UserUnauthorizedResources = new ClientListBindValue<string, bool>(true, key => !AuthenticationStateManager.CheckCurrentUserHaveResource(key));
+            UserAuthorizedResources = new ClientListBindValue<string, bool>(false, key => AuthenticationStateManager.CheckCurrentUserHaveResource(key));
+            base.OnParametersSet();
+        }
+        /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            bool admin = AuthenticationStateManager.IsTenantAdministrator();
+            if (admin)
+            {
+                List<TenantDto> tenants = await tenantService.GetAll();
+                foreach (TenantDto tenant in tenants)
+                {
+                    tenantMap.TryAdd(tenant.Id, tenant);
+                }
+            }
+            await base.OnInitializedAsync();
+        }
         /// <summary>
         /// 获取操作会话配置
         /// </summary>
@@ -216,6 +282,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
+        }
+        /// <summary>
+        /// 获取租户
+        /// </summary>
+        /// <param name="tenantId"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 租户管理才有数据
+        /// </remarks>
+        protected TenantDto? GetTenant(Guid? tenantId)
+        {
+            if (tenantId == null || tenantId.Equals(Guid.Empty) || !tenantMap.ContainsKey(tenantId.Value))
+            {
+                return null;
+            }
+            return tenantMap[tenantId.Value];
         }
     }
     /// <summary>

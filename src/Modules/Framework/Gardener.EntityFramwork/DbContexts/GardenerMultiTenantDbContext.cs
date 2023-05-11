@@ -76,7 +76,7 @@ namespace Gardener.EntityFramwork.DbContexts
             if (context == null) { return; }
 
             //基础数据初始化
-            EntityEntryBaseInfoHandle.Handle(context.ChangeTracker.Entries(),true);
+            EntityEntryBaseInfoHandle.Handle(context.ChangeTracker.Entries(), true);
             IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
             ormAuditService.SavingChangesEvent(context.ChangeTracker.Entries());
         }
@@ -109,10 +109,10 @@ namespace Gardener.EntityFramwork.DbContexts
         /// <exception cref="NotImplementedException"></exception>
         public void OnCreating(ModelBuilder modelBuilder, EntityTypeBuilder entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
-            
-            LambdaExpression? expression = this.BuildTenantQueryFilter(entityBuilder, dbContext, nameof(IModelTenantId.TenantId));
+
+            LambdaExpression? expression = this.BuildTenantQueryFilter(entityBuilder, dbContext, nameof(IModelTenant.TenantId));
             entityBuilder.HasQueryFilter(expression);
-            
+
         }
 
 
@@ -129,7 +129,7 @@ namespace Gardener.EntityFramwork.DbContexts
             var metadata = entityBuilder.Metadata;
             if (metadata.FindProperty(onTableTenantId) == null) return default;
             //设置索引，方便查询
-            entityBuilder.HasIndex(nameof(IModelTenantId.TenantId));
+            entityBuilder.HasIndex(nameof(IModelTenant.TenantId));
             MethodInfo? method = dbContext.GetType().GetMethod(nameof(IMultiTenantOnTable.GetTenantId));
             if (method == null) return default;
             // 创建表达式元素
@@ -146,13 +146,11 @@ namespace Gardener.EntityFramwork.DbContexts
         /// <summary>
         /// 
         /// </summary>
-        public override Tenant? Tenant
+        public override Tenant Tenant
         {
             get
             {
-                var tenantId = IdentityUtil.GetIdentity()?.TenantId;
-                if (tenantId == null) return null;
-                return new Tenant() { TenantId = tenantId.Value };
+                return new Tenant() { TenantId = GetTenantId() };
             }
         }
     }

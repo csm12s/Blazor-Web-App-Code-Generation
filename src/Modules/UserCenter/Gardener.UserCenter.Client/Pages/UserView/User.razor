@@ -53,10 +53,7 @@
 
             </Spin>
         </AntDesign.Col>
-        <AntDesign.Col Span="1">
-
-        </AntDesign.Col>
-        <AntDesign.Col Span="19">
+        <AntDesign.Col Span="20" Style="padding-left:5px;">
             <Table @ref="_table"
                    TItem="UserDto"
                    DataSource="@_datas"
@@ -75,7 +72,7 @@
                         @ref="this.tableSearch"
                                      DefaultValue="_defaultSearchValue"
                                      CustomLocalizer="Localizer"
-                                     ExcludeFields="@(new[]{nameof(UserDto.Password),nameof(UserDto.Avatar)})"
+                                     ExcludeFields="@excludeSeatchFields"
                                      FieldOrders="@(new Dictionary<string, int>(){ {nameof(UserDto.Id),-1}})">
                         </TableSearch>
                     </ResourceAuthorize>
@@ -115,9 +112,10 @@
                     </Row>
                 </TitleTemplate>
                 <ColumnDefinitions>
-                    <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
-                        <Selection Key="@(model.Id.ToString())" />
-                    </ResourceAuthorize>
+                    <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["user_center_user_delete_selected"]" />
+                    <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@UserUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" >
+                        <span>@base.GetTenant(model.TenantId)?.Name</span>
+                    </Column>
                     <Column @bind-Field="@model.Id" Title="@Localizer[UserCenterResource.Id]" Sortable />
                     <Column @bind-Field="@model.Avatar" Title="@Localizer[UserCenterResource.Avatar]">
                         <ResourceAuthorize ResourceKey="user_center_user_list_edit_avatar">
@@ -188,7 +186,7 @@
                             <ResourceAuthorize ResourceKey="user_center_user_role_edit">
                                 <SpaceItem>
                                     <Tooltip Title="@(Localizer["SettingRoles"])" ArrowPointAtCenter="true">
-                                        <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model.Id)"></Button>
+                                        <Button Icon="usergroup-add" Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditUserRoleClick(model)"></Button>
                                     </Tooltip>
                                 </SpaceItem>
                             </ResourceAuthorize>

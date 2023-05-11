@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -56,11 +57,12 @@ namespace Gardener.Base
         /// <summary>
         /// 查询所有可以用的
         /// </summary>
+        /// <param name="tenantId">租户编号</param>
         /// <remarks>
         /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
         /// </remarks>
         /// <returns></returns>
-        Task<List<TDto>> GetAllUsable();
+        Task<List<TDto>> GetAllUsable(Guid? tenantId = null);
         /// <summary>
         /// 分页查询
         /// </summary>

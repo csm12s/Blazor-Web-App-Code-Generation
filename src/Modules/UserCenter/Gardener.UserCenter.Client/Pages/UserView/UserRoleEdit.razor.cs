@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class UserRoleEdit: OperationDialogBase<int, bool, UserCenterResource>
+    public partial class UserRoleEdit: OperationDialogBase<UserDto, bool, UserCenterResource>
     {
         private bool _isLoading = false;
         private CheckboxOption[] _roleOptions = new CheckboxOption[] { };
@@ -32,10 +32,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         protected override async Task OnInitializedAsync()
         {
             _isLoading = true;
-            _userId = this.Options;
+            _userId = this.Options.Id;
             if (_userId > 0)
             {
-                var t1= RoleService.GetAllUsable();
+                var t1= RoleService.GetAllUsable(this.Options.TenantId);
                 var t2 = UserService.GetRoles(_userId);
                 var rolesResult = await t1;
                 if (rolesResult == null || !rolesResult.Any()) 

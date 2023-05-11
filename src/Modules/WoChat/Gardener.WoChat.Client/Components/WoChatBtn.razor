@@ -50,7 +50,7 @@
         //登陆成功
         EventBus.Subscribe<LoginSucceedAfterEvent>(async token =>
         {
-            bool ok = await AuthenticationStateManager.CheckCurrentUserHaveBtnResourceKey("global_wo_chat_btn");
+            bool ok = await AuthenticationStateManager.CheckCurrentUserHaveResourceAsync("global_wo_chat_btn");
             userIsLogin = ok;
             await InvokeAsync(StateHasChanged);
         });

@@ -17,7 +17,7 @@ namespace Gardener.UserCenter.Dtos
     /// 用户数据转换实体
     /// </summary>
     [Description("用户信息")]
-    public class UserDto : BaseDto<int>
+    public class UserDto : TenantBaseDto<int>
     {
         /// <summary>
         /// 用户名

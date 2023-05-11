@@ -44,9 +44,8 @@
             </Row>
         </TitleTemplate>
         <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="user_center_tenant_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["user_center_tenant_delete_selected"]" />
+            <Column @bind-Field="@model.Id" Filterable Title="@Localizer[UserCenterResource.Id]" />
             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
             <Column @bind-Field="@model.Email" Filterable Title="@Localizer[UserCenterResource.Email]" />
             <Column @bind-Field="@model.Tel" Filterable Title="@Localizer[UserCenterResource.Tel]" />

@@ -67,7 +67,7 @@
 
         </TitleTemplate>
         <ColumnDefinitions>
-            <Selection Key="@(model.Id.ToString())" Width="5%" />
+            <Selection Key="@(model.Id.ToString())" Width="5%" Hidden="@UserUnauthorizedResources["system_manager_code_type_delete_selected"]" />
             <Column Title="@Localizer[SystemManagerResource.Id]" @bind-Field="@model.Id" Filterable />
             <Column Title="@Localizer[SystemManagerResource.CodeTypeName]" @bind-Field="@model.CodeTypeName" Filterable />
             <Column Title="@Localizer[SystemManagerResource.CodeTypeValue]" @bind-Field="@model.CodeTypeValue" Filterable />
