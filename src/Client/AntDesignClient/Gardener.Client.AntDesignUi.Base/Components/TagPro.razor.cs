@@ -6,6 +6,7 @@
 
 using AntDesign;
 using Gardener.Attributes;
+using Gardener.Base;
 using Gardener.Client.Base;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -32,7 +33,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
-        /// tag 显示的文本
+        /// ChildContent 是空的时候， tag 显示该文本，否则显示ChildContent内容
         /// </summary>
         /// <remarks>
         /// 如果是枚举类型，可以自动获取枚举上的
@@ -49,12 +50,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         [Parameter]
         public string? Color { get; set; }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? _color { get; set; }
+
         /// <summary>
         /// 禁用随机颜色
         /// </summary>
         [Parameter]
-        public bool DisabledRandomColor { get; set; }=false;
+        public bool DisabledRandomColor { get; set; } = false;
 
         /// <summary>
         /// 预设颜色
@@ -118,53 +123,75 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         [Parameter]
         public bool Visible { get; set; } = true;
 
-        private string? value = string.Empty;
+        /// <summary>
+        /// 本地化-可以对Text进行本地化处理
+        /// </summary>
+        [Parameter]
+        public IClientLocalizer? Localizer { get; set; } = null!;
 
-        protected override void OnInitialized()
+        /// <summary>
+        /// 从Text中推算的string 值
+        /// </summary>
+        private string? value = string.Empty;
+        /// <summary>
+        /// 参数设置后
+        /// </summary>
+        protected override void OnParametersSet()
         {
+            string? tempColor = null;
             //如果color没有值，PresetColor 有值，使用PresetColor
-            if (string.IsNullOrEmpty(this.Color) && this.PresetColor.HasValue)
+            if (string.IsNullOrEmpty(this.Color))
             {
-                this.Color = this.PresetColor.Value.ToString();
+                if (this.PresetColor.HasValue)
+                {
+                    tempColor = this.PresetColor.Value.ToString();
+                }
+            }
+            else
+            {
+                tempColor = this.Color;
             }
             //Text为null时什么也推断不出来
             if (Text == null)
             {
-                base.OnInitialized();
+                this._color = tempColor;
+                base.OnParametersSet();
                 return;
             }
-            //Text是枚举时，可以从枚举推断出来描述和颜色
-            if (Text.GetType().IsEnum)
+
+            //未传入内容或者需要推算颜色，就解析Text到value
+            if (this.ChildContent == null || string.IsNullOrEmpty(tempColor))
             {
-                value = Common.EnumHelper.GetEnumDescription((Enum)Text);
-                if (string.IsNullOrEmpty(this.Color))
+                if (Text.GetType().IsEnum)
                 {
-                    TagColorAttribute? tagColorAttribute = Common.EnumHelper.GetEnumAttribute<TagColorAttribute>((Enum)Text);
-                    if (tagColorAttribute != null)
-                    {
-                        if (!string.IsNullOrEmpty(tagColorAttribute.Color))
-                        {
-                            this.Color = tagColorAttribute.Color;
-                        }
-                        else if(tagColorAttribute.PresetColor.HasValue)
-                        {
-                            this.Color = tagColorAttribute.PresetColor.Value.ToString();
-                        }
-                        
-                    }
+                    value = Common.EnumHelper.GetEnumDescription((Enum)Text);
+                }
+                else
+                {
+                    value = Text.ToString();
                 }
             }
-            
-            if (string.IsNullOrEmpty(this.Color) && !DisabledRandomColor)
-            {
-                this.Color = GetRandomColor(Text.ToString() ?? "");
-            }
-            if (string.IsNullOrEmpty(value))
-            {
-                value = Text.ToString()??"";
-            }
+            string tempValue = value ?? "";
             //本地化
-            value = LocalizerUtil.GetValue(value);
+            tempValue = Localizer == null ? tempValue : Localizer[tempValue];
+
+            //未出入颜色，需要推断颜色
+            if (string.IsNullOrEmpty(tempColor))
+            {
+                //Text是枚举时，可以从枚举推断出来描述和颜色
+                if (Text.GetType().IsEnum)
+                {
+                    tempColor = GetEnumTagColor((Enum)Text);
+                }
+                //还没有颜色，随机一个
+                if (string.IsNullOrEmpty(tempColor) && !DisabledRandomColor)
+                {
+                    tempColor = GetRandomColor(tempValue);
+                }
+            }
+            this._color = tempColor;
+            this.value = tempValue;
+            base.OnParametersSet();
         }
 
         /// <summary>
@@ -177,6 +204,28 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             int code = Math.Abs(text.GetHashCode());
             int colorIndex = (code % 1000) % colors.Length;
             return colors[colorIndex].ToString();
+        }
+        /// <summary>
+        /// 获取枚举的颜色
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private string? GetEnumTagColor(Enum value)
+        {
+            TagColorAttribute? tagColorAttribute = Common.EnumHelper.GetEnumAttribute<TagColorAttribute>(value);
+            if (tagColorAttribute != null)
+            {
+                if (!string.IsNullOrEmpty(tagColorAttribute.Color))
+                {
+                    return tagColorAttribute.Color;
+                }
+                else if (tagColorAttribute.PresetColor.HasValue)
+                {
+                    return tagColorAttribute.PresetColor.Value.ToString();
+                }
+
+            }
+            return null;
         }
     }
 
