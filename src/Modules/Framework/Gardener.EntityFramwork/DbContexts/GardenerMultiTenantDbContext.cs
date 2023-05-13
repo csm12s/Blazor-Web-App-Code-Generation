@@ -110,7 +110,7 @@ namespace Gardener.EntityFramwork.DbContexts
         public void OnCreating(ModelBuilder modelBuilder, EntityTypeBuilder entityBuilder, DbContext dbContext, Type dbContextLocator)
         {
 
-            LambdaExpression? expression = this.BuildTenantQueryFilter(entityBuilder, dbContext, nameof(IModelTenant.TenantId));
+            LambdaExpression? expression = this.BuildTenantQueryFilter(entityBuilder, dbContext, nameof(IModelTenantId.TenantId));
             entityBuilder.HasQueryFilter(expression);
 
         }
@@ -129,7 +129,7 @@ namespace Gardener.EntityFramwork.DbContexts
             var metadata = entityBuilder.Metadata;
             if (metadata.FindProperty(onTableTenantId) == null) return default;
             //设置索引，方便查询
-            entityBuilder.HasIndex(nameof(IModelTenant.TenantId));
+            entityBuilder.HasIndex(nameof(IModelTenantId.TenantId));
             MethodInfo? method = dbContext.GetType().GetMethod(nameof(IMultiTenantOnTable.GetTenantId));
             if (method == null) return default;
             // 创建表达式元素

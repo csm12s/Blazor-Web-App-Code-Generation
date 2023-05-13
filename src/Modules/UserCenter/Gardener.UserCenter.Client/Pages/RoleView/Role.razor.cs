@@ -51,10 +51,10 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         protected override Task OnParametersSetAsync()
         {
-            bool admin = AuthenticationStateManager.IsTenantAdministrator();
-            if(!admin)
+            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
+            if (!isTenant)
             {
-                excludeSeatchFields = new List<string>() { nameof(IModelTenant.TenantId) };
+                excludeSeatchFields = new List<string>() { nameof(IModelTenantId.TenantId) };
             }
             return base.OnParametersSetAsync();
         }

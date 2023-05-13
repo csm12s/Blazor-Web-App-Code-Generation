@@ -286,9 +286,9 @@ public abstract class BaseService
             paramList.Add(false);
         }
         //租户
-        if (type.IsAssignableTo(typeof(IModelTenant)) && tenantId != null)
+        if (type.IsAssignableTo(typeof(IModelTenantId)) && tenantId != null)
         {
-            where.Append($" &&  {nameof(IModelTenant.TenantId)}.Equals(@{paramList.Count})");
+            where.Append($" &&  {nameof(IModelTenantId.TenantId)}.Equals(@{paramList.Count})");
             paramList.Add(tenantId);
         }
         var persons = GetReadableRepository().AsQueryable().Where(where.ToString(), paramList.ToArray()).Select(x => x);

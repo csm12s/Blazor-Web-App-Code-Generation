@@ -4,17 +4,16 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace Gardener.UserCenter.Dtos
+namespace Gardener.Base
 {
     /// <summary>
     /// 租户
     /// </summary>
-    public class TenantDto : BaseDto<Guid>
+    public class TenantDto : BaseDto<Guid>, ITenant
     {
         /// <summary>
         /// 租户名称

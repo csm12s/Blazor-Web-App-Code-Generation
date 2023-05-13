@@ -4,14 +4,18 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
-using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.UserCenter.Resources;
 using System;
 
-namespace Gardener.UserCenter.Client.Pages.TenantView
+namespace Gardener.Base
 {
-    public partial class Tenant: ListOperateTableBase<TenantDto, Guid, TenantEdit, UserCenterResource>
+    /// <summary>
+    /// 租户基础字段
+    /// </summary>
+    public interface ITenant: IModelId<Guid>
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
     }
 }

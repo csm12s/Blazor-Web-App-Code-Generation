@@ -213,9 +213,9 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
             where.Append($"and {nameof(IModelLocked.IsLocked)}=false ");
         }
         //租户
-        if (type.IsAssignableFrom(typeof(IModelTenant)) && tenantId != null)
+        if (type.IsAssignableFrom(typeof(IModelTenantId)) && tenantId != null)
         {
-            where.Append($"and {nameof(IModelTenant.TenantId)}='{tenantId}' ");
+            where.Append($"and {nameof(IModelTenantId.TenantId)}='{tenantId}' ");
         }
         var persons = _sugarRepository.Context
            .Queryable<TEntity>()

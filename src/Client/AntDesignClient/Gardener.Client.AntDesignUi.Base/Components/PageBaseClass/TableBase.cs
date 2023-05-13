@@ -146,8 +146,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            bool admin = AuthenticationStateManager.IsTenantAdministrator();
-            if (admin)
+            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
+            if (!isTenant)
             {
                 List<TenantDto> tenants = await tenantService.GetAll();
                 foreach (TenantDto tenant in tenants)

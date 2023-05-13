@@ -50,10 +50,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            bool admin = await AuthenticationStateManager.IsTenantAdministratorAsync();
-            if (!admin)
+            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
+            if (!isTenant)
             {
-                excludeSeatchFields.Add(nameof(IModelTenant.TenantId));
+                excludeSeatchFields.Add(nameof(IModelTenantId.TenantId));
             }
             await base.OnInitializedAsync();
         }

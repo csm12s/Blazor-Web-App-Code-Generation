@@ -19,7 +19,7 @@ namespace Gardener.EntityFramwork.Core
     /// 实体基础信息处理
     /// </summary>
     /// <remarks>
-    /// <para> 添加时：设置<see cref="IModelCreated"/>、<see cref="IModelTenant"/>中相关字段的值</para>
+    /// <para> 添加时：设置<see cref="IModelCreated"/>、<see cref="IModelTenantId"/>中相关字段的值</para>
     /// <para>修改时：设置<see cref="IModelUpdated"/>中相关字段的值</para>
     /// </remarks>
     public static class EntityEntryBaseInfoHandle
@@ -82,10 +82,10 @@ namespace Gardener.EntityFramwork.Core
                         entity.Property(nameof(IModelCreated.CreateIdentityType)).CurrentValue = identity.IdentityType;
                         entity.Property(nameof(IModelCreated.CreatedTime)).CurrentValue = DateTimeOffset.Now;
                     }
-                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenant)) && !identity.IsTenantAdministrator())
+                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
                     {
                         //租户信息
-                        entity.Property(nameof(IModelTenant.TenantId)).CurrentValue = identity.TenantId;
+                        entity.Property(nameof(IModelTenantId.TenantId)).CurrentValue = identity.TenantId;
 
                     }
                 }
@@ -99,10 +99,10 @@ namespace Gardener.EntityFramwork.Core
                         entity.Property(nameof(IModelCreated.CreateIdentityType)).IsModified = false;
                         entity.Property(nameof(IModelCreated.CreatedTime)).IsModified = false;
                     }
-                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenant)) && !identity.IsTenantAdministrator())
+                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
                     {
                         //排除租户信息
-                        entity.Property(nameof(IModelTenant.TenantId)).IsModified = false;
+                        entity.Property(nameof(IModelTenantId.TenantId)).IsModified = false;
                     }
                     if (type.IsAssignableTo(typeof(IModelUpdated)))
                     {

@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
@@ -35,8 +36,8 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         {
             StartLoading();
             var task1= LoadEditModelData();
-            bool admin =  authenticationStateManager.IsTenantAdministrator();
-            if (admin)
+            bool isTenant =  authenticationStateManager.CurrentUserIsTenant();
+            if (!isTenant)
             {
                 _tenants = await tenantService.GetAllUsable();
             }

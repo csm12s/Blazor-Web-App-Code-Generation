@@ -20,6 +20,7 @@ using Gardener.Client.Base.EventBus.Events;
 using Gardener.EventBus;
 using Gardener.SystemManager.Dtos;
 using Gardener.Base.Enums;
+using Gardener.Base;
 
 namespace Gardener.Client.Core
 {
@@ -33,6 +34,19 @@ namespace Gardener.Client.Core
         private List<string>? uiResourceKeys;
         private List<ResourceDto>? menuResources;
         private Hashtable? uiHashtableResources;
+        /// <summary>
+        /// 超级管理员
+        /// </summary>
+        private bool currentUserIsSuperAdmin = false;
+        /// <summary>
+        /// 是否是租户
+        /// </summary>
+        private bool currentUserIsTenant = true;
+        /// <summary>
+        /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
+        /// </summary>
+        private bool isAutoLogin = true;
+        private AuthSettings authSettings;
 
         private readonly IJsTool jsTool;
         private readonly HttpClientManager httpClientManager;
@@ -40,11 +54,6 @@ namespace Gardener.Client.Core
         private readonly IClientLogger logger;
         private readonly NavigationManager navigationManager;
         private readonly IEventBus eventBus;
-        /// <summary>
-        /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
-        /// </summary>
-        private bool isAutoLogin = true;
-        private AuthSettings authSettings;
         /// <summary>
         /// 
         /// </summary>
@@ -218,8 +227,10 @@ namespace Gardener.Client.Core
                 {
                     this.uiHashtableResources = null;
                     this.currentUser = userResult;
+
                     //超级管理员
-                    bool currentUserIsSuperAdmin = CurrentUserIsSuperAdmin();
+                    currentUserIsSuperAdmin = this.currentUser.Roles != null && this.currentUser.Roles.Any(x => x.IsSuperAdministrator);
+                    currentUserIsTenant = ((IModelTenantId)this.currentUser).IsTenant;
                     eventBus.Publish(new ReloadCurrentUserEvent(token, currentUser)
                     {
                         CurrentUserIsSuperAdmin = currentUserIsSuperAdmin,
@@ -237,11 +248,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public bool CurrentUserIsSuperAdmin()
         {
-            if (this.currentUser == null)
-            {
-                return false;
-            }
-            return this.currentUser.Roles != null && this.currentUser.Roles.Any(x => x.IsSuperAdministrator);
+            return currentUserIsSuperAdmin;
         }
 
         /// <summary>
@@ -260,7 +267,7 @@ namespace Gardener.Client.Core
         public bool CheckCurrentUserHaveResource(object key)
         {
             //超级管理员
-            if (CurrentUserIsSuperAdmin())
+            if (currentUserIsSuperAdmin)
             {
                 return true;
             }
@@ -429,27 +436,17 @@ namespace Gardener.Client.Core
         {
             return await accountService.TestToken(flag);
         }
+
         /// <summary>
-        /// 是否是租户管理员
+        /// 是否是租户
         /// </summary>
         /// <remarks>
-        /// <para>如果用户有该<see cref="Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>资源权限，就是租户管理员</para>
+        /// <para>如果用户租户编号不为null或空认为是租户</para>
         /// </remarks>
         /// <returns></returns>
-        public Task<bool> IsTenantAdministratorAsync()
+        public bool CurrentUserIsTenant()
         {
-            return CheckCurrentUserHaveResourceAsync(Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey);
-        }
-        /// <summary>
-        /// 是否是租户管理员
-        /// </summary>
-        /// <remarks>
-        /// <para>如果用户有该<see cref="Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>资源权限，就是租户管理员</para>
-        /// </remarks>
-        /// <returns></returns>
-        public bool IsTenantAdministrator()
-        {
-            return CheckCurrentUserHaveResource(Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey);
+            return currentUserIsTenant;
         }
     }
 }

@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
 using System.ComponentModel;
 
 namespace Gardener.Base
@@ -12,12 +11,12 @@ namespace Gardener.Base
     /// <summary>
     /// 租户
     /// </summary>
-    public interface IModelTenant
+    public interface  IModelTenant: IModelTenantId
     {
         /// <summary>
-        /// 租户编号
+        /// 租户
         /// </summary>
-        [DisplayName("TenantId")]
-        public Guid? TenantId { get; set; }
+        [DisplayName("Tenant")]
+        public ITenant? Tenant { get; set; }
     }
 }

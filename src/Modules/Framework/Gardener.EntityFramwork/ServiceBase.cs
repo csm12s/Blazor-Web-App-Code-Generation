@@ -187,8 +187,19 @@ namespace Gardener.EntityFramwork
         /// <returns></returns>
         public virtual async Task<TEntityDto> Get(TKey id)
         {
-            var person = await GetReadableRepository().FindAsync(id);
-            return person.Adapt<TEntityDto>();
+            TEntity entity = await GetReadableRepository().FindAsync(id);
+            //租户数据可以装配
+            if (typeof(TEntityDto).IsAssignableTo(typeof(IModelTenant)) && entity is IModelTenant tenant)
+            {
+                if (tenant.IsTenant)
+                {
+                    IRepository<Tenant> repository = _repository.Change<Tenant>();
+
+                    tenant.Tenant=(ITenant)await repository.FindAsync(tenant.TenantId);
+                }
+               
+            }
+            return entity.Adapt<TEntityDto>();
         }
 
         /// <summary>
@@ -231,9 +242,9 @@ namespace Gardener.EntityFramwork
                 paramList.Add(false);
             }
             //租户
-            if (type.IsAssignableTo(typeof(IModelTenant)) && tenantId!=null)
+            if (type.IsAssignableTo(typeof(IModelTenantId)) && tenantId!=null)
             {
-                where.Append($" &&  {nameof(IModelTenant.TenantId)}.Equals(@{paramList.Count})");
+                where.Append($" &&  {nameof(IModelTenantId.TenantId)}.Equals(@{paramList.Count})");
                 paramList.Add(tenantId);
             }
             var persons = GetReadableRepository().AsQueryable().Where(where.ToString(),paramList.ToArray()).Select(x => x.Adapt<TEntityDto>());

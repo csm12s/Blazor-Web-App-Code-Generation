@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
@@ -71,8 +72,8 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 _editModel.Password = null;
             }
             //租户
-            bool admin = authenticationStateManager.IsTenantAdministrator();
-            if (admin)
+            bool isTenant = authenticationStateManager.CurrentUserIsTenant();
+            if (!isTenant)
             {
                 _tenants = await tenantService.GetAllUsable();
             }

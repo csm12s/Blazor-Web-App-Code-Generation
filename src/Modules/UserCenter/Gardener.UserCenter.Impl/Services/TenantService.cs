@@ -4,9 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Base;
+using Gardener.Base.Entity.Domains;
 using Gardener.EntityFramwork;
-using Gardener.UserCenter.Dtos;
-using Gardener.UserCenter.Impl.Domains;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;

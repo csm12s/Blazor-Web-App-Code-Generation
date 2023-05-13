@@ -5,20 +5,17 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Gardener.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.UserCenter.Impl.Domains
+namespace Gardener.Base.Entity.Domains
 {
     /// <summary>
     /// 租户
     /// </summary>
     [Description("租户")]
-    public class Tenant : GardenerEntityBase<Guid>, IEntitySeedData<Tenant>
+    public class Tenant : GardenerEntityBase<Guid>, IEntitySeedData<Tenant>, ITenant
     {
         /// <summary>
         /// 租户名称

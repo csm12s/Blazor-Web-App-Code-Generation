@@ -101,20 +101,12 @@ namespace Gardener.Client.Base
         Task<bool> TestToken(string? flag = null);
 
         /// <summary>
-        /// 是否是租户管理员
+        /// 是否是租户
         /// </summary>
         /// <remarks>
-        /// <para>如果用户有该<see cref="Gardener.Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>资源权限，就是租户管理员</para>
+        /// <para>如果用户租户编号不为null或空认为是租户</para>
         /// </remarks>
         /// <returns></returns>
-        Task<bool> IsTenantAdministratorAsync();
-        /// <summary>
-        /// 是否是租户管理员
-        /// </summary>
-        /// <remarks>
-        /// <para>如果用户有该<see cref="Gardener.Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>资源权限，就是租户管理员</para>
-        /// </remarks>
-        /// <returns></returns>
-        bool IsTenantAdministrator();
+        bool CurrentUserIsTenant();
     }
 }
