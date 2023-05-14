@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 using Furion;
-using Furion.Extensions;
 using Furion.TaskScheduler;
 using System.Reflection;
 

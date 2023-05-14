@@ -14,7 +14,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_timer_refresh">
-                <TableSearch TDto="SysTimerDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+                <TableSearch TDto="SysTimerDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

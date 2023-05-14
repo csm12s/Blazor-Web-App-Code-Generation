@@ -53,6 +53,7 @@ namespace Gardener.UserCenter.Impl.Services
         public async Task<bool> Resource([ApiSeat(ApiSeats.ActionStart)] int roleId, [FromBody] Guid[] resourceIds)
         {
             resourceIds ??= Array.Empty<Guid>();
+            Role role = await _roleRepository.FindAsync(roleId);
 
             //所有现有关系
             var entitys = await _roleResourceRepository.Where(u => u.RoleId == roleId, false).ToListAsync();
@@ -77,7 +78,7 @@ namespace Gardener.UserCenter.Impl.Services
             {
                 if (!entitys.Any(r => r.ResourceId.Equals(id)))
                 {
-                    needAdd.Add(new RoleResource { RoleId = roleId, ResourceId = id, CreatedTime = DateTimeOffset.Now });
+                    needAdd.Add(new RoleResource { RoleId = roleId, ResourceId = id, TenantId = role.TenantId });
                 }
             });
             if (needAdd.Any())

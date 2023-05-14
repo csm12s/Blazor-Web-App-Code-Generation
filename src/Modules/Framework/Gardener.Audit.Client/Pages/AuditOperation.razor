@@ -14,7 +14,7 @@
            Context="model">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_audit_operation_refresh">
-                <TableSearch TDto="AuditOperationDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="AuditOperationDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -46,7 +46,7 @@
 
         </TitleTemplate>
         <ColumnDefinitions>
-            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["system_manager_audit_operation_delete_selected"]" />
+            <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_audit_operation_delete_selected"]" />
             <Column @bind-Field="@model.OperaterId" Filterable />
             <Column @bind-Field="@model.OperaterName" Filterable />
             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">

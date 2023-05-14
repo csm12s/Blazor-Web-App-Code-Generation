@@ -5,9 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using System;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core.Authentication.Subscribes

@@ -11,7 +11,6 @@ using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
-using Gardener.Client.Base.Components;
 using Gardener.Common;
 using Mapster;
 using Microsoft.AspNetCore.Components;
@@ -46,14 +45,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 控制分页每页数量
         /// </summary>
         protected int _pageSize = ClientConstant.pageSize;
-        /// <summary>
-        /// 默认搜索值
-        /// </summary>
-        protected Dictionary<string, object> _defaultSearchValue = new Dictionary<string, object>();
-        /// <summary>
-        /// 搜索条件提供器
-        /// </summary>
-        protected List<Func<List<FilterGroup>?>> _filterGroupProviders = new();
+
+ 
+
+        #region services
         /// <summary>
         /// 确认提示服务
         /// </summary>
@@ -70,7 +65,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         [Inject]
         protected IJsTool JsTool { get; set; } = null!;
 
-        protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
+        #endregion
 
         #region override mothed
         /// <summary>
@@ -92,6 +87,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             //table search 组件提供搜索条件
             _filterGroupProviders.Add(GetTableSearchFilterGroups);
+            //租户不需要租户编号搜索
+            if (AuthenticationStateManager.CurrentUserIsTenant() && typeof(TDto).IsAssignableTo(typeof(IModelTenantId)))
+            {
+                this.AddExcludeSearchFields(nameof(IModelTenantId.TenantId));
+            }
             return base.OnInitializedAsync();
         }
 
@@ -123,7 +123,20 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             //set pageRequest
         }
-
+        /// <summary>
+        /// 添加需要排除的字段
+        /// </summary>
+        /// <param name="fields"></param>
+        protected void AddExcludeSearchFields(params string[] fields) 
+        {
+            foreach(string  field in fields)
+            {
+                if (!_excludeSearchFields.Contains(field))
+                {
+                    _excludeSearchFields.Add(field);
+                }
+            }
+        }
         /// <summary>
         /// 重置请求参数
         /// </summary>
@@ -207,6 +220,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 var pagedList = pagedListResult;
                 _datas = pagedList.Items ?? new List<TDto>(0);
+                //如果有租户数据，装配一下
+                if (typeof(TDto).IsAssignableTo(typeof(IModelTenant))) 
+                {
+                    foreach(TDto item  in _datas)
+                    {
+                        if (item is IModelTenant modelTenant) 
+                        {
+                            modelTenant.Tenant = GetTenant(modelTenant.TenantId);
+                        }
+                    }
+                }
                 _total = pagedList.TotalCount;
             }
             else

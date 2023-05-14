@@ -6,7 +6,6 @@
 
 using AntDesign;
 using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Resources;
@@ -41,6 +40,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 if (rolesResult == null || !rolesResult.Any()) 
                 {
                     MessageService.Error(Localizer[UserCenterResource.NoRoleNeedAdd]);
+                    _isLoading = false;
                     return;
                 }
                 var userRoles = await t2;

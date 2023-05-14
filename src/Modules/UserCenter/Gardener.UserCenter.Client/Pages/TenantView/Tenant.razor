@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="user_center_tenant_refresh">
-                <TableSearch TDto="SystemTenantDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+                <TableSearch TDto="SystemTenantDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -44,7 +44,7 @@
             </Row>
         </TitleTemplate>
         <ColumnDefinitions>
-            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["user_center_tenant_delete_selected"]" />
+            <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["user_center_tenant_delete_selected"]" />
             <Column @bind-Field="@model.Id" Filterable Title="@Localizer[UserCenterResource.Id]" />
             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
             <Column @bind-Field="@model.Email" Filterable Title="@Localizer[UserCenterResource.Email]" />

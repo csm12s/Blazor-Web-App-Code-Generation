@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
-using System;
 using System.ComponentModel;
 
 namespace Gardener.WoChat.Dtos

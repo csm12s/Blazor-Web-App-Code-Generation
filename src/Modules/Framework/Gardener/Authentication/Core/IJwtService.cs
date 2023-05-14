@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Authentication.Dtos;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Gardener.Authentication.Core

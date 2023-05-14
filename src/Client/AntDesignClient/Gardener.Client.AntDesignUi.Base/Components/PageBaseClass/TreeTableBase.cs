@@ -119,6 +119,23 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 MessageService.Error(this.Localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
+            else 
+            {
+                if (typeof(TDto).IsAssignableTo(typeof(IModelTenant)))
+                {
+                    foreach (TDto dto in _datas)
+                    {
+                        RecursionTree(dto, item =>
+                        {
+                            if (dto is IModelTenant modelTenant)
+                            {
+                                modelTenant.Tenant = GetTenant(modelTenant.TenantId);
+                            }
+                        });
+                    }
+                }
+                
+            }
             StopLoading();
         }
 
@@ -270,6 +287,23 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         #region tree tool
+        /// <summary>
+        /// 递归树执行
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="action"></param>
+        protected void RecursionTree(TDto dto, Action<TDto> action)
+        {
+            action(dto);
+             ICollection<TDto>? list = GetChildren(dto);
+            if (list != null)
+            {
+                foreach (TDto item in list)
+                {
+                    action(item);
+                }
+            }
+        }
         /// <summary>
         /// 获取所有子集节点id
         /// </summary>

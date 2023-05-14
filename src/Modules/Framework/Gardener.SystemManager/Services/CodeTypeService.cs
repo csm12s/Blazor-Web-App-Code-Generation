@@ -13,7 +13,6 @@ using Gardener.SystemManager.Utils;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Gardener.SystemManager.Services
 {

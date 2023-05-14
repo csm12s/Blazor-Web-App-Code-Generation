@@ -8,7 +8,6 @@ using Furion;
 using Furion.RemoteRequest.Extensions;
 using Furion.TaskScheduler;
 using Gardener.EventBus;
-using Gardener.NotificationSystem.Dtos.Notification;
 using Gardener.SysTimer.Dtos;
 using Microsoft.Extensions.Logging;
 using System;

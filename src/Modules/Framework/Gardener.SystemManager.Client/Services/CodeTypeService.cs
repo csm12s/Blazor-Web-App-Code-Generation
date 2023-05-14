@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
-using Gardener.SystemManager.Client.Pages.CodeView;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
 using Gardener.SystemManager.Utils;

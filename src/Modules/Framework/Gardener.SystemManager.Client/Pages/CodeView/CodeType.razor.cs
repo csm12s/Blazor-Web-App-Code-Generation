@@ -6,16 +6,10 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
-using Gardener.SystemManager.Client.Pages.FunctionView;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.SystemManager.Client.Pages.CodeView
 {

@@ -25,7 +25,6 @@ using System.IO;
 using MiniExcelLibs;
 using Gardener.FileStore;
 using Furion.FriendlyException;
-using Gardener.Base.Entity.Domains;
 
 namespace Gardener.EntityFramwork
 {
@@ -189,17 +188,6 @@ namespace Gardener.EntityFramwork
         public virtual async Task<TEntityDto> Get(TKey id)
         {
             TEntity entity = await GetReadableRepository().FindAsync(id);
-            //租户数据可以装配
-            if (typeof(TEntityDto).IsAssignableTo(typeof(IModelTenant)) && entity is IModelTenant tenant)
-            {
-                if (tenant.IsTenant)
-                {
-                    IRepository<SystemTenant> repository = _repository.Change<SystemTenant>();
-
-                    tenant.Tenant = (ITenant)await repository.FindAsync(tenant.TenantId);
-                }
-
-            }
             TEntityDto result = entity.Adapt<TEntityDto>();
             return result;
         }
@@ -250,12 +238,6 @@ namespace Gardener.EntityFramwork
                 paramList.Add(tenantId);
             }
             var persons = GetReadableRepository().AsQueryable().Where(where.ToString(), paramList.ToArray());
-            //租户数据可以装配
-            if (typeof(TEntityDto).IsAssignableTo(typeof(IModelTenant)) && typeof(TEntity).IsAssignableTo(typeof(IModelTenant)))
-            {
-                persons = persons.Include(x => ((IModelTenant)x).Tenant);
-
-            }
             return await persons.Select(x => x.Adapt<TEntityDto>()).ToListAsync();
         }
 

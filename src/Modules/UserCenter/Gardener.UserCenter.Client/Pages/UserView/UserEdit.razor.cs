@@ -4,10 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Client.Base;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
@@ -21,18 +19,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
     {
         private List<DeptDto>? deptDatas;
         private List<PositionDto>? positions;
-        /// <summary>
-        /// 租户列表
-        /// </summary>
-        private IEnumerable<SystemTenantDto>? _tenants;
         [Inject]
         private IDeptService DeptService { get; set; } = null!;
         [Inject]
         private IPositionService PositionService { get; set; } = null!;
-        [Inject]
-        private ITenantService tenantService { get; set; } = null!;
-        [Inject]
-        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
 
         //部门树
         /// <summary>
@@ -70,12 +60,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             if (_editModel != null)
             {
                 _editModel.Password = null;
-            }
-            //租户
-            bool isTenant = authenticationStateManager.CurrentUserIsTenant();
-            if (!isTenant)
-            {
-                _tenants = await tenantService.GetAllUsable();
             }
             //岗位
             positions =await t2;

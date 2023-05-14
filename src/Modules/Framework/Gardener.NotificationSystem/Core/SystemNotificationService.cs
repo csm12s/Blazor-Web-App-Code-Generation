@@ -4,13 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.LinqBuilder;
 using Gardener.Authentication.Dtos;
 using Gardener.Cache;
 using Gardener.Common;
 using Gardener.NotificationSystem.Dtos;
 using Microsoft.AspNetCore.SignalR;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Gardener.NotificationSystem.Core
 {

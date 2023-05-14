@@ -17,8 +17,6 @@ using Gardener.Client.AntDesignUi.Base.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Gardener.Client.AntDesignUi.Base;
 using AntDesign;
-using Gardener.Client.Base;
-using System;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
@@ -33,7 +31,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <summary>
         /// 排除搜索字段
         /// </summary>
-        private List<string> excludeSeatchFields = new List<string>() { nameof(UserDto.Password), nameof(UserDto.Avatar) };
+        private List<string> excludeSearchFields = new List<string>() { nameof(UserDto.Password), nameof(UserDto.Avatar) };
       
         /// <summary>
         /// 
@@ -50,11 +48,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
-            if (!isTenant)
-            {
-                excludeSeatchFields.Add(nameof(IModelTenantId.TenantId));
-            }
+            base.AddExcludeSearchFields(nameof(UserDto.Password), nameof(UserDto.Avatar));
             await base.OnInitializedAsync();
         }
         /// <summary>

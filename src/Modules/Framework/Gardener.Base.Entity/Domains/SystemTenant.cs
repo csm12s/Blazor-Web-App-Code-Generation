@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

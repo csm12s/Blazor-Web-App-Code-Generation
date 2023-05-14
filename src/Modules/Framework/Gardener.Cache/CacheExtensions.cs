@@ -7,7 +7,6 @@
 using Furion;
 using Gardener.Cache;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection

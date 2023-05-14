@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_email_template_refresh">
-                <TableSearch TDto="EmailTemplateDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="EmailTemplateDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -44,7 +44,7 @@
             </Row>
         </TitleTemplate>
             <ColumnDefinitions>
-            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["system_manager_email_template_delete_selected"]" />
+            <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_email_template_delete_selected"]" />
             <Column @bind-Field="@model.Id" Filterable />
             <Column @bind-Field="@model.Name" Filterable />
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">

@@ -9,6 +9,7 @@ using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
+using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -37,11 +38,26 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected ConfirmService ConfirmService { get; set; } = null!;
         [Inject]
         protected DrawerService DrawerService { get; set; } = null!;
-
+        /// <summary>
+        /// 租户服务    
+        /// </summary>
+        [Inject]
+        protected ITenantService tenantService { get; set; } = null!;
+        /// <summary>
+        /// 身份状态管理
+        /// </summary>
+        [Inject]
+        protected IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         /// <summary>
         /// 当前正在编辑的对象
         /// </summary>
         protected TDto _editModel = new();
+
+        /// <summary>
+        /// 租户列表
+        /// </summary>
+        protected IEnumerable<SystemTenantDto>? _tenants { get; set; }
+
         /// <summary>
         /// 页面初始化
         /// </summary>
@@ -49,7 +65,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected override async Task OnInitializedAsync()
         {
             StartLoading();
-            await LoadEditModelData();
+            var task1= LoadEditModelData();
+            if (IsLoadTenants())
+            {
+                await LocadTenants();
+            }
+            await task1;
             StopLoading();
         }
         /// <summary>
@@ -78,6 +99,30 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
             }
         }
+
+        /// <summary>
+        /// 加载租户数据
+        /// </summary>
+        /// <returns></returns>
+        protected async Task LocadTenants()
+        {
+            _tenants = await tenantService.GetAll();
+            
+        }
+        /// <summary>
+        /// 是否加载租户数据
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// 默认在非租户用户登陆时加载，因为租户自己只能加载到自己的，如果需要自定义控制，请重载
+        /// </remarks>
+        protected virtual bool IsLoadTenants()
+        {
+            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
+
+            return !isTenant;
+        }
+
         /// <summary>
         /// 取消
         /// </summary>

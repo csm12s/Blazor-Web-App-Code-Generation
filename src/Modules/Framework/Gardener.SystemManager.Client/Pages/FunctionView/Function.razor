@@ -14,7 +14,7 @@
             >
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_function_refresh">
-                <TableSearch TDto="FunctionDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="FunctionDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -68,7 +68,7 @@
 
         </TitleTemplate>
             <ColumnDefinitions>
-            <Selection Key="@(model.Id.ToString())" Width="5%" Hidden="@UserUnauthorizedResources["system_manager_function_delete_selected"]" />
+            <Selection Key="@(model.Id.ToString())" Width="5%" Hidden="@_userUnauthorizedResources["system_manager_function_delete_selected"]" />
             <Column @bind-Field="@model.Group" Width="10%" Filterable />
             <Column @bind-Field="@model.Service" Width="10%" Filterable />
             <Column @bind-Field="@model.Summary" Width="10%" Filterable />

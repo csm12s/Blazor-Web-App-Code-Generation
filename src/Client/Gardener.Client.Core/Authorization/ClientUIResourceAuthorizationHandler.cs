@@ -7,7 +7,6 @@
 using Gardener.Client.Base;
 using Gardener.Client.Base.Authorization;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core

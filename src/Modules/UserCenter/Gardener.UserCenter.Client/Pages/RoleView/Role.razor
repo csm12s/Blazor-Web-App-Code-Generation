@@ -14,7 +14,7 @@
            RemoteDataSource>
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="user_center_role_refresh">
-                <TableSearch TDto="RoleDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer" ExcludeFields="excludeSeatchFields"></TableSearch>
+                <TableSearch TDto="RoleDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer" ExcludeFields="_excludeSearchFields"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -53,9 +53,9 @@
 
         </TitleTemplate>
             <ColumnDefinitions>
-            <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["user_center_role_delete_selected"]" />
-            <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@UserUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
-                <span>@base.GetTenant(model.TenantId)?.Name</span>
+            <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["user_center_role_delete_selected"]" />
+            <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+                <span>@model.Tenant?.Name</span>
             </Column>
             <Column @bind-Field="@model.Id" Sortable Title="@Localizer[UserCenterResource.Id]" />
             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />

@@ -69,10 +69,10 @@
                     <ResourceAuthorize ResourceKey="user_center_user_refresh">
                         <TableSearch TDto="UserDto"
                                      OnSearch="(filterGroups)=>ReLoadTable(true)"
-                        @ref="this.tableSearch"
+                        @ref="this._tableSearch"
                                      DefaultValue="_defaultSearchValue"
                                      CustomLocalizer="Localizer"
-                                     ExcludeFields="@excludeSeatchFields"
+                                     ExcludeFields="@excludeSearchFields"
                                      FieldOrders="@(new Dictionary<string, int>(){ {nameof(UserDto.Id),-1}})">
                         </TableSearch>
                     </ResourceAuthorize>
@@ -112,9 +112,9 @@
                     </Row>
                 </TitleTemplate>
                 <ColumnDefinitions>
-                    <Selection Key="@(model.Id.ToString())" Hidden="@UserUnauthorizedResources["user_center_user_delete_selected"]" />
-                    <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@UserUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" >
-                        <span>@base.GetTenant(model.TenantId)?.Name</span>
+                    <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["user_center_user_delete_selected"]" />
+                    <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" >
+                        <span>@model.Tenant?.Name</span>
                     </Column>
                     <Column @bind-Field="@model.Id" Title="@Localizer[UserCenterResource.Id]" Sortable />
                     <Column @bind-Field="@model.Avatar" Title="@Localizer[UserCenterResource.Avatar]">

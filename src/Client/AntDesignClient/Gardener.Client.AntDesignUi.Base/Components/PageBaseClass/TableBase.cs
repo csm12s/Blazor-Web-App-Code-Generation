@@ -12,13 +12,9 @@ using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Services;
-using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Primitives;
-using System;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -52,6 +48,27 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected ClientLoading _tableLoading = new ClientLoading();
 
+        #region TableSearch
+        /// <summary>
+        /// 搜索组件
+        /// </summary>
+        protected TableSearch<TDto>? _tableSearch;
+        /// <summary>
+        /// 默认搜索值
+        /// </summary>
+        protected Dictionary<string, object> _defaultSearchValue = new Dictionary<string, object>();
+        /// <summary>
+        /// 排除搜索字段
+        /// </summary>
+        protected List<string> _excludeSearchFields = new List<string>();
+        /// <summary>
+        /// 搜索条件提供器
+        /// </summary>
+        protected List<Func<List<FilterGroup>?>> _filterGroupProviders = new();
+
+        protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
+        #endregion
+
         /// <summary>
         /// 多选删除按钮加载中控制
         /// </summary>
@@ -66,10 +83,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 锁定按钮加载中
         /// </summary>
         protected ClientMultiLoading _lockBtnLoading = new ClientMultiLoading(false);
-        /// <summary>
-        /// 搜索组件
-        /// </summary>
-        protected TableSearch<TDto>? tableSearch;
+     
         /// <summary>
         /// 用户在当前页面使用该资源是否越权
         /// <para>true 越权</para> 
@@ -78,9 +92,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <remarks>
         /// 方便列表中组件显示隐藏绑定
         /// 在组件参数设置后（OnParametersSet）才有效
-        /// <para>使用方式<code>UserUnauthorizedResources[ResourceKey]</code></para> 
+        /// <para>使用方式<code>_userUnauthorizedResources[ResourceKey]</code></para> 
         /// </remarks>
-        protected ClientListBindValue<string, bool> UserUnauthorizedResources = new ClientListBindValue<string, bool>(true);
+        protected ClientListBindValue<string, bool> _userUnauthorizedResources = new ClientListBindValue<string, bool>(true);
         /// <summary>
         /// 用户在当前页面使用该资源是否可以
         /// <para>true 可以</para> 
@@ -89,18 +103,20 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <remarks>
         /// 方便列表中组件显示隐藏绑定
         /// 在组件参数设置后（OnParametersSet）才有效
-        /// <para>使用方式<code>UserAuthorizedResources[ResourceKey]</code></para> 
+        /// <para>使用方式<code>_userAuthorizedResources[ResourceKey]</code></para> 
         /// </remarks>
-        protected ClientListBindValue<string, bool> UserAuthorizedResources = new ClientListBindValue<string, bool>(false);
+        protected ClientListBindValue<string, bool> _userAuthorizedResources = new ClientListBindValue<string, bool>(false);
         /// <summary>
         /// 租户数据
         /// </summary>
-        protected Dictionary<Guid, SystemTenantDto> tenantMap = new Dictionary<Guid, SystemTenantDto>();
+        protected Dictionary<Guid, SystemTenantDto> _tenantMap = new Dictionary<Guid, SystemTenantDto>();
+
+        #region services
         /// <summary>
         /// 租户服务    
         /// </summary>
         [Inject]
-        private ITenantService tenantService { get; set; } = null!;
+        protected ITenantService TenantService { get; set; } = null!;
         /// <summary>
         /// 身份状态管理
         /// </summary>
@@ -129,6 +145,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         [Inject]
         protected IClientMessageService MessageService { get; set; } = null!;
+        #endregion
+
+
         /// <summary>
         /// 参数设置完成
         /// </summary>
@@ -136,8 +155,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected override void OnParametersSet()
         {
             //资源越权绑定数据
-            UserUnauthorizedResources = new ClientListBindValue<string, bool>(true, key => !AuthenticationStateManager.CheckCurrentUserHaveResource(key));
-            UserAuthorizedResources = new ClientListBindValue<string, bool>(false, key => AuthenticationStateManager.CheckCurrentUserHaveResource(key));
+            _userUnauthorizedResources = new ClientListBindValue<string, bool>(true, key => !AuthenticationStateManager.CheckCurrentUserHaveResource(key));
+            _userAuthorizedResources = new ClientListBindValue<string, bool>(false, key => AuthenticationStateManager.CheckCurrentUserHaveResource(key));
             base.OnParametersSet();
         }
         /// <summary>
@@ -146,16 +165,28 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
-            if (!isTenant)
+            if (this.IsLoadTenants())
             {
-                List<SystemTenantDto> tenants = await tenantService.GetAll();
+                List<SystemTenantDto> tenants = await TenantService.GetAll();
                 foreach (SystemTenantDto tenant in tenants)
                 {
-                    tenantMap.TryAdd(tenant.Id, tenant);
+                    _tenantMap.TryAdd(tenant.Id, tenant);
                 }
             }
             await base.OnInitializedAsync();
+        }
+        /// <summary>
+        /// 是否加载租户数据
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// 默认在非租户用户登陆时加载，因为租户自己只能加载到自己的，如果需要自定义控制，请重载
+        /// </remarks>
+        protected virtual bool IsLoadTenants()
+        {
+            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
+
+            return !isTenant;
         }
         /// <summary>
         /// 获取操作会话配置
@@ -235,7 +266,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual List<FilterGroup>? GetTableSearchFilterGroups()
         {
-            return tableSearch?.GetFilterGroups();
+            return _tableSearch?.GetFilterGroups();
         }
 
         #region Page loading
@@ -288,16 +319,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="tenantId"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// 租户管理才有数据
-        /// </remarks>
         protected SystemTenantDto? GetTenant(Guid? tenantId)
         {
-            if (tenantId == null || tenantId.Equals(Guid.Empty) || !tenantMap.ContainsKey(tenantId.Value))
+            if (tenantId == null || tenantId.Equals(Guid.Empty) || !_tenantMap.ContainsKey(tenantId.Value))
             {
                 return null;
             }
-            return tenantMap[tenantId.Value];
+            return _tenantMap[tenantId.Value];
         }
     }
     /// <summary>
