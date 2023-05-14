@@ -15,7 +15,7 @@ namespace Gardener.UserCenter.Client.Services
     /// 租户服务
     /// </summary>
     [ScopedService]
-    public class TenantService : ClientServiceBase<TenantDto, Guid>, ITenantService
+    public class TenantService : ClientServiceBase<SystemTenantDto, Guid>, ITenantService
     {
         public TenantService(IApiCaller apiCaller) : base(apiCaller, "tenant")
         {

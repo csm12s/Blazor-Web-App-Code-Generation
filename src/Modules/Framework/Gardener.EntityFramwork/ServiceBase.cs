@@ -25,6 +25,7 @@ using System.IO;
 using MiniExcelLibs;
 using Gardener.FileStore;
 using Furion.FriendlyException;
+using Gardener.Base.Entity.Domains;
 
 namespace Gardener.EntityFramwork
 {
@@ -193,13 +194,14 @@ namespace Gardener.EntityFramwork
             {
                 if (tenant.IsTenant)
                 {
-                    IRepository<Tenant> repository = _repository.Change<Tenant>();
+                    IRepository<SystemTenant> repository = _repository.Change<SystemTenant>();
 
-                    tenant.Tenant=(ITenant)await repository.FindAsync(tenant.TenantId);
+                    tenant.Tenant = (ITenant)await repository.FindAsync(tenant.TenantId);
                 }
-               
+
             }
-            return entity.Adapt<TEntityDto>();
+            TEntityDto result = entity.Adapt<TEntityDto>();
+            return result;
         }
 
         /// <summary>
@@ -223,7 +225,7 @@ namespace Gardener.EntityFramwork
         /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
         /// </remarks>
         /// <returns></returns>
-        public virtual async Task<List<TEntityDto>> GetAllUsable([FromQuery] Guid? tenantId=null)
+        public virtual async Task<List<TEntityDto>> GetAllUsable([FromQuery] Guid? tenantId = null)
         {
             var paramList = new List<object>();
             StringBuilder where = new();
@@ -242,13 +244,19 @@ namespace Gardener.EntityFramwork
                 paramList.Add(false);
             }
             //租户
-            if (type.IsAssignableTo(typeof(IModelTenantId)) && tenantId!=null)
+            if (type.IsAssignableTo(typeof(IModelTenantId)) && tenantId != null)
             {
                 where.Append($" &&  {nameof(IModelTenantId.TenantId)}.Equals(@{paramList.Count})");
                 paramList.Add(tenantId);
             }
-            var persons = GetReadableRepository().AsQueryable().Where(where.ToString(),paramList.ToArray()).Select(x => x.Adapt<TEntityDto>());
-            return await persons.ToListAsync();
+            var persons = GetReadableRepository().AsQueryable().Where(where.ToString(), paramList.ToArray());
+            //租户数据可以装配
+            if (typeof(TEntityDto).IsAssignableTo(typeof(IModelTenant)) && typeof(TEntity).IsAssignableTo(typeof(IModelTenant)))
+            {
+                persons = persons.Include(x => ((IModelTenant)x).Tenant);
+
+            }
+            return await persons.Select(x => x.Adapt<TEntityDto>()).ToListAsync();
         }
 
         /// <summary>

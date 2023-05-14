@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +16,7 @@ namespace Gardener.Base.Entity.Domains
     /// 租户
     /// </summary>
     [Description("租户")]
-    public class Tenant : GardenerEntityBase<Guid>, IEntitySeedData<Tenant>, ITenant
+    public class SystemTenant : GardenerEntityBase<Guid>, IEntitySeedData<SystemTenant>, ITenant
     {
         /// <summary>
         /// 租户名称
@@ -51,11 +52,11 @@ namespace Gardener.Base.Entity.Domains
         /// <param name="dbContextLocator"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public IEnumerable<Tenant> HasData(DbContext dbContext, Type dbContextLocator)
+        public IEnumerable<SystemTenant> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[] {
-                new Tenant { Id=Guid.Parse("710148B3-0C80-48A2-8F57-4B863BE9859F"),Name = "租户1", Email = "gardener@163.com", Tel = "400-888-8888", Remark = "预设数据。" ,IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)},
-                new Tenant { Id=Guid.Parse("F416B514-04C8-40CA-91A4-07C5BBF9C8C6"),Name = "租户2", Email = "gardener@163.com", Tel = "400-888-8888", Remark = "预设数据。" ,IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)},
+                new SystemTenant { Id=Guid.Parse("710148B3-0C80-48A2-8F57-4B863BE9859F"),Name = "租户1", Email = "gardener@163.com", Tel = "400-888-8888", Remark = "预设数据。" ,IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)},
+                new SystemTenant { Id=Guid.Parse("F416B514-04C8-40CA-91A4-07C5BBF9C8C6"),Name = "租户2", Email = "gardener@163.com", Tel = "400-888-8888", Remark = "预设数据。" ,IsDeleted=false,IsLocked=false,CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)},
             };
         }
     }

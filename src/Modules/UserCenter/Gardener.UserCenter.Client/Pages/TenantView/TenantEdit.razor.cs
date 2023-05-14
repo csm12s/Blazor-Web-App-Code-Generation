@@ -11,7 +11,7 @@ using System;
 
 namespace Gardener.UserCenter.Client.Pages.TenantView
 {
-    public partial class TenantEdit : EditOperationDialogBase<TenantDto, Guid, UserCenterResource>
+    public partial class TenantEdit : EditOperationDialogBase<SystemTenantDto, Guid, UserCenterResource>
     {
     }
 }

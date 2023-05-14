@@ -13,7 +13,7 @@ namespace Gardener.UserCenter.Services
     /// <summary>
     /// 租户服务
     /// </summary>
-    public interface ITenantService : IServiceBase<TenantDto, Guid>
+    public interface ITenantService : IServiceBase<SystemTenantDto, Guid>
     {
     }
 }

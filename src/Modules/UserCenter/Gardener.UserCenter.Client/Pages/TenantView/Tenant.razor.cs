@@ -11,7 +11,7 @@ using System;
 
 namespace Gardener.UserCenter.Client.Pages.TenantView
 {
-    public partial class Tenant: ListOperateTableBase<TenantDto, Guid, TenantEdit, UserCenterResource>
+    public partial class Tenant: ListOperateTableBase<SystemTenantDto, Guid, TenantEdit, UserCenterResource>
     {
     }
 }

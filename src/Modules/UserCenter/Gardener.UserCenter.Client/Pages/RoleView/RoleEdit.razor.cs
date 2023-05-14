@@ -26,7 +26,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <summary>
         /// 租户列表
         /// </summary>
-        private IEnumerable<TenantDto>? _tenants;
+        private IEnumerable<SystemTenantDto>? _tenants;
 
         /// <summary>
         /// 页面初始化

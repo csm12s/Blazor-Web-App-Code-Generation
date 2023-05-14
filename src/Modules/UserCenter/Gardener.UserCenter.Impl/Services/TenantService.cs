@@ -17,13 +17,13 @@ namespace Gardener.UserCenter.Impl.Services
     /// 租户服务
     /// </summary>
     [ApiDescriptionSettings("UserCenterServices")]
-    public class TenantService : ServiceBase<Tenant, TenantDto, Guid>, ITenantService
+    public class TenantService : ServiceBase<SystemTenant, SystemTenantDto, Guid>, ITenantService
     {
         /// <summary>
         /// 租户服务
         /// </summary>
         /// <param name="repository"></param>
-        public TenantService(Furion.DatabaseAccessor.IRepository<Tenant> repository) : base(repository)
+        public TenantService(Furion.DatabaseAccessor.IRepository<SystemTenant> repository) : base(repository)
         {
         }
     }

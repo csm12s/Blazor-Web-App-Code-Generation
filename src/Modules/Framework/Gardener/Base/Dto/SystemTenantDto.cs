@@ -7,13 +7,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Mapster;
 
 namespace Gardener.Base
 {
     /// <summary>
     /// 租户
     /// </summary>
-    public class TenantDto : BaseDto<Guid>, ITenant
+    public class SystemTenantDto : BaseDto<Guid>, ITenant
     {
         /// <summary>
         /// 租户名称

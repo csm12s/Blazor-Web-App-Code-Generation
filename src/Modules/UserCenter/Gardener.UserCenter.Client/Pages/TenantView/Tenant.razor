@@ -1,8 +1,8 @@
 ﻿@page "/user_center/tenant"
-@inherits ListOperateTableBase<TenantDto, Guid, TenantEdit,UserCenterResource>
+@inherits ListOperateTableBase<SystemTenantDto, Guid, TenantEdit,UserCenterResource>
 <div>
     <Table @ref="_table"
-           TItem="TenantDto"
+           TItem="SystemTenantDto"
            DataSource="@_datas"
            Total="_total"
            OnChange="@OnChange"
@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="user_center_tenant_refresh">
-                <TableSearch TDto="TenantDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+                <TableSearch TDto="SystemTenantDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

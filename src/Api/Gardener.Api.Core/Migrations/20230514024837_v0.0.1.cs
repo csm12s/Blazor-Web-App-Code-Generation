@@ -526,6 +526,29 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SystemTenant",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Tel = table.Column<string>(type: "TEXT", maxLength: 32, nullable: true),
+                    Remark = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemTenant", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SysTimer",
                 columns: table => new
                 {
@@ -562,29 +585,6 @@ namespace Gardener.Api.Core.Migrations
                     table.PrimaryKey("PK_SysTimer", x => x.Id);
                 },
                 comment: "定时任务表");
-
-            migrationBuilder.CreateTable(
-                name: "Tenant",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    Tel = table.Column<string>(type: "TEXT", maxLength: 32, nullable: true),
-                    Remark = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
-                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
-                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
-                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
-                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tenant", x => x.Id);
-                });
 
             migrationBuilder.CreateTable(
                 name: "VerifyCodeLog",
@@ -1387,7 +1387,7 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Tenant",
+                table: "SystemTenant",
                 columns: new[] { "Id", "CreateBy", "CreateIdentityType", "CreatedTime", "Email", "IsDeleted", "IsLocked", "Name", "Remark", "Tel", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
@@ -1430,6 +1430,7 @@ namespace Gardener.Api.Core.Migrations
                 {
                     { new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), "4", 1, 1306984533504000480L, null, false, false, "global_wo_chat_btn", "WoChat聊天按钮", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, "WoChat聊天按钮显资源", 2000, null, null, null },
                     { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), null, 0, 1306051389542400480L, "home", false, false, "admin_home", "首页", 10, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "/", "", 1000, null, null, null },
+                    { new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"), "2", 1, 1307020067348480480L, null, false, false, "system_tenant_administrator", "后台租户管理员", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, 2000, "2", 1, 1307021551575040480L },
                     { new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), "6", 1, 1306994998394880480L, null, false, false, "system_code_utils", "字典工具", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, 2000, "6", 1, 1306994999357440480L },
                     { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), null, 0, 1306546809856000480L, "apartment", false, false, "user_center", "用户中心", 15, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "用户中心", 1000, null, null, null },
                     { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), null, 0, 1306546809856000480L, "setting", false, false, "system_manager", "系统管理", 20, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "系统管理", 1000, null, null, null },
@@ -1453,7 +1454,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), null, 0, 1306051389542400480L, "crown", false, false, "user_center_position", "岗位管理", 5, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/position", "", 1000, null, null, null },
                     { new Guid("3b5a2330-081b-4c9b-95a3-0e36ba9dda65"), "1", 1, 1306683595427840480L, "code-sandbox", false, false, "system_tool_code_gen", "代码生成", 41, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_tool/code_gen", null, 1000, null, null, 1306683596595200480L },
                     { new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"), null, 0, 1306051389542400480L, "robot", false, false, "system_manager_timer", "任务调度", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/systimer", "配置任务调度模式", 1000, null, null, 1306547305287680480L },
-                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), null, 0, 1306051389542400480L, "team", false, false, "user_center_dept", "部门管理", 0, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/dept", "", 1000, null, null, null },
+                    { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), null, 0, 1306051389542400480L, "team", false, false, "user_center_dept", "部门管理", 3, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/dept", "", 1000, null, null, null },
                     { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), null, 0, 1306051389542400480L, "mail", false, false, "system_manager_email_tool", "邮件工具", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "邮件工具", 1000, null, null, null },
                     { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, 0, 1306051389542400480L, "user", false, false, "user_center_user", "用户管理", 10, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/user", "用户管理", 1000, null, null, null },
                     { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), null, 0, 1306051389542400480L, "file", false, false, "system_manager_attachment", "附件管理", 50, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/attachment", "附件管理", 1000, null, null, null },
@@ -1481,6 +1482,10 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("ea2a64ac-bde9-45e5-a879-10b161b3f825"), new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 1306984539402240480L },
                     { new Guid("f78ea06a-4c55-4445-9e16-bdc92c9b9fa6"), new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"), 1306984539402240480L },
                     { new Guid("8be6d20e-686c-4259-8eeb-3ec2b18739c3"), new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), 1306540222341120480L },
+                    { new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"), new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"), 1307021769543680480L },
+                    { new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"), new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"), 1307021769543680480L },
+                    { new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"), new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"), 1307021769543680480L },
+                    { new Guid("09d15841-71c7-4afc-99f8-dd906a0248d9"), new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), 1307020005580800480L },
                     { new Guid("4e85ec32-8a3c-46e9-ba60-4abd7bee6745"), new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), 1306995002163200480L },
                     { new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"), new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), 1306995002163200480L },
                     { new Guid("03ee6f4b-dfea-4803-9515-3a9b2f907c90"), new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), 1306582939402240480L },
@@ -1556,6 +1561,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"), "1", 1, 1306552948224000480L, null, false, false, "system_manager_function_export", "导出接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), null, "导出接口", 2000, null, null, null },
                     { new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_role_edit", "用户分配角色", 5, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "", 2000, null, null, null },
                     { new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), null, 0, 1306051389542400480L, "", false, false, "user_center_user_delete_selected", "删除选中用户", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), "", "删除选中", 2000, null, null, null },
+                    { new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"), "6", 1, 1307020016025600480L, null, false, false, "user_center_user_role_edit_save", "保存用户角色", 0, new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, null, 2000, "6", 1, 1307020019138560480L },
                     { new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"), "6", 1, 1307019916656640480L, null, false, false, "user_center_tenant_lock", "锁定租户", 0, new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"), null, null, 2000, null, null, null },
                     { new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), null, 0, 1306051389542400480L, "", false, false, "user_center_position_delete", "删除岗位", 0, new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"), "", "", 2000, null, null, null },
                     { new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), null, 0, 1306051389542400480L, "", false, false, "system_manager_function_edit", "编辑接口", 0, new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"), "", "", 2000, null, null, null },
@@ -1776,9 +1782,10 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("89954833-64a5-4c87-a717-9c863ca3b263"), new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"), 1306069130997760480L },
                     { new Guid("4d664ef2-a462-494d-9c5c-453880f44017"), new Guid("3f7f572f-1df2-4d20-b323-489e44196ad0"), 1306547372216320480L },
                     { new Guid("dca2b115-3363-4f7f-8bba-b051b8d8603a"), new Guid("4171f5aa-2ce1-40ad-b69e-59de1cd20416"), 1306552948920320480L },
-                    { new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"), new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), 1306069130997760480L },
                     { new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"), new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), 1306069130997760480L },
+                    { new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"), new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"), 1307020021166080480L },
                     { new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"), new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"), 1306069130997760480L },
+                    { new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"), new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"), 1307020017090560480L },
                     { new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"), new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"), 1307019918479360480L },
                     { new Guid("65a3c1ee-f5cf-48eb-9bf0-3d4db44257e4"), new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"), 1306069130997760480L },
                     { new Guid("aeb8b23d-4da3-4ec0-867f-70d2e2ba9550"), new Guid("50062351-8235-4da1-9f90-4917d0e8abe0"), 1306069130997760480L },
@@ -2112,10 +2119,10 @@ namespace Gardener.Api.Core.Migrations
                 name: "Sys_CodeGenConfig");
 
             migrationBuilder.DropTable(
-                name: "SysTimer");
+                name: "SystemTenant");
 
             migrationBuilder.DropTable(
-                name: "Tenant");
+                name: "SysTimer");
 
             migrationBuilder.DropTable(
                 name: "UserExtension");

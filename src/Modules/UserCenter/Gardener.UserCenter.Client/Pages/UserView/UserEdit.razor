@@ -14,9 +14,9 @@
                     <FormItem Label="@Localizer[UserCenterResource.Tenant]">
                         <Select DataSource="@_tenants"
                         @bind-Value="@model.TenantId"
-                                ValueName="@nameof(TenantDto.Id)"
-                                LabelName="@nameof(TenantDto.Name)"
-                                TItem="TenantDto"
+                                ValueName="@nameof(SystemTenantDto.Id)"
+                                LabelName="@nameof(SystemTenantDto.Name)"
+                                TItem="SystemTenantDto"
                                 TItemValue="Guid?"
                             AllowClear>
                     </Select>

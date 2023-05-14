@@ -95,7 +95,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 租户数据
         /// </summary>
-        protected Dictionary<Guid, TenantDto> tenantMap = new Dictionary<Guid, TenantDto>();
+        protected Dictionary<Guid, SystemTenantDto> tenantMap = new Dictionary<Guid, SystemTenantDto>();
         /// <summary>
         /// 租户服务    
         /// </summary>
@@ -149,8 +149,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
             if (!isTenant)
             {
-                List<TenantDto> tenants = await tenantService.GetAll();
-                foreach (TenantDto tenant in tenants)
+                List<SystemTenantDto> tenants = await tenantService.GetAll();
+                foreach (SystemTenantDto tenant in tenants)
                 {
                     tenantMap.TryAdd(tenant.Id, tenant);
                 }
@@ -291,7 +291,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <remarks>
         /// 租户管理才有数据
         /// </remarks>
-        protected TenantDto? GetTenant(Guid? tenantId)
+        protected SystemTenantDto? GetTenant(Guid? tenantId)
         {
             if (tenantId == null || tenantId.Equals(Guid.Empty) || !tenantMap.ContainsKey(tenantId.Value))
             {

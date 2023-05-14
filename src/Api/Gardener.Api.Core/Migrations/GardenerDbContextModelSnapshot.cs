@@ -666,6 +666,82 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("AuditProperty");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.SystemTenant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemTenant");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户1",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        },
+                        new
+                        {
+                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户2",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        });
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
                 {
                     b.Property<Guid>("Id")
@@ -8286,7 +8362,7 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "user_center_dept",
                             Name = "部门管理",
-                            Order = 0,
+                            Order = 3,
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/dept",
                             Remark = "",
@@ -8742,6 +8818,23 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307020067348480480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_tenant_administrator",
+                            Name = "后台租户管理员",
+                            Order = 0,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Type = 2000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307021551575040480L
+                        },
+                        new
+                        {
                             Id = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
                             CreateBy = "6",
                             CreateIdentityType = 1,
@@ -8974,6 +9067,21 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552952463360480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_export",
+                            Name = "导出用户",
+                            Order = 0,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Remark = "导出用户",
+                            Type = 2000
+                        },
+                        new
+                        {
                             Id = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -9038,18 +9146,20 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            CreateBy = "1",
+                            Id = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "6",
                             CreateIdentityType = 1,
-                            CreatedTime = 1306552952463360480L,
+                            CreatedTime = 1307020016025600480L,
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "user_center_user_export",
-                            Name = "导出用户",
+                            Key = "user_center_user_role_edit_save",
+                            Name = "保存用户角色",
                             Order = 0,
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Remark = "导出用户",
-                            Type = 2000
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307020019138560480L
                         },
                         new
                         {
@@ -9463,6 +9573,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
                             FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
                             CreatedTime = 1306995003985920480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            FunctionId = new Guid("09d15841-71c7-4afc-99f8-dd906a0248d9"),
+                            CreatedTime = 1307020005580800480L
                         },
                         new
                         {
@@ -10132,6 +10248,24 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
                             ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
                             FunctionId = new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"),
                             CreatedTime = 1306069130997760480L
@@ -10157,20 +10291,26 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            FunctionId = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
+                            FunctionId = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
                             CreatedTime = 1306069130997760480L
                         },
                         new
                         {
                             ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            FunctionId = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
-                            CreatedTime = 1306069130997760480L
+                            FunctionId = new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"),
+                            CreatedTime = 1307020021166080480L
                         },
                         new
                         {
                             ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
                             FunctionId = new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"),
                             CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            FunctionId = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
+                            CreatedTime = 1307020017090560480L
                         },
                         new
                         {
@@ -10189,6 +10329,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
                             FunctionId = new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"),
                             CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            FunctionId = new Guid("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),
+                            CreatedTime = 1306552953200640480L
                         },
                         new
                         {
@@ -10213,12 +10359,6 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
                             FunctionId = new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"),
                             CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            FunctionId = new Guid("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),
-                            CreatedTime = 1306552953200640480L
                         },
                         new
                         {
@@ -11991,82 +12131,6 @@ namespace Gardener.Api.Core.Migrations
                             CreatedTime = 1307019360624640000L,
                             IsDeleted = false,
                             IsLocked = false
-                        });
-                });
-
-            modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Tenant", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tel")
-                        .HasMaxLength(32)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tenant");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            CreatedTime = 1305892579553280000L,
-                            Email = "gardener@163.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "租户1",
-                            Remark = "预设数据。",
-                            Tel = "400-888-8888"
-                        },
-                        new
-                        {
-                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            CreatedTime = 1305892579553280000L,
-                            Email = "gardener@163.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "租户2",
-                            Remark = "预设数据。",
-                            Tel = "400-888-8888"
                         });
                 });
 

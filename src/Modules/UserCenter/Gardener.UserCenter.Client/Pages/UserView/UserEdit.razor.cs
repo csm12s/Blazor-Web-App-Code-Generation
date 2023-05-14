@@ -24,7 +24,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <summary>
         /// 租户列表
         /// </summary>
-        private IEnumerable<TenantDto>? _tenants;
+        private IEnumerable<SystemTenantDto>? _tenants;
         [Inject]
         private IDeptService DeptService { get; set; } = null!;
         [Inject]
