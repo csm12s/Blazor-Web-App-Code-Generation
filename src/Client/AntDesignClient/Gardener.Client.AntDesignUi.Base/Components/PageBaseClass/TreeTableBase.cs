@@ -127,10 +127,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     {
                         RecursionTree(dto, item =>
                         {
-                            if (dto is IModelTenant modelTenant)
-                            {
+                            if (item is IModelTenant modelTenant)
+                            {   System.Console.WriteLine(GetKey(item));
                                 modelTenant.Tenant = GetTenant(modelTenant.TenantId);
+                                System.Console.WriteLine((modelTenant.TenantId??Guid.Empty)+"_"+(modelTenant.Tenant?.Name??""));
+
                             }
+                      
                         });
                     }
                 }

@@ -45,6 +45,9 @@
         </TitleTemplate>
             <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["user_center_position_delete_selected"]" />
+            <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+                <span>@model.Tenant?.Name</span>
+            </Column>
             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
             <Column @bind-Field="@model.Duty" Filterable Title="@Localizer[UserCenterResource.Duty]" />
             <Column TData="string" Title="@Localizer[UserCenterResource.Grade]">
