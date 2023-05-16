@@ -6,12 +6,23 @@
 
 using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.UserCenter.Client.Pages.RoleView;
 using Gardener.UserCenter.Resources;
 using System;
+using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.TenantView
 {
     public partial class Tenant: ListOperateTableBase<SystemTenantDto, Guid, TenantEdit, UserCenterResource>
     {
+        /// <summary>
+        /// 点击分配资源
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnEditTenantResourceClick(SystemTenantDto tenant)
+        {
+            await OpenOperationDialogAsync<TenantResourceEdit, SystemTenantDto, bool>(Localizer["BindingResource"], tenant, width: 600);
+        }
+
     }
 }

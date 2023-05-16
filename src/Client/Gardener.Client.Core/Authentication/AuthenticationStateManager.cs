@@ -229,7 +229,7 @@ namespace Gardener.Client.Core
                     this.currentUser = userResult;
 
                     //超级管理员
-                    currentUserIsSuperAdmin = this.currentUser.Roles != null && this.currentUser.Roles.Any(x => x.IsSuperAdministrator);
+                    currentUserIsSuperAdmin = this.currentUser.IsSuperAdministrator ?? false;
                     currentUserIsTenant = ((IModelTenantId)this.currentUser).IsTenant;
                     eventBus.Publish(new ReloadCurrentUserEvent(token, currentUser)
                     {

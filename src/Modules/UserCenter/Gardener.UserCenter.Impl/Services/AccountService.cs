@@ -164,6 +164,8 @@ namespace Gardener.UserCenter.Impl.Services
             var roles = await GetCurrentUserRoles();
             userDto.Roles = roles;
 
+            userDto.IsSuperAdministrator =await _authorizationManager.IsSuperAdministrator();
+
             return userDto;
         }
         /// <summary>

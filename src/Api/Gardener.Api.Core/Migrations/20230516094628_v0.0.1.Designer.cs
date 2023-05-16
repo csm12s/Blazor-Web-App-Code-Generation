@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230514024837_v0.0.1")]
+    [Migration("20230516094628_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -667,82 +667,6 @@ namespace Gardener.Api.Core.Migrations
                     b.HasIndex("AuditEntityid");
 
                     b.ToTable("AuditProperty");
-                });
-
-            modelBuilder.Entity("Gardener.Base.Entity.Domains.SystemTenant", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tel")
-                        .HasMaxLength(32)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SystemTenant");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
-                            CreatedTime = 1305892579553280000L,
-                            Email = "gardener@163.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "租户1",
-                            Remark = "预设数据。",
-                            Tel = "400-888-8888"
-                        },
-                        new
-                        {
-                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
-                            CreatedTime = 1305892579553280000L,
-                            Email = "gardener@163.com",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Name = "租户2",
-                            Remark = "预设数据。",
-                            Tel = "400-888-8888"
-                        });
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
@@ -10437,6 +10361,121 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemTenant");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户1",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        },
+                        new
+                        {
+                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户2",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenantResource", b =>
+                {
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TenantId", "ResourceId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("SystemTenantResource");
+                });
+
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>
                 {
                     b.Property<Guid>("Id")
@@ -12859,6 +12898,25 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Resource");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenantResource", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Resource", "Resource")
+                        .WithMany("TenantResources")
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gardener.Base.Entity.SystemTenant", "Tenant")
+                        .WithMany("TenantResources")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resource");
+
+                    b.Navigation("Tenant");
+                });
+
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGenConfig", b =>
                 {
                     b.HasOne("Gardener.CodeGeneration.Domains.CodeGen", null)
@@ -12985,6 +13043,13 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("ResourceFunctions");
+
+                    b.Navigation("TenantResources");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
+                {
+                    b.Navigation("TenantResources");
                 });
 
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>

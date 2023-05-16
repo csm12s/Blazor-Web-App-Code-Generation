@@ -62,6 +62,13 @@
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>
                 <Space>
+                    <ResourceAuthorize ResourceKey="user_center_tenant_set_resource">
+                        <SpaceItem>
+                            <Tooltip Title="@(Localizer["BindingResource"])" ArrowPointAtCenter="true">
+                                <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditTenantResourceClick(model)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="user_center_tenant_edit">
                         <SpaceItem>
                             <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">

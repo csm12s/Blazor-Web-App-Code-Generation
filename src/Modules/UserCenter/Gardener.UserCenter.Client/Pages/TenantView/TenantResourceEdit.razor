@@ -1,5 +1,5 @@
 ﻿@using Gardener.SystemManager.Dtos
-@inherits OperationDialogBase<RoleDto, bool>
+@inherits OperationDialogBase<SystemTenantDto, bool>
 
 <Spin Spinning="_dialogLoading.Value">
     <Row>
@@ -31,8 +31,9 @@
                     </Tooltip>
                 </SpaceItem>
                 <SpaceItem>
+
                     <Space>
-                        <ResourceAuthorize ResourceKey="user_center_role_set_resource_save">
+                        <ResourceAuthorize ResourceKey="user_center_tenant_set_resource_save">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">
                                     @Localizer[SharedLocalResource.Save]

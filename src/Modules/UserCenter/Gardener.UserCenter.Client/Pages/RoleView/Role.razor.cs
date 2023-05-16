@@ -23,9 +23,9 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// 点击分配资源
         /// </summary>
         /// <returns></returns>
-        private async Task OnEditRoleResourceClick(int id)
+        private async Task OnEditRoleResourceClick(RoleDto role)
         {
-            await OpenOperationDialogAsync<RoleResourceEdit, OperationDialogInput<int>, bool>(Localizer["BindingResource"], OperationDialogInput<int>.Edit(id), width: 600);
+            await OpenOperationDialogAsync<RoleResourceEdit, RoleDto, bool>(Localizer["BindingResource"], role, width: 600);
         }
 
 

@@ -19,6 +19,10 @@ using Gardener.UserCenter.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.EntityFramwork;
 using Gardener.Base.Entity;
+using Gardener.Authentication.Dtos;
+using Gardener.Base;
+using Gardener.Authorization.Core;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -30,17 +34,62 @@ namespace Gardener.UserCenter.Impl.Services
     {
         private readonly IRepository<Role, GardenerMultiTenantDbContextLocator> _roleRepository;
         private readonly IRepository<RoleResource, GardenerMultiTenantDbContextLocator> _roleResourceRepository;
+        private readonly IAuthorizationService authorizationService;
         /// <summary>
         /// 角色服务
         /// </summary>
         /// <param name="roleRepository"></param>
         /// <param name="roleResourceRepository"></param>
-        public RoleService(IRepository<Role, GardenerMultiTenantDbContextLocator> roleRepository, IRepository<RoleResource, GardenerMultiTenantDbContextLocator> roleResourceRepository) : base(roleRepository)
+        /// <param name="authorizationService"></param>
+        public RoleService(IRepository<Role, GardenerMultiTenantDbContextLocator> roleRepository, IRepository<RoleResource, GardenerMultiTenantDbContextLocator> roleResourceRepository, IAuthorizationService authorizationService) : base(roleRepository)
         {
             _roleRepository = roleRepository;
             _roleResourceRepository = roleResourceRepository;
+            this.authorizationService = authorizationService;
         }
 
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <remarks>
+        /// 添加一条数据
+        /// </remarks>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<RoleDto> Insert(RoleDto input)
+        {
+            if (input.IsSuperAdministrator)
+            {
+                //判断是否有设置超级管理权限
+                bool have=await authorizationService.CheckCurrentIdentityHaveResource("user_center_role_set_is_super_administrator");
+                if (!have)
+                {
+                    input.IsSuperAdministrator = false;
+                }
+            }
+           return await base.Insert(input);
+        }
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <remarks>
+        /// 更新一条数据
+        /// </remarks>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<bool> Update(RoleDto input)
+        {
+            if (input.IsSuperAdministrator)
+            {
+                //判断是否有设置超级管理权限
+                bool have = await authorizationService.CheckCurrentIdentityHaveResource("user_center_role_set_is_super_administrator");
+                if (!have)
+                {
+                    input.IsSuperAdministrator = false;
+                }
+            }
+            return await base.Update(input);
+        }
         /// <summary>
         /// 分配权限
         /// </summary>

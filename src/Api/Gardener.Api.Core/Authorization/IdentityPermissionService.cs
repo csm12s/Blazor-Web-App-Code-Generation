@@ -72,13 +72,13 @@ namespace Gardener.Authorization.Core
             {
                 return false;
             }
-
+            if (await IsSuperAdministrator(identity))
+            {
+                return true;
+            }
             if (IdentityType.User.Equals(identity.IdentityType))
             {
-                if (await IsSuperAdministrator(GetUserId(identity)))
-                {
-                    return true;
-                }
+               
                 return await CurrentUserHaveFunction(int.Parse(identity.Id), api.Key);
             }
             else if (IdentityType.Client.Equals(identity.IdentityType))
@@ -90,16 +90,31 @@ namespace Gardener.Authorization.Core
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="identity"></param>
         /// <returns></returns>
-        public Task<bool> IsSuperAdministrator(int userId)
+        public Task<bool> IsSuperAdministrator(Identity? identity)
         {
-            //超管
-            return _userRepository.AsQueryable(false)
-                 .Include(u => u.Roles)
-                 .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
-                 .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsSuperAdministrator == true))
-                 .AnyAsync();
+            if (identity == null)
+            {
+                //身份信息缺失
+                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+            }
+            if (IdentityType.User.Equals(identity.IdentityType))
+            {
+                int userId=int.Parse(identity.Id);
+                //超管
+                return _userRepository.AsQueryable(false)
+                     .Include(u => u.Roles)
+                     .Where(u => u.Id == userId && u.IsDeleted == false && u.IsLocked == false)
+                     .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false && x.IsSuperAdministrator == true))
+                     .AnyAsync();
+            }
+            else
+            {
+                //其他身份无法判断是否是超级管理
+                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+            }
+
         }
         /// <summary>
         /// 判断是否拥有该权限
@@ -271,13 +286,12 @@ namespace Gardener.Authorization.Core
             {
                 return false;
             }
-
+            if (await IsSuperAdministrator(identity))
+            {
+                return true;
+            }
             if (IdentityType.User.Equals(identity.IdentityType))
             {
-                if (await IsSuperAdministrator(GetUserId(identity)))
-                {
-                    return true;
-                }
                 return await CurrentUserHaveResource(int.Parse(identity.Id), resourceKey);
             }
             else if (IdentityType.Client.Equals(identity.IdentityType))

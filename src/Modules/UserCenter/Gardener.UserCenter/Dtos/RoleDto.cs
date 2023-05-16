@@ -41,9 +41,11 @@ namespace Gardener.UserCenter.Dtos
         public bool IsSuperAdministrator { get; set; }
 
         /// <summary>
-        /// 是否是默认权限
-        /// 注册用户时默认设置
+        /// 是否是默认角色
         /// </summary>
+        /// <remarks>
+        /// 添加用户时默认添加该角色
+        /// </remarks>
         [DisplayName("IsDefault")]
         public bool IsDefault { get; set; }
 

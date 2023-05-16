@@ -873,6 +873,38 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SystemTenantResource",
+                columns: table => new
+                {
+                    TenantId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ResourceId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemTenantResource", x => new { x.TenantId, x.ResourceId });
+                    table.ForeignKey(
+                        name: "FK_SystemTenantResource_Resource_ResourceId",
+                        column: x => x.ResourceId,
+                        principalTable: "Resource",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SystemTenantResource_SystemTenant_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "SystemTenant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AuditProperty",
                 columns: table => new
                 {
@@ -2055,6 +2087,11 @@ namespace Gardener.Api.Core.Migrations
                 column: "CodeGenId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SystemTenantResource_ResourceId",
+                table: "SystemTenantResource",
+                column: "ResourceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_DeptId",
                 table: "User",
                 column: "DeptId");
@@ -2119,7 +2156,7 @@ namespace Gardener.Api.Core.Migrations
                 name: "Sys_CodeGenConfig");
 
             migrationBuilder.DropTable(
-                name: "SystemTenant");
+                name: "SystemTenantResource");
 
             migrationBuilder.DropTable(
                 name: "SysTimer");
@@ -2146,10 +2183,13 @@ namespace Gardener.Api.Core.Migrations
                 name: "Function");
 
             migrationBuilder.DropTable(
+                name: "Sys_CodeGen");
+
+            migrationBuilder.DropTable(
                 name: "Resource");
 
             migrationBuilder.DropTable(
-                name: "Sys_CodeGen");
+                name: "SystemTenant");
 
             migrationBuilder.DropTable(
                 name: "Role");

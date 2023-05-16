@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Gardener.Base.Entity.Domains;
 using Gardener.Base.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -96,6 +97,11 @@ namespace Gardener.Base.Entity
         /// 多对多中间表
         /// </summary>
         public List<ResourceFunction> ResourceFunctions { get; set; } = new List<ResourceFunction>();
+
+        /// <summary>
+        /// 租户资源关系
+        /// </summary>
+        public List<SystemTenantResource> TenantResources { get; set; } = new List<SystemTenantResource>();
         /// <summary>
         /// 
         /// </summary>

@@ -46,7 +46,7 @@
             <Selection CheckStrictly Width="5%" />
             <Column @bind-Field="@model.Name" Width="15%" Title="@Localizer[UserCenterResource.Name]" />
             <Column Width="10%" TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
-                <span>@(model.Tenant?.Name ?? "--")</span>
+                <span>@model.Tenant?.Name</span>
             </Column>
             <Column @bind-Field="@model.Contacts" Width="10%" Title="@Localizer[UserCenterResource.Contacts]" />
             <Column @bind-Field="@model.Tel" Width="10%" Title="@Localizer[UserCenterResource.Tel]" />

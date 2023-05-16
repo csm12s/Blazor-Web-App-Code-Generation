@@ -41,5 +41,12 @@ namespace Gardener.Authorization.Core
         /// </summary>
         /// <returns></returns>
         Task<bool> IsSuperAdministrator();
+
+        /// <summary>
+        /// 判断当前登录对象是否有该资源
+        /// </summary>
+        /// <param name="resourceKey"></param>
+        /// <returns></returns>
+        Task<bool> CheckCurrentIdentityHaveResource(string resourceKey);
     }
 }

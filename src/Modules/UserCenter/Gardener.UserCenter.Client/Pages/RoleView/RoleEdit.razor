@@ -24,9 +24,11 @@
     <FormItem Label="@Localizer[UserCenterResource.Remark]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[UserCenterResource.IsSuperAdministrator]">
-        <Switch @bind-Value="@model.IsSuperAdministrator"></Switch>
-    </FormItem>
+    <ResourceAuthorize ResourceKey="user_center_role_set_is_super_administrator">
+        <FormItem Label="@Localizer[UserCenterResource.IsSuperAdministrator]">
+            <Switch @bind-Value="@model.IsSuperAdministrator"></Switch>
+        </FormItem>
+    </ResourceAuthorize>
     <FormItem Label="@Localizer[UserCenterResource.IsDefault]">
         <Switch @bind-Value="@model.IsDefault"></Switch>
     </FormItem>

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gardener.Base.Entity.Domains
+namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 租户
@@ -44,6 +44,11 @@ namespace Gardener.Base.Entity.Domains
         [DisplayName("备注")]
         [MaxLength(100)]
         public string? Remark { get; set; }
+
+        /// <summary>
+        /// 租户资源关系
+        /// </summary>
+        public List<SystemTenantResource> TenantResources { get; set; } = new List<SystemTenantResource>();
         /// <summary>
         /// 
         /// </summary>

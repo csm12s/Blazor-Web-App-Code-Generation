@@ -5,13 +5,12 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
-using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -19,20 +18,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.UserCenter.Client.Pages.RoleView
+namespace Gardener.UserCenter.Client.Pages.TenantView
 {
-    public partial class RoleResourceEdit : OperationDialogBase<RoleDto, bool>
+    public partial class TenantResourceEdit : OperationDialogBase<SystemTenantDto, bool>
     {
         private Tree<ResourceDto>? _tree;
         private bool _isExpanded;
-        private int _roleId = 0;
         private List<ResourceDto> _resources = new List<ResourceDto>();
         [Inject]
         private IResourceService ResourceService { get; set; } = null!;
         [Inject]
         private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
-        private IRoleService RoleService { get; set; } = null!;
+        private ITenantService TenantService { get; set; } = null!;
         /// <summary>
         /// 默认选择
         /// </summary>
@@ -44,27 +42,23 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         protected override async Task OnInitializedAsync()
         {
             base.StartLoading();
-            _roleId = this.Options.Id;
-            if (_roleId > 0)
+            var t1 = TenantService.GetResources(this.Options.Id);
+            var t2 = ResourceService.GetTree();
+            //已有资源
+            var tenantResourceResult = await t1;
+            if (tenantResourceResult != null && tenantResourceResult.Any())
             {
-                var t1 = RoleService.GetResource(_roleId);
-                var t2 = ResourceService.GetTree(tenantId: this.Options.TenantId);
-                //已有资源
-                var roleResourceResult = await t1;
-                if (roleResourceResult != null && roleResourceResult.Any())
-                {
-                    _defaultCheckedKeys = roleResourceResult.Where(dto => dto.Children == null || !dto.Children.Any()).Select(dto => dto.Id.ToString()).ToArray();
-                }
-                //资源树
-                var resourceResult = await t2;
-                if (resourceResult == null)
-                {
-                    MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
-                    base.StopLoading();
-                    return;
-                }
-                _resources.AddRange(resourceResult);
+                _defaultCheckedKeys = tenantResourceResult.Where(dto => dto.Children == null || !dto.Children.Any()).Select(dto => dto.Id.ToString()).ToArray();
             }
+            //资源树
+            var resourceResult = await t2;
+            if (resourceResult == null)
+            {
+                MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
+                base.StopLoading();
+                return;
+            }
+            _resources.AddRange(resourceResult);
             base.StopLoading();
         }
 
@@ -105,7 +99,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 });
             }
             //删除所有资源
-            var result = await RoleService.Resource(_roleId, resourceIds.Distinct().ToArray());
+            var result = await TenantService.AddResources(this.Options.Id, resourceIds.Distinct().ToArray());
             if (result)
             {
                 MessageService.Success(Localizer.Combination(SharedLocalResource.Save, SharedLocalResource.Success));

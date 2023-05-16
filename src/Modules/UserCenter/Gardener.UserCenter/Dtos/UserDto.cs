@@ -111,5 +111,13 @@ namespace Gardener.UserCenter.Dtos
         {
             return (this.NickName ?? this.UserName).Substring(0,1);
         }
+        /// <summary>
+        /// 是否是超级管理员
+        /// </summary>
+        /// <remarks>
+        /// 判断规则 <see cref="Gardener.Authorization.Core.IAuthorizationService.IsSuperAdministrator"/>
+        /// </remarks>
+        [DisabledSearchField]
+        public bool? IsSuperAdministrator { get;set; }
     }
 }
