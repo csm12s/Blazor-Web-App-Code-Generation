@@ -114,7 +114,20 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <remarks>
         /// 默认升序
         /// </remarks>
+        [Parameter]
         public ListSortType SortType { get; set; } = ListSortType.Asc;
+
+        /// <summary>
+        /// 字段对应的下拉项
+        /// </summary>
+        /// <remarks>
+        /// <para>字典key:为字段名称</para>
+        /// <para>字典value:为下拉选项</para>
+        /// <para>为下拉选项key:为SelectItem的value</para>
+        /// <para>为下拉选项value:为SelectItem的label</para>
+        /// </remarks>
+        [Parameter]
+        public Dictionary<string,IEnumerable<KeyValuePair<string, string>>>? FieldSelectItems { get;set; }
 
         #endregion
 
@@ -191,7 +204,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                 }
 
-                //填充默认值
+                //填充默认值方式
                 Action<TableSearchField, object> fullValue = (field, value) =>
                 {
                     field.Value = value.ToString() ?? "";
@@ -211,6 +224,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     {
                         field.Values = (value.ToString() ?? "").Split(",");
                     };
+                }
+                else if (FieldSelectItems != null && FieldSelectItems.ContainsKey(name))
+                {
+                    //设置下拉项的字段
+                    searchField.IsSetSelectItem = true;
+                    searchField.Multiple = true;
+                    fullValue = (field, value) =>
+                    {
+                        field.Values = (value.ToString() ?? "").Split(",");
+                    };
+                    searchField.SelectItems = FieldSelectItems[name];
                 }
                 else if (IsDateTimeType(searchField.Type))
                 {

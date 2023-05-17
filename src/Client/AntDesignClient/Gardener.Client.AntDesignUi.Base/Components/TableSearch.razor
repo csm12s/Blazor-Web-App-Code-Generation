@@ -56,8 +56,30 @@
                                     }
                                     </SelectOptions>
                             </Select>
-                            
-                        }else if (fieldInfo.Type.Equals(typeof(string)))
+
+                        }
+                        else if (fieldInfo.IsSetSelectItem && fieldInfo.SelectItems != null)
+                        {
+                            <Select Mode="multiple"
+                                    Placeholder="@placeholder"
+                                    Style="@style"
+                                    TItem="string"
+                                    TItemValue="string"
+                                    OnSelectedItemsChanged="items=>{fieldInfo.Values=items;}"
+                                    DefaultValues="fieldInfo.Values"
+                                    Values="fieldInfo.Values"
+                                    MaxTagCount="@ResponsiveTag.Responsive"
+                                            AllowClear>
+                             <SelectOptions>
+                                 @foreach (KeyValuePair<string,string> item in fieldInfo.SelectItems)
+                                    {
+                                        <SelectOption TItemValue="string" TItem="string" Value="@item.Key" Label="@item.Value" />
+                                    }
+                                </SelectOptions>
+                            </Select>
+
+                        }
+                        else if (fieldInfo.Type.Equals(typeof(string)))
                         {
                             <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
