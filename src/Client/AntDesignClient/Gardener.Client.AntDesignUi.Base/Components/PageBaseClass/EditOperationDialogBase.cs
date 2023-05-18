@@ -64,14 +64,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            StartLoading();
+            await StartLoading();
             var task1= LoadEditModelData();
             if (IsLoadTenants())
             {
                 await LocadTenants();
             }
             await task1;
-            StopLoading();
+            await StopLoading();
         }
         /// <summary>
         /// 加载编辑对象数据
@@ -126,11 +126,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 取消
         /// </summary>
-        protected virtual async Task OnFormCancel()
+        protected virtual Task OnFormCancel()
         {
             TOperationDialogOutput operationDialogOutput = new TOperationDialogOutput();
             operationDialogOutput.IsCancel();
-            await CloseAsync(operationDialogOutput);
+            return CloseAsync(operationDialogOutput);
         }
         /// <summary>
         /// 表单完成时
@@ -139,7 +139,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual async Task OnFormFinish(EditContext editContext)
         {
-            StartLoading();
+            await StartLoading();
             var operationDialogOutput = new OperationDialogOutput<TKey>();
             //开始请求
             if (this.Options.Type.Equals(OperationDialogInputType.Add))
@@ -173,7 +173,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
                 }
             }
-            StopLoading();
+            await StopLoading();
         }
         /// <summary>
         /// 获取主键

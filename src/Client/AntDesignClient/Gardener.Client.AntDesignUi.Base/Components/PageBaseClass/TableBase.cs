@@ -12,9 +12,10 @@ using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Services;
-using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -48,23 +49,40 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected ClientLoading _tableLoading = new ClientLoading();
 
+        /// <summary>
+        /// 页面是否首次加载完成
+        /// </summary>
+        protected bool _pageFirstLoaded = false;
+
         #region TableSearch
         /// <summary>
         /// 搜索组件
         /// </summary>
         protected TableSearch<TDto>? _tableSearch;
         /// <summary>
-        /// 默认搜索值
+        /// TableSearch默认搜索值
         /// </summary>
-        protected Dictionary<string, object> _defaultSearchValue = new Dictionary<string, object>();
+        protected Dictionary<string, object> _tableSearchDefaultSearchValue = new Dictionary<string, object>();
         /// <summary>
-        /// 排除搜索字段
+        /// TableSearch排除搜索字段
         /// </summary>
-        protected List<string> _excludeSearchFields = new List<string>();
+        protected List<string> _tableSearchExcludeSearchFields = new List<string>();
         /// <summary>
-        /// 搜索条件提供器
+        /// TableSearch搜索条件提供器
         /// </summary>
-        protected List<Func<List<FilterGroup>?>> _filterGroupProviders = new();
+        protected List<Func<List<FilterGroup>?>> _tableSearchFilterGroupProviders = new();
+        /// <summary>
+        /// TableSearch字段对应的下拉项
+        /// </summary>
+        protected Dictionary<string, Func<string, Task<IEnumerable<KeyValuePair<string, string>>>>> _tableSearchFieldSelectItemsProviders = new();
+        /// <summary>
+        /// TableSearch字段排序
+        /// </summary>
+        protected Dictionary<string, int>? _tableSearchFieldOrders = new();
+        /// <summary>
+        /// TableSearch字段展示名字转换
+        /// </summary>
+        protected Dictionary<string, Func<string, string>> _tableSearchFieldDisplayNameConverts = new Dictionary<string, Func<string, string>>();
 
         protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
         #endregion
@@ -83,9 +101,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 锁定按钮加载中
         /// </summary>
         protected ClientMultiLoading _lockBtnLoading = new ClientMultiLoading(false);
-     
+
         /// <summary>
-        /// 用户在当前页面使用该资源是否越权
+        /// 用户在当前页面使用该资源是否越权-用于绑定式判断资源权限
         /// <para>true 越权</para> 
         /// <para>false 不越权</para> 
         /// </summary>
@@ -96,7 +114,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </remarks>
         protected ClientListBindValue<string, bool> _userUnauthorizedResources = new ClientListBindValue<string, bool>(true);
         /// <summary>
-        /// 用户在当前页面使用该资源是否可以
+        /// 用户在当前页面使用该资源是否可以-用于绑定式判断资源权限
         /// <para>true 可以</para> 
         /// <para>false 不可</para> 
         /// </summary>
@@ -106,17 +124,23 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <para>使用方式<code>_userAuthorizedResources[ResourceKey]</code></para> 
         /// </remarks>
         protected ClientListBindValue<string, bool> _userAuthorizedResources = new ClientListBindValue<string, bool>(false);
-        /// <summary>
-        /// 租户数据
-        /// </summary>
-        protected Dictionary<Guid, SystemTenantDto> _tenantMap = new Dictionary<Guid, SystemTenantDto>();
 
         #region services
         /// <summary>
-        /// 租户服务    
+        /// 确认提示服务
         /// </summary>
         [Inject]
-        protected ITenantService TenantService { get; set; } = null!;
+        protected ConfirmService ConfirmService { get; set; } = null!;
+        /// <summary>
+        /// 路由导航服务
+        /// </summary>
+        [Inject]
+        protected NavigationManager Navigation { get; set; } = null!;
+        /// <summary>
+        /// javascript 工具
+        /// </summary>
+        [Inject]
+        protected IJsTool JsTool { get; set; } = null!;
         /// <summary>
         /// 身份状态管理
         /// </summary>
@@ -146,18 +170,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         [Inject]
         protected IClientMessageService MessageService { get; set; } = null!;
         #endregion
-
-
         /// <summary>
-        /// 参数设置完成
+        /// 初始化
         /// </summary>
         /// <returns></returns>
-        protected override void OnParametersSet()
+        protected override void OnInitialized()
         {
-            //资源越权绑定数据
+            //资源绑定数据-用于绑定式判断资源权限
             _userUnauthorizedResources = new ClientListBindValue<string, bool>(true, key => !AuthenticationStateManager.CheckCurrentUserHaveResource(key));
-            _userAuthorizedResources = new ClientListBindValue<string, bool>(false, key => AuthenticationStateManager.CheckCurrentUserHaveResource(key));
-            base.OnParametersSet();
+            _userAuthorizedResources = new ClientListBindValue<string, bool>(false, AuthenticationStateManager.CheckCurrentUserHaveResource);
+            //设置搜索组件的参数
+            SetTableSearchParameters();
+            base.OnInitialized();
         }
         /// <summary>
         /// 页面初始化完成
@@ -165,29 +189,44 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            if (this.IsLoadTenants())
-            {
-                List<SystemTenantDto> tenants = await TenantService.GetAll();
-                foreach (SystemTenantDto tenant in tenants)
-                {
-                    _tenantMap.TryAdd(tenant.Id, tenant);
-                }
-            }
             await base.OnInitializedAsync();
         }
+        
         /// <summary>
-        /// 是否加载租户数据
+        /// 添加需要排除的字段
         /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// 默认在非租户用户登陆时加载，因为租户自己只能加载到自己的，如果需要自定义控制，请重载
-        /// </remarks>
-        protected virtual bool IsLoadTenants()
+        /// <param name="fields"></param>
+        protected void AddExcludeSearchFields(params string[] fields)
         {
-            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
-
-            return !isTenant;
+            foreach (string field in fields)
+            {
+                if (!_tableSearchExcludeSearchFields.Contains(field))
+                {
+                    _tableSearchExcludeSearchFields.Add(field);
+                }
+            }
         }
+        
+        /// <summary>
+        /// 设置TableSearch特定参数
+        /// </summary>
+        protected virtual void SetTableSearchParameters()
+        {
+            //从url加载TableSearch参数
+            var url = new Uri(Navigation.Uri);
+            var query = url.Query;
+            Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
+            if (urlParams != null && urlParams.Count() > 0)
+            {
+                urlParams.ForEach(x =>
+                {
+                    _tableSearchDefaultSearchValue.Add(x.Key, x.Value.ToString());
+                });
+            }
+            //table search 组件提供搜索条件
+            _tableSearchFilterGroupProviders.Add(GetTableSearchFilterGroups);
+        }
+
         /// <summary>
         /// 获取操作会话配置
         /// </summary>
@@ -252,11 +291,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     MessageService.Error($"{msg} {Localizer[SharedLocalResource.Fail]}");
                 }
             }
-            else 
+            else
             {
                 MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
             }
-            
+
             _lockBtnLoading.Stop(model);
         }
 
@@ -269,15 +308,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             return _tableSearch?.GetFilterGroups();
         }
 
-        #region Page loading
+        #region loading
         /// <summary>
-        /// Page start loading
+        /// table start loading
         /// </summary>
+        /// <param name="forceRender">是否强制渲染</param>
         /// <returns></returns>
-        protected bool StartLoading()
+        protected bool StartTableLoading(bool forceRender = false)
         {
             var run = _tableLoading.Start();
-            if (run)
+            if (run && forceRender)
             {
                 InvokeAsync(StateHasChanged);
             }
@@ -285,13 +325,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         /// <summary>
-        /// Page stop loading
+        /// table stop loading
         /// </summary>
+        /// <param name="forceRender">是否强制渲染</param>
         /// <returns></returns>
-        protected bool StopLoading()
+        protected bool StopTableLoading(bool forceRender = false)
         {
             var stop = _tableLoading.Stop();
-            if (stop)
+            if (stop && forceRender)
             {
                 InvokeAsync(StateHasChanged);
             }
@@ -314,19 +355,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 throw new ArgumentException($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
         }
-        /// <summary>
-        /// 获取租户
-        /// </summary>
-        /// <param name="tenantId"></param>
-        /// <returns></returns>
-        protected SystemTenantDto? GetTenant(Guid? tenantId)
-        {
-            if (tenantId == null || tenantId.Equals(Guid.Empty) || !_tenantMap.ContainsKey(tenantId.Value))
-            {
-                return null;
-            }
-            return _tenantMap[tenantId.Value];
-        }
     }
     /// <summary>
     /// table列表页面基类(可以被当作OperationDialog打开)
@@ -339,10 +367,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool> 
-        where TDto : class, new() 
+    public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool>
+        where TDto : class, new()
         where TLocalResource : SharedLocalResource
-    { 
+    {
     }
 
 }

@@ -26,7 +26,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
             {
                 tableSize = TableSize.Small;
                 _pageSize = 10;
-                _defaultSearchValue.Add(nameof(CodeDto.CodeTypeId), this.Options.Data);
+                _tableSearchDefaultSearchValue.Add(nameof(CodeDto.CodeTypeId), this.Options.Data);
             }
 
             return base.OnInitializedAsync();

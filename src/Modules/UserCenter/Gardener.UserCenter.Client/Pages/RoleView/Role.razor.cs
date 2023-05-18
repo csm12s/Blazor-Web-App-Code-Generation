@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class Role : ListOperateTableBase<RoleDto, int, RoleEdit, UserCenterResource>
+    public partial class Role : MultiTenantListOperateTableBase<RoleDto, int, RoleEdit, UserCenterResource>
     {
         [Inject]
         public IRoleService roleService { get; set; } = null!;

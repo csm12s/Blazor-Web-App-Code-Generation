@@ -41,7 +41,7 @@ namespace Gardener.UserCenter.Client.Pages.TenantView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            base.StartLoading();
+            await base.StartLoading();
             var t1 = TenantService.GetResources(this.Options.Id);
             var t2 = ResourceService.GetTree();
             //已有资源
@@ -55,11 +55,11 @@ namespace Gardener.UserCenter.Client.Pages.TenantView
             if (resourceResult == null)
             {
                 MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
-                base.StopLoading();
+                await base.StopLoading();
                 return;
             }
             _resources.AddRange(resourceResult);
-            base.StopLoading();
+            await base.StopLoading();
         }
 
 

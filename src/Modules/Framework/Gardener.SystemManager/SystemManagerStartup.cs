@@ -10,6 +10,7 @@ using Gardener.SystemManager.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Gardener.SystemManager
 {
@@ -26,12 +27,20 @@ namespace Gardener.SystemManager
         /// <param name="env"></param>
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            IServiceScopeFactory serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            using var serviceScope = serviceScopeFactory.CreateScope();
-            //启动时初始化 CodeUtil 所有code 缓存
-            var codeTypeService = serviceScope.ServiceProvider.GetRequiredService<ICodeTypeService>();
-            var codes = await codeTypeService.GetCodeDicByValues();
-            CodeUtil.InitAllCode(codes);
+            ILogger<SystemManagerStartup> logger = app.ApplicationServices.GetRequiredService<ILogger<SystemManagerStartup>>();
+            try
+            {
+                IServiceScopeFactory serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+                using var serviceScope = serviceScopeFactory.CreateScope();
+                //启动时初始化 CodeUtil 所有code 缓存
+                var codeTypeService = serviceScope.ServiceProvider.GetRequiredService<ICodeTypeService>();
+                var codes = await codeTypeService.GetCodeDicByValues();
+                CodeUtil.InitAllCode(codes);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "初始化Code异常");
+            }
         }
     }
 }

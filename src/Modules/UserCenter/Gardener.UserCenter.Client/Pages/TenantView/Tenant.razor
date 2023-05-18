@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="user_center_tenant_refresh">
-                <TableSearch TDto="SystemTenantDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+                <TableSearch TDto="SystemTenantDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_tableSearchDefaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

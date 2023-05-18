@@ -23,7 +23,7 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 展示的名字
         /// </summary>
-        public string? DisplayName { get; set; }
+        public string DisplayName { get; set; } = null!;
         /// <summary>
         /// 字段类型
         /// </summary>
@@ -48,10 +48,6 @@ namespace Gardener.Client.Base
         /// 字典类型值
         /// </summary>
         public string? CodeTypeValue { get; set; }
-        /// <summary>
-        /// 字典
-        /// </summary>
-        public List<CodeDto>? Codes { get; set; }
         /// <summary>
         /// 排序
         /// </summary>

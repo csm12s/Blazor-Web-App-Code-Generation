@@ -1,5 +1,5 @@
 ﻿@page "/user_center/user"
-@inherits ListOperateTableBase<UserDto, int, UserEdit,UserCenterResource>
+@inherits MultiTenantListOperateTableBase<UserDto, int, UserEdit,UserCenterResource>
 <div>
     <Row>
         <AntDesign.Col Span="4">
@@ -44,7 +44,7 @@
                           ChildrenExpression="x => x.DataItem.Children?.ToList()"
                           KeyExpression="x => x.DataItem.Id.ToString()"
                           IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
-                          SelectedKeyChanged="SelectedKeyChanged"
+                          SelectedKeyChanged="SelectedDeptChanged"
                           DefaultExpandAll="true"
                           TItem="DeptDto" Style="min-height:500px;">
                     </Tree>
@@ -69,10 +69,11 @@
                     <ResourceAuthorize ResourceKey="user_center_user_refresh">
                         <TableSearch TDto="UserDto"
                                      OnSearch="(filterGroups)=>ReLoadTable(true)"
-                        @ref="this._tableSearch"
-                                     DefaultValue="_defaultSearchValue"
+                                    @ref="this._tableSearch"
+                                     DefaultValue="_tableSearchDefaultSearchValue"
                                      CustomLocalizer="Localizer"
-                                     ExcludeFields="@excludeSearchFields"
+                                     ExcludeFields="@_tableSearchExcludeSearchFields"
+                                      FieldDisplayNameConverts="@_tableSearchFieldDisplayNameConverts"
                                      FieldOrders="@(new Dictionary<string, int>(){ {nameof(UserDto.Id),-1}})">
                         </TableSearch>
                     </ResourceAuthorize>

@@ -11,7 +11,6 @@ using Gardener.Client.AntDesignUi.Base.Services;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
 using Gardener.Base.Resources;
-using Gardener.Client.Base.Components;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -24,10 +23,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TLocalResource">本地化资源类</typeparam>
     public abstract class OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> : ReuseTabsPageAndFormBase<TDialogInput, TDialogOutput> where TLocalResource : SharedLocalResource
     {
-        /// <summary>
-        /// 弹框区域的加载中标识
-        /// </summary>
-        protected ClientLoading _dialogLoading = new ClientLoading();
         /// <summary>
         /// 本地化
         /// </summary>
@@ -117,34 +112,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             };
 
             await OpenOperationDialogAsync<TOperationDialog, TInput, bool>(title, input, close, operationDialogSettings, width);
-        }
-
-        /// <summary>
-        /// Page start loading
-        /// </summary>
-        /// <returns></returns>
-        protected bool StartLoading()
-        {
-            var run = _dialogLoading.Start();
-            if (run)
-            {
-                InvokeAsync(StateHasChanged);
-            }
-            return run;
-        }
-
-        /// <summary>
-        /// Page stop loading
-        /// </summary>
-        /// <returns></returns>
-        protected bool StopLoading()
-        {
-            var stop = _dialogLoading.Stop();
-            if (stop)
-            {
-                InvokeAsync(StateHasChanged);
-            }
-            return stop;
         }
     }
 

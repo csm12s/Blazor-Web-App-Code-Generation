@@ -127,30 +127,91 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <para>为下拉选项value:为SelectItem的label</para>
         /// </remarks>
         [Parameter]
-        public Dictionary<string,IEnumerable<KeyValuePair<string, string>>>? FieldSelectItems { get;set; }
+        public Dictionary<string, Func<string, Task<IEnumerable<KeyValuePair<string, string>>>>>? FieldSelectItemsProviders { get; set; }
+
+        /// <summary>
+        /// 自定义搜索字段
+        /// </summary>
+        /// <remarks>
+        /// 目前自定义字段无法应用其他默认参数，需要传入时准备好完整数据
+        /// </remarks>
+        [Parameter]
+        public List<TableSearchField>? CustomSearchFields { get; set; }
+        /// <summary>
+        /// 字段展示名字转换
+        /// </summary>
+        /// <remarks>
+        /// <para>key:源名字</para>
+        /// <para>value:新名字转换器</para>
+        /// </remarks>
+        [Parameter]
+        public Dictionary<string, Func<string, string>>? FieldDisplayNameConverts { get; set; }
+        /// <summary>
+        /// 是否自动初始化
+        /// </summary>
+        [Parameter]
+        public bool AutoInit { get; set; } = true;
 
         #endregion
 
         /// <summary>
-        /// 初始化
+        /// 同步
         /// </summary>
         /// <returns></returns>
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             if (CustomLocalizer != null)
             {
                 localizer = CustomLocalizer;
             }
-            InitSearchFields();
-
+            base.OnInitialized();
+        }
+        /// <summary>
+        /// 异步
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            if (AutoInit)
+            {
+                await Init();
+            }
             await base.OnInitializedAsync();
         }
 
         /// <summary>
+        /// 初始化
+        /// </summary>
+        public async Task Init()
+        {
+            await InitSearchFields();
+            InitDefaultSelectValue();
+        }
+        /// <summary>
+        /// 初始化默认选择值
+        /// </summary>
+        private void InitDefaultSelectValue()
+        {
+            _selectedValues = new List<string>();
+            if (DefaultValue != null)
+            {
+                foreach (var kv in DefaultValue)
+                {
+                    if (kv.Value == null)
+                    {
+                        continue;
+                    }
+                    ((List<string>)_selectedValues).Add(kv.Key);
+                }
+            }
+        }
+        /// <summary>
         /// 初始化搜索字段
         /// </summary>
-        private void InitSearchFields()
+        private async Task InitSearchFields()
         {
+            //清空字段
+           var tempFields = new List<TableSearchField>();
             Type type = typeof(TDto);
             //从dto找到需要查询的字段
             PropertyInfo[] properties = type.GetProperties();
@@ -183,11 +244,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     continue;
                 }
 
-                string? displayName = property.GetDescription();
+                string displayName = property.GetDescription() ?? name;
+                //字段名转换
+                if (FieldDisplayNameConverts != null && FieldDisplayNameConverts.ContainsKey(displayName))
+                {
+                    System.Console.WriteLine(displayName);
+                    displayName = FieldDisplayNameConverts[displayName].Invoke(displayName);
+                    System.Console.WriteLine(displayName);
+                }
                 TableSearchField searchField = new TableSearchField
                 {
                     Name = name,
-                    DisplayName = displayName,
+                    DisplayName = localizer[displayName],
                     Type = fieldType
                 };
                 //排序值
@@ -213,19 +281,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 searchField.Value = string.Empty;
 
                 var codeType = property.GetCustomAttribute<CodeTypeAttribute>();
-                if (codeType != null)
-                {
-                    //字典
-                    searchField.IsCode = true;
-                    searchField.CodeTypeValue = codeType.CodeTypeValue;
-                    searchField.Codes = CodeUtil.GetCodesFromCache(codeType.CodeTypeValue)?.ToList();
-                    searchField.Multiple = true;
-                    fullValue = (field, value) =>
-                    {
-                        field.Values = (value.ToString() ?? "").Split(",");
-                    };
-                }
-                else if (FieldSelectItems != null && FieldSelectItems.ContainsKey(name))
+                if (FieldSelectItemsProviders != null && FieldSelectItemsProviders.ContainsKey(name))
                 {
                     //设置下拉项的字段
                     searchField.IsSetSelectItem = true;
@@ -234,7 +290,23 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     {
                         field.Values = (value.ToString() ?? "").Split(",");
                     };
-                    searchField.SelectItems = FieldSelectItems[name];
+                    searchField.SelectItems = await FieldSelectItemsProviders[name](name);
+                }
+                else if (codeType != null)
+                {
+                    //字典
+                    searchField.IsCode = true;
+                    searchField.CodeTypeValue = codeType.CodeTypeValue;
+                    var codes = CodeUtil.GetCodesFromCache(codeType.CodeTypeValue);
+                    if (codes != null && codes.Any())
+                    {
+                        searchField.SelectItems = codes.Select(x => new KeyValuePair<string, string>(x.CodeValue, x.CodeName));
+                    }
+                    searchField.Multiple = true;
+                    fullValue = (field, value) =>
+                    {
+                        field.Values = (value.ToString() ?? "").Split(",");
+                    };
                 }
                 else if (IsDateTimeType(searchField.Type))
                 {
@@ -288,37 +360,23 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                 }
 
-                _fields.Add(searchField);
-                bool fieldShow = DefaultValue != null && DefaultValue.ContainsKey(name) && DefaultValue.GetValueOrDefault(name) != null;
-                if (fieldShow)
-                {
-                    ((List<string>)_selectedValues).Add(name);
-                }
+                tempFields.Add(searchField);
+            }
+            if (CustomSearchFields != null && CustomSearchFields.Any())
+            {
+                tempFields.AddRange(CustomSearchFields);
             }
             if (ListSortType.Desc.Equals(SortType))
             {
-                _fields = _fields.OrderByDescending(x => x.Order).ToList();
+                tempFields = tempFields.OrderByDescending(x => x.Order).ToList();
             }
             else if (ListSortType.Asc.Equals(SortType))
             {
-                _fields = _fields.OrderBy(x => x.Order).ToList();
+                tempFields = tempFields.OrderBy(x => x.Order).ToList();
             }
+            _fields = tempFields;
         }
 
-        /// <summary>
-        /// 是否是日期类型
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        private bool IsDateTimeType(Type type)
-        {
-            if (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)) || (type.IsNullableType() && (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)))))
-            {
-                return true;
-            }
-            return false;
-
-        }
 
         private int lastFieldCount = 0;
 
@@ -468,6 +526,21 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         private async Task OnSearchClick()
         {
             await OnSearch.InvokeAsync(GetFilterGroups());
+        }
+
+        /// <summary>
+        /// 是否是日期类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private bool IsDateTimeType(Type type)
+        {
+            if (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)) || (type.IsNullableType() && (type.Equals(typeof(DateTime)) || type.Equals(typeof(DateTimeOffset)))))
+            {
+                return true;
+            }
+            return false;
+
         }
 
         /// <summary>

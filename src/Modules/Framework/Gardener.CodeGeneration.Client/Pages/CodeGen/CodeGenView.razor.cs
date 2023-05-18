@@ -46,7 +46,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
         var tableInfos = await codeGenClientService.GetTableListAsync();
         _select_TableName = tableInfos.ToSelectItems
             (it => it.TableName, it => it.ClientSelectLabelText);
-        this._filterGroupProviders.Add(() => { return GetCustomSearchFilterGroups(_searchDto); });
+        this._tableSearchFilterGroupProviders.Add(() => { return GetCustomSearchFilterGroups(_searchDto); });
         await base.OnInitializedAsync();
     }
 
@@ -64,12 +64,12 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
     private async Task OnClickGenerate(Guid codeGenId)
     {
-        StartLoading();
+        StartTableLoading();
         List<Guid> codeGenIds = new List<Guid>();
         codeGenIds.Add(codeGenId);
 
         var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
-        StopLoading();
+        StopTableLoading();
 
         if (success)
         { 
@@ -84,7 +84,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
     private async Task OnClickGenerateMenu(Guid codeGenId)
     {
-        StartLoading();
+        StartTableLoading();
 
         var codeGenDto = await BaseService.Get(codeGenId);
         var menuKey = codeGenDto.Module + "_" + codeGenDto.ClassName;
@@ -124,12 +124,12 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
            
         }
 
-        StopLoading();
+        StopTableLoading();
     }
 
     private async Task OnClickGenerateLocale(Guid codeGenId)
     {
-        StartLoading();
+        StartTableLoading();
 
         var codeGenDto = await BaseService.Get(codeGenId);
 
@@ -148,7 +148,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
             }
         }
 
-        StopLoading();
+        StopTableLoading();
     }
     private async Task DoSearch()
     {

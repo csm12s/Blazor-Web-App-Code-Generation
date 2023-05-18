@@ -60,7 +60,6 @@ namespace Gardener.Client.AntDesignUi.Services
                     #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
                     DefaultMaximized = dialogSettings.ModalDefaultMaximized
                     #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
-
                 };
 
                 ModalRef<TDialogOutput> result = await modalService.CreateModalAsync<TOperationDialog, TDialogInput, TDialogOutput>(modalOptions, input);
@@ -68,14 +67,11 @@ namespace Gardener.Client.AntDesignUi.Services
                 if (onClose != null)
                 {
                     result.OnOk = onClose;
-
+                    result.OnClose = () =>
+                    {
+                        return onClose(default);
+                    };
                 }
-                result.OnClose = () =>
-                {
-                    onClose?.Invoke(default);
-                    return Task.CompletedTask;
-                };
-
             }
             else if (dialogSettings.DialogType.Equals(OperationDialogType.Drawer))
             {
@@ -86,16 +82,16 @@ namespace Gardener.Client.AntDesignUi.Services
                     Title = title,
                     Width = dialogSettings.Width,
                     Height = dialogSettings.Height,
-                    BodyStyle=dialogSettings.BodyStyle,
+                    BodyStyle = dialogSettings.BodyStyle,
                     HeaderStyle = dialogSettings.HeaderStyle,
                     Placement = dialogSettings.DrawerPlacement.ToString().ToLower()
                 };
 
-                var drawerRef = await drawerService.CreateAsync<TOperationDialog, TDialogInput, TDialogOutput>(config, input);
-                drawerRef.OnClosed = r =>
+                DrawerRef<TDialogOutput> drawerRef = await drawerService.CreateAsync<TOperationDialog, TDialogInput, TDialogOutput>(config, input);
+                if (onClose != null)
                 {
-                    return onClose?.Invoke(r);
-                };
+                    drawerRef.OnClosed = onClose;
+                }
             }
         }
 

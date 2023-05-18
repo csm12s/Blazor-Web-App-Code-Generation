@@ -43,7 +43,7 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            base.StartLoading();
+            await base.StartLoading();
             _roleId = this.Options.Id;
             if (_roleId > 0)
             {
@@ -60,12 +60,12 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 if (resourceResult == null)
                 {
                     MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
-                    base.StopLoading();
+                    await base.StopLoading();
                     return;
                 }
                 _resources.AddRange(resourceResult);
             }
-            base.StopLoading();
+            await base.StopLoading();
         }
 
 

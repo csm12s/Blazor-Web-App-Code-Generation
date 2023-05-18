@@ -38,7 +38,7 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         //{
         //    _hideEntityFromTableFields = false;
         //}
-        this._filterGroupProviders.Add(() => { return codeGenConfigSearchDtoTableSearch?.GetFilterGroups(); });
+        this._tableSearchFilterGroupProviders.Add(() => { return codeGenConfigSearchDtoTableSearch?.GetFilterGroups(); });
         await ReLoadTable(true);
         await base.OnInitializedAsync();
     }

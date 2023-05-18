@@ -16,31 +16,29 @@
             <SelectOptions>
                 @foreach (TableSearchField item in _fields)
                 {
-                    <SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@localizer[item.DisplayName ?? item.Name]" />
+                    <SelectOption TItemValue="string" TItem="string" Value="@item.Name" Label="@item.DisplayName" />
                 }
             </SelectOptions>
         </Select>
     </AntDesign.Col>
     <AntDesign.Col Span="18">
-        @{
+        @if(_fields.Any()){
             string width = Math.Ceiling((decimal)100 / _fields.Count()) + "%";
             string style = $"margin-right:8px;margin-bottom:2px;width:100px";
             string begin = localizer[SharedLocalResource.Begin];
             string end = localizer[SharedLocalResource.End];
             foreach (TableSearchField fieldInfo in _fields)
             {
-                string placeholder = fieldInfo.DisplayName ?? fieldInfo.Name;
-                placeholder = localizer[placeholder];
+                string displayName = fieldInfo.DisplayName;
                 string boStyle = "float:left;" + (_selectedValues != null && _selectedValues.Any(x => x.Equals(fieldInfo.Name)) ? "" : "display:none;");
                 <div style="@boStyle">
-                    <span>@(placeholder + ":")</span>
+                    <span>@(displayName + ":")</span>
                     @{
-                        //TODO: 建议这里改成switch
-                        if(fieldInfo.IsCode && fieldInfo.Codes!=null)
+                        if(fieldInfo.IsCode && fieldInfo.SelectItems!=null)
                         {
                            <Select 
                                     Mode="multiple"
-                                    Placeholder="@placeholder"
+                                    Placeholder="@displayName"
                                     Style="@style"
                                     TItem="string"
                                     TItemValue="string"
@@ -50,9 +48,9 @@
                                     MaxTagCount="@ResponsiveTag.Responsive"
                                     AllowClear>
                                     <SelectOptions>
-                                    @foreach (CodeDto item in fieldInfo.Codes)
+                                    @foreach (KeyValuePair<string,string> item in fieldInfo.SelectItems)
                                     {
-                                        <SelectOption TItemValue="string" TItem="string" Value="@item.CodeValue" Label="@item.CodeName" />
+                                        <SelectOption TItemValue="string" TItem="string" Value="@item.Key" Label="@item.Value" />
                                     }
                                     </SelectOptions>
                             </Select>
@@ -61,7 +59,7 @@
                         else if (fieldInfo.IsSetSelectItem && fieldInfo.SelectItems != null)
                         {
                             <Select Mode="multiple"
-                                    Placeholder="@placeholder"
+                                    Placeholder="@displayName"
                                     Style="@style"
                                     TItem="string"
                                     TItemValue="string"
@@ -81,31 +79,31 @@
                         }
                         else if (fieldInfo.Type.Equals(typeof(string)))
                         {
-                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@displayName" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(Guid)))
                         {
-                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                            <Input Style="@style" Type="text" OnPressEnter="OnSearchClick" Placeholder="@displayName" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(int)))
                         {
-                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@displayName" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(short)))
                         {
-                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@displayName" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(long)))
                         {
-                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@displayName" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(decimal)))
                         {
-                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@displayName" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(double)))
                         {
-                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@placeholder" TValue="string" @bind-Value="@fieldInfo.Value" />
+                            <Input Style="@style" Type="number" OnPressEnter="OnSearchClick" Placeholder="@displayName" TValue="string" @bind-Value="@fieldInfo.Value" />
                         }
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTimeOffset)) || fieldInfo.Type.GetNonNullableType().Equals(typeof(DateTime)))
                         {
@@ -122,7 +120,7 @@
                         else if (fieldInfo.Type.GetNonNullableType().Equals(typeof(bool)))
                         {
                             <Select Mode="multiple"
-                                    Placeholder="@placeholder"
+                                    Placeholder="@displayName"
                                     TItemValue="string"
                                     TItem="string"
                                     MaxTagCount="@ResponsiveTag.Responsive"
@@ -140,7 +138,7 @@
                         else if (fieldInfo.Type.IsEnum)
                         {
                             <Select Mode="multiple"
-                                    Placeholder="@placeholder"
+                                    Placeholder="@displayName"
                                     Style="@style"
                                     TItemValue="string"
                                     TItem="string"

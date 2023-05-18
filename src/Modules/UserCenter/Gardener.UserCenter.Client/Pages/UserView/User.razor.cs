@@ -20,7 +20,7 @@ using AntDesign;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class User : ListOperateTableBase<UserDto, int, UserEdit, UserCenterResource>
+    public partial class User : MultiTenantListOperateTableBase<UserDto, int, UserEdit, UserCenterResource>
     {
         private Tree<DeptDto>? _deptTree;
         private List<DeptDto>? depts;
@@ -28,10 +28,6 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private int _currentDeptId = 0;
         [Inject]
         private IDeptService deptService { get; set; } = null!;
-        /// <summary>
-        /// 排除搜索字段
-        /// </summary>
-        private List<string> excludeSearchFields = new List<string>() { nameof(UserDto.Password), nameof(UserDto.Avatar) };
       
         /// <summary>
         /// 
@@ -74,7 +70,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 重新加载table
         /// </summary>
         /// <returns></returns>
-        private Task SelectedKeyChanged(string key)
+        private Task SelectedDeptChanged(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -85,7 +81,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 int newId = int.Parse(key);
                 _currentDeptId = newId;
             }
-            return ReLoadTable();
+            return ReLoadTable(true);
         }
         /// <summary>
         /// 配置
