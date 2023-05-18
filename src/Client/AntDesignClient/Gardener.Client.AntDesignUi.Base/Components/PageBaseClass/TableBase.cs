@@ -54,35 +54,21 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         protected bool _pageFirstLoaded = false;
 
+        /// <summary>
+        /// TableSearch搜索条件提供器
+        /// </summary>
+        protected List<Func<List<FilterGroup>?>> _tableSearchFilterGroupProviders = new();
+
         #region TableSearch
         /// <summary>
         /// 搜索组件
         /// </summary>
         protected TableSearch<TDto>? _tableSearch;
+
         /// <summary>
-        /// TableSearch默认搜索值
+        /// 搜索组件设置
         /// </summary>
-        protected Dictionary<string, object> _tableSearchDefaultSearchValue = new Dictionary<string, object>();
-        /// <summary>
-        /// TableSearch排除搜索字段
-        /// </summary>
-        protected List<string> _tableSearchExcludeSearchFields = new List<string>();
-        /// <summary>
-        /// TableSearch搜索条件提供器
-        /// </summary>
-        protected List<Func<List<FilterGroup>?>> _tableSearchFilterGroupProviders = new();
-        /// <summary>
-        /// TableSearch字段对应的下拉项
-        /// </summary>
-        protected Dictionary<string, Func<string, Task<IEnumerable<KeyValuePair<string, string>>>>> _tableSearchFieldSelectItemsProviders = new();
-        /// <summary>
-        /// TableSearch字段排序
-        /// </summary>
-        protected Dictionary<string, int>? _tableSearchFieldOrders = new();
-        /// <summary>
-        /// TableSearch字段展示名字转换
-        /// </summary>
-        protected Dictionary<string, Func<string, string>> _tableSearchFieldDisplayNameConverts = new Dictionary<string, Func<string, string>>();
+        protected TableSearchSettings _tableSearchSettings = new TableSearchSettings();
 
         protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
         #endregion
@@ -198,11 +184,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <param name="fields"></param>
         protected void AddExcludeSearchFields(params string[] fields)
         {
+            if (_tableSearchSettings.ExcludeFields == null)
+            {
+                _tableSearchSettings.ExcludeFields=new List<string>();
+            }
             foreach (string field in fields)
             {
-                if (!_tableSearchExcludeSearchFields.Contains(field))
+                if (!_tableSearchSettings.ExcludeFields.Contains(field))
                 {
-                    _tableSearchExcludeSearchFields.Add(field);
+                    _tableSearchSettings.ExcludeFields=_tableSearchSettings.ExcludeFields.Append(field);
                 }
             }
         }
@@ -220,7 +210,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 urlParams.ForEach(x =>
                 {
-                    _tableSearchDefaultSearchValue.Add(x.Key, x.Value.ToString());
+                    _tableSearchSettings.DefaultValue.Add(x.Key, x.Value.ToString());
                 });
             }
             //table search 组件提供搜索条件

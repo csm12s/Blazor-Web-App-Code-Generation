@@ -69,13 +69,10 @@
                     <ResourceAuthorize ResourceKey="user_center_user_refresh">
                         <TableSearch TDto="UserDto"
                                      OnSearch="(filterGroups)=>ReLoadTable(true)"
-                                    @ref="this._tableSearch"
-                                     DefaultValue="_tableSearchDefaultSearchValue"
+                                        @ref="this._tableSearch"
+                                      Settings="@_tableSearchSettings"
                                      CustomLocalizer="Localizer"
-                                     ExcludeFields="@_tableSearchExcludeSearchFields"
-                                      FieldDisplayNameConverts="@_tableSearchFieldDisplayNameConverts"
-                                     FieldOrders="@(new Dictionary<string, int>(){ {nameof(UserDto.Id),-1}})">
-                        </TableSearch>
+                                     />
                     </ResourceAuthorize>
                     <Row>
                         <AntDesign.Col Span="8">

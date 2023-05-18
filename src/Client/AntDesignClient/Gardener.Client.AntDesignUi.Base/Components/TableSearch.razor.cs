@@ -27,11 +27,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 所有搜索字段的信息
         /// </summary>
-        List<TableSearchField> _fields = new List<TableSearchField>();
+        private List<TableSearchField> _fields = new List<TableSearchField>();
         /// <summary>
         /// 选中的搜索字段
         /// </summary>
-        IEnumerable<string> _selectedValues = new List<string>();
+        private IEnumerable<string> _selectedValues = new List<string>();
 
         #region Parameters
         /// <summary>
@@ -47,110 +47,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public IClientLocalizer CustomLocalizer { get; set; } = null!;
 
         /// <summary>
-        /// 日期选择框是否选择时分秒
-        /// </summary>
-        [Parameter]
-        public bool ShowTime { get; set; }
-        /// <summary>
-        /// 日期开始时间
-        /// </summary>
-        [Parameter]
-        public DateTime BeginTime { get; set; } = DateTime.Now.Date.AddDays(1).AddMonths(-1);
-        /// <summary>
-        /// 日期结束时间
-        /// </summary>
-        [Parameter]
-        public DateTime EndTime { get; set; } = DateTime.Now.Date.AddDays(1);
-        /// <summary>
         /// 搜索
         /// </summary>
         [Parameter]
         [Required]
         public EventCallback<List<FilterGroup>> OnSearch { get; set; }
 
-        /// <summary>
-        /// 默认搜索值
-        /// key：字段名称，value：单值、多值（逗号隔开字符串）
-        /// </summary>
-        [Parameter]
-        public Dictionary<string, object> DefaultValue { get; set; } = null!;
-
-        /// <summary>
-        /// 是否总是显示搜索按钮
-        /// </summary>
-        [Parameter]
-        public bool AlwaysShowSearchButton { get; set; } = false;
-
-        /// <summary>
-        /// 包含的字段
-        /// </summary>
-        /// <remarks>
-        /// 优先级最高
-        /// </remarks>
-        [Parameter]
-        public IEnumerable<string>? IncludeFields { get; set; }
-
-        /// <summary>
-        /// 排除的字段
-        /// </summary>
-        /// <remarks>
-        /// 优先级最高
-        /// </remarks>
-        [Parameter]
-        public IEnumerable<string>? ExcludeFields { get; set; }
-
-        /// <summary>
-        /// 字段排序
-        /// </summary>
-        /// <remarks>
-        /// 优先级高于<see cref="CodeAttribute"/>
-        /// </remarks>
-        [Parameter]
-        public Dictionary<string, int>? FieldOrders { get; set; }
-
-        /// <summary>
-        /// 排序方式
-        /// </summary>
-        /// <remarks>
-        /// 默认升序
-        /// </remarks>
-        [Parameter]
-        public ListSortType SortType { get; set; } = ListSortType.Asc;
-
-        /// <summary>
-        /// 字段对应的下拉项
-        /// </summary>
-        /// <remarks>
-        /// <para>字典key:为字段名称</para>
-        /// <para>字典value:为下拉选项</para>
-        /// <para>为下拉选项key:为SelectItem的value</para>
-        /// <para>为下拉选项value:为SelectItem的label</para>
-        /// </remarks>
-        [Parameter]
-        public Dictionary<string, Func<string, Task<IEnumerable<KeyValuePair<string, string>>>>>? FieldSelectItemsProviders { get; set; }
-
-        /// <summary>
-        /// 自定义搜索字段
-        /// </summary>
-        /// <remarks>
-        /// 目前自定义字段无法应用其他默认参数，需要传入时准备好完整数据
-        /// </remarks>
-        [Parameter]
-        public List<TableSearchField>? CustomSearchFields { get; set; }
-        /// <summary>
-        /// 字段展示名字转换
-        /// </summary>
-        /// <remarks>
-        /// <para>key:源名字</para>
-        /// <para>value:新名字转换器</para>
-        /// </remarks>
-        [Parameter]
-        public Dictionary<string, Func<string, string>>? FieldDisplayNameConverts { get; set; }
+       
         /// <summary>
         /// 是否自动初始化
         /// </summary>
         [Parameter]
-        public bool AutoInit { get; set; } = true;
+        public TableSearchSettings Settings { get; set; } = new TableSearchSettings();
 
         #endregion
 
@@ -172,7 +80,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            if (AutoInit)
+            if (Settings.AutoInit)
             {
                 await Init();
             }
@@ -193,16 +101,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         private void InitDefaultSelectValue()
         {
             _selectedValues = new List<string>();
-            if (DefaultValue != null)
+            foreach (var kv in Settings.DefaultValue)
             {
-                foreach (var kv in DefaultValue)
+                if (kv.Value == null)
                 {
-                    if (kv.Value == null)
-                    {
-                        continue;
-                    }
-                    ((List<string>)_selectedValues).Add(kv.Key);
+                    continue;
                 }
+                    ((List<string>)_selectedValues).Add(kv.Key);
             }
         }
         /// <summary>
@@ -229,28 +134,32 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
                 string name = property.Name;
                 //被排除
-                if (this.ExcludeFields != null && this.ExcludeFields.Any(x => x.Equals(name)))
+                if (Settings.ExcludeFields != null && Settings.ExcludeFields.Any(x => x.Equals(name)))
                 {
                     continue;
                 }
-                //不在包含内
-                if (this.IncludeFields != null && !this.IncludeFields.Any(x => x.Equals(name)))
+                if (Settings.IncludeFields == null)
                 {
-                    continue;
+                    //特性禁用
+                    if (property.HasAttribute<DisabledSearchFieldAttribute>())
+                    {
+                        continue;
+                    }
                 }
-                //特性禁用
-                if (this.IncludeFields == null && property.HasAttribute<DisabledSearchFieldAttribute>())
+                else 
                 {
-                    continue;
+                    //不在包含内
+                    if (!Settings.IncludeFields.Any(x => x.Equals(name)))
+                    {
+                        continue;
+                    }
                 }
 
                 string displayName = property.GetDescription() ?? name;
                 //字段名转换
-                if (FieldDisplayNameConverts != null && FieldDisplayNameConverts.ContainsKey(displayName))
+                if (Settings.FieldDisplayNameConverts.ContainsKey(displayName))
                 {
-                    System.Console.WriteLine(displayName);
-                    displayName = FieldDisplayNameConverts[displayName].Invoke(displayName);
-                    System.Console.WriteLine(displayName);
+                    displayName = Settings.FieldDisplayNameConverts[displayName].Invoke(displayName);
                 }
                 TableSearchField searchField = new TableSearchField
                 {
@@ -259,9 +168,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     Type = fieldType
                 };
                 //排序值
-                if (FieldOrders != null && FieldOrders.ContainsKey(searchField.Name))
+                if (Settings.FieldOrders.ContainsKey(searchField.Name))
                 {
-                    searchField.Order = FieldOrders[searchField.Name];
+                    searchField.Order = Settings.FieldOrders[searchField.Name];
                 }
                 else
                 {
@@ -281,7 +190,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 searchField.Value = string.Empty;
 
                 var codeType = property.GetCustomAttribute<CodeTypeAttribute>();
-                if (FieldSelectItemsProviders != null && FieldSelectItemsProviders.ContainsKey(name))
+                if (Settings.FieldSelectItemsProviders.ContainsKey(name))
                 {
                     //设置下拉项的字段
                     searchField.IsSetSelectItem = true;
@@ -290,7 +199,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     {
                         field.Values = (value.ToString() ?? "").Split(",");
                     };
-                    searchField.SelectItems = await FieldSelectItemsProviders[name](name);
+                    searchField.SelectItems = await Settings.FieldSelectItemsProviders[name](name);
                 }
                 else if (codeType != null)
                 {
@@ -317,7 +226,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         field.Values = (value.ToString() ?? "").Split(",");
                     };
                     //初始化值
-                    searchField.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
+                    searchField.Values = new string[] { Settings.BeginTime.ToString(ClientConstant.InputDateTimeFormat), Settings.EndTime.ToString(ClientConstant.InputDateTimeFormat) };
                 }
                 else if (searchField.Type.IsEnum)
                 {
@@ -351,9 +260,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     };
                 }
 
-                if (DefaultValue != null && DefaultValue.ContainsKey(searchField.Name))
+                if (Settings.DefaultValue.ContainsKey(searchField.Name))
                 {
-                    object? value = DefaultValue.GetValueOrDefault(searchField.Name);
+                    object? value = Settings.DefaultValue.GetValueOrDefault(searchField.Name);
                     if (value != null)
                     {
                         fullValue(searchField, value);
@@ -362,15 +271,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
                 tempFields.Add(searchField);
             }
-            if (CustomSearchFields != null && CustomSearchFields.Any())
+            if (Settings.CustomSearchFields.Any())
             {
-                tempFields.AddRange(CustomSearchFields);
+                tempFields.AddRange(Settings.CustomSearchFields);
             }
-            if (ListSortType.Desc.Equals(SortType))
+            if (ListSortType.Desc.Equals(Settings.SortType))
             {
                 tempFields = tempFields.OrderByDescending(x => x.Order).ToList();
             }
-            else if (ListSortType.Asc.Equals(SortType))
+            else if (ListSortType.Asc.Equals(Settings.SortType))
             {
                 tempFields = tempFields.OrderBy(x => x.Order).ToList();
             }
@@ -421,7 +330,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         if (IsDateTimeType(searchField.Type))
                         {
                             //初始化值
-                            searchField.Values = new string[] { BeginTime.ToString(ClientConstant.InputDateTimeFormat), EndTime.ToString(ClientConstant.InputDateTimeFormat) };
+                            searchField.Values = new string[] { Settings.BeginTime.ToString(ClientConstant.InputDateTimeFormat), Settings.EndTime.ToString(ClientConstant.InputDateTimeFormat) };
                         }
                         else
                         {
@@ -565,6 +474,103 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 return new string[0];
             }
         }
+    }
+
+    /// <summary>
+    /// 表格搜索设置
+    /// </summary>
+    public class TableSearchSettings
+    {
+        /// <summary>
+        /// 日期选择框是否选择时分秒
+        /// </summary>
+        public bool ShowTime { get; set; }=false;
+
+        /// <summary>
+        /// 日期开始时间
+        /// </summary>
+        public DateTime BeginTime { get; set; } = DateTime.Now.Date.AddDays(1).AddMonths(-1);
+
+        /// <summary>
+        /// 日期结束时间
+        /// </summary>
+        public DateTime EndTime { get; set; } = DateTime.Now.Date.AddDays(1);
+
+        /// <summary>
+        /// 默认搜索值
+        /// key：字段名称，value：单值、多值（逗号隔开字符串）
+        /// </summary>
+        public Dictionary<string, object> DefaultValue { get; set; } = new Dictionary<string, object>();
+
+        /// <summary>
+        /// 是否总是显示搜索按钮
+        /// </summary>
+        public bool AlwaysShowSearchButton { get; set; } = false;
+
+        /// <summary>
+        /// 包含的字段
+        /// </summary>
+        /// <remarks>
+        /// 优先级最高
+        /// </remarks>
+        public IEnumerable<string>? IncludeFields { get; set; }
+
+        /// <summary>
+        /// 排除的字段
+        /// </summary>
+        /// <remarks>
+        /// 优先级最高
+        /// </remarks>
+        public IEnumerable<string>? ExcludeFields { get; set; }
+
+        /// <summary>
+        /// 字段排序
+        /// </summary>
+        /// <remarks>
+        /// 优先级高于<see cref="CodeAttribute"/>
+        /// </remarks>
+        public Dictionary<string, int> FieldOrders { get; set; }= new Dictionary<string, int>();
+
+        /// <summary>
+        /// 排序方式
+        /// </summary>
+        /// <remarks>
+        /// 默认升序
+        /// </remarks>
+        public ListSortType SortType { get; set; } = ListSortType.Asc;
+
+        /// <summary>
+        /// 字段对应的下拉项
+        /// </summary>
+        /// <remarks>
+        /// <para>字典key:为字段名称</para>
+        /// <para>字典value:为下拉选项</para>
+        /// <para>为下拉选项key:为SelectItem的value</para>
+        /// <para>为下拉选项value:为SelectItem的label</para>
+        /// </remarks>
+        public Dictionary<string, Func<string, Task<IEnumerable<KeyValuePair<string, string>>>>> FieldSelectItemsProviders { get; set; } = new Dictionary<string, Func<string, Task<IEnumerable<KeyValuePair<string, string>>>>>();
+
+        /// <summary>
+        /// 自定义搜索字段
+        /// </summary>
+        /// <remarks>
+        /// 目前自定义字段无法应用其他默认参数，需要传入时准备好完整数据
+        /// </remarks>
+        public List<TableSearchField> CustomSearchFields { get; set; } = new List<TableSearchField>();
+
+        /// <summary>
+        /// 字段展示名字转换
+        /// </summary>
+        /// <remarks>
+        /// <para>key:源名字</para>
+        /// <para>value:新名字转换器</para>
+        /// </remarks>
+        public Dictionary<string, Func<string, string>> FieldDisplayNameConverts { get; set; } = new Dictionary<string, Func<string, string>>();
+
+        /// <summary>
+        /// 是否自动初始化
+        /// </summary>
+        public bool AutoInit { get; set; } = true;
     }
 
 }

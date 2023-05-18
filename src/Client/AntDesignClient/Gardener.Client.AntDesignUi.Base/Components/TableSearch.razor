@@ -111,7 +111,7 @@
                             DateTime? tempEndTime = fieldInfo.Values == null ? null : DateTime.Parse(fieldInfo.Values.Last());
                             <RangePicker Style="margin-left:5px;"
                                          TValue="DateTime?[]"
-                                         ShowTime="@ShowTime"
+                                         ShowTime="@Settings.ShowTime"
                                          Placeholder="new []{fieldInfo.DisplayName+begin,fieldInfo.DisplayName+end}"
                                          OnChange="timesEvent=>fieldInfo.Values=DateTimeFormat(timesEvent)"
                                          DefaultValue="new DateTime?[] { tempBeginTime, tempEndTime}"
@@ -164,7 +164,7 @@
         }
     </AntDesign.Col>
     <AntDesign.Col Span="2" Style="text-align:right">
-        @if (AlwaysShowSearchButton || (_selectedValues != null && _selectedValues.Count() > 0))
+        @if (Settings.AlwaysShowSearchButton || (_selectedValues != null && _selectedValues.Count() > 0))
         {
             <Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
                 @localizer[SharedLocalResource.Search]
