@@ -95,8 +95,9 @@ namespace Gardener.SystemManager.Services
         /// <param name="includLocked">是否包含锁定的资源</param>
         /// <param name="rootKey"></param>
         /// <param name="tenantId"></param>
+        /// <param name="supportMultiTenant">是否支持多租户</param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetTree([FromQuery]bool includLocked=true,[FromQuery]string? rootKey = null, [FromQuery]Guid? tenantId=null)
+        public async Task<List<ResourceDto>> GetTree([FromQuery]bool includLocked=true,[FromQuery]string? rootKey = null, [FromQuery]Guid? tenantId=null, [FromQuery] bool? supportMultiTenant = null)
         {
 
             List<Resource>? resources = null;
@@ -111,6 +112,7 @@ namespace Gardener.SystemManager.Services
                     .Where(tenantId!=null, x=>x.TenantId.Equals(tenantId))
                     .Select(x=>x.Resource)
                     .Where(!string.IsNullOrEmpty(rootKey), x => x.Key.Equals(rootKey))
+                    .Where(supportMultiTenant != null, x=>x.SupportMultiTenant.Equals(supportMultiTenant))
                     .OrderBy(x => x.Order)
                     .ToListAsync();
             }
@@ -118,10 +120,11 @@ namespace Gardener.SystemManager.Services
             {
                 //直接查询
                 resources = await _resourceRepository
-               .Where(x => x.IsDeleted == false && (includLocked || x.IsLocked == false))
-               .Where(!string.IsNullOrEmpty(rootKey), x => x.Key.Equals(rootKey))
-               .OrderBy(x => x.Order)
-               .ToListAsync();
+                   .Where(x => x.IsDeleted == false && (includLocked || x.IsLocked == false))
+                   .Where(!string.IsNullOrEmpty(rootKey), x => x.Key.Equals(rootKey))
+                   .Where(supportMultiTenant != null, x => x.SupportMultiTenant.Equals(supportMultiTenant))
+                   .OrderBy(x => x.Order)
+                   .ToListAsync();
             }
             return resources.Where(x => x.Type.Equals(ResourceType.Root)).Select(x => x.Adapt<ResourceDto>()).ToList();
         }

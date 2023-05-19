@@ -43,7 +43,7 @@ namespace Gardener.UserCenter.Client.Pages.TenantView
         {
             await base.StartLoading();
             var t1 = TenantService.GetResources(this.Options.Id);
-            var t2 = ResourceService.GetTree();
+            var t2 = ResourceService.GetTree(supportMultiTenant:true);
             //已有资源
             var tenantResourceResult = await t1;
             if (tenantResourceResult != null && tenantResourceResult.Any())

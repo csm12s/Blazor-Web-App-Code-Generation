@@ -36,9 +36,9 @@ namespace Gardener.SystemManager.Services
         /// <param name="includLocked">是否包含锁定的资源</param>
         /// <param name="rootKey"></param>
         /// <param name="tenantId"></param>
+        /// <param name="supportMultiTenant">是否支持多租户</param>
         /// <returns></returns>
-        Task<List<ResourceDto>> GetTree(bool includLocked = true, string? rootKey = null, Guid? tenantId = null);
-
+        Task<List<ResourceDto>> GetTree(bool includLocked = true, string? rootKey = null, Guid? tenantId = null, bool? supportMultiTenant=null);
 
         /// <summary>
         /// 根据资源id获取
