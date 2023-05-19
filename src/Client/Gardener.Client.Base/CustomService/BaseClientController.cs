@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Client.Base;
 
-public abstract class BaseClientController<T> 
+public abstract class BaseClientController<T>
     : BaseClientController<T, int> where T : class, new()
 {
     protected BaseClientController(IApiCaller apiCaller, string controller) : base(apiCaller, controller)
@@ -13,8 +13,8 @@ public abstract class BaseClientController<T>
     }
 }
 
-public abstract class BaseClientController<TEntityDto, TKey> 
-    : IBaseController<TEntityDto, TKey>, 
+public abstract class BaseClientController<TEntityDto, TKey>
+    : IBaseController<TEntityDto, TKey>,
     IServiceBase<TEntityDto, TKey> // Gardener base controller, _service in ListTableBase need this
     where TEntityDto : class, new()
 {
@@ -71,10 +71,11 @@ public abstract class BaseClientController<TEntityDto, TKey>
         return apiCaller.GetAsync<List<TEntityDto>>(url);
     }
 
-    public virtual Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null)
+    public virtual Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null, bool includLocked = false)
     {
-        IDictionary<string, object?> queryString=new Dictionary<string, object?>();
+        IDictionary<string, object?> queryString = new Dictionary<string, object?>();
         queryString.Add($"{nameof(tenantId)}", tenantId);
+        queryString.Add($"{nameof(includLocked)}", includLocked);
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.GetAsync<List<TEntityDto>>(url, queryString);
     }
@@ -97,7 +98,7 @@ public abstract class BaseClientController<TEntityDto, TKey>
         return apiCaller.PostAsync<TEntityDto, bool>(url, request: item);
     }
 
-    
+
     public virtual Task<bool> Lock(TKey id, bool islocked = true)
     {
         var url = $"{controller}/Lock/{id}/{islocked}";

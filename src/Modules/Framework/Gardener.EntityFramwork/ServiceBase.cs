@@ -209,11 +209,12 @@ namespace Gardener.EntityFramwork
         /// 查询所有可以用的
         /// </summary>
         /// <param name="tenantId">租户编号</param>
+        /// <param name="includLocked">是否包含锁定的</param>
         /// <remarks>
         /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
         /// </remarks>
         /// <returns></returns>
-        public virtual async Task<List<TEntityDto>> GetAllUsable([FromQuery] Guid? tenantId = null)
+        public virtual async Task<List<TEntityDto>> GetAllUsable([FromQuery] Guid? tenantId = null, [FromQuery] bool includLocked = false)
         {
             var paramList = new List<object>();
             StringBuilder where = new();
@@ -226,7 +227,7 @@ namespace Gardener.EntityFramwork
                 paramList.Add(false);
             }
             //判断是否有IsLock
-            if (type.IsAssignableTo(typeof(IModelLocked)))
+            if (!includLocked && type.IsAssignableTo(typeof(IModelLocked)))
             {
                 where.Append($" &&  {nameof(IModelLocked.IsLocked)} == @{paramList.Count}");
                 paramList.Add(false);

@@ -17,6 +17,7 @@ using Gardener.Client.AntDesignUi.Base.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Gardener.Client.AntDesignUi.Base;
 using AntDesign;
+using System;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
@@ -37,23 +38,25 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             dialogSettings.Width = 1000;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tableSearchSettings"></param>
+        /// <param name="tableSearchFilterGroupProviders"></param>
+        protected override void SetTableSearchParameters(TableSearchSettings tableSearchSettings, List<Func<List<FilterGroup>?>> tableSearchFilterGroupProviders)
+        {
+            //排除搜索字段
+            base.AddExcludeSearchFields(nameof(UserDto.Password), nameof(UserDto.Avatar));
+            base.SetTableSearchParameters(tableSearchSettings, tableSearchFilterGroupProviders);
+        }
         /// <summary>
         /// 页面初始化完成
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            base.AddExcludeSearchFields(nameof(UserDto.Password), nameof(UserDto.Avatar));
+            await ReLoadDepts(null);
             await base.OnInitializedAsync();
-        }
-        /// <summary>
-        /// 组件首次渲染后
-        /// </summary>
-        /// <returns></returns>
-        protected override Task OnFirstAfterRenderAsync()
-        {
-            return Task.WhenAll(ReLoadDepts(null), base.OnFirstAfterRenderAsync());
         }
         /// <summary>
         /// 重载部门信息

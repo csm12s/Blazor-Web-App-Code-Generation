@@ -59,6 +59,9 @@
             </Column>
             <Column @bind-Field="@model.Key" Width="5%" Title="@Localizer[SystemManagerResource.Key]" />
             <Column @bind-Field="@model.Order" Width="5%" Title="@Localizer[SystemManagerResource.Order]" />
+            <Column @bind-Field="@model.SupportMultiTenant" Filterable Title="@Localizer[SystemManagerResource.SupportMultiTenant]">
+                 <TagYesNo Yes="model.SupportMultiTenant"></TagYesNo>
+             </Column>
             <Column @bind-Field="@model.IsLocked" Width="10%" Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_resource_lock">
                     <Authorized>

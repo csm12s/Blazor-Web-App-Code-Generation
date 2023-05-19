@@ -54,7 +54,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 首次渲染后
         /// </summary>
-        bool firstRenderAfter = false;
+        //bool firstRenderAfter = false;
 
         /// <summary>
         /// OnParametersSetAsync

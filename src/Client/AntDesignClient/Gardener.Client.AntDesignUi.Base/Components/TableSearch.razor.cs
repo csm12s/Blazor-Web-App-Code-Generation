@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -462,6 +463,55 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             return filterGroups;
 
+        }
+        
+        /// <summary>
+        /// 设置某个字段的搜索值
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="values"></param>
+        public void SetFieldValue(string fieldName,params object[] values)
+        {
+            TableSearchField? field= _fields.Where(x => x.Name.Equals(fieldName)).FirstOrDefault();
+            if (field!=null)
+            {
+                if (field.Multiple)
+                {
+                    field.Values = values.Where(x=>x!=null).Select(x => x.ToString() ?? string.Empty);
+                }
+                else 
+                {
+                    field.Value = values[0].ToString();
+                }
+                if(!_selectedValues.Contains(fieldName))
+                {
+                    _selectedValues=_selectedValues.Append(fieldName);
+                }
+            }
+        }
+        /// <summary>
+        /// 移除字段值
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="unSelected">是否解除选中状态</param>
+        public void RemoveFieldValue(string fieldName,bool unSelected=false)
+        {
+            TableSearchField? field = _fields.Where(x => x.Name.Equals(fieldName)).FirstOrDefault();
+            if (field != null)
+            {
+                if (field.Multiple)
+                {
+                    field.Values = new string[0];
+                }
+                else
+                {
+                    field.Value = null;
+                }
+                if (unSelected && _selectedValues.Contains(fieldName))
+                {
+                    _selectedValues = _selectedValues.Where(x=>!x.Equals(fieldName));
+                }
+            }
         }
 
         /// <summary>

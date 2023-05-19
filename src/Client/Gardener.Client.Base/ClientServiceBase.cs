@@ -93,10 +93,11 @@ namespace Gardener.Client.Base
             return apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
         }
 
-        public virtual Task<List<T>> GetAllUsable(Guid? tenantId = null)
+        public virtual Task<List<T>> GetAllUsable(Guid? tenantId = null, bool includLocked = false)
         {
             IDictionary<string, object?> queryString = new Dictionary<string, object?>();
             queryString.Add($"{nameof(tenantId)}", tenantId);
+            queryString.Add($"{nameof(includLocked)}", includLocked);
             return apiCaller.GetAsync<List<T>>($"{controller}/all-usable", queryString);
         }
 

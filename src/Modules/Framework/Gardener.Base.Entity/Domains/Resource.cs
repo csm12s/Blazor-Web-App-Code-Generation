@@ -78,6 +78,12 @@ namespace Gardener.Base.Entity
         public Guid? ParentId { get; set; }
 
         /// <summary>
+        /// 支持多租户
+        /// </summary>
+        [DisplayName("SupportMultiTenant")]
+        public bool SupportMultiTenant { get; set; }
+
+        /// <summary>
         /// 父级
         /// </summary>
         public Resource? Parent { get; set; }

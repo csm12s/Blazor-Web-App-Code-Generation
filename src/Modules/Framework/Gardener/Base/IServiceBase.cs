@@ -57,11 +57,12 @@ namespace Gardener.Base
         /// 查询所有可以用的
         /// </summary>
         /// <param name="tenantId">租户编号</param>
+        /// <param name="includLocked">是否包含锁定的</param>
         /// <remarks>
         /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
         /// </remarks>
         /// <returns></returns>
-        Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null);
+        Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null,bool includLocked=false);
         /// <summary>
         /// 分页查询
         /// </summary>

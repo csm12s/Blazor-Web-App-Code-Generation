@@ -64,7 +64,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             positions =await t2;
             //部门
             deptDatas = await t3;
-            await StopLoading();
+            await StopLoading(true);
         }
        
         /// <summary>

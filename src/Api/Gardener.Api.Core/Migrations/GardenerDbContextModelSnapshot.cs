@@ -4049,7 +4049,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             Id = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
                             CreatedTime = 1306532718346240480L,
-                            Description = "查询所有资源 按树形结构返回",
+                            Description = "查询所有资源 按树形结构返回\r\n非租户在所有资源中抽取，租户在自己的资源池中抽取",
                             EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
@@ -6089,6 +6089,40 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("23cd301c-ebbb-4715-a96d-72232d9a6927"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030674636800480L,
+                            Description = "resources",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "93FF4A02546A74DA1406F440D9C43006",
+                            Method = 0,
+                            Path = "/api/tenant/{tenantid}/resources",
+                            Service = "租户服务",
+                            Summary = "获取租户资源列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("8663473b-4a13-46ce-8187-a850215151fe"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030674636800480L,
+                            Description = "resources",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F17552720E10BFAF2622962F852D4C36",
+                            Method = 1,
+                            Path = "/api/tenant/{tenantid}/resources",
+                            Service = "租户服务",
+                            Summary = "为租户添加资源"
+                        },
+                        new
+                        {
                             Id = new Guid("3896ea42-a5ed-4bc5-8dc5-21e0e5adb2fa"),
                             CreatedTime = 1306532718346240480L,
                             EnableAudit = true,
@@ -6381,6 +6415,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("SupportMultiTenant")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
@@ -6416,6 +6453,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/attachment",
                             Remark = "附件管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6432,6 +6470,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6448,6 +6487,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "null",
                             Remark = "删除选中附件",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6464,6 +6504,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "",
                             Remark = "查看附件",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6480,6 +6521,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6496,6 +6538,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
                             Path = "/system_manager/audit-entity",
                             Remark = "数据审计",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6512,6 +6555,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "删除数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6528,6 +6572,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "删除选中数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6544,6 +6589,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "查询数据审计详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6560,6 +6606,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "刷新数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6575,6 +6622,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Remark = "导出数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6591,6 +6639,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "",
                             Remark = "审计管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6607,6 +6656,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
                             Path = "/system_manager/audit-operation",
                             Remark = "操作审计",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6623,6 +6673,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "删除操作审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6639,6 +6690,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6655,6 +6707,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "操作审计数据变更详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6671,6 +6724,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "刷新操作审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6686,6 +6740,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Remark = "导出操作审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6702,6 +6757,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/login-token",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6718,6 +6774,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6734,6 +6791,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6750,6 +6808,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6766,6 +6825,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6781,6 +6841,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Remark = "导出登录数据",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6796,6 +6857,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             Path = "",
                             Remark = "根根节点不能删除，不能改变类型！！。",
+                            SupportMultiTenant = true,
                             Type = 0
                         },
                         new
@@ -6811,6 +6873,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 1,
                             Path = "",
                             Remark = "根根节点不能删除，不能改变类型！！。",
+                            SupportMultiTenant = true,
                             Type = 0
                         },
                         new
@@ -6827,6 +6890,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 41,
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_tool/code_gen",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdatedTime = 1306683596595200480L
                         },
@@ -6844,6 +6908,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "",
                             Remark = "邮件工具",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -6860,6 +6925,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
                             Path = "/system_manager/email_server_config",
                             Remark = "邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -6876,6 +6942,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "添加邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6892,6 +6959,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "删除邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6908,6 +6976,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "删除选中邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6924,6 +6993,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "查看邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6940,6 +7010,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "编辑邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6956,6 +7027,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "锁定邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6972,6 +7044,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "刷新邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6988,6 +7061,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "发送测试邮件",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7004,6 +7078,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
                             Path = "/system_manager/email_temaplate",
                             Remark = "邮件模板",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -7020,6 +7095,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "添加邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7036,6 +7112,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "删除邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7052,6 +7129,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "删除选中邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7068,6 +7146,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "查看邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7084,6 +7163,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "编辑邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7100,6 +7180,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "锁定邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7116,6 +7197,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "刷新邮件模板列表",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7132,6 +7214,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "发送测试邮件",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7146,6 +7229,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "字典工具",
                             Order = 0,
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "6",
                             UpdateIdentityType = 1,
@@ -7165,6 +7249,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
                             Path = "/system_manager/code_list",
                             Remark = "字典管理",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdateBy = "2",
                             UpdateIdentityType = 1,
@@ -7183,6 +7268,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "添加字典",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7198,6 +7284,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "删除字典",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -7216,6 +7303,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "删除选中字典",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7231,6 +7319,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "查看字典",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -7249,6 +7338,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "生成字典种子数据",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7264,6 +7354,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "编辑字典",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -7282,6 +7373,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "导出字典",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7296,6 +7388,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "锁定字典",
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7311,6 +7404,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "字典管理",
                             Order = 90,
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -7329,6 +7423,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "刷新字典列表",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7344,6 +7439,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 10,
                             ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
                             Path = "/system_manager/code_type",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdateBy = "2",
                             UpdateIdentityType = 1,
@@ -7361,6 +7457,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "添加字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7376,6 +7473,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
                             Remark = "功能与 字典管理->字典 相同",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -7393,6 +7491,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7407,6 +7506,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除选中字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7421,6 +7521,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "查看字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7435,6 +7536,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "生成字典类型种子数据",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7449,6 +7551,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "编辑字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7463,6 +7566,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "导出字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7477,6 +7581,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "刷新字典类型列表",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7491,6 +7596,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "刷新字典工具缓存",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7507,6 +7613,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/function",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -7523,6 +7630,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7539,6 +7647,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7555,6 +7664,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "查看接口详情",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7571,6 +7681,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "查看接口种子数据",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7587,6 +7698,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7603,6 +7715,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7619,6 +7732,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7635,6 +7749,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7650,6 +7765,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Remark = "导出接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7666,6 +7782,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "/",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -7682,6 +7799,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/resource",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -7698,6 +7816,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "添加资源",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7714,6 +7833,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7730,6 +7850,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "删除资源",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7746,6 +7867,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "删除选中",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7762,6 +7884,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "查看资源",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7778,6 +7901,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7794,6 +7918,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7810,6 +7935,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "显示可选接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7826,6 +7952,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7842,6 +7969,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7856,6 +7984,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "获取种子数据",
                             Order = 0,
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7872,6 +8001,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7888,6 +8018,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7904,6 +8035,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7920,6 +8052,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "显示已关联接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7936,6 +8069,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "",
                             Remark = "系统管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -7952,6 +8086,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/systimer",
                             Remark = "配置任务调度模式",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdatedTime = 1306547305287680480L
                         },
@@ -7967,6 +8102,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "添加任务调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7981,6 +8117,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7996,6 +8133,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
                             Remark = "删除选中调度",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8010,6 +8148,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "查看任务调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8024,6 +8163,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "编辑任务调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8038,6 +8178,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "刷新调度列表",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8053,6 +8194,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
                             Remark = "开启调度",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8067,6 +8209,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "停止调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8082,6 +8225,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
                             Remark = "导出任务调度",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8098,6 +8242,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/client",
                             Remark = "客户端管理",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -8114,6 +8259,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "添加客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8130,6 +8276,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "删除客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8146,6 +8293,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "删除选中客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8162,6 +8310,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "查看客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8178,6 +8327,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "编辑客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8194,6 +8344,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "显示可选接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8210,6 +8361,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "绑定资源接口关系",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8226,6 +8378,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "删除选中客户端接口关系",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8242,6 +8395,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "刷新客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8258,6 +8412,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "关联客户端接口关系",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8274,6 +8429,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "显示已关联接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8290,6 +8446,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/dept",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8306,6 +8463,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8322,6 +8480,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8338,6 +8497,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8354,6 +8514,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8370,6 +8531,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "查看部门详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8386,6 +8548,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8402,6 +8565,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8418,6 +8582,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "",
                             Remark = "登录系统",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8434,6 +8599,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/position",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8450,6 +8616,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8466,6 +8633,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8482,6 +8650,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8498,6 +8667,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "查看岗位",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8514,6 +8684,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8530,6 +8701,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "锁定岗位",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8546,6 +8718,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8562,6 +8735,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/role",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8578,6 +8752,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8594,6 +8769,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8610,6 +8786,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8626,6 +8803,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "查看角色详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8642,6 +8820,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8658,6 +8837,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8674,6 +8854,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8690,6 +8871,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8706,6 +8888,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
                             Path = "",
                             Remark = "查看角色资源",
+                            SupportMultiTenant = true,
                             Type = 3000
                         },
                         new
@@ -8722,6 +8905,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8738,7 +8922,24 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
                             Path = "",
                             Remark = "保存角色资源",
+                            SupportMultiTenant = true,
                             Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("e600186f-dfbe-40dc-bf5d-16a2a01ffc6a"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030707814400480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_set_is_super_administrator",
+                            Name = "设置角色为超级管理员",
+                            Order = 0,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Remark = "分配该资源后，才能设置角色为超级管理员，请谨慎分配该资源。",
+                            SupportMultiTenant = false,
+                            Type = 3000
                         },
                         new
                         {
@@ -8752,6 +8953,8 @@ namespace Gardener.Api.Core.Migrations
                             Name = "后台租户管理员",
                             Order = 0,
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Remark = "控制全局租户信息的显示，此资源不要分配给租户",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "2",
                             UpdateIdentityType = 1,
@@ -8771,6 +8974,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/tenant",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -8785,6 +8989,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "添加租户",
                             Order = 0,
                             ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8799,6 +9004,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除租户",
                             Order = 0,
                             ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8813,6 +9019,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除选中租户",
                             Order = 0,
                             ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8827,6 +9034,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "查看租户",
                             Order = 0,
                             ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "6",
                             UpdateIdentityType = 1,
@@ -8844,6 +9052,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "编辑租户",
                             Order = 0,
                             ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8858,6 +9067,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "锁定租户",
                             Order = 0,
                             ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -8872,10 +9082,59 @@ namespace Gardener.Api.Core.Migrations
                             Name = "刷新租户",
                             Order = 0,
                             ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "6",
                             UpdateIdentityType = 1,
                             UpdatedTime = 1307019926507520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030672834560480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource",
+                            Name = "绑定资源",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030677667840480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource_save",
+                            Name = "绑定资源-保存",
+                            Order = 0,
+                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0898c23e-3c3c-4d7f-82ef-9255e11d9af8"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030676643840480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource_select",
+                            Name = "查看已有资源",
+                            Order = 0,
+                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            SupportMultiTenant = false,
+                            Type = 3000,
+                            UpdateBy = "5",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307030680412160480L
                         },
                         new
                         {
@@ -8891,6 +9150,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "",
                             Remark = "用户中心",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8907,6 +9167,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/user",
                             Remark = "用户管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8923,6 +9184,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8939,6 +9201,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8955,6 +9218,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "删除选中",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8971,6 +9235,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "查看用户",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8987,6 +9252,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -9002,6 +9268,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Remark = "导出用户",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -9018,6 +9285,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "编辑用户头像-列表中",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -9034,6 +9302,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -9050,6 +9319,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -9066,6 +9336,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -9080,6 +9351,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "保存用户角色",
                             Order = 0,
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            SupportMultiTenant = true,
                             Type = 2000,
                             UpdateBy = "6",
                             UpdateIdentityType = 1,
@@ -9098,6 +9370,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Remark = "WoChat聊天按钮显资源",
+                            SupportMultiTenant = true,
                             Type = 2000
                         });
                 });
@@ -10187,6 +10460,24 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
                             FunctionId = new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"),
                             CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            FunctionId = new Guid("23cd301c-ebbb-4715-a96d-72232d9a6927"),
+                            CreatedTime = 1307030680944640480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1307030681333760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
+                            FunctionId = new Guid("8663473b-4a13-46ce-8187-a850215151fe"),
+                            CreatedTime = 1307030681927680480L
                         },
                         new
                         {
@@ -11614,6 +11905,30 @@ namespace Gardener.Api.Core.Migrations
                             IsSuperAdministrator = false,
                             Name = "浏览者",
                             Remark = "只能浏览"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = false,
+                            Name = "租户1_管理员",
+                            Remark = "租户1_管理员",
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = false,
+                            Name = "租户2_管理员",
+                            Remark = "租户2_管理员",
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
                         });
                 });
 

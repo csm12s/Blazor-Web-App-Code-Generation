@@ -26,7 +26,7 @@ namespace Gardener.WoChat.Impl.SeedDatas
         public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[]{
-                new Resource() {Name="WoChat聊天按钮",Key="global_wo_chat_btn",Remark="WoChat聊天按钮显资源",Order=0,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Action"),Id=Guid.Parse("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),IsLocked=false,IsDeleted=false,CreateBy="4",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2023-04-20 16:16:15"),},
+                new Resource() {SupportMultiTenant=true,Name="WoChat聊天按钮",Key="global_wo_chat_btn",Remark="WoChat聊天按钮显资源",Order=0,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Action"),Id=Guid.Parse("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),IsLocked=false,IsDeleted=false,CreateBy="4",CreateIdentityType=Enum.Parse<IdentityType>("User"),CreatedTime=DateTimeOffset.Parse("2023-04-20 16:16:15"),},
          };
         }
     }

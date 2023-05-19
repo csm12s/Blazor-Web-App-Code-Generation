@@ -197,7 +197,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
     }
 
     //[HttpGet]
-    public virtual async Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null)
+    public virtual async Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null, bool includLocked = false)
     {
         StringBuilder where = new();
         where.Append(" 1=1 ");
@@ -208,7 +208,7 @@ public abstract partial class SqlSugarServiceBase<TEntity, TEntityDto, TKey> :
             where.Append($"and {nameof(IModelDeleted.IsDeleted)}=false ");
         }
         //判断是否有IsLock
-        if (type.IsAssignableFrom(typeof(IModelLocked)))
+        if (!includLocked && type.IsAssignableFrom(typeof(IModelLocked)))
         {
             where.Append($"and {nameof(IModelLocked.IsLocked)}=false ");
         }
