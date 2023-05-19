@@ -4,8 +4,11 @@
         @foreach (AuditEntityDto item in AuditEntitys)
         {
              var title = $"[{item.OperaterName} 在 {item.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")} {EnumHelper.GetEnumDescription(item.OperationType)}了 {item.Name}（{item.DataId}）]";
-            <Panel Header="@title" Key="@item.Id.ToString()">
-                <AuditPropertieList OperationType="item.OperationType" AuditProperties="item.AuditProperties"></AuditPropertieList>
+        <Panel Header="@title" Key="@item.Id.ToString()" OnActiveChange="b=>{listBindValue[item.Id]=b;}">
+                @if (listBindValue[item.Id])
+                {
+                    <AuditPropertieList OperationType="item.OperationType" AuditProperties="item.AuditProperties"></AuditPropertieList>
+                }
             </Panel>
         }
     </Collapse>
@@ -20,4 +23,6 @@ else
     /// </summary>
     [Parameter]
     public ICollection<AuditEntityDto>? AuditEntitys { get; set; }
+    //未展开的不渲染，减少性能开销
+    private ClientListBindValue<Guid, bool> listBindValue = new Gardener.Client.Base.Components.ClientListBindValue<Guid,bool>(false);
 }
