@@ -13,14 +13,7 @@
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="user_center_position_refresh">
-                <TableSearch @ref="this._tableSearch"
-                             TDto="PositionDto"
-                             OnSearch="(filterGroups)=>ReLoadTable(true)"
-                             DefaultValue="_tableSearchDefaultSearchValue"
-                             CustomLocalizer="Localizer"
-                             FieldDisplayNameConverts="_tableSearchFieldDisplayNameConverts"
-                             FieldSelectItemsProviders="_tableSearchFieldSelectItemsProviders"
-                             FieldOrders="_tableSearchFieldOrders" />
+                <TableSearch TDto="PositionDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

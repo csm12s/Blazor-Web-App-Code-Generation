@@ -15,7 +15,7 @@
            Context="model"
            RemoteDataSource>
         <TitleTemplate>
-            <TableSearch TDto="CodeGenSearchDto" OnSearch="DoSearch" DefaultValue="_tableSearchDefaultSearchValue" CustomLocalizer="Localizer" AlwaysShowSearchButton="true"></TableSearch>
+            <TableSearch TDto="CodeGenSearchDto" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
             @*Custom Search*@
             <Row>
                 <AntDesign.Col Span="24">

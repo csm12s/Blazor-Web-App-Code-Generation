@@ -165,8 +165,20 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             //资源绑定数据-用于绑定式判断资源权限
             _userUnauthorizedResources = new ClientListBindValue<string, bool>(true, key => !AuthenticationStateManager.CheckCurrentUserHaveResource(key));
             _userAuthorizedResources = new ClientListBindValue<string, bool>(false, AuthenticationStateManager.CheckCurrentUserHaveResource);
+            //从url加载TableSearch参数
+            var url = new Uri(Navigation.Uri);
+            var query = url.Query;
+            Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
+            if (urlParams != null && urlParams.Count() > 0)
+            {
+                urlParams.ForEach(x =>
+                {
+                    _tableSearchSettings.DefaultValue.Add(x.Key, x.Value.ToString());
+                });
+            }
+            _tableSearchFilterGroupProviders.Add(GetTableSearchFilterGroups);
             //设置搜索组件的参数
-            SetTableSearchParameters();
+            SetTableSearchParameters(_tableSearchSettings,_tableSearchFilterGroupProviders);
             base.OnInitialized();
         }
         /// <summary>
@@ -177,11 +189,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             await base.OnInitializedAsync();
         }
-        
+
         /// <summary>
         /// 添加需要排除的字段
         /// </summary>
         /// <param name="fields"></param>
+        /// <remarks>
+        /// 此方法在OnInitialized时执行有效
+        /// </remarks>
         protected void AddExcludeSearchFields(params string[] fields)
         {
             if (_tableSearchSettings.ExcludeFields == null)
@@ -196,25 +211,49 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
             }
         }
-        
+
+        /// <summary>
+        /// 添加需要包含的字段
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <remarks>
+        /// 此方法在OnInitialized时执行有效
+        /// </remarks>
+        protected void AddIncludeSearchFields(params string[] fields)
+        {
+            if (_tableSearchSettings.IncludeFields == null)
+            {
+                _tableSearchSettings.IncludeFields = new List<string>();
+            }
+            foreach (string field in fields)
+            {
+                if (!_tableSearchSettings.IncludeFields.Contains(field))
+                {
+                    _tableSearchSettings.IncludeFields = _tableSearchSettings.IncludeFields.Append(field);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 添加搜索条件提供器，在发送请求的时候将条件追加到请求中
+        /// </summary>
+        /// <param name="tableSearchFilterGroupProvider"></param>
+        protected void AddTableSearchFilterGroupProvider(Func<List<FilterGroup>?> tableSearchFilterGroupProvider)
+        {
+            _tableSearchFilterGroupProviders.Add(tableSearchFilterGroupProvider);
+        }
+
         /// <summary>
         /// 设置TableSearch特定参数
         /// </summary>
-        protected virtual void SetTableSearchParameters()
+        /// <param name="tableSearchSettings">TableSearch设置</param>
+        /// <param name="tableSearchFilterGroupProviders">条件结果获取方法</param>
+        /// <remarks>
+        /// 此方法在<see cref="TableBase{TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput}.OnInitialized"/>时执行
+        /// </remarks>
+        protected virtual void SetTableSearchParameters(TableSearchSettings tableSearchSettings, List<Func<List<FilterGroup>?>> tableSearchFilterGroupProviders)
         {
-            //从url加载TableSearch参数
-            var url = new Uri(Navigation.Uri);
-            var query = url.Query;
-            Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
-            if (urlParams != null && urlParams.Count() > 0)
-            {
-                urlParams.ForEach(x =>
-                {
-                    _tableSearchSettings.DefaultValue.Add(x.Key, x.Value.ToString());
-                });
-            }
-            //table search 组件提供搜索条件
-            _tableSearchFilterGroupProviders.Add(GetTableSearchFilterGroups);
+            //设置参数
         }
 
         /// <summary>

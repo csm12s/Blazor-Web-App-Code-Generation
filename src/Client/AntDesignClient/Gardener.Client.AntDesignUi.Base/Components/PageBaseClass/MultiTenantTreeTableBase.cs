@@ -62,9 +62,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 设置TableSearch特定参数
         /// </summary>
-        protected override void SetTableSearchParameters()
+        /// <param name="tableSearchSettings"></param>
+        /// <param name="tableSearchFilterGroupProviders"></param>
+        protected override void SetTableSearchParameters(TableSearchSettings tableSearchSettings, List<Func<List<FilterGroup>?>> tableSearchFilterGroupProviders)
         {
-
             if (typeof(TDto).IsAssignableTo(typeof(IModelTenantId)))
             {
                 if (AuthenticationStateManager.CurrentUserIsTenant())
@@ -75,17 +76,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 else
                 {
                     //非租户租户编号搜索=》租户
-                    _tableSearchFieldDisplayNameConverts.Add(nameof(IModelTenantId.TenantId), (old) => nameof(IModelTenant.Tenant));
+                    tableSearchSettings.FieldDisplayNameConverts.Add(nameof(IModelTenantId.TenantId), (old) => nameof(IModelTenant.Tenant));
                     //非租户租户编号设置下拉数据
-                    _tableSearchFieldSelectItemsProviders.Add(nameof(IModelTenantId.TenantId), async field =>
-                    {
-                        List<SystemTenantDto> tenants = await TenantService.GetAll();
-                        return tenants.Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
-                    });
+                    tableSearchSettings.FieldSelectItemsProviders.Add(nameof(IModelTenantId.TenantId), async field =>
+                {
+                    List<SystemTenantDto> tenants = await TenantService.GetAll();
+                    return tenants.Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
+                });
                 }
 
             }
-            base.SetTableSearchParameters();
+            base.SetTableSearchParameters(tableSearchSettings, tableSearchFilterGroupProviders);
         }
 
         /// <summary>

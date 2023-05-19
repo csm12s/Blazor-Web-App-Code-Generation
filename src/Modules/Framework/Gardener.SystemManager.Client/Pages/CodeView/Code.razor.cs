@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.SystemManager.Dtos;
@@ -18,19 +19,18 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
     public partial class Code : ListOperateTableBase<CodeDto, int, CodeEdit, CodeEditParams, OperationDialogOutput, SystemManagerResource,OperationDialogInput<int?>,OperationDialogOutput>
     {
         private TableSize tableSize = TableSize.Default;
-
-        protected override Task OnInitializedAsync()
+        protected override void SetTableSearchParameters(TableSearchSettings tableSearchSettings, List<Func<List<FilterGroup>?>> tableSearchFilterGroupProviders)
         {
             //传入编号，以小table展示
-            if(this.Options?.Data!=null)
+            if (this.Options?.Data != null)
             {
                 tableSize = TableSize.Small;
                 _pageSize = 10;
-                _tableSearchDefaultSearchValue.Add(nameof(CodeDto.CodeTypeId), this.Options.Data);
+                tableSearchSettings.DefaultValue.Add(nameof(CodeDto.CodeTypeId), this.Options.Data);
             }
-
-            return base.OnInitializedAsync();
+            base.SetTableSearchParameters(tableSearchSettings, tableSearchFilterGroupProviders);
         }
+        
         /// <summary>
         /// 点击添加后，处理输入弹框的参数
         /// </summary>

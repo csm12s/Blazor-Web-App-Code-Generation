@@ -11,10 +11,11 @@
     @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
            Size=@tableSize
-           Context="model">
+           Context="model"
+           RemoteDataSource>
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_code_refresh">
-                <TableSearch TDto="CodeDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_tableSearchDefaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+                <TableSearch TDto="CodeDto" OnSearch="OnTableSearch" @ref="this._tableSearch" Settings="_tableSearchSettings" CustomLocalizer="Localizer"></TableSearch>
             </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

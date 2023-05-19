@@ -63,8 +63,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override async Task OnParametersSetAsync()
         {
-            this.firstRenderAfter = true;
-            await ReLoadTable();
+            //this.firstRenderAfter = true;
+            //await ReLoadTable();
             await base.OnParametersSetAsync();
         }
         #endregion
@@ -80,14 +80,15 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         /// <summary>
-        /// 重置请求参数
+        /// 获取请求参数
         /// </summary>
+        /// <param name="filterGroups">附加的参数</param>
         /// <returns></returns>
-        protected virtual PageRequest GetPageRequest()
+        protected virtual PageRequest GetPageRequest(List<FilterGroup>? filterGroups=null)
         {
             PageRequest pageRequest = _table?.GetPageRequest() ?? new PageRequest();
-            //如果有搜索条件 就拼接上
-            if (_tableSearchFilterGroupProviders != null && _tableSearchFilterGroupProviders.Any())
+            //如果有搜索条件提供者 就拼接上
+            if(_tableSearchFilterGroupProviders.Any())
             {
                 _tableSearchFilterGroupProviders.ForEach(p =>
                 {
@@ -97,6 +98,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         pageRequest.FilterGroups.AddRange(items);
                     }
                 });
+            }
+            if (filterGroups != null)
+            {
+                pageRequest.FilterGroups.AddRange(filterGroups);
             }
             ConfigurationPageRequest(pageRequest);
             return pageRequest;
@@ -127,14 +132,23 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             return ReLoadTable(false);
         }
+        /// <summary>
+        /// 点击TableSearch搜索
+        /// </summary>
+        /// <param name="filterGroups"></param>
+        protected virtual Task OnTableSearch(List<FilterGroup> filterGroups)
+        {
+            return ReLoadTable(true, false);
+        }
 
         /// <summary>
         /// 重新加载table
         /// </summary>
         /// <param name="firstPage">是否从首页加载</param>
         /// <param name="forceRender">是否强制渲染</param>
+        /// <param name="filterGroups">附加的参数</param>
         /// <returns></returns>
-        protected virtual Task ReLoadTable(bool firstPage, bool forceRender = false)
+        protected virtual Task ReLoadTable(bool firstPage, bool forceRender = false, List<FilterGroup>? filterGroups = null)
         {
             if (firstPage && _pageIndex > 1)
             {
@@ -144,7 +158,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                PageRequest pageRequest = GetPageRequest();
+                PageRequest pageRequest = GetPageRequest(filterGroups);
                 return ReLoadTable(pageRequest, forceRender);
             }
 
@@ -190,21 +204,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual Task OnChange(QueryModel<TDto> queryModel)
         {
-            if (firstRenderAfter)
+            if (lastPageIndex == queryModel.PageIndex)
             {
-                if (lastPageIndex == queryModel.PageIndex)
-                {
-                    lastPageIndex= queryModel.PageIndex;
-                    //不是翻页，回首页
-                    return ReLoadTable(true);
-                }
-                else 
-                {
-                    lastPageIndex = queryModel.PageIndex;
-                    return ReLoadTable(false);
-                }
+                lastPageIndex= queryModel.PageIndex;
+                //不是翻页，回首页
+                return ReLoadTable(true);
             }
-            return Task.CompletedTask;
+            else 
+            {
+                lastPageIndex = queryModel.PageIndex;
+                return ReLoadTable(false);
+            }
         }
 
         /// <summary>

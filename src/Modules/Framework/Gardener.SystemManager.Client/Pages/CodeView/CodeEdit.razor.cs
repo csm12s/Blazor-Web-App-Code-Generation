@@ -30,7 +30,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            StartLoading();
+            await StartLoading();
             var task= CodeTypeService.GetAllUsable();
             await LoadEditModelData();
             codeTypeDtos = await task;
@@ -38,7 +38,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
             {
                 this._editModel.CodeTypeId = this.Options.CodeTypeId.Value;
             }
-            StopLoading();
+            await StopLoading();
         }
     }
 }

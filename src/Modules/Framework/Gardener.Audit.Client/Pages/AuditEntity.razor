@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_audit_entity_refresh">
-                <TableSearch TDto="AuditEntityDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_tableSearchDefaultSearchValue"></TableSearch>
+                <TableSearch TDto="AuditEntityDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

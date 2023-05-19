@@ -14,7 +14,7 @@
             >
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="system_manager_function_refresh">
-                <TableSearch TDto="FunctionDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this._tableSearch" DefaultValue="_tableSearchDefaultSearchValue"></TableSearch>
+                <TableSearch TDto="FunctionDto" OnSearch="OnTableSearch" @ref="this._tableSearch" Settings="_tableSearchSettings"></TableSearch>
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">

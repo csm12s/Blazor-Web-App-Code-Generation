@@ -48,7 +48,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            base.StartLoading();
+            await base.StartLoading();
             var t1= base.OnInitializedAsync();
             var t2= resourceService.GetTree();
             await t1;
@@ -68,7 +68,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 }
             }
             currentResourceTypeCopy = _editModel.Type;
-            base.StopLoading();
+            await base.StopLoading();
         }
     }
 }

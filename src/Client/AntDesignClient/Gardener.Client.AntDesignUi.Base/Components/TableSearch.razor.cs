@@ -15,6 +15,7 @@ using Gardener.SystemManager.Utils;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -22,6 +23,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 表格搜索
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
+    /// <remarks>
+    /// 搜索组件，如果参数有变化，可以通过<see cref="TableSearch{TDto}.Init"/>主动初始化
+    /// </remarks>
     public partial class TableSearch<TDto>
     {
         /// <summary>
@@ -53,7 +57,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         [Required]
         public EventCallback<List<FilterGroup>> OnSearch { get; set; }
 
-       
+
         /// <summary>
         /// 是否自动初始化
         /// </summary>
@@ -72,6 +76,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 localizer = CustomLocalizer;
             }
+            if (Settings.AutoInit)
+            {
+                InitDefaultSelectValue();
+                InitSearchFields();
+            }
             base.OnInitialized();
         }
         /// <summary>
@@ -82,7 +91,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (Settings.AutoInit)
             {
-                await Init();
+                await InitSearchFieldSelectItems();
             }
             await base.OnInitializedAsync();
         }
@@ -90,10 +99,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 初始化
         /// </summary>
-        public async Task Init()
+        public Task Init()
         {
-            await InitSearchFields();
+            InitSearchFields();
             InitDefaultSelectValue();
+            return InitSearchFieldSelectItems();
         }
         /// <summary>
         /// 初始化默认选择值
@@ -107,16 +117,16 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 {
                     continue;
                 }
-                    ((List<string>)_selectedValues).Add(kv.Key);
+               ((List<string>)_selectedValues).Add(kv.Key);
             }
         }
         /// <summary>
         /// 初始化搜索字段
         /// </summary>
-        private async Task InitSearchFields()
+        private void InitSearchFields()
         {
             //清空字段
-           var tempFields = new List<TableSearchField>();
+            var tempFields = new List<TableSearchField>();
             Type type = typeof(TDto);
             //从dto找到需要查询的字段
             PropertyInfo[] properties = type.GetProperties();
@@ -146,7 +156,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         continue;
                     }
                 }
-                else 
+                else
                 {
                     //不在包含内
                     if (!Settings.IncludeFields.Any(x => x.Equals(name)))
@@ -193,24 +203,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (Settings.FieldSelectItemsProviders.ContainsKey(name))
                 {
                     //设置下拉项的字段
-                    searchField.IsSetSelectItem = true;
                     searchField.Multiple = true;
                     fullValue = (field, value) =>
                     {
                         field.Values = (value.ToString() ?? "").Split(",");
                     };
-                    searchField.SelectItems = await Settings.FieldSelectItemsProviders[name](name);
+
                 }
                 else if (codeType != null)
                 {
                     //字典
                     searchField.IsCode = true;
                     searchField.CodeTypeValue = codeType.CodeTypeValue;
-                    var codes = CodeUtil.GetCodesFromCache(codeType.CodeTypeValue);
-                    if (codes != null && codes.Any())
-                    {
-                        searchField.SelectItems = codes.Select(x => new KeyValuePair<string, string>(x.CodeValue, x.CodeName));
-                    }
                     searchField.Multiple = true;
                     fullValue = (field, value) =>
                     {
@@ -286,6 +290,37 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             _fields = tempFields;
         }
 
+        /// <summary>
+        /// 初始化搜索字段下拉数据
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// 包括code、或提供了下拉数据获取方法
+        /// </remarks>
+        private async Task InitSearchFieldSelectItems()
+        {
+            foreach (TableSearchField searchField in _fields)
+            {
+                string name = searchField.Name;
+                if (Settings.FieldSelectItemsProviders.ContainsKey(name))
+                {
+                    //设置下拉项的字段
+                    searchField.SelectItems = await Settings.FieldSelectItemsProviders[name](name);
+                    searchField.IsSetSelectItem = true;
+
+                }
+                else if (searchField.IsCode && !string.IsNullOrEmpty(searchField.CodeTypeValue))
+                {
+                    var codes = CodeUtil.GetCodesFromCache(searchField.CodeTypeValue);
+                    if (codes != null && codes.Any())
+                    {
+                        searchField.SelectItems = codes.Select(x => new KeyValuePair<string, string>(x.CodeValue, x.CodeName));
+                        searchField.IsSetSelectItem = true;
+                    }
+                }
+            }
+
+        }
 
         private int lastFieldCount = 0;
 
@@ -484,7 +519,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 日期选择框是否选择时分秒
         /// </summary>
-        public bool ShowTime { get; set; }=false;
+        public bool ShowTime { get; set; } = false;
 
         /// <summary>
         /// 日期开始时间
@@ -529,7 +564,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <remarks>
         /// 优先级高于<see cref="CodeAttribute"/>
         /// </remarks>
-        public Dictionary<string, int> FieldOrders { get; set; }= new Dictionary<string, int>();
+        public Dictionary<string, int> FieldOrders { get; set; } = new Dictionary<string, int>();
 
         /// <summary>
         /// 排序方式
@@ -570,6 +605,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 是否自动初始化
         /// </summary>
+        /// <remarks>
+        /// <para>true：在<see cref="TableSearch{TDto}.OnInitializedAsync"/>时自动初始化</para>
+        /// <para>false: 需要主动执行<see cref="TableSearch{TDto}.Init"/>初始化</para>
+        /// </remarks>
         public bool AutoInit { get; set; } = true;
     }
 
