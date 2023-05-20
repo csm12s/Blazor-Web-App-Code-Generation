@@ -10,7 +10,7 @@ using Gardener.UserCenter.Resources;
 
 namespace Gardener.UserCenter.Client.Pages.PositionView
 {
-    public partial class Position : MultiTenantListOperateTableBase<PositionDto, int, PositionEdit, UserCenterResource>
+    public partial class Position : ListOperateTableBase<PositionDto, int, PositionEdit, UserCenterResource>
     {
        
     }

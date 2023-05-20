@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.DeptView
 {
-    public partial class Dept : MultiTenantTreeTableBase<DeptDto, int, DeptEdit, UserCenterResource>
+    public partial class Dept : TreeTableBase<DeptDto, int, DeptEdit, UserCenterResource>
     {
 
         protected override OperationDialogSettings GetOperationDialogSettings()

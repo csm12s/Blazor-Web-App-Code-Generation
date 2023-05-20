@@ -1,5 +1,5 @@
 ﻿@page "/user_center/position"
-@inherits MultiTenantListOperateTableBase<PositionDto, int, PositionEdit,UserCenterResource>
+@inherits ListOperateTableBase<PositionDto, int, PositionEdit,UserCenterResource>
 <div>
     <Table @ref="_table"
            TItem="PositionDto"

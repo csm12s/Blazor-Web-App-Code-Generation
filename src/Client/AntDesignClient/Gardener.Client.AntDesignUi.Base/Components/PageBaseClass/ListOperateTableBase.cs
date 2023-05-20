@@ -11,7 +11,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 {
 
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
+    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -137,7 +137,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
+    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -171,7 +171,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
+    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -194,7 +194,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
+    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>

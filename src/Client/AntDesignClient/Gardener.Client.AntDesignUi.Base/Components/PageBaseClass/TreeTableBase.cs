@@ -6,14 +6,16 @@
 
 using AntDesign;
 using AntDesign.TableModels;
+using Gardener.Base;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components.PageBaseClass;
 using Gardener.Client.Base;
 using Mapster;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     /// <summary>
-    /// 树形table基类
+    /// 树形table基类-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -21,7 +23,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : TableBase<TDto, TKey, TLocalResource>
+    public abstract class TreeTableBase<TDto, TKey, TOperationDialog, TDialogInput, TDialogOutput, TLocalResource> : MultiTenantTableBase<TDto, TKey, TLocalResource>
         where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource>
         where TDto : class, new()
         where TKey : notnull
@@ -103,10 +105,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <summary>
         /// 重新加载table
         /// </summary>
+        /// <param name="forceRender">是否强制渲染</param>
         /// <returns></returns>
-        protected async Task ReLoadTable()
+        protected async Task ReLoadTable(bool forceRender = false)
         {
-            StartTableLoading();
+            StartTableLoading(forceRender);
             var _tempDatas = await GetTree();
             if (_tempDatas == null)
             {
@@ -114,10 +117,34 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
+                if (_tempDatas.Any())
+                {
+                    if (typeof(TDto).IsAssignableTo(typeof(IModelTenant)))
+                    {
+                        foreach (TDto dto in _tempDatas)
+                        {
+                            SetTenant(dto);
+                        }
+                    }
+                }
                 PageListDataHadnle(_tempDatas);
                 _datas = _tempDatas;
             }
-            StopTableLoading();
+            StopTableLoading(forceRender);
+        }
+        /// <summary>
+        /// 设置租户
+        /// </summary>
+        /// <param name="dto"></param>
+        protected void SetTenant(TDto dto)
+        {
+            RecursionTree(dto, item =>
+            {
+                if (item is IModelTenant modelTenant)
+                {
+                    modelTenant.Tenant = GetTenant(modelTenant.TenantId);
+                }
+            });
         }
 
         /// <summary>
@@ -169,7 +196,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                     else
                     {
-                        await ReLoadTable();
+                        await ReLoadTable(true);
                     }
                 }
                 else
@@ -242,7 +269,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     if (result)
                     {
                         MessageService.Success(this.Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
-                        await ReLoadTable();
+                        await ReLoadTable(true);
                     }
                     else
                     {
@@ -277,7 +304,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
         #region tree tool
         /// <summary>
-        /// 递归树执行
+        /// 递归遍历树执行<see cref="Action{TDto}"/>
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="action"></param>
@@ -289,7 +316,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 foreach (TDto item in list)
                 {
-                    action(item);
+                    RecursionTree(item, action);
                 }
             }
         }
@@ -376,7 +403,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         #endregion
     }
     /// <summary>
-    /// 树形table基类
+    /// 树形table基类-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -387,11 +414,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         where TOperationDialog : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResource>
         where TDto : class, new()
         where TKey : notnull
-    {
-
-    }
+    {}
     /// <summary>
-    /// 树形table基类
+    /// 树形table基类-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -456,7 +481,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     if (pKey != null && !pKey.Equals(GetParentKey(dto)))
                     {
                         //最新的数据
-                        await ReLoadTable();
+                        await ReLoadTable(true);
                         return;
                     }
                 }
@@ -464,6 +489,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 ICollection<TDto>? children = GetChildren(dto);
                 //重新赋值给界面对象
                 newEntity.Adapt(dto);
+                //设置租户
+                SetTenant(dto);
                 if (children != null)
                 {
                     //子集也重新赋值给他
@@ -501,7 +528,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             if (dialogOutput != null && dialogOutput.Succeeded)
             {
                 //最新的数据
-                return ReLoadTable();
+                return ReLoadTable(true);
             }
 
             return Task.CompletedTask;
@@ -520,7 +547,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 //最新的数据
                 var newEntity = await BaseService.Get(dialogOutput.Data);
                 ICollection<TDto> children = GetChildren(dto) ?? new List<TDto>();
-
+                //设置租户
+                SetTenant(newEntity);
                 children.Add(newEntity);
                 SetChildren(dto, SortChildren(children));
 
@@ -529,13 +557,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
     }
     /// <summary>
-    /// 树形table基类
+    /// 树形table基类-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOperationDialog"></typeparam>
     public abstract class TreeTableBase<TDto, TKey, TOperationDialog> : TreeTableBase<TDto, TKey, TOperationDialog, SharedLocalResource> where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource> where TDto : class, new() where TKey : notnull
-    {
-
-    }
+    {}
 }

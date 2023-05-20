@@ -21,7 +21,7 @@ using System;
 
 namespace Gardener.UserCenter.Client.Pages.UserView
 {
-    public partial class User : MultiTenantListOperateTableBase<UserDto, int, UserEdit, UserCenterResource>
+    public partial class User : ListOperateTableBase<UserDto, int, UserEdit, UserCenterResource>
     {
         private Tree<DeptDto>? _deptTree;
         private List<DeptDto>? depts;
@@ -55,8 +55,8 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await ReLoadDepts(null);
             await base.OnInitializedAsync();
+            await ReLoadDepts(null);
         }
         /// <summary>
         /// 重载部门信息

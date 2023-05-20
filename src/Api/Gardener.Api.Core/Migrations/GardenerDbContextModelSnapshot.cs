@@ -7229,7 +7229,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "字典工具",
                             Order = 0,
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            SupportMultiTenant = false,
+                            SupportMultiTenant = true,
                             Type = 2000,
                             UpdateBy = "6",
                             UpdateIdentityType = 1,

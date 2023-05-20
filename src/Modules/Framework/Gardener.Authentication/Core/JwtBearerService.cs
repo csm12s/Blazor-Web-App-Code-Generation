@@ -23,6 +23,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Furion;
 using Microsoft.AspNetCore.Http;
+using Gardener.Base.Entity;
 
 namespace Gardener.Authentication.Core
 {

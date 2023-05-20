@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230519095737_v0.0.1")]
+    [Migration("20230520125205_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -7232,7 +7232,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "字典工具",
                             Order = 0,
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            SupportMultiTenant = false,
+                            SupportMultiTenant = true,
                             Type = 2000,
                             UpdateBy = "6",
                             UpdateIdentityType = 1,

@@ -15,7 +15,7 @@ namespace Gardener.Attachment.Dtos
     /// <summary>
     /// 附件
     /// </summary>
-    public class AttachmentDto : BaseDto<Guid>
+    public class AttachmentDto : TenantBaseDto<Guid>
     {
         /// <summary>
         /// 业务ID

@@ -9,6 +9,7 @@ using AntDesign.TableModels;
 using Gardener.Attributes;
 using Gardener.Base;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components.PageBaseClass;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Common;
 using Mapster;
@@ -17,7 +18,7 @@ using System.Reflection;
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开)
+    /// table列表基类(可以被当作OperationDialog打开)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -27,7 +28,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
+    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : MultiTenantTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 显示总数
@@ -61,11 +62,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>
-        protected override async Task OnParametersSetAsync()
+        protected override Task OnParametersSetAsync()
         {
             //this.firstRenderAfter = true;
             //await ReLoadTable();
-            await base.OnParametersSetAsync();
+            return base.OnParametersSetAsync();
         }
         #endregion
 
@@ -178,6 +179,21 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 var pagedList = pagedListResult;
                 IEnumerable<TDto> _dataTemps = pagedList.Items ?? new List<TDto>(0);
+                if (_dataTemps.Any())
+                {
+                    //如果有租户数据，装配一下
+                    if (typeof(TDto).IsAssignableTo(typeof(IModelTenant)))
+                    {
+                        foreach (TDto item in _dataTemps)
+                        {
+                            if (item is IModelTenant modelTenant)
+                            {
+                                modelTenant.Tenant = GetTenant(modelTenant.TenantId);
+                            }
+                        }
+                    }
+                }
+                
                 PageListDataHadnle(_dataTemps);
                 _total = pagedList.TotalCount;
                 _datas = _dataTemps;
@@ -202,18 +218,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        protected virtual Task OnChange(QueryModel<TDto> queryModel)
+        protected virtual async Task OnChange(QueryModel<TDto> queryModel)
         {
             if (lastPageIndex == queryModel.PageIndex)
             {
                 lastPageIndex= queryModel.PageIndex;
                 //不是翻页，回首页
-                return ReLoadTable(true);
+                await ReLoadTable(true);
             }
             else 
             {
                 lastPageIndex = queryModel.PageIndex;
-                return ReLoadTable(false);
+                await ReLoadTable(false);
             }
         }
 
@@ -462,7 +478,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开)
+    /// table列表基类(可以被当作OperationDialog打开)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -481,7 +497,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// 列表table基类
+    /// 列表table基类-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>

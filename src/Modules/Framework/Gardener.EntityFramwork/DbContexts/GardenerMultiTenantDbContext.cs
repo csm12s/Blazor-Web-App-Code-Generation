@@ -130,7 +130,7 @@ namespace Gardener.EntityFramwork.DbContexts
             if (metadata.FindProperty(onTableTenantId) == null) return default;
             //设置索引，方便查询
             entityBuilder.HasIndex(nameof(IModelTenantId.TenantId));
-            MethodInfo? method = dbContext.GetType().GetMethod(nameof(IMultiTenantOnTable.GetTenantId));
+            MethodInfo? method = dbContext.GetType().GetMethod(nameof(GetTenantId));
             if (method == null) return default;
             // 创建表达式元素
             var parameter = Expression.Parameter(metadata.ClrType, "u");

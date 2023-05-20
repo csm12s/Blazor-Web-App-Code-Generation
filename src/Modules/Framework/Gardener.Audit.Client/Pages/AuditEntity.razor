@@ -45,6 +45,9 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_audit_entity_delete_selected"]" />
+             <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+                 <span>@model.Tenant?.Name</span>
+             </Column>
             <Column @bind-Field="@model.OperaterId" Filterable />
             <Column @bind-Field="@model.OperaterName" Filterable />
             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">

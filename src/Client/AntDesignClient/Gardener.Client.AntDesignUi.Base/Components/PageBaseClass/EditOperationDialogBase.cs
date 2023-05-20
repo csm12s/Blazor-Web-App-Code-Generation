@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     /// <summary>
-    /// 编辑，详情弹框
+    /// 编辑，详情弹框-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -66,7 +66,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             await StartLoading();
             var task1= LoadEditModelData();
-            if (IsLoadTenants())
+            if (!IsTenant())
             {
                 await LocadTenants();
             }
@@ -110,17 +110,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             
         }
         /// <summary>
-        /// 是否加载租户数据
+        /// 是否是租户
         /// </summary>
         /// <returns></returns>
-        /// <remarks>
-        /// 默认在非租户用户登陆时加载，因为租户自己只能加载到自己的，如果需要自定义控制，请重载
-        /// </remarks>
-        protected virtual bool IsLoadTenants()
+        protected virtual bool IsTenant()
         {
             bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
-
-            return !isTenant;
+            return isTenant;
         }
 
         /// <summary>
@@ -194,7 +190,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// 编辑，详情弹框
+    /// 编辑，详情弹框-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -215,7 +211,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// 编辑，详情弹框
+    /// 编辑，详情弹框-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>

@@ -24,6 +24,7 @@ using Gardener.Authentication.Core;
 using System.Linq.Dynamic.Core;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Gardener.Base.Entity;
 
 namespace Gardener.Attachment.Services
 {
@@ -31,10 +32,10 @@ namespace Gardener.Attachment.Services
     /// 附件服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class AttachmentService : ServiceBase<Domains.Attachment, AttachmentDto, Guid>, IAttachmentService
+    public class AttachmentService : ServiceBase<Domains.Attachment, AttachmentDto, Guid, GardenerMultiTenantDbContextLocator>, IAttachmentService
     {
         private readonly IFileStoreService fileStoreService;
-        private readonly IRepository<Domains.Attachment> repository;
+        private readonly IRepository<Domains.Attachment, GardenerMultiTenantDbContextLocator> repository;
         private readonly IIdentityService identityService;
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace Gardener.Attachment.Services
         /// <param name="repository"></param>
         /// <param name="fileStoreService"></param>
         /// <param name="identityService"></param>
-        public AttachmentService(IRepository<Domains.Attachment> repository, IFileStoreService fileStoreService, IIdentityService identityService) : base(repository)
+        public AttachmentService(IRepository<Domains.Attachment, GardenerMultiTenantDbContextLocator> repository, IFileStoreService fileStoreService, IIdentityService identityService) : base(repository)
         {
             this.fileStoreService = fileStoreService;
             this.repository = repository;
