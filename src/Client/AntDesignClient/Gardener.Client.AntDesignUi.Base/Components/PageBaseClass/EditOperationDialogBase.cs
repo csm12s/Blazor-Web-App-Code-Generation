@@ -68,7 +68,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             var task1 = LoadEditModelData();
             if (!IsTenant())
             {
-                await LocadTenants();
+                await LoadTenants();
             }
             await task1;
             await base.OnInitializedAsync();
@@ -105,7 +105,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 加载租户数据
         /// </summary>
         /// <returns></returns>
-        protected async Task LocadTenants()
+        protected async Task LoadTenants()
         {
             _tenants = await tenantService.GetAll();
 
