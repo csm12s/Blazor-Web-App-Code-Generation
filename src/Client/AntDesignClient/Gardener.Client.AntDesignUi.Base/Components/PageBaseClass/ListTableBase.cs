@@ -85,11 +85,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="filterGroups">附加的参数</param>
         /// <returns></returns>
-        protected virtual PageRequest GetPageRequest(List<FilterGroup>? filterGroups=null)
+        protected virtual PageRequest GetPageRequest(List<FilterGroup>? filterGroups = null)
         {
             PageRequest pageRequest = _table?.GetPageRequest() ?? new PageRequest();
             //如果有搜索条件提供者 就拼接上
-            if(_tableSearchFilterGroupProviders.Any())
+            if (_tableSearchFilterGroupProviders.Any())
             {
                 _tableSearchFilterGroupProviders.ForEach(p =>
                 {
@@ -193,7 +193,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         }
                     }
                 }
-                
+
                 PageListDataHadnle(_dataTemps);
                 _total = pagedList.TotalCount;
                 _datas = _dataTemps;
@@ -212,7 +212,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected virtual void PageListDataHadnle(IEnumerable<TDto> datas)
         {
         }
+
         private int lastPageIndex = 0;
+
         /// <summary>
         /// table查询变化
         /// </summary>
@@ -222,19 +224,21 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (lastPageIndex == queryModel.PageIndex)
             {
-                lastPageIndex= queryModel.PageIndex;
+                lastPageIndex = queryModel.PageIndex;
                 //不是翻页，回首页
                 await ReLoadTable(true);
             }
-            else 
+            else
             {
                 lastPageIndex = queryModel.PageIndex;
                 await ReLoadTable(false);
             }
         }
 
+        #region Fake delete
+
         /// <summary>
-        /// 点击删除按钮(FakeDelete)
+        /// 点击删除按钮(逻辑删除)
         /// </summary>
         /// <param name="id"></param>
         protected virtual async Task OnClickDelete(TKey id)
@@ -262,7 +266,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         /// <summary>
-        /// 点击删除选中按钮
+        /// 点击删除选中按钮(逻辑删除)
         /// </summary>
         protected virtual async Task OnClickDeletes()
         {
@@ -298,8 +302,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 _deletesBtnLoading = false;
             }
         }
+        #endregion
 
         #region True Delete
+        /// <summary>
+        /// 点击删除按钮(物理删除)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         protected virtual async Task OnClickTrueDelete(TKey id)
         {
             if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -323,7 +333,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
 
         }
-
+        /// <summary>
+        /// 点击删除选中按钮(物理删除)
+        /// </summary>
+        /// <returns></returns>
         protected virtual async Task OnClickTrueDeletes()
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)

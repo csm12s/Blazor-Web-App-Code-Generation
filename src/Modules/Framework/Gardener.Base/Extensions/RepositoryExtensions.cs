@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Furion.FriendlyException;
+using Gardener.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -112,7 +113,11 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task FakeDeleteByKeyAsync<TEntity, TKey>(this IRepository<TEntity> repository, TKey id) where TEntity : class, IPrivateEntity, new()
         {
-            TEntity entity = await repository.FindAsync(id);
+            TEntity? entity = await repository.FindOrDefaultAsync(id);
+            if (entity == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
             await repository.FakeDeleteAsync<TEntity>(entity);
         }
 
@@ -126,7 +131,11 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task FakeDeleteNowByKeyAsync<TEntity, TKey>(this IRepository<TEntity> repository, TKey id) where TEntity : class, IPrivateEntity, new()
         {
-            TEntity entity = await repository.FindAsync(id);
+            TEntity? entity = await repository.FindOrDefaultAsync(id);
+            if (entity == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
             await repository.FakeDeleteNowAsync<TEntity>(entity);
         }
 
@@ -141,7 +150,11 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task FakeDeleteByKeyAsync<TEntity, TKey, TDbContextLocator>(this IRepository<TEntity, TDbContextLocator> repository, TKey id) where TEntity : class, IPrivateEntity, new() where TDbContextLocator : class, IDbContextLocator
         {
-            TEntity entity = await repository.FindAsync(id);
+            TEntity? entity = await repository.FindOrDefaultAsync(id);
+            if(entity == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
             await repository.FakeDeleteAsync<TEntity, TDbContextLocator>(entity);
         }
         /// <summary>
@@ -155,7 +168,11 @@ namespace Gardener.Base
         /// <returns></returns>
         public static async Task FakeDeleteNowByKeyAsync<TEntity, TKey, TDbContextLocator>(this IRepository<TEntity, TDbContextLocator> repository, TKey id) where TEntity : class, IPrivateEntity, new() where TDbContextLocator : class, IDbContextLocator
         {
-            TEntity entity = await repository.FindAsync(id);
+            TEntity? entity = await repository.FindOrDefaultAsync(id);
+            if (entity == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
             await repository.FakeDeleteNowAsync<TEntity, TDbContextLocator>(entity);
         }
     }

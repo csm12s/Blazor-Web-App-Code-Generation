@@ -66,7 +66,10 @@ namespace Gardener.UserCenter.Impl.Domains
                 new UserRole{ UserId = 5, RoleId = 1, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
                 new UserRole{ UserId = 6, RoleId = 1, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
                 new UserRole{ UserId = 7, RoleId = 1, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
-                new UserRole{ UserId = 8, RoleId = 2, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) }
+                new UserRole{ UserId = 8, RoleId = 2, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
+                new UserRole{ UserId = 10, RoleId = 3, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
+                new UserRole{ UserId = 11, RoleId = 4, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
+                new UserRole{ UserId = 12, RoleId = 4, CreatedTime = DateTimeOffset.FromUnixTimeSeconds(1628689311) },
             };
         }
     }

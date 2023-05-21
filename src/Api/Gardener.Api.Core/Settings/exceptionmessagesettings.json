@@ -32,7 +32,8 @@
       [ "Sugar_Repository_Init_Fail", "SugarRepository initialize error " ],
       [ "Table_Name_Exist", "Table name exist" ],
       [ "Code_Gen_Template_Compile_Error", "Code generation template compilation error" ],
-      [ "Data_Not_Find", "Data not find" ]
+      [ "Data_Not_Find", "Data not find" ],
+      [ "No_Permission_Modify_The_Data", "There is no permission to modify the data" ],
     ]
   },
   "FriendlyExceptionSettings": {

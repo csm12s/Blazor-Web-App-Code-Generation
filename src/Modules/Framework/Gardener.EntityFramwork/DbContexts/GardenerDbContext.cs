@@ -71,7 +71,7 @@ namespace Gardener.EntityFramwork.DbContexts
             if (context == null) { return; }
 
             //基础数据初始化
-            EntityEntryBaseInfoHandle.Handle(context.ChangeTracker.Entries());
+            GlobalEntityEntryHandle.Handle(context.ChangeTracker.Entries());
             IOrmAuditService ormAuditService = App.GetService<IOrmAuditService>();
             ormAuditService.SavingChangesEvent(context.ChangeTracker.Entries());
         }

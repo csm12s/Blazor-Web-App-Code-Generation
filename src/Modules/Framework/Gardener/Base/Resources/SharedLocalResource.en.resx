@@ -511,6 +511,9 @@
   <data name="The “{0}” value converter cannot be found" xml:space="preserve">
     <value>The “{0}” value converter cannot be found</value>
   </data>
+  <data name="There is no permission to modify the data" xml:space="preserve">
+    <value>There is no permission to modify the data</value>
+  </data>
   <data name="Timespan is expired" xml:space="preserve">
     <value>Timespan is expired</value>
   </data>

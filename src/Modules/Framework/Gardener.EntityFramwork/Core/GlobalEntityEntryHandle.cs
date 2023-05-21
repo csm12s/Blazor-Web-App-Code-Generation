@@ -4,9 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.FriendlyException;
 using Gardener.Authentication.Dtos;
 using Gardener.Base;
 using Gardener.Base.Entity.Domains;
+using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -16,27 +18,31 @@ using System.Linq;
 namespace Gardener.EntityFramwork.Core
 {
     /// <summary>
-    /// 实体基础信息处理
+    /// 全局实体基础信息处理
     /// </summary>
     /// <remarks>
-    /// <para> 添加时：设置<see cref="IModelCreated"/>、<see cref="IModelTenantId"/>中相关字段的值</para>
-    /// <para>修改时：设置<see cref="IModelUpdated"/>中相关字段的值</para>
+    
     /// </remarks>
-    public static class EntityEntryBaseInfoHandle
+    public static class GlobalEntityEntryHandle
     {
         /// <summary>
         /// 处理
         /// </summary>
         /// <param name="entityEntries"></param>
         /// <param name="handleTenant">是否处理租户信息</param>
-        public static void Handle(IEnumerable<EntityEntry>? entityEntries,bool handleTenant=false)
+        /// <remarks>
+        /// <para> 添加时：设置<see cref="IModelCreated"/></para>
+        /// <para>修改时：设置<see cref="IModelUpdated"/>中相关字段的值</para>
+        /// <paramref name="handleTenant"/>=true 将处理租户相关字段和租户越权拦截
+        /// </remarks>
+        public static void Handle(IEnumerable<EntityEntry>? entityEntries, bool handleTenant = false)
         {
             if (entityEntries == null || !entityEntries.Any())
             {
                 return;
             }
             Identity? identity = IdentityUtil.GetIdentity();
-            if (identity == null )
+            if (identity == null)
             {
                 return;
             }
@@ -101,6 +107,8 @@ namespace Gardener.EntityFramwork.Core
                     }
                     if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
                     {
+                        //租户修改其它租户数据时抛出异常
+                        CheckIsCurrentTenantData(entity, identity);
                         //排除租户信息
                         entity.Property(nameof(IModelTenantId.TenantId)).IsModified = false;
                     }
@@ -110,6 +118,14 @@ namespace Gardener.EntityFramwork.Core
                         entity.Property(nameof(IModelUpdated.UpdateBy)).CurrentValue = identity.Id;
                         entity.Property(nameof(IModelUpdated.UpdateIdentityType)).CurrentValue = identity.IdentityType;
                         entity.Property(nameof(IModelUpdated.UpdatedTime)).CurrentValue = DateTimeOffset.Now;
+                    }
+                }
+                else if (entity.State == EntityState.Deleted)
+                {
+                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
+                    {
+                        //租户删除其它租户数据时抛出异常
+                        CheckIsCurrentTenantData(entity, identity);
                     }
                 }
 
@@ -134,6 +150,28 @@ namespace Gardener.EntityFramwork.Core
                 //#endregion
             }
             #endregion
+        }
+        /// <summary>
+        /// 判断是否是当前租户数据，如果不是将抛出异常
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="identity"></param>
+        /// <exception cref="AppFriendlyException"></exception>
+        private static void CheckIsCurrentTenantData(EntityEntry entity, Identity identity)
+        {
+            PropertyValues? propertyValues = entity.GetDatabaseValues();
+            if (propertyValues != null)
+            {
+                Guid? tenantId;
+                if (propertyValues.TryGetValue(nameof(IModelTenantId.TenantId), out tenantId))
+                {
+                    //租户修改其它租户数据时抛出异常
+                    if (tenantId == null || !tenantId.Equals(identity.TenantId))
+                    {
+                        throw Oops.Bah(ExceptionCode.No_Permission_Modify_The_Data);
+                    }
+                }
+            }
         }
     }
 }

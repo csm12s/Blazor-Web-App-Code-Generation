@@ -53,7 +53,7 @@ namespace Gardener.Common
             {
                 if (item == null) { continue; }
                 Type type = item.GetType();
-                PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                PropertyInfo[] properties = type.GetProperties();
                 sb.Append($"                new {entityName}()");
                 sb.Append(" {");
                 foreach (PropertyInfo property in properties)

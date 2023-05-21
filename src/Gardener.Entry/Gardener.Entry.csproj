@@ -175,7 +175,6 @@
     <Watch Include="**\*.less" />
   </ItemGroup>
 
-
 	<ItemGroup>
 	  <Watch Remove="wwwroot\Template\Base.csproj.razor" />
 	  <Watch Remove="wwwroot\Template\BaseClientController.cs.razor" />

@@ -48,10 +48,10 @@ namespace Gardener.Client.Core
                 switch (code)
                 {
                     case 401:
-                        msg = $"{localizer[SharedLocalResource.Warn]}：{localizer[SharedLocalResource.Unauthorized]}";
+                        msg = $"{localizer[SharedLocalResource.Unauthorized]}";
                         break;
                     case 403:
-                        msg = $"{localizer[SharedLocalResource.Warn]}：{localizer[SharedLocalResource.Forbidden]}";
+                        msg = $"{localizer[SharedLocalResource.Forbidden]}";
                         break;
                 }
 
@@ -126,7 +126,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public Task DebugAsync(string msg, int? code = null, Exception? ex = null)
         {
-            msg = FormatMsg($"{localizer[SharedLocalResource.Debug]}:{msg}", code);
+            msg = FormatMsg($"{msg}", code);
             logger.LogDebug(ex, msg);
             return Task.CompletedTask;
         }
@@ -140,7 +140,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public Task FatalAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
-            msg = FormatMsg($"{localizer[SharedLocalResource.FatalException]}:{msg}", code);
+            msg = FormatMsg($"{msg}", code);
             logger.LogCritical(ex, msg);
             if (sendNotify)
             {
@@ -158,7 +158,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public Task ErrorAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
-            msg = FormatMsg($"{localizer[SharedLocalResource.Error]}:{msg}", code);
+            msg = FormatMsg($"{msg}", code);
             logger.LogError(ex, msg);
             if (sendNotify)
             {
@@ -176,7 +176,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public Task InfoAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = false)
         {
-            msg = FormatMsg($"{localizer[SharedLocalResource.Info]}:{msg}", code);
+            msg = FormatMsg($"{msg}", code);
             logger.LogInformation(ex, msg);
             if (sendNotify)
             {
@@ -194,7 +194,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public Task WarnAsync(string msg, int? code = null, Exception? ex = null, bool sendNotify = true)
         {
-            msg = FormatMsg($"{localizer[SharedLocalResource.Warn]}:{msg}", code);
+            msg = FormatMsg($"{msg}", code);
             logger.LogWarning(ex, msg);
             if (sendNotify)
             {

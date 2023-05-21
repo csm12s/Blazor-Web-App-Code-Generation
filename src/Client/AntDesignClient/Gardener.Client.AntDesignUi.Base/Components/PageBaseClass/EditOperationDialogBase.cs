@@ -59,18 +59,19 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected IEnumerable<SystemTenantDto>? _tenants { get; set; }
 
         /// <summary>
-        /// 页面初始化
+        /// 加载当前数据<see cref="EditOperationDialogBase{TDto, TKey, TLocalResource, TOperationDialogInput, TOperationDialogOutput}.LoadEditModelData"/>
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
             await StartLoading();
-            var task1= LoadEditModelData();
+            var task1 = LoadEditModelData();
             if (!IsTenant())
             {
                 await LocadTenants();
             }
             await task1;
+            await base.OnInitializedAsync();
             await StopLoading();
         }
         /// <summary>
@@ -107,7 +108,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected async Task LocadTenants()
         {
             _tenants = await tenantService.GetAll();
-            
+
         }
         /// <summary>
         /// 是否是租户

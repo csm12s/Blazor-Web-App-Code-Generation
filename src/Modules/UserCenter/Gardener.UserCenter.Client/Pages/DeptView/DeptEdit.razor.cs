@@ -57,7 +57,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
             {
                 _editModel.ParentId = editInput.Data == 0 ? null : editInput.Data;
             }
-            await base.StopLoading();
+            await base.StopLoading(true);
         }
 
     }

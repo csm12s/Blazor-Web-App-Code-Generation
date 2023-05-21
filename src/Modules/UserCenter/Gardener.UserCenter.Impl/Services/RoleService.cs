@@ -23,6 +23,7 @@ using Gardener.Authentication.Dtos;
 using Gardener.Base;
 using Gardener.Authorization.Core;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Gardener.Common;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -182,17 +183,7 @@ namespace Gardener.UserCenter.Impl.Services
         public async Task<string> GetRoleResourceSeedData()
         {
             List<RoleResource> roleResources = await _roleResourceRepository.AsQueryable(false).OrderBy(x => x.RoleId).ToListAsync();
-            StringBuilder sb = new StringBuilder();
-            foreach (var roleResource in roleResources)
-            {
-                sb.Append($"\r\n new {nameof(RoleResource)}()");
-                sb.Append("{");
-                sb.Append($"{nameof(RoleResource.RoleId)}={roleResource.RoleId},");
-                sb.Append($"{nameof(RoleResource.ResourceId)} = Guid.Parse(\"{roleResource.ResourceId}\"),");
-                sb.Append($"{nameof(RoleResource.CreatedTime)}= DateTimeOffset.FromUnixTimeSeconds({DateTimeOffset.Now.ToUnixTimeSeconds()})");
-                sb.Append("},");
-            }
-            return sb.ToString().TrimEnd(',');
+            return SeedDataGenerateTool.Generate(roleResources, typeof(RoleResource).Name);
         }
     }
 }

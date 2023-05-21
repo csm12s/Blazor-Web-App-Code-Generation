@@ -105,7 +105,7 @@ namespace Gardener.SystemManager.Services
             if(tenantId!=null || (identity != null && identity.IsTenant))
             {
                 //查询租户
-                //租户只能查自己的
+                //租户只能查自己租户的
                 tenantId = (identity != null && identity.IsTenant) ? identity.TenantId : tenantId;
                 resources = await _tenantResourceRepository
                     .Include(x=>x.Resource)

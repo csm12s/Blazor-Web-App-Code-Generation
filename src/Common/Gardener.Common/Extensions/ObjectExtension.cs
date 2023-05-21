@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -55,8 +56,9 @@ namespace Gardener.Common
         {
             //对象的类型
             Type type = typeof(T);
+            PropertyInfo [] propertys= type.GetProperties();
             //对象的属性
-            PropertyInfo? p = type.GetProperty(name);
+            PropertyInfo? p = propertys.Where(x=>x.Name.Equals(name)).FirstOrDefault();
             //未找到这个属性
             if (p == null) return default(T);
             //属性的类型
