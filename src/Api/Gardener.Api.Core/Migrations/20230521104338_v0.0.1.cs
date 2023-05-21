@@ -1795,17 +1795,17 @@ namespace Gardener.Api.Core.Migrations
                 columns: new[] { "RoleId", "UserId", "CreateBy", "CreateIdentityType", "CreatedTime", "IsDeleted", "IsLocked", "TenantId", "UpdateBy", "UpdateIdentityType", "UpdatedTime" },
                 values: new object[,]
                 {
-                    { 1, 1, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 1, 2, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 1, 3, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 1, 4, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 1, 5, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 1, 6, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 1, 7, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 2, 8, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 3, 10, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 4, 11, null, null, 1305892579553280000L, false, false, null, null, null, null },
-                    { 4, 12, null, null, 1305892579553280000L, false, false, null, null, null, null }
+                    { 1, 1, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 1, 2, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 1, 3, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 1, 4, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 1, 5, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 1, 6, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 1, 7, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 2, 8, "1", 1, 1305892579553280000L, false, false, null, null, null, null },
+                    { 3, 10, "1", 1, 1305892579553280000L, false, false, new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"), null, null, null },
+                    { 4, 11, "1", 1, 1305892579553280000L, false, false, new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"), null, null, null },
+                    { 4, 12, "1", 1, 1305892579553280000L, false, false, new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"), null, null, null }
                 });
 
             migrationBuilder.InsertData(

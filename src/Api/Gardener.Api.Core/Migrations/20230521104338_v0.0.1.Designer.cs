@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230521102419_v0.0.1")]
+    [Migration("20230521104338_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -15874,6 +15874,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 1,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15882,6 +15884,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 2,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15890,6 +15894,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 3,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15898,6 +15904,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 4,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15906,6 +15914,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 5,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15914,6 +15924,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 6,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15922,6 +15934,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 7,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15930,6 +15944,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 8,
                             RoleId = 2,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -15938,25 +15954,34 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 10,
                             RoleId = 3,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
-                            IsLocked = false
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
                         },
                         new
                         {
                             UserId = 11,
                             RoleId = 4,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
-                            IsLocked = false
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
                         },
                         new
                         {
                             UserId = 12,
                             RoleId = 4,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
-                            IsLocked = false
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
                         });
                 });
 

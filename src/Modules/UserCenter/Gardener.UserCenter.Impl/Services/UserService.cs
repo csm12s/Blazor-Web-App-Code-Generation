@@ -266,6 +266,11 @@ namespace Gardener.UserCenter.Impl.Services
         [HttpPost]
         public async Task<bool> Role([ApiSeat(ApiSeats.ActionStart)] int userId, [FromBody] int[] roleIds)
         {
+           var user=await _userRepository.FindOrDefaultAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
             //先删除现有的
             var userRoles = await _userRoleRepository.AsQueryable(x => x.UserId == userId).ToListAsync();
             if (userRoles.Count > 0)
@@ -274,13 +279,13 @@ namespace Gardener.UserCenter.Impl.Services
             }
             if (roleIds?.Length > 0)
             {
+                var dbRoleIds=await _roleRepository.AsQueryable(false).Where(x=>roleIds.Contains(x.Id)).Select(x=>x.Id).ToListAsync();
                 //添加新的
-                var newUserRoles = roleIds.Select(x => new UserRole()
+                var newUserRoles = dbRoleIds.Select(x => new UserRole()
                 {
-
                     UserId = userId,
                     RoleId = x,
-                    CreatedTime = DateTimeOffset.Now
+                    TenantId=user.TenantId
                 });
                 await _userRoleRepository.InsertAsync(newUserRoles);
             }
