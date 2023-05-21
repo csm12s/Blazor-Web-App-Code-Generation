@@ -31,5 +31,13 @@ namespace Gardener.Authentication.Core
         /// 身份类型
         /// </summary>
         public static readonly string IdentityType = "identityType";
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        public static readonly string TenantId = "tenantId";
+        /// <summary>
+        /// 自定义数据
+        /// </summary>
+        public static readonly string CustomData = "customData";
     }
 }

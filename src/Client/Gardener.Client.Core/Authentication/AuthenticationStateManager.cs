@@ -20,6 +20,7 @@ using Gardener.Client.Base.EventBus.Events;
 using Gardener.EventBus;
 using Gardener.SystemManager.Dtos;
 using Gardener.Base.Enums;
+using Gardener.Base;
 
 namespace Gardener.Client.Core
 {
@@ -33,6 +34,19 @@ namespace Gardener.Client.Core
         private List<string>? uiResourceKeys;
         private List<ResourceDto>? menuResources;
         private Hashtable? uiHashtableResources;
+        /// <summary>
+        /// 超级管理员
+        /// </summary>
+        private bool currentUserIsSuperAdmin = false;
+        /// <summary>
+        /// 是否是租户
+        /// </summary>
+        private bool currentUserIsTenant = true;
+        /// <summary>
+        /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
+        /// </summary>
+        private bool isAutoLogin = true;
+        private AuthSettings authSettings;
 
         private readonly IJsTool jsTool;
         private readonly HttpClientManager httpClientManager;
@@ -40,11 +54,6 @@ namespace Gardener.Client.Core
         private readonly IClientLogger logger;
         private readonly NavigationManager navigationManager;
         private readonly IEventBus eventBus;
-        /// <summary>
-        /// 登录的时候选中记住我/自动登录时，refre token 记录到 localsession中
-        /// </summary>
-        private bool isAutoLogin = true;
-        private AuthSettings authSettings;
         /// <summary>
         /// 
         /// </summary>
@@ -208,7 +217,7 @@ namespace Gardener.Client.Core
             {
                 SetHttpClientAuthorization(token.AccessToken);
                 //重新请求user信息
-                var task= accountService.GetCurrentUser();
+                var task = accountService.GetCurrentUser();
                 var task1 = accountService.GetCurrentUserResourceKeys(ResourceType.View, ResourceType.Menu, ResourceType.Action);
                 var task2 = accountService.GetCurrentUserMenus(AuthConstant.ClientResourceRootKey);
                 var userResult = await task;
@@ -218,11 +227,13 @@ namespace Gardener.Client.Core
                 {
                     this.uiHashtableResources = null;
                     this.currentUser = userResult;
+
                     //超级管理员
-                    bool currentUserIsSuperAdmin = CurrentUserIsSuperAdmin();
+                    currentUserIsSuperAdmin = this.currentUser.IsSuperAdministrator ?? false;
+                    currentUserIsTenant = ((IModelTenantId)this.currentUser).IsTenant;
                     eventBus.Publish(new ReloadCurrentUserEvent(token, currentUser)
                     {
-                        CurrentUserIsSuperAdmin=currentUserIsSuperAdmin,
+                        CurrentUserIsSuperAdmin = currentUserIsSuperAdmin,
                         UiResourceKeys = uiResourceKeys,
                         MenuResources = menuResources
                     });
@@ -237,17 +248,13 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public bool CurrentUserIsSuperAdmin()
         {
-            if (this.currentUser == null)
-            {
-                return false;
-            }
-            return this.currentUser.Roles != null && this.currentUser.Roles.Any(x => x.IsSuperAdministrator);
+            return currentUserIsSuperAdmin;
         }
 
-       /// <summary>
-       /// 获取当前用户的页面资源key
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// 获取当前用户的页面资源key
+        /// </summary>
+        /// <returns></returns>
         private List<string> GetCurrentUserUiResourceKeys()
         {
             return uiResourceKeys ?? new List<string>();
@@ -257,12 +264,12 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public Task<bool> CheckCurrentUserHaveBtnResourceKey(object key)
+        public bool CheckCurrentUserHaveResource(object key)
         {
             //超级管理员
-            if (CurrentUserIsSuperAdmin())
+            if (currentUserIsSuperAdmin)
             {
-                return Task.FromResult(true);
+                return true;
             }
             if (uiHashtableResources == null)
             {
@@ -270,7 +277,16 @@ namespace Gardener.Client.Core
                 uiHashtableResources = new Hashtable(resources.Count);
                 resources.ForEach(x => { uiHashtableResources.Add(x, null); });
             }
-            return Task.FromResult(uiHashtableResources.ContainsKey(key));
+            return uiHashtableResources.ContainsKey(key);
+        }
+        /// <summary>
+        /// 判断当前用户是否用于资源key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Task<bool> CheckCurrentUserHaveResourceAsync(object key)
+        {
+            return Task.FromResult(CheckCurrentUserHaveResource(key));
         }
         /// <summary>
         /// 获取当前用户菜单
@@ -419,6 +435,18 @@ namespace Gardener.Client.Core
         public async Task<bool> TestToken(string? flag = null)
         {
             return await accountService.TestToken(flag);
+        }
+
+        /// <summary>
+        /// 是否是租户
+        /// </summary>
+        /// <remarks>
+        /// <para>如果用户租户编号不为null或空认为是租户</para>
+        /// </remarks>
+        /// <returns></returns>
+        public bool CurrentUserIsTenant()
+        {
+            return currentUserIsTenant;
         }
     }
 }

@@ -71,5 +71,11 @@ namespace Gardener.SystemManager.Dtos
         [Required, DefaultValue(ResourceType.Menu)]
         [DisplayName("类型")]
         public ResourceType Type { get; set; }
+
+        /// <summary>
+        /// 是否支持多租户
+        /// </summary>
+        [DisplayName("SupportMultiTenant")]
+        public bool SupportMultiTenant { get; set; }
     }
 }

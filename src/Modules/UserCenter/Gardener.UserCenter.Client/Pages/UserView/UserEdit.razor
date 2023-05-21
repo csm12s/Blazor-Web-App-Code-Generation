@@ -10,6 +10,18 @@
         <Row Gutter="24">
             <GridCol Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
+                <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
+                    <FormItem Label="@Localizer[UserCenterResource.Tenant]">
+                        <Select DataSource="@_tenants"
+                        @bind-Value="@model.TenantId"
+                                ValueName="@nameof(SystemTenantDto.Id)"
+                                LabelName="@nameof(SystemTenantDto.Name)"
+                                TItem="SystemTenantDto"
+                                TItemValue="Guid?"
+                            AllowClear>
+                    </Select>
+                </FormItem>
+            </ResourceAuthorize>
                 <FormItem Label="@Localizer[UserCenterResource.Avatar]">
                     @if (OperationDialogInputType.Edit.Equals(this.Options.Type) || OperationDialogInputType.Add.Equals(this.Options.Type))
                     {

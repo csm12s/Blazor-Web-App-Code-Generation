@@ -4,8 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System.Collections.Generic;
-
 namespace Gardener.WoChat.Dtos
 {
     /// <summary>

@@ -17,14 +17,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Furion;
 using Microsoft.AspNetCore.Http;
+using Gardener.Base.Entity;
 
 namespace Gardener.Authentication.Core
 {
@@ -59,21 +58,22 @@ namespace Gardener.Authentication.Core
         {
             // New Token
             var (accessToken, accessTokenExpires) = CreateToken(identity, JwtTokenType.AccessToken);
-            var (refreshToken, refreshTokenExpires) = CreateToken(identity,JwtTokenType.RefreshToken);
+            var (refreshToken, refreshTokenExpires) = CreateToken(identity, JwtTokenType.RefreshToken);
             //存储refreshToken
             //写入刷新token
             await Db.GetRepository<LoginToken>().InsertAsync(new LoginToken()
             {
-                IdentityId=identity.Id,
-                IdentityName=identity.Name,
-                IdentityNickName=identity.NickName,
-                IdentityType=identity.IdentityType,
+                TenantId = identity.TenantId,
+                IdentityId = identity.Id,
+                IdentityName = identity.Name,
+                IdentityNickName = identity.NickName,
+                IdentityType = identity.IdentityType,
                 LoginId = identity.LoginId,
                 LoginClientType = identity.LoginClientType,
                 Value = refreshToken,
                 EndTime = refreshTokenExpires,
                 CreatedTime = DateTimeOffset.Now,
-                Ip=App.HttpContext?.GetRemoteIpAddressToIPv4()
+                Ip = App.HttpContext?.GetRemoteIpAddressToIPv4()
 
             });
             return new JsonWebToken()
@@ -93,15 +93,15 @@ namespace Gardener.Authentication.Core
         public async Task<JsonWebToken> RefreshToken(string oldRefreshToken)
         {
             Identity identity = ReadToken(oldRefreshToken);
-            IRepository<LoginToken> repository= Db.GetRepository<LoginToken>();
+            IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
 
             LoginToken? loginToken = repository.AsQueryable(false).Where(x =>
             x.IsDeleted == false
-            && x.IsLocked == false 
-            && x.IdentityId.Equals(identity.Id) 
+            && x.IsLocked == false
+            && x.IdentityId.Equals(identity.Id)
             && x.IdentityType.Equals(identity.IdentityType)
             && x.LoginId.Equals(identity.LoginId)).OrderByDescending(x => x.EndTime).FirstOrDefault();
-            
+
             //异常token检测
             if (loginToken == null || loginToken.Value != oldRefreshToken || loginToken.EndTime <= DateTimeOffset.Now)
             {
@@ -112,7 +112,7 @@ namespace Gardener.Authentication.Core
                 }
                 throw Oops.Oh(ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE);
             }
-            var jwtOpt= GetJWTSettingsOptions(identity.IdentityType);
+            var jwtOpt = GetJWTSettingsOptions(identity.IdentityType);
             //设置非绝对过期，生成新的刷新token
             if (!jwtOpt.IsRefreshAbsoluteExpired)
             {
@@ -120,7 +120,7 @@ namespace Gardener.Authentication.Core
                 //更新刷新token
                 loginToken.Value = refreshToken;
                 loginToken.EndTime = refreshTokenExpires;
-                loginToken.UpdatedTime= DateTimeOffset.Now;
+                loginToken.UpdatedTime = DateTimeOffset.Now;
                 await repository.UpdateIncludeAsync(loginToken, new string[] { nameof(LoginToken.Value), nameof(LoginToken.EndTime), nameof(LoginToken.UpdatedTime) });
             }
             // New Token
@@ -144,7 +144,7 @@ namespace Gardener.Authentication.Core
             IRepository<LoginToken> repository = Db.GetRepository<LoginToken>();
             var refreshTokens = await repository.AsQueryable(false).Where(x => x.IsDeleted == false && x.IsLocked == false && x.IdentityId.Equals(identity.Id) && x.IdentityType.Equals(identity.IdentityType) && x.LoginId.Equals(identity.LoginId)).ToListAsync();
             await refreshTokens.ForEachAsync(async x => await repository.FakeDeleteByKeyAsync(x.Id));
-            
+
             return true;
         }
         /// <summary>
@@ -155,17 +155,9 @@ namespace Gardener.Authentication.Core
         /// <returns></returns>
         private (string, DateTimeOffset) CreateToken(Identity identity, JwtTokenType jwtTokenType)
         {
-            Claim[] claims =
-                {
-                new Claim(ClaimTypes.NameIdentifier, identity.Id),
-                new Claim(ClaimTypes.GivenName, identity.NickName ?? identity.Name),
-                new Claim(ClaimTypes.Name, identity.Name),
-                new Claim(AuthKeyConstants.IdentityType, identity.IdentityType.ToString()),
-                new Claim(AuthKeyConstants.ClientIdKeyName, identity.LoginId),
-                new Claim(AuthKeyConstants.ClientTypeKeyName, identity.LoginClientType.ToString()),
-                new Claim(AuthKeyConstants.TokenTypeKey, jwtTokenType.ToString())
-            };
-            return CreateToken(claims, GetJWTSettingsOptions(identity.IdentityType), jwtTokenType);
+            ClaimsIdentity claimsIdentity = identityConverter.IdentityToClaimsIdentity(identity, jwtTokenType);
+            JWTSettingsOptions jWTSettings = GetJWTSettingsOptions(identity.IdentityType);
+            return CreateToken(claimsIdentity, jWTSettings, jwtTokenType);
         }
         /// <summary>
         /// 
@@ -187,31 +179,31 @@ namespace Gardener.Authentication.Core
         /// <summary>
         /// 创建
         /// </summary>
-        /// <param name="claims"></param>
+        /// <param name="claimsIdentity"></param>
         /// <param name="jwtOpt"></param>
         /// <param name="jwtTokenType"></param>
         /// <returns></returns>
-        private (string, DateTimeOffset) CreateToken(IEnumerable<Claim> claims, JWTSettingsOptions jwtOpt, JwtTokenType jwtTokenType)
+        private (string, DateTimeOffset) CreateToken(ClaimsIdentity claimsIdentity, JWTSettingsOptions jwtOpt, JwtTokenType jwtTokenType)
         {
             DateTimeOffset expires;
             DateTimeOffset now = DateTimeOffset.Now;
             string issuerSigningKey = jwtOpt.IssuerSigningKey;
-           
+
             if (jwtTokenType.Equals(JwtTokenType.RefreshToken))
             {
                 expires = now.AddMinutes(jwtOpt.RefreshExpireMins);
             }
-            else 
+            else
             {
                 //默认5分钟
-                double minutes = jwtOpt.ExpiredTime.HasValue ? jwtOpt.ExpiredTime.Value : 5; 
+                double minutes = jwtOpt.ExpiredTime.HasValue ? jwtOpt.ExpiredTime.Value : 5;
                 expires = now.AddMinutes(minutes);
             }
             SecurityKey key = new SymmetricSecurityKey(Convert.FromBase64String(issuerSigningKey));
             SigningCredentials credentials = new SigningCredentials(key, jwtOpt.Algorithm);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
             {
-                Subject = new ClaimsIdentity(claims),
+                Subject = claimsIdentity,
                 Audience = jwtOpt.ValidAudience,
                 Issuer = jwtOpt.ValidIssuer,
                 SigningCredentials = credentials,
@@ -231,15 +223,15 @@ namespace Gardener.Authentication.Core
         /// <returns></returns>
         private Identity ReadToken(string tokenStr)
         {
-            
+
             JwtSecurityToken jwtSecurityToken = _tokenHandler.ReadJwtToken(tokenStr);
-            Claim? identityTypeCla=jwtSecurityToken.Claims.FirstOrDefault(x => x.Type.Equals(AuthKeyConstants.IdentityType));
+            Claim? identityTypeCla = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type.Equals(AuthKeyConstants.IdentityType));
             if (identityTypeCla == null)
             {
                 throw Oops.Oh(ExceptionCode.TOKEN_INVALID);
             }
             IdentityType identityType = Enum.Parse<IdentityType>(identityTypeCla.Value);
-            JWTSettingsOptions jWTSettingsOptions= GetJWTSettingsOptions(identityType);
+            JWTSettingsOptions jWTSettingsOptions = GetJWTSettingsOptions(identityType);
 
             TokenValidationParameters parameters = new TokenValidationParameters()
             {
@@ -259,7 +251,7 @@ namespace Gardener.Authentication.Core
             return identity;
         }
 
-       
+
 
     }
 

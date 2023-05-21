@@ -568,4 +568,16 @@
   <data name="Type" xml:space="preserve">
     <value>类型</value>
   </data>
+  <data name="Tenant" xml:space="preserve">
+    <value>租户</value>
+  </data>
+  <data name="TenantId" xml:space="preserve">
+    <value>租户编号</value>
+  </data>
+  <data name="Sequence contains no elements." xml:space="preserve">
+    <value>未找到数据，数据可能已不存在。</value>
+  </data>
+  <data name="There is no permission to modify the data" xml:space="preserve">
+    <value>没有权限修改这个数据</value>
+  </data>
 </root>

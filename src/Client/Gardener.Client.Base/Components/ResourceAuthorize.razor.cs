@@ -88,7 +88,7 @@ namespace Gardener.Client.Base.Components
                 string[] keys = ResourceKey.Split(',');
                 foreach(string key in keys) 
                 {
-                    var isAuth = await authenticationStateManager.CheckCurrentUserHaveBtnResourceKey(key);
+                    var isAuth = await authenticationStateManager.CheckCurrentUserHaveResourceAsync(key);
                     if (AndCondition)
                     {
                         if (!isAuth) 

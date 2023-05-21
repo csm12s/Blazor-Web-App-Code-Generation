@@ -8,6 +8,18 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
+    <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
+        <FormItem Label="@Localizer[UserCenterResource.Tenant]">
+            <Select DataSource="@_tenants"
+            @bind-Value="@model.TenantId"
+                    ValueName="@nameof(SystemTenantDto.Id)"
+                    LabelName="@nameof(SystemTenantDto.Name)"
+                    TItem="SystemTenantDto"
+                    TItemValue="Guid?"
+                    AllowClear>
+            </Select>
+        </FormItem>
+    </ResourceAuthorize>
     <FormItem Label="@Localizer[UserCenterResource.Name]">
         <Input @bind-Value="@model.Name" />
     </FormItem>

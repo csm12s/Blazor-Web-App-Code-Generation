@@ -4,6 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using HttpMethod = Gardener.Enums.HttpMethod;
@@ -14,7 +17,7 @@ namespace Gardener.Base.Entity
     /// 功能信息
     /// </summary>
     [Description("功能信息")]
-    public class Function : GardenerEntityBase<Guid>
+    public class Function : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Function, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 分组
@@ -73,7 +76,18 @@ namespace Gardener.Base.Entity
         /// <summary>
         /// 多对多中间表
         ///</summary>
-        public List<ResourceFunction> ResourceFunctions { get; set; }=new List<ResourceFunction>();
-
+        public List<ResourceFunction> ResourceFunctions { get; set; } = new List<ResourceFunction>();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Configure(EntityTypeBuilder<Function> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+            entityBuilder.HasIndex(x => x.Key);
+            entityBuilder.HasIndex(new string[] { nameof(Path), nameof(Method) });
+        }
     }
 }

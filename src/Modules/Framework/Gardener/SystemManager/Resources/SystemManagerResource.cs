@@ -57,5 +57,9 @@ namespace Gardener.SystemManager.Resources
         /// 启用审计
         /// </summary>
         public const string EnableAudit = nameof(EnableAudit);
+        /// <summary>
+        /// 支持多租户
+        /// </summary>
+        public const string SupportMultiTenant = nameof(SupportMultiTenant);
     }
 }

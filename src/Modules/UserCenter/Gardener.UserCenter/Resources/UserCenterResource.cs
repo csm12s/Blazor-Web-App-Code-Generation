@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
-using System.Data;
 
 namespace Gardener.UserCenter.Resources
 {

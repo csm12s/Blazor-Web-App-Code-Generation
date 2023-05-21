@@ -4,9 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using System;
 using System.ComponentModel;
 
@@ -17,7 +19,7 @@ namespace Gardener.Authentication.Domains
     /// </summary>
     [Description("登录Token信息")]
     [IgnoreAudit]
-    public class LoginToken : GardenerEntityBase<Guid>
+    public class LoginToken : GardenerTenantEntityBase<Guid,MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 身份编号

@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -19,7 +20,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 角色表
     /// </summary>
     [Description("角色信息")]
-    public class Role : GardenerEntityBase, IEntitySeedData<Role>, IEntityTypeBuilder<Role>
+    public class Role : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<Role, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Role, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 角色表
@@ -53,9 +54,11 @@ namespace Gardener.UserCenter.Impl.Domains
         public bool IsSuperAdministrator { get; set; }
 
         /// <summary>
-        /// 是否是默认权限
-        /// 注册用户时默认设置
+        /// 是否是默认角色
         /// </summary>
+        /// <remarks>
+        /// 添加用户时默认添加该角色
+        /// </remarks>
         [DisplayName("是否是默认角色")]
         public bool IsDefault { get; set; }
 
@@ -103,6 +106,14 @@ namespace Gardener.UserCenter.Impl.Domains
                 new Role
                 {
                     Id=2,Name="浏览者",Remark="只能浏览",CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)
+                },
+                new Role
+                {
+                    Id=3,Name="租户1_管理员",Remark="租户1_管理员",TenantId=Guid.Parse("710148b3-0c80-48a2-8f57-4b863be9859f"),CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)
+                },
+                new Role
+                {
+                    Id=4,Name="租户2_管理员",Remark="租户2_管理员",TenantId=Guid.Parse("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311)
                 }
             };
         }

@@ -14,7 +14,7 @@ namespace Gardener.UserCenter.Dtos
     /// <summary>
     /// 岗位
     /// </summary>
-    public class PositionDto : BaseDto<int>
+    public class PositionDto : TenantBaseDto<int>
     {
         /// <summary>
         /// 岗位名称

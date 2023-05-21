@@ -19,5 +19,19 @@ namespace Gardener.Base
         /// </summary>
         [DisplayName("TenantId")]
         public Guid? TenantId { get; set; }
-    }
+        /// <summary>
+        /// 是否是租户
+        /// </summary>
+        /// <remarks>
+        /// <para>默认：租户编号不为null或空的是租户</para>
+        /// <para>租户在查询时限制租户编号</para>
+        /// <para>租户在新增更新时处理租户编号</para>
+        /// <para>
+        /// 处理详情在
+        /// <code>Gardener.EntityFramwork.DbContexts.GardenerMultiTenantDbContext</code>
+        /// </para>
+        /// </remarks>
+        /// <returns></returns>
+        public bool IsTenant => TenantId != null && !TenantId.Equals(Guid.Empty);
 }
+    }

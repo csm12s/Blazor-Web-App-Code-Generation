@@ -28,7 +28,7 @@ namespace Gardener.UserCenter.Impl.SeedDatas
         public IEnumerable<Resource> HasData(DbContext dbContext, Type dbContextLocator)
         {
             return new[]{
-                 new Resource() {Name="用户中心",Key="user_center",Remark="用户中心",Path="",Icon="apartment",Order=15,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:15:50"),Id=Guid.Parse("bd892fb3-47b4-469e-ba14-7c0eb703e164"),},
+                 new Resource() {SupportMultiTenant=true,Name="用户中心",Key="user_center",Remark="用户中心",Path="",Icon="apartment",Order=15,ParentId=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868"),Type=Enum.Parse<ResourceType>("Menu"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:15:50"),Id=Guid.Parse("bd892fb3-47b4-469e-ba14-7c0eb703e164"),},
             };
         }
     }

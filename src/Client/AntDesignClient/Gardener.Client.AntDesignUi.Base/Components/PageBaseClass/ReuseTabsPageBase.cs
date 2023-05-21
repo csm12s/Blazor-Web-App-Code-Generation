@@ -6,6 +6,7 @@
 
 using AntDesign;
 using AntDesign.ProLayout;
+using Gardener.Client.Base.Components;
 using Gardener.Common;
 using Microsoft.AspNetCore.Components;
 
@@ -19,6 +20,41 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     public abstract class ReuseTabsPageAndFormBase<TSelfOperationDialogInput, TSelfOperationDialogOutput>
         : FeedbackComponent<TSelfOperationDialogInput, TSelfOperationDialogOutput>, IReuseTabsPage
     {
+        /// <summary>
+        /// 弹框区域的加载中标识
+        /// </summary>
+        protected ClientLoading _dialogLoading = new ClientLoading();
+
+        /// <summary>
+        /// Page start loading
+        /// </summary>
+        /// <param name="forceRender">是否强制渲染</param>
+        /// <returns></returns>
+        protected Task StartLoading(bool forceRender = false)
+        {
+            var run = _dialogLoading.Start();
+            if (run && forceRender)
+            {
+               return InvokeAsync(StateHasChanged);
+            }
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Page stop loading
+        /// </summary>
+        /// <param name="forceRender">是否强制渲染</param>
+        /// <returns></returns>
+        protected Task StopLoading(bool forceRender = false)
+        {
+            var stop = _dialogLoading.Stop();
+            if (stop && forceRender)
+            {
+               return InvokeAsync(StateHasChanged);
+            }
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// 获取页面title
         /// </summary>
@@ -65,9 +101,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         /// <param name="output"></param>
         /// <returns></returns>
-        public async Task CloseAsync(TSelfOperationDialogOutput? output=default)
+        public Task CloseAsync(TSelfOperationDialogOutput? output=default)
         {
-            await base.FeedbackRef.CloseAsync(output);
+            return base.FeedbackRef.CloseAsync(output);
         }
     }
 

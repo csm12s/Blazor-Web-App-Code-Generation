@@ -6,19 +6,16 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
-using Gardener.Base;
-using Gardener.EntityFramwork.DbContexts;
-using System;
 using System.ComponentModel;
 
-namespace Gardener.EntityFramwork.Audit.Domains
+namespace Gardener.Base.Entity.Domains
 {
     /// <summary>
     /// 实体属性审计信息
     /// </summary>
     [Description("属性审计信息")]
     [IgnoreAudit]
-    public class AuditProperty : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditProperty : GardenerTenantEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 名称

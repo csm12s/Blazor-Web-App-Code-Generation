@@ -21,4 +21,3 @@
 // SOFTWARE.
 
 global using Furion.DependencyInjection;
-global using System.Collections;

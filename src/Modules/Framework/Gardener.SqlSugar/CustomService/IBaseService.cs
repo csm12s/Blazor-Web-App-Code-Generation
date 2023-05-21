@@ -46,7 +46,7 @@ public interface IBaseService<TEntity>
     /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
     /// </summary>
     /// <returns></returns>
-    Task<List<TEntity>> GetAllUsableAsync();
+    Task<List<TEntity>> GetAllUsableAsync(Guid? tenantId = null);
     Task<PagedList<TEntity>> GetPageAsync(int pageIndex = 1, int pageSize = 10);
     Task<TEntity> InsertAsync(TEntity input);
     Task<bool> UpdateAsync(TEntity input);

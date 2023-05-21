@@ -14,7 +14,7 @@
            RemoteDataSource>
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="user_center_role_refresh">
-                <TableSearch TDto="RoleDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
+                <TableSearch TDto="RoleDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -52,10 +52,11 @@
             </Row>
 
         </TitleTemplate>
-                    <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="user_center_role_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <ColumnDefinitions>
+            <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["user_center_role_delete_selected"]" />
+            <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+                <span>@model.Tenant?.Name</span>
+            </Column>
             <Column @bind-Field="@model.Id" Sortable Title="@Localizer[UserCenterResource.Id]" />
             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
             <Column @bind-Field="@model.Remark" Filterable Title="@Localizer[UserCenterResource.Remark]" />
@@ -88,7 +89,7 @@
                     <ResourceAuthorize ResourceKey="user_center_role_set_resource">
                         <SpaceItem>
                             <Tooltip Title="@(Localizer["BindingResource"])" ArrowPointAtCenter="true">
-                                <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model.Id)"></Button>
+                                <Button Icon="security-scan" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnEditRoleResourceClick(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>

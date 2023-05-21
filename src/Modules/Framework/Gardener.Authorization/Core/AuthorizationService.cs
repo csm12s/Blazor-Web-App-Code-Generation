@@ -176,23 +176,18 @@ namespace Gardener.Authorization.Core
         /// <exception cref="NotImplementedException"></exception>
         public Task<bool> IsSuperAdministrator()
         {
-            Identity? identity = GetIdentity();
-            if(identity == null)
-            {
-                //身份信息缺失
-                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
-            }
-            if (IdentityType.User.Equals(identity.IdentityType))
-            {
-                return _identityPermissionService.IsSuperAdministrator(int.Parse(identity.Id));
-            }
-            else
-            {
-                //其他身份无法判断是否是超级管理
-                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
-            }
-            
+            return _identityPermissionService.IsSuperAdministrator(GetIdentity());
         }
 
+        /// <summary>
+        /// 判断当前登录对象是否有该资源
+        /// </summary>
+        /// <param name="resourceKey"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task<bool> CheckCurrentIdentityHaveResource(string resourceKey)
+        {
+            return _identityPermissionService.Check(GetIdentity(),resourceKey);
+        }
     }
 }

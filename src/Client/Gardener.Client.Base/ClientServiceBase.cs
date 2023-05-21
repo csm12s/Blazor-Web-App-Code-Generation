@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -92,9 +93,12 @@ namespace Gardener.Client.Base
             return apiCaller.PutAsync<object, bool>($"{controller}/{id}/lock/{islocked}");
         }
 
-        public virtual Task<List<T>> GetAllUsable()
+        public virtual Task<List<T>> GetAllUsable(Guid? tenantId = null, bool includLocked = false)
         {
-            return apiCaller.GetAsync<List<T>>($"{controller}/all-usable");
+            IDictionary<string, object?> queryString = new Dictionary<string, object?>();
+            queryString.Add($"{nameof(tenantId)}", tenantId);
+            queryString.Add($"{nameof(includLocked)}", includLocked);
+            return apiCaller.GetAsync<List<T>>($"{controller}/all-usable", queryString);
         }
 
         public virtual Task<PagedList<T>> Search(PageRequest request)

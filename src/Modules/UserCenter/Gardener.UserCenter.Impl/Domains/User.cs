@@ -7,6 +7,7 @@
 using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -21,7 +22,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 用户表
     /// </summary>
     [Description("用户信息")]
-    public class User : GardenerEntityBase, IEntitySeedData<User>, IEntityTypeBuilder<User>
+    public class User : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<User, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 用户表
@@ -272,6 +273,45 @@ namespace Gardener.UserCenter.Impl.Domains
                     CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
                     DeptId=2,
                     PositionId=1
+                },
+                new User
+                {
+                    Id=10,
+                    UserName="zuhu1_user1",
+                    NickName="租户1用户1",
+                    PasswordEncryptKey=passwordEncryptKey,
+                    Password=MD5Encryption.Encrypt("zuhu1_user1"+passwordEncryptKey),
+                    Avatar="./avatars/9.jpeg",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1,
+                    TenantId=Guid.Parse("710148B3-0C80-48A2-8F57-4B863BE9859F")
+                },
+                new User
+                {
+                    Id=11,
+                    UserName="zuhu2_user1",
+                    NickName="租户2用户1",
+                    PasswordEncryptKey=passwordEncryptKey,
+                    Password=MD5Encryption.Encrypt("zuhu2_user1"+passwordEncryptKey),
+                    Avatar="./avatars/10.jpeg",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1,
+                    TenantId=Guid.Parse("F416B514-04C8-40CA-91A4-07C5BBF9C8C6")
+                },
+                new User
+                {
+                    Id=12,
+                    UserName="zuhu2_user2",
+                    NickName="租户2用户2",
+                    PasswordEncryptKey=passwordEncryptKey,
+                    Password=MD5Encryption.Encrypt("zuhu2_user2"+passwordEncryptKey),
+                    Avatar="./avatars/11.jpeg",
+                    CreatedTime=DateTimeOffset.FromUnixTimeSeconds(1628689311),
+                    DeptId=2,
+                    PositionId=1,
+                    TenantId=Guid.Parse("F416B514-04C8-40CA-91A4-07C5BBF9C8C6")
                 }
             };
         }

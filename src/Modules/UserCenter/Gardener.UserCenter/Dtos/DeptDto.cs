@@ -15,7 +15,7 @@ namespace Gardener.UserCenter.Dtos
     /// 部门信息
     /// </summary>
     [Description("部门信息")]
-    public class DeptDto: BaseDto<int>
+    public class DeptDto: TenantBaseDto<int>
     {
         /// <summary>
         /// 名称

@@ -209,6 +209,10 @@
     <value>Role</value>
     <comment>menu</comment>
   </data>
+  <data name="menu:user_center_tenant" xml:space="preserve">
+    <value>Tenant</value>
+    <comment>menu</comment>
+  </data>
   <data name="menu:user_center_user" xml:space="preserve">
     <value>User</value>
     <comment>menu</comment>

@@ -7,7 +7,6 @@
 using Gardener.Base.Enums;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
-using Gardener.Common;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
@@ -49,7 +48,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            base.StartLoading();
+            await base.StartLoading();
             var t1= base.OnInitializedAsync();
             var t2= resourceService.GetTree();
             await t1;
@@ -69,7 +68,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 }
             }
             currentResourceTypeCopy = _editModel.Type;
-            base.StopLoading();
+            await base.StopLoading(true);
         }
     }
 }

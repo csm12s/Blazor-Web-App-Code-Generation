@@ -4,17 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign;
 using Gardener.Authentication.Dtos;
 using Gardener.Client.Base;
-using Gardener.UserCenter.Dtos;
 using Gardener.WoChat.Dtos;
 using Gardener.WoChat.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.WoChat.Client.Services
 {

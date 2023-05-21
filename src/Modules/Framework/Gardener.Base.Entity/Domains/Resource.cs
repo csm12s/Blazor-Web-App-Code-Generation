@@ -4,7 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Gardener.Base.Entity.Domains;
 using Gardener.Base.Enums;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +18,7 @@ namespace Gardener.Base.Entity
     /// 资源表
     /// </summary>
     [Description("资源信息")]
-    public class Resource : GardenerEntityBase<Guid>
+    public class Resource : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Resource, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 资源信息
@@ -74,6 +78,12 @@ namespace Gardener.Base.Entity
         public Guid? ParentId { get; set; }
 
         /// <summary>
+        /// 支持多租户
+        /// </summary>
+        [DisplayName("SupportMultiTenant")]
+        public bool SupportMultiTenant { get; set; }
+
+        /// <summary>
         /// 父级
         /// </summary>
         public Resource? Parent { get; set; }
@@ -94,5 +104,20 @@ namespace Gardener.Base.Entity
         /// </summary>
         public List<ResourceFunction> ResourceFunctions { get; set; } = new List<ResourceFunction>();
 
+        /// <summary>
+        /// 租户资源关系
+        /// </summary>
+        public List<SystemTenantResource> TenantResources { get; set; } = new List<SystemTenantResource>();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Configure(EntityTypeBuilder<Resource> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+            entityBuilder.HasIndex(x => x.Key);
+        }
     }
 }

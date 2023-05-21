@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Audit.Core;
-using Gardener.EntityFramwork.Audit.Core;
-using Gardener.EntityFramwork.DbContexts;
+using Gardener.Base.Entity;
+using Gardener.EntityFramwork.EFAudit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microsoft.Extensions.DependencyInjection

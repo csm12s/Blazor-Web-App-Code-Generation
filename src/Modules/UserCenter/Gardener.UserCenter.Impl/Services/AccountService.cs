@@ -31,8 +31,6 @@ using Gardener.VerifyCode.Core;
 using Gardener.SystemManager.Dtos;
 using Gardener.Base.Enums;
 using Gardener.Base.Entity;
-using Furion.Localization;
-using System.Threading;
 
 namespace Gardener.UserCenter.Impl.Services
 {
@@ -102,7 +100,8 @@ namespace Gardener.UserCenter.Impl.Services
                 LoginClientType=input.LoginClientType,
                 IdentityType=IdentityType.User,
                 Name=user.UserName,
-                NickName=user.NickName
+                NickName=user.NickName,
+                TenantId=user.TenantId
             };
 
             var token = await _jwtBearerService.CreateToken(identity);
@@ -164,6 +163,8 @@ namespace Gardener.UserCenter.Impl.Services
             // set roles for resource auth
             var roles = await GetCurrentUserRoles();
             userDto.Roles = roles;
+
+            userDto.IsSuperAdministrator =await _authorizationManager.IsSuperAdministrator();
 
             return userDto;
         }

@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using AntDesign;
 using Gardener.Client.Base.Services;
 using Gardener.CodeGeneration.Dtos;
 using Gardener.CodeGeneration.Services;
@@ -19,9 +18,9 @@ namespace Gardener.CodeGeneration.Client.Pages
     public partial class CodeGenerration
     {
         [Inject]
-        IClientMessageService messageService { get; set; }
+        IClientMessageService messageService { get; set; } = null!;
         [Inject]
-        private ICodeGenerationService codeGenerationService { get; set; }
+        private ICodeGenerationService codeGenerationService { get; set; } = null!;
 
         private int current { get; set; } = 0;
 
@@ -65,13 +64,16 @@ namespace Gardener.CodeGeneration.Client.Pages
                     messageService.Warn("请选择实体");
                     current = 0;
                 }
-                EntityDefinitionDto entityDefinition = selectedEntityDefinitions.FirstOrDefault();
-                //加载配置
-                EntityCodeGenerationSettingDto settingDto = await codeGenerationService.GetEntityCodeGenerationSetting(entityDefinition.FullName);
-
-                if (settingDto != null)
+                EntityDefinitionDto? entityDefinition = selectedEntityDefinitions.FirstOrDefault();
+                if (entityDefinition != null)
                 {
-                    settingDto.Adapt(selectEntityCodeGenerationSettingDto);
+                    //加载配置
+                    EntityCodeGenerationSettingDto settingDto = await codeGenerationService.GetEntityCodeGenerationSetting(entityDefinition.FullName);
+
+                    if (settingDto != null)
+                    {
+                        settingDto.Adapt(selectEntityCodeGenerationSettingDto);
+                    }
                 }
             }
         }

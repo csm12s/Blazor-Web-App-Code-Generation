@@ -7,11 +7,6 @@
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.SystemManager.Client.Pages.CodeView
 {

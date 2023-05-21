@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Enums;
+using Gardener.Common;
 using Gardener.SystemManager.Dtos;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace Gardener.Client.Base
         /// <summary>
         /// 展示的名字
         /// </summary>
-        public string? DisplayName { get; set; }
+        public string DisplayName { get; set; } = null!;
         /// <summary>
         /// 字段类型
         /// </summary>
@@ -49,12 +49,20 @@ namespace Gardener.Client.Base
         /// </summary>
         public string? CodeTypeValue { get; set; }
         /// <summary>
-        /// 字典
-        /// </summary>
-        public List<CodeDto>? Codes { get; set; }
-        /// <summary>
         /// 排序
         /// </summary>
         public int Order { get; set; } = int.MaxValue-1000;
+        /// <summary>
+        /// 是否设置了下拉选项
+        /// </summary>
+        public bool IsSetSelectItem { get; set; } = false;
+        /// <summary>
+        /// 下拉项
+        /// </summary>
+        /// <remarks>
+        /// <para>key:为SelectItem的value</para>
+        /// <para>value:为SelectItem的label</para>
+        /// </remarks>
+        public IEnumerable<KeyValuePair<string,string>>? SelectItems { get; set; }
     }
 }

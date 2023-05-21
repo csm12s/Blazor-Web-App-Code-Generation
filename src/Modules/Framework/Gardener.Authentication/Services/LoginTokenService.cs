@@ -9,6 +9,7 @@ using Furion.DatabaseAccessor;
 using Gardener.Authentication.Domains;
 using Gardener.Authentication.Dtos;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Gardener.EntityFramwork;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -23,14 +24,14 @@ namespace Gardener.Authentication.Services
     /// 用户登录TOKEN服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class LoginTokenService : ServiceBase<LoginToken, LoginTokenDto, Guid>, ILoginTokenService
+    public class LoginTokenService : ServiceBase<LoginToken, LoginTokenDto, Guid, GardenerMultiTenantDbContextLocator>, ILoginTokenService
     {
-        private readonly IRepository<LoginToken> _loginTokenRepository;
+        private readonly IRepository<LoginToken, GardenerMultiTenantDbContextLocator> _loginTokenRepository;
         /// <summary>
         /// 用户登录TOKEN服务
         /// </summary>
         /// <param name="repository"></param>
-        public LoginTokenService(IRepository<LoginToken> repository) : base(repository)
+        public LoginTokenService(IRepository<LoginToken, GardenerMultiTenantDbContextLocator> repository) : base(repository)
         {
             _loginTokenRepository = repository;
         }
@@ -46,12 +47,8 @@ namespace Gardener.Authentication.Services
         [HttpPost]
         public override async Task<PagedList<LoginTokenDto>> Search(PageRequest request)
         {
-            IDynamicFilterService filterService = App.GetService<IDynamicFilterService>();
-            Expression<Func<LoginToken, bool>> expression = filterService.GetExpression<LoginToken>(request.FilterGroups);
-
-            IQueryable<LoginToken> queryable = _loginTokenRepository.AsQueryable(false)
-                .Where(u => u.IsDeleted == false)
-                .Where(expression);
+            IQueryable<LoginToken> queryable = base.GetSearchQueryable(request)
+                .Where(u => u.IsDeleted == false);
             return await queryable
                 .OrderConditions(request.OrderConditions.ToArray())
                 .Select(x => x.Adapt<LoginTokenDto>())

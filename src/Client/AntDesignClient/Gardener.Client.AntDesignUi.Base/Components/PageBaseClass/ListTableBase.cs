@@ -9,19 +9,16 @@ using AntDesign.TableModels;
 using Gardener.Attributes;
 using Gardener.Base;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components.PageBaseClass;
 using Gardener.Client.AntDesignUi.Base.Constants;
-using Gardener.Client.Base;
 using Gardener.Common;
 using Mapster;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Primitives;
 using System.Reflection;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开)
+    /// table列表基类(可以被当作OperationDialog打开)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -31,7 +28,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : TableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
+    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : MultiTenantTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
     {
         /// <summary>
         /// 显示总数
@@ -45,31 +42,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 控制分页每页数量
         /// </summary>
         protected int _pageSize = ClientConstant.pageSize;
-        /// <summary>
-        /// 默认搜索值
-        /// </summary>
-        protected Dictionary<string, object> _defaultSearchValue = new Dictionary<string, object>();
-        /// <summary>
-        /// 搜索条件提供器
-        /// </summary>
-        protected List<Func<List<FilterGroup>?>> _filterGroupProviders = new();
-        /// <summary>
-        /// 确认提示服务
-        /// </summary>
-        [Inject]
-        protected ConfirmService ConfirmService { get; set; } = null!;
-        /// <summary>
-        /// 路由导航服务
-        /// </summary>
-        [Inject]
-        protected NavigationManager Navigation { get; set; } = null!;
-        /// <summary>
-        /// javascript 工具
-        /// </summary>
-        [Inject]
-        protected IJsTool JsTool { get; set; } = null!;
-
-        protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
 
         #region override mothed
         /// <summary>
@@ -78,38 +50,24 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected override Task OnInitializedAsync()
         {
-            //从url加载TableSearch参数
-            var url = new Uri(Navigation.Uri);
-            var query = url.Query;
-            Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
-            if (urlParams != null && urlParams.Count() > 0)
-            {
-                urlParams.ForEach(x =>
-                {
-                    _defaultSearchValue.Add(x.Key, x.Value.ToString());
-                });
-            }
-            //table search 组件提供搜索条件
-            _filterGroupProviders.Add(GetTableSearchFilterGroups);
             return base.OnInitializedAsync();
         }
-
         /// <summary>
         /// 首次渲染后
         /// </summary>
-        bool firstRenderAfter = false;
+        //bool firstRenderAfter = false;
 
         /// <summary>
-        /// 组件首次渲染后
+        /// OnParametersSetAsync
         /// </summary>
         /// <param name="firstRender"></param>
         /// <returns></returns>
-        protected override Task OnFirstAfterRenderAsync()
+        protected override Task OnParametersSetAsync()
         {
-            this.firstRenderAfter = true;
-            return ReLoadTable();
+            //this.firstRenderAfter = true;
+            //await ReLoadTable();
+            return base.OnParametersSetAsync();
         }
-
         #endregion
 
         /// <summary>
@@ -123,16 +81,17 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         /// <summary>
-        /// 重置请求参数
+        /// 获取请求参数
         /// </summary>
+        /// <param name="filterGroups">附加的参数</param>
         /// <returns></returns>
-        protected virtual PageRequest GetPageRequest()
+        protected virtual PageRequest GetPageRequest(List<FilterGroup>? filterGroups = null)
         {
             PageRequest pageRequest = _table?.GetPageRequest() ?? new PageRequest();
-            //如果有搜索条件 就拼接上
-            if (_filterGroupProviders != null && _filterGroupProviders.Any())
+            //如果有搜索条件提供者 就拼接上
+            if (_tableSearchFilterGroupProviders.Any())
             {
-                _filterGroupProviders.ForEach(p =>
+                _tableSearchFilterGroupProviders.ForEach(p =>
                 {
                     var items = p.Invoke();
                     if (items != null)
@@ -140,6 +99,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         pageRequest.FilterGroups.AddRange(items);
                     }
                 });
+            }
+            if (filterGroups != null)
+            {
+                pageRequest.FilterGroups.AddRange(filterGroups);
             }
             ConfigurationPageRequest(pageRequest);
             return pageRequest;
@@ -164,30 +127,40 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
         /// <summary>
         /// 重新加载table
-        /// Todo: 是不是可以叫 ReloadTable
         /// </summary>
         /// <returns></returns>
         protected virtual Task ReLoadTable()
         {
             return ReLoadTable(false);
         }
+        /// <summary>
+        /// 点击TableSearch搜索
+        /// </summary>
+        /// <param name="filterGroups"></param>
+        protected virtual Task OnTableSearch(List<FilterGroup> filterGroups)
+        {
+            return ReLoadTable(true, false);
+        }
 
         /// <summary>
         /// 重新加载table
         /// </summary>
         /// <param name="firstPage">是否从首页加载</param>
+        /// <param name="forceRender">是否强制渲染</param>
+        /// <param name="filterGroups">附加的参数</param>
         /// <returns></returns>
-        protected virtual Task ReLoadTable(bool firstPage)
+        protected virtual Task ReLoadTable(bool firstPage, bool forceRender = false, List<FilterGroup>? filterGroups = null)
         {
             if (firstPage && _pageIndex > 1)
             {
+                //设置页码后会触发OnChange
                 _pageIndex = 1;
                 return Task.CompletedTask;
             }
             else
             {
-                PageRequest pageRequest = GetPageRequest();
-                return ReLoadTable(pageRequest);
+                PageRequest pageRequest = GetPageRequest(filterGroups);
+                return ReLoadTable(pageRequest, forceRender);
             }
 
         }
@@ -196,41 +169,76 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 重新加载table
         /// </summary>
         /// <param name="firstPage">是否从首页加载</param>
+        /// <param name="forceRender">是否强制渲染</param>
         /// <returns></returns>
-        protected virtual async Task ReLoadTable(PageRequest pageRequest)
+        protected virtual async Task ReLoadTable(PageRequest pageRequest, bool forceRender = false)
         {
-            StartLoading();
+            StartTableLoading(forceRender);
             var pagedListResult = await BaseService.Search(pageRequest);
             if (pagedListResult != null)
             {
                 var pagedList = pagedListResult;
-                _datas = pagedList.Items ?? new List<TDto>(0);
+                IEnumerable<TDto> _dataTemps = pagedList.Items ?? new List<TDto>(0);
+                if (_dataTemps.Any())
+                {
+                    //如果有租户数据，装配一下
+                    if (typeof(TDto).IsAssignableTo(typeof(IModelTenant)))
+                    {
+                        foreach (TDto item in _dataTemps)
+                        {
+                            if (item is IModelTenant modelTenant)
+                            {
+                                modelTenant.Tenant = GetTenant(modelTenant.TenantId);
+                            }
+                        }
+                    }
+                }
+
+                PageListDataHadnle(_dataTemps);
                 _total = pagedList.TotalCount;
+                _datas = _dataTemps;
             }
             else
             {
                 MessageService.Error(Localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
             }
-            StopLoading();
-
+            StopTableLoading(forceRender);
         }
+
+        /// <summary>
+        /// 列表接口返回后，对页面列表数据进行处理
+        /// </summary>
+        /// <param name="datas"></param>
+        protected virtual void PageListDataHadnle(IEnumerable<TDto> datas)
+        {
+        }
+
+        private int lastPageIndex = 0;
 
         /// <summary>
         /// table查询变化
         /// </summary>
         /// <param name="queryModel"></param>
         /// <returns></returns>
-        protected virtual Task OnChange(QueryModel<TDto> queryModel)
+        protected virtual async Task OnChange(QueryModel<TDto> queryModel)
         {
-            if (firstRenderAfter)
+            if (lastPageIndex == queryModel.PageIndex)
             {
-                return ReLoadTable();
+                lastPageIndex = queryModel.PageIndex;
+                //不是翻页，回首页
+                await ReLoadTable(true);
             }
-            return Task.CompletedTask;
+            else
+            {
+                lastPageIndex = queryModel.PageIndex;
+                await ReLoadTable(false);
+            }
         }
 
+        #region Fake delete
+
         /// <summary>
-        /// 点击删除按钮(FakeDelete)
+        /// 点击删除按钮(逻辑删除)
         /// </summary>
         /// <param name="id"></param>
         protected virtual async Task OnClickDelete(TKey id)
@@ -258,7 +266,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         /// <summary>
-        /// 点击删除选中按钮
+        /// 点击删除选中按钮(逻辑删除)
         /// </summary>
         protected virtual async Task OnClickDeletes()
         {
@@ -278,11 +286,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         //删除整页，且是最后一页
                         if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
                         {
-                            await ReLoadTable(true);
+                            await ReLoadTable(true, true);
                         }
                         else
                         {
-                            await ReLoadTable(false);
+                            await ReLoadTable(false, true);
                         }
                     }
                     else
@@ -294,8 +302,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 _deletesBtnLoading = false;
             }
         }
+        #endregion
 
         #region True Delete
+        /// <summary>
+        /// 点击删除按钮(物理删除)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         protected virtual async Task OnClickTrueDelete(TKey id)
         {
             if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -319,7 +333,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
 
         }
-
+        /// <summary>
+        /// 点击删除选中按钮(物理删除)
+        /// </summary>
+        /// <returns></returns>
         protected virtual async Task OnClickTrueDeletes()
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
@@ -340,11 +357,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                         //删除整页，且是最后一页
                         if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
                         {
-                            await ReLoadTable(true);
+                            await ReLoadTable(true, true);
                         }
                         else
                         {
-                            await ReLoadTable(false);
+                            await ReLoadTable(false, true);
                         }
                     }
                     else
@@ -471,17 +488,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
             return filterGroups;
         }
-
-        protected virtual Task DoClearSearch()
-        {
-            // TODO: clear search field
-            return ReLoadTable(true);
-        }
-
     }
 
     /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开)
+    /// table列表基类(可以被当作OperationDialog打开)-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -500,7 +510,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// 列表table基类
+    /// 列表table基类-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -514,213 +524,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </remarks>
     public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource>
         where TDto : class, new()
-    {
-    }
-
-    /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
-    /// </summary>
-    /// <typeparam name="TDto"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
-    /// <typeparam name="TOperationDialogInput">操作弹框页输入参数</typeparam>
-    /// <typeparam name="TOperationDialogOutput">操作弹框页输出参数</typeparam>
-    /// <typeparam name="TLocalResource">本地化资源</typeparam>
-    /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
-    /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
-    /// <remarks>
-    /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
-    /// 快递打开操作框，输入 OperationDialogInput_TKey
-    /// 快递打开操作框，输出 OperationDialogOutput_TKey
-    /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TOperationDialogInput, TOperationDialogOutput, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput>
-        where TDto : class, new()
-        where TOperationDialog : OperationDialogBase<TOperationDialogInput, TOperationDialogOutput, TLocalResource>
-        where TLocalResource : SharedLocalResource
-        where TOperationDialogInput : OperationDialogInput<TKey>, new()
-        where TOperationDialogOutput : OperationDialogOutput, new()
-    {
-        /// <summary>
-        /// 点击添加按钮
-        /// </summary>
-        protected virtual async Task OnClickAdd()
-        {
-            TOperationDialogInput input = new TOperationDialogInput() { Type = OperationDialogInputType.Add };
-            if (!await OnClickAddRunBefore(input))
-            {
-                return;
-            }
-            Func<OperationDialogOutput?, Task> onClose = async (result) =>
-            {
-                if (result != null && result.Succeeded)
-                {
-                    //刷新列表
-                    await ReLoadTable(true);
-                }
-                return;
-            };
-
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Add], input, onClose);
-        }
-
-        /// <summary>
-        /// 当点击添加时，执行之前拦截处理
-        /// </summary>
-        /// <param name="input"></param>
-        /// <remarks>
-        /// 可用于处理输入弹框的参数，和拦截弹框弹出
-        /// </remarks>
-        /// <returns></returns>
-        protected virtual Task<bool> OnClickAddRunBefore(TOperationDialogInput input)
-        {
-
-            return Task.FromResult(true);
-        }
-
-        /// <summary>
-        /// 点击编辑按钮
-        /// </summary>
-        /// <param name="model"></param>
-        protected virtual async Task OnClickEdit(TKey id)
-        {
-            TOperationDialogInput input = new TOperationDialogInput() { Type = OperationDialogInputType.Edit, Data = id };
-            if (!await OnClickEditRunBefore(input))
-            {
-                return;
-            }
-            Func<OperationDialogOutput?, Task> onClose = async (result) =>
-            {
-                if (result != null && result.Succeeded)
-                {
-                    //刷新列表
-                    await ReLoadTable(true);
-                }
-                return;
-            };
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Edit], input, onClose);
-        }
-
-        /// <summary>
-        /// 当点击添加时，执行之前拦截处理
-        /// </summary>
-        /// <param name="input"></param>
-        /// <remarks>
-        /// 可用于处理输入弹框的参数，和拦截弹框弹出
-        /// </remarks>
-        /// <returns></returns>
-        protected virtual Task<bool> OnClickEditRunBefore(TOperationDialogInput input)
-        {
-
-            return Task.FromResult(true);
-        }
-
-        /// <summary>
-        /// 点击编辑按钮
-        /// </summary>
-        /// <param name="roleDto"></param>
-        protected virtual async Task OnClickDetail(TKey id)
-        {
-            TOperationDialogInput input = new TOperationDialogInput() { Type = OperationDialogInputType.Select, Data = id };
-            if (!await OnClickDetailRunBefore(input))
-            {
-                return;
-            }
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Detail], input);
-        }
-
-        /// <summary>
-        /// 当点击添加时，执行之前拦截处理
-        /// </summary>
-        /// <param name="input"></param>
-        /// <remarks>
-        /// 可用于处理输入弹框的参数，和拦截弹框弹出
-        /// </remarks>
-        /// <returns></returns>
-        protected virtual Task<bool> OnClickDetailRunBefore(TOperationDialogInput input)
-        {
-
-            return Task.FromResult(true);
-        }
-    }
-
-    /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
-    /// </summary>
-    /// <typeparam name="TDto"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
-    /// <typeparam name="TLocalResource">本地化资源</typeparam>
-    /// <typeparam name="TSelfOperationDialogInput">自身作为OperationDialog接收的参数</typeparam>
-    /// <typeparam name="TSelfOperationDialogOutput">自身作为OperationDialog返回的参数</typeparam>
-    /// <remarks>
-    /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
-    /// 快递打开操作框，输入 OperationDialogInput_TKey
-    /// 快递打开操作框，输出 OperationDialogOutput_TKey
-    /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : ListOperateTableBase<TDto, TKey, TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput>
-        where TDto : class, new()
-        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
-        where TLocalResource : SharedLocalResource
-    {
-
-
-        /// <summary>
-        /// 打开操作对话框
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="input"></param>
-        /// <param name="onClose"></param>
-        /// <param name="operationDialogSettings "></param>
-        /// <returns></returns>
-        protected Task OpenOperationDialogAsync(string title, OperationDialogInput<TKey> input, Func<OperationDialogOutput<TKey>?, Task>? onClose = null, OperationDialogSettings? operationDialogSettings = null)
-        {
-            OperationDialogSettings settings = operationDialogSettings ?? GetOperationDialogSettings();
-            return OpenOperationDialogAsync<TOperationDialog, OperationDialogInput<TKey>, OperationDialogOutput<TKey>>(title, input, onClose, settings);
-        }
-    }
-
-    /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
-    /// </summary>
-    /// <typeparam name="TDto"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
-    /// <typeparam name="TLocalResource">本地化资源</typeparam>
-    /// <remarks>
-    /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
-    /// 快递打开操作框，输入 OperationDialogInput_TKey
-    /// 快递打开操作框，输出 OperationDialogOutput_TKey
-    /// 
-    /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
-    /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
-    /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
-    /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource> : ListOperateTableBase<TDto, TKey, TOperationDialog, TLocalResource, TKey, bool>
-        where TDto : class, new()
-        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource>
-        where TLocalResource : SharedLocalResource
-    {
-    }
-
-    /// <summary>
-    /// table列表基类(可以被当作OperationDialog打开，也能快速打开其它操作框)
-    /// </summary>
-    /// <typeparam name="TDto"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
-    /// <remarks>
-    /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
-    /// 本地化资源，默认使用<see cref="SharedLocalResource"/>
-    /// 快递打开操作框，输入 OperationDialogInput_TKey
-    /// 快递打开操作框，输出 OperationDialogOutput_TKey
-    /// 
-    /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
-    /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
-    /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
-    /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResource>
-        where TDto : class, new()
-        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource>
     {
     }
 }

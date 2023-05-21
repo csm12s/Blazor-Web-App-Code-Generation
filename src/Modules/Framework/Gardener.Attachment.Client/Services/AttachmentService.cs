@@ -12,7 +12,6 @@ using Gardener.Client.Base;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.Threading.Tasks;
 
 namespace Gardener.Attachment.Client.Services

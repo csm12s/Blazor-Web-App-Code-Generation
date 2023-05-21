@@ -153,4 +153,7 @@
   <data name="RefreshCodeUtilCache" xml:space="preserve">
     <value>Refresh code util cache</value>
   </data>
+  <data name="SupportMultiTenant" xml:space="preserve">
+    <value>Support multi tenant</value>
+  </data>
 </root>

@@ -19,10 +19,10 @@ namespace Gardener.UserCenter.Client.Pages.PositionView
         private IEnumerable<CodeDto>? grades;
         protected override async Task OnInitializedAsync()
         {
-            StartLoading();
+            await StartLoading();
             await base.OnInitializedAsync();
             grades= CodeUtil.GetCodesFromCache<PositionDto>(() => _editModel.Grade);
-            StopLoading();
+            await StopLoading();
         }
 
     }

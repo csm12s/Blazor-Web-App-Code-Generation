@@ -8,10 +8,8 @@ using Furion.DatabaseAccessor;
 using System.ComponentModel;
 using Gardener.Base.Entity;
 using Furion.DependencyInjection;
-using Gardener.Authentication.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Gardener.Authentication.Dtos;
 
 namespace Gardener.Base
 {
@@ -112,13 +110,20 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfoNoKey : EntityBaseInfoNoKey, IModelTenantId
+    public abstract class TenantEntityBaseInfoNoKey : EntityBaseInfoNoKey, IModelTenant
     {
         /// <summary>
         /// 租户编号
         /// </summary>
         [DisplayName("租户编号")]
         public virtual Guid? TenantId { get; set; }
+
+        /// <summary>
+        /// 租户
+        /// </summary>
+        [DisplayName("Tenant")]
+        [NotMapped]
+        public virtual ITenant? Tenant { get; set; }
     }
     /// <summary>
     /// 多租户空Entity基础信息
@@ -127,13 +132,20 @@ namespace Gardener.Base
     /// 基础此类只能继承属性和字段，还需实现 IDBEntityBase 接口
     /// </remarks>
     [SuppressSniffer]
-    public abstract class TenantEntityBaseInfoNoKeyAndEmpty : IModelTenantId
+    public abstract class TenantEntityBaseInfoNoKeyAndEmpty : IModelTenant
     {
         /// <summary>
         /// 租户编号
         /// </summary>
         [DisplayName("租户编号")]
         public virtual Guid? TenantId { get; set; }
+
+        /// <summary>
+        /// 租户
+        /// </summary>
+        [DisplayName("Tenant")]
+        [NotMapped]
+        public virtual ITenant? Tenant { get; set; }
     }
     /// <summary>
     /// 多租户一个主键的Entity基础信息

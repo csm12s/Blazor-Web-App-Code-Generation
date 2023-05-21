@@ -11,6 +11,7 @@ using Furion.FriendlyException;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;
+using Gardener.Base.Entity;
 using Gardener.Common;
 using Gardener.NotificationSystem.Core;
 using Gardener.UserCenter.Dtos;
@@ -21,10 +22,8 @@ using Gardener.WoChat.Dtos.Notification;
 using Gardener.WoChat.Enums;
 using Gardener.WoChat.Impl.Core;
 using Mapster;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Gardener.WoChat.Services
 {
@@ -35,9 +34,9 @@ namespace Gardener.WoChat.Services
     public class WoChatImService : IWoChatImService, IDynamicApiController, IScoped
     {
         private readonly IAuthorizationService authorizationService;
-        private readonly IRepository<ImSession> imSessionRepository;
-        private readonly IRepository<ImSessionMessage> imSessionMessageRepository;
-        private readonly IRepository<ImUserSession> imUserSessionRepository;
+        private readonly IRepository<ImSession, GardenerMultiTenantDbContextLocator> imSessionRepository;
+        private readonly IRepository<ImSessionMessage, GardenerMultiTenantDbContextLocator> imSessionMessageRepository;
+        private readonly IRepository<ImUserSession, GardenerMultiTenantDbContextLocator> imUserSessionRepository;
         private readonly ISystemNotificationService systemNotificationService;
         private readonly IUserService userService;
         /// <summary>
@@ -49,7 +48,7 @@ namespace Gardener.WoChat.Services
         /// <param name="imUserSessionRepository"></param>
         /// <param name="systemNotificationService"></param>
         /// <param name="userService"></param>
-        public WoChatImService(IAuthorizationService authorizationService, IRepository<ImSession> imSessionRepository, IRepository<ImSessionMessage> imSessionMessageRepository, IRepository<ImUserSession> imUserSessionRepository, ISystemNotificationService systemNotificationService, IUserService userService)
+        public WoChatImService(IAuthorizationService authorizationService, IRepository<ImSession, GardenerMultiTenantDbContextLocator> imSessionRepository, IRepository<ImSessionMessage, GardenerMultiTenantDbContextLocator> imSessionMessageRepository, IRepository<ImUserSession, GardenerMultiTenantDbContextLocator> imUserSessionRepository, ISystemNotificationService systemNotificationService, IUserService userService)
         {
             this.authorizationService = authorizationService;
             this.imSessionRepository = imSessionRepository;

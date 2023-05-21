@@ -4,12 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.EntityFramwork.Audit.Domains;
+using Gardener.Base.Entity.Domains;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Gardener.EntityFramwork.Audit.Core
+namespace Gardener.EntityFramwork.EFAudit
 {
     /// <summary>
     /// Orm审计服务接口

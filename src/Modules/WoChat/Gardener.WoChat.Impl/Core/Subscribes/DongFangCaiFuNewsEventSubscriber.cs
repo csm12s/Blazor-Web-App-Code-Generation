@@ -4,13 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.EventBus;
 using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
-using Gardener.Base.Entity;
 using Gardener.EventBus;
 using Gardener.SysTimer.Dtos;
 using Gardener.WoChat.Domains;

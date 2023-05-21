@@ -6,9 +6,9 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Audit.Dtos;
+using Gardener.Audit.Services;
+using Gardener.Base.Entity.Domains;
 using Gardener.EntityFramwork;
-using Gardener.EntityFramwork.Audit.Domains;
-using Gardener.EntityFramwork.DbContexts;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,21 +17,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.Audit.Services
+namespace Gardener.Base.Entity
 {
     /// <summary>
     /// 审计操作服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class AuditOperationService : ServiceBase<AuditOperation, AuditOperationDto, Guid, GardenerAuditDbContextLocator>, IAuditOperationService
+    public class AuditOperationService : ServiceBase<AuditOperation, AuditOperationDto, Guid, GardenerMultiTenantDbContextLocator>, IAuditOperationService
     {
-        private readonly IRepository<AuditEntity, GardenerAuditDbContextLocator> _auditEntityRepository;
+        private readonly IRepository<AuditEntity, GardenerMultiTenantDbContextLocator> _auditEntityRepository;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="auditEntityRepository"></param>
-        public AuditOperationService(IRepository<AuditOperation, GardenerAuditDbContextLocator> repository, IRepository<AuditEntity, GardenerAuditDbContextLocator> auditEntityRepository) : base(repository)
+        public AuditOperationService(IRepository<AuditOperation, GardenerMultiTenantDbContextLocator> repository, IRepository<AuditEntity, GardenerMultiTenantDbContextLocator> auditEntityRepository) : base(repository)
         {
             _auditEntityRepository = auditEntityRepository;
         }

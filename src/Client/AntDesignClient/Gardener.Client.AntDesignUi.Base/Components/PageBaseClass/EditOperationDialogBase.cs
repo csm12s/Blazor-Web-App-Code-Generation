@@ -9,6 +9,7 @@ using Gardener.Base;
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
+using Gardener.UserCenter.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -16,7 +17,7 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     /// <summary>
-    /// 编辑，详情弹框
+    /// 编辑，详情弹框-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -37,20 +38,41 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected ConfirmService ConfirmService { get; set; } = null!;
         [Inject]
         protected DrawerService DrawerService { get; set; } = null!;
-
+        /// <summary>
+        /// 租户服务    
+        /// </summary>
+        [Inject]
+        protected ITenantService tenantService { get; set; } = null!;
+        /// <summary>
+        /// 身份状态管理
+        /// </summary>
+        [Inject]
+        protected IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         /// <summary>
         /// 当前正在编辑的对象
         /// </summary>
         protected TDto _editModel = new();
+
         /// <summary>
-        /// 页面初始化
+        /// 租户列表
+        /// </summary>
+        protected IEnumerable<SystemTenantDto>? _tenants { get; set; }
+
+        /// <summary>
+        /// 加载当前数据<see cref="EditOperationDialogBase{TDto, TKey, TLocalResource, TOperationDialogInput, TOperationDialogOutput}.LoadEditModelData"/>
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            StartLoading();
-            await LoadEditModelData();
-            StopLoading();
+            await StartLoading();
+            var task1 = LoadEditModelData();
+            if (!IsTenant())
+            {
+                await LocadTenants();
+            }
+            await task1;
+            await base.OnInitializedAsync();
+            await StopLoading();
         }
         /// <summary>
         /// 加载编辑对象数据
@@ -78,14 +100,34 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
             }
         }
+
+        /// <summary>
+        /// 加载租户数据
+        /// </summary>
+        /// <returns></returns>
+        protected async Task LocadTenants()
+        {
+            _tenants = await tenantService.GetAll();
+
+        }
+        /// <summary>
+        /// 是否是租户
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool IsTenant()
+        {
+            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
+            return isTenant;
+        }
+
         /// <summary>
         /// 取消
         /// </summary>
-        protected virtual async Task OnFormCancel()
+        protected virtual Task OnFormCancel()
         {
             TOperationDialogOutput operationDialogOutput = new TOperationDialogOutput();
             operationDialogOutput.IsCancel();
-            await CloseAsync(operationDialogOutput);
+            return CloseAsync(operationDialogOutput);
         }
         /// <summary>
         /// 表单完成时
@@ -94,7 +136,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual async Task OnFormFinish(EditContext editContext)
         {
-            StartLoading();
+            await StartLoading();
             var operationDialogOutput = new OperationDialogOutput<TKey>();
             //开始请求
             if (this.Options.Type.Equals(OperationDialogInputType.Add))
@@ -128,7 +170,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     MessageService.Error(Localizer.Combination(SharedLocalResource.Edit, SharedLocalResource.Fail));
                 }
             }
-            StopLoading();
+            await StopLoading();
         }
         /// <summary>
         /// 获取主键
@@ -149,7 +191,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// 编辑，详情弹框
+    /// 编辑，详情弹框-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
@@ -170,7 +212,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     }
 
     /// <summary>
-    /// 编辑，详情弹框
+    /// 编辑，详情弹框-支持多租户
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>

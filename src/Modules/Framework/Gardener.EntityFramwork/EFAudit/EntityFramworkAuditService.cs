@@ -4,13 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
+using Gardener.Authentication.Core;
 using Gardener.Authentication.Enums;
-using Gardener.Authorization.Core;
+using Gardener.Base.Entity.Domains;
 using Gardener.Common;
-using Gardener.EntityFramwork.Audit.Domains;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -21,32 +20,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Gardener.EntityFramwork.Audit.Core
+namespace Gardener.EntityFramwork.EFAudit
 {
     /// <summary>
     /// 当前请求的审计数据管理
     /// </summary>
-    public class EntityFramworkAuditService<TDbContextLocator> : IOrmAuditService where TDbContextLocator:class, IDbContextLocator
+    public class EntityFramworkAuditService<TDbContextLocator> : IOrmAuditService where TDbContextLocator : class, IDbContextLocator
     {
         private readonly ILogger<EntityFramworkAuditService<TDbContextLocator>> _logger;
         private readonly IRepository<AuditOperation, TDbContextLocator> _auditOperationRepository;
         private readonly IRepository<AuditEntity, TDbContextLocator> _auditEntityRepository;
+        private readonly IIdentityService _identityService;
         private AuditOperation? _auditOperation;
         private List<AuditEntity>? _auditEntitys;
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="auditOperationRepository"></param>
         /// <param name="auditEntityRepository"></param>
+        /// <param name="identityService"></param>
         public EntityFramworkAuditService(ILogger<EntityFramworkAuditService<TDbContextLocator>> logger,
             IRepository<AuditOperation, TDbContextLocator> auditOperationRepository,
-            IRepository<AuditEntity, TDbContextLocator> auditEntityRepository)
+            IRepository<AuditEntity, TDbContextLocator> auditEntityRepository,
+            IIdentityService identityService)
         {
             _logger = logger;
             _auditOperationRepository = auditOperationRepository;
             _auditEntityRepository = auditEntityRepository;
+            _identityService = identityService;
         }
         /// <summary>
         /// 保存操作审计
@@ -59,11 +62,11 @@ namespace Gardener.EntityFramwork.Audit.Core
             _auditOperation = auditOperation;
             try
             {
-               await _auditOperationRepository.InsertNowAsync(auditOperation);
+                await _auditOperationRepository.InsertNowAsync(auditOperation);
             }
             catch (Exception ex)
             {
-               _logger.LogError(ex, "操作审计写入数据库异常");
+                _logger.LogError(ex, "操作审计写入数据库异常");
             }
         }
 
@@ -75,15 +78,16 @@ namespace Gardener.EntityFramwork.Audit.Core
         private void SaveAuditEntitys(List<AuditEntity> auditEntitys)
         {
             if (auditEntitys == null) return;
-            if (this._auditOperation != null) 
+            if (_auditOperation != null)
             {
-                auditEntitys.ForEach(x => {
+                auditEntitys.ForEach(x =>
+                {
                     x.OperationId = _auditOperation.Id;
                 });
             }
             try
             {
-               _auditEntityRepository.InsertNow(auditEntitys);
+                _auditEntityRepository.InsertNow(auditEntitys);
             }
             catch (Exception ex)
             {
@@ -98,17 +102,17 @@ namespace Gardener.EntityFramwork.Audit.Core
         {
             try
             {
-                if (entitys == null || !entitys.Any()) 
+                if (entitys == null || !entitys.Any())
                 {
                     return;
                 }
                 // 获取当前事件对应上下文
                 // 获取所有实体  
                 entitys = entitys.Where(w =>
-               (w.State == EntityState.Added || w.State == EntityState.Modified || w.State == EntityState.Deleted)
+               w.State == EntityState.Added || w.State == EntityState.Modified || w.State == EntityState.Deleted
                 );
                 if (!entitys.Any()) return;
-                var user = App.GetService<IAuthorizationService>().GetIdentity();
+                var user = _identityService.GetIdentity();
                 List<AuditEntity> auditEntities = new List<AuditEntity>();
                 foreach (var entity in entitys)
                 {
@@ -119,16 +123,21 @@ namespace Gardener.EntityFramwork.Audit.Core
                     if (entityType.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) { continue; }
                     // 获取实体当前的值
                     PropertyValues currentValues = entity.CurrentValues;
-                    AuditEntity auditEntity = new AuditEntity();
-                    auditEntity.TypeName = entityType.FullName ?? string.Empty;
-                    auditEntity.Name = entityType.GetDescription() ?? string.Empty;
-                    auditEntity.OperaterId = user != null ? user.Id.ToString() : string.Empty;
-                    auditEntity.OperaterName = user != null ? (user.NickName ?? user.Name) : string.Empty;
-                    auditEntity.OperaterType = user != null ? user.IdentityType : IdentityType.Unknown;
-                    auditEntity.OperationId = Guid.NewGuid();
-                    auditEntity.CurrentValues = currentValues;
-                    auditEntity.OldValues = entity.GetDatabaseValues();
-                    auditEntity.CreatedTime = DateTimeOffset.Now;
+                    AuditEntity auditEntity = new AuditEntity()
+                    {
+                        TypeName = entityType.FullName ?? string.Empty,
+                        Name = entityType.GetDescription() ?? string.Empty,
+                        OperaterId = user != null ? user.Id.ToString() : string.Empty,
+                        OperaterName = user != null ? user.NickName ?? user.Name : string.Empty,
+                        OperaterType = user != null ? user.IdentityType : IdentityType.Unknown,
+                        OperationId = Guid.NewGuid(),
+                        CurrentValues = currentValues,
+                        OldValues = entity.GetDatabaseValues(),
+                        CreatedTime = DateTimeOffset.Now,
+                        CreateBy = user?.Id,
+                        CreateIdentityType = user?.IdentityType,
+                        TenantId = user?.TenantId
+                    };
                     switch (entity.State)
                     {
                         case EntityState.Modified: auditEntity.OperationType = EntityOperateType.Update; break;
@@ -138,17 +147,17 @@ namespace Gardener.EntityFramwork.Audit.Core
                     //记录下变化的实体
                     auditEntities.Add(auditEntity);
                 }
-                this._auditEntitys = auditEntities;
+                _auditEntitys = auditEntities;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "审计日志异常");
             }
         }
-       /// <summary>
-       /// 保存实体审计数据
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// 保存实体审计数据
+        /// </summary>
+        /// <returns></returns>
         public Task SavedChangesEvent()
         {
             try
@@ -160,6 +169,16 @@ namespace Gardener.EntityFramwork.Audit.Core
                         var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
                         entity.DataId = string.Join(',', pkValues);
                         entity.AuditProperties = auditProperties;
+                        if (auditProperties != null)
+                        {
+                            foreach (AuditProperty property in auditProperties)
+                            {
+                                property.CreateBy = entity.CreateBy;
+                                property.CreateIdentityType = entity.CreateIdentityType;
+                                property.TenantId = entity.TenantId;
+                                property.CreatedTime = DateTimeOffset.Now;
+                            }
+                        }
                     }
                     SaveAuditEntitys(_auditEntitys);
                 }
@@ -190,7 +209,7 @@ namespace Gardener.EntityFramwork.Audit.Core
             foreach (var prop in props)
             {
                 //不需要审计
-                if (prop.PropertyInfo==null || prop.PropertyInfo.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) continue;
+                if (prop.PropertyInfo == null || prop.PropertyInfo.CustomAttributes.Any(x => x.AttributeType.Equals(typeof(IgnoreAuditAttribute)))) continue;
                 // 获取属性值
                 string propName = prop.Name;
                 // 获取属性当前的值
@@ -211,7 +230,7 @@ namespace Gardener.EntityFramwork.Audit.Core
                     {
                         pkValues.Add(newValue);
                     }
-                    else if(oldValue != null)
+                    else if (oldValue != null)
                     {
                         pkValues.Add(oldValue);
                     }
@@ -220,9 +239,9 @@ namespace Gardener.EntityFramwork.Audit.Core
                 //更新的话需对比到底有没有变化
                 if (operationType.Equals(EntityOperateType.Update) &&
                         (
-                            (newValue == null && oldValue == null)
+                            newValue == null && oldValue == null
                             ||
-                            (newValue != null && newValue.Equals(oldValue))
+                            newValue != null && newValue.Equals(oldValue)
                         )
                     ) continue;
                 var property = new AuditProperty()
@@ -255,7 +274,7 @@ namespace Gardener.EntityFramwork.Audit.Core
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private string? ValueToString(Object? value)
+        private string? ValueToString(object? value)
         {
             if (value == null) return null;
             if (value is DateTime)

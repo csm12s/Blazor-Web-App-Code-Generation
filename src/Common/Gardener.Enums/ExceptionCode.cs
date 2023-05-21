@@ -139,5 +139,10 @@ namespace Gardener.Enums
         /// </summary>
         [Description("未找到数据")]
         Data_Not_Find,
+        /// <summary>
+        /// 没有权限修改这个数据
+        /// </summary>
+        [Description("没有权限修改这个数据")]
+        No_Permission_Modify_The_Data
     }
 }

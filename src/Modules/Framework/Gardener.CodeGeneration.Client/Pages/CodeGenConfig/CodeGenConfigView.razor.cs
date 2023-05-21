@@ -14,9 +14,9 @@ namespace Gardener.CodeGeneration.Client.Pages.CodeGenConfig;
 public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, CodeGenLocalResource>
 {
     [Inject]
-    private ICodeGenService codeGenService { get; set; }
+    private ICodeGenService codeGenService { get; set; } = null!;
     [Inject]
-    private ICodeGenConfigService codeGenConfigClientService { get; set; }
+    private ICodeGenConfigService codeGenConfigClientService { get; set; } = null!;
 
     private Guid _codeGenId { get; set; }
 
@@ -25,7 +25,7 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
 
     protected bool _saveAllBtnLoading = false;
 
-    private TableSearch<CodeGenConfigSearchDto> codeGenConfigSearchDtoTableSearch;
+    private TableSearch<CodeGenConfigSearchDto>? codeGenConfigSearchDtoTableSearch;
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,7 +38,7 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         //{
         //    _hideEntityFromTableFields = false;
         //}
-        this._filterGroupProviders.Add(() => { return codeGenConfigSearchDtoTableSearch?.GetFilterGroups(); });
+        this._tableSearchFilterGroupProviders.Add(() => { return codeGenConfigSearchDtoTableSearch?.GetFilterGroups(); });
         await ReLoadTable(true);
         await base.OnInitializedAsync();
     }
@@ -57,49 +57,51 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
         _saveAllBtnLoading = true;
 
         // TODO: 这里_datas是单页的数据，有没有选项设成所有数据
-        var listDto = _datas.ToList();
+        var listDto = _datas?.ToList();
 
         #region Handle data
         // TODO：后端SaveAll报错, 这里应该由后端处理，减轻前端的负担
-        foreach (var item in listDto)
+        if (listDto != null)
         {
-            var oldConfig = await codeGenConfigClientService.Get(item.Id);
-
-            // IsRequired is changed
-            if (item.IsRequired != oldConfig.IsRequired)
+            foreach (var item in listDto)
             {
-                //必填项不可为Null
-                if (item.IsRequired) // 改为必填
-                {
-                    item.IsNullable = false;
-                    item.NetType = item.NetType.Replace("?", "");
-                }
-                else // 改为非必填
-                {
-                    if (!item.IsPrimaryKey)
-                    {
-                        item.IsNullable = true;
+                var oldConfig = await codeGenConfigClientService.Get(item.Id);
 
-                        if (!item.NetType.Contains("?"))
+                // IsRequired is changed
+                if (item.IsRequired != oldConfig.IsRequired)
+                {
+                    //必填项不可为Null
+                    if (item.IsRequired) // 改为必填
+                    {
+                        item.IsNullable = false;
+                        item.NetType = item.NetType.Replace("?", "");
+                    }
+                    else // 改为非必填
+                    {
+                        if (!item.IsPrimaryKey)
                         {
-                            item.NetType += "?";
+                            item.IsNullable = true;
+
+                            if (!item.NetType.Contains("?"))
+                            {
+                                item.NetType += "?";
+                            }
                         }
                     }
                 }
             }
-        }
-        #endregion
+            #endregion
 
-        var success = await codeGenConfigClientService.SaveAll(listDto);
-        if (success)
-        {
-            MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save,CodeGenLocalResource.Success));
+            var success = await codeGenConfigClientService.SaveAll(listDto);
+            if (success)
+            {
+                MessageService.Success(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Success));
+            }
+            else
+            {
+                MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
+            }
         }
-        else
-        {
-            MessageService.Error(Localizer.Combination(CodeGenLocalResource.Save, CodeGenLocalResource.Fail));
-        }
-
         _saveAllBtnLoading = false;
     }
 
@@ -107,6 +109,10 @@ public partial class CodeGenConfigView : ListTableBase<CodeGenConfigDto, Guid, C
     {
         _saveAllBtnLoading = true;
 
+        if (_datas == null)
+        {
+            return;
+        }
         var success = await codeGenConfigClientService.SaveAll(_datas.ToList());
         if (success)
         {

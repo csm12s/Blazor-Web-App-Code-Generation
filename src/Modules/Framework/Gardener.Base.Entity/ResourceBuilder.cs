@@ -42,10 +42,8 @@ namespace Gardener.Base.Entity
         {
             return new[]
             {
-                new Resource() {
-                    Name="后台根节点",Key="admin_root",Remark="根根节点不能删除，不能改变类型！！。",Path="",Icon="apartment",Order=0,Type=Enum.Parse<ResourceType>("Root"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:13:50"),Id=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868")},
-                new Resource() {
-                    Name="前台根节点",Key="front_root",Remark="根根节点不能删除，不能改变类型！！。",Path="",Icon="apartment",Order=1,Type=Enum.Parse<ResourceType>("Root"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:15:50"),Id=Guid.Parse("f4239a53-b5e1-49bd-99c6-967a86f07cdc")},
+                new Resource() {SupportMultiTenant=true,Name="后台根节点",Key="admin_root",Remark="根根节点不能删除，不能改变类型！！。",Path="",Icon="apartment",Order=0,Type=Enum.Parse<ResourceType>("Root"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:13:50"),Id=Guid.Parse("3c124d95-dd76-4903-b240-a4fe4df93868")},
+                new Resource() {SupportMultiTenant=true,Name="前台根节点",Key="front_root",Remark="根根节点不能删除，不能改变类型！！。",Path="",Icon="apartment",Order=1,Type=Enum.Parse<ResourceType>("Root"),IsLocked=false,IsDeleted=false,CreateIdentityType=Enum.Parse<IdentityType>("Unknown"),CreatedTime=DateTimeOffset.Parse("2022-08-16 07:15:50"),Id=Guid.Parse("f4239a53-b5e1-49bd-99c6-967a86f07cdc")},
             };
         }
     }

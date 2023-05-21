@@ -9,8 +9,8 @@ using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Authorization.Core;
 using Gardener.Authorization.Dtos;
-using Gardener.EntityFramwork.Audit.Core;
-using Gardener.EntityFramwork.Audit.Domains;
+using Gardener.Base.Entity.Domains;
+using Gardener.EntityFramwork.EFAudit;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -97,7 +97,10 @@ namespace Gardener.Audit.Core
                 OperaterName = identity != null ? (identity.NickName ?? identity.Name) : null,
                 OperaterType = identity != null ? identity.IdentityType : IdentityType.Unknown,
                 ResourceId = api != null ? api.Id : Guid.Empty,
-                ResourceName = api != null ? $"{api.Service}:{api.Summary}-{api.Description}" : null
+                ResourceName = api != null ? $"{api.Service}:{api.Summary}-{api.Description}" : null,
+                CreateBy=identity?.Id,
+                CreateIdentityType=identity?.IdentityType,
+                TenantId = identity?.TenantId,
             };
             await auditService.SaveAuditOperation(auditOperation);
             await next();

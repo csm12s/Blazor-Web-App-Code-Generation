@@ -4,7 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,6 +17,8 @@ namespace Gardener.Client.Base.Components
     public class ClientListBindValue<Tkey, TValue> where Tkey : notnull
     {
         private readonly TValue _defaultValue;
+        private readonly Func<Tkey, TValue?>? _defaultValueProvider;
+
         /// <summary>
         /// values
         /// </summary>
@@ -26,10 +28,21 @@ namespace Gardener.Client.Base.Components
         /// 客户端列表绑定-应用于列表
         /// </summary>
         /// <param name="defaultValue">默认值</param>
+        /// <param name="_defaultValueProvider">默认值提供者</param>
+        public ClientListBindValue(TValue defaultValue, Func<Tkey, TValue?> _defaultValueProvider)
+        {
+            this._defaultValue = defaultValue;
+            this._defaultValueProvider = _defaultValueProvider;
+        }
+        /// <summary>
+        /// 客户端列表绑定-应用于列表
+        /// </summary>
+        /// <param name="defaultValue">默认值</param>
         public ClientListBindValue(TValue defaultValue)
         {
             this._defaultValue = defaultValue;
         }
+        
         /// <summary>
         /// 获取
         /// </summary>
@@ -50,7 +63,8 @@ namespace Gardener.Client.Base.Components
         {
             if (!_values.ContainsKey(key))
             {
-                _values.Add(key, _defaultValue);
+                TValue? defaultValue = _defaultValueProvider==null? _defaultValue: _defaultValueProvider.Invoke(key);
+                _values.Add(key, defaultValue ?? _defaultValue);
             }
             return _values[key];
         }

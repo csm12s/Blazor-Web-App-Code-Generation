@@ -15,7 +15,7 @@ namespace Gardener.Authentication.Dtos
     /// 用户Token信息
     /// </summary>
     [Description("用户Token信息")]
-    public class LoginTokenDto : BaseDto<Guid>
+    public class LoginTokenDto : TenantBaseDto<Guid>
     {
         /// <summary>
         /// 身份编号

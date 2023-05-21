@@ -266,20 +266,31 @@ public abstract class BaseService
     /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
     /// </summary>
     /// <returns></returns>
-    public virtual async Task<List<TEntity>> GetAllUsableAsync()
+    public virtual async Task<List<TEntity>> GetAllUsableAsync(Guid? tenantId = null)
     {
-        System.Text.StringBuilder where = new StringBuilder();
+        var paramList = new List<object>();
+        StringBuilder where = new();
         where.Append(" 1==1 ");
-        //判断是否有IsDelete、IsLock
-        if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsDeleted)))
+        //判断是否有IsDelete
+        Type type = typeof(TEntity);
+        if (type.IsAssignableTo(typeof(IModelDeleted)))
         {
-            where.Append($"and {nameof(GardenerEntityBase.IsDeleted)}==false ");
+            where.Append($" &&  {nameof(IModelDeleted.IsDeleted)} == @{paramList.Count}");
+            paramList.Add(false);
         }
-        if (typeof(TEntity).ExistsProperty(nameof(GardenerEntityBase.IsLocked)))
+        //判断是否有IsLock
+        if (type.IsAssignableTo(typeof(IModelLocked)))
         {
-            where.Append($"and {nameof(GardenerEntityBase.IsLocked)}==false ");
+            where.Append($" &&  {nameof(IModelLocked.IsLocked)} == @{paramList.Count}");
+            paramList.Add(false);
         }
-        var persons = GetReadableRepository().AsQueryable().Where(where.ToString()).Select(x => x);
+        //租户
+        if (type.IsAssignableTo(typeof(IModelTenantId)) && tenantId != null)
+        {
+            where.Append($" &&  {nameof(IModelTenantId.TenantId)}.Equals(@{paramList.Count})");
+            paramList.Add(tenantId);
+        }
+        var persons = GetReadableRepository().AsQueryable().Where(where.ToString(), paramList.ToArray()).Select(x => x);
         return await persons.ToListAsync();
     }
 

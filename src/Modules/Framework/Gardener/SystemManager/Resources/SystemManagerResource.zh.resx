@@ -153,4 +153,7 @@
   <data name="RefreshCodeUtilCache" xml:space="preserve">
     <value>刷新字典工具缓存</value>
   </data>
+  <data name="SupportMultiTenant" xml:space="preserve">
+    <value>支持多租户</value>
+  </data>
 </root>

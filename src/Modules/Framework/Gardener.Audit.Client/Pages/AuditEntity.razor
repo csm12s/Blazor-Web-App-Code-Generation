@@ -13,7 +13,7 @@
            Context="model">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_audit_entity_refresh">
-                <TableSearch TDto="AuditEntityDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue"></TableSearch>
+                <TableSearch TDto="AuditEntityDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
              </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
@@ -44,9 +44,10 @@
             </Row>
         </TitleTemplate>
         <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
+            <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_audit_entity_delete_selected"]" />
+             <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+                 <span>@model.Tenant?.Name</span>
+             </Column>
             <Column @bind-Field="@model.OperaterId" Filterable />
             <Column @bind-Field="@model.OperaterName" Filterable />
             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">

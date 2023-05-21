@@ -1,5 +1,4 @@
 ﻿using AntDesign;
-using AntDesign.Core.Extensions;
 using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
 using Gardener.Attachment.Services;
@@ -19,9 +18,6 @@ using Gardener.WoChat.Resources;
 using Gardener.WoChat.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Runtime.CompilerServices;
 
 namespace Gardener.WoChat.Client.Components
 {

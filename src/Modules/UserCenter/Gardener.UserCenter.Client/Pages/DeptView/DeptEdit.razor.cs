@@ -47,7 +47,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            base.StartLoading();
+            await base.StartLoading();
             var task1 = deptService.GetTree();
             await base.OnInitializedAsync();
             deptDatas = await task1;
@@ -57,7 +57,7 @@ namespace Gardener.UserCenter.Client.Pages.DeptView
             {
                 _editModel.ParentId = editInput.Data == 0 ? null : editInput.Data;
             }
-            base.StopLoading();
+            await base.StopLoading(true);
         }
 
     }

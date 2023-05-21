@@ -14,6 +14,8 @@ using Gardener.Client.Base.Components;
 using Gardener.Client.Base.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -48,6 +50,30 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         protected ClientLoading _tableLoading = new ClientLoading();
 
         /// <summary>
+        /// 页面是否首次加载完成
+        /// </summary>
+        protected bool _pageFirstLoaded = false;
+
+        /// <summary>
+        /// TableSearch搜索条件提供器
+        /// </summary>
+        protected List<Func<List<FilterGroup>?>> _tableSearchFilterGroupProviders = new();
+
+        #region TableSearch
+        /// <summary>
+        /// 搜索组件
+        /// </summary>
+        protected TableSearch<TDto>? _tableSearch;
+
+        /// <summary>
+        /// 搜索组件设置
+        /// </summary>
+        protected TableSearchSettings _tableSearchSettings = new TableSearchSettings();
+
+        protected string searchInputStyle = $"margin-right:8px;margin-bottom:2px;width:100px";
+        #endregion
+
+        /// <summary>
         /// 多选删除按钮加载中控制
         /// </summary>
         protected bool _deletesBtnLoading = false;
@@ -61,11 +87,51 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 锁定按钮加载中
         /// </summary>
         protected ClientMultiLoading _lockBtnLoading = new ClientMultiLoading(false);
-        /// <summary>
-        /// 搜索组件
-        /// </summary>
-        protected TableSearch<TDto>? tableSearch;
 
+        /// <summary>
+        /// 用户在当前页面使用该资源是否越权-用于绑定式判断资源权限
+        /// <para>true 越权</para> 
+        /// <para>false 不越权</para> 
+        /// </summary>
+        /// <remarks>
+        /// 方便列表中组件显示隐藏绑定
+        /// 在组件参数设置后（OnParametersSet）才有效
+        /// <para>使用方式<code>_userUnauthorizedResources[ResourceKey]</code></para> 
+        /// </remarks>
+        protected ClientListBindValue<string, bool> _userUnauthorizedResources = new ClientListBindValue<string, bool>(true);
+        /// <summary>
+        /// 用户在当前页面使用该资源是否可以-用于绑定式判断资源权限
+        /// <para>true 可以</para> 
+        /// <para>false 不可</para> 
+        /// </summary>
+        /// <remarks>
+        /// 方便列表中组件显示隐藏绑定
+        /// 在组件参数设置后（OnParametersSet）才有效
+        /// <para>使用方式<code>_userAuthorizedResources[ResourceKey]</code></para> 
+        /// </remarks>
+        protected ClientListBindValue<string, bool> _userAuthorizedResources = new ClientListBindValue<string, bool>(false);
+
+        #region services
+        /// <summary>
+        /// 确认提示服务
+        /// </summary>
+        [Inject]
+        protected ConfirmService ConfirmService { get; set; } = null!;
+        /// <summary>
+        /// 路由导航服务
+        /// </summary>
+        [Inject]
+        protected NavigationManager Navigation { get; set; } = null!;
+        /// <summary>
+        /// javascript 工具
+        /// </summary>
+        [Inject]
+        protected IJsTool JsTool { get; set; } = null!;
+        /// <summary>
+        /// 身份状态管理
+        /// </summary>
+        [Inject]
+        protected IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         /// <summary>
         /// 服务
         /// </summary>
@@ -89,7 +155,106 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// </summary>
         [Inject]
         protected IClientMessageService MessageService { get; set; } = null!;
+        #endregion
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <returns></returns>
+        protected override void OnInitialized()
+        {
+            //资源绑定数据-用于绑定式判断资源权限
+            _userUnauthorizedResources = new ClientListBindValue<string, bool>(true, key => !AuthenticationStateManager.CheckCurrentUserHaveResource(key));
+            _userAuthorizedResources = new ClientListBindValue<string, bool>(false, AuthenticationStateManager.CheckCurrentUserHaveResource);
+            //从url加载TableSearch参数
+            var url = new Uri(Navigation.Uri);
+            var query = url.Query;
+            Dictionary<string, StringValues> urlParams = QueryHelpers.ParseQuery(query);
+            if (urlParams != null && urlParams.Count() > 0)
+            {
+                urlParams.ForEach(x =>
+                {
+                    _tableSearchSettings.DefaultValue.Add(x.Key, x.Value.ToString());
+                });
+            }
+            _tableSearchFilterGroupProviders.Add(GetTableSearchFilterGroups);
+            //设置搜索组件的参数
+            SetTableSearchParameters(_tableSearchSettings,_tableSearchFilterGroupProviders);
+            base.OnInitialized();
+        }
+        /// <summary>
+        /// 页面初始化完成
+        /// </summary>
+        /// <returns></returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+        }
 
+        /// <summary>
+        /// 添加需要排除的字段
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <remarks>
+        /// 此方法在OnInitialized时执行有效
+        /// </remarks>
+        protected void AddExcludeSearchFields(params string[] fields)
+        {
+            if (_tableSearchSettings.ExcludeFields == null)
+            {
+                _tableSearchSettings.ExcludeFields=new List<string>();
+            }
+            foreach (string field in fields)
+            {
+                if (!_tableSearchSettings.ExcludeFields.Contains(field))
+                {
+                    _tableSearchSettings.ExcludeFields=_tableSearchSettings.ExcludeFields.Append(field);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 添加需要包含的字段
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <remarks>
+        /// 此方法在OnInitialized时执行有效
+        /// </remarks>
+        protected void AddIncludeSearchFields(params string[] fields)
+        {
+            if (_tableSearchSettings.IncludeFields == null)
+            {
+                _tableSearchSettings.IncludeFields = new List<string>();
+            }
+            foreach (string field in fields)
+            {
+                if (!_tableSearchSettings.IncludeFields.Contains(field))
+                {
+                    _tableSearchSettings.IncludeFields = _tableSearchSettings.IncludeFields.Append(field);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 添加搜索条件提供器，在发送请求的时候将条件追加到请求中
+        /// </summary>
+        /// <param name="tableSearchFilterGroupProvider"></param>
+        protected void AddTableSearchFilterGroupProvider(Func<List<FilterGroup>?> tableSearchFilterGroupProvider)
+        {
+            _tableSearchFilterGroupProviders.Add(tableSearchFilterGroupProvider);
+        }
+
+        /// <summary>
+        /// 设置TableSearch特定参数
+        /// </summary>
+        /// <param name="tableSearchSettings">TableSearch设置</param>
+        /// <param name="tableSearchFilterGroupProviders">条件结果获取方法</param>
+        /// <remarks>
+        /// 此方法在<see cref="TableBase{TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput}.OnInitialized"/>时执行
+        /// </remarks>
+        protected virtual void SetTableSearchParameters(TableSearchSettings tableSearchSettings, List<Func<List<FilterGroup>?>> tableSearchFilterGroupProviders)
+        {
+            //设置参数
+        }
 
         /// <summary>
         /// 获取操作会话配置
@@ -155,11 +320,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     MessageService.Error($"{msg} {Localizer[SharedLocalResource.Fail]}");
                 }
             }
-            else 
+            else
             {
                 MessageService.Error($"{Localizer[SharedLocalResource.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
             }
-            
+
             _lockBtnLoading.Stop(model);
         }
 
@@ -169,18 +334,19 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual List<FilterGroup>? GetTableSearchFilterGroups()
         {
-            return tableSearch?.GetFilterGroups();
+            return _tableSearch?.GetFilterGroups();
         }
 
-        #region Page loading
+        #region loading
         /// <summary>
-        /// Page start loading
+        /// table start loading
         /// </summary>
+        /// <param name="forceRender">是否强制渲染</param>
         /// <returns></returns>
-        protected bool StartLoading()
+        protected bool StartTableLoading(bool forceRender = false)
         {
             var run = _tableLoading.Start();
-            if (run)
+            if (run && forceRender)
             {
                 InvokeAsync(StateHasChanged);
             }
@@ -188,13 +354,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
 
         /// <summary>
-        /// Page stop loading
+        /// table stop loading
         /// </summary>
+        /// <param name="forceRender">是否强制渲染</param>
         /// <returns></returns>
-        protected bool StopLoading()
+        protected bool StopTableLoading(bool forceRender = false)
         {
             var stop = _tableLoading.Stop();
-            if (stop)
+            if (stop && forceRender)
             {
                 InvokeAsync(StateHasChanged);
             }
@@ -229,10 +396,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool> 
-        where TDto : class, new() 
+    public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool>
+        where TDto : class, new()
         where TLocalResource : SharedLocalResource
-    { 
+    {
     }
 
 }

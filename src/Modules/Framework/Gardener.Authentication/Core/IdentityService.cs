@@ -9,7 +9,6 @@ using Gardener.Authentication.Dtos;
 using Gardener.Authentication.Enums;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Security.Claims;
 
 namespace Gardener.Authentication.Core

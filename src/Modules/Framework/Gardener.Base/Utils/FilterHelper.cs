@@ -9,7 +9,6 @@ using Gardener.Common;
 using Gardener.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -127,9 +126,13 @@ namespace Gardener.Base
             {typeof(double),e=> e.GetDouble()},
             {typeof(string),e=> e.GetString()},
             {typeof(DateTime),e=> e.GetDateTime()},
+            {typeof(DateTime?),e=> e.GetDateTime()},
             {typeof(DateTimeOffset),e=> e.GetDateTimeOffset()},
+            {typeof(DateTimeOffset?),e=> e.GetDateTimeOffset()},
+            {typeof(bool?),e=> e.GetBoolean()},
             {typeof(bool),e=> e.GetBoolean()},
-            {typeof(Guid),e=> e.GetGuid()}
+            {typeof(Guid?),e=> e.GetGuid()},
+            {typeof(Guid),e=> e.GetGuid()},
         };
         #endregion
 

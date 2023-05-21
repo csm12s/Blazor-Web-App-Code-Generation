@@ -4,8 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
 using Gardener.Attachment.Enums;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +18,7 @@ namespace Gardener.Attachment.Domains
     /// 附件
     /// </summary>
     [Description("附件信息")]
-    public class Attachment : GardenerEntityBase<Guid>
+    public class Attachment : GardenerTenantEntityBase<Guid,MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 业务ID

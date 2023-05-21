@@ -4,6 +4,9 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +16,7 @@ namespace Gardener.Base.Entity
     /// 字典信息
     /// </summary>
     [Description("Code")]
-    public class Code : GardenerEntityBase
+    public class Code : GardenerEntityBase, IEntityTypeBuilder<Code>
     {
         /// <summary>
         /// 字段类型编号
@@ -44,7 +47,7 @@ namespace Gardener.Base.Entity
         /// </summary>
         [DisplayName("ExtendParams")]
         [MaxLength(500)]
-        public string? ExtendParams { get;set; }
+        public string? ExtendParams { get; set; }
         /// <summary>
         /// 颜色
         /// </summary>
@@ -55,5 +58,16 @@ namespace Gardener.Base.Entity
         /// 字典类型
         /// </summary>
         public CodeType CodeType { get; set; } = null!;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityBuilder"></param>
+        /// <param name="dbContext"></param>
+        /// <param name="dbContextLocator"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Configure(EntityTypeBuilder<Code> entityBuilder, DbContext dbContext, Type dbContextLocator)
+        {
+            entityBuilder.HasOne(x => x.CodeType).WithMany(x => x.Codes).HasForeignKey(x => x.CodeTypeId);
+        }
     }
 }

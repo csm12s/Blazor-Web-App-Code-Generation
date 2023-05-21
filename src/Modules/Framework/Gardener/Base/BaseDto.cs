@@ -127,19 +127,19 @@ namespace Gardener.Base
     /// 多租户Dto基类
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class TenantBaseDtoEmpty<TKey> : BaseDtoEmpty<TKey>, IModelTenantId
+    public abstract class TenantBaseDtoEmpty<TKey> : TenantBaseDtoEmptyNoKey, IModelId<TKey>, IModelTenant
     {
         /// <summary>
-        /// 租户编号
+        /// 编号
         /// </summary>
-        [DisplayName("TenantId")]
-        [Order(1001)]
-        public virtual Guid? TenantId { get; set; }
+        [DisplayName("Id")]
+        [Order(1000)]
+        public TKey Id { get; set; } = default!;
     }
     /// <summary>
     /// 多租户Dto基类
     /// </summary>
-    public abstract class TenantBaseDtoEmptyNoKey : BaseDtoEmptyNoKey, IModelTenantId
+    public abstract class TenantBaseDtoEmptyNoKey : BaseDtoEmptyNoKey, IModelTenant
     {
         /// <summary>
         /// 租户编号
@@ -147,25 +147,30 @@ namespace Gardener.Base
         [DisplayName("TenantId")]
         [Order(1001)]
         public virtual Guid? TenantId { get; set; }
+        /// <summary>
+        /// 租户
+        /// </summary>
+        [DisplayName("Tenant")]
+        public virtual ITenant? Tenant { get; set; }
     }
 
     /// <summary>
     /// 多租户Dto基类
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class TenantBaseDto<TKey> : BaseDto<TKey>, IModelTenantId
+    public abstract class TenantBaseDto<TKey> : TenantBaseDtoNoKey, IModelId<TKey>, IModelTenant
     {
         /// <summary>
-        /// 租户编号
+        /// 编号
         /// </summary>
-        [DisplayName("TenantId")]
-        [Order(1001)]
-        public virtual Guid? TenantId { get; set; }
+        [DisplayName("Id")]
+        [Order(1000)]
+        public TKey Id { get; set; } = default!;
     }
     /// <summary>
     /// 多租户Dto基类
     /// </summary>
-    public abstract class TenantBaseDtoNoKey : BaseDto, IModelTenantId
+    public abstract class TenantBaseDtoNoKey : BaseDto, IModelTenant
     {
         /// <summary>
         /// 租户编号
@@ -173,5 +178,10 @@ namespace Gardener.Base
         [DisplayName("TenantId")]
         [Order(1001)]
         public virtual Guid? TenantId { get; set; }
+        /// <summary>
+        /// 租户
+        /// </summary>
+        [DisplayName("Tenant")]
+        public virtual ITenant? Tenant { get; set; }
     }
 }

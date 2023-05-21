@@ -7,7 +7,6 @@
 using Gardener.Client.Base;
 using Gardener.Client.Base.Authorization;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core
@@ -33,7 +32,7 @@ namespace Gardener.Client.Core
 
                 foreach (string key in resource.Keys)
                 {
-                    var isAuth = await authenticationStateManager.CheckCurrentUserHaveBtnResourceKey(key);
+                    var isAuth = await authenticationStateManager.CheckCurrentUserHaveResourceAsync(key);
                     if (resource.AndCondition)
                     {
                         if (!isAuth)

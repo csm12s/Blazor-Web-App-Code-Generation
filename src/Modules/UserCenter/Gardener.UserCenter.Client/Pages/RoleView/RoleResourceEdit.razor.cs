@@ -11,6 +11,7 @@ using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Services;
+using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -20,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.RoleView
 {
-    public partial class RoleResourceEdit : OperationDialogBase<OperationDialogInput<int>, bool>
+    public partial class RoleResourceEdit : OperationDialogBase<RoleDto, bool>
     {
         private Tree<ResourceDto>? _tree;
         private bool _isExpanded;
@@ -42,12 +43,12 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            base.StartLoading();
-            _roleId = this.Options.Data;
+            await base.StartLoading();
+            _roleId = this.Options.Id;
             if (_roleId > 0)
             {
                 var t1 = RoleService.GetResource(_roleId);
-                var t2 = ResourceService.GetTree();
+                var t2 = ResourceService.GetTree(tenantId: this.Options.TenantId);
                 //已有资源
                 var roleResourceResult = await t1;
                 if (roleResourceResult != null && roleResourceResult.Any())
@@ -59,12 +60,12 @@ namespace Gardener.UserCenter.Client.Pages.RoleView
                 if (resourceResult == null)
                 {
                     MessageService.Error(Localizer.Combination(SharedLocalResource.Resource, SharedLocalResource.Load, SharedLocalResource.Fail));
-                    base.StopLoading();
+                    await base.StopLoading();
                     return;
                 }
                 _resources.AddRange(resourceResult);
             }
-            base.StopLoading();
+            await base.StopLoading();
         }
 
 

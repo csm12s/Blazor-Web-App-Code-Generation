@@ -7,23 +7,19 @@
 using Furion.DatabaseAccessor;
 using Gardener.Attributes;
 using Gardener.Authentication.Enums;
-using Gardener.Base;
-using Gardener.EntityFramwork.DbContexts;
 using Gardener.Enums;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Gardener.EntityFramwork.Audit.Domains
+namespace Gardener.Base.Entity.Domains
 {
     /// <summary>
     /// 审计实体表
     /// </summary>
     [Description("实体审计信息")]
     [IgnoreAudit]
-    public class AuditEntity : GardenerEntityBase<Guid, MasterDbContextLocator, GardenerAuditDbContextLocator>
+    public class AuditEntity : GardenerTenantEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator, GardenerAuditDbContextLocator>
     {
         /// <summary>
         /// 审计实体表

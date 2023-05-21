@@ -21,10 +21,10 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
     private List<SelectItem> _allTables = new List<SelectItem>();
 
     [Inject]
-    IResourceService resourceService { get; set; }
+    IResourceService resourceService { get; set; } = null!;
 
     [Inject]
-    ICodeGenService codeGenService { get; set; }
+    ICodeGenService codeGenService { get; set; } = null!;
 
     private List<ResourceDto> _menuTree = new List<ResourceDto>();
 
@@ -32,7 +32,7 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
     {
         get
         {
-            return _editModel.MenuParentId?.ToString();
+            return _editModel.MenuParentId?.ToString() ?? string.Empty;
         }
         set
         {
@@ -45,14 +45,14 @@ public partial class CodeGenEdit : EditOperationDialogBase<CodeGenDto, Guid, Cod
     }
 
     [Inject]
-    private ICodeGenService service { get; set; }
+    private ICodeGenService service { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
         // table select
         var tableInfos = await service.GetTableListAsync();
         _allTables = tableInfos.ToSelectItems
-            (it=>it.TableName, it=>it.ClientSelectLabelText);
+            (it=>it.TableName, it=>it.ClientSelectLabelText ?? string.Empty) ?? new List<SelectItem>();
         
         // menus
         _menuTree = await resourceService.GetTree();

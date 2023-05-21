@@ -23,6 +23,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         private IDeptService DeptService { get; set; } = null!;
         [Inject]
         private IPositionService PositionService { get; set; } = null!;
+
         //部门树
         /// <summary>
         /// 部门编号
@@ -51,11 +52,10 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            StartLoading();
-            var t1= base.OnInitializedAsync();
+            await StartLoading();
             var t2= PositionService.GetAllUsable();
             var t3 = DeptService.GetTree();
-            await t1;
+            await base.OnInitializedAsync();
             if (_editModel != null)
             {
                 _editModel.Password = null;
@@ -64,7 +64,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             positions =await t2;
             //部门
             deptDatas = await t3;
-            StopLoading();
+            await StopLoading(true);
         }
        
         /// <summary>

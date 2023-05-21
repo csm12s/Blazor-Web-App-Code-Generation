@@ -9,7 +9,6 @@ using Gardener.Enums;
 using Gardener.VerifyCode.Dtos;
 using Gardener.VerifyCode.Services;
 using Microsoft.AspNetCore.Components;
-using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {

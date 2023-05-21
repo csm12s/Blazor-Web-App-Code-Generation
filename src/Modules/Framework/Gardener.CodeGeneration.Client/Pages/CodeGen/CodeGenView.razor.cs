@@ -13,7 +13,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Client.AntDesignUi;
 using AntDesign;
 using Gardener.Client.AntDesignUi.Base;
 
@@ -27,12 +26,12 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     protected CodeGenSearchDto _searchDto = new();
     private List<SelectItem> _select_TableName = new();
     [Inject]
-    private ICodeGenService codeGenClientService { get; set; }
+    private ICodeGenService codeGenClientService { get; set; } = null!;
     [Inject]
-    private ICodeGenConfigService codeGenConfigService { get; set; }
+    private ICodeGenConfigService codeGenConfigService { get; set; } = null!;
 
     [Inject]
-    private IResourceService resourceService { get; set; }
+    private IResourceService resourceService { get; set; } = null!;
     /// <summary>
     /// 
     /// </summary>
@@ -44,13 +43,25 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     protected override async Task OnInitializedAsync()
     {
         // table select
-        var tableInfos = await codeGenClientService.GetTableListAsync();
-        _select_TableName = tableInfos.ToSelectItems
-            (it => it.TableName, it => it.ClientSelectLabelText);
-        this._filterGroupProviders.Add(() => { return GetCustomSearchFilterGroups(_searchDto); });
+        List<TableOutput> tableInfos = await codeGenClientService.GetTableListAsync();
+        var items = tableInfos.ToSelectItems
+            (it => it.TableName, it => it.ClientSelectLabelText ?? string.Empty);
+        if (items != null)
+        { 
+            _select_TableName = items;
+        }
+
         await base.OnInitializedAsync();
     }
-
+    /// <summary>
+    /// 设置TableSearch特定参数
+    /// </summary>
+    /// <param name="tableSearchSettings"></param>
+    protected override void SetTableSearchParameters(TableSearchSettings tableSearchSettings, List<Func<List<FilterGroup>?>> tableSearchFilterGroupProviders)
+    {
+        //设置参数
+        tableSearchFilterGroupProviders.Add(() => { return GetCustomSearchFilterGroups(_searchDto); });
+    }
     private async Task OnClickConfigure(Guid id)
     {
         await OpenOperationDialogAsync
@@ -65,12 +76,12 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
     private async Task OnClickGenerate(Guid codeGenId)
     {
-        StartLoading();
+        StartTableLoading();
         List<Guid> codeGenIds = new List<Guid>();
         codeGenIds.Add(codeGenId);
 
         var success = await codeGenClientService.GenerateCode(codeGenIds.ToArray());
-        StopLoading();
+        StopTableLoading();
 
         if (success)
         { 
@@ -85,7 +96,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
     private async Task OnClickGenerateMenu(Guid codeGenId)
     {
-        StartLoading();
+        StartTableLoading();
 
         var codeGenDto = await BaseService.Get(codeGenId);
         var menuKey = codeGenDto.Module + "_" + codeGenDto.ClassName;
@@ -125,12 +136,12 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
            
         }
 
-        StopLoading();
+        StopTableLoading();
     }
 
     private async Task OnClickGenerateLocale(Guid codeGenId)
     {
-        StartLoading();
+        StartTableLoading();
 
         var codeGenDto = await BaseService.Get(codeGenId);
 
@@ -149,7 +160,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
             }
         }
 
-        StopLoading();
+        StopTableLoading();
     }
     private async Task DoSearch()
     {

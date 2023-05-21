@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -19,7 +20,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 部门信息
     /// </summary>
     [Description("部门信息")]
-    public class Dept: GardenerEntityBase, IEntityTypeBuilder<Dept>, IEntitySeedData<Dept>
+    public class Dept : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Dept, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<Dept, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 名称
@@ -75,7 +76,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <summary>
         /// 多对多
         /// </summary>
-        public ICollection<User> Users { get; set; }=new List<User>();
+        public ICollection<User> Users { get; set; } = new List<User>();
         /// <summary>
         /// 
         /// </summary>

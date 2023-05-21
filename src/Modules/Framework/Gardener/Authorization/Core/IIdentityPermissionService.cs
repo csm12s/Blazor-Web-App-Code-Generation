@@ -46,12 +46,15 @@ namespace Gardener.Authorization.Core
         /// <returns></returns>
         Task<bool> CheckLoginIdUsable(string loginId);
 
-
         /// <summary>
         /// 判断是否是超级管理员
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="identity"></param>
         /// <returns></returns>
-        Task<bool> IsSuperAdministrator(int userId);
+        /// <remarks>
+        /// <para> 用户身份：分配了至少一个超级管理角色就认为是超级管理</para>
+        /// <para>其他身份：暂不支持</para>
+        /// </remarks>
+        Task<bool> IsSuperAdministrator(Identity? identity);
     }
 }

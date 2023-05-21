@@ -4,10 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DatabaseAccessor;
 using Gardener.Base;
-using Gardener.NotificationSystem.Enums;
+using Gardener.Base.Entity;
 using Gardener.WoChat.Enums;
-using System;
 using System.ComponentModel;
 
 namespace Gardener.WoChat.Domains
@@ -15,7 +15,7 @@ namespace Gardener.WoChat.Domains
     /// <summary>
     /// Im会话消息列表
     /// </summary>
-    public class ImSessionMessage : GardenerEntityBase<Guid>
+    public class ImSessionMessage : GardenerTenantEntityBase<Guid, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 会话编号

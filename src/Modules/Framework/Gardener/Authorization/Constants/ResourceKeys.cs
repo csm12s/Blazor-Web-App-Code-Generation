@@ -4,14 +4,16 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DatabaseAccessor;
-
-namespace Gardener.EntityFramwork.DbContexts
+namespace Gardener.Authorization.Constants
 {
     /// <summary>
-    /// 审计数据库定位器
+    /// 全局常用资源key
     /// </summary>
-    public class GardenerAuditDbContextLocator: IDbContextLocator
+    public static class ResourceKeys
     {
+        /// <summary>
+        /// 系统租户管理员Key
+        /// </summary>
+        public static readonly string SystemTenantAdministratorKey = "system_tenant_administrator";
     }
 }

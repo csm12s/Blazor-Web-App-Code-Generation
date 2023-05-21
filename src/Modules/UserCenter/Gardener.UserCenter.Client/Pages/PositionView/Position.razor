@@ -6,88 +6,89 @@
            DataSource="@_datas"
            Total="_total"
            OnChange="@OnChange"
-           @bind-PageIndex="_pageIndex"
-           @bind-PageSize="_pageSize"
-           @bind-SelectedRows="_selectedRows"
+    @bind-PageIndex="_pageIndex"
+    @bind-PageSize="_pageSize"
+    @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
            Context="model">
         <TitleTemplate>
             <ResourceAuthorize ResourceKey="user_center_position_refresh">
-                <TableSearch TDto="PositionDto" OnSearch="(filterGroups)=>ReLoadTable(true)" @ref="this.tableSearch" DefaultValue="_defaultSearchValue" CustomLocalizer="Localizer"></TableSearch>
-             </ResourceAuthorize>
+                <TableSearch TDto="PositionDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
+            </ResourceAuthorize>
             <Row>
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @Localizer[SharedLocalResource.DeleteSelected]
-                        </Button>
-                    </ResourceAuthorize>
-                </AntDesign.Col>
-                <AntDesign.Col Span="16" Style="text-align:right">
-                    <Space>
-                        <ResourceAuthorize ResourceKey="user_center_position_add">
-                            <SpaceItem>
-                                <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @Localizer[SharedLocalResource.Add]
-                                </Button>
-                            </SpaceItem>
-                        </ResourceAuthorize>
-                        <ResourceAuthorize ResourceKey="user_center_position_refresh">
-                            <SpaceItem>
-                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResource.Refresh]
-                                </Button>
-                            </SpaceItem>
-                        </ResourceAuthorize>
-                    </Space>
-                </AntDesign.Col>
-            </Row>
-        </TitleTemplate>
-                    <ColumnDefinitions>
-            <ResourceAuthorize ResourceKey="user_center_position_delete_selected">
-                <Selection Key="@(model.Id.ToString())" />
-            </ResourceAuthorize>
-            <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
-            <Column @bind-Field="@model.Duty" Filterable Title="@Localizer[UserCenterResource.Duty]" />
-            <Column TData="string" Title="@Localizer[UserCenterResource.Grade]">
-                <span>@(CodeUtil.GetCodeNameFromCache<PositionDto>(()=>model.Grade))</span>
+                             @Localizer[SharedLocalResource.DeleteSelected]
+                         </Button>
+                     </ResourceAuthorize>
+                 </AntDesign.Col>
+                 <AntDesign.Col Span="16" Style="text-align:right">
+                     <Space>
+                         <ResourceAuthorize ResourceKey="user_center_position_add">
+                             <SpaceItem>
+                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                     @Localizer[SharedLocalResource.Add]
+                                 </Button>
+                             </SpaceItem>
+                         </ResourceAuthorize>
+                         <ResourceAuthorize ResourceKey="user_center_position_refresh">
+                             <SpaceItem>
+                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                     @Localizer[SharedLocalResource.Refresh]
+                                 </Button>
+                             </SpaceItem>
+                         </ResourceAuthorize>
+                     </Space>
+                 </AntDesign.Col>
+             </Row>
+         </TitleTemplate>
+         <ColumnDefinitions>
+             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["user_center_position_delete_selected"]" />
+             <Column TData="string" Title="@Localizer[UserCenterResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+                 <span>@model.Tenant?.Name</span>
+             </Column>
+             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[UserCenterResource.Name]" />
+             <Column @bind-Field="@model.Duty" Filterable Title="@Localizer[UserCenterResource.Duty]" />
+             <Column TData="string" Title="@Localizer[UserCenterResource.Grade]">
+                 <span>@(CodeUtil.GetCodeNameFromCache<PositionDto>(() => model.Grade))</span>
             </Column>
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
-                <ResourceAuthorize ResourceKey="user_center_position_lock">
-                    <Authorized>
-                        <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
-                    </Authorized>
-                    <NotAuthorized>
-                        <TagYesNo Yes="model.IsLocked"></TagYesNo>
-                    </NotAuthorized>
-                </ResourceAuthorize>
-            </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
-            <ActionColumn>
-                <Space>
-                    <ResourceAuthorize ResourceKey="user_center_position_edit">
-                        <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
-                                <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
-                            </Tooltip>
-                        </SpaceItem>
-                    </ResourceAuthorize>
-                    <ResourceAuthorize ResourceKey="user_center_position_detail">
-                        <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
-                                <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
-                            </Tooltip>
-                        </SpaceItem>
-                    </ResourceAuthorize>
-                    <ResourceAuthorize ResourceKey="user_center_position_delete">
-                        <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
-                                <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
-                            </Tooltip>
-                        </SpaceItem>
-                    </ResourceAuthorize>
-                </Space>
-            </ActionColumn>
-        </ColumnDefinitions>
-    </Table>
-</div>
+                 <ResourceAuthorize ResourceKey="user_center_position_lock">
+                     <Authorized>
+                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
+                     </Authorized>
+                     <NotAuthorized>
+                         <TagYesNo Yes="model.IsLocked"></TagYesNo>
+                     </NotAuthorized>
+                 </ResourceAuthorize>
+             </Column>
+             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
+             <ActionColumn>
+                 <Space>
+                     <ResourceAuthorize ResourceKey="user_center_position_edit">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="user_center_position_detail">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="user_center_position_delete">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                 </Space>
+             </ActionColumn>
+         </ColumnDefinitions>
+     </Table>
+ </div>

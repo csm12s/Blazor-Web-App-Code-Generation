@@ -1,5 +1,5 @@
 ﻿@using Gardener.SystemManager.Dtos
-@inherits OperationDialogBase<OperationDialogInput<int>, bool>
+@inherits OperationDialogBase<RoleDto, bool>
 
 <Spin Spinning="_dialogLoading.Value">
     <Row>
@@ -7,18 +7,17 @@
             @if (_resources != null && _resources.Count > 0)
             {
                 <Tree @ref="_tree"
-                  TItem="ResourceDto"
+                      TItem="ResourceDto"
                   ShowLine
                   Checkable
-                  DataSource="_resources"
-                  DefaultCheckedKeys="_defaultCheckedKeys"
-                  KeyExpression="x=>x.DataItem.Id.ToString()"
-                  TitleExpression="x=>GetFullName(x.DataItem)"
-                  ChildrenExpression="x=>x.DataItem.Children?.ToList()"
-                  IconExpression="x=>x.DataItem.Icon"
-                  IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
-                  DefaultExpandParent="true"
-                 >
+                      DataSource="_resources"
+                      DefaultCheckedKeys="_defaultCheckedKeys"
+                      KeyExpression="x=>x.DataItem.Id.ToString()"
+                      TitleExpression="x=>GetFullName(x.DataItem)"
+                      ChildrenExpression="x=>x.DataItem.Children?.ToList()"
+                      IconExpression="x=>x.DataItem.Icon"
+                      IsLeafExpression="x=>x.DataItem.Children ==null || !x.DataItem.Children.Any()"
+                      DefaultExpandParent="true">
                 </Tree>
             }
         </AntDesign.Col>
@@ -32,20 +31,20 @@
                     </Tooltip>
                 </SpaceItem>
                 <SpaceItem>
-                    <ResourceAuthorize ResourceKey="user_center_role_set_resource_save">
-                        <Space>
+                    <Space>
+                        <ResourceAuthorize ResourceKey="user_center_role_set_resource_save">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnSaveClick">
                                     @Localizer[SharedLocalResource.Save]
                                 </Button>
                             </SpaceItem>
-                            <SpaceItem>
-                                <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">
-                                    @Localizer[SharedLocalResource.Cancel]
-                                </Button>
-                            </SpaceItem>
-                        </Space>
-                    </ResourceAuthorize>
+                        </ResourceAuthorize>
+                        <SpaceItem>
+                            <Button Type="@ButtonType.Default" Size="@ClientConstant.OperationButtonSize" OnClick="OnCancelClick">
+                                @Localizer[SharedLocalResource.Cancel]
+                            </Button>
+                        </SpaceItem>
+                    </Space>
                 </SpaceItem>
             </Space>
         </AntDesign.Col>

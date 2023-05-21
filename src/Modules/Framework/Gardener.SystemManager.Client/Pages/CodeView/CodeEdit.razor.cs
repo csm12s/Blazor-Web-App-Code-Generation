@@ -4,19 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
-using Gardener.SystemManager.Client.Services;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.SystemManager.Client.Pages.CodeView
 {
@@ -37,7 +30,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            StartLoading();
+            await StartLoading();
             var task= CodeTypeService.GetAllUsable();
             await LoadEditModelData();
             codeTypeDtos = await task;
@@ -45,7 +38,7 @@ namespace Gardener.SystemManager.Client.Pages.CodeView
             {
                 this._editModel.CodeTypeId = this.Options.CodeTypeId.Value;
             }
-            StopLoading();
+            await StopLoading();
         }
     }
 }

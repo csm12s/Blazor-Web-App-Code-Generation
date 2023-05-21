@@ -6,6 +6,7 @@
 
 using Furion.DatabaseAccessor;
 using Gardener.Base;
+using Gardener.Base.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -19,7 +20,7 @@ namespace Gardener.UserCenter.Impl.Domains
     /// 岗位信息
     /// </summary>
     [Description("岗位信息")]
-    public class Position : GardenerEntityBase, IEntityTypeBuilder<Position>, IEntitySeedData<Position>
+    public class Position : GardenerTenantEntityBase<int, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntityTypeBuilder<Position, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>, IEntitySeedData<Position, MasterDbContextLocator, GardenerMultiTenantDbContextLocator>
     {
         /// <summary>
         /// 角色名称

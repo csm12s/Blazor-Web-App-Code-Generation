@@ -75,6 +75,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -140,6 +143,9 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<string>("LoginId")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -414,6 +420,8 @@ namespace Gardener.Api.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CodeTypeValue");
+
                     b.ToTable("CodeType");
 
                     b.HasData(
@@ -456,6 +464,206 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Remark = ""
                         });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("AuditOperationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DataId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperaterType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("OperationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperationType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditOperationId");
+
+                    b.ToTable("AuditEntity");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditOperation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Method")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OperaterId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OperaterName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperaterType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Parameters")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ResourceName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserAgent")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditOperation");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditProperty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AuditEntityid")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DataType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FieldName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginalValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditEntityid");
+
+                    b.ToTable("AuditProperty");
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
@@ -524,6 +732,10 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Key");
+
+                    b.HasIndex("Path", "Method");
 
                     b.ToTable("Function");
 
@@ -3837,7 +4049,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             Id = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
                             CreatedTime = 1306532718346240480L,
-                            Description = "查询所有资源 按树形结构返回",
+                            Description = "查询所有资源 按树形结构返回\r\n非租户在所有资源中抽取，租户在自己的资源池中抽取",
                             EnableAudit = false,
                             Group = "系统基础服务",
                             IsDeleted = false,
@@ -5639,6 +5851,278 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("17388acc-2ef7-487d-bcef-fe4c6a708ecd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897794560480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9880EDB9BD13EEB5B77C89EFBEE1CDAB",
+                            Method = 1,
+                            Path = "/api/tenant/export",
+                            Service = "租户服务",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("0c1058f6-a425-40fe-bc5e-47fbf91ca7bd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897794560480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "746BEA6EC665547A8A7166B62497998B",
+                            Method = 1,
+                            Path = "/api/tenant/generate-seed-data",
+                            Service = "租户服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897794560480L,
+                            Description = "搜索数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5F3F0C211E6008478BC1B6AB08374C4C",
+                            Method = 1,
+                            Path = "/api/tenant/search",
+                            Service = "租户服务",
+                            Summary = "搜索"
+                        },
+                        new
+                        {
+                            Id = new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据主键锁定或解锁数据（必须有IsLock才能生效）",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6A181466880BA2B3A8B0BC66906ACA90",
+                            Method = 2,
+                            Path = "/api/tenant/{id}/lock/{islocked}",
+                            Service = "租户服务",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("e5669b2a-a097-46c4-b5ed-aadff087cbae"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "44CA7D257E0C34AD9066BBF6E6619523",
+                            Method = 0,
+                            Path = "/api/tenant/page/{pageindex}/{pagesize}",
+                            Service = "租户服务",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7759AEBBAB92B29DD030D2D38CC6C2BC",
+                            Method = 0,
+                            Path = "/api/tenant/all-usable",
+                            Service = "租户服务",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "98F7C609E0FDCAC25D70E29A5DCFF83B",
+                            Method = 0,
+                            Path = "/api/tenant/all",
+                            Service = "租户服务",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CB0773C970DC23647D09D3D9A51DA5F3",
+                            Method = 1,
+                            Path = "/api/tenant/fake-deletes",
+                            Service = "租户服务",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("a6939609-708f-4231-a726-6da1903ef69a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "03522FF7125C61C2E7C1BD96FEA4E64C",
+                            Method = 3,
+                            Path = "/api/tenant/fake-delete/{id}",
+                            Service = "租户服务",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("189016af-1473-4107-9d91-67d25f5c4dfd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897774080480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B1885DC2864312A61C6427637A0E7FB4",
+                            Method = 1,
+                            Path = "/api/tenant/deletes",
+                            Service = "租户服务",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "723A65C5AE34149B05DCF8A128CBC74A",
+                            Method = 0,
+                            Path = "/api/tenant/{id}",
+                            Service = "租户服务",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("82635595-f7c8-45af-9aaa-534e53e53ff5"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "72760A5FE6E2516D899EF7C88273FEB1",
+                            Method = 3,
+                            Path = "/api/tenant/{id}",
+                            Service = "租户服务",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "18C3543AD49B3D3CB78C696A636FB1D5",
+                            Method = 2,
+                            Path = "/api/tenant",
+                            Service = "租户服务",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019897753600480L,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6C437FCA7A65CB18677DEAC79A73AC50",
+                            Method = 1,
+                            Path = "/api/tenant",
+                            Service = "租户服务",
+                            Summary = "添加"
+                        },
+                        new
+                        {
+                            Id = new Guid("23cd301c-ebbb-4715-a96d-72232d9a6927"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030674636800480L,
+                            Description = "resources",
+                            EnableAudit = false,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "93FF4A02546A74DA1406F440D9C43006",
+                            Method = 0,
+                            Path = "/api/tenant/{tenantid}/resources",
+                            Service = "租户服务",
+                            Summary = "获取租户资源列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("8663473b-4a13-46ce-8187-a850215151fe"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030674636800480L,
+                            Description = "resources",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "F17552720E10BFAF2622962F852D4C36",
+                            Method = 1,
+                            Path = "/api/tenant/{tenantid}/resources",
+                            Service = "租户服务",
+                            Summary = "为租户添加资源"
+                        },
+                        new
+                        {
                             Id = new Guid("3896ea42-a5ed-4bc5-8dc5-21e0e5adb2fa"),
                             CreatedTime = 1306532718346240480L,
                             EnableAudit = true,
@@ -5931,6 +6415,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("SupportMultiTenant")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
@@ -5944,6 +6431,8 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Key");
 
                     b.HasIndex("ParentId");
 
@@ -5964,6 +6453,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/attachment",
                             Remark = "附件管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -5980,6 +6470,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -5996,6 +6487,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "null",
                             Remark = "删除选中附件",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6012,6 +6504,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "",
                             Remark = "查看附件",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6028,6 +6521,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6044,6 +6538,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
                             Path = "/system_manager/audit-entity",
                             Remark = "数据审计",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6060,6 +6555,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "删除数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6076,6 +6572,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "删除选中数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6092,6 +6589,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "查询数据审计详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6108,6 +6606,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Path = "",
                             Remark = "刷新数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6123,6 +6622,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
                             Remark = "导出数据审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6139,6 +6639,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "",
                             Remark = "审计管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6155,6 +6656,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
                             Path = "/system_manager/audit-operation",
                             Remark = "操作审计",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6171,6 +6673,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "删除操作审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6187,6 +6690,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6203,6 +6707,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "操作审计数据变更详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6219,6 +6724,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Path = "",
                             Remark = "刷新操作审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6234,6 +6740,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
                             Remark = "导出操作审计",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6250,6 +6757,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/login-token",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -6266,6 +6774,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6282,6 +6791,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6298,6 +6808,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6314,6 +6825,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6329,6 +6841,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
                             Remark = "导出登录数据",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -6344,6 +6857,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             Path = "",
                             Remark = "根根节点不能删除，不能改变类型！！。",
+                            SupportMultiTenant = true,
                             Type = 0
                         },
                         new
@@ -6359,6 +6873,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 1,
                             Path = "",
                             Remark = "根根节点不能删除，不能改变类型！！。",
+                            SupportMultiTenant = true,
                             Type = 0
                         },
                         new
@@ -6375,6 +6890,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 41,
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_tool/code_gen",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdatedTime = 1306683596595200480L
                         },
@@ -6392,6 +6908,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "",
                             Remark = "邮件工具",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -6408,6 +6925,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
                             Path = "/system_manager/email_server_config",
                             Remark = "邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -6424,6 +6942,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "添加邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6440,6 +6959,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "删除邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6456,6 +6976,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "删除选中邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6472,6 +6993,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "查看邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6488,6 +7010,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "编辑邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6504,6 +7027,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "锁定邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6520,6 +7044,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "刷新邮件服务器配置",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6536,6 +7061,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             Path = "",
                             Remark = "发送测试邮件",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6552,6 +7078,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
                             Path = "/system_manager/email_temaplate",
                             Remark = "邮件模板",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -6568,6 +7095,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "添加邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6584,6 +7112,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "删除邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6600,6 +7129,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "删除选中邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6616,6 +7146,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "查看邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6632,6 +7163,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "编辑邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6648,6 +7180,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "锁定邮件模板",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6664,6 +7197,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "刷新邮件模板列表",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6680,6 +7214,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
                             Path = "",
                             Remark = "发送测试邮件",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6694,6 +7229,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "字典工具",
                             Order = 0,
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = true,
                             Type = 2000,
                             UpdateBy = "6",
                             UpdateIdentityType = 1,
@@ -6713,6 +7249,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
                             Path = "/system_manager/code_list",
                             Remark = "字典管理",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdateBy = "2",
                             UpdateIdentityType = 1,
@@ -6731,6 +7268,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "添加字典",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6746,6 +7284,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "删除字典",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -6764,6 +7303,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "删除选中字典",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6779,6 +7319,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "查看字典",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -6797,6 +7338,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "生成字典种子数据",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6812,6 +7354,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "编辑字典",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -6830,6 +7373,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "导出字典",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6844,6 +7388,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "锁定字典",
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6859,6 +7404,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "字典管理",
                             Order = 90,
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -6877,6 +7423,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
                             Remark = "刷新字典列表",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6892,6 +7439,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 10,
                             ParentId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
                             Path = "/system_manager/code_type",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdateBy = "2",
                             UpdateIdentityType = 1,
@@ -6909,6 +7457,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "添加字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6924,6 +7473,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
                             Remark = "功能与 字典管理->字典 相同",
+                            SupportMultiTenant = false,
                             Type = 2000,
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
@@ -6941,6 +7491,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6955,6 +7506,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除选中字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6969,6 +7521,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "查看字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6983,6 +7536,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "生成字典类型种子数据",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -6997,6 +7551,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "编辑字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7011,6 +7566,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "导出字典类型",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7025,6 +7581,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "刷新字典类型列表",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7039,6 +7596,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "刷新字典工具缓存",
                             Order = 0,
                             ParentId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7055,6 +7613,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/function",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -7071,6 +7630,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7087,6 +7647,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7103,6 +7664,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "查看接口详情",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7119,6 +7681,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "查看接口种子数据",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7135,6 +7698,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7151,6 +7715,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7167,6 +7732,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7183,6 +7749,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7198,6 +7765,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
                             Remark = "导出接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7214,6 +7782,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "/",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -7230,6 +7799,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/resource",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -7246,6 +7816,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "添加资源",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7262,6 +7833,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7278,6 +7850,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "删除资源",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7294,6 +7867,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "删除选中",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7310,6 +7884,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "查看资源",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7326,6 +7901,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7342,6 +7918,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7358,6 +7935,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "显示可选接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7374,6 +7952,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7390,6 +7969,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7404,6 +7984,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "获取种子数据",
                             Order = 0,
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7420,6 +8001,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7436,6 +8018,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7452,6 +8035,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7468,6 +8052,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
                             Path = "",
                             Remark = "显示已关联接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7484,6 +8069,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "",
                             Remark = "系统管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -7500,6 +8086,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/systimer",
                             Remark = "配置任务调度模式",
+                            SupportMultiTenant = false,
                             Type = 1000,
                             UpdatedTime = 1306547305287680480L
                         },
@@ -7515,6 +8102,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "添加任务调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7529,6 +8117,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "删除调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7544,6 +8133,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
                             Remark = "删除选中调度",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7558,6 +8148,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "查看任务调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7572,6 +8163,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "编辑任务调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7586,6 +8178,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "刷新调度列表",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7601,6 +8194,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
                             Remark = "开启调度",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7615,6 +8209,7 @@ namespace Gardener.Api.Core.Migrations
                             Name = "停止调度",
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7630,6 +8225,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"),
                             Remark = "导出任务调度",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7646,6 +8242,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
                             Path = "/system_manager/client",
                             Remark = "客户端管理",
+                            SupportMultiTenant = false,
                             Type = 1000
                         },
                         new
@@ -7662,6 +8259,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "添加客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7678,6 +8276,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "删除客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7694,6 +8293,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "删除选中客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7710,6 +8310,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "查看客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7726,6 +8327,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "编辑客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7742,6 +8344,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "显示可选接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7758,6 +8361,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "绑定资源接口关系",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7774,6 +8378,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "删除选中客户端接口关系",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7790,6 +8395,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "刷新客户端",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7806,6 +8412,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             Path = "",
                             Remark = "关联客户端接口关系",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7822,6 +8429,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
                             Path = "",
                             Remark = "显示已关联接口",
+                            SupportMultiTenant = false,
                             Type = 2000
                         },
                         new
@@ -7834,10 +8442,11 @@ namespace Gardener.Api.Core.Migrations
                             IsLocked = false,
                             Key = "user_center_dept",
                             Name = "部门管理",
-                            Order = 0,
+                            Order = 3,
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/dept",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -7854,6 +8463,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7870,6 +8480,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7886,6 +8497,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7902,6 +8514,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7918,6 +8531,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "查看部门详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7934,6 +8548,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7950,6 +8565,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7966,6 +8582,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "",
                             Remark = "登录系统",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -7982,6 +8599,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/position",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -7998,6 +8616,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8014,6 +8633,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8030,6 +8650,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8046,6 +8667,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "查看岗位",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8062,6 +8684,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8078,6 +8701,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "锁定岗位",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8094,6 +8718,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8110,6 +8735,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/role",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8126,6 +8752,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8142,6 +8769,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8158,6 +8786,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8174,6 +8803,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "查看角色详情",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8190,6 +8820,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8206,6 +8837,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8222,6 +8854,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8238,6 +8871,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8254,6 +8888,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
                             Path = "",
                             Remark = "查看角色资源",
+                            SupportMultiTenant = true,
                             Type = 3000
                         },
                         new
@@ -8270,6 +8905,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8286,7 +8922,219 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
                             Path = "",
                             Remark = "保存角色资源",
+                            SupportMultiTenant = true,
                             Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("e600186f-dfbe-40dc-bf5d-16a2a01ffc6a"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030707814400480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_role_set_is_super_administrator",
+                            Name = "设置角色为超级管理员",
+                            Order = 0,
+                            ParentId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            Remark = "分配该资源后，才能设置角色为超级管理员，请谨慎分配该资源。",
+                            SupportMultiTenant = false,
+                            Type = 3000
+                        },
+                        new
+                        {
+                            Id = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307020067348480480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_tenant_administrator",
+                            Name = "后台租户管理员",
+                            Order = 0,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            Remark = "控制全局租户信息的显示，此资源不要分配给租户",
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307021551575040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019908341760480L,
+                            Icon = "deployment-unit",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant",
+                            Name = "租户管理",
+                            Order = 0,
+                            ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            Path = "/user_center/tenant",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019913543680480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_add",
+                            Name = "添加租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019930869760480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_delete",
+                            Name = "删除租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019911249920480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_delete_selected",
+                            Name = "删除选中租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019922186240480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_detail",
+                            Name = "查看租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307019929804800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019920977920480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_edit",
+                            Name = "编辑租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019916656640480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_lock",
+                            Name = "锁定租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            CreateBy = "6",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307019914690560480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_refresh",
+                            Name = "刷新租户",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307019926507520480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030672834560480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource",
+                            Name = "绑定资源",
+                            Order = 0,
+                            ParentId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030677667840480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource_save",
+                            Name = "绑定资源-保存",
+                            Order = 0,
+                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("0898c23e-3c3c-4d7f-82ef-9255e11d9af8"),
+                            CreateBy = "5",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307030676643840480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_tenant_set_resource_select",
+                            Name = "查看已有资源",
+                            Order = 0,
+                            ParentId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            SupportMultiTenant = false,
+                            Type = 3000,
+                            UpdateBy = "5",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307030680412160480L
                         },
                         new
                         {
@@ -8302,6 +9150,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Path = "",
                             Remark = "用户中心",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8318,6 +9167,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
                             Path = "/user_center/user",
                             Remark = "用户管理",
+                            SupportMultiTenant = true,
                             Type = 1000
                         },
                         new
@@ -8334,6 +9184,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8350,6 +9201,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8366,6 +9218,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "删除选中",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8382,6 +9235,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "查看用户",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8398,6 +9252,23 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1306552952463360480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "user_center_user_export",
+                            Name = "导出用户",
+                            Order = 0,
+                            ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            Remark = "导出用户",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8414,6 +9285,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "编辑用户头像-列表中",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8430,6 +9302,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8446,6 +9319,7 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
@@ -8462,22 +9336,26 @@ namespace Gardener.Api.Core.Migrations
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             Path = "",
                             Remark = "",
+                            SupportMultiTenant = true,
                             Type = 2000
                         },
                         new
                         {
-                            Id = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            CreateBy = "1",
+                            Id = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "6",
                             CreateIdentityType = 1,
-                            CreatedTime = 1306552952463360480L,
+                            CreatedTime = 1307020016025600480L,
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "user_center_user_export",
-                            Name = "导出用户",
+                            Key = "user_center_user_role_edit_save",
+                            Name = "保存用户角色",
                             Order = 0,
                             ParentId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            Remark = "导出用户",
-                            Type = 2000
+                            SupportMultiTenant = true,
+                            Type = 2000,
+                            UpdateBy = "6",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307020019138560480L
                         },
                         new
                         {
@@ -8492,6 +9370,7 @@ namespace Gardener.Api.Core.Migrations
                             Order = 0,
                             ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
                             Remark = "WoChat聊天按钮显资源",
+                            SupportMultiTenant = true,
                             Type = 2000
                         });
                 });
@@ -8891,6 +9770,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("2a3f7c64-3ee9-473e-837d-5f443089c886"),
                             FunctionId = new Guid("ed8c2fae-c63f-4aec-af4b-e915b6db38a2"),
                             CreatedTime = 1306995003985920480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            FunctionId = new Guid("09d15841-71c7-4afc-99f8-dd906a0248d9"),
+                            CreatedTime = 1307020005580800480L
                         },
                         new
                         {
@@ -9512,6 +10397,90 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307019923640320480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("4db9a237-1343-4c4a-91f6-9a40fb9f0e2a"),
+                            FunctionId = new Guid("a9ec32a6-286b-4fe4-b69e-79cca6243e00"),
+                            CreatedTime = 1307019918479360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            FunctionId = new Guid("687b278e-aa4e-4d1c-95fd-f148eeb2a658"),
+                            CreatedTime = 1307019915325440480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307019923087360480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("b4072d45-f643-4bdb-a63e-7286cfa9c62b"),
+                            FunctionId = new Guid("74a1a6b4-4559-48fc-8987-3287e5a4e056"),
+                            CreatedTime = 1307019921326080480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d45effb9-67a8-4459-83ac-c3852c8b4f1f"),
+                            FunctionId = new Guid("8db56ca8-b0e3-45c6-9c73-15893dd616f6"),
+                            CreatedTime = 1307019913953280480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d92268ec-6b51-4514-9487-52cb3fb0d850"),
+                            FunctionId = new Guid("a6939609-708f-4231-a726-6da1903ef69a"),
+                            CreatedTime = 1307019931443200480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("efbcc18b-c193-42cc-b315-cde07f51b496"),
+                            FunctionId = new Guid("cbdf4c22-b54f-4943-b28e-2bb563720fa2"),
+                            CreatedTime = 1307019912355840480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("0837b06f-e1d7-4ed4-9204-0c237aac6978"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("22f82d98-9176-4391-a950-1d1d01e105fd"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"),
+                            FunctionId = new Guid("cb4fbf67-4747-43d5-a355-7300f007cce3"),
+                            CreatedTime = 1307021769543680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            FunctionId = new Guid("23cd301c-ebbb-4715-a96d-72232d9a6927"),
+                            CreatedTime = 1307030680944640480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3a2c9195-9a5c-42c7-b5dc-7300bbc66e8c"),
+                            FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
+                            CreatedTime = 1307030681333760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("807029ec-be10-4faa-a332-bcb1021ff966"),
+                            FunctionId = new Guid("8663473b-4a13-46ce-8187-a850215151fe"),
+                            CreatedTime = 1307030681927680480L
+                        },
+                        new
+                        {
                             ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
                             FunctionId = new Guid("9ebd4172-5191-4931-9b22-4c339be4a816"),
                             CreatedTime = 1306069130997760480L
@@ -9537,20 +10506,26 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            FunctionId = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
+                            FunctionId = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
                             CreatedTime = 1306069130997760480L
                         },
                         new
                         {
                             ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
-                            FunctionId = new Guid("3790cc0d-dc3a-4669-acba-3a90812c6386"),
-                            CreatedTime = 1306069130997760480L
+                            FunctionId = new Guid("5efd6ab4-a9d3-4742-9a48-fb54a1b1e463"),
+                            CreatedTime = 1307020021166080480L
                         },
                         new
                         {
                             ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
                             FunctionId = new Guid("6aea8a77-edd2-444b-b8be-901d78321a49"),
                             CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            FunctionId = new Guid("0d2e0194-2238-457b-aab0-9b3259cc4ed9"),
+                            CreatedTime = 1307020017090560480L
                         },
                         new
                         {
@@ -9569,6 +10544,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
                             FunctionId = new Guid("af79d7de-0141-4338-8c52-05216d1b07ff"),
                             CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            FunctionId = new Guid("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),
+                            CreatedTime = 1306552953200640480L
                         },
                         new
                         {
@@ -9593,12 +10574,6 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
                             FunctionId = new Guid("0c6f2138-e984-4fba-ad2a-2890716a7259"),
                             CreatedTime = 1306069130997760480L
-                        },
-                        new
-                        {
-                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
-                            FunctionId = new Guid("b0b9900d-5ff7-4164-957a-9b8d55d5d5bf"),
-                            CreatedTime = 1306552953200640480L
                         },
                         new
                         {
@@ -9671,6 +10646,1543 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
                             FunctionId = new Guid("f78ea06a-4c55-4445-9e16-bdc92c9b9fa6"),
                             CreatedTime = 1306984539402240480L
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tel")
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemTenant");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户1",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        },
+                        new
+                        {
+                            Id = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            CreatedTime = 1305892579553280000L,
+                            Email = "gardener@163.com",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Name = "租户2",
+                            Remark = "预设数据。",
+                            Tel = "400-888-8888"
+                        });
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenantResource", b =>
+                {
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TenantId", "ResourceId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("SystemTenantResource");
+
+                    b.HasData(
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961912320480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037961809920480L,
+                            IsDeleted = false,
+                            IsLocked = false
                         });
                 });
 
@@ -10200,197 +12712,6 @@ namespace Gardener.Api.Core.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("AuditOperationId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DataId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperaterType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("OperationId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperationType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuditOperationId");
-
-                    b.ToTable("AuditEntity");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Ip")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Method")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OperaterId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OperaterName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OperaterType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Parameters")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ResourceId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ResourceName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserAgent")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditOperation");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditProperty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("AuditEntityid")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("CreateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("CreatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DataType")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FieldName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("NewValue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OriginalValue")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("UpdateIdentityType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("UpdatedTime")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuditEntityid");
-
-                    b.ToTable("AuditProperty");
-                });
-
             modelBuilder.Entity("Gardener.NotificationSystem.Domains.Announcement", b =>
                 {
                     b.Property<int>("Id")
@@ -10762,6 +13083,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -10893,6 +13217,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -10962,6 +13289,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -10997,6 +13327,30 @@ namespace Gardener.Api.Core.Migrations
                             IsSuperAdministrator = false,
                             Name = "浏览者",
                             Remark = "只能浏览"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = false,
+                            Name = "租户1_管理员",
+                            Remark = "租户1_管理员",
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedTime = 1305892579553280000L,
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            IsSuperAdministrator = false,
+                            Name = "租户2_管理员",
+                            Remark = "租户2_管理员",
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
                         });
                 });
 
@@ -11023,6 +13377,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -11043,7 +13400,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("07af05b1-6f3e-49fa-9959-463e246346df"),
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11051,7 +13416,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11059,7 +13424,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("14636a9b-e6d6-436f-a0aa-0170eed08d99"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11067,7 +13432,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11075,7 +13440,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11083,7 +13448,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11091,7 +13456,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11099,7 +13464,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11107,7 +13472,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11115,7 +13480,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11123,7 +13488,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("2eacd369-94ea-4e12-bf9e-744ae355e941"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11131,7 +13496,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11139,7 +13504,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("365fc5c4-404e-408a-88dc-7614dffad91b"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11147,7 +13512,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("36a4434a-f702-42be-a211-862d0b3b5288"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11155,7 +13520,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11163,7 +13528,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("374f7bfd-3c16-40dd-b4dc-a5992a0915cf"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11171,7 +13536,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11179,7 +13544,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11187,7 +13552,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("4af87acd-64b4-4d53-8043-cd7ab6b03c77"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11195,7 +13560,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("4e582063-f524-4ce2-9417-ac2cd957332d"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11203,7 +13568,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11211,7 +13576,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11219,7 +13584,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("6ac07813-4d10-4b50-9f0c-ecd444041282"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11227,7 +13592,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11235,7 +13600,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11243,7 +13608,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11251,7 +13616,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7aad6dba-3f13-4982-adfa-525fa94485dd"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11259,7 +13624,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11267,7 +13632,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11275,7 +13640,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("86a086a1-0770-4df4-ade3-433ff7226399"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11283,7 +13656,15 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("8a4e9aee-b116-4822-bd59-b3a98e84b9f3"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("8b2007b4-821b-49fc-aa5d-35ebc4dbe3c9"),
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11291,7 +13672,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("8bad2f7b-15ce-4d64-ad95-4aa9eae857b4"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11299,7 +13680,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11307,7 +13688,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11315,7 +13696,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11323,7 +13704,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11331,7 +13712,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11339,7 +13720,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11347,7 +13728,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11355,7 +13736,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11363,7 +13744,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11371,7 +13752,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11379,7 +13760,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11387,7 +13768,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11395,7 +13776,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11403,7 +13784,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11411,7 +13792,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11419,7 +13800,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("cd23a5d8-6eab-4e46-a730-56b2808551c6"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11427,7 +13808,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11435,7 +13816,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d5e3497b-c624-4fde-96bd-108a33cacc6d"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11443,7 +13824,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d697fda5-28fa-46c3-ba88-a98dd510e09d"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11451,7 +13832,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d83c05a0-4d23-4b2b-ba87-284793bf3eba"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11459,7 +13840,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("d9fc6b89-25bb-458e-936f-d76eea2c680f"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11467,7 +13848,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("e252c0c6-0f19-4768-954c-c0d83fb96d74"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11475,7 +13856,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11483,7 +13864,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11491,7 +13872,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11499,7 +13880,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("f63a570e-a762-4410-b4b1-764ee5ceb7ae"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11507,7 +13888,7 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -11515,9 +13896,1579 @@ namespace Gardener.Api.Core.Migrations
                         {
                             RoleId = 2,
                             ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
-                            CreatedTime = 1306983983841280000L,
+                            CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
                             IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("fe93e8fb-0b55-43fb-baa7-450cdcca8f6a"),
+                            CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971660800480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("04c237bb-7670-4d66-bbaa-dcd9624d2d90"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0aa9b237-dab8-472e-b2e6-af9c0af9f916"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0cbb3d40-de41-483e-a76c-3d85682176af"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("0fd84267-ee22-47c4-b41c-ce654eba29d9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("13e7d01e-93ca-429c-b412-ff6fa5b6a026"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("186bca5f-cc2c-427e-a58a-dbb81641a296"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("19813cb6-00fc-478d-8fb4-36ac7e6fcf51"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1c377037-13b4-4ef2-8010-d914a40fdbb3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1cba3770-9b4e-4c69-9973-07c4f8555a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1d2fb341-3b69-4d0b-934d-c4c2cd250401"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("1efd01cf-42f2-45c7-95f2-84be55e65646"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("24ace337-41fe-429d-b32e-d9f88bd97aaa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("25535592-81a1-42dd-8a55-509f2c852ff9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("286dc779-f58d-439a-bb9b-1333ff2b111b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("2ac78309-1719-4ea5-ac0f-6974a86f168c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("2c1c895c-6434-4f14-91f2-144e48457101"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("2dd1a78c-f725-461b-8bc6-66112a7e156c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("316ecba5-5d89-44ae-908f-a54268723bd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("34b187cc-dd6f-4edf-a22c-a339be59d5c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("371b335b-29e5-4846-b6de-78c9cc691717"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3d007d84-d209-49e2-94ca-11ad2a3dd91d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3d6e9553-2baf-4d9d-8a82-65de1c7d7ece"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("3f8d700a-bc26-4d5c-9622-d98bf9359159"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("46cad808-0d0b-42bb-a134-3ad6db8ebf54"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("476cf96a-0e18-4c30-a760-e8b9c615bb99"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("490bc05f-499e-4f4c-811d-fde4c10be2ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("4e845d07-33a4-4dc4-ba7f-8568f88b9d68"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("4f259695-23ea-4453-a4f1-2b055d135c37"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("5591c5b9-9ee0-44ae-a4fa-39234b95afa4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("67501fd4-4fbf-48c2-b383-f3a2085268ed"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("8158e1a6-335d-4a29-9177-0f30e86fa8ec"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("87377abe-785d-426c-b052-f706a2c7173d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("925c3162-155c-4644-8ca2-075f9fc76235"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("94d2c383-03b6-475c-a744-637dd87a5fdc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("99b6dcf1-1eae-4653-b30d-423c9c8dc95c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("a25da8f5-23d4-4118-b399-0a36f912a370"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("a2b68c70-173f-46fa-8442-e19219a9905b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("a468499c-7115-44f1-ad38-2c5f696891d4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("b63d694e-205f-44c0-8353-0c9507f44696"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("b71bbc5f-83a3-4065-b561-cb4b69b4a507"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("b8224935-fae6-4bbe-ad91-1d8969baabe8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("ba89c7b7-552c-415c-b4be-085262dc76b0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("bddc6ccc-3f93-4be7-8756-15613cdf76b6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("bf05ffe8-c3ff-402d-bef1-3e95d202fd03"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("c98160ef-ce87-4a1b-bfb3-09fc79d2a34a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("cc23917b-930a-4e34-9717-be71b9fd2dd5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d1c558a6-6d54-4ba0-872a-c61cd04db9bb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d5756ad0-6a8b-4462-907f-1c52a1e11369"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d982a072-4681-45d9-8489-7a14218adb04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("d998802f-776e-4137-bc63-d8d818464f98"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("de62a886-64b2-4a40-b70a-47eb08f23202"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("defa9a78-229f-43a9-b6b8-95dd6fd8a3c3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("e44bb45d-514c-4217-bfba-452c0bd38f28"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("ea0fb035-1f06-4f61-9946-8df027a7462d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f02f906a-7579-478a-9406-3c8fd2c54886"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f077211f-0e79-44a3-935c-0f704f6a5962"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f1649263-ef9a-4f42-85ac-16009283efff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f2ca3ab7-40da-4828-ad63-06bc9af9b153"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            ResourceId = new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307037971578880480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
                         });
                 });
 
@@ -11582,6 +15533,9 @@ namespace Gardener.Api.Core.Migrations
 
                     b.Property<int?>("PositionId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
@@ -11758,6 +15712,60 @@ namespace Gardener.Api.Core.Migrations
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
                             UserName = "dongfangcaifu"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Avatar = "./avatars/9.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户1用户1",
+                            Password = "40a693e8e3fad5807e0a9f241752dd2c",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f"),
+                            UserName = "zuhu1_user1"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Avatar = "./avatars/10.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户2用户1",
+                            Password = "093195e5bda467b3c6f791e530bbf996",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            UserName = "zuhu2_user1"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Avatar = "./avatars/11.jpeg",
+                            CreatedTime = 1305892579553280000L,
+                            DeptId = 2,
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            NickName = "租户2用户2",
+                            Password = "55ac694faa3b8ca826beb0cea3f2b4c4",
+                            PasswordEncryptKey = "032854df-332d-4c60-905a-fb9487b711e4",
+                            PhoneNumberConfirmed = false,
+                            PositionId = 1,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),
+                            UserName = "zuhu2_user2"
                         });
                 });
 
@@ -11785,6 +15793,9 @@ namespace Gardener.Api.Core.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("QQ")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TenantId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UpdateBy")
@@ -11837,6 +15848,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -11857,6 +15871,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 1,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -11865,6 +15881,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 2,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -11873,6 +15891,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 3,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -11881,6 +15901,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 4,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -11889,6 +15911,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 5,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -11897,6 +15921,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 6,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -11905,6 +15931,8 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 7,
                             RoleId = 1,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
@@ -11913,9 +15941,44 @@ namespace Gardener.Api.Core.Migrations
                         {
                             UserId = 8,
                             RoleId = 2,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
                             CreatedTime = 1305892579553280000L,
                             IsDeleted = false,
                             IsLocked = false
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            RoleId = 3,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("710148b3-0c80-48a2-8f57-4b863be9859f")
+                        },
+                        new
+                        {
+                            UserId = 11,
+                            RoleId = 4,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
+                        },
+                        new
+                        {
+                            UserId = 12,
+                            RoleId = 4,
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1305892579553280000L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            TenantId = new Guid("f416b514-04c8-40ca-91a4-07c5bbf9c8c6")
                         });
                 });
 
@@ -12005,6 +16068,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<int>("SessionType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -12053,6 +16119,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<int>("MessageType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -12097,6 +16166,9 @@ namespace Gardener.Api.Core.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UpdateBy")
                         .HasColumnType("TEXT");
 
@@ -12123,6 +16195,24 @@ namespace Gardener.Api.Core.Migrations
                         .IsRequired();
 
                     b.Navigation("CodeType");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditEntity", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Domains.AuditOperation", null)
+                        .WithMany("AuditEntities")
+                        .HasForeignKey("AuditOperationId");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditProperty", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Domains.AuditEntity", "AuditEntity")
+                        .WithMany("AuditProperties")
+                        .HasForeignKey("AuditEntityid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AuditEntity");
                 });
 
             modelBuilder.Entity("Gardener.Base.Entity.Resource", b =>
@@ -12153,6 +16243,25 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Resource");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenantResource", b =>
+                {
+                    b.HasOne("Gardener.Base.Entity.Resource", "Resource")
+                        .WithMany("TenantResources")
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gardener.Base.Entity.SystemTenant", "Tenant")
+                        .WithMany("TenantResources")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resource");
+
+                    b.Navigation("Tenant");
+                });
+
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGenConfig", b =>
                 {
                     b.HasOne("Gardener.CodeGeneration.Domains.CodeGen", null)
@@ -12160,24 +16269,6 @@ namespace Gardener.Api.Core.Migrations
                         .HasForeignKey("CodeGenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
-                {
-                    b.HasOne("Gardener.EntityFramwork.Audit.Domains.AuditOperation", null)
-                        .WithMany("AuditEntities")
-                        .HasForeignKey("AuditOperationId");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditProperty", b =>
-                {
-                    b.HasOne("Gardener.EntityFramwork.Audit.Domains.AuditEntity", "AuditEntity")
-                        .WithMany("AuditProperties")
-                        .HasForeignKey("AuditEntityid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AuditEntity");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.ClientFunction", b =>
@@ -12277,6 +16368,16 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Codes");
                 });
 
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditEntity", b =>
+                {
+                    b.Navigation("AuditProperties");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.Domains.AuditOperation", b =>
+                {
+                    b.Navigation("AuditEntities");
+                });
+
             modelBuilder.Entity("Gardener.Base.Entity.Function", b =>
                 {
                     b.Navigation("ResourceFunctions");
@@ -12287,21 +16388,18 @@ namespace Gardener.Api.Core.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("ResourceFunctions");
+
+                    b.Navigation("TenantResources");
+                });
+
+            modelBuilder.Entity("Gardener.Base.Entity.SystemTenant", b =>
+                {
+                    b.Navigation("TenantResources");
                 });
 
             modelBuilder.Entity("Gardener.CodeGeneration.Domains.CodeGen", b =>
                 {
                     b.Navigation("CodeGenConfigs");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditEntity", b =>
-                {
-                    b.Navigation("AuditProperties");
-                });
-
-            modelBuilder.Entity("Gardener.EntityFramwork.Audit.Domains.AuditOperation", b =>
-                {
-                    b.Navigation("AuditEntities");
                 });
 
             modelBuilder.Entity("Gardener.UserCenter.Impl.Domains.Client", b =>
