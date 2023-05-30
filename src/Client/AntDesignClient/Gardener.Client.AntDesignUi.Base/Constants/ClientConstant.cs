@@ -13,14 +13,14 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
     /// <summary>
     /// 客户端常量配置
     /// </summary>
-    public partial class ClientConstant: Gardener.Client.Base.Constants.ClientConstant
+    public partial class ClientConstant : Gardener.Client.Base.Constants.ClientConstant
     {
 
         /// <summary>
         /// 操作按钮大小
         /// </summary>
         public readonly static string OperationButtonSize = "default";
-        
+
         /// <summary>
         /// 底部友链
         /// </summary>
@@ -31,19 +31,28 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
                 new LinkItem{ Key = "Gardener", BlankTarget = true, Title = "Gardener",Href="https://gitee.com/hgflydream/Gardener"}
         };
 
-       
+
         /// <summary>
         /// 默认的操作框配置
         /// </summary>
-        public readonly static OperationDialogSettings DefaultOperationDialogSettings = new OperationDialogSettings
+        /// <remarks>
+        /// 每次都是新对象
+        /// </remarks>
+        public static OperationDialogSettings DefaultOperationDialogSettings
         {
-            Width = 500,
-            MaskClosable = true,
-            Closable = true,
-            ModalCentered=true,
-            DrawerPlacement= Placement.Right,
-            DialogType= OperationDialogType.Modal
-        };
+            get
+            {
+                return new OperationDialogSettings
+                {
+                    Width = 500,
+                    MaskClosable = true,
+                    Closable = true,
+                    ModalCentered = true,
+                    DrawerPlacement = Placement.Right,
+                    DialogType = OperationDialogType.Modal
+                };
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -51,7 +60,7 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
         /// <summary>
         /// 启用多标签
         /// </summary>
-        public readonly static bool EnabledTabs=true;
-        
+        public readonly static bool EnabledTabs = true;
+
     }
 }
