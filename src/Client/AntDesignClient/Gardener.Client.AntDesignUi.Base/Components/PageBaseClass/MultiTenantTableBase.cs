@@ -47,7 +47,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components.PageBaseClass
         protected virtual async Task LoadTenants()
         {
             #region 加载租户数据
-            if (!this.IsTenant() && !_tenantMap.Any())
+            if (this.IsTenantAdministrator() && !_tenantMap.Any())
             {
                 List<SystemTenantDto> tenants = await TenantService.GetAll();
                 foreach (SystemTenantDto tenant in tenants)
@@ -68,12 +68,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components.PageBaseClass
 
             if (typeof(TDto).IsAssignableTo(typeof(IModelTenantId)))
             {
-                if (this.IsTenant())
-                {
-                    //租户不需要租户编号搜索
-                    this.AddExcludeSearchFields(nameof(IModelTenantId.TenantId));
-                }
-                else
+                if (this.IsTenantAdministrator())
                 {
                     //非租户租户编号搜索=》租户
                     tableSearchSettings.FieldDisplayNameConverts.Add(nameof(IModelTenantId.TenantId), (old) => nameof(IModelTenant.Tenant));
@@ -83,6 +78,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components.PageBaseClass
                         List<SystemTenantDto> tenants = await TenantService.GetAll();
                         return tenants.Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
                     });
+                }
+                else 
+                {
+                    //不需要租户编号搜索
+                    this.AddExcludeSearchFields(nameof(IModelTenantId.TenantId));
                 }
 
             }
@@ -109,8 +109,19 @@ namespace Gardener.Client.AntDesignUi.Base.Components.PageBaseClass
         /// <returns></returns>
         protected virtual bool IsTenant()
         {
-            bool isTenant = AuthenticationStateManager.CurrentUserIsTenant();
-            return isTenant;
+            return AuthenticationStateManager.CurrentUserIsTenant();
+        }
+
+        /// <summary>
+        /// 是否是租户管理员
+        /// </summary>
+        /// <remarks>
+        /// 是否分配资源 <see cref="Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>
+        /// </remarks>
+        /// <returns></returns>
+        protected virtual bool IsTenantAdministrator()
+        {
+            return AuthenticationStateManager.CurrentUserIsTenantAdministrator();
         }
 
     }
