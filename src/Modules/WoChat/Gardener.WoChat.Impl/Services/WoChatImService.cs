@@ -262,10 +262,10 @@ namespace Gardener.WoChat.Services
                .Where(x => x.ImSessionId.Equals(imSessionId));
             if (maxDateTime != null)
             {
-                query = query.Where(x => x.CreatedTime > maxDateTime);
+                query = query.Where(x => x.CreatedTime < maxDateTime);
             }
             IEnumerable<ImSessionMessage> messages = await query
-                .OrderBy(x => x.CreatedTime)
+                .OrderByDescending(x => x.CreatedTime)
                 .Take(pageSize)
                 .ToListAsync();
             if (!messages.Any())
@@ -282,7 +282,7 @@ namespace Gardener.WoChat.Services
                 userDto.User = users.Where(x => x.Id == message.UserId).FirstOrDefault();
                 messageDtos.Add(userDto);
             }
-            return messageDtos;
+            return messageDtos.OrderBy(x => x.CreatedTime);
         }
 
         /// <summary>
