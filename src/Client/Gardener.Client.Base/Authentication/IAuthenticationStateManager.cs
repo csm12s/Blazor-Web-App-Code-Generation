@@ -108,5 +108,14 @@ namespace Gardener.Client.Base
         /// </remarks>
         /// <returns></returns>
         bool CurrentUserIsTenant();
+
+        /// <summary>
+        /// 是否是租户管理员
+        /// </summary>
+        /// <remarks>
+        /// 是否分配资源 <see cref="Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey"/>
+        /// </remarks>
+        /// <returns></returns>
+        bool CurrentUserIsTenantAdministrator();
     }
 }
