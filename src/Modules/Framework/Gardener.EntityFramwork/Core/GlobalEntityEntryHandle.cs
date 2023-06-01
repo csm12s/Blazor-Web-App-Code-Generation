@@ -20,9 +20,6 @@ namespace Gardener.EntityFramwork.Core
     /// <summary>
     /// 全局实体基础信息处理
     /// </summary>
-    /// <remarks>
-    
-    /// </remarks>
     public static class GlobalEntityEntryHandle
     {
         /// <summary>
