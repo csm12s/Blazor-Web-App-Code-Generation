@@ -3,7 +3,7 @@
     "Settings": {
       "User": {
         "ValidateIssuerSigningKey": true, // 是否验证密钥，bool 类型，默认true
-        "IssuerSigningKey": "eXVhbmRpbmcuaGVsbG93b3Jk", // 密钥，string 类型，必须是base64加密后，必须是复杂密钥，长度大于16
+        "IssuerSigningKey": "eXVhbmRpbmcuaGVsbG93b3JkLi4uLi4uLi4uLi4uMzI=", // 密钥，string 类型，必须是base64加密后，必须是复杂密钥，HS256 长度大于32
         "ValidateIssuer": true, // 是否验证签发方，bool 类型，默认true
         "ValidIssuer": "Gardener", // 签发方，string 类型
         "ValidateAudience": true, // 是否验证签收方，bool 类型，默认true
@@ -17,7 +17,7 @@
       },
       "Client": {
         "ValidateIssuerSigningKey": true, // 是否验证密钥，bool 类型，默认true
-        "IssuerSigningKey": "eXVhbmRpbmcuaGVsbG93b3JkLmNsaWVudA==", // 密钥，string 类型，必须是base64加密后，必须是复杂密钥，长度大于16
+        "IssuerSigningKey": "eXVhbmRpbmcuaGVsbG93b3JkLmNsaWVudC4uLi4uMzI=", // 密钥，string 类型，必须是base64加密后，必须是复杂密钥，HS256 长度大于32
         "ValidateIssuer": true, // 是否验证签发方，bool 类型，默认true
         "ValidIssuer": "Gardener", // 签发方，string 类型
         "ValidateAudience": true, // 是否验证签收方，bool 类型，默认true

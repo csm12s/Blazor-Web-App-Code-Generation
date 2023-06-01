@@ -7,10 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Furion" Version="4.8.8.2" />
+		<PackageReference Include="Furion" Version="4.8.8.23" />
 		<PackageReference Include="IdGen" Version="3.0.3" />
 		<PackageReference Include="Mapster" Version="7.3.0" />
-		<PackageReference Include="MiniExcel" Version="1.30.2" />
+		<PackageReference Include="MiniExcel" Version="1.31.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
 	</ItemGroup>
 
