@@ -1,10 +1,12 @@
 using System.Threading.Tasks;
+using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.UserCenter.Client.Pages.UserView;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Resources;
+using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
@@ -13,8 +15,14 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
     {
         private UserDto? _currentUser;
 
-        [Inject] 
+        [Inject]
         protected IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
+        [Inject]
+        protected IAccountService AccountService { get; set; } = null!;
+        [Inject]
+        protected IClientNotifier Notifier { get; set; }=null!;
+
+        private bool _saveBtnLoading = false;
 
         private void HandleFinish()
         {
@@ -38,6 +46,29 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
                 Localizer[SharedLocalResource.UplaodAvatar],
                 new UserUploadAvatarParams(user, false),
                 width: avatarDrawerWidth);
+        }
+
+        /// <summary>
+        /// 点击保存用户基本信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task SaveUserBaseInfo()
+        {
+            if (_currentUser == null) return;
+
+            _saveBtnLoading=true;
+
+            bool result = await AccountService.UpdateCurrentUserBaseInfo(_currentUser);
+
+            if (result)
+            {
+                Notifier.Success(Localizer.Combination(UserCenterResource.Save, UserCenterResource.Success));
+            }
+            else 
+            {
+                Notifier.Error(Localizer.Combination(UserCenterResource.Save, UserCenterResource.Error));
+            }
+            _saveBtnLoading = false;
         }
     }
 }

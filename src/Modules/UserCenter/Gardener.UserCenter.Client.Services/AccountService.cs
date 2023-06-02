@@ -84,5 +84,10 @@ namespace Gardener.UserCenter.Client.Services
         {
             return apiCaller.PostAsync<int,bool>($"{controller}/test-token?flag={flag}",0);
         }
+
+        public Task<bool> UpdateCurrentUserBaseInfo(UserDto user)
+        {
+            return apiCaller.PutAsync<UserDto, bool>($"{controller}/current-user-base-info", user);
+        }
     }
 }

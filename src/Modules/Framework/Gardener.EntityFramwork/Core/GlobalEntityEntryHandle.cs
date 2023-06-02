@@ -115,6 +115,10 @@ namespace Gardener.EntityFramwork.Core
                         entity.Property(nameof(IModelUpdated.UpdateBy)).CurrentValue = identity.Id;
                         entity.Property(nameof(IModelUpdated.UpdateIdentityType)).CurrentValue = identity.IdentityType;
                         entity.Property(nameof(IModelUpdated.UpdatedTime)).CurrentValue = DateTimeOffset.Now;
+
+                        entity.Property(nameof(IModelUpdated.UpdateBy)).IsModified = true;
+                        entity.Property(nameof(IModelUpdated.UpdateIdentityType)).IsModified = true;
+                        entity.Property(nameof(IModelUpdated.UpdatedTime)).IsModified = true;
                     }
                 }
                 else if (entity.State == EntityState.Deleted)
