@@ -44,7 +44,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         }
         public AvatarMenuItem[] AvatarMenuItems { get; set; } = new AvatarMenuItem[]
         {
-            new() { Key = "center", IconType = "user", Option = LocalizerUtil.GetValue("UserCenter")},
+            //new() { Key = "center", IconType = "user", Option = LocalizerUtil.GetValue("UserCenter")},
             new() { Key = "setting", IconType = "setting", Option =LocalizerUtil.GetValue("PersonalSettings")},
             new() { IsDivider = true },
             new() { Key = "logout", IconType = "logout", Option = LocalizerUtil.GetValue("Logout")}

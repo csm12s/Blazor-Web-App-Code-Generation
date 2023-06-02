@@ -84,6 +84,15 @@ namespace Gardener.Base.Entity
         public bool SupportMultiTenant { get; set; }
 
         /// <summary>
+        /// 是否隐藏
+        /// </summary>
+        /// <remarks>
+        /// 菜单类型：控制在界面中是否展示该菜单
+        /// </remarks>
+        [DisplayName("Hide")]
+        public bool Hide { get; set; }
+
+        /// <summary>
         /// 父级
         /// </summary>
         public Resource? Parent { get; set; }

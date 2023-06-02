@@ -62,6 +62,9 @@
             <Column @bind-Field="@model.SupportMultiTenant" Filterable Title="@Localizer[SystemManagerResource.SupportMultiTenant]">
                  <TagYesNo Yes="model.SupportMultiTenant"></TagYesNo>
              </Column>
+             <Column @bind-Field="@model.Hide" Filterable Title="@Localizer[SystemManagerResource.Hide]">
+                 <TagYesNo Yes="model.Hide"></TagYesNo>
+             </Column>
             <Column @bind-Field="@model.IsLocked" Width="10%" Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_resource_lock">
                     <Authorized>
@@ -72,8 +75,6 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Width="10%" Format="@ClientConstant.DateTimeFormat" Title="@Localizer[SharedLocalResource.CreatedTime]" />
-            @*<Column @bind-Field="@model.Remark" />*@
             <ActionColumn Width="10%">
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_resource_add_children">
