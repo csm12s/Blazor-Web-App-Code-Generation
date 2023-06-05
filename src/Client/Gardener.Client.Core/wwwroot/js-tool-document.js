@@ -1,6 +1,4 @@
-﻿import Cookies from './js.cookie.min.mjs'
-
-//设置title
+﻿//设置title
 export function setDocumentTitle(title) {
     document.title = title;
 };
@@ -24,18 +22,6 @@ export function downloadFile(url) {
     elem.appendChild(iframe);
 };
 
-export function setCookies(key, value,params) {
-    return Cookies.set(key, value,params);
-};
-export function getCookies(key, params) {
-    return Cookies.get(key,params);
-};
-export function removeCookies(key, params) {
-    return Cookies.remove(key,params);
-};
-export function getAllCookies() {
-    return Cookies.get();
-}
 //聊天窗口滚动条滚到最下面
 export function scrollBarToBottom(boxId) {
     var div = document.getElementById(boxId);

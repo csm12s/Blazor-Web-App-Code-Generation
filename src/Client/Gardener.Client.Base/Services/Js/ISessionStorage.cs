@@ -4,17 +4,12 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Microsoft.JSInterop;
-
-namespace Gardener.Client.Base
+namespace Gardener.Client.Base.Services
 {
-    public interface IJsTool
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface ISessionStorage : IWebStorage
     {
-        IDocument Document { get; init; }
-        IWebStorage LocalStorage { get; init; }
-        IWebStorage SessionStorage { get; init; }
-        ICookie Cookie { get; init; }
-
-        IJSRuntime Js { get;}
     }
 }
