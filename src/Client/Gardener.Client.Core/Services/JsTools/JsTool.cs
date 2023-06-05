@@ -29,13 +29,15 @@ namespace Gardener.Client.Core.Services
         /// <param name="sessionStorage"></param>
         /// <param name="document"></param>
         /// <param name="cookie"></param>
-        public JsTool(IJSRuntime js, ILocalStorage localStorage, ISessionStorage sessionStorage, IDocument document, ICookie cookie)
+        /// <param name="printing"></param>
+        public JsTool(IJSRuntime js, ILocalStorage localStorage, ISessionStorage sessionStorage, IDocument document, ICookie cookie, IPrintingService printing)
         {
             this.js = js;
-            SessionStorage = sessionStorage;
-            Document = document;
-            LocalStorage = localStorage;
-            Cookie = cookie;
+            this.SessionStorage = sessionStorage;
+            this.Document = document;
+            this.LocalStorage = localStorage;
+            this.Cookie = cookie;
+            this.Printing = printing;
         }
         /// <summary>
         /// JSRuntime
@@ -57,6 +59,10 @@ namespace Gardener.Client.Core.Services
         /// Cookie
         /// </summary>
         public ICookie Cookie { get; init; }
+        /// <summary>
+        /// 打印
+        /// </summary>
+        public IPrintingService Printing { get; init; }
     }
 
 }
