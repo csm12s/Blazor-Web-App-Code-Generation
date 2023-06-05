@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountBinding" xml:space="preserve">
+    <value>Account binding</value>
+  </data>
   <data name="AccountPasswordLogin" xml:space="preserve">
     <value>Use account and password login</value>
   </data>
@@ -126,8 +129,14 @@
   <data name="BaseInfo" xml:space="preserve">
     <value>Basic information</value>
   </data>
+  <data name="Basic Settings" xml:space="preserve">
+    <value>Basic settings</value>
+  </data>
   <data name="BasicInformation" xml:space="preserve">
     <value>Basic information</value>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>Basic settings</value>
   </data>
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>Modify avatar</value>
@@ -218,6 +227,9 @@
   </data>
   <data name="SecretKey" xml:space="preserve">
     <value>SecretKey</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>Security settings</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>Target</value>

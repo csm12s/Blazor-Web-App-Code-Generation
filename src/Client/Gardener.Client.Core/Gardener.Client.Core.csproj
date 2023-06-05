@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\js-tool.js">
+    <Content Update="wwwroot\js-tool-document.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\js.cookie.min.mjs">

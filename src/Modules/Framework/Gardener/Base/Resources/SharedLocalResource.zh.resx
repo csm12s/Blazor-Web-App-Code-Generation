@@ -580,4 +580,7 @@
   <data name="There is no permission to modify the data" xml:space="preserve">
     <value>没有权限修改这个数据</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
 </root>

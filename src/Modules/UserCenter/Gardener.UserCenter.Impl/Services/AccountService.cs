@@ -63,7 +63,7 @@ namespace Gardener.UserCenter.Impl.Services
             IRepository<User> userRepository,
             Authorization.Core.IAuthorizationService authorizationManager,
             IJwtService jwtBearerService,
-            IRepository<Resource> resourceRepository, 
+            IRepository<Resource> resourceRepository,
             IIdentityPermissionService identityPermissionService)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -93,15 +93,15 @@ namespace Gardener.UserCenter.Impl.Services
             {
                 throw Oops.Bah(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
             }
-            Identity identity = new Identity 
+            Identity identity = new Identity
             {
-                Id=user.Id.ToString(),
-                LoginId=Guid.NewGuid().ToString(),
-                LoginClientType=input.LoginClientType,
-                IdentityType=IdentityType.User,
-                Name=user.UserName,
-                NickName=user.NickName,
-                TenantId=user.TenantId
+                Id = user.Id.ToString(),
+                LoginId = Guid.NewGuid().ToString(),
+                LoginClientType = input.LoginClientType,
+                IdentityType = IdentityType.User,
+                Name = user.UserName,
+                NickName = user.NickName,
+                TenantId = user.TenantId
             };
 
             var token = await _jwtBearerService.CreateToken(identity);
@@ -164,7 +164,7 @@ namespace Gardener.UserCenter.Impl.Services
             var roles = await GetCurrentUserRoles();
             userDto.Roles = roles;
 
-            userDto.IsSuperAdministrator =await _authorizationManager.IsSuperAdministrator();
+            userDto.IsSuperAdministrator = await _authorizationManager.IsSuperAdministrator();
 
             return userDto;
         }
@@ -173,10 +173,10 @@ namespace Gardener.UserCenter.Impl.Services
         /// </summary>
         /// <param name="resourceTypes">资源类型</param>
         /// <returns></returns>
-        public async Task<List<ResourceDto>> GetCurrentUserResources( [FromQuery] params ResourceType[] resourceTypes)
+        public async Task<List<ResourceDto>> GetCurrentUserResources([FromQuery] params ResourceType[] resourceTypes)
         {
             resourceTypes = resourceTypes ?? new ResourceType[] { };
-            List<Resource> resources =await GetUserResources(resourceTypes);
+            List<Resource> resources = await GetUserResources(resourceTypes);
             return resources.Adapt<List<ResourceDto>>();
 
         }
@@ -188,11 +188,11 @@ namespace Gardener.UserCenter.Impl.Services
         public async Task<List<string>> GetCurrentUserResourceKeys([FromQuery] params ResourceType[] resourceTypes)
         {
             resourceTypes = resourceTypes ?? new ResourceType[] { };
-            List<string> resourceKeys =await GetUserResourceKeys(resourceTypes);
+            List<string> resourceKeys = await GetUserResourceKeys(resourceTypes);
             return resourceKeys;
 
         }
-        
+
         /// <summary>
         /// 获取当前用户的所有菜单
         /// </summary>
@@ -206,7 +206,7 @@ namespace Gardener.UserCenter.Impl.Services
             // 获取用户Id
             List<ResourceDto> resources = await GetCurrentUserResources(ResourceType.Root, ResourceType.Menu);
 
-            var result= resources.Where(x => x.Type.Equals(ResourceType.Root) && (string.IsNullOrEmpty(rootKey) || x.Key.Equals(rootKey))).FirstOrDefault()?.Children?.ToList();
+            var result = resources.Where(x => x.Type.Equals(ResourceType.Root) && (string.IsNullOrEmpty(rootKey) || x.Key.Equals(rootKey))).FirstOrDefault()?.Children?.ToList();
 
             return result ?? new List<ResourceDto>();
         }
@@ -219,9 +219,32 @@ namespace Gardener.UserCenter.Impl.Services
         /// <remarks>
         /// 不执行任何内容，token无效将响应401
         /// </remarks>
-        public Task<bool> TestToken([FromQuery]string? flag = null)
-        { 
+        public Task<bool> TestToken([FromQuery] string? flag = null)
+        {
             return Task.FromResult(true);
+        }
+
+        /// <summary>
+        /// 更新当前用户基本信息
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 更新 <see cref="UserDto.NickName"/>、<see cref="UserDto.Gender"/>、<see cref="UserDto.Avatar"/>
+        /// </remarks>
+        public async Task<bool> UpdateCurrentUserBaseInfo(UserDto user)
+        {
+            //更新
+            Identity? identity = _authorizationManager.GetIdentity();
+            if (identity == null || !identity.IdentityType.Equals(IdentityType.User)) return false;
+            var userEntity =await _userRepository.FindOrDefaultAsync(int.Parse(identity.Id));
+            if(userEntity == null) return false;
+            userEntity.Id = int.Parse(identity.Id);
+            userEntity.Avatar = user.Avatar;
+            userEntity.NickName = user.NickName;
+            userEntity.Gender = user.Gender;
+            await _userRepository.UpdateIncludeAsync(userEntity, new string[] { nameof(UserDto.NickName), nameof(UserDto.Gender), nameof(UserDto.Avatar) });
+            return true;
         }
 
         #region 私有
@@ -265,9 +288,9 @@ namespace Gardener.UserCenter.Impl.Services
                      .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
                      .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
                          .SelectMany(u => u.RoleResources
-                                .Select(u=>u.Resource)
+                                .Select(u => u.Resource)
                                     .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
-                         )).Select(x=>(Resource)x).OrderBy(x => x.Order).ToListAsync();
+                         )).Select(x => (Resource)x).OrderBy(x => x.Order).ToListAsync();
         }
         /// <summary>
         /// 获取用户资源所有Key
@@ -295,7 +318,7 @@ namespace Gardener.UserCenter.Impl.Services
                          .ThenInclude(u => u.Resource)
                      .Where(u => u.Id.Equals(userId) && u.IsDeleted == false && u.IsLocked == false)
                      .SelectMany(u => u.Roles.Where(x => x.IsDeleted == false && x.IsLocked == false)
-                         .SelectMany(u => u.RoleResources.Select(u=>u.Resource)
+                         .SelectMany(u => u.RoleResources.Select(u => u.Resource)
                          .Where(x => x.IsDeleted == false && x.IsLocked == false && resourceTypes.Contains(x.Type))
                          )).OrderBy(x => x.Order).Select(x => x.Key).ToListAsync();
         }

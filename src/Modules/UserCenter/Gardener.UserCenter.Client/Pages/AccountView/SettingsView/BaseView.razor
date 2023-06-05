@@ -1,0 +1,36 @@
+﻿@inherits OperationDialogBase<int, bool, UserCenterResource>
+@if (_currentUser != null)
+{
+    <div class="baseView">
+        <div class="left" style="min-width: 310px;">
+            <Form Layout="vertical"
+                  OnFinish="HandleFinish"
+                  Model="@_currentUser"
+                  Context="model">
+                <FormItem Label="@Localizer[UserCenterResource.Avatar]">
+                    <Tooltip Placement="Placement.LeftTop" Title="@Localizer[UserCenterResource.ClickUpdateAvatar]">
+                        <a @onclick="_ => OnAvatarClick(model)">
+                            <Avatar Src="@model.Avatar" />
+                        </a>
+                    </Tooltip>
+                </FormItem>
+                <FormItem Label="@Localizer["NickName"]">
+                    <Input @bind-Value="@model.NickName" />
+                </FormItem>
+                <FormItem Label="@Localizer["Gender"]">
+                    <RadioGroup @bind-Value="@(model.Gender)">
+                        @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
+                        {
+                            <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
+                        }
+                    </RadioGroup>
+                </FormItem>
+                <FormItem>
+                    <Button HtmlType="submit" Type="primary" OnClick="SaveUserBaseInfo" Loading="_saveBtnLoading">
+                        @Localizer[UserCenterResource.Save]
+                    </Button>
+                </FormItem>
+            </Form>
+        </div>
+    </div>
+}

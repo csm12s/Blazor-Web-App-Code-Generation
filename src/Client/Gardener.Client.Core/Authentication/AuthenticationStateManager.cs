@@ -21,6 +21,7 @@ using Gardener.EventBus;
 using Gardener.SystemManager.Dtos;
 using Gardener.Base.Enums;
 using Gardener.Base;
+using Mapster;
 
 namespace Gardener.Client.Core
 {
@@ -202,7 +203,11 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public Task<UserDto?> GetCurrentUser()
         {
-            return Task.FromResult(currentUser);
+            if(this.currentUser == null)
+            {
+                return Task.FromResult<UserDto?>(null);
+            }
+            return Task.FromResult<UserDto?>(this.currentUser.Adapt(new UserDto()));
         }
 
         /// <summary>

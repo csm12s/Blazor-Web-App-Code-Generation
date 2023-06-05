@@ -56,6 +56,9 @@
             <FormItem Label="@Localizer[SystemManagerResource.Icon]">
                 <Input @bind-Value="@model.Icon" />
             </FormItem>
+            <FormItem Label="@Localizer[SystemManagerResource.Hide]">
+                <Switch @bind-Value="@model.Hide"></Switch>
+            </FormItem>
         }
         <FormItem Label="@Localizer[SystemManagerResource.Order]">
             <AntDesign.InputNumber @bind-Value="@model.Order" />

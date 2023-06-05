@@ -38,17 +38,17 @@ namespace Gardener.Client.AntDesignUi.Services
         /// <summary>
         /// 发送通知
         /// </summary>
-        /// <param name="msg"></param>
+        /// <param name="title"></param>
         /// <param name="description"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        private Task Notify(string msg, string description, NotificationType type)
+        private Task Notify(string title, string description, NotificationType type)
         {
             if (description?.Length > msgMaxLength)
             {
                 return notificationService.Open(new NotificationConfig()
                 {
-                    Message = msg,
+                    Message = title,
                     Description = description,
                     NotificationType = type
                 });
@@ -66,7 +66,7 @@ namespace Gardener.Client.AntDesignUi.Services
                 }
                 return msgSvr.Open(new MessageConfig()
                 {
-                    Content ="["+msg+"]"+ description,
+                    Content = (string.IsNullOrEmpty(title) ? "" : "[" + title + "]") + description,
                     Duration = duration,
                     Type = messageType
                 });
@@ -81,7 +81,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public Task ErrorAsync(string description, string? title = null, Exception? ex = null)
         {
-            return Notify(title?? localizer[SharedLocalResource.Error], description, NotificationType.Error);
+            return Notify(title ?? localizer[SharedLocalResource.Error], description, NotificationType.Error);
         }
 
         public void Info(string description, string? title = null)
@@ -96,7 +96,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public void Success(string description, string? title = null)
         {
-            Success(description, title);
+            SuccessAsync(description, title);
         }
 
         public Task SuccessAsync(string description, string? title = null)
@@ -111,7 +111,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public Task WarnAsync(string description, string? title = null, Exception? ex = null)
         {
-            return Notify(title?? localizer[SharedLocalResource.Warn], description, NotificationType.Warning);
+            return Notify(title ?? localizer[SharedLocalResource.Warn], description, NotificationType.Warning);
         }
     }
 }

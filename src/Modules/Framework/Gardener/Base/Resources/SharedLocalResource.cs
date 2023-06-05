@@ -392,5 +392,9 @@ namespace Gardener.Base.Resources
         /// 租户
         /// </summary>
         public const string Tenant = nameof(Tenant);
+        /// <summary>
+        /// 隐藏
+        /// </summary>
+        public const string Hide = nameof(Hide);
     }
 }

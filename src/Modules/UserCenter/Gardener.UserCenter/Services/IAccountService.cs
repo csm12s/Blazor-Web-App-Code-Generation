@@ -71,5 +71,14 @@ namespace Gardener.UserCenter.Services
         /// 不执行任何内容，token无效将响应401
         /// </remarks>
         Task<bool> TestToken(string? flag=null);
+        /// <summary>
+        /// 更新当前用户基本信息
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 更新 <see cref="UserDto.NickName"/>、<see cref="UserDto.Gender"/>、<see cref="UserDto.Avatar"/>
+        /// </remarks>
+        Task<bool> UpdateCurrentUserBaseInfo(UserDto user);
     }
 }

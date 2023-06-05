@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountBinding" xml:space="preserve">
+    <value>账号绑定</value>
+  </data>
   <data name="AccountPasswordLogin" xml:space="preserve">
     <value>账号密码登录</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="BasicInformation" xml:space="preserve">
     <value>基本信息</value>
+  </data>
+  <data name="BasicSettings" xml:space="preserve">
+    <value>基础信息</value>
   </data>
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>点击修改头像</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="SecretKey" xml:space="preserve">
     <value>私钥</value>
+  </data>
+  <data name="SecuritySettings" xml:space="preserve">
+    <value>安全设置</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>目标</value>

@@ -305,6 +305,9 @@
   <data name="Group" xml:space="preserve">
     <value>Group</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
   </data>

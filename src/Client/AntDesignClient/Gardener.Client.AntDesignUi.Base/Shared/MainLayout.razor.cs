@@ -91,6 +91,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
                 Name = localName,
                 Key = resourceDto.Key,
                 Icon = resourceDto.Icon ?? "",
+                HideInMenu=resourceDto.Hide
             };
             ClientMenuCache.Add(current);
             if (parent == null)

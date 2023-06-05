@@ -131,4 +131,4 @@ function init (converter, defaultAttributes) {
 var api = init(defaultConverter, { path: '/' });
 /* eslint-enable no-var */
 
-export default api;
+export { api as Cookies };
