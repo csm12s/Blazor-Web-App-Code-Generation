@@ -262,8 +262,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual OperationDialogSettings GetOperationDialogSettings()
         {
-            OperationDialogSettings dialogSettings = new OperationDialogSettings();
-            ClientConstant.DefaultOperationDialogSettings.Adapt(dialogSettings);
+            OperationDialogSettings dialogSettings = ClientConstant.DefaultOperationDialogSettings;
             SetOperationDialogSettings(dialogSettings);
             return dialogSettings;
         }

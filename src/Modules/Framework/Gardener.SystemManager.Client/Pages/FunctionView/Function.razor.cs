@@ -7,12 +7,13 @@
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.SystemManager.Client.Pages.FunctionView
 {
-    public partial class Function : ListOperateTableBase<FunctionDto, Guid, FunctionEdit>
+    public partial class Function : ListOperateTableBase<FunctionDto, Guid, FunctionEdit, SystemManagerResource>
     {
         [Inject]
         public IFunctionService functionService { get; set; } = null!;

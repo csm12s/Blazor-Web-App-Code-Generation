@@ -6,12 +6,13 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Resources;
 using System.ComponentModel.DataAnnotations;
 using HttpMethod = Gardener.Enums.HttpMethod;
 
 namespace Gardener.SystemManager.Client.Pages.FunctionView
 {
-    public partial class FunctionEdit: EditOperationDialogBase<FunctionDto,Guid>
+    public partial class FunctionEdit: EditOperationDialogBase<FunctionDto,Guid, SystemManagerResource>
     {
         [Required(ErrorMessage ="不能为空")]
         private string _currentEditModelHttpMethodType

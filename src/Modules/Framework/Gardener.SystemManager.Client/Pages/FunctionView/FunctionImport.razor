@@ -1,4 +1,4 @@
-﻿@inherits FeedbackComponent<int, bool>
+﻿@inherits OperationDialogBase<int, bool, SystemManagerResource>
 <Spin Spinning="_importLoading">
     <Row>
         <AntDesign.Col Span="6">
@@ -44,14 +44,14 @@
                    SelectedRowsChanged="SelectedRowsChanged"
                    EnableVirtualization>
                 <Selection Key="@(model.Path+"_"+model.Method)" />
-                <Column @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
-                <Column @bind-Field="@model.Summary" Width="150" Sortable="false" Filterable />
-                <Column @bind-Field="@model.Description" Width="200" Sortable="false" Filterable />
-                <Column @bind-Field="@model.Path" Width="150" Sortable="false" Filterable />
-                <Column @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
+                <Column Title="@Localizer[SystemManagerResource.Service]" @bind-Field="@model.Service" Width="150" Sortable="false" Filterable OnFilter="((value,name)=>name.Equals(value))" />
+                 <Column Title="@Localizer[SystemManagerResource.Summary]" @bind-Field="@model.Summary" Width="150" Sortable="false" Filterable />
+                 <Column Title="@Localizer[SystemManagerResource.Description]" @bind-Field="@model.Description" Width="200" Sortable="false" Filterable />
+                <Column Title="@Localizer[SystemManagerResource.Path]" @bind-Field="@model.Path" Width="150" Sortable="false" Filterable />
+                 <Column Title="@Localizer[SystemManagerResource.Method]" @bind-Field="@model.Method" Width="100" Sortable="false" Filters="TableFiltersConstants.FunctionMethodFilters">
                     <TagPro Text="@EnumHelper.GetEnumDescription(model.Method)"></TagPro>
                 </Column>
-                <Column @bind-Field="@model.EnableAudit" Width="100" Sortable="false">
+                 <Column Title="@Localizer[SystemManagerResource.EnableAudit]" @bind-Field="@model.EnableAudit" Width="100" Sortable="false">
                     <Switch @bind-Value="@model.EnableAudit" OnChange="e=>OnChangeEnableAudit(model,e)"></Switch>
                 </Column>
             </Table>

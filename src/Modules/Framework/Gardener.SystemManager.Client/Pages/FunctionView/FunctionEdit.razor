@@ -1,4 +1,4 @@
-﻿@inherits EditOperationDialogBase<FunctionDto, Guid>
+﻿@inherits EditOperationDialogBase<FunctionDto, Guid,SystemManagerResource>
 
 <Form Loading="@_dialogLoading.Value"
       Model="@_editModel"
@@ -6,22 +6,22 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="编号">
+    <FormItem Label="@Localizer[SystemManagerResource.Id]">
         <Input @bind-Value="@model.Id" Disabled />
     </FormItem>
-    <FormItem Label="分组">
+     <FormItem Label="@Localizer[SystemManagerResource.Group]">
         <Input @bind-Value="@model.Group" />
     </FormItem>
-    <FormItem Label="服务">
+    <FormItem Label="@Localizer[SystemManagerResource.Service]">
         <Input @bind-Value="@model.Service" />
     </FormItem>
-    <FormItem Label="概要">
+     <FormItem Label="@Localizer[SystemManagerResource.Summary]">
         <Input @bind-Value="@model.Summary" />
     </FormItem>
-    <FormItem Label="地址">
+    <FormItem Label="@Localizer[SystemManagerResource.Path]">
         <Input @bind-Value="@model.Path" />
     </FormItem>
-    <FormItem Label="请求方法">
+    <FormItem Label="@Localizer[SystemManagerResource.Method]">
         <SimpleSelect @bind-Value="@_currentEditModelHttpMethodType"
                       DefaultValue="@(model.Method.ToString())"
                       Style="width:120px;">
@@ -33,10 +33,10 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-    <FormItem Label="描述">
+    <FormItem Label="@Localizer[SystemManagerResource.Description]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Description"></TextArea>
     </FormItem>
-    <FormItem Label="启用审计">
+    <FormItem Label="@Localizer[SystemManagerResource.EnableAudit]">
         <Switch @bind-Value="@model.EnableAudit"></Switch>
     </FormItem>
     <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
