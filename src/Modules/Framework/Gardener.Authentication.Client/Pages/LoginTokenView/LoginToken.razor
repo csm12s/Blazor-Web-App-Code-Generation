@@ -49,18 +49,18 @@
              <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                  <span>@model.Tenant?.Name</span>
              </Column>
-            <Column @bind-Field="@model.IdentityId" Filterable />
-            <Column @bind-Field="@model.IdentityName" Filterable />
-            <Column @bind-Field="@model.IdentityNickName" Filterable />
-            <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters">
+             <Column @bind-Field="@model.IdentityId" Filterable Title="@Localizer[SharedLocalResource.IdentityId]" />
+             <Column @bind-Field="@model.IdentityName" Filterable Title="@Localizer[SharedLocalResource.IdentityName]" />
+             <Column @bind-Field="@model.IdentityNickName" Filterable Title="@Localizer[SharedLocalResource.IdentityNickName]" />
+             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[SharedLocalResource.IdentityType]">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.IdentityType)"></TagPro>
             </Column>
-            <Column @bind-Field="@model.LoginId" Filterable />
-            <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters">
+             <Column @bind-Field="@model.LoginId" Filterable Title="@Localizer[SharedLocalResource.LoginId]" />
+             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters" Title="@Localizer[SharedLocalResource.LoginClientType]">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagPro>
             </Column>
-            <Column @bind-Field="@model.Ip" Filterable />
-            <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
+             <Column @bind-Field="@model.Ip" Filterable Title="@Localizer[SharedLocalResource.Ip]" />
+             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_login_token_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -71,8 +71,8 @@
                 </ResourceAuthorize>
             </Column>
             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[SharedLocalResource.UpdatedTime]" />
-            <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable />
-            <Column TData="string" Title="@(Localizer["OnlineTime"])">
+             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[SharedLocalResource.EndTime]" />
+             <Column TData="string" Title="@(Localizer[SharedLocalResource.OnlineTime])">
                 @if(model.UpdatedTime.HasValue)
                 {
                     <span>@(DateTimeHelper.FormatDateTimeDiff(model.CreatedTime,model.UpdatedTime.Value))</span>

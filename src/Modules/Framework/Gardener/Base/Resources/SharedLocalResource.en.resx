@@ -269,6 +269,9 @@
     <value>End</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>End time</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
     <comment>LocalKeys</comment>
@@ -326,12 +329,27 @@
   <data name="Id" xml:space="preserve">
     <value>Id</value>
   </data>
+  <data name="IdentityId" xml:space="preserve">
+    <value>Identity id</value>
+  </data>
+  <data name="IdentityName" xml:space="preserve">
+    <value>Identity name</value>
+  </data>
+  <data name="IdentityNickName" xml:space="preserve">
+    <value>Identity nick name</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>Identity type</value>
+  </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
     <comment>LocalKeys</comment>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="Ip" xml:space="preserve">
+    <value>Ip</value>
   </data>
   <data name="IsContinue" xml:space="preserve">
     <value>Do you want to continue ?</value>
@@ -356,6 +374,12 @@
   <data name="Lock" xml:space="preserve">
     <value>Lock</value>
     <comment>LocalKeys</comment>
+  </data>
+  <data name="LoginClientType" xml:space="preserve">
+    <value>Login client type</value>
+  </data>
+  <data name="LoginId" xml:space="preserve">
+    <value>Login id</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>

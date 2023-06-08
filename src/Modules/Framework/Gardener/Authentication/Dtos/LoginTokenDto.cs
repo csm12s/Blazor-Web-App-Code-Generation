@@ -20,55 +20,55 @@ namespace Gardener.Authentication.Dtos
         /// <summary>
         /// 身份编号
         /// </summary>
-        [DisplayName("身份编号")]
+        [DisplayName("IdentityId")]
         public string IdentityId { get; set; } = null!;
 
         /// <summary>
         /// 身份唯一名称
         /// </summary>
-        [DisplayName("身份唯一名称")]
+        [DisplayName("IdentityName")]
         public string IdentityName { get; set; } = null!;
 
         /// <summary>
         /// 身份昵称
         /// </summary>
-        [DisplayName("身份昵称")]
+        [DisplayName("IdentityNickName")]
         public string? IdentityNickName { get; set; }
 
         /// <summary>
         /// 身份类型
         /// </summary>
-        [DisplayName("身份类型")]
+        [DisplayName("IdentityType")]
         public IdentityType IdentityType { get; set; }
 
         /// <summary>
         /// 获取或设置 登录Id
         /// </summary>
-        [DisplayName("登录编号")]
+        [DisplayName("LoginId")]
         public string LoginId { get; set; } = null!;
 
         /// <summary>
         /// 登录的客户端类型
         /// </summary>
-        [DisplayName("客户端类型")]
+        [DisplayName("LoginClientType")]
         public LoginClientType LoginClientType { get; set; }
 
         /// <summary>
         /// 获取或设置 标识值
         /// </summary>
-        [DisplayName("Token")]
+        [DisplayName("Value")]
         public string Value { get; set; } = null!;
 
         /// <summary>
         /// 获取或设置 过期时间
         /// </summary>
-        [DisplayName("过期时间")]
+        [DisplayName("EndTime")]
         public DateTimeOffset EndTime { get; set; } = default!;
 
         /// <summary>
         /// 访问IP
         /// </summary>
-        [DisplayName("IP")]
+        [DisplayName("Ip")]
         public string? Ip { get; set; }
     }
 }

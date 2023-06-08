@@ -601,4 +601,28 @@
   <data name="Data" xml:space="preserve">
     <value>数据</value>
   </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="IdentityId" xml:space="preserve">
+    <value>身份编号</value>
+  </data>
+  <data name="IdentityName" xml:space="preserve">
+    <value>身份唯一名称</value>
+  </data>
+  <data name="IdentityNickName" xml:space="preserve">
+    <value>身份昵称</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>身份类型</value>
+  </data>
+  <data name="Ip" xml:space="preserve">
+    <value>Ip</value>
+  </data>
+  <data name="LoginClientType" xml:space="preserve">
+    <value>客户端类型</value>
+  </data>
+  <data name="LoginId" xml:space="preserve">
+    <value>登录编号</value>
+  </data>
 </root>

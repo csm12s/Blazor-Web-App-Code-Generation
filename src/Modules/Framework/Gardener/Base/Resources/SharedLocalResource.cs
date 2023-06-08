@@ -420,5 +420,41 @@ namespace Gardener.Base.Resources
         /// 数据
         /// </summary>
         public const string Data = nameof(Data);
+        /// <summary>
+        /// 身份编号
+        /// </summary>
+        public const string IdentityId = nameof(IdentityId);
+        /// <summary>
+        /// 身份唯一名称
+        /// </summary>
+        public const string IdentityName = nameof(IdentityName);
+        /// <summary>
+        /// 身份类型
+        /// </summary>
+        public const string IdentityType = nameof(IdentityType);
+        /// <summary>
+        /// 身份昵称
+        /// </summary>
+        public const string IdentityNickName = nameof(IdentityNickName);
+        /// <summary>
+        /// 登录编号
+        /// </summary>
+        public const string LoginId = nameof(LoginId);
+        /// <summary>
+        /// 客户端类型
+        /// </summary>
+        public const string LoginClientType = nameof(LoginClientType);
+        /// <summary>
+        /// IP
+        /// </summary>
+        public const string Ip = nameof(Ip);
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        public const string EndTime = nameof(EndTime);
+        /// <summary>
+        /// 在线时间
+        /// </summary>
+        public const string OnlineTime = nameof(OnlineTime);
     }
 }
