@@ -1,4 +1,4 @@
-﻿@inherits EditOperationDialogBase<AttachmentDto, Guid>
+﻿@inherits EditOperationDialogBase<AttachmentDto, Guid, AttachmentLocalResource>
 @if (_editModel != null)
 {
 <Form Loading="@_dialogLoading.Value"
@@ -7,13 +7,13 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="编号">
+    <FormItem Label="@base.Localizer[AttachmentLocalResource.Id]">
         <Input @bind-Value="@model.Id" Disabled />
     </FormItem>
-    <FormItem Label="业务编号">
+         <FormItem Label="@base.Localizer[AttachmentLocalResource.BusinessId]">
         <Input @bind-Value="@model.BusinessId" Disabled />
     </FormItem>
-    <FormItem Label="业务类型">
+         <FormItem Label="@base.Localizer[AttachmentLocalResource.BusinessType]">
         <SimpleSelect @bind-Value="@_currentEditModelBusinessType"
                       DefaultValue="@(model.BusinessType.ToString())"
                       Style="">
@@ -25,10 +25,10 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-    <FormItem Label="原始类型">
+        <FormItem Label="@base.Localizer[AttachmentLocalResource.ContentType]">
         <Input @bind-Value="@model.ContentType" />
     </FormItem>
-    <FormItem Label="文件类型">
+        <FormItem Label="@base.Localizer[AttachmentLocalResource.FileType]">
         <SimpleSelect @bind-Value="@_currentEditModelFileType"
                       DefaultValue="@(model.FileType.ToString())"
                       Style="">
@@ -40,23 +40,22 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-    <FormItem Label="原始名称">
+        <FormItem Label="@base.Localizer[AttachmentLocalResource.OriginalName]">
         <Input @bind-Value="@model.OriginalName" />
     </FormItem>
-    <FormItem Label="访问名称">
+    <FormItem Label="@base.Localizer[AttachmentLocalResource.Name]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-
-    <FormItem Label="后缀">
+        <FormItem Label="@base.Localizer[AttachmentLocalResource.Suffix]">
         <Input @bind-Value="@model.Suffix" />
     </FormItem>
-    <FormItem Label="大小">
+        <FormItem Label="@base.Localizer[AttachmentLocalResource.Size]">
         <Input @bind-Value="@model.Size" />
     </FormItem>
-    <FormItem Label="路径">
+        <FormItem Label="@base.Localizer[AttachmentLocalResource.Path]">
         <Input @bind-Value="@model.Path" />
     </FormItem>
-    <FormItem Label="访问地址">
+        <FormItem Label="@base.Localizer[AttachmentLocalResource.Url]">
         <Input @bind-Value="@model.Url" />
     </FormItem>
 
