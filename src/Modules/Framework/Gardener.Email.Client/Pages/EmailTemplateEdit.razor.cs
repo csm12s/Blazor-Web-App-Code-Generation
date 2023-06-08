@@ -6,11 +6,12 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Email.Dtos;
+using Gardener.Email.Resources;
 using System;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailTemplateEdit : EditOperationDialogBase<EmailTemplateDto, Guid>
+    public partial class EmailTemplateEdit : EditOperationDialogBase<EmailTemplateDto, Guid, EmailLocalResource>
     {
     }
 }

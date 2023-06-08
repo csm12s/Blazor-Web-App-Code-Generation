@@ -1,4 +1,4 @@
-﻿@inherits ListOperateTableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit>
+﻿@inherits ListOperateTableBase<EmailServerConfigDto, Guid, EmailServerConfigEdit, EmailLocalResource>
 @page "/system_manager/email_server_config"
 <div>
     <Table @ref="_table"
@@ -45,11 +45,11 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_email_server_config_delete_selected"]" />
-            <Column @bind-Field="@model.Name" Filterable />
-            <Column @bind-Field="@model.Host" Filterable />
-            <Column @bind-Field="@model.Port" Filterable />
-            <Column @bind-Field="@model.AccountName" Filterable />
-            <Column @bind-Field="@model.Tags">
+            <Column @bind-Field="@model.Name" Filterable Title="@Localizer[SharedLocalResource.Name]" />
+             <Column @bind-Field="@model.Host" Filterable Title="@Localizer[SharedLocalResource.Host]" />
+             <Column @bind-Field="@model.Port" Filterable Title="@Localizer[SharedLocalResource.Port]" />
+             <Column @bind-Field="@model.AccountName" Filterable Title="@Localizer[SharedLocalResource.AccountName]" />
+             <Column @bind-Field="@model.Tags" Title="@Localizer[SharedLocalResource.Tags]">
                 @foreach (EmailServerTag tag in model.GetEmailServerTagEnums())
                 {
                     <TagPro Text="@EnumHelper.GetEnumDescriptionOrName(tag)"></TagPro>

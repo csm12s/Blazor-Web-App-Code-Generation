@@ -22,58 +22,58 @@ namespace Gardener.Email.Dtos
         /// <summary>
         /// 名称
         /// </summary>
-        [DisplayName("名称")]
+        [DisplayName("Name")]
         [MaxLength(30, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         public string Name { get; set; } = null!;
         /// <summary>
         /// 描述
         /// </summary>
-        [DisplayName("备注")]
+        [DisplayName("Remark")]
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
         public string? Remark { get; set; }
         /// <summary>
         /// 主机
         /// </summary>
-        [DisplayName("主机")]
+        [DisplayName("Host")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         public string Host { get; set; } = null!;
         /// <summary>
         /// 端口
         /// </summary>
-        [DisplayName("端口")]
+        [DisplayName("Port")]
         [Required(ErrorMessage = "不能为空")]
         public int Port { get; set; }
         /// <summary>
         /// 发件人邮箱
         /// </summary>
-        [DisplayName("发件人邮箱")]
+        [DisplayName("FromEmail")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         [RegularExpression("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", ErrorMessage = "请输入正确的邮件地址")]
         public string FromEmail { get; set; } = null!;
         /// <summary>
         /// 账户名
         /// </summary>
-        [DisplayName("账户名")]
+        [DisplayName("AccountName")]
         [MaxLength(50, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         public string AccountName { get; set; } = null!;
         /// <summary>
         /// 密码
         /// </summary>
-        [DisplayName("密码")]
+        [DisplayName("AccountPassword")]
         [MaxLength(50, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         public string AccountPassword { get; set; } = null!;
         /// <summary>
         /// 标签
         /// </summary>
         /// <remarks>多个标签，逗号隔开</remarks>
-        [DisplayName("标签")]
+        [DisplayName("Tags")]
         public string? Tags { get; set; }
 
 
         /// <summary>
         /// 是否启用SSL
         /// </summary>
-        [DisplayName("是否启用SSL")]
+        [DisplayName("EnableSsl")]
         public bool EnableSsl { get; set; }
 
         /// <summary>

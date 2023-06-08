@@ -583,4 +583,22 @@
   <data name="Hide" xml:space="preserve">
     <value>隐藏</value>
   </data>
+  <data name="AccountName" xml:space="preserve">
+    <value>账户名</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>账户密码</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>主机</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>数据</value>
+  </data>
 </root>

@@ -6,9 +6,11 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Email.Dtos;
+using Gardener.Email.Resources;
 using Gardener.Email.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -19,13 +21,11 @@ using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailServerConfigTest : FeedbackComponent<OperationDialogInput<Guid>, OperationDialogOutput<Guid>>
+    public partial class EmailServerConfigTest : OperationDialogBase<OperationDialogInput<Guid>, OperationDialogOutput<Guid>, EmailLocalResource>
     {
         private bool _isLoading = false;
         private SendEmailInputDto _sendEmailInput = new SendEmailInputDto();
         private List<EmailTemplateDto>? emailTemplates;
-        [Inject]
-        protected IClientLocalizer Localizer { get; set; } = null!;
         [Inject]
         protected IEmailTemplateService EmailTemplateService { get; set; } = null!;
         [Inject]

@@ -396,5 +396,29 @@ namespace Gardener.Base.Resources
         /// 隐藏
         /// </summary>
         public const string Hide = nameof(Hide);
+        /// <summary>
+        /// 主机
+        /// </summary>
+        public const string Host = nameof(Host);
+        /// <summary>
+        /// 端口
+        /// </summary>
+        public const string Port = nameof(Port);
+        /// <summary>
+        /// 账号名称
+        /// </summary>
+        public const string AccountName = nameof(AccountName);
+        /// <summary>
+        /// 账户密码
+        /// </summary>
+        public const string AccountPassword = nameof(AccountPassword);
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Tags = nameof(Tags);
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public const string Data = nameof(Data);
     }
 }

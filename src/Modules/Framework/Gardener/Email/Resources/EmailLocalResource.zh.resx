@@ -117,110 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="menu:account_center" xml:space="preserve">
-    <value>Account center</value>
+  <data name="ContentTemplate" xml:space="preserve">
+    <value>内容模板</value>
   </data>
-  <data name="menu:account_center_settings" xml:space="preserve">
-    <value>Account center settings</value>
+  <data name="EmailServerConfig" xml:space="preserve">
+    <value>邮箱服务配置</value>
   </data>
-  <data name="menu:admin_home" xml:space="preserve">
-    <value>Home</value>
-    <comment>menu</comment>
+  <data name="EmailTemplate" xml:space="preserve">
+    <value>邮件模板</value>
   </data>
-  <data name="menu:system_login" xml:space="preserve">
-    <value>Login</value>
-    <comment>menu</comment>
+  <data name="EnableSsl" xml:space="preserve">
+    <value>启用SSL</value>
   </data>
-  <data name="menu:system_manager" xml:space="preserve">
-    <value>System manager</value>
-    <comment>menu</comment>
+  <data name="Example" xml:space="preserve">
+    <value>示例</value>
   </data>
-  <data name="menu:system_manager_attachment" xml:space="preserve">
-    <value>Attachment</value>
-    <comment>menu</comment>
+  <data name="FromEmail" xml:space="preserve">
+    <value>发送邮箱</value>
   </data>
-  <data name="menu:system_manager_audit" xml:space="preserve">
-    <value>Audit</value>
-    <comment>menu</comment>
+  <data name="FromName" xml:space="preserve">
+    <value>发送人</value>
   </data>
-  <data name="menu:system_manager_audit_entity" xml:space="preserve">
-    <value>Audit entity</value>
-    <comment>menu</comment>
+  <data name="IsHtml" xml:space="preserve">
+    <value>是HTML</value>
   </data>
-  <data name="menu:system_manager_audit_operation" xml:space="preserve">
-    <value>Audit operation</value>
-    <comment>menu</comment>
+  <data name="SubjectTemplate" xml:space="preserve">
+    <value>主题模板</value>
   </data>
-  <data name="menu:system_manager_client" xml:space="preserve">
-    <value>Client</value>
-    <comment>menu</comment>
+  <data name="TemplateId" xml:space="preserve">
+    <value>模板编号</value>
   </data>
-  <data name="menu:system_manager_code" xml:space="preserve">
-    <value>Code</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_code_manager" xml:space="preserve">
-    <value>Code manager</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_code_type" xml:space="preserve">
-    <value>Code type</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_email_server_config" xml:space="preserve">
-    <value>Email config</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_email_temaplate" xml:space="preserve">
-    <value>Email template</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_email_tool" xml:space="preserve">
-    <value>Email util</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_function" xml:space="preserve">
-    <value>Api</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_login_token" xml:space="preserve">
-    <value>Login token</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_resource" xml:space="preserve">
-    <value>Resource</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_manager_timer" xml:space="preserve">
-    <value>Task scheduling</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:system_tool_code_gen" xml:space="preserve">
-    <value>Code generate</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center" xml:space="preserve">
-    <value>User center</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_dept" xml:space="preserve">
-    <value>Dept</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_position" xml:space="preserve">
-    <value>Position</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_role" xml:space="preserve">
-    <value>Role</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_tenant" xml:space="preserve">
-    <value>Tenant</value>
-    <comment>menu</comment>
-  </data>
-  <data name="menu:user_center_user" xml:space="preserve">
-    <value>User</value>
-    <comment>menu</comment>
+  <data name="ToEmail" xml:space="preserve">
+    <value>目标邮箱</value>
   </data>
 </root>

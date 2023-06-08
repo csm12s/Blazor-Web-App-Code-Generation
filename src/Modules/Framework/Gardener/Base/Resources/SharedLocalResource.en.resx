@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountName" xml:space="preserve">
+    <value>Account name</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>Account password</value>
+  </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
     <comment>LocalKeys</comment>
@@ -200,6 +206,9 @@
   </data>
   <data name="CreateIdentityType" xml:space="preserve">
     <value>Creater type</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
   </data>
   <data name="Data not find" xml:space="preserve">
     <value>Data not find</value>
@@ -308,6 +317,9 @@
   <data name="Hide" xml:space="preserve">
     <value>Hide</value>
   </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
   </data>
@@ -410,6 +422,9 @@
     <value>Please select search field</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
     <comment>LocalKeys</comment>
@@ -495,6 +510,9 @@
   </data>
   <data name="Table name exist" xml:space="preserve">
     <value>Table name exist</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
   <data name="Task allready exist" xml:space="preserve">
     <value>Task allready exist</value>
