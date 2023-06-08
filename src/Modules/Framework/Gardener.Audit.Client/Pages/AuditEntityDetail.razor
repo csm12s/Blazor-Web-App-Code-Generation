@@ -3,11 +3,11 @@
     <Collapse DefaultActiveKey="@(new[] { AuditEntitys.Select(x=>x.Id.ToString()).FirstOrDefault()})" Accordion Style="max-height:85Vh;overflow-y:scroll;">
         @foreach (AuditEntityDto item in AuditEntitys)
         {
-             var title = $"[{item.OperaterName} 在 {item.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")} {EnumHelper.GetEnumDescription(item.OperationType)}了 {item.Name}（{item.DataId}）]";
+             var title = $"[{item.OperaterName} {Localizer["On"]} {item.CreatedTime.ToString("yyyy-MM-dd HH:mm:ss")} {Localizer[EnumHelper.GetEnumDescription(item.OperationType)??item.OperationType.ToString()]}  {item.Name}（{item.DataId}）]";
         <Panel Header="@title" Key="@item.Id.ToString()" OnActiveChange="b=>{listBindValue[item.Id]=b;}">
                 @if (listBindValue[item.Id])
                 {
-                    <AuditPropertieList OperationType="item.OperationType" AuditProperties="item.AuditProperties"></AuditPropertieList>
+                    <AuditPropertieList OperationType="item.OperationType" AuditProperties="item.AuditProperties" Localizer="Localizer"></AuditPropertieList>
                 }
             </Panel>
         }
@@ -23,6 +23,12 @@ else
     /// </summary>
     [Parameter]
     public ICollection<AuditEntityDto>? AuditEntitys { get; set; }
+    /// <summary>
+    /// 本地化
+    /// </summary>
+    [Parameter]
+    [System.ComponentModel.DataAnnotations.Required]
+    public IClientLocalizer Localizer { get; set; } = null!;
     //未展开的不渲染，减少性能开销
     private ClientListBindValue<Guid, bool> listBindValue = new Gardener.Client.Base.Components.ClientListBindValue<Guid,bool>(false);
 }

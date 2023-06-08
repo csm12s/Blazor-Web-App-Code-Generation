@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Audit.Dtos;
+using Gardener.Audit.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Audit.Client.Pages
 {
-    public partial class AuditEntity : ListTableBase<AuditEntityDto, Guid>
+    public partial class AuditEntity : ListTableBase<AuditEntityDto, Guid, AuditLocalResource>
     {
       
         /// <summary>

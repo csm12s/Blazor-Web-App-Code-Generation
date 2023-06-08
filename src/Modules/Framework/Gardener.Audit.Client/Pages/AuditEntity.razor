@@ -1,5 +1,5 @@
 ﻿@page  "/system_manager/audit-entity"
-@inherits ListTableBase<AuditEntityDto, Guid>
+@inherits ListTableBase<AuditEntityDto, Guid, AuditLocalResource>
 <div>
     <Table @ref="_table"
            TItem="AuditEntityDto"
@@ -48,16 +48,16 @@
              <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                  <span>@model.Tenant?.Name</span>
              </Column>
-            <Column @bind-Field="@model.OperaterId" Filterable />
-            <Column @bind-Field="@model.OperaterName" Filterable />
-            <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters">
-                <TagPro Text="@EnumHelper.GetEnumDescription(model.OperaterType)"></TagPro>
+             <Column @bind-Field="@model.OperaterId" Filterable Title="@Localizer[AuditLocalResource.OperaterId]" />
+             <Column @bind-Field="@model.OperaterName" Filterable Title="@Localizer[AuditLocalResource.OperaterName]" />
+             <Column @bind-Field="@model.OperaterType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[AuditLocalResource.OperaterType]">
+                 <TagPro Text="@model.OperaterType">@Localizer[EnumHelper.GetEnumDescription(model.OperaterType)??model.OperaterType.ToString()]</TagPro>
             </Column>
-            <Column @bind-Field="@model.Name" Filterable />
-            <Column @bind-Field="@model.TypeName" Filterable />
-            <Column @bind-Field="@model.DataId" Width="300" />
-            <Column @bind-Field="@model.OperationType" Filters="TableFiltersConstants.OperationTypeFilters">
-                <Tag>@EnumHelper.GetEnumDescription(model.OperationType)</Tag>
+             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[AuditLocalResource.Name]" />
+             <Column @bind-Field="@model.TypeName" Filterable Title="@Localizer[AuditLocalResource.TypeName]" />
+             <Column @bind-Field="@model.DataId" Width="300" Title="@Localizer[AuditLocalResource.DataId]" />
+             <Column @bind-Field="@model.OperationType" Filters="TableFiltersConstants.OperationTypeFilters" Title="@Localizer[AuditLocalResource.OperationType]">
+                 <TagPro Text="model.OperationType">@Localizer[EnumHelper.GetEnumDescription(model.OperationType)??model.OperationType.ToString()]</TagPro>
             </Column>
             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
             <ActionColumn>

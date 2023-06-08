@@ -456,5 +456,9 @@ namespace Gardener.Base.Resources
         /// 在线时间
         /// </summary>
         public const string OnlineTime = nameof(OnlineTime);
+        /// <summary>
+        /// 在
+        /// </summary>
+        public const string On = nameof(On);
     }
 }

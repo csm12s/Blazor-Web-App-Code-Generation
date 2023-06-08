@@ -16,37 +16,37 @@ namespace Gardener.Enums
         /// <summary>
         /// 添加
         /// </summary>
-        [Description("添加")]
+        [Description("Insert")]
         Insert,
         /// <summary>
         /// 修改
         /// </summary>
-        [Description("修改")]
+        [Description("Update")]
         Update,
         /// <summary>
         /// 删除
         /// </summary>
-        [Description("删除")]
+        [Description("Delete")]
         Delete,
         /// <summary>
         /// 批量删除
         /// </summary>
-        [Description("批量删除")]
+        [Description("BatchDelete")]
         Deletes,
         /// <summary>
         /// 逻辑删除
         /// </summary>
-        [Description("逻辑删除")]
+        [Description("FakeDelete")]
         FakeDelete,
         /// <summary>
         /// 批量逻辑删除
         /// </summary>
-        [Description("批量逻辑删除")]
+        [Description("BatchFakeDelete")]
         FakeDeletes,
         /// <summary>
         /// 锁定
         /// </summary>
-        [Description("锁定")]
+        [Description("Lock")]
         Lock
     }
 }

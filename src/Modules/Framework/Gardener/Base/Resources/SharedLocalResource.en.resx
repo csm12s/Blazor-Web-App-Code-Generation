@@ -148,6 +148,9 @@
     <value>Batch edit</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="BatchFakeDelete" xml:space="preserve">
+    <value>Batch fake delete</value>
+  </data>
   <data name="Begin" xml:space="preserve">
     <value>Begin</value>
     <comment>LocalKeys</comment>
@@ -288,6 +291,9 @@
     <value>Fail</value>
     <comment>LocalKeys</comment>
   </data>
+  <data name="FakeDelete" xml:space="preserve">
+    <value>Fake delete</value>
+  </data>
   <data name="FatalException" xml:space="preserve">
     <value>Fatal exception</value>
   </data>
@@ -405,6 +411,9 @@
   </data>
   <data name="NoRowsAreSelected" xml:space="preserve">
     <value>No rows are selected</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>On</value>
   </data>
   <data name="OnlineTime" xml:space="preserve">
     <value>Online time</value>
@@ -570,6 +579,9 @@
   </data>
   <data name="Unauthorized" xml:space="preserve">
     <value>Unauthorized</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
   </data>
   <data name="Unlock" xml:space="preserve">
     <value>Unlock</value>

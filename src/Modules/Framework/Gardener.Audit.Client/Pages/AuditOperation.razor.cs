@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Audit.Dtos;
+using Gardener.Audit.Resources;
 using Gardener.Audit.Services;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.Audit.Client.Pages
 {
-    public partial class AuditOperation : ListTableBase<AuditOperationDto, Guid>
+    public partial class AuditOperation : ListTableBase<AuditOperationDto, Guid, AuditLocalResource>
     {
         [Inject]
         public IAuditOperationService auditOperationService { get; set; } = null!;
