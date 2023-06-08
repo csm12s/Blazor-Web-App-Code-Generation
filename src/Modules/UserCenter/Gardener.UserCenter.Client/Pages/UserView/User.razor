@@ -137,7 +137,7 @@
                          @model.Dept?.Name
                      </Column>
                      <Column @bind-Field="@model.Gender" Filters="TableFiltersConstants.GenderFilters" Title="@Localizer["Gender"]">
-                         <TagPro Text="@model.Gender">@Localizer[model.Gender.ToString()]</TagPro>
+                         <TagPro Text="@model.Gender">@Localizer[EnumHelper.GetEnumDescriptionOrName(model.Gender)]</TagPro>
                      </Column>
                      @*<Column @bind-Field="@model.PhoneNumber" />
                     <Column @bind-Field="@model.Email" />*@
