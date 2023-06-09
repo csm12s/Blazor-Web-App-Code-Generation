@@ -5,20 +5,25 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using AntDesign.Core.Extensions;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.Client.Base;
 using Gardener.Common;
+using Gardener.SystemManager.Resources;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Enums;
+using Gardener.SysTimer.Resources;
 using Gardener.SysTimer.Services;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Pages
 {
-    public partial class SysTimerConfig : ListOperateTableBase<SysTimerDto, int, SysTimerEdit>
+    public partial class SysTimerConfig : ListOperateTableBase<SysTimerDto, int, SysTimerEdit, SysTimerLocalResource>
     {
         [Inject]
         private ISysTimerService SystimerService { get; set; } = null!;
@@ -49,10 +54,9 @@ namespace Gardener.SysTimer.Client.Pages
                 Thread.Sleep(1000);
                 await ReLoadTable(false);
             }
-            
         }
 
-        public static readonly TableFilter<ExecuteType>[] FunctionRequestTypeFilters = EnumHelper.EnumToList<ExecuteType>().Select(x => { return new TableFilter<ExecuteType>() { Text = x.ToString(), Value = x }; }).ToArray();
-        public static readonly TableFilter<TimerStatus>[] FunctionTimerStatusFilters = EnumHelper.EnumToList<TimerStatus>().Select(x => { return new TableFilter<TimerStatus>() { Text = x.ToString(), Value = x }; }).ToArray();
+        public  readonly Func<TableFilter<ExecuteType>[]> FunctionExecuteTypeFilters = () => EnumHelper.EnumToList<ExecuteType>().Select(x => { return new TableFilter<ExecuteType>() { Text = LocalizerUtil.GetValue<SysTimerLocalResource>(x.GetEnumDescriptionOrName()), Value = x }; }).ToArray();
+        public  readonly Func<TableFilter<TimerStatus>[]> FunctionTimerStatusFilters = () => EnumHelper.EnumToList<TimerStatus>().Select(x => { return new TableFilter<TimerStatus>() { Text = LocalizerUtil.GetValue<SysTimerLocalResource>(x.GetEnumDescriptionOrName()), Value = x }; }).ToArray();
     }
 }

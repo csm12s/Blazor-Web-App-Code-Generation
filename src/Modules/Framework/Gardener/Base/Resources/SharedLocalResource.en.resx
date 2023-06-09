@@ -568,6 +568,9 @@
   <data name="There is no permission to modify the data" xml:space="preserve">
     <value>There is no permission to modify the data</value>
   </data>
+  <data name="Times" xml:space="preserve">
+    <value>Times</value>
+  </data>
   <data name="Timespan is expired" xml:space="preserve">
     <value>Timespan is expired</value>
   </data>

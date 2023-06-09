@@ -1,4 +1,4 @@
-﻿@inherits EditOperationDialogBase<SysTimerDto, int>
+﻿@inherits EditOperationDialogBase<SysTimerDto, int, SysTimerLocalResource>
 
 @if (_editModel != null)
 {
@@ -8,20 +8,20 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-        <FormItem>
+        <FormItem Label="@Localizer[SysTimerLocalResource.JobName]">
             <Input @bind-Value="@model.JobName" />
         </FormItem>
-        <FormItem Label="执行类型">
+        <FormItem Label="@Localizer[SysTimerLocalResource.ExecuteType]">
             <RadioGroup @bind-Value="@model.ExecuteType">
                 @foreach (var gitem in EnumHelper.EnumToDictionary<ExecuteType>())
                 {
-                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                    <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
                 }
             </RadioGroup>
         </FormItem>
-        @if (ExecuteType.LOCAL.Equals(model.ExecuteType))
+        @if (ExecuteType.LOCAL_METHOD.Equals(model.ExecuteType))
         {
-            <FormItem>
+            <FormItem Label="@Localizer[SysTimerLocalResource.LocalMethod]">
                 <Select TItem="TaskMethodInfo"
                 @bind-Value="@model.LocalMethod"
                 DataSource="localJobs"
@@ -33,7 +33,7 @@
         }
         else if (ExecuteType.HTTP.Equals(model.ExecuteType))
         {
-            <FormItem>
+            <FormItem Label="@Localizer[SysTimerLocalResource.HttpMethod]">
                 <Select @bind-Value="@model.HttpMethod"
                 TItem="HttpMethod"
                 TItemValue="HttpMethod">
@@ -45,55 +45,55 @@
                     </SelectOptions>
                 </Select>
             </FormItem>
-            <FormItem>
+            <FormItem Label="@Localizer[SysTimerLocalResource.RequestUrl]">
                 <Input @bind-Value="@model.RequestUrl" />
             </FormItem>
-            <FormItem>
+            <FormItem Label="@Localizer[SysTimerLocalResource.Headers]">
                 <Input @bind-Value="@model.Headers" Placeholder="@("{\" Authorization\":\"userpassword\"}")" />
             </FormItem>
-            <FormItem>
+            <FormItem Label="@Localizer[SysTimerLocalResource.RequestParameters]">
                 <Input @bind-Value="@model.RequestParameters" />
             </FormItem>
         }
 
-        <FormItem>
+        <FormItem Label="@Localizer[SysTimerLocalResource.TimerType]">
             <RadioGroup @bind-Value="@model.TimerType" Name="@nameof(model.TimerType)">
                 @foreach (var gitem in EnumHelper.EnumToDictionary<TimerTypes>())
                 {
-                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                    <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
                 }
             </RadioGroup>
         </FormItem>
         @if (TimerTypes.Cron.Equals(model.TimerType))
         {
-            <FormItem>
+            <FormItem Label="@Localizer[SysTimerLocalResource.Cron]">
                 <Input @bind-Value="@model.Cron" />
             </FormItem>
 
         }
         else if (TimerTypes.Interval.Equals(model.TimerType))
         {
-            <FormItem>
+            <FormItem Label="@Localizer[SysTimerLocalResource.Interval]">
                 <InputNumber @bind-Value="@model.Interval" Min="1"  DefaultValue="1"/>
             </FormItem>
 
         }
 
-        <FormItem>
+        <FormItem Label="@Localizer[SysTimerLocalResource.StartNow]">
             <Switch @bind-Value="@model.StartNow"></Switch>
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[SysTimerLocalResource.DoOnce]">
             <Switch @bind-Value="@model.DoOnce"></Switch>
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[SysTimerLocalResource.ExecutMode]">
             <RadioGroup @bind-Value="@model.ExecutMode" Name="@nameof(model.ExecutMode)">
                 @foreach (var gitem in EnumHelper.EnumToDictionary<ExecutMode>())
                 {
-                    <Radio Value="@(gitem.Key)">@gitem.Value</Radio>
+                    <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
                 }
             </RadioGroup>
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[SysTimerLocalResource.Remark]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))

@@ -313,7 +313,8 @@ namespace Gardener.Base
             PropertyInfo? property = type.GetProperty(propertyName);
             if (property == null)
             {
-                throw Oops.Oh(ExceptionCode.FIELD_IN_TYPE_NOT_FOUND, rule.Field, type.FullName);
+                //属性不存在，不生成表达式
+                return null;
             }
             //验证属性与属性值是否匹配
             bool flag = CheckFilterRule(property.PropertyType, rule);

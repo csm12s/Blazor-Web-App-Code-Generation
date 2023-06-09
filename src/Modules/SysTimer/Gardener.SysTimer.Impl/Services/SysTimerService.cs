@@ -288,7 +288,7 @@ namespace Gardener.SysTimer.Services
             switch (input.ExecuteType)
             {
                 // 创建本地方法委托
-                case ExecuteType.LOCAL:
+                case ExecuteType.LOCAL_METHOD:
                     {
                         // 查询符合条件的任务方法
                         var taskMethod = GetTaskMethods()?.Result.FirstOrDefault(m => m.LocalMethod == input.LocalMethod);
@@ -351,7 +351,7 @@ namespace Gardener.SysTimer.Services
             if (action == null) return;
 
             // 缓存任务配置参数，以供任务运行时读取
-            if (input.ExecuteType == ExecuteType.LOCAL)
+            if (input.ExecuteType == ExecuteType.LOCAL_METHOD)
             {
                 var jobParametersName = $"{input.JobName}_Parameters";
                 var jobParameters = await _cache.ExistsAsync(jobParametersName);
@@ -439,7 +439,7 @@ namespace Gardener.SysTimer.Services
                         ExecuteMode = (ExecutMode)spareTimeAttribute.ExecuteType,
                         Interval = (int)spareTimeAttribute.Interval / 1000,
                         StartNow = spareTimeAttribute.StartNow,
-                        ExecuteType = ExecuteType.LOCAL,
+                        ExecuteType = ExecuteType.LOCAL_METHOD,
                         Remark = spareTimeAttribute.Description,
                         TimerType = string.IsNullOrEmpty(spareTimeAttribute.CronExpression) ? (TimerTypes)SpareTimeTypes.Interval : (TimerTypes)SpareTimeTypes.Cron,
                         MethodName = m.Name,

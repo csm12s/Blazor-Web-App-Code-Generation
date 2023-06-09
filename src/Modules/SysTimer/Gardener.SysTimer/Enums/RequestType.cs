@@ -8,10 +8,10 @@ namespace Gardener.SysTimer.Enums
     public enum ExecuteType
     {
         /// <summary>
-        /// 执行内部方法
+        /// 内部方法
         /// </summary>
-        [Description("内部方法")]
-        LOCAL = 0,
+        [Description("LocalMethod")]
+        LOCAL_METHOD = 0,
 
         /// <summary>
         /// HTTP请求

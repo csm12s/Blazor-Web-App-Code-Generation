@@ -16,22 +16,22 @@ namespace Gardener.SysTimer.Enums
         /// <summary>
         /// 运行中
         /// </summary>        
-        [Description("运行中")]
+        [Description("Running")]
         Running,
         /// <summary>
-        /// 已停止或未启动
+        /// 已停止
         /// </summary>        
-        [Description("已停止")]
+        [Description("Stopped")]
         Stopped,
         /// <summary>
         /// 单次执行失败
         /// </summary>        
-        [Description("失败")]
+        [Description("Failed")]
         Failed,
         /// <summary>
         /// 任务已取消或没有该任务
         /// </summary>        
-        [Description("不存在")]
+        [Description("CanceledOrNone")]
         CanceledOrNone
     }
 }
