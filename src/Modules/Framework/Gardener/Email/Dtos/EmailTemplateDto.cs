@@ -20,44 +20,44 @@ namespace Gardener.Email.Dtos
         /// <summary>
         /// 名称
         /// </summary>
-        [DisplayName("名称")]
+        [DisplayName("Name")]
         [MaxLength(30, ErrorMessage = "最大长度不能大于{1}"), Required(ErrorMessage = "不能为空")]
         public string Name { get; set; } = null!;
         /// <summary>
         /// 发件人
         /// </summary>
-        [DisplayName("发件人")]
+        [DisplayName("FromName")]
         [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
         public string FromName { get; set; } = null!;
         /// <summary>
         /// 描述
         /// </summary>
-        [DisplayName("备注")]
+        [DisplayName("Remark")]
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
         public string? Remark { get; set; }
         /// <summary>
         /// 主题模板
         /// </summary>
-        [DisplayName("主题模板")]
+        [DisplayName("SubjectTemplate")]
         [MaxLength(1000, ErrorMessage = "最大长度不能大于{1}")]
         public string? SubjectTemplate { get; set; }
         /// <summary>
         /// 内容模板
         /// </summary>
-        [DisplayName("内容模板")]
+        [DisplayName("ContentTemplate")]
         [Required(ErrorMessage = "不能为空"),MaxLength(5000, ErrorMessage = "最大长度不能大于{1}")]
         public string ContentTemplate { get; set; } = null!;
         /// <summary>
         /// 例子
         /// </summary>
-        [DisplayName("例子")]
+        [DisplayName("Example")]
         [MaxLength(1000, ErrorMessage = "最大长度不能大于{1}")]
         public string? Example { get; set; }
 
         /// <summary>
         /// 是否是HTML内容
         /// </summary>
-        [DisplayName("是否是HTML内容")]
+        [DisplayName("IsHtml")]
         [Required(ErrorMessage = "不能为空")]
         public bool IsHtml { get; set; }
     }

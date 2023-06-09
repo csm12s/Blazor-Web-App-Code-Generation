@@ -6,12 +6,13 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Email.Dtos;
+using Gardener.Email.Resources;
 using System;
 using System.Collections.Generic;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailServerConfigEdit : EditOperationDialogBase<EmailServerConfigDto, Guid>
+    public partial class EmailServerConfigEdit : EditOperationDialogBase<EmailServerConfigDto, Guid, EmailLocalResource>
     {
         private IEnumerable<string> _tags
         {

@@ -5,12 +5,13 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attachment.Dtos;
+using Gardener.Attachment.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using System;
 
 namespace Gardener.Attachment.Client.Pages
 {
-    public partial class Attachment : ListOperateTableBase<AttachmentDto, Guid, AttachmentEdit>
+    public partial class Attachment : ListOperateTableBase<AttachmentDto, Guid, AttachmentEdit, AttachmentLocalResource>
     {
 
     }

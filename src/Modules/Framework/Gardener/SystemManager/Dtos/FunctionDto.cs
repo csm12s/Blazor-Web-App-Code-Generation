@@ -22,54 +22,54 @@ namespace Gardener.SystemManager.Dtos
         /// 分组
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("分组")]
+        [DisplayName("Group")]
         public string Group { get; set; } = null!;
 
         /// <summary>
         /// 服务
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("服务")]
+        [DisplayName("Service")]
         public string Service { get; set; } = null!;
 
         /// <summary>
         /// 概要
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("概要")]
+        [DisplayName("Summary")]
         public string Summary { get; set; } = null!;
 
         /// <summary>
         /// 唯一键
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("唯一键")]
+        [DisplayName("Key")]
         public string Key { get; set; } = null!;
 
         /// <summary>
         /// 描述
         /// </summary>
         [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("描述")]
+        [DisplayName("Description")]
         public string? Description { get; set; }
 
         /// <summary>
         /// API路由地址
         /// </summary>
         [Required(ErrorMessage = "不能为空"), MaxLength(200, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("地址")]
+        [DisplayName("Path")]
         public string? Path { get; set; }
 
         /// <summary>
         /// 接口请求方法
         /// </summary>
-        [Required(ErrorMessage = "不能为空"), DisplayName("请求方法")]
+        [Required(ErrorMessage = "不能为空"), DisplayName("Method")]
         public HttpMethod Method { get; set; }
 
         /// <summary>
         /// 启用审计
         /// </summary>
-        [DisplayName("启用审计")]
+        [DisplayName("EnableAudit")]
         public bool EnableAudit { get; set; }
     }
 }

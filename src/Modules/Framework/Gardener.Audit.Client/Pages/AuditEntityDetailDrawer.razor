@@ -1,5 +1,5 @@
-﻿@inherits FeedbackComponent<ICollection<AuditEntityDto>, bool>
-<AuditEntityDetail AuditEntitys="auditEntityDtos"></AuditEntityDetail>
+﻿@inherits OperationDialogBase<ICollection<AuditEntityDto>, bool, AuditLocalResource>
+<AuditEntityDetail AuditEntitys="auditEntityDtos" Localizer="Localizer"></AuditEntityDetail>
 @code
 {
     private ICollection<AuditEntityDto>? auditEntityDtos;

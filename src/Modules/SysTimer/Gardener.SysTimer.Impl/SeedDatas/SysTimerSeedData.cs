@@ -48,7 +48,7 @@ namespace Gardener.SysTimer
                     StartNow = true,
                     Interval = 5,
                     TimerType = SpareTimeTypes.Interval,
-                    ExecuteType = ExecuteType.LOCAL,
+                    ExecuteType = ExecuteType.LOCAL_METHOD,
                     ExecutMode=ExecutMode.Scceeding,
                     IsDeleted = false,
                     Remark = "定时抓取财经新闻，作为聊天数据推送到客户端",

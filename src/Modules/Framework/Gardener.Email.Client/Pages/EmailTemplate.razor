@@ -1,4 +1,4 @@
-﻿@inherits ListOperateTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
+﻿@inherits ListOperateTableBase<EmailTemplateDto, Guid, EmailTemplateEdit, EmailLocalResource>
 @page "/system_manager/email_temaplate"
 <div>
     <Table @ref="_table"
@@ -45,8 +45,8 @@
         </TitleTemplate>
             <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_email_template_delete_selected"]" />
-            <Column @bind-Field="@model.Id" Filterable />
-            <Column @bind-Field="@model.Name" Filterable />
+             <Column @bind-Field="@model.Id" Filterable Title="@Localizer[EmailLocalResource.Id]" />
+             <Column @bind-Field="@model.Name" Filterable Title="@Localizer[EmailLocalResource.Name]" />
             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
                 <ResourceAuthorize ResourceKey="system_manager_email_template_lock">
                     <Authorized>

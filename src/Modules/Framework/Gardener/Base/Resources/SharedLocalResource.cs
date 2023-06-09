@@ -396,5 +396,73 @@ namespace Gardener.Base.Resources
         /// 隐藏
         /// </summary>
         public const string Hide = nameof(Hide);
+        /// <summary>
+        /// 主机
+        /// </summary>
+        public const string Host = nameof(Host);
+        /// <summary>
+        /// 端口
+        /// </summary>
+        public const string Port = nameof(Port);
+        /// <summary>
+        /// 账号名称
+        /// </summary>
+        public const string AccountName = nameof(AccountName);
+        /// <summary>
+        /// 账户密码
+        /// </summary>
+        public const string AccountPassword = nameof(AccountPassword);
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Tags = nameof(Tags);
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public const string Data = nameof(Data);
+        /// <summary>
+        /// 身份编号
+        /// </summary>
+        public const string IdentityId = nameof(IdentityId);
+        /// <summary>
+        /// 身份唯一名称
+        /// </summary>
+        public const string IdentityName = nameof(IdentityName);
+        /// <summary>
+        /// 身份类型
+        /// </summary>
+        public const string IdentityType = nameof(IdentityType);
+        /// <summary>
+        /// 身份昵称
+        /// </summary>
+        public const string IdentityNickName = nameof(IdentityNickName);
+        /// <summary>
+        /// 登录编号
+        /// </summary>
+        public const string LoginId = nameof(LoginId);
+        /// <summary>
+        /// 客户端类型
+        /// </summary>
+        public const string LoginClientType = nameof(LoginClientType);
+        /// <summary>
+        /// IP
+        /// </summary>
+        public const string Ip = nameof(Ip);
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        public const string EndTime = nameof(EndTime);
+        /// <summary>
+        /// 在线时间
+        /// </summary>
+        public const string OnlineTime = nameof(OnlineTime);
+        /// <summary>
+        /// 在
+        /// </summary>
+        public const string On = nameof(On);
+        /// <summary>
+        /// 次数
+        /// </summary>
+        public const string Times = nameof(Times);
     }
 }

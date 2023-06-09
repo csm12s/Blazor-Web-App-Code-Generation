@@ -16,12 +16,12 @@ namespace Gardener.SysTimer.Enums
         /// <summary>
         /// 并行执行（不会等到上一个任务完成）
         /// </summary>
-        [Description("并行")]
+        [Description("Parallel")]
         Parallel = 0,
         /// <summary>
         /// 串行执行（等到上一个任务完成后执行）
         /// </summary>
-        [Description("串行")]
+        [Description("Scceeding")]
         Scceeding = 1
     }
 }

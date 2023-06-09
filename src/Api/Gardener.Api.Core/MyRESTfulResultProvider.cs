@@ -49,7 +49,17 @@ namespace Gardener.Admin
         public IActionResult OnException(ExceptionContext context, ExceptionMetadata metadata)
         {
             _logger.LogError(context.Exception, metadata.Errors?.ToString());
-            return new JsonResult(RESTfulResult(metadata.StatusCode, errors: metadata.Errors, errorCode: metadata.ErrorCode));
+            if (metadata.ErrorCode == null)
+            {
+                //未知异常
+                return new JsonResult(RESTfulResult(metadata.StatusCode, errors: metadata.Errors));
+            }
+            else
+            {
+                //主动抛出异常
+                return new JsonResult(RESTfulResult(metadata.StatusCode, errors: context.Exception.Message));
+            }
+            
         }
 
         /// <summary>

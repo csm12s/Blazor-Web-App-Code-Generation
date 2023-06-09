@@ -1,4 +1,4 @@
-﻿@inherits EditOperationDialogBase<EmailServerConfigDto, Guid>
+﻿@inherits EditOperationDialogBase<EmailServerConfigDto, Guid, EmailLocalResource>
 @if (_editModel != null)
 {
 
@@ -8,28 +8,28 @@
             WrapperCol="new ColLayoutParam { Span = 18 }"
             OnFinish="OnFormFinish"
             Context="model">
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.Name]">
             <Input @bind-Value="@model.Name" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.Host]">
             <Input @bind-Value="@model.Host" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.Port]">
             <Input @bind-Value="@model.Port" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.FromEmail]">
             <Input @bind-Value="@model.FromEmail" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.AccountName]">
             <Input @bind-Value="@model.AccountName" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.AccountPassword]">
             <Input @bind-Value="@model.AccountPassword" Type="password" />
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.Remark]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.Remark]">
             <Input @bind-Value="@model.Tags" Type="hidden" />
             <SimpleSelect Mode="multiple" @bind-Values="@_tags">
                 <SelectOptions>
@@ -40,7 +40,7 @@
                 </SelectOptions>
             </SimpleSelect>
         </FormItem>
-        <FormItem>
+        <FormItem Label="@Localizer[EmailLocalResource.EnableSsl]">
             <Switch @bind-Value="@model.EnableSsl"></Switch>
         </FormItem>
         <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">

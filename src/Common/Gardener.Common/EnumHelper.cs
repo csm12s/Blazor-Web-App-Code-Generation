@@ -41,6 +41,9 @@ namespace Gardener.Common
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+        /// <remarks>
+        /// 获取<see cref="DescriptionAttribute"/>的值，如果没有该属性，返回Name,如果标记<see cref="IgnoreOnConvertToMapAttribute"/>该项不返回
+        /// </remarks>
         public static Dictionary<T, string> EnumToDictionary<T>() where T : Enum
         {
             Dictionary<T, string> dic = new Dictionary<T, string>();

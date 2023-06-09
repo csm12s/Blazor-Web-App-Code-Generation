@@ -6,11 +6,13 @@
 
 using AntDesign;
 using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Swagger.Dtos;
 using Gardener.Swagger.Services;
 using Gardener.SystemManager.Dtos;
+using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Mapster;
 using Microsoft.AspNetCore.Components;
@@ -18,7 +20,7 @@ using Microsoft.Extensions.Options;
 
 namespace Gardener.SystemManager.Client.Pages.FunctionView
 {
-    public partial class FunctionImport : FeedbackComponent<int, bool>
+    public partial class FunctionImport : OperationDialogBase<int, bool, SystemManagerResource>
     {
         [Inject]
         private ISwaggerService SwaggerService { get; set; } = null!;
@@ -30,8 +32,6 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         private IClientMessageService MessageService { get; set; } = null!;
         [Inject]
         private NotificationService NoticeService { get; set; } = null!;
-        [Inject]
-        private IClientLocalizer Localizer { get; set; } = null!;
 
         List<SwaggerSpecificationOpenApiInfoDto> apiInfos = new List<SwaggerSpecificationOpenApiInfoDto>();
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();

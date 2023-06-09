@@ -19,37 +19,37 @@ namespace Gardener.Audit.Dtos
         /// <summary>
         /// 名称
         /// </summary>
-        [DisplayName("名称")]
+        [DisplayName("DisplayName")]
         public string DisplayName { get; set; } = null!;
 
         /// <summary>
         /// 字段名称
         /// </summary>
-        [DisplayName("字段名称")]
+        [DisplayName("FieldName")]
         public string FieldName { get; set; } = null!;
 
         /// <summary>
         /// 旧值
         /// </summary>
-        [DisplayName("旧值")]
+        [DisplayName("OriginalValue")]
         public string? OriginalValue { get; set; }
 
         /// <summary>
         /// 新值
         /// </summary>
-        [DisplayName("新值")]
+        [DisplayName("NewValue")]
         public string? NewValue { get; set; }
 
         /// <summary>
         /// 数据类型
         /// </summary>
-        [DisplayName("数据类型")]
+        [DisplayName("DataType")]
         public string DataType { get; set; } = null!;
 
         /// <summary>
         /// 实体审计编号  
         /// </summary>
-        [DisplayName("实体审计编号")]
+        [DisplayName("AuditEntityid")]
         public Guid AuditEntityid { get; set; }
     }
 }

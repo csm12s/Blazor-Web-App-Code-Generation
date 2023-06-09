@@ -16,17 +16,17 @@ namespace Gardener.Authentication.Enums
         /// <summary>
         /// 未知
         /// </summary>
-        [Description("未知")]
+        [Description("Unknown")]
         Unknown,
         /// <summary>
         /// 用户
         /// </summary>
-        [Description("用户")]
+        [Description("User")]
         User,
         /// <summary>
         /// 客户端
         /// </summary>
-        [Description("客户端")]
+        [Description("Client")]
         Client
     }
 }

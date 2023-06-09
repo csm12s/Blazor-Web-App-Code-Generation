@@ -273,6 +273,24 @@ namespace Gardener.Common
         }
 
         /// <summary>
+        /// 获取描述特性值为null时返回名字
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static string GetEnumDescriptionOrName<T>(this T t) where T:Enum
+        {
+            string? desc = null;
+            object[]? attrs = t.GetType().GetField(t.ToString())?.GetCustomAttributes(typeof(DescriptionAttribute), true); ;
+            if (attrs != null && attrs.Length > 0)
+            {
+                DescriptionAttribute? descAttr = attrs[0] as DescriptionAttribute;
+                desc= descAttr?.Description;
+            }
+            return desc ?? t.ToString();
+        }
+
+        /// <summary>
         /// 检查 Object 是否为 NULL
         /// </summary>
         /// <param name="value"></param>

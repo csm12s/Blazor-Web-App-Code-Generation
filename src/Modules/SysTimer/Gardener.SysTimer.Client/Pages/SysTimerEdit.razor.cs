@@ -6,6 +6,7 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.SysTimer.Dtos;
+using Gardener.SysTimer.Resources;
 using Gardener.SysTimer.Services;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Gardener.SysTimer.Client.Pages
 {
-    public partial class SysTimerEdit :EditOperationDialogBase<SysTimerDto, int>
+    public partial class SysTimerEdit :EditOperationDialogBase<SysTimerDto, int, SysTimerLocalResource>
     {
 
         [Inject]

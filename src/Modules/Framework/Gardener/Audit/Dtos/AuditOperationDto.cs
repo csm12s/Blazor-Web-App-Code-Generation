@@ -22,27 +22,27 @@ namespace Gardener.Audit.Dtos
         /// <summary>
         /// 资源名
         /// </summary>
-        [DisplayName("资源名")]
+        [DisplayName("ResourceName")]
         public string ResourceName { get; set; } = null!;
         /// <summary>
         /// 资源编号
         /// </summary>
-        [DisplayName("资源编号")]
+        [DisplayName("ResourceId")]
         public Guid ResourceId { get; set; }
         /// <summary>
         /// 操作者编号
         /// </summary>
-        [DisplayName("操作者编号")]
+        [DisplayName("OperaterId")]
         public string OperaterId { get; set; } = null!;
         /// <summary>
         /// 操作者名称
         /// </summary>
-        [DisplayName("操作者名称")]
+        [DisplayName("OperaterName")]
         public string OperaterName { get; set; } = null!;
         /// <summary>
         /// 操作者类型
         /// </summary>
-        [DisplayName("操作者类型")]
+        [DisplayName("OperaterType")]
         public IdentityType OperaterType { get; set; }
         /// <summary>
         /// 访问IP
@@ -57,17 +57,17 @@ namespace Gardener.Audit.Dtos
         /// <summary>
         /// 请求地址
         /// </summary>
-        [DisplayName("请求地址")]
+        [DisplayName("Path")]
         public string? Path { get; set; }
         /// <summary>
         /// 请求方法
         /// </summary>
-        [DisplayName("请求方法")]
+        [DisplayName("Method")]
         public HttpMethod Method { get; set; }
         /// <summary>
         /// 请求参数
         /// </summary>
-        [DisplayName("请求参数")]
+        [DisplayName("Parameters")]
         public string? Parameters { get; set; }
         /// <summary>
         /// 关联数据审计

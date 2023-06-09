@@ -9,12 +9,13 @@ using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Email.Dtos;
+using Gardener.Email.Resources;
 using System;
 using System.Threading.Tasks;
 
 namespace Gardener.Email.Client.Pages
 {
-    public partial class EmailTemplate : ListOperateTableBase<EmailTemplateDto, Guid, EmailTemplateEdit>
+    public partial class EmailTemplate : ListOperateTableBase<EmailTemplateDto, Guid, EmailTemplateEdit, EmailLocalResource>
     {
         protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
         {

@@ -583,4 +583,82 @@
   <data name="Hide" xml:space="preserve">
     <value>隐藏</value>
   </data>
+  <data name="AccountName" xml:space="preserve">
+    <value>账户名</value>
+  </data>
+  <data name="AccountPassword" xml:space="preserve">
+    <value>账户密码</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>主机</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>数据</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="IdentityId" xml:space="preserve">
+    <value>身份编号</value>
+  </data>
+  <data name="IdentityName" xml:space="preserve">
+    <value>身份唯一名称</value>
+  </data>
+  <data name="IdentityNickName" xml:space="preserve">
+    <value>身份昵称</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>身份类型</value>
+  </data>
+  <data name="Ip" xml:space="preserve">
+    <value>Ip</value>
+  </data>
+  <data name="LoginClientType" xml:space="preserve">
+    <value>客户端类型</value>
+  </data>
+  <data name="LoginId" xml:space="preserve">
+    <value>登录编号</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="BatchFakeDelete" xml:space="preserve">
+    <value>批量逻辑删除</value>
+  </data>
+  <data name="FakeDelete" xml:space="preserve">
+    <value>逻辑删除</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>写入</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Client" xml:space="preserve">
+    <value>客户端</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>参数</value>
+  </data>
+  <data name="ResourceId" xml:space="preserve">
+    <value>资源编号</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="UserAgent" xml:space="preserve">
+    <value>用户身份标识</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>次</value>
+  </data>
 </root>

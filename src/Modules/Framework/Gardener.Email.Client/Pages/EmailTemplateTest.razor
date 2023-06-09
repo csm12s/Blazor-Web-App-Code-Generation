@@ -1,4 +1,4 @@
-﻿@inherits FeedbackComponent<OperationDialogInput<Guid>, OperationDialogOutput<Guid>>
+﻿@inherits OperationDialogBase<OperationDialogInput<Guid>, OperationDialogOutput<Guid>, EmailLocalResource>
 
 <Form Loading="@_isLoading"
       Model="@_sendEmailInput"
@@ -6,16 +6,16 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem>
+    <FormItem Label="@base.Localizer[EmailLocalResource.TemplateId]">
         <Input Disabled="true" @bind-Value="@model.TemplateId" />
     </FormItem>
-    <FormItem>
+    <FormItem Label="@base.Localizer[EmailLocalResource.ToEmail]">
         <Input @bind-Value="@model.ToEmail" />
     </FormItem>
-    <FormItem Label="数据">
+    <FormItem Label="@base.Localizer[EmailLocalResource.Data]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@_emailData"></TextArea>
     </FormItem>
-    <FormItem>
+    <FormItem Label="@base.Localizer[EmailLocalResource.EmailServerConfig]">
         <Select DataSource="@emailServerConfigs"
                 @bind-Value="@model.EmailServerConfigId"
                 ValueName="@nameof(EmailServerConfigDto.Id)"

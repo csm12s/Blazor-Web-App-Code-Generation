@@ -16,12 +16,12 @@ namespace Gardener.SysTimer.Enums
         /// <summary>
         /// 间隔方式
         /// </summary>        
-        [Description("间隔方式")]
+        [Description("Interval")]
         Interval,
         /// <summary>
         /// Cron 表达式
         /// </summary>        
-        [Description("Cron 表达式")]
+        [Description("Cron")]
         Cron
     }
 }
