@@ -131,6 +131,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.WoChat", "Modules\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.WoChat.Client", "Modules\WoChat\Gardener.WoChat.Client\Gardener.WoChat.Client.csproj", "{FA3B756B-B476-48FC-A7E7-7D0E1692054D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.DistributedLock", "Modules\Framework\Gardener.DistributedLock\Gardener.DistributedLock.csproj", "{C710DF22-6807-45F2-A30D-BD32FDB97639}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -357,6 +359,10 @@ Global
 		{FA3B756B-B476-48FC-A7E7-7D0E1692054D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA3B756B-B476-48FC-A7E7-7D0E1692054D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA3B756B-B476-48FC-A7E7-7D0E1692054D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C710DF22-6807-45F2-A30D-BD32FDB97639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C710DF22-6807-45F2-A30D-BD32FDB97639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C710DF22-6807-45F2-A30D-BD32FDB97639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C710DF22-6807-45F2-A30D-BD32FDB97639}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -421,6 +427,7 @@ Global
 		{ADD852C9-C9EB-4045-BCA3-ECE19C98EC98} = {F02762A3-B92F-4365-A04B-176181600E00}
 		{BC3EDD1A-8E76-424F-BD02-CA0B5BC402D0} = {F02762A3-B92F-4365-A04B-176181600E00}
 		{FA3B756B-B476-48FC-A7E7-7D0E1692054D} = {F02762A3-B92F-4365-A04B-176181600E00}
+		{C710DF22-6807-45F2-A30D-BD32FDB97639} = {08D32FE5-4548-4C51-9D6E-68BDB2CE112E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0782AFAE-11B9-4CBE-8DC6-169EB1CBA894}

@@ -17,6 +17,7 @@ using System;
 using Microsoft.AspNetCore.HttpOverrides;
 using AspNetCoreRateLimit;
 using Gardener.Sugar;
+using Gardener.DistributedLock;
 
 namespace Gardener.Admin
 {
@@ -113,6 +114,8 @@ namespace Gardener.Admin
             services.AddConfigurableOptions<DefaultDbSettingsOptions>();
             // SqlSugar
             services.SqlSugarScopeConfigure();
+            //分部式锁
+            services.AddDistributedLock();
         }
         /// <summary>
         /// 

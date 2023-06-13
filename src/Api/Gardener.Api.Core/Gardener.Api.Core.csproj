@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Authorization\Gardener.Authorization.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Cache\Gardener.Cache.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.CodeGeneration\Gardener.CodeGeneration.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.DistributedLock\Gardener.DistributedLock.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Email\Gardener.Email.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.EventBus\Gardener.EventBus.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.FileStore\Gardener.FileStore.csproj" />
@@ -57,6 +58,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Settings\dbsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Settings\distributedlocksettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Settings\exceptionmessagesettings.json">

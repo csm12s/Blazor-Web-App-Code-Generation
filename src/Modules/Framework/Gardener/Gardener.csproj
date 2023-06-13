@@ -20,6 +20,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
+		<PackageReference Include="DistributedLock.Core" Version="1.0.5" />
+
 	</ItemGroup>
 
 	<ItemGroup>

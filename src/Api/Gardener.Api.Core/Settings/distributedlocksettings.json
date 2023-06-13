@@ -1,0 +1,12 @@
+{
+  "DistributedLock": {
+    "Type": "FileSystem", //FileSystem,Redis
+    "Redis": {
+      "Configuration": "127.0.0.1:6379,password=",
+      "DbNumber": -1
+    },
+    "FileSystem": {
+      "Path": null //为空时，是根目录下 DistributedLock 目录
+    }
+  }
+}
