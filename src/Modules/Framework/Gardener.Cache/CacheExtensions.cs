@@ -17,10 +17,14 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class CacheExtensions
     {
         /// <summary>
-        /// 添加服务
+        /// 添加缓存服务
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// <para>说明：https://gitee.com/hgflydream/Gardener/wikis/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%BC%93%E5%AD%98</para>
+        /// <para>支持更多缓存请查阅：http://furion.baiqian.ltd/docs/cache/</para>
+        /// </remarks>
         public static IServiceCollection AddCache(this IServiceCollection services)
         {
             services.AddConfigurableOptions<CacheOptions>();
