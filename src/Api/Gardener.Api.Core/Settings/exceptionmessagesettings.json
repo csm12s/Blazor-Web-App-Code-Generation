@@ -10,6 +10,7 @@
     "Definitions": [
       //这里需要为错误码配置一个提示信息
       //提示信息可以应用Gardener/Base/Resources/SharedLocalResource下的多语言文件
+      //直接写["ErrorCode","提示"]
       //未配置的，默认使用 FriendlyExceptionSettings.DefaultErrorMessage
       //按字母排序，方便查找
       //在Gardener.Enums.ExceptionCode定义对应值，方便程序中调用（当然直接写字符串硬编码也行）
@@ -32,6 +33,7 @@
       [ "Forbidden", "Forbidden" ], //拒绝访问资源
       [ "Filter_Group_Operate_Error", "Filter_Group_Operate_Error" ], //条件组中的操作类型错误
       [ "Field_In_Type_Not_Found", "Field_In_Type_Not_Found" ], //指定的属性“{0}”在类型“{1}”中不存在
+      [ "Field_Required", "Field_Required" ], //字段“{0}”不能为空
 
       //G
       //H

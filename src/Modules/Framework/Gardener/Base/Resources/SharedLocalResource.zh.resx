@@ -652,4 +652,12 @@
     <value>查询出错，检索字段在数据库中可能为null</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>字段“{0}”的值不能为空</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Script_Code_Compile_Fail" xml:space="preserve">
+    <value>代码编译失败</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
 </root>

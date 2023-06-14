@@ -4,19 +4,19 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.Schedule;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Gardener.Base;
 using System.ComponentModel;
+using Gardener.EasyJob.Enums;
 
-namespace Gardener.EasyJob.Impl.Domains
+namespace Gardener.EasyJob.Dtos
 {
     /// <summary>
     /// 任务触发器
     /// </summary>
     [Description("任务触发器")]
-    public class JobTrigger : GardenerEntityBaseNoKey
+    public class SysJobTriggerDto : BaseDto
     {
         /// <summary>
         /// 编号

@@ -296,6 +296,10 @@
     <value>“{0}” attribute not found in “{1}” type</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>The value of field “{0}” cannot be null</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
   <data name="Filter_Group_Operate_Error" xml:space="preserve">
     <value>Filter group operate error</value>
     <comment>ErrorCodeMessage</comment>
@@ -491,6 +495,10 @@
   </data>
   <data name="Scheduling" xml:space="preserve">
     <value>Scheduling</value>
+  </data>
+  <data name="Script_Code_Compile_Fail" xml:space="preserve">
+    <value>Script code compile fail</value>
+    <comment>ErrorCodeMessage</comment>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>

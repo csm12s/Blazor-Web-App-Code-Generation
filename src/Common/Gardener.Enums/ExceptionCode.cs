@@ -163,6 +163,16 @@ namespace Gardener.Enums
         /// 已存在同名任务调度
         /// </summary>
         [Description("已存在同名任务调度")]
-        Task_Allready_Exist
+        Task_Allready_Exist,
+        /// <summary>
+        /// 字段“{0}”不能为空
+        /// </summary>
+        [Description("字段“{0}”不能为空")]
+        Field_Required,
+        /// <summary>
+        /// 代码编译失败
+        /// </summary>
+        [Description("代码编译失败")]
+        Script_Code_Compile_Fail,
     }
 }

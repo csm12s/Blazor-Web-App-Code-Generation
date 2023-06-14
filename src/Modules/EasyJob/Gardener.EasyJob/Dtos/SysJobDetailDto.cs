@@ -5,17 +5,18 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.EasyJob.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Gardener.EasyJob.Impl.Domains
+namespace Gardener.EasyJob.Dtos
 {
     /// <summary>
     /// 任务详情
     /// </summary>
     [Description("任务详情")]
-    public class JobDetail : GardenerEntityBaseNoKey
+    public class SysJobDetailDto : BaseDto
     {
         /// <summary>
         /// 编号
@@ -82,5 +83,19 @@ namespace Gardener.EasyJob.Impl.Domains
         /// </remarks>
         [DisplayName("作业信息额外数据")]
         public string? Properties { get; set; } = "{}";
+        /// <summary>
+        /// 作业创建类型
+        /// </summary>
+        [DisplayName("作业创建类型")]
+        public JobCreateType CreateType { get; set; } = JobCreateType.BuiltIn;
+        /// <summary>
+        /// 脚本代码
+        /// </summary>
+        [DisplayName("脚本代码")]
+        public string? ScriptCode { get; set; }
+        /// <summary>
+        /// 触发器集合
+        /// </summary>
+        public IEnumerable<SysJobTriggerDto>? JobTriggers { get; set; }
     }
 }
