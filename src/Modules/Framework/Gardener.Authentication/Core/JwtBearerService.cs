@@ -110,7 +110,7 @@ namespace Gardener.Authentication.Core
                 {
                     await repository.FakeDeleteNowByKeyAsync(loginToken.Id);
                 }
-                throw Oops.Oh(ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE);
+                throw Oops.Oh(ExceptionCode.Refreshtoken_No_Exist_Or_Expire);
             }
             var jwtOpt = GetJWTSettingsOptions(identity.IdentityType);
             //设置非绝对过期，生成新的刷新token
@@ -228,7 +228,7 @@ namespace Gardener.Authentication.Core
             Claim? identityTypeCla = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type.Equals(AuthKeyConstants.IdentityType));
             if (identityTypeCla == null)
             {
-                throw Oops.Oh(ExceptionCode.TOKEN_INVALID);
+                throw Oops.Oh(ExceptionCode.Token_Invalid);
             }
             IdentityType identityType = Enum.Parse<IdentityType>(identityTypeCla.Value);
             JWTSettingsOptions jWTSettingsOptions = GetJWTSettingsOptions(identityType);
@@ -245,7 +245,7 @@ namespace Gardener.Authentication.Core
             Identity? identity = identityConverter.ClaimsPrincipalToIdentity(principal);
             if (identity == null)
             {
-                throw Oops.Oh(ExceptionCode.TOKEN_INVALID);
+                throw Oops.Oh(ExceptionCode.Token_Invalid);
             }
             identity.IdentityType = identityType;
             return identity;

@@ -97,7 +97,7 @@ namespace Gardener.Authorization.Core
             if (identity == null)
             {
                 //身份信息缺失
-                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+                throw Oops.Oh(ExceptionCode.Unauthorized);
             }
             if (IdentityType.User.Equals(identity.IdentityType))
             {
@@ -112,7 +112,7 @@ namespace Gardener.Authorization.Core
             else
             {
                 //其他身份无法判断是否是超级管理
-                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+                throw Oops.Oh(ExceptionCode.Unauthorized);
             }
 
         }
@@ -230,7 +230,7 @@ namespace Gardener.Authorization.Core
             {
                 return GetClientId(identity);
             }
-            throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+            throw Oops.Oh(ExceptionCode.Unauthorized);
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace Gardener.Authorization.Core
         {
             if (!IdentityType.User.Equals(identity.IdentityType))
             {
-                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+                throw Oops.Oh(ExceptionCode.Unauthorized);
             }
             int userId = int.Parse(identity.Id);
 
@@ -258,7 +258,7 @@ namespace Gardener.Authorization.Core
         {
             if (!IdentityType.Client.Equals(identity.IdentityType))
             {
-                throw Oops.Oh(ExceptionCode.UNAUTHORIZED);
+                throw Oops.Oh(ExceptionCode.Unauthorized);
             }
             Guid clientId = Guid.Parse(identity.Id);
 

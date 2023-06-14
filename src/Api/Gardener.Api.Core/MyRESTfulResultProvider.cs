@@ -100,12 +100,12 @@ namespace Gardener.Admin
             {
                 // 处理 401 状态码
                 case StatusCodes.Status401Unauthorized:
-                    await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: EnumHelper.GetEnumDescription(ExceptionCode.UNAUTHORIZED), errorCode: ExceptionCode.UNAUTHORIZED)
+                    await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: EnumHelper.GetEnumDescription(ExceptionCode.Unauthorized), errorCode: ExceptionCode.Unauthorized)
                         , App.GetOptions<JsonOptions>()?.JsonSerializerOptions);
                     break;
                 // 处理 403 状态码
                 case StatusCodes.Status403Forbidden:
-                    await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: EnumHelper.GetEnumDescription(ExceptionCode.FORBIDDEN), errorCode: ExceptionCode.FORBIDDEN)
+                    await context.Response.WriteAsJsonAsync(RESTfulResult(statusCode, errors: EnumHelper.GetEnumDescription(ExceptionCode.Forbidden), errorCode: ExceptionCode.Forbidden)
                         , App.GetOptions<JsonOptions>()?.JsonSerializerOptions);
                     break;
                 default: break;

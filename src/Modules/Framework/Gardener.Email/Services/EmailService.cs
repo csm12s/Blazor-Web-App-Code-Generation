@@ -115,7 +115,7 @@ namespace Gardener.Email.Services
 
             if (emailServerConfig == null) 
             {
-                throw Oops.Bah(ExceptionCode.EMAIL_SERVER_NO_FIND);
+                throw Oops.Bah(ExceptionCode.Email_Server_No_Find);
             }
 
             EmailTemplate emailTemplate = await _emailTemplateRepository.FindAsync(templateId);

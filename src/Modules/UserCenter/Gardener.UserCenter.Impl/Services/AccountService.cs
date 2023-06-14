@@ -85,13 +85,13 @@ namespace Gardener.UserCenter.Impl.Services
         public async Task<TokenOutput> Login(LoginInput input)
         {
             // 验证用户是否存在
-            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Bah(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
-            if (user.IsLocked) throw Oops.Bah(ExceptionCode.USER_LOCKED);
+            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Bah(ExceptionCode.User_Name_Or_Password_Error);
+            if (user.IsLocked) throw Oops.Bah(ExceptionCode.User_Locked);
             //密码是否正确
             var encryptedPassword = PasswordEncryptHelper.Encrypt(input.Password, user.PasswordEncryptKey);
             if (!encryptedPassword.Equals(user.Password))
             {
-                throw Oops.Bah(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
+                throw Oops.Bah(ExceptionCode.User_Name_Or_Password_Error);
             }
             Identity identity = new Identity
             {
