@@ -292,6 +292,10 @@
   <data name="FieldChangeDetails" xml:space="preserve">
     <value>Field change details</value>
   </data>
+  <data name="Field_Cannot_Be_Modified" xml:space="preserve">
+    <value>Field “{0}” cannot be modified</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
   <data name="Field_In_Type_Not_Found" xml:space="preserve">
     <value>“{0}” attribute not found in “{1}” type</value>
     <comment>ErrorCodeMessage</comment>
@@ -498,6 +502,14 @@
   </data>
   <data name="Script_Code_Compile_Fail" xml:space="preserve">
     <value>Script code compile fail</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Script_Code_JobDetail_Not_Find" xml:space="preserve">
+    <value>Script code [JobDetail] not find</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Script_Code_JobId_Inconsistency" xml:space="preserve">
+    <value>Script code jobId inconsistency</value>
     <comment>ErrorCodeMessage</comment>
   </data>
   <data name="Search" xml:space="preserve">

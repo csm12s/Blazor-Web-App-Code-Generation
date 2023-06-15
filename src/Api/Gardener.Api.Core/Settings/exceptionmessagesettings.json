@@ -34,6 +34,7 @@
       [ "Filter_Group_Operate_Error", "Filter_Group_Operate_Error" ], //条件组中的操作类型错误
       [ "Field_In_Type_Not_Found", "Field_In_Type_Not_Found" ], //指定的属性“{0}”在类型“{1}”中不存在
       [ "Field_Required", "Field_Required" ], //字段“{0}”不能为空
+      [ "Field_Cannot_Be_Modified", "Field_Cannot_Be_Modified" ], //字段“{0}”禁止修改
 
       //G
       //H
@@ -60,6 +61,9 @@
       //S
       [ "Sugar_Repository_Init_Fail", "Sugar_Repository_Init_Fail" ], //SugarRepository 初始化错误
       [ "Search_Error_DB_Field_Is_Null", "Search_Error_DB_Field_Is_Null" ], //查询出错，检索字段在数据库中可能为null
+      [ "Script_Code_Compile_Fail", "Script_Code_Compile_Fail" ], //代码编译失败
+      [ "Script_Code_JobDetail_Not_Find", "Script_Code_JobDetail_Not_Find" ], //脚本代码中，需要定义 [JobDetail] 特性
+      [ "Script_Code_JobId_Inconsistency", "Script_Code_JobId_Inconsistency" ], //脚本代码中，需要定义 [JobDetail] 特性
 
       //T
       [ "Token_Invalid", "Token_Invalid" ], //TOKEN无效

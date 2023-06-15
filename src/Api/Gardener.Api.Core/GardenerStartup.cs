@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using AspNetCoreRateLimit;
 using Gardener.Sugar;
 using Gardener.DistributedLock;
+using Gardener.EasyJob.Impl.Core;
 
 namespace Gardener.Admin
 {
@@ -116,6 +117,13 @@ namespace Gardener.Admin
             services.SqlSugarScopeConfigure();
             //分部式锁
             services.AddDistributedLock();
+            // 任务队列
+            services.AddTaskQueue();
+            // 任务调度
+            services.AddSchedule(options =>
+            {
+                options.AddPersistence<DbJobPersistence>(); // 添加作业持久化器
+            });
         }
         /// <summary>
         /// 

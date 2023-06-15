@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gardener.Api.Core.Migrations
 {
     [DbContext(typeof(GardenerDbContext))]
-    [Migration("20230602075536_v0.0.1")]
+    [Migration("20230615071322_v0.0.1")]
     partial class v001
     {
         /// <inheritdoc />
@@ -9323,6 +9323,46 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307060617400320480L,
+                            Hide = false,
+                            Icon = "user",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center",
+                            Name = "个人中心",
+                            Order = 100,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = true,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307060617809920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307060619407360480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings",
+                            Name = "个人设置",
+                            Order = 0,
+                            ParentId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            Path = "/account/settings",
+                            SupportMultiTenant = true,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307060658892800480L
+                        },
+                        new
+                        {
                             Id = new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -12721,6 +12761,225 @@ namespace Gardener.Api.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EntityCodeGenerationSetting");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobCluster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClusterId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<uint>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysJobCluster");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AssemblyName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Concurrent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CreateType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IncludeAnnotations")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("JobType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Properties")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ScriptCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysJobDetail");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobTrigger", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Args")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AssemblyName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("ElapsedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("EndTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("LastRunTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("MaxNumberOfErrors")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("MaxNumberOfRuns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("NextRunTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumRetries")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfErrors")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("NumberOfRuns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ResetOnlyOnce")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Result")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RetryTimeout")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("RunOnStart")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("StartNow")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<uint>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TriggerId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TriggerType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysJobTrigger");
                 });
 
             modelBuilder.Entity("Gardener.Email.Domains.EmailServerConfig", b =>

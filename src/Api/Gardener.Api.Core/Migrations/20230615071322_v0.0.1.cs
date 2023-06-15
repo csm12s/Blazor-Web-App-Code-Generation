@@ -528,6 +528,101 @@ namespace Gardener.Api.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SysJobCluster",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ClusterId = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 128, nullable: true),
+                    Status = table.Column<uint>(type: "INTEGER", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysJobCluster", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SysJobDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    JobId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    GroupName = table.Column<string>(type: "TEXT", nullable: true),
+                    JobType = table.Column<string>(type: "TEXT", nullable: true),
+                    AssemblyName = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Concurrent = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IncludeAnnotations = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Properties = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateType = table.Column<int>(type: "INTEGER", nullable: false),
+                    ScriptCode = table.Column<string>(type: "TEXT", nullable: true),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysJobDetail", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SysJobTrigger",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TriggerId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    JobId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    TriggerType = table.Column<string>(type: "TEXT", nullable: true),
+                    AssemblyName = table.Column<string>(type: "TEXT", nullable: true),
+                    Args = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Status = table.Column<uint>(type: "INTEGER", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    EndTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    LastRunTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    NextRunTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    NumberOfRuns = table.Column<long>(type: "INTEGER", nullable: false),
+                    MaxNumberOfRuns = table.Column<long>(type: "INTEGER", nullable: false),
+                    NumberOfErrors = table.Column<long>(type: "INTEGER", nullable: false),
+                    MaxNumberOfErrors = table.Column<long>(type: "INTEGER", nullable: false),
+                    NumRetries = table.Column<int>(type: "INTEGER", nullable: false),
+                    RetryTimeout = table.Column<int>(type: "INTEGER", nullable: false),
+                    StartNow = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RunOnStart = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ResetOnlyOnce = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Result = table.Column<string>(type: "TEXT", nullable: true),
+                    ElapsedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreateIdentityType = table.Column<int>(type: "INTEGER", nullable: true),
+                    UpdatedTime = table.Column<long>(type: "INTEGER", nullable: true),
+                    UpdateBy = table.Column<string>(type: "TEXT", nullable: true),
+                    UpdateIdentityType = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysJobTrigger", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SystemTenant",
                 columns: table => new
                 {
@@ -1470,6 +1565,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("371b335b-29e5-4846-b6de-78c9cc691717"), null, 0, 1306051389542400480L, false, "home", false, false, "admin_home", "首页", 10, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "/", "", true, 1000, null, null, null },
                     { new Guid("62e874c8-d286-4b28-831b-90d0c49f0908"), "2", 1, 1307020067348480480L, false, null, false, false, "system_tenant_administrator", "后台租户管理员", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, "控制全局租户信息的显示，此资源不要分配给租户", false, 2000, "2", 1, 1307021551575040480L },
                     { new Guid("874b5529-81d5-4338-9ba9-c084a2e833f1"), "6", 1, 1306994998394880480L, false, null, false, false, "system_code_utils", "字典工具", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, true, 2000, "6", 1, 1306994999357440480L },
+                    { new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"), "2", 1, 1307060617400320480L, false, "user", false, false, "account_center", "个人中心", 100, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), null, null, true, 1000, "2", 1, 1307060617809920480L },
                     { new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), null, 0, 1306546809856000480L, false, "apartment", false, false, "user_center", "用户中心", 15, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "用户中心", true, 1000, null, null, null },
                     { new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), null, 0, 1306546809856000480L, false, "setting", false, false, "system_manager", "系统管理", 20, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "系统管理", true, 1000, null, null, null },
                     { new Guid("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"), null, 0, 1306051389542400480L, false, "", false, false, "system_login", "登录", 0, new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"), "", "登录系统", true, 2000, null, null, null }
@@ -1508,6 +1604,7 @@ namespace Gardener.Api.Core.Migrations
                     { new Guid("3d93eb77-2a72-4b4f-aa79-5da1fc794300"), null, 0, 1306051389542400480L, false, "robot", false, false, "system_manager_timer", "任务调度", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/systimer", "配置任务调度模式", false, 1000, null, null, 1306547305287680480L },
                     { new Guid("57a8f870-c76f-4ce0-b660-bf6661dc9baf"), null, 0, 1306051389542400480L, false, "team", false, false, "user_center_dept", "部门管理", 3, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/dept", "", true, 1000, null, null, null },
                     { new Guid("6dc2b297-7110-462a-b402-9e9736abf292"), null, 0, 1306051389542400480L, false, "mail", false, false, "system_manager_email_tool", "邮件工具", 80, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "", "邮件工具", false, 1000, null, null, null },
+                    { new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"), "2", 1, 1307060619407360480L, false, null, false, false, "account_center_settings", "个人设置", 0, new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"), "/account/settings", null, true, 1000, "2", 1, 1307060658892800480L },
                     { new Guid("91517bf1-ef41-4ddb-8daa-5022c59d2c73"), null, 0, 1306051389542400480L, false, "user", false, false, "user_center_user", "用户管理", 10, new Guid("bd892fb3-47b4-469e-ba14-7c0eb703e164"), "/user_center/user", "用户管理", true, 1000, null, null, null },
                     { new Guid("925c3162-155c-4644-8ca2-075f9fc76235"), null, 0, 1306051389542400480L, false, "file", false, false, "system_manager_attachment", "附件管理", 50, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/attachment", "附件管理", true, 1000, null, null, null },
                     { new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"), null, 0, 1306051389542400480L, false, "cloud-server", false, false, "system_manager_client", "客户端管理", 45, new Guid("c2090656-8a05-4e67-b7ea-62f178639620"), "/system_manager/client", "客户端管理", false, 1000, null, null, null },
@@ -2492,6 +2589,15 @@ namespace Gardener.Api.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sys_CodeGenConfig");
+
+            migrationBuilder.DropTable(
+                name: "SysJobCluster");
+
+            migrationBuilder.DropTable(
+                name: "SysJobDetail");
+
+            migrationBuilder.DropTable(
+                name: "SysJobTrigger");
 
             migrationBuilder.DropTable(
                 name: "SystemTenantResource");

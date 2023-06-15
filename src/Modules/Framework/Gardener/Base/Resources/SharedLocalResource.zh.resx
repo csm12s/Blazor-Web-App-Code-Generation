@@ -660,4 +660,16 @@
     <value>代码编译失败</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="Field_Cannot_Be_Modified" xml:space="preserve">
+    <value>字段“{0}”禁止修改</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Script_Code_JobDetail_Not_Find" xml:space="preserve">
+    <value>脚本代码中，需要定义 [JobDetail] 特性</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Script_Code_JobId_Inconsistency" xml:space="preserve">
+    <value>脚本代码中，[JobDetail('jobId')]与输入JobId不一致</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
 </root>

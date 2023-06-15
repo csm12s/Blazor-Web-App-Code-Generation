@@ -170,9 +170,10 @@ namespace Gardener.Enums
         [Description("字段“{0}”不能为空")]
         Field_Required,
         /// <summary>
-        /// 代码编译失败
+        /// 字段“{0}”禁止修改
         /// </summary>
-        [Description("代码编译失败")]
-        Script_Code_Compile_Fail,
+        [Description("字段“{0}”禁止修改")]
+        Field_Cannot_Be_Modified,
+
     }
 }
