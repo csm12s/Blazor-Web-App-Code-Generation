@@ -40,18 +40,18 @@ namespace Gardener.EasyJob.Impl.Core
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobDetailRepository.Insert(jobDetail);
+                    jobDetailRepository.InsertNow(jobDetail);
                     break;
 
                 case PersistenceBehavior.Updated:
                     jobDetailRepository.Where(u => u.JobId == jobDetail.JobId).ToList().ForEach(x => {
-                        jobDetailRepository.Update(x);
+                        jobDetailRepository.UpdateNow(x);
                     });
                     break;
 
                 case PersistenceBehavior.Removed:
                     jobDetailRepository.Where(u => u.JobId == jobDetail.JobId).ToList().ForEach(x => {
-                        jobDetailRepository.Delete(x);
+                        jobDetailRepository.DeleteNow(x);
                     });
                     break;
 
@@ -81,18 +81,18 @@ namespace Gardener.EasyJob.Impl.Core
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobTriggerRepository.Insert(jobTrigger);
+                    jobTriggerRepository.InsertNow(jobTrigger);
                     break;
 
                 case PersistenceBehavior.Updated:
                     jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList().ForEach(x => {
-                        jobTriggerRepository.Update(x);
+                        jobTriggerRepository.UpdateNow(x);
                     });
                     break;
 
                 case PersistenceBehavior.Removed:
                     jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList().ForEach(x => {
-                        jobTriggerRepository.Delete(x);
+                        jobTriggerRepository.DeleteNow(x);
                     });
                     break;
 
