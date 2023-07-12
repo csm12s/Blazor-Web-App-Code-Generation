@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion;
 using Furion.DatabaseAccessor;
 using Gardener.Authentication.Domains;
 using Gardener.Authentication.Dtos;
@@ -15,7 +14,6 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Gardener.Authentication.Services

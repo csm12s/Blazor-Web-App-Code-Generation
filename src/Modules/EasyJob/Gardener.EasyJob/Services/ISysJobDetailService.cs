@@ -4,22 +4,16 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Gardener.Base;
+using Gardener.EasyJob.Dtos;
 
-namespace Gardener.EasyJob.Dtos
+namespace Gardener.EasyJob.Services
 {
     /// <summary>
-    /// Job操作参数
+    /// 系统作业任务服务
     /// </summary>
-    public class JobDetailInput
+    public interface ISysJobDetailService : IServiceBase<SysJobDetailDto,int>
     {
-        /// <summary>
-        /// 任务编号
-        /// </summary>
-        public string JobId { get; set; } = null!;
+       
     }
 }

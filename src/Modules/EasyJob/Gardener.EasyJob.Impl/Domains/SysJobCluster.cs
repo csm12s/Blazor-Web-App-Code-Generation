@@ -8,23 +8,14 @@ using Gardener.Base;
 using Gardener.EasyJob.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.EasyJob.Impl.Domains
 {
     /// <summary>
     /// 系统作业集群表
     /// </summary>
-    public class SysJobCluster : GardenerEntityBaseNoKey
+    public class SysJobCluster : GardenerEntityBase<int>
     {
-        /// <summary>
-        /// 编号
-        /// </summary>
-        [Key]
-        [DisplayName("编号")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         /// <summary>
         /// 作业集群Id
         /// </summary>

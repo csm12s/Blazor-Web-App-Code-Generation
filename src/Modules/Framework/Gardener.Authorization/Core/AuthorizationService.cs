@@ -4,10 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.FriendlyException;
 using Gardener.Authentication.Core;
 using Gardener.Authentication.Dtos;
-using Gardener.Authentication.Enums;
 using Gardener.Authorization.Dtos;
 using Gardener.Enums;
 using Microsoft.AspNetCore.Authorization;

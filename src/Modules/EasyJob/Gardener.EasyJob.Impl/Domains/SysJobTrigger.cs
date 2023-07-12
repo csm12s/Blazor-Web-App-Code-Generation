@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Gardener.Base;
 using System.ComponentModel;
@@ -16,16 +15,8 @@ namespace Gardener.EasyJob.Impl.Domains
     /// 任务触发器
     /// </summary>
     [Description("任务触发器")]
-    public class SysJobTrigger : GardenerEntityBaseNoKey
+    public class SysJobTrigger : GardenerEntityBase<int>
     {
-        /// <summary>
-        /// 编号
-        /// </summary>
-        [Key]
-        [DisplayName("编号")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         /// <summary>
         /// 作业触发器编号
         /// </summary>

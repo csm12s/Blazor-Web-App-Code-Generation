@@ -10,22 +10,30 @@ using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Services;
+using Mapster;
 using Medallion.Threading;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gardener.EasyJob.Impl.Services
 {
     /// <summary>
-    /// 作业集群控制
+    /// 定时任务-集群服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
     public class SysJobClusterServer : ISysJobClusterServer
     {
-        private readonly Random rd = new(DateTime.Now.Millisecond);
-
-        public SysJobClusterServer()
+        private readonly IRepository<SysJobCluster> _sysJobClusterRep;
+        /// <summary>
+        /// 作业集群控制
+        /// </summary>
+        /// <param name="sysJobClusterRep"></param>
+        public SysJobClusterServer(IRepository<SysJobCluster> sysJobClusterRep)
         {
+            _sysJobClusterRep = sysJobClusterRep;
         }
+
+        private readonly Random rd = new(DateTime.Now.Millisecond);
 
         /// <summary>
         /// 当前作业调度器启动通知
@@ -137,6 +145,15 @@ namespace Gardener.EasyJob.Impl.Services
                 _sysJobClusterRep.Update(x);
             });
             return Task.FromResult(true);
+        }
+
+
+        /// <summary>
+        /// 获取集群列表
+        /// </summary>
+        public async Task<IEnumerable<SysJobClusterDto>> GetJobClusterList()
+        {
+            return await _sysJobClusterRep.Where(x => x.IsDeleted == false).Select(x => x.Adapt<SysJobClusterDto>()).ToListAsync();
         }
     }
 }

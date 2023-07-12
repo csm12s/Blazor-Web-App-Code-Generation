@@ -5,12 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using AntDesign.Core.Extensions;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
 using Gardener.Common;
-using Gardener.SystemManager.Resources;
 using Gardener.SysTimer.Dtos;
 using Gardener.SysTimer.Enums;
 using Gardener.SysTimer.Resources;

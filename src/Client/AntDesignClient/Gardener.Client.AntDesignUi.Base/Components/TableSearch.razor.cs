@@ -15,8 +15,6 @@ using Gardener.SystemManager.Utils;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using System.Xml.Linq;
-using System.Linq;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {

@@ -27,25 +27,29 @@ namespace Gardener.EasyJob.Impl.Services
 {
 
     /// <summary>
-    /// 系统作业任务服务
+    /// 定时任务-任务服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class SysJobService : ServiceBaseNoKey<SysJobDetail, SysJobDetailDto>, IDynamicApiController, ITransient
+    public class SysJobDetailService : ServiceBase<SysJobDetail, SysJobDetailDto,int>, IDynamicApiController, ITransient, EasyJob.Services.ISysJobDetailService
     {
         private readonly IRepository<SysJobDetail> _sysJobDetailRep;
         private readonly IRepository<SysJobTrigger> _sysJobTriggerRep;
-        private readonly IRepository<SysJobCluster> _sysJobClusterRep;
         private readonly ISchedulerFactory _schedulerFactory;
         private readonly DynamicJobCompiler _dynamicJobCompiler;
-        public SysJobService(IRepository<SysJobDetail> sysJobDetailRep,
+        /// <summary>
+        /// 定时任务-任务服务
+        /// </summary>
+        /// <param name="sysJobDetailRep"></param>
+        /// <param name="sysJobTriggerRep"></param>
+        /// <param name="schedulerFactory"></param>
+        /// <param name="dynamicJobCompiler"></param>
+        public SysJobDetailService(IRepository<SysJobDetail> sysJobDetailRep,
             IRepository<SysJobTrigger> sysJobTriggerRep,
-            IRepository<SysJobCluster> sysJobClusterRep,
             ISchedulerFactory schedulerFactory,
             DynamicJobCompiler dynamicJobCompiler) : base(sysJobDetailRep)
         {
             _sysJobDetailRep = sysJobDetailRep;
             _sysJobTriggerRep = sysJobTriggerRep;
-            _sysJobClusterRep = sysJobClusterRep;
             _schedulerFactory = schedulerFactory;
             _dynamicJobCompiler = dynamicJobCompiler;
         }
@@ -173,7 +177,7 @@ namespace Gardener.EasyJob.Impl.Services
                     {
                         throw Oops.Oh(EasyJobExceptionCode.Script_Code_Compile_Fail);
                     }
-                    if (jobType.GetCustomAttributes(typeof(JobDetailAttribute),false).FirstOrDefault() is not JobDetailAttribute jobDetailAttribute)
+                    if (jobType.GetCustomAttributes(typeof(JobDetailAttribute), false).FirstOrDefault() is not JobDetailAttribute jobDetailAttribute)
                         throw Oops.Oh(EasyJobExceptionCode.Script_Code_JobDetail_Not_Find);
                     if (jobDetailAttribute.JobId != input.JobId)
                         throw Oops.Oh(EasyJobExceptionCode.Script_Code_JobId_Inconsistency);
@@ -198,86 +202,110 @@ namespace Gardener.EasyJob.Impl.Services
         /// 删除作业
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> DeleteJobDetail(JobDetailInput input)
+        public override async Task<bool> Delete(int id)
         {
-            _schedulerFactory.RemoveJob(input.JobId);
+            SysJobDetail? sysJobDetail=await _sysJobDetailRep.FindOrDefaultAsync(id);
+            if (sysJobDetail == null) 
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
+            _schedulerFactory.RemoveJob(sysJobDetail.JobId);
 
             // 如果 _schedulerFactory 中不存在 JodId，则无法触发持久化，下面的代码确保作业和触发器能被删除
-            await _sysJobDetailRep.Where(u => u.JobId == input.JobId).ForEachAsync(x =>
+            await _sysJobDetailRep.Where(u => u.JobId == sysJobDetail.JobId).ForEachAsync(x =>
             {
                 x.DeleteNow();
             });
-            await _sysJobTriggerRep.Where(u => u.JobId == input.JobId).ForEachAsync(x =>
+            await _sysJobTriggerRep.Where(u => u.JobId == sysJobDetail.JobId).ForEachAsync(x =>
             {
                 x.DeleteNow();
             });
             return true;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [NonAction]
+        public override Task<bool> Deletes([FromBody] int[] ids)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [NonAction]
+        public override Task<bool> FakeDelete(int id)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [NonAction]
+        public override Task<bool> FakeDeletes([FromBody] int[] ids)
+        {
+            throw new NotImplementedException();
+        }
         /// <summary>
         /// 获取触发器列表
         /// </summary>
-        public async Task<IEnumerable<SysJobTriggerDto>> GetJobTriggerList([FromQuery] JobDetailInput input)
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<SysJobTriggerDto>> GetTriggers([ApiSeat(ApiSeats.ActionStart)] int id)
         {
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.FindOrDefaultAsync(id);
+            if (sysJobDetail == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
             return await _sysJobTriggerRep.AsQueryable(false)
-                .Where(!string.IsNullOrWhiteSpace(input.JobId), u => u.JobId.Contains(input.JobId))
+                .Where(!string.IsNullOrWhiteSpace(sysJobDetail.JobId), u => u.JobId.Contains(sysJobDetail.JobId))
                 .Select(x => x.Adapt<SysJobTriggerDto>())
                 .ToListAsync();
         }
 
-        /// <summary>
-        /// 添加触发器
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> AddJobTrigger(SysJobTriggerDto input)
-        {
-            var isExist = await _sysJobTriggerRep.AnyAsync(u => u.TriggerId == input.TriggerId && u.Id != input.Id);
-            if (isExist)
-                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
 
-            var jobTrigger = input.Adapt<SysJobTrigger>();
-            jobTrigger.Args = "[" + jobTrigger.Args + "]";
-
-            var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.AddTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
-            return true;
-        }
 
         /// <summary>
-        /// 更新触发器
+        /// 暂停作业
         /// </summary>
-        /// <returns></returns>
-        public async Task<bool> UpdateJobTrigger(SysJobTriggerDto input)
+        /// <param name="id"></param>
+        [HttpPost]
+        public async Task<bool> Pause([ApiSeat(ApiSeats.ActionStart)] int id)
         {
-            var isExist = await _sysJobTriggerRep.AnyAsync(u => u.TriggerId == input.TriggerId && u.Id != input.Id);
-            if (isExist)
-                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
-
-            var jobTrigger = input.Adapt<SysJobTrigger>();
-            jobTrigger.Args = "[" + jobTrigger.Args + "]";
-
-            var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.UpdateTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
-
-            return true;
-        }
-
-        /// <summary>
-        /// 删除触发器
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> DeleteJobTrigger(JobTriggerInput input)
-        {
-            var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.RemoveTrigger(input.TriggerId);
-
-            // 如果 _schedulerFactory 中不存在 JodId，则无法触发持久化，下行代码确保触发器能被删除
-            List<SysJobTrigger> jobTriggers = await _sysJobTriggerRep.Where(u => u.JobId == input.JobId && u.TriggerId == input.TriggerId).ToListAsync();
-            jobTriggers.ForEach(x =>
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.FindOrDefaultAsync(id);
+            if (sysJobDetail == null)
             {
-                _sysJobTriggerRep.Delete(x);
-            });
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
+            var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
+            scheduler?.Pause();
+            return true;
+        }
 
+        /// <summary>
+        /// 启动作业
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpPost]
+        public async Task<bool> Start([ApiSeat(ApiSeats.ActionStart)] int id)
+        {
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.FindOrDefaultAsync(id);
+            if (sysJobDetail == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
+            var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
+            scheduler?.Start();
             return true;
         }
 
@@ -285,7 +313,7 @@ namespace Gardener.EasyJob.Impl.Services
         /// 暂停所有作业
         /// </summary>
         /// <returns></returns>
-        public Task<bool> PauseAllJob()
+        public Task<bool> PauseAll()
         {
             _schedulerFactory.PauseAll();
             return Task.FromResult(true);
@@ -295,49 +323,9 @@ namespace Gardener.EasyJob.Impl.Services
         /// 启动所有作业
         /// </summary>
         /// <returns></returns>
-        public Task<bool> StartAllJob()
+        public Task<bool> StartAll()
         {
             _schedulerFactory.StartAll();
-            return Task.FromResult(true);
-        }
-
-        /// <summary>
-        /// 暂停作业
-        /// </summary>
-        public Task<bool> PauseJob(JobDetailInput input)
-        {
-            var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.Pause();
-            return Task.FromResult(true);
-        }
-
-        /// <summary>
-        /// 启动作业
-        /// </summary>
-        public Task<bool> StartJob(JobDetailInput input)
-        {
-            var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.Start();
-            return Task.FromResult(true);
-        }
-
-        /// <summary>
-        /// 暂停触发器
-        /// </summary>
-        public Task<bool> PauseTrigger(JobTriggerInput input)
-        {
-            var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.PauseTrigger(input.TriggerId);
-            return Task.FromResult(true);
-        }
-
-        /// <summary>
-        /// 启动触发器
-        /// </summary>
-        public Task<bool> StartTrigger(JobTriggerInput input)
-        {
-            var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.StartTrigger(input.TriggerId);
             return Task.FromResult(true);
         }
 
@@ -359,12 +347,5 @@ namespace Gardener.EasyJob.Impl.Services
             return Task.FromResult(true);
         }
 
-        /// <summary>
-        /// 获取集群列表
-        /// </summary>
-        public async Task<IEnumerable<SysJobClusterDto>> GetJobClusterList()
-        {
-            return await _sysJobClusterRep.Where(x => x.IsDeleted == false).Select(x => x.Adapt<SysJobClusterDto>()).ToListAsync();
-        }
     }
 }

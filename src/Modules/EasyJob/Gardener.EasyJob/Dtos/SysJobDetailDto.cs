@@ -8,7 +8,6 @@ using Gardener.Base;
 using Gardener.EasyJob.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gardener.EasyJob.Dtos
 {
@@ -16,16 +15,8 @@ namespace Gardener.EasyJob.Dtos
     /// 任务详情
     /// </summary>
     [Description("任务详情")]
-    public class SysJobDetailDto : BaseDto
+    public class SysJobDetailDto : BaseDto<int>
     {
-        /// <summary>
-        /// 编号
-        /// </summary>
-        [Key]
-        [DisplayName("编号")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         /// <summary>
         /// 作业编号
         /// </summary>

@@ -18,7 +18,6 @@ using Furion.DependencyInjection;
 using Gardener.Base;
 using Swashbuckle.AspNetCore.Annotations;
 using Gardener.Authentication.Core;
-using Humanizer.Localisation;
 
 namespace Gardener.SystemManager.Services
 {
