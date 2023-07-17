@@ -20,6 +20,9 @@ namespace Gardener.Base
         /// <summary>
         /// 查询所有
         /// </summary>
+        /// <remarks>
+        /// 查找到所有数据
+        /// </remarks>
         /// <returns></returns>
         Task<List<TEntityDto>> GetAll();
 
@@ -29,7 +32,7 @@ namespace Gardener.Base
         /// <param name="tenantId">租户编号</param>
         /// <param name="includLocked">是否包含锁定的</param>
         /// <remarks>
-        /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
+        /// 查询所有可以用的记录，(实现<see cref="IModelDeleted"/> <see cref="IModelLocked"/>时会自动过滤)
         /// </remarks>
         /// <returns></returns>
         Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null, bool includLocked = false);
@@ -39,13 +42,19 @@ namespace Gardener.Base
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
+        /// <remarks>
+        /// 根据分页参数，分页获取数据
+        /// </remarks>
         /// <returns></returns>
         Task<PagedList<TEntityDto>> GetPage(int pageIndex = 1, int pageSize = 10);
 
         /// <summary>
-        /// 新增
+        /// 添加
         /// </summary>
         /// <param name="input"></param>
+        /// <remarks>
+        /// 添加一条数据
+        /// </remarks>
         /// <returns></returns>
         Task<TEntityDto> Insert(TEntityDto input);
 
@@ -53,16 +62,19 @@ namespace Gardener.Base
         /// 更新
         /// </summary>
         /// <param name="input"></param>
+        /// <remarks>
+        /// 更新一条数据
+        /// </remarks>
         /// <returns></returns>
         Task<bool> Update(TEntityDto input);
 
         /// <summary>
         /// 搜索
         /// </summary>
+        /// <param name="request"></param>
         /// <remarks>
         /// 搜索功能数据
         /// </remarks>
-        /// <param name="request"></param>
         /// <returns></returns>
         Task<PagedList<TEntityDto>> Search(PageRequest request);
 
@@ -70,19 +82,19 @@ namespace Gardener.Base
         /// 生成种子数据
         /// </summary>
         /// <param name="request"></param>
-        /// <returns></returns>
         /// <remarks>
         /// 根据搜索条叫生成种子数据
         /// </remarks>
+        /// <returns></returns>
         Task<string> GenerateSeedData(PageRequest request);
 
         /// <summary>
         /// 导出
         /// </summary>
-        /// <remarks>
-        /// 导出数据
-        /// </remarks>
         /// <param name="request"></param>
+        /// <remarks>
+        /// 导出搜索结果
+        /// </remarks>
         /// <returns></returns>
         Task<string> Export(PageRequest request);
     }
@@ -99,38 +111,55 @@ namespace Gardener.Base
         /// 删除
         /// </summary>
         /// <param name="id"></param>
+        /// <remarks>
+        /// 根据主键删除一条数据
+        /// </remarks>
         /// <returns></returns>
         Task<bool> Delete(TKey id);
         /// <summary>
         /// 批量删除
         /// </summary>
         /// <param name="ids"></param>
+        /// <remarks>
+        /// 根据多个主键批量删除
+        /// </remarks>
         /// <returns></returns>
         Task<bool> Deletes(TKey[] ids);
         /// <summary>
         /// 逻辑删除
         /// </summary>
         /// <param name="id"></param>
+        /// <remarks>
+        /// 根据主键逻辑删除
+        /// </remarks>
         /// <returns></returns>
         Task<bool> FakeDelete(TKey id);
         /// <summary>
         /// 批量逻辑删除
         /// </summary>
         /// <param name="ids"></param>
+        /// <remarks>
+        /// 根据多个主键批量逻辑删除
+        /// </remarks>
         /// <returns></returns>
         Task<bool> FakeDeletes(TKey[] ids);
         /// <summary>
-        /// 查询
+        /// 根据主键获取
         /// </summary>
         /// <param name="id"></param>
+        /// <remarks>
+        /// 根据主键查找一条数据
+        /// </remarks>
         /// <returns></returns>
         Task<TEntityDto> Get(TKey id);
-
         /// <summary>
-        ///  锁定、解锁
+        /// 锁定
         /// </summary>
         /// <param name="id"></param>
         /// <param name="islocked"></param>
+        /// <remarks>
+        /// 根据主键锁定或解锁数据（必须实现<see cref="IModelLocked"/>才能生效）
+        /// </remarks>
         /// <returns></returns>
         Task<bool> Lock(TKey id, bool islocked = true);
 

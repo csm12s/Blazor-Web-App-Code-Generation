@@ -10,6 +10,7 @@ using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Services;
+using Gardener.EntityFramwork;
 using Mapster;
 using Medallion.Threading;
 using Microsoft.AspNetCore.Mvc;
@@ -21,19 +22,16 @@ namespace Gardener.EasyJob.Impl.Services
     /// 定时任务-集群服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class SysJobClusterServer : ISysJobClusterServer
+    public class SysJobClusterService : ServiceBase<SysJobCluster, SysJobClusterDto, int>, ISysJobClusterService
     {
-        private readonly IRepository<SysJobCluster> _sysJobClusterRep;
-        /// <summary>
-        /// 作业集群控制
-        /// </summary>
-        /// <param name="sysJobClusterRep"></param>
-        public SysJobClusterServer(IRepository<SysJobCluster> sysJobClusterRep)
-        {
-            _sysJobClusterRep = sysJobClusterRep;
-        }
-
         private readonly Random rd = new(DateTime.Now.Millisecond);
+        /// <summary>
+        /// 定时任务-集群服务
+        /// </summary>
+        /// <param name="repository"></param>
+        public SysJobClusterService(IRepository<SysJobCluster, MasterDbContextLocator> repository) : base(repository)
+        {
+        }
 
         /// <summary>
         /// 当前作业调度器启动通知
@@ -63,7 +61,7 @@ namespace Gardener.EasyJob.Impl.Services
         /// </summary>
         /// <param name="context">作业集群服务上下文</param>
         /// <returns><see cref="Task"/></returns>
-        public async Task<bool> WaitingForAsync(JobClusterContext context)
+        public async Task<bool> Waiting(JobClusterContext context)
         {
             var clusterId = context.ClusterId;
 
@@ -145,15 +143,6 @@ namespace Gardener.EasyJob.Impl.Services
                 _sysJobClusterRep.Update(x);
             });
             return Task.FromResult(true);
-        }
-
-
-        /// <summary>
-        /// 获取集群列表
-        /// </summary>
-        public async Task<IEnumerable<SysJobClusterDto>> GetJobClusterList()
-        {
-            return await _sysJobClusterRep.Where(x => x.IsDeleted == false).Select(x => x.Adapt<SysJobClusterDto>()).ToListAsync();
         }
     }
 }

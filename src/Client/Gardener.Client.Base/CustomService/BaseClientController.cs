@@ -70,7 +70,15 @@ public abstract class BaseClientController<TEntityDto, TKey>
         var url = $"{controller}/{System.Reflection.MethodBase.GetCurrentMethod()?.Name}";
         return apiCaller.GetAsync<List<TEntityDto>>(url);
     }
-
+    /// <summary>
+    /// 查询所有可以用的
+    /// </summary>
+    /// <param name="tenantId">租户编号</param>
+    /// <param name="includLocked">是否包含锁定的</param>
+    /// <remarks>
+    /// 查询所有可以用的记录，(实现<see cref="IModelDeleted"/> <see cref="IModelLocked"/>时会自动过滤)
+    /// </remarks>
+    /// <returns></returns>
     public virtual Task<List<TEntityDto>> GetAllUsable(Guid? tenantId = null, bool includLocked = false)
     {
         IDictionary<string, object?> queryString = new Dictionary<string, object?>();

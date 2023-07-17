@@ -16,6 +16,7 @@ using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Impl.Core;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Resources;
+using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
 using Mapster;
@@ -30,7 +31,7 @@ namespace Gardener.EasyJob.Impl.Services
     /// 定时任务-任务服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class SysJobDetailService : ServiceBase<SysJobDetail, SysJobDetailDto,int>, IDynamicApiController, ITransient, EasyJob.Services.ISysJobDetailService
+    public class SysJobDetailService : ServiceBase<SysJobDetail, SysJobDetailDto,int>, IDynamicApiController, ITransient, ISysJobDetailService
     {
         private readonly IRepository<SysJobDetail> _sysJobDetailRep;
         private readonly IRepository<SysJobTrigger> _sysJobTriggerRep;
@@ -255,6 +256,7 @@ namespace Gardener.EasyJob.Impl.Services
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// 获取触发器列表
         /// </summary>
@@ -272,8 +274,6 @@ namespace Gardener.EasyJob.Impl.Services
                 .Select(x => x.Adapt<SysJobTriggerDto>())
                 .ToListAsync();
         }
-
-
 
         /// <summary>
         /// 暂停作业

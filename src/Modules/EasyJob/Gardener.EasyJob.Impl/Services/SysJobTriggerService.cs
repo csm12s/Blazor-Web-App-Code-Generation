@@ -13,6 +13,7 @@ using Gardener.Base;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Resources;
+using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
 using Mapster;
@@ -25,7 +26,7 @@ namespace Gardener.EasyJob.Impl.Services
     /// 定时任务-触发器服务
     /// </summary>
     [ApiDescriptionSettings("SystemBaseServices")]
-    public class SysJobTriggerService : ServiceBase<SysJobTrigger, SysJobTriggerDto,int>, IDynamicApiController, ITransient
+    public class SysJobTriggerService : ServiceBase<SysJobTrigger, SysJobTriggerDto,int>, ISysJobTriggerService, ITransient
     {
         private readonly IRepository<SysJobTrigger> _sysJobTriggerRep;
         private readonly ISchedulerFactory _schedulerFactory;
