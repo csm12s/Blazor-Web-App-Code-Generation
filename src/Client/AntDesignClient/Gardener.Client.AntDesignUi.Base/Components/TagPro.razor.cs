@@ -126,7 +126,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 本地化-可以对Text进行本地化处理
         /// </summary>
         [Parameter]
-        public IClientLocalizer? Localizer { get; set; } = null!;
+        public IClientLocalizer? Localizer { get; set; }
 
         /// <summary>
         /// 从Text中推算的string 值
