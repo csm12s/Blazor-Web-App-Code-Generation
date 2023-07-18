@@ -6,6 +6,7 @@
 
 using Gardener.Base;
 using Gardener.EasyJob.Enums;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,14 +21,14 @@ namespace Gardener.EasyJob.Dtos
         /// <summary>
         /// 作业编号
         /// </summary>
-        [DisplayName("作业编号")]
+        [DisplayName("JobId")]
         [Required, MaxLength(100)]
         public string JobId { get; set; } = null!;
 
         /// <summary>
         /// 作业组名称
         /// </summary>
-        [DisplayName("作业编号")]
+        [DisplayName("GroupName")]
         public string? GroupName { get; set; }
         /// <summary>
         /// 作业处理程序类型
@@ -35,7 +36,7 @@ namespace Gardener.EasyJob.Dtos
         /// <remarks>
         /// 作业处理程序类型，存储的是类型的 FullName
         /// </remarks>
-        [DisplayName("作业处理程序类型")]
+        [DisplayName("JobTypeFullName")]
         public string? JobType { get; set; }
         /// <summary>
         /// 作业处理程序类型所在程序集
@@ -43,20 +44,22 @@ namespace Gardener.EasyJob.Dtos
         /// <remarks>
         /// 作业处理程序类型所在程序集，存储的是程序集 Name
         /// </remarks>
-        [DisplayName("作业处理程序类型所在程序集")]
+        [DisplayName("AssemblyName")]
         public string? AssemblyName { get; set; }
         /// <summary>
         /// 描述信息
         /// </summary>
-        [DisplayName("描述信息")]
+        [DisplayName("Description")]
         public string? Description { get; set; }
         /// <summary>
-        /// 作业执行方式
+        /// 并行处理
         /// </summary>
         /// <remarks>
-        /// 作业执行方式，如果设置为 false，那么使用 串行 执行，否则 并行 执行
+        /// 作业执行方式，
+        /// 设置为 false 串行 执行
+        /// 设置为 true  并行 执行
         /// </remarks>
-        [DisplayName("作业执行方式")]
+        [DisplayName("Concurrent")]
         public bool Concurrent { get; set; } = true;
         /// <summary>
         /// 是否扫描特性
@@ -64,25 +67,25 @@ namespace Gardener.EasyJob.Dtos
         /// <remarks>
         /// IJob 实现类[Trigger] 特性触发器
         /// </remarks>
-        [DisplayName("是否扫描特性")]
+        [DisplayName("IncludeAnnotations")]
         public bool IncludeAnnotations { get; set; } = false;
         /// <summary>
         /// 作业信息额外数据
         /// </summary>
         /// <remarks>
-        /// 作业信息额外数据，由 Dictionary<string, object> 序列化成字符串存储 
+        /// 作业信息额外数据，由 <see cref="Dictionary{string,object}"/> 序列化成字符串存储 
         /// </remarks>
-        [DisplayName("作业信息额外数据")]
+        [DisplayName("Properties")]
         public string? Properties { get; set; } = "{}";
         /// <summary>
         /// 作业创建类型
         /// </summary>
-        [DisplayName("作业创建类型")]
+        [DisplayName("CreateType")]
         public JobCreateType CreateType { get; set; } = JobCreateType.BuiltIn;
         /// <summary>
         /// 脚本代码
         /// </summary>
-        [DisplayName("脚本代码")]
+        [DisplayName("ScriptCode")]
         public string? ScriptCode { get; set; }
         /// <summary>
         /// 触发器集合

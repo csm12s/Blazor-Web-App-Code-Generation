@@ -31,26 +31,26 @@
 
 	<ItemGroup>
 		<EmbeddedResource Update="Base\Resources\SharedLocalResource.en.resx">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\SharedLocalResource.zh.resx">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.en.resx">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.zh.resx">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="SystemManager\Resources\SystemManagerResource.en.resx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Update="SystemManager\Resources\SystemManagerResource.zh.resx">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
 

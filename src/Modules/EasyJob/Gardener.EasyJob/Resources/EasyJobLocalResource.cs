@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
+using System.Reflection;
 
 namespace Gardener.EasyJob.Resources
 {
@@ -17,5 +18,29 @@ namespace Gardener.EasyJob.Resources
         /// 任务编号
         /// </summary>
         public const string JobId= nameof(JobId);
+        /// <summary>
+        /// 分组名
+        /// </summary>
+        public const string GroupName = nameof(GroupName);
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string JobTypeFullName = nameof(JobTypeFullName);
+        /// <summary>
+        /// 并行
+        /// </summary>
+        public const string Concurrent = nameof(Concurrent);
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string AssemblyName = nameof(AssemblyName);
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string IncludeAnnotations = nameof(IncludeAnnotations);
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string JobType = nameof(JobType);
     }
 }
