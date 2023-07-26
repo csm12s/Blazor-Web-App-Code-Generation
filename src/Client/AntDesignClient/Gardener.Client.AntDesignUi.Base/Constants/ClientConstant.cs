@@ -49,7 +49,7 @@ namespace Gardener.Client.AntDesignUi.Base.Constants
                     Closable = true,
                     ModalCentered = true,
                     DrawerPlacement = Placement.Right,
-                    DialogType = OperationDialogType.Modal
+                    DialogType = OperationDialogType.Drawer
                 };
             }
         }

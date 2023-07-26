@@ -4,16 +4,11 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using BlazorMonaco.Editor;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Resources;
-using Gardener.UserCenter.Dtos;
-using Gardener.UserCenter.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Gardener.EasyJob.Client.Pages.JobView
 {
@@ -22,5 +17,36 @@ namespace Gardener.EasyJob.Client.Pages.JobView
     /// </summary>
     public partial class JobDetailEdit : EditOperationDialogBase<SysJobDetailDto, int, EasyJobLocalResource>
     {
+        private string tabActiveKey = "baseInfo";
+
+        private StandaloneCodeEditor _editor = null!;
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        private async Task EditorOnDidInit()
+        {
+            await _editor.SetValue(_editModel.ScriptCode);
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="editor"></param>
+        /// <returns></returns>
+        private StandaloneEditorConstructionOptions EditorConstructionOptions(Editor editor)
+        {
+            return new StandaloneEditorConstructionOptions
+            {
+                AutomaticLayout = true,
+                Language = "csharp"
+            };
+        }
+
+        protected override async Task OnFormFinish(EditContext editContext)
+        {
+            _editModel.ScriptCode = await _editor.GetValue();
+            await base.OnFormFinish(editContext);
+        }
     }
 }

@@ -1,13 +1,7 @@
-﻿using Gardener.Client.AntDesignUi.Base.Components;
+﻿using Gardener.Client.AntDesignUi.Base;
+using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Resources;
-using Gardener.UserCenter.Dtos;
-using Gardener.UserCenter.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.EasyJob.Client.Pages.JobView
 {
@@ -16,5 +10,10 @@ namespace Gardener.EasyJob.Client.Pages.JobView
     /// </summary>
     public partial class JobDetail : ListOperateTableBase<SysJobDetailDto, int, JobDetailEdit, EasyJobLocalResource>
     {
+        protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
+        {
+            dialogSettings.Width = 1000;
+            base.SetOperationDialogSettings(dialogSettings);
+        }
     }
 }

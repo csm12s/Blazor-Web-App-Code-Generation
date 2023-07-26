@@ -120,6 +120,9 @@
   <data name="AssemblyName" xml:space="preserve">
     <value>Assembly name</value>
   </data>
+  <data name="BaseInfo" xml:space="preserve">
+    <value>Base info</value>
+  </data>
   <data name="Concurrent" xml:space="preserve">
     <value>Concurrent</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="JobTypeFullName" xml:space="preserve">
     <value>Job type full name</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
   </data>
 </root>

@@ -42,5 +42,9 @@ namespace Gardener.EasyJob.Resources
         /// 
         /// </summary>
         public const string JobType = nameof(JobType);
+        /// <summary>
+        /// 属性
+        /// </summary>
+        public const string Properties = nameof(Properties);
     }
 }

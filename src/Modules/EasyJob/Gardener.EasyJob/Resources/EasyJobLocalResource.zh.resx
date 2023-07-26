@@ -120,6 +120,9 @@
   <data name="AssemblyName" xml:space="preserve">
     <value>程序集</value>
   </data>
+  <data name="BaseInfo" xml:space="preserve">
+    <value>基础信息</value>
+  </data>
   <data name="BuiltIn" xml:space="preserve">
     <value>内置</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="JobTypeFullName" xml:space="preserve">
     <value>任务类型名称</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>属性</value>
   </data>
   <data name="Script" xml:space="preserve">
     <value>脚本</value>
