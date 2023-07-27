@@ -163,7 +163,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 if (Text.GetType().IsEnum)
                 {
-                    value = Common.EnumHelper.GetEnumDescription((Enum)Text);
+                    value = Common.EnumHelper.GetEnumDescriptionOrName((Enum)Text);
                 }
                 else
                 {
