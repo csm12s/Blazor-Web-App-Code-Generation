@@ -80,7 +80,7 @@ namespace Gardener.EasyJob.Dtos
         /// <summary>
         /// 作业创建类型
         /// </summary>
-        [DisplayName("CreateType")]
+        [DisplayName("JobType")]
         public JobCreateType CreateType { get; set; } = JobCreateType.BuiltIn;
         /// <summary>
         /// 脚本代码

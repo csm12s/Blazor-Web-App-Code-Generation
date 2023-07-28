@@ -672,4 +672,7 @@
     <value>脚本代码中，[JobDetail('jobId')]与输入JobId不一致</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
 </root>

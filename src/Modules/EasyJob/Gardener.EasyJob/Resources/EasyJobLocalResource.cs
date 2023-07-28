@@ -46,5 +46,17 @@ namespace Gardener.EasyJob.Resources
         /// 属性
         /// </summary>
         public const string Properties = nameof(Properties);
+        /// <summary>
+        /// 触发器编号
+        /// </summary>
+        public const string TriggerId = nameof(TriggerId);
+        /// <summary>
+        /// 触发器参数
+        /// </summary>
+        public const string TriggerArgs = nameof(TriggerArgs);
+        /// <summary>
+        /// 触发次数
+        /// </summary>
+        public const string NumberOfRuns = nameof(NumberOfRuns);
     }
 }

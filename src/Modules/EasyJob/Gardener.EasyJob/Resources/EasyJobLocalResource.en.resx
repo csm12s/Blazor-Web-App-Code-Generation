@@ -141,7 +141,13 @@
   <data name="JobTypeFullName" xml:space="preserve">
     <value>Job type full name</value>
   </data>
+  <data name="NumberOfRuns" xml:space="preserve">
+    <value>Number of runs</value>
+  </data>
   <data name="Properties" xml:space="preserve">
     <value>Properties</value>
+  </data>
+  <data name="ScriptCode" xml:space="preserve">
+    <value>Script code</value>
   </data>
 </root>

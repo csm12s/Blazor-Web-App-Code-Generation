@@ -147,10 +147,16 @@
   <data name="JobTypeFullName" xml:space="preserve">
     <value>任务类型名称</value>
   </data>
+  <data name="NumberOfRuns" xml:space="preserve">
+    <value>运行次数</value>
+  </data>
   <data name="Properties" xml:space="preserve">
     <value>属性</value>
   </data>
   <data name="Script" xml:space="preserve">
     <value>脚本</value>
+  </data>
+  <data name="ScriptCode" xml:space="preserve">
+    <value>脚本代码</value>
   </data>
 </root>

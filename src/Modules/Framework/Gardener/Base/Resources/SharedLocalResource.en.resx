@@ -546,6 +546,9 @@
   <data name="SettingRoles" xml:space="preserve">
     <value>Setting roles</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>
   </data>
