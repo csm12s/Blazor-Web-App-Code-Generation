@@ -468,5 +468,9 @@ namespace Gardener.Base.Resources
         /// 状态
         /// </summary>
         public const string Status = nameof(Status);
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public const string StartTime = nameof(StartTime);
     }
 }

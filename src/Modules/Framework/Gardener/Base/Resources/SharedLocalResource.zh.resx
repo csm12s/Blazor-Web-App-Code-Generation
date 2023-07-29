@@ -675,4 +675,40 @@
   <data name="Status" xml:space="preserve">
     <value>状态</value>
   </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="LastRunTime" xml:space="preserve">
+    <value>最近运行时间</value>
+  </data>
+  <data name="MaxNumberOfErrors" xml:space="preserve">
+    <value>最大出错次数</value>
+  </data>
+  <data name="MaxNumberOfRuns" xml:space="preserve">
+    <value>最大触发次数</value>
+  </data>
+  <data name="NextRunTime" xml:space="preserve">
+    <value>下一次运行时间</value>
+  </data>
+  <data name="NumberOfErrors" xml:space="preserve">
+    <value>出错次数</value>
+  </data>
+  <data name="NumberOfRuns" xml:space="preserve">
+    <value>触发次数</value>
+  </data>
+  <data name="NumRetries" xml:space="preserve">
+    <value>重试次数</value>
+  </data>
+  <data name="ResetOnlyOnce" xml:space="preserve">
+    <value>启动时重置</value>
+  </data>
+  <data name="RetryTimeout" xml:space="preserve">
+    <value>重试间隔</value>
+  </data>
+  <data name="RunOnceOnStart" xml:space="preserve">
+    <value>启动时执行一次</value>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>立即启动</value>
+  </data>
 </root>

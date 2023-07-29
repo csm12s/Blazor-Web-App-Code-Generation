@@ -58,5 +58,45 @@ namespace Gardener.EasyJob.Resources
         /// 触发次数
         /// </summary>
         public const string NumberOfRuns = nameof(NumberOfRuns);
+        /// <summary>
+        /// 立即启动
+        /// </summary>
+        public const string StartNow = nameof(StartNow);
+        /// <summary>
+        /// 启动时执行一次
+        /// </summary>
+        public const string RunOnceOnStart = nameof(RunOnceOnStart);
+        /// <summary>
+        /// 在启动时重置最大触发次数等于一次的作业
+        /// </summary>
+        public const string ResetOnlyOnce = nameof(ResetOnlyOnce);
+        /// <summary>
+        /// 最大触发次数
+        /// </summary>
+        public const string MaxNumberOfRuns = nameof(MaxNumberOfRuns);
+        /// <summary>
+        /// 出错次数
+        /// </summary>
+        public const string NumberOfErrors = nameof(NumberOfErrors);
+        /// <summary>
+        /// 最大出错次数
+        /// </summary>
+        public const string MaxNumberOfErrors = nameof(MaxNumberOfErrors);
+        /// <summary>
+        /// 重试次数
+        /// </summary>
+        public const string NumRetries = nameof(NumRetries);
+        /// <summary>
+        /// 重试间隔时间
+        /// </summary>
+        public const string RetryTimeout = nameof(RetryTimeout);
+        /// <summary>
+        /// 最近运行时间
+        /// </summary>
+        public const string LastRunTime = nameof(LastRunTime);
+        /// <summary>
+        /// 下一次运行时间
+        /// </summary>
+        public const string NextRunTime = nameof(NextRunTime);
     }
 }

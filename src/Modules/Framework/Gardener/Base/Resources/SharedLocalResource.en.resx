@@ -369,6 +369,9 @@
   <data name="Key" xml:space="preserve">
     <value>Key</value>
   </data>
+  <data name="LastRunTime" xml:space="preserve">
+    <value>Last run time</value>
+  </data>
   <data name="Load" xml:space="preserve">
     <value>Load</value>
   </data>
@@ -390,11 +393,20 @@
   <data name="Male" xml:space="preserve">
     <value>Male</value>
   </data>
+  <data name="MaxNumberOfErrors" xml:space="preserve">
+    <value>Max number of errors</value>
+  </data>
+  <data name="MaxNumberOfRuns" xml:space="preserve">
+    <value>Max number of runs</value>
+  </data>
   <data name="Method" xml:space="preserve">
     <value>Method</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="NextRunTime" xml:space="preserve">
+    <value>Next run time</value>
   </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick name</value>
@@ -412,6 +424,15 @@
   <data name="No_Permission_Modify_The_Data" xml:space="preserve">
     <value>There is no permission to modify the data</value>
     <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="NumberOfErrors" xml:space="preserve">
+    <value>Number of errors</value>
+  </data>
+  <data name="NumberOfRuns" xml:space="preserve">
+    <value>Number of runs</value>
+  </data>
+  <data name="NumRetries" xml:space="preserve">
+    <value>Num retries</value>
   </data>
   <data name="On" xml:space="preserve">
     <value>On</value>
@@ -481,6 +502,9 @@
     <value>The value cannot be empty or null</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="ResetOnlyOnce" xml:space="preserve">
+    <value>Reset only once</value>
+  </data>
   <data name="Resource" xml:space="preserve">
     <value>Resource</value>
   </data>
@@ -493,6 +517,12 @@
   </data>
   <data name="ResuqesFail" xml:space="preserve">
     <value>Resuqes fail</value>
+  </data>
+  <data name="RetryTimeout" xml:space="preserve">
+    <value>Retry timeout</value>
+  </data>
+  <data name="RunOnceOnStart" xml:space="preserve">
+    <value>Run once on start</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -545,6 +575,12 @@
   </data>
   <data name="SettingRoles" xml:space="preserve">
     <value>Setting roles</value>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>Start now</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>StartTime</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
