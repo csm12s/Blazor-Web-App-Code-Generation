@@ -1,6 +1,107 @@
 ﻿@inherits EditOperationDialogBase<SysJobTriggerDto, int, EasyJobLocalResource>
-<h3>JobTriggerEdit</h3>
-
-@code {
-
+@if (_editModel != null)
+{
+    <Form Loading="@_dialogLoading.Value"
+          Model="@_editModel"
+          LabelCol="new ColLayoutParam { Span = 8 }"
+          WrapperCol="new ColLayoutParam { Span = 16 }"
+          OnFinish="OnFormFinish"
+          Context="model"
+          Size="@AntSizeLDSType.Small">
+        <Row Gutter="24">
+            <GridCol Span="11">
+                <Divider Orientation="left" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
+                <FormItem Label="@Localizer[EasyJobLocalResource.TriggerId]">
+                    <Input @bind-Value="@model.TriggerId" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.JobId]">
+                    <Input @bind-Value="@model.JobId" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.TriggerArgs]">
+                    <Input @bind-Value="@model.Args" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.Description]">
+                    <Input @bind-Value="@model.Description" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.StartTime]">
+                    <Input @bind-Value="@model.StartTime" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.EndTime]">
+                    <Input @bind-Value="@model.EndTime" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.NumberOfRuns]">
+                    <InputNumber @bind-Value="@model.NumberOfRuns" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.MaxNumberOfRuns]">
+                    <InputNumber @bind-Value="@model.MaxNumberOfRuns" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.NumberOfErrors]">
+                    <InputNumber @bind-Value="@model.NumberOfErrors" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.MaxNumberOfErrors]">
+                    <InputNumber @bind-Value="@model.MaxNumberOfErrors" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.NumRetries]">
+                    <InputNumber @bind-Value="@model.NumRetries" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.RetryTimeout]">
+                    <InputNumber @bind-Value="@model.RetryTimeout" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.StartNow]">
+                    <Switch @bind-Value="@model.StartNow"></Switch>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.RunOnceOnStart]">
+                    <Switch @bind-Value="@model.RunOnStart"></Switch>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.ResetOnlyOnce]">
+                    <Switch @bind-Value="@model.ResetOnlyOnce"></Switch>
+                </FormItem>
+            </GridCol>
+            <GridCol Offset="2" Span="11">
+                <Divider Orientation="left" Style="font-weight:bold">@Localizer["RunningStatus"]</Divider>
+                <FormItem Label="@Localizer[EasyJobLocalResource.TriggerAssemblyType]">
+                    <lable>@model.TriggerType</lable>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.AssemblyName]">
+                    <lable>@model.AssemblyName</lable>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.Status]">
+                    <TagPro Text="model.Status" Localizer="Localizer"></TagPro>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.LastRunTime]">
+                    <lable>@model.LastRunTime?.ToString(ClientConstant.DateTimeFormat)</lable>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.NextRunTime]">
+                    <lable>@model.NextRunTime?.ToString(ClientConstant.DateTimeFormat)</lable>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.ElapsedTime]">
+                    <lable>@model.ElapsedTime</lable>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.Result]">
+                    <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Result"></TextArea>
+                </FormItem>
+            </GridCol>
+        </Row>
+        <Row Gutter="24">
+            <GridCol Offset="6" Span="18">
+                <FormItem WrapperCol="new ColLayoutParam { Offset = 4, Span = 20 }">
+                    <Space>
+                        @if (!OperationDialogInputType.Select.Equals(this.Options.Type))
+                        {
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" HtmlType="submit">
+                                    @Localizer[SharedLocalResource.Save]
+                                </Button>
+                            </SpaceItem>
+                        }
+                        <SpaceItem>
+                            <Button OnClick="OnFormCancel">
+                                @Localizer[SharedLocalResource.Cancel]
+                            </Button>
+                        </SpaceItem>
+                    </Space>
+                </FormItem>
+            </GridCol>
+        </Row>
+    </Form>
 }

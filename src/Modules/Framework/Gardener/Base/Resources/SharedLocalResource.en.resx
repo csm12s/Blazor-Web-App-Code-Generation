@@ -512,6 +512,9 @@
     <value>Resource key repeat</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
   <data name="ResuqesException" xml:space="preserve">
     <value>Resuqes exception</value>
   </data>

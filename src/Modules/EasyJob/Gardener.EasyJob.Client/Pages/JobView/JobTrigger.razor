@@ -52,6 +52,8 @@
                  <TagPro Text="@model.Status" Localizer="Localizer" />
              </Column>
              <Column @bind-Field="@model.Description" Filterable Title="@Localizer[EasyJobLocalResource.Description]" Width="150" />
+             <Column @bind-Field="@model.TriggerType" Filterable Title="@Localizer[EasyJobLocalResource.TriggerAssemblyType]" Width="150" />
+             <Column @bind-Field="@model.AssemblyName" Filterable Title="@Localizer[EasyJobLocalResource.AssemblyName]" Width="150" />
              <Column @bind-Field="@model.Args" Filterable Title="@Localizer[EasyJobLocalResource.TriggerArgs]" Width="150" />
              <Column @bind-Field="@model.StartNow" Filterable Title="@Localizer[EasyJobLocalResource.StartNow]" Width="150">
                  <TagYesNo Yes="model.StartNow"></TagYesNo>

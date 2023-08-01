@@ -35,7 +35,7 @@ namespace Gardener.EasyJob.Dtos
         /// 作业触发器类型
         /// </summary>
         /// <remarks>存储的是类型的 FullName</remarks>
-        [DisplayName("TriggerType")]
+        [DisplayName("TriggerAssemblyType")]
         public string? TriggerType { get; set; }
 
         /// <summary>

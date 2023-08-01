@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace Gardener.EasyJob.Enums
 {
 
@@ -78,12 +80,14 @@ namespace Gardener.EasyJob.Enums
         /// 未知作业触发器
         /// </summary>
         /// <remarks>作业触发器运行时类型为 null</remarks>
+        [Description("UnknownTriggerType")]
         Unknown = 11,
 
         /// <summary>
         /// 未知作业处理程序
         /// </summary>
         /// <remarks>作业处理程序类型运行时类型为 null</remarks>
+        [Description("UnknownJobAssembly")]
         Unhandled = 12
     }
 }

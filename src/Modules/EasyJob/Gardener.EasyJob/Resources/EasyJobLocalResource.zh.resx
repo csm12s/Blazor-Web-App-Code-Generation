@@ -117,17 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Archived" xml:space="preserve">
+    <value>归档</value>
+  </data>
   <data name="AssemblyName" xml:space="preserve">
     <value>程序集</value>
   </data>
+  <data name="Backlog" xml:space="preserve">
+    <value>积压</value>
+  </data>
   <data name="BaseInfo" xml:space="preserve">
     <value>基础信息</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>基础信息</value>
+  </data>
+  <data name="Blocked" xml:space="preserve">
+    <value>阻塞</value>
   </data>
   <data name="BuiltIn" xml:space="preserve">
     <value>内置</value>
   </data>
   <data name="Concurrent" xml:space="preserve">
     <value>并行执行</value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>耗时</value>
+  </data>
+  <data name="ErrorToReady" xml:space="preserve">
+    <value>由失败进入就绪</value>
   </data>
   <data name="GroupName" xml:space="preserve">
     <value>组名</value>
@@ -147,16 +165,49 @@
   <data name="JobTypeFullName" xml:space="preserve">
     <value>任务类型名称</value>
   </data>
+  <data name="NotStart" xml:space="preserve">
+    <value>未启动</value>
+  </data>
   <data name="NumberOfRuns" xml:space="preserve">
     <value>运行次数</value>
   </data>
+  <data name="Overrun" xml:space="preserve">
+    <value>超限</value>
+  </data>
+  <data name="Panic" xml:space="preserve">
+    <value>崩溃</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>暂停</value>
+  </data>
   <data name="Properties" xml:space="preserve">
     <value>属性</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>正在运行</value>
+  </data>
+  <data name="RunningStatus" xml:space="preserve">
+    <value>运行状态</value>
   </data>
   <data name="Script" xml:space="preserve">
     <value>脚本</value>
   </data>
   <data name="ScriptCode" xml:space="preserve">
     <value>脚本代码</value>
+  </data>
+  <data name="TriggerAssemblyType" xml:space="preserve">
+    <value>触发器类</value>
+  </data>
+  <data name="UnknownJobAssembly" xml:space="preserve">
+    <value>未知作业处理程序</value>
+  </data>
+  <data name="UnknownTriggerType" xml:space="preserve">
+    <value>未知作业触发器</value>
+  </data>
+  <data name="Unoccupied" xml:space="preserve">
+    <value>无触发时间</value>
   </data>
 </root>

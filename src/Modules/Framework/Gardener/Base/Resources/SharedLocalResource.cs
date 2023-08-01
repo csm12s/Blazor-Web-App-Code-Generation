@@ -472,5 +472,11 @@ namespace Gardener.Base.Resources
         /// 开始时间
         /// </summary>
         public const string StartTime = nameof(StartTime);
+        /// <summary>
+        /// 结果
+        /// </summary>
+        public const string Result = nameof(Result);
+
+        
     }
 }

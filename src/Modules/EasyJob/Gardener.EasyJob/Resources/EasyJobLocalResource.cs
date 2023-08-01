@@ -98,5 +98,15 @@ namespace Gardener.EasyJob.Resources
         /// 下一次运行时间
         /// </summary>
         public const string NextRunTime = nameof(NextRunTime);
+        /// <summary>
+        /// 作业触发器类型
+        /// </summary>
+        public const string TriggerAssemblyType = nameof(TriggerAssemblyType);
+        /// <summary>
+        /// 消耗时间
+        /// </summary>
+        public const string ElapsedTime = nameof(ElapsedTime);
+
+
     }
 }
