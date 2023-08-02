@@ -38,11 +38,6 @@ namespace Gardener.EntityFramwork.Core
             {
                 return;
             }
-            Identity? identity = IdentityUtil.GetIdentity();
-            if (identity == null)
-            {
-                return;
-            }
             #region CRUD Filter
             // 获取所有更改，删除，新增的实体，但排除审计实体（避免死循环）
             entityEntries = entityEntries
@@ -54,7 +49,7 @@ namespace Gardener.EntityFramwork.Core
             {
                 return;
             }
-
+            Identity? identity = IdentityUtil.GetIdentity();
             foreach (var entity in entityEntries)
             {
 
@@ -81,11 +76,14 @@ namespace Gardener.EntityFramwork.Core
                     if (type.IsAssignableTo(typeof(IModelCreated)))
                     {
                         //创建者信息
-                        entity.Property(nameof(IModelCreated.CreateBy)).CurrentValue = identity.Id;
-                        entity.Property(nameof(IModelCreated.CreateIdentityType)).CurrentValue = identity.IdentityType;
+                        if (identity != null)
+                        {
+                            entity.Property(nameof(IModelCreated.CreateBy)).CurrentValue = identity.Id;
+                            entity.Property(nameof(IModelCreated.CreateIdentityType)).CurrentValue = identity.IdentityType;
+                        }
                         entity.Property(nameof(IModelCreated.CreatedTime)).CurrentValue = DateTimeOffset.Now;
                     }
-                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
+                    if (handleTenant && identity != null && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
                     {
                         //租户信息
                         entity.Property(nameof(IModelTenantId.TenantId)).CurrentValue = identity.TenantId;
@@ -102,7 +100,7 @@ namespace Gardener.EntityFramwork.Core
                         entity.Property(nameof(IModelCreated.CreateIdentityType)).IsModified = false;
                         entity.Property(nameof(IModelCreated.CreatedTime)).IsModified = false;
                     }
-                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
+                    if (handleTenant && identity != null && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
                     {
                         //租户修改其它租户数据时抛出异常
                         CheckIsCurrentTenantData(entity, identity);
@@ -112,8 +110,11 @@ namespace Gardener.EntityFramwork.Core
                     if (type.IsAssignableTo(typeof(IModelUpdated)))
                     {
                         //更新者信息
-                        entity.Property(nameof(IModelUpdated.UpdateBy)).CurrentValue = identity.Id;
-                        entity.Property(nameof(IModelUpdated.UpdateIdentityType)).CurrentValue = identity.IdentityType;
+                        if(identity != null)
+                        {
+                            entity.Property(nameof(IModelUpdated.UpdateBy)).CurrentValue = identity.Id;
+                            entity.Property(nameof(IModelUpdated.UpdateIdentityType)).CurrentValue = identity.IdentityType;
+                        }
                         entity.Property(nameof(IModelUpdated.UpdatedTime)).CurrentValue = DateTimeOffset.Now;
 
                         entity.Property(nameof(IModelUpdated.UpdateBy)).IsModified = true;
@@ -123,7 +124,7 @@ namespace Gardener.EntityFramwork.Core
                 }
                 else if (entity.State == EntityState.Deleted)
                 {
-                    if (handleTenant && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
+                    if (handleTenant && identity != null && type.IsAssignableTo(typeof(IModelTenantId)) && ((IModelTenantId)identity).IsTenant)
                     {
                         //租户删除其它租户数据时抛出异常
                         CheckIsCurrentTenantData(entity, identity);
