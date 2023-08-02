@@ -162,6 +162,10 @@ namespace Gardener.EasyJob.Impl.Services
                 throw Oops.Oh(ExceptionCode.Field_Cannot_Be_Modified, Lo.GetString<EasyJobLocalResource>(nameof(SysJobDetailDto.JobId)));
 
             var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
+            if (scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
             var oldScriptCode = sysJobDetail.ScriptCode;//旧脚本代码
             input.Adapt(sysJobDetail);
 
@@ -288,7 +292,11 @@ namespace Gardener.EasyJob.Impl.Services
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
             }
             var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
-            scheduler?.Pause();
+            if (scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
+            scheduler.Pause();
             return true;
         }
 
@@ -305,7 +313,11 @@ namespace Gardener.EasyJob.Impl.Services
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
             }
             var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
-            scheduler?.Start();
+            if (scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
+            scheduler.Start();
             return true;
         }
 

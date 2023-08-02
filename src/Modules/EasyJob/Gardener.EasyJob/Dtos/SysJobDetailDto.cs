@@ -76,7 +76,7 @@ namespace Gardener.EasyJob.Dtos
         /// 作业信息额外数据，由 <see cref="Dictionary{string,object}"/> 序列化成字符串存储 
         /// </remarks>
         [DisplayName("Properties")]
-        public string? Properties { get; set; } = "{}";
+        public string? Properties { get; set; } = "{\"key\":\"value\"}";
         /// <summary>
         /// 作业创建类型
         /// </summary>

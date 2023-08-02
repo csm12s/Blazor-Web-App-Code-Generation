@@ -19,6 +19,12 @@ namespace Gardener.Client.Base
         /// <param name="boxId"></param>
         /// <returns></returns>
         Task ScrollBarToBottom(string boxId);
+        /// <summary>
+        /// 赋值text到粘贴板
+        /// </summary>
+        /// <param name="text">文本</param>
+        /// <returns></returns>
+        Task copyTextToClipboard(string text);
 
     }
 }

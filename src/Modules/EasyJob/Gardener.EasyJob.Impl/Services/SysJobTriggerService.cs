@@ -56,7 +56,11 @@ namespace Gardener.EasyJob.Impl.Services
             jobTrigger.Args = "[" + jobTrigger.Args + "]";
 
             var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.AddTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
+            if (scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
+            scheduler.AddTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
             return input;
         }
 
@@ -75,7 +79,11 @@ namespace Gardener.EasyJob.Impl.Services
             jobTrigger.Args = "[" + jobTrigger.Args + "]";
 
             var scheduler = _schedulerFactory.GetJob(input.JobId);
-            scheduler?.UpdateTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
+            if (scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
+            scheduler.UpdateTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
 
             return true;
         }
@@ -152,8 +160,11 @@ namespace Gardener.EasyJob.Impl.Services
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
             }
             var scheduler = _schedulerFactory.GetJob(jobTrigger.JobId);
-            scheduler?.PauseTrigger(jobTrigger.TriggerId);
-            return Task.FromResult(true);
+            if (scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
+            return Task.FromResult(scheduler.PauseTrigger(jobTrigger.TriggerId));
         }
 
         /// <summary>
@@ -170,8 +181,11 @@ namespace Gardener.EasyJob.Impl.Services
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
             }
             var scheduler = _schedulerFactory.GetJob(jobTrigger.JobId);
-            scheduler?.StartTrigger(jobTrigger.TriggerId);
-            return Task.FromResult(true);
+            if(scheduler == null)
+            {
+                throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
+            }
+            return Task.FromResult(scheduler.StartTrigger(jobTrigger.TriggerId));
         }
     }
 }

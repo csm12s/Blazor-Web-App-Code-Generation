@@ -29,3 +29,18 @@ export function scrollBarToBottom(boxId) {
         div.scrollTop = div.scrollHeight;
     }
 }
+//赋值文本到粘贴板
+export function copyTextToClipboard(text) {
+    const textArea = document.createElement('textArea')
+    textArea.value = text
+    textArea.style.width = 0
+    textArea.style.position = 'fixed'
+    textArea.style.left = '-999px'
+    textArea.style.top = '10px'
+    textArea.setAttribute('readonly', 'readonly')
+    document.body.appendChild(textArea)
+
+    textArea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textArea)
+}

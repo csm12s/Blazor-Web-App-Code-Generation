@@ -10,6 +10,7 @@ using Furion.Schedule;
 using Gardener.EasyJob.Impl.Domains;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Gardener.EasyJob.Impl.Core
 {
@@ -19,12 +20,16 @@ namespace Gardener.EasyJob.Impl.Core
     public class DbJobPersistence : IJobPersistence
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly ILogger<DbJobPersistence> logger;
         /// <summary>
         /// 作业持久化（数据库）
         /// </summary>
-        public DbJobPersistence(IServiceScopeFactory serviceScopeFactory)
+        /// <param name="serviceScopeFactory"></param>
+        /// <param name="logger"></param>
+        public DbJobPersistence(IServiceScopeFactory serviceScopeFactory, ILogger<DbJobPersistence> logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -36,21 +41,23 @@ namespace Gardener.EasyJob.Impl.Core
             using var scope = _serviceScopeFactory.CreateScope();
             var jobDetailRepository = scope.ServiceProvider.GetRequiredService<IRepository<SysJobDetail>>();
 
-            var jobDetail = context.JobDetail.Adapt<SysJobDetail>();
+            var jobDetail = context.JobDetail;
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobDetailRepository.InsertNow(jobDetail);
+                    jobDetailRepository.InsertNow(jobDetail.Adapt<SysJobDetail>());
                     break;
 
                 case PersistenceBehavior.Updated:
-                    jobDetailRepository.Where(u => u.JobId == jobDetail.JobId).ToList().ForEach(x => {
-                        jobDetailRepository.UpdateNow(x);
+                    jobDetailRepository.Where(u => u.JobId == jobDetail.JobId).ToList().ForEach(x =>
+                    {
+                        jobDetailRepository.UpdateNow(jobDetail.Adapt(x));
                     });
                     break;
 
                 case PersistenceBehavior.Removed:
-                    jobDetailRepository.Where(u => u.JobId == jobDetail.JobId).ToList().ForEach(x => {
+                    jobDetailRepository.Where(u => u.JobId == jobDetail.JobId).ToList().ForEach(x =>
+                    {
                         jobDetailRepository.DeleteNow(x);
                     });
                     break;
@@ -77,21 +84,28 @@ namespace Gardener.EasyJob.Impl.Core
             using var scope = _serviceScopeFactory.CreateScope();
             var jobTriggerRepository = scope.ServiceProvider.GetRequiredService<IRepository<SysJobTrigger>>();
 
-            var jobTrigger = context.Trigger.Adapt<SysJobTrigger>();
+            var jobTrigger = context.Trigger;
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobTriggerRepository.InsertNow(jobTrigger);
+                    jobTriggerRepository.InsertNow(jobTrigger.Adapt<SysJobTrigger>());
                     break;
 
                 case PersistenceBehavior.Updated:
-                    jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList().ForEach(x => {
-                        jobTriggerRepository.UpdateNow(x);
-                    });
+                    var list= jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList();
+                    foreach (var item in list)
+                    {
+                        SysJobTrigger newTrigger = jobTrigger.Adapt(item);
+                        logger.LogInformation("----------------------------------------------");
+                        logger.LogInformation(newTrigger.Status.ToString()+"___"+(uint)newTrigger.Status);
+                        logger.LogInformation("----------------------------------------------");
+                        jobTriggerRepository.UpdateNow(newTrigger);
+                    }
                     break;
 
                 case PersistenceBehavior.Removed:
-                    jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList().ForEach(x => {
+                    jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList().ForEach(x =>
+                    {
                         jobTriggerRepository.DeleteNow(x);
                     });
                     break;
@@ -106,6 +120,40 @@ namespace Gardener.EasyJob.Impl.Core
         /// <returns></returns>
         public IEnumerable<SchedulerBuilder> Preload()
         {
+            //映射关系 SysJobDetail.UpdatedTime=>JobDetail.UpdatedTime
+            TypeAdapterConfig<SysJobDetail, JobDetail>
+                .NewConfig()
+                .Map(dest => dest.UpdatedTime,
+                    src => src.UpdatedTime != null ? src.UpdatedTime.Value.DateTime : default(DateTime?));
+            //映射关系 SysJobTrigger.UpdatedTime=>Trigger.UpdatedTime
+            TypeAdapterConfig<SysJobTrigger, Trigger>
+                .NewConfig()
+                .Map(dest => dest.UpdatedTime,
+                    src => src.UpdatedTime != null ? src.UpdatedTime.Value.DateTime : default(DateTime?))
+                .Map(dest => dest.NextRunTime,
+                    src => src.NextRunTime != null ? src.NextRunTime.Value.DateTime : default(DateTime?))
+                .Map(dest => dest.LastRunTime,
+                    src => src.LastRunTime != null ? src.LastRunTime.Value.DateTime : default(DateTime?))
+                .Map(dest => dest.StartTime,
+                    src => src.StartTime != null ? src.StartTime.Value.DateTime : default(DateTime?))
+                .Map(dest => dest.EndTime,
+                    src => src.EndTime != null ? src.EndTime.Value.DateTime : default(DateTime?));
+            //映射关系 忽略id
+            TypeAdapterConfig<JobDetail, SysJobDetail>
+                .NewConfig()
+                .Ignore(x => x.Id);
+            //映射关系 忽略id
+            TypeAdapterConfig<Trigger, SysJobTrigger>
+                .NewConfig()
+                .Ignore(x => x.Id)
+                .Map(dest => dest.NextRunTime,
+                    src => src.NextRunTime != null ? new DateTimeOffset(src.NextRunTime.Value) : default(DateTimeOffset?))
+                .Map(dest => dest.LastRunTime,
+                    src => src.LastRunTime != null ? new DateTimeOffset(src.LastRunTime.Value) : default(DateTimeOffset?))
+                .Map(dest => dest.StartTime,
+                    src => src.StartTime != null ? new DateTimeOffset(src.StartTime.Value) : default(DateTimeOffset?))
+                .Map(dest => dest.EndTime,
+                    src => src.EndTime != null ? new DateTimeOffset(src.EndTime.Value) : default(DateTimeOffset?));
             // 获取所有定义的作业
             var allJobs = App.EffectiveTypes.ScanToBuilders();
             using var scope = _serviceScopeFactory.CreateScope();
@@ -122,9 +170,10 @@ namespace Gardener.EasyJob.Impl.Core
                 // 加载数据库数据
                 var dbDetail = _jobRepository.FirstOrDefault(u => u.JobId == jobBuilder.JobId);
                 if (dbDetail == null) continue;
-
+                //转换为furion model
+                JobDetail detail = dbDetail.Adapt<JobDetail>();
                 // 同步数据库数据
-                jobBuilder.LoadFrom(dbDetail);
+                jobBuilder.LoadFrom(detail);
                 var _triggerRepository = scope.ServiceProvider.GetRequiredService<IRepository<SysJobTrigger>>();
                 // 遍历所有作业触发器
                 foreach (var (_, triggerBuilder) in schedulerBuilder.GetEnumerable())
@@ -132,8 +181,8 @@ namespace Gardener.EasyJob.Impl.Core
                     // 加载数据库数据
                     var dbTrigger = _triggerRepository.FirstOrDefault(u => u.JobId == jobBuilder.JobId && u.TriggerId == triggerBuilder.TriggerId);
                     if (dbTrigger == null) continue;
-
-                    triggerBuilder.LoadFrom(dbTrigger)
+                    Trigger trigger = dbTrigger.Adapt<Trigger>();
+                    triggerBuilder.LoadFrom(trigger)
                                   .Updated();   // 标记更新
                 }
 

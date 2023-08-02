@@ -16,35 +16,36 @@ namespace Gardener.EasyJob.Impl.Jobs
     /// <summary>
     /// 采集东方财富新闻job
     /// </summary>
-    [JobDetail("job_DfcfNewsGather", Description = "采集东方财富新闻", GroupName = "demo", Concurrent = false)]
-    [PeriodSeconds(5, TriggerId = "trigger_DfcfNewsGather", Description = "采集东方财富新闻", MaxNumberOfRuns = 1, RunOnStart = false)]
+    [JobDetail("job_DfcfNewsGather", Description = "采集东方财富新闻任务", GroupName = "demo", Concurrent = false)]
+    [PeriodSeconds(5, TriggerId = "trigger_DfcfNewsGather", Description = "采集东方财富新闻触发器", MaxNumberOfRuns = 0, RunOnStart = false)]
     public class DfcfNewsGatherJob : IJob
     {
         static private long lastNewsId = 0;
+        /// <summary>
+        /// 执行
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="stoppingToken"></param>
+        /// <returns></returns>
         public Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
         {
             ILogger logger = App.GetRequiredService<ILogger<DfcfNewsGatherJob>>();
-            try
+            List<NewsInfo>? resultNews = GetLastNews().Result;
+            if (resultNews == null) { return Task.CompletedTask; }
+            foreach (var newsInfo in resultNews)
             {
-                List<NewsInfo>? resultNews = GetLastNews().Result;
-                if (resultNews == null) { return Task.CompletedTask; }
-                foreach (var newsInfo in resultNews)
+                if (stoppingToken.IsCancellationRequested) { break; }
+                if (newsInfo == null)
                 {
-                    if (newsInfo == null)
-                    {
-                        return Task.CompletedTask;
-                    }
-                    IEventBus eventBus = App.GetRequiredService<IEventBus>();
-                    DongFangCaiFuNewsEvent newsEvent = new();
-                    newsEvent.Title = newsInfo.title;
-                    newsEvent.Content = newsInfo.digest;
-                    eventBus.Publish(newsEvent);
+                    return Task.CompletedTask;
                 }
+                IEventBus eventBus = App.GetRequiredService<IEventBus>();
+                DongFangCaiFuNewsEvent newsEvent = new();
+                newsEvent.Title = newsInfo.title;
+                newsEvent.Content = newsInfo.digest;
+                eventBus.Publish(newsEvent);
             }
-            catch (Exception ex)
-            {
-                logger.LogError("测试定时任务执行异常", ex);
-            }
+            context.Result = "执行完成";
             return Task.CompletedTask;
         }
         /// <summary>

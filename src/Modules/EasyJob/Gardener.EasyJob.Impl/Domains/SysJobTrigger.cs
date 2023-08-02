@@ -68,25 +68,25 @@ namespace Gardener.EasyJob.Impl.Domains
         /// 起始时间
         /// </summary>
         [DisplayName("起始时间")]
-        public DateTime? StartTime { get; set; }
+        public DateTimeOffset? StartTime { get; set; }
 
         /// <summary>
         /// 结束时间
         /// </summary>
         [DisplayName("结束时间")]
-        public DateTime? EndTime { get; set; }
+        public DateTimeOffset? EndTime { get; set; }
 
         /// <summary>
         /// 最近运行时间
         /// </summary>
         [DisplayName("最近运行时间")]
-        public DateTime? LastRunTime { get; set; }
+        public DateTimeOffset? LastRunTime { get; set; }
 
         /// <summary>
         /// 下一次运行时间
         /// </summary>
         [DisplayName("下一次运行时间")]
-        public DateTime? NextRunTime { get; set; }
+        public DateTimeOffset? NextRunTime { get; set; }
 
         /// <summary>
         /// 触发次数

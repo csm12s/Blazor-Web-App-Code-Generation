@@ -53,5 +53,16 @@ namespace Gardener.Client.Core.Services.JsTools
             var module = await GetModule();
             await module.InvokeVoidAsync("scrollBarToBottom", boxId);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task copyTextToClipboard(string text)
+        {
+            var module = await GetModule();
+            await module.InvokeVoidAsync("copyTextToClipboard", text);
+        }
     }
 }

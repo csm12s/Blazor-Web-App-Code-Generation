@@ -18,10 +18,10 @@
                     <Input @bind-Value="@model.JobId" />
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.TriggerArgs]">
-                    <Input @bind-Value="@model.Args" />
+                    <TextArea @bind-Value="@model.Args" />
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.Description]">
-                    <Input @bind-Value="@model.Description" />
+                    <TextArea @bind-Value="@model.Description" />
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.StartTime]">
                     <Input @bind-Value="@model.StartTime" />
@@ -29,14 +29,8 @@
                 <FormItem Label="@Localizer[EasyJobLocalResource.EndTime]">
                     <Input @bind-Value="@model.EndTime" />
                 </FormItem>
-                <FormItem Label="@Localizer[EasyJobLocalResource.NumberOfRuns]">
-                    <InputNumber @bind-Value="@model.NumberOfRuns" />
-                </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.MaxNumberOfRuns]">
                     <InputNumber @bind-Value="@model.MaxNumberOfRuns" />
-                </FormItem>
-                <FormItem Label="@Localizer[EasyJobLocalResource.NumberOfErrors]">
-                    <InputNumber @bind-Value="@model.NumberOfErrors" />
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.MaxNumberOfErrors]">
                     <InputNumber @bind-Value="@model.MaxNumberOfErrors" />
@@ -54,7 +48,16 @@
                     <Switch @bind-Value="@model.RunOnStart"></Switch>
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.ResetOnlyOnce]">
-                    <Switch @bind-Value="@model.ResetOnlyOnce"></Switch>
+                    <LabelTemplate>
+                        <label for="ResetOnlyOnce">
+                            <Tooltip Title="@Localizer["ResetOnlyOnceTIPS"]">
+                                @Localizer[EasyJobLocalResource.ResetOnlyOnce]<Icon Type="question-circle" Theme="outline" />
+                            </Tooltip>
+                        </label>
+                    </LabelTemplate>
+                    <ChildContent>
+                        <Switch @bind-Value="@model.ResetOnlyOnce"></Switch>
+                    </ChildContent>
                 </FormItem>
             </GridCol>
             <GridCol Offset="2" Span="11">
@@ -68,11 +71,17 @@
                 <FormItem Label="@Localizer[EasyJobLocalResource.Status]">
                     <TagPro Text="model.Status" Localizer="Localizer"></TagPro>
                 </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.NumberOfRuns]">
+                    <lable>@model.NumberOfRuns</lable>
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.NumberOfErrors]">
+                    <lable>@model.NumberOfErrors</lable>
+                </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.LastRunTime]">
-                    <lable>@model.LastRunTime?.ToString(ClientConstant.DateTimeFormat)</lable>
+                    <lable>@model.LastRunTime?.ToLocalTime().ToString(ClientConstant.DateTimeFormat)</lable>
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.NextRunTime]">
-                    <lable>@model.NextRunTime?.ToString(ClientConstant.DateTimeFormat)</lable>
+                    <lable>@model.NextRunTime?.ToLocalTime().ToString(ClientConstant.DateTimeFormat)</lable>
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.ElapsedTime]">
                     <lable>@model.ElapsedTime</lable>

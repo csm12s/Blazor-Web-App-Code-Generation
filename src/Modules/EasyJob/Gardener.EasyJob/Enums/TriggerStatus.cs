@@ -4,6 +4,8 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Gardener.Attributes;
+using Gardener.Enums;
 using System.ComponentModel;
 
 namespace Gardener.EasyJob.Enums
@@ -23,16 +25,22 @@ namespace Gardener.EasyJob.Enums
         /// <summary>
         /// 就绪
         /// </summary>
+        [TagColor("success")]
+        [TagIcon("check-circle","outline")]
         Ready = 1,
 
         /// <summary>
         /// 正在运行
         /// </summary>
+        [TagColor("processing")]
+        [TagIcon("sync", "outline",true)]
         Running = 2,
 
         /// <summary>
         /// 暂停
         /// </summary>
+        [TagColor("default")]
+        [TagIcon("clock-circle")]
         Pause = 3,
 
         /// <summary>
@@ -74,6 +82,7 @@ namespace Gardener.EasyJob.Enums
         /// <summary>
         /// 未启动
         /// </summary>
+        [TagColor(ClientAntPresetColor.Cyan)]
         NotStart = 10,
 
         /// <summary>

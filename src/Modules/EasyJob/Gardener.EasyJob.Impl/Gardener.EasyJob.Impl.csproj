@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Gardener.EasyJob\Gardener.EasyJob.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SeedDatas\" />
-  </ItemGroup>
-
 </Project>

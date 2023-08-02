@@ -180,6 +180,9 @@
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
+  <data name="ResetOnlyOnceTIPS" xml:space="preserve">
+    <value>Whether to reset a job with a maximum number of triggers equal to one at startup</value>
+  </data>
   <data name="Running" xml:space="preserve">
     <value>Running</value>
   </data>
@@ -188,6 +191,12 @@
   </data>
   <data name="ScriptCode" xml:space="preserve">
     <value>Script code</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="TaskSittings" xml:space="preserve">
+    <value>Task sittings</value>
   </data>
   <data name="TriggerAssemblyType" xml:space="preserve">
     <value>Trigger assembly type</value>

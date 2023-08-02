@@ -156,6 +156,9 @@
   <data name="IncludeAnnotations" xml:space="preserve">
     <value>扫描特性</value>
   </data>
+  <data name="Job" xml:space="preserve">
+    <value>任务</value>
+  </data>
   <data name="JobId" xml:space="preserve">
     <value>任务编号</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Ready" xml:space="preserve">
     <value>就绪</value>
   </data>
+  <data name="ResetOnlyOnceTIPS" xml:space="preserve">
+    <value>是否在启动时重置最大触发次数等于一次的作业</value>
+  </data>
   <data name="Running" xml:space="preserve">
     <value>正在运行</value>
   </data>
@@ -197,6 +203,12 @@
   </data>
   <data name="ScriptCode" xml:space="preserve">
     <value>脚本代码</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>启动</value>
+  </data>
+  <data name="TaskSittings" xml:space="preserve">
+    <value>任务设置</value>
   </data>
   <data name="TriggerAssemblyType" xml:space="preserve">
     <value>触发器类</value>

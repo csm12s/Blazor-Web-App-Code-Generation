@@ -174,6 +174,11 @@ namespace Gardener.Enums
         /// </summary>
         [Description("字段“{0}”禁止修改")]
         Field_Cannot_Be_Modified,
+        /// <summary>
+        /// 未找到调度
+        /// </summary>
+        [Description("未找到调度")]
+        Scheduler_Not_Find,
 
     }
 }

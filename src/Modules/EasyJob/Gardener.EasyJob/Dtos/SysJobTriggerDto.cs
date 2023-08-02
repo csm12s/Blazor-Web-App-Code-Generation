@@ -68,25 +68,25 @@ namespace Gardener.EasyJob.Dtos
         /// 起始时间
         /// </summary>
         [DisplayName("StartTime")]
-        public DateTime? StartTime { get; set; }
+        public DateTimeOffset? StartTime { get; set; }
 
         /// <summary>
         /// 结束时间
         /// </summary>
         [DisplayName("EndTime")]
-        public DateTime? EndTime { get; set; }
+        public DateTimeOffset? EndTime { get; set; }
 
         /// <summary>
         /// 最近运行时间
         /// </summary>
         [DisplayName("LastRunTime")]
-        public DateTime? LastRunTime { get; set; }
+        public DateTimeOffset? LastRunTime { get; set; }
 
         /// <summary>
         /// 下一次运行时间
         /// </summary>
         [DisplayName("NextRunTime")]
-        public DateTime? NextRunTime { get; set; }
+        public DateTimeOffset? NextRunTime { get; set; }
 
         /// <summary>
         /// 触发次数

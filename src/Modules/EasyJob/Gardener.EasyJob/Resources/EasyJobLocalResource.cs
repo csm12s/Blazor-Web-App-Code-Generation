@@ -106,6 +106,14 @@ namespace Gardener.EasyJob.Resources
         /// 消耗时间
         /// </summary>
         public const string ElapsedTime = nameof(ElapsedTime);
+        /// <summary>
+        /// 暂停
+        /// </summary>
+        public const string Pause = nameof(Pause);
+        /// <summary>
+        /// 启动
+        /// </summary>
+        public const string Start = nameof(Start);
 
 
     }

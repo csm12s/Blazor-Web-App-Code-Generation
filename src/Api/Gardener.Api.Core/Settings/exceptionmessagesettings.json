@@ -64,6 +64,7 @@
       [ "Script_Code_Compile_Fail", "Script_Code_Compile_Fail" ], //代码编译失败
       [ "Script_Code_JobDetail_Not_Find", "Script_Code_JobDetail_Not_Find" ], //脚本代码中，需要定义 [JobDetail] 特性
       [ "Script_Code_JobId_Inconsistency", "Script_Code_JobId_Inconsistency" ], //脚本代码中，需要定义 [JobDetail] 特性
+      [ "Scheduler_Not_Find", "Scheduler_Not_Find" ], //未找到调度
 
       //T
       [ "Token_Invalid", "Token_Invalid" ], //TOKEN无效

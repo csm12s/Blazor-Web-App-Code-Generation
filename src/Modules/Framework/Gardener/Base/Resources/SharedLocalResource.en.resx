@@ -530,6 +530,9 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Scheduler_Not_Find" xml:space="preserve">
+    <value>Scheduler not find</value>
+  </data>
   <data name="Scheduling" xml:space="preserve">
     <value>Scheduling</value>
   </data>
