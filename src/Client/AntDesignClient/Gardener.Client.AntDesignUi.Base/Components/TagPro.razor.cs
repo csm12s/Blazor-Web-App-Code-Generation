@@ -98,6 +98,18 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// Set the tag's icon theme
+        /// </summary>
+        [Parameter]
+        public string? IconTheme { get; set; }
+
+        /// <summary>
+        /// Set the tag's icon spin
+        /// </summary>
+        [Parameter]
+        public bool? IconSpin { get; set; }
+
+        /// <summary>
         /// Callback executed when tag is closed
         /// </summary>
         [Parameter]
@@ -188,6 +200,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     tempColor = GetRandomColor(tempValue);
                 }
             }
+            //icon
+            InitEnumTagIcon();
             this._color = tempColor;
             this.value = tempValue;
             base.OnParametersSet();
@@ -203,6 +217,35 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             int code = Math.Abs(text.GetHashCode());
             int colorIndex = (code % 1000) % colors.Length;
             return colors[colorIndex].ToString();
+        }
+        /// <summary>
+        /// 获取枚举的Icon
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private void InitEnumTagIcon()
+        {
+            if (Text == null || !Text.GetType().IsEnum)
+            {
+                return;
+            }
+            TagIconAttribute? attr = Common.EnumHelper.GetEnumAttribute<TagIconAttribute>((Enum)Text);
+            if (attr == null)
+            {
+                return;
+            }
+            if (this.Icon == null)
+            {
+                this.Icon = attr.Icon;
+            }
+            if (this.Icon == null)
+            {
+                this.IconTheme = attr.Theme;
+            }
+            if (this.IconSpin == null)
+            {
+                this.IconSpin = attr.Spin;
+            }
         }
         /// <summary>
         /// 获取枚举的颜色

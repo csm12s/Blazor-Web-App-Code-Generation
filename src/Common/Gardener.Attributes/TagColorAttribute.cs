@@ -27,6 +27,9 @@ namespace Gardener.Attributes
         /// 标签颜色特性
         /// </summary>
         /// <param name="color"></param>
+        /// <remarks>
+        /// 预设五种状态颜色，可以通过设置 color 为 success、 processing、error、default、warning 来代表不同的状态。
+        /// </remarks>
         public TagColorAttribute(string color)
         {
             Color = color;
@@ -42,6 +45,9 @@ namespace Gardener.Attributes
         /// </summary>
         /// <remarks>
         /// 优先级高于PresetColor
+        /// <para>
+        /// 预设五种状态颜色，可以通过设置 color 为 success、 processing、error、default、warning 来代表不同的状态。
+        /// </para>
         /// </remarks>
         public string? Color { get; private set; }
     }
