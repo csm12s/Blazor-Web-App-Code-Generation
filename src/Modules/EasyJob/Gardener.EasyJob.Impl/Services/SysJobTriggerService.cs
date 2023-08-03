@@ -25,7 +25,7 @@ namespace Gardener.EasyJob.Impl.Services
     /// <summary>
     /// 定时任务-触发器服务
     /// </summary>
-    [ApiDescriptionSettings("SystemBaseServices")]
+    [ApiDescriptionSettings("EasyJobServices")]
     public class SysJobTriggerService : ServiceBase<SysJobTrigger, SysJobTriggerDto,int>, ISysJobTriggerService, ITransient
     {
         private readonly IRepository<SysJobTrigger> _sysJobTriggerRep;

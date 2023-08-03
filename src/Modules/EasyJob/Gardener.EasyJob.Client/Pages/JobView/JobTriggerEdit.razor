@@ -23,6 +23,12 @@
                 <FormItem Label="@Localizer[EasyJobLocalResource.Description]">
                     <TextArea @bind-Value="@model.Description" />
                 </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.TriggerAssemblyType]">
+                    <Input @bind-Value="@model.TriggerType" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.AssemblyName]">
+                    <Input @bind-Value="@model.AssemblyName" />
+                </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.StartTime]">
                     <Input @bind-Value="@model.StartTime" />
                 </FormItem>
@@ -62,14 +68,9 @@
             </GridCol>
             <GridCol Offset="2" Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">@Localizer["RunningStatus"]</Divider>
-                <FormItem Label="@Localizer[EasyJobLocalResource.TriggerAssemblyType]">
-                    <lable>@model.TriggerType</lable>
-                </FormItem>
-                <FormItem Label="@Localizer[EasyJobLocalResource.AssemblyName]">
-                    <lable>@model.AssemblyName</lable>
-                </FormItem>
+               
                 <FormItem Label="@Localizer[EasyJobLocalResource.Status]">
-                    <TagPro Text="model.Status" Localizer="Localizer"></TagPro>
+                    <TagPro Text="@model.Status" Localizer="Localizer"></TagPro>
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.NumberOfRuns]">
                     <lable>@model.NumberOfRuns</lable>

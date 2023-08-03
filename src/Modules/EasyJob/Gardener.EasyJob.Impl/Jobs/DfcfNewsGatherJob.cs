@@ -16,8 +16,8 @@ namespace Gardener.EasyJob.Impl.Jobs
     /// <summary>
     /// 采集东方财富新闻job
     /// </summary>
-    [JobDetail("job_DfcfNewsGather", Description = "采集东方财富新闻任务", GroupName = "demo", Concurrent = false)]
-    [PeriodSeconds(5, TriggerId = "trigger_DfcfNewsGather", Description = "采集东方财富新闻触发器", MaxNumberOfRuns = 0, RunOnStart = false)]
+    [JobDetail("job_DfcfNewsGather", Description = "采集东方财富新闻任务", GroupName = "we_chat", Concurrent = false)]
+    [PeriodSeconds(5, TriggerId = "trigger_DfcfNewsGather", Description = "采集东方财富新闻触发器")]
     public class DfcfNewsGatherJob : IJob
     {
         static private long lastNewsId = 0;

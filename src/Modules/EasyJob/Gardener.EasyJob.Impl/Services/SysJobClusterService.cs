@@ -21,7 +21,7 @@ namespace Gardener.EasyJob.Impl.Services
     /// <summary>
     /// 定时任务-集群服务
     /// </summary>
-    [ApiDescriptionSettings("SystemBaseServices")]
+    [ApiDescriptionSettings("EasyJobServices")]
     public class SysJobClusterService : ServiceBase<SysJobCluster, SysJobClusterDto, int>, ISysJobClusterService
     {
         private readonly Random rd = new(DateTime.Now.Millisecond);

@@ -198,8 +198,14 @@
   <data name="TaskSittings" xml:space="preserve">
     <value>Task sittings</value>
   </data>
+  <data name="TriggerArgs" xml:space="preserve">
+    <value>Trigger args</value>
+  </data>
   <data name="TriggerAssemblyType" xml:space="preserve">
     <value>Trigger assembly type</value>
+  </data>
+  <data name="TriggerId" xml:space="preserve">
+    <value>Trigger id</value>
   </data>
   <data name="UnknownJobAssembly" xml:space="preserve">
     <value>Unknown job assembly</value>

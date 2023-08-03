@@ -52,6 +52,8 @@
                  <TagPro Text="@model.Status" Localizer="Localizer" />
              </Column>
              <Column @bind-Field="@model.Description" Filterable Title="@Localizer[EasyJobLocalResource.Description]" Width="150" />
+             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.LastRunTime]" Width="200" />
+             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.NextRunTime]" Width="200" />
              <Column @bind-Field="@model.TriggerType" Filterable Title="@Localizer[EasyJobLocalResource.TriggerAssemblyType]" Width="150" />
              <Column @bind-Field="@model.AssemblyName" Filterable Title="@Localizer[EasyJobLocalResource.AssemblyName]" Width="150" />
              <Column @bind-Field="@model.Args" Filterable Title="@Localizer[EasyJobLocalResource.TriggerArgs]" Width="150" />
@@ -72,8 +74,6 @@
              <Column @bind-Field="@model.RetryTimeout" Filterable Title="@Localizer[EasyJobLocalResource.RetryTimeout]" Width="150" />
              <Column @bind-Field="@model.StartTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.StartTime]" Width="200" />
              <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.EndTime]" Width="200" />
-             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.LastRunTime]" Width="200" />
-             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.NextRunTime]" Width="200" />
              <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" Width="200" />
              <ActionColumn Width="300" Fixed="right">
                  <Space>

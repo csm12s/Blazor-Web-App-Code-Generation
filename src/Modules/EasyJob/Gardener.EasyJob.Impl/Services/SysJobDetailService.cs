@@ -30,7 +30,7 @@ namespace Gardener.EasyJob.Impl.Services
     /// <summary>
     /// 定时任务-任务服务
     /// </summary>
-    [ApiDescriptionSettings("SystemBaseServices")]
+    [ApiDescriptionSettings("EasyJobServices")]
     public class SysJobDetailService : ServiceBase<SysJobDetail, SysJobDetailDto,int>, IDynamicApiController, ITransient, ISysJobDetailService
     {
         private readonly IRepository<SysJobDetail> _sysJobDetailRep;

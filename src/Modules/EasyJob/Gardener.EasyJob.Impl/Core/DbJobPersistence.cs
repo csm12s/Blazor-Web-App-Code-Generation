@@ -96,9 +96,6 @@ namespace Gardener.EasyJob.Impl.Core
                     foreach (var item in list)
                     {
                         SysJobTrigger newTrigger = jobTrigger.Adapt(item);
-                        logger.LogInformation("----------------------------------------------");
-                        logger.LogInformation(newTrigger.Status.ToString()+"___"+(uint)newTrigger.Status);
-                        logger.LogInformation("----------------------------------------------");
                         jobTriggerRepository.UpdateNow(newTrigger);
                     }
                     break;
