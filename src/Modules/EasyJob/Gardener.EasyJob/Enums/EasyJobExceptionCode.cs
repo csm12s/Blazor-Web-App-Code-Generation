@@ -6,6 +6,9 @@
 
 namespace Gardener.EasyJob.Enums
 {
+    /// <summary>
+    /// 异常Code定义
+    /// </summary>
     public enum EasyJobExceptionCode 
     {
         /// <summary>

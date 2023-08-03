@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\EasyJob\Gardener.EasyJob.Impl\Gardener.EasyJob.Impl.csproj" />
@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.SystemManager\Gardener.SystemManager.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.VerifyCode\Gardener.VerifyCode.csproj" />
+    <ProjectReference Include="..\..\Modules\ToolBox\Gardener.ToolBox.Impl\Gardener.ToolBox.Impl.csproj" />
     <ProjectReference Include="..\..\Modules\UserCenter\Gardener.UserCenter.Impl\Gardener.UserCenter.Impl.csproj" />
     <ProjectReference Include="..\..\Modules\WoChat\Gardener.WoChat.Impl\Gardener.WoChat.Impl.csproj" />
   </ItemGroup>

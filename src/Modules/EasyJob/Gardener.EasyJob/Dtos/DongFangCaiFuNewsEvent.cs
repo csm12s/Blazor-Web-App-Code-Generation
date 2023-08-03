@@ -8,8 +8,14 @@ using Gardener.EventBus;
 
 namespace Gardener.EasyJob.Dtos
 {
+    /// <summary>
+    /// 东方财富实时新闻事件
+    /// </summary>
     public class DongFangCaiFuNewsEvent : EventBase
     {
+        /// <summary>
+        /// 东方财富实时新闻事件
+        /// </summary>
         public DongFangCaiFuNewsEvent() : base(nameof(DongFangCaiFuNewsEvent))
         {
         }

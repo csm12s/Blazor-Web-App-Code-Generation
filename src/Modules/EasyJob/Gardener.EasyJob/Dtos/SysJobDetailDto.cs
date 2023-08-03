@@ -73,7 +73,7 @@ namespace Gardener.EasyJob.Dtos
         /// 作业信息额外数据
         /// </summary>
         /// <remarks>
-        /// 作业信息额外数据，由 <see cref="Dictionary{string,object}"/> 序列化成字符串存储 
+        /// 作业信息额外数据，由 Dictionary{string,object} 序列化成字符串存储 
         /// </remarks>
         [DisplayName("Properties")]
         public string? Properties { get; set; } = "{\"key\":\"value\"}";
