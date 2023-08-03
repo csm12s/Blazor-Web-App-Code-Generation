@@ -51,26 +51,26 @@ namespace Gardener.Common
             {
                 return dic;
             }
-            string? desc = string.Empty;
-            foreach (var item in Enum.GetValues(typeof(T)))
+
+            foreach (object item in Enum.GetValues(typeof(T)))
             {
-                //未设置Description取英文名
-                desc = item.ToString() ;
-                if (string.IsNullOrEmpty(desc))
+                string? desc = null;
+                string? name = item.ToString();
+                if (name == null)
                 {
                     continue;
                 }
                 //需要忽略的
-                var igAttrs = item.GetType().GetField(desc)?.GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
+                var igAttrs = item.GetType().GetField(name)?.GetCustomAttributes(typeof(IgnoreOnConvertToMapAttribute), true);
                 if (igAttrs != null && igAttrs.Length > 0) continue;
                 //枚举的Description
-                var attrs = item.GetType().GetField(desc)?.GetCustomAttributes(typeof(DescriptionAttribute), true);
+                var attrs = item.GetType().GetField(name)?.GetCustomAttributes(typeof(DescriptionAttribute), true);
                 if (attrs != null && attrs.Length > 0)
                 {
                     DescriptionAttribute? descAttr = attrs[0] as DescriptionAttribute;
                     desc = descAttr?.Description;
                 }
-                dic.Add((T)item, desc??string.Empty);
+                dic.Add((T)item, desc ?? name);
             }
             return dic;
         }
@@ -80,6 +80,10 @@ namespace Gardener.Common
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+        /// <remarks>
+        /// 优先获取 <see cref="DescriptionAttribute"/>作为描述，name作为候补
+        /// <para><see cref="IgnoreOnConvertToMapAttribute"/>可以排除该项出现在结果里</para>
+        /// </remarks>
         public static Dictionary<object, string?> EnumToDictionary(Type type)
         {
             Dictionary<object, string?> dic = new Dictionary<object, string?>();
@@ -89,10 +93,11 @@ namespace Gardener.Common
                 return dic;
             }
             Type underlyingType = type.GetEnumUnderlyingType();
-            string? desc = string.Empty;
+
             foreach (var item in Enum.GetValues(type))
             {
-                string? itemStr= item.ToString();
+                string? desc = null;
+                string? itemStr = item.ToString();
                 if (itemStr == null) continue;
                 //需要忽略的
                 FieldInfo? field = item.GetType().GetField(itemStr);
@@ -106,21 +111,33 @@ namespace Gardener.Common
                     DescriptionAttribute? descAttr = attrs[0] as DescriptionAttribute;
                     desc = descAttr?.Description;
                 }
-                object? value= null;
+                //使用枚举名称
+                if (desc == null)
+                {
+                    desc = item.ToString();
+                }
+                object? value = null;
                 if (underlyingType.Equals(typeof(byte)))
-                { 
+                {
                     value = (byte)item;
-                }if (underlyingType.Equals(typeof(short)))
-                { 
+                }
+                else if (underlyingType.Equals(typeof(short)))
+                {
                     value = (short)item;
-                }else if (underlyingType.Equals(typeof(int)))
+                }
+                else if (underlyingType.Equals(typeof(uint)))
+                {
+                    value = (uint)item;
+                }
+                else if (underlyingType.Equals(typeof(int)))
                 {
                     value = (int)item;
-                }else if (underlyingType.Equals(typeof(long)))
+                }
+                else if (underlyingType.Equals(typeof(long)))
                 {
                     value = (long)item;
                 }
-                if(value!=null)
+                if (value != null)
                 {
                     dic.Add(value, desc);
                 }
@@ -133,7 +150,7 @@ namespace Gardener.Common
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public static TAttribute? GetEnumAttribute<TAttribute>(Enum item) where TAttribute: Attribute
+        public static TAttribute? GetEnumAttribute<TAttribute>(Enum item) where TAttribute : Attribute
         {
             var itemStr = item.ToString();
             if (itemStr == null) return null;
