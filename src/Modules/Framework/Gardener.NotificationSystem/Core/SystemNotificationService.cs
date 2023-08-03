@@ -186,9 +186,9 @@ namespace Gardener.NotificationSystem.Core
             {
                 return false;
             }
-            await connectionIds.ForEachAsync(connectionId =>
+            await connectionIds.ForEachAsync(async connectionId =>
             {
-                return hubContext.Groups.AddToGroupAsync(connectionId, groupName);
+                await hubContext.Groups.AddToGroupAsync(connectionId, groupName);
             });
             return true;
         }
@@ -209,9 +209,9 @@ namespace Gardener.NotificationSystem.Core
             {
                 return false;
             }
-            await connectionIds.ForEachAsync(connectionId =>
+            await connectionIds.ForEachAsync(async connectionId =>
             {
-                return hubContext.Groups.RemoveFromGroupAsync(connectionId, groupName);
+                await hubContext.Groups.RemoveFromGroupAsync(connectionId, groupName);
             });
             return true;
         }
