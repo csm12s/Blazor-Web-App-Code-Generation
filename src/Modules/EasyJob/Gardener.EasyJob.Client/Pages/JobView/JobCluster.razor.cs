@@ -6,7 +6,10 @@
 
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
+using Gardener.EasyJob.Dtos.Notification;
 using Gardener.EasyJob.Resources;
+using Gardener.EventBus;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;

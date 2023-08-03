@@ -7,7 +7,10 @@
 using Furion;
 using Furion.DatabaseAccessor;
 using Furion.Schedule;
+using Gardener.EasyJob.Dtos;
+using Gardener.EasyJob.Dtos.Notification;
 using Gardener.EasyJob.Impl.Domains;
+using Gardener.NotificationSystem.Core;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,15 +24,18 @@ namespace Gardener.EasyJob.Impl.Core
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ILogger<DbJobPersistence> logger;
+        private readonly ISystemNotificationService _systemNotificationService;
         /// <summary>
         /// 作业持久化（数据库）
         /// </summary>
         /// <param name="serviceScopeFactory"></param>
         /// <param name="logger"></param>
-        public DbJobPersistence(IServiceScopeFactory serviceScopeFactory, ILogger<DbJobPersistence> logger)
+        /// <param name="systemNotificationService"></param>
+        public DbJobPersistence(IServiceScopeFactory serviceScopeFactory, ILogger<DbJobPersistence> logger, ISystemNotificationService systemNotificationService)
         {
-            _serviceScopeFactory = serviceScopeFactory;
+            this._serviceScopeFactory = serviceScopeFactory;
             this.logger = logger;
+            this._systemNotificationService = systemNotificationService;
         }
 
         /// <summary>
@@ -97,6 +103,7 @@ namespace Gardener.EasyJob.Impl.Core
                     {
                         SysJobTrigger newTrigger = jobTrigger.Adapt(item);
                         jobTriggerRepository.UpdateNow(newTrigger);
+                        _systemNotificationService.SendToGroup(EasyJobConstant.EasyJobNotificationGroupName,new EasyJobTriggerUpdateNotificationData(newTrigger.Adapt<SysJobTriggerDto>()));
                     }
                     break;
 

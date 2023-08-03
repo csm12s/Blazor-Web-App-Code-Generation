@@ -48,12 +48,15 @@
              @* <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_easy_job_trigger_delete_selected"]" Width="40" Fixed="left" /> *@
              <Column @bind-Field="@model.TriggerId" Filterable Title="@Localizer[EasyJobLocalResource.TriggerId]" Width="150" Fixed="left" />
              <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.Description" Filterable Title="@Localizer[EasyJobLocalResource.Description]" Width="150" Fixed="left" />
              <Column @bind-Field="@model.Status" Filterable Title="@Localizer[EasyJobLocalResource.Status]" Width="150" Fixed="left">
                  <TagPro Text="@model.Status" Localizer="Localizer" />
              </Column>
-             <Column @bind-Field="@model.Description" Filterable Title="@Localizer[EasyJobLocalResource.Description]" Width="150" />
              <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.LastRunTime]" Width="200" />
              <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.NextRunTime]" Width="200" />
+             <Column @bind-Field="@model.ElapsedTime" Filterable Title="@Localizer[EasyJobLocalResource.ElapsedTime]" Width="150" />
+             <Column @bind-Field="@model.NumberOfRuns" Filterable Title="@Localizer[EasyJobLocalResource.NumberOfRuns]" Width="150" />
+             <Column @bind-Field="@model.NumberOfErrors" Filterable Title="@Localizer[EasyJobLocalResource.NumberOfErrors]" Width="150" />
              <Column @bind-Field="@model.TriggerType" Filterable Title="@Localizer[EasyJobLocalResource.TriggerAssemblyType]" Width="150" />
              <Column @bind-Field="@model.AssemblyName" Filterable Title="@Localizer[EasyJobLocalResource.AssemblyName]" Width="150" />
              <Column @bind-Field="@model.Args" Filterable Title="@Localizer[EasyJobLocalResource.TriggerArgs]" Width="150" />
@@ -66,9 +69,8 @@
              <Column @bind-Field="@model.ResetOnlyOnce" Filterable Title="@Localizer[EasyJobLocalResource.ResetOnlyOnce]" Width="150">
                  <TagYesNo Yes="model.ResetOnlyOnce"></TagYesNo>
              </Column>
-             <Column @bind-Field="@model.NumberOfRuns" Filterable Title="@Localizer[EasyJobLocalResource.NumberOfRuns]" Width="150" />
+             
              <Column @bind-Field="@model.MaxNumberOfRuns" Filterable Title="@Localizer[EasyJobLocalResource.MaxNumberOfRuns]" Width="150" />
-             <Column @bind-Field="@model.NumberOfErrors" Filterable Title="@Localizer[EasyJobLocalResource.NumberOfErrors]" Width="150" />
              <Column @bind-Field="@model.MaxNumberOfErrors" Filterable Title="@Localizer[EasyJobLocalResource.MaxNumberOfErrors]" Width="150" />
              <Column @bind-Field="@model.NumRetries" Filterable Title="@Localizer[EasyJobLocalResource.NumRetries]" Width="150" />
              <Column @bind-Field="@model.RetryTimeout" Filterable Title="@Localizer[EasyJobLocalResource.RetryTimeout]" Width="150" />

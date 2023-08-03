@@ -9,8 +9,11 @@ using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Common;
 using Gardener.EasyJob.Dtos;
+using Gardener.EasyJob.Dtos.Notification;
 using Gardener.EasyJob.Resources;
 using Gardener.EasyJob.Services;
+using Gardener.EventBus;
+using Mapster;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.EasyJob.Client.Pages.JobView
@@ -18,10 +21,70 @@ namespace Gardener.EasyJob.Client.Pages.JobView
     /// <summary>
     /// 
     /// </summary>
-    public partial class JobTrigger : ListOperateTableBase<SysJobTriggerDto, int, JobTriggerEdit, EasyJobLocalResource>
+    public partial class JobTrigger : ListOperateTableBase<SysJobTriggerDto, int, JobTriggerEdit, EasyJobLocalResource>,IDisposable
     {
+        /// <summary>
+        /// 事件
+        /// </summary>
+        [Inject]
+        public IEventBus EventBus { get; set; } = null!;
+        /// <summary>
+        /// 触发器api
+        /// </summary>
         [Inject]
         public ISysJobTriggerService sysJobTriggerService { get; set; } = null!;
+        /// <summary>
+        /// 触发器更新通知订阅者
+        /// </summary>
+        private Subscriber? triggerUpdateNotificationSubscriber;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override Task OnInitializedAsync()
+        {
+            //订阅触发器更新
+            triggerUpdateNotificationSubscriber = EventBus.Subscribe<EasyJobTriggerUpdateNotificationData>(OnEasyJobTriggerUpdate);
+            return base.OnInitializedAsync();
+        }
+        /// <summary>
+        /// 释放
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (triggerUpdateNotificationSubscriber != null)
+            {
+                EventBus.UnSubscribe(triggerUpdateNotificationSubscriber);
+            }
+            base.Dispose(disposing);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="trigger"></param>
+        /// <returns></returns>
+        private Task OnEasyJobTriggerUpdate(EasyJobTriggerUpdateNotificationData triggerNotificationData)
+        {
+            SysJobTriggerDto trigger=triggerNotificationData.Trigger;
+            if (_datas == null)
+            {
+                return Task.CompletedTask;
+            }
+            //更新
+            SysJobTriggerDto? oldTrigger= _datas.FirstOrDefault(x => x.Id == trigger.Id);
+            if (oldTrigger == null)
+            {
+                return Task.CompletedTask;
+            }
+            //赋值
+            trigger.Adapt(oldTrigger);
+            return base.RefreshPageDom();
+        }
+        /// <summary>
+        /// 配置弹框
+        /// </summary>
+        /// <param name="dialogSettings"></param>
         protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
         {
             dialogSettings.Width = 1000;
@@ -74,5 +137,6 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             }
                
         }
+
     }
 }
