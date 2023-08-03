@@ -26,7 +26,7 @@ namespace Gardener.Attributes
         /// <summary>
         /// 标签颜色特性
         /// </summary>
-        /// <param name="color"></param>
+        /// <param name="color">色值/预设颜色值</param>
         /// <remarks>
         /// 预设五种状态颜色，可以通过设置 color 为 success、 processing、error、default、warning 来代表不同的状态。
         /// </remarks>
@@ -44,7 +44,7 @@ namespace Gardener.Attributes
         /// 自定义颜色
         /// </summary>
         /// <remarks>
-        /// 优先级高于PresetColor
+        /// 色值/预设颜色值，优先级高于PresetColor
         /// <para>
         /// 预设五种状态颜色，可以通过设置 color 为 success、 processing、error、default、warning 来代表不同的状态。
         /// </para>

@@ -98,16 +98,31 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// the tag's icon 
+        /// </summary>
+        private string? _icon;
+
+        /// <summary>
         /// Set the tag's icon theme
         /// </summary>
         [Parameter]
         public string? IconTheme { get; set; }
 
         /// <summary>
+        /// the tag's icon theme
+        /// </summary>
+        private string? _iconTheme;
+
+        /// <summary>
         /// Set the tag's icon spin
         /// </summary>
         [Parameter]
         public bool? IconSpin { get; set; }
+
+        /// <summary>
+        /// Set the tag's icon spin
+        /// </summary>
+        private bool? _iconSpin;
 
         /// <summary>
         /// Callback executed when tag is closed
@@ -234,18 +249,10 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            if (this.Icon == null)
-            {
-                this.Icon = attr.Icon;
-            }
-            if (this.Icon == null)
-            {
-                this.IconTheme = attr.Theme;
-            }
-            if (this.IconSpin == null)
-            {
-                this.IconSpin = attr.Spin;
-            }
+            this._icon = this.Icon ?? attr.Icon;
+            this._iconTheme = this.IconTheme ?? attr.Theme;
+            this._iconSpin = this.IconSpin ?? attr.Spin;
+
         }
         /// <summary>
         /// 获取枚举的颜色

@@ -8,9 +8,9 @@
      OnClosing="this.OnClosing"
      Visible="this.Visible"
      Closable="this.Closable">
-    @if (!string.IsNullOrEmpty(this.Icon))
+    @if (!string.IsNullOrEmpty(this._icon))
     {
-        <Icon Type="@this.Icon" Theme="@(string.IsNullOrEmpty(this.IconTheme)?IconThemeType.Outline:this.IconTheme)" Spin="@(this.IconSpin ?? false)" />
+        <Icon Type="@this._icon" Theme="@(string.IsNullOrEmpty(this._iconTheme)?IconThemeType.Outline:this._iconTheme)" Spin="@(this._iconSpin ?? false)" />
     }
     @if (this.ChildContent != null)
     {
