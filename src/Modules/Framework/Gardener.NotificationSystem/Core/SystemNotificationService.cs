@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using Furion.DependencyInjection;
 using Gardener.Authentication.Dtos;
 using Gardener.Cache;
 using Gardener.Common;
@@ -20,15 +21,18 @@ namespace Gardener.NotificationSystem.Core
         private readonly string method = "ReceiveMessage";
         private readonly IHubContext<SystemNotificationHub> hubContext;
         private readonly ICache cache;
+        private readonly INamedServiceProvider<ISystemNotificationHubGrouper> namedServiceProvider;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="hubContext"></param>
         /// <param name="cache"></param>
-        public SystemNotificationService(IHubContext<SystemNotificationHub> hubContext, ICache cache)
+        /// <param name="namedServiceProvider"></param>
+        public SystemNotificationService(IHubContext<SystemNotificationHub> hubContext, ICache cache, INamedServiceProvider<ISystemNotificationHubGrouper> namedServiceProvider)
         {
             this.hubContext = hubContext;
             this.cache = cache;
+            this.namedServiceProvider = namedServiceProvider;
         }
         /// <summary>
         /// 向所有客户端发送信息
@@ -163,7 +167,7 @@ namespace Gardener.NotificationSystem.Core
         public async Task<bool> CheckUserIsOnline(Identity identity)
         {
             string key = $"SystemNotification:OnlineState:{identity.IdentityType}:{identity.Id}";
-            return await cache.GetAsync<int>(key, () => Task.FromResult(0))==1;
+            return await cache.GetAsync<int>(key, () => Task.FromResult(0)) == 1;
         }
         /// <summary>
         /// 设置用户到某个分组
@@ -192,6 +196,27 @@ namespace Gardener.NotificationSystem.Core
             });
             return true;
         }
+
+        /// <summary>
+        /// 设置用户到某个分组
+        /// </summary>
+        /// <typeparam name="TSystemNotificationHubGrouper"></typeparam>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> UserGroupAdd<TSystemNotificationHubGrouper>(Identity identity) where TSystemNotificationHubGrouper : ISystemNotificationHubGrouper
+        {
+            ISystemNotificationHubGrouper grouper = namedServiceProvider.GetRequiredService(typeof(TSystemNotificationHubGrouper).Name);
+            IEnumerable<string> groups = await grouper.GetGroupName(identity);
+            List<Task> tasks = new List<Task>(groups.Count());
+            foreach (string group in groups)
+            {
+                tasks.Add(UserGroupAdd(group, identity));
+            }
+            await Task.WhenAll(tasks);
+            return true;
+        }
+
         /// <summary>
         /// 移除用户的某个分组
         /// </summary>
@@ -213,6 +238,28 @@ namespace Gardener.NotificationSystem.Core
             {
                 await hubContext.Groups.RemoveFromGroupAsync(connectionId, groupName);
             });
+            return true;
+        }
+
+        /// <summary>
+        /// 移除用户的某个分组
+        /// </summary>
+        /// <typeparam name="TSystemNotificationHubGrouper"></typeparam>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果链接信息不存在，无法设置
+        /// </remarks>
+        public async Task<bool> UserGroupRemove<TSystemNotificationHubGrouper>(Identity identity) where TSystemNotificationHubGrouper : ISystemNotificationHubGrouper
+        {
+            ISystemNotificationHubGrouper grouper = namedServiceProvider.GetRequiredService(typeof(TSystemNotificationHubGrouper).Name);
+            IEnumerable<string> groups = await grouper.GetGroupName(identity);
+            List<Task> tasks = new List<Task>(groups.Count());
+            foreach (string group in groups)
+            {
+                tasks.Add(UserGroupRemove(group, identity));
+            }
+            await Task.WhenAll(tasks);
             return true;
         }
     }

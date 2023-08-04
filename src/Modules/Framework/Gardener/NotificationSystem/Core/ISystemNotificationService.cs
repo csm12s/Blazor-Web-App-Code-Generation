@@ -91,6 +91,17 @@ namespace Gardener.NotificationSystem.Core
         Task<bool> UserGroupAdd(string groupName, Identity identity);
 
         /// <summary>
+        /// 设置用户到某个分组
+        /// </summary>
+        /// <typeparam name="TSystemNotificationHubGrouper"></typeparam>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果不在线或链接信息不存在，无法设置
+        /// </remarks>
+        Task<bool> UserGroupAdd<TSystemNotificationHubGrouper>(Identity identity) where TSystemNotificationHubGrouper : ISystemNotificationHubGrouper;
+
+        /// <summary>
         /// 移除用户的某个分组
         /// </summary>
         /// <param name="groupName"></param>
@@ -100,5 +111,16 @@ namespace Gardener.NotificationSystem.Core
         /// 如果链接信息不存在，无法设置
         /// </remarks>
         Task<bool> UserGroupRemove(string groupName, Identity identity);
+
+        /// <summary>
+        /// 移除用户的某个分组
+        /// </summary>
+        /// <typeparam name="TSystemNotificationHubGrouper"></typeparam>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果链接信息不存在，无法设置
+        /// </remarks>
+        Task<bool> UserGroupRemove<TSystemNotificationHubGrouper>(Identity identity) where TSystemNotificationHubGrouper : ISystemNotificationHubGrouper;
     }
 }
