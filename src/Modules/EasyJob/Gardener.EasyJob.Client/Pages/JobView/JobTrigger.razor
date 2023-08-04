@@ -28,6 +28,11 @@
                      <Space>
                          <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_add">
                              <SpaceItem>
+                                <label>@Localizer[EasyJobLocalResource.RealTimeMonitor]</label> <Switch Checked="enableRealTimeMonitor" Loading="enableRealTimeMonitorLoading" CheckedChildren="@Localizer[EasyJobLocalResource.Open]" UnCheckedChildren="@Localizer[EasyJobLocalResource.Close]" OnChange="OnEnableRealTimeMonitorChange" />
+                             </SpaceItem>
+                         </ResourceAuthorize>
+                         <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_add">
+                             <SpaceItem>
                                  <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
                                      @Localizer[SharedLocalResource.Add]
                                  </Button>

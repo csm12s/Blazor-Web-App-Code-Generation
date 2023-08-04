@@ -114,6 +114,10 @@ namespace Gardener.EasyJob.Resources
         /// 启动
         /// </summary>
         public const string Start = nameof(Start);
+        /// <summary>
+        /// 实时监控
+        /// </summary>
+        public const string RealTimeMonitor = nameof(RealTimeMonitor);
 
 
     }

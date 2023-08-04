@@ -180,6 +180,9 @@
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
+  <data name="RealTimeMonitor" xml:space="preserve">
+    <value>Real time monitor</value>
+  </data>
   <data name="ResetOnlyOnceTIPS" xml:space="preserve">
     <value>Whether to reset a job with a maximum number of triggers equal to one at startup</value>
   </data>

@@ -189,6 +189,9 @@
   <data name="Ready" xml:space="preserve">
     <value>就绪</value>
   </data>
+  <data name="RealTimeMonitor" xml:space="preserve">
+    <value>实时监控</value>
+  </data>
   <data name="ResetOnlyOnceTIPS" xml:space="preserve">
     <value>是否在启动时重置最大触发次数等于一次的作业</value>
   </data>

@@ -15,7 +15,7 @@ namespace Gardener.Api.Core.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
 
             modelBuilder.Entity("Gardener.Attachment.Domains.Attachment", b =>
                 {
@@ -2237,6 +2237,842 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("af387085-414a-4429-b4cb-c33d4f8c8b08"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259906560480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5DF206D5BE4146D9221F0409813C5DDC",
+                            Method = 1,
+                            Path = "/api/sys-job-trigger/export",
+                            Service = "定时任务-触发器服务",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("beb703df-93b7-476f-bab9-b39e959de7cb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259886080480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "64C00B08D3BD0ED31F23FC1A435A40B1",
+                            Method = 1,
+                            Path = "/api/sys-job-trigger/generate-seed-data",
+                            Service = "定时任务-触发器服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("2f2ac0d9-9544-4d5d-95f7-adbb4171e4ad"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259886080480L,
+                            Description = "搜索数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "44D6877ADF12C7DDD6522B38E10AD12F",
+                            Method = 1,
+                            Path = "/api/sys-job-trigger/search",
+                            Service = "定时任务-触发器服务",
+                            Summary = "搜索",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307170261176320480L
+                        },
+                        new
+                        {
+                            Id = new Guid("3f591c5b-d62c-40ae-99a5-a831f162c1d0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259886080480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3DB691C14996A10C6B1DB22AEC3A3B20",
+                            Method = 0,
+                            Path = "/api/sys-job-trigger/page/{pageindex}/{pagesize}",
+                            Service = "定时任务-触发器服务",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("be18722f-c63a-4e0a-8ac5-5e40affd683a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259886080480L,
+                            Description = "查询所有可以用的记录，(实现Gardener.Base.IModelDeletedGardener.Base.IModelLocked时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "19B18F92EDA27D1FB311472D113B3253",
+                            Method = 0,
+                            Path = "/api/sys-job-trigger/all-usable",
+                            Service = "定时任务-触发器服务",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("fda58b63-876d-4a07-aff2-a8b7b1cccbf1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259865600480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "ED997ECAB452513909149870DBBCD8C9",
+                            Method = 0,
+                            Path = "/api/sys-job-trigger/all",
+                            Service = "定时任务-触发器服务",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("243c2cfc-882c-4ee8-8089-381940ae95b3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259865600480L,
+                            Description = "根据主键锁定或解锁数据（必须实现Gardener.Base.IModelLocked才能生效）",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A971718E3DB3188F657CFB6005EC46B0",
+                            Method = 2,
+                            Path = "/api/sys-job-trigger/{id}/lock/{islocked}",
+                            Service = "定时任务-触发器服务",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("193923dc-e968-4e75-9531-b090ffae7eb7"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259865600480L,
+                            Description = "start",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9C06292396D2C4D79789365C2DA6018F",
+                            Method = 1,
+                            Path = "/api/sys-job-trigger/{id}/start",
+                            Service = "定时任务-触发器服务",
+                            Summary = "启动触发器"
+                        },
+                        new
+                        {
+                            Id = new Guid("7d53bd2b-b5c2-4a79-91e7-591bd8bb4d22"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259865600480L,
+                            Description = "pause",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D13F607FA2DD2713DD65DD041955C919",
+                            Method = 1,
+                            Path = "/api/sys-job-trigger/{id}/pause",
+                            Service = "定时任务-触发器服务",
+                            Summary = "暂停触发器"
+                        },
+                        new
+                        {
+                            Id = new Guid("b63017f6-d5a9-469f-a682-b0a2ba622f0b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259845120480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D0139AB74A413C492B3F61ADAD7BC3B9",
+                            Method = 0,
+                            Path = "/api/sys-job-trigger/{id}",
+                            Service = "定时任务-触发器服务",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("f1be2be4-b212-4725-9d5b-d99f0d545a64"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259845120480L,
+                            Description = "{id}",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "61F373C2C626E7C8191F2DD51937E120",
+                            Method = 3,
+                            Path = "/api/sys-job-trigger/{id}",
+                            Service = "定时任务-触发器服务",
+                            Summary = "删除触发器"
+                        },
+                        new
+                        {
+                            Id = new Guid("779b4330-2c14-4733-8161-e1230a9db78c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259845120480L,
+                            Description = "sys-job-trigger",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "216856E2C1221C97EE992D99475D634C",
+                            Method = 2,
+                            Path = "/api/sys-job-trigger",
+                            Service = "定时任务-触发器服务",
+                            Summary = "更新触发器"
+                        },
+                        new
+                        {
+                            Id = new Guid("6f9c2287-753e-42d4-a465-c61dd1820fcf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259845120480L,
+                            Description = "sys-job-trigger",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "706122723A90FAEA667B09B6C1674586",
+                            Method = 1,
+                            Path = "/api/sys-job-trigger",
+                            Service = "定时任务-触发器服务",
+                            Summary = "添加触发器"
+                        },
+                        new
+                        {
+                            Id = new Guid("78658122-281d-49e6-b5df-965f6b5cd928"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259845120480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0F0E01B3B7600A2878E8F72385DC8D5B",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/export",
+                            Service = "定时任务-任务服务",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("e90586ea-84da-4317-a838-e8e3606c435a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259824640480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "82E05320B20B349F0E1D372635ADA5E2",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/generate-seed-data",
+                            Service = "定时任务-任务服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("36b5de47-1593-4bdd-a560-b0dcbafec479"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259824640480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "18E4317FFFF340A907659C39388E5E7F",
+                            Method = 0,
+                            Path = "/api/sys-job-detail/page/{pageindex}/{pagesize}",
+                            Service = "定时任务-任务服务",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("3eb56a7c-5d33-417f-a25f-d6fb0313e7b9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259824640480L,
+                            Description = "查询所有可以用的记录，(实现Gardener.Base.IModelDeletedGardener.Base.IModelLocked时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0C1E3AF5928F44C16B6C450757107BF2",
+                            Method = 0,
+                            Path = "/api/sys-job-detail/all-usable",
+                            Service = "定时任务-任务服务",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("a49af65a-b4a7-467b-b990-f3c2f7dc41d0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259804160480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5206FB08975DB96432FC50B6B022ADD3",
+                            Method = 0,
+                            Path = "/api/sys-job-detail/all",
+                            Service = "定时任务-任务服务",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("1d2e4602-d6a7-458c-9b76-638bcb8e8e41"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259804160480L,
+                            Description = "根据主键锁定或解锁数据（必须实现Gardener.Base.IModelLocked才能生效）",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "2D6347AFACD73B12DF7497D52645A457",
+                            Method = 2,
+                            Path = "/api/sys-job-detail/{id}/lock/{islocked}",
+                            Service = "定时任务-任务服务",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("f39549ad-0c4b-4afb-9def-d1a12f2e3ac2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259804160480L,
+                            Description = "persist-all",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BA479ECBDB6D8B47F8690F50763178D2",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/persist-all",
+                            Service = "定时任务-任务服务",
+                            Summary = "强制触发所有作业持久化"
+                        },
+                        new
+                        {
+                            Id = new Guid("25c5b700-f0b1-401a-8e8b-595871ec07d2"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259804160480L,
+                            Description = "cancel-sleep",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "8D85FAA54FEC4704B8DFC96869731384",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/cancel-sleep",
+                            Service = "定时任务-任务服务",
+                            Summary = "强制唤醒作业调度器"
+                        },
+                        new
+                        {
+                            Id = new Guid("6701f6a8-4a7f-4227-980b-ee83c0521dfe"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259804160480L,
+                            Description = "start-all",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A2B39105DE1F36B4B4C677C46B9DF054",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/start-all",
+                            Service = "定时任务-任务服务",
+                            Summary = "启动所有作业"
+                        },
+                        new
+                        {
+                            Id = new Guid("d93c511e-85dc-4ea2-945b-04208cd7209e"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259783680480L,
+                            Description = "pause-all",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "70D9DBD0B77FF3151247CA5016C52C43",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/pause-all",
+                            Service = "定时任务-任务服务",
+                            Summary = "暂停所有作业"
+                        },
+                        new
+                        {
+                            Id = new Guid("2facf11b-2c54-4707-9595-1d9de825896f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259783680480L,
+                            Description = "start",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "EB2C0C58149EDD4DC2FFE0AC73C6622D",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/{id}/start",
+                            Service = "定时任务-任务服务",
+                            Summary = "启动作业"
+                        },
+                        new
+                        {
+                            Id = new Guid("be6df395-460d-4178-aa13-2b3b7d5848fc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259783680480L,
+                            Description = "pause",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C09AEAEC7280AAF5A40F1BC1C44EB17F",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/{id}/pause",
+                            Service = "定时任务-任务服务",
+                            Summary = "暂停作业"
+                        },
+                        new
+                        {
+                            Id = new Guid("9ceb36b7-1057-45c5-a0e7-6575799f200e"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259783680480L,
+                            Description = "triggers",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A70575154F4DA76A127CCCE27A0B9D09",
+                            Method = 0,
+                            Path = "/api/sys-job-detail/{id}/triggers",
+                            Service = "定时任务-任务服务",
+                            Summary = "获取触发器列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("a95c3584-f7cd-4641-a4ad-397e5a3ea5f4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259763200480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "4A4E169C999D217D282DBD9BBCA336A4",
+                            Method = 0,
+                            Path = "/api/sys-job-detail/{id}",
+                            Service = "定时任务-任务服务",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("2032eead-2715-4f84-9cb1-2e7bcadad2ab"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259763200480L,
+                            Description = "{id}",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "88C0D3FA08913DAD27E6753C67F4966B",
+                            Method = 3,
+                            Path = "/api/sys-job-detail/{id}",
+                            Service = "定时任务-任务服务",
+                            Summary = "删除作业"
+                        },
+                        new
+                        {
+                            Id = new Guid("f71b16b5-22d1-4968-aeeb-bbfc3c53aebf"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259763200480L,
+                            Description = "sys-job-detail",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "481C508AB16310CE183E3B581DF4F170",
+                            Method = 2,
+                            Path = "/api/sys-job-detail",
+                            Service = "定时任务-任务服务",
+                            Summary = "更新作业"
+                        },
+                        new
+                        {
+                            Id = new Guid("ed2911d8-c745-4140-90d6-7d82b5252b34"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259763200480L,
+                            Description = "",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "148C36B57EC8C852F84FC21E844C0163",
+                            Method = 1,
+                            Path = "/api/sys-job-detail",
+                            Service = "定时任务-任务服务",
+                            Summary = "添加作业"
+                        },
+                        new
+                        {
+                            Id = new Guid("29e9de55-7f46-4ffe-8b16-4b928046a679"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259763200480L,
+                            Description = "获取作业分页列表",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0BFE4E9CB17E57D7392BB456852BB4A4",
+                            Method = 1,
+                            Path = "/api/sys-job-detail/search",
+                            Service = "定时任务-任务服务",
+                            Summary = "获取作业分页列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("7e88962e-c70a-4bf2-9c74-73580272f4c5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259742720480L,
+                            Description = "导出数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3AF008ABB9C245E298BB4979FACBBD9A",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/export",
+                            Service = "定时任务-集群服务",
+                            Summary = "导出"
+                        },
+                        new
+                        {
+                            Id = new Guid("902d0f6c-749e-4e63-acd2-31333c0d714b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259742720480L,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "389F6FFE352F3DFAA30FCE75298B9DD9",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/generate-seed-data",
+                            Service = "定时任务-集群服务",
+                            Summary = "生成种子数据"
+                        },
+                        new
+                        {
+                            Id = new Guid("ca4b7fd2-e475-43b6-a11f-7f750c5353e5"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259742720480L,
+                            Description = "搜索数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "920C2BA08C04B360AB86451C77946428",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/search",
+                            Service = "定时任务-集群服务",
+                            Summary = "搜索"
+                        },
+                        new
+                        {
+                            Id = new Guid("f1eb5125-d554-4d6d-ade9-63fe946f68a1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259742720480L,
+                            Description = "根据分页参数，分页获取数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0F4BC78106D98D1E9EE125720D15421B",
+                            Method = 0,
+                            Path = "/api/sys-job-cluster/page/{pageindex}/{pagesize}",
+                            Service = "定时任务-集群服务",
+                            Summary = "分页查询"
+                        },
+                        new
+                        {
+                            Id = new Guid("fd4b7828-d39e-43fd-809c-45a8b029da4b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259742720480L,
+                            Description = "查询所有可以用的记录，(实现Gardener.Base.IModelDeletedGardener.Base.IModelLocked时会自动过滤)",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9B5272E44335CDF2AC923CE65D7E0554",
+                            Method = 0,
+                            Path = "/api/sys-job-cluster/all-usable",
+                            Service = "定时任务-集群服务",
+                            Summary = "查询所有可以用的"
+                        },
+                        new
+                        {
+                            Id = new Guid("f308aab6-5ec1-49e0-a5ff-7d8628eaec04"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259722240480L,
+                            Description = "查找到所有数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "0AA28DDDE1B4141C8018EAED7D6FA962",
+                            Method = 0,
+                            Path = "/api/sys-job-cluster/all",
+                            Service = "定时任务-集群服务",
+                            Summary = "查询所有"
+                        },
+                        new
+                        {
+                            Id = new Guid("00553573-3f38-4b36-a14d-8e7b02385227"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259722240480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "FA7A37CB27B4123695BBECFD6367477F",
+                            Method = 2,
+                            Path = "/api/sys-job-cluster",
+                            Service = "定时任务-集群服务",
+                            Summary = "更新"
+                        },
+                        new
+                        {
+                            Id = new Guid("b50c5d91-c9cc-4ada-a3ad-ff54ceeb9867"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259722240480L,
+                            Description = "添加一条数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CA75C125F921B24F0EAEC77C7D8811EA",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster",
+                            Service = "定时任务-集群服务",
+                            Summary = "添加"
+                        },
+                        new
+                        {
+                            Id = new Guid("010c6209-af3b-42e6-9aac-bf364a430b4a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259722240480L,
+                            Description = "根据主键锁定或解锁数据（必须实现Gardener.Base.IModelLocked才能生效）",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "B28B50D83638ACB6736816E840C51258",
+                            Method = 2,
+                            Path = "/api/sys-job-cluster/{id}/lock/{islocked}",
+                            Service = "定时任务-集群服务",
+                            Summary = "锁定"
+                        },
+                        new
+                        {
+                            Id = new Guid("4827dfb4-a7ca-40e7-9f1e-f40d3e06154a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259701760480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E05FA485A9B7F755731843431FEFD138",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/fake-deletes",
+                            Service = "定时任务-集群服务",
+                            Summary = "批量逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("37bbd6b1-d02e-4a58-9b86-f5040fb64ca6"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259701760480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "14D15BBD93AFE26B4E612AE1B2142FFB",
+                            Method = 3,
+                            Path = "/api/sys-job-cluster/fake-delete/{id}",
+                            Service = "定时任务-集群服务",
+                            Summary = "逻辑删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("12e93db7-e84c-4778-8320-716cbd007e5c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259701760480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "E16BDE0C7B55DB96AB16ABEBD1A265A6",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/deletes",
+                            Service = "定时任务-集群服务",
+                            Summary = "批量删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("539f1ab4-c233-4784-b799-114ca7804abc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259701760480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D9933D6648C8963EB5526C4D69AB9DD3",
+                            Method = 0,
+                            Path = "/api/sys-job-cluster/{id}",
+                            Service = "定时任务-集群服务",
+                            Summary = "根据主键获取"
+                        },
+                        new
+                        {
+                            Id = new Guid("8e3c85a2-f8be-4fc0-9000-76e17ddf02ea"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259701760480L,
+                            Description = "根据主键删除一条数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5040DEEE517F25D216E5F9386BBD98F2",
+                            Method = 3,
+                            Path = "/api/sys-job-cluster/{id}",
+                            Service = "定时任务-集群服务",
+                            Summary = "删除"
+                        },
+                        new
+                        {
+                            Id = new Guid("3e647086-ddb3-4805-a398-76fdcda0c38b"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259681280480L,
+                            Description = "crash",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "7F04CE6DC826FC46970D7A966A97B030",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/crash",
+                            Service = "定时任务-集群服务",
+                            Summary = "当前作业调度器宕机"
+                        },
+                        new
+                        {
+                            Id = new Guid("fe32ce02-5c4a-45f7-9929-1166e3ac4a3f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259681280480L,
+                            Description = "stop",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "592A5AEB36B8888B2E6EA31DB3CC5FF4",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/stop",
+                            Service = "定时任务-集群服务",
+                            Summary = "当前作业调度器停止通知"
+                        },
+                        new
+                        {
+                            Id = new Guid("a03b98e7-d63d-4e24-bfce-bdf7ebef8b43"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259681280480L,
+                            Description = "waiting",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "CD221DF0530F7DEC732F6D8D5725EF87",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/waiting",
+                            Service = "定时任务-集群服务",
+                            Summary = "等待被唤醒"
+                        },
+                        new
+                        {
+                            Id = new Guid("979397e7-b307-4332-9bb8-8fd1d9a647de"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170259681280480L,
+                            Description = "start",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "D175B36C107DDB70189298950CE76EBB",
+                            Method = 1,
+                            Path = "/api/sys-job-cluster/start",
+                            Service = "定时任务-集群服务",
+                            Summary = "当前作业调度器启动通知"
+                        },
+                        new
+                        {
                             Id = new Guid("bacd1963-f89e-4afb-862f-584cd9ba4c10"),
                             CreatedTime = 1306532718346240480L,
                             Description = "根据搜索条叫生成种子数据",
@@ -4123,6 +4959,43 @@ namespace Gardener.Api.Core.Migrations
                             Service = "资源服务",
                             Summary = "根据资源id获取功能信息",
                             UpdatedTime = 1306532718346240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c2895c9c-11ac-49c2-ace5-eb622299f8f8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307171975864320480L,
+                            Description = "cron-examples",
+                            EnableAudit = false,
+                            Group = "工具箱服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "AEC8E34F7F635293D50B7FA1E0CFD708",
+                            Method = 0,
+                            Path = "/api/cron-example/cron-examples",
+                            Service = "Cron示例服务",
+                            Summary = "获取Cron示例列表"
+                        },
+                        new
+                        {
+                            Id = new Guid("a17564d2-df94-493f-9a6c-fd7c35ff7e0a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307171975864320480L,
+                            Description = "check",
+                            EnableAudit = false,
+                            Group = "工具箱服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "9F97C43289E4D6001C4D080FA0D444D0",
+                            Method = 1,
+                            Path = "/api/cron-example/check",
+                            Service = "Cron示例服务",
+                            Summary = "检验",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307171976028160480L
                         },
                         new
                         {
@@ -6648,6 +7521,341 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307131240755200480L,
+                            Hide = false,
+                            Icon = "hourglass",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job",
+                            Name = "定时任务",
+                            Order = 100,
+                            ParentId = new Guid("c2090656-8a05-4e67-b7ea-62f178639620"),
+                            Path = "",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157544591360480L
+                        },
+                        new
+                        {
+                            Id = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157537075200480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail",
+                            Name = "任务",
+                            Order = 10,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_detail",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157546147840480L
+                        },
+                        new
+                        {
+                            Id = new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142051000320480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_add",
+                            Name = "添加",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157540433920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("e787f680-8ad9-4154-a036-4978162c8b56"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142053212160480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_delete",
+                            Name = "删除",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157537546240480L
+                        },
+                        new
+                        {
+                            Id = new Guid("f38347fd-11a3-4e1c-a1b0-a445510e7d8c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142050652160480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_delete_selected",
+                            Name = "删除选中",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157540945920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142052884480480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_detail",
+                            Name = "查看详情",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157538201600480L
+                        },
+                        new
+                        {
+                            Id = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142052474880480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_edit",
+                            Name = "编辑",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157539246080480L
+                        },
+                        new
+                        {
+                            Id = new Guid("5e858248-f765-4412-9753-92621f20f611"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142050181120480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_refresh",
+                            Name = "刷新",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157541457920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("693cd650-3b03-4bdf-8080-14112547329c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307142051880960480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_detail_search",
+                            Name = "搜索",
+                            Order = 0,
+                            ParentId = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
+                            SupportMultiTenant = false,
+                            Type = 2000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307157539799040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157551267840480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger",
+                            Name = "触发器",
+                            Order = 20,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_trigger",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157552701440480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_add",
+                            Name = "添加",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157554339840480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_delete",
+                            Name = "删除",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("aa2109af-a9cd-48fd-b8b4-a872749b14eb"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157552373760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_delete_selected",
+                            Name = "删除选中",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157553971200480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_detail",
+                            Name = "查看详情",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157553561600480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_edit",
+                            Name = "编辑",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170255175680480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_pause",
+                            Name = "暂停",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157553090560480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_refresh",
+                            Name = "刷新",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307157551882240480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_search",
+                            Name = "搜索",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307170254786560480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_trigger_start",
+                            Name = "开启",
+                            Order = 0,
+                            ParentId = new Guid("8d1e102e-02f6-4735-a46e-918ded1a9a19"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
                             Id = new Guid("6dc2b297-7110-462a-b402-9e9736abf292"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -7893,6 +9101,68 @@ namespace Gardener.Api.Core.Migrations
                             Remark = "系统管理",
                             SupportMultiTenant = true,
                             Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307168600104960480L,
+                            Hide = false,
+                            Icon = "tool",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools",
+                            Name = "开发工具",
+                            Order = 200,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307170480128000480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7440535c-8568-4d1a-be5c-b7a93cb9d282"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307168601088000480L,
+                            Hide = false,
+                            Icon = "bg-colors",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_color",
+                            Name = "颜色",
+                            Order = 10,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/colors",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307170480332800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307171637862400480L,
+                            Hide = false,
+                            Icon = "code",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "dev_tools_cron",
+                            Name = "Cron",
+                            Order = 20,
+                            ParentId = new Guid("b06dd4ed-7d67-40d4-8370-8d19afd23eae"),
+                            Path = "/tools/cron",
+                            SupportMultiTenant = false,
+                            Type = 1000,
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307171969454080480L
                         },
                         new
                         {
@@ -9313,6 +10583,96 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            ResourceId = new Guid("01061a49-b2d6-4c14-887b-e23ae4539031"),
+                            FunctionId = new Guid("7d53bd2b-b5c2-4a79-91e7-591bd8bb4d22"),
+                            CreatedTime = 1307170277335040480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("54dc1159-93cd-4690-9ec1-f45e9a5dca7a"),
+                            FunctionId = new Guid("193923dc-e968-4e75-9531-b090ffae7eb7"),
+                            CreatedTime = 1307170276597760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("5e858248-f765-4412-9753-92621f20f611"),
+                            FunctionId = new Guid("29e9de55-7f46-4ffe-8b16-4b928046a679"),
+                            CreatedTime = 1307170268057600480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("61f0721c-a1d2-4b11-99e0-2e56533a433c"),
+                            FunctionId = new Guid("779b4330-2c14-4733-8161-e1230a9db78c"),
+                            CreatedTime = 1307170274304000480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("693cd650-3b03-4bdf-8080-14112547329c"),
+                            FunctionId = new Guid("29e9de55-7f46-4ffe-8b16-4b928046a679"),
+                            CreatedTime = 1307170270883840480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
+                            FunctionId = new Guid("a95c3584-f7cd-4641-a4ad-397e5a3ea5f4"),
+                            CreatedTime = 1307170270556160480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("696c06fd-a230-4472-adca-d378747091a4"),
+                            FunctionId = new Guid("f71b16b5-22d1-4968-aeeb-bbfc3c53aebf"),
+                            CreatedTime = 1307170270556160480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("9299ac14-8d67-45a0-846e-ab35d15c0fbc"),
+                            FunctionId = new Guid("b63017f6-d5a9-469f-a682-b0a2ba622f0b"),
+                            CreatedTime = 1307170275614720480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("95d5c35c-fdb3-4fec-bc6c-92aa5f61680f"),
+                            FunctionId = new Guid("2f2ac0d9-9544-4d5d-95f7-adbb4171e4ad"),
+                            CreatedTime = 1307170273546240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ae604973-bb28-4deb-87a5-c3da8b88d6d3"),
+                            FunctionId = new Guid("a95c3584-f7cd-4641-a4ad-397e5a3ea5f4"),
+                            CreatedTime = 1307170270064640480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("cb7772c4-6dda-4c0a-aa7b-c506b303da02"),
+                            FunctionId = new Guid("6f9c2287-753e-42d4-a465-c61dd1820fcf"),
+                            CreatedTime = 1307170272665600480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d137d256-a643-4e1d-bec2-2489f4f3630c"),
+                            FunctionId = new Guid("ed2911d8-c745-4140-90d6-7d82b5252b34"),
+                            CreatedTime = 1307170271211520480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d1c1f5c6-907b-47db-9d1f-6c6d87a64494"),
+                            FunctionId = new Guid("2f2ac0d9-9544-4d5d-95f7-adbb4171e4ad"),
+                            CreatedTime = 1307170272276480480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("d25b3920-8833-4168-bff1-1065cd72c8c7"),
+                            FunctionId = new Guid("f1be2be4-b212-4725-9d5b-d99f0d545a64"),
+                            CreatedTime = 1307170276106240480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("e787f680-8ad9-4154-a036-4978162c8b56"),
+                            FunctionId = new Guid("2032eead-2715-4f84-9cb1-2e7bcadad2ab"),
+                            CreatedTime = 1307170269655040480L
+                        },
+                        new
+                        {
                             ResourceId = new Guid("106a3a28-3143-4369-9215-cb223d1b0e45"),
                             FunctionId = new Guid("99546746-70b8-42d6-884d-ea1b79f88c0a"),
                             CreatedTime = 1306069130997760480L
@@ -9796,6 +11156,18 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("dec04485-3dab-4251-b7b8-1044e749a51e"),
                             FunctionId = new Guid("e38c1619-0f84-4e55-81c2-0f47992ee33d"),
                             CreatedTime = 1306069130997760480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
+                            FunctionId = new Guid("a17564d2-df94-493f-9a6c-fd7c35ff7e0a"),
+                            CreatedTime = 1307171977789440480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("ceeb4c42-06a6-4635-b94f-8ed4ee026954"),
+                            FunctionId = new Guid("c2895c9c-11ac-49c2-ace5-eb622299f8f8"),
+                            CreatedTime = 1307171977789440480L
                         },
                         new
                         {
@@ -12242,6 +13614,51 @@ namespace Gardener.Api.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EntityCodeGenerationSetting");
+                });
+
+            modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.EasyJobUserConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("CreatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("EnableRealTimeMonitor")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IdentityId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdateIdentityType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("UpdatedTime")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EasyJobUserConfig");
                 });
 
             modelBuilder.Entity("Gardener.EasyJob.Impl.Domains.SysJobCluster", b =>

@@ -21,7 +21,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
     /// <summary>
     /// 
     /// </summary>
-    public partial class JobTrigger : ListOperateTableBase<SysJobTriggerDto, int, JobTriggerEdit, EasyJobLocalResource>,IDisposable
+    public partial class JobTrigger : ListOperateTableBase<SysJobTriggerDto, int, JobTriggerEdit, EasyJobLocalResource>, IDisposable
     {
         /// <summary>
         /// 事件
@@ -34,18 +34,36 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         [Inject]
         public ISysJobTriggerService sysJobTriggerService { get; set; } = null!;
         /// <summary>
+        /// 定时任务用户配置
+        /// </summary>
+        [Inject]
+        public IEasyJobUserConfigService userConfigService { get; set; } = null!;
+        /// <summary>
         /// 触发器更新通知订阅者
         /// </summary>
         private Subscriber? triggerUpdateNotificationSubscriber;
         /// <summary>
+        /// 用户配置
+        /// </summary>
+        private EasyJobUserConfigDto? easyJobUserConfigDto;
+
+        private bool enableRealTimeMonitor = false;
+        private bool enableRealTimeMonitorLoading = false;
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             //订阅触发器更新
             triggerUpdateNotificationSubscriber = EventBus.Subscribe<EasyJobTriggerUpdateNotificationData>(OnEasyJobTriggerUpdate);
-            return base.OnInitializedAsync();
+            var userConfig = await userConfigService.GetMyConfig();
+            if (userConfig != null)
+            {
+                easyJobUserConfigDto = userConfig;
+                enableRealTimeMonitor = userConfig.EnableRealTimeMonitor;
+            }
+            await base.OnInitializedAsync();
         }
         /// <summary>
         /// 释放
@@ -66,13 +84,13 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// <returns></returns>
         private Task OnEasyJobTriggerUpdate(EasyJobTriggerUpdateNotificationData triggerNotificationData)
         {
-            SysJobTriggerDto trigger=triggerNotificationData.Trigger;
+            SysJobTriggerDto trigger = triggerNotificationData.Trigger;
             if (_datas == null)
             {
                 return Task.CompletedTask;
             }
             //更新
-            SysJobTriggerDto? oldTrigger= _datas.FirstOrDefault(x => x.Id == trigger.Id);
+            SysJobTriggerDto? oldTrigger = _datas.FirstOrDefault(x => x.Id == trigger.Id);
             if (oldTrigger == null)
             {
                 return Task.CompletedTask;
@@ -135,8 +153,32 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                     MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Fail));
                 }
             }
-               
+
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private async Task OnEnableRealTimeMonitorChange(bool enable)
+        {
+            if (easyJobUserConfigDto == null)
+            {
+                return;
+            }
+            enableRealTimeMonitorLoading = true;
+            easyJobUserConfigDto.EnableRealTimeMonitor = enable;
+
+            EasyJobUserConfigDto? result = await userConfigService.SaveMyConfig(easyJobUserConfigDto);
+            if (result == null)
+            {
+                MessageService.Error((enable ? Localizer[EasyJobLocalResource.Open] : Localizer[EasyJobLocalResource.Close]) + Localizer[EasyJobLocalResource.Fail]);
+            }
+            else
+            {
+                easyJobUserConfigDto = result;
+                enableRealTimeMonitor = enable;
+            }
+            enableRealTimeMonitorLoading = false;
+        }
     }
 }
