@@ -80,16 +80,17 @@ namespace Gardener.EasyJob.Impl.Services
             if (userConfig != null)
             {
                 userConfig.EnableRealTimeMonitor = config.EnableRealTimeMonitor;
-                EntityEntry<EasyJobUserConfig> entity = await userConfigRepository.UpdateAsync(userConfig);
+                EntityEntry<EasyJobUserConfig> entity = await userConfigRepository.UpdateNowAsync(userConfig);
                 result = entity.Entity.Adapt<EasyJobUserConfigDto>();
             }
             else
             {
                 userConfig = new EasyJobUserConfig();
                 config.Adapt(userConfig);
-                EntityEntry<EasyJobUserConfig> entity = await userConfigRepository.InsertAsync(userConfig);
+                EntityEntry<EasyJobUserConfig> entity = await userConfigRepository.UpdateNowAsync(userConfig);
                 result = entity.Entity.Adapt<EasyJobUserConfigDto>();
             }
+            //上面需要立即入库，下面使用分组器才能查询得到
             //控制通知系统
             if (config.EnableRealTimeMonitor)
             {
