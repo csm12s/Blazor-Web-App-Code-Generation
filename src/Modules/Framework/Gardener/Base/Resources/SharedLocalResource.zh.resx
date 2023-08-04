@@ -717,4 +717,16 @@
   <data name="Scheduler_Not_Find" xml:space="preserve">
     <value>调度未找到</value>
   </data>
+  <data name="Check" xml:space="preserve">
+    <value>检验</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>无效的</value>
+  </data>
+  <data name="IsNullOrEmpty" xml:space="preserve">
+    <value>为null或空</value>
+  </data>
 </root>

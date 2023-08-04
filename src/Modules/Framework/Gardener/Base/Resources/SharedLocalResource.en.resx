@@ -168,6 +168,9 @@
   <data name="CH" xml:space="preserve">
     <value>CH</value>
   </data>
+  <data name="Check" xml:space="preserve">
+    <value>Check</value>
+  </data>
   <data name="ClickRefresh" xml:space="preserve">
     <value>Click refresh</value>
   </data>
@@ -195,6 +198,9 @@
   <data name="Controller_Need_Comment" xml:space="preserve">
     <value>Controller need comment</value>
     <comment>ErrorCodeMessage</comment>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
   </data>
   <data name="CreateBy" xml:space="preserve">
     <value>Creater</value>
@@ -354,6 +360,9 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
   <data name="Ip" xml:space="preserve">
     <value>Ip</value>
   </data>
@@ -365,6 +374,9 @@
   </data>
   <data name="IsLocked" xml:space="preserve">
     <value>Locked</value>
+  </data>
+  <data name="IsNullOrEmpty" xml:space="preserve">
+    <value>Is null or empty</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Key</value>

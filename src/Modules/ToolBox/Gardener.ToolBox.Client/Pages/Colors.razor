@@ -34,9 +34,11 @@
 @code {
     private string lastColor = string.Empty;
     [Inject]
-    public IJsTool js { get; set; } = null!;
+    private IJsTool js { get; set; } = null!;
     [Inject]
-    public MessageService messageService { get; set; } = null!;
+    private MessageService messageService { get; set; } = null!;
+    [Inject]
+    private IClientLocalizer Localizer { get; set; } = null!;
     /// <summary>
     /// 
     /// </summary>
@@ -44,7 +46,7 @@
     /// <returns></returns>
     private Task copyTextToClipboard(string text)
     {
-        messageService.Success("复制成功");
+        messageService.Success(Localizer.Combination(SharedLocalResource.Copy, SharedLocalResource.Success));
         return js.Document.copyTextToClipboard(text);
     }
 }

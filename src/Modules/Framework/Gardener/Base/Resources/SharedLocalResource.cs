@@ -476,6 +476,22 @@ namespace Gardener.Base.Resources
         /// 结果
         /// </summary>
         public const string Result = nameof(Result);
+        /// <summary>
+        /// 复制
+        /// </summary>
+        public const string Copy = nameof(Copy);
+        /// <summary>
+        /// 检验
+        /// </summary>
+        public const string Check = nameof(Check);
+        /// <summary>
+        /// 无效的
+        /// </summary>
+        public const string Invalid = nameof(Invalid);
+        /// <summary>
+        /// 为Null或空
+        /// </summary>
+        public const string IsNullOrEmpty = nameof(IsNullOrEmpty);
 
         
     }

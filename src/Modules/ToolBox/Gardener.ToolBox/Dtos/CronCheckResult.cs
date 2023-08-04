@@ -4,15 +4,20 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using System;
-
-namespace Gardener.Client.Base
+namespace Gardener.ToolBox.Dtos
 {
     /// <summary>
-    /// 自动注入为Transient服务
+    /// Cron检验结果
     /// </summary>
-    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class, AllowMultiple = false)]
-    public sealed class TransientServiceAttribute : Attribute
+    public class CronCheckResult
     {
+        /// <summary>
+        /// 是否有效
+        /// </summary>
+        public bool IsValid { get; set; }
+        /// <summary>
+        /// 运行时间
+        /// </summary>
+        public List<DateTimeOffset>? RunTimes { get; set; }
     }
 }

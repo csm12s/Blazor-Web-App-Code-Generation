@@ -1,0 +1,120 @@
+﻿@page "/tools/cron"
+@using System.ComponentModel.DataAnnotations;
+
+@inherits ReuseTabsPageBase
+
+<GridRow>
+    <GridCol Span="8">
+        <Divider Orientation="left">校验</Divider>
+        <GridRow>
+            <GridCol Span="24">
+                <Checkbox @bind-Checked="includeSecond">
+                    包含秒
+                </Checkbox>
+                <Checkbox @bind-Checked="includeYear">
+                    包含年
+                </Checkbox>
+            </GridCol>
+        </GridRow>
+        <GridRow>
+            <GridCol Span="8">
+                <Input @bind-Value="cron" />
+            </GridCol>
+            <GridCol Span="14" Offset="1">
+                <Button Type="@ButtonType.Primary" OnClick="OnCheck">@Localizer[SharedLocalResource.Check]</Button>
+            </GridCol>
+        </GridRow>
+        @if (runDateTimes != null)
+        {
+            <ul>
+                @foreach (DateTimeOffset item in runDateTimes)
+                {
+                    <li>@item.ToString(Gardener.Client.Base.Constants.ClientConstant.DateTimeFormat)</li>
+                }
+            </ul>
+        }
+    </GridCol>
+    <GridCol Span="14" Offset="2">
+        <Divider Orientation="left">常用Cron</Divider>
+        @if (cronExamples != null)
+        {
+            <Table DataSource="@cronExamples" Bordered=@true Size=@TableSize.Small HidePagination ScrollY="500">
+             <PropertyColumn Property="c=>c.Cron"></PropertyColumn>
+             <PropertyColumn Property="c=>c.Description"></PropertyColumn>
+         </Table>
+        }
+    </GridCol>
+</GridRow>
+
+@code {
+    [Inject]
+    private ICronExampleService cronExampleService { get; set; } = null!;
+    [Inject]
+    private IJsTool js { get; set; } = null!;
+    [Inject]
+    private MessageService messageService { get; set; } = null!;
+    [Inject]
+    private IClientLocalizer Localizer { get; set; } = null!;
+
+    private IEnumerable<CronExample>? cronExamples;
+
+
+    private ListGridType grid = new ListGridType { Gutter = 16, Column = 6 };
+
+    private bool includeYear = false;
+    private bool includeSecond = false;
+    private string cron = string.Empty;
+
+    private List<DateTimeOffset>? runDateTimes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cronExamples = await cronExampleService.GetCronExamples();
+        await base.OnInitializedAsync();
+    }
+
+
+    /// <summary>
+    /// 检验
+    /// </summary>
+    /// <returns></returns>
+    private async Task OnCheck()
+    {
+        if (string.IsNullOrEmpty(cron))
+        {
+            await messageService.Warn("Cron " + Localizer[SharedLocalResource.IsNullOrEmpty], duration: 1);
+            return;
+        }
+        int cronStringFormat = 0;
+        if (includeYear && includeSecond)
+        {
+            cronStringFormat = 3;
+        }
+        else if (includeYear)
+        {
+            cronStringFormat = 1;
+        }
+        else if (includeSecond)
+        {
+            cronStringFormat = 2;
+        }
+        CronCheckResult checkResult = await cronExampleService.Check(new CronCheckInput(cron, 10, cronStringFormat));
+        if (!checkResult.IsValid)
+        {
+#pragma warning disable CS4014
+            messageService.Warn(Localizer[SharedLocalResource.Invalid] + " Cron", duration: 1);
+#pragma warning disable CS4014
+            runDateTimes = null;
+        }
+        else
+        {
+#pragma warning disable CS4014
+            messageService.Success(Localizer.Combination(SharedLocalResource.Check, SharedLocalResource.Success), duration: 1);
+#pragma warning disable CS4014
+            runDateTimes = checkResult.RunTimes;
+
+        }
+
+        await base.RefreshPageDom();
+    }
+}

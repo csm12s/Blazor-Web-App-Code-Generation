@@ -9,7 +9,7 @@ using System;
 namespace Gardener.Client.Base
 {
     /// <summary>
-    /// 
+    /// 自动注入为Singleton服务
     /// </summary>
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class, AllowMultiple = false)]
     public sealed class SingletonServiceAttribute : Attribute
