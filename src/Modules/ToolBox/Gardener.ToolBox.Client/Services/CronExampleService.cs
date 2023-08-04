@@ -16,7 +16,7 @@ namespace Gardener.ToolBox.Client.Services
     public class CronExampleService : ICronExampleService
     {
 
-        private static readonly string crotroller = "cron-example";
+        private static readonly string controller = "cron-example";
 
         private readonly IApiCaller apiCaller;
 
@@ -27,12 +27,12 @@ namespace Gardener.ToolBox.Client.Services
 
         public Task<CronCheckResult> Check(CronCheckInput checkInput)
         {
-            return apiCaller.PostAsync<CronCheckInput, CronCheckResult>($"{crotroller}/check", checkInput);
+            return apiCaller.PostAsync<CronCheckInput, CronCheckResult>($"{controller}/check", checkInput);
         }
 
         public Task<IEnumerable<CronExample>> GetCronExamples()
         {
-            return apiCaller.GetAsync<IEnumerable<CronExample>>($"{crotroller}/cron-examples");
+            return apiCaller.GetAsync<IEnumerable<CronExample>>($"{controller}/cron-examples");
         }
     }
 }
