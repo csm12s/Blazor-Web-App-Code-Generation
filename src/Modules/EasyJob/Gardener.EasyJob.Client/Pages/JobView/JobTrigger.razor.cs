@@ -91,7 +91,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             }
             //更新
             SysJobTriggerDto? oldTrigger = _datas.FirstOrDefault(x => x.Id == trigger.Id);
-            if (oldTrigger == null)
+            if (oldTrigger == null || (oldTrigger.UpdatedTime!=null && trigger.UpdatedTime!=null && trigger.UpdatedTime< oldTrigger.UpdatedTime))
             {
                 return Task.CompletedTask;
             }

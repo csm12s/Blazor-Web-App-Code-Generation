@@ -58,7 +58,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         private Task OnEasyJobTriggerUpdate(EasyJobTriggerUpdateNotificationData triggerNotificationData)
         {
             SysJobTriggerDto trigger = triggerNotificationData.Trigger;
-            if (_editModel == null || _editModel.Id!=trigger.Id)
+            if (_editModel == null || _editModel.Id!=trigger.Id || (_editModel.UpdatedTime != null && trigger.UpdatedTime != null && trigger.UpdatedTime < _editModel.UpdatedTime))
             {
                 return Task.CompletedTask;
             }
