@@ -14,6 +14,6 @@ namespace Gardener.NotificationSystem.Client
         /// <summary>
         /// 系统通知
         /// </summary>
-        public static readonly string SystemNotificationSignalRClientNames = "SystemNotification";
+        public static readonly string SystemNotificationSignalRClientName = "SystemNotification";
     }
 }

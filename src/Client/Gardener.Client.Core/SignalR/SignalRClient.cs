@@ -51,18 +51,24 @@ namespace Gardener.Client.Core
         /// </summary>
         private readonly List<MessageCallBackInfo> messageCallBacks = new List<MessageCallBackInfo>();
         /// <summary>
+        /// 本地化处理
+        /// </summary>
+        private readonly IClientLocalizer localizer;
+        /// <summary>
         /// signalr client
         /// </summary>
         /// <param name="clientName">客户端唯一名称</param>
         /// <param name="url">连接地址</param>
         /// <param name="clientLogger">日志记录</param>
         /// <param name="accessTokenProvider">身份token提供方法</param>
-        public SignalRClient(string clientName, string url, IClientLogger clientLogger, Func<Task<string?>> accessTokenProvider)
+        /// <param name="localizer">本地化处理</param>
+        public SignalRClient(string clientName, string url, IClientLogger clientLogger, Func<Task<string?>> accessTokenProvider, IClientLocalizer localizer)
         {
             this.ClientName = clientName;
             this.url = url;
             this.clientLogger = clientLogger;
             this.accessTokenProvider = accessTokenProvider;
+            this.localizer = localizer;
         }
         /// <summary>
         /// 关闭
@@ -83,7 +89,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private Task ConnectionClosed(Exception? arg)
         {
-            clientLogger.Warn($"{ClientName}连接{(arg == null ? "关闭" : "中断")}", ex: arg, sendNotify: arg != null);
+            clientLogger.Warn($"{ClientName} {localizer["Connection"]} {(arg == null ? localizer["Close"] : localizer["Break"])}", ex: arg, sendNotify: arg != null);
             if (Closed != null)
             {
                 //回调
@@ -98,7 +104,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private Task ConnectionReconnecting(Exception? arg)
         {
-            clientLogger.Warn($"{ClientName}重连中", ex: arg);
+            clientLogger.Warn($"{ClientName} {localizer["Connecting"]}", ex: arg);
             if (Reconnecting != null)
             {
                 return Reconnecting.Invoke(arg);
@@ -112,7 +118,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         private Task ConnectionReconnected(string? arg)
         {
-            clientLogger.Warn($"{ClientName}重连完成![{(arg == null ? "" : arg)}]");
+            clientLogger.Warn($"{ClientName} {localizer["Connection"]} {localizer["Complete"]} ![{(arg == null ? "" : arg)}]");
             if (Reconnected != null)
             {
                 return Reconnected.Invoke(arg);
@@ -147,7 +153,7 @@ namespace Gardener.Client.Core
             try
             {
                 Uri uri = new Uri(url);
-                clientLogger.Info($"{ClientName}开始连接,url={uri.AbsoluteUri}");
+                clientLogger.Info($"{ClientName} {localizer["Begin"]} {localizer["Connection"]},url={uri.AbsoluteUri}");
 
                 IHubConnectionBuilder builder = new HubConnectionBuilder()
                             //配置请求
@@ -179,7 +185,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                clientLogger.Error($"{ClientName}连接异常", ex: ex);
+                clientLogger.Error($"{ClientName} {localizer["Connection"]} {localizer["Error"]}", ex: ex);
             }
             return Task.CompletedTask;
         }

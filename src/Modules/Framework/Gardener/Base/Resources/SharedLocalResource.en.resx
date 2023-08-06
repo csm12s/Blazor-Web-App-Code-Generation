@@ -159,6 +159,9 @@
   <data name="BindingResource" xml:space="preserve">
     <value>Binding resource</value>
   </data>
+  <data name="Break" xml:space="preserve">
+    <value>Break</value>
+  </data>
   <data name="Button" xml:space="preserve">
     <value>Button</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Connection</value>
   </data>
   <data name="Controller_Need_Comment" xml:space="preserve">
     <value>Controller need comment</value>
@@ -612,6 +618,9 @@
   </data>
   <data name="Summary" xml:space="preserve">
     <value>Summary</value>
+  </data>
+  <data name="SystemNotification" xml:space="preserve">
+    <value>System notification</value>
   </data>
   <data name="System_Default_Error_Message" xml:space="preserve">
     <value>System error,Please contact the administrator</value>
