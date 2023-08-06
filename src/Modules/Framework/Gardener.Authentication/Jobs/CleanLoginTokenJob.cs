@@ -5,8 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
+using Furion.DatabaseAccessor.Extensions;
 using Furion.Schedule;
 using Gardener.Authentication.Domains;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -42,15 +44,19 @@ namespace Gardener.Authentication.Jobs
         /// <exception cref="NotImplementedException"></exception>
         public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
         {
+            DateTimeOffset current=DateTimeOffset.Now;
             using var factory= serviceScopeFactory.CreateScope();
             IRepository<LoginToken> loginTokenRepository = factory.ServiceProvider.GetRequiredService<IRepository<LoginToken>>();
-            IEnumerable<LoginToken> tokens= loginTokenRepository
+            IEnumerable<LoginToken> tokens=await loginTokenRepository
                 .AsQueryable(false)
-                .Where(x => x.EndTime <= DateTimeOffset.Now || x.IsDeleted==true)
-                .Select(x => x).ToList();
-            foreach (LoginToken token in tokens)
+                .Where(x => x.EndTime.CompareTo(current) <=0 || x.IsDeleted==true)
+                .ToListAsync();
+            if(tokens.Any())
             {
-               await loginTokenRepository.DeleteAsync(token);
+                foreach (LoginToken token in tokens)
+                {
+                    loginTokenRepository.DeleteNow(token);
+                }
             }
             context.Result = $"执行完成，移除{tokens.Count()}条记录。";
         }

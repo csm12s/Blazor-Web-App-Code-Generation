@@ -17,17 +17,17 @@
                 <FormItem Label="@Localizer[EasyJobLocalResource.JobId]">
                     <Input @bind-Value="@model.JobId" />
                 </FormItem>
-                <FormItem Label="@Localizer[EasyJobLocalResource.TriggerArgs]">
-                    <TextArea @bind-Value="@model.Args" />
-                </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.Description]">
                     <TextArea @bind-Value="@model.Description" />
+                </FormItem>
+                <FormItem Label="@Localizer[EasyJobLocalResource.AssemblyName]">
+                    <Input @bind-Value="@model.AssemblyName" />
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.TriggerAssemblyType]">
                     <Input @bind-Value="@model.TriggerType" />
                 </FormItem>
-                <FormItem Label="@Localizer[EasyJobLocalResource.AssemblyName]">
-                    <Input @bind-Value="@model.AssemblyName" />
+                <FormItem Label="@Localizer[EasyJobLocalResource.TriggerArgs]">
+                    <TextArea @bind-Value="@model.Args" />
                 </FormItem>
                 <FormItem Label="@Localizer[EasyJobLocalResource.StartTime]">
                     <Input @bind-Value="@model.StartTime" />

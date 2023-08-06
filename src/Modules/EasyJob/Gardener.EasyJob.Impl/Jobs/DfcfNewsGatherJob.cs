@@ -31,21 +31,20 @@ namespace Gardener.EasyJob.Impl.Jobs
         {
             ILogger logger = App.GetRequiredService<ILogger<DfcfNewsGatherJob>>();
             List<NewsInfo>? resultNews = GetLastNews().Result;
-            if (resultNews == null) { return Task.CompletedTask; }
-            foreach (var newsInfo in resultNews)
+            if (resultNews == null) {
+                context.Result = "执行完成";
+                return Task.CompletedTask; 
+            }
+            foreach (NewsInfo newsInfo in resultNews)
             {
                 if (stoppingToken.IsCancellationRequested) { break; }
-                if (newsInfo == null)
-                {
-                    return Task.CompletedTask;
-                }
                 IEventBus eventBus = App.GetRequiredService<IEventBus>();
                 DongFangCaiFuNewsEvent newsEvent = new();
                 newsEvent.Title = newsInfo.title;
                 newsEvent.Content = newsInfo.digest;
                 eventBus.Publish(newsEvent);
             }
-            context.Result = "执行完成";
+            context.Result = $"执行完成:采集到{resultNews.Count}条记录";
             return Task.CompletedTask;
         }
         /// <summary>
