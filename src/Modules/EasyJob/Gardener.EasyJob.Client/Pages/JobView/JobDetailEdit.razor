@@ -12,7 +12,7 @@
         <TabPane Key="baseInfo" Tab="@Localizer["Job"]" Closable="false">
             <Row Gutter="24">
                 <GridCol Span="11">
-                    <Divider Orientation="center" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
+                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider> *@
                     <FormItem Label="@Localizer[EasyJobLocalResource.JobId]">
                         <Input @bind-Value="@model.JobId" />
                     </FormItem>
@@ -37,7 +37,7 @@
                     }
                 </GridCol>
                 <GridCol Offset="1" Span="12">
-                    <Divider Orientation="center" Style="font-weight:bold">@Localizer["TaskSittings"]</Divider>
+                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["TaskSittings"]</Divider> *@
                     <FormItem Label="@Localizer[EasyJobLocalResource.JobType]">
                         <RadioGroup @bind-Value="@(model.CreateType)">
                             @foreach (var gitem in EnumHelper.EnumToDictionary<JobCreateType>())

@@ -156,6 +156,9 @@
   <data name="IncludeAnnotations" xml:space="preserve">
     <value>扫描特性</value>
   </data>
+  <data name="Interval" xml:space="preserve">
+    <value>间隔</value>
+  </data>
   <data name="Job" xml:space="preserve">
     <value>任务</value>
   </data>

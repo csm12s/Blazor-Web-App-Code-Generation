@@ -150,6 +150,9 @@
   <data name="IncludeAnnotations" xml:space="preserve">
     <value>Include annotations</value>
   </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
   <data name="JobId" xml:space="preserve">
     <value>Job id</value>
   </data>

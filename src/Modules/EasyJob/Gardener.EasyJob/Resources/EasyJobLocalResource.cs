@@ -118,6 +118,14 @@ namespace Gardener.EasyJob.Resources
         /// 实时监控
         /// </summary>
         public const string RealTimeMonitor = nameof(RealTimeMonitor);
+        /// <summary>
+        /// 间隔
+        /// </summary>
+        public const string Interval = nameof(Interval);
+        /// <summary>
+        /// Cron
+        /// </summary>
+        public const string Cron = nameof(Cron);
 
 
     }

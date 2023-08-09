@@ -96,7 +96,14 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                 return Task.CompletedTask;
             }
             //赋值
-            trigger.Adapt(oldTrigger);
+            //赋值
+            oldTrigger.Status = trigger.Status;
+            oldTrigger.Result = trigger.Result;
+            oldTrigger.LastRunTime = trigger.LastRunTime;
+            oldTrigger.NextRunTime = trigger.NextRunTime;
+            oldTrigger.NumberOfErrors = trigger.NumberOfErrors;
+            oldTrigger.NumberOfRuns = trigger.NumberOfRuns;
+            oldTrigger.ElapsedTime = trigger.ElapsedTime;
             return base.RefreshPageDom();
         }
         /// <summary>
