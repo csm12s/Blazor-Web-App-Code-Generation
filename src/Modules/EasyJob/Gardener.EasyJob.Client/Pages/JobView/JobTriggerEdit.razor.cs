@@ -68,13 +68,13 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                 {
                     return null;
                 }
-                return _editModel.Args.TrimStart('[').TrimEnd(']').Split(",")[0];
+                return _editModel.Args.TrimStart('[').TrimEnd(']').Split(",")[0].Trim('"');
             }
             set
             {
                 if (value != null)
                 {
-                    _editModel.Args = $"[{value},{cronType}]";
+                    _editModel.Args = $"[\"{value}\",{cronType}]";
                 }
 
             }
@@ -97,7 +97,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             {
                 if (!string.IsNullOrEmpty(triggerCron))
                 {
-                    _editModel.Args = $"[{triggerCron},{value}]";
+                    _editModel.Args = $"[\"{triggerCron}\",{value}]";
                 }
             }
         }

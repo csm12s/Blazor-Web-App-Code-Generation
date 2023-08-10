@@ -125,13 +125,11 @@ namespace Gardener.EasyJob.Impl.Core
         public IEnumerable<SchedulerBuilder> Preload()
         {
             //映射关系 SysJobDetail.UpdatedTime=>JobDetail.UpdatedTime
-            TypeAdapterConfig<SysJobDetail, JobDetail>
-                .NewConfig()
+            TypeAdapterConfig.GlobalSettings.ForType<SysJobDetail, JobDetail>()
                 .Map(dest => dest.UpdatedTime,
                     src => src.UpdatedTime != null ? src.UpdatedTime.Value.DateTime : default(DateTime?));
             //映射关系 SysJobTrigger.UpdatedTime=>Trigger.UpdatedTime
-            TypeAdapterConfig<SysJobTrigger, Trigger>
-                .NewConfig()
+            TypeAdapterConfig.GlobalSettings.ForType<SysJobTrigger, Trigger>()
                 .Map(dest => dest.UpdatedTime,
                     src => src.UpdatedTime != null ? src.UpdatedTime.Value.DateTime : default(DateTime?))
                 .Map(dest => dest.NextRunTime,
@@ -143,12 +141,10 @@ namespace Gardener.EasyJob.Impl.Core
                 .Map(dest => dest.EndTime,
                     src => src.EndTime != null ? src.EndTime.Value.DateTime : default(DateTime?));
             //映射关系 忽略id
-            TypeAdapterConfig<JobDetail, SysJobDetail>
-                .NewConfig()
+            TypeAdapterConfig.GlobalSettings.ForType<JobDetail, SysJobDetail>()
                 .Ignore(x => x.Id);
             //映射关系 忽略id
-            TypeAdapterConfig<Trigger, SysJobTrigger>
-                .NewConfig()
+            TypeAdapterConfig.GlobalSettings.ForType<Trigger, SysJobTrigger>()
                 .Ignore(x => x.Id)
                 .Map(dest => dest.NextRunTime,
                     src => src.NextRunTime != null ? new DateTimeOffset(src.NextRunTime.Value) : default(DateTimeOffset?))

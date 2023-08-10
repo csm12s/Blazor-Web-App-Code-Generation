@@ -52,8 +52,10 @@ namespace Gardener.EasyJob.Impl.Services
             if (isExist)
                 throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
 
-            var jobTrigger = input.Adapt<SysJobTrigger>();
-            jobTrigger.Args = "[" + jobTrigger.Args + "]";
+            //dto->entity
+            var sysJobTrigger = input.Adapt<SysJobTrigger>();
+            //entity->furion
+            var jobTrigger = sysJobTrigger.Adapt<Trigger>();
 
             var scheduler = _schedulerFactory.GetJob(input.JobId);
             if (scheduler == null)
@@ -74,9 +76,10 @@ namespace Gardener.EasyJob.Impl.Services
             var isExist = await _sysJobTriggerRep.AnyAsync(u => u.TriggerId == input.TriggerId && u.Id != input.Id);
             if (isExist)
                 throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
-
-            var jobTrigger = input.Adapt<SysJobTrigger>();
-            jobTrigger.Args = "[" + jobTrigger.Args + "]";
+            //dto->entity
+            var sysJobTrigger = input.Adapt<SysJobTrigger>();
+            //entity->furion
+            var jobTrigger = sysJobTrigger.Adapt<Trigger>();
 
             var scheduler = _schedulerFactory.GetJob(input.JobId);
             if (scheduler == null)
