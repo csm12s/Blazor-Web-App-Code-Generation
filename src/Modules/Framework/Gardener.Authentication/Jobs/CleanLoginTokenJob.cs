@@ -22,7 +22,7 @@ namespace Gardener.Authentication.Jobs
     /// 清理登录token任务
     /// </summary>
     [JobDetail("job_CleanLoginToken", Description = "清理登录token任务", GroupName = "System", Concurrent = false)]
-    [PeriodMinutes(5, TriggerId= "trigger_CleanLoginTokenJob",Description = "清理登录token任务触发器")]
+    [PeriodMinutes(5, TriggerId = "trigger_CleanLoginTokenJob", Description = "清理登录token任务触发器")]
     public class CleanLoginTokenJob : IJob
     {
         private readonly IServiceScopeFactory serviceScopeFactory;
@@ -44,18 +44,18 @@ namespace Gardener.Authentication.Jobs
         /// <exception cref="NotImplementedException"></exception>
         public async Task ExecuteAsync(JobExecutingContext context, CancellationToken stoppingToken)
         {
-            DateTimeOffset current=DateTimeOffset.Now;
-            using var factory= serviceScopeFactory.CreateScope();
+            DateTimeOffset current = DateTimeOffset.Now;
+            using var factory = serviceScopeFactory.CreateScope();
             IRepository<LoginToken> loginTokenRepository = factory.ServiceProvider.GetRequiredService<IRepository<LoginToken>>();
-            IEnumerable<LoginToken> tokens=await loginTokenRepository
+            IEnumerable<LoginToken> tokens = await loginTokenRepository
                 .AsQueryable(false)
-                .Where(x => x.EndTime.CompareTo(current) <=0 || x.IsDeleted==true)
+                .Where(x => x.EndTime.CompareTo(current) <= 0 || x.IsDeleted == true)
                 .ToListAsync();
-            if(tokens.Any())
+            if (tokens.Any())
             {
                 foreach (LoginToken token in tokens)
                 {
-                    loginTokenRepository.DeleteNow(token);
+                    await loginTokenRepository.DeleteAsync(token);
                 }
             }
             context.Result = $"执行完成，移除{tokens.Count()}条记录。";
