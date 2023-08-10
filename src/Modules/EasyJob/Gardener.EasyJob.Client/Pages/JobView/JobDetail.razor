@@ -46,7 +46,9 @@
          </TitleTemplate>
          <ColumnDefinitions>
              @* <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_easy_job_detail_delete_selected"]" Width="40" Fixed="left" /> *@
-             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left" >
+                 <a href="system_manager/easy_job_trigger?JobId=@model.JobId">@model.JobId</a>
+             </Column>
              <Column @bind-Field="@model.GroupName" Filterable Title="@Localizer[EasyJobLocalResource.GroupName]" Width="150" Fixed="left" />
              <Column @bind-Field="@model.AssemblyName" Filterable Title="@Localizer[EasyJobLocalResource.AssemblyName]" Width="150" />
              <Column @bind-Field="@model.JobType" Filterable Title="@Localizer[EasyJobLocalResource.JobTypeFullName]" Width="150" />

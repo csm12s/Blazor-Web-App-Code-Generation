@@ -52,7 +52,9 @@
          <ColumnDefinitions>
              @* <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_easy_job_trigger_delete_selected"]" Width="40" Fixed="left" /> *@
              <Column @bind-Field="@model.TriggerId" Filterable Title="@Localizer[EasyJobLocalResource.TriggerId]" Width="150" Fixed="left" />
-             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left" >
+                 <a href="system_manager/easy_job_detail?JobId=@model.JobId">@model.JobId</a>
+             </Column>
              <Column @bind-Field="@model.Description" Filterable Title="@Localizer[EasyJobLocalResource.Description]" Width="150" Fixed="left" />
              <Column @bind-Field="@model.Status" Filterable Title="@Localizer[EasyJobLocalResource.Status]" Width="150" Fixed="left">
                  <TagPro Text="@model.Status" Localizer="Localizer" />
