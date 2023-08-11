@@ -79,6 +79,13 @@
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_detail">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OpenJobLogConsole(model)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_delete">
                          <SpaceItem>
                              <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">

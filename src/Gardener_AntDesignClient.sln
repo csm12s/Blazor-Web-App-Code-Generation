@@ -135,11 +135,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.DistributedLock", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToolBox", "ToolBox", "{B64C6610-B88F-4AB8-A9FF-1C6DF9CC519D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.ToolBox", "Modules\ToolBox\Gardener.ToolBox\Gardener.ToolBox.csproj", "{8A3F08E1-9400-48AF-A4AD-861B0046AD9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.ToolBox", "Modules\ToolBox\Gardener.ToolBox\Gardener.ToolBox.csproj", "{8A3F08E1-9400-48AF-A4AD-861B0046AD9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.ToolBox.Client", "Modules\ToolBox\Gardener.ToolBox.Client\Gardener.ToolBox.Client.csproj", "{3829E3E2-52E8-4AD2-BE45-11DC382F3342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.ToolBox.Client", "Modules\ToolBox\Gardener.ToolBox.Client\Gardener.ToolBox.Client.csproj", "{3829E3E2-52E8-4AD2-BE45-11DC382F3342}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gardener.ToolBox.Impl", "Modules\ToolBox\Gardener.ToolBox.Impl\Gardener.ToolBox.Impl.csproj", "{CE3D6C4E-4150-4656-A817-4EEE36BB754E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.ToolBox.Impl", "Modules\ToolBox\Gardener.ToolBox.Impl\Gardener.ToolBox.Impl.csproj", "{CE3D6C4E-4150-4656-A817-4EEE36BB754E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

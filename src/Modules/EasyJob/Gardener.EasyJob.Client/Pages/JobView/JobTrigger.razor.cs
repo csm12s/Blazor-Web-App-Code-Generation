@@ -37,7 +37,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// 定时任务用户配置
         /// </summary>
         [Inject]
-        public IEasyJobUserConfigService userConfigService { get; set; } = null!;
+        public ISysJobUserConfigService userConfigService { get; set; } = null!;
         /// <summary>
         /// 触发器更新通知订阅者
         /// </summary>
@@ -45,7 +45,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// <summary>
         /// 用户配置
         /// </summary>
-        private EasyJobUserConfigDto? easyJobUserConfigDto;
+        private SysJobUserConfigDto? easyJobUserConfigDto;
 
         private bool enableRealTimeMonitor = false;
         private bool enableRealTimeMonitorLoading = false;
@@ -175,7 +175,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             enableRealTimeMonitorLoading = true;
             easyJobUserConfigDto.EnableRealTimeMonitor = enable;
 
-            EasyJobUserConfigDto? result = await userConfigService.SaveMyConfig(easyJobUserConfigDto);
+            SysJobUserConfigDto? result = await userConfigService.SaveMyConfig(easyJobUserConfigDto);
             if (result == null)
             {
                 MessageService.Error((enable ? Localizer[EasyJobLocalResource.Open] : Localizer[EasyJobLocalResource.Close]) + Localizer[EasyJobLocalResource.Fail]);

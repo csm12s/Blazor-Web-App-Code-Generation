@@ -18,12 +18,12 @@ namespace Gardener.EasyJob.Impl.Core
     /// </summary>
     public class EasyJobNotificationHubGrouper : ISystemNotificationHubGrouper, IScoped
     {
-        private readonly IRepository<EasyJobUserConfig> userConfigRepository;
+        private readonly IRepository<SysJobUserConfig> userConfigRepository;
         /// <summary>
         /// 将需要监听用户进行分组
         /// </summary>
         /// <param name="userConfigRepository"></param>
-        public EasyJobNotificationHubGrouper(IRepository<EasyJobUserConfig> userConfigRepository)
+        public EasyJobNotificationHubGrouper(IRepository<SysJobUserConfig> userConfigRepository)
         {
             this.userConfigRepository = userConfigRepository;
         }

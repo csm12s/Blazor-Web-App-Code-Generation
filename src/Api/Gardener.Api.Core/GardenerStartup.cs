@@ -122,7 +122,10 @@ namespace Gardener.Admin
             // 任务调度
             services.AddSchedule(options =>
             {
-                options.AddPersistence<DbJobPersistence>(); // 添加作业持久化器
+                // 添加作业持久化器
+                options.AddPersistence<DbJobPersistence>(); 
+                // 添加监控器
+                options.AddMonitor<EasyJobMonitor>();
             });
         }
         /// <summary>

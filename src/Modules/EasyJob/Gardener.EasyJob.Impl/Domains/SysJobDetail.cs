@@ -27,7 +27,7 @@ namespace Gardener.EasyJob.Impl.Domains
         /// <summary>
         /// 作业组名称
         /// </summary>
-        [DisplayName("作业编号")]
+        [DisplayName("作业组名称")]
         public string? GroupName { get; set; }
         /// <summary>
         /// 作业处理程序类型

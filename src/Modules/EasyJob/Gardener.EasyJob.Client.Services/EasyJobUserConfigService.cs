@@ -14,9 +14,9 @@ namespace Gardener.EasyJob.Client.Services
     /// 定时任务-用户配置服务
     /// </summary>
     [ScopedService]
-    public class EasyJobUserConfigService : IEasyJobUserConfigService
+    public class EasyJobUserConfigService : ISysJobUserConfigService
     {
-        private static readonly string controller = "easy-job-user-config";
+        private static readonly string controller = "sys-job-user-config";
 
         private readonly IApiCaller apiCaller;
 
@@ -25,14 +25,14 @@ namespace Gardener.EasyJob.Client.Services
             this.apiCaller = apiCaller;
         }
 
-        public Task<EasyJobUserConfigDto?> GetMyConfig()
+        public Task<SysJobUserConfigDto?> GetMyConfig()
         {
-            return apiCaller.GetAsync<EasyJobUserConfigDto?>($"{controller}/my-config");
+            return apiCaller.GetAsync<SysJobUserConfigDto?>($"{controller}/my-config");
         }
 
-        public Task<EasyJobUserConfigDto?> SaveMyConfig(EasyJobUserConfigDto config)
+        public Task<SysJobUserConfigDto?> SaveMyConfig(SysJobUserConfigDto config)
         {
-            return apiCaller.PostAsync<EasyJobUserConfigDto, EasyJobUserConfigDto?>($"{controller}/save-my-config", config);
+            return apiCaller.PostAsync<SysJobUserConfigDto, SysJobUserConfigDto?>($"{controller}/save-my-config", config);
         }
     }
 }

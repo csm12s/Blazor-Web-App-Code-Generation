@@ -1,0 +1,10 @@
+﻿@inherits OperationDialogBase<JobLogConsoleInput,bool,EasyJobLocalResource>
+@page "/system_manager/easy_job_log_console"
+<div>
+    <GridRow>
+        <TextArea @bind-Value="@logContent" Style="height:80Vh;overflow-y:scroll;background-color:black;color:white;" />
+    </GridRow>
+    <GridRow>
+         <Pagination Simple DefaultCurrent="1" Total="logPageTotal" OnChange="OnPaginationChange" />
+    </GridRow>
+</div>

@@ -1,5 +1,6 @@
 ﻿using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.Client.Base;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Resources;
 using Gardener.EasyJob.Services;
@@ -25,9 +26,9 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task Pause(int id)
+        private async Task Pause(int id)
         {
-            bool result=await sysJobDetailService.Pause(id);
+            bool result = await sysJobDetailService.Pause(id);
             if (result)
             {
                 //成功
@@ -45,19 +46,32 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task Start(int id)
+        private async Task Start(int id)
         {
-            bool result=await sysJobDetailService.Start(id);
+            bool result = await sysJobDetailService.Start(id);
             if (result)
             {
                 //成功
                 MessageService.Success(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Success));
                 await base.ReLoadTable();
-            }else
+            }
+            else
             {
                 //失败
                 MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Fail));
             }
+        }
+        /// <summary>
+        /// 打开日志控制台
+        /// </summary>
+        /// <param name="jobId"></param>
+        private Task OpenJobLogConsole(SysJobDetailDto detail)
+        {
+            OperationDialogSettings operationDialogSettings = base.GetOperationDialogSettings();
+
+            operationDialogSettings.ModalMaximizable = true;
+
+            return base.OpenOperationDialogAsync<JobLogConsole, JobLogConsoleInput, bool>(detail.Description ?? detail.JobId, new JobLogConsoleInput(detail.JobId), operationDialogSettings: operationDialogSettings);
         }
     }
 }
