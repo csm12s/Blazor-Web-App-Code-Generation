@@ -25,7 +25,6 @@ namespace Gardener.EasyJob.Impl.Core
         private readonly IServiceScopeFactory serviceScopeFactory;
         private readonly ISystemNotificationService systemNotificationService;
         /// <summary>
-        /// <summary>
         /// job执行监控
         /// </summary>
         /// <param name="logger"></param>

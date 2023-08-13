@@ -6,6 +6,7 @@
 
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace Gardener.Client.Core
         private IClientLogger _clientLogger;
         private readonly IAuthenticationStateManager _authenticationStateManager;
         private readonly IOptions<ApiSettings> _options;
-        private readonly IClientLocalizer _localizer;
+        private readonly ILocalizationLocalizer _localizer;
         /// <summary>
         ///  SignalR Client构建器
         /// </summary>
@@ -33,7 +34,7 @@ namespace Gardener.Client.Core
         /// <param name="authenticationStateManager"></param>
         /// <param name="options"></param>
         /// <param name="localizer"></param>
-        public SignalRClientBuilder(IClientLogger clientLogger, IAuthenticationStateManager authenticationStateManager, IOptions<ApiSettings> options, IClientLocalizer localizer)
+        public SignalRClientBuilder(IClientLogger clientLogger, IAuthenticationStateManager authenticationStateManager, IOptions<ApiSettings> options, ILocalizationLocalizer localizer)
         {
             _clientLogger = clientLogger;
             _authenticationStateManager = authenticationStateManager;

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
-using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
@@ -20,7 +20,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         /// 本地化
         /// </summary>
         [Inject]
-        public IClientLocalizer<UserCenterResource> localizer { get; set; } = null!;
+        public ILocalizationLocalizer<UserCenterResource> localizer { get; set; } = null!;
 
         [Inject]
         IUserService userService { get; set; } = null!;

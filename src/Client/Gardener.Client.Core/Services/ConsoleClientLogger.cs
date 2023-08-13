@@ -6,6 +6,7 @@
 
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.RegularExpressions;
@@ -21,14 +22,14 @@ namespace Gardener.Client.Core
     {
         private readonly ILogger<ConsoleClientLogger> logger;
         private readonly IClientNotifier clientErrorNotifier;
-        private readonly IClientLocalizer localizer;
+        private readonly ILocalizationLocalizer localizer;
         /// <summary>
         /// 客户端异常记录器
         /// </summary>
         /// <param name="clientErrorNotifier"></param>
         /// <param name="logger"></param>
         /// <param name="localizer"></param>
-        public ConsoleClientLogger(IClientNotifier clientErrorNotifier, ILogger<ConsoleClientLogger> logger, IClientLocalizer localizer)
+        public ConsoleClientLogger(IClientNotifier clientErrorNotifier, ILogger<ConsoleClientLogger> logger, ILocalizationLocalizer localizer)
         {
             this.clientErrorNotifier = clientErrorNotifier;
             this.logger = logger;

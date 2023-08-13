@@ -6,6 +6,7 @@
 
 using Gardener.Client.Base;
 using Gardener.EventBus;
+using Gardener.LocalizationLocalizer;
 using Gardener.NotificationSystem.Core;
 using Gardener.NotificationSystem.Dtos;
 using System.Text.Json;
@@ -18,7 +19,7 @@ namespace Gardener.NotificationSystem.Client.Core
         private readonly IEventBus _eventBus;
         private readonly ISignalRClientBuilder signalRClientBuilder;
         private readonly IClientLogger clientLogger;
-        private readonly IClientLocalizer localizer;
+        private readonly ILocalizationLocalizer localizer;
 
         private JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
 
@@ -30,7 +31,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <param name="signalRClientBuilder"></param>
         /// <param name="clientLogger"></param>
         /// <param name="localizer"></param>
-        public SystemNotificationSignalRClientProvider(IEventBus eventBus, ISignalRClientBuilder signalRClientBuilder, IClientLogger clientLogger, IClientLocalizer localizer)
+        public SystemNotificationSignalRClientProvider(IEventBus eventBus, ISignalRClientBuilder signalRClientBuilder, IClientLogger clientLogger, ILocalizationLocalizer localizer)
         {
             _eventBus = eventBus;
             this.signalRClientBuilder = signalRClientBuilder;

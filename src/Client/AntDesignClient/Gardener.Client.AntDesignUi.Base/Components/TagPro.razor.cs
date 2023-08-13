@@ -6,7 +6,7 @@
 
 using AntDesign;
 using Gardener.Attributes;
-using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -153,7 +153,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 本地化-可以对Text进行本地化处理
         /// </summary>
         [Parameter]
-        public IClientLocalizer? Localizer { get; set; }
+        public ILocalizationLocalizer? Localizer { get; set; }
 
         /// <summary>
         /// 从Text中推算的string 值

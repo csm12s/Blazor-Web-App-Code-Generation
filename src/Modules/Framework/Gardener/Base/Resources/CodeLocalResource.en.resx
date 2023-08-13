@@ -117,46 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CodeManager" xml:space="preserve">
-    <value>字典管理</value>
-  </data>
-  <data name="CodeName" xml:space="preserve">
-    <value>字典名称</value>
-  </data>
-  <data name="CodeType" xml:space="preserve">
-    <value>字典类型</value>
-  </data>
-  <data name="CodeTypeId" xml:space="preserve">
-    <value>字典类型编号</value>
-  </data>
-  <data name="CodeTypeName" xml:space="preserve">
-    <value>字典类型名称</value>
-  </data>
-  <data name="CodeTypeValue" xml:space="preserve">
-    <value>字典类型值</value>
-  </data>
-  <data name="CodeValue" xml:space="preserve">
-    <value>字典值</value>
-  </data>
-  <data name="Color" xml:space="preserve">
-    <value>颜色</value>
-  </data>
-  <data name="EnableAudit" xml:space="preserve">
-    <value>启用审计</value>
-  </data>
-  <data name="ExtendParams" xml:space="preserve">
-    <value>扩展参数</value>
-  </data>
-  <data name="LocalCodeName" xml:space="preserve">
-    <value>本地字典名</value>
-  </data>
-  <data name="Order" xml:space="preserve">
-    <value>排序</value>
-  </data>
-  <data name="RefreshCodeUtilCache" xml:space="preserve">
-    <value>刷新字典工具缓存</value>
-  </data>
-  <data name="SupportMultiTenant" xml:space="preserve">
-    <value>支持多租户</value>
+  <data name="今日" xml:space="preserve">
+    <value>Today</value>
   </data>
 </root>

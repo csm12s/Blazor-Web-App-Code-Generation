@@ -6,7 +6,6 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
-using Furion.DynamicApiController;
 using Furion.FriendlyException;
 using Furion.Schedule;
 using Gardener.Base;
@@ -16,6 +15,7 @@ using Gardener.EasyJob.Resources;
 using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
+using Gardener.LocalizationLocalizer;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +50,7 @@ namespace Gardener.EasyJob.Impl.Services
         {
             var isExist = await _sysJobTriggerRep.AnyAsync(u => u.TriggerId == input.TriggerId && u.Id != input.Id);
             if (isExist)
-                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
+                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetValue<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
 
             //dto->entity
             var sysJobTrigger = input.Adapt<SysJobTrigger>();
@@ -75,7 +75,7 @@ namespace Gardener.EasyJob.Impl.Services
         {
             var isExist = await _sysJobTriggerRep.AnyAsync(u => u.TriggerId == input.TriggerId && u.Id != input.Id);
             if (isExist)
-                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
+                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetValue<EasyJobLocalResource>(nameof(SysJobTriggerDto.TriggerId)));
             //dto->entity
             var sysJobTrigger = input.Adapt<SysJobTrigger>();
             //entity->furion

@@ -7,13 +7,11 @@
 using AntDesign;
 using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Common;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Dtos.Notification;
 using Gardener.EasyJob.Resources;
 using Gardener.EasyJob.Services;
 using Gardener.EventBus;
-using Mapster;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.EasyJob.Client.Pages.JobView

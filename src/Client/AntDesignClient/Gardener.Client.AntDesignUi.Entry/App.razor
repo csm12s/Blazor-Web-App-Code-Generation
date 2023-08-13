@@ -14,10 +14,10 @@
         <LayoutView Layout="@typeof(OtherPageLayout)">
             <Result Status="404"
                     Title="404"
-                    SubTitle="@(LocalizerUtil.GetValue("Page404Message"))">
+                    SubTitle="@(Lo.GetValue("Page404Message"))">
             </Result>
             <div style="width:100%;text-align:center;">
-                <Button OnClick="e=>GoHome()">@LocalizerUtil.GetValue("GoHome")</Button>
+                <Button OnClick="e=>GoHome()">@Lo.GetValue("GoHome")</Button>
             </div>
         </LayoutView>
     </NotFound>

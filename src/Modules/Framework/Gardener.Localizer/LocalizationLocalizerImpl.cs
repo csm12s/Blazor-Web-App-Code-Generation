@@ -4,8 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.Base;
+
+using Gardener.LocalizationLocalizer;
 using Microsoft.Extensions.Localization;
+using System.Text;
 
 namespace Gardener.Client.Core.Services
 {
@@ -13,15 +15,15 @@ namespace Gardener.Client.Core.Services
     /// 本地化器
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ClientLocalizer<T> : IClientLocalizer<T>
+    public class LocalizationLocalizerImpl<T> : ILocalizationLocalizer<T>
     {
         private readonly IStringLocalizer<T> localizer;
         /// <summary>
         /// 公共
         /// </summary>
-        private readonly IClientLocalizer sharedLocalizer;
+        private readonly ILocalizationLocalizer sharedLocalizer;
 
-        public ClientLocalizer(IStringLocalizer<T> localizer, IClientLocalizer sharedLocalizer)
+        public LocalizationLocalizerImpl(IStringLocalizer<T> localizer, ILocalizationLocalizer sharedLocalizer)
         {
             this.localizer = localizer;
             this.sharedLocalizer = sharedLocalizer;
@@ -38,21 +40,39 @@ namespace Gardener.Client.Core.Services
         /// </remarks>
         public string GetValue(string name)
         {
+            return Get(name).Value;
+        }
+
+        /// <summary>
+        /// 获取LocalizedString
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 先从指定的资源查找，找不到再从公共资源查找
+        /// </remarks>
+        public LocalizedString Get(string name)
+        {
 
             LocalizedString localizedString = localizer[name];
             if (localizedString.ResourceNotFound && !GetLocalizerName().Equals(sharedLocalizer.GetLocalizerName())) {
-                return sharedLocalizer[name];
+                return sharedLocalizer.Get(name);
             }
-            return localizedString.Value;
+            return localizedString;
         }
 
+        /// <summary>
+        /// 合并
+        /// </summary>
+        /// <param name="names"></param>
+        /// <returns></returns>
         public string Combination(params string[] names)
         {
             if (names.Length == 0)
             {
                 return string.Empty;
             }
-            System.Text.StringBuilder msg = new System.Text.StringBuilder();
+            StringBuilder msg = new StringBuilder();
             for (int i = 0; i < names.Length; i++)
             {
                 msg.Append(GetValue(names[i]));
@@ -63,47 +83,7 @@ namespace Gardener.Client.Core.Services
 
         public string GetLocalizerName()
         {
-            return $"{nameof(ClientLocalizer<T>)}:{typeof(T).FullName}";
-        }
-    }
-    /// <summary>
-    /// 公共共享本地化器
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class ClientSharedLocalizer<T> : IClientLocalizer
-    {
-        private readonly IStringLocalizer<T> localizer;
-
-        public ClientSharedLocalizer(IStringLocalizer<T> localizer)
-        {
-            this.localizer = localizer;
-        }
-
-        public string this[string name] => GetValue(name);
-
-        public string Combination(params string[] names)
-        {
-            if (names.Length == 0)
-            {
-                return string.Empty;
-            }
-            System.Text.StringBuilder msg = new System.Text.StringBuilder();
-            for (int i = 0; i < names.Length; i++)
-            {
-                msg.Append(localizer[names[i]].Value);
-                msg.Append(' ');
-            }
-            return msg.ToString().TrimEnd(' ');
-        }
-
-        public string GetLocalizerName()
-        {
-            return $"{nameof(ClientLocalizer<T>)}:{typeof(T).FullName}";
-        }
-
-        public string GetValue(string name)
-        {
-            return localizer[name].Value;
+            return $"{nameof(LocalizationLocalizerImpl<T>)}:{typeof(T).FullName}";
         }
     }
 }

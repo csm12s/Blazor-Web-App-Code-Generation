@@ -16,7 +16,11 @@ namespace Gardener.SystemManager.Resources
         /// <summary>
         /// 字典名称
         /// </summary>
-        public const string CodeName = nameof(CodeName);
+        public const string CodeName = nameof(CodeName); 
+        /// <summary>
+        /// 本地化字典名称
+        /// </summary>
+        public const string LocalCodeName = nameof(LocalCodeName);
         /// <summary>
         /// 字典值
         /// </summary>

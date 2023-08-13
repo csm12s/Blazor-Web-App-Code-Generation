@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Attributes;
-using Gardener.Enums;
 using System.ComponentModel;
 
 namespace Gardener.EasyJob.Enums

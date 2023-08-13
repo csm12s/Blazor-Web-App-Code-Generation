@@ -11,10 +11,8 @@ using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Impl.Domains;
 using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
-using Mapster;
 using Medallion.Threading;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Gardener.EasyJob.Impl.Services
 {

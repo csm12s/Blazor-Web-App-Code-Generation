@@ -7,9 +7,9 @@
 using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Common;
+using Gardener.LocalizationLocalizer;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
@@ -71,7 +71,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         [Inject]
         ConfirmService confirmService { get; set; } = null!;
         [Inject]
-        IClientLocalizer localizer { get; set; } = null!;
+        ILocalizationLocalizer localizer { get; set; } = null!;
         private List<FunctionDto> _functionDtos = new List<FunctionDto>();
         private List<FunctionDto> _selectedFunctionDtos = new List<FunctionDto>();
         //List<TableFilter<string>> groupFilters = null;

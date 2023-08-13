@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Email\Gardener.Email.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.EventBus\Gardener.EventBus.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.FileStore\Gardener.FileStore.csproj" />
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.LocalizationLocalizer\Gardener.LocalizationLocalizer.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.NotificationSystem\Gardener.NotificationSystem.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.Swagger\Gardener.Swagger.csproj" />
     <ProjectReference Include="..\..\Modules\Framework\Gardener.SystemManager\Gardener.SystemManager.csproj" />

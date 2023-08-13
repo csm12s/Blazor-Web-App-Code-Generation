@@ -4,16 +4,10 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.Client.Base;
 using Gardener.EasyJob.Resources;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.EasyJob.Client.Pages.JobView
 {
@@ -23,6 +17,6 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// 本地化
         /// </summary>
         [Inject]
-        protected IClientLocalizer<EasyJobLocalResource> Localizer { get; set; } = null!;
+        protected ILocalizationLocalizer<EasyJobLocalResource> Localizer { get; set; } = null!;
     }
 }

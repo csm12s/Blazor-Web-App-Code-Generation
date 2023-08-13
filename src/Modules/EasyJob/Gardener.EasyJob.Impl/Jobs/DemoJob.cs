@@ -6,8 +6,6 @@
 
 using Furion.Schedule;
 using Furion.TimeCrontab;
-using Gardener.Common;
-using System.Reflection;
 
 namespace Gardener.EasyJob.Impl.Jobs
 {

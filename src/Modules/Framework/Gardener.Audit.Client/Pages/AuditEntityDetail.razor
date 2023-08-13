@@ -1,4 +1,5 @@
-﻿@if (AuditEntitys != null && AuditEntitys.Any())
+﻿@using Gardener.LocalizationLocalizer;
+@if (AuditEntitys != null && AuditEntitys.Any())
 {
     <Collapse DefaultActiveKey="@(new[] { AuditEntitys.Select(x=>x.Id.ToString()).FirstOrDefault()})" Accordion Style="max-height:85Vh;overflow-y:scroll;">
         @foreach (AuditEntityDto item in AuditEntitys)
@@ -28,7 +29,7 @@ else
     /// </summary>
     [Parameter]
     [System.ComponentModel.DataAnnotations.Required]
-    public IClientLocalizer Localizer { get; set; } = null!;
+    public ILocalizationLocalizer Localizer { get; set; } = null!;
     //未展开的不渲染，减少性能开销
     private ClientListBindValue<Guid, bool> listBindValue = new Gardener.Client.Base.Components.ClientListBindValue<Guid,bool>(false);
 }

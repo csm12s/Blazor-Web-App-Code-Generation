@@ -6,6 +6,7 @@
 #nullable enable
 
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace Gardener.Client.Core
         /// <summary>
         /// 本地化处理
         /// </summary>
-        private readonly IClientLocalizer localizer;
+        private readonly ILocalizationLocalizer localizer;
         /// <summary>
         /// signalr client
         /// </summary>
@@ -62,7 +63,7 @@ namespace Gardener.Client.Core
         /// <param name="clientLogger">日志记录</param>
         /// <param name="accessTokenProvider">身份token提供方法</param>
         /// <param name="localizer">本地化处理</param>
-        public SignalRClient(string clientName, string url, IClientLogger clientLogger, Func<Task<string?>> accessTokenProvider, IClientLocalizer localizer)
+        public SignalRClient(string clientName, string url, IClientLogger clientLogger, Func<Task<string?>> accessTokenProvider, ILocalizationLocalizer localizer)
         {
             this.ClientName = clientName;
             this.url = url;

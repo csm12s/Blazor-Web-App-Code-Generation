@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base.Resources;
-using System.Reflection;
 
 namespace Gardener.EasyJob.Resources
 {

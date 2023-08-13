@@ -141,6 +141,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.ToolBox.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.ToolBox.Impl", "Modules\ToolBox\Gardener.ToolBox.Impl\Gardener.ToolBox.Impl.csproj", "{CE3D6C4E-4150-4656-A817-4EEE36BB754E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gardener.LocalizationLocalizer", "Modules\Framework\Gardener.LocalizationLocalizer\Gardener.LocalizationLocalizer.csproj", "{5CECCB3A-5CC1-44C9-8D52-57070E524DCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -383,6 +385,10 @@ Global
 		{CE3D6C4E-4150-4656-A817-4EEE36BB754E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE3D6C4E-4150-4656-A817-4EEE36BB754E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE3D6C4E-4150-4656-A817-4EEE36BB754E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CECCB3A-5CC1-44C9-8D52-57070E524DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CECCB3A-5CC1-44C9-8D52-57070E524DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CECCB3A-5CC1-44C9-8D52-57070E524DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CECCB3A-5CC1-44C9-8D52-57070E524DCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -452,6 +458,7 @@ Global
 		{8A3F08E1-9400-48AF-A4AD-861B0046AD9C} = {B64C6610-B88F-4AB8-A9FF-1C6DF9CC519D}
 		{3829E3E2-52E8-4AD2-BE45-11DC382F3342} = {B64C6610-B88F-4AB8-A9FF-1C6DF9CC519D}
 		{CE3D6C4E-4150-4656-A817-4EEE36BB754E} = {B64C6610-B88F-4AB8-A9FF-1C6DF9CC519D}
+		{5CECCB3A-5CC1-44C9-8D52-57070E524DCD} = {08D32FE5-4548-4C51-9D6E-68BDB2CE112E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0782AFAE-11B9-4CBE-8DC6-169EB1CBA894}

@@ -4,7 +4,6 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Furion.DependencyInjection;
 using Gardener.Authentication.Dtos;
 using Gardener.Cache;
 using Gardener.Common;

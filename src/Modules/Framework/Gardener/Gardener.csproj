@@ -21,7 +21,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
 		<PackageReference Include="DistributedLock.Core" Version="1.0.5" />
-
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.9" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -30,12 +30,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="Base\Resources\CodeLocalResource.en.resx">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\CodeLocalResource.zh.resx">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\MenuNameLocalResource.en.resx">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\MenuNameLocalResource.zh.resx">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\SharedLocalResource.en.resx">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\SharedLocalResource.zh.resx">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.en.resx">

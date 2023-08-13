@@ -6,8 +6,11 @@
 
 using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
+using Gardener.Base;
 using Gardener.Base.Entity;
+using Gardener.Base.Resources;
 using Gardener.EntityFramwork;
+using Gardener.LocalizationLocalizer;
 using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Utils;
 using Mapster;
@@ -52,6 +55,10 @@ namespace Gardener.SystemManager.Services
             }
             var list = await query.Select(x => x.Adapt<CodeDto>())
              .ToListAsync();
+            list.ForEach(x =>
+            {
+                x.LocalCodeName = Lo.GetValue<CodeLocalResource>(x.CodeName);
+            });
             Dictionary<int, IEnumerable<CodeDto>> result = new Dictionary<int, IEnumerable<CodeDto>>();
             foreach (int codeTypeId in list.Select(x => x.CodeTypeId).Distinct())
             {

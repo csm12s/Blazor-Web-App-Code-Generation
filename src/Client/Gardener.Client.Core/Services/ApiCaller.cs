@@ -9,6 +9,7 @@ using Gardener.Client.Base;
 using Gardener.Common;
 using Gardener.Enums;
 using Gardener.EventBus;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Gardener.Client.Core
         private readonly HttpClient httpClient;
         private readonly IClientLogger log;
         private readonly IEventBus eventBus;
-        private readonly IClientLocalizer localizer;
+        private readonly ILocalizationLocalizer localizer;
         /// <summary>
         /// api 调用器
         /// </summary>
@@ -37,7 +38,7 @@ namespace Gardener.Client.Core
         /// <param name="log"></param>
         /// <param name="eventBus"></param>
         /// <param name="localizer"></param>
-        public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus, IClientLocalizer localizer)
+        public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus, ILocalizationLocalizer localizer)
         {
             this.httpClient = httpClient;
             this.log = log;

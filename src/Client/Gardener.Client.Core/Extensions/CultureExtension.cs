@@ -7,6 +7,7 @@
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Client.Core.Services;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -33,7 +34,7 @@ namespace Gardener.Client.Core
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             CultureInfo.CurrentCulture = culture;
             CultureInfo.CurrentUICulture = culture;
-            LocalizerUtil.SetServices(host.Services);
+            host.Services.InitLocalizationLocalizerUtil();
             return host;
         }
 
@@ -45,10 +46,10 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public static IServiceCollection AddCulture<TDefaultResource>(this IServiceCollection services)
         {
-            //默认的
-            services.TryAddScoped<IClientLocalizer, ClientSharedLocalizer<TDefaultResource>>();
-            services.TryAddScoped(typeof(IClientLocalizer<>), typeof(ClientLocalizer<>));
+            //Culture 管理地区标示
             services.TryAddScoped<IClientCultureService, ClientCultureService>();
+            //Localizer 处理不同地区本地化内容
+            services.AddLocalizationLocalizer<TDefaultResource>();
             return services;
         }
     }

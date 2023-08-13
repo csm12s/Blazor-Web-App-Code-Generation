@@ -6,6 +6,7 @@
 
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 
 namespace AntDesign
 {
@@ -31,11 +32,11 @@ namespace AntDesign
             {
                 Button1Props = new ButtonProps
                 {
-                    ChildContent = LocalizerUtil.GetValue(btn1Text)
+                    ChildContent = Lo.GetValue(btn1Text)
                 },
                 Button2Props = new ButtonProps
                 {
-                    ChildContent = LocalizerUtil.GetValue(btn2Text)
+                    ChildContent = Lo.GetValue(btn2Text)
                 }
             });
         }
@@ -65,7 +66,7 @@ namespace AntDesign
         /// </remarks>
         public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title)
         {
-            return await confirmService.YesNo(title, LocalizerUtil.GetValue(SharedLocalResource.OperateConfirmMessage), ConfirmIcon.Question);
+            return await confirmService.YesNo(title, Lo.GetValue(SharedLocalResource.OperateConfirmMessage), ConfirmIcon.Question);
         }
         /// <summary>
         /// 弹出删除确认提示框
@@ -79,7 +80,7 @@ namespace AntDesign
         /// </remarks>
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService)
         {
-            return await confirmService.YesNo(LocalizerUtil.GetValue(SharedLocalResource.Delete), LocalizerUtil.GetValue(SharedLocalResource.OperateConfirmMessage));
+            return await confirmService.YesNo(Lo.GetValue(SharedLocalResource.Delete), Lo.GetValue(SharedLocalResource.OperateConfirmMessage));
         }
     }
 }

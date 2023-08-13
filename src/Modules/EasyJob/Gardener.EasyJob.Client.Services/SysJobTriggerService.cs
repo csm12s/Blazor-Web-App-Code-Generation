@@ -6,10 +6,7 @@
 
 using Gardener.Client.Base;
 using Gardener.EasyJob.Dtos;
-using Gardener.EasyJob.Resources;
 using Gardener.EasyJob.Services;
-using Gardener.Enums;
-using Mapster;
 
 namespace Gardener.EasyJob.Client.Services
 {

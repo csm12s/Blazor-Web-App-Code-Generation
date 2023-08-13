@@ -9,7 +9,6 @@ using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Dtos.Notification;
 using Gardener.EasyJob.Resources;
 using Gardener.EventBus;
-using Mapster;
 using Microsoft.AspNetCore.Components;
 
 namespace Gardener.EasyJob.Client.Pages.JobView

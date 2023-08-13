@@ -64,6 +64,9 @@
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Width="5%" Hidden="@_userUnauthorizedResources["system_manager_code_delete_selected"]" />
             <Column Title="@Localizer[SystemManagerResource.CodeName]" @bind-Field="@model.CodeName" Filterable />
+            <Column Title="@Localizer[SystemManagerResource.LocalCodeName]" @bind-Field="@model.LocalCodeName"  >
+                 @(LocalizationLocalizer.Lo.GetValue<Gardener.Base.Resources.CodeLocalResource>(model.CodeName))
+            </Column>
             <Column Title="@Localizer[SystemManagerResource.CodeValue]" @bind-Field="@model.CodeValue" Filterable />
             <Column Title="@Localizer[SystemManagerResource.CodeTypeId]" @bind-Field="@model.CodeTypeId" Filterable Sortable DefaultSortOrder="@SortDirection.Descending">
                 @model.CodeTypeId

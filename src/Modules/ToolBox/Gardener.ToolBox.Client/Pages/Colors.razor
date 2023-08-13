@@ -1,6 +1,7 @@
 ﻿@page "/tools/colors"
 @inherits ReuseTabsPageBase
 @using System.Text.RegularExpressions;
+@using Gardener.LocalizationLocalizer;
 <Divider Orientation="left">PresetColor</Divider>
 <div class="tag-colorful-demo">
     @foreach (var color in Enum.GetValues(typeof(PresetColor)))
@@ -38,7 +39,7 @@
     [Inject]
     private MessageService messageService { get; set; } = null!;
     [Inject]
-    private IClientLocalizer Localizer { get; set; } = null!;
+    private ILocalizationLocalizer Localizer { get; set; } = null!;
     /// <summary>
     /// 
     /// </summary>

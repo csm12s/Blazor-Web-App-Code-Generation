@@ -7,6 +7,7 @@
 using Gardener.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Gardener.Attributes;
 
 namespace Gardener.SystemManager.Dtos
 {
@@ -34,6 +35,12 @@ namespace Gardener.SystemManager.Dtos
         [DisplayName("CodeName")]
         [Required(ErrorMessage = "不能为空"), MaxLength(50, ErrorMessage = "最大长度不能大于{1}")]
         public string CodeName { get; set; } = null!;
+        /// <summary>
+        /// 本地化字典名称
+        /// </summary>
+        [DisplayName("LocalCodeName")]
+        [DisabledSearchField]
+        public string LocalCodeName { get; set; } = null!;
         /// <summary>
         /// 排序
         /// </summary>

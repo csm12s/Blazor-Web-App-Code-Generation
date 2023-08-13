@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Framework\Gardener.LocalizationLocalizer\Gardener.LocalizationLocalizer.csproj" />
     <ProjectReference Include="..\Gardener.Client.Base\Gardener.Client.Base.csproj" />
   </ItemGroup>
 

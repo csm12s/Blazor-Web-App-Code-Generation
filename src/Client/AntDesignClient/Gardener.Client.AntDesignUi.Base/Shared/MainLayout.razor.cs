@@ -12,6 +12,7 @@ using Gardener.Client.Base;
 using Gardener.Client.Base.EventBus.Events;
 using Gardener.Client.Base.Services;
 using Gardener.EventBus;
+using Gardener.LocalizationLocalizer;
 using Gardener.SystemManager.Dtos;
 using Microsoft.AspNetCore.Components;
 
@@ -41,7 +42,7 @@ namespace Gardener.Client.AntDesignUi.Base.Shared
         /// 
         /// </summary>
         [Inject]
-        private IClientLocalizer<MenuNameLocalResource> Loc { get; set; } = null!;
+        private ILocalizationLocalizer<MenuNameLocalResource> Loc { get; set; } = null!;
         /// <summary>
         /// 
         /// </summary>

@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 using Furion.DatabaseAccessor;
-using Furion.DatabaseAccessor.Extensions;
 using Furion.Schedule;
 using Gardener.Authentication.Domains;
 using Microsoft.EntityFrameworkCore;

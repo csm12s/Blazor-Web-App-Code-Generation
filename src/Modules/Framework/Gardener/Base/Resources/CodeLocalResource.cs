@@ -4,16 +4,15 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.AntDesignUi.Base.Components;
-using Gardener.EasyJob.Dtos;
-using Gardener.EasyJob.Resources;
-
-namespace Gardener.EasyJob.Client.Pages.JobView
+namespace Gardener.Base.Resources
 {
     /// <summary>
-    /// 
+    /// 字典本地化资源
     /// </summary>
-    public partial class JobCluster : ListOperateTableBase<SysJobClusterDto, int, JobClusterEdit, EasyJobLocalResource>
+    /// <remarks>
+    /// 在初始化code时，使用该资源文件赋值
+    /// </remarks>
+    public class CodeLocalResource
     {
     }
 }

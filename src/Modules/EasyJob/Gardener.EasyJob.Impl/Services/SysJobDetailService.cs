@@ -19,6 +19,7 @@ using Gardener.EasyJob.Resources;
 using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
+using Gardener.LocalizationLocalizer;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -100,7 +101,7 @@ namespace Gardener.EasyJob.Impl.Services
         {
             var isExist = await _sysJobDetailRep.AnyAsync(u => u.JobId == input.JobId && u.Id != input.Id);
             if (isExist)
-                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(EasyJobLocalResource.JobId));
+                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetValue<EasyJobLocalResource>(EasyJobLocalResource.JobId));
 
             // 动态创建作业
             Type? jobType;
@@ -155,11 +156,11 @@ namespace Gardener.EasyJob.Impl.Services
         {
             var isExist = await _sysJobDetailRep.AnyAsync(u => u.JobId == input.JobId && u.Id != input.Id);
             if (isExist)
-                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetString<EasyJobLocalResource>(nameof(SysJobDetailDto.JobId)));
+                throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetValue<EasyJobLocalResource>(nameof(SysJobDetailDto.JobId)));
 
             var sysJobDetail = await _sysJobDetailRep.Where(u => u.Id == input.Id).FirstAsync();
             if (sysJobDetail.JobId != input.JobId)
-                throw Oops.Oh(ExceptionCode.Field_Cannot_Be_Modified, Lo.GetString<EasyJobLocalResource>(nameof(SysJobDetailDto.JobId)));
+                throw Oops.Oh(ExceptionCode.Field_Cannot_Be_Modified, Lo.GetValue<EasyJobLocalResource>(nameof(SysJobDetailDto.JobId)));
 
             var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
             if (scheduler == null)
@@ -172,7 +173,7 @@ namespace Gardener.EasyJob.Impl.Services
             if (input.CreateType == JobCreateType.Script)
             {
                 if (string.IsNullOrEmpty(input.ScriptCode))
-                    throw Oops.Oh(ExceptionCode.Field_Required, Lo.GetString<EasyJobLocalResource>(nameof(input.ScriptCode)));
+                    throw Oops.Oh(ExceptionCode.Field_Required, Lo.GetValue<EasyJobLocalResource>(nameof(input.ScriptCode)));
 
                 if (input.ScriptCode != oldScriptCode)
                 {
