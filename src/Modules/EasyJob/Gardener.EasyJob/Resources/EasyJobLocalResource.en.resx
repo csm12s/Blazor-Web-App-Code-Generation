@@ -162,6 +162,9 @@
   <data name="JobTypeFullName" xml:space="preserve">
     <value>Job type full name</value>
   </data>
+  <data name="Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
   <data name="NotStart" xml:space="preserve">
     <value>NotStart</value>
   </data>

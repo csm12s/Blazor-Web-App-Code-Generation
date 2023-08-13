@@ -9,10 +9,14 @@ using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
+using Gardener.Client.Base.Services;
 using Gardener.EasyJob.Dtos;
+using Gardener.EasyJob.Dtos.Notification;
 using Gardener.EasyJob.Resources;
 using Gardener.EasyJob.Services;
+using Gardener.EventBus;
 using Microsoft.AspNetCore.Components;
+using System.Collections.Concurrent;
 
 namespace Gardener.EasyJob.Client.Pages.JobView
 {
@@ -33,12 +37,12 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// <summary>
         /// 定时任务控制台输入参数
         /// </summary>
-        /// <param name="triggerId"></param>
         /// <param name="jobId"></param>
-        public JobLogConsoleInput(string triggerId, string jobId)
+        /// <param name="triggerId"></param>
+        public JobLogConsoleInput(string jobId, string triggerId)
         {
-            TriggerId = triggerId;
             JobId = jobId;
+            TriggerId = triggerId;
         }
 
         /// <summary>
@@ -63,11 +67,26 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         [Inject]
         private ISysJobLogService JobLogService { get; set; } = null!;
         /// <summary>
-        /// 本地化器
+        /// js操作
         /// </summary>
         [Inject]
-        private IClientLocalizer<EasyJobLocalResource> Localizer { get; set; } =null!;
+        private IJsTool JsTool { get; set; } = null!;
 
+        /// <summary>
+        /// 定时任务用户配置
+        /// </summary>
+        [Inject]
+        public ISysJobUserConfigService userConfigService { get; set; } = null!;
+        /// <summary>
+        /// 消息提示服务
+        /// </summary>
+        [Inject]
+        protected IClientMessageService MessageService { get; set; } = null!;
+        /// <summary>
+        /// 事件
+        /// </summary>
+        [Inject]
+        public IEventBus EventBus { get; set; } = null!;
         /// <summary>
         /// 日志内容
         /// </summary>
@@ -79,23 +98,74 @@ namespace Gardener.EasyJob.Client.Pages.JobView
 
         private int pageIndex = 1;
 
-        private int pageSize = 50;
+        private int pageSize = 20;
+
+        /// <summary>
+        /// 用户配置
+        /// </summary>
+        private SysJobUserConfigDto? easyJobUserConfigDto;
+
+        private bool enableRealTimeMonitor = false;
+
+        private bool enableRealTimeMonitorLoading = false;
+
+        private ConcurrentQueue<SysJobLogDto> sysJobLogs = new ConcurrentQueue<SysJobLogDto>();
+
+        /// <summary>
+        /// 通知订阅者
+        /// </summary>
+        private Subscriber? logNotificationSubscriber;
+
         /// <summary>
         /// 初始化
         /// </summary>
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            await ReloadLog();
+            //订阅触发器更新
+            logNotificationSubscriber = EventBus.Subscribe<EasyJobRunLogNotificationData>(OnReceiveJobRunLog);
+            var userConfig = await userConfigService.GetMyConfig();
+            if (userConfig != null)
+            {
+                easyJobUserConfigDto = userConfig;
+                enableRealTimeMonitor = userConfig.EnableRealTimeMonitor;
+            }
+            await ReloadLogData();
             await base.OnInitializedAsync();
         }
-
+        /// <summary>
+        /// 收到新日志
+        /// </summary>
+        /// <param name="notificationData"></param>
+        /// <returns></returns>
+        private async Task OnReceiveJobRunLog(EasyJobRunLogNotificationData notificationData)
+        {
+            if (AddToQueue(notificationData.Log))
+            {
+                ResetContent();
+                await JsTool.Document.ScrollBarToBottom("log_content_textarea");
+                await base.RefreshPageDom();
+            }
+        }
+        /// <summary>
+        /// 释放
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            if (logNotificationSubscriber != null)
+            {
+                EventBus.UnSubscribe(logNotificationSubscriber);
+            }
+            base.Dispose(disposing);
+        }
         /// <summary>
         /// 加载日志
         /// </summary>
         /// <returns></returns>
-        private async Task ReloadLog()
+        private async Task ReloadLogData()
         {
+            #region 构建查询参数
             PageRequest request = new PageRequest();
             request.PageSize = pageSize;
             request.PageIndex = pageIndex;
@@ -134,40 +204,110 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                 }
 
             };
+            #endregion
             PagedList<SysJobLogDto> result = await JobLogService.Search(request);
             logPageTotal = result.TotalCount;
 
             if (result.Items.Any())
             {
-                foreach (var item in result.Items.OrderBy(x=>x.CreatedTime))
+                bool changed = false;
+                foreach (var item in result.Items.OrderBy(x => x.CreatedTime))
                 {
-                    string status = Localizer[EasyJobLocalResource.Success];
-                    if (!item.Succeeded)
+                    if (AddToQueue(item))
                     {
-                        status = Localizer[EasyJobLocalResource.Fail];
-                    }
-                    logContent += $"\n{item.CreatedTime.ToString(ClientConstant.DateTimeFormat)} - [{item.JobId}] - [{item.TriggerId}] - [{item.ElapsedTime} ms] - [{status}]";
-                    if(!string.IsNullOrEmpty(item.Result))
-                    {
-                        logContent += $"\n{item.Result}";
-                    }
-                    if (!item.Succeeded)
-                    {
-                        logContent += $"\n{item.ExceptionMessage}";
-                        logContent += $"\n{item.Exception}";
+                        changed = true;
                     }
                 }
+                if (changed)
+                {
+                    ResetContent();
+                }
             }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="log"></param>
+        private bool AddToQueue(SysJobLogDto log)
+        {
+            if (this.Options.JobId != null && !log.JobId.Equals(this.Options.JobId))
+            {
+                return false;
+            }
+            if (this.Options.TriggerId != null && !log.TriggerId.Equals(this.Options.TriggerId))
+            {
+                return false;
+            }
+            if (sysJobLogs.Count() >= pageSize)
+            {
+                sysJobLogs.TryDequeue(out _);
+            }
+            sysJobLogs.Enqueue(log);
+
+            return true;
+        }
+        /// <summary>
+        /// 重置content
+        /// </summary>
+        private void ResetContent()
+        {
+            System.Text.StringBuilder contentSb = new System.Text.StringBuilder();
+            int index = 1;
+            foreach (var item in sysJobLogs)
+            {
+                string status = Localizer[EasyJobLocalResource.Success];
+                if (!item.Succeeded)
+                {
+                    status = Localizer[EasyJobLocalResource.Fail];
+                }
+                contentSb.AppendLine($"[{index++}] {item.CreatedTime.ToString(ClientConstant.DateTimeFormat)} - [{item.JobDetailDescription ?? item.JobId}({item.JobId})] - [{item.JobTriggerDescription ?? item.TriggerId}({item.TriggerId})] - [{item.ElapsedTime} ms] - [{status}]");
+                if (!string.IsNullOrEmpty(item.Result))
+                {
+                    contentSb.AppendLine($"{item.Result}");
+                }
+                if (!item.Succeeded)
+                {
+                    contentSb.AppendLine($"{item.ExceptionMessage}");
+                    contentSb.AppendLine($"{item.Exception}");
+                }
+            }
+            logContent = contentSb.ToString();
         }
 
         /// <summary>
         /// 翻页
         /// </summary>
         /// <param name="args"></param>
-        private Task OnPaginationChange(PaginationEventArgs args)
+        private async Task OnPaginationChange(PaginationEventArgs args)
         {
             (pageIndex, pageSize) = args;
-            return ReloadLog();
+            await ReloadLogData();
+            await JsTool.Document.ScrollBarToTop("log_content_textarea");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private async Task OnEnableRealTimeMonitorChange(bool enable)
+        {
+            if (easyJobUserConfigDto == null)
+            {
+                return;
+            }
+            enableRealTimeMonitorLoading = true;
+            easyJobUserConfigDto.EnableRealTimeMonitor = enable;
+
+            SysJobUserConfigDto? result = await userConfigService.SaveMyConfig(easyJobUserConfigDto);
+            if (result == null)
+            {
+                MessageService.Error((enable ? Localizer[EasyJobLocalResource.Open] : Localizer[EasyJobLocalResource.Close]) + Localizer[EasyJobLocalResource.Fail]);
+            }
+            else
+            {
+                easyJobUserConfigDto = result;
+                enableRealTimeMonitor = enable;
+            }
+            enableRealTimeMonitorLoading = false;
         }
     }
 }

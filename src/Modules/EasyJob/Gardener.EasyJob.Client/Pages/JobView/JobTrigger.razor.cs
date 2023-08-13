@@ -187,5 +187,18 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             }
             enableRealTimeMonitorLoading = false;
         }
+
+        /// <summary>
+        /// 打开日志控制台
+        /// </summary>
+        /// <param name="jobId"></param>
+        private Task OpenJobLogConsole(SysJobTriggerDto detail)
+        {
+            OperationDialogSettings operationDialogSettings = base.GetOperationDialogSettings();
+
+            operationDialogSettings.ModalMaximizable = true;
+
+            return base.OpenOperationDialogAsync<JobLogConsole, JobLogConsoleInput, bool>(detail.Description ?? (detail.JobId+" "+detail.TriggerId), new JobLogConsoleInput(detail.JobId, detail.TriggerId), operationDialogSettings: operationDialogSettings);
+        }
     }
 }

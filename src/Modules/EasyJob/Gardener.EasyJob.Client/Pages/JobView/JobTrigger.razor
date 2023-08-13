@@ -26,7 +26,7 @@
                  </AntDesign.Col>
                  <AntDesign.Col Span="16" Style="text-align:right">
                      <Space>
-                         <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_add">
+                        <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_monitor_state">
                              <SpaceItem>
                                 <label>@Localizer[EasyJobLocalResource.RealTimeMonitor]</label> <Switch Checked="enableRealTimeMonitor" Loading="enableRealTimeMonitorLoading" CheckedChildren="@Localizer[EasyJobLocalResource.Open]" UnCheckedChildren="@Localizer[EasyJobLocalResource.Close]" OnChange="OnEnableRealTimeMonitorChange" />
                              </SpaceItem>
@@ -120,6 +120,13 @@
                          </SpaceItem>
                      </ResourceAuthorize>
                      }
+                    <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_log">
+                        <SpaceItem>
+                            <Tooltip Title="@(Localizer[EasyJobLocalResource.Log])" ArrowPointAtCenter="true">
+                                <Button Icon="profile" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OpenJobLogConsole(model)"></Button>
+                            </Tooltip>
+                        </SpaceItem>
+                    </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_delete">
                          <SpaceItem>
                              <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">

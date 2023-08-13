@@ -89,5 +89,17 @@ namespace Gardener.EasyJob.Dtos
         /// </summary>
         [DisplayName("出错次数")]
         public long NumberOfErrors { get; set; }
+
+        /// <summary>
+        /// 任务描述
+        /// </summary>
+        [DisplayName("任务描述")]
+        public string? JobDetailDescription { get; set; }
+
+        /// <summary>
+        /// 触发器描述
+        /// </summary>
+        [DisplayName("触发器描述")]
+        public string? JobTriggerDescription { get; set; }
     }
 }

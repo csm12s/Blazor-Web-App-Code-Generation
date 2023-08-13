@@ -31,5 +31,9 @@ namespace Gardener.NotificationSystem.Enums
         /// 定时任务触发器更新
         /// </summary>
         EasyJobTriggerUpdate,
+        /// <summary>
+        /// 定时任务运行日志
+        /// </summary>
+        EasyJobRunLog
     }
 }

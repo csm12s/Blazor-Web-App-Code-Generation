@@ -6,9 +6,13 @@
 
 using Furion.DatabaseAccessor;
 using Furion.Schedule;
+using Gardener.EasyJob.Dtos.Notification;
+using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Impl.Domains;
+using Gardener.NotificationSystem.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mapster;
 
 namespace Gardener.EasyJob.Impl.Core
 {
@@ -19,16 +23,19 @@ namespace Gardener.EasyJob.Impl.Core
     {
         private readonly ILogger<EasyJobMonitor> logger;
         private readonly IServiceScopeFactory serviceScopeFactory;
+        private readonly ISystemNotificationService systemNotificationService;
         /// <summary>
         /// <summary>
         /// job执行监控
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="serviceScopeFactory"></param>
-        public EasyJobMonitor(ILogger<EasyJobMonitor> logger, IServiceScopeFactory serviceScopeFactory)
+        /// <param name="systemNotificationService"></param>
+        public EasyJobMonitor(ILogger<EasyJobMonitor> logger, IServiceScopeFactory serviceScopeFactory, ISystemNotificationService systemNotificationService)
         {
             this.logger = logger;
             this.serviceScopeFactory = serviceScopeFactory;
+            this.systemNotificationService = systemNotificationService;
         }
 
         /// <summary>
@@ -38,7 +45,7 @@ namespace Gardener.EasyJob.Impl.Core
         /// <param name="stoppingToken"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task OnExecutedAsync(JobExecutedContext context, CancellationToken stoppingToken)
+        public Task OnExecutedAsync(JobExecutedContext context, CancellationToken stoppingToken)
         {
             Trigger trigger = context.Trigger;
             SysJobLog jobLog = new SysJobLog()
@@ -52,20 +59,30 @@ namespace Gardener.EasyJob.Impl.Core
                 NumberOfErrors = trigger.NumberOfErrors,
                 NumberOfRuns = trigger.NumberOfRuns,
                 Result = trigger.Result,
-                Succeeded=true
-            };
+                Succeeded = true,
+                CreatedTime=DateTimeOffset.Now,
+                JobDetailDescription = context.JobDetail.Description,
+                JobTriggerDescription = context.Trigger.Description,
+        };
             if (jobLog.TriggerStatus.Equals(Enums.TriggerStatus.ErrorToReady))
             {
                 jobLog.Succeeded = false;
             }
-            if(context.Exception != null)
+            if (context.Exception != null)
             {
                 jobLog.ExceptionMessage = context.Exception.Message;
                 jobLog.Exception = context.Exception.InnerException?.ToString();
             }
+            SysJobLogDto logDto = jobLog.Adapt<SysJobLogDto>();
+            #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+            systemNotificationService.SendToGroup(EasyJobConstant.EasyJobNotificationGroupName, new EasyJobRunLogNotificationData(logDto));
+            #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+
             using var factory = serviceScopeFactory.CreateScope();
             IRepository<SysJobLog> repository = factory.ServiceProvider.GetRequiredService<IRepository<SysJobLog>>();
-            await repository.InsertNowAsync(jobLog);
+            repository.InsertNow(jobLog);
+            return Task.CompletedTask;
+
         }
 
         /// <summary>

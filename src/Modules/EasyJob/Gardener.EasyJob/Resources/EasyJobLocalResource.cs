@@ -126,6 +126,10 @@ namespace Gardener.EasyJob.Resources
         /// Cron
         /// </summary>
         public const string Cron = nameof(Cron);
+        /// <summary>
+        /// 日志
+        /// </summary>
+        public const string Log = nameof(Log);
 
 
     }

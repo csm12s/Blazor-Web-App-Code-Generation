@@ -171,6 +171,9 @@
   <data name="JobTypeFullName" xml:space="preserve">
     <value>任务类型名称</value>
   </data>
+  <data name="Log" xml:space="preserve">
+    <value>日志</value>
+  </data>
   <data name="NotStart" xml:space="preserve">
     <value>未启动</value>
   </data>
