@@ -20,6 +20,19 @@ namespace Gardener.Client.Base
         /// <returns></returns>
         Task ScrollBarToBottom(string boxId);
         /// <summary>
+        /// 如果有滚动条滚动到最上面
+        /// </summary>
+        /// <param name="boxId"></param>
+        /// <returns></returns>
+        Task ScrollBarToTop(string boxId);
+        /// <summary>
+        /// 如果有滚动条滚动到指定位置
+        /// </summary>
+        /// <param name="boxId"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        Task ScrollBar(string boxId, int height);
+        /// <summary>
         /// 赋值text到粘贴板
         /// </summary>
         /// <param name="text">文本</param>

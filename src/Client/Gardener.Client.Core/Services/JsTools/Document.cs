@@ -56,6 +56,27 @@ namespace Gardener.Client.Core.Services.JsTools
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="boxId"></param>
+        /// <returns></returns>
+        public async Task ScrollBarToTop(string boxId)
+        {
+            var module = await GetModule();
+            await module.InvokeVoidAsync("scrollBarToTop", boxId);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="boxId"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public async Task ScrollBar(string boxId, int height)
+        {
+            var module = await GetModule();
+            await module.InvokeVoidAsync("scrollBar", boxId, height);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
