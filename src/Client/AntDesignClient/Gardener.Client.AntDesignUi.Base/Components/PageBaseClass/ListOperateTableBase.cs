@@ -43,14 +43,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            Func<OperationDialogOutput?, Task> onClose = (result) =>
+            Func<TOperationDialogOutput?, Task> onClose = async (result) =>
             {
                 if (result != null && result.Succeeded)
                 {
                     //刷新列表
-                    return ReLoadTable(false, true);
+                    await ReLoadTable(false, true);
                 }
-                return Task.CompletedTask;
+                await OnAddDialogCloseAfter(input, result);
             };
 
             await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Add], input, onClose);
@@ -66,7 +66,20 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual Task<bool> OnClickAddRunBefore(TOperationDialogInput input)
         {
+            return Task.FromResult(true);
+        }
 
+        /// <summary>
+        /// 当添加框关闭时
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="output"></param>
+        /// <remarks>
+        /// 可用于处理关闭后操作
+        /// </remarks>
+        /// <returns></returns>
+        protected virtual Task<bool> OnAddDialogCloseAfter(TOperationDialogInput input, TOperationDialogOutput? output)
+        {
             return Task.FromResult(true);
         }
 
@@ -81,14 +94,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            Func<OperationDialogOutput?, Task> onClose = async (result) =>
+            Func<TOperationDialogOutput?, Task> onClose = async (result) =>
             {
                 if (result != null && result.Succeeded)
                 {
                     //刷新列表
                     await ReLoadTable(false, true);
                 }
-                return;
+                await OnEditDialogCloseAfter(input, result);
             };
             await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Edit], input, onClose);
         }
@@ -103,10 +116,22 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual Task<bool> OnClickEditRunBefore(TOperationDialogInput input)
         {
+            return Task.FromResult(true);
+        }
+        /// <summary>
+        /// 当编辑框关闭时
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="output"></param>
+        /// <remarks>
+        /// 可用于处理关闭后操作
+        /// </remarks>
+        /// <returns></returns>
+        protected virtual Task<bool> OnEditDialogCloseAfter(TOperationDialogInput input, TOperationDialogOutput? output)
+        {
 
             return Task.FromResult(true);
         }
-
         /// <summary>
         /// 点击编辑按钮
         /// </summary>
@@ -118,7 +143,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Detail], input);
+            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResource.Detail], input, output => { return OnDetailDialogCloseAfter(input, output); } );
         }
 
         /// <summary>
@@ -131,7 +156,19 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// <returns></returns>
         protected virtual Task<bool> OnClickDetailRunBefore(TOperationDialogInput input)
         {
-
+            return Task.FromResult(true);
+        }
+        /// <summary>
+        /// 当详情框关闭时
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="output"></param>
+        /// <remarks>
+        /// 可用于处理关闭后操作
+        /// </remarks>
+        /// <returns></returns>
+        protected virtual Task<bool> OnDetailDialogCloseAfter(TOperationDialogInput input, TOperationDialogOutput? output)
+        {
             return Task.FromResult(true);
         }
     }
