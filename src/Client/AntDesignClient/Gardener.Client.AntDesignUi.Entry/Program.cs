@@ -71,8 +71,7 @@ namespace Gardener.Client.AntDesignUi.Entry
             #endregion
 
             #region ±¾µØ»¯
-            builder.Services.AddLocalization();
-            builder.Services.AddCulture<SharedLocalResource>();
+            builder.Services.AddAppLocalization<SharedLocalResource>();
             #endregion
 
             #region services
@@ -89,7 +88,7 @@ namespace Gardener.Client.AntDesignUi.Entry
             #endregion
 
             var host =builder.Build();
-            await host.UseCulture(ClientConstant.BlazorCultureKey,ClientConstant.DefaultCulture);
+            await host.UseAppLocalization(ClientConstant.BlazorCultureKey,ClientConstant.DefaultCulture);
             await host.RunAsync();
         }
     }

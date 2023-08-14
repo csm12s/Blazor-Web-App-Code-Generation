@@ -31,23 +31,23 @@
 
 	<ItemGroup>
 		<EmbeddedResource Update="Base\Resources\CodeLocalResource.en.resx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\CodeLocalResource.zh.resx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\MenuNameLocalResource.en.resx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\MenuNameLocalResource.zh.resx">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\SharedLocalResource.en.resx">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\SharedLocalResource.zh.resx">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CustomToolNamespace>Gardener.Client</CustomToolNamespace>
 		</EmbeddedResource>
 		<EmbeddedResource Update="CodeGeneration\Resources\CodeGenLocalResource.en.resx">

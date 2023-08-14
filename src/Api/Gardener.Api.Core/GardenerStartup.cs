@@ -70,15 +70,7 @@ namespace Gardener.Admin
                 options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetJsonConverter());
             })
             //配置多语言
-            .AddAppLocalization(options => {
-                //不要移除，移除后会执行下面代码，造成指定资源时无法使用
-                //services.AddLocalization(options =>
-                //{
-                //    if (!string.IsNullOrWhiteSpace(localizationSettings.ResourcesPath))
-                //        options.ResourcesPath = localizationSettings.ResourcesPath;
-                //});
-
-            })
+            .AddAppLocalization()
             //注册动态api
             .AddDynamicApiControllers()
             //注册数据验证
@@ -88,8 +80,6 @@ namespace Gardener.Admin
             //注册规范返回格式
             .AddUnifyResult<MyRESTfulResultProvider>()
             ;
-            //配置多语言
-            services.AddLocalization();
             //注入包装好的本地化内容处理器
             services.AddLocalizationLocalizer<Base.Resources.SharedLocalResource>();
             //视图引擎

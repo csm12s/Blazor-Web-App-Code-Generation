@@ -80,10 +80,13 @@ namespace Gardener.LocalizationLocalizer
     /// 本地化器
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class LocalizationLocalizerMultipleImpl<T> : LocalizationLocalizerImpl<T>, ILocalizationLocalizer<T>
+    /// <remarks>
+    /// 先从指定的资源查找，找不到再从公共资源查找
+    /// </remarks>
+    public class LocalizationLocalizerCompensationImpl<T> : LocalizationLocalizerImpl<T>, ILocalizationLocalizer<T>
     {
         private readonly ILocalizationLocalizer commonLocalizer;
-        public LocalizationLocalizerMultipleImpl(IStringLocalizer<T> localizer, ILocalizationLocalizer commonLocalizer) : base(localizer)
+        public LocalizationLocalizerCompensationImpl(IStringLocalizer<T> localizer, ILocalizationLocalizer commonLocalizer) : base(localizer)
         {
             this.commonLocalizer = commonLocalizer;
         }

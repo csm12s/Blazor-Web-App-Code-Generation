@@ -22,14 +22,14 @@ namespace Gardener.LocalizationLocalizer
         /// <param name="services"></param>
         /// <returns></returns>
         /// <remarks>
-        /// 代替系统的 <see cref="Microsoft.Extensions.Localization.IStringLocalizer"/>
+        /// 代替系统的 <see cref="IStringLocalizer"/>
         /// </remarks>
         public static IServiceCollection AddLocalizationLocalizer<TDefaultResource>(this IServiceCollection services)
         {
             //注入公共默认的
             services.TryAddTransient<ILocalizationLocalizer, LocalizationLocalizerImpl<TDefaultResource>>();
             //注入其它资源类的
-            services.TryAddTransient(typeof(ILocalizationLocalizer<>), typeof(LocalizationLocalizerMultipleImpl<>));
+            services.TryAddTransient(typeof(ILocalizationLocalizer<>), typeof(LocalizationLocalizerCompensationImpl<>));
 
             return services;
         }
@@ -44,10 +44,7 @@ namespace Gardener.LocalizationLocalizer
 
             Lo.Init(type =>
             {
-                //IServiceScopeFactory scopeFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
-                //using var scope = scopeFactory.CreateScope();
                 object localizer = serviceProvider.GetRequiredService(type);
-
                 return (ILocalizationLocalizer)localizer;
             });
             return serviceProvider;

@@ -12,6 +12,7 @@ using Gardener.SystemManager.Dtos;
 using Gardener.SystemManager.Resources;
 using Gardener.SystemManager.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace Gardener.SystemManager.Client.Pages.CodeView
 {

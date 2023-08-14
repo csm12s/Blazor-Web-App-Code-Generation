@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="今日" xml:space="preserve">
-    <value>今日1</value>
+  <data name="A month" xml:space="preserve">
+    <value>近一月</value>
+  </data>
+  <data name="A week" xml:space="preserve">
+    <value>近一周</value>
+  </data>
+  <data name="A year" xml:space="preserve">
+    <value>近一年</value>
+  </data>
+  <data name="Half a year" xml:space="preserve">
+    <value>近半年</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今日</value>
   </data>
 </root>
