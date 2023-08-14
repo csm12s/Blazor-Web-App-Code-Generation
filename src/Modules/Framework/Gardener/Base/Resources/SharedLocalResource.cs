@@ -72,6 +72,14 @@ namespace Gardener.Base.Resources
         /// </summary>
         public const string Success = nameof(Success);
         /// <summary>
+        /// 成功
+        /// </summary>
+        public const string Succeed = nameof(Succeed);
+        /// <summary>
+        /// 总数
+        /// </summary>
+        public const string Total = nameof(Total);
+        /// <summary>
         /// 失败
         /// </summary>
         public const string Fail = nameof(Fail);

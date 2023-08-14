@@ -747,4 +747,13 @@
   <data name="SystemNotification" xml:space="preserve">
     <value>系统通知</value>
   </data>
+  <data name="Failed" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="Succeed" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>总数</value>
+  </data>
 </root>

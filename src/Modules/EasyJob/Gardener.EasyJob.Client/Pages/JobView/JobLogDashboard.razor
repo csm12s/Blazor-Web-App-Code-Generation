@@ -1,24 +1,56 @@
 ﻿@inherits ReuseTabsPageBase
 @page "/system_manager/easy_job_dashboard"
-<Row Gutter="24">
-    <Col Span="24">
+<Row Gutter="24" Style="margin-bottom:5px;">
     
+    <Col Span="8">
+    
+    </Col>
+    <Col Span="8">
+
+    </Col>
+    <Col Span="4">
+        @if (timeQueryCodes != null)
+        {
+        <Select DataSource="@timeQueryCodes"
+            @bind-Value="@timeQueryDays"
+                ValueName="@nameof(CodeDto.CodeValue)"
+                LabelName="@nameof(CodeDto.LocalCodeName)"
+                TItem="CodeDto"
+                TItemValue="string"
+                OnSelectedItemChanged="OnTimeQueryTypeSelectedItemChanged"
+            AllowClear>
+     </Select>
+        }
+    </Col>
+    <Col Span="4">
+        @if (jobs != null)
+        {
+        <Select DataSource="@jobs"
+            @bind-Value="@jobId"
+                ValueName="@nameof(SysJobDetailDto.JobId)"
+                LabelName="@nameof(SysJobDetailDto.Description)"
+                TItem="SysJobDetailDto"
+                TItemValue="string"
+                OnSelectedItemChanged="OnJobSelectedItemChanged"
+            AllowClear>
+     </Select>
+        }
     </Col>
 </Row>
 <Row Gutter="24">
     <Col Span="8">
     <Card>
-        <Statistic Title="@Localizer["运行次数"]" Value="112893" />
+        <Statistic Title="@Localizer["Total"]" Value="@runsNumberCount.Total" />
     </Card>
     </Col>
     <Col Span="8">
     <Card>
-        <Statistic Title="@Localizer["成功次数"]" Value="112893" />
+        <Statistic Title="@Localizer["Succeed"]" Value="@runsNumberCount.Succeed" />
     </Card>
     </Col>
     <Col Span="8">
     <Card>
-        <Statistic Title="@Localizer["失败次数"]" Value="112893" />
+        <Statistic Title="@Localizer["Failed"]" Value="@runsNumberCount.Fail" />
     </Card>
     </Col>
 </Row>

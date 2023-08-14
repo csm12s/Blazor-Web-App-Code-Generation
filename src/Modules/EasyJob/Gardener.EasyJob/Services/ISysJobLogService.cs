@@ -14,5 +14,15 @@ namespace Gardener.EasyJob.Services
     /// </summary>
     public interface ISysJobLogService : IServiceBase<SysJobLogDto, long>
     {
+        /// <summary>
+        /// 获取运行次数统计
+        /// </summary>
+        /// <remarks>
+        /// 获取任务运行次数统计
+        /// </remarks>
+        /// <param name="jobId"></param>
+        /// <param name="days"></param>
+        /// <returns></returns>
+        Task<SysJobLogRunsNumberCount> GetRunsNumberCount(string? jobId = null, int? days = null);
     }
 }

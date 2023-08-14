@@ -22,5 +22,15 @@ namespace Gardener.EasyJob.Client.Services
         public SysJobLogService(IApiCaller apiCaller) : base(apiCaller, "sys-job-log")
         {
         }
+
+        public Task<SysJobLogRunsNumberCount> GetRunsNumberCount(string? jobId = null, int? days = null)
+        {
+            IDictionary<string, object?> queryString = new Dictionary<string, object?>()
+            {
+                {nameof(jobId), jobId},
+                {nameof(days), days},
+            };
+            return apiCaller.GetAsync<SysJobLogRunsNumberCount>($"{controller}/runs-number-count", queryString);
+        }
     }
 }
