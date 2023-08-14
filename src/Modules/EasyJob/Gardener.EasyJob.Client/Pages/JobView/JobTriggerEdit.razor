@@ -8,7 +8,7 @@
           OnFinish="OnFormFinish"
           Context="model"
           Size="@AntSizeLDSType.Small">
-        <Tabs DefaultActiveKey="1" Type="@TabType.Line">
+        <Tabs DefaultActiveKey="1" Type="@TabType.Line" @bind-ActiveKey="tabActiveKey">
             <TabPane Key="baseInfo" Tab="@Localizer["BasicInformation"]" Closable="false">
                 <Row Gutter="24">
                     <GridCol Span="14">
@@ -22,18 +22,18 @@
                             <TextArea @bind-Value="@model.Description" />
                         </FormItem>
                         <FormItem Label="@Localizer[EasyJobLocalResource.TriggerAssemblyType]">
-                            <RadioGroup TValue="int" @bind-Value="@executeType" OnChange="OnChangeExecuteType">
-                                <Radio Value="0">@Localizer[EasyJobLocalResource.Interval]</Radio>
-                                <Radio Value="1">@Localizer[EasyJobLocalResource.Cron]</Radio>
+                            <RadioGroup TValue="string" @bind-Value="@model.TriggerType" OnChange="OnChangeExecuteType">
+                                <Radio Value="@(EasyJobConstant.TriggerTypeInterval)">@Localizer[EasyJobLocalResource.Interval]</Radio>
+                                <Radio Value="@(EasyJobConstant.TriggerTypeCron)">@Localizer[EasyJobLocalResource.Cron]</Radio>
                             </RadioGroup>
                         </FormItem>
-                        @if(executeType==0)
+                        @if (EasyJobConstant.TriggerTypeInterval.Equals(model.TriggerType))
                         {
                             <FormItem Label="@Localizer[EasyJobLocalResource.Interval]">
                                 <InputNumber @bind-Value="@triggerInterval" />
                             </FormItem>
                         }
-                        else if(executeType==1)
+                        else if (EasyJobConstant.TriggerTypeCron.Equals(model.TriggerType))
                         {
                             <FormItem Label="@Localizer[EasyJobLocalResource.Cron]">
                                 <AntDesign.Input TValue="string" @bind-Value="@triggerCron">

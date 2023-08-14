@@ -4,6 +4,7 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
+using AntDesign;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Dtos.Notification;
@@ -23,16 +24,11 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// </summary>
         [Inject]
         public IEventBus EventBus { get; set; } = null!;
+        private string tabActiveKey = "baseInfo";
         /// <summary>
         /// 触发器更新通知订阅者
         /// </summary>
         private Subscriber? triggerUpdateNotificationSubscriber;
-        /// <summary>
-        /// 定时执行方式
-        /// 0：间隔
-        /// 1：Cron
-        /// </summary>
-        private int executeType = 0;
         /// <summary>
         /// 触发器-执行间隔
         /// </summary>
@@ -41,7 +37,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             get
             {
 
-                if (string.IsNullOrEmpty(_editModel.Args) || GetExecuteType() != 0)
+                if (string.IsNullOrEmpty(_editModel.Args) || !EasyJobConstant.TriggerTypeInterval.Equals(_editModel.TriggerType))
                 {
                     return null;
                 }
@@ -63,7 +59,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             get
             {
 
-                if (string.IsNullOrEmpty(_editModel.Args) || GetExecuteType()!=1)
+                if (string.IsNullOrEmpty(_editModel.Args) || !EasyJobConstant.TriggerTypeCron.Equals(_editModel.TriggerType))
                 {
                     return null;
                 }
@@ -86,7 +82,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             get
             {
 
-                if (string.IsNullOrEmpty(_editModel.Args) || GetExecuteType() != 1)
+                if (string.IsNullOrEmpty(_editModel.Args) || !EasyJobConstant.TriggerTypeCron.Equals(_editModel.TriggerType))
                 {
                     return 0;
                 }
@@ -100,14 +96,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                 }
             }
         }
-        /// <summary>
-        /// 定时执行方式-触发器实现类名称
-        /// </summary>
-        Dictionary<int, string> executeTypeMap = new Dictionary<int, string>()
-        {
-            {0,"Furion.Schedule.PeriodTrigger" },
-            {1,"Furion.Schedule.CronTrigger" },
-        };
+       
         /// <summary>
         /// 触发器-Cron类型字典
         /// </summary>
@@ -118,21 +107,6 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             {2,"WithSeconds" },
             {3,"WithSecondsAndYears" },
         };
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private int GetExecuteType()
-        {
-            foreach (var item in executeTypeMap)
-            {
-                if (item.Value.Equals(_editModel.TriggerType))
-                {
-                    return item.Key;
-                }
-            }
-            return 0;
-        }
 
         /// <summary>
         /// 
@@ -143,7 +117,6 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             //订阅触发器更新
             triggerUpdateNotificationSubscriber = EventBus.Subscribe<EasyJobTriggerUpdateNotificationData>(OnEasyJobTriggerUpdate);
             await base.OnInitializedAsync();
-            executeType = GetExecuteType();
         }
         /// <summary>
         /// 释放
@@ -177,14 +150,19 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             _editModel.NumberOfErrors = trigger.NumberOfErrors;
             _editModel.NumberOfRuns = trigger.NumberOfRuns;
             _editModel.ElapsedTime = trigger.ElapsedTime;
+            if (!"status".Equals(tabActiveKey))
+            {
+                return Task.CompletedTask;
+            }
             return base.RefreshPageDom();
         }
         /// <summary>
         /// 
         /// </summary>
-        private Task OnChangeExecuteType(int i)
+        private Task OnChangeExecuteType(string type)
         {
-            _editModel.TriggerType = executeTypeMap.GetValueOrDefault(executeType);
+            //目前只有Furion提供的触发器
+            _editModel.AssemblyName = "Furion";
             _editModel.Args = null;
             return Task.CompletedTask;
         }

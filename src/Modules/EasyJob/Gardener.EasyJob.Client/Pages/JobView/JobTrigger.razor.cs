@@ -7,6 +7,7 @@
 using AntDesign;
 using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.Client.Base;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Dtos.Notification;
 using Gardener.EasyJob.Resources;
@@ -47,6 +48,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
 
         private bool enableRealTimeMonitor = false;
         private bool enableRealTimeMonitorLoading = false;
+        private bool openOperationDialog = false;
         /// <summary>
         /// 
         /// </summary>
@@ -82,6 +84,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// <returns></returns>
         private Task OnEasyJobTriggerUpdate(EasyJobTriggerUpdateNotificationData triggerNotificationData)
         {
+           
             SysJobTriggerDto trigger = triggerNotificationData.Trigger;
             if (_datas == null)
             {
@@ -89,11 +92,10 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             }
             //更新
             SysJobTriggerDto? oldTrigger = _datas.FirstOrDefault(x => x.Id == trigger.Id);
-            if (oldTrigger == null || (oldTrigger.UpdatedTime!=null && trigger.UpdatedTime!=null && trigger.UpdatedTime< oldTrigger.UpdatedTime))
+            if (oldTrigger == null || (oldTrigger.UpdatedTime != null && trigger.UpdatedTime != null && trigger.UpdatedTime < oldTrigger.UpdatedTime))
             {
                 return Task.CompletedTask;
             }
-            //赋值
             //赋值
             oldTrigger.Status = trigger.Status;
             oldTrigger.Result = trigger.Result;
@@ -102,6 +104,11 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             oldTrigger.NumberOfErrors = trigger.NumberOfErrors;
             oldTrigger.NumberOfRuns = trigger.NumberOfRuns;
             oldTrigger.ElapsedTime = trigger.ElapsedTime;
+            //打开弹框时不刷新
+            if (openOperationDialog)
+            {
+                return Task.CompletedTask;
+            }
             return base.RefreshPageDom();
         }
         /// <summary>
@@ -158,7 +165,6 @@ namespace Gardener.EasyJob.Client.Pages.JobView
                     MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Fail));
                 }
             }
-
         }
 
         /// <summary>
@@ -185,7 +191,38 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             }
             enableRealTimeMonitorLoading = false;
         }
+        protected override Task<bool> OnClickAddRunBefore(OperationDialogInput<int> input)
+        {
+            openOperationDialog = true;
+            return base.OnClickAddRunBefore(input);
+        }
+        protected override Task<bool> OnClickDetailRunBefore(OperationDialogInput<int> input)
+        {
+            openOperationDialog = true;
+            return base.OnClickDetailRunBefore(input);
+        }
 
+        protected override Task<bool> OnClickEditRunBefore(OperationDialogInput<int> input)
+        {
+            openOperationDialog = true;
+            return base.OnClickEditRunBefore(input);
+        }
+
+        protected override Task<bool> OnAddDialogCloseAfter(OperationDialogInput<int> input, OperationDialogOutput<int>? output)
+        {
+            openOperationDialog = false;
+            return base.OnAddDialogCloseAfter(input, output);
+        }
+        protected override Task<bool> OnEditDialogCloseAfter(OperationDialogInput<int> input, OperationDialogOutput<int>? output)
+        {
+            openOperationDialog = false;
+            return base.OnAddDialogCloseAfter(input, output);
+        }
+        protected override Task<bool> OnDetailDialogCloseAfter(OperationDialogInput<int> input, OperationDialogOutput<int>? output)
+        {
+            openOperationDialog = false;
+            return base.OnAddDialogCloseAfter(input, output);
+        }
         /// <summary>
         /// 打开日志控制台
         /// </summary>
@@ -195,8 +232,14 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             OperationDialogSettings operationDialogSettings = base.GetOperationDialogSettings();
 
             operationDialogSettings.ModalMaximizable = true;
-
-            return base.OpenOperationDialogAsync<JobLogConsole, JobLogConsoleInput, bool>(detail.Description ?? (detail.JobId+" "+detail.TriggerId), new JobLogConsoleInput(detail.JobId, detail.TriggerId), operationDialogSettings: operationDialogSettings);
+            openOperationDialog = true;
+            return base.OpenOperationDialogAsync<JobLogConsole, JobLogConsoleInput, bool>(detail.Description ?? (detail.JobId + " " + detail.TriggerId), new JobLogConsoleInput(detail.JobId, detail.TriggerId),
+                operationDialogSettings: operationDialogSettings,
+                onClose: b =>
+                {
+                    openOperationDialog = false;
+                    return Task.CompletedTask;
+                });
         }
     }
 }
