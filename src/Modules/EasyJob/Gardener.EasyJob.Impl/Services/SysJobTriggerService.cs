@@ -166,6 +166,12 @@ namespace Gardener.EasyJob.Impl.Services
             {
                 throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
             }
+            Trigger? trigger;
+            scheduler.TryGetTrigger(jobTrigger.TriggerId, out trigger);
+            if (trigger == null)
+            {
+                throw Oops.Oh(ExceptionCode.Data_Not_Find);
+            }
             return Task.FromResult(scheduler.PauseTrigger(jobTrigger.TriggerId));
         }
 

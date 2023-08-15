@@ -7,6 +7,7 @@
 using BlazorMonaco.Editor;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
+using Gardener.EasyJob.Enums;
 using Gardener.EasyJob.Resources;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -45,7 +46,22 @@ namespace Gardener.EasyJob.Client.Pages.JobView
 
         protected override async Task OnFormFinish(EditContext editContext)
         {
-            _editModel.ScriptCode = await _editor.GetValue();
+            if (JobCreateType.Script.Equals(_editModel.CreateType)) 
+            {
+                if (_editor == null)
+                {
+                    tabActiveKey = "script";
+                    return;
+                }
+                string code=await _editor.GetValue();
+                if(string.IsNullOrEmpty(code))
+                {
+                    tabActiveKey = "script";
+                    return;
+                }
+                _editModel.ScriptCode = code;
+
+            }
             await base.OnFormFinish(editContext);
         }
     }

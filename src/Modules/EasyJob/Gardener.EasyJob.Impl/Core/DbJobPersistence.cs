@@ -51,7 +51,15 @@ namespace Gardener.EasyJob.Impl.Core
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobDetailRepository.InsertNow(jobDetail.Adapt<SysJobDetail>());
+                    SysJobDetail? dbJobDetail = jobDetailRepository.Where(x => x.JobId.Equals(jobDetail.JobId)).FirstOrDefault();
+                    if (dbJobDetail != null)
+                    {
+                        jobDetailRepository.UpdateNow(jobDetail.Adapt(dbJobDetail));
+                    }
+                    else
+                    {
+                        jobDetailRepository.InsertNow(jobDetail.Adapt<SysJobDetail>());
+                    }
                     break;
 
                 case PersistenceBehavior.Updated:
@@ -79,6 +87,7 @@ namespace Gardener.EasyJob.Impl.Core
         /// <returns></returns>
         public SchedulerBuilder OnLoading(SchedulerBuilder builder)
         {
+            //从数据库加载
             return builder;
         }
         /// <summary>
@@ -94,16 +103,24 @@ namespace Gardener.EasyJob.Impl.Core
             switch (context.Behavior)
             {
                 case PersistenceBehavior.Appended:
-                    jobTriggerRepository.InsertNow(jobTrigger.Adapt<SysJobTrigger>());
+                    var dbJobTrigger = jobTriggerRepository.Where(x => x.TriggerId.Equals(jobTrigger.TriggerId)).FirstOrDefault();
+                    if (dbJobTrigger != null)
+                    {
+                        jobTriggerRepository.UpdateNow(jobTrigger.Adapt(dbJobTrigger));
+                    }
+                    else
+                    {
+                        jobTriggerRepository.InsertNow(jobTrigger.Adapt<SysJobTrigger>());
+                    }
                     break;
 
                 case PersistenceBehavior.Updated:
-                    var list= jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList();
+                    var list = jobTriggerRepository.Where(u => u.TriggerId == jobTrigger.TriggerId && u.JobId == jobTrigger.JobId).ToList();
                     foreach (var item in list)
                     {
                         SysJobTrigger newTrigger = jobTrigger.Adapt(item);
                         jobTriggerRepository.UpdateNow(newTrigger);
-                        _systemNotificationService.SendToGroup(EasyJobConstant.EasyJobNotificationGroupName,new EasyJobTriggerUpdateNotificationData(newTrigger.Adapt<SysJobTriggerDto>()));
+                        _systemNotificationService.SendToGroup(EasyJobConstant.EasyJobNotificationGroupName, new EasyJobTriggerUpdateNotificationData(newTrigger.Adapt<SysJobTriggerDto>()));
                     }
                     break;
 
@@ -160,8 +177,8 @@ namespace Gardener.EasyJob.Impl.Core
             var _jobRepository = scope.ServiceProvider.GetRequiredService<IRepository<SysJobDetail>>();
             // 若数据库不存在任何作业，则直接返回
             if (!_jobRepository.Any(u => true)) return allJobs;
-
-            // 遍历所有定义的作业
+            var _triggerRepository = scope.ServiceProvider.GetRequiredService<IRepository<SysJobTrigger>>();
+            // 遍历所有程序中定义的作业
             foreach (var schedulerBuilder in allJobs)
             {
                 // 获取作业信息构建器
@@ -174,7 +191,6 @@ namespace Gardener.EasyJob.Impl.Core
                 JobDetail detail = dbDetail.Adapt<JobDetail>();
                 // 同步数据库数据
                 jobBuilder.LoadFrom(detail);
-                var _triggerRepository = scope.ServiceProvider.GetRequiredService<IRepository<SysJobTrigger>>();
                 // 遍历所有作业触发器
                 foreach (var (_, triggerBuilder) in schedulerBuilder.GetEnumerable())
                 {
@@ -189,7 +205,22 @@ namespace Gardener.EasyJob.Impl.Core
                 // 标记更新
                 schedulerBuilder.Updated();
             }
+            var dbJobs = _jobRepository.AsQueryable(false).Where(x => x.IsLocked == false && x.IsDeleted == false).ToList();
+            SchedulerLoader schedulerLoader = scope.ServiceProvider.GetRequiredService<SchedulerLoader>();
 
+            foreach (var dbJob in dbJobs)
+            {
+                if (allJobs.Any(x => x.GetJobBuilder().JobId.Equals(dbJob.JobId))) { continue; }
+                List<TriggerBuilder> triggers = new List<TriggerBuilder>();
+                var dbTriggers = _triggerRepository.Where(u => u.JobId == dbJob.JobId).ToList();
+                foreach (var trigger in dbTriggers)
+                {
+                    triggers.Add(Triggers.Create(trigger.AssemblyName, trigger.TriggerType).LoadFrom(trigger.Adapt<Trigger>()));
+                }
+                //构建任务
+                schedulerLoader.AddJob(dbJob, triggers.ToArray());
+
+            }
             return allJobs;
         }
     }
