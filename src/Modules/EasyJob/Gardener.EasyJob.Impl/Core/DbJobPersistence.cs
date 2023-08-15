@@ -207,7 +207,7 @@ namespace Gardener.EasyJob.Impl.Core
             }
             var dbJobs = _jobRepository.AsQueryable(false).Where(x => x.IsLocked == false && x.IsDeleted == false).ToList();
             SchedulerLoader schedulerLoader = scope.ServiceProvider.GetRequiredService<SchedulerLoader>();
-
+            List<SchedulerBuilder> noFindSchedulerBuilders = new List<SchedulerBuilder>();
             foreach (var dbJob in dbJobs)
             {
                 if (allJobs.Any(x => x.GetJobBuilder().JobId.Equals(dbJob.JobId))) { continue; }
@@ -215,13 +215,17 @@ namespace Gardener.EasyJob.Impl.Core
                 var dbTriggers = _triggerRepository.Where(u => u.JobId == dbJob.JobId).ToList();
                 foreach (var trigger in dbTriggers)
                 {
-                    triggers.Add(Triggers.Create(trigger.AssemblyName, trigger.TriggerType).LoadFrom(trigger.Adapt<Trigger>()));
+                    triggers.Add(TriggerBuilder.From(trigger.Adapt<Trigger>()));
                 }
-                //构建任务
-                schedulerLoader.AddJob(dbJob, triggers.ToArray());
+                //jobBuilder
+                JobBuilder jobBuilder = schedulerLoader.CreateJobBuilder(dbJob);
+                //schedulerBuilder
+                var schedulerBuilder = SchedulerBuilder.Create(jobBuilder, triggers.ToArray());
+                noFindSchedulerBuilders.Add(schedulerBuilder);
 
             }
-            return allJobs;
+            noFindSchedulerBuilders.AddRange(allJobs);
+            return noFindSchedulerBuilders;
         }
     }
 }

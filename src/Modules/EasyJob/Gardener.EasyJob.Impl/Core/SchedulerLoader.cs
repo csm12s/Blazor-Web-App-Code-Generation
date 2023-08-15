@@ -13,11 +13,6 @@ using Gardener.EasyJob.Resources;
 using Gardener.Enums;
 using Gardener.LocalizationLocalizer;
 using Mapster;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gardener.EasyJob.Impl.Core
 {
@@ -43,8 +38,7 @@ namespace Gardener.EasyJob.Impl.Core
         /// 加载job到调度
         /// </summary>
         /// <param name="jobDetail"></param>
-        /// <param name="triggerBuilders"></param>
-        public void AddJob(SysJobDetail jobDetail, params TriggerBuilder[] triggerBuilders)
+        public JobBuilder CreateJobBuilder(SysJobDetail jobDetail)
         {
             // 动态创建作业
             Type? jobType;
@@ -73,25 +67,10 @@ namespace Gardener.EasyJob.Impl.Core
                 default:
                     throw new NotSupportedException();
             }
-            var job = JobBuilder
+            return JobBuilder
                     .Create(jobType)
                     .LoadFrom(jobDetail.Adapt<JobDetail>())
                     .SetJobType(jobType);
-            //加载 job
-            _schedulerFactory.AddJob(job);
-            if(triggerBuilders.Length > 0)
-            {
-                //获取job调度
-                var scheduler = _schedulerFactory.GetJob(job.JobId);
-                //获取job现有触发器
-                var runTriggers = scheduler.GetTriggers();
-                foreach (var trigger in triggerBuilders)
-                {
-                    if (runTriggers.Any(x => x.TriggerId.Equals(trigger.TriggerId))){ continue; }
-                    //添加不存在的触发器
-                    scheduler.AddTrigger(trigger);
-                }
-            }    
         }
 
         /// <summary>
@@ -99,7 +78,7 @@ namespace Gardener.EasyJob.Impl.Core
         /// </summary>
         /// <param name="jobDetail"></param>
         /// <param name="oldJobDetail"></param>
-        public void UpdateJob(SysJobDetail jobDetail, SysJobDetail oldJobDetail)
+        public JobBuilder CreateOrUpdateJobBuilder(SysJobDetail jobDetail, SysJobDetail oldJobDetail)
         {
             var scheduler = _schedulerFactory.GetJob(jobDetail.JobId);
             if (scheduler == null)
@@ -112,6 +91,10 @@ namespace Gardener.EasyJob.Impl.Core
             {
                 if (string.IsNullOrEmpty(jobDetail.ScriptCode))
                     throw Oops.Oh(ExceptionCode.Field_Required, Lo.GetValue<EasyJobLocalResource>(nameof(jobDetail.ScriptCode)));
+
+                //内部生成的信息不能修改
+                jobDetail.AssemblyName = oldJobDetail.AssemblyName;
+                jobDetail.JobType = oldJobDetail.JobType;
 
                 if (jobDetail.ScriptCode != oldScriptCode)
                 {
@@ -126,13 +109,10 @@ namespace Gardener.EasyJob.Impl.Core
                     if (jobDetailAttribute.JobId != jobDetail.JobId)
                         throw Oops.Oh(EasyJobExceptionCode.Script_Code_JobId_Inconsistency);
 
-                    scheduler?.UpdateDetail(JobBuilder.Create(jobType).LoadFrom(jobDetail.Adapt<JobDetail>()).SetJobType(jobType));
+                    return JobBuilder.Create(jobType).LoadFrom(jobDetail.Adapt<JobDetail>()).SetJobType(jobType);
                 }
             }
-            else
-            {
-                scheduler?.UpdateDetail(scheduler.GetJobBuilder().LoadFrom(jobDetail.Adapt<JobDetail>()));
-            }
+            return scheduler.GetJobBuilder().LoadFrom(jobDetail.Adapt<JobDetail>());
         }
     }
 }

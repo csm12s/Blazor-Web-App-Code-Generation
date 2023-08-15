@@ -113,9 +113,10 @@ namespace Gardener.EasyJob.Impl.Services
 
             SysJobDetail? jobDetail = input.Adapt<SysJobDetail>();
             //入库
-            EntityEntry<SysJobDetail> entityEntry= await _sysJobDetailRep.InsertNowAsync(jobDetail);
+            EntityEntry<SysJobDetail> entityEntry = await _sysJobDetailRep.InsertNowAsync(jobDetail);
             //load 后 也会触发更新db
-            schedulerLoader.AddJob(entityEntry.Entity);
+            var jobBuilder = schedulerLoader.CreateJobBuilder(entityEntry.Entity);
+            _schedulerFactory.AddJob(jobBuilder);
             return entityEntry.Entity.Adapt<SysJobDetailDto>();
         }
 
@@ -145,8 +146,8 @@ namespace Gardener.EasyJob.Impl.Services
             await _sysJobDetailRep.UpdateNowAsync(newJooDetail);
 
             //更新 任务 也会触发更新db
-            schedulerLoader.UpdateJob(newJooDetail, sysJobDetail);
-
+            var jobBuilder = schedulerLoader.CreateOrUpdateJobBuilder(newJooDetail, sysJobDetail);
+            scheduler.UpdateDetail(jobBuilder);
             return true;
         }
 
