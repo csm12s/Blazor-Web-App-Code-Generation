@@ -58,7 +58,6 @@ namespace Gardener.EasyJob.Impl.Core
                 ElapsedTime = trigger.ElapsedTime,
                 NumberOfErrors = trigger.NumberOfErrors,
                 NumberOfRuns = trigger.NumberOfRuns,
-                Result = trigger.Result,
                 Succeeded = true,
                 CreatedTime=DateTimeOffset.Now,
                 JobDetailDescription = context.JobDetail.Description,
@@ -73,10 +72,14 @@ namespace Gardener.EasyJob.Impl.Core
                 jobLog.ExceptionMessage = context.Exception.Message;
                 jobLog.Exception = context.Exception.InnerException?.ToString();
             }
+            else 
+            {
+                jobLog.Result = trigger.Result;
+            }
             SysJobLogDto logDto = jobLog.Adapt<SysJobLogDto>();
             #pragma warning disable CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             systemNotificationService.SendToGroup(EasyJobConstant.EasyJobNotificationGroupName, new EasyJobRunLogNotificationData(logDto));
-#pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
+            #pragma warning restore CS4014 // 由于此调用不会等待，因此在调用完成前将继续执行当前方法
             if (!string.IsNullOrWhiteSpace(context.JobDetail.Properties))
             {
                 JsonElement properties =System.Text.Json.JsonSerializer.SerializeToElement(context.JobDetail.Properties);
@@ -101,7 +104,6 @@ namespace Gardener.EasyJob.Impl.Core
         /// <exception cref="NotImplementedException"></exception>
         public Task OnExecutingAsync(JobExecutingContext context, CancellationToken stoppingToken)
         {
-
             return Task.CompletedTask;
         }
     }

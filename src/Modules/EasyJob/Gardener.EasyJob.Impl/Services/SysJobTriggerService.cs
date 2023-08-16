@@ -26,7 +26,7 @@ namespace Gardener.EasyJob.Impl.Services
     /// 定时任务-触发器服务
     /// </summary>
     [ApiDescriptionSettings("EasyJobServices")]
-    public class SysJobTriggerService : ServiceBase<SysJobTrigger, SysJobTriggerDto,int>, ISysJobTriggerService, ITransient
+    public class SysJobTriggerService : ServiceBase<SysJobTrigger, SysJobTriggerDto, int>, ISysJobTriggerService, ITransient
     {
         private readonly IRepository<SysJobTrigger> _sysJobTriggerRep;
         private readonly ISchedulerFactory _schedulerFactory;
@@ -85,6 +85,8 @@ namespace Gardener.EasyJob.Impl.Services
             {
                 throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
             }
+            await _sysJobTriggerRep.UpdateNowAsync(sysJobTrigger);
+
             scheduler.UpdateTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
 
             return true;
@@ -97,7 +99,7 @@ namespace Gardener.EasyJob.Impl.Services
         /// <returns></returns>
         public override async Task<bool> Delete(int id)
         {
-            SysJobTrigger jobTrigger = _sysJobTriggerRep.Find(id);
+            SysJobTrigger jobTrigger = await _sysJobTriggerRep.SingleOrDefaultAsync(x => x.Id == id, false);
             if (jobTrigger == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
@@ -106,10 +108,10 @@ namespace Gardener.EasyJob.Impl.Services
             scheduler?.RemoveTrigger(jobTrigger.TriggerId);
 
             // 如果 _schedulerFactory 中不存在 JodId，则无法触发持久化，下行代码确保触发器能被删除
-            List<SysJobTrigger> jobTriggers = await _sysJobTriggerRep.Where(u => u.JobId == jobTrigger.JobId && u.TriggerId == jobTrigger.TriggerId).ToListAsync();
+            List<SysJobTrigger> jobTriggers = await _sysJobTriggerRep.AsQueryable(false).Where(u => u.JobId == jobTrigger.JobId && u.TriggerId == jobTrigger.TriggerId).ToListAsync();
             jobTriggers.ForEach(x =>
             {
-                _sysJobTriggerRep.Delete(x);
+                _sysJobTriggerRep.DeleteNow(x);
             });
             return true;
         }
@@ -154,9 +156,9 @@ namespace Gardener.EasyJob.Impl.Services
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        public Task<bool> Pause([ApiSeat(ApiSeats.ActionStart)]int id)
+        public Task<bool> Pause([ApiSeat(ApiSeats.ActionStart)] int id)
         {
-            SysJobTrigger jobTrigger = _sysJobTriggerRep.Find(id);
+            SysJobTrigger jobTrigger = _sysJobTriggerRep.SingleOrDefault(x => x.Id == id, false);
             if (jobTrigger == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
@@ -172,7 +174,13 @@ namespace Gardener.EasyJob.Impl.Services
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
             }
-            return Task.FromResult(scheduler.PauseTrigger(jobTrigger.TriggerId));
+            bool result= scheduler.PauseTrigger(jobTrigger.TriggerId);
+            if(result)
+            {
+                jobTrigger.Status = Enums.TriggerStatus.Pause;
+                _sysJobTriggerRep.UpdateIncludeNow(jobTrigger, new string[] { nameof(SysJobTrigger.Status) });
+            }
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -183,17 +191,23 @@ namespace Gardener.EasyJob.Impl.Services
         [HttpPost]
         public Task<bool> Start([ApiSeat(ApiSeats.ActionStart)] int id)
         {
-            SysJobTrigger jobTrigger = _sysJobTriggerRep.Find(id);
+            SysJobTrigger jobTrigger = _sysJobTriggerRep.SingleOrDefault(x => x.Id == id, false);
             if (jobTrigger == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
             }
             var scheduler = _schedulerFactory.GetJob(jobTrigger.JobId);
-            if(scheduler == null)
+            if (scheduler == null)
             {
                 throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
             }
-            return Task.FromResult(scheduler.StartTrigger(jobTrigger.TriggerId));
+            bool result = scheduler.StartTrigger(jobTrigger.TriggerId);
+            if (result)
+            {
+                jobTrigger.Status = Enums.TriggerStatus.Ready;
+                _sysJobTriggerRep.UpdateIncludeNow(jobTrigger, new string[] { nameof(SysJobTrigger.Status) });
+            }
+            return Task.FromResult(result);
         }
     }
 }

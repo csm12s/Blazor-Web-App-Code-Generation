@@ -22,10 +22,6 @@
                     <FormItem Label="@Localizer[EasyJobLocalResource.Description]">
                         <TextArea @bind-Value="@model.Description" />
                     </FormItem>
-                    
-                    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
-                        <Switch @bind-Value="@model.IsLocked"></Switch>
-                    </FormItem>
                     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
                     {
                         <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">

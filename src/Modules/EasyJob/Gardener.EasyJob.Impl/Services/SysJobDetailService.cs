@@ -20,10 +20,12 @@ using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Gardener.Enums;
 using Gardener.LocalizationLocalizer;
+using IdGen;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 
 namespace Gardener.EasyJob.Impl.Services
@@ -88,13 +90,13 @@ namespace Gardener.EasyJob.Impl.Services
                     });
                 }
             }
-            HttpJobMessage httpJobMessage = new HttpJobMessage();
-            httpJobMessage.RequestUri = "http://www.baidu.com";
-            httpJobMessage.HttpMethod = System.Net.Http.HttpMethod.Get;
-            httpJobMessage.ClientName = "test";
-            httpJobMessage.EnsureSuccessStatusCode = true;
-            httpJobMessage.Body = null;
-            var me = System.Text.Json.JsonSerializer.Serialize(httpJobMessage);
+            //HttpJobMessage httpJobMessage = new HttpJobMessage();
+            //httpJobMessage.RequestUri = "http://www.baidu.com";
+            //httpJobMessage.HttpMethod = System.Net.Http.HttpMethod.Get;
+            //httpJobMessage.ClientName = "test";
+            //httpJobMessage.EnsureSuccessStatusCode = true;
+            //httpJobMessage.Body = null;
+            //var me = System.Text.Json.JsonSerializer.Serialize(httpJobMessage);
             return page;
         }
 
@@ -111,12 +113,26 @@ namespace Gardener.EasyJob.Impl.Services
             if (isExist)
                 throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetValue<EasyJobLocalResource>(EasyJobLocalResource.JobId));
 
-            SysJobDetail? jobDetail = input.Adapt<SysJobDetail>();
+            SysJobDetail jobDetail = input.Adapt<SysJobDetail>();
+
+            //构建 builder 同时会赋值 执行类相关数据
+            JobBuilder jobBuilder = schedulerLoader.CreateJobBuilder(jobDetail);
             //入库
+            //扫描后下次不能扫了
+            jobDetail.IncludeAnnotations = false;
             EntityEntry<SysJobDetail> entityEntry = await _sysJobDetailRep.InsertNowAsync(jobDetail);
-            //load 后 也会触发更新db
-            var jobBuilder = schedulerLoader.CreateJobBuilder(entityEntry.Entity);
+            //入调度
             _schedulerFactory.AddJob(jobBuilder);
+            //if (jobDetail.CreateType.Equals(JobCreateType.Script) && jobDetail.IncludeAnnotations)
+            //{
+            //    IScheduler scheduler = _schedulerFactory.GetJob(jobDetail.JobId);
+            //    //运行中的detail
+            //    JobDetail detail = scheduler.GetJobDetail();
+            //    entityEntry.Entity.
+
+            //    _sysJobDetailRep.UpdateIncludeNow(entityEntry.Entity);
+
+            //}
             return entityEntry.Entity.Adapt<SysJobDetailDto>();
         }
 
@@ -132,7 +148,7 @@ namespace Gardener.EasyJob.Impl.Services
             if (isExist)
                 throw Oops.Oh(ExceptionCode.Data_Key_Uniqueness_Conflict, Lo.GetValue<EasyJobLocalResource>(nameof(SysJobDetailDto.JobId)));
 
-            var sysJobDetail = await _sysJobDetailRep.Where(u => u.Id == input.Id).FirstAsync();
+            var sysJobDetail = await _sysJobDetailRep.SingleOrDefaultAsync(x => x.Id == input.Id, false);
             if (sysJobDetail.JobId != input.JobId)
                 throw Oops.Oh(ExceptionCode.Field_Cannot_Be_Modified, Lo.GetValue<EasyJobLocalResource>(nameof(SysJobDetailDto.JobId)));
 
@@ -142,12 +158,14 @@ namespace Gardener.EasyJob.Impl.Services
                 throw Oops.Oh(ExceptionCode.Scheduler_Not_Find);
             }
             SysJobDetail newJooDetail = input.Adapt<SysJobDetail>();
-            //更新 db
-            await _sysJobDetailRep.UpdateNowAsync(newJooDetail);
-
-            //更新 任务 也会触发更新db
+            //更新 任务
             var jobBuilder = schedulerLoader.CreateOrUpdateJobBuilder(newJooDetail, sysJobDetail);
             scheduler.UpdateDetail(jobBuilder);
+            //更新 db
+            //扫描后下次不能扫了
+            newJooDetail.IncludeAnnotations = false;
+
+            await _sysJobDetailRep.UpdateNowAsync(newJooDetail);
             return true;
         }
 
@@ -157,7 +175,7 @@ namespace Gardener.EasyJob.Impl.Services
         /// <returns></returns>
         public override async Task<bool> Delete(int id)
         {
-            SysJobDetail? sysJobDetail = await _sysJobDetailRep.FindOrDefaultAsync(id);
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.SingleOrDefaultAsync(x => x.Id == id, false);
             if (sysJobDetail == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
@@ -165,12 +183,12 @@ namespace Gardener.EasyJob.Impl.Services
             _schedulerFactory.RemoveJob(sysJobDetail.JobId);
 
             // 如果 _schedulerFactory 中不存在 JodId，则无法触发持久化，下面的代码确保作业和触发器能被删除
-            var jobs = await _sysJobDetailRep.Where(u => u.JobId == sysJobDetail.JobId).ToListAsync();
+            var jobs = await _sysJobDetailRep.AsQueryable(false).Where(u => u.JobId == sysJobDetail.JobId).ToListAsync();
             foreach (var job in jobs)
             {
                 _sysJobDetailRep.DeleteNow(job);
             }
-            var triggers = await _sysJobTriggerRep.Where(u => u.JobId == sysJobDetail.JobId).ToListAsync();
+            var triggers = await _sysJobTriggerRep.AsQueryable(false).Where(u => u.JobId == sysJobDetail.JobId).ToListAsync();
             foreach (var trigger in triggers)
             {
                 _sysJobTriggerRep.DeleteNow(trigger);
@@ -218,7 +236,7 @@ namespace Gardener.EasyJob.Impl.Services
         /// <returns></returns>
         public async Task<IEnumerable<SysJobTriggerDto>> GetTriggers([ApiSeat(ApiSeats.ActionStart)] int id)
         {
-            SysJobDetail? sysJobDetail = await _sysJobDetailRep.FindOrDefaultAsync(id);
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.SingleOrDefaultAsync(x => x.Id == id, false);
             if (sysJobDetail == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
@@ -236,7 +254,7 @@ namespace Gardener.EasyJob.Impl.Services
         [HttpPost]
         public async Task<bool> Pause([ApiSeat(ApiSeats.ActionStart)] int id)
         {
-            SysJobDetail? sysJobDetail = await _sysJobDetailRep.FindOrDefaultAsync(id);
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.SingleOrDefaultAsync(x => x.Id == id, false);
             if (sysJobDetail == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);
@@ -257,7 +275,7 @@ namespace Gardener.EasyJob.Impl.Services
         [HttpPost]
         public async Task<bool> Start([ApiSeat(ApiSeats.ActionStart)] int id)
         {
-            SysJobDetail? sysJobDetail = await _sysJobDetailRep.FindOrDefaultAsync(id);
+            SysJobDetail? sysJobDetail = await _sysJobDetailRep.SingleOrDefaultAsync(x => x.Id == id, false);
             if (sysJobDetail == null)
             {
                 throw Oops.Oh(ExceptionCode.Data_Not_Find);

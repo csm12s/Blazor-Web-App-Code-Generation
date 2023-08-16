@@ -143,8 +143,8 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             if (AddToQueue(notificationData.Log))
             {
                 ResetContent();
-                await JsTool.Document.ScrollBarToBottom("log_content_textarea");
                 await base.RefreshPageDom();
+                await JsTool.Document.ScrollBarToBottom("log_content_textarea");
             }
         }
         /// <summary>
