@@ -39,7 +39,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         private string? timeQueryDays;
         private string? jobId;
 
-        private SysJobLogRunsNumberCount runsNumberCount = new SysJobLogRunsNumberCount();
+        private SysJobLogCountAll runsNumberCount = new SysJobLogCountAll();
         protected override async Task OnInitializedAsync()
         {
             //订阅触发器更新
@@ -72,7 +72,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         private async Task ReLoadCounts()
         {
             int days = timeQueryDays == null ? 1 : int.Parse(timeQueryDays);
-            runsNumberCount = await sysJobLogService.GetRunsNumberCount(jobId, days);
+            runsNumberCount = await sysJobLogService.GetAllCount(jobId, days);
         }
         /// <summary>
         /// 收到新日志

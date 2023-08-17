@@ -9,7 +9,7 @@ namespace Gardener.EasyJob.Dtos
     /// <summary>
     /// 运行次数统计
     /// </summary>
-    public class SysJobLogRunsNumberCount
+    public class SysJobLogCountAll
     {
         /// <summary>
         /// 总数

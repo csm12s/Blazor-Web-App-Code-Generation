@@ -23,14 +23,34 @@ namespace Gardener.EasyJob.Client.Services
         {
         }
 
-        public Task<SysJobLogRunsNumberCount> GetRunsNumberCount(string? jobId = null, int? days = null)
+        public Task<IEnumerable<SysJobLogElapsedTime>> GetAvgElapsedTime(string? jobId = null, int? days = null)
         {
             IDictionary<string, object?> queryString = new Dictionary<string, object?>()
             {
                 {nameof(jobId), jobId},
                 {nameof(days), days},
             };
-            return apiCaller.GetAsync<SysJobLogRunsNumberCount>($"{controller}/runs-number-count", queryString);
+            return apiCaller.GetAsync<IEnumerable<SysJobLogElapsedTime>>($"{controller}/avg-elapsed-time", queryString);
+        }
+
+        public Task<SysJobLogCountAll> GetAllCount(string? jobId = null, int? days = null)
+        {
+            IDictionary<string, object?> queryString = new Dictionary<string, object?>()
+            {
+                {nameof(jobId), jobId},
+                {nameof(days), days},
+            };
+            return apiCaller.GetAsync<SysJobLogCountAll>($"{controller}/all-count", queryString);
+        }
+
+        public Task<IEnumerable<SysJobLogCount>> GeCount(string? jobId = null, int? days = null)
+        {
+            IDictionary<string, object?> queryString = new Dictionary<string, object?>()
+            {
+                {nameof(jobId), jobId},
+                {nameof(days), days},
+            };
+            return apiCaller.GetAsync<IEnumerable<SysJobLogCount>>($"{controller}/count", queryString);
         }
     }
 }
