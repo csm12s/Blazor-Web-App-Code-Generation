@@ -38,7 +38,7 @@ namespace Gardener.EasyJob.Impl.Services
         /// <param name="jobId"></param>
         /// <param name="days"></param>
         /// <returns></returns>
-        public async Task<SysJobLogCountAll> GetAllCount([FromQuery] string? jobId = null, [FromQuery] int? days = null)
+        public async Task<SysJobLogAllCount> GetAllCount([FromQuery] string? jobId = null, [FromQuery] int? days = null)
         {
             IQueryable<SysJobLog> query = base._repository.AsQueryable(false);
             if (!string.IsNullOrEmpty(jobId))
@@ -52,7 +52,7 @@ namespace Gardener.EasyJob.Impl.Services
             }
             List<KeyValuePair<bool, int>> counts = await query.GroupBy(x => x.Succeeded, (k, g) => new KeyValuePair<bool, int>(k, g.Count())).ToListAsync();
 
-            SysJobLogCountAll result = new SysJobLogCountAll()
+            SysJobLogAllCount result = new SysJobLogAllCount()
             {
                 Succeed = counts.Where(x => x.Key == true).Sum(x => x.Value),
                 Fail = counts.Where(x => x.Key == false).Sum(x => x.Value),
@@ -84,7 +84,7 @@ namespace Gardener.EasyJob.Impl.Services
                 query = query.Where(x => x.CreatedTime >= beginTime);
                 if (days == 1)
                 {
-                    groupFunc = x => new { x.CreatedTime.Year, x.CreatedTime.Month, x.CreatedTime.Day, x.CreatedTime.Hour, x.JobId};
+                    groupFunc = x => new { x.CreatedTime.Year, x.CreatedTime.Month, x.CreatedTime.Day, x.CreatedTime.Hour, x.JobId };
                 }
             }
 
@@ -98,16 +98,16 @@ namespace Gardener.EasyJob.Impl.Services
 
             foreach (var item in counts)
             {
-                string group = $"{item.Key.Year}/{item.Key.Month}/{item.Key.Day}";
+                string time = new DateTime(item.Key.Year, item.Key.Month, item.Key.Day).ToString("yyyy-MM-dd");
                 if (days.HasValue && days == 1)
                 {
-                    group = $"{item.Key.Year}/{item.Key.Month}/{item.Key.Day} {item.Key.Hour}";
+                    time = new DateTime(item.Key.Year, item.Key.Month, item.Key.Day, item.Key.Hour, 0, 0).ToString("HH:mm");
                 }
-                SysJobLogElapsedTime time = new SysJobLogElapsedTime(group, item.Key.JobId, item.Value);
-                result.Add(time);
+                SysJobLogElapsedTime elapsedTime = new SysJobLogElapsedTime(time, item.Key.JobId, (long)Math.Round(item.Value));
+                result.Add(elapsedTime);
             }
 
-            return Task.FromResult<IEnumerable<SysJobLogElapsedTime>>(result.OrderBy(x=>x.Group));
+            return Task.FromResult<IEnumerable<SysJobLogElapsedTime>>(result.OrderBy(x => x.Time));
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Gardener.EasyJob.Impl.Services
         /// <remarks>
         /// 获取运行次数统计
         /// </remarks>
-        public Task<IEnumerable<SysJobLogCount>> GeCount([FromQuery] string? jobId = null, [FromQuery] int? days = null)
+        public Task<IEnumerable<SysJobLogCount>> GetCount([FromQuery] string? jobId = null, [FromQuery] int? days = null)
         {
             IQueryable<SysJobLog> query = base._repository.AsQueryable(false);
             if (!string.IsNullOrEmpty(jobId))
@@ -147,33 +147,33 @@ namespace Gardener.EasyJob.Impl.Services
             Dictionary<string, SysJobLogCount> result = new Dictionary<string, SysJobLogCount>();
             foreach (var item in counts)
             {
-                string group = $"{item.Key.Year}/{item.Key.Month}/{item.Key.Day}";
+                string time = $"{item.Key.Year}-{item.Key.Month}-{item.Key.Day}";
                 if (days.HasValue && days == 1)
                 {
-                    group = $"{item.Key.Year}/{item.Key.Month}/{item.Key.Day} {item.Key.Hour}";
+                    time = $"{item.Key.Hour}:00";
                 }
-                SysJobLogCount time;
-                if (result.ContainsKey(group))
+                SysJobLogCount count;
+                if (result.ContainsKey(time))
                 {
-                    time = result[group];
+                    count = result[time];
                 }
-                else 
+                else
                 {
-                    time = new SysJobLogCount(group, item.Key.JobId);
-                    result.Add(group, time);
+                    count = new SysJobLogCount(item.Key.JobId,time);
+                    result.Add(time, count);
                 }
                 if (item.Key.Succeeded)
                 {
-                    time.Succeed+=item.Value;
+                    count.Succeed += item.Value;
                 }
                 else
-                { 
-                    time.Fail += item.Value;
+                {
+                    count.Fail += item.Value;
                 }
-                time.Total += item.Value;
+                count.Total += item.Value;
             }
 
-            return Task.FromResult<IEnumerable<SysJobLogCount>>(result.Values.OrderBy(x => x.Group));
+            return Task.FromResult<IEnumerable<SysJobLogCount>>(result.Values.OrderBy(x => x.Time));
         }
 
     }

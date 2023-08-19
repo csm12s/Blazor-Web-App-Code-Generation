@@ -1,9 +1,9 @@
 ﻿@inherits ReuseTabsPageBase
 @page "/system_manager/easy_job_dashboard"
 <Row Gutter="24" Style="margin-bottom:5px;">
-    
+
     <Col Span="8">
-    
+
     </Col>
     <Col Span="8">
 
@@ -17,9 +17,8 @@
                 LabelName="@nameof(CodeDto.LocalCodeName)"
                 TItem="CodeDto"
                 TItemValue="string"
-                OnSelectedItemChanged="OnTimeQueryTypeSelectedItemChanged"
-            AllowClear>
-     </Select>
+                OnSelectedItemChanged="OnTimeQueryTypeSelectedItemChanged">
+        </Select>
         }
     </Col>
     <Col Span="4">
@@ -51,6 +50,20 @@
     <Col Span="8">
     <Card>
         <Statistic Title="@Localizer["Failed"]" Value="@runsNumberCount.Fail" />
+    </Card>
+    </Col>
+</Row>
+<Row Gutter="24" Style="margin-top:5px;">
+    <Col Span="24">
+    <Card>
+        <AntDesign.Charts.Line Config="logElapsedTimeChartConfig" OnFirstRender="OnElapsedTimeChartFirstRender" />
+    </Card>
+    </Col>
+</Row>
+<Row Gutter="24" Style="margin-top:5px;">
+    <Col Span="24">
+    <Card>
+        <AntDesign.Charts.Line Config="jobRunCountChartConfig" OnFirstRender="OnJobRunCountChartFirstRender" />
     </Card>
     </Col>
 </Row>

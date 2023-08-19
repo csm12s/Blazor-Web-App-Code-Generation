@@ -11,30 +11,31 @@ namespace Gardener.EasyJob.Dtos
     /// </summary>
     public class SysJobLogElapsedTime
     {
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="group"></param>
+        /// <param name="time"></param>
         /// <param name="jobName"></param>
         /// <param name="elapsedTime"></param>
-        public SysJobLogElapsedTime(string group, string jobName, double elapsedTime)
+        public SysJobLogElapsedTime(string time, string jobName, long elapsedTime)
         {
             ElapsedTime = elapsedTime;
             JobName = jobName;
-            Group = group;
+            Time = time;
         }
 
         /// <summary>
         /// 执行耗时
         /// </summary>
-        public double ElapsedTime { get; set; }
+        public long ElapsedTime { get; set; }
         /// <summary>
         /// 任务名
         /// </summary>
         public string JobName { get; set; }
         /// <summary>
-        /// 分组
+        /// 时间
         /// </summary>
-        public string Group { get; set; }
+        public string Time { get; set; }
     }
 }

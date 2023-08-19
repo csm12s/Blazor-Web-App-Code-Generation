@@ -23,7 +23,7 @@ namespace Gardener.EasyJob.Services
         /// <param name="jobId"></param>
         /// <param name="days"></param>
         /// <returns></returns>
-        Task<SysJobLogCountAll> GetAllCount(string? jobId = null, int? days = null);
+        Task<SysJobLogAllCount> GetAllCount(string? jobId = null, int? days = null);
 
         /// <summary>
         /// 获取评价耗时
@@ -45,6 +45,6 @@ namespace Gardener.EasyJob.Services
         /// <remarks>
         /// 获取运行次数统计
         /// </remarks>
-        Task<IEnumerable<SysJobLogCount>> GeCount(string? jobId = null, int? days = null);
+        Task<IEnumerable<SysJobLogCount>> GetCount(string? jobId = null, int? days = null);
     }
 }

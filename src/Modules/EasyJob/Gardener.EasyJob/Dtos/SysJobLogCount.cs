@@ -15,21 +15,20 @@ namespace Gardener.EasyJob.Dtos
         /// 运行次数统计
         /// </summary>
         /// <param name="jobName"></param>
-        /// <param name="group"></param>
-        public SysJobLogCount(string jobName, string group)
+        /// <param name="time"></param>
+        public SysJobLogCount(string jobName, string time)
         {
             JobName = jobName;
-            Group = group;
+            Time = time;
         }
-
         /// <summary>
         /// 任务名
         /// </summary>
         public string JobName { get; set; }
         /// <summary>
-        /// 分组
+        /// 时间
         /// </summary>
-        public string Group { get; set; }
+        public string Time { get; set; }
 
         /// <summary>
         /// 总数
