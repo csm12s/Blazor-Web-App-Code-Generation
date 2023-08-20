@@ -63,7 +63,22 @@
 <Row Gutter="24" Style="margin-top:5px;">
     <Col Span="24">
     <Card>
-        <AntDesign.Charts.Line Config="jobRunCountChartConfig" OnFirstRender="OnJobRunCountChartFirstRender" />
+        <Row Gutter="24" Style="margin-top:5px;">
+            <Col Span="24">
+            <SimpleSelect DefaultValue="total" Style="width:120px;" OnSelectedItemChanged="OnSelectedJobRunCountType">
+                <SelectOptions>
+                    <SimpleSelectOption Value="total" Label="@Localizer["Total"]"></SimpleSelectOption>
+                    <SimpleSelectOption Value="succeed" Label="@Localizer["Succeed"]"></SimpleSelectOption>
+                    <SimpleSelectOption Value="fail" Label="@Localizer["Failed"]"></SimpleSelectOption>
+                 </SelectOptions>
+             </SimpleSelect>
+            </Col>
+        </Row>
+        <Row Gutter="24" Style="margin-top:5px;">
+            <Col Span="24">
+            <AntDesign.Charts.Line Config="jobRunCountChartConfig" OnFirstRender="OnJobRunCountChartFirstRender" />
+            </Col>
+        </Row>
     </Card>
     </Col>
 </Row>

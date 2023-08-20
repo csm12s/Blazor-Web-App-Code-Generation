@@ -18,6 +18,10 @@ namespace Gardener.EasyJob.Resources
         /// </summary>
         public const string JobId= nameof(JobId);
         /// <summary>
+        /// 任务
+        /// </summary>
+        public const string Job= nameof(Job);
+        /// <summary>
         /// 分组名
         /// </summary>
         public const string GroupName = nameof(GroupName);
@@ -49,6 +53,10 @@ namespace Gardener.EasyJob.Resources
         /// 触发器编号
         /// </summary>
         public const string TriggerId = nameof(TriggerId);
+        /// <summary>
+        /// 触发器
+        /// </summary>
+        public const string Trigger = nameof(Trigger);
         /// <summary>
         /// 触发器参数
         /// </summary>
@@ -129,6 +137,10 @@ namespace Gardener.EasyJob.Resources
         /// 日志
         /// </summary>
         public const string Log = nameof(Log);
+        /// <summary>
+        /// 触发器状态
+        /// </summary>
+        public const string TriggerStatus = nameof(TriggerStatus);
 
 
     }

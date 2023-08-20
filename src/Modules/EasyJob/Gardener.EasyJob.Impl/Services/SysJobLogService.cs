@@ -11,6 +11,7 @@ using Gardener.EasyJob.Services;
 using Gardener.EntityFramwork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Gardener.EasyJob.Impl.Services
 {
@@ -20,12 +21,17 @@ namespace Gardener.EasyJob.Impl.Services
     [ApiDescriptionSettings("EasyJobServices")]
     public class SysJobLogService : ServiceBase<SysJobLog, SysJobLogDto, long>, ISysJobLogService
     {
+
+        private readonly ISysJobDetailService jobDetailService;
+
         /// <summary>
         /// 定时任务-执行日志
         /// </summary>
         /// <param name="repository"></param>
-        public SysJobLogService(IRepository<SysJobLog, MasterDbContextLocator> repository) : base(repository)
+        /// <param name="jobDetailService"></param>
+        public SysJobLogService(IRepository<SysJobLog, MasterDbContextLocator> repository, ISysJobDetailService jobDetailService) : base(repository)
         {
+            this.jobDetailService = jobDetailService;
         }
 
 
@@ -47,7 +53,7 @@ namespace Gardener.EasyJob.Impl.Services
             }
             if (days.HasValue)
             {
-                DateTimeOffset beginTime = DateTimeOffset.Now.AddDays((double)(days * -1));
+                DateTimeOffset beginTime = DateTimeOffset.Now.Date.AddDays((double)(days * -1));
                 query = query.Where(x => x.CreatedTime >= beginTime);
             }
             List<KeyValuePair<bool, int>> counts = await query.GroupBy(x => x.Succeeded, (k, g) => new KeyValuePair<bool, int>(k, g.Count())).ToListAsync();
@@ -70,8 +76,10 @@ namespace Gardener.EasyJob.Impl.Services
         /// <remarks>
         /// 获取评价耗时
         /// </remarks>
-        public Task<IEnumerable<SysJobLogElapsedTime>> GetAvgElapsedTime([FromQuery] string? jobId = null, [FromQuery] int? days = null)
+        public async Task<IEnumerable<SysJobLogElapsedTime>> GetAvgElapsedTime([FromQuery] string? jobId = null, [FromQuery] int? days = null)
         {
+            List<SysJobDetailDto> jobs = await jobDetailService.GetAllUsable();
+
             IQueryable<SysJobLog> query = base._repository.AsQueryable(false);
             if (!string.IsNullOrEmpty(jobId))
             {
@@ -80,9 +88,9 @@ namespace Gardener.EasyJob.Impl.Services
             Func<SysJobLog, object> groupFunc = x => new { x.JobId, x.CreatedTime.Year, x.CreatedTime.Month, x.CreatedTime.Day };
             if (days.HasValue)
             {
-                DateTimeOffset beginTime = DateTimeOffset.Now.AddDays((double)(days * -1));
+                DateTimeOffset beginTime = DateTimeOffset.Now.Date.AddDays((double)(days * -1));
                 query = query.Where(x => x.CreatedTime >= beginTime);
-                if (days == 1)
+                if (days == 0)
                 {
                     groupFunc = x => new { x.CreatedTime.Year, x.CreatedTime.Month, x.CreatedTime.Day, x.CreatedTime.Hour, x.JobId };
                 }
@@ -92,22 +100,27 @@ namespace Gardener.EasyJob.Impl.Services
 
             if (!counts.Any())
             {
-                return Task.FromResult<IEnumerable<SysJobLogElapsedTime>>(new List<SysJobLogElapsedTime>());
+                return new List<SysJobLogElapsedTime>();
             }
             List<SysJobLogElapsedTime> result = new List<SysJobLogElapsedTime>();
 
             foreach (var item in counts)
             {
                 string time = new DateTime(item.Key.Year, item.Key.Month, item.Key.Day).ToString("yyyy-MM-dd");
-                if (days.HasValue && days == 1)
+                if (days.HasValue && days == 0)
                 {
                     time = new DateTime(item.Key.Year, item.Key.Month, item.Key.Day, item.Key.Hour, 0, 0).ToString("HH:mm");
                 }
                 SysJobLogElapsedTime elapsedTime = new SysJobLogElapsedTime(time, item.Key.JobId, (long)Math.Round(item.Value));
+                var job = jobs?.FirstOrDefault(x => x.JobId.Equals(elapsedTime.JobName));
+                if (job != null && !string.IsNullOrWhiteSpace(job.Description))
+                {
+                    elapsedTime.JobName = $"{job.Description}({job.JobId})";
+                }
                 result.Add(elapsedTime);
             }
 
-            return Task.FromResult<IEnumerable<SysJobLogElapsedTime>>(result.OrderBy(x => x.Time));
+            return result.OrderBy(x => x.Time);
         }
 
         /// <summary>
@@ -119,8 +132,9 @@ namespace Gardener.EasyJob.Impl.Services
         /// <remarks>
         /// 获取运行次数统计
         /// </remarks>
-        public Task<IEnumerable<SysJobLogCount>> GetCount([FromQuery] string? jobId = null, [FromQuery] int? days = null)
+        public async Task<IEnumerable<SysJobLogCount>> GetCount([FromQuery] string? jobId = null, [FromQuery] int? days = null)
         {
+            List<SysJobDetailDto> jobs = await jobDetailService.GetAllUsable();
             IQueryable<SysJobLog> query = base._repository.AsQueryable(false);
             if (!string.IsNullOrEmpty(jobId))
             {
@@ -129,9 +143,9 @@ namespace Gardener.EasyJob.Impl.Services
             Func<SysJobLog, object> groupFunc = x => new { x.Succeeded, x.JobId, x.CreatedTime.Year, x.CreatedTime.Month, x.CreatedTime.Day };
             if (days.HasValue)
             {
-                DateTimeOffset beginTime = DateTimeOffset.Now.AddDays((double)(days * -1));
+                DateTimeOffset beginTime = DateTimeOffset.Now.Date.AddDays((double)(days * -1));
                 query = query.Where(x => x.CreatedTime >= beginTime);
-                if (days == 1)
+                if (days == 0)
                 {
                     groupFunc = x => new { x.Succeeded, x.JobId, x.CreatedTime.Year, x.CreatedTime.Month, x.CreatedTime.Day, x.CreatedTime.Hour };
                 }
@@ -141,26 +155,29 @@ namespace Gardener.EasyJob.Impl.Services
 
             if (!counts.Any())
             {
-                return Task.FromResult<IEnumerable<SysJobLogCount>>(new List<SysJobLogCount>());
+                return new List<SysJobLogCount>();
             }
 
             Dictionary<string, SysJobLogCount> result = new Dictionary<string, SysJobLogCount>();
             foreach (var item in counts)
             {
-                string time = $"{item.Key.Year}-{item.Key.Month}-{item.Key.Day}";
-                if (days.HasValue && days == 1)
+                
+
+                string time = new DateTime(item.Key.Year, item.Key.Month, item.Key.Day).ToString("yyyy-MM-dd");
+                if (days.HasValue && days == 0)
                 {
-                    time = $"{item.Key.Hour}:00";
+                    time = new DateTime(item.Key.Year, item.Key.Month, item.Key.Day, item.Key.Hour, 0, 0).ToString("HH:mm");
                 }
                 SysJobLogCount count;
-                if (result.ContainsKey(time))
+                string itemKey=time+"_" + item.Key.JobId;
+                if (result.ContainsKey(itemKey))
                 {
-                    count = result[time];
+                    count = result[itemKey];
                 }
                 else
                 {
-                    count = new SysJobLogCount(item.Key.JobId,time);
-                    result.Add(time, count);
+                    count = new SysJobLogCount(item.Key.JobId, time);
+                    result.Add(itemKey, count);
                 }
                 if (item.Key.Succeeded)
                 {
@@ -171,9 +188,15 @@ namespace Gardener.EasyJob.Impl.Services
                     count.Fail += item.Value;
                 }
                 count.Total += item.Value;
+
+                var job = jobs?.FirstOrDefault(x => x.JobId.Equals(count.JobName));
+                if (job != null && !string.IsNullOrWhiteSpace(job.Description))
+                {
+                    count.JobName = $"{job.Description}({job.JobId})";
+                }
             }
 
-            return Task.FromResult<IEnumerable<SysJobLogCount>>(result.Values.OrderBy(x => x.Time));
+            return result.Values.OrderBy(x => x.Time);
         }
 
     }

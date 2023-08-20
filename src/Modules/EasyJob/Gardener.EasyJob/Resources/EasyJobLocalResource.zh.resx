@@ -219,6 +219,9 @@
   <data name="TaskSittings" xml:space="preserve">
     <value>任务设置</value>
   </data>
+  <data name="Trigger" xml:space="preserve">
+    <value>触发器</value>
+  </data>
   <data name="TriggerArgs" xml:space="preserve">
     <value>触发参数</value>
   </data>

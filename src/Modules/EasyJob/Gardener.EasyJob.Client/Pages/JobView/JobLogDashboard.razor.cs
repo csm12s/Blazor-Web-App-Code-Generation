@@ -262,6 +262,17 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             };
             await Task.WhenAll(tasks);
         }
+
+        /// <summary>
+        /// job 选中
+        /// </summary>
+        /// <param name="value"></param>
+        private Task OnSelectedJobRunCountType(string value)
+        {
+            jobRunCountChartConfig.YField = value;
+            return ReLoadJobRunCount(true);
+
+        }
         /// <summary>
         /// 
         /// </summary>
