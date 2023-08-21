@@ -23,10 +23,6 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
 
         private bool _saveBtnLoading = false;
 
-        private void HandleFinish()
-        {
-        }
-
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();

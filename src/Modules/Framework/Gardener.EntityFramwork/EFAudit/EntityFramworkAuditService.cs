@@ -55,45 +55,25 @@ namespace Gardener.EntityFramwork.EFAudit
         /// 保存操作审计
         /// </summary>
         /// <param name="auditOperation"></param>
-        public async Task SaveAuditOperation(AuditOperation auditOperation)
+        public Task SaveAuditOperation(AuditOperation auditOperation)
         {
-            if (auditOperation == null) return;
+            if (auditOperation == null)
+            {
+                return Task.CompletedTask;
+            }
             _logger.LogDebug($"写入操作审计信息 {auditOperation.OperaterName} {auditOperation.ResourceName}");
             _auditOperation = auditOperation;
             try
             {
-                await _auditOperationRepository.InsertNowAsync(auditOperation);
+                return _auditOperationRepository.InsertNowAsync(auditOperation);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "操作审计写入数据库异常");
             }
+            return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// 保存实体审计数据
-        /// </summary>
-        /// <param name="auditEntitys"></param>
-        /// <returns></returns>
-        private void SaveAuditEntitys(List<AuditEntity> auditEntitys)
-        {
-            if (auditEntitys == null) return;
-            if (_auditOperation != null)
-            {
-                auditEntitys.ForEach(x =>
-                {
-                    x.OperationId = _auditOperation.Id;
-                });
-            }
-            try
-            {
-                _auditEntityRepository.InsertNow(auditEntitys);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "实体审计写入数据库异常");
-            }
-        }
         /// <summary>
         /// 保存实体审计数据过程
         /// </summary>
@@ -158,38 +138,39 @@ namespace Gardener.EntityFramwork.EFAudit
         /// 保存实体审计数据
         /// </summary>
         /// <returns></returns>
-        public Task SavedChangesEvent()
+        public void SavedChangesEvent()
         {
+            if (_auditEntitys == null)
+            {
+                return;
+            }
             try
             {
-                if (_auditEntitys != null)
+                foreach (AuditEntity entity in _auditEntitys)
                 {
-                    foreach (AuditEntity entity in _auditEntitys)
+                    entity.OperationId = _auditOperation?.Id ?? Guid.NewGuid();
+                    var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
+                    entity.DataId = string.Join(',', pkValues);
+                    entity.AuditProperties = auditProperties;
+                    if (auditProperties != null)
                     {
-                        var (pkValues, auditProperties) = GetAuditProperties(entity.OperationType, entity.CurrentValues, entity.OldValues);
-                        entity.DataId = string.Join(',', pkValues);
-                        entity.AuditProperties = auditProperties;
-                        if (auditProperties != null)
+                        foreach (AuditProperty property in auditProperties)
                         {
-                            foreach (AuditProperty property in auditProperties)
-                            {
-                                property.CreateBy = entity.CreateBy;
-                                property.CreateIdentityType = entity.CreateIdentityType;
-                                property.TenantId = entity.TenantId;
-                                property.CreatedTime = DateTimeOffset.Now;
-                            }
+                            property.CreateBy = entity.CreateBy;
+                            property.CreateIdentityType = entity.CreateIdentityType;
+                            property.TenantId = entity.TenantId;
+                            property.CreatedTime = DateTimeOffset.Now;
                         }
                     }
-                    SaveAuditEntitys(_auditEntitys);
                 }
+                _auditEntityRepository.InsertNow(_auditEntitys);
 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "审计日志异常");
+                _logger.LogError(ex, "数据审计日志入库异常");
 
             }
-            return Task.CompletedTask;
         }
         /// <summary>
         /// 获取属性审计信息
@@ -270,7 +251,7 @@ namespace Gardener.EntityFramwork.EFAudit
             return (pkValues, auditProperties);
         }
         /// <summary>
-        /// 
+        /// 格式化各种类型的值
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -291,9 +272,8 @@ namespace Gardener.EntityFramwork.EFAudit
             }
             else if (value.GetType().IsSubclassOf(typeof(Enum)))
             {
-                //枚举展示的是Description
-                var des = EnumHelper.GetEnumDescription((Enum)value);
-                return des ?? value.ToString();
+                //枚举展示的是Description或名字
+                return EnumHelper.GetEnumDescriptionOrName((Enum)value);
             }
             return value.ToString();
 
