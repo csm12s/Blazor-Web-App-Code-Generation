@@ -80,5 +80,15 @@ namespace Gardener.UserCenter.Services
         /// 更新 <see cref="UserDto.NickName"/>、<see cref="UserDto.Gender"/>、<see cref="UserDto.Avatar"/>
         /// </remarks>
         Task<bool> UpdateCurrentUserBaseInfo(UserDto user);
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="changePasswordInput"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 修改当前用户密码
+        /// </remarks>
+        Task<bool> ChangePassword(ChangePasswordInput changePasswordInput);
     }
 }

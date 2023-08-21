@@ -198,6 +198,9 @@
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>
   </data>
+  <data name="Confirm_New_Password_Inconformity" xml:space="preserve">
+    <value>Confirm new password is inconformity</value>
+  </data>
   <data name="Connection" xml:space="preserve">
     <value>Connection</value>
   </data>
@@ -479,6 +482,10 @@
   <data name="Parent" xml:space="preserve">
     <value>Parent</value>
   </data>
+  <data name="Password_Error" xml:space="preserve">
+    <value>Password error</value>
+    <comment>ErrorCodeMessage</comment>
+  </data>
   <data name="Path" xml:space="preserve">
     <value>Path</value>
   </data>
@@ -514,10 +521,6 @@
   </data>
   <data name="Request_Url_Is_Invalid" xml:space="preserve">
     <value>Request url is invalid</value>
-    <comment>ErrorCodeMessage</comment>
-  </data>
-  <data name="Required" xml:space="preserve">
-    <value>The value cannot be empty or null</value>
     <comment>ErrorCodeMessage</comment>
   </data>
   <data name="ResetOnlyOnce" xml:space="preserve">

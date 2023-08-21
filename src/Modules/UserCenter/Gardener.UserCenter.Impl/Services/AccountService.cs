@@ -247,6 +247,44 @@ namespace Gardener.UserCenter.Impl.Services
             return true;
         }
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="changePasswordInput"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 修改当前用户密码
+        /// </remarks>
+        public async Task<bool> ChangePassword(ChangePasswordInput changePasswordInput)
+        {
+            if (!string.Equals(changePasswordInput.NewPassword, changePasswordInput.ConfirmNewPassword)) 
+            {
+                throw Oops.Bah(ExceptionCode.Confirm_New_Password_Inconformity);
+            }
+            Identity? identity = _authorizationManager.GetIdentity();
+            if (identity == null || !identity.IdentityType.Equals(IdentityType.User))
+            {
+                throw Oops.Bah(ExceptionCode.Forbidden);
+            }
+
+            User? user = await _userRepository.SingleOrDefaultAsync(x => x.Id == int.Parse(identity.Id), false);
+            if (user == null)
+            {
+                throw Oops.Bah(ExceptionCode.Data_Not_Find);
+            }
+            string oldPasswordEncryptValue = PasswordEncryptHelper.Encrypt(changePasswordInput.OldPassword, user.PasswordEncryptKey);
+            if (!oldPasswordEncryptValue.Equals(user.Password))
+            {
+                throw Oops.Bah(ExceptionCode.Password_Error);
+            }
+
+            user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
+            user.Password = PasswordEncryptHelper.Encrypt(changePasswordInput.NewPassword, user.PasswordEncryptKey);
+            await _userRepository.UpdateIncludeAsync(user, new string[] { nameof(User.Password),nameof(User.PasswordEncryptKey)});
+
+            return true;
+        }
+
         #region 私有
 
         /// <summary>

@@ -138,8 +138,14 @@
   <data name="BasicSettings" xml:space="preserve">
     <value>Basic settings</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>Modify avatar</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm new password</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Contact information</value>
@@ -186,11 +192,17 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>Nick name</value>
   </data>
   <data name="NoRoleNeedAdd" xml:space="preserve">
     <value>No role is available. Add a role first</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

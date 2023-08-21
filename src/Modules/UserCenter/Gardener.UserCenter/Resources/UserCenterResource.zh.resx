@@ -132,8 +132,14 @@
   <data name="BasicSettings" xml:space="preserve">
     <value>基础信息</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
   <data name="ClickUpdateAvatar" xml:space="preserve">
     <value>点击修改头像</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>确认新密码</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>联系信息</value>
@@ -180,11 +186,17 @@
   <data name="Name" xml:space="preserve">
     <value>名称</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>新密码</value>
+  </data>
   <data name="NickName" xml:space="preserve">
     <value>用户昵称</value>
   </data>
   <data name="NoRoleNeedAdd" xml:space="preserve">
     <value>没有可用角色，请先添加角色</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>旧密码</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>密码</value>

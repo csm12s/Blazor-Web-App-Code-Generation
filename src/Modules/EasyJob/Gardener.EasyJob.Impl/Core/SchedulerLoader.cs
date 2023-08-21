@@ -45,7 +45,7 @@ namespace Gardener.EasyJob.Impl.Core
             switch (jobDetail.CreateType)
             {
                 case JobCreateType.Script when string.IsNullOrEmpty(jobDetail.ScriptCode):
-                    throw Oops.Oh(ExceptionCode.Field_Required, nameof(jobDetail.ScriptCode));
+                    throw Oops.Oh(ExceptionCode.Required, nameof(jobDetail.ScriptCode));
                 case JobCreateType.Script:
                     {
                         jobType = _dynamicJobCompiler.BuildJob(jobDetail.ScriptCode);
@@ -90,7 +90,7 @@ namespace Gardener.EasyJob.Impl.Core
             if (newJooDetail.CreateType == JobCreateType.Script)
             {
                 if (string.IsNullOrEmpty(newJooDetail.ScriptCode))
-                    throw Oops.Oh(ExceptionCode.Field_Required, Lo.GetValue<EasyJobLocalResource>(nameof(newJooDetail.ScriptCode)));
+                    throw Oops.Oh(ExceptionCode.Required, Lo.GetValue<EasyJobLocalResource>(nameof(newJooDetail.ScriptCode)));
 
                 if (newJooDetail.ScriptCode != oldScriptCode)
                 {

@@ -40,6 +40,11 @@ namespace Gardener.Enums
         [Description("用户名或密码错误")]
         User_Name_Or_Password_Error,
         /// <summary>
+        /// 密码错误
+        /// </summary>
+        [Description("密码错误")]
+        Password_Error,
+        /// <summary>
         /// 验证码验证失败
         /// </summary>
         [Description("验证码验证失败")]
@@ -168,7 +173,7 @@ namespace Gardener.Enums
         /// 字段“{0}”不能为空
         /// </summary>
         [Description("字段“{0}”不能为空")]
-        Field_Required,
+        Required,
         /// <summary>
         /// 字段“{0}”禁止修改
         /// </summary>
@@ -179,6 +184,11 @@ namespace Gardener.Enums
         /// </summary>
         [Description("未找到调度")]
         Scheduler_Not_Find,
+        /// <summary>
+        /// 确认密码不一致
+        /// </summary>
+        [Description("确认密码不一致")]
+        Confirm_New_Password_Inconformity,
 
     }
 }

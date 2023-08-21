@@ -3,14 +3,14 @@
   "ValidationTypeMessageSettings": {
     "Definitions": [
       //设置校验错误提示
-      [ "Required", "Required" ] //值不能为空或Null
+      //[ "Required", "x" ] //值不能为空或Null
     ]
   },
   "ErrorCodeMessageSettings": {
     "Definitions": [
       //这里需要为错误码配置一个提示信息
       //提示信息可以应用Gardener/Base/Resources/SharedLocalResource下的多语言文件
-      //直接写["ErrorCode","提示"]
+      //这里如果写["Client_No_Find","客户端未找到"],多语言文件中可以"客户端未找到"为key配置本地化提示。
       //未配置的，默认使用 FriendlyExceptionSettings.DefaultErrorMessage
       //按字母排序，方便查找
       //在Gardener.Enums.ExceptionCode定义对应值，方便程序中调用（当然直接写字符串硬编码也行）
@@ -21,6 +21,7 @@
       [ "Client_Login_Fail", "Client_Login_Fail" ], //客户端登录失败
       [ "Client_No_Find", "Client_No_Find" ], //客户端未找到
       [ "Controller_Need_Comment", "Controller_Need_Comment" ], //接口方法需要备注
+      [ "Confirm_New_Password_Inconformity", "Confirm_New_Password_Inconformity" ], //确认密码不一致
 
       //D
       [ "Data_Not_Find", "Data_Not_Find" ], //数据未找到
@@ -33,7 +34,6 @@
       [ "Forbidden", "Forbidden" ], //拒绝访问资源
       [ "Filter_Group_Operate_Error", "Filter_Group_Operate_Error" ], //条件组中的操作类型错误
       [ "Field_In_Type_Not_Found", "Field_In_Type_Not_Found" ], //指定的属性“{0}”在类型“{1}”中不存在
-      [ "Field_Required", "Field_Required" ], //字段“{0}”不能为空
       [ "Field_Cannot_Be_Modified", "Field_Cannot_Be_Modified" ], //字段“{0}”禁止修改
 
       //G
@@ -49,6 +49,7 @@
 
       //O
       //P
+      [ "Password_Error", "Password_Error" ], //密码错误
       //Q
       [ "Query_Value_Type_No_Find_Converter", "Query_Value_Type_No_Find_Converter" ], //查询的值类型“{0}”未找到转换器
 
@@ -57,6 +58,7 @@
       [ "Refreshtoken_No_Exist_Or_Expire", "Refreshtoken_No_Exist_Or_Expire" ], //刷新token不存在或已过期
       [ "Request_Url_Is_Invalid", "Request_Url_Is_Invalid" ], //请求的地址无效
       [ "Refreshtoken_Cannot_Used_In_Authentication", "Refreshtoken_Cannot_Used_In_Authentication" ], //刷新token不能用于鉴权
+      [ "Required", "'{0}' is required" ], //字段“{0}”不能为空
 
       //S
       [ "Sugar_Repository_Init_Fail", "Sugar_Repository_Init_Fail" ], //SugarRepository 初始化错误

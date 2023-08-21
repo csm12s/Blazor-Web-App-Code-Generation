@@ -1,1 +1,28 @@
-<p>安全中心</p>
+@inherits OperationDialogBase<int, bool, UserCenterResource>
+<Row>
+    <Col Span="16">
+    <Divider Text="@Localizer["ChangePassword"]"></Divider>
+    <Form Model="@model"
+          LabelCol="_labelCol"
+          WrapperCol="_wrapperCol"
+          OnFinish="OnFormFinish"
+          Loading="_dialogLoading.Value"
+          ValidateMode="@FormValidateMode.Rules"
+          ValidateOnChange="true">
+        <FormItem Label="@Localizer[UserCenterResource.OldPassword]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
+            <Input @bind-Value="@context.OldPassword" Type="password" />
+        </FormItem>
+        <FormItem Label="@Localizer[UserCenterResource.NewPassword]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
+            <Input @bind-Value="@context.NewPassword" Type="password" />
+        </FormItem>
+        <FormItem Label="@Localizer[UserCenterResource.ConfirmNewPassword]" Rules=@(confirmNewPasswordValidatorRules)>
+            <Input @bind-Value="@context.ConfirmNewPassword" Type="password" />
+        </FormItem>
+        <FormItem WrapperColOffset="8" WrapperColSpan="16">
+            <Button Type="@ButtonType.Primary" HtmlType="submit">
+                    @Localizer[SharedLocalResource.Save]
+            </Button>
+        </FormItem>
+    </Form>
+    </Col>
+</Row>
