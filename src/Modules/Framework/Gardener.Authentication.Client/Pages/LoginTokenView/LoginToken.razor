@@ -10,7 +10,8 @@
            @bind-PageSize="_pageSize"
            @bind-SelectedRows="_selectedRows"
            Loading="@_tableLoading.Value"
-           Context="model">
+           Context="model"
+           ScrollX="100%">
         <TitleTemplate>
              <ResourceAuthorize ResourceKey="system_manager_login_token_refresh">
                 <TableSearch TDto="LoginTokenDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
@@ -45,22 +46,30 @@
             </Row>
         </TitleTemplate>
         <ColumnDefinitions>
-            <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_login_token_delete_selected"]" />
-             <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
-                 <span>@model.Tenant?.Name</span>
+             @if (!_userUnauthorizedResources["system_manager_login_token_delete_selected"])
+            {
+             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_login_token_delete_selected"]" Width="50" Fixed="left" />
+            }
+             @if (!_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey])
+            {
+                <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" Width="100" Fixed="left">
+                    <span>@model.Tenant?.Name</span>
+                </Column>
+             }
+             <Column @bind-Field="@model.LoginId" Filterable Title="@Localizer[SharedLocalResource.LoginId]" Width="150" Fixed="left" >
+                 <label style="font-size:12px;">@model.LoginId</label>
              </Column>
-             <Column @bind-Field="@model.IdentityId" Filterable Title="@Localizer[SharedLocalResource.IdentityId]" />
-             <Column @bind-Field="@model.IdentityName" Filterable Title="@Localizer[SharedLocalResource.IdentityName]" />
-             <Column @bind-Field="@model.IdentityNickName" Filterable Title="@Localizer[SharedLocalResource.IdentityNickName]" />
-             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[SharedLocalResource.IdentityType]">
+             <Column @bind-Field="@model.IdentityId" Filterable Title="@Localizer[SharedLocalResource.IdentityId]" Width="120" Fixed="left" />
+             <Column @bind-Field="@model.IdentityName" Filterable Title="@Localizer[SharedLocalResource.IdentityName]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.IdentityNickName" Filterable Title="@Localizer[SharedLocalResource.IdentityNickName]" Width="150"/>
+             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[SharedLocalResource.IdentityType]" Width="120">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.IdentityType)"></TagPro>
             </Column>
-             <Column @bind-Field="@model.LoginId" Filterable Title="@Localizer[SharedLocalResource.LoginId]" />
-             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters" Title="@Localizer[SharedLocalResource.LoginClientType]">
+             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters" Title="@Localizer[SharedLocalResource.LoginClientType]" Width="120">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagPro>
             </Column>
-             <Column @bind-Field="@model.Ip" Filterable Title="@Localizer[SharedLocalResource.Ip]" />
-             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]">
+             <Column @bind-Field="@model.Ip" Filterable Title="@Localizer[SharedLocalResource.Ip]" Width="150" />
+             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[SharedLocalResource.IsLocked]" Width="150">
                 <ResourceAuthorize ResourceKey="system_manager_login_token_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -70,9 +79,9 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-            <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[SharedLocalResource.UpdatedTime]" />
-             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[SharedLocalResource.EndTime]" />
-             <Column TData="string" Title="@(Localizer[SharedLocalResource.OnlineTime])">
+             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[SharedLocalResource.UpdatedTime]" Width="200" />
+             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[SharedLocalResource.EndTime]" Width="200" />
+             <Column TData="string" Title="@(Localizer[SharedLocalResource.OnlineTime])" Width="200">
                 @if(model.UpdatedTime.HasValue)
                 {
                     <span>@(DateTimeHelper.FormatDateTimeDiff(model.CreatedTime,model.UpdatedTime.Value))</span>
@@ -82,8 +91,8 @@
                     <span>--</span>
                 }
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
-            <ActionColumn>
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" Width="200" Fixed="right" />
+             <ActionColumn Width="100" Fixed="right">
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete">
                         <SpaceItem>
