@@ -756,4 +756,7 @@
   <data name="Total" xml:space="preserve">
     <value>总数</value>
   </data>
+  <data name="Exception" xml:space="preserve">
+    <value>异常</value>
+  </data>
 </root>

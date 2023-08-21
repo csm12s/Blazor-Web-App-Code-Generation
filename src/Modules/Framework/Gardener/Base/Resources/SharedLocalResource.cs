@@ -500,6 +500,10 @@ namespace Gardener.Base.Resources
         /// 为Null或空
         /// </summary>
         public const string IsNullOrEmpty = nameof(IsNullOrEmpty);
+        /// <summary>
+        /// 异常
+        /// </summary>
+        public const string Exception = nameof(Exception);
 
         
     }

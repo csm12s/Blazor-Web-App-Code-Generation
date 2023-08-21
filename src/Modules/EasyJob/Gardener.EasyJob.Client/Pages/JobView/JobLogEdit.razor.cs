@@ -4,22 +4,13 @@
 //  issues:https://gitee.com/hgflydream/Gardener/issues 
 // -----------------------------------------------------------------------------
 
-using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Resources;
 
 namespace Gardener.EasyJob.Client.Pages.JobView
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public partial class JobLog : ListOperateTableBase<SysJobLogDto, long, JobLogEdit, EasyJobLocalResource>
+    public partial class JobLogEdit : EditOperationDialogBase<SysJobLogDto, long, EasyJobLocalResource>
     {
-        protected override void SetOperationDialogSettings(OperationDialogSettings dialogSettings)
-        {
-            dialogSettings.Width = 800;
-            base.SetOperationDialogSettings(dialogSettings);
-        }
     }
 }

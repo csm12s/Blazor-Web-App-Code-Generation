@@ -1,0 +1,36 @@
+﻿@inherits EditOperationDialogBase<SysJobLogDto, long, EasyJobLocalResource>
+
+
+<Form Loading="@_dialogLoading.Value"
+      Model="@_editModel"
+      LabelCol="new ColLayoutParam { Span = 4 }"
+      WrapperCol="new ColLayoutParam { Span = 20 }"
+      OnFinish="OnFormFinish"
+      Context="model">
+    <FormItem Label="@Localizer[EasyJobLocalResource.Result]">
+        <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Result"></TextArea>
+    </FormItem>
+    <FormItem Label="@Localizer[EasyJobLocalResource.Exception]">
+        @{
+            string exceptionMessage = (model.ExceptionMessage ?? string.Empty) +"\n"+ (model.Exception??string.Empty);
+        }
+        <TextArea AutoSize="true" MinRows="2" MaxRows="20" @bind-Value="@exceptionMessage"></TextArea>
+    </FormItem>
+    <FormItem WrapperColOffset="4" WrapperColSpan="20">
+        <Space>
+            @if (!OperationDialogInputType.Select.Equals(this.Options.Type))
+            {
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        @Localizer[SharedLocalResource.Save]
+                    </Button>
+                </SpaceItem>
+            }
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    @Localizer[SharedLocalResource.Cancel]
+                </Button>
+            </SpaceItem>
+        </Space>
+    </FormItem>
+</Form>

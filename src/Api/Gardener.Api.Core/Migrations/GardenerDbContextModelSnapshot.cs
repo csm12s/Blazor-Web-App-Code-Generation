@@ -228,6 +228,86 @@ namespace Gardener.Api.Core.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 12,
+                            CodeName = "Today",
+                            CodeTypeId = 4,
+                            CodeValue = "1",
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187787878400480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 0,
+                            UpdateBy = "3",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307189691781120480L
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CodeName = "A week",
+                            CodeTypeId = 4,
+                            CodeValue = "7",
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187788328960480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 5,
+                            UpdateBy = "3",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307189691924480480L
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CodeName = "A month",
+                            CodeTypeId = 4,
+                            CodeValue = "30",
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187788677120480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 10,
+                            UpdateBy = "3",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307189692047360480L
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CodeName = "Half a year",
+                            CodeTypeId = 4,
+                            CodeValue = "180",
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187789189120480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 15,
+                            UpdateBy = "3",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307189692170240480L
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CodeName = "A year",
+                            CodeTypeId = 4,
+                            CodeValue = "365",
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187791134720480L,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Order = 20,
+                            UpdateBy = "3",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307189692354560480L
+                        },
+                        new
+                        {
                             Id = 7,
                             CodeName = "P1",
                             CodeTypeId = 3,
@@ -425,6 +505,17 @@ namespace Gardener.Api.Core.Migrations
                     b.ToTable("CodeType");
 
                     b.HasData(
+                        new
+                        {
+                            Id = 4,
+                            CodeTypeName = "定时任务统计查询日期",
+                            CodeTypeValue = "easy_job_count_query_date",
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187787100160480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
                         new
                         {
                             Id = 3,
@@ -2237,6 +2328,57 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("5c83a810-f270-4602-9cc5-4cae64cc032c"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201769799680480L,
+                            Description = "获取运行次数统计",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "252A8700472411400DD3D95A11185B29",
+                            Method = 0,
+                            Path = "/api/sys-job-log/count",
+                            Service = "定时任务-执行日志",
+                            Summary = "获取运行次数统计"
+                        },
+                        new
+                        {
+                            Id = new Guid("eea858a2-155b-4934-b4b6-219beaea44f8"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201769779200480L,
+                            Description = "获取评价耗时",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "29ED2AB066CE25E3E47E9559B3208AE9",
+                            Method = 0,
+                            Path = "/api/sys-job-log/avg-elapsed-time",
+                            Service = "定时任务-执行日志",
+                            Summary = "获取评价耗时"
+                        },
+                        new
+                        {
+                            Id = new Guid("78fc70a3-d21b-4c7f-8e21-9833ece89eef"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201769779200480L,
+                            Description = "获取总运行次数统计",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "5DFACCCADE0F43ADCB6F25998F7A5A23",
+                            Method = 0,
+                            Path = "/api/sys-job-log/all-count",
+                            Service = "定时任务-执行日志",
+                            Summary = "获取总运行次数统计"
+                        },
+                        new
+                        {
                             Id = new Guid("249577f0-a0e4-42ea-beed-2a035533933f"),
                             CreateBy = "1",
                             CreateIdentityType = 1,
@@ -2250,7 +2392,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-user-config/save-my-config",
                             Service = "定时任务-用户配置服务",
-                            Summary = "保存我的配置"
+                            Summary = "保存我的配置",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769902080480L
                         },
                         new
                         {
@@ -2267,7 +2412,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-user-config/my-config",
                             Service = "定时任务-用户配置服务",
-                            Summary = "获取我的的配置"
+                            Summary = "获取我的的配置",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769902080480L
                         },
                         new
                         {
@@ -2284,24 +2432,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-log/export",
                             Service = "定时任务-执行日志",
-                            Summary = "导出"
-                        },
-                        new
-                        {
-                            Id = new Guid("266ffe8c-5b42-49c0-8766-90b9b873c936"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187666513920480L,
-                            Description = "根据搜索条叫生成种子数据",
-                            EnableAudit = true,
-                            Group = "定时任务服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "F1DF6F9C151F1EEE2913A6AE951B6DA4",
-                            Method = 1,
-                            Path = "/api/sys-job-log/generate-seed-data",
-                            Service = "定时任务-执行日志",
-                            Summary = "生成种子数据"
+                            Summary = "导出",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769840640480L
                         },
                         new
                         {
@@ -2318,41 +2452,30 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-log/search",
                             Service = "定时任务-执行日志",
-                            Summary = "搜索"
+                            Summary = "搜索",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769840640480L
                         },
                         new
                         {
-                            Id = new Guid("d3aad533-d348-4950-9cf9-942d855cc0ab"),
+                            Id = new Guid("266ffe8c-5b42-49c0-8766-90b9b873c936"),
                             CreateBy = "1",
                             CreateIdentityType = 1,
                             CreatedTime = 1307187666513920480L,
-                            Description = "根据分页参数，分页获取数据",
-                            EnableAudit = false,
+                            Description = "根据搜索条叫生成种子数据",
+                            EnableAudit = true,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "7E2DA42467945755B177CDB67C6D06E1",
-                            Method = 0,
-                            Path = "/api/sys-job-log/page/{pageindex}/{pagesize}",
+                            Key = "F1DF6F9C151F1EEE2913A6AE951B6DA4",
+                            Method = 1,
+                            Path = "/api/sys-job-log/generate-seed-data",
                             Service = "定时任务-执行日志",
-                            Summary = "分页查询"
-                        },
-                        new
-                        {
-                            Id = new Guid("6d0bdc59-8a62-4283-99d2-a586a8e1d191"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187666513920480L,
-                            Description = "查询所有可以用的记录，(实现Gardener.Base.IModelDeletedGardener.Base.IModelLocked时会自动过滤)",
-                            EnableAudit = false,
-                            Group = "定时任务服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "2159B1467D9C7C4B4EAD35A9688DD546",
-                            Method = 0,
-                            Path = "/api/sys-job-log/all-usable",
-                            Service = "定时任务-执行日志",
-                            Summary = "查询所有可以用的"
+                            Summary = "生成种子数据",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769840640480L
                         },
                         new
                         {
@@ -2369,24 +2492,30 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-log/all",
                             Service = "定时任务-执行日志",
-                            Summary = "查询所有"
+                            Summary = "查询所有",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769820160480L
                         },
                         new
                         {
-                            Id = new Guid("fc1aed1d-95f3-45a6-aedc-5e10608d7ad9"),
+                            Id = new Guid("6d0bdc59-8a62-4283-99d2-a586a8e1d191"),
                             CreateBy = "1",
                             CreateIdentityType = 1,
                             CreatedTime = 1307187666513920480L,
-                            Description = "更新一条数据",
-                            EnableAudit = true,
+                            Description = "查询所有可以用的记录，(实现Gardener.Base.IModelDeletedGardener.Base.IModelLocked时会自动过滤)",
+                            EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "90C0582034E9DC3F2CC225E2389B1B12",
-                            Method = 2,
-                            Path = "/api/sys-job-log",
+                            Key = "2159B1467D9C7C4B4EAD35A9688DD546",
+                            Method = 0,
+                            Path = "/api/sys-job-log/all-usable",
                             Service = "定时任务-执行日志",
-                            Summary = "更新"
+                            Summary = "查询所有可以用的",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769820160480L
                         },
                         new
                         {
@@ -2403,92 +2532,50 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-log",
                             Service = "定时任务-执行日志",
-                            Summary = "添加"
+                            Summary = "添加",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769820160480L
                         },
                         new
                         {
-                            Id = new Guid("60012cd5-1fed-47f9-bd06-1c0f636ec849"),
+                            Id = new Guid("d3aad533-d348-4950-9cf9-942d855cc0ab"),
                             CreateBy = "1",
                             CreateIdentityType = 1,
-                            CreatedTime = 1307187666493440480L,
-                            Description = "根据主键锁定或解锁数据（必须实现Gardener.Base.IModelLocked才能生效）",
-                            EnableAudit = true,
-                            Group = "定时任务服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "6669B8BF7342B215BEA3CF99CCEF3021",
-                            Method = 2,
-                            Path = "/api/sys-job-log/{id}/lock/{islocked}",
-                            Service = "定时任务-执行日志",
-                            Summary = "锁定"
-                        },
-                        new
-                        {
-                            Id = new Guid("38c2fd8d-2b26-49c4-8628-6ab902b6fbd1"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187666493440480L,
-                            Description = "根据多个主键批量逻辑删除",
-                            EnableAudit = true,
-                            Group = "定时任务服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "BBAE20709D963C9CDE52C8D4136501FC",
-                            Method = 1,
-                            Path = "/api/sys-job-log/fake-deletes",
-                            Service = "定时任务-执行日志",
-                            Summary = "批量逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("c59d7c7d-968f-44e7-b272-06dcf4a3af80"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187666493440480L,
-                            Description = "根据主键逻辑删除",
-                            EnableAudit = true,
-                            Group = "定时任务服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "C087B68DD57154402DAA02E2860BE46B",
-                            Method = 3,
-                            Path = "/api/sys-job-log/fake-delete/{id}",
-                            Service = "定时任务-执行日志",
-                            Summary = "逻辑删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("ee691438-4f45-4321-aff0-1ab4f9227d36"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187666493440480L,
-                            Description = "根据多个主键批量删除",
-                            EnableAudit = true,
-                            Group = "定时任务服务",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "A4705E7A8B52476BB6D41EF3EDF72657",
-                            Method = 1,
-                            Path = "/api/sys-job-log/deletes",
-                            Service = "定时任务-执行日志",
-                            Summary = "批量删除"
-                        },
-                        new
-                        {
-                            Id = new Guid("26afb233-f6cc-47bb-b367-0b0b7ce3fe42"),
-                            CreateBy = "1",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307187666493440480L,
-                            Description = "根据主键查找一条数据",
+                            CreatedTime = 1307187666513920480L,
+                            Description = "根据分页参数，分页获取数据",
                             EnableAudit = false,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
-                            Key = "3F6FDE46F3B4734DFAFECC355C9F0247",
+                            Key = "7E2DA42467945755B177CDB67C6D06E1",
                             Method = 0,
-                            Path = "/api/sys-job-log/{id}",
+                            Path = "/api/sys-job-log/page/{pageindex}/{pagesize}",
                             Service = "定时任务-执行日志",
-                            Summary = "根据主键获取"
+                            Summary = "分页查询",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769840640480L
+                        },
+                        new
+                        {
+                            Id = new Guid("fc1aed1d-95f3-45a6-aedc-5e10608d7ad9"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187666513920480L,
+                            Description = "更新一条数据",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "90C0582034E9DC3F2CC225E2389B1B12",
+                            Method = 2,
+                            Path = "/api/sys-job-log",
+                            Service = "定时任务-执行日志",
+                            Summary = "更新",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769820160480L
                         },
                         new
                         {
@@ -2505,7 +2592,110 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/sys-job-log/{id}",
                             Service = "定时任务-执行日志",
-                            Summary = "删除"
+                            Summary = "删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769799680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("26afb233-f6cc-47bb-b367-0b0b7ce3fe42"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187666493440480L,
+                            Description = "根据主键查找一条数据",
+                            EnableAudit = false,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "3F6FDE46F3B4734DFAFECC355C9F0247",
+                            Method = 0,
+                            Path = "/api/sys-job-log/{id}",
+                            Service = "定时任务-执行日志",
+                            Summary = "根据主键获取",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769799680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("38c2fd8d-2b26-49c4-8628-6ab902b6fbd1"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187666493440480L,
+                            Description = "根据多个主键批量逻辑删除",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "BBAE20709D963C9CDE52C8D4136501FC",
+                            Method = 1,
+                            Path = "/api/sys-job-log/fake-deletes",
+                            Service = "定时任务-执行日志",
+                            Summary = "批量逻辑删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769820160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("60012cd5-1fed-47f9-bd06-1c0f636ec849"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187666493440480L,
+                            Description = "根据主键锁定或解锁数据（必须实现Gardener.Base.IModelLocked才能生效）",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "6669B8BF7342B215BEA3CF99CCEF3021",
+                            Method = 2,
+                            Path = "/api/sys-job-log/{id}/lock/{islocked}",
+                            Service = "定时任务-执行日志",
+                            Summary = "锁定",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769820160480L
+                        },
+                        new
+                        {
+                            Id = new Guid("c59d7c7d-968f-44e7-b272-06dcf4a3af80"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187666493440480L,
+                            Description = "根据主键逻辑删除",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "C087B68DD57154402DAA02E2860BE46B",
+                            Method = 3,
+                            Path = "/api/sys-job-log/fake-delete/{id}",
+                            Service = "定时任务-执行日志",
+                            Summary = "逻辑删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769799680480L
+                        },
+                        new
+                        {
+                            Id = new Guid("ee691438-4f45-4321-aff0-1ab4f9227d36"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187666493440480L,
+                            Description = "根据多个主键批量删除",
+                            EnableAudit = true,
+                            Group = "定时任务服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "A4705E7A8B52476BB6D41EF3EDF72657",
+                            Method = 1,
+                            Path = "/api/sys-job-log/deletes",
+                            Service = "定时任务-执行日志",
+                            Summary = "批量删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769799680480L
                         },
                         new
                         {
@@ -2522,7 +2712,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-trigger/export",
                             Service = "定时任务-触发器服务",
-                            Summary = "导出"
+                            Summary = "导出",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769902080480L
                         },
                         new
                         {
@@ -2531,7 +2724,7 @@ namespace Gardener.Api.Core.Migrations
                             CreateIdentityType = 1,
                             CreatedTime = 1307170259886080480L,
                             Description = "搜索数据",
-                            EnableAudit = false,
+                            EnableAudit = true,
                             Group = "定时任务服务",
                             IsDeleted = false,
                             IsLocked = false,
@@ -2542,7 +2735,7 @@ namespace Gardener.Api.Core.Migrations
                             Summary = "搜索",
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
-                            UpdatedTime = 1307170261176320480L
+                            UpdatedTime = 1307201769881600480L
                         },
                         new
                         {
@@ -2559,7 +2752,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-trigger/page/{pageindex}/{pagesize}",
                             Service = "定时任务-触发器服务",
-                            Summary = "分页查询"
+                            Summary = "分页查询",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769881600480L
                         },
                         new
                         {
@@ -2576,7 +2772,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-trigger/all-usable",
                             Service = "定时任务-触发器服务",
-                            Summary = "查询所有可以用的"
+                            Summary = "查询所有可以用的",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769881600480L
                         },
                         new
                         {
@@ -2593,7 +2792,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-trigger/generate-seed-data",
                             Service = "定时任务-触发器服务",
-                            Summary = "生成种子数据"
+                            Summary = "生成种子数据",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769881600480L
                         },
                         new
                         {
@@ -2610,7 +2812,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-trigger/{id}/start",
                             Service = "定时任务-触发器服务",
-                            Summary = "启动触发器"
+                            Summary = "启动触发器",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769861120480L
                         },
                         new
                         {
@@ -2627,7 +2832,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 2,
                             Path = "/api/sys-job-trigger/{id}/lock/{islocked}",
                             Service = "定时任务-触发器服务",
-                            Summary = "锁定"
+                            Summary = "锁定",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769881600480L
                         },
                         new
                         {
@@ -2644,7 +2852,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-trigger/{id}/pause",
                             Service = "定时任务-触发器服务",
-                            Summary = "暂停触发器"
+                            Summary = "暂停触发器",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769861120480L
                         },
                         new
                         {
@@ -2661,7 +2872,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-trigger/all",
                             Service = "定时任务-触发器服务",
-                            Summary = "查询所有"
+                            Summary = "查询所有",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769881600480L
                         },
                         new
                         {
@@ -2678,7 +2892,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-trigger",
                             Service = "定时任务-触发器服务",
-                            Summary = "添加触发器"
+                            Summary = "添加触发器",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769840640480L
                         },
                         new
                         {
@@ -2695,7 +2912,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 2,
                             Path = "/api/sys-job-trigger",
                             Service = "定时任务-触发器服务",
-                            Summary = "更新触发器"
+                            Summary = "更新触发器",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769861120480L
                         },
                         new
                         {
@@ -2712,7 +2932,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/export",
                             Service = "定时任务-任务服务",
-                            Summary = "导出"
+                            Summary = "导出",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769779200480L
                         },
                         new
                         {
@@ -2729,7 +2952,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-trigger/{id}",
                             Service = "定时任务-触发器服务",
-                            Summary = "根据主键获取"
+                            Summary = "根据主键获取",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769861120480L
                         },
                         new
                         {
@@ -2746,7 +2972,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/sys-job-trigger/{id}",
                             Service = "定时任务-触发器服务",
-                            Summary = "删除触发器"
+                            Summary = "删除触发器",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769861120480L
                         },
                         new
                         {
@@ -2763,7 +2992,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-detail/page/{pageindex}/{pagesize}",
                             Service = "定时任务-任务服务",
-                            Summary = "分页查询"
+                            Summary = "分页查询",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769779200480L
                         },
                         new
                         {
@@ -2780,7 +3012,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-detail/all-usable",
                             Service = "定时任务-任务服务",
-                            Summary = "查询所有可以用的"
+                            Summary = "查询所有可以用的",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769779200480L
                         },
                         new
                         {
@@ -2797,7 +3032,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/generate-seed-data",
                             Service = "定时任务-任务服务",
-                            Summary = "生成种子数据"
+                            Summary = "生成种子数据",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769779200480L
                         },
                         new
                         {
@@ -2814,7 +3052,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 2,
                             Path = "/api/sys-job-detail/{id}/lock/{islocked}",
                             Service = "定时任务-任务服务",
-                            Summary = "锁定"
+                            Summary = "锁定",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769758720480L
                         },
                         new
                         {
@@ -2831,7 +3072,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/cancel-sleep",
                             Service = "定时任务-任务服务",
-                            Summary = "强制唤醒作业调度器"
+                            Summary = "强制唤醒作业调度器",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769758720480L
                         },
                         new
                         {
@@ -2848,7 +3092,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/start-all",
                             Service = "定时任务-任务服务",
-                            Summary = "启动所有作业"
+                            Summary = "启动所有作业",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769758720480L
                         },
                         new
                         {
@@ -2865,7 +3112,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-detail/all",
                             Service = "定时任务-任务服务",
-                            Summary = "查询所有"
+                            Summary = "查询所有",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769758720480L
                         },
                         new
                         {
@@ -2882,7 +3132,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/persist-all",
                             Service = "定时任务-任务服务",
-                            Summary = "强制触发所有作业持久化"
+                            Summary = "强制触发所有作业持久化",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769758720480L
                         },
                         new
                         {
@@ -2899,7 +3152,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/{id}/start",
                             Service = "定时任务-任务服务",
-                            Summary = "启动作业"
+                            Summary = "启动作业",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769738240480L
                         },
                         new
                         {
@@ -2916,7 +3172,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-detail/{id}/triggers",
                             Service = "定时任务-任务服务",
-                            Summary = "获取触发器列表"
+                            Summary = "获取触发器列表",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769738240480L
                         },
                         new
                         {
@@ -2933,7 +3192,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/{id}/pause",
                             Service = "定时任务-任务服务",
-                            Summary = "暂停作业"
+                            Summary = "暂停作业",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769738240480L
                         },
                         new
                         {
@@ -2950,7 +3212,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/pause-all",
                             Service = "定时任务-任务服务",
-                            Summary = "暂停所有作业"
+                            Summary = "暂停所有作业",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769738240480L
                         },
                         new
                         {
@@ -2967,7 +3232,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/sys-job-detail/{id}",
                             Service = "定时任务-任务服务",
-                            Summary = "删除作业"
+                            Summary = "删除作业",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769717760480L
                         },
                         new
                         {
@@ -2984,7 +3252,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail/search",
                             Service = "定时任务-任务服务",
-                            Summary = "获取作业分页列表"
+                            Summary = "获取作业分页列表",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769717760480L
                         },
                         new
                         {
@@ -3001,7 +3272,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-detail/{id}",
                             Service = "定时任务-任务服务",
-                            Summary = "根据主键获取"
+                            Summary = "根据主键获取",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769738240480L
                         },
                         new
                         {
@@ -3018,7 +3292,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-detail",
                             Service = "定时任务-任务服务",
-                            Summary = "添加作业"
+                            Summary = "添加作业",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769717760480L
                         },
                         new
                         {
@@ -3035,7 +3312,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 2,
                             Path = "/api/sys-job-detail",
                             Service = "定时任务-任务服务",
-                            Summary = "更新作业"
+                            Summary = "更新作业",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769717760480L
                         },
                         new
                         {
@@ -3052,7 +3332,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/export",
                             Service = "定时任务-集群服务",
-                            Summary = "导出"
+                            Summary = "导出",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769717760480L
                         },
                         new
                         {
@@ -3069,7 +3352,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/generate-seed-data",
                             Service = "定时任务-集群服务",
-                            Summary = "生成种子数据"
+                            Summary = "生成种子数据",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769697280480L
                         },
                         new
                         {
@@ -3086,7 +3372,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/search",
                             Service = "定时任务-集群服务",
-                            Summary = "搜索"
+                            Summary = "搜索",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769697280480L
                         },
                         new
                         {
@@ -3103,7 +3392,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-cluster/page/{pageindex}/{pagesize}",
                             Service = "定时任务-集群服务",
-                            Summary = "分页查询"
+                            Summary = "分页查询",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769697280480L
                         },
                         new
                         {
@@ -3120,7 +3412,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-cluster/all-usable",
                             Service = "定时任务-集群服务",
-                            Summary = "查询所有可以用的"
+                            Summary = "查询所有可以用的",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769697280480L
                         },
                         new
                         {
@@ -3137,7 +3432,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 2,
                             Path = "/api/sys-job-cluster",
                             Service = "定时任务-集群服务",
-                            Summary = "更新"
+                            Summary = "更新",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769697280480L
                         },
                         new
                         {
@@ -3154,7 +3452,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 2,
                             Path = "/api/sys-job-cluster/{id}/lock/{islocked}",
                             Service = "定时任务-集群服务",
-                            Summary = "锁定"
+                            Summary = "锁定",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769676800480L
                         },
                         new
                         {
@@ -3171,7 +3472,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster",
                             Service = "定时任务-集群服务",
-                            Summary = "添加"
+                            Summary = "添加",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769676800480L
                         },
                         new
                         {
@@ -3188,7 +3492,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-cluster/all",
                             Service = "定时任务-集群服务",
-                            Summary = "查询所有"
+                            Summary = "查询所有",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769697280480L
                         },
                         new
                         {
@@ -3205,7 +3512,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/deletes",
                             Service = "定时任务-集群服务",
-                            Summary = "批量删除"
+                            Summary = "批量删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769676800480L
                         },
                         new
                         {
@@ -3222,7 +3532,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/sys-job-cluster/fake-delete/{id}",
                             Service = "定时任务-集群服务",
-                            Summary = "逻辑删除"
+                            Summary = "逻辑删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769676800480L
                         },
                         new
                         {
@@ -3239,7 +3552,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/fake-deletes",
                             Service = "定时任务-集群服务",
-                            Summary = "批量逻辑删除"
+                            Summary = "批量逻辑删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769676800480L
                         },
                         new
                         {
@@ -3256,7 +3572,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 0,
                             Path = "/api/sys-job-cluster/{id}",
                             Service = "定时任务-集群服务",
-                            Summary = "根据主键获取"
+                            Summary = "根据主键获取",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769656320480L
                         },
                         new
                         {
@@ -3273,7 +3592,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 3,
                             Path = "/api/sys-job-cluster/{id}",
                             Service = "定时任务-集群服务",
-                            Summary = "删除"
+                            Summary = "删除",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769656320480L
                         },
                         new
                         {
@@ -3290,7 +3612,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/crash",
                             Service = "定时任务-集群服务",
-                            Summary = "当前作业调度器宕机"
+                            Summary = "当前作业调度器宕机",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769656320480L
                         },
                         new
                         {
@@ -3307,7 +3632,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/start",
                             Service = "定时任务-集群服务",
-                            Summary = "当前作业调度器启动通知"
+                            Summary = "当前作业调度器启动通知",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769635840480L
                         },
                         new
                         {
@@ -3324,7 +3652,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/waiting",
                             Service = "定时任务-集群服务",
-                            Summary = "等待被唤醒"
+                            Summary = "等待被唤醒",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769656320480L
                         },
                         new
                         {
@@ -3341,7 +3672,10 @@ namespace Gardener.Api.Core.Migrations
                             Method = 1,
                             Path = "/api/sys-job-cluster/stop",
                             Service = "定时任务-集群服务",
-                            Summary = "当前作业调度器停止通知"
+                            Summary = "当前作业调度器停止通知",
+                            UpdateBy = "1",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307201769656320480L
                         },
                         new
                         {
@@ -7814,6 +8148,23 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307187779358720480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_dashboard",
+                            Name = "仪表盘",
+                            Order = 5,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_dashboard",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
                             Id = new Guid("4e45db1a-8426-4ae9-8e20-1062c27a8d5f"),
                             CreateBy = "1",
                             CreateIdentityType = 1,
@@ -7996,6 +8347,71 @@ namespace Gardener.Api.Core.Migrations
                             UpdateBy = "1",
                             UpdateIdentityType = 1,
                             UpdatedTime = 1307157539799040480L
+                        },
+                        new
+                        {
+                            Id = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307200750551040480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log",
+                            Name = "日志",
+                            Order = 90,
+                            ParentId = new Guid("32a91c2f-451c-4f41-91c7-f648bfcd3fff"),
+                            Path = "/system_manager/easy_job_log",
+                            SupportMultiTenant = false,
+                            Type = 1000
+                        },
+                        new
+                        {
+                            Id = new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201774120960480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log_detail",
+                            Name = "详情",
+                            Order = 0,
+                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201775390720480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log_refresh",
+                            Name = "刷新",
+                            Order = 0,
+                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"),
+                            CreateBy = "1",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307201775718400480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "system_manager_easy_job_log_search",
+                            Name = "搜索",
+                            Order = 0,
+                            ParentId = new Guid("9cda067c-8177-41ce-be76-25230ecb59a4"),
+                            SupportMultiTenant = false,
+                            Type = 2000
                         },
                         new
                         {
@@ -10944,9 +11360,39 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            FunctionId = new Guid("5c83a810-f270-4602-9cc5-4cae64cc032c"),
+                            CreatedTime = 1307201777991680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            FunctionId = new Guid("78fc70a3-d21b-4c7f-8e21-9833ece89eef"),
+                            CreatedTime = 1307201777991680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("164abf88-cbe6-4002-aeb1-6a84ebd644d0"),
+                            FunctionId = new Guid("eea858a2-155b-4934-b4b6-219beaea44f8"),
+                            CreatedTime = 1307201777991680480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("21b2aec3-0c17-4c3f-82f7-dfa0ab76877a"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307201776517120480L
+                        },
+                        new
+                        {
                             ResourceId = new Guid("3bd11c81-982f-400a-b6e8-d9a27b8baee1"),
                             FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
                             CreatedTime = 1307187689349120480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("3e23e69d-8e27-466b-bfc6-a8f1f191549d"),
+                            FunctionId = new Guid("26afb233-f6cc-47bb-b367-0b0b7ce3fe42"),
+                            CreatedTime = 1307201777582080480L
                         },
                         new
                         {
@@ -11025,6 +11471,12 @@ namespace Gardener.Api.Core.Migrations
                             ResourceId = new Guid("9c9c7330-1bd8-4582-87e6-cad9e7b6d755"),
                             FunctionId = new Guid("e8e5ebed-ed84-485a-8f51-3ea62ed13af8"),
                             CreatedTime = 1307187674234880480L
+                        },
+                        new
+                        {
+                            ResourceId = new Guid("a0a21d0c-b733-40e7-833f-73c97baf913a"),
+                            FunctionId = new Guid("0ed7905f-7825-4f7f-8a00-18cd2da1e89b"),
+                            CreatedTime = 1307201777131520480L
                         },
                         new
                         {
