@@ -411,7 +411,7 @@
     <comment>ErrorCodeMessage</comment>
   </data>
   <data name="'{0}' is required" xml:space="preserve">
-    <value>”{0}“不能为空或Null</value>
+    <value>”{0}“是必填项</value>
     <comment>ValidationTypeMessageSettings</comment>
   </data>
   <data name="Query_Value_Type_No_Find_Converter" xml:space="preserve">

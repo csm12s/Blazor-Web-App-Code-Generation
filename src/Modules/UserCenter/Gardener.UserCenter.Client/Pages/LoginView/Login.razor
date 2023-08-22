@@ -8,24 +8,26 @@
               OnFinish="OnLogin"
               Loading="loading"
               LabelCol="new ColLayoutParam { Span = 6 }"
-              WrapperCol="new ColLayoutParam { Span = 18 }">
+              WrapperCol="new ColLayoutParam { Span = 18 }"
+              ValidateMode="@FormValidateMode.Rules"
+              ValidateOnChange="true">
             <Tabs ActiveKey="@(context.LoginType.ToString())">
                 <TabPane Key="1">
                     <TabTemplate>
                         @Localizer[UserCenterResource.AccountPasswordLogin]
                     </TabTemplate>
                     <ChildContent>
-                        <FormItem Label="@Localizer[UserCenterResource.UserName]" LabelAlign="AntLabelAlignType.Left">
+                        <FormItem Label="@Localizer[UserCenterResource.UserName]" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
                             <AntDesign.Input Placeholder="@Localizer[UserCenterResource.UserName]" Size="large" @bind-Value="@context.UserName">
                                 <Prefix><Icon Type="user" /></Prefix>
                             </AntDesign.Input>
                         </FormItem>
-                        <FormItem Label="@Localizer[UserCenterResource.LoginPassword]" LabelAlign="AntLabelAlignType.Left">
+                        <FormItem Label="@Localizer[UserCenterResource.LoginPassword]" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
                             <AntDesign.Input Placeholder="@Localizer[UserCenterResource.LoginPassword]" Size="large" @bind-Value="@context.Password" Type="password">
                                 <Prefix><Icon Type="lock" /></Prefix>
                             </AntDesign.Input>
                         </FormItem>
-                        <FormItem Label="@Localizer[UserCenterResource.VerifyCode]" LabelAlign="AntLabelAlignType.Left">
+                        <FormItem Label="@Localizer[UserCenterResource.VerifyCode]" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true} })>
                             <Row>
                                 <AntDesign.Col Span="18">
                                     <AntDesign.Input Placeholder="@Localizer[UserCenterResource.VerifyCode]" Size="large" @bind-Value="@context.VerifyCode" />
