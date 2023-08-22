@@ -231,7 +231,7 @@ namespace Gardener.Api.Core.Migrations
                             Id = 12,
                             CodeName = "Today",
                             CodeTypeId = 4,
-                            CodeValue = "1",
+                            CodeValue = "0",
                             CreateBy = "1",
                             CreateIdentityType = 1,
                             CreatedTime = 1307187787878400480L,
@@ -5748,6 +5748,23 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("ff4b3f11-f422-490b-9a13-877eb7a1146b"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202267648000480L,
+                            Description = "修改当前用户密码",
+                            EnableAudit = true,
+                            Group = "用户中心服务",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "1699D7A77E5536AD5865935029211166",
+                            Method = 1,
+                            Path = "/api/account/change-password",
+                            Service = "用户账户认证授权服务",
+                            Summary = "修改密码"
+                        },
+                        new
+                        {
                             Id = new Guid("4963631e-6343-469a-a189-10bfce6e3195"),
                             CreatedTime = 1306532718346240480L,
                             EnableAudit = true,
@@ -9937,6 +9954,94 @@ namespace Gardener.Api.Core.Migrations
                         },
                         new
                         {
+                            Id = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307060617400320480L,
+                            Hide = false,
+                            Icon = "user",
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center",
+                            Name = "个人中心",
+                            Order = 100,
+                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
+                            SupportMultiTenant = true,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307060617809920480L
+                        },
+                        new
+                        {
+                            Id = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307060619407360480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings",
+                            Name = "个人设置",
+                            Order = 0,
+                            ParentId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            Path = "/account/settings",
+                            SupportMultiTenant = true,
+                            Type = 1000,
+                            UpdateBy = "2",
+                            UpdateIdentityType = 1,
+                            UpdatedTime = 1307060658892800480L
+                        },
+                        new
+                        {
+                            Id = new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202272829440480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings_base",
+                            Name = "基本信息",
+                            Order = 0,
+                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202273812480480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings_binding",
+                            Name = "账号绑定",
+                            Order = 0,
+                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
+                            Id = new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202273525760480L,
+                            Hide = false,
+                            IsDeleted = false,
+                            IsLocked = false,
+                            Key = "account_center_settings_security",
+                            Name = "安全设置",
+                            Order = 0,
+                            ParentId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            SupportMultiTenant = false,
+                            Type = 2000
+                        },
+                        new
+                        {
                             Id = new Guid("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),
                             CreateIdentityType = 0,
                             CreatedTime = 1306051389542400480L,
@@ -10914,46 +11019,6 @@ namespace Gardener.Api.Core.Migrations
                             Remark = "用户中心",
                             SupportMultiTenant = true,
                             Type = 1000
-                        },
-                        new
-                        {
-                            Id = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307060617400320480L,
-                            Hide = false,
-                            Icon = "user",
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "account_center",
-                            Name = "个人中心",
-                            Order = 100,
-                            ParentId = new Guid("3c124d95-dd76-4903-b240-a4fe4df93868"),
-                            SupportMultiTenant = true,
-                            Type = 1000,
-                            UpdateBy = "2",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307060617809920480L
-                        },
-                        new
-                        {
-                            Id = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
-                            CreateBy = "2",
-                            CreateIdentityType = 1,
-                            CreatedTime = 1307060619407360480L,
-                            Hide = false,
-                            IsDeleted = false,
-                            IsLocked = false,
-                            Key = "account_center_settings",
-                            Name = "个人设置",
-                            Order = 0,
-                            ParentId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
-                            Path = "/account/settings",
-                            SupportMultiTenant = true,
-                            Type = 1000,
-                            UpdateBy = "2",
-                            UpdateIdentityType = 1,
-                            UpdatedTime = 1307060658892800480L
                         },
                         new
                         {
@@ -15747,6 +15812,16 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             RoleId = 2,
+                            ResourceId = new Guid("74a75b21-3fcf-4c26-b998-aa4f0b658292"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202293350400480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
                             ResourceId = new Guid("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),
                             CreatedTime = 1307019360624640480L,
                             IsDeleted = false,
@@ -15757,6 +15832,16 @@ namespace Gardener.Api.Core.Migrations
                             RoleId = 2,
                             ResourceId = new Guid("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),
                             CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("7a983726-92f2-4d47-9ee9-c15e279704d9"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202293350400480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -15851,8 +15936,28 @@ namespace Gardener.Api.Core.Migrations
                         new
                         {
                             RoleId = 2,
+                            ResourceId = new Guid("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202294722560480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
                             ResourceId = new Guid("99c74c8b-e343-43bc-86e3-bca825b6a270"),
                             CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("9d549aeb-35fd-4345-849c-db85e42a103c"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202294722560480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
@@ -15901,6 +16006,16 @@ namespace Gardener.Api.Core.Migrations
                             RoleId = 2,
                             ResourceId = new Guid("b99ad8cf-68db-49aa-838f-17d57429d9c5"),
                             CreatedTime = 1307019360624640480L,
+                            IsDeleted = false,
+                            IsLocked = false
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            ResourceId = new Guid("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),
+                            CreateBy = "2",
+                            CreateIdentityType = 1,
+                            CreatedTime = 1307202293350400480L,
                             IsDeleted = false,
                             IsLocked = false
                         },
