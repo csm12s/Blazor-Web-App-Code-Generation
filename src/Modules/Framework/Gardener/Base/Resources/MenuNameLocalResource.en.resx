@@ -190,6 +190,9 @@
     <value>Task</value>
     <comment>menu</comment>
   </data>
+  <data name="menu:system_manager_easy_job_log" xml:space="preserve">
+    <value>Log</value>
+  </data>
   <data name="menu:system_manager_easy_job_trigger" xml:space="preserve">
     <value>Trigger</value>
     <comment>menu</comment>
