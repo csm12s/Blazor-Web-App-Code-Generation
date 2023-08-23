@@ -1,33 +1,48 @@
 ﻿@inherits OperationDialogBase<int, bool, UserCenterResource>
 @page "/account/settings"
 
-<GridContent>
-    <div class="main__b__2">
-        <div class="leftMenu">
-            <Menu 
-                Mode="MenuMode.Inline" 
-                SelectedKeys="new []{_selectKey}" 
-                OnMenuItemClicked="SelectKey">
-                @foreach (var item in _menuMap)
-                {
-                    <MenuItem Key="@item.Key">@Localizer[item.Value]</MenuItem>
-                }
-            </Menu>
-        </div>
-        <div class="right__b__0">
-            <div class="title">@Localizer[_menuMap[_selectKey]]</div>
-            @switch (_selectKey)
-            {
-                case "base":
-                     <BaseView />
-                    break;
-                case "security":
-                    <SecurityView />
-                    break;
-                case "binding":
-                    <BindingView />
-                    break;
-            }
-        </div>
-    </div>
-</GridContent>
+<ResourceAuthorize AndCondition=false ResourceKey="account_center_settings_base,account_center_settings_security,account_center_settings_binding">
+    <Authorized>
+        <GridContent>
+            <div class="main__b__2">
+                <div class="leftMenu">
+                    <Menu Mode="MenuMode.Inline"
+                          SelectedKeys="new []{_selectKey}"
+                          OnMenuItemClicked="SelectKey">
+                        @foreach (var item in _menuMap)
+                        {
+                            if (authenticationStateManager.CheckCurrentUserHaveResource(item.Key))
+                            {
+                                <MenuItem Key="@item.Key">@Localizer[item.Value]</MenuItem>
+                            }
+                        }
+                    </Menu>
+                </div>
+                <div class="right__b__0">
+                    <div class="title">@Localizer[_menuMap[_selectKey]]</div>
+                    @switch (_selectKey)
+                    {
+                        case "account_center_settings_base":
+                            if (authenticationStateManager.CheckCurrentUserHaveResource("account_center_settings_base"))
+                            {
+                                <BaseView />
+                            }
+                            break;
+                        case "account_center_settings_security":
+                            if (authenticationStateManager.CheckCurrentUserHaveResource("account_center_settings_security"))
+                            {
+                                <SecurityView />
+                            }
+                            break;
+                        case "account_center_settings_binding":
+                            if (authenticationStateManager.CheckCurrentUserHaveResource("account_center_settings_binding"))
+                            {
+                                <BindingView />
+                            }
+                            break;
+                    }
+                </div>
+            </div>
+        </GridContent>
+    </Authorized>
+</ResourceAuthorize>

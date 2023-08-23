@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
@@ -23,10 +22,6 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
         protected IClientNotifier Notifier { get; set; }=null!;
 
         private bool _saveBtnLoading = false;
-
-        private void HandleFinish()
-        {
-        }
 
         protected override async Task OnInitializedAsync()
         {

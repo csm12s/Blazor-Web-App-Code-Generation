@@ -1261,7 +1261,7 @@ public class CodeGenService : ServiceBase<CodeGen, CodeGenDto, Guid>,
         {
             if (!File.Exists(genItem.TemplatePath))
             {
-                throw Oops.Oh(ExceptionCode.NO_INCLUD_FILE, "文件不存在：" + genItem.TemplatePath);
+                throw Oops.Oh(ExceptionCode.No_Includ_File, "文件不存在：" + genItem.TemplatePath);
             }
 
             // razor engine . net core

@@ -98,5 +98,17 @@ namespace Gardener.UserCenter.Resources
         /// 默认的
         /// </summary>
         public const string IsDefault = nameof(IsDefault);
+        /// <summary>
+        /// 旧密码
+        /// </summary>
+        public const string OldPassword = nameof(OldPassword);
+        /// <summary>
+        /// 新密码
+        /// </summary>
+        public const string NewPassword = nameof(NewPassword);
+        /// <summary>
+        /// 确认新密码
+        /// </summary>
+        public const string ConfirmNewPassword = nameof(ConfirmNewPassword);
     }
 }

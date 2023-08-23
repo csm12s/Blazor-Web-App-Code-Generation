@@ -17,6 +17,11 @@ using System;
 using Microsoft.AspNetCore.HttpOverrides;
 using AspNetCoreRateLimit;
 using Gardener.Sugar;
+using Gardener.DistributedLock;
+using Gardener.EasyJob.Impl.Core;
+using Gardener.LocalizationLocalizer;
+using Gardener.Api.Core;
+using Microsoft.Extensions.Options;
 
 namespace Gardener.Admin
 {
@@ -75,6 +80,8 @@ namespace Gardener.Admin
             //注册规范返回格式
             .AddUnifyResult<MyRESTfulResultProvider>()
             ;
+            //注入包装好的本地化内容处理器
+            services.AddLocalizationLocalizer<Base.Resources.SharedLocalResource>();
             //视图引擎
             services.AddViewEngine();
             //添加系统通知服务
@@ -113,6 +120,18 @@ namespace Gardener.Admin
             services.AddConfigurableOptions<DefaultDbSettingsOptions>();
             // SqlSugar
             services.SqlSugarScopeConfigure();
+            //分部式锁
+            services.AddDistributedLock();
+            // 任务队列
+            services.AddTaskQueue();
+            // 任务调度
+            services.AddSchedule(options =>
+            {
+                // 添加作业持久化器
+                options.AddPersistence<DbJobPersistence>(); 
+                // 添加监控器
+                options.AddMonitor<EasyJobMonitor>();
+            });
         }
         /// <summary>
         /// 
@@ -137,6 +156,7 @@ namespace Gardener.Admin
 
             // 配置多语言，必须在 路由注册之前
             app.UseAppLocalization();
+            app.ApplicationServices.InitLocalizationLocalizerUtil();
 
             app.UseStaticFiles();
 

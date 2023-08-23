@@ -7,9 +7,9 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SqlSugarCore" Version="5.1.4.80" />
-		<PackageReference Include="Furion" Version="4.8.8.23" />
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.2" />
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.94" />
+		<PackageReference Include="Furion" Version="4.8.8.39" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.4" />
 	</ItemGroup>
 
 	<ItemGroup>

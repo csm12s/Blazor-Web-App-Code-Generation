@@ -148,7 +148,7 @@ namespace Gardener.UserCenter.Impl.Services
             var userExists = await _userRepository.AnyAsync(x => x.UserName.Equals(input.UserName) && x.Id != input.Id && x.IsDeleted == false, false);
             if (userExists)
             {
-                throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
+                throw Oops.Bah(ExceptionCode.User_Name_Repeat);
             }
             //不操作角色关系
             input.Roles = null;
@@ -204,7 +204,7 @@ namespace Gardener.UserCenter.Impl.Services
         {
             if (_userRepository.Any(x => x.UserName.Equals(input.UserName) && x.IsDeleted == false, false))
             {
-                throw Oops.Bah(ExceptionCode.USER_NAME_REPEAT);
+                throw Oops.Bah(ExceptionCode.User_Name_Repeat);
             }
 
             //未传入密码时，自动生成密码

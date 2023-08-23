@@ -29,7 +29,8 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 昵称
         /// </summary>
-        [MaxLength(32, ErrorMessage = "最大长度不能大于{1}")]
+        [MaxLength(32)]
+        [MinLength(5)]
         [DisplayName("NickName")]
         [Order(2)]
         public string? NickName { get; set; }

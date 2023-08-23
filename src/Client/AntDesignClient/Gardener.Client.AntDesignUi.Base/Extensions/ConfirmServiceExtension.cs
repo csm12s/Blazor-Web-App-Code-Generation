@@ -6,34 +6,81 @@
 
 using Gardener.Base.Resources;
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 
 namespace AntDesign
 {
+    /// <summary>
+    /// 确认提示框服务扩展
+    /// </summary>
     public static class ConfirmServiceExtension
     {
-        public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title, string content, ConfirmIcon confirmIcon = ConfirmIcon.Info, string btn1Text = "确定", string btn2Text = "取消", string btn3Text = "")
+        /// <summary>
+        /// 弹出确认提示框
+        /// </summary>
+        /// <param name="confirmService"></param>
+        /// <param name="title"></param>
+        /// <param name="content"></param>
+        /// <param name="confirmIcon"></param>
+        /// <param name="btn1Text"></param>
+        /// <param name="btn2Text"></param>
+        /// <param name="btn3Text"></param>
+        /// <returns></returns>
+        public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title, string content, ConfirmIcon confirmIcon, string btn1Text = SharedLocalResource.Yes, string btn2Text = SharedLocalResource.Cancel, string btn3Text = "")
         {
             return await confirmService.Show(content, title, ConfirmButtons.YesNo, confirmIcon, new ConfirmButtonOptions()
             {
                 Button1Props = new ButtonProps
                 {
-                    ChildContent = LocalizerUtil.GetValue(btn1Text)
+                    ChildContent = Lo.GetValue(btn1Text)
                 },
                 Button2Props = new ButtonProps
                 {
-                    ChildContent = LocalizerUtil.GetValue(btn2Text)
+                    ChildContent = Lo.GetValue(btn2Text)
                 }
             });
         }
-
-        public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService, string title, string content)
+        /// <summary>
+        /// 弹出确认提示框
+        /// </summary>
+        /// <param name="confirmService"></param>
+        /// <param name="title"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// <para>confirmIcon此时为 <see cref="ConfirmIcon.Question"/></para>
+        /// </remarks>
+        public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title, string content)
         {
-            return await confirmService.YesNo(title, content, ConfirmIcon.Question, LocalizerUtil.GetValue(SharedLocalResource.Yes), LocalizerUtil.GetValue(SharedLocalResource.Cancel));
+            return await confirmService.YesNo(title, content, ConfirmIcon.Question);
         }
-
+        /// <summary>
+        /// 弹出确认提示框
+        /// </summary>
+        /// <param name="confirmService"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// <para>content此时为 <see cref="SharedLocalResource.OperateConfirmMessage"/></para>
+        /// <para>confirmIcon此时为 <see cref="ConfirmIcon.Question"/></para>
+        /// </remarks>
+        public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title)
+        {
+            return await confirmService.YesNo(title, Lo.GetValue(SharedLocalResource.OperateConfirmMessage), ConfirmIcon.Question);
+        }
+        /// <summary>
+        /// 弹出删除确认提示框
+        /// </summary>
+        /// <param name="confirmService"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// <para>title此时为 <see cref="SharedLocalResource.Delete"/></para>
+        /// <para>content此时为 <see cref="SharedLocalResource.OperateConfirmMessage"/></para>
+        /// <para>confirmIcon此时为 <see cref="ConfirmIcon.Question"/></para>
+        /// </remarks>
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService)
         {
-            return await confirmService.YesNoDelete(LocalizerUtil.GetValue(SharedLocalResource.Delete), LocalizerUtil.GetValue(SharedLocalResource.OperateConfirmMessage));
+            return await confirmService.YesNo(Lo.GetValue(SharedLocalResource.Delete), Lo.GetValue(SharedLocalResource.OperateConfirmMessage));
         }
     }
 }

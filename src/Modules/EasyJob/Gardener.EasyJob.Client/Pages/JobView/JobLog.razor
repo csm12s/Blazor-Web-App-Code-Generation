@@ -1,0 +1,73 @@
+﻿@page "/system_manager/easy_job_log"
+@inherits ListOperateTableBase<SysJobLogDto, long, JobLogEdit, EasyJobLocalResource>
+<div>
+    <Table @ref="_table"
+           TItem="SysJobLogDto"
+           DataSource="@_datas"
+           Total="_total"
+           OnChange="@OnChange"
+    @bind-PageIndex="_pageIndex"
+    @bind-PageSize="_pageSize"
+    @bind-SelectedRows="_selectedRows"
+           Loading="@_tableLoading.Value"
+           Context="model"
+           ScrollX="100%">
+        <TitleTemplate>
+            <ResourceAuthorize ResourceKey="system_manager_easy_job_log_search">
+                <TableSearch TDto="SysJobLogDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
+            </ResourceAuthorize>
+            <Row>
+                <AntDesign.Col Span="8">
+                    @* <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_delete_selected">
+                    <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                    @Localizer[SharedLocalResource.DeleteSelected]
+                    </Button>
+                    </ResourceAuthorize> *@
+                </AntDesign.Col>
+                <AntDesign.Col Span="16" Style="text-align:right">
+                    <Space>
+                        <ResourceAuthorize ResourceKey="system_manager_easy_job_log_refresh">
+                            <SpaceItem>
+                                <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                    @Localizer[SharedLocalResource.Refresh]
+                                </Button>
+                            </SpaceItem>
+                        </ResourceAuthorize>
+                    </Space>
+                </AntDesign.Col>
+            </Row>
+        </TitleTemplate>
+        <ColumnDefinitions>
+            <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left">
+                 <a href="system_manager/easy_job_detail?JobId=@model.JobId">@model.JobId</a>
+             </Column>
+             <Column @bind-Field="@model.JobDetailDescription" Filterable Title="@(Localizer.Combination(EasyJobLocalResource.Job,EasyJobLocalResource.Description))" Width="150" Fixed="left">
+                 <a href="system_manager/easy_job_detail?JobId=@model.JobId">@(model.JobDetailDescription ?? model.JobId)</a>
+            </Column>
+            <Column @bind-Field="@model.TriggerId" Filterable Title="@Localizer[EasyJobLocalResource.TriggerId]" Width="150" Fixed="left">
+                 <a href="system_manager/easy_job_trigger?TriggerId=@model.TriggerId">@model.TriggerId</a>
+             </Column>
+             <Column @bind-Field="@model.JobTriggerDescription" Filterable Title="@(Localizer.Combination(EasyJobLocalResource.Trigger,EasyJobLocalResource.Description))" Width="150" Fixed="left">
+                 <a href="system_manager/easy_job_trigger?TriggerId=@model.TriggerId">@(model.JobTriggerDescription ?? model.TriggerId)</a>
+            </Column>
+            <Column @bind-Field="@model.Succeeded" Filterable Title="@Localizer[EasyJobLocalResource.Succeed]" Width="150" Fixed="left">
+                 <TagYesNo Yes="model.Succeeded"></TagYesNo>
+             </Column>
+             <Column @bind-Field="@model.ElapsedTime" Filterable Title="@Localizer[EasyJobLocalResource.ElapsedTime]" Width="150" />
+             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Filterable Title="@Localizer[EasyJobLocalResource.LastRunTime]" Width="200" />
+             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Filterable Title="@Localizer[EasyJobLocalResource.NextRunTime]" Width="200" />
+             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" Width="200" />
+             <ActionColumn Width="200" Fixed="right">
+                 <Space>
+                     <ResourceAuthorize ResourceKey="system_manager_easy_job_log_detail">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                 </Space>
+             </ActionColumn>
+         </ColumnDefinitions>
+     </Table>
+ </div>

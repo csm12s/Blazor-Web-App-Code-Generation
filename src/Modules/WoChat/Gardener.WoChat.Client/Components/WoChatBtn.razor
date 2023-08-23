@@ -4,7 +4,7 @@
 @using Gardener.UserCenter.Dtos;
 @using Gardener.UserCenter.Services;
 @using Gardener.WoChat.Dtos.Notification;
-<div class="wochat-show-box" style="@(userIsLogin?"":"display:none;")">
+<div class="wochat-show-box" style="@(userIsLogin?"":"display:none;")z-index: 999;">
     <Badge Count="messageCount">
         <Button Size="@ButtonSize.Large" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="comment" OnClick="OnClick" Style="font-size:34px;"></Button>
     </Badge>

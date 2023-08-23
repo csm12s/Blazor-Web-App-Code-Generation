@@ -18,7 +18,6 @@ using Furion.DependencyInjection;
 using Gardener.Base;
 using Swashbuckle.AspNetCore.Annotations;
 using Gardener.Authentication.Core;
-using Humanizer.Localisation;
 
 namespace Gardener.SystemManager.Services
 {
@@ -141,7 +140,7 @@ namespace Gardener.SystemManager.Services
         {
             if (_resourceRepository.Any(x => x.Key.Equals(resourceDto.Key) && x.IsDeleted==false && x.IsLocked==false, false))
             {
-                throw Oops.Oh(ExceptionCode.RESOURCE_KEY_REPEAT);
+                throw Oops.Oh(ExceptionCode.Resource_Key_Repeat);
             }
             return await base.Insert(resourceDto);
         }

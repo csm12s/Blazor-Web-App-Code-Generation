@@ -55,6 +55,40 @@
 				}
 			},
 			{
+				"Order": 70,
+				"Group": "EasyJobServices",
+				"Title": "定时任务服务",
+				"Description": "定时任务服务",
+				"Version": "1.0.0",
+				"TermsOfService": "https://gitee.com/hgflydream",
+				"Contact": {
+					"Name": "hhf",
+					"Url": "https://gitee.com/hgflydream",
+					"Email": "326794739@qq.com"
+				},
+				"License": {
+					"Name": "Apache-2.0",
+					"Url": "https://gitee.com/hgflydream"
+				}
+			},
+			{
+				"Order": 60,
+				"Group": "ToolBoxServices",
+				"Title": "工具箱服务",
+				"Description": "工具箱服务",
+				"Version": "1.0.0",
+				"TermsOfService": "https://gitee.com/hgflydream",
+				"Contact": {
+					"Name": "hhf",
+					"Url": "https://gitee.com/hgflydream",
+					"Email": "326794739@qq.com"
+				},
+				"License": {
+					"Name": "Apache-2.0",
+					"Url": "https://gitee.com/hgflydream"
+				}
+			},
+			{
 				"Order": 0,
 				"Group": "Demos",
 				"Title": "示例服务",

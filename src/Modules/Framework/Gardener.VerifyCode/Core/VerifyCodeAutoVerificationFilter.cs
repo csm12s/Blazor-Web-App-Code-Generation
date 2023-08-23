@@ -61,7 +61,7 @@ namespace Gardener.VerifyCode.Core
             }
             else 
             {
-                throw Oops.Bah(ExceptionCode.VERIFY_CODE_VERIFICATION_FAILED);
+                throw Oops.Bah(ExceptionCode.Verify_Code_Verification_Failed);
             }
         }
     }

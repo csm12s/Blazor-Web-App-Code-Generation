@@ -9,7 +9,7 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Client\AntDesignClient\Gardener.Client.AntDesignUi.Base\Gardener.Client.AntDesignUi.Base.csproj" />

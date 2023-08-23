@@ -13,6 +13,7 @@ using Gardener.Base.Entity.Domains;
 using Gardener.EntityFramwork;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -52,6 +53,7 @@ namespace Gardener.Audit.Services
             Expression<Func<AuditEntity, bool>> expression = filterService.GetExpression<AuditEntity>(request.FilterGroups);
 
             IQueryable<AuditEntity> queryable = _auditRepository
+                .AsQueryable(false)
                 .Include(x=>x.AuditProperties)
                 .Where(expression);
             return await queryable

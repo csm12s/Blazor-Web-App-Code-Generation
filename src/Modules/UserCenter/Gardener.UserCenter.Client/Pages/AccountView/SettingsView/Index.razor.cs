@@ -6,8 +6,11 @@
 
 using AntDesign;
 using Gardener.Client.AntDesignUi.Base.Components;
+using Gardener.Client.Base;
 using Gardener.UserCenter.Resources;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
 {
@@ -15,13 +18,13 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
     {
         private readonly Dictionary<string, string> _menuMap = new Dictionary<string, string>
         {
-            {"base", "BasicSettings"},
-            {"security", "SecuritySettings"},
-            {"binding", "AccountBinding"},
+            {"account_center_settings_base", "BasicSettings"},
+            {"account_center_settings_security", "SecuritySettings"},
+            {"account_center_settings_binding", "AccountBinding"},
         };
-
-        private string _selectKey = "base";
-
+        [Inject]
+        private IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
+        private string _selectKey = "account_center_settings_base";
         private void SelectKey(MenuItem item)
         {
             _selectKey = item.Key;

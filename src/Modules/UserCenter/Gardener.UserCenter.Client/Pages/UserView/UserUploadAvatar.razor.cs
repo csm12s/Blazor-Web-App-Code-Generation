@@ -11,6 +11,7 @@ using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Common;
+using Gardener.LocalizationLocalizer;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -57,7 +58,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         [Inject]
         private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         [Inject]
-        private IClientLocalizer Localizer { get; set; } = null!;
+        private ILocalizationLocalizer Localizer { get; set; } = null!;
 
         /// <summary>
         /// 页面初始化

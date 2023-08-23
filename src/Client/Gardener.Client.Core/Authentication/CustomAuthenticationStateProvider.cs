@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Gardener.UserCenter.Dtos;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
@@ -21,8 +22,8 @@ namespace Gardener.Client.Core
     {
         private readonly IAuthenticationStateManager authenticationStateManager;
         private readonly IClientLogger logger;
-        private readonly IClientLocalizer localizer;
-        public CustomAuthenticationStateProvider(IAuthenticationStateManager authenticationStateManager, IClientLogger logger, IClientLocalizer localizer)
+        private readonly ILocalizationLocalizer localizer;
+        public CustomAuthenticationStateProvider(IAuthenticationStateManager authenticationStateManager, IClientLogger logger, ILocalizationLocalizer localizer)
         {
             this.authenticationStateManager = authenticationStateManager;
             authenticationStateManager.SetNotifyAuthenticationStateChangedAction(Refresh);

@@ -8,6 +8,7 @@ using AntDesign;
 using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 
 namespace Gardener.Client.AntDesignUi.Services
 {
@@ -22,14 +23,14 @@ namespace Gardener.Client.AntDesignUi.Services
 
         private readonly MessageService msgSvr;
         private readonly NotificationService notificationService;
-        private readonly IClientLocalizer localizer;
+        private readonly ILocalizationLocalizer localizer;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="msgSvr"></param>
         /// <param name="notificationService"></param>
         /// <param name="localizer"></param>
-        public ClientNotifier(MessageService msgSvr, NotificationService notificationService, IClientLocalizer localizer)
+        public ClientNotifier(MessageService msgSvr, NotificationService notificationService, ILocalizationLocalizer localizer)
         {
             this.msgSvr = msgSvr;
             this.notificationService = notificationService;

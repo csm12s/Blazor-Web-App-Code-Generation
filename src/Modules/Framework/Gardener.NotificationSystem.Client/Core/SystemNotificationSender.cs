@@ -29,7 +29,7 @@ namespace Gardener.NotificationSystem.Client.Core
         /// <returns></returns>
         public Task Send(NotificationData notificationData)
         {
-            ISignalRClient signalRClient = signalRClientManager.Get(NotificationSystemSignalRClientNames.SystemNotificationSignalRClientNames);
+            ISignalRClient signalRClient = signalRClientManager.Get(NotificationSystemSignalRClientNames.SystemNotificationSignalRClientName);
             return signalRClient.SendAsync("Send", notificationData);
         }
     }

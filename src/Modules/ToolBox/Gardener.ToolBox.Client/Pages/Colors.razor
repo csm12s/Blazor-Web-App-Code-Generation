@@ -1,0 +1,53 @@
+﻿@page "/tools/colors"
+@inherits ReuseTabsPageBase
+@using System.Text.RegularExpressions;
+@using Gardener.LocalizationLocalizer;
+<Divider Orientation="left">PresetColor</Divider>
+<div class="tag-colorful-demo">
+    @foreach (var color in Enum.GetValues(typeof(PresetColor)))
+    {
+        PresetColor item = ((PresetColor)color);
+        string refName = $"{nameof(PresetColor)}.{item}";
+        <Tag Color="@item.ToString()" OnClick="()=>copyTextToClipboard(refName)">@(refName)</Tag>
+    }
+</div>
+<Divider Orientation="left">Color</Divider>
+<div class="tag-colorful-demo">
+    @foreach (object color in Enum.GetValues(typeof(Color)))
+    {
+        Color item = ((Color)color);
+        string colorName = Regex.Replace(item.ToString(), @"[0-9]+", string.Empty);
+        if (string.IsNullOrEmpty(lastColor) || !colorName.Equals(lastColor))
+        {
+            <h5>@colorName</h5>
+        }
+        string refName = $"{nameof(Color)}.{item}";
+        <Button Color="@item" Size="@ButtonSize.Small" OnClick="()=>copyTextToClipboard(refName)">@(refName)</Button>
+        lastColor = colorName;
+    }
+</div>
+<style>
+    .tag-colorful-demo > * {
+        margin-bottom: 12px;
+        margin-right: 8px;
+    }
+</style>
+@code {
+    private string lastColor = string.Empty;
+    [Inject]
+    private IJsTool js { get; set; } = null!;
+    [Inject]
+    private MessageService messageService { get; set; } = null!;
+    [Inject]
+    private ILocalizationLocalizer Localizer { get; set; } = null!;
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private Task copyTextToClipboard(string text)
+    {
+        messageService.Success(Localizer.Combination(SharedLocalResource.Copy, SharedLocalResource.Success));
+        return js.Document.copyTextToClipboard(text);
+    }
+}

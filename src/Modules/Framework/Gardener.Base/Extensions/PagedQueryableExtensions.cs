@@ -103,7 +103,7 @@ namespace Gardener.Base
                 var property = t.GetProperty(orderinfo.FieldName);
                 if (property == null) 
                 {
-                    throw Oops.Oh(ExceptionCode.FIELD_IN_TYPE_NOT_FOUND, orderinfo.FieldName,t.Name);
+                    throw Oops.Oh(ExceptionCode.Field_In_Type_Not_Found, orderinfo.FieldName,t.Name);
                 }
                 //创建一个访问属性的表达式
                 var propertyAccess = Expression.MakeMemberAccess(parameter, property);

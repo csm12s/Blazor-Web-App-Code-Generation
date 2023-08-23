@@ -10,13 +10,14 @@ using Gardener.UserCenter.Dtos;
 using AntDesign.ProLayout;
 using Gardener.Client.Base.Services;
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
     public partial class RightContent
     {
         private UserDto? _currentUser;
-        private string[] _locales=null!;
+        private string[] _locales = null!;
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = null!;
         [Inject]
@@ -24,7 +25,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         [Inject]
         protected IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
         [Inject]
-        private IClientLocalizer localizer { get; set; } = null!;
+        private ILocalizationLocalizer localizer { get; set; } = null!;
         [Inject]
         private IClientCultureService clientCultureService { get; set; } = null!;
 
@@ -32,7 +33,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             SetClassMap();
             _currentUser = await authenticationStateManager.GetCurrentUser();
-            _locales= clientCultureService.GetSupportedCultures();
+            _locales = clientCultureService.GetSupportedCultures();
+            AvatarMenuItems = new AvatarMenuItem[]
+            {
+                //new() { Key = "center", IconType = "user", Option = Lo.GetValue("UserCenter")},
+                new() { Key = "setting", IconType = "setting", Option =localizer.GetValue("PersonalSettings")},
+                new() { IsDivider = true },
+                new() { Key = "logout", IconType = "logout", Option = localizer.GetValue("Logout")}
+            };
             await base.OnInitializedAsync();
         }
 
@@ -42,13 +50,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 .Clear()
                 .Add("right");
         }
-        public AvatarMenuItem[] AvatarMenuItems { get; set; } = new AvatarMenuItem[]
-        {
-            //new() { Key = "center", IconType = "user", Option = LocalizerUtil.GetValue("UserCenter")},
-            new() { Key = "setting", IconType = "setting", Option =LocalizerUtil.GetValue("PersonalSettings")},
-            new() { IsDivider = true },
-            new() { Key = "logout", IconType = "logout", Option = LocalizerUtil.GetValue("Logout")}
-        };
+        public AvatarMenuItem[] AvatarMenuItems { get; set; } = null!;
         public async Task HandleSelectUser(MenuItem item)
         {
             switch (item.Key)

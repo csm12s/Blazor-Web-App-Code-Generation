@@ -24,7 +24,7 @@ namespace Gardener.EntityFramwork.EFAudit
         /// <summary>
         /// 数据保存后
         /// </summary>
-        public Task SavedChangesEvent();
+        public void SavedChangesEvent();
 
         /// <summary>
         /// 保存操作审计

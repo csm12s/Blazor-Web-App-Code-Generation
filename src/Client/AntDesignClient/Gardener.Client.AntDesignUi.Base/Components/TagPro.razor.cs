@@ -6,7 +6,7 @@
 
 using AntDesign;
 using Gardener.Attributes;
-using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -98,6 +98,33 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         public string? Icon { get; set; }
 
         /// <summary>
+        /// the tag's icon 
+        /// </summary>
+        private string? _icon;
+
+        /// <summary>
+        /// Set the tag's icon theme
+        /// </summary>
+        [Parameter]
+        public string? IconTheme { get; set; }
+
+        /// <summary>
+        /// the tag's icon theme
+        /// </summary>
+        private string? _iconTheme;
+
+        /// <summary>
+        /// Set the tag's icon spin
+        /// </summary>
+        [Parameter]
+        public bool? IconSpin { get; set; }
+
+        /// <summary>
+        /// Set the tag's icon spin
+        /// </summary>
+        private bool? _iconSpin;
+
+        /// <summary>
         /// Callback executed when tag is closed
         /// </summary>
         [Parameter]
@@ -126,7 +153,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 本地化-可以对Text进行本地化处理
         /// </summary>
         [Parameter]
-        public IClientLocalizer? Localizer { get; set; } = null!;
+        public ILocalizationLocalizer? Localizer { get; set; }
 
         /// <summary>
         /// 从Text中推算的string 值
@@ -163,7 +190,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 if (Text.GetType().IsEnum)
                 {
-                    value = Common.EnumHelper.GetEnumDescription((Enum)Text);
+                    value = Common.EnumHelper.GetEnumDescriptionOrName((Enum)Text);
                 }
                 else
                 {
@@ -188,6 +215,8 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     tempColor = GetRandomColor(tempValue);
                 }
             }
+            //icon
+            InitEnumTagIcon();
             this._color = tempColor;
             this.value = tempValue;
             base.OnParametersSet();
@@ -203,6 +232,27 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             int code = Math.Abs(text.GetHashCode());
             int colorIndex = (code % 1000) % colors.Length;
             return colors[colorIndex].ToString();
+        }
+        /// <summary>
+        /// 获取枚举的Icon
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private void InitEnumTagIcon()
+        {
+            if (Text == null || !Text.GetType().IsEnum)
+            {
+                return;
+            }
+            TagIconAttribute? attr = Common.EnumHelper.GetEnumAttribute<TagIconAttribute>((Enum)Text);
+            if (attr == null)
+            {
+                return;
+            }
+            this._icon = this.Icon ?? attr.Icon;
+            this._iconTheme = this.IconTheme ?? attr.Theme;
+            this._iconSpin = this.IconSpin ?? attr.Spin;
+
         }
         /// <summary>
         /// 获取枚举的颜色

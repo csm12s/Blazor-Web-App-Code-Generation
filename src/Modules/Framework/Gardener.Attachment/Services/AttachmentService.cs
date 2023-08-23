@@ -61,7 +61,7 @@ namespace Gardener.Attachment.Services
         /// <returns></returns>
         public async Task<UploadAttachmentOutput> Upload([FromForm] UploadAttachmentInput input, IFormFile file)
         {
-            if (file == null) throw Oops.Oh(ExceptionCode.NO_INCLUD_FILE);
+            if (file == null) throw Oops.Oh(ExceptionCode.No_Includ_File);
 
             UploadAttachmentOutput uploadOutput = new UploadAttachmentOutput();
             AttachmentDto attachment = new AttachmentDto();

@@ -24,5 +24,12 @@ namespace Gardener.Client.Base.Services
         /// </summary>
         /// <returns></returns>
         string[] GetSupportedCultures();
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="cultureStorageKey"></param>
+        /// <param name="defaultCulture"></param>
+        /// <returns></returns>
+        Task Init(string cultureStorageKey, string defaultCulture);
     }
 }

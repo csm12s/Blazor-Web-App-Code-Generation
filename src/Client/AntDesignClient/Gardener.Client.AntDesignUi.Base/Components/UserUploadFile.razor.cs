@@ -3,6 +3,7 @@ using Gardener.Attachment.Dtos;
 using Gardener.Attachment.Enums;
 using Gardener.Client.Base;
 using Gardener.Common;
+using Gardener.LocalizationLocalizer;
 using Gardener.UserCenter.Dtos;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -24,7 +25,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         IAuthenticationStateManager authenticationStateManager { get; set; } = null!;
 
         [Inject]
-        protected IClientLocalizer localizer { get; set; } = null!;
+        protected ILocalizationLocalizer localizer { get; set; } = null!;
         /// <summary>
         /// 上传地址
         /// </summary>

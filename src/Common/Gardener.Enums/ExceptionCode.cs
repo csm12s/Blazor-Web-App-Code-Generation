@@ -15,100 +15,110 @@ namespace Gardener.Enums
     public enum ExceptionCode
     {
         /// <summary>
+        /// 系统异常默认提示
+        /// </summary>
+        [Description("系统异常默认提示")]
+        System_Default_Error_Message,
+        /// <summary>
         /// 身份验证失败
         /// </summary>
         [Description("身份验证失败")]
-        UNAUTHORIZED,
+        Unauthorized,
         /// <summary>
         /// 拒绝访问资源
         /// </summary>
         [Description("拒绝访问资源")]
-        FORBIDDEN,
+        Forbidden,
         /// <summary>
         /// 用户锁定
         /// </summary>
         [Description("用户锁定")]
-        USER_LOCKED,
+        User_Locked,
         /// <summary>
         /// 用户密码错误
         /// </summary>
         [Description("用户名或密码错误")]
-        USER_NAME_OR_PASSWORD_ERROR,
+        User_Name_Or_Password_Error,
+        /// <summary>
+        /// 密码错误
+        /// </summary>
+        [Description("密码错误")]
+        Password_Error,
         /// <summary>
         /// 验证码验证失败
         /// </summary>
         [Description("验证码验证失败")]
-        VERIFY_CODE_VERIFICATION_FAILED,
+        Verify_Code_Verification_Failed,
         /// <summary>
         /// 用户名重复
         /// </summary>
         [Description("用户名重复")]
-        USER_NAME_REPEAT,
+        User_Name_Repeat,
         /// <summary>
         /// 资源键值重复
         /// </summary>
         [Description("资源键值重复")]
-        RESOURCE_KEY_REPEAT,
+        Resource_Key_Repeat,
         /// <summary>
         /// 刷新token不存在或已过期
         /// </summary>
         [Description("刷新token不存在或已过期")]
-        REFRESHTOKEN_NO_EXIST_OR_EXPIRE,
+        Refreshtoken_No_Exist_Or_Expire,
         /// <summary>
         /// 未包含文件
         /// </summary>
         [Description("未包含文件")]
-        NO_INCLUD_FILE,
+        No_Includ_File,
         /// <summary>
         /// 条件组中的操作类型错误
         /// </summary>
         [Description("条件组中的操作类型错误")]
-        FILTER_GROUP_OPERATE_ERROR,
+        Filter_Group_Operate_Error,
         /// <summary>
         /// 指定的属性“{0}”在类型“{1}”中不存在
         /// </summary>
         [Description("指定的属性“{0}”在类型“{1}”中不存在")]
-        FIELD_IN_TYPE_NOT_FOUND,
+        Field_In_Type_Not_Found,
         /// <summary>
         /// 指定的属性“{0}”在类型“{1}”中不存在
         /// </summary>
         [Description("查询的值类型“{0}”未找到转换器")]
-        QUERY_VALUE_TYPE_NO_FIND_CONVERTER,
+        Query_Value_Type_No_Find_Converter,
         /// <summary>
         /// 请求的地址无效
         /// </summary>
         [Description("请求的地址无效")]
-        REQUEST_URL_IS_INVALID,
+        Request_Url_Is_Invalid,
         /// <summary>
         /// 刷新token不能用于鉴权
         /// </summary>
         [Description("刷新token不能用于鉴权")]
-        REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION,
+        Refreshtoken_Cannot_Used_In_Authentication,
         /// <summary>
         /// TOKEN无效
         /// </summary>
         [Description("TOKEN无效")]
-        TOKEN_INVALID,
+        Token_Invalid,
         /// <summary>
         /// 客户端登录失败
         /// </summary>
         [Description("客户端登录失败")]
-        CLIENT_LOGIN_FAIL,
+        Client_Login_Fail,
         /// <summary>
         /// 客户端未找到
         /// </summary>
         [Description("客户端未找到")]
-        CLIENT_NO_FIND,
+        Client_No_Find,
         /// <summary>
         /// 时间戳已过期
         /// </summary>
         [Description("时间戳已过期")]
-        TIMESPAN_IS_EXPIRED,
+        Timespan_Is_Expired,
         /// <summary>
         /// 邮件服务器未找到
         /// </summary>
         [Description("邮件服务器未找到")]
-        EMAIL_SERVER_NO_FIND,
+        Email_Server_No_Find,
         /// <summary>
         /// 接口方法需要备注
         /// </summary>
@@ -143,6 +153,42 @@ namespace Gardener.Enums
         /// 没有权限修改这个数据
         /// </summary>
         [Description("没有权限修改这个数据")]
-        No_Permission_Modify_The_Data
+        No_Permission_Modify_The_Data,
+        /// <summary>
+        /// 数据键“{0}”唯一性冲突
+        /// </summary>
+        [Description("数据键“{0}”唯一性冲突")]
+        Data_Key_Uniqueness_Conflict,
+        /// <summary>
+        /// 任务调度不存在
+        /// </summary>
+        [Description("任务调度不存在")]
+        Task_Not_Exist,
+        /// <summary>
+        /// 已存在同名任务调度
+        /// </summary>
+        [Description("已存在同名任务调度")]
+        Task_Allready_Exist,
+        /// <summary>
+        /// 字段“{0}”不能为空
+        /// </summary>
+        [Description("字段“{0}”不能为空")]
+        Required,
+        /// <summary>
+        /// 字段“{0}”禁止修改
+        /// </summary>
+        [Description("字段“{0}”禁止修改")]
+        Field_Cannot_Be_Modified,
+        /// <summary>
+        /// 未找到调度
+        /// </summary>
+        [Description("未找到调度")]
+        Scheduler_Not_Find,
+        /// <summary>
+        /// 确认密码不一致
+        /// </summary>
+        [Description("确认密码不一致")]
+        Confirm_New_Password_Inconformity,
+
     }
 }

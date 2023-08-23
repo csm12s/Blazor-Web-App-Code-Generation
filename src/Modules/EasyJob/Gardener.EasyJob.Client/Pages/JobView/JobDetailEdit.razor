@@ -1,0 +1,93 @@
+﻿@inherits EditOperationDialogBase<SysJobDetailDto, int, EasyJobLocalResource>
+@using BlazorMonaco.Editor
+
+<Form Loading="@_dialogLoading.Value"
+      Model="@_editModel"
+      LabelCol="new ColLayoutParam { Span = 8 }"
+      WrapperCol="new ColLayoutParam { Span = 16 }"
+      OnFinish="OnFormFinish"
+      TModel="SysJobDetailDto"
+      Context="model">
+    <Tabs DefaultActiveKey="1" Type="@TabType.Line" @bind-ActiveKey="tabActiveKey">
+        <TabPane Key="baseInfo" Tab="@Localizer["Job"]" Closable="false">
+            <Row Gutter="24">
+                <GridCol Span="11">
+                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider> *@
+                    <FormItem Label="@Localizer[EasyJobLocalResource.JobId]">
+                        <Input @bind-Value="@model.JobId" />
+                    </FormItem>
+                    <FormItem Label="@Localizer[EasyJobLocalResource.GroupName]">
+                        <Input @bind-Value="@model.GroupName" />
+                    </FormItem>
+                    <FormItem Label="@Localizer[EasyJobLocalResource.Description]">
+                        <TextArea @bind-Value="@model.Description" />
+                    </FormItem>
+                    @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
+                    {
+                        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+                            <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
+                        </FormItem>
+                        <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
+                            <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
+                        </FormItem>
+                    }
+                </GridCol>
+                <GridCol Offset="1" Span="12">
+                    @* <Divider Orientation="center" Style="font-weight:bold">@Localizer["TaskSittings"]</Divider> *@
+                    <FormItem Label="@Localizer[EasyJobLocalResource.JobType]">
+                        <RadioGroup @bind-Value="@(model.CreateType)">
+                            @foreach (var gitem in EnumHelper.EnumToDictionary<JobCreateType>())
+                            {
+                                <Radio Value="@(gitem.Key)">@Localizer[gitem.Value]</Radio>
+                            }
+                        </RadioGroup>
+                    </FormItem>
+                    @if (JobCreateType.BuiltIn.Equals(model.CreateType))
+                    {
+                        <FormItem Label="@Localizer[EasyJobLocalResource.AssemblyName]">
+                            <Input @bind-Value="@model.AssemblyName" />
+                        </FormItem>
+                        <FormItem Label="@Localizer[EasyJobLocalResource.JobTypeFullName]">
+                            <Input @bind-Value="@model.JobType" />
+                        </FormItem>
+                    }
+                    <FormItem Label="@Localizer[EasyJobLocalResource.Concurrent]">
+                        <Switch @bind-Value="@model.Concurrent"></Switch>
+                    </FormItem>
+                    <FormItem Label="@Localizer[EasyJobLocalResource.IncludeAnnotations]">
+                        <Switch @bind-Value="@model.IncludeAnnotations"></Switch>
+                    </FormItem>
+                    <FormItem Label="@Localizer[EasyJobLocalResource.Properties]">
+                        <TextArea @bind-Value="@model.Properties" MinRows="3" />
+                    </FormItem>
+                </GridCol>
+            </Row>
+           
+        </TabPane>
+        <TabPane Key="script" Tab="@Localizer["Script"]" Closable="false" Disabled="@(!JobCreateType.Script.Equals(model.CreateType))">
+            <style>
+                .my-editor-class {
+                    min-height: 70Vh
+                }
+            </style>
+            <StandaloneCodeEditor @ref="_editor" Id="any-id-string" ConstructionOptions="EditorConstructionOptions" CssClass="my-editor-class" OnDidInit="EditorOnDidInit" />
+        </TabPane>
+    </Tabs>
+    <FormItem WrapperColOffset="12" WrapperColSpan="12">
+        <Space>
+            @if (!OperationDialogInputType.Select.Equals(this.Options.Type))
+            {
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" HtmlType="submit">
+                        @Localizer[SharedLocalResource.Save]
+                    </Button>
+                </SpaceItem>
+            }
+            <SpaceItem>
+                <Button OnClick="_=>OnFormCancel()">
+                    @Localizer[SharedLocalResource.Cancel]
+                </Button>
+            </SpaceItem>
+        </Space>
+    </FormItem>
+</Form>

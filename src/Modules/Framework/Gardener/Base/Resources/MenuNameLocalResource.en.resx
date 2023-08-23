@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="emnu:account_center_settings" xml:space="preserve">
+    <value>Account center settings</value>
+  </data>
   <data name="menu:account_center" xml:space="preserve">
     <value>Account center</value>
   </data>
@@ -125,6 +128,14 @@
   </data>
   <data name="menu:admin_home" xml:space="preserve">
     <value>Home</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:dev_tools" xml:space="preserve">
+    <value>Develop tools</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:dev_tools_color" xml:space="preserve">
+    <value>Colors</value>
     <comment>menu</comment>
   </data>
   <data name="menu:system_login" xml:space="preserve">
@@ -165,6 +176,25 @@
   </data>
   <data name="menu:system_manager_code_type" xml:space="preserve">
     <value>Code type</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:system_manager_easy_job" xml:space="preserve">
+    <value>Task scheduling</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:system_manager_easy_job_dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:system_manager_easy_job_detail" xml:space="preserve">
+    <value>Task</value>
+    <comment>menu</comment>
+  </data>
+  <data name="menu:system_manager_easy_job_log" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="menu:system_manager_easy_job_trigger" xml:space="preserve">
+    <value>Trigger</value>
     <comment>menu</comment>
   </data>
   <data name="menu:system_manager_email_server_config" xml:space="preserve">

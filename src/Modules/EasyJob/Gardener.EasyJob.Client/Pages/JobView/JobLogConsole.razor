@@ -1,0 +1,17 @@
+﻿@inherits OperationDialogBase<JobLogConsoleInput,bool,EasyJobLocalResource>
+@page "/system_manager/easy_job_log_console"
+<div>
+    <GridRow>
+        <TextArea @bind-Value="@logContent" Style="height:80Vh;overflow-y:scroll;background-color:black;color:white;" Id="log_content_textarea" />
+    </GridRow>
+    <GridRow Style="margin-top:5px;">
+        <GridCol Span="8">
+            <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_monitor_log,system_manager_easy_job_trigger_monitor_log" AndCondition="false">
+                    <label>@Localizer[EasyJobLocalResource.RealTimeMonitor]</label> <Switch Checked="enableRealTimeMonitor" Loading="enableRealTimeMonitorLoading" CheckedChildren="@Localizer[EasyJobLocalResource.Open]" UnCheckedChildren="@Localizer[EasyJobLocalResource.Close]" OnChange="OnEnableRealTimeMonitorChange" />
+            </ResourceAuthorize>
+        </GridCol>
+        <GridCol Span="16" Style="text-align:right;">
+            <Pagination DefaultCurrent="1" Total="logPageTotal" OnChange="OnPaginationChange" PageSize="pageSize" />
+        </GridCol>
+    </GridRow>
+</div>

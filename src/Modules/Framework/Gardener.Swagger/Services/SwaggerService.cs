@@ -48,7 +48,7 @@ namespace Gardener.Swagger.Services
 
                 if (!response.StatusCode.Equals(HttpStatusCode.OK))
                 {
-                    throw Oops.Bah(ExceptionCode.REQUEST_URL_IS_INVALID);
+                    throw Oops.Bah(ExceptionCode.Request_Url_Is_Invalid);
                 }
 
             }).GetAsAsync<SwaggerModel>();

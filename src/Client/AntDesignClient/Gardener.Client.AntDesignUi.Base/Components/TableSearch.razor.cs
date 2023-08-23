@@ -11,12 +11,11 @@ using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.Base;
 using Gardener.Common;
 using Gardener.Enums;
+using Gardener.LocalizationLocalizer;
 using Gardener.SystemManager.Utils;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using System.Xml.Linq;
-using System.Linq;
 
 namespace Gardener.Client.AntDesignUi.Base.Components
 {
@@ -43,13 +42,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         /// 默认本地化器
         /// </summary>
         [Inject]
-        public IClientLocalizer localizer { get; set; } = null!;
+        public ILocalizationLocalizer localizer { get; set; } = null!;
 
         /// <summary>
         /// 自定义本地化器
         /// </summary>
         [Parameter]
-        public IClientLocalizer CustomLocalizer { get; set; } = null!;
+        public ILocalizationLocalizer CustomLocalizer { get; set; } = null!;
 
         /// <summary>
         /// 搜索

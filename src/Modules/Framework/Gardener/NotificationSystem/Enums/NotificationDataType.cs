@@ -26,6 +26,14 @@ namespace Gardener.NotificationSystem.Enums
         /// <summary>
         /// WoChatIm系统消息
         /// </summary>
-        WoChatImSystemMessage
+        WoChatImSystemMessage,
+        /// <summary>
+        /// 定时任务触发器更新
+        /// </summary>
+        EasyJobTriggerUpdate,
+        /// <summary>
+        /// 定时任务运行日志
+        /// </summary>
+        EasyJobRunLog
     }
 }

@@ -4,9 +4,11 @@
     <div class="baseView">
         <div class="left" style="min-width: 310px;">
             <Form Layout="vertical"
-                  OnFinish="HandleFinish"
+                  OnFinish="SaveUserBaseInfo"
                   Model="@_currentUser"
-                  Context="model">
+                  Context="model" 
+                  ValidateMode="@FormValidateMode.Rules"
+                  ValidateOnChange="true">
                 <FormItem Label="@Localizer[UserCenterResource.Avatar]">
                     <Tooltip Placement="Placement.LeftTop" Title="@Localizer[UserCenterResource.ClickUpdateAvatar]">
                         <a @onclick="_ => OnAvatarClick(model)">
@@ -14,10 +16,10 @@
                         </a>
                     </Tooltip>
                 </FormItem>
-                <FormItem Label="@Localizer["NickName"]">
+                <FormItem Label="@Localizer["NickName"]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
                     <Input @bind-Value="@model.NickName" />
                 </FormItem>
-                <FormItem Label="@Localizer["Gender"]">
+                <FormItem Label="@Localizer["Gender"]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Type=FormFieldType.Enum} })>
                     <RadioGroup @bind-Value="@(model.Gender)">
                         @foreach (var gitem in EnumHelper.EnumToDictionary<Gender>())
                         {
@@ -26,7 +28,7 @@
                     </RadioGroup>
                 </FormItem>
                 <FormItem>
-                    <Button HtmlType="submit" Type="primary" OnClick="SaveUserBaseInfo" Loading="_saveBtnLoading">
+                    <Button HtmlType="submit" Type="primary" Loading="_saveBtnLoading">
                         @Localizer[UserCenterResource.Save]
                     </Button>
                 </FormItem>

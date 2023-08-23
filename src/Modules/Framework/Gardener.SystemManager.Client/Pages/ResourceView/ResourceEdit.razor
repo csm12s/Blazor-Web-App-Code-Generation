@@ -41,10 +41,7 @@
             <RadioGroup @bind-Value="@(model.Type)">
                 @foreach (var gitem in EnumHelper.EnumToDictionary<ResourceType>())
                 {
-                    if ((int)gitem.Key >= (int)currentResourceTypeCopy)
-                    {
-                        <Radio Value="gitem.Key">@gitem.Value</Radio>
-                    }
+                    <Radio Value="gitem.Key" Disabled="@((int)gitem.Key < (int)currentResourceTypeCopy)">@gitem.Value</Radio>
                 }
             </RadioGroup>
         </FormItem>
@@ -72,7 +69,6 @@
         <FormItem Label="@Localizer[SystemManagerResource.Remark]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
             <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
@@ -99,7 +95,5 @@
                 </SpaceItem>
             </Space>
         </FormItem>
-
     </Form>
-
 }

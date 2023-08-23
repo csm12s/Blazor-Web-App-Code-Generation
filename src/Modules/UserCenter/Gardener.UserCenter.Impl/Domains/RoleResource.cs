@@ -70,7 +70,7 @@ namespace Gardener.UserCenter.Impl.Domains
         /// <returns></returns>
         public IEnumerable<RoleResource> HasData(DbContext dbContext, Type dbContextLocator)
         {
-            return new RoleResource[] {
+            return new[]{
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("068f13c5-7830-473b-bcc0-f0c2bcaeb558"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("07af05b1-6f3e-49fa-9959-463e246346df"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("0f16cfba-bbf5-42c5-83a4-0ac03a1ce5f2"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
@@ -96,8 +96,10 @@ namespace Gardener.UserCenter.Impl.Domains
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("67ad5c3a-8611-4183-ad9e-63cb4c9760fa"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("6ac07813-4d10-4b50-9f0c-ecd444041282"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("6dc2b297-7110-462a-b402-9e9736abf292"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
+                new RoleResource() {RoleId=2,ResourceId=Guid.Parse("74a75b21-3fcf-4c26-b998-aa4f0b658292"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-08-21 17:49:40"),CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("7819fe8f-8d81-4d00-af2b-c53ec010c65b"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("799d63fd-48e7-40c2-84e7-a6b36f2c19f3"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
+                new RoleResource() {RoleId=2,ResourceId=Guid.Parse("7a983726-92f2-4d47-9ee9-c15e279704d9"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-08-21 17:49:40"),CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("7aad6dba-3f13-4982-adfa-525fa94485dd"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("7f772fcb-fe68-4edb-9f7a-6ef520aa25f1"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("7f9c7946-edbf-4ff2-9e2b-a3cd635b0e84"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
@@ -109,13 +111,16 @@ namespace Gardener.UserCenter.Impl.Domains
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("91517bf1-ef41-4ddb-8daa-5022c59d2c73"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("925c3162-155c-4644-8ca2-075f9fc76235"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("92da96d7-c59c-4d4b-8c97-80a9f59e8fa2"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
+                new RoleResource() {RoleId=2,ResourceId=Guid.Parse("98c63bf2-fbc3-46d6-94dd-9c2a939b7ba6"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-08-21 17:50:47"),CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("99c74c8b-e343-43bc-86e3-bca825b6a270"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
+                new RoleResource() {RoleId=2,ResourceId=Guid.Parse("9d549aeb-35fd-4345-849c-db85e42a103c"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-08-21 17:50:47"),CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("a0b818e5-f59d-4d3b-b5dc-2f5beca2111f"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("a2b68c70-173f-46fa-8442-e19219a9905b"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("b63d694e-205f-44c0-8353-0c9507f44696"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("b7cdae2b-4f9b-493a-b43b-a3c7ffef3b86"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("b8224935-fae6-4bbe-ad91-1d8969baabe8"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("b99ad8cf-68db-49aa-838f-17d57429d9c5"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
+                new RoleResource() {RoleId=2,ResourceId=Guid.Parse("ba411ee1-f545-4bf6-8b56-18b8ed6f88fe"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-08-21 17:49:40"),CreateBy="2",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("ba89c7b7-552c-415c-b4be-085262dc76b0"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("bd892fb3-47b4-469e-ba14-7c0eb703e164"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
                 new RoleResource() {RoleId=2,ResourceId=Guid.Parse("c2090656-8a05-4e67-b7ea-62f178639620"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-10 08:38:38"),},
@@ -277,7 +282,7 @@ namespace Gardener.UserCenter.Impl.Domains
                 new RoleResource() {RoleId=4,ResourceId=Guid.Parse("f4fa035f-27ae-4eee-b006-3cbfac3d2172"),TenantId=Guid.Parse("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-20 21:04:16"),CreateBy="1",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
                 new RoleResource() {RoleId=4,ResourceId=Guid.Parse("fb4f6cc5-8f3a-4885-aba4-23a5a8c70b41"),TenantId=Guid.Parse("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-20 21:04:16"),CreateBy="1",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
                 new RoleResource() {RoleId=4,ResourceId=Guid.Parse("fd070704-3d11-4c46-8ca0-7ecd2ac7df74"),TenantId=Guid.Parse("f416b514-04c8-40ca-91a4-07c5bbf9c8c6"),IsLocked=false,IsDeleted=false,CreatedTime=DateTimeOffset.Parse("2023-05-20 21:04:16"),CreateBy="1",CreateIdentityType=Enum.Parse<IdentityType>("User"),},
-            };
+         };
         }
     }
 }

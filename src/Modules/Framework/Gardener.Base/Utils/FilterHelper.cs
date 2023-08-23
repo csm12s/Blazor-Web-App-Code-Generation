@@ -375,7 +375,7 @@ namespace Gardener.Base
                         }
                         else
                         {
-                            throw Oops.Oh(ExceptionCode.QUERY_VALUE_TYPE_NO_FIND_CONVERTER, conversionType.Name);
+                            throw Oops.Oh(ExceptionCode.Query_Value_Type_No_Find_Converter, conversionType.Name);
                         }
 
                     }

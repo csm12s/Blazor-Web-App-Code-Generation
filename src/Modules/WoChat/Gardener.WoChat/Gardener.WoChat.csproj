@@ -8,17 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\EasyJob\Gardener.EasyJob\Gardener.EasyJob.csproj" />
     <ProjectReference Include="..\..\Framework\Gardener\Gardener.csproj" />
-    <ProjectReference Include="..\..\SysTimer\Gardener.SysTimer\Gardener.SysTimer.csproj" />
     <ProjectReference Include="..\..\UserCenter\Gardener.UserCenter\Gardener.UserCenter.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\WoChatResource.en.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WoChatResource.zh.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -76,7 +76,7 @@ namespace Gardener.Authentication.Core
             string? tokenTypeKey = httpContext.User.FindFirstValue(AuthKeyConstants.TokenTypeKey);
             if (string.IsNullOrEmpty(tokenTypeKey) || JwtTokenType.RefreshToken.ToString().Equals(tokenTypeKey))
             {
-                throw Oops.Oh(ExceptionCode.REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION);
+                throw Oops.Oh(ExceptionCode.Refreshtoken_Cannot_Used_In_Authentication);
             }
             return identityConverter.ClaimsPrincipalToIdentity(httpContext.User);
         }

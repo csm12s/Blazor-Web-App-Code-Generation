@@ -9,6 +9,9 @@ namespace Gardener.Enums
     /// <summary>
     /// 预设颜色
     /// </summary>
+    /// <remarks>
+    /// 对应ant中的PresetColor
+    /// </remarks>
     public enum ClientAntPresetColor
     {
         Pink,

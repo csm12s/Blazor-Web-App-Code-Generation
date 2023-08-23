@@ -82,20 +82,20 @@ namespace Gardener.UserCenter.Impl.Services
             //校验时间戳
             if (input.Timespan <= 0 || input.Timespan > currentTimespan || input.Timespan < (currentTimespan - 120)) 
             {
-                throw Oops.Bah(ExceptionCode.TIMESPAN_IS_EXPIRED);
+                throw Oops.Bah(ExceptionCode.Timespan_Is_Expired);
             }
 
             Client? client = _repository.AsQueryable(false).Where(x => x.Id.Equals(input.ClientId) && x.IsDeleted == false && x.IsLocked == false).FirstOrDefault();
             if (client == null)
             {
-                throw Oops.Bah(ExceptionCode.CLIENT_NO_FIND);
+                throw Oops.Bah(ExceptionCode.Client_No_Find);
             }
 
             //加密对比
             bool flag= MD5Encryption.Compare((input.ClientId + client.SecretKey + input.Timespan).ToUpper(), input.EncryptionValue.ToUpper(), true);
             if (!flag)
             {
-                throw Oops.Bah(ExceptionCode.CLIENT_LOGIN_FAIL);
+                throw Oops.Bah(ExceptionCode.Client_Login_Fail);
             }
 
             Identity identity = new Identity

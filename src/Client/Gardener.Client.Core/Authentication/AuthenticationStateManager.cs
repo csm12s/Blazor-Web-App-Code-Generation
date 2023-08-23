@@ -10,7 +10,6 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Collections;
 using Microsoft.Extensions.Options;
-using System.Linq;
 using Gardener.UserCenter.Dtos;
 using Gardener.Authorization.Dtos;
 using Gardener.UserCenter.Services;
@@ -203,7 +202,7 @@ namespace Gardener.Client.Core
         /// <returns></returns>
         public Task<UserDto?> GetCurrentUser()
         {
-            if(this.currentUser == null)
+            if (this.currentUser == null)
             {
                 return Task.FromResult<UserDto?>(null);
             }
@@ -236,7 +235,7 @@ namespace Gardener.Client.Core
                     //超级管理员
                     currentUserIsSuperAdmin = this.currentUser.IsSuperAdministrator ?? false;
                     currentUserIsTenant = ((IModelTenantId)this.currentUser).IsTenant;
-                    eventBus.Publish(new ReloadCurrentUserEvent(token, currentUser)
+                    await eventBus.PublishAsync(new ReloadCurrentUserEvent(token, currentUser)
                     {
                         CurrentUserIsSuperAdmin = currentUserIsSuperAdmin,
                         UiResourceKeys = uiResourceKeys,

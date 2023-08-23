@@ -72,6 +72,14 @@ namespace Gardener.Base.Resources
         /// </summary>
         public const string Success = nameof(Success);
         /// <summary>
+        /// 成功
+        /// </summary>
+        public const string Succeed = nameof(Succeed);
+        /// <summary>
+        /// 总数
+        /// </summary>
+        public const string Total = nameof(Total);
+        /// <summary>
         /// 失败
         /// </summary>
         public const string Fail = nameof(Fail);
@@ -464,5 +472,39 @@ namespace Gardener.Base.Resources
         /// 次数
         /// </summary>
         public const string Times = nameof(Times);
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public const string Status = nameof(Status);
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public const string StartTime = nameof(StartTime);
+        /// <summary>
+        /// 结果
+        /// </summary>
+        public const string Result = nameof(Result);
+        /// <summary>
+        /// 复制
+        /// </summary>
+        public const string Copy = nameof(Copy);
+        /// <summary>
+        /// 检验
+        /// </summary>
+        public const string Check = nameof(Check);
+        /// <summary>
+        /// 无效的
+        /// </summary>
+        public const string Invalid = nameof(Invalid);
+        /// <summary>
+        /// 为Null或空
+        /// </summary>
+        public const string IsNullOrEmpty = nameof(IsNullOrEmpty);
+        /// <summary>
+        /// 异常
+        /// </summary>
+        public const string Exception = nameof(Exception);
+
+        
     }
 }

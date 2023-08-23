@@ -9,6 +9,7 @@ using Gardener.Cache;
 using Gardener.Common;
 using Gardener.NotificationSystem.Dtos;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Gardener.NotificationSystem.Core
 {
@@ -20,15 +21,18 @@ namespace Gardener.NotificationSystem.Core
         private readonly string method = "ReceiveMessage";
         private readonly IHubContext<SystemNotificationHub> hubContext;
         private readonly ICache cache;
+        private readonly IServiceScopeFactory serviceScopeFactory;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="hubContext"></param>
         /// <param name="cache"></param>
-        public SystemNotificationService(IHubContext<SystemNotificationHub> hubContext, ICache cache)
+        /// <param name="serviceScopeFactory"></param>
+        public SystemNotificationService(IHubContext<SystemNotificationHub> hubContext, ICache cache, IServiceScopeFactory serviceScopeFactory)
         {
             this.hubContext = hubContext;
             this.cache = cache;
+            this.serviceScopeFactory = serviceScopeFactory;
         }
         /// <summary>
         /// 向所有客户端发送信息
@@ -163,7 +167,7 @@ namespace Gardener.NotificationSystem.Core
         public async Task<bool> CheckUserIsOnline(Identity identity)
         {
             string key = $"SystemNotification:OnlineState:{identity.IdentityType}:{identity.Id}";
-            return await cache.GetAsync<int>(key, () => Task.FromResult(0))==1;
+            return await cache.GetAsync<int>(key, () => Task.FromResult(0)) == 1;
         }
         /// <summary>
         /// 设置用户到某个分组
@@ -186,12 +190,36 @@ namespace Gardener.NotificationSystem.Core
             {
                 return false;
             }
-            await connectionIds.ForEachAsync(connectionId =>
+            await connectionIds.ForEachAsync(async connectionId =>
             {
-                return hubContext.Groups.AddToGroupAsync(connectionId, groupName);
+                await hubContext.Groups.AddToGroupAsync(connectionId, groupName);
             });
             return true;
         }
+
+        /// <summary>
+        /// 设置用户到某个分组
+        /// </summary>
+        /// <typeparam name="TSystemNotificationHubGrouper"></typeparam>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> UserGroupAdd<TSystemNotificationHubGrouper>(Identity identity) where TSystemNotificationHubGrouper : ISystemNotificationHubGrouper
+        {
+            IEnumerable<string>? groups = await GetGroups<TSystemNotificationHubGrouper>(identity);
+            if (groups == null || !groups.Any())
+            {
+                return true;
+            }
+            List<Task> tasks = new List<Task>(groups.Count());
+            foreach (string group in groups)
+            {
+                tasks.Add(UserGroupAdd(group, identity));
+            }
+            await Task.WhenAll(tasks);
+            return true;
+        }
+
         /// <summary>
         /// 移除用户的某个分组
         /// </summary>
@@ -209,11 +237,55 @@ namespace Gardener.NotificationSystem.Core
             {
                 return false;
             }
-            await connectionIds.ForEachAsync(connectionId =>
+            await connectionIds.ForEachAsync(async connectionId =>
             {
-                return hubContext.Groups.RemoveFromGroupAsync(connectionId, groupName);
+                await hubContext.Groups.RemoveFromGroupAsync(connectionId, groupName);
             });
             return true;
+        }
+
+        /// <summary>
+        /// 移除用户的某个分组
+        /// </summary>
+        /// <typeparam name="TSystemNotificationHubGrouper"></typeparam>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 如果链接信息不存在，无法设置
+        /// </remarks>
+        public async Task<bool> UserGroupRemove<TSystemNotificationHubGrouper>(Identity identity) where TSystemNotificationHubGrouper : ISystemNotificationHubGrouper
+        {
+            IEnumerable<string>? groups = await GetGroups<TSystemNotificationHubGrouper>(identity);
+            if (groups == null || !groups.Any())
+            { 
+                return true;
+            }
+            List<Task> tasks = new List<Task>(groups.Count());
+            foreach (string group in groups)
+            {
+                tasks.Add(UserGroupRemove(group, identity));
+            }
+            await Task.WhenAll(tasks);
+            return true;
+        }
+
+        /// <summary>
+        /// 根据类型获取分组器
+        /// </summary>
+        /// <typeparam name="TSystemNotificationHubGrouper"></typeparam>
+        /// <returns></returns>
+        private async Task<IEnumerable<string>?> GetGroups<TSystemNotificationHubGrouper>(Identity identity)
+        {
+            using var scope = serviceScopeFactory.CreateScope();
+            var services = scope.ServiceProvider;
+            IEnumerable<ISystemNotificationHubGrouper> groupers = services.GetServices<ISystemNotificationHubGrouper>();
+            var group = groupers.Where(x => x.GetType().Equals(typeof(TSystemNotificationHubGrouper))).FirstOrDefault();
+            if (group == null)
+            {
+                return null;
+            }
+            var groups= await group.GetGroupName(identity);
+            return groups;
         }
     }
 }

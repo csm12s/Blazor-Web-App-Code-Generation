@@ -2,42 +2,97 @@
 {
   "ValidationTypeMessageSettings": {
     "Definitions": [
-      [ "Required", "The value cannot be empty or null" ]
+      //设置校验错误提示
+      //[ "Required", "x" ] //值不能为空或Null
     ]
   },
   "ErrorCodeMessageSettings": {
     "Definitions": [
-      [ "UNAUTHORIZED", "Unauthorized" ],
-      [ "FORBIDDEN", "Forbidden" ],
-      [ "USER_LOCKED", "User locked" ],
-      [ "USER_NAME_OR_PASSWORD_ERROR", "User name or password error" ],
-      [ "VERIFY_CODE_VERIFICATION_FAILED", "Verify code verification failed" ],
-      [ "USER_NAME_REPEAT", "User name repeat" ],
-      [ "RESOURCE_KEY_REPEAT", "Resource key repeat" ],
-      [ "REFRESHTOKEN_NO_EXIST_OR_EXPIRE", "Refresh The token does not exist or has expired" ],
-      [ "NO_INCLUD_FILE", "No includ file" ],
-      [ "FILTER_GROUP_OPERATE_ERROR", "Filter group operate error" ],
-      [ "FIELD_IN_TYPE_NOT_FOUND", "“{0}” attribute not found in “{1}” type" ],
-      [ "QUERY_VALUE_TYPE_NO_FIND_CONVERTER", "The “{0}” value converter cannot be found" ],
-      [ "REQUEST_URL_IS_INVALID", "Request url is invalid" ],
-      [ "REFRESHTOKEN_CANNOT_USED_IN_AUTHENTICATION", "RefreshToken cannot used in authentication" ],
-      [ "TOKEN_INVALID", "Token invalid" ],
-      [ "CLIENT_LOGIN_FAIL", "Client login fail" ],
-      [ "CLIENT_NO_FIND", "Client no find" ],
-      [ "TIMESPAN_IS_EXPIRED", "Timespan is expired" ],
-      [ "EMAIL_SERVER_NO_FIND", "Email server no find" ],
-      [ "TASK_NOT_EXIST", "Task not exist" ],
-      [ "TASK_ALLREADY_EXIST", "Task allready exist" ],
-      [ "Controller_Need_Comment", "Controller need comment" ],
-      [ "Sugar_Repository_Init_Fail", "SugarRepository initialize error " ],
-      [ "Table_Name_Exist", "Table name exist" ],
-      [ "Code_Gen_Template_Compile_Error", "Code generation template compilation error" ],
-      [ "Data_Not_Find", "Data not find" ],
-      [ "No_Permission_Modify_The_Data", "There is no permission to modify the data" ],
+      //这里需要为错误码配置一个提示信息
+      //提示信息可以应用Gardener/Base/Resources/SharedLocalResource下的多语言文件
+      //这里如果写["Client_No_Find","客户端未找到"],多语言文件中可以"客户端未找到"为key配置本地化提示。
+      //未配置的，默认使用 FriendlyExceptionSettings.DefaultErrorMessage
+      //按字母排序，方便查找
+      //在Gardener.Enums.ExceptionCode定义对应值，方便程序中调用（当然直接写字符串硬编码也行）
+      //A
+      //B
+      //C
+      [ "Code_Gen_Template_Compile_Error", "Code_Gen_Template_Compile_Error" ], //代码生成模板编译错误
+      [ "Client_Login_Fail", "Client_Login_Fail" ], //客户端登录失败
+      [ "Client_No_Find", "Client_No_Find" ], //客户端未找到
+      [ "Controller_Need_Comment", "Controller_Need_Comment" ], //接口方法需要备注
+      [ "Confirm_New_Password_Inconformity", "Confirm_New_Password_Inconformity" ], //确认密码不一致
+
+      //D
+      [ "Data_Not_Find", "Data_Not_Find" ], //数据未找到
+      [ "Data_Key_Uniqueness_Conflict", "Data_Key_Uniqueness_Conflict" ], //数据键“{0}”唯一性冲突
+
+      //E
+      [ "Email_Server_No_Find", "Email_Server_No_Find" ], //邮件服务器未找到
+
+      //F
+      [ "Forbidden", "Forbidden" ], //拒绝访问资源
+      [ "Filter_Group_Operate_Error", "Filter_Group_Operate_Error" ], //条件组中的操作类型错误
+      [ "Field_In_Type_Not_Found", "Field_In_Type_Not_Found" ], //指定的属性“{0}”在类型“{1}”中不存在
+      [ "Field_Cannot_Be_Modified", "Field_Cannot_Be_Modified" ], //字段“{0}”禁止修改
+
+      //G
+      //H
+      //I
+      //J
+      //k
+      //L
+      //M
+      //N
+      [ "No_Includ_File", "No_Includ_File" ], //未包含文件
+      [ "No_Permission_Modify_The_Data", "No_Permission_Modify_The_Data" ], //没有权限修改这个数据
+
+      //O
+      //P
+      [ "Password_Error", "Password_Error" ], //密码错误
+      //Q
+      [ "Query_Value_Type_No_Find_Converter", "Query_Value_Type_No_Find_Converter" ], //查询的值类型“{0}”未找到转换器
+
+      //R
+      [ "Resource_Key_Repeat", "Resource_Key_Repeat" ], //资源键值重复
+      [ "Refreshtoken_No_Exist_Or_Expire", "Refreshtoken_No_Exist_Or_Expire" ], //刷新token不存在或已过期
+      [ "Request_Url_Is_Invalid", "Request_Url_Is_Invalid" ], //请求的地址无效
+      [ "Refreshtoken_Cannot_Used_In_Authentication", "Refreshtoken_Cannot_Used_In_Authentication" ], //刷新token不能用于鉴权
+      [ "Required", "'{0}' is required" ], //字段“{0}”不能为空
+
+      //S
+      [ "Sugar_Repository_Init_Fail", "Sugar_Repository_Init_Fail" ], //SugarRepository 初始化错误
+      [ "Search_Error_DB_Field_Is_Null", "Search_Error_DB_Field_Is_Null" ], //查询出错，检索字段在数据库中可能为null
+      [ "Script_Code_Compile_Fail", "Script_Code_Compile_Fail" ], //代码编译失败
+      [ "Script_Code_JobDetail_Not_Find", "Script_Code_JobDetail_Not_Find" ], //脚本代码中，需要定义 [JobDetail] 特性
+      [ "Script_Code_JobId_Inconsistency", "Script_Code_JobId_Inconsistency" ], //脚本代码中，需要定义 [JobDetail] 特性
+      [ "Scheduler_Not_Find", "Scheduler_Not_Find" ], //未找到调度
+
+      //T
+      [ "Token_Invalid", "Token_Invalid" ], //TOKEN无效
+      [ "Timespan_Is_Expired", "Timespan_Is_Expired" ], //时间戳已过期
+      [ "Task_Not_Exist", "Task_Not_Exist" ], //任务调度不存在
+      [ "Task_Allready_Exist", "Task_Allready_Exist" ], //已存在同名任务调度
+      [ "Table_Name_Exist", "Table_Name_Exist" ], //表名已存在
+
+      //U
+      [ "Unauthorized", "Unauthorized" ], //身份验证失败
+      [ "User_Locked", "User_Locked" ], //用户已锁定
+      [ "User_Name_Or_Password_Error", "User_Name_Or_Password_Error" ], //用户名或密码错误
+      [ "User_Name_Repeat", "User_Name_Repeat" ], //用户名重复
+
+      //V
+      [ "Verify_Code_Verification_Failed", "Verify_Code_Verification_Failed" ] //验证码验证失败
+
+      //W
+      //X
+      //Y
+      //Z
+
     ]
   },
   "FriendlyExceptionSettings": {
-    "DefaultErrorMessage": "System error,Please contact the administrator",
+    "DefaultErrorMessage": "System_Default_Error_Message", //系统异常，请联系管理员
     "HideErrorCode": true
   }
 }

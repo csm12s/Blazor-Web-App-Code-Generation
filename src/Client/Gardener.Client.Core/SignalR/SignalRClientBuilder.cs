@@ -6,33 +6,51 @@
 
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
 namespace Gardener.Client.Core
 {
+    /// <summary>
+    /// SignalR Client构建器
+    /// </summary>
     public class SignalRClientBuilder : ISignalRClientBuilder
     {
-        private string _clientName=null!;
+        private string _clientName = null!;
         private string _url = null!;
         private Func<Task<string?>> _accessTokenProvider = null!;
         private bool _enableAutomaticReconnect = true;
-        private IClientLogger _clientLogger;
 
+        private IClientLogger _clientLogger;
         private readonly IAuthenticationStateManager _authenticationStateManager;
         private readonly IOptions<ApiSettings> _options;
-
-        public SignalRClientBuilder(IClientLogger clientLogger, IAuthenticationStateManager authenticationStateManager, IOptions<ApiSettings> options)
+        private readonly ILocalizationLocalizer _localizer;
+        /// <summary>
+        ///  SignalR Client构建器
+        /// </summary>
+        /// <param name="clientLogger"></param>
+        /// <param name="authenticationStateManager"></param>
+        /// <param name="options"></param>
+        /// <param name="localizer"></param>
+        public SignalRClientBuilder(IClientLogger clientLogger, IAuthenticationStateManager authenticationStateManager, IOptions<ApiSettings> options, ILocalizationLocalizer localizer)
         {
             _clientLogger = clientLogger;
             _authenticationStateManager = authenticationStateManager;
             _options = options;
+            _localizer = localizer;
         }
         public ISignalRClientBuilder GetInstance()
         {
-            return new SignalRClientBuilder(_clientLogger, _authenticationStateManager, _options);
+            return new SignalRClientBuilder(_clientLogger, _authenticationStateManager, _options, _localizer);
         }
+        /// <summary>
+        /// 构建
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception"></exception>
         public ISignalRClient Build()
         {
             if (_clientName == null)
@@ -51,7 +69,7 @@ namespace Gardener.Client.Core
                      await _authenticationStateManager.TestToken("signalR");
                      //token
                      TokenOutput? token = await _authenticationStateManager.GetCurrentToken();
-                     if (token != null) 
+                     if (token != null)
                      {
                          return token.AccessToken;
                      }
@@ -62,7 +80,7 @@ namespace Gardener.Client.Core
             {
                 _url = $"{_options.Value.BaseAddres}{_url}";
             }
-            SignalRClient signalRClient = new SignalRClient(_clientName,_url, _clientLogger, _accessTokenProvider);
+            SignalRClient signalRClient = new SignalRClient(_clientName, _url, _clientLogger, _accessTokenProvider, _localizer);
             signalRClient.AutomaticReconnect(_enableAutomaticReconnect);
             return signalRClient;
         }

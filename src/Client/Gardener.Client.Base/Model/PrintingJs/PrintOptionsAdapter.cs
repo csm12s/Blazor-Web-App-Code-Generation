@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Gardener.Client.Base.PrintingJs
+﻿namespace Gardener.Client.Base.PrintingJs
 {
     /// <summary>
     /// Adapts the <see cref="PrintOptions"/> to the JavaScript version.

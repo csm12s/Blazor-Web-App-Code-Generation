@@ -123,7 +123,7 @@ namespace Gardener.EntityFramwork
         /// <param name="tenantId">租户编号</param>
         /// <param name="includLocked">是否包含锁定的</param>
         /// <remarks>
-        /// 查询所有可以用的(在有IsDelete、IsLock字段时会自动过滤)
+        /// 查询所有可以用的记录，(实现<see cref="IModelDeleted"/> <see cref="IModelLocked"/>时会自动过滤)
         /// </remarks>
         /// <returns></returns>
         public virtual async Task<List<TEntityDto>> GetAllUsable([FromQuery] Guid? tenantId = null, [FromQuery] bool includLocked = false)
@@ -403,7 +403,7 @@ namespace Gardener.EntityFramwork
         /// 锁定
         /// </summary>
         /// <remarks>
-        /// 根据主键锁定或解锁数据（必须有IsLock才能生效）
+        /// 根据主键锁定或解锁数据（必须实现<see cref="IModelLocked"/>才能生效）
         /// </remarks>
         /// <param name="id"></param>
         /// <param name="isLocked"></param>

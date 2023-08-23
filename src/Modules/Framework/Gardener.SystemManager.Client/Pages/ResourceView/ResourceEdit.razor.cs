@@ -65,6 +65,8 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
 
                     _editModel.Type = parent.Type;
 
+                    _editModel.Key = parent.Key+"_";
+
                 }
             }
             currentResourceTypeCopy = _editModel.Type;

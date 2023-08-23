@@ -27,6 +27,11 @@ namespace Gardener.UserCenter.Client.Services
             this.apiCaller = apiCaller;
         }
 
+        public Task<bool> ChangePassword(ChangePasswordInput changePasswordInput)
+        {
+            return apiCaller.PostAsync<ChangePasswordInput, bool>($"{controller}/change-password", changePasswordInput);
+        }
+
         public Task<UserDto> GetCurrentUser()
         {
             return apiCaller.GetAsync<UserDto>($"{controller}/current-user");
@@ -49,12 +54,12 @@ namespace Gardener.UserCenter.Client.Services
             return apiCaller.GetAsync<List<string>>($"{controller}/current-user-resource-keys", paras);
         }
 
-        public Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType [] resourceTypes)
+        public Task<List<ResourceDto>> GetCurrentUserResources(params ResourceType[] resourceTypes)
         {
             List<KeyValuePair<string, object?>> paras = new List<KeyValuePair<string, object?>>();
             for (int i = 0; i < resourceTypes.Length; i++)
             {
-                paras.Add(new KeyValuePair<string, object?> ("resourceTypes" ,resourceTypes[i]));
+                paras.Add(new KeyValuePair<string, object?>("resourceTypes", resourceTypes[i]));
             }
             return apiCaller.GetAsync<List<ResourceDto>>($"{controller}/current-user-resources", paras);
         }
@@ -82,7 +87,7 @@ namespace Gardener.UserCenter.Client.Services
 
         public Task<bool> TestToken(string? flag = null)
         {
-            return apiCaller.PostAsync<int,bool>($"{controller}/test-token?flag={flag}",0);
+            return apiCaller.PostAsync<int, bool>($"{controller}/test-token?flag={flag}", 0);
         }
 
         public Task<bool> UpdateCurrentUserBaseInfo(UserDto user)

@@ -7,6 +7,7 @@
 using Gardener.Authorization.Dtos;
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
+using Gardener.LocalizationLocalizer;
 using Gardener.UserCenter.Resources;
 using Gardener.UserCenter.Services;
 using Microsoft.AspNetCore.Components;
@@ -34,7 +35,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
         [Inject]
         private IAuthenticationStateManager AuthenticationStateManager { get; set; } = null!;
         [Inject]
-        private IClientLocalizer<UserCenterResource> Localizer { get; set; } = null!;
+        private ILocalizationLocalizer<UserCenterResource> Localizer { get; set; } = null!;
 
         /// <summary>
         /// 

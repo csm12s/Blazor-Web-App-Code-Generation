@@ -9,7 +9,7 @@ using Gardener.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.AntDesignUi.Base.Constants;
 using Gardener.Client.AntDesignUi.Base.Services;
-using Gardener.Client.Base;
+using Gardener.LocalizationLocalizer;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 
@@ -62,7 +62,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         /// 本地化
         /// </summary>
         [Inject]
-        protected IClientLocalizer<TLocalResource> localizer { get; set; } = null!;
+        protected ILocalizationLocalizer<TLocalResource> localizer { get; set; } = null!;
 
         /// <summary>
         /// 操作对话框

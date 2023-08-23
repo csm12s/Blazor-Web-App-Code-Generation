@@ -4,16 +4,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Gardener.Base\Gardener.Base.csproj" />
+    <ProjectReference Include="..\..\Framework\Gardener.EntityFramwork\Gardener.EntityFramwork.csproj" />
     <ProjectReference Include="..\Gardener.EasyJob\Gardener.EasyJob.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="SeedDatas\" />
   </ItemGroup>
 
 </Project>

@@ -9,6 +9,7 @@ using Gardener.Client.Base;
 using Gardener.Common;
 using Gardener.Enums;
 using Gardener.EventBus;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Gardener.Client.Core
         private readonly HttpClient httpClient;
         private readonly IClientLogger log;
         private readonly IEventBus eventBus;
-        private readonly IClientLocalizer localizer;
+        private readonly ILocalizationLocalizer localizer;
         /// <summary>
         /// api 调用器
         /// </summary>
@@ -37,7 +38,7 @@ namespace Gardener.Client.Core
         /// <param name="log"></param>
         /// <param name="eventBus"></param>
         /// <param name="localizer"></param>
-        public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus, IClientLocalizer localizer)
+        public ApiCaller(HttpClient httpClient, IClientLogger log, IEventBus eventBus, ILocalizationLocalizer localizer)
         {
             this.httpClient = httpClient;
             this.log = log;
@@ -63,7 +64,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result?.Errors?.ToString()??string.Empty, result?.StatusCode);
                               //时间戳过期
-                        if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+                        if (result!=null && result.StatusCode == 500 && ExceptionCode.Refreshtoken_No_Exist_Or_Expire.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             eventBus.Publish(new RefreshTokenErrorEvent());
                         }
@@ -131,7 +132,7 @@ namespace Gardener.Client.Core
                     {
                         log.Error(result?.Errors?.ToString()??string.Empty, result?.StatusCode);
                         //时间戳过期
-                        if (result!=null && result.StatusCode == 500 && ExceptionCode.REFRESHTOKEN_NO_EXIST_OR_EXPIRE.ToString().Equals(result.ErrorCode?.ToString()))
+                        if (result!=null && result.StatusCode == 500 && ExceptionCode.Refreshtoken_No_Exist_Or_Expire.ToString().Equals(result.ErrorCode?.ToString()))
                         {
                             eventBus.Publish(new RefreshTokenErrorEvent());
                         }

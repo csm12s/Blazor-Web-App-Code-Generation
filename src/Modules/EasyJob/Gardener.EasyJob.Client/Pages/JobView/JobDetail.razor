@@ -1,0 +1,100 @@
+﻿@page "/system_manager/easy_job_detail"
+@inherits ListOperateTableBase<SysJobDetailDto, int, JobDetailEdit, EasyJobLocalResource>
+<div>
+    <Table @ref="_table"
+           TItem="SysJobDetailDto"
+           DataSource="@_datas"
+           Total="_total"
+           OnChange="@OnChange"
+    @bind-PageIndex="_pageIndex"
+    @bind-PageSize="_pageSize"
+    @bind-SelectedRows="_selectedRows"
+           Loading="@_tableLoading.Value"
+           Context="model"
+           ScrollX="100%">
+        <TitleTemplate>
+            <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_search">
+                <TableSearch TDto="SysJobDetailDto" @ref="this._tableSearch" OnSearch="OnTableSearch" Settings="@_tableSearchSettings" CustomLocalizer="Localizer" />
+            </ResourceAuthorize>
+            <Row>
+                <AntDesign.Col Span="8">
+                    @* <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_delete_selected">
+                        <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
+                             @Localizer[SharedLocalResource.DeleteSelected]
+                         </Button>
+                     </ResourceAuthorize> *@
+                 </AntDesign.Col>
+                 <AntDesign.Col Span="16" Style="text-align:right">
+                     <Space>
+                         <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_add">
+                             <SpaceItem>
+                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
+                                     @Localizer[SharedLocalResource.Add]
+                                 </Button>
+                             </SpaceItem>
+                         </ResourceAuthorize>
+                         <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_refresh">
+                             <SpaceItem>
+                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
+                                     @Localizer[SharedLocalResource.Refresh]
+                                 </Button>
+                             </SpaceItem>
+                         </ResourceAuthorize>
+                     </Space>
+                 </AntDesign.Col>
+             </Row>
+         </TitleTemplate>
+         <ColumnDefinitions>
+             @* <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_easy_job_detail_delete_selected"]" Width="40" Fixed="left" /> *@
+             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left" >
+                 <a href="system_manager/easy_job_trigger?JobId=@model.JobId">@model.JobId</a>
+             </Column>
+             <Column @bind-Field="@model.GroupName" Filterable Title="@Localizer[EasyJobLocalResource.GroupName]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.AssemblyName" Filterable Title="@Localizer[EasyJobLocalResource.AssemblyName]" Width="150" />
+             <Column @bind-Field="@model.JobType" Filterable Title="@Localizer[EasyJobLocalResource.JobTypeFullName]" Width="150" />
+             <Column @bind-Field="@model.Description" Filterable Title="@Localizer[EasyJobLocalResource.Description]" Width="150" />
+             <Column @bind-Field="@model.CreateType" Filterable Title="@Localizer[EasyJobLocalResource.JobType]" Width="150">
+                 <TagPro Text="model.CreateType" Localizer="Localizer"></TagPro>
+             </Column>
+             <Column @bind-Field="@model.Concurrent" Filterable Title="@Localizer[EasyJobLocalResource.Concurrent]" Width="150">
+                 <TagYesNo Yes="model.Concurrent"></TagYesNo>
+             </Column>
+            @*  <Column @bind-Field="@model.IncludeAnnotations" Filterable Title="@Localizer[EasyJobLocalResource.IncludeAnnotations]" Width="150">
+                 <TagYesNo Yes="model.IncludeAnnotations"></TagYesNo>
+             </Column> *@
+             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" Width="200" />
+             <ActionColumn Width="200" Fixed="right">
+                 <Space>
+                     <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_edit">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                                 <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_detail">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_log">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[EasyJobLocalResource.Log])" ArrowPointAtCenter="true">
+                                 <Button Icon="profile" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OpenJobLogConsole(model)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                     <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_delete">
+                         <SpaceItem>
+                             <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickTrueDelete(model.Id)"></Button>
+                             </Tooltip>
+                         </SpaceItem>
+                     </ResourceAuthorize>
+                 </Space>
+             </ActionColumn>
+         </ColumnDefinitions>
+     </Table>
+ </div>

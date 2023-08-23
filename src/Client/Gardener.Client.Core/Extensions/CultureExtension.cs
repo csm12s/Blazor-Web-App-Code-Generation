@@ -7,9 +7,11 @@
 using Gardener.Client.Base;
 using Gardener.Client.Base.Services;
 using Gardener.Client.Core.Services;
+using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Localization;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -24,16 +26,11 @@ namespace Gardener.Client.Core
         /// <param name="host"></param>
         /// <param name="cultureStorageKey"></param>
         /// <param name="defaultCulture"></param>
-        public async static Task<WebAssemblyHost> UseCulture(this WebAssemblyHost host, string cultureStorageKey, string defaultCulture)
+        public async static Task<WebAssemblyHost> UseAppLocalization(this WebAssemblyHost host, string cultureStorageKey, string defaultCulture)
         {
-            var jsTool = host.Services.GetRequiredService<IJsTool>();
-            var result = await jsTool.SessionStorage.GetAsync<string>(cultureStorageKey);
-            var culture = new CultureInfo(string.IsNullOrEmpty(result) ? defaultCulture : result);
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
-            CultureInfo.CurrentCulture = culture;
-            CultureInfo.CurrentUICulture = culture;
-            LocalizerUtil.SetServices(host.Services);
+            IClientCultureService cultureService = host.Services.GetRequiredService<IClientCultureService>();
+            await cultureService.Init(cultureStorageKey, defaultCulture);
+            host.Services.InitLocalizationLocalizerUtil();
             return host;
         }
 
@@ -42,13 +39,28 @@ namespace Gardener.Client.Core
         /// </summary>
         /// <typeparam name="TDefaultResource"></typeparam>
         /// <param name="services"></param>
+        /// <param name="resourcesPath"></param>
         /// <returns></returns>
-        public static IServiceCollection AddCulture<TDefaultResource>(this IServiceCollection services)
+        public static IServiceCollection AddAppLocalization<TDefaultResource>(this IServiceCollection services, string? resourcesPath = default)
         {
-            //默认的
-            services.TryAddScoped<IClientLocalizer, ClientSharedLocalizer<TDefaultResource>>();
-            services.TryAddScoped(typeof(IClientLocalizer<>), typeof(ClientLocalizer<>));
+            //Culture 管理地区标示
             services.TryAddScoped<IClientCultureService, ClientCultureService>();
+            //本地化
+            services.AddLocalization(options =>
+            {
+                if (!string.IsNullOrEmpty(resourcesPath))
+                { 
+                    options.ResourcesPath = resourcesPath;
+                }
+            });
+            //注入内置 IStringLocalizer
+            services.TryAddTransient<IStringLocalizer>(serviceProvider =>
+            {
+                IStringLocalizerFactory stringLocalizerFactory = serviceProvider.GetRequiredService<IStringLocalizerFactory>();
+                return stringLocalizerFactory.Create(typeof(TDefaultResource));
+            });
+            //注入封装的 Localizer 处理不同地区本地化内容
+            services.AddLocalizationLocalizer<TDefaultResource>();
             return services;
         }
     }

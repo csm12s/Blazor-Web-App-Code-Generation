@@ -11,13 +11,12 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.5" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.9" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.5" />
-    <PackageReference Include="Microsoft.JSInterop" Version="7.0.5" />
+    <PackageReference Include="Microsoft.JSInterop" Version="7.0.9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,7 +50,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Modules\EasyJob\Gardener.EasyJob.Client\Gardener.EasyJob.Client.csproj" />
-    <ProjectReference Include="..\..\..\Modules\SysTimer\Gardener.SysTimer.Client\Gardener.SysTimer.Client.csproj" />
+    <ProjectReference Include="..\..\..\Modules\ToolBox\Gardener.ToolBox.Client\Gardener.ToolBox.Client.csproj" />
     <ProjectReference Include="..\..\..\Modules\WoChat\Gardener.WoChat.Client\Gardener.WoChat.Client.csproj" />
     <ProjectReference Include="..\..\AntDesignClient\Gardener.Client.AntDesignUi\Gardener.Client.AntDesignUi.csproj" />
     <ProjectReference Include="..\..\..\Client\Gardener.Client.Core\Gardener.Client.Core.csproj" />

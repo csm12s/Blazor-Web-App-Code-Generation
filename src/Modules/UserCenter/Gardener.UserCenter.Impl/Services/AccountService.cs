@@ -85,13 +85,13 @@ namespace Gardener.UserCenter.Impl.Services
         public async Task<TokenOutput> Login(LoginInput input)
         {
             // 验证用户是否存在
-            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Bah(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
-            if (user.IsLocked) throw Oops.Bah(ExceptionCode.USER_LOCKED);
+            var user = _userRepository.FirstOrDefault(u => u.UserName.Equals(input.UserName) && u.IsDeleted == false, false) ?? throw Oops.Bah(ExceptionCode.User_Name_Or_Password_Error);
+            if (user.IsLocked) throw Oops.Bah(ExceptionCode.User_Locked);
             //密码是否正确
             var encryptedPassword = PasswordEncryptHelper.Encrypt(input.Password, user.PasswordEncryptKey);
             if (!encryptedPassword.Equals(user.Password))
             {
-                throw Oops.Bah(ExceptionCode.USER_NAME_OR_PASSWORD_ERROR);
+                throw Oops.Bah(ExceptionCode.User_Name_Or_Password_Error);
             }
             Identity identity = new Identity
             {
@@ -244,6 +244,44 @@ namespace Gardener.UserCenter.Impl.Services
             userEntity.NickName = user.NickName;
             userEntity.Gender = user.Gender;
             await _userRepository.UpdateIncludeAsync(userEntity, new string[] { nameof(UserDto.NickName), nameof(UserDto.Gender), nameof(UserDto.Avatar) });
+            return true;
+        }
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="changePasswordInput"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 修改当前用户密码
+        /// </remarks>
+        public async Task<bool> ChangePassword(ChangePasswordInput changePasswordInput)
+        {
+            if (!string.Equals(changePasswordInput.NewPassword, changePasswordInput.ConfirmNewPassword)) 
+            {
+                throw Oops.Bah(ExceptionCode.Confirm_New_Password_Inconformity);
+            }
+            Identity? identity = _authorizationManager.GetIdentity();
+            if (identity == null || !identity.IdentityType.Equals(IdentityType.User))
+            {
+                throw Oops.Bah(ExceptionCode.Forbidden);
+            }
+
+            User? user = await _userRepository.SingleOrDefaultAsync(x => x.Id == int.Parse(identity.Id), false);
+            if (user == null)
+            {
+                throw Oops.Bah(ExceptionCode.Data_Not_Find);
+            }
+            string oldPasswordEncryptValue = PasswordEncryptHelper.Encrypt(changePasswordInput.OldPassword, user.PasswordEncryptKey);
+            if (!oldPasswordEncryptValue.Equals(user.Password))
+            {
+                throw Oops.Bah(ExceptionCode.Password_Error);
+            }
+
+            user.PasswordEncryptKey = Guid.NewGuid().ToString().Replace("-", "");
+            user.Password = PasswordEncryptHelper.Encrypt(changePasswordInput.NewPassword, user.PasswordEncryptKey);
+            await _userRepository.UpdateIncludeAsync(user, new string[] { nameof(User.Password),nameof(User.PasswordEncryptKey)});
+
             return true;
         }
 
