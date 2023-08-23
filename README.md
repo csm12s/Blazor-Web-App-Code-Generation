@@ -21,6 +21,8 @@ docker run --name gardener -p 80:80 --restart=always -d huhangfei/gardener
 ## 项目特点
 - 新：.Net7 、Blazor WebAssembly 、Furion ；全部新鲜。
 - 简：功能简单实用
+- 细:  **文档详细** 、实现细节拉满
+- 强：多模块划分、拥有强大扩展性
 
 ## 项目文档
 [项目说明文档](https://gitee.com/hgflydream/Gardener/wikis)
