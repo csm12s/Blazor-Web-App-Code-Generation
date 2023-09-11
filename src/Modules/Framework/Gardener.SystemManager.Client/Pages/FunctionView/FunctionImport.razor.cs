@@ -112,7 +112,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             _importLoading = true;
             if (_selectedFunctionDtos == null || !_selectedFunctionDtos.Any())
             {
-                MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
+                MessageService.Warn(Localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
                 _importLoading = false;
                 return;
             }

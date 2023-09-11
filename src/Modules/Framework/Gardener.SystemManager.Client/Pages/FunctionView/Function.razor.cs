@@ -29,7 +29,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
             if (!result)
             {
                 model.EnableAudit = !enableAudit;
-                MessageService.Error((enableAudit ? SharedLocalResource.Enable : SharedLocalResource.Disabled) + SharedLocalResource.Fail);
+                MessageService.Error((enableAudit ? SharedLocalResourceKeys.Enable : SharedLocalResourceKeys.Disabled) + SharedLocalResourceKeys.Fail);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Gardener.SystemManager.Client.Pages.FunctionView
         {
             var setting = base.GetOperationDialogSettings();
             setting.Width = 1000;
-            await OpenOperationDialogAsync<FunctionImport, int, bool>(Localizer[SharedLocalResource.Import], 0, async r =>
+            await OpenOperationDialogAsync<FunctionImport, int, bool>(Localizer[SharedLocalResourceKeys.Import], 0, async r =>
             {
                 await ReLoadTable();
 

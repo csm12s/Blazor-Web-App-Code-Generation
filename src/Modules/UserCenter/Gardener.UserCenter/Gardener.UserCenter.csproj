@@ -15,10 +15,33 @@
 
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\UserCenterResource.en.resx">
+    <Compile Update="Resources\UserCenterResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserCenterResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\UserCenterResourceKeys.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserCenterResourceKeys.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\UserCenterResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserCenterResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UserCenterResourceKeys.en.resx">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\UserCenterResource.zh.resx">
+    <EmbeddedResource Update="Resources\UserCenterResourceKeys.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserCenterResourceKeys.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UserCenterResourceKeys.zh.resx">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

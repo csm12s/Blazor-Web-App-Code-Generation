@@ -21,7 +21,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput">输入参数的类型</typeparam>
     /// <typeparam name="TDialogOutput">输出参数的类型</typeparam>
     /// <typeparam name="TLocalResource">本地化资源类</typeparam>
-    public abstract class OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> : ReuseTabsPageAndFormBase<TDialogInput, TDialogOutput> where TLocalResource : SharedLocalResource
+    public abstract class OperationDialogBase<TDialogInput, TDialogOutput, TLocalResource> : ReuseTabsPageAndFormBase<TDialogInput, TDialogOutput>
     {
         /// <summary>
         /// 本地化
@@ -121,7 +121,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public class OperationDialogBase<TDialogInput, TDialogOutput> : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResource>
+    public class OperationDialogBase<TDialogInput, TDialogOutput> : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResourceKeys>
     {
     }
 

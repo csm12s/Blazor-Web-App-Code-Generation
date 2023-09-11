@@ -29,7 +29,7 @@
                         <ResourceAuthorize ResourceKey="system_manager_easy_job_log_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResourceKeys.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -56,12 +56,12 @@
              <Column @bind-Field="@model.ElapsedTime" Filterable Title="@Localizer[EasyJobLocalResource.ElapsedTime]" Width="150" />
              <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Filterable Title="@Localizer[EasyJobLocalResource.LastRunTime]" Width="200" />
              <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Filterable Title="@Localizer[EasyJobLocalResource.NextRunTime]" Width="200" />
-             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" Width="200" />
+             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResourceKeys.CreatedTime]" Width="200" />
              <ActionColumn Width="200" Fixed="right">
                  <Space>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_log_detail">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Detail])" ArrowPointAtCenter="true">
                                  <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>

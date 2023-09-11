@@ -11,7 +11,7 @@ namespace Gardener.Attachment.Resources
     /// <summary>
     /// 附件本地化资源
     /// </summary>
-    public class AttachmentLocalResource : SharedLocalResource
+    public class AttachmentLocalResource : SharedLocalResourceKeys
     {
         /// <summary>
         /// 业务类型

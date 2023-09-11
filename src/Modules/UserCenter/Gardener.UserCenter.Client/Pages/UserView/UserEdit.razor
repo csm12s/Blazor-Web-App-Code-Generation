@@ -11,7 +11,7 @@
             <GridCol Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
                 <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
-                    <FormItem Label="@Localizer[UserCenterResource.Tenant]">
+                    <FormItem Label="@SharedLocalResource.Tenant">
                         <Select DataSource="@_tenants"
                         @bind-Value="@model.TenantId"
                                 ValueName="@nameof(SystemTenantDto.Id)"
@@ -22,11 +22,11 @@
                     </Select>
                 </FormItem>
             </ResourceAuthorize>
-                <FormItem Label="@Localizer[UserCenterResource.Avatar]">
+             <FormItem Label="@SharedLocalResource.Avatar">
                     @if (OperationDialogInputType.Edit.Equals(this.Options.Type) || OperationDialogInputType.Add.Equals(this.Options.Type))
                     {
 
-                        <Tooltip Placement="Placement.LeftTop" Title="@Localizer[UserCenterResource.ClickUpdateAvatar]">
+                        <Tooltip Placement="Placement.LeftTop" Title="@UserCenterResource.ClickUpdateAvatar">
                             <a @onclick="_ => OnAvatarClick(model)">
                                 <Avatar Src="@model.Avatar" />
                             </a>
@@ -45,7 +45,7 @@
                                     Style="width:100%;"
                                     DataSource="deptDatas"
                         @bind-Value="@DeptId"
-                                    Placeholder="@Localizer[SharedLocalResource.PleaseSelect]"
+                                    Placeholder="@Localizer[SharedLocalResourceKeys.PleaseSelect]"
                                     AllowClear
                                     TitleExpression="node => node.DataItem.Name"
                                     KeyExpression="node => node.DataItem.Id.ToString()"
@@ -121,13 +121,13 @@
                         {
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" HtmlType="submit">
-                                    @Localizer[SharedLocalResource.Save]
+                                    @SharedLocalResource.Save
                                 </Button>
                             </SpaceItem>
                         }
                         <SpaceItem>
                             <Button OnClick="OnFormCancel">
-                                @Localizer[SharedLocalResource.Cancel]
+                                @SharedLocalResource.Cancel
                             </Button>
                         </SpaceItem>
                     </Space>

@@ -59,7 +59,7 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
             bool result = await accountService.ChangePassword(model);
             if (result)
             {
-                clientMessageService.Success(Localizer.Combination(UserCenterResource.Save, UserCenterResource.Succeed));
+                clientMessageService.Success(Localizer.Combination(UserCenterResourceKeys.Save, UserCenterResourceKeys.Succeed));
             }
             await StopLoading();
         }

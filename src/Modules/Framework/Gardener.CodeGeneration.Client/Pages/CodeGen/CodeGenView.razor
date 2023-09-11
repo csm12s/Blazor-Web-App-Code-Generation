@@ -45,7 +45,7 @@
                             <Row>
                             <AntDesign.Col Span="8">
                             <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                        @Localizer[SharedLocalResource.DeleteSelected]
+                        @Localizer[SharedLocalResourceKeys.DeleteSelected]
                     </Button>
                     <Button Type="@ButtonType.Primary" Icon="code" OnClick="OnClickGenerates" Loading="_generatesBtnLoading">
                         @Localizer[CodeGenLocalResource.BatchGenerate]
@@ -55,12 +55,12 @@
                     <Space>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                @Localizer[SharedLocalResource.Add]
+                                @Localizer[SharedLocalResourceKeys.Add]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                @Localizer[SharedLocalResource.Refresh]
+                                @Localizer[SharedLocalResourceKeys.Refresh]
                             </Button>
                         </SpaceItem>
 
@@ -72,12 +72,12 @@
 
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnClickShowSeedData">
-                                @Localizer[SharedLocalResource.SeedData]
+                                @Localizer[SharedLocalResourceKeys.SeedData]
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
                             <Button Type="@ButtonType.Primary" Icon="download" OnClick="OnDownloadConfigSeedDataClick">
-                                @(Localizer.Combination(SharedLocalResource.Settings, SharedLocalResource.SeedData))
+                                @(Localizer.Combination(SharedLocalResourceKeys.Settings, SharedLocalResourceKeys.SeedData))
                             </Button>
                         </SpaceItem>
                         <SpaceItem>
@@ -96,21 +96,21 @@
             <Column @bind-Field="@model.ClassName" Title="@(Localizer[CodeGenLocalResource.ClassName])" Sortable Filterable />
             <Column @bind-Field="@model.Module" Title="@(Localizer[CodeGenLocalResource.Module])" Sortable Filterable />
             <Column @bind-Field="@model.Remark" Title="@(Localizer[CodeGenLocalResource.Remark])" Sortable Filterable></Column>
-            <Column @bind-Field="@model.MenuNameEN" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
-            <Column @bind-Field="@model.MenuNameCH" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionEN" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.EN,")"))" Sortable Filterable />
-            <Column @bind-Field="@model.TableDescriptionCH" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResource.CH,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameEN" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResourceKeys.EN,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.MenuNameCH" Title="@(Localizer.Combination(CodeGenLocalResource.MenuName,"(",SharedLocalResourceKeys.CH,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionEN" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResourceKeys.EN,")"))" Sortable Filterable />
+            <Column @bind-Field="@model.TableDescriptionCH" Title="@(Localizer.Combination(CodeGenLocalResource.TableDescription,"(",SharedLocalResourceKeys.CH,")"))" Sortable Filterable />
             <Column @bind-Field="@model.CreatedTime" Title="@(Localizer[CodeGenLocalResource.CreatedTime])" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" />
-            <ActionColumn Title="@Localizer[SharedLocalResource.Action]" Fixed="right">
+            <ActionColumn Title="@Localizer[SharedLocalResourceKeys.Action]" Fixed="right">
                 <Space>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickEdit(model.Id)">
-                            @Localizer[SharedLocalResource.Edit]
+                            @Localizer[SharedLocalResourceKeys.Edit]
                         </Button>
                     </SpaceItem>
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" OnClick="()=>OnClickConfigure(model.Id)">
-                            @Localizer[SharedLocalResource.Setting]
+                            @Localizer[SharedLocalResourceKeys.Setting]
                         </Button>
                     </SpaceItem>
 
@@ -128,13 +128,13 @@
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Icon="code" OnClick="()=>OnClickGenerate(model.Id)">
-                            @Localizer[SharedLocalResource.Generate]
+                            @Localizer[SharedLocalResourceKeys.Generate]
                         </Button>
                     </SpaceItem>
 
                     <SpaceItem>
                         <Button Type="@ButtonType.Link" Danger OnClick="()=>OnClickTrueDelete(model.Id)">
-                            @Localizer[SharedLocalResource.Delete]
+                            @Localizer[SharedLocalResourceKeys.Delete]
                         </Button>
                         </SpaceItem>
                         </Space>

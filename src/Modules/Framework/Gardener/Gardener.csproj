@@ -30,10 +30,58 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Base\Resources\CodeLocalResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>CodeLocalResource.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Base\Resources\MenuNameLocalResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>MenuNameLocalResource.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Base\Resources\SharedLocalResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>SharedLocalResource.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Base\Resources\ValidateErrorMessagesResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ValidateErrorMessagesResource.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Base\Resources\CodeLocalResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>CodeLocalResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\CodeLocalResource.en.resx">
 		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\CodeLocalResource.zh.resx">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\MenuNameLocalResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>MenuNameLocalResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\SharedLocalResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>SharedLocalResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\ValidateErrorMessagesResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>ValidateErrorMessagesResource.Designer.cs</LastGenOutput>
+		  <CustomToolNamespace></CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\ValidateErrorMessagesResource.en.resx">
+		  <Generator></Generator>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Base\Resources\ValidateErrorMessagesResource.zh.resx">
+		  <Generator></Generator>
 		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\MenuNameLocalResource.en.resx">

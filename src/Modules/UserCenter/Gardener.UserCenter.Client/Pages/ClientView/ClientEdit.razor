@@ -8,37 +8,37 @@
           WrapperCol="new ColLayoutParam { Span = 16 }"
           OnFinish="OnFormFinish"
           Context="model">
-        <FormItem Label="@Localizer[UserCenterResource.Id]">
+        <FormItem Label="@SharedLocalResource.Id">
             <Input @bind-Value="@model.Id" Disabled="true" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Name]">
+        <FormItem Label="@UserCenterResource.Name">
             <Input @bind-Value="@model.Name" />
         </FormItem>
 
-        <FormItem Label="@Localizer[UserCenterResource.Contacts]">
+        <FormItem Label="@UserCenterResource.Contacts">
             <Input @bind-Value="@model.Contacts" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Tel]">
+        <FormItem Label="@UserCenterResource.Tel">
             <Input @bind-Value="@model.Tel" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Email]">
+        <FormItem Label="@UserCenterResource.Email">
             <Input @bind-Value="@model.Email" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.SecretKey]">
+        <FormItem Label="@UserCenterResource.SecretKey">
             <Input @bind-Value="@model.SecretKey" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Remark]">
+        <FormItem Label="@SharedLocalResource.Remark">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+        <FormItem Label="@SharedLocalResource.IsLocked">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
-            <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+            <FormItem Label="@SharedLocalResource.CreatedTime">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
-            <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
+            <FormItem Label="@SharedLocalResource.UpdatedTime">
                 <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
         }
@@ -48,13 +48,13 @@
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">
-                            @Localizer[SharedLocalResource.Save]
+                            @SharedLocalResource.Save
                         </Button>
                     </SpaceItem>
                 }
                 <SpaceItem>
                     <Button OnClick="_=>OnFormCancel()">
-                        @Localizer[SharedLocalResource.Cancel]
+                        @SharedLocalResource.Cancel
                     </Button>
                 </SpaceItem>
             </Space>

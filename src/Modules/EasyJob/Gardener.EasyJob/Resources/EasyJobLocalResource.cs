@@ -11,7 +11,7 @@ namespace Gardener.EasyJob.Resources
     /// <summary>
     /// EasyJob 本地化资源
     /// </summary>
-    public class EasyJobLocalResource : SharedLocalResource
+    public class EasyJobLocalResource : SharedLocalResourceKeys
     {
         /// <summary>
         /// 任务编号

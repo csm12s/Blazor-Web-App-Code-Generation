@@ -9,6 +9,7 @@ using Gardener.Base.Resources;
 using Gardener.Client.Base;
 using Gardener.LocalizationLocalizer;
 using Microsoft.AspNetCore.Components;
+using static AntDesign.FormValidateErrorMessages;
 
 namespace Gardener.Client.AntDesignUi.Entry
 {
@@ -25,34 +26,49 @@ namespace Gardener.Client.AntDesignUi.Entry
         {
             ValidateMessages = new FormValidateErrorMessages
             {
-                Required = Lo.GetValue<SharedLocalResource>("'{0}' is required"),
-                Default = Lo.GetValue<SharedLocalResource>("Validation error on field '{0}'"),
-                OneOf = Lo.GetValue<SharedLocalResource>("'{0}' must be one of [{1}]"),
-                Whitespace = Lo.GetValue<SharedLocalResource>("'{0}' cannot be empty"),
-                String = new FormValidateErrorMessages.StringMessage
+                Required = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.RequiredValidationError)),
+                Default = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.DefaultValidationError)),
+                OneOf = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.OneOfValidationError)),
+                Whitespace = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.WhitespaceValidationError)),
+                String = new StringMessage
                 {
-                    Len = Lo.GetValue<SharedLocalResource>("'{0}' must be exactly {1} characters"),
-                    Min = Lo.GetValue<SharedLocalResource>("'{0}' must be at least {1} characters"),
-                    Max = Lo.GetValue<SharedLocalResource>("'{0}' cannot be longer than {1} characters"),
-                    Range = Lo.GetValue<SharedLocalResource>("'{0}' must be between {1} and {2} characters"),
+                    Len = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.StringLenValidationError)),
+                    Min = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.StringMinValidationError)),
+                    Max = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.StringMaxValidationError)),
+                    Range = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.StringRangeValidationError))
                 },
-                Number = new FormValidateErrorMessages.NumberMessage
+                Number = new NumberMessage
                 {
-                    Len = Lo.GetValue<SharedLocalResource>("'{0}' must equal {1}"),
-                    Min = Lo.GetValue<SharedLocalResource>("'{0}' cannot be less than {1}"),
-                    Max = Lo.GetValue<SharedLocalResource>("'{0}' cannot be greater than {1}"),
-                    Range = Lo.GetValue<SharedLocalResource>("'{0}' must be between {1} and {2}")
+                    Len = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.NumberLenValidationError)),
+                    Min = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.NumberMinValidationError)),
+                    Max = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.NumberMaxValidationError)),
+                    Range = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.NumberRangeValidationError))
                 },
-                Array = new FormValidateErrorMessages.ArrayMessage
+                Array = new ArrayMessage
                 {
-                    Len = Lo.GetValue<SharedLocalResource>("'{0}' must be exactly {1} in length"),
-                    Min = Lo.GetValue<SharedLocalResource>("'{0}' cannot be less than {1} in length"),
-                    Max = Lo.GetValue<SharedLocalResource>("'{0}' cannot be greater than {1} in length"),
-                    Range = Lo.GetValue<SharedLocalResource>("'{0}' must be between {1} and {2} in length")
+                    Len = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.ArrayLenValidationError)),
+                    Min = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.ArrayMinValidationError)),
+                    Max = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.ArrayMaxValidationError)),
+                    Range = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.ArrayRangeValidationError))
                 },
-                Pattern = new FormValidateErrorMessages.PatternMessage
+                Pattern = new PatternMessage
                 {
-                    Mismatch = Lo.GetValue<SharedLocalResource>("'{0}' does not match pattern {1}")
+                    Mismatch = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.PatternMismatchValidationError))
+                },
+                Types = new TypesMessage
+                {
+                    String = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Array = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Object = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Enum = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Number = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Date = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Boolean = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Integer = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Float = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Regexp = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Email = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError)),
+                    Url = Lo.GetValue<ValidateErrorMessagesResource>(nameof(ValidateErrorMessagesResource.TypesDefaultValidationError))
                 }
             }
         };

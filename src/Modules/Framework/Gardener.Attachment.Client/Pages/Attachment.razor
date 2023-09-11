@@ -19,14 +19,14 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @Localizer[SharedLocalResource.DeleteSelected]
+                            @Localizer[SharedLocalResourceKeys.DeleteSelected]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
                 <AntDesign.Col Span="16" Style="text-align:right">
                         <ResourceAuthorize ResourceKey="system_manager_attachment_refresh">
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResourceKeys.Refresh]
                                 </Button>
                         </ResourceAuthorize>
                 </AntDesign.Col>
@@ -34,7 +34,7 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_attachment_delete_selected"]" />
-             <Column TData="string" Title="@Localizer[SharedLocalResource.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+             <Column TData="string" Title="@Localizer[SharedLocalResourceKeys.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                  <span>@model.Tenant?.Name</span>
              </Column>
              <Column Title="@Localizer[AttachmentLocalResource.BusinessType]" @bind-Field="@model.BusinessType" TData="AttachmentBusinessType" Filters="TableFiltersConstants.AttachmentBusinessTypeFilters">
@@ -72,20 +72,20 @@
                 }
 
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@SharedLocalResource.CreatedTime" />
             <ActionColumn>
 
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_attachment_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Detail])" ArrowPointAtCenter="true">
                                 <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_attachment_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Delete])" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

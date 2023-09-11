@@ -2,13 +2,13 @@
 @if (_editModel != null)
 {
     <Form Loading="@_dialogLoading.Value"
-      Model="_editModel"
-      LabelCol="new ColLayoutParam { Span = 4 }"
-      WrapperCol="new ColLayoutParam { Span = 20 }"
-      OnFinish="OnFormFinish"
-      Context="model">
+          Model="_editModel"
+          LabelCol="new ColLayoutParam { Span = 4 }"
+          WrapperCol="new ColLayoutParam { Span = 20 }"
+          OnFinish="OnFormFinish"
+          Context="model">
         <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
-            <FormItem Label="@Localizer[UserCenterResource.Tenant]">
+            <FormItem Label="@SharedLocalResource.Tenant">
                 <Select DataSource="@_tenants"
                 @bind-Value="@model.TenantId"
                         ValueName="@nameof(SystemTenantDto.Id)"
@@ -16,54 +16,54 @@
                         TItem="SystemTenantDto"
                         TItemValue="Guid?"
                     AllowClear>
-            </Select>
-        </FormItem>
-    </ResourceAuthorize>
-        <FormItem Label="@Localizer[UserCenterResource.Parent]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true } })>
-            <Input @bind-Value="@model.ParentId" Type="hidden" />
-            @if (deptDatas != null && deptDatas.Count > 0)
+             </Select>
+         </FormItem>
+     </ResourceAuthorize>
+     <FormItem Label="@SharedLocalResource.Parent" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true } })>
+         <Input @bind-Value="@model.ParentId" Type="hidden" />
+         @if (deptDatas != null && deptDatas.Count > 0)
             {
                 <TreeSelect TItem="DeptDto"
-                    Style="width:100%;"
-                    DataSource="deptDatas"
-                    @bind-Value="@ParentDeptId"
-                    Placeholder="@Localizer[SharedLocalResource.PleaseSelect]"
-                    AllowClear="true"
-                    TitleExpression="node => node.DataItem.Name"
-                    KeyExpression="node =>node.DataItem.Id.ToString()"
-                    ChildrenExpression="node => node.DataItem.Children?.ToList()"
-                    IsLeafExpression="node => node.DataItem.Children==null || !node.DataItem.Children.Any()"
-                    TreeDefaultExpandAll
-                    DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)" 
-                    Disabled="this.Options.Data!=0 && !OperationDialogInputType.Edit.Equals(this.Options.Type)">
-            </TreeSelect>
+                            Style="width:100%;"
+                            DataSource="deptDatas"
+                @bind-Value="@ParentDeptId"
+                            Placeholder="@Localizer[SharedLocalResourceKeys.PleaseSelect]"
+                            AllowClear="true"
+                            TitleExpression="node => node.DataItem.Name"
+                            KeyExpression="node =>node.DataItem.Id.ToString()"
+                            ChildrenExpression="node => node.DataItem.Children?.ToList()"
+                            IsLeafExpression="node => node.DataItem.Children==null || !node.DataItem.Children.Any()"
+                        TreeDefaultExpandAll
+                         DisabledExpression="node=>node.DataItem.Id.Equals(_editModel.Id)"
+                         Disabled="this.Options.Data!=0 && !OperationDialogInputType.Edit.Equals(this.Options.Type)">
+             </TreeSelect>
             }
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Name]">
+        <FormItem Label="@UserCenterResource.Name">
             <Input @bind-Value="@model.Name" />
         </FormItem>
-        <FormItem  Label="@Localizer[UserCenterResource.Contacts]">
+        <FormItem Label="@UserCenterResource.Contacts">
             <Input @bind-Value="@model.Contacts" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Tel]">
+        <FormItem Label="@UserCenterResource.Tel">
             <Input @bind-Value="@model.Tel" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Order]">
+        <FormItem Label="@SharedLocalResource.Order">
             <AntDesign.InputNumber @bind-Value="@model.Order" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.Remark]">
+        <FormItem Label="@SharedLocalResource.Remark">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+        <FormItem Label="@SharedLocalResource.IsLocked">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
 
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
-            <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+            <FormItem Label="@SharedLocalResource.CreatedTime">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
-            <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
+            <FormItem Label="@SharedLocalResource.UpdatedTime">
                 <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
         }
@@ -73,13 +73,13 @@
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">
-                            @Localizer[SharedLocalResource.Save]
+                            @SharedLocalResource.Save
                         </Button>
                     </SpaceItem>
                 }
                 <SpaceItem>
                     <Button OnClick="_=>OnFormCancel()">
-                        @Localizer[SharedLocalResource.Cancel]
+                        @SharedLocalResource.Cancel
                     </Button>
                 </SpaceItem>
             </Space>

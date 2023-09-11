@@ -34,14 +34,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @Localizer[SharedLocalResource.Add]
+                                    @Localizer[SharedLocalResourceKeys.Add]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResource.Refresh]
+                                    @Localizer[SharedLocalResourceKeys.Refresh]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -83,19 +83,19 @@
              <Column @bind-Field="@model.RetryTimeout" Filterable Title="@Localizer[EasyJobLocalResource.RetryTimeout]" Width="150" />
              <Column @bind-Field="@model.StartTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.StartTime]" Width="200" />
              <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.EndTime]" Width="200" />
-             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[SharedLocalResource.CreatedTime]" Width="200" />
+             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@SharedLocalResource.CreatedTime" Width="200" />
              <ActionColumn Width="300" Fixed="right">
                  <Space>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_edit">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[SharedLocalResource.Edit])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Edit])" ArrowPointAtCenter="true">
                                  <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_detail">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[SharedLocalResource.Detail])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Detail])" ArrowPointAtCenter="true">
                                  <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>
@@ -123,7 +123,7 @@
                      </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_delete">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[SharedLocalResource.Delete])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Delete])" ArrowPointAtCenter="true">
                                  <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickTrueDelete(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>

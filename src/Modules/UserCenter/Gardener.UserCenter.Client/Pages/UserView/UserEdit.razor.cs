@@ -76,7 +76,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
         {
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
-                Localizer[SharedLocalResource.UplaodAvatar],
+                Localizer[SharedLocalResourceKeys.UplaodAvatar],
                 new UserUploadAvatarParams(user, false),
                 width: avatarDrawerWidth);
         }

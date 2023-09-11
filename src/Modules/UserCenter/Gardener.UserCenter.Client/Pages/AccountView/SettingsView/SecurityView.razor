@@ -9,18 +9,18 @@
           Loading="_dialogLoading.Value"
           ValidateMode="@FormValidateMode.Rules"
           ValidateOnChange="true">
-        <FormItem Label="@Localizer[UserCenterResource.OldPassword]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
+        <FormItem Label="@UserCenterResource.OldPassword" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
             <Input @bind-Value="@context.OldPassword" Type="password" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.NewPassword]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
+        <FormItem Label="@UserCenterResource.NewPassword" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
             <Input @bind-Value="@context.NewPassword" Type="password" />
         </FormItem>
-        <FormItem Label="@Localizer[UserCenterResource.ConfirmNewPassword]" Rules=@(confirmNewPasswordValidatorRules)>
+        <FormItem Label="@UserCenterResource.ConfirmNewPassword" Rules=@(confirmNewPasswordValidatorRules)>
             <Input @bind-Value="@context.ConfirmNewPassword" Type="password" />
         </FormItem>
         <FormItem WrapperColOffset="8" WrapperColSpan="16">
             <Button Type="@ButtonType.Primary" HtmlType="submit">
-                    @Localizer[SharedLocalResource.Save]
+                    @SharedLocalResource.Save
             </Button>
         </FormItem>
     </Form>

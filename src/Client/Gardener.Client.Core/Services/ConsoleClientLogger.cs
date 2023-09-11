@@ -49,10 +49,10 @@ namespace Gardener.Client.Core
                 switch (code)
                 {
                     case 401:
-                        msg = $"{localizer[SharedLocalResource.Unauthorized]}";
+                        msg = $"{localizer[SharedLocalResourceKeys.Unauthorized]}";
                         break;
                     case 403:
-                        msg = $"{localizer[SharedLocalResource.Forbidden]}";
+                        msg = $"{localizer[SharedLocalResourceKeys.Forbidden]}";
                         break;
                 }
 

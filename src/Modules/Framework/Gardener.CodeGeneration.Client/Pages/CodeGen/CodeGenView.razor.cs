@@ -66,7 +66,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         await OpenOperationDialogAsync
             <CodeGenConfigView, Guid, bool>
-            (Localizer[SharedLocalResource.Setting], id,  result =>
+            (Localizer[SharedLocalResourceKeys.Setting], id,  result =>
         {
             //await ReLoadTable();
             return Task.CompletedTask;
@@ -85,11 +85,11 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
 
         if (success)
         { 
-            await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+            await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Success));
         }
         else
         {
-            await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+            await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Fail));
         }
         
     }
@@ -127,11 +127,11 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
             
             if (success)
             {
-                await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+                await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Success));
             }
             else
             {
-                await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+                await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Fail));
             }
            
         }
@@ -152,11 +152,11 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
             var success = await codeGenClientService.GenerateLocale(codeGenId);
             if (success)
             {
-                await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+                await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Success));
             }
             else
             {
-                await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+                await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Fail));
             }
         }
 
@@ -171,7 +171,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
     {
         if (_selectedRows == null || _selectedRows.Count() == 0)
         {
-            MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
+            MessageService.Warn(Localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
         }
         else
         {
@@ -181,11 +181,11 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
                 var success = await codeGenClientService.GenerateCode(_selectedRows.Select(x => x.Id).ToArray());
                 if (success)
                 {
-                    await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Success));
+                    await MessageService.SuccessAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Success));
                 }
                 else
                 {
-                    await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResource.Generate, SharedLocalResource.Fail));
+                    await MessageService.ErrorAsync(Localizer.Combination(SharedLocalResourceKeys.Generate, SharedLocalResourceKeys.Fail));
                 }
                
             }
@@ -222,7 +222,7 @@ public partial class CodeGenView : ListOperateTableBase<CodeGenDto, Guid, CodeGe
         });
 
         await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
-                    Localizer[SharedLocalResource.SeedData],
+                    Localizer[SharedLocalResourceKeys.SeedData],
                     data,
                     width: 1500);
     }

@@ -14,23 +14,23 @@
             <Tabs ActiveKey="@(context.LoginType.ToString())">
                 <TabPane Key="1">
                     <TabTemplate>
-                        @Localizer[UserCenterResource.AccountPasswordLogin]
+                        @UserCenterResource.AccountPasswordLogin
                     </TabTemplate>
                     <ChildContent>
-                        <FormItem Label="@Localizer[UserCenterResource.UserName]" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
-                            <AntDesign.Input Placeholder="@Localizer[UserCenterResource.UserName]" Size="large" @bind-Value="@context.UserName">
+                        <FormItem Label="@UserCenterResource.UserName" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
+                            <AntDesign.Input Placeholder="@UserCenterResource.UserName" Size="large" @bind-Value="@context.UserName">
                                 <Prefix><Icon Type="user" /></Prefix>
                             </AntDesign.Input>
                         </FormItem>
-                        <FormItem Label="@Localizer[UserCenterResource.LoginPassword]" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
-                            <AntDesign.Input Placeholder="@Localizer[UserCenterResource.LoginPassword]" Size="large" @bind-Value="@context.Password" Type="password">
+                        <FormItem Label="@UserCenterResource.LoginPassword" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true,Max = 32,Min = 5} })>
+                            <AntDesign.Input Placeholder="@UserCenterResource.LoginPassword" Size="large" @bind-Value="@context.Password" Type="password">
                                 <Prefix><Icon Type="lock" /></Prefix>
                             </AntDesign.Input>
                         </FormItem>
-                        <FormItem Label="@Localizer[UserCenterResource.VerifyCode]" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true} })>
+                        <FormItem Label="@UserCenterResource.VerifyCode" LabelAlign="AntLabelAlignType.Left" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true} })>
                             <Row>
                                 <AntDesign.Col Span="18">
-                                    <AntDesign.Input Placeholder="@Localizer[UserCenterResource.VerifyCode]" Size="large" @bind-Value="@context.VerifyCode" />
+                                    <AntDesign.Input Placeholder="@UserCenterResource.VerifyCode" Size="large" @bind-Value="@context.VerifyCode" />
                                 </AntDesign.Col>
                                 <AntDesign.Col Span="6">
                                     <ImageVerifyCode @bind-VerifyCodeKey="@context.VerifyCodeKey" @ref="_imageVerifyCode"></ImageVerifyCode>
@@ -46,13 +46,13 @@
             </Tabs>
             <div>
                 <Checkbox @bind-Value="autoLogin">
-                    @Localizer[UserCenterResource.AutoLogin]
+                    @UserCenterResource.AutoLogin
                 </Checkbox>
                 @*<a style="float: right;">
                 忘记密码
                 </a>*@
             </div>
-            <Button Type="@ButtonType.Primary" HtmlType="submit" Class="submit" Size="large" Block>@Localizer[UserCenterResource.Login]</Button>
+            <Button Type="@ButtonType.Primary" HtmlType="submit" Class="submit" Size="large" Block>@UserCenterResource.Login</Button>
             <div class="other">
                 @*其他登录方式
                 <Icon Type="alipay-circle" />

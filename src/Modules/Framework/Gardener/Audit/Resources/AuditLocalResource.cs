@@ -11,7 +11,7 @@ namespace Gardener.Audit.Resources
     /// <summary>
     /// 审计本地化资源
     /// </summary>
-    public class AuditLocalResource : SharedLocalResource
+    public class AuditLocalResource : SharedLocalResourceKeys
     {
         /// <summary>
         /// 操作者编号

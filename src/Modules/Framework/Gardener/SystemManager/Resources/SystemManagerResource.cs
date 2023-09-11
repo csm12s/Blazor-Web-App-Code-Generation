@@ -11,7 +11,7 @@ namespace Gardener.SystemManager.Resources
     /// <summary>
     /// 系统管理资源
     /// </summary>
-    public class SystemManagerResource : SharedLocalResource
+    public class SystemManagerResource : SharedLocalResourceKeys
     {
         /// <summary>
         /// 字典名称

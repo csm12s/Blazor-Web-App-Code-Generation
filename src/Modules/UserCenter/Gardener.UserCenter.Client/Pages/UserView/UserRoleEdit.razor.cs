@@ -39,7 +39,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
                 var rolesResult = await t1;
                 if (rolesResult == null || !rolesResult.Any()) 
                 {
-                    MessageService.Error(Localizer[UserCenterResource.NoRoleNeedAdd]);
+                    MessageService.Error(Localizer[UserCenterResourceKeys.NoRoleNeedAdd]);
                     _isLoading = false;
                     return;
                 }
@@ -74,12 +74,12 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             var result = await UserService.Role(_userId, selectRoles.Select(x => int.Parse(x)).ToArray());
             if (result)
             {
-                MessageService.Success(Localizer.Combination(UserCenterResource.Setting,UserCenterResource.Success));
+                MessageService.Success(Localizer.Combination(UserCenterResourceKeys.Setting,UserCenterResourceKeys.Success));
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-                MessageService.Error(Localizer.Combination(UserCenterResource.Setting, UserCenterResource.Fail));
+                MessageService.Error(Localizer.Combination(UserCenterResourceKeys.Setting, UserCenterResourceKeys.Fail));
             }
             _isLoading = false;
         }

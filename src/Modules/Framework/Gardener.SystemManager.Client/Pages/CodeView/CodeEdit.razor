@@ -35,16 +35,16 @@
     <FormItem Label="@Localizer[SystemManagerResource.ExtendParams]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.ExtendParams"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+    <FormItem Label="@SharedLocalResource.IsLocked">
         <Switch @bind-Value="@model.IsLocked"></Switch>
     </FormItem>
 
     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
     {
-        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+        <FormItem Label="@SharedLocalResource.CreatedTime">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
+        <FormItem  Label="@SharedLocalResource.UpdatedTime">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -54,13 +54,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @Localizer[SharedLocalResource.Save]
+                        @SharedLocalResource.Save
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @Localizer[SharedLocalResource.Cancel]
+                    @SharedLocalResource.Cancel
                 </Button>
             </SpaceItem>
         </Space>

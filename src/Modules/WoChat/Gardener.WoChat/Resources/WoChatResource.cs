@@ -11,7 +11,7 @@ namespace Gardener.WoChat.Resources
     /// <summary>
     /// 资源
     /// </summary>
-    public class WoChatResource : SharedLocalResource
+    public class WoChatResource : SharedLocalResourceKeys
     {
         /// <summary>
         /// 用户信息

@@ -104,7 +104,7 @@ namespace Gardener.Common
             DisplayAttribute? display = member.GetAttribute<DisplayAttribute>(inherit);
             if (display != null)
             {
-                return display.Name;
+                return display.GetName();
             }
             return member.Name;
         }

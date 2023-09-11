@@ -72,7 +72,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             var loginResult = await AccountService.Login(loginInput);
             if (loginResult != null)
             {
-                //MessageService.Success(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Success), 0.8);
+                //MessageService.Success(Localizer.Combination(UserCenterResourceKeys.Login, UserCenterResourceKeys.Success), 0.8);
                 await AuthenticationStateManager.Login(loginResult, autoLogin);
                 Navigation.NavigateTo(returnUrl ?? "/");
                 loading = false;
@@ -80,7 +80,7 @@ namespace Gardener.UserCenter.Client.Pages.LoginView
             else
             {
                 loading = false;
-                MessageService.Error(Localizer.Combination(UserCenterResource.Login, UserCenterResource.Fail));
+                MessageService.Error(Localizer.Combination(UserCenterResourceKeys.Login, UserCenterResourceKeys.Fail));
                 if (_imageVerifyCode != null)
                 {
                     await _imageVerifyCode.ReLoadVerifyCode();

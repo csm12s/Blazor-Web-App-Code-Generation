@@ -7,7 +7,7 @@
         @if (_fields.Any())
         {
             <Select Mode="multiple"
-            Placeholder="@localizer[SharedLocalResource.PleaseSelectSearchField]"
+            Placeholder="@localizer[SharedLocalResourceKeys.PleaseSelectSearchField]"
             @bind-Values="_selectedValues"
             TItemValue="string"
             TItem="string"
@@ -29,8 +29,8 @@
         @if(_fields.Any()){
             string width = Math.Ceiling((decimal)100 / _fields.Count()) + "%";
             string style = $"margin-right:8px;margin-bottom:2px;width:100px";
-            string begin = localizer[SharedLocalResource.Begin];
-            string end = localizer[SharedLocalResource.End];
+            string begin = localizer[SharedLocalResourceKeys.Begin];
+            string end = localizer[SharedLocalResourceKeys.End];
             foreach (TableSearchField fieldInfo in _fields)
             {
                 string displayName = fieldInfo.DisplayName;
@@ -112,8 +112,8 @@
                                     DefaultValues="fieldInfo.Values"
                                     Values="fieldInfo.Values">
                                 <SelectOptions>
-                                    <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResource.Yes]" />
-                                    <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResource.No]" />
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("true")" Label="@localizer[SharedLocalResourceKeys.Yes]" />
+                                    <SelectOption TItemValue="string" TItem="string" Value="@("false")" Label="@localizer[SharedLocalResourceKeys.No]" />
                                 </SelectOptions>
                             </Select>
                         }
@@ -149,7 +149,7 @@
         @if (Settings.AlwaysShowSearchButton || (_selectedValues != null && _selectedValues.Count() > 0))
         {
             <Button Icon="search" Shape="@ButtonShape.Round" OnClick="OnSearchClick">
-                @localizer[SharedLocalResource.Search]
+                @localizer[SharedLocalResourceKeys.Search]
             </Button>
         }
     </AntDesign.Col>

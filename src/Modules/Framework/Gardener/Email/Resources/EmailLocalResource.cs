@@ -11,7 +11,7 @@ namespace Gardener.Email.Resources
     /// <summary>
     /// 邮件本地化资源
     /// </summary>
-    public class EmailLocalResource : SharedLocalResource
+    public class EmailLocalResource : SharedLocalResourceKeys
     {
        
         /// <summary>

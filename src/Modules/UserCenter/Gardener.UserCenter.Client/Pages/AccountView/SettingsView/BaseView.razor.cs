@@ -38,7 +38,7 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
         {
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
-                Localizer[SharedLocalResource.UplaodAvatar],
+                Localizer[SharedLocalResourceKeys.UplaodAvatar],
                 new UserUploadAvatarParams(user, false),
                 width: avatarDrawerWidth);
         }
@@ -57,11 +57,11 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
 
             if (result)
             {
-                Notifier.Success(Localizer.Combination(UserCenterResource.Save, UserCenterResource.Success));
+                Notifier.Success(Localizer.Combination(UserCenterResourceKeys.Save, UserCenterResourceKeys.Success));
             }
             else 
             {
-                Notifier.Error(Localizer.Combination(UserCenterResource.Save, UserCenterResource.Error));
+                Notifier.Error(Localizer.Combination(UserCenterResourceKeys.Save, UserCenterResourceKeys.Error));
             }
             _saveBtnLoading = false;
         }

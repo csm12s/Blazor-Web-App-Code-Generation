@@ -11,7 +11,7 @@ namespace Gardener.CodeGeneration.Resources
     /// <summary>
     /// 代码生成资源Key
     /// </summary>
-    public class CodeGenLocalResource : SharedLocalResource
+    public class CodeGenLocalResource : SharedLocalResourceKeys
     {
         /// <summary>
         /// TableName

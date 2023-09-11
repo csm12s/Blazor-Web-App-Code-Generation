@@ -19,7 +19,7 @@
                             Style="width:100%;"
                             DataSource="resources"
                 @bind-Value="@ParentId"
-                            Placeholder="@Localizer[SharedLocalResource.PleaseSelect]"
+                            Placeholder="@Localizer[SharedLocalResourceKeys.PleaseSelect]"
                             AllowClear="false"
                             TitleExpression="node=>node.DataItem.Name"
                             KeyExpression="node =>node.DataItem.Id.ToString()"
@@ -63,7 +63,7 @@
         <FormItem Label="@Localizer[SystemManagerResource.SupportMultiTenant]">
             <Switch @bind-Value="@model.SupportMultiTenant"></Switch>
         </FormItem>
-           <FormItem Label="@Localizer[SharedLocalResource.IsLocked]">
+           <FormItem Label="@SharedLocalResource.IsLocked">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
         <FormItem Label="@Localizer[SystemManagerResource.Remark]">
@@ -71,10 +71,10 @@
         </FormItem>
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
-            <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+            <FormItem Label="@SharedLocalResource.CreatedTime">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
-            <FormItem Label="@Localizer[SharedLocalResource.UpdatedTime]">
+            <FormItem Label="@SharedLocalResource.UpdatedTime">
                 <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
         }
@@ -84,13 +84,13 @@
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">
-                            @Localizer[SharedLocalResource.Save]
+                            @SharedLocalResource.Save
                         </Button>
                     </SpaceItem>
                 }
                 <SpaceItem>
                     <Button OnClick="_=>OnFormCancel()">
-                        @Localizer[SharedLocalResource.Cancel]
+                        @SharedLocalResource.Cancel
                     </Button>
                 </SpaceItem>
             </Space>

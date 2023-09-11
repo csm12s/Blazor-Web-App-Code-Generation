@@ -61,10 +61,10 @@
 
     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
     {
-        <FormItem Label="@Localizer[SharedLocalResource.CreatedTime]">
+        <FormItem Label="@SharedLocalResource.CreatedTime">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem  Label="@Localizer[SharedLocalResource.UpdatedTime]">
+        <FormItem  Label="@SharedLocalResource.UpdatedTime">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -72,7 +72,7 @@
         <Space>
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @Localizer[SharedLocalResource.Cancel]
+                    @SharedLocalResource.Cancel
                 </Button>
             </SpaceItem>
         </Space>

@@ -82,7 +82,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public Task ErrorAsync(string description, string? title = null, Exception? ex = null)
         {
-            return Notify(title ?? localizer[SharedLocalResource.Error], description, NotificationType.Error);
+            return Notify(title ?? localizer[SharedLocalResourceKeys.Error], description, NotificationType.Error);
         }
 
         public void Info(string description, string? title = null)
@@ -92,7 +92,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public Task InfoAsync(string description, string? title = null)
         {
-            return Notify(title ?? localizer[SharedLocalResource.Info], description, NotificationType.Info);
+            return Notify(title ?? localizer[SharedLocalResourceKeys.Info], description, NotificationType.Info);
         }
 
         public void Success(string description, string? title = null)
@@ -102,7 +102,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public Task SuccessAsync(string description, string? title = null)
         {
-            return Notify(title ?? localizer[SharedLocalResource.Success], description, NotificationType.Success);
+            return Notify(title ?? localizer[SharedLocalResourceKeys.Success], description, NotificationType.Success);
         }
 
         public void Warn(string description, string? title = null, Exception? ex = null)
@@ -112,7 +112,7 @@ namespace Gardener.Client.AntDesignUi.Services
 
         public Task WarnAsync(string description, string? title = null, Exception? ex = null)
         {
-            return Notify(title ?? localizer[SharedLocalResource.Warn], description, NotificationType.Warning);
+            return Notify(title ?? localizer[SharedLocalResourceKeys.Warn], description, NotificationType.Warning);
         }
     }
 }

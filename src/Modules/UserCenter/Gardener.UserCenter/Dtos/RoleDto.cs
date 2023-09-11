@@ -5,9 +5,10 @@
 // -----------------------------------------------------------------------------
 
 using Gardener.Base;
+using Gardener.Base.Resources;
 using Gardener.SystemManager.Dtos;
+using Gardener.UserCenter.Resources;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gardener.UserCenter.Dtos
@@ -20,24 +21,25 @@ namespace Gardener.UserCenter.Dtos
         /// <summary>
         /// 角色名称
         /// </summary>
-        [Required(ErrorMessage = "不能为空")]
-        [MaxLength(100, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Name")]
+        [Required(ErrorMessageResourceType =typeof(ValidateErrorMessagesResource),ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(100, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [MinLength(1, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMinValidationError))]
+        [Display(Name= nameof(SharedLocalResource.Name), ResourceType=typeof(SharedLocalResource))]
         public string Name { get; set; } = null!;
 
         /// <summary>
         /// 角色描述
         /// </summary>
-        [Required(ErrorMessage = "不能为空")]
-        [MaxLength(500, ErrorMessage = "最大长度不能大于{1}")]
-        [DisplayName("Remark")]
+        [Required(ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.RequiredValidationError))]
+        [MaxLength(500, ErrorMessageResourceType = typeof(ValidateErrorMessagesResource), ErrorMessageResourceName = nameof(ValidateErrorMessagesResource.StringMaxValidationError))]
+        [Display(Name = nameof(SharedLocalResource.Remark), ResourceType = typeof(SharedLocalResource))]
         public string Remark { get; set; }=null!;
 
         /// <summary>
         /// 是否是超级管理员
         /// 超级管理员拥有所有权限
         /// </summary>
-        [DisplayName("IsSuperAdministrator")]
+        [Display(Name = nameof(UserCenterResource.IsSuperAdministrator), ResourceType = typeof(UserCenterResource))]
         public bool IsSuperAdministrator { get; set; }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace Gardener.UserCenter.Dtos
         /// <remarks>
         /// 添加用户时默认添加该角色
         /// </remarks>
-        [DisplayName("IsDefault")]
+        [Display(Name = nameof(UserCenterResource.IsDefault), ResourceType = typeof(UserCenterResource))]
         public bool IsDefault { get; set; }
 
         /// <summary>

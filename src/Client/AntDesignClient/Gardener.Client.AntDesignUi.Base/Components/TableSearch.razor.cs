@@ -174,7 +174,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 TableSearchField searchField = new TableSearchField
                 {
                     Name = name,
-                    DisplayName = localizer[displayName],
+                    DisplayName = displayName,
                     Type = fieldType
                 };
                 //排序值

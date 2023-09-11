@@ -28,7 +28,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : MultiTenantTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new() where TLocalResource : SharedLocalResource
+    public abstract class ListTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> : MultiTenantTableBase<TDto, TKey, TLocalResource, TSelfOperationDialogInput, TSelfOperationDialogOutput> where TDto : class, new()
     {
         /// <summary>
         /// 显示总数
@@ -200,7 +200,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                MessageService.Error(Localizer.Combination(SharedLocalResource.Load, SharedLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Load, SharedLocalResourceKeys.Fail));
             }
             StopTableLoading(forceRender);
         }
@@ -254,12 +254,12 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     {
                         _pageIndex = _pageIndex - 1;
                     }
-                    MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
                     await ReLoadTable();
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Fail));
                 }
             }
 
@@ -272,7 +272,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
+                MessageService.Warn(Localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
             }
             else
             {
@@ -282,7 +282,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     var result = await BaseService.FakeDeletes(_selectedRows.Select(x => GetKey(x)).ToArray());
                     if (result)
                     {
-                        MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                        MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
                         //删除整页，且是最后一页
                         if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
                         {
@@ -295,7 +295,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                     else
                     {
-                        MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                        MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Fail));
                     }
                 }
 
@@ -317,7 +317,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 var result = await BaseService.Delete(id);
                 if (result)
                 {
-                    MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
                     PageRequest pageRequest = GetPageRequest();
                     //当前页被删完了
                     if (_pageIndex > 1 && _datas?.Count() == 0)
@@ -328,7 +328,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Fail));
                 }
             }
 
@@ -341,7 +341,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
         {
             if (_selectedRows == null || _selectedRows.Count() == 0)
             {
-                MessageService.Warn(Localizer[SharedLocalResource.NoRowsAreSelected]);
+                MessageService.Warn(Localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
             }
             else
             {
@@ -352,7 +352,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     var result = await BaseService.Deletes(_selectedRows.Select(x => GetKey(x)).ToArray());
                     if (result)
                     {
-                        MessageService.Success(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Success));
+                        MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
 
                         //删除整页，且是最后一页
                         if (_selectedRows.Count() == _pageSize && _pageIndex * _pageSize >= _total)
@@ -366,7 +366,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                     else
                     {
-                        MessageService.Error(Localizer.Combination(SharedLocalResource.Delete, SharedLocalResource.Fail));
+                        MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Fail));
                     }
 
                 }
@@ -388,7 +388,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             Task<string> seedData = BaseService.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(Localizer[SharedLocalResource.SeedData], seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(Localizer[SharedLocalResourceKeys.SeedData], seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -504,7 +504,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </remarks>
     public abstract class ListTableBase<TDto, TKey, TLocalResource> : ListTableBase<TDto, TKey, TLocalResource, TKey, bool>
         where TDto : class, new()
-        where TLocalResource : SharedLocalResource
+        where TLocalResource : SharedLocalResourceKeys
     {
 
     }
@@ -516,13 +516,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TKey"></typeparam>
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据
-    /// 本地化资源 默认使用<see cref="SharedLocalResource"/>
+    /// 本地化资源 默认使用<see cref="SharedLocalResourceKeys"/>
     /// 
     /// 此基类方便那些不需要弹出或弹出时没有输入输出时使用
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResource>
+    public abstract class ListTableBase<TDto, TKey> : ListTableBase<TDto, TKey, SharedLocalResourceKeys>
         where TDto : class, new()
     {
     }

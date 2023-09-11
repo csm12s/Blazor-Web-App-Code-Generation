@@ -9,8 +9,8 @@
                   Context="model" 
                   ValidateMode="@FormValidateMode.Rules"
                   ValidateOnChange="true">
-                <FormItem Label="@Localizer[UserCenterResource.Avatar]">
-                    <Tooltip Placement="Placement.LeftTop" Title="@Localizer[UserCenterResource.ClickUpdateAvatar]">
+                <FormItem Label="@SharedLocalResource.Avatar">
+                    <Tooltip Placement="Placement.LeftTop" Title="@UserCenterResource.ClickUpdateAvatar">
                         <a @onclick="_ => OnAvatarClick(model)">
                             <Avatar Src="@model.Avatar" />
                         </a>
@@ -29,7 +29,7 @@
                 </FormItem>
                 <FormItem>
                     <Button HtmlType="submit" Type="primary" Loading="_saveBtnLoading">
-                        @Localizer[UserCenterResource.Save]
+                        @SharedLocalResource.Save
                     </Button>
                 </FormItem>
             </Form>
