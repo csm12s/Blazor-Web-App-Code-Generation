@@ -54,7 +54,7 @@ namespace Gardener.UserCenter.Client.Pages.TenantView
             var resourceResult = await t2;
             if (resourceResult == null)
             {
-                MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Resource, SharedLocalResourceKeys.Load, SharedLocalResourceKeys.Fail));
+                MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Resource), nameof(SharedLocalResource.Load), nameof(SharedLocalResource.Fail)));
                 await base.StopLoading();
                 return;
             }
@@ -102,12 +102,12 @@ namespace Gardener.UserCenter.Client.Pages.TenantView
             var result = await TenantService.AddResources(this.Options.Id, resourceIds.Distinct().ToArray());
             if (result)
             {
-                MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Save, SharedLocalResourceKeys.Success));
+                MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Success)));
                 await base.FeedbackRef.CloseAsync(true);
             }
             else
             {
-                MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Save, SharedLocalResourceKeys.Fail));
+                MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Fail)));
             }
             _dialogLoading.Stop();
         }

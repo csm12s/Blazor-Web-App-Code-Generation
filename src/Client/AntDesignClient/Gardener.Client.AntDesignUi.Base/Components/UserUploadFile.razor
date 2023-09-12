@@ -12,7 +12,7 @@
             Data="uploadAttachmentInput"
             Headers="headers">
             <Button Icon="upload" Loading="loading">
-                <span>@localizer[SharedLocalResourceKeys.Upload]</span>
+            <span>@localizer[nameof(SharedLocalResource.Upload)]</span>
             </Button>
     </Upload>
     </Col>
@@ -20,7 +20,7 @@
 <Row>
     <Col Span="24" Style="text-align:center;">
     <Button Type="@ButtonType.Primary" OnClick="OnOkClick">
-            @localizer[SharedLocalResourceKeys.Confirm]
+            @localizer[nameof(SharedLocalResource.Confirm)]
     </Button>
     </Col>
 </Row>

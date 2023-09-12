@@ -86,7 +86,7 @@ namespace Gardener.Client.Core
                     return await ResponseHandle<TResponse>(func, ++retry);
                 }
                 //请求失败 
-                log.Error(localizer[SharedLocalResourceKeys.ResuqesFail], (int)httpResponse.StatusCode);
+                log.Error(SharedLocalResource.ResuqesFail, (int)httpResponse.StatusCode);
                 //TODO:待client全局异常捕获完成时，在这里抛出异常即可
 #pragma warning disable CS8603 // 可能返回 null 引用。
                 return default(TResponse);
@@ -94,7 +94,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                log.Error($"{localizer[SharedLocalResourceKeys.ResuqesException]}[{ex.Message}]", -999, ex);
+                log.Error($"{SharedLocalResource.ResuqesException}[{ex.Message}]", -999, ex);
                 //todo:待client全局异常捕获完成时，在这里抛出异常即可
 #pragma warning disable CS8603 // 可能返回 null 引用。
                 return default(TResponse);
@@ -123,7 +123,7 @@ namespace Gardener.Client.Core
                         return;
                     }
                     //请求失败 
-                    log.Error(localizer[SharedLocalResourceKeys.ResuqesFail], (int)httpResponse.StatusCode);
+                    log.Error(SharedLocalResource.ResuqesFail, (int)httpResponse.StatusCode);
                 }
                 else 
                 {
@@ -141,7 +141,7 @@ namespace Gardener.Client.Core
             }
             catch (Exception ex)
             {
-                log.Error($"{localizer[SharedLocalResourceKeys.ResuqesException]}[{ex.Message}]", -999, ex);
+                log.Error($"{SharedLocalResource.ResuqesException}[{ex.Message}]", -999, ex);
             }
         }
         /// <summary>

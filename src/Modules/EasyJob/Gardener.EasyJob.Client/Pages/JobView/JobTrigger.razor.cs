@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base;
@@ -127,19 +128,19 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// <returns></returns>
         public async Task OnClickPause(int id)
         {
-            if (await ConfirmService.YesNo(Localizer[EasyJobLocalResource.Pause]) == ConfirmResult.Yes)
+            if (await ConfirmService.YesNo(EasyJobLocalResource.Pause) == ConfirmResult.Yes)
             {
                 bool result = await sysJobTriggerService.Pause(id);
                 if (result)
                 {
                     //成功
-                    MessageService.Success(Localizer.Combination(EasyJobLocalResource.Pause, EasyJobLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Success));
                     await base.ReLoadTable();
                 }
                 else
                 {
                     //失败
-                    MessageService.Error(Localizer.Combination(EasyJobLocalResource.Pause, EasyJobLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Fail));
                 }
             }
         }
@@ -150,19 +151,19 @@ namespace Gardener.EasyJob.Client.Pages.JobView
         /// <returns></returns>
         public async Task OnClickStart(int id)
         {
-            if (await ConfirmService.YesNo(Localizer[EasyJobLocalResource.Start]) == ConfirmResult.Yes)
+            if (await ConfirmService.YesNo(EasyJobLocalResource.Start) == ConfirmResult.Yes)
             {
                 bool result = await sysJobTriggerService.Start(id);
                 if (result)
                 {
                     //成功
-                    MessageService.Success(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Success));
+                    MessageService.Success(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Success));
                     await base.ReLoadTable();
                 }
                 else
                 {
                     //失败
-                    MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Fail));
+                    MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Fail));
                 }
             }
         }
@@ -182,7 +183,7 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             SysJobUserConfigDto? result = await userConfigService.SaveMyConfig(easyJobUserConfigDto);
             if (result == null)
             {
-                MessageService.Error((enable ? Localizer[EasyJobLocalResource.Open] : Localizer[EasyJobLocalResource.Close]) + Localizer[EasyJobLocalResource.Fail]);
+                MessageService.Error((enable ? SharedLocalResource.Open : SharedLocalResource.Close) + SharedLocalResource.Fail);
             }
             else
             {

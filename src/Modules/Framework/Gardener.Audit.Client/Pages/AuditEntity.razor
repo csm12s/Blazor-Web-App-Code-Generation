@@ -19,7 +19,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @Localizer[SharedLocalResourceKeys.DeleteSelected]
+                            @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -28,14 +28,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_audit_entity_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResourceKeys.Refresh]
+                                    @Localizer[nameof(SharedLocalResource.Refresh)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_audit_entity_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport"  Loading="_exportDataLoading">
-                                    @Localizer[SharedLocalResourceKeys.Export]
+                                    @Localizer[nameof(SharedLocalResource.Export)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -45,7 +45,7 @@
         </TitleTemplate>
         <ColumnDefinitions>
             <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_audit_entity_delete_selected"]" />
-             <Column TData="string" Title="@Localizer[SharedLocalResourceKeys.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+             <Column TData="string" Title="@Localizer[nameof(SharedLocalResource.Tenant)]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                  <span>@model.Tenant?.Name</span>
              </Column>
              <Column @bind-Field="@model.OperaterId" Filterable Title="@Localizer[AuditLocalResource.OperaterId]" />
@@ -59,19 +59,19 @@
              <Column @bind-Field="@model.OperationType" Filters="TableFiltersConstants.OperationTypeFilters" Title="@Localizer[AuditLocalResource.OperationType]">
                  <TagPro Text="model.OperationType">@Localizer[EnumHelper.GetEnumDescription(model.OperationType)??model.OperationType.ToString()]</TagPro>
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@SharedLocalResource.CreatedTime" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" />
             <ActionColumn>
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_detail">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Detail])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
                                 <Button Icon="read" Type="@ButtonType.Primary" OnClick="()=>OnDetailClick(model)"></Button>
                             </Tooltip>
                         </SpaceItem>
                     </ResourceAuthorize>
                     <ResourceAuthorize ResourceKey="system_manager_audit_entity_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

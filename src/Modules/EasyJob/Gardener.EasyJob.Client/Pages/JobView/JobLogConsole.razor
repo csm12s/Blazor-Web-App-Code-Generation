@@ -7,7 +7,7 @@
     <GridRow Style="margin-top:5px;">
         <GridCol Span="8">
             <ResourceAuthorize ResourceKey="system_manager_easy_job_detail_monitor_log,system_manager_easy_job_trigger_monitor_log" AndCondition="false">
-                    <label>@Localizer[EasyJobLocalResource.RealTimeMonitor]</label> <Switch Checked="enableRealTimeMonitor" Loading="enableRealTimeMonitorLoading" CheckedChildren="@Localizer[EasyJobLocalResource.Open]" UnCheckedChildren="@Localizer[EasyJobLocalResource.Close]" OnChange="OnEnableRealTimeMonitorChange" />
+                    <label>@Localizer[nameof(EasyJobLocalResource.RealTimeMonitor)]</label> <Switch Checked="enableRealTimeMonitor" Loading="enableRealTimeMonitorLoading" CheckedChildren="@Localizer[nameof(SharedLocalResource.Open)]" UnCheckedChildren="@Localizer[nameof(SharedLocalResource.Open)]" OnChange="OnEnableRealTimeMonitorChange" />
             </ResourceAuthorize>
         </GridCol>
         <GridCol Span="16" Style="text-align:right;">

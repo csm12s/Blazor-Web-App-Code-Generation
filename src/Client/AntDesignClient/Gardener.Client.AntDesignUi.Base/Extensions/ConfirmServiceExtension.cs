@@ -26,7 +26,7 @@ namespace AntDesign
         /// <param name="btn2Text"></param>
         /// <param name="btn3Text"></param>
         /// <returns></returns>
-        public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title, string content, ConfirmIcon confirmIcon, string btn1Text = SharedLocalResourceKeys.Yes, string btn2Text = SharedLocalResourceKeys.Cancel, string btn3Text = "")
+        public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title, string content, ConfirmIcon confirmIcon, string btn1Text = nameof(SharedLocalResource.Yes), string btn2Text = nameof(SharedLocalResource.Cancel), string btn3Text = "")
         {
             return await confirmService.Show(content, title, ConfirmButtons.YesNo, confirmIcon, new ConfirmButtonOptions()
             {
@@ -61,12 +61,12 @@ namespace AntDesign
         /// <param name="title"></param>
         /// <returns></returns>
         /// <remarks>
-        /// <para>content此时为 <see cref="SharedLocalResourceKeys.OperateConfirmMessage"/></para>
+        /// <para>content此时为 <see cref="nameof(SharedLocalResource.OperateConfirmMessage)"/></para>
         /// <para>confirmIcon此时为 <see cref="ConfirmIcon.Question"/></para>
         /// </remarks>
         public async static Task<ConfirmResult> YesNo(this ConfirmService confirmService, string title)
         {
-            return await confirmService.YesNo(title, Lo.GetValue(SharedLocalResourceKeys.OperateConfirmMessage), ConfirmIcon.Question);
+            return await confirmService.YesNo(title, Lo.GetValue(nameof(SharedLocalResource.OperateConfirmMessage)), ConfirmIcon.Question);
         }
         /// <summary>
         /// 弹出删除确认提示框
@@ -74,13 +74,13 @@ namespace AntDesign
         /// <param name="confirmService"></param>
         /// <returns></returns>
         /// <remarks>
-        /// <para>title此时为 <see cref="SharedLocalResourceKeys.Delete"/></para>
-        /// <para>content此时为 <see cref="SharedLocalResourceKeys.OperateConfirmMessage"/></para>
+        /// <para>title此时为 <see cref="nameof(SharedLocalResource.Delete)"/></para>
+        /// <para>content此时为 <see cref="nameof(SharedLocalResource.OperateConfirmMessage)"/></para>
         /// <para>confirmIcon此时为 <see cref="ConfirmIcon.Question"/></para>
         /// </remarks>
         public async static Task<ConfirmResult> YesNoDelete(this ConfirmService confirmService)
         {
-            return await confirmService.YesNo(Lo.GetValue(SharedLocalResourceKeys.Delete), Lo.GetValue(SharedLocalResourceKeys.OperateConfirmMessage));
+            return await confirmService.YesNo(Lo.GetValue(nameof(SharedLocalResource.Delete)), Lo.GetValue(nameof(SharedLocalResource.OperateConfirmMessage)));
         }
     }
 }

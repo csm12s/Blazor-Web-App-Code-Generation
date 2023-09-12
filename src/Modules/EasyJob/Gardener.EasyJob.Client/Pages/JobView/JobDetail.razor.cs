@@ -1,4 +1,5 @@
-﻿using Gardener.Client.AntDesignUi.Base;
+﻿using Gardener.Base.Resources;
+using Gardener.Client.AntDesignUi.Base;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.EasyJob.Dtos;
 using Gardener.EasyJob.Resources;
@@ -32,12 +33,12 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             {
                 //成功
                 await base.ReLoadTable();
-                MessageService.Success(Localizer.Combination(EasyJobLocalResource.Pause, EasyJobLocalResource.Success));
+                MessageService.Success(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Success));
             }
             else
             {
                 //失败
-                MessageService.Error(Localizer.Combination(EasyJobLocalResource.Pause, EasyJobLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(EasyJobLocalResource.Pause, SharedLocalResource.Fail));
             }
         }
         /// <summary>
@@ -51,13 +52,13 @@ namespace Gardener.EasyJob.Client.Pages.JobView
             if (result)
             {
                 //成功
-                MessageService.Success(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Success));
+                MessageService.Success(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Success));
                 await base.ReLoadTable();
             }
             else
             {
                 //失败
-                MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, EasyJobLocalResource.Fail));
+                MessageService.Error(Localizer.Combination(EasyJobLocalResource.Start, SharedLocalResource.Fail));
             }
         }
         /// <summary>

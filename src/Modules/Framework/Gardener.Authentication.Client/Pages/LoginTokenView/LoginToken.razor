@@ -20,7 +20,7 @@
                 <AntDesign.Col Span="8">
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete_selected">
                         <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                            @Localizer[SharedLocalResourceKeys.DeleteSelected]
+                            @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                         </Button>
                     </ResourceAuthorize>
                 </AntDesign.Col>
@@ -30,14 +30,14 @@
                         <ResourceAuthorize ResourceKey="system_manager_login_token_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResourceKeys.Refresh]
+                                    @Localizer[nameof(SharedLocalResource.Refresh)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_login_token_export">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport" Loading="_exportDataLoading">
-                                    @Localizer[SharedLocalResourceKeys.Export]
+                                    @Localizer[nameof(SharedLocalResource.Export)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -52,24 +52,24 @@
             }
              @if (!_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey])
             {
-                <Column TData="string" Title="@Localizer[SharedLocalResourceKeys.Tenant]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" Width="100" Fixed="left">
+                <Column TData="string" Title="@Localizer[nameof(SharedLocalResource.Tenant)]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]" Width="100" Fixed="left">
                     <span>@model.Tenant?.Name</span>
                 </Column>
              }
-             <Column @bind-Field="@model.LoginId" Filterable Title="@Localizer[SharedLocalResourceKeys.LoginId]" Width="150" Fixed="left" >
+             <Column @bind-Field="@model.LoginId" Filterable Title="@Localizer[nameof(SharedLocalResource.LoginId)]" Width="150" Fixed="left" >
                  <label style="font-size:12px;">@model.LoginId</label>
              </Column>
-             <Column @bind-Field="@model.IdentityId" Filterable Title="@Localizer[SharedLocalResourceKeys.IdentityId]" Width="120" Fixed="left" />
-             <Column @bind-Field="@model.IdentityName" Filterable Title="@Localizer[SharedLocalResourceKeys.IdentityName]" Width="150" Fixed="left" />
-             <Column @bind-Field="@model.IdentityNickName" Filterable Title="@Localizer[SharedLocalResourceKeys.IdentityNickName]" Width="150"/>
-             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[SharedLocalResourceKeys.IdentityType]" Width="120">
+             <Column @bind-Field="@model.IdentityId" Filterable Title="@Localizer[nameof(SharedLocalResource.IdentityId)]" Width="120" Fixed="left" />
+             <Column @bind-Field="@model.IdentityName" Filterable Title="@Localizer[nameof(SharedLocalResource.IdentityName)]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.IdentityNickName" Filterable Title="@Localizer[nameof(SharedLocalResource.IdentityNickName)]" Width="150"/>
+             <Column @bind-Field="@model.IdentityType" Filters="TableFiltersConstants.IdentityTypeFilters" Title="@Localizer[nameof(SharedLocalResource.IdentityType)]" Width="120">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.IdentityType)"></TagPro>
             </Column>
-             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters" Title="@Localizer[SharedLocalResourceKeys.LoginClientType]" Width="120">
+             <Column @bind-Field="@model.LoginClientType" Filters="TableFiltersConstants.LoginClientTypeFilters" Title="@Localizer[nameof(SharedLocalResource.LoginClientType)]" Width="120">
                 <TagPro Text="@EnumHelper.GetEnumDescription(model.LoginClientType)"></TagPro>
             </Column>
-             <Column @bind-Field="@model.Ip" Filterable Title="@Localizer[SharedLocalResourceKeys.Ip]" Width="150" />
-             <Column @bind-Field="@model.IsLocked" Filterable Title="@SharedLocalResource.IsLocked" Width="150">
+             <Column @bind-Field="@model.Ip" Filterable Title="@Localizer[nameof(SharedLocalResource.Ip)]" Width="150" />
+             <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[nameof(SharedLocalResource.IsLocked)]" Width="150">
                 <ResourceAuthorize ResourceKey="system_manager_login_token_lock">
                     <Authorized>
                         <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -79,9 +79,9 @@
                     </NotAuthorized>
                 </ResourceAuthorize>
             </Column>
-             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@SharedLocalResource.UpdatedTime" Width="200" />
-             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[SharedLocalResourceKeys.EndTime]" Width="200" />
-             <Column TData="string" Title="@(Localizer[SharedLocalResourceKeys.OnlineTime])" Width="200">
+             <Column @bind-Field="@model.UpdatedTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.UpdatedTime)]" Width="200" />
+             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Title="@Localizer[nameof(SharedLocalResource.EndTime)]" Width="200" />
+             <Column TData="string" Title="@(SharedLocalResource.OnlineTime)" Width="200">
                 @if(model.UpdatedTime.HasValue)
                 {
                     <span>@(DateTimeHelper.FormatDateTimeDiff(model.CreatedTime,model.UpdatedTime.Value))</span>
@@ -91,12 +91,12 @@
                     <span>--</span>
                 }
             </Column>
-            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@SharedLocalResource.CreatedTime" Width="200" Fixed="right" />
+            <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Width="200" Fixed="right" />
              <ActionColumn Width="100" Fixed="right">
                 <Space>
                     <ResourceAuthorize ResourceKey="system_manager_login_token_delete">
                         <SpaceItem>
-                            <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Delete])" ArrowPointAtCenter="true">
+                            <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
                                 <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                             </Tooltip>
                         </SpaceItem>

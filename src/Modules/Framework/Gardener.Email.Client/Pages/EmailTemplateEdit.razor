@@ -28,15 +28,15 @@
         <FormItem Label="@Localizer[EmailLocalResource.IsHtml]">
             <Switch @bind-Value="@model.IsHtml"></Switch>
         </FormItem>
-        <FormItem Label="@SharedLocalResource.IsLocked">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
-            <FormItem Label="@SharedLocalResource.CreatedTime">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
-            <FormItem Label="@SharedLocalResource.UpdatedTime">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
                 <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
         }
@@ -46,13 +46,13 @@
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">
-                            @SharedLocalResource.Save
+                            @Localizer[nameof(SharedLocalResource.Save)]
                         </Button>
                     </SpaceItem>
                 }
                 <SpaceItem>
                     <Button OnClick="_=>OnFormCancel()">
-                        @SharedLocalResource.Cancel
+                        @Localizer[nameof(SharedLocalResource.Cancel)]
                     </Button>
                 </SpaceItem>
             </Space>

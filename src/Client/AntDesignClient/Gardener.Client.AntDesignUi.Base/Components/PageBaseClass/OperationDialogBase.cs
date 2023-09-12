@@ -121,7 +121,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDialogInput"></typeparam>
     /// <typeparam name="TDialogOutput"></typeparam>
     /// <typeparam name="TLocalResource"></typeparam>
-    public class OperationDialogBase<TDialogInput, TDialogOutput> : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResourceKeys>
+    public class OperationDialogBase<TDialogInput, TDialogOutput> : OperationDialogBase<TDialogInput, TDialogOutput, SharedLocalResource>
     {
     }
 

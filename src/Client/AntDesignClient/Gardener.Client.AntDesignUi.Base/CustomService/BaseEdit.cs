@@ -22,7 +22,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public class BaseEdit<TDto, TKey, TLocalResource>
-        : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TLocalResource : SharedLocalResourceKeys
+        : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, TLocalResource> where TLocalResource : SharedLocalResource
         where TDto : class, new()
     {
         /// <summary>
@@ -71,7 +71,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                     }
                     else
                     {
-                        MessageService.Error(Localizer[SharedLocalResourceKeys.DataNotFound]);
+                        MessageService.Error(SharedLocalResource.DataNotFound);
                     }
 
                 }
@@ -105,12 +105,12 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
 
                 if (result != null)
                 {
-                    MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Add, SharedLocalResourceKeys.Success));
+                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Add), nameof(SharedLocalResource.Success)));
                     await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TData>.Succeed(result.Data)
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Add, SharedLocalResourceKeys.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Add), nameof(SharedLocalResource.Fail)));
                 }
             }
             else
@@ -119,12 +119,12 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 var result = await BaseService.Update(_editModel);
                 if (result)
                 {
-                    MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Edit, SharedLocalResourceKeys.Success));
+                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Success)));
                     await base.FeedbackRef.CloseAsync();//OperationDialogOutput<TData>.Succeed(_editModel.Data)
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Edit, SharedLocalResourceKeys.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Fail)));
                 }
             }
             _isLoading = false;

@@ -204,7 +204,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             }
             else
             {
-                await messageService.Error(localizer.Combination(SharedLocalResourceKeys.Load, SharedLocalResourceKeys.Fail));
+                await messageService.Error(localizer.Combination(nameof(SharedLocalResource.Load), nameof(SharedLocalResource.Fail)));
             }
             _tableIsLoading = false;
             await InvokeAsync(StateHasChanged);
@@ -241,11 +241,11 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
+                    await messageService.Success(localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                 }
                 else
                 {
-                    await messageService.Error(localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Fail));
+                    await messageService.Error(localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
                 }
             }
 
@@ -270,11 +270,11 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                         _pageIndex = _pageIndex - 1;
                     }
                     await ReLoadTable();
-                    await messageService.Success(localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
+                    await messageService.Success(localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                 }
                 else
                 {
-                    await messageService.Error(localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Fail));
+                    await messageService.Error(localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Fail)));
                 }
             }
 
@@ -304,7 +304,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
             Task<string> seedData = _service.GenerateSeedData(pageRequest);
             OperationDialogSettings drawerSettings = GetOperationDialogSettings();
             drawerSettings.Width = 1300;
-            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(localizer[SharedLocalResourceKeys.SeedData], seedData, operationDialogSettings: drawerSettings);
+            await OpenOperationDialogAsync<TShowSeedDataDrawer, Task<string>, bool>(SharedLocalResource.SeedData, seedData, operationDialogSettings: drawerSettings);
         }
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 return;
             };
 
-            await OpenOperationDialogAsync(localizer[SharedLocalResourceKeys.Add], input, onClose);
+            await OpenOperationDialogAsync(SharedLocalResource.Add, input, onClose);
         }
         /// <summary>
         /// 点击编辑按钮
@@ -477,7 +477,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
                 }
                 return;
             };
-            await OpenOperationDialogAsync(localizer[SharedLocalResourceKeys.Edit], input, onClose);
+            await OpenOperationDialogAsync(SharedLocalResource.Edit, input, onClose);
         }
 
         /// <summary>
@@ -487,7 +487,7 @@ namespace Gardener.Client.AntDesignUi.Base.CustomService
         protected virtual async Task OnClickDetail(TKey id)
         {
             OperationDialogInput<TKey> input = OperationDialogInput<TKey>.Select(id);
-            await OpenOperationDialogAsync(localizer[SharedLocalResourceKeys.Detail], input);
+            await OpenOperationDialogAsync(SharedLocalResource.Detail, input);
         }
 
         /// <summary>

@@ -93,7 +93,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                     }
                     else
                     {
-                        MessageService.Error(Localizer[SharedLocalResourceKeys.DataNotFound]);
+                        MessageService.Error(SharedLocalResource.DataNotFound);
                     }
                 }
 
@@ -145,13 +145,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
 
                 if (result != null)
                 {
-                    MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Add, SharedLocalResourceKeys.Success));
+                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Add), nameof(SharedLocalResource.Success)));
                     operationDialogOutput.IsSucceed(GetKey(result));
                     await CloseAsync(operationDialogOutput as TOperationDialogOutput);
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Add, SharedLocalResourceKeys.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Add), nameof(SharedLocalResource.Fail)));
                 }
             }
             else
@@ -160,13 +160,13 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 var result = await BaseService.Update(_editModel);
                 if (result)
                 {
-                    MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Edit, SharedLocalResourceKeys.Success));
+                    MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Success)));
                     operationDialogOutput.IsSucceed();
                     await CloseAsync(operationDialogOutput as TOperationDialogOutput);
                 }
                 else
                 {
-                    MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Edit, SharedLocalResourceKeys.Fail));
+                    MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Edit), nameof(SharedLocalResource.Fail)));
                 }
             }
             await StopLoading();
@@ -184,7 +184,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                throw new ArgumentException($"{Localizer[SharedLocalResourceKeys.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+                throw new ArgumentException($"{SharedLocalResource.Error}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
         }
     }
@@ -215,11 +215,11 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <remarks>
-    /// <para>本地化资源类,默认是 <see cref="SharedLocalResourceKeys"/></para>
+    /// <para>本地化资源类,默认是 <see cref="SharedLocalResource"/></para>
     /// <para>弹框输入参数，默认是 <![CDATA[OperationDialogInput<Tkey>]]></para>
     /// <para>弹框输出参数，默认是 <see cref="OperationDialogOutput"/></para>
     /// </remarks>
-    public class EditOperationDialogBase<TDto, TKey> : EditOperationDialogBase<TDto, TKey, SharedLocalResourceKeys>
+    public class EditOperationDialogBase<TDto, TKey> : EditOperationDialogBase<TDto, TKey, SharedLocalResource>
         where TDto : class, new()
     {
 

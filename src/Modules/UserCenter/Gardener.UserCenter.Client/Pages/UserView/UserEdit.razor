@@ -11,7 +11,7 @@
             <GridCol Span="11">
                 <Divider Orientation="left" Style="font-weight:bold">@Localizer["BasicInformation"]</Divider>
                 <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
-                    <FormItem Label="@SharedLocalResource.Tenant">
+                    <FormItem Label="@Localizer[nameof(SharedLocalResource.Tenant)]">
                         <Select DataSource="@_tenants"
                         @bind-Value="@model.TenantId"
                                 ValueName="@nameof(SystemTenantDto.Id)"
@@ -22,7 +22,7 @@
                     </Select>
                 </FormItem>
             </ResourceAuthorize>
-             <FormItem Label="@SharedLocalResource.Avatar">
+             <FormItem Label="@Localizer[nameof(SharedLocalResource.Avatar)]">
                     @if (OperationDialogInputType.Edit.Equals(this.Options.Type) || OperationDialogInputType.Add.Equals(this.Options.Type))
                     {
 
@@ -45,7 +45,7 @@
                                     Style="width:100%;"
                                     DataSource="deptDatas"
                         @bind-Value="@DeptId"
-                                    Placeholder="@Localizer[SharedLocalResourceKeys.PleaseSelect]"
+                                    Placeholder="@Localizer[nameof(SharedLocalResource.PleaseSelect)]"
                                     AllowClear
                                     TitleExpression="node => node.DataItem.Name"
                                     KeyExpression="node => node.DataItem.Id.ToString()"
@@ -121,13 +121,13 @@
                         {
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" HtmlType="submit">
-                                    @SharedLocalResource.Save
+                                    @Localizer[nameof(SharedLocalResource.Save)]
                                 </Button>
                             </SpaceItem>
                         }
                         <SpaceItem>
                             <Button OnClick="OnFormCancel">
-                                @SharedLocalResource.Cancel
+                                @Localizer[nameof(SharedLocalResource.Cancel)]
                             </Button>
                         </SpaceItem>
                     </Space>

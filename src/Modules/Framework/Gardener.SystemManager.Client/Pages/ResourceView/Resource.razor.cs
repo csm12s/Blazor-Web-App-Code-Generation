@@ -82,7 +82,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             });
 
             await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
-                        Localizer[SharedLocalResourceKeys.SeedData],
+                        SharedLocalResource.SeedData,
                         data,
                         width: 1300);
         }

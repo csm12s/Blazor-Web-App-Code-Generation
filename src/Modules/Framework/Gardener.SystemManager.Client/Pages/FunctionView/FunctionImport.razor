@@ -25,7 +25,7 @@
                    @bind-Value="@_apiJsonUrl" />
         </AntDesign.Col>
         <AntDesign.Col Span="2">
-            <Button Style="width:100%" Type="@ButtonType.Primary" Size="@ButtonSize.Large" Loading="_loading" OnClick="OnLoad">@Localizer[SharedLocalResourceKeys.Load]</Button>
+            <Button Style="width:100%" Type="@ButtonType.Primary" Size="@ButtonSize.Large" Loading="_loading" OnClick="OnLoad">@Localizer[nameof(SharedLocalResource.Load)]</Button>
         </AntDesign.Col>
 
     </Row>
@@ -68,13 +68,13 @@
     <AntDesign.Col Span="8" Offset="8">
         <Space>
             <SpaceItem>
-                <Tooltip Placement="@Placement.Top" Title="@(Localizer[SharedLocalResourceKeys.Import])">
+                <Tooltip Placement="@Placement.Top" Title="@(SharedLocalResource.Import)">
                     <Button Type="@ButtonType.Primary" OnClick="OnImportClick" Loading="_importLoading">
-                        @Localizer[SharedLocalResourceKeys.Import]
+                        @Localizer[nameof(SharedLocalResource.Import)]
                     </Button>
                 </Tooltip>
                 <Button Type="@ButtonType.Default" OnClick="OnCancleClick">
-                    @Localizer[SharedLocalResourceKeys.Close]
+                    @Localizer[nameof(SharedLocalResource.Close)]
                 </Button>
             </SpaceItem>
         </Space>

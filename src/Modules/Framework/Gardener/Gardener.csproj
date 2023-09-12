@@ -30,6 +30,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Attachment\Resources\AttachmentLocalResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AttachmentLocalResource.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Base\Resources\CodeLocalResource.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -53,6 +58,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="Attachment\Resources\AttachmentLocalResource.resx">
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>AttachmentLocalResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Base\Resources\CodeLocalResource.resx">
 		  <Generator>PublicResXFileCodeGenerator</Generator>
 		  <LastGenOutput>CodeLocalResource.Designer.cs</LastGenOutput>

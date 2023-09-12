@@ -762,4 +762,7 @@
     <value>密码错误</value>
     <comment>ErrorCodeMessage</comment>
   </data>
+  <data name="Cron" xml:space="preserve">
+    <value>Cron</value>
+  </data>
 </root>

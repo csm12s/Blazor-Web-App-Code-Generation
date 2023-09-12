@@ -7,10 +7,10 @@
       WrapperCol="new ColLayoutParam { Span = 20 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@Localizer[EasyJobLocalResource.Result]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Result)]">
         <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Result"></TextArea>
     </FormItem>
-    <FormItem Label="@Localizer[EasyJobLocalResource.Exception]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Exception)]">
         @{
             string exceptionMessage = (model.ExceptionMessage ?? string.Empty) +"\n"+ (model.Exception??string.Empty);
         }
@@ -22,13 +22,13 @@
             {
                 <SpaceItem>
                     <Button Type="@ButtonType.Primary" HtmlType="submit">
-                        @SharedLocalResource.Save
+                        @Localizer[nameof(SharedLocalResource.Save)]
                     </Button>
                 </SpaceItem>
             }
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @SharedLocalResource.Cancel
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

@@ -14,8 +14,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\WoChatResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WoChatResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Resources\WoChatResource.en.resx">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WoChatResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WoChatResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WoChatResource.zh.resx">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

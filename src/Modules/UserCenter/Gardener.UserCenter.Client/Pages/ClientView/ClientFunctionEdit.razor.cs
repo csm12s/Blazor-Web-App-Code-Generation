@@ -130,7 +130,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                MessageService.Warn(Localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
+                MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
                 return;
             }
             if (await ConfirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -139,7 +139,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
                 {
                     await ClientFunctionService.Delete(this.Options.Id, item.Id);
                 }
-                MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
+                MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                 await OnInitializedAsync();
             }
         }
@@ -169,7 +169,7 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                MessageService.Warn(Localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
+                MessageService.Warn(SharedLocalResource.NoRowsAreSelected);
                 return;
             }
 
@@ -184,12 +184,12 @@ namespace Gardener.UserCenter.Client.Pages.ClientView
             }).ToList());
             if (result)
             {
-                MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Binding, SharedLocalResourceKeys.Success));
+                MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Binding), nameof(SharedLocalResource.Success)));
                 await this.CloseAsync(true);
             }
             else
             {
-                MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Binding, SharedLocalResourceKeys.Fail));
+                MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Binding), nameof(SharedLocalResource.Fail)));
             }
         }
     }

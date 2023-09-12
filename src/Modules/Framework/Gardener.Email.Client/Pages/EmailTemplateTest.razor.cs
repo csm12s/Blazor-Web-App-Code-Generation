@@ -86,11 +86,11 @@ namespace Gardener.Email.Client.Pages
             bool result=await EmailService.Send(_sendEmailInput);
             if (result)
             {
-                MessageService.Success(Localizer.Combination(SharedLocalResourceKeys.Send, SharedLocalResourceKeys.Success));
+                MessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Send), nameof(SharedLocalResource.Success)));
             }
             else 
             {
-                MessageService.Error(Localizer.Combination(SharedLocalResourceKeys.Send, SharedLocalResourceKeys.Fail));
+                MessageService.Error(Localizer.Combination(nameof(SharedLocalResource.Send), nameof(SharedLocalResource.Fail)));
             }
             _isLoading = false;
         }

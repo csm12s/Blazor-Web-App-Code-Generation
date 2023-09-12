@@ -147,7 +147,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
+                messageService.Warn(SharedLocalResource.NoRowsAreSelected);
                 return;
             }
             if (await confirmService.YesNoDelete() == ConfirmResult.Yes)
@@ -156,7 +156,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
                 {
                     await resourceFunctionService.Delete(this.Options.Resource.Id, item.Id);
                 }
-                messageService.Success(localizer.Combination(SharedLocalResourceKeys.Delete, SharedLocalResourceKeys.Success));
+                messageService.Success(localizer.Combination(nameof(SharedLocalResource.Delete), nameof(SharedLocalResource.Success)));
                 await OnInitializedAsync();
             }
         }
@@ -191,7 +191,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
         {
             if (_selectedFunctionDtos == null || _selectedFunctionDtos.Count <= 0)
             {
-                messageService.Warn(localizer[SharedLocalResourceKeys.NoRowsAreSelected]);
+                messageService.Warn(SharedLocalResource.NoRowsAreSelected);
                 return;
             }
             _bindLoading = true;
@@ -207,12 +207,12 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             }).ToList());
             if (result)
             {
-                messageService.Success(localizer.Combination(SharedLocalResourceKeys.Binding, SharedLocalResourceKeys.Success));
+                messageService.Success(localizer.Combination(nameof(SharedLocalResource.Binding), nameof(SharedLocalResource.Success)));
                 await base.CloseAsync(true);
             }
             else
             {
-                messageService.Error(localizer.Combination(SharedLocalResourceKeys.Binding, SharedLocalResourceKeys.Fail));
+                messageService.Error(localizer.Combination(nameof(SharedLocalResource.Binding), nameof(SharedLocalResource.Fail)));
             }
             _bindLoading = false;
         }
@@ -235,7 +235,7 @@ namespace Gardener.SystemManager.Client.Pages.ResourceView
             Task<string> data = resourceFunctionService.GetSeedData(resourceIds);
 
             await OpenOperationDialogAsync<ShowSeedDataCode, Task<string>, bool>(
-                       localizer[SharedLocalResourceKeys.SeedData],
+                       SharedLocalResource.SeedData,
                        data,
                        width: 1300);
         }

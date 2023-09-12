@@ -7,13 +7,13 @@
       WrapperCol="new ColLayoutParam { Span = 16 }"
       OnFinish="OnFormFinish"
       Context="model">
-    <FormItem Label="@base.Localizer[AttachmentLocalResource.Id]">
+    <FormItem Label="@Localizer[nameof(SharedLocalResource.Id)]">
         <Input @bind-Value="@model.Id" Disabled />
     </FormItem>
-         <FormItem Label="@base.Localizer[AttachmentLocalResource.BusinessId]">
+         <FormItem Label="@AttachmentLocalResource.BusinessId">
         <Input @bind-Value="@model.BusinessId" Disabled />
     </FormItem>
-         <FormItem Label="@base.Localizer[AttachmentLocalResource.BusinessType]">
+         <FormItem Label="@AttachmentLocalResource.BusinessType">
         <SimpleSelect @bind-Value="@_currentEditModelBusinessType"
                       DefaultValue="@(model.BusinessType.ToString())"
                       Style="">
@@ -25,10 +25,10 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-        <FormItem Label="@base.Localizer[AttachmentLocalResource.ContentType]">
+        <FormItem Label="@AttachmentLocalResource.ContentType">
         <Input @bind-Value="@model.ContentType" />
     </FormItem>
-        <FormItem Label="@base.Localizer[AttachmentLocalResource.FileType]">
+        <FormItem Label="@AttachmentLocalResource.FileType">
         <SimpleSelect @bind-Value="@_currentEditModelFileType"
                       DefaultValue="@(model.FileType.ToString())"
                       Style="">
@@ -40,31 +40,31 @@
             </SelectOptions>
         </SimpleSelect>
     </FormItem>
-        <FormItem Label="@base.Localizer[AttachmentLocalResource.OriginalName]">
+        <FormItem Label="@AttachmentLocalResource.OriginalName">
         <Input @bind-Value="@model.OriginalName" />
     </FormItem>
-    <FormItem Label="@base.Localizer[AttachmentLocalResource.Name]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Name)]">
         <Input @bind-Value="@model.Name" />
     </FormItem>
-        <FormItem Label="@base.Localizer[AttachmentLocalResource.Suffix]">
+        <FormItem Label="@AttachmentLocalResource.Suffix">
         <Input @bind-Value="@model.Suffix" />
     </FormItem>
-        <FormItem Label="@base.Localizer[AttachmentLocalResource.Size]">
+        <FormItem Label="@AttachmentLocalResource.Size">
         <Input @bind-Value="@model.Size" />
     </FormItem>
-        <FormItem Label="@base.Localizer[AttachmentLocalResource.Path]">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Path)]">
         <Input @bind-Value="@model.Path" />
     </FormItem>
-        <FormItem Label="@base.Localizer[AttachmentLocalResource.Url]">
+        <FormItem Label="@AttachmentLocalResource.Url">
         <Input @bind-Value="@model.Url" />
     </FormItem>
 
     @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
     {
-        <FormItem Label="@SharedLocalResource.CreatedTime">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
             <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
-        <FormItem  Label="@SharedLocalResource.UpdatedTime">
+        <FormItem  Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
             <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
         </FormItem>
     }
@@ -72,7 +72,7 @@
         <Space>
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @SharedLocalResource.Cancel
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

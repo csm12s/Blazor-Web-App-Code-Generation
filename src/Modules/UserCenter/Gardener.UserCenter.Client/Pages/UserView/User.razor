@@ -8,7 +8,7 @@
                     <Col Span="24">
                     <Space>
                         <SpaceItem>
-                            <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResourceKeys.Refresh]">
+                            <Tooltip Placement="@Placement.Top" Title="@Localizer[nameof(SharedLocalResource.Refresh)]">
                                 <Button Type="@ButtonType.Default"
                                         Size="small"
                                         Icon="reload"
@@ -16,7 +16,7 @@
                             </Tooltip>
                         </SpaceItem>
                         <SpaceItem>
-                            <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResourceKeys.Expand]">
+                            <Tooltip Placement="@Placement.Top" Title="@Localizer[nameof(SharedLocalResource.Expand)]">
                                 <Button Type="@ButtonType.Default"
                                         Icon="down"
                                         Size="small"
@@ -24,7 +24,7 @@
                             </Tooltip>
                         </SpaceItem>
                         <SpaceItem>
-                            <Tooltip Placement="@Placement.Top" Title="@Localizer[SharedLocalResourceKeys.Collapse]">
+                            <Tooltip Placement="@Placement.Top" Title="@Localizer[nameof(SharedLocalResource.Collapse)]">
                                 <Button Type="@ButtonType.Default"
                                         Icon="up"
                                         Size="small"
@@ -73,7 +73,7 @@
                          <AntDesign.Col Span="8">
                              <ResourceAuthorize ResourceKey="user_center_user_delete_selected">
                                  <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                                     @Localizer[SharedLocalResourceKeys.DeleteSelected]
+                                     @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                                  </Button>
                              </ResourceAuthorize>
                          </AntDesign.Col>
@@ -82,21 +82,21 @@
                                  <ResourceAuthorize ResourceKey="user_center_user_add">
                                      <SpaceItem>
                                          <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                             @Localizer[SharedLocalResourceKeys.Add]
+                                             @Localizer[nameof(SharedLocalResource.Add)]
                                          </Button>
                                      </SpaceItem>
                                  </ResourceAuthorize>
                                  <ResourceAuthorize ResourceKey="user_center_user_refresh">
                                      <SpaceItem>
                                          <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                             @Localizer[SharedLocalResourceKeys.Refresh]
+                                             @Localizer[nameof(SharedLocalResource.Refresh)]
                                          </Button>
                                      </SpaceItem>
                                  </ResourceAuthorize>
                                  <ResourceAuthorize ResourceKey="user_center_user_export">
                                      <SpaceItem>
                                          <Button Type="@ButtonType.Primary" Icon="export" OnClick="OnClickExport" Loading="_exportDataLoading">
-                                             @Localizer[SharedLocalResourceKeys.Export]
+                                             @Localizer[nameof(SharedLocalResource.Export)]
                                          </Button>
                                      </SpaceItem>
                                  </ResourceAuthorize>
@@ -106,11 +106,11 @@
                  </TitleTemplate>
                  <ColumnDefinitions>
                      <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["user_center_user_delete_selected"]" />
-                     <Column TData="string" Title="@SharedLocalResource.Tenant" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
+                     <Column TData="string" Title="@Localizer[nameof(SharedLocalResource.Tenant)]" Hidden="@_userUnauthorizedResources[Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey]">
                          <span>@model.Tenant?.Name</span>
                      </Column>
-                     <Column @bind-Field="@model.Id" Title="@SharedLocalResource.Id" Sortable />
-                     <Column @bind-Field="@model.Avatar" Title="@SharedLocalResource.Avatar">
+                     <Column @bind-Field="@model.Id" Title="@Localizer[nameof(SharedLocalResource.Id)]" Sortable />
+                     <Column @bind-Field="@model.Avatar" Title="@Localizer[nameof(SharedLocalResource.Avatar)]">
                          <ResourceAuthorize ResourceKey="user_center_user_list_edit_avatar">
                              <Authorized>
                                  <Tooltip Placement="Placement.LeftTop" Title="@UserCenterResource.ClickUpdateAvatar">
@@ -149,7 +149,7 @@
                     </Tooltip>
                     }
                     </Column>*@
-                     <Column @bind-Field="@model.IsLocked" Filterable Title="@SharedLocalResource.IsLocked">
+                     <Column @bind-Field="@model.IsLocked" Filterable Title="@Localizer[nameof(SharedLocalResource.IsLocked)]">
                          <ResourceAuthorize ResourceKey="user_center_user_lock">
                              <Authorized>
                                  <Switch @bind-Value="@model.IsLocked" OnChange="e=>OnChangeIsLocked(model,e)" Loading="_lockBtnLoading[model]"></Switch>
@@ -159,19 +159,19 @@
                              </NotAuthorized>
                          </ResourceAuthorize>
                      </Column>
-                     <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@SharedLocalResource.CreatedTime" />
+                     <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" />
                      <ActionColumn>
                          <Space>
                              <ResourceAuthorize ResourceKey="user_center_user_edit">
                                  <SpaceItem>
-                                     <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Edit])" ArrowPointAtCenter="true">
+                                     <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
                                          <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                                      </Tooltip>
                                  </SpaceItem>
                              </ResourceAuthorize>
                              <ResourceAuthorize ResourceKey="user_center_user_detail">
                                  <SpaceItem>
-                                     <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Detail])" ArrowPointAtCenter="true">
+                                     <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
                                          <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                                      </Tooltip>
                                  </SpaceItem>
@@ -185,7 +185,7 @@
                              </ResourceAuthorize>
                              <ResourceAuthorize ResourceKey="user_center_user_delete">
                                  <SpaceItem>
-                                     <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Delete])" ArrowPointAtCenter="true">
+                                     <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
                                          <Button Icon="delete" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" Danger OnClick="()=>OnClickDelete(model.Id)"></Button>
                                      </Tooltip>
                                  </SpaceItem>

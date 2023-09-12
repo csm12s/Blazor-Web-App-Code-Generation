@@ -52,7 +52,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 await OnAddDialogCloseAfter(input, result);
             };
 
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResourceKeys.Add], input, onClose);
+            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(SharedLocalResource.Add, input, onClose);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 }
                 await OnEditDialogCloseAfter(input, result);
             };
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResourceKeys.Edit], input, onClose);
+            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(SharedLocalResource.Edit, input, onClose);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             {
                 return;
             }
-            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(Localizer[SharedLocalResourceKeys.Detail], input, output => { return OnDetailDialogCloseAfter(input, output); } );
+            await OpenOperationDialogAsync<TOperationDialog, TOperationDialogInput, TOperationDialogOutput>(SharedLocalResource.Detail, input, output => { return OnDetailDialogCloseAfter(input, output); } );
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// <typeparam name="TOperationDialog">操作弹框页</typeparam>
     /// <remarks>
     /// 包含列表加载、删除、导出、种子数据、添加、修改、详情
-    /// 本地化资源，默认使用<see cref="SharedLocalResourceKeys"/>
+    /// 本地化资源，默认使用<see cref="SharedLocalResource"/>
     /// 快递打开操作框，输入 OperationDialogInput_TKey
     /// 快递打开操作框，输出 OperationDialogOutput_TKey
     /// 
@@ -243,9 +243,9 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// 自身作为OperationDialog接收的参数，默认为类型 <see cref="TKey"/>
     /// 自身作为OperationDialog返回的参数，默认为类型 <see cref="bool"/>
     /// </remarks>
-    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResourceKeys>
+    public abstract class ListOperateTableBase<TDto, TKey, TOperationDialog> : ListOperateTableBase<TDto, TKey, TOperationDialog, SharedLocalResource>
         where TDto : class, new()
-        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResourceKeys>
+        where TOperationDialog : OperationDialogBase<OperationDialogInput<TKey>, OperationDialogOutput<TKey>, SharedLocalResource>
     {
     }
 }

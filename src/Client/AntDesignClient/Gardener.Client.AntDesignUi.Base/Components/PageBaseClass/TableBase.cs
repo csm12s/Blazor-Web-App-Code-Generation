@@ -314,14 +314,14 @@ namespace Gardener.Client.AntDesignUi.Base.Components
                 if (!result)
                 {
                     temp1.IsLocked = !isLocked;
-                    string msg = isLocked ? Localizer[SharedLocalResourceKeys.Lock] : Localizer[SharedLocalResourceKeys.Unlock];
+                    string msg = isLocked ? SharedLocalResource.Lock : SharedLocalResource.Unlock;
 
-                    MessageService.Error($"{msg} {Localizer[SharedLocalResourceKeys.Fail]}");
+                    MessageService.Error($"{msg} {SharedLocalResource.Fail}");
                 }
             }
             else
             {
-                MessageService.Error($"{Localizer[SharedLocalResourceKeys.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
+                MessageService.Error($"{SharedLocalResource.Error}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)} or {nameof(IModelLocked)}");
             }
 
             _lockBtnLoading.Stop(model);
@@ -380,7 +380,7 @@ namespace Gardener.Client.AntDesignUi.Base.Components
             }
             else
             {
-                throw new ArgumentException($"{Localizer[SharedLocalResourceKeys.Error]}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
+                throw new ArgumentException($"{SharedLocalResource.Error}:{typeof(TDto).Name} no implement {nameof(IModelId<TKey>)}");
             }
         }
     }
@@ -397,7 +397,6 @@ namespace Gardener.Client.AntDesignUi.Base.Components
     /// </remarks>
     public abstract class TableBase<TDto, TKey, TLocalResource> : TableBase<TDto, TKey, TLocalResource, TKey, bool>
         where TDto : class, new()
-        where TLocalResource : SharedLocalResourceKeys
     {
     }
 

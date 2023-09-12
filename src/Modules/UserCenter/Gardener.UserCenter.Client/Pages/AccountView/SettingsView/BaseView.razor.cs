@@ -19,7 +19,7 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
         [Inject]
         protected IAccountService AccountService { get; set; } = null!;
         [Inject]
-        protected IClientNotifier Notifier { get; set; }=null!;
+        protected IClientNotifier Notifier { get; set; } = null!;
 
         private bool _saveBtnLoading = false;
 
@@ -38,7 +38,7 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
         {
             int avatarDrawerWidth = 300;
             await OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(
-                Localizer[SharedLocalResourceKeys.UplaodAvatar],
+                SharedLocalResource.UplaodAvatar,
                 new UserUploadAvatarParams(user, false),
                 width: avatarDrawerWidth);
         }
@@ -51,17 +51,17 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
         {
             if (_currentUser == null) return;
 
-            _saveBtnLoading=true;
+            _saveBtnLoading = true;
 
             bool result = await AccountService.UpdateCurrentUserBaseInfo(_currentUser);
 
             if (result)
             {
-                Notifier.Success(Localizer.Combination(UserCenterResourceKeys.Save, UserCenterResourceKeys.Success));
+                Notifier.Success(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Success)));
             }
-            else 
+            else
             {
-                Notifier.Error(Localizer.Combination(UserCenterResourceKeys.Save, UserCenterResourceKeys.Error));
+                Notifier.Error(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Error)));
             }
             _saveBtnLoading = false;
         }

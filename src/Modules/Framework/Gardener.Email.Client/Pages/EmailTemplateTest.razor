@@ -27,12 +27,12 @@
         <Space>
             <SpaceItem>
                 <Button Type="@ButtonType.Primary" HtmlType="submit">
-                    @Localizer[SharedLocalResourceKeys.Send]
+                    @Localizer[nameof(SharedLocalResource.Send)]
                 </Button>
             </SpaceItem>
             <SpaceItem>
                 <Button OnClick="_=>OnFormCancel()">
-                    @SharedLocalResource.Cancel
+                    @Localizer[nameof(SharedLocalResource.Cancel)]
                 </Button>
             </SpaceItem>
         </Space>

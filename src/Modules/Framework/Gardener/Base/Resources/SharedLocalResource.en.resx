@@ -220,6 +220,9 @@
   <data name="CreateIdentityType" xml:space="preserve">
     <value>Creater type</value>
   </data>
+  <data name="Cron" xml:space="preserve">
+    <value>Cron</value>
+  </data>
   <data name="Data" xml:space="preserve">
     <value>Data</value>
   </data>

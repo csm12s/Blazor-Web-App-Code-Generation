@@ -8,7 +8,7 @@
           OnFinish="OnFormFinish"
           Context="model">
         <ResourceAuthorize ResourceKey="@Authorization.Constants.ResourceKeys.SystemTenantAdministratorKey">
-            <FormItem Label="@SharedLocalResource.Tenant">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.Tenant)]">
                 <Select DataSource="@_tenants"
                 @bind-Value="@model.TenantId"
                         ValueName="@nameof(SystemTenantDto.Id)"
@@ -19,7 +19,7 @@
              </Select>
          </FormItem>
      </ResourceAuthorize>
-     <FormItem Label="@SharedLocalResource.Parent" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true } })>
+     <FormItem Label="@Localizer[nameof(SharedLocalResource.Parent)]" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true } })>
          <Input @bind-Value="@model.ParentId" Type="hidden" />
          @if (deptDatas != null && deptDatas.Count > 0)
             {
@@ -27,7 +27,7 @@
                             Style="width:100%;"
                             DataSource="deptDatas"
                 @bind-Value="@ParentDeptId"
-                            Placeholder="@Localizer[SharedLocalResourceKeys.PleaseSelect]"
+                            Placeholder="@Localizer[nameof(SharedLocalResource.PleaseSelect)]"
                             AllowClear="true"
                             TitleExpression="node => node.DataItem.Name"
                             KeyExpression="node =>node.DataItem.Id.ToString()"
@@ -48,22 +48,22 @@
         <FormItem Label="@UserCenterResource.Tel">
             <Input @bind-Value="@model.Tel" />
         </FormItem>
-        <FormItem Label="@SharedLocalResource.Order">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Order)]">
             <AntDesign.InputNumber @bind-Value="@model.Order" />
         </FormItem>
-        <FormItem Label="@SharedLocalResource.Remark">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.Remark)]">
             <TextArea AutoSize="true" MinRows="2" MaxRows="6" @bind-Value="@model.Remark"></TextArea>
         </FormItem>
-        <FormItem Label="@SharedLocalResource.IsLocked">
+        <FormItem Label="@Localizer[nameof(SharedLocalResource.IsLocked)]">
             <Switch @bind-Value="@model.IsLocked"></Switch>
         </FormItem>
 
         @if (this.Options.Type.Equals(OperationDialogInputType.Edit) || this.Options.Type.Equals(OperationDialogInputType.Select))
         {
-            <FormItem Label="@SharedLocalResource.CreatedTime">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.CreatedTime)]">
                 <span>@model.CreatedTime.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
-            <FormItem Label="@SharedLocalResource.UpdatedTime">
+            <FormItem Label="@Localizer[nameof(SharedLocalResource.UpdatedTime)]">
                 <span>@model.UpdatedTime?.ToString(ClientConstant.DateTimeFormat)</span>
             </FormItem>
         }
@@ -73,13 +73,13 @@
                 {
                     <SpaceItem>
                         <Button Type="@ButtonType.Primary" HtmlType="submit">
-                            @SharedLocalResource.Save
+                            @Localizer[nameof(SharedLocalResource.Save)]
                         </Button>
                     </SpaceItem>
                 }
                 <SpaceItem>
                     <Button OnClick="_=>OnFormCancel()">
-                        @SharedLocalResource.Cancel
+                        @Localizer[nameof(SharedLocalResource.Cancel)]
                     </Button>
                 </SpaceItem>
             </Space>

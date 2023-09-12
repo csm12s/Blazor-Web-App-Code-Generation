@@ -125,7 +125,7 @@ namespace Gardener.UserCenter.Client.Pages.UserView
             OperationDialogSettings settings = base.GetOperationDialogSettings();
             settings.Width = 300;
             settings.DrawerPlacement = Placement.Left;
-            return OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(Localizer[SharedLocalResourceKeys.UplaodAvatar],
+            return OpenOperationDialogAsync<UserUploadAvatar, UserUploadAvatarParams, string>(SharedLocalResource.UplaodAvatar,
                 new UserUploadAvatarParams(user, true),
                 async r =>
                 {

@@ -1,5 +1,6 @@
 
 using AntDesign;
+using Gardener.Base.Resources;
 using Gardener.Client.AntDesignUi.Base.Components;
 using Gardener.Client.Base.Services;
 using Gardener.LocalizationLocalizer;
@@ -59,7 +60,7 @@ namespace Gardener.UserCenter.Client.Pages.AccountView.SettingsView
             bool result = await accountService.ChangePassword(model);
             if (result)
             {
-                clientMessageService.Success(Localizer.Combination(UserCenterResourceKeys.Save, UserCenterResourceKeys.Succeed));
+                clientMessageService.Success(Localizer.Combination(nameof(SharedLocalResource.Save), nameof(SharedLocalResource.Succeed)));
             }
             await StopLoading();
         }

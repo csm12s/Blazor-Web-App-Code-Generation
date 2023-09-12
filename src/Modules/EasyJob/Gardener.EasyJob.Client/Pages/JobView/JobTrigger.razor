@@ -20,7 +20,7 @@
                 <AntDesign.Col Span="8">
                     @* <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_delete_selected">
                     <Button Type="@ButtonType.Primary" Icon="delete" Danger OnClick="OnClickDeletes" Loading="_deletesBtnLoading">
-                    @Localizer[SharedLocalResource.DeleteSelected]
+                    @Localizer[nameof(SharedLocalResource.DeleteSelected)]
                     </Button>
                     </ResourceAuthorize> *@
                 </AntDesign.Col>
@@ -28,20 +28,20 @@
                     <Space>
                         <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_monitor_state">
                             <SpaceItem>
-                                <label>@Localizer[EasyJobLocalResource.RealTimeMonitor]</label> <Switch Checked="enableRealTimeMonitor" Loading="enableRealTimeMonitorLoading" CheckedChildren="@Localizer[EasyJobLocalResource.Open]" UnCheckedChildren="@Localizer[EasyJobLocalResource.Close]" OnChange="OnEnableRealTimeMonitorChange" />
+                                <label>@Localizer[nameof(EasyJobLocalResource.RealTimeMonitor)]</label> <Switch Checked="enableRealTimeMonitor" Loading="enableRealTimeMonitorLoading" CheckedChildren="@Localizer[nameof(SharedLocalResource.Open)]" UnCheckedChildren="@Localizer[nameof(SharedLocalResource.Open)]" OnChange="OnEnableRealTimeMonitorChange" />
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_add">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="plus" OnClick="OnClickAdd">
-                                    @Localizer[SharedLocalResourceKeys.Add]
+                                    @Localizer[nameof(SharedLocalResource.Add)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
                         <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_refresh">
                             <SpaceItem>
                                 <Button Type="@ButtonType.Primary" Icon="reload" OnClick="ReLoadTable">
-                                    @Localizer[SharedLocalResourceKeys.Refresh]
+                                    @Localizer[nameof(SharedLocalResource.Refresh)]
                                 </Button>
                             </SpaceItem>
                         </ResourceAuthorize>
@@ -51,79 +51,79 @@
         </TitleTemplate>
         <ColumnDefinitions>
             @* <Selection Key="@(model.Id.ToString())" Hidden="@_userUnauthorizedResources["system_manager_easy_job_trigger_delete_selected"]" Width="40" Fixed="left" /> *@
-            <Column @bind-Field="@model.TriggerId" Filterable Title="@Localizer[EasyJobLocalResource.TriggerId]" Width="150" Fixed="left" />
-             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[EasyJobLocalResource.JobId]" Width="150" Fixed="left">
+            <Column @bind-Field="@model.TriggerId" Filterable Title="@Localizer[nameof(EasyJobLocalResource.TriggerId)]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.JobId" Filterable Title="@Localizer[nameof(EasyJobLocalResource.JobId)]" Width="150" Fixed="left">
                  <a href="system_manager/easy_job_detail?JobId=@model.JobId">@model.JobId</a>
              </Column>
-             <Column @bind-Field="@model.Description" Filterable Title="@Localizer[EasyJobLocalResource.Description]" Width="150" Fixed="left" />
-             <Column @bind-Field="@model.Status" Filterable Title="@Localizer[EasyJobLocalResource.Status]" Width="150" Fixed="left">
+             <Column @bind-Field="@model.Description" Filterable Title="@Localizer[nameof(SharedLocalResource.Description)]" Width="150" Fixed="left" />
+             <Column @bind-Field="@model.Status" Filterable Title="@Localizer[nameof(SharedLocalResource.Status)]" Width="150" Fixed="left">
                  <TagPro Text="@model.Status" Localizer="Localizer" />
              </Column>
-             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.LastRunTime]" Width="200" />
-             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.NextRunTime]" Width="200" />
-             <Column @bind-Field="@model.ElapsedTime" Filterable Title="@Localizer[EasyJobLocalResource.ElapsedTime]" Width="150" />
-             <Column @bind-Field="@model.NumberOfRuns" Filterable Title="@Localizer[EasyJobLocalResource.NumberOfRuns]" Width="150" />
-             <Column @bind-Field="@model.NumberOfErrors" Filterable Title="@Localizer[EasyJobLocalResource.NumberOfErrors]" Width="150" />
-             <Column @bind-Field="@model.TriggerType" Filterable Title="@Localizer[EasyJobLocalResource.TriggerAssemblyType]" Width="150" />
-             <Column @bind-Field="@model.AssemblyName" Filterable Title="@Localizer[EasyJobLocalResource.AssemblyName]" Width="150" />
-             <Column @bind-Field="@model.Args" Filterable Title="@Localizer[EasyJobLocalResource.TriggerArgs]" Width="150" />
-             <Column @bind-Field="@model.StartNow" Filterable Title="@Localizer[EasyJobLocalResource.StartNow]" Width="150">
+             <Column @bind-Field="@model.LastRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.LastRunTime)]" Width="200" />
+             <Column @bind-Field="@model.NextRunTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.NextRunTime)]" Width="200" />
+             <Column @bind-Field="@model.ElapsedTime" Filterable Title="@Localizer[nameof(EasyJobLocalResource.ElapsedTime)]" Width="150" />
+             <Column @bind-Field="@model.NumberOfRuns" Filterable Title="@Localizer[nameof(EasyJobLocalResource.NumberOfRuns)]" Width="150" />
+             <Column @bind-Field="@model.NumberOfErrors" Filterable Title="@Localizer[nameof(SharedLocalResource.NumberOfErrors)]" Width="150" />
+             <Column @bind-Field="@model.TriggerType" Filterable Title="@Localizer[nameof(EasyJobLocalResource.TriggerAssemblyType)]" Width="150" />
+             <Column @bind-Field="@model.AssemblyName" Filterable Title="@Localizer[nameof(EasyJobLocalResource.AssemblyName)]" Width="150" />
+             <Column @bind-Field="@model.Args" Filterable Title="@Localizer[nameof(EasyJobLocalResource.TriggerArgs)]" Width="150" />
+             <Column @bind-Field="@model.StartNow" Filterable Title="@Localizer[nameof(SharedLocalResource.StartNow)]" Width="150">
                  <TagYesNo Yes="model.StartNow"></TagYesNo>
              </Column>
-             <Column @bind-Field="@model.RunOnStart" Filterable Title="@Localizer[EasyJobLocalResource.RunOnceOnStart]" Width="150">
+             <Column @bind-Field="@model.RunOnStart" Filterable Title="@Localizer[nameof(SharedLocalResource.RunOnceOnStart)]" Width="150">
                  <TagYesNo Yes="model.RunOnStart"></TagYesNo>
              </Column>
-             <Column @bind-Field="@model.ResetOnlyOnce" Filterable Title="@Localizer[EasyJobLocalResource.ResetOnlyOnce]" Width="150">
+             <Column @bind-Field="@model.ResetOnlyOnce" Filterable Title="@Localizer[nameof(SharedLocalResource.ResetOnlyOnce)]" Width="150">
                  <TagYesNo Yes="model.ResetOnlyOnce"></TagYesNo>
              </Column>
 
-             <Column @bind-Field="@model.MaxNumberOfRuns" Filterable Title="@Localizer[EasyJobLocalResource.MaxNumberOfRuns]" Width="150" />
-             <Column @bind-Field="@model.MaxNumberOfErrors" Filterable Title="@Localizer[EasyJobLocalResource.MaxNumberOfErrors]" Width="150" />
-             <Column @bind-Field="@model.NumRetries" Filterable Title="@Localizer[EasyJobLocalResource.NumRetries]" Width="150" />
-             <Column @bind-Field="@model.RetryTimeout" Filterable Title="@Localizer[EasyJobLocalResource.RetryTimeout]" Width="150" />
-             <Column @bind-Field="@model.StartTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.StartTime]" Width="200" />
-             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[EasyJobLocalResource.EndTime]" Width="200" />
-             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@SharedLocalResource.CreatedTime" Width="200" />
+             <Column @bind-Field="@model.MaxNumberOfRuns" Filterable Title="@Localizer[nameof(SharedLocalResource.MaxNumberOfRuns)]" Width="150" />
+             <Column @bind-Field="@model.MaxNumberOfErrors" Filterable Title="@Localizer[nameof(SharedLocalResource.MaxNumberOfErrors)]" Width="150" />
+             <Column @bind-Field="@model.NumRetries" Filterable Title="@Localizer[nameof(SharedLocalResource.NumRetries)]" Width="150" />
+             <Column @bind-Field="@model.RetryTimeout" Filterable Title="@Localizer[nameof(SharedLocalResource.RetryTimeout)]" Width="150" />
+             <Column @bind-Field="@model.StartTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.StartTime)]" Width="200" />
+             <Column @bind-Field="@model.EndTime" Format="@ClientConstant.DateTimeFormat" Sortable Filterable Title="@Localizer[nameof(SharedLocalResource.EndTime)]" Width="200" />
+             <Column @bind-Field="@model.CreatedTime" Format="@ClientConstant.DateTimeFormat" Sortable DefaultSortOrder="@SortDirection.Descending" Title="@Localizer[nameof(SharedLocalResource.CreatedTime)]" Width="200" />
              <ActionColumn Width="300" Fixed="right">
                  <Space>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_edit">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Edit])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(SharedLocalResource.Edit)" ArrowPointAtCenter="true">
                                  <Button Icon="edit" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickEdit(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_detail">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Detail])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(SharedLocalResource.Detail)" ArrowPointAtCenter="true">
                                  <Button Icon="eye" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickDetail(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_start">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[EasyJobLocalResource.Start])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(EasyJobLocalResource.Start)" ArrowPointAtCenter="true">
                                  <Button Color="@Color.Green6" Icon="caret-right" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickStart(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_pause">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[EasyJobLocalResource.Pause])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(EasyJobLocalResource.Pause)" ArrowPointAtCenter="true">
                                  <Button Color="Color.Red5" Icon="pause" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OnClickPause(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_log">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[EasyJobLocalResource.Log])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(EasyJobLocalResource.Log)" ArrowPointAtCenter="true">
                                  <Button Icon="profile" Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="()=>OpenJobLogConsole(model)"></Button>
                              </Tooltip>
                          </SpaceItem>
                      </ResourceAuthorize>
                      <ResourceAuthorize ResourceKey="system_manager_easy_job_trigger_delete">
                          <SpaceItem>
-                             <Tooltip Title="@(Localizer[SharedLocalResourceKeys.Delete])" ArrowPointAtCenter="true">
+                             <Tooltip Title="@(SharedLocalResource.Delete)" ArrowPointAtCenter="true">
                                  <Button Icon="delete" Type="@ButtonType.Primary" Danger OnClick="()=>OnClickTrueDelete(model.Id)"></Button>
                              </Tooltip>
                          </SpaceItem>

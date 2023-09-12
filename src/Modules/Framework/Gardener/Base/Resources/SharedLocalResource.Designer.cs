@@ -396,6 +396,15 @@ namespace Gardener.Base.Resources {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        public static string Cron {
+            get {
+                return ResourceManager.GetString("Cron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
         public static string Data {
             get {
                 return ResourceManager.GetString("Data", resourceCulture);

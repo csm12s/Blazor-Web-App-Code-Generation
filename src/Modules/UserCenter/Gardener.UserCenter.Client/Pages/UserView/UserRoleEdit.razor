@@ -10,15 +10,15 @@
         <AntDesign.Col Span="20" Offset="2">
             <Space>
                 <SpaceItem>
-                    <Checkbox Indeterminate="@_indeterminateRole" Checked="@_checkAllRole" CheckedChange="@CheckAllRoleChanged">@SharedLocalResource.SelectAll</Checkbox>
+                    <Checkbox Indeterminate="@_indeterminateRole" Checked="@_checkAllRole" CheckedChange="@CheckAllRoleChanged">@Localizer[nameof(SharedLocalResource.SelectAll)]</Checkbox>
                     </SpaceItem>
                 <SpaceItem>
                     <ResourceAuthorize ResourceKey="user_center_user_role_edit_save">
-                        <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnEditRoleSaveClick">@SharedLocalResource.Save</Button>
+                        <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="OnEditRoleSaveClick">@Localizer[nameof(SharedLocalResource.Save)]</Button>
                     </ResourceAuthorize>
                 </SpaceItem>
                 <SpaceItem>
-                    <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="_=>OnFormCancel()">@SharedLocalResource.Cancel</Button>
+                    <Button Type="@ButtonType.Primary" Size="@ClientConstant.OperationButtonSize" OnClick="_=>OnFormCancel()">@Localizer[nameof(SharedLocalResource.Cancel)]</Button>
                 </SpaceItem>
             </Space>
         </AntDesign.Col>
